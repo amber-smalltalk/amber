@@ -1016,7 +1016,7 @@ smalltalk.Message.klass);
 
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
-smalltalk.MethodContext.comment="MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.\x0a  \x0aMethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js "
+smalltalk.MethodContext.comment="MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.\x0a  \x0aMethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js"
 smalltalk.addMethod(
 "_asString",
 smalltalk.method({
@@ -1256,7 +1256,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:",{aString:aString}, smalltalk.NativeFunction.klass)})},
 args: ["aString"],
-source: "constructor: aString\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native();\x0a\x09>\x0a",
+source: "constructor: aString\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1275,7 +1275,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:",{aString:aString,anObject:anObject}, smalltalk.NativeFunction.klass)})},
 args: ["aString", "anObject"],
-source: "constructor: aString value:anObject\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject);\x0a\x09>\x0a",
+source: "constructor: aString value:anObject\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1294,7 +1294,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2}, smalltalk.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2"],
-source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2);\x0a\x09>\x0a",
+source: "constructor: aString value:anObject value: anObject2\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1313,7 +1313,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"constructor:value:value:value:",{aString:aString,anObject:anObject,anObject2:anObject2,anObject3:anObject3}, smalltalk.NativeFunction.klass)})},
 args: ["aString", "anObject", "anObject2", "anObject3"],
-source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2, anObject3);\x0a\x09>\x0a",
+source: "constructor: aString value:anObject value: anObject2 value:anObject3\x0a\x09<\x0a    \x09var native=eval(aString); \x0a        return new native(anObject,anObject2, anObject3);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

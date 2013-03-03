@@ -2186,7 +2186,7 @@ smalltalk.HTMLCanvas.klass);
 
 
 smalltalk.addClass('HTMLSnippet', smalltalk.Object, ['snippets'], 'Canvas');
-smalltalk.HTMLSnippet.comment="HTMLSnippet instance is the registry of html snippets.\x0aHTMLSnippet current is the public singleton instance.\x0a\x0aAt the beginning, it scans the document for any html elements\x0awith 'data-snippet=\x22foo\x22' attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0ahtml menuelement href: '/foo'; with: 'A foo'\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a<li class='...'><a href='/foo'>A foo</a></li>\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>\x0a\x0aand in code later do:\x0a\x0ahtml bar with: [ xxx ]\x0a\x0ato render\x0a\x0a<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>\x0a"
+smalltalk.HTMLSnippet.comment="HTMLSnippet instance is the registry of html snippets.\x0aHTMLSnippet current is the public singleton instance.\x0a\x0aAt the beginning, it scans the document for any html elements\x0awith 'data-snippet=\x22foo\x22' attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0ahtml menuelement href: '/foo'; with: 'A foo'\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a<li class='...'><a href='/foo'>A foo</a></li>\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>\x0a\x0aand in code later do:\x0a\x0ahtml bar with: [ xxx ]\x0a\x0ato render\x0a\x0a<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>"
 smalltalk.addMethod(
 "_initializeFromJQuery_",
 smalltalk.method({
@@ -2306,7 +2306,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"snippets",{}, smalltalk.HTMLSnippet)})},
 args: [],
-source: "snippets\x0a\x09^snippets ifNil: [ snippets := #{} ]\x0a",
+source: "snippets\x0a\x09^snippets ifNil: [ snippets := #{} ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -2383,12 +2383,32 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { var $1;
+smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+$1=_st(self)._isDOMAvailable();
+if(smalltalk.assert($1)){
 _st(self)._ensureCurrent();
+};
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HTMLSnippet.klass)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self ensureCurrent",
-messageSends: ["initialize", "ensureCurrent"],
+source: "initialize\x0a\x09super initialize.\x0a    self isDOMAvailable ifTrue: [\x0a\x09\x09self ensureCurrent ]",
+messageSends: ["initialize", "ifTrue:", "ensureCurrent", "isDOMAvailable"],
+referencedClasses: []
+}),
+smalltalk.HTMLSnippet.klass);
+
+smalltalk.addMethod(
+"_isDOMAvailable",
+smalltalk.method({
+selector: "isDOMAvailable",
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  return typeof document !== 'undefined' ;
+return self}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{}, smalltalk.HTMLSnippet.klass)})},
+args: [],
+source: "isDOMAvailable\x0a\x09< return typeof document !== 'undefined' >",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet.klass);

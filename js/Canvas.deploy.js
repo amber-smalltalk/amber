@@ -1736,9 +1736,24 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { var $1;
+smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+$1=_st(self)._isDOMAvailable();
+if(smalltalk.assert($1)){
 _st(self)._ensureCurrent();
+};
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HTMLSnippet.klass)})}
+}),
+smalltalk.HTMLSnippet.klass);
+
+smalltalk.addMethod(
+"_isDOMAvailable",
+smalltalk.method({
+selector: "isDOMAvailable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  return typeof document !== 'undefined' ;
+return self}, function($ctx1) {$ctx1.fill(self,"isDOMAvailable",{}, smalltalk.HTMLSnippet.klass)})}
 }),
 smalltalk.HTMLSnippet.klass);
 

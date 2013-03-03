@@ -235,21 +235,22 @@ category: 'accessing',
 fn: function (aNode){
 var self=this;
 var lookup;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 lookup=_st(self)._bindingFor_(aNode);
 $1=lookup;
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(self)._outerScope();
-if(($receiver = $3) == nil || $receiver == undefined){
-lookup=$3;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st(self)._outerScope();
+if(($receiver = $2) == nil || $receiver == undefined){
+lookup=$2;
 } else {
 lookup=_st(_st(self)._outerScope())._lookupVariable_(aNode);
 };
-return lookup;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ifNil_($2);
-$4=lookup;
-return $4;
+lookup;
+} else {
+$1;
+};
+$3=lookup;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"lookupVariable:",{aNode:aNode,lookup:lookup}, smalltalk.LexicalScope)})},
 args: ["aNode"],
 source: "lookupVariable: aNode\x0a\x09| lookup |\x0a\x09lookup := (self bindingFor: aNode).\x0a\x09lookup ifNil: [\x0a\x09\x09lookup := self outerScope ifNotNil: [ \x0a\x09\x09\x09(self outerScope lookupVariable: aNode) ]].\x0a\x09^ lookup",
@@ -1246,7 +1247,7 @@ var self=this;
 var identifier;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 identifier=_st(aNode)._value();
-$1=_st(_st(_st(["jQuery", "window", "process", "global"])._includes_(identifier))._not())._and_((function(){
+$1=_st(_st(_st(["jQuery", "window", "document", "process", "global"])._includes_(identifier))._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._isVariableGloballyUndefined_(identifier);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
@@ -1259,7 +1260,7 @@ _st(_st(_st(self["@currentScope"])._methodScope())._unknownVariables())._add_(_s
 };
 return self}, function($ctx1) {$ctx1.fill(self,"errorUnknownVariable:",{aNode:aNode,identifier:identifier}, smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a    We allow four variable names in addition: `jQuery`, `window`, `process` and `global` \x0a    for nodejs and browser environments. \x0a    \x0a    This is only to make sure compilation works on both browser-based and nodejs environments.\x0a    The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a    identifier := aNode value.\x0a    \x0a\x09((#('jQuery' 'window' 'process' 'global') includes: identifier) not \x0a        and: [ self isVariableGloballyUndefined: identifier ]) \x0a        \x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a    We allow four variable names in addition: `jQuery`, `window`, `process` and `global` \x0a    for nodejs and browser environments. \x0a    \x0a    This is only to make sure compilation works on both browser-based and nodejs environments.\x0a    The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a    identifier := aNode value.\x0a    \x0a\x09((#('jQuery' 'window' 'document' 'process' 'global') includes: identifier) not \x0a        and: [ self isVariableGloballyUndefined: identifier ]) \x0a        \x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
 messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:"],
 referencedClasses: ["UnknownVariableError"]
 }),
@@ -1633,24 +1634,22 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$3;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(_st(_st(aNode)._receiver())._value()).__eq("super");
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {_st(aNode)._superSend_(true);
+if(smalltalk.assert($1)){
+_st(aNode)._superSend_(true);
 _st(_st(aNode)._receiver())._value_("self");
 _st(_st(self)._superSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
-return smalltalk.withContext(function($ctx3) {return _st((smalltalk.Set || Set))._new();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return _st(_st(_st(self)._superSends())._at_(_st(aNode)._selector()))._add_(aNode);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$3=(function(){
-return smalltalk.withContext(function($ctx2) {$4=_st(_st((smalltalk.IRSendInliner || IRSendInliner))._inlinedSelectors())._includes_(_st(aNode)._selector());
-if(smalltalk.assert($4)){
+return smalltalk.withContext(function($ctx2) {return _st((smalltalk.Set || Set))._new();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(_st(self)._superSends())._at_(_st(aNode)._selector()))._add_(aNode);
+} else {
+$2=_st(_st((smalltalk.IRSendInliner || IRSendInliner))._inlinedSelectors())._includes_(_st(aNode)._selector());
+if(smalltalk.assert($2)){
 _st(aNode)._shouldBeInlined_(true);
-return _st(_st(aNode)._receiver())._shouldBeAliased_(true);
+_st(_st(aNode)._receiver())._shouldBeAliased_(true);
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._ifTrue_ifFalse_($2,$3);
+};
 _st(_st(self)._messageSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {return _st((smalltalk.Set || Set))._new();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));

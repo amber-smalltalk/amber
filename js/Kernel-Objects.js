@@ -3766,19 +3766,17 @@ category: 'sorting',
 fn: function (classes){
 var self=this;
 var children,others,nodes,expandedClasses;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 children=[];
 others=[];
-$1=classes;
-$2=(function(each){
-return smalltalk.withContext(function($ctx2) {$3=_st(classes)._includes_(_st(each)._superclass());
-if(smalltalk.assert($3)){
+_st(classes)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$1=_st(classes)._includes_(_st(each)._superclass());
+if(smalltalk.assert($1)){
 return _st(others)._add_(each);
 } else {
 return _st(children)._add_(each);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($1)._do_($2);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 nodes=_st(children)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st((smalltalk.ClassSorterNode || ClassSorterNode))._on_classes_level_(each,others,(0));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -3789,8 +3787,8 @@ expandedClasses=_st((smalltalk.Array || Array))._new();
 _st(nodes)._do_((function(aNode){
 return smalltalk.withContext(function($ctx2) {return _st(aNode)._traverseClassesWith_(expandedClasses);
 }, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1)})}));
-$4=expandedClasses;
-return $4;
+$2=expandedClasses;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses:",{classes:classes,children:children,others:others,nodes:nodes,expandedClasses:expandedClasses}, smalltalk.Package.klass)})},
 args: ["classes"],
 source: "sortedClasses: classes\x0a\x09\x22Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)\x22\x0a\x0a\x09| children others nodes expandedClasses |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [:each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [children add: each]\x0a\x09\x09\x09ifTrue: [others add: each]].\x0a\x09nodes := children collect: [:each |\x0a\x09\x09ClassSorterNode on: each classes: others level: 0].\x0a\x09nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].\x0a\x09expandedClasses := Array new.\x0a\x09nodes do: [:aNode |\x0a\x09\x09aNode traverseClassesWith: expandedClasses].\x0a\x09^expandedClasses",
@@ -3919,19 +3917,17 @@ selector: "printString",
 category: 'printing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$4,$3,$1;
-$2=(smalltalk.String || String);
-$3=(function(stream){
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$1=_st((smalltalk.String || String))._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {_st(stream)._nextPutAll_(_st(_st(self["@x"])._printString()).__comma("@"));
-$4=_st(_st(self["@y"])._notNil())._and_((function(){
+$2=_st(_st(self["@y"])._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self["@y"])._negative();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($4)){
+if(smalltalk.assert($2)){
 _st(stream)._space();
 };
 return _st(stream)._nextPutAll_(_st(self["@y"])._printString());
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})});
-$1=_st($2)._streamContents_($3);
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{}, smalltalk.Point)})},
 args: [],

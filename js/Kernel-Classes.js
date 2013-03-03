@@ -363,23 +363,21 @@ category: 'accessing',
 fn: function (selector){
 var self=this;
 var lookupClass;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 var $early={};
 try {
 lookupClass=self;
-$1=(function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(lookupClass).__eq(nil);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-$2=(function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(lookupClass)._includesSelector_(selector);
-if(smalltalk.assert($3)){
-$4=_st(lookupClass)._methodAt_(selector);
-throw $early=[$4];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {$1=_st(lookupClass)._includesSelector_(selector);
+if(smalltalk.assert($1)){
+$2=_st(lookupClass)._methodAt_(selector);
+throw $early=[$2];
 };
 lookupClass=_st(lookupClass)._superclass();
 return lookupClass;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-_st($1)._whileFalse_($2);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return nil;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -1151,20 +1149,25 @@ selector: "addSubclassOf:named:instanceVariableNames:package:",
 category: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+var theClass;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+theClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+$1=theClass;
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-$2=_st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(aString,aClass,aCollection,packageName);
-return $2;
-};
-$3=_st(self)._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
+$2=_st(_st(theClass)._superclass()).__eq_eq(aClass);
+if(! smalltalk.assert($2)){
+$3=_st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(aString,aClass,aCollection,packageName);
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName}, smalltalk.ClassBuilder)})},
+};
+};
+$4=_st(self)._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName,theClass:theClass}, smalltalk.ClassBuilder)})},
 args: ["aClass", "aString", "aCollection", "packageName"],
-source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09\x0a    (Smalltalk current at: aString) ifNotNil: [ \x0a    \x09^ self \x0a        \x09migrateClassNamed: aString \x0a            superclass: aClass \x0a            instanceVariableNames: aCollection \x0a            package: packageName ].\x0a\x0a\x09^ self \x0a    \x09basicAddSubclassOf: aClass \x0a        named: aString \x0a        instanceVariableNames: aCollection \x0a        package: packageName",
-messageSends: ["ifNotNil:", "migrateClassNamed:superclass:instanceVariableNames:package:", "at:", "current", "basicAddSubclassOf:named:instanceVariableNames:package:"],
+source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a    | theClass |\x0a    \x0a    theClass := Smalltalk current at: aString.\x0a    \x0a   \x09theClass ifNotNil: [ \x0a    \x09theClass superclass == aClass ifFalse: [\x0a    \x09\x09^ self \x0a        \x09\x09migrateClassNamed: aString \x0a           \x09 \x09superclass: aClass \x0a           \x09 \x09instanceVariableNames: aCollection \x0a            \x09package: packageName ] ].\x0a\x0a\x09^ self \x0a    \x09basicAddSubclassOf: aClass \x0a        named: aString \x0a        instanceVariableNames: aCollection \x0a        package: packageName",
+messageSends: ["at:", "current", "ifNotNil:", "ifFalse:", "migrateClassNamed:superclass:instanceVariableNames:package:", "==", "superclass", "basicAddSubclassOf:named:instanceVariableNames:package:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.ClassBuilder);
@@ -1376,11 +1379,12 @@ selector: "migrateClass:superclass:",
 category: 'private',
 fn: function (aClass,anotherClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(_st(aClass)._name(),anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+return smalltalk.withContext(function($ctx1) { _st(console)._log_(_st(aClass)._name());
+_st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(_st(aClass)._name(),anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
 return self}, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
-source: "migrateClass: aClass superclass: anotherClass\x0a\x09self \x0a    \x09migrateClassNamed: aClass name\x0a        superclass: anotherClass\x0a        instanceVariableNames: aClass instanceVariableNames\x0a        package: aClass package name",
-messageSends: ["migrateClassNamed:superclass:instanceVariableNames:package:", "name", "instanceVariableNames", "package"],
+source: "migrateClass: aClass superclass: anotherClass\x0a\x09console log: aClass name.\x0a\x09self \x0a    \x09migrateClassNamed: aClass name\x0a        superclass: anotherClass\x0a        instanceVariableNames: aClass instanceVariableNames\x0a        package: aClass package name",
+messageSends: ["log:", "name", "migrateClassNamed:superclass:instanceVariableNames:package:", "instanceVariableNames", "package"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
@@ -1394,6 +1398,7 @@ fn: function (aString,aClass,aCollection,packageName){
 var self=this;
 var oldClass,newClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+_st(console)._log_(_st("*** MIGRATING ").__comma(aString));
 oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
 _st(self)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
@@ -1414,8 +1419,8 @@ $3=newClass;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass}, smalltalk.ClassBuilder)})},
 args: ["aString", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the old class for existing instances\x22\x0a\x09self basicRenameClass: oldClass to: 'Old', aString.\x0a    \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09oldClass subclasses do: [ :each |\x0a    \x09self migrateClass: each superclass: newClass ].\x0a\x0a    [ self copyClass: oldClass to: newClass ] \x0a    \x09on: Error\x0a        do: [ :exception |\x0a        \x09self \x0a            \x09basicRemoveClass: newClass;\x0a            \x09basicRenameClass: oldClass to: aString.\x0a            exception signal ].\x0a            \x0a    self basicRemoveClass: oldClass.\x0a\x09^newClass",
-messageSends: ["at:", "current", "basicRenameClass:to:", ",", "addSubclassOf:named:instanceVariableNames:package:", "do:", "migrateClass:superclass:", "subclasses", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:"],
+source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    console log: '*** MIGRATING ', aString.\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the old class for existing instances\x22\x0a\x09self basicRenameClass: oldClass to: 'Old', aString.\x0a    \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09oldClass subclasses do: [ :each |\x0a    \x09self migrateClass: each superclass: newClass ].\x0a\x0a    [ self copyClass: oldClass to: newClass ] \x0a    \x09on: Error\x0a        do: [ :exception |\x0a        \x09self \x0a            \x09basicRemoveClass: newClass;\x0a            \x09basicRenameClass: oldClass to: aString.\x0a            exception signal ].\x0a            \x0a    self basicRemoveClass: oldClass.\x0a\x09^newClass",
+messageSends: ["log:", ",", "at:", "current", "basicRenameClass:to:", "addSubclassOf:named:instanceVariableNames:package:", "do:", "migrateClass:superclass:", "subclasses", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:"],
 referencedClasses: ["Smalltalk", "Error"]
 }),
 smalltalk.ClassBuilder);
@@ -1672,19 +1677,17 @@ category: 'accessing',
 fn: function (aCollection){
 var self=this;
 var children,others;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+return smalltalk.withContext(function($ctx1) { var $1;
 children=[];
 others=[];
-$1=aCollection;
-$2=(function(each){
-return smalltalk.withContext(function($ctx2) {$3=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
-if(smalltalk.assert($3)){
+_st(aCollection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$1=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
+if(smalltalk.assert($1)){
 return _st(children)._add_(each);
 } else {
 return _st(others)._add_(each);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})});
-_st($1)._do_($2);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 self["@nodes"]=_st(children)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st((smalltalk.ClassSorterNode || ClassSorterNode))._on_classes_level_(each,others,_st(_st(self)._level()).__plus((1)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));

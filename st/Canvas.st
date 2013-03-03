@@ -629,13 +629,18 @@ ensureCurrent
 
 initialize
 	super initialize.
-	self ensureCurrent
+    self isDOMAvailable ifTrue: [
+		self ensureCurrent ]
 ! !
 
 !HTMLSnippet class methodsFor: 'instance creation'!
 
 current
 	^ current
+!
+
+isDOMAvailable
+	< return typeof document !!== 'undefined' >
 !
 
 new
