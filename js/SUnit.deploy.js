@@ -57,12 +57,12 @@ smalltalk.addMethod(
 "_assert_equals_",
 smalltalk.method({
 selector: "assert:equals:",
-fn: function (expected,actual){
+fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._assert_description_(_st(expected).__eq(actual),_st(_st(_st("Expected: ").__comma(_st(expected)._asString())).__comma(" but was: ")).__comma(_st(actual)._asString()));
+$1=_st(self)._assert_description_(_st(actual).__eq(expected),_st(_st(_st("Expected: ").__comma(_st(expected)._asString())).__comma(" but was: ")).__comma(_st(actual)._asString()));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"assert:equals:",{expected:expected,actual:actual}, smalltalk.TestCase)})}
+}, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected}, smalltalk.TestCase)})}
 }),
 smalltalk.TestCase);
 

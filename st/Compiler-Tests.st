@@ -547,8 +547,8 @@ testScopeLevel
 	ast := smalltalk parse: src.
 	analyzer visit: ast.
 
-	self assert: ast scope scopeLevel = 1.
-	self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel = 3
+	self assert: ast scope scopeLevel equals: 1.
+	self assert: ast nodes first nodes last nodes first nodes first scope scopeLevel equals: 3
 !
 
 testUnknownVariables

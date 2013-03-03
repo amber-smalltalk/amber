@@ -23,7 +23,7 @@ testAdd
 
 testGrow
 	empty addAll: (1 to: 100).
-	self assert: empty size = 100
+	self assert: empty size equals: 100
 !
 
 testIllegal
@@ -41,10 +41,10 @@ testIncludes
 !
 
 testOccurrences
-	self assert: (empty occurrencesOf: 0) = 0.
-	self assert: (full occurrencesOf: 5) = 1.
+	self assert: (empty occurrencesOf: 0) equals: 0.
+	self assert: (full occurrencesOf: 5) equals: 1.
 	full add: 5.
-	self assert: (full occurrencesOf: 5) = 1
+	self assert: (full occurrencesOf: 5) equals: 1
 !
 
 testRemove
@@ -123,8 +123,8 @@ testAsyncErrorsAndFailures
     self timeout: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: #('fakeError') asSet equals: (self selectorSetOf: result errors).
-		self assert: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet equals: (self selectorSetOf: result failures).
+		self assert: (self selectorSetOf: result errors) equals: #('fakeError') asSet.
+		self assert: (self selectorSetOf: result failures) equals: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet.
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |
@@ -166,8 +166,8 @@ testTimeouts
     self timeout: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: Set new equals: (self selectorSetOf: result errors).
-		self assert: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet equals: (self selectorSetOf: result failures).
+		self assert: (self selectorSetOf: result errors) equals: Set new.
+		self assert: (self selectorSetOf: result failures) equals: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet.
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |
@@ -180,7 +180,7 @@ testTwoAsyncPassesWithFinishedOnlyOneIsRun
 	flag := 'bad'.
 	self timeout: 10.
     x := 0.
-    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.
-    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: 1 equals: x ]) valueWithTimeout: 0.
+    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
+    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
 ! !
 

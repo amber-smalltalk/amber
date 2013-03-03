@@ -31,7 +31,7 @@ selector: "testGrow",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@empty"])._addAll_(_st((1))._to_((100)));
-_st(self)._assert_(_st(_st(self["@empty"])._size()).__eq((100)));
+_st(self)._assert_equals_(_st(self["@empty"])._size(),(100));
 return self}, function($ctx1) {$ctx1.fill(self,"testGrow",{}, smalltalk.ExampleSetTest)})}
 }),
 smalltalk.ExampleSetTest);
@@ -70,10 +70,10 @@ smalltalk.method({
 selector: "testOccurrences",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(self["@empty"])._occurrencesOf_((0))).__eq((0)));
-_st(self)._assert_(_st(_st(self["@full"])._occurrencesOf_((5))).__eq((1)));
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@empty"])._occurrencesOf_((0)),(0));
+_st(self)._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
 _st(self["@full"])._add_((5));
-_st(self)._assert_(_st(_st(self["@full"])._occurrencesOf_((5))).__eq((1)));
+_st(self)._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testOccurrences",{}, smalltalk.ExampleSetTest)})}
 }),
 smalltalk.ExampleSetTest);
@@ -243,8 +243,8 @@ runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(["fakeError"])._asSet(),_st(self)._selectorSetOf_(_st(result)._errors()));
-_st(self)._assert_equals_(_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet(),_st(self)._selectorSetOf_(_st(result)._failures()));
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._errors()),_st(["fakeError"])._asSet());
+_st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._failures()),_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet());
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
@@ -344,8 +344,8 @@ runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st((smalltalk.Set || Set))._new(),_st(self)._selectorSetOf_(_st(result)._errors()));
-_st(self)._assert_equals_(_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet(),_st(self)._selectorSetOf_(_st(result)._failures()));
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._errors()),_st((smalltalk.Set || Set))._new());
+_st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._failures()),_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet());
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
@@ -376,7 +376,7 @@ self["@flag"]="ok";
 self["@flag"];
 x=_st(x).__plus((1));
 x;
-return _st(self)._assert_equals_((1),x);
+return _st(self)._assert_equals_(x,(1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
 self["@flag"]=_st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {_st(self)._finished();
@@ -384,7 +384,7 @@ self["@flag"]="ok";
 self["@flag"];
 x=_st(x).__plus((1));
 x;
-return _st(self)._assert_equals_((1),x);
+return _st(self)._assert_equals_(x,(1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
 return self}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x}, smalltalk.SUnitAsyncTest)})}
 }),
