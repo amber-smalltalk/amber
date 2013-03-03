@@ -313,7 +313,8 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'fn: ', aMethod fn compiledSource;lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
 		nextPutAll: ');';lf;lf

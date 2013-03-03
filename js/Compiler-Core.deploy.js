@@ -14,8 +14,8 @@ $1=(smalltalk.InliningCodeGenerator || InliningCodeGenerator);
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{}, smalltalk.Compiler)})},
+messageSends: ["ifNil:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -25,8 +25,8 @@ selector: "codeGeneratorClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@codeGeneratorClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass:",{aClass:aClass}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass:",{aClass:aClass}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -38,8 +38,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._compileNode_(_st(self)._parse_(aString));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: ["compileNode:", "parse:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -53,8 +53,8 @@ _st(self)._currentClass_(aClass);
 _st(self)._source_(aString);
 $1=_st(self)._compile_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass}, smalltalk.Compiler)})},
+messageSends: ["currentClass:", "source:", "compile:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -68,8 +68,8 @@ _st(self)._currentClass_((smalltalk.DoIt || DoIt));
 _st(self)._source_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"));
 $1=_st(self)._compileNode_(_st(self)._parse_(_st(self)._source()));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -88,8 +88,8 @@ result=_st(generator)._compileNode_(aNode);
 _st(self)._unknownVariables_([]);
 $3=result;
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result}, smalltalk.Compiler)})},
+messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -101,8 +101,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@currentClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentClass",{}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"currentClass",{}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -112,8 +112,8 @@ selector: "currentClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@currentClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -123,8 +123,8 @@ selector: "eval:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return eval(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -140,8 +140,8 @@ result=_st(_st((smalltalk.DoIt || DoIt))._new())._doIt();
 _st((smalltalk.DoIt || DoIt))._removeCompiledMethod_(_st(_st((smalltalk.DoIt || DoIt))._methodDictionary())._at_("doIt"));
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString,result:result}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString,result:result}, smalltalk.Compiler)})},
+messageSends: ["addCompiledMethod:", "eval:", "compileExpression:", "doIt", "new", "removeCompiledMethod:", "at:", "methodDictionary"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -153,8 +153,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString}, smalltalk.Compiler)})},
+messageSends: ["installMethod:forClass:category:", "eval:", "compile:forClass:", "new"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -166,8 +166,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: ["parse:", "current"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -179,8 +179,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._parse_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: ["parse:", ","]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -198,8 +198,8 @@ $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._recompile_(_st(aClass)._class());
 };
-return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass}, smalltalk.Compiler)})},
+messageSends: ["do:", "log:", ",", "selector", "name", "install:forClass:category:", "source", "category", "methodDictionary", "ifFalse:", "recompile:", "class", "isMetaclass"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -218,8 +218,8 @@ return _st((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._recompile_(each);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((100));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{}, smalltalk.Compiler)})},
+messageSends: ["do:", "show:", "cr", "valueWithTimeout:", "recompile:", "classes", "current"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -236,8 +236,8 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"source",{}, smalltalk.Compiler)})},
+messageSends: ["ifNil:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -247,8 +247,8 @@ selector: "source:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -260,8 +260,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@unknownVariables"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"unknownVariables",{}, smalltalk.Compiler)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"unknownVariables",{}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -271,8 +271,8 @@ selector: "unknownVariables:",
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@unknownVariables"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"unknownVariables:",{aCollection:aCollection}, smalltalk.Compiler)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"unknownVariables:",{aCollection:aCollection}, smalltalk.Compiler)})},
+messageSends: []}),
 smalltalk.Compiler);
 
 
@@ -283,8 +283,8 @@ selector: "recompile:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._new())._recompile_(aClass);
-return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass}, smalltalk.Compiler.klass)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass}, smalltalk.Compiler.klass)})},
+messageSends: ["recompile:", "new"]}),
 smalltalk.Compiler.klass);
 
 smalltalk.addMethod(
@@ -296,8 +296,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._recompile_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{}, smalltalk.Compiler.klass)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{}, smalltalk.Compiler.klass)})},
+messageSends: ["do:", "recompile:", "classes", "current"]}),
 smalltalk.Compiler.klass);
 
 
@@ -314,8 +314,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(aNode)._accept_(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["accept:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -329,8 +329,8 @@ $1=_st(aCollection)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection}, smalltalk.NodeVisitor)})},
+messageSends: ["collect:", "visit:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -342,8 +342,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -355,8 +355,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -368,8 +368,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitSequenceNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitBlockSequenceNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitSequenceNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -381,8 +381,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -394,8 +394,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitVariableNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitVariableNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -407,8 +407,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -420,8 +420,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -433,8 +433,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -446,8 +446,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -459,8 +459,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitAll_(_st(aNode)._nodes());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitAll:", "nodes"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -472,8 +472,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -485,8 +485,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -498,8 +498,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -511,8 +511,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitValueNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
@@ -524,8 +524,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._visitNode_(aNode);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode}, smalltalk.NodeVisitor)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode}, smalltalk.NodeVisitor)})},
+messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 
@@ -550,8 +550,8 @@ $1=_st(aClass)._name();
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass}, smalltalk.AbstractCodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass}, smalltalk.AbstractCodeGenerator)})},
+messageSends: ["ifTrue:ifFalse:", ",", "name", "instanceClass", "isNil", "isMetaclass"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -561,8 +561,8 @@ selector: "compileNode:",
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode}, smalltalk.AbstractCodeGenerator)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode}, smalltalk.AbstractCodeGenerator)})},
+messageSends: ["subclassResponsibility"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -574,8 +574,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@currentClass"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentClass",{}, smalltalk.AbstractCodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"currentClass",{}, smalltalk.AbstractCodeGenerator)})},
+messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -585,8 +585,8 @@ selector: "currentClass:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@currentClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass}, smalltalk.AbstractCodeGenerator)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass}, smalltalk.AbstractCodeGenerator)})},
+messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -596,8 +596,8 @@ selector: "pseudoVariables",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return ["self", "super", "true", "false", "nil", "thisContext"];
-}, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{}, smalltalk.AbstractCodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{}, smalltalk.AbstractCodeGenerator)})},
+messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -614,8 +614,8 @@ $1=_st(aString).__comma("_");
 $1=aString;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString}, smalltalk.AbstractCodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString}, smalltalk.AbstractCodeGenerator)})},
+messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -632,8 +632,8 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{}, smalltalk.AbstractCodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"source",{}, smalltalk.AbstractCodeGenerator)})},
+messageSends: ["ifNil:"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
@@ -643,8 +643,8 @@ selector: "source:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString}, smalltalk.AbstractCodeGenerator)})}
-}),
+return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString}, smalltalk.AbstractCodeGenerator)})},
+messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 
@@ -665,8 +665,8 @@ _st($2)._visit_(ir);
 $3=_st($2)._contents();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream}, smalltalk.CodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream}, smalltalk.CodeGenerator)})},
+messageSends: ["visit:", "semanticAnalyzer", "translator", "irTranslator", "contents"]}),
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
@@ -678,8 +678,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.IRJSTranslator || IRJSTranslator))._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"irTranslator",{}, smalltalk.CodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"irTranslator",{}, smalltalk.CodeGenerator)})},
+messageSends: ["new"]}),
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
@@ -691,8 +691,8 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(_st(self)._currentClass());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{}, smalltalk.CodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{}, smalltalk.CodeGenerator)})},
+messageSends: ["on:", "currentClass"]}),
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
@@ -708,8 +708,8 @@ _st($2)._theClass_(_st(self)._currentClass());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"translator",{}, smalltalk.CodeGenerator)})}
-}),
+}, function($ctx1) {$ctx1.fill(self,"translator",{}, smalltalk.CodeGenerator)})},
+messageSends: ["source:", "source", "new", "theClass:", "currentClass", "yourself"]}),
 smalltalk.CodeGenerator);
 
 
