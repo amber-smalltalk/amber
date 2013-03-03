@@ -542,8 +542,6 @@ migrateClass: aClass superclass: anotherClass
 migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
 	| oldClass newClass |
     
-    console log: '*** MIGRATING ', aString.
-    
     oldClass := Smalltalk current at: aString.
     
     "Rename the old class for existing instances"

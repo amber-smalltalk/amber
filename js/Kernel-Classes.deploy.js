@@ -1043,7 +1043,6 @@ fn: function (aString,aClass,aCollection,packageName){
 var self=this;
 var oldClass,newClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-_st(console)._log_(_st("*** MIGRATING ").__comma(aString));
 oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
 _st(self)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);

@@ -1398,7 +1398,6 @@ fn: function (aString,aClass,aCollection,packageName){
 var self=this;
 var oldClass,newClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-_st(console)._log_(_st("*** MIGRATING ").__comma(aString));
 oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
 _st(self)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
@@ -1419,8 +1418,8 @@ $3=newClass;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass}, smalltalk.ClassBuilder)})},
 args: ["aString", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    console log: '*** MIGRATING ', aString.\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the old class for existing instances\x22\x0a\x09self basicRenameClass: oldClass to: 'Old', aString.\x0a    \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09oldClass subclasses do: [ :each |\x0a    \x09self migrateClass: each superclass: newClass ].\x0a\x0a    [ self copyClass: oldClass to: newClass ] \x0a    \x09on: Error\x0a        do: [ :exception |\x0a        \x09self \x0a            \x09basicRemoveClass: newClass;\x0a            \x09basicRenameClass: oldClass to: aString.\x0a            exception signal ].\x0a            \x0a    self basicRemoveClass: oldClass.\x0a\x09^newClass",
-messageSends: ["log:", ",", "at:", "current", "basicRenameClass:to:", "addSubclassOf:named:instanceVariableNames:package:", "do:", "migrateClass:superclass:", "subclasses", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:"],
+source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass |\x0a    \x0a    oldClass := Smalltalk current at: aString.\x0a    \x0a    \x22Rename the old class for existing instances\x22\x0a\x09self basicRenameClass: oldClass to: 'Old', aString.\x0a    \x0a    newClass := self \x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: aString \x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09oldClass subclasses do: [ :each |\x0a    \x09self migrateClass: each superclass: newClass ].\x0a\x0a    [ self copyClass: oldClass to: newClass ] \x0a    \x09on: Error\x0a        do: [ :exception |\x0a        \x09self \x0a            \x09basicRemoveClass: newClass;\x0a            \x09basicRenameClass: oldClass to: aString.\x0a            exception signal ].\x0a            \x0a    self basicRemoveClass: oldClass.\x0a\x09^newClass",
+messageSends: ["at:", "current", "basicRenameClass:to:", ",", "addSubclassOf:named:instanceVariableNames:package:", "do:", "migrateClass:superclass:", "subclasses", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:"],
 referencedClasses: ["Smalltalk", "Error"]
 }),
 smalltalk.ClassBuilder);
