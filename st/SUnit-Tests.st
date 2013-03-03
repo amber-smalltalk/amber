@@ -123,8 +123,8 @@ testAsyncErrorsAndFailures
     self timeout: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: (#('fakeError') asSet = (self selectorSetOf: result errors)).
-		self assert: (#('fakeErrorFailingInTearDown' 'fakeFailure') asSet = (self selectorSetOf: result failures)).
+		self assert: (self selectorSetOf: result errors) equals: #('fakeError') asSet.
+		self assert: (self selectorSetOf: result failures) equals: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet.
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |
@@ -166,8 +166,8 @@ testTimeouts
     self timeout: 200.
 	result := runner result.
     assertBlock := self async: [
-		self assert: (Set new = (self selectorSetOf: result errors)).
-		self assert: (#('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet = (self selectorSetOf: result failures)).
+		self assert: (self selectorSetOf: result errors) equals: Set new.
+		self assert: (self selectorSetOf: result failures) equals: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet.
 		self finished
   	].
     runner announcer on: ResultAnnouncement do: [:ann |
