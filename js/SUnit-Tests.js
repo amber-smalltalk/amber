@@ -325,8 +325,8 @@ runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(["fakeError"])._asSet(),_st(self)._selectorSetOf_(_st(result)._errors()));
-_st(self)._assert_equals_(_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet(),_st(self)._selectorSetOf_(_st(result)._failures()));
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_(_st(_st(["fakeError"])._asSet()).__eq(_st(self)._selectorSetOf_(_st(result)._errors())));
+_st(self)._assert_(_st(_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet()).__eq(_st(self)._selectorSetOf_(_st(result)._failures())));
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
@@ -339,8 +339,8 @@ return _st($2)._ifTrue_(assertBlock);
 _st(runner)._run();
 return self}, function($ctx1) {$ctx1.fill(self,"testAsyncErrorsAndFailures",{suite:suite,runner:runner,result:result,assertBlock:assertBlock}, smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "testAsyncErrorsAndFailures\x0a\x09| suite runner result assertBlock |\x0a\x09suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].\x0a    runner := TestSuiteRunner on: suite.\x0a    self timeout: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: #('fakeError') asSet equals: (self selectorSetOf: result errors).\x0a\x09\x09self assert: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet equals: (self selectorSetOf: result failures).\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
-messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:equals:", "asSet", "selectorSetOf:", "errors", "failures", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"],
+source: "testAsyncErrorsAndFailures\x0a\x09| suite runner result assertBlock |\x0a\x09suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].\x0a    runner := TestSuiteRunner on: suite.\x0a    self timeout: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: (#('fakeError') asSet = (self selectorSetOf: result errors)).\x0a\x09\x09self assert: (#('fakeErrorFailingInTearDown' 'fakeFailure') asSet = (self selectorSetOf: result failures)).\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
+messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:", "=", "selectorSetOf:", "errors", "asSet", "failures", "finished", "on:do:", "ifTrue:", "total", "runs", "==", "announcer", "run"],
 referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"]
 }),
 smalltalk.SUnitAsyncTest);
@@ -451,8 +451,8 @@ runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st((smalltalk.Set || Set))._new(),_st(self)._selectorSetOf_(_st(result)._errors()));
-_st(self)._assert_equals_(_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet(),_st(self)._selectorSetOf_(_st(result)._failures()));
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_(_st(_st((smalltalk.Set || Set))._new()).__eq(_st(self)._selectorSetOf_(_st(result)._errors())));
+_st(self)._assert_(_st(_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet()).__eq(_st(self)._selectorSetOf_(_st(result)._failures())));
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
@@ -465,8 +465,8 @@ return _st($2)._ifTrue_(assertBlock);
 _st(runner)._run();
 return self}, function($ctx1) {$ctx1.fill(self,"testTimeouts",{suite:suite,runner:runner,result:result,assertBlock:assertBlock}, smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "testTimeouts\x0a\x09| suite runner result assertBlock |\x0a\x09suite := #('fakeTimeout' 'fakeMultipleTimeoutFailing' 'fakeMultipleTimeoutPassing' 'testPass') collect: [ :each | self class selector: each ].\x0a    runner := TestSuiteRunner on: suite.\x0a    self timeout: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: Set new equals: (self selectorSetOf: result errors).\x0a\x09\x09self assert: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet equals: (self selectorSetOf: result failures).\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
-messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:equals:", "new", "selectorSetOf:", "errors", "asSet", "failures", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"],
+source: "testTimeouts\x0a\x09| suite runner result assertBlock |\x0a\x09suite := #('fakeTimeout' 'fakeMultipleTimeoutFailing' 'fakeMultipleTimeoutPassing' 'testPass') collect: [ :each | self class selector: each ].\x0a    runner := TestSuiteRunner on: suite.\x0a    self timeout: 200.\x0a\x09result := runner result.\x0a    assertBlock := self async: [\x0a\x09\x09self assert: (Set new = (self selectorSetOf: result errors)).\x0a\x09\x09self assert: (#('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet = (self selectorSetOf: result failures)).\x0a\x09\x09self finished\x0a  \x09].\x0a    runner announcer on: ResultAnnouncement do: [:ann |\x0a    \x09ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].\x0a\x09runner run",
+messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:", "=", "selectorSetOf:", "errors", "new", "failures", "asSet", "finished", "on:do:", "ifTrue:", "total", "runs", "==", "announcer", "run"],
 referencedClasses: ["TestSuiteRunner", "Set", "ResultAnnouncement"]
 }),
 smalltalk.SUnitAsyncTest);

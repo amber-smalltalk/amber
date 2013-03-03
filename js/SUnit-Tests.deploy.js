@@ -243,8 +243,8 @@ runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(["fakeError"])._asSet(),_st(self)._selectorSetOf_(_st(result)._errors()));
-_st(self)._assert_equals_(_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet(),_st(self)._selectorSetOf_(_st(result)._failures()));
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_(_st(_st(["fakeError"])._asSet()).__eq(_st(self)._selectorSetOf_(_st(result)._errors())));
+_st(self)._assert_(_st(_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet()).__eq(_st(self)._selectorSetOf_(_st(result)._failures())));
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
@@ -344,8 +344,8 @@ runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st((smalltalk.Set || Set))._new(),_st(self)._selectorSetOf_(_st(result)._errors()));
-_st(self)._assert_equals_(_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet(),_st(self)._selectorSetOf_(_st(result)._failures()));
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_(_st(_st((smalltalk.Set || Set))._new()).__eq(_st(self)._selectorSetOf_(_st(result)._errors())));
+_st(self)._assert_(_st(_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet()).__eq(_st(self)._selectorSetOf_(_st(result)._failures())));
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
