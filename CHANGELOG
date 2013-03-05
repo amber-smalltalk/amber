@@ -17,7 +17,7 @@ Here's a summary of changes since the 0.9 release:
 - Dictionary can now have any kind of object as keys. String-key dictionary has been renamed HashedCollection
 - New TwitterWall example
 - Improved HTML Canvas, now compatible with IE7
-- Improved JSObjectProxy for seemless JavaScript objects access from Amber
+- Improved JSObjectProxy for seamless JavaScript objects access from Amber
 - No more jQuery binding. Amber is fully capable of sending messages to JavaScript objects
 
 13th September 2011 - Release 0.9
