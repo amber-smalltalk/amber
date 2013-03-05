@@ -1199,12 +1199,12 @@ named: aPackageName ifAbsent: aBlock
 !Package class methodsFor: 'commit paths'!
 
 commitPathsFromLoader
-    <
-    var cp = smalltalk['@@commitPath'];
-    if (!!cp) return;
-    if (cp.js) self._defaultCommitPathJs_(cp.js);
-    if (cp.st) self._defaultCommitPathSt_(cp.st);
-    >
+<
+	var cp = typeof amber !!== 'undefined' && amber.commitPath;
+	if (!!cp) return;
+	if (cp.js) self._defaultCommitPathJs_(cp.js);
+	if (cp.st) self._defaultCommitPathSt_(cp.st);
+>
 !
 
 defaultCommitPathJs
