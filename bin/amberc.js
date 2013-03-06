@@ -586,7 +586,7 @@ AmberC.prototype.optimize = function() {
 			self.closure_compile(file, minifiedName, optimization_done.add());
 		});
 	}
-	if (defaults.closure_full) {
+	if (defaults.closure_full && (undefined !== defaults.program)) {
 		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
 		self.closure_compile(defaults.program + '.js', defaults.program + '.min.js', optimization_done.add());
 	}
