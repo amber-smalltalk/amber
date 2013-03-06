@@ -1,4 +1,4 @@
-Amber [![Travis CI Status](https://secure.travis-ci.org/NicolasPetton/amber.png)](https://travis-ci.org/#!/NicolasPetton/amber)
+Amber [![Travis CI Status](https://secure.travis-ci.org/amber-smalltalk/amber.png)](https://travis-ci.org/#!/amber-smalltalk/amber)
 =====
 
 By Nicolas Petton <petton.nicolas@gmail.com> and [Amber contributors](https://github.com/NicolasPetton/amber/contributors)
