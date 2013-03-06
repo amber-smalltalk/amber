@@ -20,7 +20,7 @@ var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..'));
 // Get default location of compiler.jar
 var closure_jar = path.resolve(path.join(process.env['HOME'], 'compiler.jar'));
 
-var compiler = new amberc.Compiler(amber_dir);
+var compiler = new amberc.Compiler(amber_dir, closure_jar);
 
 var configuration = handle_options(parameters, amber_dir);
 
