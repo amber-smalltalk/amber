@@ -580,8 +580,8 @@ AmberC.prototype.optimize = function() {
 
 	if (defaults.closure_parts) {
 		console.log('Compiling all js files using Google closure compiler.');
-		var allJsFiles = defaults.compiled.concat(defaults.libraries);
-		allJsFiles.forEach(function(file) {
+		defaults.compiled.forEach(function(file) {
+			console.log('Compiling ' + file + ' file using Google closure compiler.');
 			var minifiedName = path.basename(file, '.js') + '.min.js';
 			self.closure_compile(file, minifiedName, optimization_done.add());
 		});
