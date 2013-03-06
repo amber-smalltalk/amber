@@ -82,7 +82,7 @@ var path = require('path'),
  */
 function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
-	this.closure_jar = closure_jar;
+	this.closure_jar = closure_jar || '';
 	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 	                         'Kernel-Announcements'];
