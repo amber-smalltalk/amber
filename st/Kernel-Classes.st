@@ -497,6 +497,14 @@ basicRenameClass: aClass to: aString
 	>
 !
 
+basicSwapClassNames: aClass with: anotherClass
+	<
+		var tmp = aClass.className;
+		aClass.className = anotherClass.className;
+        anotherClass.className = tmp;
+	>
+!
+
 copyClass: aClass named: aString
 	| newClass |
 
@@ -540,32 +548,42 @@ migrateClass: aClass superclass: anotherClass
 !
 
 migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
-	| oldClass newClass |
+	| oldClass newClass tmp |
     
+    tmp := 'new*', aString.
     oldClass := Smalltalk current at: aString.
-    
-    "Rename the old class for existing instances"
-	self basicRenameClass: oldClass to: 'Old', aString.
     
     newClass := self 
 		addSubclassOf: aClass
-		named: aString 
+		named: tmp
 		instanceVariableNames: aCollection
 		package: packageName.
+
+	self basicSwapClassNames: oldClass with: newClass.
+
+	[ self copyClass: oldClass to: newClass ]
+		on: Error
+		do: [ :exception |
+			self
+            	basicSwapClassNames: oldClass with: newClass;
+            	basicRemoveClass: newClass.
+            exception signal ].
+
+	self
+		rawRenameClass: oldClass to: tmp;
+        rawRenameClass: newClass to: aString.
 
 	oldClass subclasses do: [ :each |
     	self migrateClass: each superclass: newClass ].
 
-    [ self copyClass: oldClass to: newClass ] 
-    	on: Error
-        do: [ :exception |
-        	self 
-            	basicRemoveClass: newClass;
-            	basicRenameClass: oldClass to: aString.
-            exception signal ].
-            
     self basicRemoveClass: oldClass.
 	^newClass
+!
+
+rawRenameClass: aClass to: aString
+	<
+		smalltalk[aString] = aClass;
+	>
 ! !
 
 Object subclass: #ClassCategoryReader
