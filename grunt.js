@@ -73,7 +73,7 @@ module.exports = function(grunt) {
               'Compiler.js', 'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
               'Kernel-Tests.js', 'Compiler-Tests.js',
-              'Canvas.js', 'IDE.js', 'SUnit.js', 'Documentation.js', 'Examples.js'],
+              'Canvas.js', 'IDE.js', 'SUnit.js', 'Documentation.js'],
         output_name: 'amber_lib'
       },
       server: {
