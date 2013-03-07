@@ -165,25 +165,18 @@ detect: aBlock
 !
 
 detect: aBlock ifNone: anotherBlock
-	<
-		for(var i = 0; i < self.length; i++)
-			if(aBlock(self[i]))
-				return self[i];
-		return anotherBlock();
-	>
+	self subclassResponsibility
 !
 
 do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
+	self subclassResponsibility
 !
 
 do: aBlock separatedBy: anotherBlock
-	| first |
-	first := true.
+	| actionBeforeElement |
+	actionBeforeElement := [actionBeforeElement := anotherBlock].
 	self do: [:each |
-	    first
-		ifTrue: [first := false]
-		ifFalse: [anotherBlock value].
+    	actionBeforeElement value.
 	    aBlock value: each]
 !
 
@@ -322,8 +315,7 @@ Unlike a Dictionary, it can only have strings as keys.!
 associations
 	| associations |
 	associations := #().
-	self keys do: [:each |
-	    associations add: (Association key: each value: (self at: each))].
+	self associationsDo: [:each |  associations add: each].
 	^associations
 !
 
@@ -438,30 +430,27 @@ asJSON
 	self shouldNotImplement
 !
 
-copyFrom: anIndex to: anotherIndex
-	self shouldNotImplement
-!
-
 deepCopy
 	| copy |
 	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value deepCopy].
+	self keysAndValuesDo: [:key :value |
+	    copy at: key  put: value deepCopy].
 	^copy
 !
 
 shallowCopy
 	| copy |
 	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value].
+	self keysAndValuesDo: [:key :value |
+	    copy at: key  put: value].
 	^copy
 ! !
 
 !HashedCollection methodsFor: 'enumerating'!
 
 associationsDo: aBlock
-	self associations do: aBlock
+	self keysAndValuesDo: [:key :value |
+	    aBlock value: (Association key: key value: value)]
 !
 
 collect: aBlock
@@ -477,7 +466,7 @@ detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock
-	self values do: aBlock
+	self valuesDo: aBlock
 !
 
 includes: anObject
@@ -485,8 +474,12 @@ includes: anObject
 !
 
 keysAndValuesDo: aBlock
-	self associationsDo: [:each |
-	    aBlock value: each key value: each value]
+	self keysDo: [:each |
+	    aBlock value: each value: (self at: each)]
+!
+
+keysDo: aBlock
+	self keys do: aBlock
 !
 
 select: aBlock
@@ -495,6 +488,10 @@ select: aBlock
 	self keysAndValuesDo: [:key :value |
 	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
 	^newDict
+!
+
+valuesDo: aBlock
+	self keysAndValuesDo: [ :key :value | aBlock value: value ]
 ! !
 
 !HashedCollection methodsFor: 'printing'!
@@ -569,11 +566,6 @@ keys
 	^keys copy
 !
 
-valueAt: anObject
-
-	^ self associationsDo:2
-!
-
 values
 	^values copy
 ! !
@@ -605,6 +597,20 @@ asHashedCollection
 
 asJSON
 	^self asHashedCollection asJSON
+! !
+
+!Dictionary methodsFor: 'enumerating'!
+
+keysAndValuesDo: aBlock
+	^keys with: values do: aBlock
+!
+
+keysDo: aBlock
+	^keys do: aBlock
+!
+
+valuesDo: aBlock
+	^values do: aBlock
 ! !
 
 !Dictionary methodsFor: 'initialization'!
@@ -774,6 +780,23 @@ shallowCopy
 ! !
 
 !SequenceableCollection methodsFor: 'enumerating'!
+
+detect: aBlock ifNone: anotherBlock
+	<
+		for(var i = 0; i < self.length; i++)
+			if(aBlock(self[i]))
+				return self[i];
+		return anotherBlock();
+	>
+!
+
+do: aBlock
+	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
+!
+
+with: anotherCollection do: aBlock
+	<for(var i=0;i<self.length;i++){aBlock(self[i], anotherCollection[i]);}>
+!
 
 withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
