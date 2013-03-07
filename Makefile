@@ -2,17 +2,15 @@
 AMBER = st
 SERVER = server
 REPL = repl
-EXAMPLES = examples
 
 # REST is all except AMBER
-REST = $(SERVER) $(EXAMPLES) $(REPL)
+REST = $(SERVER) $(REPL)
 
 # And these are all
 DIRS = $(AMBER) $(REST)
 
 # The sets of directories to do various things in
 BUILDDIRS = $(DIRS:%=build-%)
-EXAMPLESDIRS = $(EXAMPLES:%=build-%)
 INSTALLDIRS = $(AMBER:%=install-%)
 CLEANDIRS = $(REST:%=clean-%)
 CLEANALLDIRS = $(DIRS:%=clean-%)
@@ -24,13 +22,8 @@ $(BUILDDIRS):
 
 amber: build-st
 
-# Examples and server need Amber first
+# server needs Amber first
 build-server: build-st
-build-examples: build-st
-
-examples: $(EXAMPLESDIRS)
-$(EXAMPLESDIRS):
-	$(MAKE) -C $(@:build-%=%)
 
 install: $(INSTALLDIRS)
 $(INSTALLDIRS):

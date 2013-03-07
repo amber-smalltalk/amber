@@ -82,7 +82,7 @@ var path = require('path'),
  */
 function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
-	this.closure_jar = closure_jar;
+	this.closure_jar = closure_jar || '';
 	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 	                         'Kernel-Announcements'];
@@ -580,13 +580,13 @@ AmberC.prototype.optimize = function() {
 
 	if (defaults.closure_parts) {
 		console.log('Compiling all js files using Google closure compiler.');
-		var allJsFiles = defaults.compiled.concat(defaults.libraries);
-		allJsFiles.forEach(function(file) {
+		defaults.compiled.forEach(function(file) {
+			console.log('Compiling ' + file + ' file using Google closure compiler.');
 			var minifiedName = path.basename(file, '.js') + '.min.js';
 			self.closure_compile(file, minifiedName, optimization_done.add());
 		});
 	}
-	if (defaults.closure_full) {
+	if (defaults.closure_full && (undefined !== defaults.program)) {
 		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
 		self.closure_compile(defaults.program + '.js', defaults.program + '.min.js', optimization_done.add());
 	}
