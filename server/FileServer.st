@@ -71,7 +71,7 @@ base64Decode: aString
 	<return (new Buffer(aString, 'base64').toString())>
 !
 
-isAuthenticated: aRequest response: aResponse
+isAuthenticated: aRequest
 	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175
 	 and https://gist.github.com/1686663"
 	| header token auth parts|
@@ -119,8 +119,8 @@ handleGETRequest: aRequest respondTo: aResponse
 
 handlePUTRequest: aRequest respondTo: aResponse
 	| file stream |
-	(self isAuthenticated: aRequest response: aResponse)
-		ifFalse: [self respondAuthenticationRequiredTo: aResponse].
+	(self isAuthenticated: aRequest)
+		ifFalse: [self respondAuthenticationRequiredTo: aResponse. ^nil].
 
 	file := '.', aRequest url.
 	stream := fs createWriteStream: file.
