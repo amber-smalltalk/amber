@@ -941,6 +941,21 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
+"_basicSwapClassNames_with_",
+smalltalk.method({
+selector: "basicSwapClassNames:with:",
+fn: function (aClass,anotherClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var tmp = aClass.className;
+		aClass.className = anotherClass.className;
+        anotherClass.className = tmp;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"basicSwapClassNames:with:",{aClass:aClass,anotherClass:anotherClass}, smalltalk.ClassBuilder)})},
+messageSends: []}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 "_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
@@ -1041,28 +1056,45 @@ smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
 fn: function (aString,aClass,aCollection,packageName){
 var self=this;
-var oldClass,newClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+var oldClass,newClass,tmp;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
+tmp=_st("new*").__comma(aString);
 oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
-_st(self)._basicRenameClass_to_(oldClass,_st("Old").__comma(aString));
-newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
-_st(_st(oldClass)._subclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(self)._migrateClass_superclass_(each,newClass);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
+_st(self)._basicSwapClassNames_with_(oldClass,newClass);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._copyClass_to_(oldClass,newClass);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(exception){
 return smalltalk.withContext(function($ctx2) {$1=self;
-_st($1)._basicRemoveClass_(newClass);
-$2=_st($1)._basicRenameClass_to_(oldClass,aString);
+_st($1)._basicSwapClassNames_with_(oldClass,newClass);
+$2=_st($1)._basicRemoveClass_(newClass);
 $2;
 return _st(exception)._signal();
 }, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
+$3=self;
+_st($3)._rawRenameClass_to_(oldClass,tmp);
+$4=_st($3)._rawRenameClass_to_(newClass,aString);
+_st(_st(oldClass)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(self)._migrateClass_superclass_(each,newClass);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(self)._basicRemoveClass_(oldClass);
-$3=newClass;
-return $3;
-}, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass}, smalltalk.ClassBuilder)})},
-messageSends: ["at:", "current", "basicRenameClass:to:", ",", "addSubclassOf:named:instanceVariableNames:package:", "do:", "migrateClass:superclass:", "subclasses", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:"]}),
+$5=newClass;
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp}, smalltalk.ClassBuilder)})},
+messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:", "rawRenameClass:to:", "do:", "migrateClass:superclass:", "subclasses"]}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
+"_rawRenameClass_to_",
+smalltalk.method({
+selector: "rawRenameClass:to:",
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		smalltalk[aString] = aClass;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"rawRenameClass:to:",{aClass:aClass,aString:aString}, smalltalk.ClassBuilder)})},
+messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(

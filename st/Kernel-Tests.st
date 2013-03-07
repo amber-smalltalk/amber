@@ -260,9 +260,10 @@ testClassMigration
     self assert: ObjectMock2 package name equals: 'Kernel-Tests'.
     
 	self deny: instance class == ObjectMock2.
-    self assert: instance class name equals: 'OldObjectMock2'.
+    "Commeting this out. Tests implementation detail."
+    "self assert: instance class name equals: 'OldObjectMock2'."
     
-    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
+	self assert: (Smalltalk current at: instance class name) isNil.
     
     Smalltalk current removeClass: ObjectMock2
 !

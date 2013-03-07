@@ -7,9 +7,12 @@ selector: "testCanClearInterval",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._shouldnt_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st((function(){
-return smalltalk.withContext(function($ctx3) {return _st(_st((smalltalk.Error || Error))._new())._signal();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st((smalltalk.Error || Error))._new())._signal();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithInterval_((0)))._clearInterval();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{}, smalltalk.BlockClosureTest)});},
@@ -27,9 +30,12 @@ selector: "testCanClearTimeout",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._shouldnt_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st((function(){
-return smalltalk.withContext(function($ctx3) {return _st(_st((smalltalk.Error || Error))._new())._signal();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st((smalltalk.Error || Error))._new())._signal();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((0)))._clearTimeout();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{}, smalltalk.BlockClosureTest)});},
@@ -47,8 +53,10 @@ selector: "testCompiledSource",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1)).__plus((1));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st((1)).__plus((1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._compiledSource())._includesSubString_("function"));
 return self}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{}, smalltalk.BlockClosureTest)});},
 args: [],
@@ -66,15 +74,19 @@ category: 'tests',
 fn: function (){
 var self=this;
 var curriedMethod,array;
-return smalltalk.withContext(function($ctx1) { curriedMethod=_st(_st((function(selfarg,x){
-return smalltalk.withContext(function($ctx2) {return _st(selfarg)._at_(x);
+return smalltalk.withContext(function($ctx1) { 
+curriedMethod=_st(_st((function(selfarg,x){
+return smalltalk.withContext(function($ctx2) {
+return _st(selfarg)._at_(x);
 }, function($ctx2) {$ctx2.fillBlock({selfarg:selfarg,x:x},$ctx1)})}))._currySelf())._asCompiledMethod_("foo:");
 array=[(3), (1), (4)];
 _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(curriedMethod,(smalltalk.Array || Array),"**test helper");
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._assert_equals_(_st(array)._foo_((2)),(1));
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._assert_equals_(_st(array)._foo_((2)),(1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((smalltalk.Array || Array))._removeCompiledMethod_(curriedMethod);
+return smalltalk.withContext(function($ctx2) {
+return _st((smalltalk.Array || Array))._removeCompiledMethod_(curriedMethod);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array}, smalltalk.BlockClosureTest)})},
 args: [],
@@ -91,10 +103,13 @@ selector: "testEnsure",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
-return smalltalk.withContext(function($ctx2) {return (3);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return (3);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx2) {return (4);
+return smalltalk.withContext(function($ctx2) {
+return (4);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsure",{}, smalltalk.BlockClosureTest)})},
 args: [],
@@ -111,11 +126,15 @@ selector: "testEnsureRaises",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((function(){
-return smalltalk.withContext(function($ctx3) {return _st(_st((smalltalk.Error || Error))._new())._signal();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st((smalltalk.Error || Error))._new())._signal();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx3) {return true;
+return smalltalk.withContext(function($ctx3) {
+return true;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{}, smalltalk.BlockClosureTest)});},
@@ -133,15 +152,19 @@ selector: "testExceptionSemantics",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._timeout_((100));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._timeout_((100));
 _st(_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((function(){
-return smalltalk.withContext(function($ctx3) {_st(self)._assert_(true);
+return smalltalk.withContext(function($ctx2) {
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
+_st(self)._assert_(true);
 _st((smalltalk.Error || Error))._signal();
 _st(self)._deny_(true);
 return _st(self)._finished();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
-return smalltalk.withContext(function($ctx3) {return _st(self)._finished();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._finished();
 }, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
 return self}, function($ctx1) {$ctx1.fill(self,"testExceptionSemantics",{}, smalltalk.BlockClosureTest)});},
@@ -159,10 +182,13 @@ selector: "testNumArgs",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._numArgs(),(0));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._numArgs(),(0));
 _st(self)._assert_equals_(_st((function(a,b){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}))._numArgs(),(2));
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}))._numArgs(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{}, smalltalk.BlockClosureTest)});},
 args: [],
 source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [:a :b | ] numArgs equals: 2",
@@ -178,10 +204,13 @@ selector: "testOnDo",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Error || Error))._new())._signal();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((smalltalk.Error || Error))._new())._signal();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testOnDo",{}, smalltalk.BlockClosureTest)});},
 args: [],
@@ -198,17 +227,22 @@ selector: "testValue",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1)).__plus((1));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st((1)).__plus((1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._value(),(2));
 _st(self)._assert_equals_(_st((function(x){
-return smalltalk.withContext(function($ctx2) {return _st(x).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+return _st(x).__plus((1));
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})}))._value_((2)),(3));
 _st(self)._assert_equals_(_st((function(x,y){
-return smalltalk.withContext(function($ctx2) {return _st(x).__star(y);
+return smalltalk.withContext(function($ctx2) {
+return _st(x).__star(y);
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1)})}))._value_value_((2),(4)),(8));
 _st(self)._assert_equals_(_st((function(a,b,c){
-return smalltalk.withContext(function($ctx2) {return (1);
+return smalltalk.withContext(function($ctx2) {
+return (1);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b,c:c},$ctx1)})}))._value(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{}, smalltalk.BlockClosureTest)});},
 args: [],
@@ -225,14 +259,18 @@ selector: "testValueWithPossibleArguments",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((function(){
-return smalltalk.withContext(function($ctx2) {return (1);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return (1);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithPossibleArguments_([(3), (4)]),(1));
 _st(self)._assert_equals_(_st((function(a){
-return smalltalk.withContext(function($ctx2) {return _st(a).__plus((4));
+return smalltalk.withContext(function($ctx2) {
+return _st(a).__plus((4));
 }, function($ctx2) {$ctx2.fillBlock({a:a},$ctx1)})}))._valueWithPossibleArguments_([(3), (4)]),(7));
 _st(self)._assert_equals_(_st((function(a,b){
-return smalltalk.withContext(function($ctx2) {return _st(a).__plus(b);
+return smalltalk.withContext(function($ctx2) {
+return _st(a).__plus(b);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{}, smalltalk.BlockClosureTest)});},
 args: [],
@@ -250,17 +288,21 @@ category: 'tests',
 fn: function () {
 var self=this;
 var i;
-return smalltalk.withContext(function($ctx1) { i=(0);
+return smalltalk.withContext(function($ctx1) { 
+i=(0);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(i).__gt((5));
+return smalltalk.withContext(function($ctx2) {
+return _st(i).__gt((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+i=_st(i).__plus((1));
 return i;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_equals_(i,(6));
 i=(0);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+i=_st(i).__plus((1));
 i;
 return _st(i).__gt((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse();
@@ -281,17 +323,21 @@ category: 'tests',
 fn: function () {
 var self=this;
 var i;
-return smalltalk.withContext(function($ctx1) { i=(0);
+return smalltalk.withContext(function($ctx1) { 
+i=(0);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(i).__lt((5));
+return smalltalk.withContext(function($ctx2) {
+return _st(i).__lt((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+i=_st(i).__plus((1));
 return i;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_equals_(i,(5));
 i=(0);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+i=_st(i).__plus((1));
 i;
 return _st(i).__lt((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue();
@@ -314,7 +360,8 @@ selector: "testEquality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._deny_(_st((0)).__eq(false));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._deny_(_st((0)).__eq(false));
 _st(self)._deny_(_st(false).__eq((0)));
 _st(self)._deny_(_st("").__eq(false));
 _st(self)._deny_(_st(false).__eq(""));
@@ -339,7 +386,8 @@ selector: "testIdentity",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._deny_(_st((0)).__eq_eq(false));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._deny_(_st((0)).__eq_eq(false));
 _st(self)._deny_(_st(false).__eq_eq((0)));
 _st(self)._deny_(_st("").__eq_eq(false));
 _st(self)._deny_(_st(false).__eq_eq(""));
@@ -364,7 +412,8 @@ selector: "testIfTrueIfFalse",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16;
 $1=self;
 if(smalltalk.assert(true)){
 $2="alternative block";
@@ -428,7 +477,8 @@ selector: "testIfTrueIfFalseWithBoxing",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$6,$5,$7,$9,$8,$10,$12,$11,$13,$15,$14,$16,$18,$17,$19,$21,$20,$22,$24,$23;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$4,$6,$5,$7,$9,$8,$10,$12,$11,$13,$15,$14,$16,$18,$17,$19,$21,$20,$22,$24,$23;
 $1=self;
 $3=_st(true)._yourself();
 if(smalltalk.assert($3)){
@@ -500,7 +550,8 @@ selector: "testLogic",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self;
 _st($1)._assert_(_st(true).__and(true));
 _st($1)._deny_(_st(true).__and(false));
@@ -534,52 +585,67 @@ selector: "testLogicKeywords",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self;
 _st($1)._assert_(_st(true)._and_((function(){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 _st($1)._deny_(_st(true)._and_((function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 _st($1)._deny_(_st(false)._and_((function(){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $2=_st($1)._deny_(_st(false)._and_((function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $3=self;
 _st($3)._assert_(_st(true)._or_((function(){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 _st($3)._assert_(_st(true)._or_((function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 _st($3)._assert_(_st(false)._or_((function(){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $4=_st($3)._deny_(_st(false)._or_((function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $5=self;
 _st($5)._assert_(_st(true)._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((0));
+return smalltalk.withContext(function($ctx2) {
+return _st((1)).__gt((0));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 _st($5)._deny_(_st(_st((1)).__gt((0)))._and_((function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $6=_st($5)._deny_(_st(_st((1)).__gt((0)))._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((2));
+return smalltalk.withContext(function($ctx2) {
+return _st((1)).__gt((2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $7=self;
 _st($7)._assert_(_st(false)._or_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((0));
+return smalltalk.withContext(function($ctx2) {
+return _st((1)).__gt((0));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 _st($7)._assert_(_st(_st((1)).__gt((0)))._or_((function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 $8=_st($7)._assert_(_st(_st((1)).__gt((0)))._or_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1)).__gt((2));
+return smalltalk.withContext(function($ctx2) {
+return _st((1)).__gt((2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{}, smalltalk.BooleanTest)})},
 args: [],
@@ -596,10 +662,12 @@ selector: "testNonBooleanError",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 $2=(function(){
-return smalltalk.withContext(function($ctx2) {if(smalltalk.assert("")){
+return smalltalk.withContext(function($ctx2) {
+if(smalltalk.assert("")){
 } else {
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
@@ -622,7 +690,8 @@ selector: "setUp",
 category: 'running',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@builder"]=_st((smalltalk.ClassBuilder || ClassBuilder))._new();
+return smalltalk.withContext(function($ctx1) { 
+self["@builder"]=_st((smalltalk.ClassBuilder || ClassBuilder))._new();
 return self}, function($ctx1) {$ctx1.fill(self,"setUp",{}, smalltalk.ClassBuilderTest)});},
 args: [],
 source: "setUp\x0a\x09builder := ClassBuilder new",
@@ -638,7 +707,8 @@ selector: "tearDown",
 category: 'running',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@theClass"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -662,7 +732,8 @@ selector: "testClassCopy",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@theClass"]=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
 _st(self)._assert_(_st(_st(self["@theClass"])._superclass()).__eq_eq(_st((smalltalk.ObjectMock || ObjectMock))._superclass()));
 _st(self)._assert_(_st(_st(self["@theClass"])._instanceVariableNames()).__eq_eq(_st((smalltalk.ObjectMock || ObjectMock))._instanceVariableNames()));
 _st(self)._assert_equals_(_st(self["@theClass"])._name(),"ObjectMock2");
@@ -681,10 +752,11 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "testClassMigration",
 category: 'tests',
-fn: function () {
+fn: function (){
 var self=this;
 var instance,oldClass;
-return smalltalk.withContext(function($ctx1) { oldClass=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+return smalltalk.withContext(function($ctx1) { 
+oldClass=_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
 instance=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"))._new();
 _st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
 _st(self)._deny_(_st(oldClass).__eq_eq((smalltalk.ObjectMock2 || ObjectMock2)));
@@ -694,12 +766,11 @@ _st(self)._assert_equals_(_st((smalltalk.ObjectMock2 || ObjectMock2))._selectors
 _st(self)._assert_equals_(_st((smalltalk.ObjectMock2 || ObjectMock2))._comment(),_st(oldClass)._comment());
 _st(self)._assert_equals_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._package())._name(),"Kernel-Tests");
 _st(self)._deny_(_st(_st(instance)._class()).__eq_eq((smalltalk.ObjectMock2 || ObjectMock2)));
-_st(self)._assert_equals_(_st(_st(instance)._class())._name(),"OldObjectMock2");
-_st(self)._assert_(_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("OldObjectMock2"))._isNil());
+_st(self)._assert_(_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(_st(instance)._class())._name()))._isNil());
 _st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_((smalltalk.ObjectMock2 || ObjectMock2));
-return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass}, smalltalk.ClassBuilderTest)});},
+return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass}, smalltalk.ClassBuilderTest)})},
 args: [],
-source: "testClassMigration\x0a\x09| instance oldClass |\x0a    \x0a    oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a    instance := (Smalltalk  current at: 'ObjectMock2') new.\x0a    \x0a    \x22Change the superclass of ObjectMock2\x22\x0a    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a    \x09instanceVariableNames: ''\x0a        package: 'Kernel-Tests'.\x0a    \x0a    self deny: oldClass == ObjectMock2.\x0a    \x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a    self assert: ObjectMock2 comment equals: oldClass comment.\x0a    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a    \x0a\x09self deny: instance class == ObjectMock2.\x0a    self assert: instance class name equals: 'OldObjectMock2'.\x0a    \x0a    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.\x0a    \x0a    Smalltalk current removeClass: ObjectMock2",
+source: "testClassMigration\x0a\x09| instance oldClass |\x0a    \x0a    oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a    instance := (Smalltalk  current at: 'ObjectMock2') new.\x0a    \x0a    \x22Change the superclass of ObjectMock2\x22\x0a    ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a    \x09instanceVariableNames: ''\x0a        package: 'Kernel-Tests'.\x0a    \x0a    self deny: oldClass == ObjectMock2.\x0a    \x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a    self assert: ObjectMock2 comment equals: oldClass comment.\x0a    self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a    \x0a\x09self deny: instance class == ObjectMock2.\x0a    \x22Commeting this out. Tests implementation detail.\x22\x0a    \x22self assert: instance class name equals: 'OldObjectMock2'.\x22\x0a    \x0a\x09self assert: (Smalltalk current at: instance class name) isNil.\x0a    \x0a    Smalltalk current removeClass: ObjectMock2",
 messageSends: ["copyClass:named:", "new", "at:", "current", "subclass:instanceVariableNames:package:", "deny:", "==", "assert:", "superclass", "isEmpty", "instanceVariableNames", "assert:equals:", "selectors", "comment", "name", "package", "class", "isNil", "removeClass:"],
 referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"]
 }),
@@ -712,7 +783,8 @@ selector: "testClassMigrationWithClassInstanceVariables",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
 _st(_st((smalltalk.ObjectMock2 || ObjectMock2))._class())._instanceVariableNames_("foo bar");
 _st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
 _st(self)._assert_equals_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._class())._instanceVariableNames(),["foo", "bar"]);
@@ -732,7 +804,8 @@ selector: "testClassMigrationWithSubclasses",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@builder"])._copyClass_named_((smalltalk.ObjectMock || ObjectMock),"ObjectMock2");
 _st((smalltalk.ObjectMock2 || ObjectMock2))._subclass_instanceVariableNames_package_("ObjectMock3","","Kernel-Tests");
 _st((smalltalk.ObjectMock3 || ObjectMock3))._subclass_instanceVariableNames_package_("ObjectMock4","","Kernel-Tests");
 _st((smalltalk.ObjectMock || ObjectMock))._subclass_instanceVariableNames_package_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_("ObjectMock2"),"","Kernel-Tests");
@@ -740,7 +813,8 @@ _st(self)._assert_(_st(_st((smalltalk.ObjectMock || ObjectMock))._subclasses()).
 _st(self)._assert_(_st(_st((smalltalk.ObjectMock2 || ObjectMock2))._subclasses())._includes_((smalltalk.ObjectMock3 || ObjectMock3)));
 _st(self)._assert_(_st(_st((smalltalk.ObjectMock3 || ObjectMock3))._subclasses())._includes_((smalltalk.ObjectMock4 || ObjectMock4)));
 _st(_st((smalltalk.ObjectMock || ObjectMock))._allSubclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_(each);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{}, smalltalk.ClassBuilderTest)});},
 args: [],
@@ -757,7 +831,8 @@ selector: "testInstanceVariableNames",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@builder"])._instanceVariableNamesFor_("  hello   world   "),["hello", "world"]);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@builder"])._instanceVariableNamesFor_("  hello   world   "),["hello", "world"]);
 return self}, function($ctx1) {$ctx1.fill(self,"testInstanceVariableNames",{}, smalltalk.ClassBuilderTest)});},
 args: [],
 source: "testInstanceVariableNames\x0a\x09self assert: (builder instanceVariableNamesFor: '  hello   world   ') equals: #('hello' 'world')",
@@ -776,9 +851,11 @@ selector: "assertSameContents:as:",
 category: 'convenience',
 fn: function (aCollection,anotherCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(aCollection)._size()).__eq(_st(anotherCollection)._size()));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(aCollection)._size()).__eq(_st(anotherCollection)._size()));
 _st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(aCollection)._occurrencesOf_(each)).__eq(_st(anotherCollection)._occurrencesOf_(each)));
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._assert_(_st(_st(aCollection)._occurrencesOf_(each)).__eq(_st(anotherCollection)._occurrencesOf_(each)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection}, smalltalk.CollectionTest)})},
 args: ["aCollection", "anotherCollection"],
@@ -795,7 +872,8 @@ selector: "collection",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._collectionClass())._withAll_(_st(self)._defaultValues());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{}, smalltalk.CollectionTest)});},
@@ -813,7 +891,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._class())._collectionClass();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.CollectionTest)});},
@@ -831,7 +910,8 @@ selector: "collectionWithDuplicates",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._collectionClass())._withAll_(["a", "b", "c", (1), (2), (1), "a"]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{}, smalltalk.CollectionTest)});},
@@ -849,7 +929,8 @@ selector: "defaultValues",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return [(1), (2), (3), (-4)];
+return smalltalk.withContext(function($ctx1) { 
+return [(1), (2), (3), (-4)];
 }, function($ctx1) {$ctx1.fill(self,"defaultValues",{}, smalltalk.CollectionTest)});},
 args: [],
 source: "defaultValues\x0a\x09^ #(1 2 3 -4)",
@@ -865,7 +946,8 @@ selector: "isCollectionReadOnly",
 category: 'testing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return false;
+return smalltalk.withContext(function($ctx1) { 
+return false;
 }, function($ctx1) {$ctx1.fill(self,"isCollectionReadOnly",{}, smalltalk.CollectionTest)});},
 args: [],
 source: "isCollectionReadOnly\x0a\x09^ false",
@@ -881,7 +963,8 @@ selector: "testAsArray",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assertSameContents_as_(_st(self)._collection(),_st(_st(self)._collection())._asArray());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assertSameContents_as_(_st(self)._collection(),_st(_st(self)._collection())._asArray());
 return self}, function($ctx1) {$ctx1.fill(self,"testAsArray",{}, smalltalk.CollectionTest)});},
 args: [],
 source: "testAsArray\x0a\x09self \x0a\x09\x09assertSameContents: self collection \x0a\x09\x09as: self collection asArray",
@@ -897,7 +980,8 @@ selector: "testAsOrderedCollection",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assertSameContents_as_(_st(self)._collection(),_st(_st(self)._collection())._asOrderedCollection());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assertSameContents_as_(_st(self)._collection(),_st(_st(self)._collection())._asOrderedCollection());
 return self}, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{}, smalltalk.CollectionTest)});},
 args: [],
 source: "testAsOrderedCollection\x0a\x09self \x0a\x09\x09assertSameContents: self collection \x0a\x09\x09as: self collection asOrderedCollection",
@@ -914,11 +998,13 @@ category: 'tests',
 fn: function (){
 var self=this;
 var c,set;
-return smalltalk.withContext(function($ctx1) { c=_st(self)._collectionWithDuplicates();
+return smalltalk.withContext(function($ctx1) { 
+c=_st(self)._collectionWithDuplicates();
 set=_st(c)._asSet();
 _st(self)._assert_equals_(_st(set)._size(),(5));
 _st(c)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(set)._includes_(each));
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._assert_(_st(set)._includes_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testAsSet",{c:c,set:set}, smalltalk.CollectionTest)})},
 args: [],
@@ -936,9 +1022,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection=[(1), (2), (3), (4)];
+return smalltalk.withContext(function($ctx1) { 
+newCollection=[(1), (2), (3), (4)];
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._abs();
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._abs();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{newCollection:newCollection}, smalltalk.CollectionTest)});},
 args: [],
@@ -955,12 +1043,16 @@ selector: "testDetect",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__lt((0));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__lt((0));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),(-4));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(each).__eq((6));
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._collection())._detect_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(each).__eq((6));
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect",{}, smalltalk.CollectionTest)})},
@@ -979,9 +1071,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+return smalltalk.withContext(function($ctx1) { 
+newCollection=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
 _st(_st(self)._collection())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(newCollection)._add_(each);
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(self)._assertSameContents_as_(_st(self)._collection(),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection}, smalltalk.CollectionTest)});},
@@ -999,7 +1093,8 @@ selector: "testIsEmpty",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(_st(self)._collectionClass())._new())._isEmpty());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(_st(self)._collectionClass())._new())._isEmpty());
 _st(self)._deny_(_st(_st(self)._collection())._isEmpty());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{}, smalltalk.CollectionTest)});},
 args: [],
@@ -1017,9 +1112,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection=[(2), (-4)];
+return smalltalk.withContext(function($ctx1) { 
+newCollection=[(2), (-4)];
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._even();
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._even();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testSelect",{newCollection:newCollection}, smalltalk.CollectionTest)});},
 args: [],
@@ -1036,7 +1133,8 @@ selector: "testSize",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(_st(self)._collectionClass())._new())._size(),(0));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(_st(self)._collectionClass())._new())._size(),(0));
 _st(self)._assert_equals_(_st(_st(self)._collection())._size(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{}, smalltalk.CollectionTest)})},
 args: [],
@@ -1054,7 +1152,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return nil;
+return smalltalk.withContext(function($ctx1) { 
+return nil;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.CollectionTest.klass)});},
 args: [],
 source: "collectionClass\x0a\x09^ nil",
@@ -1070,7 +1169,8 @@ selector: "isAbstract",
 category: 'testing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._collectionClass())._isNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAbstract",{}, smalltalk.CollectionTest.klass)});},
@@ -1090,7 +1190,8 @@ selector: "collection",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2)),_st("c").__minus_gt((3)),_st("d").__minus_gt((-4))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{}, smalltalk.HashedCollectionTest)});},
@@ -1108,7 +1209,8 @@ selector: "collectionWithDuplicates",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2)),_st("c").__minus_gt((3)),_st("d").__minus_gt((-4)),_st("e").__minus_gt((1)),_st("f").__minus_gt((2)),_st("g").__minus_gt((10))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{}, smalltalk.HashedCollectionTest)});},
@@ -1127,7 +1229,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=(smalltalk.HashedCollection || HashedCollection);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.HashedCollectionTest.klass)});},
@@ -1147,7 +1250,8 @@ selector: "collection",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($2)._at_put_((1),(1));
 _st($2)._at_put_("a",(2));
@@ -1171,7 +1275,8 @@ selector: "collectionWithDuplicates",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($2)._at_put_((1),(1));
 _st($2)._at_put_("a",(2));
@@ -1199,14 +1304,17 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_("hello","world");
 _st(self)._assert_equals_(_st(d)._at_("hello"),"world");
 _st(self)._assert_equals_(_st(d)._at_ifAbsent_("hello",(function(){
-return smalltalk.withContext(function($ctx2) {return nil;
+return smalltalk.withContext(function($ctx2) {
+return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"world");
 _st(self)._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
-return smalltalk.withContext(function($ctx2) {return nil;
+return smalltalk.withContext(function($ctx2) {
+return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq("world"));
 _st(self)._assert_(_st(d)._includesKey_("hello"));
 _st(self)._deny_(_st(d)._includesKey_("foo"));
@@ -1231,7 +1339,8 @@ selector: "testDynamicDictionaries",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.HashedCollection._fromPairs_([_st("hello").__minus_gt((1))]))._asDictionary(),_st((smalltalk.Dictionary || Dictionary))._with_(_st("hello").__minus_gt((1))));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(smalltalk.HashedCollection._fromPairs_([_st("hello").__minus_gt((1))]))._asDictionary(),_st((smalltalk.Dictionary || Dictionary))._with_(_st("hello").__minus_gt((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{}, smalltalk.DictionaryTest)})},
 args: [],
 source: "testDynamicDictionaries\x0a\x09self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)",
@@ -1248,7 +1357,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d1,d2;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
 _st(self)._assert_(_st(_st((smalltalk.Dictionary || Dictionary))._new()).__eq(_st((smalltalk.Dictionary || Dictionary))._new()));
 $1=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($1)._at_put_((1),(2));
@@ -1291,10 +1401,12 @@ category: 'tests',
 fn: function () {
 var self=this;
 var d,visited;
-return smalltalk.withContext(function($ctx1) { visited=false;
+return smalltalk.withContext(function($ctx1) { 
+visited=false;
 d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_ifAbsent_("hello",(function(){
-return smalltalk.withContext(function($ctx2) {visited=true;
+return smalltalk.withContext(function($ctx2) {
+visited=true;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_(visited);
@@ -1314,16 +1426,19 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d,visited,absent;
-return smalltalk.withContext(function($ctx1) { visited=false;
+return smalltalk.withContext(function($ctx1) { 
+visited=false;
 d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_("hello","world");
 _st(d)._at_ifPresent_("hello",(function(value){
-return smalltalk.withContext(function($ctx2) {visited=value;
+return smalltalk.withContext(function($ctx2) {
+visited=value;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
 _st(self)._assert_equals_(visited,"world");
 absent=_st(d)._at_ifPresent_("bye",(function(value){
-return smalltalk.withContext(function($ctx2) {visited=value;
+return smalltalk.withContext(function($ctx2) {
+visited=value;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
 _st(self)._assert_(_st(absent)._isNil());
@@ -1343,22 +1458,27 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d,visited;
-return smalltalk.withContext(function($ctx1) { visited=false;
+return smalltalk.withContext(function($ctx1) { 
+visited=false;
 d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_("hello","world");
 _st(d)._at_ifPresent_ifAbsent_("hello",(function(value){
-return smalltalk.withContext(function($ctx2) {visited=value;
+return smalltalk.withContext(function($ctx2) {
+visited=value;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {visited=true;
+return smalltalk.withContext(function($ctx2) {
+visited=true;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_equals_(visited,"world");
 _st(d)._at_ifPresent_ifAbsent_("buy",(function(value){
-return smalltalk.withContext(function($ctx2) {visited=value;
+return smalltalk.withContext(function($ctx2) {
+visited=value;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {visited=true;
+return smalltalk.withContext(function($ctx2) {
+visited=true;
 return visited;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_(visited);
@@ -1378,7 +1498,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_((1),(2));
 _st(d)._at_put_((2),(3));
 _st(d)._at_put_((3),(4));
@@ -1399,14 +1520,16 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_(_st((1)).__at((1)),"foo");
 _st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((1))),"foo");
 _st(d)._at_put_(_st((1)).__at((1)),"bar");
 _st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((1))),"bar");
 _st(d)._removeKey_(_st((1)).__at((1)));
 _st(self)._assert_equals_(_st(d)._at_ifAbsent_(_st((1)).__at((1)),(function(){
-return smalltalk.withContext(function($ctx2) {return "baz";
+return smalltalk.withContext(function($ctx2) {
+return "baz";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"baz");
 _st(self)._deny_(_st(d)._includesKey_(_st((1)).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testPointKey",{d:d}, smalltalk.DictionaryTest)})},
@@ -1424,7 +1547,8 @@ selector: "testPrintString",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($1)._at_put_("firstname","James");
 _st($1)._at_put_("lastname","Bond");
@@ -1446,7 +1570,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d,key;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_((1),(2));
 _st(d)._at_put_((2),(3));
 _st(d)._at_put_((3),(4));
@@ -1472,7 +1597,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d,key;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_((1),(2));
 _st(d)._at_put_((2),(3));
 _st(d)._at_put_((3),(4));
@@ -1480,11 +1606,13 @@ key=(2);
 _st(self)._assert_equals_(_st(d)._removeKey_(key),(3));
 key=(3);
 _st(self)._assert_equals_(_st(d)._removeKey_ifAbsent_(key,(function(){
-return smalltalk.withContext(function($ctx2) {return (42);
+return smalltalk.withContext(function($ctx2) {
+return (42);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),(4));
 key="why";
 _st(self)._assert_equals_(_st(d)._removeKey_ifAbsent_(key,(function(){
-return smalltalk.withContext(function($ctx2) {return (42);
+return smalltalk.withContext(function($ctx2) {
+return (42);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),(42));
 return self}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{d:d,key:key}, smalltalk.DictionaryTest)})},
 args: [],
@@ -1502,7 +1630,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(self)._assert_equals_(_st(d)._size(),(0));
 _st(d)._at_put_((1),(2));
 _st(self)._assert_equals_(_st(d)._size(),(1));
@@ -1524,7 +1653,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var d;
-return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx1) { 
+d=_st((smalltalk.Dictionary || Dictionary))._new();
 _st(d)._at_put_((1),(2));
 _st(d)._at_put_((2),(3));
 _st(d)._at_put_((3),(4));
@@ -1545,7 +1675,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=(smalltalk.Dictionary || Dictionary);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.DictionaryTest.klass)});},
@@ -1565,9 +1696,11 @@ selector: "testAt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_((4)),(-4));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._collection())._at_((4)),(-4));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._at_((5));
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._collection())._at_((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{}, smalltalk.SequenceableCollectionTest)})},
 args: [],
@@ -1584,8 +1717,10 @@ selector: "testAtIfAbsent",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_ifAbsent_(_st(_st(_st(self)._collection())._size()).__plus((1)),(function(){
-return smalltalk.withContext(function($ctx2) {return "none";
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._collection())._at_ifAbsent_(_st(_st(_st(self)._collection())._size()).__plus((1)),(function(){
+return smalltalk.withContext(function($ctx2) {
+return "none";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"none");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{}, smalltalk.SequenceableCollectionTest)})},
 args: [],
@@ -1606,20 +1741,25 @@ category: 'tests',
 fn: function () {
 var self=this;
 var array;
-return smalltalk.withContext(function($ctx1) { array=["hello", "world"];
+return smalltalk.withContext(function($ctx1) { 
+array=["hello", "world"];
 _st(self)._assert_equals_(_st(array)._at_((1)),"hello");
 _st(self)._assert_equals_(_st(array)._at_((2)),"world");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((2),(function(){
-return smalltalk.withContext(function($ctx2) {return "not found";
+return smalltalk.withContext(function($ctx2) {
+return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"world");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((0),(function(){
-return smalltalk.withContext(function($ctx2) {return "not found";
+return smalltalk.withContext(function($ctx2) {
+return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"not found");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((-10),(function(){
-return smalltalk.withContext(function($ctx2) {return "not found";
+return smalltalk.withContext(function($ctx2) {
+return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"not found");
 _st(self)._assert_equals_(_st(array)._at_ifAbsent_((3),(function(){
-return smalltalk.withContext(function($ctx2) {return "not found";
+return smalltalk.withContext(function($ctx2) {
+return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"not found");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{array:array}, smalltalk.ArrayTest)});},
 args: [],
@@ -1636,7 +1776,8 @@ selector: "testFirstN",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st([(1),(2),(3),(4),(5)])._first_((3)),[(1),(2),(3)]);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st([(1),(2),(3),(4),(5)])._first_((3)),[(1),(2),(3)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testFirstN",{}, smalltalk.ArrayTest)})},
 args: [],
 source: "testFirstN\x0a\x09self assert: ({1. 2. 3. 4. 5} first: 3) equals: {1. 2. 3}",
@@ -1652,8 +1793,10 @@ selector: "testIfEmpty",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st("")._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {return "zork";
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st("")._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return "zork";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"zork");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmpty",{}, smalltalk.ArrayTest)})},
 args: [],
@@ -1671,7 +1814,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var array;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 array=_st((smalltalk.Array || Array))._new();
 _st(self)._assert_equals_(_st(array)._printString(),"a Array ()");
 $1=array;
@@ -1704,7 +1848,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=(smalltalk.Array || Array);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.ArrayTest.klass)});},
@@ -1724,7 +1869,8 @@ selector: "collection",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "hello";
+return smalltalk.withContext(function($ctx1) { 
+return "hello";
 }, function($ctx1) {$ctx1.fill(self,"collection",{}, smalltalk.StringTest)});},
 args: [],
 source: "collection\x0a\x09^'hello'",
@@ -1740,7 +1886,8 @@ selector: "collectionWithDuplicates",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "abbaerte";
+return smalltalk.withContext(function($ctx1) { 
+return "abbaerte";
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{}, smalltalk.StringTest)});},
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ 'abbaerte'",
@@ -1756,11 +1903,14 @@ selector: "testAddRemove",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st("hello")._add_("a");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st("hello")._add_("a");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st("hello")._remove_("h");
+return smalltalk.withContext(function($ctx2) {
+return _st("hello")._remove_("h");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{}, smalltalk.StringTest)});},
 args: [],
@@ -1777,7 +1927,8 @@ selector: "testAsArray",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st("hello")._asArray(),["h", "e", "l", "l", "o"]);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st("hello")._asArray(),["h", "e", "l", "l", "o"]);
 return self}, function($ctx1) {$ctx1.fill(self,"testAsArray",{}, smalltalk.StringTest)})},
 args: [],
 source: "testAsArray\x0a\x09self assert: 'hello' asArray equals: #('h' 'e' 'l' 'l' 'o').",
@@ -1793,10 +1944,12 @@ selector: "testAt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st("hello")._at_((1)),"h");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st("hello")._at_((1)),"h");
 _st(self)._assert_equals_(_st("hello")._at_((5)),"o");
 _st(self)._assert_equals_(_st("hello")._at_ifAbsent_((6),(function(){
-return smalltalk.withContext(function($ctx2) {return nil;
+return smalltalk.withContext(function($ctx2) {
+return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{}, smalltalk.StringTest)})},
 args: [],
@@ -1813,8 +1966,10 @@ selector: "testAtPut",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st("hello")._at_put_((1),"a");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st("hello")._at_put_((1),"a");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAtPut",{}, smalltalk.StringTest)});},
 args: [],
@@ -1832,9 +1987,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection="hheelllloo";
+return smalltalk.withContext(function($ctx1) { 
+newCollection="hheelllloo";
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__comma(each);
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__comma(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{newCollection:newCollection}, smalltalk.StringTest)});},
 args: [],
@@ -1851,7 +2008,8 @@ selector: "testCopyWithoutAll",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st("*hello* *world*")._copyWithoutAll_("*"),"hello world");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st("*hello* *world*")._copyWithoutAll_("*"),"hello world");
 return self}, function($ctx1) {$ctx1.fill(self,"testCopyWithoutAll",{}, smalltalk.StringTest)})},
 args: [],
 source: "testCopyWithoutAll\x0a\x09self \x0a\x09\x09assert: ('*hello* *world*' copyWithoutAll: '*')\x0a        equals: 'hello world'",
@@ -1867,12 +2025,16 @@ selector: "testDetect",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq("h");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq("h");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),"h");
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(each).__eq((6));
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._collection())._detect_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(each).__eq((6));
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect",{}, smalltalk.StringTest)})},
@@ -1890,7 +2052,8 @@ selector: "testEquality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("hello","hello");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_("hello","hello");
 _st(self)._deny_(_st("hello").__eq("world"));
 _st(self)._assert_equals_("hello",_st("hello")._yourself());
 _st(self)._assert_equals_(_st("hello")._yourself(),"hello");
@@ -1910,7 +2073,8 @@ selector: "testIdentity",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st("hello").__eq_eq("hello"));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st("hello").__eq_eq("hello"));
 _st(self)._deny_(_st("hello").__eq_eq("world"));
 _st(self)._assert_(_st("hello").__eq_eq(_st("hello")._yourself()));
 _st(self)._assert_(_st(_st("hello")._yourself()).__eq_eq("hello"));
@@ -1930,7 +2094,8 @@ selector: "testIncludesSubString",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st("amber")._includesSubString_("ber"));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st("amber")._includesSubString_("ber"));
 _st(self)._deny_(_st("amber")._includesSubString_("zork"));
 return self}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{}, smalltalk.StringTest)});},
 args: [],
@@ -1947,7 +2112,8 @@ selector: "testJoin",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(",")._join_(["hello", "world"]),"hello,world");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(",")._join_(["hello", "world"]),"hello,world");
 return self}, function($ctx1) {$ctx1.fill(self,"testJoin",{}, smalltalk.StringTest)})},
 args: [],
 source: "testJoin\x0a\x09self assert: (',' join: #('hello' 'world')) equals: 'hello,world'",
@@ -1964,9 +2130,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection="o";
+return smalltalk.withContext(function($ctx1) { 
+newCollection="o";
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq("o");
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq("o");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testSelect",{newCollection:newCollection}, smalltalk.StringTest)});},
 args: [],
@@ -1983,7 +2151,8 @@ selector: "testSize",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st("smalltalk")._size(),(9));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st("smalltalk")._size(),(9));
 _st(self)._assert_equals_(_st("")._size(),(0));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{}, smalltalk.StringTest)});},
 args: [],
@@ -2000,9 +2169,11 @@ selector: "testStreamContents",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(self)._assert_equals_(_st((smalltalk.String || String))._streamContents_((function(aStream){
-return smalltalk.withContext(function($ctx2) {$1=aStream;
+return smalltalk.withContext(function($ctx2) {
+$1=aStream;
 _st($1)._nextPutAll_("hello");
 _st($1)._space();
 $2=_st($1)._nextPutAll_("world");
@@ -2024,7 +2195,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=(smalltalk.String || String);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.StringTest.klass)});},
@@ -2044,7 +2216,8 @@ selector: "collection",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.symbolFor("hello");
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.symbolFor("hello");
 }, function($ctx1) {$ctx1.fill(self,"collection",{}, smalltalk.SymbolTest)});},
 args: [],
 source: "collection\x0a\x09^ #hello",
@@ -2060,7 +2233,8 @@ selector: "collectionWithDuplicates",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.symbolFor("phhaaarorra");
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.symbolFor("phhaaarorra");
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{}, smalltalk.SymbolTest)});},
 args: [],
 source: "collectionWithDuplicates\x0a\x09^ #phhaaarorra",
@@ -2076,7 +2250,8 @@ selector: "testAsString",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._asString(),"hello");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._asString(),"hello");
 return self}, function($ctx1) {$ctx1.fill(self,"testAsString",{}, smalltalk.SymbolTest)});},
 args: [],
 source: "testAsString\x0a\x09self assert: #hello asString equals: 'hello'",
@@ -2092,7 +2267,8 @@ selector: "testAsSymbol",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq_eq(_st(smalltalk.symbolFor("hello"))._asSymbol()));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq_eq(_st(smalltalk.symbolFor("hello"))._asSymbol()));
 return self}, function($ctx1) {$ctx1.fill(self,"testAsSymbol",{}, smalltalk.SymbolTest)});},
 args: [],
 source: "testAsSymbol\x0a\x09self assert: #hello == #hello asSymbol",
@@ -2108,10 +2284,12 @@ selector: "testAt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_((1)),"h");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_((1)),"h");
 _st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_((5)),"o");
 _st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_ifAbsent_((6),(function(){
-return smalltalk.withContext(function($ctx2) {return nil;
+return smalltalk.withContext(function($ctx2) {
+return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{}, smalltalk.SymbolTest)})},
 args: [],
@@ -2128,8 +2306,10 @@ selector: "testAtPut",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st("hello")._at_put_((1),"a");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st("hello")._at_put_((1),"a");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAtPut",{}, smalltalk.SymbolTest)});},
 args: [],
@@ -2147,9 +2327,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection=smalltalk.symbolFor("hheelllloo");
+return smalltalk.withContext(function($ctx1) { 
+newCollection=smalltalk.symbolFor("hheelllloo");
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__comma(each);
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__comma(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{newCollection:newCollection}, smalltalk.SymbolTest)});},
 args: [],
@@ -2166,7 +2348,8 @@ selector: "testComparing",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("ab")).__gt(smalltalk.symbolFor("aa")));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(smalltalk.symbolFor("ab")).__gt(smalltalk.symbolFor("aa")));
 _st(self)._deny_(_st(smalltalk.symbolFor("ab")).__gt(smalltalk.symbolFor("ba")));
 _st(self)._assert_(_st(smalltalk.symbolFor("ab")).__lt(smalltalk.symbolFor("ba")));
 _st(self)._deny_(_st(smalltalk.symbolFor("bb")).__lt(smalltalk.symbolFor("ba")));
@@ -2189,7 +2372,8 @@ selector: "testCopying",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._copy()).__eq_eq(smalltalk.symbolFor("hello")));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._copy()).__eq_eq(smalltalk.symbolFor("hello")));
 _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._deepCopy()).__eq_eq(smalltalk.symbolFor("hello")));
 return self}, function($ctx1) {$ctx1.fill(self,"testCopying",{}, smalltalk.SymbolTest)});},
 args: [],
@@ -2206,12 +2390,16 @@ selector: "testDetect",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq("h");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq("h");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),"h");
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(each).__eq("z");
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._collection())._detect_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(each).__eq("z");
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testDetect",{}, smalltalk.SymbolTest)})},
@@ -2229,7 +2417,8 @@ selector: "testEquality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("hello")));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("hello")));
 _st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("world")));
 _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFor("hello"))._yourself()));
 _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(smalltalk.symbolFor("hello")));
@@ -2250,7 +2439,8 @@ selector: "testIdentity",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq_eq(smalltalk.symbolFor("hello")));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq_eq(smalltalk.symbolFor("hello")));
 _st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq_eq(smalltalk.symbolFor("world")));
 _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFor("hello"))._yourself()));
 _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(_st(_st(smalltalk.symbolFor("hello"))._asString())._asSymbol()));
@@ -2269,7 +2459,8 @@ selector: "testIsEmpty",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._deny_(_st(_st(self)._collection())._isEmpty());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._deny_(_st(_st(self)._collection())._isEmpty());
 _st(self)._assert_(_st(_st("")._asSymbol())._isEmpty());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{}, smalltalk.SymbolTest)});},
 args: [],
@@ -2286,7 +2477,8 @@ selector: "testIsSymbolIsString",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello"))._isSymbol());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(smalltalk.symbolFor("hello"))._isSymbol());
 _st(self)._deny_(_st("hello")._isSymbol());
 _st(self)._deny_(_st(smalltalk.symbolFor("hello"))._isString());
 _st(self)._assert_(_st("hello")._isString());
@@ -2306,9 +2498,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection="o";
+return smalltalk.withContext(function($ctx1) { 
+newCollection="o";
 _st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq("o");
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq("o");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testSelect",{newCollection:newCollection}, smalltalk.SymbolTest)});},
 args: [],
@@ -2325,7 +2519,8 @@ selector: "testSize",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.symbolFor("a"))._size(),(1));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(smalltalk.symbolFor("a"))._size(),(1));
 _st(self)._assert_equals_(_st(smalltalk.symbolFor("aaaaa"))._size(),(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{}, smalltalk.SymbolTest)});},
 args: [],
@@ -2343,7 +2538,8 @@ selector: "collectionClass",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=(smalltalk.Symbol || Symbol);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionClass",{}, smalltalk.SymbolTest.klass)});},
@@ -2363,7 +2559,8 @@ selector: "jsObject",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined};
+return smalltalk.withContext(function($ctx1) { 
+return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined};
 return self}, function($ctx1) {$ctx1.fill(self,"jsObject",{}, smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "jsObject\x0a\x09<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>",
@@ -2380,18 +2577,23 @@ category: 'tests',
 fn: function (){
 var self=this;
 var testObject;
-return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+return smalltalk.withContext(function($ctx1) { 
+testObject=_st(self)._jsObject();
 _st(self)._assert_equals_(_st(testObject)._at_ifAbsent_("abc",(function(){
-return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+return smalltalk.withContext(function($ctx2) {
+return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"Property does not exist");
 _st(self)._assert_equals_(_st(testObject)._at_ifAbsent_("e",(function(){
-return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+return smalltalk.withContext(function($ctx2) {
+return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),nil);
 _st(self)._assert_equals_(_st(testObject)._at_ifAbsent_("a",(function(){
-return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+return smalltalk.withContext(function($ctx2) {
+return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),(1));
 _st(self)._assert_equals_(_st(testObject)._at_ifAbsent_("f",(function(){
-return smalltalk.withContext(function($ctx2) {return "Property does not exist";
+return smalltalk.withContext(function($ctx2) {
+return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject}, smalltalk.JSObjectProxyTest)})},
 args: [],
@@ -2408,8 +2610,10 @@ selector: "testDNU",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._jsObject())._foo();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._jsObject())._foo();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU",{}, smalltalk.JSObjectProxyTest)});},
 args: [],
@@ -2426,7 +2630,8 @@ selector: "testMessageSend",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._jsObject())._a(),(1));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._jsObject())._a(),(1));
 _st(self)._assert_equals_(_st(_st(self)._jsObject())._b(),(2));
 _st(self)._assert_equals_(_st(_st(self)._jsObject())._c_((3)),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{}, smalltalk.JSObjectProxyTest)});},
@@ -2444,7 +2649,8 @@ selector: "testMethodWithArguments",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._jsObject())._c_((1)),(1));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._jsObject())._c_((1)),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testMethodWithArguments",{}, smalltalk.JSObjectProxyTest)});},
 args: [],
 source: "testMethodWithArguments\x0a\x09self assert: (self jsObject c: 1) equals: 1",
@@ -2460,7 +2666,8 @@ selector: "testPrinting",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._jsObject())._printString(),"[object Object]");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st(self)._jsObject())._printString(),"[object Object]");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrinting",{}, smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "testPrinting\x0a\x09self assert: self jsObject printString equals: '[object Object]'",
@@ -2477,7 +2684,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var object;
-return smalltalk.withContext(function($ctx1) { object=_st(self)._jsObject();
+return smalltalk.withContext(function($ctx1) { 
+object=_st(self)._jsObject();
 _st(self)._assert_equals_(_st(object)._d(),"");
 _st(object)._d_("hello");
 _st(self)._assert_equals_(_st(object)._d(),"hello");
@@ -2497,9 +2705,11 @@ category: 'tests',
 fn: function () {
 var self=this;
 var object;
-return smalltalk.withContext(function($ctx1) { object=_st(self)._jsObject();
+return smalltalk.withContext(function($ctx1) { 
+object=_st(self)._jsObject();
 _st(self)._shouldnt_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(object)._e();
+return smalltalk.withContext(function($ctx2) {
+return _st(object)._e();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._assert_(_st(_st(object)._e())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object}, smalltalk.JSObjectProxyTest)});},
@@ -2518,7 +2728,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var testObject;
-return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+return smalltalk.withContext(function($ctx1) { 
+testObject=_st(self)._jsObject();
 _st(self)._assert_equals_(_st(_st(testObject)._value())._printString(),"[object Object]");
 _st(testObject)._at_put_("value","aValue");
 _st(self)._assert_equals_(_st(testObject)._value(),"aValue");
@@ -2538,7 +2749,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var object;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(self)._jsObject();
 _st($1)._d_("test");
 $2=_st($1)._yourself();
@@ -2562,10 +2774,13 @@ selector: "testCatchingException",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._throwException();
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._throwException();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(error){
-return smalltalk.withContext(function($ctx2) {return _st(self)._assert_(_st(_st(error)._exception()).__eq("test"));
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._assert_(_st(_st(error)._exception()).__eq("test"));
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testCatchingException",{}, smalltalk.JavaScriptExceptionTest)});},
 args: [],
@@ -2582,8 +2797,10 @@ selector: "testRaisingException",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._throwException();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._throwException();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.JavaScriptException || JavaScriptException));
 return self}, function($ctx1) {$ctx1.fill(self,"testRaisingException",{}, smalltalk.JavaScriptExceptionTest)});},
 args: [],
@@ -2600,7 +2817,8 @@ selector: "throwException",
 category: 'helpers',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { throw 'test';
+return smalltalk.withContext(function($ctx1) { 
+throw 'test';
 return self}, function($ctx1) {$ctx1.fill(self,"throwException",{}, smalltalk.JavaScriptExceptionTest)});},
 args: [],
 source: "throwException\x0a\x09<throw 'test'>",
@@ -2619,7 +2837,8 @@ selector: "testAbs",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((4))._abs(),(4));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((4))._abs(),(4));
 _st(self)._assert_equals_(_st((-4))._abs(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testAbs",{}, smalltalk.NumberTest)})},
 args: [],
@@ -2636,7 +2855,8 @@ selector: "testArithmetic",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((1.5)).__plus((1)),(2.5));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((1.5)).__plus((1)),(2.5));
 _st(self)._assert_equals_(_st((2)).__minus((1)),(1));
 _st(self)._assert_equals_(_st((-2)).__minus((1)),(-3));
 _st(self)._assert_equals_(_st((12)).__slash((2)),(6));
@@ -2658,7 +2878,8 @@ selector: "testComparison",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((3)).__gt((2)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st((3)).__gt((2)));
 _st(self)._assert_(_st((2)).__lt((3)));
 _st(self)._deny_(_st((3)).__lt((2)));
 _st(self)._deny_(_st((2)).__gt((3)));
@@ -2681,7 +2902,8 @@ selector: "testCopying",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st((1))._copy()).__eq_eq((1)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st((1))._copy()).__eq_eq((1)));
 _st(self)._assert_(_st(_st((1))._deepCopy()).__eq_eq((1)));
 return self}, function($ctx1) {$ctx1.fill(self,"testCopying",{}, smalltalk.NumberTest)});},
 args: [],
@@ -2698,7 +2920,8 @@ selector: "testEquality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((1)).__eq((1)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st((1)).__eq((1)));
 _st(self)._assert_(_st((0)).__eq((0)));
 _st(self)._deny_(_st((1)).__eq((0)));
 _st(self)._assert_(_st(_st((1))._yourself()).__eq((1)));
@@ -2723,7 +2946,8 @@ selector: "testHexNumbers",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_((9),(9));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_((9),(9));
 _st(self)._assert_equals_(_st((10))._truncated(),(10));
 _st(self)._assert_equals_(_st((11))._truncated(),(11));
 _st(self)._assert_equals_(_st((12))._truncated(),(12));
@@ -2745,7 +2969,8 @@ selector: "testIdentity",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st((1)).__eq_eq((1)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st((1)).__eq_eq((1)));
 _st(self)._assert_(_st((0)).__eq_eq((0)));
 _st(self)._deny_(_st((1)).__eq_eq((0)));
 _st(self)._assert_(_st(_st((1))._yourself()).__eq_eq((1)));
@@ -2767,128 +2992,170 @@ selector: "testInvalidHexNumbers",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rG();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rG();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rg();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rg();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rH();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rH();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rh();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rh();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rI();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rI();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._ri();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._ri();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rJ();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rJ();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rj();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rj();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rK();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rK();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rk();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rk();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rL();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rL();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rl();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rl();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rM();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rM();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rm();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rm();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rN();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rN();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rn();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rn();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rO();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rO();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._ro();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._ro();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rP();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rP();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rp();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rp();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rQ();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rQ();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rq();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rq();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rR();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rR();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rr();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rr();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rS();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rS();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rs();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rs();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rT();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rT();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rt();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rU();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rU();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._ru();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._ru();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rV();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rV();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rv();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rv();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rW();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rW();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rw();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rw();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rX();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rX();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rx();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rx();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rY();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rY();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._ry();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._ry();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rZ();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rZ();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((16))._rz();
+return smalltalk.withContext(function($ctx2) {
+return _st((16))._rz();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((11259375))._Z();
+return smalltalk.withContext(function($ctx2) {
+return _st((11259375))._Z();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 return self}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{}, smalltalk.NumberTest)});},
 args: [],
@@ -2905,7 +3172,8 @@ selector: "testMinMax",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((2))._max_((5)),(5));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((2))._max_((5)),(5));
 _st(self)._assert_equals_(_st((2))._min_((5)),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testMinMax",{}, smalltalk.NumberTest)});},
 args: [],
@@ -2922,7 +3190,8 @@ selector: "testNegated",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((3))._negated(),(-3));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((3))._negated(),(-3));
 _st(self)._assert_equals_(_st((-3))._negated(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testNegated",{}, smalltalk.NumberTest)})},
 args: [],
@@ -2939,7 +3208,8 @@ selector: "testPrintShowingDecimalPlaces",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((23))._printShowingDecimalPlaces_((2)),"23.00");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((23))._printShowingDecimalPlaces_((2)),"23.00");
 _st(self)._assert_equals_(_st((23.5698))._printShowingDecimalPlaces_((2)),"23.57");
 _st(self)._assert_equals_(_st(_st((234.567))._negated())._printShowingDecimalPlaces_((5)),"-234.56700");
 _st(self)._assert_equals_(_st((23.4567))._printShowingDecimalPlaces_((0)),"23");
@@ -2967,7 +3237,8 @@ selector: "testRounded",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((3))._rounded(),(3));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((3))._rounded(),(3));
 _st(self)._assert_equals_(_st((3.212))._rounded(),(3));
 _st(self)._assert_equals_(_st((3.51))._rounded(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testRounded",{}, smalltalk.NumberTest)})},
@@ -2985,7 +3256,8 @@ selector: "testSqrt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((4))._sqrt(),(2));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((4))._sqrt(),(2));
 _st(self)._assert_equals_(_st((16))._sqrt(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testSqrt",{}, smalltalk.NumberTest)})},
 args: [],
@@ -3002,7 +3274,8 @@ selector: "testSquared",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((4))._squared(),(16));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((4))._squared(),(16));
 return self}, function($ctx1) {$ctx1.fill(self,"testSquared",{}, smalltalk.NumberTest)})},
 args: [],
 source: "testSquared\x0a\x09\x0a\x09self assert: 4 squared equals: 16",
@@ -3019,14 +3292,17 @@ category: 'tests',
 fn: function () {
 var self=this;
 var i;
-return smalltalk.withContext(function($ctx1) { i=(0);
+return smalltalk.withContext(function($ctx1) { 
+i=(0);
 _st((0))._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+i=_st(i).__plus((1));
 return i;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_equals_(i,(0));
 _st((5))._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx2) {i=_st(i).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+i=_st(i).__plus((1));
 return i;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._assert_equals_(i,(5));
@@ -3045,7 +3321,8 @@ selector: "testTo",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((1))._to_((5)),[(1), (2), (3), (4), (5)]);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((1))._to_((5)),[(1), (2), (3), (4), (5)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testTo",{}, smalltalk.NumberTest)});},
 args: [],
 source: "testTo\x0a\x09self assert: (1 to: 5) equals: #(1 2 3 4 5)",
@@ -3061,9 +3338,11 @@ selector: "testToBy",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((0))._to_by_((6),(2)),[(0), (2), (4), (6)]);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((0))._to_by_((6),(2)),[(0), (2), (4), (6)]);
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st((1))._to_by_((4),(0));
+return smalltalk.withContext(function($ctx2) {
+return _st((1))._to_by_((4),(0));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testToBy",{}, smalltalk.NumberTest)});},
 args: [],
@@ -3080,7 +3359,8 @@ selector: "testTruncated",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((3))._truncated(),(3));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((3))._truncated(),(3));
 _st(self)._assert_equals_(_st((3.212))._truncated(),(3));
 _st(self)._assert_equals_(_st((3.51))._truncated(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testTruncated",{}, smalltalk.NumberTest)})},
@@ -3102,7 +3382,8 @@ selector: "foo",
 category: 'not yet classified',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@foo"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"foo",{}, smalltalk.ObjectMock)});},
@@ -3120,7 +3401,8 @@ selector: "foo:",
 category: 'not yet classified',
 fn: function (anObject) {
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@foo"]=anObject;
+return smalltalk.withContext(function($ctx1) { 
+self["@foo"]=anObject;
 return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject}, smalltalk.ObjectMock)});},
 args: ["anObject"],
 source: "foo: anObject\x0a\x09foo := anObject",
@@ -3139,7 +3421,8 @@ selector: "notDefined",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return undefined;;
+return smalltalk.withContext(function($ctx1) { 
+return undefined;;
 return self}, function($ctx1) {$ctx1.fill(self,"notDefined",{}, smalltalk.ObjectTest)});},
 args: [],
 source: "notDefined\x0a\x09<return undefined;>",
@@ -3156,7 +3439,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var o;
-return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
+return smalltalk.withContext(function($ctx1) { 
+o=_st((smalltalk.Object || Object))._new();
 _st(o)._basicAt_put_("a",(1));
 _st(self)._assert_equals_(_st(o)._basicAt_("a"),(1));
 _st(self)._assert_equals_(_st(o)._basicAt_("b"),nil);
@@ -3176,12 +3460,15 @@ category: 'tests',
 fn: function (){
 var self=this;
 var o;
-return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
+return smalltalk.withContext(function($ctx1) { 
+o=_st((smalltalk.Object || Object))._new();
 _st(o)._basicAt_put_("func",(function(){
-return smalltalk.withContext(function($ctx2) {return "hello";
+return smalltalk.withContext(function($ctx2) {
+return "hello";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(o)._basicAt_put_("func2",(function(a){
-return smalltalk.withContext(function($ctx2) {return _st(a).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+return _st(a).__plus((1));
 }, function($ctx2) {$ctx2.fillBlock({a:a},$ctx1)})}));
 _st(self)._assert_equals_(_st(o)._basicPerform_("func"),"hello");
 _st(self)._assert_equals_(_st(o)._basicPerform_withArguments_("func2",[(3)]),(4));
@@ -3200,8 +3487,10 @@ selector: "testDNU",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Object || Object))._new())._foo();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((smalltalk.Object || Object))._new())._foo();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.MessageNotUnderstood || MessageNotUnderstood));
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU",{}, smalltalk.ObjectTest)});},
 args: [],
@@ -3219,7 +3508,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var o;
-return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
+return smalltalk.withContext(function($ctx1) { 
+o=_st((smalltalk.Object || Object))._new();
 _st(self)._deny_(_st(o).__eq(_st((smalltalk.Object || Object))._new()));
 _st(self)._assert_(_st(o).__eq(o));
 _st(self)._assert_(_st(_st(o)._yourself()).__eq(o));
@@ -3239,8 +3529,10 @@ selector: "testHalt",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Object || Object))._new())._halt();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((smalltalk.Object || Object))._new())._halt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testHalt",{}, smalltalk.ObjectTest)});},
 args: [],
@@ -3258,7 +3550,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var o;
-return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.Object || Object))._new();
+return smalltalk.withContext(function($ctx1) { 
+o=_st((smalltalk.Object || Object))._new();
 _st(self)._deny_(_st(o).__eq_eq(_st((smalltalk.Object || Object))._new()));
 _st(self)._assert_(_st(o).__eq_eq(o));
 _st(self)._assert_(_st(_st(o)._yourself()).__eq_eq(o));
@@ -3278,7 +3571,8 @@ selector: "testIfNil",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9;
 _st(self)._deny_(_st(_st((smalltalk.Object || Object))._new())._isNil());
 $1=self;
 $4=_st((smalltalk.Object || Object))._new();
@@ -3306,9 +3600,11 @@ $9=true;
 };
 _st($8)._assert_equals_($9,true);
 _st(self)._assert_equals_(_st(_st((smalltalk.Object || Object))._new())._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),true);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{}, smalltalk.ObjectTest)})},
 args: [],
@@ -3326,7 +3622,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var o;
-return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.ObjectMock || ObjectMock))._new();
+return smalltalk.withContext(function($ctx1) { 
+o=_st((smalltalk.ObjectMock || ObjectMock))._new();
 _st(self)._assert_equals_(_st(o)._instVarAt_(smalltalk.symbolFor("foo")),nil);
 _st(o)._instVarAt_put_(smalltalk.symbolFor("foo"),(1));
 _st(self)._assert_equals_(_st(o)._instVarAt_(smalltalk.symbolFor("foo")),(1));
@@ -3346,7 +3643,8 @@ selector: "testNilUndefined",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._notDefined(),nil);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self)._notDefined(),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testNilUndefined",{}, smalltalk.ObjectTest)})},
 args: [],
 source: "testNilUndefined\x0a\x09\x22nil in Smalltalk is the undefined object in JS\x22\x0a\x0a\x09self assert: self notDefined equals: nil",
@@ -3363,7 +3661,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var o;
-return smalltalk.withContext(function($ctx1) { o=_st((smalltalk.ObjectMock || ObjectMock))._new();
+return smalltalk.withContext(function($ctx1) { 
+o=_st((smalltalk.ObjectMock || ObjectMock))._new();
 _st(self)._assert_(_st(_st(o)._yourself()).__eq_eq(o));
 return self}, function($ctx1) {$ctx1.fill(self,"testYourself",{o:o}, smalltalk.ObjectTest)});},
 args: [],
@@ -3381,7 +3680,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var o1,o2;
-return smalltalk.withContext(function($ctx1) { o1=_st((smalltalk.Object || Object))._new();
+return smalltalk.withContext(function($ctx1) { 
+o1=_st((smalltalk.Object || Object))._new();
 o2=_st((smalltalk.Object || Object))._new();
 _st(self)._assert_(_st(_st(o1)._identityHash()).__eq_eq(_st(o1)._identityHash()));
 _st(self)._deny_(_st(_st(o1)._identityHash()).__eq_eq(_st(o2)._identityHash()));
@@ -3403,7 +3703,8 @@ selector: "setUp",
 category: 'running',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 self["@backUpCommitPathJs"]=_st((smalltalk.Package || Package))._defaultCommitPathJs();
 self["@backUpCommitPathSt"]=_st((smalltalk.Package || Package))._defaultCommitPathSt();
 _st((smalltalk.Package || Package))._resetCommitPaths();
@@ -3429,7 +3730,8 @@ selector: "tearDown",
 category: 'running',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=(smalltalk.Package || Package);
 _st($1)._defaultCommitPathJs_(self["@backUpCommitPathJs"]);
 $2=_st($1)._defaultCommitPathSt_(self["@backUpCommitPathSt"]);
@@ -3448,7 +3750,8 @@ selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
 return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathJsShouldBeServerGrulJs",{}, smalltalk.PackageTest)})},
 args: [],
 source: "testGrulCommitPathJsShouldBeServerGrulJs\x0a\x09self assert: grulPackage commitPathJs equals: 'server/grul/js'",
@@ -3464,7 +3767,8 @@ selector: "testGrulCommitPathStShouldBeGrulSt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
 return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathStShouldBeGrulSt",{}, smalltalk.PackageTest)})},
 args: [],
 source: "testGrulCommitPathStShouldBeGrulSt\x0a\x09self assert: grulPackage commitPathSt equals: 'grul/st'",
@@ -3480,7 +3784,8 @@ selector: "testZorkCommitPathJsShouldBeJs",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"js");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"js");
 return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathJsShouldBeJs",{}, smalltalk.PackageTest)})},
 args: [],
 source: "testZorkCommitPathJsShouldBeJs\x0a\x09self assert: zorkPackage commitPathJs equals: 'js'",
@@ -3496,7 +3801,8 @@ selector: "testZorkCommitPathStShouldBeSt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"st");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"st");
 return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathStShouldBeSt",{}, smalltalk.PackageTest)})},
 args: [],
 source: "testZorkCommitPathStShouldBeSt\x0a\x09self assert: zorkPackage commitPathSt equals: 'st'",
@@ -3515,7 +3821,8 @@ selector: "setUp",
 category: 'running',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 smalltalk.PackageTest.fn.prototype._setUp.apply(_st(self), []);
 $1=(smalltalk.Package || Package);
 _st($1)._defaultCommitPathJs_("javascripts/");
@@ -3535,7 +3842,8 @@ selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
 return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathJsShouldBeServerGrulJs",{}, smalltalk.PackageWithDefaultCommitPathChangedTest)})},
 args: [],
 source: "testGrulCommitPathJsShouldBeServerGrulJs\x0a\x09self assert: grulPackage commitPathJs equals: 'server/grul/js'",
@@ -3551,7 +3859,8 @@ selector: "testGrulCommitPathStShouldBeGrulSt",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
 return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathStShouldBeGrulSt",{}, smalltalk.PackageWithDefaultCommitPathChangedTest)})},
 args: [],
 source: "testGrulCommitPathStShouldBeGrulSt\x0a\x09self assert: grulPackage commitPathSt equals: 'grul/st'",
@@ -3567,7 +3876,8 @@ selector: "testZorkCommitPathJsShouldBeJavascript",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"javascripts/");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"javascripts/");
 return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathJsShouldBeJavascript",{}, smalltalk.PackageWithDefaultCommitPathChangedTest)})},
 args: [],
 source: "testZorkCommitPathJsShouldBeJavascript\x0a\x09self assert: zorkPackage commitPathJs equals: 'javascripts/'",
@@ -3583,7 +3893,8 @@ selector: "testZorkCommitPathStShouldBeSmalltalk",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"smalltalk/");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"smalltalk/");
 return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathStShouldBeSmalltalk",{}, smalltalk.PackageWithDefaultCommitPathChangedTest)})},
 args: [],
 source: "testZorkCommitPathStShouldBeSmalltalk\x0a\x09self assert: zorkPackage commitPathSt equals: 'smalltalk/'",
@@ -3600,7 +3911,8 @@ selector: "shouldInheritSelectors",
 category: 'accessing',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { return false;
+return smalltalk.withContext(function($ctx1) { 
+return false;
 }, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{}, smalltalk.PackageWithDefaultCommitPathChangedTest.klass)});},
 args: [],
 source: "shouldInheritSelectors\x0a\x09^ false",
@@ -3618,7 +3930,8 @@ selector: "testAccessing",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st((smalltalk.Point || Point))._x_y_((3),(4)))._x(),(3));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st((smalltalk.Point || Point))._x_y_((3),(4)))._x(),(3));
 _st(self)._assert_equals_(_st(_st((smalltalk.Point || Point))._x_y_((3),(4)))._y(),(4));
 _st(self)._assert_equals_(_st(_st(_st((smalltalk.Point || Point))._new())._x_((3)))._x(),(3));
 _st(self)._assert_equals_(_st(_st(_st((smalltalk.Point || Point))._new())._y_((4)))._y(),(4));
@@ -3637,7 +3950,8 @@ selector: "testArithmetic",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st((3)).__at((4))).__star(_st((3)).__at((4))),_st((smalltalk.Point || Point))._x_y_((9),(16)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st((3)).__at((4))).__star(_st((3)).__at((4))),_st((smalltalk.Point || Point))._x_y_((9),(16)));
 _st(self)._assert_equals_(_st(_st((3)).__at((4))).__plus(_st((3)).__at((4))),_st((smalltalk.Point || Point))._x_y_((6),(8)));
 _st(self)._assert_equals_(_st(_st((3)).__at((4))).__minus(_st((3)).__at((4))),_st((smalltalk.Point || Point))._x_y_((0),(0)));
 _st(self)._assert_equals_(_st(_st((6)).__at((8))).__slash(_st((3)).__at((4))),_st((smalltalk.Point || Point))._x_y_((2),(2)));
@@ -3656,7 +3970,8 @@ selector: "testAt",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st((3)).__at((4)),_st((smalltalk.Point || Point))._x_y_((3),(4)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st((3)).__at((4)),_st((smalltalk.Point || Point))._x_y_((3),(4)));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{}, smalltalk.PointTest)});},
 args: [],
 source: "testAt\x0a\x09self assert: 3@4 equals: (Point x: 3 y: 4)",
@@ -3672,7 +3987,8 @@ selector: "testEgality",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st((3)).__at((4))).__eq(_st((3)).__at((4))));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st((3)).__at((4))).__eq(_st((3)).__at((4))));
 _st(self)._deny_(_st(_st((3)).__at((5))).__eq(_st((3)).__at((6))));
 return self}, function($ctx1) {$ctx1.fill(self,"testEgality",{}, smalltalk.PointTest)})},
 args: [],
@@ -3689,7 +4005,8 @@ selector: "testTranslateBy",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st((3)).__at((3)))._translateBy_(_st((0)).__at((1))),_st((3)).__at((4)));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st((3)).__at((3)))._translateBy_(_st((0)).__at((1))),_st((3)).__at((4)));
 _st(self)._assert_equals_(_st(_st((3)).__at((3)))._translateBy_(_st((0)).__at(_st((1))._negated())),_st((3)).__at((2)));
 _st(self)._assert_equals_(_st(_st((3)).__at((3)))._translateBy_(_st((2)).__at((3))),_st((5)).__at((6)));
 _st(self)._assert_equals_(_st(_st((3)).__at((3)))._translateBy_(_st(_st((3))._negated()).__at((0))),_st((0)).__at((3)));
@@ -3711,9 +4028,11 @@ selector: "textNext",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((10000))._timesRepeat_((function(){
+return smalltalk.withContext(function($ctx1) { 
+_st((10000))._timesRepeat_((function(){
 var current,next;
-return smalltalk.withContext(function($ctx2) {next=_st(_st((smalltalk.Random || Random))._new())._next();
+return smalltalk.withContext(function($ctx2) {
+next=_st(_st((smalltalk.Random || Random))._new())._next();
 next;
 _st(self)._assert_(_st(next).__gt_eq((0)));
 _st(self)._assert_(_st(next).__lt((1)));
@@ -3739,7 +4058,8 @@ category: 'tests',
 fn: function () {
 var self=this;
 var set;
-return smalltalk.withContext(function($ctx1) { set=_st((smalltalk.Set || Set))._new();
+return smalltalk.withContext(function($ctx1) { 
+set=_st((smalltalk.Set || Set))._new();
 _st(self)._assert_(_st(set)._isEmpty());
 _st(set)._add_((3));
 _st(self)._assert_(_st(set)._includes_((3)));
@@ -3762,8 +4082,10 @@ selector: "testAt",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Set || Set))._new())._at_put_((1),(2));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st((smalltalk.Set || Set))._new())._at_put_((1),(2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{}, smalltalk.SetTest)});},
 args: [],
@@ -3780,8 +4102,10 @@ selector: "testCollect",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st([(5), (6), (8)])._asSet())._collect_((function(x){
-return smalltalk.withContext(function($ctx2) {return _st(x).__backslash_backslash((3));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st([(5), (6), (8)])._asSet())._collect_((function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x).__backslash_backslash((3));
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})),_st([(0), (2)])._asSet());
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{}, smalltalk.SetTest)})},
 args: [],
@@ -3798,7 +4122,8 @@ selector: "testComparing",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st([(0), (2)])._asSet(),_st([(0), (2)])._asSet());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st([(0), (2)])._asSet(),_st([(0), (2)])._asSet());
 _st(self)._assert_equals_(_st([(2), (0)])._asSet(),_st([(0), (2)])._asSet());
 _st(self)._deny_(_st(_st([(0), (2), (3)])._asSet()).__eq(_st([(0), (2)])._asSet()));
 _st(self)._deny_(_st(_st([(1), (2)])._asSet()).__eq(_st([(0), (2)])._asSet()));
@@ -3818,7 +4143,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var set;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 set=_st((smalltalk.Set || Set))._new();
 _st(self)._assert_equals_(_st(set)._printString(),"a Set ()");
 $1=set;
@@ -3850,7 +4176,8 @@ selector: "testSize",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st((smalltalk.Set || Set))._new())._size(),(0));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(_st((smalltalk.Set || Set))._new())._size(),(0));
 _st(self)._assert_equals_(_st(_st((smalltalk.Set || Set))._withAll_([(1), (2), (3), (4)]))._size(),(4));
 _st(self)._assert_equals_(_st(_st((smalltalk.Set || Set))._withAll_([(1), (1), (1), (1)]))._size(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{}, smalltalk.SetTest)});},
@@ -3869,7 +4196,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 var set;
-return smalltalk.withContext(function($ctx1) { set=_st((smalltalk.Set || Set))._new();
+return smalltalk.withContext(function($ctx1) { 
+set=_st((smalltalk.Set || Set))._new();
 _st(set)._add_((21));
 _st(set)._add_("hello");
 _st(set)._add_((21));
@@ -3895,7 +4223,8 @@ selector: "testCopying",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(nil)._copy(),nil);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(nil)._copy(),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testCopying",{}, smalltalk.UndefinedTest)});},
 args: [],
 source: "testCopying\x0a\x09self assert: nil copy equals: nil",
@@ -3911,7 +4240,8 @@ selector: "testDeepCopy",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(nil)._deepCopy()).__eq(nil));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(nil)._deepCopy()).__eq(nil));
 return self}, function($ctx1) {$ctx1.fill(self,"testDeepCopy",{}, smalltalk.UndefinedTest)});},
 args: [],
 source: "testDeepCopy\x0a\x09self assert: nil deepCopy = nil",
@@ -3927,7 +4257,8 @@ selector: "testIfNil",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$5,$4,$6,$7;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$4,$6,$7;
 $1=self;
 if(($receiver = nil) == nil || $receiver == undefined){
 $2=true;
@@ -3951,9 +4282,11 @@ $7=false;
 };
 _st($6)._assert_equals_($7,true);
 _st(self)._deny_(_st(_st(nil)._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {return true;
+return smalltalk.withContext(function($ctx2) {
+return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {return false;
+return smalltalk.withContext(function($ctx2) {
+return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq(true));
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{}, smalltalk.UndefinedTest)});},
 args: [],
@@ -3970,7 +4303,8 @@ selector: "testIsNil",
 category: 'tests',
 fn: function () {
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(nil)._isNil());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(nil)._isNil());
 _st(self)._deny_(_st(nil)._notNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsNil",{}, smalltalk.UndefinedTest)});},
 args: [],
