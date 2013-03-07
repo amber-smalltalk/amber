@@ -67,6 +67,10 @@ writeData: data toFileNamed: aFilename
 	console log: aFilename
 !
 
+base64Decode: aString
+	<return (new Buffer(aString, 'base64').toString())>
+!
+
 isAuthenticated: aRequest response: aResponse
 	"Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175
 	 and https://gist.github.com/1686663"
@@ -82,7 +86,7 @@ isAuthenticated: aRequest response: aResponse
 		"get authentication token"
 		token := (header tokenize: ' ') ifNil:[''].
 		"convert back from base64"
-		<auth = new Buffer(token[1], 'base64').toString()>.
+		auth := self base64Decode: (token at: 2).
 		"split token at colon"
 		parts := auth tokenize: ':'.
 
