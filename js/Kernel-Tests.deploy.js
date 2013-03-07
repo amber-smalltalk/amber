@@ -962,12 +962,16 @@ return smalltalk.withContext(function($ctx2) {return nil;
 _st(self)._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq("world"));
+_st(self)._assert_(_st(d)._includesKey_("hello"));
+_st(self)._deny_(_st(d)._includesKey_("foo"));
 _st(d)._at_put_((1),(2));
 _st(self)._assert_equals_(_st(d)._at_((1)),(2));
 _st(d)._at_put_(_st((1)).__at((3)),(3));
 _st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((3))),(3));
+_st(self)._assert_(_st(d)._includesKey_(_st((1)).__at((3))));
+_st(self)._deny_(_st(d)._includesKey_(_st((3)).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d}, smalltalk.DictionaryTest)})},
-messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "@"]}),
+messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
@@ -1105,6 +1109,27 @@ _st(d)._at_put_((3),(4));
 _st(self)._assert_equals_(_st(d)._keys(),[(1), (2), (3)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testKeys",{d:d}, smalltalk.DictionaryTest)})},
 messageSends: ["new", "at:put:", "assert:equals:", "keys"]}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_testPointKey",
+smalltalk.method({
+selector: "testPointKey",
+fn: function (){
+var self=this;
+var d;
+return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+_st(d)._at_put_(_st((1)).__at((1)),"foo");
+_st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((1))),"foo");
+_st(d)._at_put_(_st((1)).__at((1)),"bar");
+_st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((1))),"bar");
+_st(d)._removeKey_(_st((1)).__at((1)));
+_st(self)._assert_equals_(_st(d)._at_ifAbsent_(_st((1)).__at((1)),(function(){
+return smalltalk.withContext(function($ctx2) {return "baz";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"baz");
+_st(self)._deny_(_st(d)._includesKey_(_st((1)).__at((1))));
+return self}, function($ctx1) {$ctx1.fill(self,"testPointKey",{d:d}, smalltalk.DictionaryTest)})},
+messageSends: ["new", "at:put:", "@", "assert:equals:", "at:", "removeKey:", "at:ifAbsent:", "deny:", "includesKey:"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(

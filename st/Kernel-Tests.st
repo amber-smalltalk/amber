@@ -479,11 +479,17 @@ testAccessing
 	self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.
 	self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.
 
+	self assert: (d includesKey: 'hello').
+	self deny: (d includesKey: 'foo').
+
 	d at: 1 put: 2.
 	self assert: (d at: 1) equals: 2.
 
 	d at: 1@3 put: 3.
-	self assert: (d at: 1@3) equals: 3
+	self assert: (d at: 1@3) equals: 3.
+
+	self assert: (d includesKey: 1@3).
+	self deny: (d includesKey: 3@1)
 !
 
 testDynamicDictionaries
@@ -556,6 +562,20 @@ testKeys
 	d at: 3 put: 4.
 
 	self assert: d keys equals: #(1 2 3)
+!
+
+testPointKey
+	| d |
+
+	d := Dictionary new.
+    
+    d at: 1@1 put: 'foo'.
+	self assert: (d at: 1@1) equals: 'foo'.
+    d at: 1@1 put: 'bar'.
+	self assert: (d at: 1@1) equals: 'bar'.
+    d removeKey: 1@1.
+    self assert: (d at: 1@1 ifAbsent: [ 'baz' ]) equals: 'baz'.
+    self deny: (d includesKey: 1@1)
 !
 
 testPrintString

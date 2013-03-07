@@ -1692,19 +1692,12 @@ category: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var index;
-		for(var i=0;i<self['@keys'].length;i++){
-			if(self['@keys'][i].__eq(aKey)) {index = i;}
-		};
-		if(typeof index === 'undefined') {
-			return aBlock();
-		} else {
-			return self['@values'][index];
-		}
+		var index = self._positionOfKey_(aKey);
+		return index >=0 ? self['@values'][index] : aBlock();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock}, smalltalk.Dictionary)})},
 args: ["aKey", "aBlock"],
-source: "at: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index;\x0a\x09\x09for(var i=0;i<self['@keys'].length;i++){\x0a\x09\x09\x09if(self['@keys'][i].__eq(aKey)) {index = i;}\x0a\x09\x09};\x0a\x09\x09if(typeof index === 'undefined') {\x0a\x09\x09\x09return aBlock();\x0a\x09\x09} else {\x0a\x09\x09\x09return self['@values'][index];\x0a\x09\x09}\x0a\x09>",
+source: "at: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index = self._positionOfKey_(aKey);\x0a\x09\x09return index >>=0 ? self['@values'][index] : aBlock();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1718,19 +1711,18 @@ category: 'accessing',
 fn: function (aKey,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var index = self['@keys'].indexOf(aKey);
+		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
-			self['@values'].push(aValue);
-			self['@keys'].push(aKey);
-		} else {
-			self['@values'][index] = aValue;
-		};
+			var keys = self['@keys'];
+			index = keys.length;
+			keys.push(aKey);
+		}
 
-		return aValue;
+		return self['@values'][index] = aValue;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,aValue:aValue}, smalltalk.Dictionary)})},
 args: ["aKey", "aValue"],
-source: "at: aKey put: aValue\x0a\x09<\x0a\x09\x09var index = self['@keys'].indexOf(aKey);\x0a\x09\x09if(index === -1) {\x0a\x09\x09\x09self['@values'].push(aValue);\x0a\x09\x09\x09self['@keys'].push(aKey);\x0a\x09\x09} else {\x0a\x09\x09\x09self['@values'][index] = aValue;\x0a\x09\x09};\x0a\x0a\x09\x09return aValue;\x0a\x09>",
+source: "at: aKey put: aValue\x0a\x09<\x0a\x09\x09var index = self._positionOfKey_(aKey);\x0a\x09\x09if(index === -1) {\x0a\x09\x09\x09var keys = self['@keys'];\x0a\x09\x09\x09index = keys.length;\x0a\x09\x09\x09keys.push(aKey);\x0a\x09\x09}\x0a\x0a\x09\x09return self['@values'][index] = aValue;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1743,13 +1735,11 @@ selector: "includesKey:",
 category: 'testing',
 fn: function (aKey){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@keys"])._includes_(aKey);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey}, smalltalk.Dictionary)})},
+return smalltalk.withContext(function($ctx1) {  return self._positionOfKey_(aKey) >= 0; ;
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey}, smalltalk.Dictionary)})},
 args: ["aKey"],
-source: "includesKey: aKey\x0a\x09^keys includes: aKey",
-messageSends: ["includes:"],
+source: "includesKey: aKey\x0a\x09< return self._positionOfKey_(aKey) >>= 0; >",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -1813,6 +1803,28 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
+"_positionOfKey_",
+smalltalk.method({
+selector: "positionOfKey:",
+category: 'private',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var keys = self['@keys'];
+		for(var i=0;i<keys.length;i++){
+			if(keys[i].__eq(anObject)) { return i;}
+		}
+		return -1;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"positionOfKey:",{anObject:anObject}, smalltalk.Dictionary)})},
+args: ["anObject"],
+source: "positionOfKey: anObject\x0a\x09<\x0a\x09\x09var keys = self['@keys'];\x0a\x09\x09for(var i=0;i<keys.length;i++){\x0a\x09\x09\x09if(keys[i].__eq(anObject)) { return i;}\x0a\x09\x09}\x0a\x09\x09return -1;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
 "_removeKey_ifAbsent_",
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
@@ -1820,19 +1832,22 @@ category: 'adding/removing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-            var index = self['@keys'].indexOf(aKey);
-            if(index === -1) {
-                return aBlock()
-            } else {
-                var value;
-                self['@keys'].splice(index, 1);
-                value = self['@values'].splice(index, 1);
-                return value[0];
-            };
-    ;
+		var index = self._positionOfKey_(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			var keys = self['@keys'], values = self['@values'];
+			var value = values[index], l = keys.length;
+			keys[index] = keys[l-1];
+			keys.pop();
+			values[index] = values[l-1];
+			values.pop();
+			return value;
+		}
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock}, smalltalk.Dictionary)})},
 args: ["aKey", "aBlock"],
-source: "removeKey: aKey ifAbsent: aBlock\x0a    <\x0a            var index = self['@keys'].indexOf(aKey);\x0a            if(index === -1) {\x0a                return aBlock()\x0a            } else {\x0a                var value;\x0a                self['@keys'].splice(index, 1);\x0a                value = self['@values'].splice(index, 1);\x0a                return value[0];\x0a            };\x0a    >",
+source: "removeKey: aKey ifAbsent: aBlock\x0a\x09<\x0a\x09\x09var index = self._positionOfKey_(aKey);\x0a\x09\x09if(index === -1) {\x0a\x09\x09\x09return aBlock()\x0a\x09\x09} else {\x0a\x09\x09\x09var keys = self['@keys'], values = self['@values'];\x0a\x09\x09\x09var value = values[index], l = keys.length;\x0a\x09\x09\x09keys[index] = keys[l-1];\x0a\x09\x09\x09keys.pop();\x0a\x09\x09\x09values[index] = values[l-1];\x0a\x09\x09\x09values.pop();\x0a\x09\x09\x09return value;\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

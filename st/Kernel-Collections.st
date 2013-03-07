@@ -540,29 +540,21 @@ HashedCollection subclass: #Dictionary
 
 at: aKey ifAbsent: aBlock
 	<
-		var index;
-		for(var i=0;i<self['@keys'].length;i++){
-			if(self['@keys'][i].__eq(aKey)) {index = i;}
-		};
-		if(typeof index === 'undefined') {
-			return aBlock();
-		} else {
-			return self['@values'][index];
-		}
+		var index = self._positionOfKey_(aKey);
+		return index >>=0 ? self['@values'][index] : aBlock();
 	>
 !
 
 at: aKey put: aValue
 	<
-		var index = self['@keys'].indexOf(aKey);
+		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
-			self['@values'].push(aValue);
-			self['@keys'].push(aKey);
-		} else {
-			self['@values'][index] = aValue;
-		};
+			var keys = self['@keys'];
+			index = keys.length;
+			keys.push(aKey);
+		}
 
-		return aValue;
+		return self['@values'][index] = aValue;
 	>
 !
 
@@ -589,17 +581,20 @@ values
 !Dictionary methodsFor: 'adding/removing'!
 
 removeKey: aKey ifAbsent: aBlock
-    <
-            var index = self['@keys'].indexOf(aKey);
-            if(index === -1) {
-                return aBlock()
-            } else {
-                var value;
-                self['@keys'].splice(index, 1);
-                value = self['@values'].splice(index, 1);
-                return value[0];
-            };
-    >
+	<
+		var index = self._positionOfKey_(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			var keys = self['@keys'], values = self['@values'];
+			var value = values[index], l = keys.length;
+			keys[index] = keys[l-1];
+			keys.pop();
+			values[index] = values[l-1];
+			values.pop();
+			return value;
+		}
+	>
 ! !
 
 !Dictionary methodsFor: 'converting'!
@@ -620,10 +615,22 @@ initialize
 	values := #()
 ! !
 
+!Dictionary methodsFor: 'private'!
+
+positionOfKey: anObject
+	<
+		var keys = self['@keys'];
+		for(var i=0;i<keys.length;i++){
+			if(keys[i].__eq(anObject)) { return i;}
+		}
+		return -1;
+	>
+! !
+
 !Dictionary methodsFor: 'testing'!
 
 includesKey: aKey
-	^keys includes: aKey
+	< return self._positionOfKey_(aKey) >>= 0; >
 ! !
 
 Collection subclass: #SequenceableCollection
