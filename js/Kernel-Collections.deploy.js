@@ -1275,15 +1275,8 @@ selector: "at:ifAbsent:",
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var index;
-		for(var i=0;i<self['@keys'].length;i++){
-			if(self['@keys'][i].__eq(aKey)) {index = i;}
-		};
-		if(typeof index === 'undefined') {
-			return aBlock();
-		} else {
-			return self['@values'][index];
-		}
+		var index = self._positionOfKey_(aKey);
+		return index >=0 ? self['@values'][index] : aBlock();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock}, smalltalk.Dictionary)})},
 messageSends: []}),
@@ -1296,15 +1289,14 @@ selector: "at:put:",
 fn: function (aKey,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var index = self['@keys'].indexOf(aKey);
+		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
-			self['@values'].push(aValue);
-			self['@keys'].push(aKey);
-		} else {
-			self['@values'][index] = aValue;
-		};
+			var keys = self['@keys'];
+			index = keys.length;
+			keys.push(aKey);
+		}
 
-		return aValue;
+		return self['@values'][index] = aValue;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aKey:aKey,aValue:aValue}, smalltalk.Dictionary)})},
 messageSends: []}),
@@ -1316,11 +1308,9 @@ smalltalk.method({
 selector: "includesKey:",
 fn: function (aKey){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@keys"])._includes_(aKey);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey}, smalltalk.Dictionary)})},
-messageSends: ["includes:"]}),
+return smalltalk.withContext(function($ctx1) {  return self._positionOfKey_(aKey) >= 0; ;
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey}, smalltalk.Dictionary)})},
+messageSends: []}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
@@ -1367,22 +1357,42 @@ messageSends: ["copy"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
+"_positionOfKey_",
+smalltalk.method({
+selector: "positionOfKey:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var keys = self['@keys'];
+		for(var i=0;i<keys.length;i++){
+			if(keys[i].__eq(anObject)) { return i;}
+		}
+		return -1;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"positionOfKey:",{anObject:anObject}, smalltalk.Dictionary)})},
+messageSends: []}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
 "_removeKey_ifAbsent_",
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-            var index = self['@keys'].indexOf(aKey);
-            if(index === -1) {
-                return aBlock()
-            } else {
-                var value;
-                self['@keys'].splice(index, 1);
-                value = self['@values'].splice(index, 1);
-                return value[0];
-            };
-    ;
+		var index = self._positionOfKey_(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			var keys = self['@keys'], values = self['@values'];
+			var value = values[index], l = keys.length;
+			keys[index] = keys[l-1];
+			keys.pop();
+			values[index] = values[l-1];
+			values.pop();
+			return value;
+		}
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock}, smalltalk.Dictionary)})},
 messageSends: []}),
 smalltalk.Dictionary);

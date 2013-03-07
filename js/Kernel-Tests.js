@@ -1208,14 +1208,18 @@ return smalltalk.withContext(function($ctx2) {return nil;
 _st(self)._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq("world"));
+_st(self)._assert_(_st(d)._includesKey_("hello"));
+_st(self)._deny_(_st(d)._includesKey_("foo"));
 _st(d)._at_put_((1),(2));
 _st(self)._assert_equals_(_st(d)._at_((1)),(2));
 _st(d)._at_put_(_st((1)).__at((3)),(3));
 _st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((3))),(3));
+_st(self)._assert_(_st(d)._includesKey_(_st((1)).__at((3))));
+_st(self)._deny_(_st(d)._includesKey_(_st((3)).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d}, smalltalk.DictionaryTest)})},
 args: [],
-source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3",
-messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "@"],
+source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.\x0a\x0a\x09self assert: (d includesKey: 'hello').\x0a\x09self deny: (d includesKey: 'foo').\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3.\x0a\x0a\x09self assert: (d includesKey: 1@3).\x0a\x09self deny: (d includesKey: 3@1)\x0a",
+messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
@@ -1383,6 +1387,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"testKeys",{d:d}, smalltalk.Dicti
 args: [],
 source: "testKeys\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x09d at: 1 put: 2.\x0a\x09d at: 2 put: 3.\x0a\x09d at: 3 put: 4.\x0a\x0a\x09self assert: d keys equals: #(1 2 3)",
 messageSends: ["new", "at:put:", "assert:equals:", "keys"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+"_testPointKey",
+smalltalk.method({
+selector: "testPointKey",
+category: 'tests',
+fn: function (){
+var self=this;
+var d;
+return smalltalk.withContext(function($ctx1) { d=_st((smalltalk.Dictionary || Dictionary))._new();
+_st(d)._at_put_(_st((1)).__at((1)),"foo");
+_st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((1))),"foo");
+_st(d)._at_put_(_st((1)).__at((1)),"bar");
+_st(self)._assert_equals_(_st(d)._at_(_st((1)).__at((1))),"bar");
+_st(d)._removeKey_(_st((1)).__at((1)));
+_st(self)._assert_equals_(_st(d)._at_ifAbsent_(_st((1)).__at((1)),(function(){
+return smalltalk.withContext(function($ctx2) {return "baz";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"baz");
+_st(self)._deny_(_st(d)._includesKey_(_st((1)).__at((1))));
+return self}, function($ctx1) {$ctx1.fill(self,"testPointKey",{d:d}, smalltalk.DictionaryTest)})},
+args: [],
+source: "testPointKey\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a    \x0a    d at: 1@1 put: 'foo'.\x0a\x09self assert: (d at: 1@1) equals: 'foo'.\x0a    d at: 1@1 put: 'bar'.\x0a\x09self assert: (d at: 1@1) equals: 'bar'.\x0a    d removeKey: 1@1.\x0a    self assert: (d at: 1@1 ifAbsent: [ 'baz' ]) equals: 'baz'.\x0a    self deny: (d includesKey: 1@1)",
+messageSends: ["new", "at:put:", "@", "assert:equals:", "at:", "removeKey:", "at:ifAbsent:", "deny:", "includesKey:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.DictionaryTest);
