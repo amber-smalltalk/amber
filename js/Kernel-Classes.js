@@ -1146,7 +1146,7 @@ smalltalk.addMethod(
 "_addSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
-category: 'private',
+category: 'class definition',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
 var theClass;
@@ -1288,7 +1288,7 @@ smalltalk.addMethod(
 "_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
-category: 'api',
+category: 'class definition',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -1310,7 +1310,7 @@ smalltalk.addMethod(
 "_copyClass_named_",
 smalltalk.method({
 selector: "copyClass:named:",
-category: 'private',
+category: 'copying',
 fn: function (aClass,aString){
 var self=this;
 var newClass;
@@ -1331,7 +1331,7 @@ smalltalk.addMethod(
 "_copyClass_to_",
 smalltalk.method({
 selector: "copyClass:to:",
-category: 'private',
+category: 'copying',
 fn: function (aClass,anotherClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(anotherClass)._comment_(_st(aClass)._comment());
@@ -1355,7 +1355,7 @@ smalltalk.addMethod(
 "_installMethod_forClass_category_",
 smalltalk.method({
 selector: "installMethod:forClass:category:",
-category: 'api',
+category: 'method definition',
 fn: function (aCompiledMethod,aBehavior,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1376,7 +1376,7 @@ smalltalk.addMethod(
 "_instanceVariableNamesFor_",
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
-category: 'private',
+category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1396,7 +1396,7 @@ smalltalk.addMethod(
 "_migrateClass_superclass_",
 smalltalk.method({
 selector: "migrateClass:superclass:",
-category: 'private',
+category: 'class migration',
 fn: function (aClass,anotherClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(console)._log_(_st(aClass)._name());
@@ -1413,7 +1413,7 @@ smalltalk.addMethod(
 "_migrateClassNamed_superclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
-category: 'private',
+category: 'class migration',
 fn: function (aString,aClass,aCollection,packageName){
 var self=this;
 var oldClass,newClass,tmp;
@@ -1470,7 +1470,7 @@ smalltalk.addMethod(
 "_renameClass_to_",
 smalltalk.method({
 selector: "renameClass:to:",
-category: 'api',
+category: 'class migration',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -1491,7 +1491,7 @@ smalltalk.addMethod(
 "_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
-category: 'api',
+category: 'public',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);;
@@ -1507,7 +1507,7 @@ smalltalk.addMethod(
 "_superclass_subclass_",
 smalltalk.method({
 selector: "superclass:subclass:",
-category: 'api',
+category: 'class definition',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
@@ -1525,7 +1525,7 @@ smalltalk.addMethod(
 "_superclass_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
-category: 'api',
+category: 'class definition',
 fn: function (aClass,aString,aString2,aString3){
 var self=this;
 var newClass;

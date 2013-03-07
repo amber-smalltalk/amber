@@ -394,7 +394,33 @@ ClassBuilder is responsible for compiling new classes or modifying existing clas
 
 Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
 
-!ClassBuilder methodsFor: 'api'!
+!ClassBuilder methodsFor: 'accessing'!
+
+instanceVariableNamesFor: aString
+	^(aString tokenize: ' ') reject: [ :each | each isEmpty ]
+! !
+
+!ClassBuilder methodsFor: 'class definition'!
+
+addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+    | theClass |
+    
+    theClass := Smalltalk current at: aString.
+    
+   	theClass ifNotNil: [ 
+    	theClass superclass == aClass ifFalse: [
+    		^ self 
+        		migrateClassNamed: aString 
+           	 	superclass: aClass 
+           	 	instanceVariableNames: aCollection 
+            	package: packageName ] ].
+
+	^ self 
+    	basicAddSubclassOf: aClass 
+        named: aString 
+        instanceVariableNames: aCollection 
+        package: packageName
+!
 
 class: aClass instanceVariableNames: aString
 	self basicClass: aClass instanceVariableNames: aString.
@@ -404,26 +430,6 @@ class: aClass instanceVariableNames: aString
     	announce: (ClassDefinitionChanged new
         	theClass: aClass;
             yourself)
-!
-
-installMethod: aCompiledMethod forClass: aBehavior category: aString
-	aCompiledMethod category: aString.
-	aBehavior addCompiledMethod: aCompiledMethod.
-    self setupClass: aBehavior.
-	^aCompiledMethod
-!
-
-renameClass: aClass to: aString
-	self basicRenameClass: aClass to: aString.
-    
-    SystemAnnouncer current
-    	announce: (ClassRenamed new
-        	theClass: aClass;
-            yourself)
-!
-
-setupClass: aClass
-	<smalltalk.init(aClass);>
 !
 
 superclass: aClass subclass: aString
@@ -446,97 +452,7 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 	^newClass
 ! !
 
-!ClassBuilder methodsFor: 'private'!
-
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-    | theClass |
-    
-    theClass := Smalltalk current at: aString.
-    
-   	theClass ifNotNil: [ 
-    	theClass superclass == aClass ifFalse: [
-    		^ self 
-        		migrateClassNamed: aString 
-           	 	superclass: aClass 
-           	 	instanceVariableNames: aCollection 
-            	package: packageName ] ].
-
-	^ self 
-    	basicAddSubclassOf: aClass 
-        named: aString 
-        instanceVariableNames: aCollection 
-        package: packageName
-!
-
-basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
-	<
-		smalltalk.addClass(aString, aClass, aCollection, packageName);
-		return smalltalk[aString]
-	>
-!
-
-basicClass: aClass instanceVariableNames: aString
-	self basicClass: aClass instanceVariables: (self instanceVariableNamesFor: aString)
-!
-
-basicClass: aClass instanceVariables: aCollection
-
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
-	aClass basicAt: 'iVarNames' put: aCollection
-!
-
-basicRemoveClass: aClass
-	<smalltalk.removeClass(aClass)>
-!
-
-basicRenameClass: aClass to: aString
-	<
-		smalltalk[aString] = aClass;
-		delete smalltalk[aClass.className];
-		aClass.className = aString;
-	>
-!
-
-basicSwapClassNames: aClass with: anotherClass
-	<
-		var tmp = aClass.className;
-		aClass.className = anotherClass.className;
-        anotherClass.className = tmp;
-	>
-!
-
-copyClass: aClass named: aString
-	| newClass |
-
-	newClass := self 
-		addSubclassOf: aClass superclass
-		named: aString 
-		instanceVariableNames: aClass instanceVariableNames 
-		package: aClass package name.
-
-	self copyClass: aClass to: newClass.
-    
-	^newClass
-!
-
-copyClass: aClass to: anotherClass
-
-	anotherClass comment: aClass comment.
-
-	aClass methodDictionary values do: [ :each |
-		Compiler new install: each source forClass: anotherClass category: each category ].
-
-	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
-
-	aClass class methodDictionary values do: [ :each |
-		Compiler new install: each source forClass: anotherClass class category: each category ].
-
-	self setupClass: anotherClass
-!
-
-instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [ :each | each isEmpty ]
-!
+!ClassBuilder methodsFor: 'class migration'!
 
 migrateClass: aClass superclass: anotherClass
 	console log: aClass name.
@@ -580,10 +496,104 @@ migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection
 	^newClass
 !
 
+renameClass: aClass to: aString
+	self basicRenameClass: aClass to: aString.
+    
+    SystemAnnouncer current
+    	announce: (ClassRenamed new
+        	theClass: aClass;
+            yourself)
+! !
+
+!ClassBuilder methodsFor: 'copying'!
+
+copyClass: aClass named: aString
+	| newClass |
+
+	newClass := self 
+		addSubclassOf: aClass superclass
+		named: aString 
+		instanceVariableNames: aClass instanceVariableNames 
+		package: aClass package name.
+
+	self copyClass: aClass to: newClass.
+    
+	^newClass
+!
+
+copyClass: aClass to: anotherClass
+
+	anotherClass comment: aClass comment.
+
+	aClass methodDictionary values do: [ :each |
+		Compiler new install: each source forClass: anotherClass category: each category ].
+
+	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
+
+	aClass class methodDictionary values do: [ :each |
+		Compiler new install: each source forClass: anotherClass class category: each category ].
+
+	self setupClass: anotherClass
+! !
+
+!ClassBuilder methodsFor: 'method definition'!
+
+installMethod: aCompiledMethod forClass: aBehavior category: aString
+	aCompiledMethod category: aString.
+	aBehavior addCompiledMethod: aCompiledMethod.
+    self setupClass: aBehavior.
+	^aCompiledMethod
+! !
+
+!ClassBuilder methodsFor: 'private'!
+
+basicAddSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+	<
+		smalltalk.addClass(aString, aClass, aCollection, packageName);
+		return smalltalk[aString]
+	>
+!
+
+basicClass: aClass instanceVariableNames: aString
+	self basicClass: aClass instanceVariables: (self instanceVariableNamesFor: aString)
+!
+
+basicClass: aClass instanceVariables: aCollection
+
+	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass basicAt: 'iVarNames' put: aCollection
+!
+
+basicRemoveClass: aClass
+	<smalltalk.removeClass(aClass)>
+!
+
+basicRenameClass: aClass to: aString
+	<
+		smalltalk[aString] = aClass;
+		delete smalltalk[aClass.className];
+		aClass.className = aString;
+	>
+!
+
+basicSwapClassNames: aClass with: anotherClass
+	<
+		var tmp = aClass.className;
+		aClass.className = anotherClass.className;
+        anotherClass.className = tmp;
+	>
+!
+
 rawRenameClass: aClass to: aString
 	<
 		smalltalk[aString] = aClass;
 	>
+! !
+
+!ClassBuilder methodsFor: 'public'!
+
+setupClass: aClass
+	<smalltalk.init(aClass);>
 ! !
 
 Object subclass: #ClassCategoryReader
