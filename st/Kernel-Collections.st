@@ -312,6 +312,23 @@ it stores values under indexes.
 As a rule of thumb, if a collection has at: and at:put:,
 it is an IndexableCollection.!
 
+!IndexableCollection methodsFor: 'enumeration'!
+
+with: anotherCollection do: aBlock
+	"Calls aBlock with every value from self
+	and with indetically-indexed value from anotherCollection"
+
+	self withIndexDo: [ :each :index |
+		aBlock value: each value: (anotherCollection at: index) ]
+!
+
+withIndexDo: aBlock
+	"Calls aBlock with every value from self
+	and with its index as the second argument"
+
+	self subclassReponsibility
+! !
+
 IndexableCollection subclass: #HashedCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
@@ -502,6 +519,10 @@ select: aBlock
 
 valuesDo: aBlock
 	self keysAndValuesDo: [ :key :value | aBlock value: value ]
+!
+
+withIndexDo: aBlock
+	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
 ! !
 
 !HashedCollection methodsFor: 'printing'!

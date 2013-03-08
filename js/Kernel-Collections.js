@@ -1036,6 +1036,40 @@ smalltalk.Collection.klass);
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.IndexableCollection.comment="An IndexableCollection is a key-value store, that is,\x0ait stores values under indexes.\x0a\x0aAs a rule of thumb, if a collection has at: and at:put:,\x0ait is an IndexableCollection."
+smalltalk.addMethod(
+"_with_do_",
+smalltalk.method({
+selector: "with:do:",
+category: 'enumeration',
+fn: function (anotherCollection,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._withIndexDo_((function(each,index){
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(each,_st(anotherCollection)._at_(index));
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+args: ["anotherCollection", "aBlock"],
+source: "with: anotherCollection do: aBlock\x0a\x09\x22Calls aBlock with every value from self\x0a\x09and with indetically-indexed value from anotherCollection\x22\x0a\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09aBlock value: each value: (anotherCollection at: index) ]",
+messageSends: ["withIndexDo:", "value:value:", "at:"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+category: 'enumeration',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock}, smalltalk.IndexableCollection)})},
+args: ["aBlock"],
+source: "withIndexDo: aBlock\x0a\x09\x22Calls aBlock with every value from self\x0a\x09and with its index as the second argument\x22\x0a\x0a\x09self subclassReponsibility",
+messageSends: ["subclassReponsibility"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
 
 
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
@@ -1754,6 +1788,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock}, smal
 args: ["aBlock"],
 source: "valuesDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value ]\x0a",
 messageSends: ["keysAndValuesDo:", "value:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(value,key);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock}, smalltalk.HashedCollection)})},
+args: ["aBlock"],
+source: "withIndexDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]",
+messageSends: ["keysAndValuesDo:", "value:value:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);

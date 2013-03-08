@@ -795,6 +795,30 @@ smalltalk.Collection.klass);
 
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
+smalltalk.addMethod(
+"_with_do_",
+smalltalk.method({
+selector: "with:do:",
+fn: function (anotherCollection,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._withIndexDo_((function(each,index){
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(each,_st(anotherCollection)._at_(index));
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+messageSends: ["withIndexDo:", "value:value:", "at:"]}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock}, smalltalk.IndexableCollection)})},
+messageSends: ["subclassReponsibility"]}),
+smalltalk.IndexableCollection);
+
 
 
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
@@ -1349,6 +1373,19 @@ return _st(aBlock)._value_(value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock}, smalltalk.HashedCollection)})},
 messageSends: ["keysAndValuesDo:", "value:"]}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(value,key);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock}, smalltalk.HashedCollection)})},
+messageSends: ["keysAndValuesDo:", "value:value:"]}),
 smalltalk.HashedCollection);
 
 
