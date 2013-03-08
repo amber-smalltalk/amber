@@ -428,11 +428,20 @@ CollectionTest subclass: #HashedCollectionTest
 !HashedCollectionTest methodsFor: 'accessing'!
 
 collection
-	^ #{ 'a' -> 1. 'b' -> 2. 'c' -> 3. 'd' -> -4 }
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
 !
 
 collectionWithDuplicates
-	^ #{ 'a' -> 1. 'b' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+! !
+
+!HashedCollectionTest methodsFor: 'tests'!
+
+testIndexOf
+
+	self assert: (self collection indexOf: 2) equals: 'a'.
+	self should: [ self collection indexOf: 999 ] raise: Error.
+	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
 ! !
 
 !HashedCollectionTest class methodsFor: 'accessing'!
