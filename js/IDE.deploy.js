@@ -1145,6 +1145,26 @@ return self}, function($ctx1) {$ctx1.fill(self,"new",{}, smalltalk.TabManager.kl
 messageSends: ["shouldNotImplement"]}),
 smalltalk.TabManager.klass);
 
+smalltalk.addMethod(
+"_toggleAmberIDE",
+smalltalk.method({
+selector: "toggleAmberIDE",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		if ($('#amber').length == 0) {
+			smalltalk.Browser._open();
+		} else if ($('#amber').is(':visible')) {
+			smalltalk.TabManager._current()._close();
+		} else {
+			smalltalk.TabManager._current()._open();
+		}
+		return false;
+;
+return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{}, smalltalk.TabManager.klass)})},
+messageSends: []}),
+smalltalk.TabManager.klass);
+
 
 smalltalk.addClass('TabWidget', smalltalk.Widget, ['div'], 'IDE');
 smalltalk.addMethod(
