@@ -302,7 +302,88 @@ withAll: aCollection
 		yourself
 ! !
 
-Collection subclass: #HashedCollection
+Collection subclass: #IndexableCollection
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!IndexableCollection commentStamp!
+An IndexableCollection is a key-value store, that is,
+it stores values under indexes.
+
+As a rule of thumb, if a collection has at: and at:put:,
+it is an IndexableCollection.!
+
+!IndexableCollection methodsFor: 'accessing'!
+
+at: anIndex
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value stored at anIndex. 
+	Otherwise, raise an error."
+
+	^self at: anIndex ifAbsent: [ self errorNotFound ]
+!
+
+at: anIndex ifAbsent: aBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value stored at anIndex. 
+	Otherwise, answer the value of aBlock."
+
+	self subclassReponsibility
+!
+
+at: anIndex ifPresent: aBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex. 
+	Otherwise, answer nil."
+
+	^self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]
+!
+
+at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
+	Otherwise, answer the value of anotherBlock."
+
+	self subclassReponsibility
+!
+
+at: anIndex put: anObject
+	"Store anObject under the given index in the receiver."
+
+	self subclassReponsibility
+!
+
+indexOf: anObject
+	"Lookup index at which anObject is stored in the receiver.
+	If not present, raise an error."
+
+	^self indexOf: anObject ifAbsent: [ self errorNotFound ]
+!
+
+indexOf: anObject ifAbsent: aBlock
+	"Lookup index at which anObject is stored in the receiver.
+	If not present, return value of executing aBlock."
+
+	self subclassResponsibility
+! !
+
+!IndexableCollection methodsFor: 'enumeration'!
+
+with: anotherCollection do: aBlock
+	"Calls aBlock with every value from self
+	and with indetically-indexed value from anotherCollection"
+
+	self withIndexDo: [ :each :index |
+		aBlock value: each value: (anotherCollection at: index) ]
+!
+
+withIndexDo: aBlock
+	"Calls aBlock with every value from self
+	and with its index as the second argument"
+
+	self subclassReponsibility
+! !
+
+IndexableCollection subclass: #HashedCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !HashedCollection commentStamp!
@@ -319,10 +400,6 @@ associations
 	^associations
 !
 
-at: aKey
-	^self at: aKey ifAbsent: [self errorNotFound]
-!
-
 at: aKey ifAbsent: aBlock
 	^(self includesKey: aKey)
 		ifTrue: [self basicAt: aKey]
@@ -332,15 +409,6 @@ at: aKey ifAbsent: aBlock
 at: aKey ifAbsentPut: aBlock
 	^self at: aKey ifAbsent: [
 	    self at: aKey put: aBlock value]
-!
-
-at: aKey ifPresent: aBlock
-	"Lookup the given key in the receiver. 
-	If it is present, answer the value of evaluating the given block with the value associated with the key. 
-	Otherwise, answer nil."
-	^(self includesKey: aKey)
-		ifTrue: [ aBlock value: (self at: aKey) ]
-		ifFalse: [ nil ]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
@@ -354,6 +422,11 @@ at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 
 at: aKey put: aValue
 	^self basicAt: aKey put: aValue
+!
+
+indexOf: anObject ifAbsent: aBlock
+
+	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
 !
 
 keys
@@ -492,6 +565,10 @@ select: aBlock
 
 valuesDo: aBlock
 	self keysAndValuesDo: [ :key :value | aBlock value: value ]
+!
+
+withIndexDo: aBlock
+	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
 ! !
 
 !HashedCollection methodsFor: 'printing'!
@@ -555,11 +632,11 @@ at: aKey put: aValue
 	>
 !
 
-keyAtValue: anObject
+indexOf: anObject ifAbsent: aBlock
 
-	^ (self associations 
-    	detect:[:k :v| v == anObject] 
-    	ifNone:[self error: 'Not found']) key
+	| index |
+    index := values indexOf: anObject ifAbsent: [0].
+    ^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
 !
 
 keys
@@ -639,9 +716,12 @@ includesKey: aKey
 	< return self._positionOfKey_(aKey) >>= 0; >
 ! !
 
-Collection subclass: #SequenceableCollection
+IndexableCollection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!SequenceableCollection commentStamp!
+A SequencableCollection is an IndexableCollection
+with numeric indexes starting with 1.!
 
 !SequenceableCollection methodsFor: 'accessing'!
 
@@ -651,19 +731,6 @@ allButFirst
 
 allButLast
 	^self copyFrom: 1 to: self size - 1
-!
-
-at: anIndex
-	^self at: anIndex ifAbsent: [
-	    self errorNotFound]
-!
-
-at: anIndex ifAbsent: aBlock
-	self subclassResponsibility
-!
-
-at: anIndex put: anObject
-	self subclassResponsibility
 !
 
 atRandom
@@ -683,10 +750,6 @@ first: n
 
 fourth
 	^self at: 4
-!
-
-indexOf: anObject
-	^self indexOf: anObject ifAbsent: [self errorNotFound]
 !
 
 indexOf: anObject ifAbsent: aBlock

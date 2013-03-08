@@ -1188,15 +1188,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2)),_st("c").__minus_gt((3)),_st("d").__minus_gt((-4))]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=smalltalk.HashedCollection._fromPairs_([_st("b").__minus_gt((1)),_st("a").__minus_gt((2)),_st("c").__minus_gt((3)),_st("d").__minus_gt((-4))]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collection",{}, smalltalk.HashedCollectionTest)});},
+}, function($ctx1) {$ctx1.fill(self,"collection",{}, smalltalk.HashedCollectionTest)})},
 args: [],
-source: "collection\x0a\x09^ #{ 'a' -> 1. 'b' -> 2. 'c' -> 3. 'd' -> -4 }",
+source: "collection\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }",
 messageSends: ["->"],
 referencedClasses: []
 }),
@@ -1207,17 +1206,38 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "collectionWithDuplicates",
 category: 'accessing',
-fn: function () {
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2)),_st("c").__minus_gt((3)),_st("d").__minus_gt((-4)),_st("e").__minus_gt((1)),_st("f").__minus_gt((2)),_st("g").__minus_gt((10))]);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=smalltalk.HashedCollection._fromPairs_([_st("b").__minus_gt((1)),_st("a").__minus_gt((2)),_st("c").__minus_gt((3)),_st("d").__minus_gt((-4)),_st("e").__minus_gt((1)),_st("f").__minus_gt((2)),_st("g").__minus_gt((10))]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{}, smalltalk.HashedCollectionTest)});},
+}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{}, smalltalk.HashedCollectionTest)})},
 args: [],
-source: "collectionWithDuplicates\x0a\x09^ #{ 'a' -> 1. 'b' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }",
+source: "collectionWithDuplicates\x0a\x09^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }",
 messageSends: ["->"],
 referencedClasses: []
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+"_testIndexOf",
+smalltalk.method({
+selector: "testIndexOf",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_((2)),"a");
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._indexOf_((999));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+_st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_ifAbsent_((999),(function(){
+return smalltalk.withContext(function($ctx2) {return "sentinel";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"sentinel");
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{}, smalltalk.HashedCollectionTest)})},
+args: [],
+source: "testIndexOf\x0a\x0a\x09self assert: (self collection indexOf: 2) equals: 'a'.\x0a\x09self should: [ self collection indexOf: 999 ] raise: Error.\x0a\x09self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'",
+messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"],
+referencedClasses: ["Error"]
 }),
 smalltalk.HashedCollectionTest);
 

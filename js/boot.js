@@ -822,7 +822,8 @@ smalltalk.wrapClassName("Date", "Kernel", Date, smalltalk.Object);
 smalltalk.wrapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Object, false);
 
 smalltalk.addClass("Collection", smalltalk.Object, null, "Kernel");
-smalltalk.addClass("SequenceableCollection", smalltalk.Collection, null, "Kernel");
+smalltalk.addClass("IndexableCollection", smalltalk.Collection, null, "Kernel");
+smalltalk.addClass("SequenceableCollection", smalltalk.IndexableCollection, null, "Kernel");
 smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Kernel");
 smalltalk.wrapClassName("String", "Kernel", String, smalltalk.CharacterArray);
 smalltalk.wrapClassName("Symbol", "Kernel", SmalltalkSymbol, smalltalk.CharacterArray, false);
