@@ -350,6 +350,20 @@ at: anIndex put: anObject
 	"Store anObject under the given index in the receiver."
 
 	self subclassReponsibility
+!
+
+indexOf: anObject
+	"Lookup index at which anObject is stored in the receiver.
+	If not present, raise an error."
+
+	^self indexOf: anObject ifAbsent: [ self errorNotFound ]
+!
+
+indexOf: anObject ifAbsent: aBlock
+	"Lookup index at which anObject is stored in the receiver.
+	If not present, return value of executing aBlock."
+
+	self subclassResponsibility
 ! !
 
 !IndexableCollection methodsFor: 'enumeration'!
@@ -408,6 +422,11 @@ at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 
 at: aKey put: aValue
 	^self basicAt: aKey put: aValue
+!
+
+indexOf: anObject ifAbsent: aBlock
+
+	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
 !
 
 keys
@@ -613,11 +632,11 @@ at: aKey put: aValue
 	>
 !
 
-keyAtValue: anObject
+indexOf: anObject ifAbsent: aBlock
 
-	^ (self associations 
-    	detect:[:k :v| v == anObject] 
-    	ifNone:[self error: 'Not found']) key
+	| index |
+    index := values indexOf: anObject ifAbsent: [0].
+    ^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
 !
 
 keys
@@ -731,10 +750,6 @@ first: n
 
 fourth
 	^self at: 4
-!
-
-indexOf: anObject
-	^self indexOf: anObject ifAbsent: [self errorNotFound]
 !
 
 indexOf: anObject ifAbsent: aBlock

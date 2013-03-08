@@ -1125,6 +1125,42 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
+"_indexOf_",
+smalltalk.method({
+selector: "indexOf:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._indexOf_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._errorNotFound();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anObject:anObject}, smalltalk.IndexableCollection)})},
+args: ["anObject"],
+source: "indexOf: anObject\x0a\x09\x22Lookup index at which anObject is stored in the receiver.\x0a\x09If not present, raise an error.\x22\x0a\x0a\x09^self indexOf: anObject ifAbsent: [ self errorNotFound ]",
+messageSends: ["indexOf:ifAbsent:", "errorNotFound"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_indexOf_ifAbsent_",
+smalltalk.method({
+selector: "indexOf:ifAbsent:",
+category: 'accessing',
+fn: function (anObject,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+args: ["anObject", "aBlock"],
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09\x22Lookup index at which anObject is stored in the receiver.\x0a\x09If not present, return value of executing aBlock.\x22\x0a\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
 "_with_do_",
 smalltalk.method({
 selector: "with:do:",
@@ -1537,6 +1573,26 @@ return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey}, small
 args: ["aKey"],
 source: "includesKey: aKey\x0a\x09<return self.hasOwnProperty(aKey)>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+"_indexOf_ifAbsent_",
+smalltalk.method({
+selector: "indexOf:ifAbsent:",
+category: 'accessing',
+fn: function (anObject,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._keys())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._at_(each)).__eq(anObject);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock}, smalltalk.HashedCollection)})},
+args: ["anObject", "aBlock"],
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x0a\x09^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock",
+messageSends: ["detect:ifNone:", "=", "at:", "keys"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1980,6 +2036,33 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
+"_indexOf_ifAbsent_",
+smalltalk.method({
+selector: "indexOf:ifAbsent:",
+category: 'accessing',
+fn: function (anObject,aBlock){
+var self=this;
+var index;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+index=_st(self["@values"])._indexOf_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {return (0);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=_st(index).__eq((0));
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+} else {
+$1=_st(self["@keys"])._at_(index);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index}, smalltalk.Dictionary)})},
+args: ["anObject", "aBlock"],
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x0a\x09| index |\x0a    index := values indexOf: anObject ifAbsent: [0].\x0a    ^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]",
+messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "value", "at:", "="],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
 "_initialize",
 smalltalk.method({
 selector: "initialize",
@@ -1994,31 +2077,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.Dictio
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09keys := #().\x0a\x09values := #()",
 messageSends: ["initialize"],
-referencedClasses: []
-}),
-smalltalk.Dictionary);
-
-smalltalk.addMethod(
-"_keyAtValue_",
-smalltalk.method({
-selector: "keyAtValue:",
-category: 'accessing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(self)._associations())._detect_ifNone_((function(k,v){
-return smalltalk.withContext(function($ctx2) {
-return _st(v).__eq_eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({k:k,v:v},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._error_("Not found");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._key();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"keyAtValue:",{anObject:anObject}, smalltalk.Dictionary)})},
-args: ["anObject"],
-source: "keyAtValue: anObject\x0a\x0a\x09^ (self associations \x0a    \x09detect:[:k :v| v == anObject] \x0a    \x09ifNone:[self error: 'Not found']) key",
-messageSends: ["key", "detect:ifNone:", "==", "error:", "associations"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -2430,26 +2488,6 @@ return $1;
 args: ["anObject"],
 source: "includes: anObject\x0a\x09^(self indexOf: anObject ifAbsent: [nil]) notNil",
 messageSends: ["notNil", "indexOf:ifAbsent:"],
-referencedClasses: []
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_indexOf_",
-smalltalk.method({
-selector: "indexOf:",
-category: 'accessing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anObject:anObject}, smalltalk.SequenceableCollection)})},
-args: ["anObject"],
-source: "indexOf: anObject\x0a\x09^self indexOf: anObject ifAbsent: [self errorNotFound]",
-messageSends: ["indexOf:ifAbsent:", "errorNotFound"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
