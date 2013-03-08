@@ -155,8 +155,8 @@ exportMethodsOf: aClass on: aStream
 exportPackageDefinitionOf: package on: aStream
 	aStream 
 	    nextPutAll: 'smalltalk.addPackage(';
-	    nextPutAll: '''', package name, ''', ', package propertiesAsJSON , ');'.
-	aStream lf
+	    nextPutAll: '''', package name, ''');';
+        lf
 !
 
 exportPackageExtensionsOf: package on: aStream
@@ -262,8 +262,8 @@ exportPackageDefinitionOf: package on: aStream
 	"Chunk format."
 
 	aStream 
-	    nextPutAll: 'Smalltalk current createPackage: ''', package name,
-		''' properties: ', package properties storeString, '!!'; lf.
+		nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!!';
+		lf
 !
 
 exportPackageExtensionsOf: package on: aStream
