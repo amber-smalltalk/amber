@@ -2,6 +2,10 @@ Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
 Object subclass: #Association
 	instanceVariableNames: 'key value'
 	package: 'Kernel-Collections'!
+!Association commentStamp!
+I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.
+
+Instances can be created with the class-side method `#key:value:`!
 
 !Association methodsFor: 'accessing'!
 
@@ -57,6 +61,10 @@ key: aKey value: aValue
 Object subclass: #Collection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!Collection commentStamp!
+I am the abstract superclass of all classes that represent a group of elements.
+
+I provide a set of useful methods to the Collectiohn hierarchy such as enumerating and converting methods.!
 
 !Collection methodsFor: 'accessing'!
 
@@ -306,7 +314,7 @@ Collection subclass: #IndexableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !IndexableCollection commentStamp!
-An IndexableCollection is a key-value store, that is,
+I am a key-value store, that is,
 it stores values under indexes.
 
 As a rule of thumb, if a collection has at: and at:put:,
@@ -387,9 +395,9 @@ IndexableCollection subclass: #HashedCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !HashedCollection commentStamp!
-A HashedCollection is a traditional JavaScript object, or a Smalltalk Dictionary.
+I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
 
-Unlike a Dictionary, it can only have strings as keys.!
+Unlike a `Dictionary`, it can only have strings as keys.!
 
 !HashedCollection methodsFor: 'accessing'!
 
@@ -609,6 +617,11 @@ fromPairs: aCollection
 HashedCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
 	package: 'Kernel-Collections'!
+!Dictionary commentStamp!
+I represent a set of elements that can be viewed from one of two perspectives: a set of associations, 
+or a container of values that are externally named where the name can be any object that responds to `=`. 
+
+The external name is referred to as the key.!
 
 !Dictionary methodsFor: 'accessing'!
 
@@ -720,7 +733,7 @@ IndexableCollection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !SequenceableCollection commentStamp!
-A SequencableCollection is an IndexableCollection
+I am an IndexableCollection
 with numeric indexes starting with 1.!
 
 !SequenceableCollection methodsFor: 'accessing'!
@@ -874,6 +887,9 @@ includes: anObject
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!Array commentStamp!
+I represent a collection of objects ordered by the collector. The size of arrays is dynamic.
+In Amber, OrderedCollection is an alias for Array.!
 
 !Array methodsFor: 'accessing'!
 
@@ -990,6 +1006,8 @@ withAll: aCollection
 SequenceableCollection subclass: #CharacterArray
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!CharacterArray commentStamp!
+I am the abstract superclass of string-like collections.!
 
 !CharacterArray methodsFor: 'accessing'!
 
@@ -1056,6 +1074,11 @@ fromString: aString
 CharacterArray subclass: #String
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!String commentStamp!
+I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.
+
+String inherits many useful methods from its hierarchy, such as
+	`Collection >> #,`!
 
 !String methodsFor: 'accessing'!
 
@@ -1380,6 +1403,11 @@ value: aUTFCharCode
 CharacterArray subclass: #Symbol
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!Symbol commentStamp!
+I represent Strings that are created uniquely. 
+Symbols are unique through the system.
+
+Thus, someString asSymbol == someString asSymbol.!
 
 !Symbol methodsFor: 'accessing'!
 
@@ -1509,6 +1537,8 @@ lookup: aString
 Collection subclass: #Set
 	instanceVariableNames: 'elements'
 	package: 'Kernel-Collections'!
+!Set commentStamp!
+I represent an unordered set of objects without duplicates.!
 
 !Set methodsFor: 'accessing'!
 
@@ -1637,6 +1667,8 @@ initialize
 Object subclass: #RegularExpression
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!RegularExpression commentStamp!
+I represent a regular expression object. My instances are JavaScript `RegExp` object.!
 
 !RegularExpression methodsFor: 'evaluating'!
 
@@ -1665,6 +1697,9 @@ fromString: aString flag: anotherString
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
 	package: 'Kernel-Collections'!
+!Stream commentStamp!
+I represent an accessor for a sequence of objects. This sequence is referred to as my "contents".
+My instances are read/write streams to the contents sequence collection.!
 
 !Stream methodsFor: 'accessing'!
 
@@ -1798,6 +1833,8 @@ on: aCollection
 Stream subclass: #StringStream
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!StringStream commentStamp!
+I am a Stream specific to `String` objects.!
 
 !StringStream methodsFor: 'reading'!
 
