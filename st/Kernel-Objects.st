@@ -1458,6 +1458,12 @@ readJSObject: anObject
 reservedWords
 	"JavaScript reserved words"
 	<return self.reservedWords>
+!
+
+version
+	"Answer the version string of Amber"
+    
+    ^ '0.10'
 ! !
 
 !Smalltalk methodsFor: 'classes'!

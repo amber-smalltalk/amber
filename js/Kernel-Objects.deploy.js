@@ -3250,6 +3250,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{}, smalltalk.Sma
 messageSends: []}),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+"_version",
+smalltalk.method({
+selector: "version",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "0.10";
+}, function($ctx1) {$ctx1.fill(self,"version",{}, smalltalk.Smalltalk)})},
+messageSends: []}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(

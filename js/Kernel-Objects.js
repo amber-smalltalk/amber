@@ -4474,6 +4474,22 @@ referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
+smalltalk.addMethod(
+"_version",
+smalltalk.method({
+selector: "version",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "0.10";
+}, function($ctx1) {$ctx1.fill(self,"version",{}, smalltalk.Smalltalk)})},
+args: [],
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a    \x0a    ^ '0.10'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
 
 smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
