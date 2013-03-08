@@ -964,7 +964,10 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 
-smalltalk.addClass('HashedCollection', smalltalk.Collection, [], 'Kernel-Collections');
+smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
+
+
+smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
 smalltalk.HashedCollection.comment="A HashedCollection is a traditional JavaScript object, or a Smalltalk Dictionary.\x0a\x0aUnlike a Dictionary, it can only have strings as keys."
 smalltalk.addMethod(
 "__comma",
@@ -1032,7 +1035,7 @@ category: 'adding/removing',
 fn: function (aHashedCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-smalltalk.Collection.fn.prototype._addAll_.apply(_st(self), [_st(aHashedCollection)._associations()]);
+smalltalk.IndexedCollection.fn.prototype._addAll_.apply(_st(self), [_st(aHashedCollection)._associations()]);
 $1=aHashedCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"addAll:",{aHashedCollection:aHashedCollection}, smalltalk.HashedCollection)})},

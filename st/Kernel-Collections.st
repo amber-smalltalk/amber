@@ -302,7 +302,11 @@ withAll: aCollection
 		yourself
 ! !
 
-Collection subclass: #HashedCollection
+Collection subclass: #IndexableCollection
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+
+IndexableCollection subclass: #HashedCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !HashedCollection commentStamp!
