@@ -643,7 +643,7 @@ includesKey: aKey
 	< return self._positionOfKey_(aKey) >>= 0; >
 ! !
 
-Collection subclass: #SequenceableCollection
+IndexableCollection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 
