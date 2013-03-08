@@ -1,4 +1,4 @@
-smalltalk.addPackage('IDE', {});
+smalltalk.addPackage('IDE');
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
 "_browser",
@@ -1151,18 +1151,20 @@ smalltalk.method({
 selector: "toggleAmberIDE",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { 
-		if ($('#amber').length == 0) {
-			smalltalk.Browser._open();
-		} else if ($('#amber').is(':visible')) {
-			smalltalk.TabManager._current()._close();
-		} else {
-			smalltalk.TabManager._current()._open();
-		}
-		return false;
-;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
+if(smalltalk.assert($1)){
+_st((smalltalk.Browser || Browser))._open();
+} else {
+$2=_st(_st(window)._jQuery_("#amber"))._is_(":visible");
+if(smalltalk.assert($2)){
+_st(_st((smalltalk.TabManager || TabManager))._current())._close();
+} else {
+_st(_st((smalltalk.TabManager || TabManager))._current())._open();
+};
+};
 return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{}, smalltalk.TabManager.klass)})},
-messageSends: []}),
+messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "jQuery:", "=", "length"]}),
 smalltalk.TabManager.klass);
 
 
