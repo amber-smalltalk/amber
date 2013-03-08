@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Announcements' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Announcements'!
 Object subclass: #AnnouncementSubscription
 	instanceVariableNames: 'block announcementClass'
 	package: 'Kernel-Announcements'!

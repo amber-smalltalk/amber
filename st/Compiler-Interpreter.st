@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Interpreter' properties: #{}!
+Smalltalk current createPackage: 'Compiler-Interpreter'!
 NodeVisitor subclass: #AIContext
 	instanceVariableNames: 'outerContext pc locals method'
 	package: 'Compiler-Interpreter'!

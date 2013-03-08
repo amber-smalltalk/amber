@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Methods' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Methods'!
 Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!

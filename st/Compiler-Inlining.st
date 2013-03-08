@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Inlining' properties: #{}!
+Smalltalk current createPackage: 'Compiler-Inlining'!
 IRAssignment subclass: #IRInlinedAssignment
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!

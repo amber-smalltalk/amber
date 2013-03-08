@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Benchfib' properties: #{}!
+Smalltalk current createPackage: 'Benchfib'!
 Object subclass: #Benchfib
 	instanceVariableNames: ''
 	package: 'Benchfib'!
