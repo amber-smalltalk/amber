@@ -796,6 +796,69 @@ smalltalk.Collection.klass);
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.addMethod(
+"_at_",
+smalltalk.method({
+selector: "at:",
+fn: function (anIndex){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifAbsent_(anIndex,(function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._errorNotFound();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex}, smalltalk.IndexableCollection)})},
+messageSends: ["at:ifAbsent:", "errorNotFound"]}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_ifAbsent_",
+smalltalk.method({
+selector: "at:ifAbsent:",
+fn: function (anIndex,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+messageSends: ["subclassReponsibility"]}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_ifPresent_",
+smalltalk.method({
+selector: "at:ifPresent:",
+fn: function (anIndex,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+messageSends: ["at:ifPresent:ifAbsent:"]}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_ifPresent_ifAbsent_",
+smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+fn: function (anIndex,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock}, smalltalk.IndexableCollection)})},
+messageSends: ["subclassReponsibility"]}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_put_",
+smalltalk.method({
+selector: "at:put:",
+fn: function (anIndex,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject}, smalltalk.IndexableCollection)})},
+messageSends: ["subclassReponsibility"]}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
 "_with_do_",
 smalltalk.method({
 selector: "with:do:",
@@ -953,23 +1016,6 @@ messageSends: ["keysAndValuesDo:", "value:", "key:value:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_",
-smalltalk.method({
-selector: "at:",
-fn: function (aKey){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self)._at_ifAbsent_(aKey,(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{aKey:aKey}, smalltalk.HashedCollection)})},
-messageSends: ["at:ifAbsent:", "errorNotFound"]}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
 "_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
@@ -1002,25 +1048,6 @@ return _st(self)._at_put_(aKey,_st(aBlock)._value());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock}, smalltalk.HashedCollection)})},
 messageSends: ["at:ifAbsent:", "at:put:", "value"]}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
-"_at_ifPresent_",
-smalltalk.method({
-selector: "at:ifPresent:",
-fn: function (aKey,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self)._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=_st(aBlock)._value_(_st(self)._at_(aKey));
-} else {
-$1=nil;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aKey:aKey,aBlock:aBlock}, smalltalk.HashedCollection)})},
-messageSends: ["ifTrue:ifFalse:", "value:", "at:", "includesKey:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
@@ -1696,43 +1723,6 @@ $1=_st(self)._copyFrom_to_((1),_st(_st(self)._size()).__minus((1)));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allButLast",{}, smalltalk.SequenceableCollection)})},
 messageSends: ["copyFrom:to:", "-", "size"]}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_at_",
-smalltalk.method({
-selector: "at:",
-fn: function (anIndex){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._at_ifAbsent_(anIndex,(function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex}, smalltalk.SequenceableCollection)})},
-messageSends: ["at:ifAbsent:", "errorNotFound"]}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_at_ifAbsent_",
-smalltalk.method({
-selector: "at:ifAbsent:",
-fn: function (anIndex,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock}, smalltalk.SequenceableCollection)})},
-messageSends: ["subclassResponsibility"]}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_at_put_",
-smalltalk.method({
-selector: "at:put:",
-fn: function (anIndex,anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject}, smalltalk.SequenceableCollection)})},
-messageSends: ["subclassResponsibility"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(

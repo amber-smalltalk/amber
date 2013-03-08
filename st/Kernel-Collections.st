@@ -312,6 +312,46 @@ it stores values under indexes.
 As a rule of thumb, if a collection has at: and at:put:,
 it is an IndexableCollection.!
 
+!IndexableCollection methodsFor: 'accessing'!
+
+at: anIndex
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value stored at anIndex. 
+	Otherwise, raise an error."
+
+	^self at: anIndex ifAbsent: [ self errorNotFound ]
+!
+
+at: anIndex ifAbsent: aBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value stored at anIndex. 
+	Otherwise, answer the value of aBlock."
+
+	self subclassReponsibility
+!
+
+at: anIndex ifPresent: aBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex. 
+	Otherwise, answer nil."
+
+	^self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]
+!
+
+at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
+	Otherwise, answer the value of anotherBlock."
+
+	self subclassReponsibility
+!
+
+at: anIndex put: anObject
+	"Store anObject under the given index in the receiver."
+
+	self subclassReponsibility
+! !
+
 !IndexableCollection methodsFor: 'enumeration'!
 
 with: anotherCollection do: aBlock
@@ -346,10 +386,6 @@ associations
 	^associations
 !
 
-at: aKey
-	^self at: aKey ifAbsent: [self errorNotFound]
-!
-
 at: aKey ifAbsent: aBlock
 	^(self includesKey: aKey)
 		ifTrue: [self basicAt: aKey]
@@ -359,15 +395,6 @@ at: aKey ifAbsent: aBlock
 at: aKey ifAbsentPut: aBlock
 	^self at: aKey ifAbsent: [
 	    self at: aKey put: aBlock value]
-!
-
-at: aKey ifPresent: aBlock
-	"Lookup the given key in the receiver. 
-	If it is present, answer the value of evaluating the given block with the value associated with the key. 
-	Otherwise, answer nil."
-	^(self includesKey: aKey)
-		ifTrue: [ aBlock value: (self at: aKey) ]
-		ifFalse: [ nil ]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
@@ -685,19 +712,6 @@ allButFirst
 
 allButLast
 	^self copyFrom: 1 to: self size - 1
-!
-
-at: anIndex
-	^self at: anIndex ifAbsent: [
-	    self errorNotFound]
-!
-
-at: anIndex ifAbsent: aBlock
-	self subclassResponsibility
-!
-
-at: anIndex put: anObject
-	self subclassResponsibility
 !
 
 atRandom

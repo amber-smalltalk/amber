@@ -1037,6 +1037,94 @@ smalltalk.Collection.klass);
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.IndexableCollection.comment="An IndexableCollection is a key-value store, that is,\x0ait stores values under indexes.\x0a\x0aAs a rule of thumb, if a collection has at: and at:put:,\x0ait is an IndexableCollection."
 smalltalk.addMethod(
+"_at_",
+smalltalk.method({
+selector: "at:",
+category: 'accessing',
+fn: function (anIndex){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifAbsent_(anIndex,(function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._errorNotFound();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex}, smalltalk.IndexableCollection)})},
+args: ["anIndex"],
+source: "at: anIndex\x0a\x09\x22Lookup the given index in the receiver. \x0a\x09If it is present, answer the value stored at anIndex. \x0a\x09Otherwise, raise an error.\x22\x0a\x0a\x09^self at: anIndex ifAbsent: [ self errorNotFound ]",
+messageSends: ["at:ifAbsent:", "errorNotFound"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_ifAbsent_",
+smalltalk.method({
+selector: "at:ifAbsent:",
+category: 'accessing',
+fn: function (anIndex,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+args: ["anIndex", "aBlock"],
+source: "at: anIndex ifAbsent: aBlock\x0a\x09\x22Lookup the given index in the receiver. \x0a\x09If it is present, answer the value stored at anIndex. \x0a\x09Otherwise, answer the value of aBlock.\x22\x0a\x0a\x09self subclassReponsibility",
+messageSends: ["subclassReponsibility"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_ifPresent_",
+smalltalk.method({
+selector: "at:ifPresent:",
+category: 'accessing',
+fn: function (anIndex,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock}, smalltalk.IndexableCollection)})},
+args: ["anIndex", "aBlock"],
+source: "at: anIndex ifPresent: aBlock\x0a\x09\x22Lookup the given index in the receiver. \x0a\x09If it is present, answer the value of evaluating aBlock with the value stored at anIndex. \x0a\x09Otherwise, answer nil.\x22\x0a\x0a\x09^self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]",
+messageSends: ["at:ifPresent:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_ifPresent_ifAbsent_",
+smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+category: 'accessing',
+fn: function (anIndex,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock}, smalltalk.IndexableCollection)})},
+args: ["anIndex", "aBlock", "anotherBlock"],
+source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given index in the receiver. \x0a\x09If it is present, answer the value of evaluating aBlock with the value stored at anIndex.\x0a\x09Otherwise, answer the value of anotherBlock.\x22\x0a\x0a\x09self subclassReponsibility",
+messageSends: ["subclassReponsibility"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
+"_at_put_",
+smalltalk.method({
+selector: "at:put:",
+category: 'accessing',
+fn: function (anIndex,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject}, smalltalk.IndexableCollection)})},
+args: ["anIndex", "anObject"],
+source: "at: anIndex put: anObject\x0a\x09\x22Store anObject under the given index in the receiver.\x22\x0a\x0a\x09self subclassReponsibility",
+messageSends: ["subclassReponsibility"],
+referencedClasses: []
+}),
+smalltalk.IndexableCollection);
+
+smalltalk.addMethod(
 "_with_do_",
 smalltalk.method({
 selector: "with:do:",
@@ -1245,28 +1333,6 @@ referencedClasses: ["Association"]
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_",
-smalltalk.method({
-selector: "at:",
-category: 'accessing',
-fn: function (aKey){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self)._at_ifAbsent_(aKey,(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{aKey:aKey}, smalltalk.HashedCollection)})},
-args: ["aKey"],
-source: "at: aKey\x0a\x09^self at: aKey ifAbsent: [self errorNotFound]",
-messageSends: ["at:ifAbsent:", "errorNotFound"],
-referencedClasses: []
-}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
 "_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
@@ -1307,30 +1373,6 @@ return $1;
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsentPut: aBlock\x0a\x09^self at: aKey ifAbsent: [\x0a\x09    self at: aKey put: aBlock value]",
 messageSends: ["at:ifAbsent:", "at:put:", "value"],
-referencedClasses: []
-}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
-"_at_ifPresent_",
-smalltalk.method({
-selector: "at:ifPresent:",
-category: 'accessing',
-fn: function (aKey,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self)._includesKey_(aKey);
-if(smalltalk.assert($2)){
-$1=_st(aBlock)._value_(_st(self)._at_(aKey));
-} else {
-$1=nil;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aKey:aKey,aBlock:aBlock}, smalltalk.HashedCollection)})},
-args: ["aKey", "aBlock"],
-source: "at: aKey ifPresent: aBlock\x0a\x09\x22Lookup the given key in the receiver. \x0a\x09If it is present, answer the value of evaluating the given block with the value associated with the key. \x0a\x09Otherwise, answer nil.\x22\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: [ nil ]",
-messageSends: ["ifTrue:ifFalse:", "value:", "at:", "includesKey:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -2212,58 +2254,6 @@ return $1;
 args: [],
 source: "allButLast\x0a\x09^self copyFrom: 1 to: self size - 1",
 messageSends: ["copyFrom:to:", "-", "size"],
-referencedClasses: []
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_at_",
-smalltalk.method({
-selector: "at:",
-category: 'accessing',
-fn: function (anIndex){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._at_ifAbsent_(anIndex,(function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex}, smalltalk.SequenceableCollection)})},
-args: ["anIndex"],
-source: "at: anIndex\x0a\x09^self at: anIndex ifAbsent: [\x0a\x09    self errorNotFound]",
-messageSends: ["at:ifAbsent:", "errorNotFound"],
-referencedClasses: []
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_at_ifAbsent_",
-smalltalk.method({
-selector: "at:ifAbsent:",
-category: 'accessing',
-fn: function (anIndex,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock}, smalltalk.SequenceableCollection)})},
-args: ["anIndex", "aBlock"],
-source: "at: anIndex ifAbsent: aBlock\x0a\x09self subclassResponsibility",
-messageSends: ["subclassResponsibility"],
-referencedClasses: []
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-"_at_put_",
-smalltalk.method({
-selector: "at:put:",
-category: 'accessing',
-fn: function (anIndex,anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject}, smalltalk.SequenceableCollection)})},
-args: ["anIndex", "anObject"],
-source: "at: anIndex put: anObject\x0a\x09self subclassResponsibility",
-messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
