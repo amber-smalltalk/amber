@@ -300,157 +300,8 @@ DocChapter subclass: #TutorialsChapter
 
 !TutorialsChapter methodsFor: 'accessing'!
 
-chapters
-	^{ self firstAppChapter. self counterChapter }
-!
-
 contents
-	^'Here''s a serie of tutorials. If you are new to Smalltalk, you can also learn Amber online with [ProfStef](http://www.amber-lang.net/learn.html)'
-!
-
-counterChapter
-	^DocChapter new
-		title: 'The counter application';
-		contents: '
-
-This tutorial will teach you how to build HTML with Amber using jQuery and the HTMLCanvas API. It is freely adapted from 
-the [Seaside counter example](http://www.seaside.st/about/examples/counter)
-
-##The counter widget
-
-The counter is the most basic example of a widget. It allows to increment and decrement a number by clicking a button.
-
-Amber already comes with a counter example in the `Examples` package. To avoid class name conflict, we''ll name our counter class `TCounter`.
-
-    Widget subclass: #TCounter
-        instanceVariableNames: ''count header''
-        package: ''Tutorials''
-
-The first method is used to initialize the component with the default state, in this case we set the counter to 0:
-
-    initialize
-        super initialize.
-        count := 0
-
-The method used for rendering a widget is `#renderOn:`. It takes an instance of HTMLCanvas as parameter. 
-The `header` h1 kept as an instance variable, so when the count value change, we can update it''s contents accordingly.
-
-    renderOn: html
-        header := html h1 
-            with: count asString;
-            yourself.
-        html button
-            with: ''++'';
-            onClick: [self increase].
-        html button
-            with: ''--'';
-            onClick: [self decrease]
-
-The counter is almost ready. All we need now is to implement the two action methods `#increase` and `#decrease` to change the state 
-of our counter and update its header.
-
-    increase
-        count := count + 1.
-        header contents: [:html | html with: count asString]
-
-    decrease
-        count := count - 1.
-        header contents: [:html | html with: count asString]
-
-
-That''s it!! We can now display an instance of TCounter by rendering it on the page using jQuery:
-
-    TCounter new appendToJQuery: ''body'' asJQuery
-
-'
-!
-
-firstAppChapter
-	^DocChapter new
-		title: 'A first application';
-		contents: '
-
-Let''s make Hello World in Amber.
-
-First, you need a place for your new project. I made a new directory under amber:
-
-    amber/projects/hello
-
-This will store your project files. To get started, add a new index.html file to this folder, as well as empty js and st folders.
-
-Your index.html can be really basic. The most important thing it does is include amber.js and run loadAmber. Here is a basic index.html you can use:
-
-
-    <!!DOCTYPE html>
-    <html>
-      <head>
-        <title>My First Amber Project</title>
-        <script src="../../js/amber.js" type="text/javascript"></script>
-        <script type="text/javascript">
-          loadAmber({
-            files: [],
-            prefix: ''projects/hello/js'',
-            ready: function() {
-              
-            }}); 
-        </script>
-      </head>
-      <body>
-        <article>
-          <h1>My First Amber Project</h1>
-          <button onclick="smalltalk.Browser._open()">class browser</button>
-          <button id="sayHello">say hello</button>
-        </article>
-      </body>
-    </html>
-
-Now start up amber with node.js and navigate to  http://localhost:4000/projects/hello/index.html
-
-It''s boring so far, so lets write some code. Click the button to open the class browser. Find an existing class and change its name to Hello and its package to HelloApp. 
-Then click save. This creates a new class and leaves the old one intact, it doesn''t overwrite it. Your class will look like this:
-
-    Object subclass: #Hello
-        instanceVariableNames: ''''
-        package: ''HelloApp''
-
-Now click save and navigate to your new class in its new package.
- Then click ''commit package''. You just created a new class and saved your work. 
-On your file system check out your js and st folders. Your new class is now saved in both JavaScript and Smalltalk.
-
-Now, refresh your browser page and reopen the class browser. Oh no, your new class is gone!! To load your new class automatically, you have to add it in index.html. Make your JavaScript look like this:
-
-
-    loadAmber({
-        files: [''HelloApp.js''],
-        prefix: ''projects/hello/js'',
-        ready: function() {      
-    }}); 
-
-Save and refresh again. Now your class is loaded and shows up in the class browser.
-
-Now, let''s make this class do something. Create a new message in the class browser by navigating to your class, then clicking ''not yet classified'' and fill in a simple message. Try this for example:
-
-    begin
-	"Makes me say hello to the user."
-
-	| msg button |
-	msg := ''Hello world!!''.
-	button := ''#sayHello'' asJQuery.
-	button click: [button after: ''<p>'' , msg , ''</p>''].
-
-Your message isn''t too helpful if it doesn''t get called. Save it, commit the package, then edit index.html again. You can write JavaScript code that sends a message to Smalltalk:
-
-    loadAmber({
-        files: [''HelloApp.js''],
-        prefix: ''projects/hello/js'', // path for js files i think
-        ready: function() {
-          $(function() {
-            smalltalk.Hello._new()._begin();
-          });
-    }}); 
-
-From there, you can create new Smalltalk classes and messages to build up your app. Enjoy!!
-'
+	^'You can find a list of [Tutorials](https://github.com/amber-smalltalk/amber/wiki/Tutorials) on the [Github wiki](https://github.com/amber-smalltalk/amber/wiki). If you are new to Smalltalk, you can also learn Amber online with [ProfStef](http://www.amber-lang.net/learn.html).'
 !
 
 title
@@ -519,13 +370,14 @@ Noteworthy features:
 - Amber is a live Smalltalk that **compiles incrementally into efficient JavaScript** often mapping one-to-one with JavaScript equivalents.
 - Amber has a **Seaside influenced canvas library** to dynamically generate HTML.
 
-## Arguments for using Amber
-In our humble opinion the main arguments for using Amber are:
+## Why Amber?
 
 - JavaScript is quite a broken language with lots of traps and odd quirks. It is the assembler of the Internet which is cool, but we don''t want to write in it.
-- Smalltalk as a language is immensely cleaner and more mature, both syntactically and semantically.
-- Smalltalk has a simple class model with a lightweight syntax for closures, it is in many ways a perfect match for the Good Parts of JavaScript.
-- Having a true live interactive incremental development environment where you can build your application directly in the browser is unbeatable.
+- Amber is a language and environment built for the web. With Amber, client-side web development finally gets the power and productivity that exists in other Smalltalk dialects.
+- Smalltalk has a simple class model with a lightweight syntax for closures, it is in many ways a perfect match for the Good Parts of JavaScript. 
+  Smalltalk stands head and shoulders above most other languages for clarity, conciseness, and human-friendliness.
+  As a language, it is immensely clean and mature, both syntactically and semantically. It is a pure OO language, with objects all the way down.
+- Having a true live & incremental development environment where you can build your application interactively in the browser is unbeatable.
 
 ## Disclaimer
 
@@ -569,10 +421,6 @@ To get started hacking in Amber you can basically take three routes, independent
 3. Same as above but install git first and get a proper clone from [http://github.com/NicolasPetton/amber](http://github.com/NicolasPetton/amber) instead of a zip/tar-ball. 
     If you want to **contribute to Amber itself** this is really what you want to do. In fact, in most cases this is what you want to do. It requires installing git first, but it is quite simple - although we leave this bit as an "exercise to the reader" :)
 
-**PLEASE NOTE:** Amber core developers use Linux. 
-We do not want to introduce dependencies that aren''t cross platform - but currently amberc (the command line compiler) is a bash script and we also use Makefiles 
-(for building Amber itself and server side examples) written on Linux/Unix. So using Windows is currently a bit limited - you can''t run "make" in the .st directory to rebuild whole of Amber for example.
- BUT... if you only want to use Amber to build web client apps and not really get involved in hacking Amber itself - then you should be fine!!
 
 ## Downloading Amber
 Currently you can download in zip or tar-ball format, either cutting edge or a release. [Downloads are available here](https://github.com/NicolasPetton/amber/archives/amber). 
