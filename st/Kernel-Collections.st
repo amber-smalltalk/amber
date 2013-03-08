@@ -305,6 +305,12 @@ withAll: aCollection
 Collection subclass: #IndexableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!IndexableCollection commentStamp!
+An IndexableCollection is a key-value store, that is,
+it stores values under indexes.
+
+As a rule of thumb, if a collection has at: and at:put:,
+it is an IndexableCollection.!
 
 IndexableCollection subclass: #HashedCollection
 	instanceVariableNames: ''
@@ -646,6 +652,9 @@ includesKey: aKey
 IndexableCollection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!SequenceableCollection commentStamp!
+A SequencableCollection is an IndexableCollection
+with numeric indexes starting with 1.!
 
 !SequenceableCollection methodsFor: 'accessing'!
 

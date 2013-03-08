@@ -1035,6 +1035,7 @@ smalltalk.Collection.klass);
 
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
+smalltalk.IndexableCollection.comment="An IndexableCollection is a key-value store, that is,\x0ait stores values under indexes.\x0a\x0aAs a rule of thumb, if a collection has at: and at:put:,\x0ait is an IndexableCollection."
 
 
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
@@ -2077,6 +2078,7 @@ smalltalk.Dictionary);
 
 
 smalltalk.addClass('SequenceableCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
+smalltalk.SequenceableCollection.comment="A SequencableCollection is an IndexableCollection\x0awith numeric indexes starting with 1.\x0a"
 smalltalk.addMethod(
 "__eq",
 smalltalk.method({
