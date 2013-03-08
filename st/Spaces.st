@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Spaces' properties: #{}!
+Smalltalk current createPackage: 'Spaces'!
 Object subclass: #ObjectSpace
 	instanceVariableNames: 'frame'
 	package: 'Spaces'!

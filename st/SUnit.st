@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'SUnit' properties: #{}!
+Smalltalk current createPackage: 'SUnit'!
 Object subclass: #ResultAnnouncement
 	instanceVariableNames: 'result'
 	package: 'SUnit'!

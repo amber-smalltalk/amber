@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Tests' properties: #{}!
+Smalltalk current createPackage: 'Compiler-Tests'!
 TestCase subclass: #AbstractASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
