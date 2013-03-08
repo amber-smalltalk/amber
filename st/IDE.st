@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'IDE' properties: #{}!
+Smalltalk current createPackage: 'IDE'!
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	package: 'IDE'!

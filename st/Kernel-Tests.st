@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Tests' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Tests'!
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

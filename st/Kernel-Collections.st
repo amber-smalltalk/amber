@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Collections'!
 Object subclass: #Association
 	instanceVariableNames: 'key value'
 	package: 'Kernel-Collections'!

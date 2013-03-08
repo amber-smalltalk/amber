@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler' properties: #{}!
+Smalltalk current createPackage: 'Compiler'!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
 	package:'Compiler'!

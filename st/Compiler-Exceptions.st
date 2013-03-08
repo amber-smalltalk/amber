@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Exceptions' properties: #{}!
+Smalltalk current createPackage: 'Compiler-Exceptions'!
 Error subclass: #CompilerError
 	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!

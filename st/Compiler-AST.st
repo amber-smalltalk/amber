@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-AST' properties: #{}!
+Smalltalk current createPackage: 'Compiler-AST'!
 Object subclass: #Node
 	instanceVariableNames: 'position nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!

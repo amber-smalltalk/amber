@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Importer-Exporter' properties: #{}!
+Smalltalk current createPackage: 'Importer-Exporter'!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
 	package: 'Importer-Exporter'!

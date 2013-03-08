@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Objects' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Objects'!
 nil subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
