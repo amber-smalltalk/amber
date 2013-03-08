@@ -20,7 +20,7 @@ Here's a summary of change since the 0.9.1 release:
 - New build system based on gruntjs, replacing the old makefiles
 - Improved ClassBuilder with better class migration support
 - New bin/amberc compiler written in Amber
-
+- Improved loader for third party packages
 - New IDE on it's way for Amber 1.0
 
 
