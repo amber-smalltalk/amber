@@ -1490,6 +1490,31 @@ referencedClasses: []
 }),
 smalltalk.TabManager.klass);
 
+smalltalk.addMethod(
+"_toggleAmberIDE",
+smalltalk.method({
+selector: "toggleAmberIDE",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		if ($('#amber').length == 0) {
+			smalltalk.Browser._open();
+		} else if ($('#amber').is(':visible')) {
+			smalltalk.TabManager._current()._close();
+		} else {
+			smalltalk.TabManager._current()._open();
+		}
+		return false;
+;
+return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{}, smalltalk.TabManager.klass)})},
+args: [],
+source: "toggleAmberIDE\x0a<\x0a\x09\x09if ($('#amber').length == 0) {\x0a\x09\x09\x09smalltalk.Browser._open();\x0a\x09\x09} else if ($('#amber').is(':visible')) {\x0a\x09\x09\x09smalltalk.TabManager._current()._close();\x0a\x09\x09} else {\x0a\x09\x09\x09smalltalk.TabManager._current()._open();\x0a\x09\x09}\x0a\x09\x09return false;\x0a>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TabManager.klass);
+
 
 smalltalk.addClass('TabWidget', smalltalk.Widget, ['div'], 'IDE');
 smalltalk.addMethod(

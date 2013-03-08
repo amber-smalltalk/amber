@@ -519,6 +519,21 @@ update
 
 TabManager class instanceVariableNames: 'current'!
 
+!TabManager class methodsFor: 'actions'!
+
+toggleAmberIDE
+<
+		if ($('#amber').length == 0) {
+			smalltalk.Browser._open();
+		} else if ($('#amber').is(':visible')) {
+			smalltalk.TabManager._current()._close();
+		} else {
+			smalltalk.TabManager._current()._open();
+		}
+		return false;
+>
+! !
+
 !TabManager class methodsFor: 'instance creation'!
 
 current

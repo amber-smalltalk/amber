@@ -21,17 +21,6 @@ amber = (function() {
 	var loadJS;
 	var nocache = '';
 
-	that.toggleIDE = function() {
-		if ($('#amber').length == 0) {
-			smalltalk.Browser._open();
-		} else if ($('#amber').is(':visible')) {
-			smalltalk.TabManager._current()._close();
-		} else {
-			smalltalk.TabManager._current()._open();
-		}
-		return false;
-	};
-
 	that.load = function(obj) {
 		spec = obj || {};
 
@@ -104,14 +93,13 @@ amber = (function() {
 		}
 
 		var additionalFiles = spec.packages || spec.files;
-		var commitPathForInit = null;
 		if (additionalFiles) {
-			commitPathForInit = loadPackages(additionalFiles, spec.prefix, spec.packageHome);
+			that.commitPath = loadPackages(additionalFiles, spec.prefix, spec.packageHome);
 		}
 
 		// Be sure to setup & initialize smalltalk classes
 		addJSToLoad('js/init.js');
-		initializeSmalltalk(commitPathForInit);
+		initializeSmalltalk();
 	};
 
 	function loadPackages(names, prefix, urlHome){
@@ -208,19 +196,15 @@ amber = (function() {
 	}
 
 	// This will be called after JS files have been loaded
-	function initializeSmalltalk(commitPath) {
-		window.smalltalkReady = function() {
-			if (commitPath) {
-				smalltalk['@@commitPath'] = commitPath;
-				smalltalk.Package._commitPathsFromLoader();
-			}
-			if (spec.ready) {
-				spec.ready();
-			}
-			evaluateSmalltalkScripts();
-		};
+	function initializeSmalltalk() {
+		that.smalltalkReady = function() {
+            if (spec.ready) {
+                spec.ready();
+            }
+            evaluateSmalltalkScripts();
+        };
 
-		loadAllJS();
+        loadAllJS();
 	}
 
 	/*
@@ -308,4 +292,8 @@ amber = (function() {
 })();
 
 window.loadAmber = amber.load;
-window.toggleAmberIDE = amber.toggleIDE;
+
+// Backward compatibility
+function toggleAmberIDE () {
+    return smalltalk.TabManager._toggleAmberIDE();
+}
