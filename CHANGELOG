@@ -1,3 +1,30 @@
+Release 0.10 (on it's way)
+==========================
+
+Here's a summary of change since the 0.9.1 release:
+
+- Travis CI jobs
+- Almost 300 issues closed
+- 150 new unit tests written
+- All classes in the Kernel are documented
+
+- New and much improved compiler toolchain, providing:
+  - Semantic analysis
+  - AST Node annotation
+  - Intermediate representation (easier to optimize)
+  - Better inlining
+  - an AST interpreter
+  - support for blocks contexts
+
+- SUnit improvements and cleanup, with support for async assertions
+- New build system based on gruntjs, replacing the old makefiles
+- Improved ClassBuilder with better class migration support
+- New bin/amberc compiler written in Amber
+
+- New IDE on it's way for Amber 1.0
+
+
+
 16th January 2012 - Release 0.9.1
 =================================
 
