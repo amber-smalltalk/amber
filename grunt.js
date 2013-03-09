@@ -115,7 +115,7 @@ module.exports = function(grunt) {
       tests: ['test/*.js'],
       grunt: ['grunt.js', 'grunt/**/*.js']
     },
-
+/*
     concat: {
       deploy: {
         src: ['tmp/amber-compiled.deploy.js'],
@@ -172,6 +172,7 @@ module.exports = function(grunt) {
         dest: 'dist/amber-<%= pkg.version %>.deploy.min.js'
       }
     }
+*/
   });
 
   grunt.registerMultiTask('css2js', 'Embed CSS into JS', function() {
