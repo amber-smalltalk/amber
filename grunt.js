@@ -37,7 +37,7 @@ module.exports = function(grunt) {
               'Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
               'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st',
               'Canvas.st', 'SUnit.st', 'IDE.st',
-              'Kernel-Tests.st', 'Compiler-Tests.st',
+              'Kernel-Tests.st', 'Compiler-Tests.st', 'SUnit-Tests.st'
               ],
         deploy: true
       },
