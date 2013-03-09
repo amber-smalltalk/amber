@@ -1,4 +1,4 @@
-smalltalk.addPackage('Kernel-Announcements', {});
+smalltalk.addPackage('Kernel-Announcements');
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.AnnouncementSubscription.comment="The subscription is a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible."
 smalltalk.addMethod(
@@ -310,6 +310,43 @@ smalltalk.MethodAnnouncement);
 
 
 smalltalk.addClass('MethodAdded', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
+
+
+smalltalk.addClass('MethodModified', smalltalk.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
+smalltalk.addMethod(
+"_oldMethod",
+smalltalk.method({
+selector: "oldMethod",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@oldMethod"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"oldMethod",{}, smalltalk.MethodModified)})},
+args: [],
+source: "oldMethod\x0a\x09^ oldMethod",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodModified);
+
+smalltalk.addMethod(
+"_oldMethod_",
+smalltalk.method({
+selector: "oldMethod:",
+category: 'accessing',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@oldMethod"]=aMethod;
+return self}, function($ctx1) {$ctx1.fill(self,"oldMethod:",{aMethod:aMethod}, smalltalk.MethodModified)})},
+args: ["aMethod"],
+source: "oldMethod: aMethod\x0a\x09oldMethod := aMethod",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodModified);
+
 
 
 smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');

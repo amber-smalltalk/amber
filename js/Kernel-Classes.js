@@ -8,18 +8,33 @@ selector: "addCompiledMethod:",
 category: 'compiling',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var oldMethod,announcement;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
+oldMethod=_st(_st(self)._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._basicAddCompiledMethod_(aMethod);
-$1=_st((smalltalk.MethodAdded || MethodAdded))._new();
-_st($1)._theClass_(self);
-_st($1)._method_(aMethod);
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
+$1=oldMethod;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st((smalltalk.MethodAdded || MethodAdded))._new();
+_st($2)._theClass_(self);
+_st($2)._method_(aMethod);
+$3=_st($2)._yourself();
+announcement=$3;
+} else {
+$4=_st((smalltalk.MethodModified || MethodModified))._new();
+_st($4)._theClass_(self);
+_st($4)._oldMethod_(oldMethod);
+_st($4)._method_(aMethod);
+$5=_st($4)._yourself();
+announcement=$5;
+};
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_(announcement);
+return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod,oldMethod:oldMethod,announcement:announcement}, smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "addCompiledMethod: aMethod\x0a\x09self basicAddCompiledMethod: aMethod.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodAdded new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
-messageSends: ["basicAddCompiledMethod:", "announce:", "theClass:", "new", "method:", "yourself", "current"],
-referencedClasses: ["MethodAdded", "SystemAnnouncer"]
+source: "addCompiledMethod: aMethod\x0a\x09| oldMethod announcement |\x0a    \x0a\x09oldMethod := self methodDictionary \x0a    \x09at: aMethod selector \x0a        ifAbsent: [ nil ].\x0a    \x0a\x09self basicAddCompiledMethod: aMethod.\x0a    \x0a    announcement := oldMethod \x0a    \x09ifNil: [\x0a\x09\x09    MethodAdded new\x0a       \x09\x09\x09 \x09theClass: self;\x0a\x09\x09            method: aMethod;\x0a       \x09\x09\x09    yourself ]\x0a    \x09ifNotNil: [\x0a          \x09MethodModified new\x0a       \x09\x09\x09 \x09theClass: self;\x0a                    oldMethod: oldMethod; \x0a\x09\x09            method: aMethod;\x0a       \x09\x09\x09    yourself ].\x0a                    \x0a\x09SystemAnnouncer current\x0a\x09\x09   \x09\x09announce: announcement",
+messageSends: ["at:ifAbsent:", "selector", "methodDictionary", "basicAddCompiledMethod:", "ifNil:ifNotNil:", "theClass:", "new", "method:", "yourself", "oldMethod:", "announce:", "current"],
+referencedClasses: ["MethodAdded", "MethodModified", "SystemAnnouncer"]
 }),
 smalltalk.Behavior);
 
