@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Tests' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Tests'!
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -260,9 +260,10 @@ testClassMigration
     self assert: ObjectMock2 package name equals: 'Kernel-Tests'.
     
 	self deny: instance class == ObjectMock2.
-    self assert: instance class name equals: 'OldObjectMock2'.
+    "Commeting this out. Tests implementation detail."
+    "self assert: instance class name equals: 'OldObjectMock2'."
     
-    self assert: (Smalltalk current at: 'OldObjectMock2') isNil.
+	self assert: (Smalltalk current at: instance class name) isNil.
     
     Smalltalk current removeClass: ObjectMock2
 !
@@ -427,11 +428,20 @@ CollectionTest subclass: #HashedCollectionTest
 !HashedCollectionTest methodsFor: 'accessing'!
 
 collection
-	^ #{ 'a' -> 1. 'b' -> 2. 'c' -> 3. 'd' -> -4 }
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4 }
 !
 
 collectionWithDuplicates
-	^ #{ 'a' -> 1. 'b' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+	^ #{ 'b' -> 1. 'a' -> 2. 'c' -> 3. 'd' -> -4. 'e' -> 1. 'f' -> 2. 'g' -> 10 }
+! !
+
+!HashedCollectionTest methodsFor: 'tests'!
+
+testIndexOf
+
+	self assert: (self collection indexOf: 2) equals: 'a'.
+	self should: [ self collection indexOf: 999 ] raise: Error.
+	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
 ! !
 
 !HashedCollectionTest class methodsFor: 'accessing'!
@@ -479,11 +489,17 @@ testAccessing
 	self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.
 	self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.
 
+	self assert: (d includesKey: 'hello').
+	self deny: (d includesKey: 'foo').
+
 	d at: 1 put: 2.
 	self assert: (d at: 1) equals: 2.
 
 	d at: 1@3 put: 3.
-	self assert: (d at: 1@3) equals: 3
+	self assert: (d at: 1@3) equals: 3.
+
+	self assert: (d includesKey: 1@3).
+	self deny: (d includesKey: 3@1)
 !
 
 testDynamicDictionaries
@@ -556,6 +572,20 @@ testKeys
 	d at: 3 put: 4.
 
 	self assert: d keys equals: #(1 2 3)
+!
+
+testPointKey
+	| d |
+
+	d := Dictionary new.
+    
+    d at: 1@1 put: 'foo'.
+	self assert: (d at: 1@1) equals: 'foo'.
+    d at: 1@1 put: 'bar'.
+	self assert: (d at: 1@1) equals: 'bar'.
+    d removeKey: 1@1.
+    self assert: (d at: 1@1 ifAbsent: [ 'baz' ]) equals: 'baz'.
+    self deny: (d includesKey: 1@1)
 !
 
 testPrintString

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Compiler-Core' properties: #{}!
+Smalltalk current createPackage: 'Compiler-Core'!
 Object subclass: #Compiler
 	instanceVariableNames: 'currentClass source unknownVariables codeGeneratorClass'
 	package: 'Compiler-Core'!

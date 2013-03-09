@@ -2574,11 +2574,11 @@ selector: "commitPathsFromLoader",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-    var cp = smalltalk['@@commitPath'];
-    if (!cp) return;
-    if (cp.js) self._defaultCommitPathJs_(cp.js);
-    if (cp.st) self._defaultCommitPathSt_(cp.st);
-    ;
+	var cp = typeof amber !== 'undefined' && amber.commitPath;
+	if (!cp) return;
+	if (cp.js) self._defaultCommitPathJs_(cp.js);
+	if (cp.st) self._defaultCommitPathSt_(cp.st);
+;
 return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{}, smalltalk.Package.klass)})},
 messageSends: []}),
 smalltalk.Package.klass);
@@ -3247,6 +3247,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self.reservedWords;
 return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{}, smalltalk.Smalltalk)})},
+messageSends: []}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+"_version",
+smalltalk.method({
+selector: "version",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "0.10";
+}, function($ctx1) {$ctx1.fill(self,"version",{}, smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);
 

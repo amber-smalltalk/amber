@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Kernel-Objects' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Objects'!
 nil subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
@@ -1199,12 +1199,12 @@ named: aPackageName ifAbsent: aBlock
 !Package class methodsFor: 'commit paths'!
 
 commitPathsFromLoader
-    <
-    var cp = smalltalk['@@commitPath'];
-    if (!!cp) return;
-    if (cp.js) self._defaultCommitPathJs_(cp.js);
-    if (cp.st) self._defaultCommitPathSt_(cp.st);
-    >
+<
+	var cp = typeof amber !!== 'undefined' && amber.commitPath;
+	if (!!cp) return;
+	if (cp.js) self._defaultCommitPathJs_(cp.js);
+	if (cp.st) self._defaultCommitPathSt_(cp.st);
+>
 !
 
 defaultCommitPathJs
@@ -1458,6 +1458,12 @@ readJSObject: anObject
 reservedWords
 	"JavaScript reserved words"
 	<return self.reservedWords>
+!
+
+version
+	"Answer the version string of Amber"
+    
+    ^ '0.10'
 ! !
 
 !Smalltalk methodsFor: 'classes'!

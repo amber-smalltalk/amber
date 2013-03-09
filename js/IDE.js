@@ -1,4 +1,4 @@
-smalltalk.addPackage('IDE', {});
+smalltalk.addPackage('IDE');
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
 "_browser",
@@ -1487,6 +1487,33 @@ args: [],
 source: "new\x0a    self shouldNotImplement",
 messageSends: ["shouldNotImplement"],
 referencedClasses: []
+}),
+smalltalk.TabManager.klass);
+
+smalltalk.addMethod(
+"_toggleAmberIDE",
+smalltalk.method({
+selector: "toggleAmberIDE",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
+if(smalltalk.assert($1)){
+_st((smalltalk.Browser || Browser))._open();
+} else {
+$2=_st(_st(window)._jQuery_("#amber"))._is_(":visible");
+if(smalltalk.assert($2)){
+_st(_st((smalltalk.TabManager || TabManager))._current())._close();
+} else {
+_st(_st((smalltalk.TabManager || TabManager))._current())._open();
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{}, smalltalk.TabManager.klass)})},
+args: [],
+source: "toggleAmberIDE\x0a\x09(window jQuery: '#amber') length = 0\x0a\x09\x09ifTrue: [ Browser open ]\x0a      \x09ifFalse: [ \x0a\x09\x09\x09((window jQuery: '#amber') is: ':visible')\x0a\x09\x09\x09\x09ifTrue: [ TabManager current close ] \x0a\x09\x09\x09\x09ifFalse: [ TabManager current open ] ]",
+messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "jQuery:", "=", "length"],
+referencedClasses: ["Browser", "TabManager"]
 }),
 smalltalk.TabManager.klass);
 

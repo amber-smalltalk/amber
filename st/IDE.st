@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'IDE' properties: #{}!
+Smalltalk current createPackage: 'IDE'!
 Widget subclass: #ClassesList
 	instanceVariableNames: 'browser ul nodes'
 	package: 'IDE'!
@@ -518,6 +518,17 @@ update
 ! !
 
 TabManager class instanceVariableNames: 'current'!
+
+!TabManager class methodsFor: 'actions'!
+
+toggleAmberIDE
+	(window jQuery: '#amber') length = 0
+		ifTrue: [ Browser open ]
+      	ifFalse: [ 
+			((window jQuery: '#amber') is: ':visible')
+				ifTrue: [ TabManager current close ] 
+				ifFalse: [ TabManager current open ] ]
+! !
 
 !TabManager class methodsFor: 'instance creation'!
 

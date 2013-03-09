@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Examples' properties: #{}!
+Smalltalk current createPackage: 'Examples'!
 Widget subclass: #Counter
 	instanceVariableNames: 'count header'
 	package: 'Examples'!

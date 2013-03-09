@@ -1,7 +1,11 @@
-Smalltalk current createPackage: 'Kernel-Collections' properties: #{}!
+Smalltalk current createPackage: 'Kernel-Collections'!
 Object subclass: #Association
 	instanceVariableNames: 'key value'
 	package: 'Kernel-Collections'!
+!Association commentStamp!
+I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.
+
+Instances can be created with the class-side method `#key:value:`!
 
 !Association methodsFor: 'accessing'!
 
@@ -57,6 +61,10 @@ key: aKey value: aValue
 Object subclass: #Collection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!Collection commentStamp!
+I am the abstract superclass of all classes that represent a group of elements.
+
+I provide a set of useful methods to the Collectiohn hierarchy such as enumerating and converting methods.!
 
 !Collection methodsFor: 'accessing'!
 
@@ -165,25 +173,18 @@ detect: aBlock
 !
 
 detect: aBlock ifNone: anotherBlock
-	<
-		for(var i = 0; i < self.length; i++)
-			if(aBlock(self[i]))
-				return self[i];
-		return anotherBlock();
-	>
+	self subclassResponsibility
 !
 
 do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
+	self subclassResponsibility
 !
 
 do: aBlock separatedBy: anotherBlock
-	| first |
-	first := true.
+	| actionBeforeElement |
+	actionBeforeElement := [actionBeforeElement := anotherBlock].
 	self do: [:each |
-	    first
-		ifTrue: [first := false]
-		ifFalse: [anotherBlock value].
+    	actionBeforeElement value.
 	    aBlock value: each]
 !
 
@@ -309,26 +310,102 @@ withAll: aCollection
 		yourself
 ! !
 
-Collection subclass: #HashedCollection
+Collection subclass: #IndexableCollection
+	instanceVariableNames: ''
+	package: 'Kernel-Collections'!
+!IndexableCollection commentStamp!
+I am a key-value store, that is,
+it stores values under indexes.
+
+As a rule of thumb, if a collection has at: and at:put:,
+it is an IndexableCollection.!
+
+!IndexableCollection methodsFor: 'accessing'!
+
+at: anIndex
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value stored at anIndex. 
+	Otherwise, raise an error."
+
+	^self at: anIndex ifAbsent: [ self errorNotFound ]
+!
+
+at: anIndex ifAbsent: aBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value stored at anIndex. 
+	Otherwise, answer the value of aBlock."
+
+	self subclassReponsibility
+!
+
+at: anIndex ifPresent: aBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex. 
+	Otherwise, answer nil."
+
+	^self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]
+!
+
+at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
+	"Lookup the given index in the receiver. 
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
+	Otherwise, answer the value of anotherBlock."
+
+	self subclassReponsibility
+!
+
+at: anIndex put: anObject
+	"Store anObject under the given index in the receiver."
+
+	self subclassReponsibility
+!
+
+indexOf: anObject
+	"Lookup index at which anObject is stored in the receiver.
+	If not present, raise an error."
+
+	^self indexOf: anObject ifAbsent: [ self errorNotFound ]
+!
+
+indexOf: anObject ifAbsent: aBlock
+	"Lookup index at which anObject is stored in the receiver.
+	If not present, return value of executing aBlock."
+
+	self subclassResponsibility
+! !
+
+!IndexableCollection methodsFor: 'enumeration'!
+
+with: anotherCollection do: aBlock
+	"Calls aBlock with every value from self
+	and with indetically-indexed value from anotherCollection"
+
+	self withIndexDo: [ :each :index |
+		aBlock value: each value: (anotherCollection at: index) ]
+!
+
+withIndexDo: aBlock
+	"Calls aBlock with every value from self
+	and with its index as the second argument"
+
+	self subclassReponsibility
+! !
+
+IndexableCollection subclass: #HashedCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !HashedCollection commentStamp!
-A HashedCollection is a traditional JavaScript object, or a Smalltalk Dictionary.
+I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
 
-Unlike a Dictionary, it can only have strings as keys.!
+Unlike a `Dictionary`, it can only have strings as keys.!
 
 !HashedCollection methodsFor: 'accessing'!
 
 associations
 	| associations |
 	associations := #().
-	self keys do: [:each |
-	    associations add: (Association key: each value: (self at: each))].
+	self associationsDo: [:each |  associations add: each].
 	^associations
-!
-
-at: aKey
-	^self at: aKey ifAbsent: [self errorNotFound]
 !
 
 at: aKey ifAbsent: aBlock
@@ -342,15 +419,6 @@ at: aKey ifAbsentPut: aBlock
 	    self at: aKey put: aBlock value]
 !
 
-at: aKey ifPresent: aBlock
-	"Lookup the given key in the receiver. 
-	If it is present, answer the value of evaluating the given block with the value associated with the key. 
-	Otherwise, answer nil."
-	^(self includesKey: aKey)
-		ifTrue: [ aBlock value: (self at: aKey) ]
-		ifFalse: [ nil ]
-!
-
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 	"Lookup the given key in the receiver. 
 	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key, 
@@ -362,6 +430,11 @@ at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 
 at: aKey put: aValue
 	^self basicAt: aKey put: aValue
+!
+
+indexOf: anObject ifAbsent: aBlock
+
+	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
 !
 
 keys
@@ -438,30 +511,27 @@ asJSON
 	self shouldNotImplement
 !
 
-copyFrom: anIndex to: anotherIndex
-	self shouldNotImplement
-!
-
 deepCopy
 	| copy |
 	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value deepCopy].
+	self keysAndValuesDo: [:key :value |
+	    copy at: key  put: value deepCopy].
 	^copy
 !
 
 shallowCopy
 	| copy |
 	copy := self class new.
-	self associationsDo: [:each |
-	    copy at: each key  put: each value].
+	self keysAndValuesDo: [:key :value |
+	    copy at: key  put: value].
 	^copy
 ! !
 
 !HashedCollection methodsFor: 'enumerating'!
 
 associationsDo: aBlock
-	self associations do: aBlock
+	self keysAndValuesDo: [:key :value |
+	    aBlock value: (Association key: key value: value)]
 !
 
 collect: aBlock
@@ -477,7 +547,7 @@ detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock
-	self values do: aBlock
+	self valuesDo: aBlock
 !
 
 includes: anObject
@@ -485,8 +555,12 @@ includes: anObject
 !
 
 keysAndValuesDo: aBlock
-	self associationsDo: [:each |
-	    aBlock value: each key value: each value]
+	self keysDo: [:each |
+	    aBlock value: each value: (self at: each)]
+!
+
+keysDo: aBlock
+	self keys do: aBlock
 !
 
 select: aBlock
@@ -495,6 +569,14 @@ select: aBlock
 	self keysAndValuesDo: [:key :value |
 	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
 	^newDict
+!
+
+valuesDo: aBlock
+	self keysAndValuesDo: [ :key :value | aBlock value: value ]
+!
+
+withIndexDo: aBlock
+	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
 ! !
 
 !HashedCollection methodsFor: 'printing'!
@@ -535,51 +617,43 @@ fromPairs: aCollection
 HashedCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
 	package: 'Kernel-Collections'!
+!Dictionary commentStamp!
+I represent a set of elements that can be viewed from one of two perspectives: a set of associations, 
+or a container of values that are externally named where the name can be any object that responds to `=`. 
+
+The external name is referred to as the key.!
 
 !Dictionary methodsFor: 'accessing'!
 
 at: aKey ifAbsent: aBlock
 	<
-		var index;
-		for(var i=0;i<self['@keys'].length;i++){
-			if(self['@keys'][i].__eq(aKey)) {index = i;}
-		};
-		if(typeof index === 'undefined') {
-			return aBlock();
-		} else {
-			return self['@values'][index];
-		}
+		var index = self._positionOfKey_(aKey);
+		return index >>=0 ? self['@values'][index] : aBlock();
 	>
 !
 
 at: aKey put: aValue
 	<
-		var index = self['@keys'].indexOf(aKey);
+		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
-			self['@values'].push(aValue);
-			self['@keys'].push(aKey);
-		} else {
-			self['@values'][index] = aValue;
-		};
+			var keys = self['@keys'];
+			index = keys.length;
+			keys.push(aKey);
+		}
 
-		return aValue;
+		return self['@values'][index] = aValue;
 	>
 !
 
-keyAtValue: anObject
+indexOf: anObject ifAbsent: aBlock
 
-	^ (self associations 
-    	detect:[:k :v| v == anObject] 
-    	ifNone:[self error: 'Not found']) key
+	| index |
+    index := values indexOf: anObject ifAbsent: [0].
+    ^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
 !
 
 keys
 	^keys copy
-!
-
-valueAt: anObject
-
-	^ self associationsDo:2
 !
 
 values
@@ -589,17 +663,20 @@ values
 !Dictionary methodsFor: 'adding/removing'!
 
 removeKey: aKey ifAbsent: aBlock
-    <
-            var index = self['@keys'].indexOf(aKey);
-            if(index === -1) {
-                return aBlock()
-            } else {
-                var value;
-                self['@keys'].splice(index, 1);
-                value = self['@values'].splice(index, 1);
-                return value[0];
-            };
-    >
+	<
+		var index = self._positionOfKey_(aKey);
+		if(index === -1) {
+			return aBlock()
+		} else {
+			var keys = self['@keys'], values = self['@values'];
+			var value = values[index], l = keys.length;
+			keys[index] = keys[l-1];
+			keys.pop();
+			values[index] = values[l-1];
+			values.pop();
+			return value;
+		}
+	>
 ! !
 
 !Dictionary methodsFor: 'converting'!
@@ -612,6 +689,20 @@ asJSON
 	^self asHashedCollection asJSON
 ! !
 
+!Dictionary methodsFor: 'enumerating'!
+
+keysAndValuesDo: aBlock
+	^keys with: values do: aBlock
+!
+
+keysDo: aBlock
+	^keys do: aBlock
+!
+
+valuesDo: aBlock
+	^values do: aBlock
+! !
+
 !Dictionary methodsFor: 'initialization'!
 
 initialize
@@ -620,15 +711,30 @@ initialize
 	values := #()
 ! !
 
+!Dictionary methodsFor: 'private'!
+
+positionOfKey: anObject
+	<
+		var keys = self['@keys'];
+		for(var i=0;i<keys.length;i++){
+			if(keys[i].__eq(anObject)) { return i;}
+		}
+		return -1;
+	>
+! !
+
 !Dictionary methodsFor: 'testing'!
 
 includesKey: aKey
-	^keys includes: aKey
+	< return self._positionOfKey_(aKey) >>= 0; >
 ! !
 
-Collection subclass: #SequenceableCollection
+IndexableCollection subclass: #SequenceableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!SequenceableCollection commentStamp!
+I am an IndexableCollection
+with numeric indexes starting with 1.!
 
 !SequenceableCollection methodsFor: 'accessing'!
 
@@ -638,19 +744,6 @@ allButFirst
 
 allButLast
 	^self copyFrom: 1 to: self size - 1
-!
-
-at: anIndex
-	^self at: anIndex ifAbsent: [
-	    self errorNotFound]
-!
-
-at: anIndex ifAbsent: aBlock
-	self subclassResponsibility
-!
-
-at: anIndex put: anObject
-	self subclassResponsibility
 !
 
 atRandom
@@ -670,10 +763,6 @@ first: n
 
 fourth
 	^self at: 4
-!
-
-indexOf: anObject
-	^self indexOf: anObject ifAbsent: [self errorNotFound]
 !
 
 indexOf: anObject ifAbsent: aBlock
@@ -768,6 +857,23 @@ shallowCopy
 
 !SequenceableCollection methodsFor: 'enumerating'!
 
+detect: aBlock ifNone: anotherBlock
+	<
+		for(var i = 0; i < self.length; i++)
+			if(aBlock(self[i]))
+				return self[i];
+		return anotherBlock();
+	>
+!
+
+do: aBlock
+	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
+!
+
+with: anotherCollection do: aBlock
+	<for(var i=0;i<self.length;i++){aBlock(self[i], anotherCollection[i]);}>
+!
+
 withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
@@ -781,6 +887,9 @@ includes: anObject
 SequenceableCollection subclass: #Array
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!Array commentStamp!
+I represent a collection of objects ordered by the collector. The size of arrays is dynamic.
+In Amber, OrderedCollection is an alias for Array.!
 
 !Array methodsFor: 'accessing'!
 
@@ -897,6 +1006,8 @@ withAll: aCollection
 SequenceableCollection subclass: #CharacterArray
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!CharacterArray commentStamp!
+I am the abstract superclass of string-like collections.!
 
 !CharacterArray methodsFor: 'accessing'!
 
@@ -963,6 +1074,11 @@ fromString: aString
 CharacterArray subclass: #String
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!String commentStamp!
+I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.
+
+String inherits many useful methods from its hierarchy, such as
+	`Collection >> #,`!
 
 !String methodsFor: 'accessing'!
 
@@ -1287,6 +1403,11 @@ value: aUTFCharCode
 CharacterArray subclass: #Symbol
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!Symbol commentStamp!
+I represent Strings that are created uniquely. 
+Symbols are unique through the system.
+
+Thus, someString asSymbol == someString asSymbol.!
 
 !Symbol methodsFor: 'accessing'!
 
@@ -1416,6 +1537,8 @@ lookup: aString
 Collection subclass: #Set
 	instanceVariableNames: 'elements'
 	package: 'Kernel-Collections'!
+!Set commentStamp!
+I represent an unordered set of objects without duplicates.!
 
 !Set methodsFor: 'accessing'!
 
@@ -1544,6 +1667,8 @@ initialize
 Object subclass: #RegularExpression
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!RegularExpression commentStamp!
+I represent a regular expression object. My instances are JavaScript `RegExp` object.!
 
 !RegularExpression methodsFor: 'evaluating'!
 
@@ -1572,6 +1697,9 @@ fromString: aString flag: anotherString
 Object subclass: #Stream
 	instanceVariableNames: 'collection position streamSize'
 	package: 'Kernel-Collections'!
+!Stream commentStamp!
+I represent an accessor for a sequence of objects. This sequence is referred to as my "contents".
+My instances are read/write streams to the contents sequence collection.!
 
 !Stream methodsFor: 'accessing'!
 
@@ -1705,6 +1833,8 @@ on: aCollection
 Stream subclass: #StringStream
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
+!StringStream commentStamp!
+I am a Stream specific to `String` objects.!
 
 !StringStream methodsFor: 'reading'!
 

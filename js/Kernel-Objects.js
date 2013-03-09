@@ -3561,14 +3561,14 @@ category: 'commit paths',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-    var cp = smalltalk['@@commitPath'];
-    if (!cp) return;
-    if (cp.js) self._defaultCommitPathJs_(cp.js);
-    if (cp.st) self._defaultCommitPathSt_(cp.st);
-    ;
+	var cp = typeof amber !== 'undefined' && amber.commitPath;
+	if (!cp) return;
+	if (cp.js) self._defaultCommitPathJs_(cp.js);
+	if (cp.st) self._defaultCommitPathSt_(cp.st);
+;
 return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{}, smalltalk.Package.klass)})},
 args: [],
-source: "commitPathsFromLoader\x0a    <\x0a    var cp = smalltalk['@@commitPath'];\x0a    if (!cp) return;\x0a    if (cp.js) self._defaultCommitPathJs_(cp.js);\x0a    if (cp.st) self._defaultCommitPathSt_(cp.st);\x0a    >",
+source: "commitPathsFromLoader\x0a<\x0a\x09var cp = typeof amber !== 'undefined' && amber.commitPath;\x0a\x09if (!cp) return;\x0a\x09if (cp.js) self._defaultCommitPathJs_(cp.js);\x0a\x09if (cp.st) self._defaultCommitPathSt_(cp.st);\x0a>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4469,6 +4469,22 @@ return smalltalk.withContext(function($ctx1) { return self.reservedWords;
 return self}, function($ctx1) {$ctx1.fill(self,"reservedWords",{}, smalltalk.Smalltalk)})},
 args: [],
 source: "reservedWords\x0a\x09\x22JavaScript reserved words\x22\x0a\x09<return self.reservedWords>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+"_version",
+smalltalk.method({
+selector: "version",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "0.10";
+}, function($ctx1) {$ctx1.fill(self,"version",{}, smalltalk.Smalltalk)})},
+args: [],
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a    \x0a    ^ '0.10'",
 messageSends: [],
 referencedClasses: []
 }),
