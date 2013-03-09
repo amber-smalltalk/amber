@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Announcements' properties: #{}!
+Smalltalk current createPackage: 'Helios-Announcements'!
 Object subclass: #HLAnnouncement
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

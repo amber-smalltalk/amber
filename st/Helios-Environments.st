@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Environments' properties: #{}!
+Smalltalk current createPackage: 'Helios-Environments'!
 Object subclass: #HLEnvironment
 	instanceVariableNames: ''
 	package: 'Helios-Environments'!

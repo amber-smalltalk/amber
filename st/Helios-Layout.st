@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Layout' properties: #{}!
+Smalltalk current createPackage: 'Helios-Layout'!
 Widget subclass: #HLContainer
 	instanceVariableNames: 'splitter'
 	package: 'Helios-Layout'!

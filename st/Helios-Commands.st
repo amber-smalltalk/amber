@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Commands' properties: #{}!
+Smalltalk current createPackage: 'Helios-Commands'!
 Object subclass: #HLCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands'!

@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Inspector' properties: #{}!
+Smalltalk current createPackage: 'Helios-Inspector'!
 HLWidget subclass: #HLInspector
 	instanceVariableNames: 'model variablesWidget displayWidget codeWidget label'
 	package: 'Helios-Inspector'!

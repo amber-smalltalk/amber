@@ -1,4 +1,4 @@
-Smalltalk current createPackage: 'Helios-Core' properties: #{}!
+Smalltalk current createPackage: 'Helios-Core'!
 Object subclass: #HLTab
 	instanceVariableNames: 'widget label'
 	package: 'Helios-Core'!
