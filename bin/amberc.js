@@ -316,7 +316,7 @@ AmberC.prototype.collect_js_files = function(jsFiles, callback) {
 AmberC.prototype.resolve_libraries = function() {
 	// Resolve libraries listed in this.kernel_libraries
 	var self = this;
-	var all_resolved = new Combo(function(resolved_library_files, resolved_compiler_files) {
+	var all_resolved = new Combo(function(resolved_kernel_files, resolved_compiler_files) {
 		self.resolve_init(resolved_compiler_files[0]);
 	});
 	this.resolve_kernel(all_resolved.add());
