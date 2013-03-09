@@ -75,7 +75,7 @@ module.exports = function(grunt) {
       amber_tests: {
         working_dir: 'st',
         target_dir : 'js',
-        src: ['Kernel-Tests.st', 'Compiler-Tests.st'],
+        src: ['Kernel-Tests.st', 'Compiler-Tests.st', 'SUnit-Tests.st'],
         libraries: ['SUnit']
       },
       amber_dev: {
