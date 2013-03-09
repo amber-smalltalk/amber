@@ -155,6 +155,20 @@ MethodAnnouncement subclass: #MethodAdded
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
 
+MethodAnnouncement subclass: #MethodModified
+	instanceVariableNames: 'oldMethod'
+	package: 'Kernel-Announcements'!
+
+!MethodModified methodsFor: 'accessing'!
+
+oldMethod
+	^ oldMethod
+!
+
+oldMethod: aMethod
+	oldMethod := aMethod
+! !
+
 MethodAnnouncement subclass: #MethodRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!

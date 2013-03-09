@@ -1,4 +1,4 @@
-smalltalk.addPackage('Kernel-Classes', {});
+smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
 "_addCompiledMethod_",
@@ -6,15 +6,30 @@ smalltalk.method({
 selector: "addCompiledMethod:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var oldMethod,announcement;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
+oldMethod=_st(_st(self)._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._basicAddCompiledMethod_(aMethod);
-$1=_st((smalltalk.MethodAdded || MethodAdded))._new();
-_st($1)._theClass_(self);
-_st($1)._method_(aMethod);
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
-messageSends: ["basicAddCompiledMethod:", "announce:", "theClass:", "new", "method:", "yourself", "current"]}),
+$1=oldMethod;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st((smalltalk.MethodAdded || MethodAdded))._new();
+_st($2)._theClass_(self);
+_st($2)._method_(aMethod);
+$3=_st($2)._yourself();
+announcement=$3;
+} else {
+$4=_st((smalltalk.MethodModified || MethodModified))._new();
+_st($4)._theClass_(self);
+_st($4)._oldMethod_(oldMethod);
+_st($4)._method_(aMethod);
+$5=_st($4)._yourself();
+announcement=$5;
+};
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_(announcement);
+return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod,oldMethod:oldMethod,announcement:announcement}, smalltalk.Behavior)})},
+messageSends: ["at:ifAbsent:", "selector", "methodDictionary", "basicAddCompiledMethod:", "ifNil:ifNotNil:", "theClass:", "new", "method:", "yourself", "oldMethod:", "announce:", "current"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(

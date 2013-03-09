@@ -174,13 +174,29 @@ withAllSubclasses
 !Behavior methodsFor: 'compiling'!
 
 addCompiledMethod: aMethod
+	| oldMethod announcement |
+    
+	oldMethod := self methodDictionary 
+    	at: aMethod selector 
+        ifAbsent: [ nil ].
+    
 	self basicAddCompiledMethod: aMethod.
     
-    SystemAnnouncer current
-   		announce: (MethodAdded new
-        	theClass: self;
-            method: aMethod;
-            yourself)
+    announcement := oldMethod 
+    	ifNil: [
+		    MethodAdded new
+       			 	theClass: self;
+		            method: aMethod;
+       			    yourself ]
+    	ifNotNil: [
+          	MethodModified new
+       			 	theClass: self;
+                    oldMethod: oldMethod; 
+		            method: aMethod;
+       			    yourself ].
+                    
+	SystemAnnouncer current
+		   		announce: announcement
 !
 
 compile: aString
