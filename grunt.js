@@ -68,8 +68,7 @@ module.exports = function(grunt) {
       },
       amber_dev: {
         working_dir: 'js',
-        src: ['Kernel-Objects.js', 'Kernel-Classes.js', 'Kernel-Methods.js', 'Kernel-Collections.js',
-              'Kernel-Exceptions.js', 'Kernel-Transcript.js', 'Kernel-Announcements.js',
+        src: [
               'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
               'Kernel-Tests.js', 'Compiler-Tests.js',
