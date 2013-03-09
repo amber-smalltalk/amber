@@ -332,11 +332,15 @@ AmberC.prototype.resolve_kernel = function(callback) {
 	var self = this;
 	var kernel_files = this.kernel_libraries.concat(this.defaults.load);
 	var kernel_resolved = new Combo(function() {
+		var foundLibraries = [];
 		Array.prototype.slice.call(arguments).forEach(function(file) {
 			if (undefined !== file[0]) {
-				self.defaults.libraries.push(file[0]);
+				foundLibraries.push(file[0]);
 			}
 		});
+		// boot.js and Kernel files need to be used first
+		// otherwise the global smalltalk object is undefined
+		self.defaults.libraries = foundLibraries.concat(self.defaults.libraries);
 		callback(null);
 	});
 
