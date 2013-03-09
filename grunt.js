@@ -39,8 +39,7 @@ module.exports = function(grunt) {
               'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st',
               'Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
               'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st',
-              'Canvas.st', 'SUnit.st',
-              'IDE.st', 'Documentation.st',
+              'Canvas.st', 'SUnit.st', 'IDE.st',
               'Kernel-Tests.st', 'Compiler-Tests.st',
               ],
         deploy: true
@@ -69,7 +68,7 @@ module.exports = function(grunt) {
       amber_IDE: {
         working_dir: 'st',
         target_dir : 'js',
-        src: ['IDE.st', 'Documentation.st'],
+        src: ['IDE.st'],
         libraries: ['Canvas'],
         deploy: true
       },
@@ -85,7 +84,7 @@ module.exports = function(grunt) {
               'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
               'Kernel-Tests.js', 'Compiler-Tests.js',
-              'Canvas.js', 'IDE.js', 'SUnit.js', 'Documentation.js'],
+              'Canvas.js', 'IDE.js', 'SUnit.js'],
         output_name: 'amber_dev'
       },
       server: {
