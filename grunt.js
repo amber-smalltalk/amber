@@ -8,7 +8,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build:deploy', 'shell:compileDeploy concat:deploy min');
   grunt.registerTask('build:dev', 'shell:compileDev concat:css imageEmbed mincss css2js concat:dev');
 //  grunt.registerTask('default', 'build:deploy build:dev');
-  grunt.registerTask('default', 'amberc');
+  grunt.registerTask('default', 'amberc:all');
 
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -31,6 +31,19 @@ module.exports = function(grunt) {
       _config: {
         amber_dir: process.cwd(),
         closure_jar: ''
+      },
+      all: {
+        working_dir: 'st',
+        target_dir : 'js',
+        src: ['Kernel-Objects.st', 'Kernel-Classes.st', 'Kernel-Methods.st', 'Kernel-Collections.st',
+              'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st',
+              'Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
+              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st',
+              'Canvas.st', 'SUnit.st',
+              'IDE.st', 'Documentation.st',
+              'Kernel-Tests.st', 'Compiler-Tests.st',
+              ],
+        deploy: true
       },
       amber_kernel: {
         working_dir: 'st',
