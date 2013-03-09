@@ -1,6 +1,4 @@
 # Ignoring compiled files in examples etc
-examples/nodejs/**/*.js
-examples/webos/**/*.js
 server/FileServer*.js
 
 # Ignoring Mac Finder files
