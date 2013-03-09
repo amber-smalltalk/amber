@@ -268,6 +268,10 @@ HLWidget subclass: #HLKeyBinderHelper
 
 !HLKeyBinderHelper methodsFor: 'accessing'!
 
+cssClass
+	^ 'key_helper'
+!
+
 keyBinder
 	^ keyBinder
 !
@@ -283,7 +287,7 @@ selectedBinding
 !HLKeyBinderHelper methodsFor: 'actions'!
 
 hide
-	rootDiv asJQuery remove
+	('.', self cssClass) asJQuery remove
 !
 
 show
@@ -315,7 +319,7 @@ renderBindingOn: html
 !
 
 renderContentOn: html
-	html div class: 'key_helper'; with: [
+	html div class: self cssClass; with: [
       	self 
         	renderSelectionOn:html;
           	renderBindingOn: html ]

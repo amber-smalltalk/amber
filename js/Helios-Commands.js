@@ -1,16 +1,18 @@
-smalltalk.addPackage('Helios-Commands', {});
+smalltalk.addPackage('Helios-Commands');
 smalltalk.addClass('HLCommand', smalltalk.Object, [], 'Helios-Commands');
 smalltalk.addMethod(
 "_asBinding",
 smalltalk.method({
 selector: "asBinding",
 category: 'converting',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(smalltalk.HLBindingAction || HLBindingAction, "_on_labelled_", [smalltalk.send(self, "_key", []), smalltalk.send(self, "_label", [])]), "_callback_", [function () {return smalltalk.send(self, "_execute", []);}]);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.HLBindingAction || HLBindingAction))._on_labelled_(_st(self)._key(),_st(self)._label()))._callback_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._execute();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asBinding",{}, smalltalk.HLCommand)})},
 args: [],
 source: "asBinding\x0a\x09^ (HLBindingAction on: self key labelled: self label)\x0a    \x09callback: [ self execute ]",
 messageSends: ["callback:", "execute", "on:labelled:", "key", "label"],
@@ -23,12 +25,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "documentation",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_documentation", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._documentation();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"documentation",{}, smalltalk.HLCommand)})},
 args: [],
 source: "documentation\x0a\x09^ self class documentation",
 messageSends: ["documentation", "class"],
@@ -41,10 +43,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLCommand)})},
 args: [],
 source: "execute\x0a\x09",
 messageSends: [],
@@ -57,12 +58,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_key", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._key();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCommand)})},
 args: [],
 source: "key\x0a\x09^ self class key",
 messageSends: ["key", "class"],
@@ -75,12 +76,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    var $1;
-    $1 = smalltalk.send(smalltalk.send(self, "_class", []), "_label", []);
-    return $1;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCommand)})},
 args: [],
 source: "label\x0a\x09^ self class label",
 messageSends: ["label", "class"],
@@ -94,10 +95,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "bindingGroup",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return nil;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return nil;
+}, function($ctx1) {$ctx1.fill(self,"bindingGroup",{}, smalltalk.HLCommand.klass)})},
 args: [],
 source: "bindingGroup\x0a\x09^ nil",
 messageSends: [],
@@ -110,10 +111,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "documentation",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "";
+}, function($ctx1) {$ctx1.fill(self,"documentation",{}, smalltalk.HLCommand.klass)})},
 args: [],
 source: "documentation\x0a\x09^ ''",
 messageSends: [],
@@ -126,10 +127,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return nil;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return nil;
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCommand.klass)})},
 args: [],
 source: "key\x0a\x09^ nil",
 messageSends: [],
@@ -142,10 +143,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ ''",
 messageSends: [],
@@ -160,10 +161,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "model",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@model'];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@model"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"model",{}, smalltalk.HLBrowserCommand)})},
 args: [],
 source: "model\x0a\x09^ model",
 messageSends: [],
@@ -176,11 +179,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "model:",
 category: 'accessing',
-fn: function (aBrowserModel) {
-    var self = this;
-    self['@model'] = aBrowserModel;
-    return self;
-},
+fn: function (aBrowserModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@model"]=aBrowserModel;
+return self}, function($ctx1) {$ctx1.fill(self,"model:",{aBrowserModel:aBrowserModel}, smalltalk.HLBrowserCommand)})},
 args: ["aBrowserModel"],
 source: "model: aBrowserModel\x0a\x09model := aBrowserModel",
 messageSends: [],
@@ -194,15 +196,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
-fn: function (aBrowserModel) {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(self, "_new", []);
-    smalltalk.send($2, "_model_", [aBrowserModel]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
+fn: function (aBrowserModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._model_(aBrowserModel);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel}, smalltalk.HLBrowserCommand.klass)})},
 args: ["aBrowserModel"],
 source: "on: aBrowserModel\x0a\x09^ self new\x0a    \x09model: aBrowserModel;\x0a        yourself",
 messageSends: ["model:", "new", "yourself"],
@@ -218,10 +220,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "bindingGroup",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Go to";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Go to";
+}, function($ctx1) {$ctx1.fill(self,"bindingGroup",{}, smalltalk.HLGoToCommand.klass)})},
 args: [],
 source: "bindingGroup\x0a\x09^ 'Go to'",
 messageSends: [],
@@ -236,11 +238,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedClass", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedClass_(_st(_st(self)._model())._selectedClass());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToClassesCommand)})},
 args: [],
 source: "execute\x0a\x09self model selectedClass: self model selectedClass",
 messageSends: ["selectedClass:", "selectedClass", "model"],
@@ -254,10 +255,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return 67;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (67);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLGoToClassesCommand.klass)})},
 args: [],
 source: "key\x0a\x09\x22c\x22\x0a    \x0a\x09^ 67",
 messageSends: [],
@@ -270,10 +271,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Classes";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Classes";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLGoToClassesCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Classes'",
 messageSends: [],
@@ -288,11 +289,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedMethod_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedMethod", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedMethod_(_st(_st(self)._model())._selectedMethod());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToMethodsCommand)})},
 args: [],
 source: "execute\x0a\x09self model selectedMethod: self model selectedMethod",
 messageSends: ["selectedMethod:", "selectedMethod", "model"],
@@ -306,10 +306,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return 77;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (77);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLGoToMethodsCommand.klass)})},
 args: [],
 source: "key\x0a\x09\x22m\x22\x0a    \x0a\x09^ 77",
 messageSends: [],
@@ -322,10 +322,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Methods";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Methods";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLGoToMethodsCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Methods'",
 messageSends: [],
@@ -340,11 +340,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedPackage_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedPackage", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedPackage_(_st(_st(self)._model())._selectedPackage());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToPackagesCommand)})},
 args: [],
 source: "execute\x0a\x09self model selectedPackage: self model selectedPackage",
 messageSends: ["selectedPackage:", "selectedPackage", "model"],
@@ -358,10 +357,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return 80;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (80);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLGoToPackagesCommand.klass)})},
 args: [],
 source: "key\x0a\x09\x22p\x22\x0a    \x0a\x09^ 80",
 messageSends: [],
@@ -374,10 +373,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Packages";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Packages";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLGoToPackagesCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Packages'",
 messageSends: [],
@@ -392,11 +391,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_model", []), "_selectedProtocol_", [smalltalk.send(smalltalk.send(self, "_model", []), "_selectedProtocol", [])]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedProtocol_(_st(_st(self)._model())._selectedProtocol());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToProtocolsCommand)})},
 args: [],
 source: "execute\x0a\x09self model selectedProtocol: self model selectedProtocol",
 messageSends: ["selectedProtocol:", "selectedProtocol", "model"],
@@ -410,10 +408,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return 84;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (84);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLGoToProtocolsCommand.klass)})},
 args: [],
 source: "key\x0a\x09\x22p\x22\x0a    \x0a\x09^ 84",
 messageSends: [],
@@ -426,10 +424,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Protocols";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Protocols";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLGoToProtocolsCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Protocols'",
 messageSends: [],
@@ -445,10 +443,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "bindingGroup",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Toggle";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Toggle";
+}, function($ctx1) {$ctx1.fill(self,"bindingGroup",{}, smalltalk.HLToggleCommand.klass)})},
 args: [],
 source: "bindingGroup\x0a\x09^ 'Toggle'",
 messageSends: [],
@@ -463,11 +461,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_model", []), "_showInstance_", [false]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._showInstance_(false);
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLToggleClassSideCommand)})},
 args: [],
 source: "execute\x0a\x09self model showInstance: false",
 messageSends: ["showInstance:", "model"],
@@ -481,10 +478,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return 67;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (67);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLToggleClassSideCommand.klass)})},
 args: [],
 source: "key\x0a\x09\x22c\x22\x0a    \x0a\x09^ 67",
 messageSends: [],
@@ -497,10 +494,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Class side";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Class side";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLToggleClassSideCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Class side'",
 messageSends: [],
@@ -515,11 +512,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
 category: 'executing',
-fn: function () {
-    var self = this;
-    smalltalk.send(smalltalk.send(self, "_model", []), "_showInstance_", [true]);
-    return self;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._showInstance_(true);
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLToggleInstanceSideCommand)})},
 args: [],
 source: "execute\x0a\x09self model showInstance: true",
 messageSends: ["showInstance:", "model"],
@@ -533,10 +529,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "key",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return 73;
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (73);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLToggleInstanceSideCommand.klass)})},
 args: [],
 source: "key\x0a\x09\x22i\x22\x0a    \x0a\x09^ 73",
 messageSends: [],
@@ -549,10 +545,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return "Instance side";
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Instance side";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLToggleInstanceSideCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Instance side'",
 messageSends: [],

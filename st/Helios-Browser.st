@@ -143,7 +143,7 @@ getChildrenOf: aClass
 
 getRootClassesOf: aCollection
 	^ aCollection select: [ :each |
-    	(each allSuperclasses intersection: aCollection) isEmpty ]
+    		(aCollection includes: each superclass) not ]
 !
 
 iconForItem: aClass
@@ -174,7 +174,6 @@ observeModel
 !
 
 selectItem: aClass
-	super selectItem: aClass.
     self model selectedClass: aClass
 !
 
@@ -185,7 +184,10 @@ showInstance: aBoolean
 !HLClassesListWidget methodsFor: 'reactions'!
 
 onClassSelected: aClass
-	self focus
+	self selectedItem: aClass.
+	aClass ifNil: [ ^ self ].
+    
+    self focus
 !
 
 onPackageSelected: aPackage
@@ -252,8 +254,8 @@ renderItem: aClass level: anInteger on: html
 
 renderItem: aClass on: html
 	super renderItem: aClass on: html.
-    	(self getChildrenOf: aClass) do: [ :each |
-    		self renderItem: each level: 1 on: html ]
+    (self getChildrenOf: aClass) do: [ :each |
+    	self renderItem: each level: 1 on: html ]
 !
 
 renderItemLabel: aClass level: anInteger on: html
@@ -336,7 +338,6 @@ observeModel
 !
 
 selectItem: aCompiledMethod
-	super selectItem: aCompiledMethod.
    	self model selectedMethod: aCompiledMethod
 ! !
 
@@ -356,7 +357,10 @@ initialize
 !HLMethodsListWidget methodsFor: 'reactions'!
 
 onMethodSelected: aMethod
-	self focus
+	self selectedItem: aMethod.
+	aMethod ifNil: [ ^ self ].
+    
+    self focus
 !
 
 onProtocolSelected: aString
@@ -426,13 +430,13 @@ observeModel
 !
 
 selectItem: aPackage
-	super selectItem: aPackage.
-    self model selectedPackage: aPackage
+	self model selectedPackage: aPackage
 ! !
 
 !HLPackagesListWidget methodsFor: 'reactions'!
 
 onPackageSelected: aPackage
+	self selectedItem: aPackage.
 	self focus
 ! !
 
@@ -476,7 +480,7 @@ selectedItem
 !HLProtocolsListWidget methodsFor: 'actions'!
 
 observeModel
-	self model announcer on: HLClassSelected do: [ :ann |
+    self model announcer on: HLClassSelected do: [ :ann |
     	self onClassSelected: ann item ].
     self model announcer on: HLShowInstanceToggled do: [ :ann |
     	self onClassSelected: self model selectedClass ].
@@ -485,7 +489,6 @@ observeModel
 !
 
 selectItem: aString
-	super selectItem: aString.
     self model selectedProtocol: aString
 ! !
 
@@ -505,7 +508,10 @@ onClassSelected: aClass
 !
 
 onProtocolSelected: aString
-	self focus
+	self selectedItem: aString.
+	aString ifNil: [ ^ self ].
+    
+    self focus
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!
@@ -549,19 +555,16 @@ selectedClass
 !
 
 selectedClass: aClass
-	selectedClass = aClass ifFalse: [
-		aClass 
-    		ifNil: [ selectedClass := nil ]
-      		ifNotNil: [
-				self showInstance 
-    				ifTrue: [ selectedClass := aClass theNonMetaClass ]
-      				ifFalse: [ selectedClass := aClass theMetaClass ] ].
+	selectedClass = aClass ifTrue: [ ^ self ].
     
-   		self 
-    		selectedMethod: nil;
-       	 	selectedProtocol: nil ].
-        
-   self announcer announce: (HLClassSelected on: self selectedClass)
+	aClass 
+   		ifNil: [ selectedClass := nil ]
+    	ifNotNil: [
+			self showInstance 
+   				ifTrue: [ selectedClass := aClass theNonMetaClass ]
+     			ifFalse: [ selectedClass := aClass theMetaClass ] ].
+	self selectedProtocol: nil.
+	self announcer announce: (HLClassSelected on: self selectedClass)
 !
 
 selectedMethod
@@ -569,9 +572,9 @@ selectedMethod
 !
 
 selectedMethod: aCompiledMethod
-	selectedMethod = aCompiledMethod ifFalse: [
-		selectedMethod := aCompiledMethod ].
-    
+	selectedMethod = aCompiledMethod ifTrue: [ ^ self ].
+
+	selectedMethod := aCompiledMethod.    
     self announcer announce: (HLMethodSelected on: aCompiledMethod)
 !
 
@@ -580,10 +583,10 @@ selectedPackage
 !
 
 selectedPackage: aPackage
-	selectedPackage = aPackage ifFalse: [
-		selectedPackage := aPackage.
-    	self selectedClass: nil ].
+	selectedPackage = aPackage ifTrue: [ ^ self ].
     
+	selectedPackage := aPackage.
+	self selectedClass: nil.
     self announcer announce: (HLPackageSelected on: aPackage)
 !
 
@@ -592,10 +595,10 @@ selectedProtocol
 !
 
 selectedProtocol: aString
-	selectedProtocol = aString ifFalse: [
-      	selectedProtocol := aString.
-    	self selectedMethod: nil ].
+	selectedProtocol = aString ifTrue: [ ^ self ].
     
+	selectedProtocol := aString.
+    self selectedMethod: nil.
     self announcer announce: (HLProtocolSelected on: aString)
 !
 

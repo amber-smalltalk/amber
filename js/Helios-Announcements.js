@@ -1,4 +1,4 @@
-smalltalk.addPackage('Helios-Announcements', {});
+smalltalk.addPackage('Helios-Announcements');
 smalltalk.addClass('HLAnnouncement', smalltalk.Object, [], 'Helios-Announcements');
 
 
@@ -8,10 +8,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "code",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@code'];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@code"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"code",{}, smalltalk.HLCodeHandled)})},
 args: [],
 source: "code\x0a\x0a\x09^ code",
 messageSends: [],
@@ -24,11 +26,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "code:",
 category: 'accessing',
-fn: function (aModel) {
-    var self = this;
-    self['@code'] = aModel;
-    return self;
-},
+fn: function (aModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@code"]=aModel;
+return self}, function($ctx1) {$ctx1.fill(self,"code:",{aModel:aModel}, smalltalk.HLCodeHandled)})},
 args: ["aModel"],
 source: "code: aModel\x0a\x0a\x09code := aModel",
 messageSends: [],
@@ -42,15 +43,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'actions',
-fn: function (aCodeModel) {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(self, "_new", []);
-    smalltalk.send($2, "_code_", [aCodeModel]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
+fn: function (aCodeModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._code_(aCodeModel);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aCodeModel:aCodeModel}, smalltalk.HLCodeHandled.klass)})},
 args: ["aCodeModel"],
 source: "on: aCodeModel\x0a\x0a\x09^ self new \x0a    \x09code: aCodeModel;\x0a        yourself",
 messageSends: ["code:", "new", "yourself"],
@@ -80,10 +81,12 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "item",
 category: 'accessing',
-fn: function () {
-    var self = this;
-    return self['@item'];
-},
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@item"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"item",{}, smalltalk.HLItemSelected)})},
 args: [],
 source: "item\x0a\x09^ item",
 messageSends: [],
@@ -96,11 +99,10 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "item:",
 category: 'accessing',
-fn: function (anObject) {
-    var self = this;
-    self['@item'] = anObject;
-    return self;
-},
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@item"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"item:",{anObject:anObject}, smalltalk.HLItemSelected)})},
 args: ["anObject"],
 source: "item: anObject\x0a\x09item := anObject",
 messageSends: [],
@@ -114,15 +116,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
-fn: function (anItem) {
-    var self = this;
-    var $2, $3, $1;
-    $2 = smalltalk.send(self, "_new", []);
-    smalltalk.send($2, "_item_", [anItem]);
-    $3 = smalltalk.send($2, "_yourself", []);
-    $1 = $3;
-    return $1;
-},
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._item_(anItem);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anItem:anItem}, smalltalk.HLItemSelected.klass)})},
 args: ["anItem"],
 source: "on: anItem\x0a\x09^ self new\x0a    \x09item: anItem;\x0a        yourself",
 messageSends: ["item:", "new", "yourself"],

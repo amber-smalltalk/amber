@@ -187,6 +187,12 @@ items: aCollection
 	items := aCollection
 !
 
+positionOf: aListItem
+	<
+    	return aListItem.parent().children().get().indexOf(aListItem.get(0)) + 1
+	>
+!
+
 selectedItem
 	^ selectedItem
 !
@@ -206,7 +212,7 @@ activateListItem: aListItem
     
 	(aListItem get: 0) ifNil: [ ^self ].
 
-	<position = aListItem.parent().children().get().indexOf(aListItem.get(0)) + 1>.
+	position := self positionOf: aListItem.
 
     parent := aListItem parent.
 	parent children removeClass: 'active'.
