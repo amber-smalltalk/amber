@@ -83,8 +83,8 @@ module.exports = function(grunt) {
         src: [
               'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
-              'Kernel-Tests.js', 'Compiler-Tests.js',
-              'Canvas.js', 'IDE.js', 'SUnit.js'],
+              'Canvas.js', 'IDE.js', 'SUnit.js',
+              'Kernel-Tests.js', 'Compiler-Tests.js', 'SUnit-Tests.js'],
         output_name: 'amber_dev'
       },
       server: {
