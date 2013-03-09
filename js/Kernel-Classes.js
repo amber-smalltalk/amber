@@ -1,4 +1,4 @@
-smalltalk.addPackage('Kernel-Classes', {});
+smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.Behavior.comment="Behavior is the superclass of all class objects. \x0a\x0aIt defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0aInstances know about the subclass/superclass relationships between classes, contain the description that instances are created from, \x0aand hold the method dictionary that's associated with each class.\x0a\x0aBehavior also  provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy."
 smalltalk.addMethod(
@@ -68,6 +68,25 @@ return $1;
 args: [],
 source: "allSubclasses\x0a\x09| result |\x0a\x09result := self subclasses.\x0a\x09self subclasses do: [:each |\x0a\x09    result addAll: each allSubclasses].\x0a\x09^result",
 messageSends: ["subclasses", "do:", "addAll:", "allSubclasses"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_allSubclassesDo_",
+smalltalk.method({
+selector: "allSubclassesDo:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {_st(aBlock)._value_(each);
+return _st(each)._allSubclassesDo_(aBlock);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock}, smalltalk.Behavior)})},
+args: ["aBlock"],
+source: "allSubclassesDo: aBlock\x0a\x09\x22Evaluate the argument, aBlock, for each of the receiver's subclasses.\x22\x0a\x0a\x09self subclasses do: [ :each |\x0a    \x09aBlock value: each.\x0a        each allSubclassesDo: aBlock ].",
+messageSends: ["do:", "value:", "allSubclassesDo:", "subclasses"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -581,7 +600,7 @@ smalltalk.addMethod(
 "_protocolsDo_",
 smalltalk.method({
 selector: "protocolsDo:",
-category: 'accessing',
+category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var methodsByCategory;

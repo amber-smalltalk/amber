@@ -275,7 +275,7 @@ renderListOn: html
 ! !
 
 HLBrowserListWidget subclass: #HLMethodsListWidget
-	instanceVariableNames: 'selectorsCache'
+	instanceVariableNames: ''
 	package: 'Helios-Browser'!
 
 !HLMethodsListWidget methodsFor: 'accessing'!
@@ -288,7 +288,7 @@ iconForItem: aCompiledMethod
 	| override overriden |
     
     override := self isOverride: aCompiledMethod.
-    overriden := self isOverriden: aCompiledMethod.
+    overriden := self isOverridden: aCompiledMethod.
     
 	^ override
     	ifTrue: [ overriden
@@ -323,7 +323,7 @@ overridenSelectors
 !
 
 selectorsCache
-	^ selectorsCache
+	^ self class selectorsCache
 ! !
 
 !HLMethodsListWidget methodsFor: 'actions'!
@@ -384,7 +384,7 @@ renderContentOn: html
             with: [ super renderContentOn: html ] ]
       	ifTrue: [ super renderContentOn: html ].
         
-    self flushSelectorsCache
+    "self flushSelectorsCache"
 !
 
 renderItemLabel: aCompiledMethod on: html
@@ -393,14 +393,20 @@ renderItemLabel: aCompiledMethod on: html
 
 !HLMethodsListWidget methodsFor: 'testing'!
 
-isOverride: aMethod
-
-   ^ self overrideSelectors includes: aMethod selector
+isOverridden: aMethod
+   ^ self selectorsCache isOverridden: aMethod
 !
 
-isOverriden: aMethod
+isOverride: aMethod
+   ^ self selectorsCache isOverride: aMethod
+! !
 
-   ^ self overridenSelectors includes: aMethod selector
+HLMethodsListWidget class instanceVariableNames: 'selectorsCache'!
+
+!HLMethodsListWidget class methodsFor: 'accessing'!
+
+selectorsCache
+	^ HLSelectorsCache current
 ! !
 
 HLBrowserListWidget subclass: #HLPackagesListWidget
@@ -707,5 +713,135 @@ on: aBrowserModel
 	^ self new
     	model: aBrowserModel;
         yourself
+! !
+
+Object subclass: #HLClassCache
+	instanceVariableNames: 'class parentCache overrideCache overriddenCache'
+	package: 'Helios-Browser'!
+
+!HLClassCache methodsFor: 'accessing'!
+
+overriddenCache
+	^ overriddenCache ifNil: [ overriddenCache := HashedCollection new ]
+!
+
+overrideCache
+	^ overrideCache ifNil: [ overrideCache := HashedCollection new ]
+!
+
+parentCache
+	^ parentCache
+!
+
+parentCache: aCache
+	parentCache := aCache
+!
+
+theClass
+	^ class
+!
+
+theClass: aClass
+	class := aClass
+! !
+
+!HLClassCache methodsFor: 'testing'!
+
+isOverridden: aMethod
+	^ self overriddenCache 
+    	at: aMethod selector
+      	ifAbsentPut: [ aMethod isOverridden ]
+!
+
+isOverride: aMethod
+	^ self overrideCache
+    	at: aMethod selector
+      	ifAbsentPut: [ aMethod isOverride ]
+! !
+
+!HLClassCache class methodsFor: 'instance creation'!
+
+on: aClass parentCache: aCache
+	^ self new
+    	theClass: aClass;
+        parentCache: aCache;
+        yourself
+! !
+
+Object subclass: #HLSelectorsCache
+	instanceVariableNames: 'classesCache'
+	package: 'Helios-Browser'!
+
+!HLSelectorsCache methodsFor: 'accessing'!
+
+cacheFor: aClass
+	aClass ifNil: [ ^ nil ].
+    
+	^ self classesCache
+    	at: aClass name
+        ifAbsentPut: [ self newCacheFor: aClass ]
+!
+
+classesCache
+	^ classesCache ifNil: [ classesCache := HashedCollection new ]
+! !
+
+!HLSelectorsCache methodsFor: 'factory'!
+
+newCacheFor: aClass
+	^ HLClassCache 
+    	on: aClass
+        parentCache: (self cacheFor: aClass superclass)
+! !
+
+!HLSelectorsCache methodsFor: 'testing'!
+
+isOverridden: aMethod
+	^ (self cacheFor: aMethod methodClass)
+    	isOverridden: aMethod
+!
+
+isOverride: aMethod
+	^ (self cacheFor: aMethod methodClass)
+    	isOverride: aMethod
+! !
+
+HLSelectorsCache class instanceVariableNames: 'current'!
+
+!HLSelectorsCache class methodsFor: 'accessing'!
+
+current
+	^ current ifNil: [ current := super new ]
+!
+
+flush
+	current := nil
+! !
+
+!HLSelectorsCache class methodsFor: 'instance creation'!
+
+new
+	self shouldNotImplement
+! !
+
+!CompiledMethod methodsFor: '*Helios-Browser'!
+
+isOverridden
+	| selector |
+    
+    selector := self selector.
+    self methodClass allSubclassesDo: [ :each |
+	    (each includesSelector: selector)
+        	ifTrue: [ ^ true ] ].
+	^ false
+!
+
+isOverride
+	| superclass |
+    
+    superclass := self methodClass superclass.
+	superclass ifNil: [ ^ false ].
+	
+    ^ (self methodClass superclass lookupSelector: self selector) isNil
 ! !
 

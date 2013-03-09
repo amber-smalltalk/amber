@@ -611,7 +611,7 @@ smalltalk.HLClassesListWidget);
 
 
 
-smalltalk.addClass('HLMethodsListWidget', smalltalk.HLBrowserListWidget, ['selectorsCache'], 'Helios-Browser');
+smalltalk.addClass('HLMethodsListWidget', smalltalk.HLBrowserListWidget, [], 'Helios-Browser');
 smalltalk.addMethod(
 "_allProtocol",
 smalltalk.method({
@@ -645,7 +645,7 @@ var self=this;
 var override,overriden;
 return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$1;
 override=_st(self)._isOverride_(aCompiledMethod);
-overriden=_st(self)._isOverriden_(aCompiledMethod);
+overriden=_st(self)._isOverridden_(aCompiledMethod);
 $2=override;
 if(smalltalk.assert($2)){
 $3=overriden;
@@ -664,7 +664,7 @@ $1="icon-none";
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"iconForItem:",{aCompiledMethod:aCompiledMethod,override:override,overriden:overriden}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["isOverride:", "isOverriden:", "ifTrue:ifFalse:"]}),
+messageSends: ["isOverride:", "isOverridden:", "ifTrue:ifFalse:"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -680,29 +680,29 @@ messageSends: ["initialize", "flushSelectorsCache"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
+"_isOverridden_",
+smalltalk.method({
+selector: "isOverridden:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._selectorsCache())._isOverridden_(aMethod);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isOverridden:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
+messageSends: ["isOverridden:", "selectorsCache"]}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
 "_isOverride_",
 smalltalk.method({
 selector: "isOverride:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._overrideSelectors())._includes_(_st(aMethod)._selector());
+$1=_st(_st(self)._selectorsCache())._isOverride_(aMethod);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isOverride:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["includes:", "selector", "overrideSelectors"]}),
-smalltalk.HLMethodsListWidget);
-
-smalltalk.addMethod(
-"_isOverriden_",
-smalltalk.method({
-selector: "isOverriden:",
-fn: function (aMethod){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._overridenSelectors())._includes_(_st(aMethod)._selector());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isOverriden:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["includes:", "selector", "overridenSelectors"]}),
+messageSends: ["isOverride:", "selectorsCache"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -846,9 +846,8 @@ return smalltalk.withContext(function($ctx2) {return smalltalk.HLBrowserListWid
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3;
 };
-_st(self)._flushSelectorsCache();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["ifFalse:ifTrue:", "class:", "div", "with:", "renderContentOn:", "showInstance", "model", "flushSelectorsCache"]}),
+messageSends: ["ifFalse:ifTrue:", "class:", "div", "with:", "renderContentOn:", "showInstance", "model"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -880,12 +879,26 @@ selector: "selectorsCache",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@selectorsCache"];
+$1=_st(_st(self)._class())._selectorsCache();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorsCache",{}, smalltalk.HLMethodsListWidget)})},
-messageSends: []}),
+messageSends: ["selectorsCache", "class"]}),
 smalltalk.HLMethodsListWidget);
 
+
+smalltalk.HLMethodsListWidget.klass.iVarNames = ['selectorsCache'];
+smalltalk.addMethod(
+"_selectorsCache",
+smalltalk.method({
+selector: "selectorsCache",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLSelectorsCache || HLSelectorsCache))._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectorsCache",{}, smalltalk.HLMethodsListWidget.klass)})},
+messageSends: ["current"]}),
+smalltalk.HLMethodsListWidget.klass);
 
 
 smalltalk.addClass('HLPackagesListWidget', smalltalk.HLBrowserListWidget, [], 'Helios-Browser');
@@ -1609,4 +1622,309 @@ return $1;
 messageSends: ["model:", "new", "yourself"]}),
 smalltalk.HLBrowserSourceWidget.klass);
 
+
+smalltalk.addClass('HLClassCache', smalltalk.Object, ['class', 'parentCache', 'overrideCache', 'overriddenCache'], 'Helios-Browser');
+smalltalk.addMethod(
+"_isOverridden_",
+smalltalk.method({
+selector: "isOverridden:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._overriddenCache())._at_ifAbsentPut_(_st(aMethod)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(aMethod)._isOverridden();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isOverridden:",{aMethod:aMethod}, smalltalk.HLClassCache)})},
+messageSends: ["at:ifAbsentPut:", "selector", "isOverridden", "overriddenCache"]}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_isOverride_",
+smalltalk.method({
+selector: "isOverride:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._overrideCache())._at_ifAbsentPut_(_st(aMethod)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(aMethod)._isOverride();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isOverride:",{aMethod:aMethod}, smalltalk.HLClassCache)})},
+messageSends: ["at:ifAbsentPut:", "selector", "isOverride", "overrideCache"]}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_overriddenCache",
+smalltalk.method({
+selector: "overriddenCache",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@overriddenCache"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@overriddenCache"]=_st((smalltalk.HashedCollection || HashedCollection))._new();
+$1=self["@overriddenCache"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"overriddenCache",{}, smalltalk.HLClassCache)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_overrideCache",
+smalltalk.method({
+selector: "overrideCache",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@overrideCache"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@overrideCache"]=_st((smalltalk.HashedCollection || HashedCollection))._new();
+$1=self["@overrideCache"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"overrideCache",{}, smalltalk.HLClassCache)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_parentCache",
+smalltalk.method({
+selector: "parentCache",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@parentCache"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parentCache",{}, smalltalk.HLClassCache)})},
+messageSends: []}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_parentCache_",
+smalltalk.method({
+selector: "parentCache:",
+fn: function (aCache){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@parentCache"]=aCache;
+return self}, function($ctx1) {$ctx1.fill(self,"parentCache:",{aCache:aCache}, smalltalk.HLClassCache)})},
+messageSends: []}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_theClass",
+smalltalk.method({
+selector: "theClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@class"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{}, smalltalk.HLClassCache)})},
+messageSends: []}),
+smalltalk.HLClassCache);
+
+smalltalk.addMethod(
+"_theClass_",
+smalltalk.method({
+selector: "theClass:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@class"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass}, smalltalk.HLClassCache)})},
+messageSends: []}),
+smalltalk.HLClassCache);
+
+
+smalltalk.addMethod(
+"_on_parentCache_",
+smalltalk.method({
+selector: "on:parentCache:",
+fn: function (aClass,aCache){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._theClass_(aClass);
+_st($2)._parentCache_(aCache);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:parentCache:",{aClass:aClass,aCache:aCache}, smalltalk.HLClassCache.klass)})},
+messageSends: ["theClass:", "new", "parentCache:", "yourself"]}),
+smalltalk.HLClassCache.klass);
+
+
+smalltalk.addClass('HLSelectorsCache', smalltalk.Object, ['classesCache'], 'Helios-Browser');
+smalltalk.addMethod(
+"_cacheFor_",
+smalltalk.method({
+selector: "cacheFor:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=aClass;
+if(($receiver = $1) == nil || $receiver == undefined){
+return nil;
+} else {
+$1;
+};
+$2=_st(_st(self)._classesCache())._at_ifAbsentPut_(_st(aClass)._name(),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(self)._newCacheFor_(aClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"cacheFor:",{aClass:aClass}, smalltalk.HLSelectorsCache)})},
+messageSends: ["ifNil:", "at:ifAbsentPut:", "name", "newCacheFor:", "classesCache"]}),
+smalltalk.HLSelectorsCache);
+
+smalltalk.addMethod(
+"_classesCache",
+smalltalk.method({
+selector: "classesCache",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@classesCache"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@classesCache"]=_st((smalltalk.HashedCollection || HashedCollection))._new();
+$1=self["@classesCache"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classesCache",{}, smalltalk.HLSelectorsCache)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLSelectorsCache);
+
+smalltalk.addMethod(
+"_isOverridden_",
+smalltalk.method({
+selector: "isOverridden:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._cacheFor_(_st(aMethod)._methodClass()))._isOverridden_(aMethod);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isOverridden:",{aMethod:aMethod}, smalltalk.HLSelectorsCache)})},
+messageSends: ["isOverridden:", "cacheFor:", "methodClass"]}),
+smalltalk.HLSelectorsCache);
+
+smalltalk.addMethod(
+"_isOverride_",
+smalltalk.method({
+selector: "isOverride:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._cacheFor_(_st(aMethod)._methodClass()))._isOverride_(aMethod);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isOverride:",{aMethod:aMethod}, smalltalk.HLSelectorsCache)})},
+messageSends: ["isOverride:", "cacheFor:", "methodClass"]}),
+smalltalk.HLSelectorsCache);
+
+smalltalk.addMethod(
+"_newCacheFor_",
+smalltalk.method({
+selector: "newCacheFor:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLClassCache || HLClassCache))._on_parentCache_(aClass,_st(self)._cacheFor_(_st(aClass)._superclass()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newCacheFor:",{aClass:aClass}, smalltalk.HLSelectorsCache)})},
+messageSends: ["on:parentCache:", "cacheFor:", "superclass"]}),
+smalltalk.HLSelectorsCache);
+
+
+smalltalk.HLSelectorsCache.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+"_current",
+smalltalk.method({
+selector: "current",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@current"]=smalltalk.Object.klass.fn.prototype._new.apply(_st(self), []);
+$1=self["@current"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"current",{}, smalltalk.HLSelectorsCache.klass)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLSelectorsCache.klass);
+
+smalltalk.addMethod(
+"_flush",
+smalltalk.method({
+selector: "flush",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@current"]=nil;
+return self}, function($ctx1) {$ctx1.fill(self,"flush",{}, smalltalk.HLSelectorsCache.klass)})},
+messageSends: []}),
+smalltalk.HLSelectorsCache.klass);
+
+smalltalk.addMethod(
+"_new",
+smalltalk.method({
+selector: "new",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
+return self}, function($ctx1) {$ctx1.fill(self,"new",{}, smalltalk.HLSelectorsCache.klass)})},
+messageSends: ["shouldNotImplement"]}),
+smalltalk.HLSelectorsCache.klass);
+
+
+smalltalk.addMethod(
+"_isOverridden",
+smalltalk.method({
+selector: "isOverridden",
+fn: function (){
+var self=this;
+var selector;
+return smalltalk.withContext(function($ctx1) { var $1;
+var $early={};
+try {
+selector=_st(self)._selector();
+_st(_st(self)._methodClass())._allSubclassesDo_((function(each){
+return smalltalk.withContext(function($ctx2) {$1=_st(each)._includesSelector_(selector);
+if(smalltalk.assert($1)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector}, smalltalk.CompiledMethod)})},
+messageSends: ["selector", "allSubclassesDo:", "ifTrue:", "includesSelector:", "methodClass"]}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_isOverride",
+smalltalk.method({
+selector: "isOverride",
+fn: function (){
+var self=this;
+var superclass;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+superclass=_st(_st(self)._methodClass())._superclass();
+$1=superclass;
+if(($receiver = $1) == nil || $receiver == undefined){
+return false;
+} else {
+$1;
+};
+$2=_st(_st(_st(_st(self)._methodClass())._superclass())._lookupSelector_(_st(self)._selector()))._isNil();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass}, smalltalk.CompiledMethod)})},
+messageSends: ["superclass", "methodClass", "ifNil:", "isNil", "lookupSelector:", "selector"]}),
+smalltalk.CompiledMethod);
 

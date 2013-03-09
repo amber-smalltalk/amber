@@ -1,4 +1,4 @@
-smalltalk.addPackage('Kernel-Classes', {});
+smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
 "_addCompiledMethod_",
@@ -54,6 +54,20 @@ $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allSubclasses",{result:result}, smalltalk.Behavior)})},
 messageSends: ["subclasses", "do:", "addAll:", "allSubclasses"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_allSubclassesDo_",
+smalltalk.method({
+selector: "allSubclassesDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {_st(aBlock)._value_(each);
+return _st(each)._allSubclassesDo_(aBlock);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock}, smalltalk.Behavior)})},
+messageSends: ["do:", "value:", "allSubclassesDo:", "subclasses"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(

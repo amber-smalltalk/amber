@@ -130,19 +130,6 @@ protocols
    ^ self organization elements sorted
 !
 
-protocolsDo: aBlock
-	"Execute aBlock for each method category with
-	its collection of methods in the sort order of category name."
-
-	| methodsByCategory |
-	methodsByCategory := HashedCollection new.
-	self methodDictionary values do: [:m |
-		(methodsByCategory at: m category ifAbsentPut: [Array new])
- 			add: m]. 
-	self protocols do: [:category |
-		aBlock value: category value: (methodsByCategory at: category)]
-!
-
 prototype
 	<return self.fn.prototype>
 !
@@ -202,6 +189,29 @@ removeCompiledMethod: aMethod
         	theClass: self;
             method: aMethod;
             yourself)
+! !
+
+!Behavior methodsFor: 'enumerating'!
+
+allSubclassesDo: aBlock
+	"Evaluate the argument, aBlock, for each of the receiver's subclasses."
+
+	self subclasses do: [ :each |
+    	aBlock value: each.
+        each allSubclassesDo: aBlock ].
+!
+
+protocolsDo: aBlock
+	"Execute aBlock for each method category with
+	its collection of methods in the sort order of category name."
+
+	| methodsByCategory |
+	methodsByCategory := HashedCollection new.
+	self methodDictionary values do: [:m |
+		(methodsByCategory at: m category ifAbsentPut: [Array new])
+ 			add: m]. 
+	self protocols do: [:category |
+		aBlock value: category value: (methodsByCategory at: category)]
 ! !
 
 !Behavior methodsFor: 'instance creation'!

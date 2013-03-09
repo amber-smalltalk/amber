@@ -1,4 +1,4 @@
-smalltalk.addPackage('Kernel-Methods', {});
+smalltalk.addPackage('Kernel-Methods');
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
 "_applyTo_arguments_",
