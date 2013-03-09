@@ -5,10 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-contrib-mincss');
 
-  grunt.registerTask('build:deploy', 'shell:compileDeploy concat:deploy min');
-  grunt.registerTask('build:dev', 'shell:compileDev concat:css imageEmbed mincss css2js concat:dev');
-//  grunt.registerTask('default', 'build:deploy build:dev');
-  grunt.registerTask('default', 'amberc:all');
+  grunt.registerTask('default', 'pegjs amberc:all');
 
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -22,7 +19,7 @@ module.exports = function(grunt) {
         src: 'js/parser.pegjs',
         dest: 'js/parser.js',
         trackLineAndColumn: true,
-        cache: false,
+        cache: true,
         export_var: 'smalltalk.parser'
       }
     },
