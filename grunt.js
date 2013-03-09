@@ -42,7 +42,7 @@ module.exports = function(grunt) {
       amber_compiler: {
         working_dir: 'st',
         target_dir : 'js',
-        src: ['Importer-Exporter.st', 'Compiler.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
+        src: ['Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
               'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st'],
         output_name: 'Compiler',
         deploy: true
