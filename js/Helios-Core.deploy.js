@@ -233,9 +233,15 @@ smalltalk.method({
 selector: "openAsTab",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.HLManager || HLManager))._current())._addTab_(_st((smalltalk.HLTab || HLTab))._on_labelled_(_st(self)._new(),_st(self)._tabLabel()));
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(self)._canBeOpenAsTab();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(_st((smalltalk.HLManager || HLManager))._current())._addTab_(_st((smalltalk.HLTab || HLTab))._on_labelled_(_st(self)._new(),_st(self)._tabLabel()));
 return self}, function($ctx1) {$ctx1.fill(self,"openAsTab",{}, smalltalk.HLWidget.klass)})},
-messageSends: ["addTab:", "on:labelled:", "new", "tabLabel", "current"]}),
+messageSends: ["ifFalse:", "canBeOpenAsTab", "addTab:", "on:labelled:", "new", "tabLabel", "current"]}),
 smalltalk.HLWidget.klass);
 
 smalltalk.addMethod(
@@ -787,7 +793,7 @@ smalltalk.HLNavigationListWidget);
 
 
 
-smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'keyBinder', 'environment'], 'Helios-Core');
+smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'keyBinder', 'environment', 'history'], 'Helios-Core');
 smalltalk.addMethod(
 "_activate_",
 smalltalk.method({
@@ -799,9 +805,10 @@ _st(_st(self)._keyBinder())._flushBindings();
 self["@activeTab"]=aTab;
 $1=self;
 _st($1)._refresh();
+_st($1)._addToHistory_(aTab);
 $2=_st($1)._show_(aTab);
 return self}, function($ctx1) {$ctx1.fill(self,"activate:",{aTab:aTab}, smalltalk.HLManager)})},
-messageSends: ["flushBindings", "keyBinder", "refresh", "show:"]}),
+messageSends: ["flushBindings", "keyBinder", "refresh", "addToHistory:", "show:"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -827,6 +834,18 @@ return smalltalk.withContext(function($ctx1) { _st(_st(self)._tabs())._add_(aTa
 _st(self)._activate_(aTab);
 return self}, function($ctx1) {$ctx1.fill(self,"addTab:",{aTab:aTab}, smalltalk.HLManager)})},
 messageSends: ["add:", "tabs", "activate:"]}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+"_addToHistory_",
+smalltalk.method({
+selector: "addToHistory:",
+fn: function (aTab){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._removeFromHistory_(aTab);
+_st(_st(self)._history())._add_(aTab);
+return self}, function($ctx1) {$ctx1.fill(self,"addToHistory:",{aTab:aTab}, smalltalk.HLManager)})},
+messageSends: ["removeFromHistory:", "add:", "history"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -869,6 +888,36 @@ fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@environment"]=anEnvironment;
 return self}, function($ctx1) {$ctx1.fill(self,"environment:",{anEnvironment:anEnvironment}, smalltalk.HLManager)})},
+messageSends: []}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+"_history",
+smalltalk.method({
+selector: "history",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@history"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@history"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+$1=self["@history"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"history",{}, smalltalk.HLManager)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+"_history_",
+smalltalk.method({
+selector: "history:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@history"]=aCollection;
+return self}, function($ctx1) {$ctx1.fill(self,"history:",{aCollection:aCollection}, smalltalk.HLManager)})},
 messageSends: []}),
 smalltalk.HLManager);
 
@@ -917,6 +966,30 @@ messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
+"_removeActiveTab",
+smalltalk.method({
+selector: "removeActiveTab",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._removeTab_(_st(self)._activeTab());
+return self}, function($ctx1) {$ctx1.fill(self,"removeActiveTab",{}, smalltalk.HLManager)})},
+messageSends: ["removeTab:", "activeTab"]}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+"_removeFromHistory_",
+smalltalk.method({
+selector: "removeFromHistory:",
+fn: function (aTab){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._history_(_st(_st(self)._history())._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each).__eq_eq(aTab);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"removeFromHistory:",{aTab:aTab}, smalltalk.HLManager)})},
+messageSends: ["history:", "reject:", "==", "history"]}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
 "_removeTab_",
 smalltalk.method({
 selector: "removeTab:",
@@ -928,10 +1001,14 @@ if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
+_st(self)._removeFromHistory_(aTab);
 _st(_st(self)._tabs())._remove_(aTab);
 _st(self)._refresh();
+_st(_st(self)._history())._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._history())._last())._activate();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeTab:",{aTab:aTab}, smalltalk.HLManager)})},
-messageSends: ["ifFalse:", "includes:", "tabs", "remove:", "refresh"]}),
+messageSends: ["ifFalse:", "includes:", "tabs", "removeFromHistory:", "remove:", "refresh", "ifNotEmpty:", "activate", "last", "history"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(

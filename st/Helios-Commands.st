@@ -243,3 +243,101 @@ label
 	^ 'Instance side'
 ! !
 
+HLCommand subclass: #HLCloseTabCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+
+!HLCloseTabCommand methodsFor: 'executing'!
+
+execute
+	HLManager current removeActiveTab
+! !
+
+!HLCloseTabCommand class methodsFor: 'accessing'!
+
+bindingGroup
+	^ 'Close'
+!
+
+key
+	^ 67
+!
+
+label
+	^ 'Close tab'
+! !
+
+HLCommand subclass: #HLOpenCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+
+!HLOpenCommand class methodsFor: 'accessing'!
+
+bindingGroup
+	^ 'Open'
+! !
+
+HLOpenCommand subclass: #HLOpenBrowserCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+
+!HLOpenBrowserCommand methodsFor: 'executing'!
+
+execute
+	^ HLBrowser openAsTab
+! !
+
+!HLOpenBrowserCommand class methodsFor: 'accessing'!
+
+key
+	^ 66
+!
+
+label
+	^ 'Browser'
+! !
+
+HLOpenCommand subclass: #HLOpenTranscriptCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+
+!HLOpenTranscriptCommand methodsFor: 'executing'!
+
+execute
+	^ HLTranscript openAsTab
+! !
+
+!HLOpenTranscriptCommand class methodsFor: 'accessing'!
+
+key
+	^ 84
+!
+
+label
+	^ 'Transcript'
+! !
+
+HLOpenCommand subclass: #HLOpenWorkspaceCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+
+!HLOpenWorkspaceCommand methodsFor: 'executing'!
+
+execute
+	^ HLWorkspace openAsTab
+! !
+
+!HLOpenWorkspaceCommand class methodsFor: 'accessing'!
+
+key
+	^ 87
+!
+
+label
+	^ 'Workspace'
+! !
+
+HLCommand subclass: #HLViewCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+

@@ -157,7 +157,23 @@ activationKeyLabel
 !
 
 bindings
-	^ bindings ifNil: [ bindings := HLBindingGroup new ]
+	^ bindings ifNil: [ bindings := self defaulBindings ]
+!
+
+defaulBindings
+	| group |
+	
+	group := HLBindingGroup new
+		addGroupKey: 79 labelled: 'Open';
+		addGroupKey: 86 labelled: 'View';
+		add: HLCloseTabCommand new asBinding;
+		yourself.
+		
+	HLOpenCommand allSubclasses do: [ :each | 
+		(group at: each bindingGroup) 
+  			add: each new asBinding ].
+				
+	^ group
 !
 
 escapeKey

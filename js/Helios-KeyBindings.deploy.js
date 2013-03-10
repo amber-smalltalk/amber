@@ -394,14 +394,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@bindings"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@bindings"]=_st((smalltalk.HLBindingGroup || HLBindingGroup))._new();
+self["@bindings"]=_st(self)._defaulBindings();
 $1=self["@bindings"];
 } else {
 $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindings",{}, smalltalk.HLKeyBinder)})},
-messageSends: ["ifNil:", "new"]}),
+messageSends: ["ifNil:", "defaulBindings"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
@@ -415,6 +415,29 @@ self["@selectedBinding"]=nil;
 _st(_st(self)._helper())._hide();
 return self}, function($ctx1) {$ctx1.fill(self,"deactivate",{}, smalltalk.HLKeyBinder)})},
 messageSends: ["hide", "helper"]}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+"_defaulBindings",
+smalltalk.method({
+selector: "defaulBindings",
+fn: function (){
+var self=this;
+var group;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st((smalltalk.HLBindingGroup || HLBindingGroup))._new();
+_st($1)._addGroupKey_labelled_((79),"Open");
+_st($1)._addGroupKey_labelled_((86),"View");
+_st($1)._add_(_st(_st((smalltalk.HLCloseTabCommand || HLCloseTabCommand))._new())._asBinding());
+$2=_st($1)._yourself();
+group=$2;
+_st(_st((smalltalk.HLOpenCommand || HLOpenCommand))._allSubclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st(group)._at_(_st(each)._bindingGroup()))._add_(_st(_st(each)._new())._asBinding());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$3=group;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"defaulBindings",{group:group}, smalltalk.HLKeyBinder)})},
+messageSends: ["addGroupKey:labelled:", "new", "add:", "asBinding", "yourself", "do:", "at:", "bindingGroup", "allSubclasses"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(

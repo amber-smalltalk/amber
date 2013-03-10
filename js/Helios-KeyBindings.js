@@ -545,7 +545,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@bindings"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@bindings"]=_st((smalltalk.HLBindingGroup || HLBindingGroup))._new();
+self["@bindings"]=_st(self)._defaulBindings();
 $1=self["@bindings"];
 } else {
 $1=$2;
@@ -553,9 +553,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindings",{}, smalltalk.HLKeyBinder)})},
 args: [],
-source: "bindings\x0a\x09^ bindings ifNil: [ bindings := HLBindingGroup new ]",
-messageSends: ["ifNil:", "new"],
-referencedClasses: ["HLBindingGroup"]
+source: "bindings\x0a\x09^ bindings ifNil: [ bindings := self defaulBindings ]",
+messageSends: ["ifNil:", "defaulBindings"],
+referencedClasses: []
 }),
 smalltalk.HLKeyBinder);
 
@@ -574,6 +574,34 @@ args: [],
 source: "deactivate\x0a\x09active := false.\x0a    selectedBinding := nil.\x0a\x09self helper hide",
 messageSends: ["hide", "helper"],
 referencedClasses: []
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
+"_defaulBindings",
+smalltalk.method({
+selector: "defaulBindings",
+category: 'accessing',
+fn: function (){
+var self=this;
+var group;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st((smalltalk.HLBindingGroup || HLBindingGroup))._new();
+_st($1)._addGroupKey_labelled_((79),"Open");
+_st($1)._addGroupKey_labelled_((86),"View");
+_st($1)._add_(_st(_st((smalltalk.HLCloseTabCommand || HLCloseTabCommand))._new())._asBinding());
+$2=_st($1)._yourself();
+group=$2;
+_st(_st((smalltalk.HLOpenCommand || HLOpenCommand))._allSubclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st(group)._at_(_st(each)._bindingGroup()))._add_(_st(_st(each)._new())._asBinding());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$3=group;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"defaulBindings",{group:group}, smalltalk.HLKeyBinder)})},
+args: [],
+source: "defaulBindings\x0a\x09| group |\x0a\x09\x0a\x09group := HLBindingGroup new\x0a\x09\x09addGroupKey: 79 labelled: 'Open';\x0a\x09\x09addGroupKey: 86 labelled: 'View';\x0a\x09\x09add: HLCloseTabCommand new asBinding;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09HLOpenCommand allSubclasses do: [ :each | \x0a\x09\x09(group at: each bindingGroup) \x0a  \x09\x09\x09add: each new asBinding ].\x0a\x09\x09\x09\x09\x0a\x09^ group",
+messageSends: ["addGroupKey:labelled:", "new", "add:", "asBinding", "yourself", "do:", "at:", "bindingGroup", "allSubclasses"],
+referencedClasses: ["HLBindingGroup", "HLCloseTabCommand", "HLOpenCommand"]
 }),
 smalltalk.HLKeyBinder);
 

@@ -608,3 +608,251 @@ referencedClasses: []
 smalltalk.HLToggleInstanceSideCommand.klass);
 
 
+smalltalk.addClass('HLCloseTabCommand', smalltalk.HLCommand, [], 'Helios-Commands');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.HLManager || HLManager))._current())._removeActiveTab();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLCloseTabCommand)})},
+args: [],
+source: "execute\x0a\x09HLManager current removeActiveTab",
+messageSends: ["removeActiveTab", "current"],
+referencedClasses: ["HLManager"]
+}),
+smalltalk.HLCloseTabCommand);
+
+
+smalltalk.addMethod(
+"_bindingGroup",
+smalltalk.method({
+selector: "bindingGroup",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Close";
+}, function($ctx1) {$ctx1.fill(self,"bindingGroup",{}, smalltalk.HLCloseTabCommand.klass)})},
+args: [],
+source: "bindingGroup\x0a\x09^ 'Close'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCloseTabCommand.klass);
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (67);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCloseTabCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 67",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCloseTabCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Close tab";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCloseTabCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Close tab'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCloseTabCommand.klass);
+
+
+smalltalk.addClass('HLOpenCommand', smalltalk.HLCommand, [], 'Helios-Commands');
+
+smalltalk.addMethod(
+"_bindingGroup",
+smalltalk.method({
+selector: "bindingGroup",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Open";
+}, function($ctx1) {$ctx1.fill(self,"bindingGroup",{}, smalltalk.HLOpenCommand.klass)})},
+args: [],
+source: "bindingGroup\x0a\x09^ 'Open'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenCommand.klass);
+
+
+smalltalk.addClass('HLOpenBrowserCommand', smalltalk.HLOpenCommand, [], 'Helios-Commands');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLBrowser || HLBrowser))._openAsTab();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenBrowserCommand)})},
+args: [],
+source: "execute\x0a\x09^ HLBrowser openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLBrowser"]
+}),
+smalltalk.HLOpenBrowserCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (66);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLOpenBrowserCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 66",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenBrowserCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Browser";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLOpenBrowserCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Browser'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenBrowserCommand.klass);
+
+
+smalltalk.addClass('HLOpenTranscriptCommand', smalltalk.HLOpenCommand, [], 'Helios-Commands');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLTranscript || HLTranscript))._openAsTab();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenTranscriptCommand)})},
+args: [],
+source: "execute\x0a\x09^ HLTranscript openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLTranscript"]
+}),
+smalltalk.HLOpenTranscriptCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (84);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLOpenTranscriptCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 84",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenTranscriptCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Transcript";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLOpenTranscriptCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Transcript'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenTranscriptCommand.klass);
+
+
+smalltalk.addClass('HLOpenWorkspaceCommand', smalltalk.HLOpenCommand, [], 'Helios-Commands');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLWorkspace || HLWorkspace))._openAsTab();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenWorkspaceCommand)})},
+args: [],
+source: "execute\x0a\x09^ HLWorkspace openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLWorkspace"]
+}),
+smalltalk.HLOpenWorkspaceCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (87);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLOpenWorkspaceCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 87",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenWorkspaceCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Workspace";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLOpenWorkspaceCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Workspace'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLOpenWorkspaceCommand.klass);
+
+
+smalltalk.addClass('HLViewCommand', smalltalk.HLCommand, [], 'Helios-Commands');
+
+

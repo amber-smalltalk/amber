@@ -95,6 +95,7 @@ refresh
 !HLWidget class methodsFor: 'accessing'!
 
 openAsTab
+	self canBeOpenAsTab ifFalse: [ ^ self ].
 	HLManager current addTab: (HLTab on: self new labelled: self tabLabel)
 !
 
@@ -347,7 +348,7 @@ setupKeyBindings
 ! !
 
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab keyBinder environment'
+	instanceVariableNames: 'tabs activeTab keyBinder environment history'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
@@ -366,6 +367,14 @@ environment: anEnvironment
 	environment := anEnvironment
 !
 
+history
+	^ history ifNil: [ history := OrderedCollection new ]
+!
+
+history: aCollection
+	history := aCollection
+!
+
 keyBinder
 	^ keyBinder ifNil: [ keyBinder := HLKeyBinder new ]
 !
@@ -379,9 +388,10 @@ tabs
 activate: aTab
 	self keyBinder flushBindings.
 	activeTab := aTab.
-    
+	
 	self 
 		refresh;
+		addToHistory: aTab;
 		show: aTab
 !
 
@@ -390,13 +400,27 @@ addTab: aTab
     self activate: aTab
 !
 
-removeTab: aTab
-	"Todo: activate the previously activated tab. Keep a history of tabs selection"
+addToHistory: aTab
+	self removeFromHistory: aTab.
+	self history add: aTab
+!
 
+removeActiveTab
+	self removeTab: self activeTab
+!
+
+removeFromHistory: aTab
+	self history: (self history reject: [ :each | each == aTab ])
+!
+
+removeTab: aTab
 	(self tabs includes: aTab) ifFalse: [ ^ self ].
 
+	self removeFromHistory: aTab.
 	self tabs remove: aTab.
-	self refresh
+	self refresh.
+	self history ifNotEmpty: [
+		self history last activate ]
 ! !
 
 !HLManager methodsFor: 'defaults'!
