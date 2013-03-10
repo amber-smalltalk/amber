@@ -3035,6 +3035,36 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
+"_random",
+smalltalk.method({
+selector: "random",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);;
+return self}, function($ctx1) {$ctx1.fill(self,"random",{}, smalltalk.String.klass)})},
+messageSends: []}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+"_randomNotIn_",
+smalltalk.method({
+selector: "randomNotIn:",
+fn: function (aString){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {result=_st(self)._random();
+result;
+return _st(aString)._includesSubString_(result);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue();
+$1=result;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result}, smalltalk.String.klass)})},
+messageSends: ["whileTrue", "random", "includesSubString:"]}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
 "_space",
 smalltalk.method({
 selector: "space",

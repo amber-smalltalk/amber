@@ -21,6 +21,8 @@ Here's a summary of change since the 0.9.1 release:
 - Improved ClassBuilder with better class migration support
 - New bin/amberc compiler written in Amber/Node.js
 - Improved loader for third party packages
+- Classes can be augmented by light-weight methods created from blocks
+- Snippets of HTML can be marked to become virtual tags in HTMLCanvas
 - New IDE on it's way for Amber 1.0
 
 

@@ -4104,6 +4104,46 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
+"_random",
+smalltalk.method({
+selector: "random",
+category: 'random',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);;
+return self}, function($ctx1) {$ctx1.fill(self,"random",{}, smalltalk.String.klass)})},
+args: [],
+source: "random\x0a\x09\x22Returns random alphanumeric string beginning with letter\x22\x0a\x09<return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+"_randomNotIn_",
+smalltalk.method({
+selector: "randomNotIn:",
+category: 'random',
+fn: function (aString){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st((function(){
+return smalltalk.withContext(function($ctx2) {result=_st(self)._random();
+result;
+return _st(aString)._includesSubString_(result);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue();
+$1=result;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result}, smalltalk.String.klass)})},
+args: ["aString"],
+source: "randomNotIn: aString\x0a\x09| result |\x0a    [ result := self random. aString includesSubString: result ] whileTrue.\x0a    ^result",
+messageSends: ["whileTrue", "random", "includesSubString:"],
+referencedClasses: []
+}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
 "_space",
 smalltalk.method({
 selector: "space",
