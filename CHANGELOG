@@ -17,9 +17,9 @@ Here's a summary of change since the 0.9.1 release:
   - support for blocks contexts
 
 - SUnit improvements and cleanup, with support for async assertions
-- New build system based on gruntjs, replacing the old makefiles
+- New build system based on grunt.js, replacing the old makefiles
 - Improved ClassBuilder with better class migration support
-- New bin/amberc compiler written in Amber
+- New bin/amberc compiler written in Amber/Node.js
 - Improved loader for third party packages
 - New IDE on it's way for Amber 1.0
 
