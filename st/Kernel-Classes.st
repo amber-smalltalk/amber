@@ -201,6 +201,16 @@ addCompiledMethod: aMethod
 		   		announce: announcement
 !
 
+addOneShotCompiledMethod: aMethod
+	self basicAddOneShotCompiledMethod: aMethod.
+    
+    SystemAnnouncer current
+   		announce: (MethodAdded new
+        	theClass: self;
+            method: aMethod;
+            yourself)
+!
+
 compile: aString
 	self compile: aString category: ''
 !
@@ -239,6 +249,10 @@ new
 
 basicAddCompiledMethod: aMethod
 	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
+!
+
+basicAddOneShotCompiledMethod: aMethod
+	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self, true)>
 !
 
 basicRemoveCompiledMethod: aMethod

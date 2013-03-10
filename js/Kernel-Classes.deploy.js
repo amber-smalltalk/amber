@@ -35,6 +35,23 @@ messageSends: ["at:ifAbsent:", "selector", "methodDictionary", "ifFalse:", "addE
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_addOneShotCompiledMethod_",
+smalltalk.method({
+selector: "addOneShotCompiledMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self)._basicAddOneShotCompiledMethod_(aMethod);
+$1=_st((smalltalk.MethodAdded || MethodAdded))._new();
+_st($1)._theClass_(self);
+_st($1)._method_(aMethod);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"addOneShotCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
+messageSends: ["basicAddOneShotCompiledMethod:", "announce:", "theClass:", "new", "method:", "yourself", "current"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_allInstanceVariableNames",
 smalltalk.method({
 selector: "allInstanceVariableNames",
@@ -103,6 +120,17 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
+messageSends: []}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_basicAddOneShotCompiledMethod_",
+smalltalk.method({
+selector: "basicAddOneShotCompiledMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self, true);
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddOneShotCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
 messageSends: []}),
 smalltalk.Behavior);
 

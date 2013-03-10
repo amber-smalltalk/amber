@@ -41,6 +41,28 @@ referencedClasses: ["MethodAdded", "MethodModified", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_addOneShotCompiledMethod_",
+smalltalk.method({
+selector: "addOneShotCompiledMethod:",
+category: 'compiling',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self)._basicAddOneShotCompiledMethod_(aMethod);
+$1=_st((smalltalk.MethodAdded || MethodAdded))._new();
+_st($1)._theClass_(self);
+_st($1)._method_(aMethod);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"addOneShotCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
+args: ["aMethod"],
+source: "addOneShotCompiledMethod: aMethod\x0a\x09self basicAddOneShotCompiledMethod: aMethod.\x0a    \x0a    SystemAnnouncer current\x0a   \x09\x09announce: (MethodAdded new\x0a        \x09theClass: self;\x0a            method: aMethod;\x0a            yourself)",
+messageSends: ["basicAddOneShotCompiledMethod:", "announce:", "theClass:", "new", "method:", "yourself", "current"],
+referencedClasses: ["MethodAdded", "SystemAnnouncer"]
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_allInstanceVariableNames",
 smalltalk.method({
 selector: "allInstanceVariableNames",
@@ -127,6 +149,22 @@ return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.sele
 return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
 args: ["aMethod"],
 source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_basicAddOneShotCompiledMethod_",
+smalltalk.method({
+selector: "basicAddOneShotCompiledMethod:",
+category: 'private',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self, true);
+return self}, function($ctx1) {$ctx1.fill(self,"basicAddOneShotCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
+args: ["aMethod"],
+source: "basicAddOneShotCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self, true)>",
 messageSends: [],
 referencedClasses: []
 }),
