@@ -1088,7 +1088,7 @@ nextPutContextFor: aMethod during: aBlock
 		separatedBy: [ self nextPutAll: ',' ].
     
     self
-    	nextPutAll: '}, ';
+    	nextPutAll: '},';
         nextPutAll: aMethod theClass asJavascript;
         nextPutAll: ')})'
 !
