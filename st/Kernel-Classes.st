@@ -185,12 +185,10 @@ addCompiledMethod: aMethod
     announcement := oldMethod 
     	ifNil: [
 		    MethodAdded new
-       			 	theClass: self;
 		            method: aMethod;
        			    yourself ]
     	ifNotNil: [
           	MethodModified new
-       			 	theClass: self;
                     oldMethod: oldMethod; 
 		            method: aMethod;
        			    yourself ].
@@ -215,7 +213,6 @@ removeCompiledMethod: aMethod
     
     SystemAnnouncer current
    		announce: (MethodRemoved new
-        	theClass: self;
             method: aMethod;
             yourself)
 ! !

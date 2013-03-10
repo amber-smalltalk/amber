@@ -75,6 +75,9 @@ function SmalltalkSymbol(string) {
 	this.value = string;
 }
 function SmalltalkOrganizer() {
+}
+
+function SmalltalkPackageOrganizer() {
     this.elements = [];
 }
 
@@ -96,6 +99,7 @@ inherits(SmalltalkNil, SmalltalkObject);
 inherits(SmalltalkMethod, SmalltalkObject);
 inherits(SmalltalkPackage, SmalltalkObject);
 inherits(SmalltalkOrganizer, SmalltalkObject);
+inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 
@@ -189,7 +193,7 @@ function Smalltalk() {
 	function pkg(spec) {
 		var that = new SmalltalkPackage();
 		that.pkgName = spec.pkgName;
-        that.organization = new SmalltalkOrganizer();
+        that.organization = new SmalltalkPackageOrganizer();
 		that.properties = spec.properties || {};
 		return that;
 	}
@@ -818,6 +822,7 @@ smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Obje
 smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
 smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
+smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", SmalltalkPackageOrganizer, smalltalk.Organizer, false);
 smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", SmalltalkClassOrganizer, smalltalk.Organizer, false);
 
 
