@@ -677,6 +677,7 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
                 lineNumbers: true,
                 enterMode: 'flat',
                 indentWithTabs: true,
+				indentUnit: 4,
                 matchBrackets: true,
                 electricChars: false
 	});

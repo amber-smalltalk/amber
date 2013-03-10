@@ -56,6 +56,24 @@ messageSends: ["copy", "instanceVariableNames", "ifNotNil:", "addAll:", "allInst
 smalltalk.Behavior);
 
 smalltalk.addMethod(
+"_allSelectors",
+smalltalk.method({
+selector: "allSelectors",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$1=_st(_st(self)._allSuperclasses())._inject_into_(_st(self)._selectors(),(function(soFar,aBehavior){
+return smalltalk.withContext(function($ctx2) {$2=soFar;
+_st($2)._addAll_(_st(aBehavior)._selectors());
+$3=_st($2)._yourself();
+return $3;
+}, function($ctx2) {$ctx2.fillBlock({soFar:soFar,aBehavior:aBehavior},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"allSelectors",{}, smalltalk.Behavior)})},
+messageSends: ["inject:into:", "selectors", "addAll:", "yourself", "allSuperclasses"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 "_allSubclasses",
 smalltalk.method({
 selector: "allSubclasses",

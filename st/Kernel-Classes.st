@@ -21,6 +21,12 @@ allInstanceVariableNames
 	^result
 !
 
+allSelectors
+	^self allSuperclasses
+		inject: self selectors
+		into: [ :soFar :aBehavior | soFar addAll: aBehavior selectors; yourself ]
+!
+
 allSubclasses
 	| result |
 	result := self subclasses.
