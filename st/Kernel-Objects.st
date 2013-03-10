@@ -1481,12 +1481,6 @@ deleteClass: aClass
 removeClass: aClass
 	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
     
-	aClass methodDictionary values do: [:each |
-		aClass removeCompiledMethod: each].
-        
-	aClass class methodDictionary values do: [:each |
-		aClass class removeCompiledMethod: each].
-        
 	self deleteClass: aClass.
     
     SystemAnnouncer current
