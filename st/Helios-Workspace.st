@@ -199,8 +199,9 @@ setEditorOn: aTextarea
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
-                matchBrackets: true,
                 indentWithTabs: true,
+				indentUnit: 4,
+                matchBrackets: true,
                 electricChars: false
 	})>
 ! !

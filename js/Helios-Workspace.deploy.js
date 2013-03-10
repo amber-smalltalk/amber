@@ -535,8 +535,9 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
-                matchBrackets: true,
                 indentWithTabs: true,
+				indentUnit: 4,
+                matchBrackets: true,
                 electricChars: false
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.HLCodeWidget)})},

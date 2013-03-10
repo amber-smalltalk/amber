@@ -721,13 +721,14 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
-                matchBrackets: true,
                 indentWithTabs: true,
+				indentUnit: 4,
+                matchBrackets: true,
                 electricChars: false
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.HLCodeWidget)})},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                indentWithTabs: true,\x0a                electricChars: false\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                indentWithTabs: true,\x0a\x09\x09\x09\x09indentUnit: 4,\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
 referencedClasses: []
 }),
