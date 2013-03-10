@@ -200,6 +200,7 @@ setEditorOn: aTextarea
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,
+                indentWithTabs: true,
                 electricChars: false
 	})>
 ! !
@@ -249,6 +250,17 @@ renderContentOn: html
     self setEditorOn: code element.
     
     self observeWrapper
+! !
+
+!HLCodeWidget class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self setupCodeMirror
+!
+
+setupCodeMirror
+	< CodeMirror.keyMap.default.fallthrough = ["basic"] >
 ! !
 
 HLCodeWidget subclass: #HLSourceCodeWidget

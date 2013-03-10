@@ -722,16 +722,50 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,
+                indentWithTabs: true,
                 electricChars: false
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.HLCodeWidget)})},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                indentWithTabs: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);
 
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._setupCodeMirror();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLCodeWidget.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self setupCodeMirror",
+messageSends: ["initialize", "setupCodeMirror"],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_setupCodeMirror",
+smalltalk.method({
+selector: "setupCodeMirror",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{}, smalltalk.HLCodeWidget.klass)})},
+args: [],
+source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap.default.fallthrough = [\x22basic\x22] >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget.klass);
 
 
 smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLCodeWidget, [], 'Helios-Workspace');

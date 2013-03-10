@@ -536,12 +536,36 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
                 lineNumbers: true,
                 enterMode: 'flat',
                 matchBrackets: true,
+                indentWithTabs: true,
                 electricChars: false
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.HLCodeWidget)})},
 messageSends: []}),
 smalltalk.HLCodeWidget);
 
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._setupCodeMirror();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: ["initialize", "setupCodeMirror"]}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_setupCodeMirror",
+smalltalk.method({
+selector: "setupCodeMirror",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: []}),
+smalltalk.HLCodeWidget.klass);
 
 
 smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLCodeWidget, [], 'Helios-Workspace');
