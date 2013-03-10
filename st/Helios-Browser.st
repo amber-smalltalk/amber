@@ -205,8 +205,9 @@ showInstance: aBoolean
 setItemsForPackage: aPackage
 	self items: (aPackage 
     	ifNil: [ #() ]
-  		ifNotNil: [ (aPackage classes 
-        	collect: [ :each | each theNonMetaClass ]) asSet asArray ]).
+  		ifNotNil: [ ((aPackage classes 
+        	collect: [ :each | each theNonMetaClass ]) asSet asArray) 
+            	sort: [:a :b | a name < b name ] ]).
 !
 
 setItemsForSelectedPackage

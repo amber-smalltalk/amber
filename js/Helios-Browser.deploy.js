@@ -667,13 +667,15 @@ $3=aPackage;
 if(($receiver = $3) == nil || $receiver == undefined){
 $2=[];
 } else {
-$2=_st(_st(_st(_st(aPackage)._classes())._collect_((function(each){
+$2=_st(_st(_st(_st(_st(aPackage)._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._theNonMetaClass();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet())._asArray();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet())._asArray())._sort_((function(a,b){
+return smalltalk.withContext(function($ctx2) {return _st(_st(a)._name()).__lt(_st(b)._name());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
 };
 _st($1)._items_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setItemsForPackage:",{aPackage:aPackage}, smalltalk.HLClassesListWidget)})},
-messageSends: ["items:", "ifNil:ifNotNil:", "asArray", "asSet", "collect:", "theNonMetaClass", "classes"]}),
+messageSends: ["items:", "ifNil:ifNotNil:", "sort:", "<", "name", "asArray", "asSet", "collect:", "theNonMetaClass", "classes"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
