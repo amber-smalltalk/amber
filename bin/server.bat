@@ -1,3 +1,3 @@
 @cd "%~dp0\.." 
-@node server\server.js
+@node server\server.js %*
 
