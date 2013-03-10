@@ -99,6 +99,26 @@ referencedClasses: ["DoIt"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
+"_compileExpression_on_",
+smalltalk.method({
+selector: "compileExpression:on:",
+category: 'compiling',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._currentClass_(_st(anObject)._class());
+_st(self)._source_(_st(_st("xxxDoIt ^[").__comma(aString)).__comma("] value"));
+$1=_st(self)._compileNode_(_st(self)._parse_(_st(self)._source()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject}, smalltalk.Compiler)})},
+args: ["aString", "anObject"],
+source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^[', aString, '] value'.\x0a\x09^self compileNode: (self parse: self source)",
+messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"],
+referencedClasses: []
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
 "_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
@@ -180,20 +200,38 @@ selector: "evaluateExpression:",
 category: 'compiling',
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._evaluateExpression_on_(aString,_st((smalltalk.DoIt || DoIt))._new());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString}, smalltalk.Compiler)})},
+args: ["aString"],
+source: "evaluateExpression: aString\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression and answer the returned object\x22\x0a\x09^ self evaluateExpression: aString on: DoIt new",
+messageSends: ["evaluateExpression:on:", "new"],
+referencedClasses: ["DoIt"]
+}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+"_evaluateExpression_on_",
+smalltalk.method({
+selector: "evaluateExpression:on:",
+category: 'compiling',
+fn: function (aString,anObject){
+var self=this;
 var result,method;
 return smalltalk.withContext(function($ctx1) { var $1;
-method=_st(self)._eval_(_st(self)._compileExpression_(aString));
-_st(method)._category_("doIt");
-_st((smalltalk.DoIt || DoIt))._addCompiledMethod_(method);
-result=_st(_st((smalltalk.DoIt || DoIt))._new())._doIt();
-_st((smalltalk.DoIt || DoIt))._removeCompiledMethod_(method);
+method=_st(self)._eval_(_st(self)._compileExpression_on_(aString,anObject));
+_st(method)._category_("xxxDoIt");
+_st(_st(anObject)._class())._addCompiledMethod_(method);
+result=_st(anObject)._xxxDoIt();
+_st(_st(anObject)._class())._removeCompiledMethod_(method);
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString,result:result,method:method}, smalltalk.Compiler)})},
-args: ["aString"],
-source: "evaluateExpression: aString\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression and answer the returned object\x22\x0a\x09| result method |\x0a    method := self eval: (self compileExpression: aString).\x0a    method category: 'doIt'.\x0a\x09DoIt addCompiledMethod: method.\x0a\x09result := DoIt new doIt.\x0a\x09DoIt removeCompiledMethod: method.\x0a\x09^result",
-messageSends: ["eval:", "compileExpression:", "category:", "addCompiledMethod:", "doIt", "new", "removeCompiledMethod:"],
-referencedClasses: ["DoIt"]
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method}, smalltalk.Compiler)})},
+args: ["aString", "anObject"],
+source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a    method := self eval: (self compileExpression: aString on: anObject).\x0a    method category: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^result",
+messageSends: ["eval:", "compileExpression:on:", "category:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
+referencedClasses: []
 }),
 smalltalk.Compiler);
 

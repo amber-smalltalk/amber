@@ -589,14 +589,14 @@ return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpres
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(compiler)._evaluateExpression_(aString);
+$2=_st(compiler)._evaluateExpression_on_(aString,_st(self)._receiver());
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,compiler:compiler}, smalltalk.SourceArea)})},
 args: ["aString"],
-source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: aString] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^compiler evaluateExpression: aString",
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:"],
+source: "eval: aString\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^compiler evaluateExpression: aString on: self receiver",
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:", "receiver"],
 referencedClasses: ["Compiler", "Error"]
 }),
 smalltalk.SourceArea);
@@ -887,12 +887,13 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
+                indentWithTabs: true,
                 matchBrackets: true,
                 electricChars: false
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.SourceArea)})},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                indentWithTabs: true,\x0a                matchBrackets: true,\x0a                electricChars: false\x0a\x09})>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -932,6 +933,39 @@ referencedClasses: []
 }),
 smalltalk.SourceArea);
 
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Widget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._setupCodeMirror();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.SourceArea.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self setupCodeMirror",
+messageSends: ["initialize", "setupCodeMirror"],
+referencedClasses: []
+}),
+smalltalk.SourceArea.klass);
+
+smalltalk.addMethod(
+"_setupCodeMirror",
+smalltalk.method({
+selector: "setupCodeMirror",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{}, smalltalk.SourceArea.klass)})},
+args: [],
+source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap.default.fallthrough = [\x22basic\x22] >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SourceArea.klass);
 
 
 smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');

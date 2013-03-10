@@ -187,7 +187,7 @@ arguments
 !
 
 category
-	^(self basicAt: 'category') ifNil: ['']
+	^(self basicAt: 'category') ifNil: [ self defaultCategory ]
 !
 
 category: aString
@@ -241,6 +241,12 @@ source
 
 source: aString
 	self basicAt: 'source' put: aString
+! !
+
+!CompiledMethod methodsFor: 'defaults'!
+
+defaultCategory
+	^ 'as yet unclassified'
 ! !
 
 Object subclass: #ForkPool
