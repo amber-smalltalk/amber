@@ -6,61 +6,61 @@ Object subclass: #HTMLCanvas
 !HTMLCanvas methodsFor: 'accessing'!
 
 root
-    ^root
+	^root
 !
 
 root: aTagBrush
-    root := aTagBrush
+	root := aTagBrush
 !
 
 snippet: anElement
 	"Adds clone of anElement, finds [data-snippet=""*""] subelement
-    and returns TagBrush as if that subelement was just added.
-    
-    Rarely needed to use directly, use `html foo` dynamically installed method
-    for a snippet named foo."
-    
-    | clone caret |
-    
-    clone := anElement asJQuery clone.
-    self with: (TagBrush fromJQuery: clone canvas: self).
-    caret := clone find: '[data-snippet="*"]'.
-    caret toArray isEmpty ifTrue: [ caret := clone ].
-    ^TagBrush fromJQuery: (caret removeAttr: 'data-snippet') canvas: self
+	and returns TagBrush as if that subelement was just added.
+	
+	Rarely needed to use directly, use `html foo` dynamically installed method
+	for a snippet named foo."
+	
+	| clone caret |
+	
+	clone := anElement asJQuery clone.
+	self with: (TagBrush fromJQuery: clone canvas: self).
+	caret := clone find: '[data-snippet="*"]'.
+	caret toArray isEmpty ifTrue: [ caret := clone ].
+	^TagBrush fromJQuery: (caret removeAttr: 'data-snippet') canvas: self
 ! !
 
 !HTMLCanvas methodsFor: 'adding'!
 
 entity: aString
 	"Adds a character representing html entity, eg.
-    html entity: 'copy'
-    adds a copyright sign.
-    If a name does not represent valid HTML entity, error is raised."
+	html entity: 'copy'
+	adds a copyright sign.
+	If a name does not represent valid HTML entity, error is raised."
 	| result |
-    result := ('<span />' asJQuery html: '&', aString, ';') text.
-    result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].
-    self with: result
+	result := ('<span />' asJQuery html: '&', aString, ';') text.
+	result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].
+	self with: result
 !
 
 with: anObject
-    ^self root with: anObject
+	^self root with: anObject
 ! !
 
 !HTMLCanvas methodsFor: 'initialization'!
 
 initialize
-    super initialize.
-    root ifNil: [root := TagBrush fromString: 'div' canvas: self]
+	super initialize.
+	root ifNil: [root := TagBrush fromString: 'div' canvas: self]
 !
 
 initializeFromJQuery: aJQuery
-    root := TagBrush fromJQuery: aJQuery canvas: self
+	root := TagBrush fromJQuery: aJQuery canvas: self
 ! !
 
 !HTMLCanvas methodsFor: 'tags'!
 
 a
-    ^self tag: 'a'
+	^self tag: 'a'
 !
 
 abbr
@@ -76,7 +76,7 @@ area
 !
 
 article
-    ^self tag: 'article'
+	^self tag: 'article'
 !
 
 aside
@@ -84,7 +84,7 @@ aside
 !
 
 audio
-    ^self tag: 'audio'
+	^self tag: 'audio'
 !
 
 base
@@ -100,11 +100,11 @@ body
 !
 
 br
-    ^self tag: 'br'
+	^self tag: 'br'
 !
 
 button
-    ^self tag: 'button'
+	^self tag: 'button'
 !
 
 canvas
@@ -120,7 +120,7 @@ cite
 !
 
 code
-    ^self tag: 'code'
+	^self tag: 'code'
 !
 
 col
@@ -152,11 +152,11 @@ details
 !
 
 div
-    ^self tag: 'div'
+	^self tag: 'div'
 !
 
 div: aBlock
-    ^self div with: aBlock
+	^self div with: aBlock
 !
 
 dl
@@ -176,7 +176,7 @@ embed
 !
 
 fieldset
-    ^self tag: 'fieldset'
+	^self tag: 'fieldset'
 !
 
 figcaption
@@ -188,59 +188,59 @@ figure
 !
 
 footer
-    ^self tag: 'footer'
+	^self tag: 'footer'
 !
 
 form
-    ^self tag: 'form'
+	^self tag: 'form'
 !
 
 h1
-    ^self tag: 'h1'
+	^self tag: 'h1'
 !
 
 h1: anObject
-    ^self h1 with: anObject
+	^self h1 with: anObject
 !
 
 h2
-    ^self tag: 'h2'
+	^self tag: 'h2'
 !
 
 h2: anObject
-    ^ self h2 with: anObject
+	^ self h2 with: anObject
 !
 
 h3
-    ^self tag: 'h3'
+	^self tag: 'h3'
 !
 
 h3: anObject
-    ^self h3 with: anObject
+	^self h3 with: anObject
 !
 
 h4
-    ^self tag: 'h4'
+	^self tag: 'h4'
 !
 
 h4: anObject
-    ^self h4 with: anObject
+	^self h4 with: anObject
 !
 
 h5
-    ^self tag: 'h5'
+	^self tag: 'h5'
 !
 
 h5: anObject
-    ^self h5 with: anObject
+	^self h5 with: anObject
 !
 
 h6
-    ^self tag: 'h6'
+	^self tag: 'h6'
 !
 
 h6: anObject
-    ^self h6 with: anObject
+	^self h6 with: anObject
 !
 
 head
@@ -248,7 +248,7 @@ head
 !
 
 header
-    ^self tag: 'header'
+	^self tag: 'header'
 !
 
 hgroup
@@ -256,7 +256,7 @@ hgroup
 !
 
 hr
-    ^self tag: 'hr'
+	^self tag: 'hr'
 !
 
 html
@@ -264,23 +264,23 @@ html
 !
 
 iframe
-    ^self tag: 'iframe'
+	^self tag: 'iframe'
 !
 
 iframe: aString
-    ^self iframe src: aString
+	^self iframe src: aString
 !
 
 img
-    ^self tag: 'img'
+	^self tag: 'img'
 !
 
 img: aString
-    ^self img src: aString
+	^self img src: aString
 !
 
 input
-    ^self tag: 'input'
+	^self tag: 'input'
 !
 
 label
@@ -292,15 +292,15 @@ legend
 !
 
 li
-    ^self tag: 'li'
+	^self tag: 'li'
 !
 
 li: anObject
-    ^self li with: anObject
+	^self li with: anObject
 !
 
 link
-    ^self tag: 'link'
+	^self tag: 'link'
 !
 
 map
@@ -324,7 +324,7 @@ nav
 !
 
 newTag: aString
-    ^TagBrush fromString: aString canvas: self
+	^TagBrush fromString: aString canvas: self
 !
 
 noscript
@@ -336,11 +336,11 @@ object
 !
 
 ol
-    ^self tag: 'ol'
+	^self tag: 'ol'
 !
 
 ol: anObject
-    ^self ol with: anObject
+	^self ol with: anObject
 !
 
 optgroup
@@ -348,7 +348,7 @@ optgroup
 !
 
 option
-    ^self tag: 'option'
+	^self tag: 'option'
 !
 
 output
@@ -356,11 +356,11 @@ output
 !
 
 p
-    ^self tag: 'p'
+	^self tag: 'p'
 !
 
 p: anObject
-    ^self p with: anObject
+	^self p with: anObject
 !
 
 param
@@ -368,7 +368,7 @@ param
 !
 
 pre
-    ^self tag: 'pre'
+	^self tag: 'pre'
 !
 
 progress
@@ -376,15 +376,15 @@ progress
 !
 
 script
-    ^self tag: 'script'
+	^self tag: 'script'
 !
 
 section
-    ^self tag: 'section'
+	^self tag: 'section'
 !
 
 select
-    ^self tag: 'select'
+	^self tag: 'select'
 !
 
 small
@@ -396,11 +396,11 @@ source
 !
 
 span
-    ^self tag: 'span'
+	^self tag: 'span'
 !
 
 span: anObject
-    ^self span with: anObject
+	^self span with: anObject
 !
 
 strong
@@ -412,7 +412,7 @@ strong: anObject
 !
 
 style
-	^ root addBrush:  (StyleTag canvas: self)
+	^ root addBrush: (StyleTag canvas: self)
 !
 
 style: aString
@@ -432,35 +432,35 @@ sup
 !
 
 table
-    ^self tag: 'table'
+	^self tag: 'table'
 !
 
 tag: aString
-    ^root addBrush: (self newTag: aString)
+	^root addBrush: (self newTag: aString)
 !
 
 tbody
-    ^self tag: 'tbody'
+	^self tag: 'tbody'
 !
 
-td 
-    ^self tag: 'td'
+td
+	^self tag: 'td'
 !
 
 textarea
-    ^self tag: 'textarea'
+	^self tag: 'textarea'
 !
 
 tfoot
-    ^self tag: 'tfoot'
+	^self tag: 'tfoot'
 !
 
 th
-    ^self tag: 'th'
+	^self tag: 'th'
 !
 
 thead
-    ^self tag: 'thead'
+	^self tag: 'thead'
 !
 
 time
@@ -472,19 +472,19 @@ title
 !
 
 tr
-    ^self tag: 'tr'
+	^self tag: 'tr'
 !
 
 ul
-    ^self tag: 'ul'
+	^self tag: 'ul'
 !
 
 ul: anObject
-    ^self ul with: anObject
+	^self ul with: anObject
 !
 
 video
-    ^self tag: 'video'
+	^self tag: 'video'
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
@@ -571,23 +571,23 @@ snippets
 
 initializeFromJQuery: aJQuery
 	"Finds and takes out all snippets out of aJQuery.
-    Installs it into self."
-    
+	Installs it into self."
+	
 	(self snippetsFromJQuery: aJQuery) do: [ :each |
-    	self installSnippetFromJQuery: each asJQuery ]
+		self installSnippetFromJQuery: each asJQuery ]
 ! !
 
 !HTMLSnippet methodsFor: 'method generation'!
 
 snippetAt: aString compile: anElement
 	"Method generation for the snippet.
-    The selector is aString, the method block uses anElement"
-    
-    ClassBuilder new
-    	installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ] 
-        	currySelf asCompiledMethod: aString)
-        forClass: HTMLCanvas
-        category: '**snippets'
+	The selector is aString, the method block uses anElement"
+	
+	ClassBuilder new
+		installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]
+			currySelf asCompiledMethod: aString)
+		forClass: HTMLCanvas
+		category: '**snippets'
 ! !
 
 !HTMLSnippet methodsFor: 'private'!
@@ -600,20 +600,20 @@ snippetsFromJQuery: aJQuery
 
 installSnippetFromJQuery: element
 	| name |
-    name := element attr: 'data-snippet'.
-    name = '*' ifFalse: [
-    	('^\*' asRegexp test: name) 
-            ifTrue: [ 
-            	name := name allButFirst. 
-                element attr: 'data-snippet' put: '*' ]
-          	ifFalse: [ 
-            	element removeAttr: 'data-snippet' ].
-        self snippetAt: name install: (element detach get: 0) ]
+	name := element attr: 'data-snippet'.
+	name = '*' ifFalse: [
+		('^\*' asRegexp test: name)
+			ifTrue: [
+				name := name allButFirst.
+				element attr: 'data-snippet' put: '*' ]
+			ifFalse: [
+				element removeAttr: 'data-snippet' ].
+		self snippetAt: name install: (element detach get: 0) ]
 !
 
 snippetAt: aString install: anElement
 	self snippets at: aString put: anElement.
-    self snippetAt: aString compile: anElement
+	self snippetAt: aString compile: anElement
 ! !
 
 HTMLSnippet class instanceVariableNames: 'current'!
@@ -621,15 +621,15 @@ HTMLSnippet class instanceVariableNames: 'current'!
 !HTMLSnippet class methodsFor: 'initialization'!
 
 ensureCurrent
-	current ifNil: [ 
-    	current := super new
+	current ifNil: [
+		current := super new
 			initializeFromJQuery: document asJQuery;
 			yourself ]
 !
 
 initialize
 	super initialize.
-    self isDOMAvailable ifTrue: [
+	self isDOMAvailable ifTrue: [
 		self ensureCurrent ]
 ! !
 
@@ -654,50 +654,50 @@ Object subclass: #TagBrush
 !TagBrush methodsFor: 'accessing'!
 
 element
-    ^element
+	^element
 ! !
 
 !TagBrush methodsFor: 'adding'!
 
 addBrush: aTagBrush
-    self appendChild: aTagBrush element.
-    ^aTagBrush
+	self appendChild: aTagBrush element.
+	^aTagBrush
 !
 
 append: anObject
-    anObject appendToBrush: self
+	anObject appendToBrush: self
 !
 
 appendBlock: aBlock
-    | root |
-    root := canvas root.
-    canvas root: self.
-    aBlock value: canvas.
-    canvas root: root
+	| root |
+	root := canvas root.
+	canvas root: self.
+	aBlock value: canvas.
+	canvas root: root
 !
 
 appendChild: anElement
-	"In IE7 and IE8 appendChild fails on several node types. So we need to check" 
- 	<var element=self['@element'];
- 	if (null == element.canHaveChildren || element.canHaveChildren) {
+	"In IE7 and IE8 appendChild fails on several node types. So we need to check"
+	<var element=self['@element'];
+	if (null == element.canHaveChildren || element.canHaveChildren) {
 		element.appendChild(anElement);
- 	} else {
- 		element.text = String(element.text) +  anElement.innerHTML;
- 	} >
+	} else {
+		element.text = String(element.text) + anElement.innerHTML;
+	} >
 !
 
 appendString: aString
-    self appendChild: (self createTextNodeFor: aString)
+	self appendChild: (self createTextNodeFor: aString)
 !
 
 appendToBrush: aTagBrush
-    aTagBrush addBrush: self
+	aTagBrush addBrush: self
 !
 
 contents: anObject
-    self 
+	self
 	empty;
-   	append: anObject
+	append: anObject
 !
 
 empty
@@ -705,7 +705,7 @@ empty
 !
 
 with: anObject
-    self append: anObject
+	self append: anObject
 ! !
 
 !TagBrush methodsFor: 'attributes'!
@@ -727,11 +727,11 @@ alt: aString
 !
 
 at: aString put: aValue
-    <self['@element'].setAttribute(aString, aValue)>
+	<self['@element'].setAttribute(aString, aValue)>
 !
 
 class: aString
-      <self['@element'].className = aString>
+	<self['@element'].className = aString>
 !
 
 cols: aString
@@ -755,7 +755,7 @@ for: aString
 !
 
 height: aString
-    self  at: 'height' put: aString
+	self at: 'height' put: aString
 !
 
 hidden
@@ -763,15 +763,15 @@ hidden
 !
 
 href: aString
-    self at: 'href' put: aString
+	self at: 'href' put: aString
 !
 
 id: aString
-    self at: 'id' put: aString
+	self at: 'id' put: aString
 !
 
 media: aString
-    self at: 'media' put: aString
+	self at: 'media' put: aString
 !
 
 method: aString
@@ -787,11 +787,11 @@ placeholder: aString
 !
 
 rel: aString
-    self  at: 'rel' put: aString
+	self at: 'rel' put: aString
 !
 
 removeAt: aString
-    <self['@element'].removeAttribute(aString)>
+	<self['@element'].removeAttribute(aString)>
 !
 
 rows: aString
@@ -799,11 +799,11 @@ rows: aString
 !
 
 src: aString
-    self  at: 'src' put: aString
+	self at: 'src' put: aString
 !
 
 style: aString
-    self at: 'style' put: aString
+	self at: 'style' put: aString
 !
 
 tabindex: aNumber
@@ -815,11 +815,11 @@ target: aString
 !
 
 title: aString
-    self at: 'title' put: aString
+	self at: 'title' put: aString
 !
 
 type: aString
-    self at: 'type' put: aString
+	self at: 'type' put: aString
 !
 
 valign: aString
@@ -827,31 +827,31 @@ valign: aString
 !
 
 value: aString
-    self  at: 'value' put: aString
+	self at: 'value' put: aString
 !
 
 width: aString
-    self  at: 'width' put: aString
+	self at: 'width' put: aString
 ! !
 
 !TagBrush methodsFor: 'converting'!
 
 asJQuery
-    ^window jQuery: self element
+	^window jQuery: self element
 ! !
 
 !TagBrush methodsFor: 'events'!
 
 onBlur: aBlock
-    self asJQuery bind: 'blur' do: aBlock
+	self asJQuery bind: 'blur' do: aBlock
 !
 
 onChange: aBlock
-    self asJQuery bind: 'change' do: aBlock
+	self asJQuery bind: 'change' do: aBlock
 !
 
 onClick: aBlock
-    self asJQuery bind: 'click' do: aBlock
+	self asJQuery bind: 'click' do: aBlock
 !
 
 onDblClick: aBlock
@@ -859,7 +859,7 @@ onDblClick: aBlock
 !
 
 onFocus: aBlock
-    self asJQuery bind: 'focus' do: aBlock
+	self asJQuery bind: 'focus' do: aBlock
 !
 
 onFocusIn: aBlock
@@ -875,15 +875,15 @@ onHover: aBlock
 !
 
 onKeyDown: aBlock
-    self asJQuery bind: 'keydown' do: aBlock
+	self asJQuery bind: 'keydown' do: aBlock
 !
 
 onKeyPress: aBlock
-    self asJQuery bind: 'keypress' do: aBlock
+	self asJQuery bind: 'keypress' do: aBlock
 !
 
 onKeyUp: aBlock
-    self asJQuery bind: 'keyup' do: aBlock
+	self asJQuery bind: 'keyup' do: aBlock
 !
 
 onMouseDown: aBlock
@@ -929,13 +929,13 @@ onUnload: aBlock
 !TagBrush methodsFor: 'initialization'!
 
 initializeFromJQuery: aJQuery canvas: aCanvas
-    element := aJQuery get: 0.
-    canvas := aCanvas
+	element := aJQuery get: 0.
+	canvas := aCanvas
 !
 
 initializeFromString: aString canvas: aCanvas
-    element := self createElementFor: aString.
-    canvas := aCanvas
+	element := self createElementFor: aString.
+	canvas := aCanvas
 ! !
 
 !TagBrush methodsFor: 'private'!
@@ -951,13 +951,13 @@ createTextNodeFor: aString
 !TagBrush class methodsFor: 'instance creation'!
 
 fromJQuery: aJQuery canvas: aCanvas
-    ^self new
+	^self new
 	initializeFromJQuery: aJQuery canvas: aCanvas;
 	yourself
 !
 
 fromString: aString canvas: aCanvas
-    ^self new
+	^self new
 	initializeFromString: aString canvas: aCanvas;
 	yourself
 ! !
@@ -981,7 +981,7 @@ with: aString
 !StyleTag class methodsFor: 'instance creation'!
 
 canvas: aCanvas
-    ^self new
+	^self new
 	initializeFromString: 'style' canvas: aCanvas;
 	yourself
 ! !
@@ -993,37 +993,37 @@ Object subclass: #Widget
 !Widget methodsFor: 'adding'!
 
 appendToBrush: aTagBrush
-    self appendToJQuery: aTagBrush asJQuery
+	self appendToJQuery: aTagBrush asJQuery
 !
 
 appendToJQuery: aJQuery
-   self renderOn: (HTMLCanvas onJQuery: aJQuery)
+	self renderOn: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
 !Widget methodsFor: 'rendering'!
 
 renderOn: html
-    self
+	self
 ! !
 
 !Object methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
-    aTagBrush append: self asString
+	aTagBrush append: self asString
 !
 
 appendToJQuery: aJQuery
-    aJQuery append: self asString
+	aJQuery append: self asString
 ! !
 
 !BlockClosure methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
-    aTagBrush appendBlock: self
+	aTagBrush appendBlock: self
 !
 
 appendToJQuery: aJQuery
-    self value: (HTMLCanvas onJQuery: aJQuery)
+	self value: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
 !CharacterArray methodsFor: '*Canvas'!
@@ -1035,20 +1035,20 @@ asSnippet
 !String methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
-    aTagBrush appendString: self
+	aTagBrush appendString: self
 !
 
 appendToJQuery: aJQuery
-    aJQuery append: self
+	aJQuery append: self
 !
 
 asJQuery
-    <return jQuery(String(self))>
+	<return jQuery(String(self))>
 ! !
 
 !JSObjectProxy methodsFor: '*Canvas'!
 
 asJQuery
-    <return jQuery(self['@jsObject'])>
+	<return jQuery(self['@jsObject'])>
 ! !
 

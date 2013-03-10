@@ -9,7 +9,7 @@ CompilerError subclass: #ParseError
 	instanceVariableNames: ''
 	package: 'Compiler-Exceptions'!
 !ParseError commentStamp!
-Instance of ParseError are signaled on any parsing error. 
+Instance of ParseError are signaled on any parsing error.
 See `Smalltalk >> #parse:`!
 
 CompilerError subclass: #SemanticError
@@ -105,6 +105,6 @@ basicSignal: anError
 
 handleError: anError
 	super handleError: anError.
-    self basicSignal: anError
+	self basicSignal: anError
 ! !
 
