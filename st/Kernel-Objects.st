@@ -1062,6 +1062,32 @@ removeElement: anObject
 	<self.elements.removeElement(anObject)>
 ! !
 
+Organizer subclass: #ClassOrganizer
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+
+!ClassOrganizer methodsFor: 'accessing'!
+
+addElement: aString
+	super addElement: aString.
+
+	SystemAnnouncer current announce: (ProtocolAdded new
+    	protocol: aString;
+        yourself)
+!
+
+removeElement: aString
+	super removeElement: aString.
+
+	SystemAnnouncer current announce: (ProtocolRemoved new
+    	protocol: aString;
+        yourself)
+! !
+
+Organizer subclass: #PackageOrganizer
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+
 Object subclass: #Package
 	instanceVariableNames: 'commitPathJs commitPathSt'
 	package: 'Kernel-Objects'!

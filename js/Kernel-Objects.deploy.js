@@ -2300,6 +2300,44 @@ smalltalk.Organizer);
 
 
 
+smalltalk.addClass('ClassOrganizer', smalltalk.Organizer, [], 'Kernel-Objects');
+smalltalk.addMethod(
+"_addElement_",
+smalltalk.method({
+selector: "addElement:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
+$1=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
+_st($1)._protocol_(aString);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
+messageSends: ["addElement:", "announce:", "protocol:", "new", "yourself", "current"]}),
+smalltalk.ClassOrganizer);
+
+smalltalk.addMethod(
+"_removeElement_",
+smalltalk.method({
+selector: "removeElement:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
+$1=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
+_st($1)._protocol_(aString);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
+messageSends: ["removeElement:", "announce:", "protocol:", "new", "yourself", "current"]}),
+smalltalk.ClassOrganizer);
+
+
+
+smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Objects');
+
+
 smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
 smalltalk.addMethod(
 "_classes",

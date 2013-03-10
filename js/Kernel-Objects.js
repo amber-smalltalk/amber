@@ -3185,6 +3185,54 @@ smalltalk.Organizer);
 
 
 
+smalltalk.addClass('ClassOrganizer', smalltalk.Organizer, [], 'Kernel-Objects');
+smalltalk.addMethod(
+"_addElement_",
+smalltalk.method({
+selector: "addElement:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
+$1=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
+_st($1)._protocol_(aString);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
+args: ["aString"],
+source: "addElement: aString\x0a\x09super addElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolAdded new\x0a    \x09protocol: aString;\x0a        yourself)",
+messageSends: ["addElement:", "announce:", "protocol:", "new", "yourself", "current"],
+referencedClasses: ["ProtocolAdded", "SystemAnnouncer"]
+}),
+smalltalk.ClassOrganizer);
+
+smalltalk.addMethod(
+"_removeElement_",
+smalltalk.method({
+selector: "removeElement:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
+$1=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
+_st($1)._protocol_(aString);
+$2=_st($1)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
+args: ["aString"],
+source: "removeElement: aString\x0a\x09super removeElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolRemoved new\x0a    \x09protocol: aString;\x0a        yourself)",
+messageSends: ["removeElement:", "announce:", "protocol:", "new", "yourself", "current"],
+referencedClasses: ["ProtocolRemoved", "SystemAnnouncer"]
+}),
+smalltalk.ClassOrganizer);
+
+
+
+smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Objects');
+
+
 smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
 smalltalk.Package.comment="A Package is similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aA Package has a name, an Array of \x22requires\x22, a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name:\x0a\x0a\x09Smalltalk current packageAt: 'Kernel'\x0a\x0a...but you can also use:\x0a\x0a\x09Package named: 'Kernel'\x0a\x0aA Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports \x22class extensions\x22 so a Package\x0acan define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class\x0aString where the method category \x22*IDE\x22 defines #inspectOn: which thus is a method belonging to the IDE package.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package fetch: 'Additional-Examples'"
 smalltalk.addMethod(

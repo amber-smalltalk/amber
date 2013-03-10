@@ -252,23 +252,60 @@ smalltalk.SystemAnnouncement);
 
 
 
-smalltalk.addClass('ClassAdded', smalltalk.SystemAnnouncement, [], 'Kernel-Announcements');
+smalltalk.addClass('ClassAnnouncement', smalltalk.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
+smalltalk.addMethod(
+"_theClass",
+smalltalk.method({
+selector: "theClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{}, smalltalk.ClassAnnouncement)})},
+args: [],
+source: "theClass\x0a\x09^ theClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassAnnouncement);
+
+smalltalk.addMethod(
+"_theClass_",
+smalltalk.method({
+selector: "theClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass}, smalltalk.ClassAnnouncement)})},
+args: ["aClass"],
+source: "theClass: aClass\x0a\x09theClass := aClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassAnnouncement);
+
+
+
+smalltalk.addClass('ClassAdded', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ClassAdded.comment="I am emitted when a class is added to the system.\x0aSee ClassBuilder >> #addSubclassOf:... methods"
 
 
-smalltalk.addClass('ClassCommentChanged', smalltalk.SystemAnnouncement, [], 'Kernel-Announcements');
+smalltalk.addClass('ClassCommentChanged', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ClassCommentChanged.comment="I am emitted when the comment of a class changes. (Behavior >> #comment)"
 
 
-smalltalk.addClass('ClassDefinitionChanged', smalltalk.SystemAnnouncement, [], 'Kernel-Announcements');
+smalltalk.addClass('ClassDefinitionChanged', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ClassDefinitionChanged.comment="I am emitted when the defintion of a class changes.\x0aSee ClassBuilder >> #class:instanceVariableNames:"
 
 
-smalltalk.addClass('ClassRemoved', smalltalk.SystemAnnouncement, [], 'Kernel-Announcements');
+smalltalk.addClass('ClassRemoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ClassRemoved.comment="I am emitted when a class is removed.\x0aSee Smalltalk >> #removeClass:"
 
 
-smalltalk.addClass('ClassRenamed', smalltalk.SystemAnnouncement, [], 'Kernel-Announcements');
+smalltalk.addClass('ClassRenamed', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ClassRenamed.comment="I am emitted when a class is renamed.\x0aSee ClassBuilder >> #renameClass:to:"
 
 
@@ -350,5 +387,91 @@ smalltalk.MethodModified);
 
 
 smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
+
+
+smalltalk.addClass('PackageAnnouncement', smalltalk.SystemAnnouncement, ['package'], 'Kernel-Announcements');
+smalltalk.addMethod(
+"_package",
+smalltalk.method({
+selector: "package",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@package"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"package",{}, smalltalk.PackageAnnouncement)})},
+args: [],
+source: "package\x0a\x09^ package",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PackageAnnouncement);
+
+smalltalk.addMethod(
+"_package_",
+smalltalk.method({
+selector: "package:",
+category: 'accessing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@package"]=aPackage;
+return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage}, smalltalk.PackageAnnouncement)})},
+args: ["aPackage"],
+source: "package: aPackage\x0a\x09package := aPackage",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PackageAnnouncement);
+
+
+
+smalltalk.addClass('PackageAdded', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
+
+
+smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
+
+
+smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['protocol'], 'Kernel-Announcements');
+smalltalk.addMethod(
+"_protocol",
+smalltalk.method({
+selector: "protocol",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@protocol"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"protocol",{}, smalltalk.ProtocolAnnouncement)})},
+args: [],
+source: "protocol\x0a\x09^ protocol",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtocolAnnouncement);
+
+smalltalk.addMethod(
+"_protocol_",
+smalltalk.method({
+selector: "protocol:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@protocol"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString}, smalltalk.ProtocolAnnouncement)})},
+args: ["aString"],
+source: "protocol: aString\x0a\x09protocol := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtocolAnnouncement);
+
+
+
+smalltalk.addClass('ProtocolAdded', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
+
+
+smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
 
 
