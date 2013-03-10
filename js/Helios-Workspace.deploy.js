@@ -393,18 +393,23 @@ smalltalk.method({
 selector: "print:",
 fn: function (aString){
 var self=this;
-var start,stop;
-return smalltalk.withContext(function($ctx1) { start=_st((smalltalk.HashedCollection || HashedCollection))._new();
-stop=_st((smalltalk.HashedCollection || HashedCollection))._new();
-_st(start)._at_put_("line",_st(_st(self["@editor"])._getCursor_(false))._line());
+var start,stop,currentLine;
+return smalltalk.withContext(function($ctx1) { currentLine=_st(_st(self["@editor"])._getCursor_(false))._line();
+start=_st((smalltalk.HashedCollection || HashedCollection))._new();
+_st(start)._at_put_("line",currentLine);
 _st(start)._at_put_("ch",_st(_st(self["@editor"])._getCursor_(false))._ch());
-_st(stop)._at_put_("line",_st(start)._at_("line"));
+_st(_st(self["@editor"])._getSelection())._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {_st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
+return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(currentLine),_st("ch").__minus_gt((0))]),start);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+stop=_st((smalltalk.HashedCollection || HashedCollection))._new();
+_st(stop)._at_put_("line",currentLine);
 _st(stop)._at_put_("ch",_st(_st(_st(start)._at_("ch")).__plus(_st(aString)._size())).__plus((2)));
 _st(self["@editor"])._replaceSelection_(_st(_st(_st(_st(self["@editor"])._getSelection()).__comma(" ")).__comma(aString)).__comma(" "));
 _st(self["@editor"])._setCursor_(_st(self["@editor"])._getCursor_(true));
 _st(self["@editor"])._setSelection_end_(stop,start);
-return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop}, smalltalk.HLCodeWidget)})},
-messageSends: ["new", "at:put:", "line", "getCursor:", "ch", "at:", "+", "size", "replaceSelection:", ",", "getSelection", "setCursor:", "setSelection:end:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine}, smalltalk.HLCodeWidget)})},
+messageSends: ["line", "getCursor:", "new", "at:put:", "ch", "ifEmpty:", "size", "getLine:", "setSelection:end:", "->", "getSelection", "+", "at:", "replaceSelection:", ",", "setCursor:"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(

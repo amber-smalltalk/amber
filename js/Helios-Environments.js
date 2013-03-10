@@ -45,7 +45,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "eval:on:",
 category: 'actions',
-fn: function (someCode,aReceiver){
+fn: function (aString,aReceiver){
 var self=this;
 var compiler;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -53,20 +53,20 @@ var $early={};
 try {
 compiler=_st((smalltalk.Compiler || Compiler))._new();
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpression_(someCode);
+return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(_st(_st(compiler)._eval_(_st(compiler)._compile_forClass_(_st(_st("doIt ^[").__comma(someCode)).__comma("] value"),(smalltalk.DoIt || DoIt))))._fn())._applyTo_arguments_(aReceiver,[]);
+$2=_st(compiler)._evaluateExpression_on_(aString,aReceiver);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{someCode:someCode,aReceiver:aReceiver,compiler:compiler}, smalltalk.HLLocalEnvironment)})},
-args: ["someCode", "aReceiver"],
-source: "eval: someCode on: aReceiver\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[compiler parseExpression: someCode] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^(compiler eval: (compiler compile: 'doIt ^[', someCode, '] value' forClass: DoIt)) fn applyTo: aReceiver arguments: #()",
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "applyTo:arguments:", "fn", "eval:", "compile:forClass:", ","],
-referencedClasses: ["Compiler", "Error", "DoIt"]
+}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler}, smalltalk.HLLocalEnvironment)})},
+args: ["aString", "aReceiver"],
+source: "eval: aString on: aReceiver\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ window alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: aReceiver",
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:"],
+referencedClasses: ["Compiler", "Error"]
 }),
 smalltalk.HLLocalEnvironment);
 

@@ -33,7 +33,7 @@ smalltalk.addMethod(
 "_eval_on_",
 smalltalk.method({
 selector: "eval:on:",
-fn: function (someCode,aReceiver){
+fn: function (aString,aReceiver){
 var self=this;
 var compiler;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -41,17 +41,17 @@ var $early={};
 try {
 compiler=_st((smalltalk.Compiler || Compiler))._new();
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpression_(someCode);
+return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(_st(_st(compiler)._eval_(_st(compiler)._compile_forClass_(_st(_st("doIt ^[").__comma(someCode)).__comma("] value"),(smalltalk.DoIt || DoIt))))._fn())._applyTo_arguments_(aReceiver,[]);
+$2=_st(compiler)._evaluateExpression_on_(aString,aReceiver);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{someCode:someCode,aReceiver:aReceiver,compiler:compiler}, smalltalk.HLLocalEnvironment)})},
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "applyTo:arguments:", "fn", "eval:", "compile:forClass:", ","]}),
+}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler}, smalltalk.HLLocalEnvironment)})},
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(

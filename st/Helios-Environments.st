@@ -32,12 +32,12 @@ packages
 
 !HLLocalEnvironment methodsFor: 'actions'!
 
-eval: someCode on: aReceiver
+eval: aString on: aReceiver
 	| compiler  |
 	compiler := Compiler new.
-	[compiler parseExpression: someCode] on: Error do: [:ex |
-		^window alert: ex messageText].
-	^(compiler eval: (compiler compile: 'doIt ^[', someCode, '] value' forClass: DoIt)) fn applyTo: aReceiver arguments: #()
+	[ compiler parseExpression: aString ] on: Error do: [ :ex |
+		^ window alert: ex messageText ].
+	^ compiler evaluateExpression: aString on: aReceiver
 ! !
 
 HLEnvironment subclass: #HLRemoteEnvironment
