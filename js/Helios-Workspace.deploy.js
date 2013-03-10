@@ -539,6 +539,43 @@ smalltalk.HLCodeWidget);
 
 
 
+smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLCodeWidget, [], 'Helios-Workspace');
+smalltalk.addMethod(
+"_onKeyDown_",
+smalltalk.method({
+selector: "onKeyDown:",
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=smalltalk.HLCodeWidget.fn.prototype._onKeyDown_.apply(_st(self), [anEvent]);
+if(! smalltalk.assert($1)){
+return false;
+};
+$2=_st(anEvent)._ctrlKey();
+if(smalltalk.assert($2)){
+$3=_st(_st(anEvent)._keyCode()).__eq((83));
+if(smalltalk.assert($3)){
+_st(self)._onSave();
+_st(anEvent)._preventDefault();
+return false;
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent}, smalltalk.HLSourceCodeWidget)})},
+messageSends: ["ifFalse:", "onKeyDown:", "ifTrue:", "onSave", "preventDefault", "=", "keyCode", "ctrlKey"]}),
+smalltalk.HLSourceCodeWidget);
+
+smalltalk.addMethod(
+"_onSave",
+smalltalk.method({
+selector: "onSave",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"onSave",{}, smalltalk.HLSourceCodeWidget)})},
+messageSends: []}),
+smalltalk.HLSourceCodeWidget);
+
+
+
 smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['model', 'codeWidget'], 'Helios-Workspace');
 smalltalk.addMethod(
 "_codeWidget",

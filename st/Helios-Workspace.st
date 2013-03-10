@@ -244,6 +244,25 @@ renderContentOn: html
     self observeWrapper
 ! !
 
+HLCodeWidget subclass: #HLSourceCodeWidget
+	instanceVariableNames: ''
+	package: 'Helios-Workspace'!
+
+!HLSourceCodeWidget methodsFor: 'reactions'!
+
+onKeyDown: anEvent
+	(super onKeyDown: anEvent) ifFalse: [ ^ false ].
+    
+	anEvent ctrlKey ifTrue: [
+		anEvent keyCode = 83 ifTrue: [
+			self onSave.
+			anEvent preventDefault.
+			^ false ] ]
+!
+
+onSave
+! !
+
 HLWidget subclass: #HLWorkspace
 	instanceVariableNames: 'model codeWidget'
 	package: 'Helios-Workspace'!
