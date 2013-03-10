@@ -1400,6 +1400,19 @@ value: aUTFCharCode
 	<return String.fromCharCode(aUTFCharCode);>
 ! !
 
+!String class methodsFor: 'random'!
+
+random
+	"Returns random alphanumeric string beginning with letter"
+	<return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);>
+!
+
+randomNotIn: aString
+	| result |
+    [ result := self random. aString includesSubString: result ] whileTrue.
+    ^result
+! !
+
 CharacterArray subclass: #Symbol
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
