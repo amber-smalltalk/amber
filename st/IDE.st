@@ -242,9 +242,9 @@ doIt
 eval: aString
 	| compiler  |
 	compiler := Compiler new.
-	[compiler parseExpression: aString] on: Error do: [:ex |
+	[ compiler parseExpression: aString ] on: Error do: [:ex |
 		^window alert: ex messageText].
-	^compiler evaluateExpression: aString
+	^compiler evaluateExpression: aString on: self receiver
 !
 
 fileIn

@@ -453,12 +453,12 @@ return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpres
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$2=_st(compiler)._evaluateExpression_(aString);
+$2=_st(compiler)._evaluateExpression_on_(aString,_st(self)._receiver());
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,compiler:compiler}, smalltalk.SourceArea)})},
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:"]}),
+messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:", "receiver"]}),
 smalltalk.SourceArea);
 
 smalltalk.addMethod(

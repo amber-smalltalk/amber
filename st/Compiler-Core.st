@@ -60,6 +60,12 @@ compileExpression: aString
 	^self compileNode: (self parse: self source)
 !
 
+compileExpression: aString on: anObject
+	self currentClass: anObject class.
+	self source: 'xxxDoIt ^[', aString, '] value'.
+	^self compileNode: (self parse: self source)
+!
+
 compileNode: aNode
 	| generator result |
 	generator := self codeGeneratorClass new.
@@ -77,12 +83,17 @@ eval: aString
 
 evaluateExpression: aString
 	"Unlike #eval: evaluate a Smalltalk expression and answer the returned object"
+	^ self evaluateExpression: aString on: DoIt new
+!
+
+evaluateExpression: aString on: anObject
+	"Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object"
 	| result method |
-    method := self eval: (self compileExpression: aString).
-    method category: 'doIt'.
-	DoIt addCompiledMethod: method.
-	result := DoIt new doIt.
-	DoIt removeCompiledMethod: method.
+    method := self eval: (self compileExpression: aString on: anObject).
+    method category: 'xxxDoIt'.
+	anObject class addCompiledMethod: method.
+	result := anObject xxxDoIt.
+	anObject class removeCompiledMethod: method.
 	^result
 !
 

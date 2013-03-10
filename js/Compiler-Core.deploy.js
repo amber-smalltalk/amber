@@ -73,6 +73,21 @@ messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "sourc
 smalltalk.Compiler);
 
 smalltalk.addMethod(
+"_compileExpression_on_",
+smalltalk.method({
+selector: "compileExpression:on:",
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(self)._currentClass_(_st(anObject)._class());
+_st(self)._source_(_st(_st("xxxDoIt ^[").__comma(aString)).__comma("] value"));
+$1=_st(self)._compileNode_(_st(self)._parse_(_st(self)._source()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject}, smalltalk.Compiler)})},
+messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"]}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
 "_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
@@ -133,17 +148,30 @@ smalltalk.method({
 selector: "evaluateExpression:",
 fn: function (aString){
 var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._evaluateExpression_on_(aString,_st((smalltalk.DoIt || DoIt))._new());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString}, smalltalk.Compiler)})},
+messageSends: ["evaluateExpression:on:", "new"]}),
+smalltalk.Compiler);
+
+smalltalk.addMethod(
+"_evaluateExpression_on_",
+smalltalk.method({
+selector: "evaluateExpression:on:",
+fn: function (aString,anObject){
+var self=this;
 var result,method;
 return smalltalk.withContext(function($ctx1) { var $1;
-method=_st(self)._eval_(_st(self)._compileExpression_(aString));
-_st(method)._category_("doIt");
-_st((smalltalk.DoIt || DoIt))._addCompiledMethod_(method);
-result=_st(_st((smalltalk.DoIt || DoIt))._new())._doIt();
-_st((smalltalk.DoIt || DoIt))._removeCompiledMethod_(method);
+method=_st(self)._eval_(_st(self)._compileExpression_on_(aString,anObject));
+_st(method)._category_("xxxDoIt");
+_st(_st(anObject)._class())._addCompiledMethod_(method);
+result=_st(anObject)._xxxDoIt();
+_st(_st(anObject)._class())._removeCompiledMethod_(method);
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString,result:result,method:method}, smalltalk.Compiler)})},
-messageSends: ["eval:", "compileExpression:", "category:", "addCompiledMethod:", "doIt", "new", "removeCompiledMethod:"]}),
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method}, smalltalk.Compiler)})},
+messageSends: ["eval:", "compileExpression:on:", "category:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
