@@ -1,4 +1,4 @@
-smalltalk.addPackage('Compiler-IR', {});
+smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.addMethod(
 "_alias_",
@@ -2316,7 +2316,7 @@ return $6;
 return smalltalk.withContext(function($ctx2) {return _st(self)._nextPutAll_(",");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $7=self;
-_st($7)._nextPutAll_("}, ");
+_st($7)._nextPutAll_("},");
 _st($7)._nextPutAll_(_st(_st(aMethod)._theClass())._asJavascript());
 $8=_st($7)._nextPutAll_(")})");
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock}, smalltalk.JSStream)})},
