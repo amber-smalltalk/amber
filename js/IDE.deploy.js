@@ -676,6 +676,7 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
+                indentWithTabs: true,
                 matchBrackets: true,
                 electricChars: false
 	});
@@ -707,6 +708,29 @@ return self}, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString}, smallta
 messageSends: ["setValue:"]}),
 smalltalk.SourceArea);
 
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Widget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._setupCodeMirror();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.SourceArea.klass)})},
+messageSends: ["initialize", "setupCodeMirror"]}),
+smalltalk.SourceArea.klass);
+
+smalltalk.addMethod(
+"_setupCodeMirror",
+smalltalk.method({
+selector: "setupCodeMirror",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{}, smalltalk.SourceArea.klass)})},
+messageSends: []}),
+smalltalk.SourceArea.klass);
 
 
 smalltalk.addClass('TabManager', smalltalk.Widget, ['selectedTab', 'tabs', 'opened', 'ul', 'input'], 'IDE');

@@ -213,6 +213,7 @@ setEditorOn: aTextarea
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
+                indentWithTabs: true,
                 matchBrackets: true,
                 electricChars: false
 	})>
@@ -322,6 +323,17 @@ renderOn: html
     div with: [textarea := html textarea].
     self setEditorOn: textarea element.
     div onKeyDown: [:e | self handleKeyDown: e]
+! !
+
+!SourceArea class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self setupCodeMirror
+!
+
+setupCodeMirror
+	< CodeMirror.keyMap.default.fallthrough = ["basic"] >
 ! !
 
 Widget subclass: #TabManager
