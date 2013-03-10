@@ -507,18 +507,6 @@ function Smalltalk() {
 		var selectors = Object.keys(klass.methods);
         // Do *not* delete protocols from here.
         // This is handled by #removeCompiledMethod
-        //
-		// var shouldDeleteProtocol = true;
-
-		// for(var i = 0, l = selectors.length; i<l; i++) {
-        //     if(klass.methods[selectors[i]].category === protocol) {
-        //         shouldDeleteProtocol = false;
-		// 		break;
-        //     };
-        // };
-        // if(shouldDeleteProtocol) {
-        //     klass.organization.elements.removeElement(protocol)
-        // };
     };
 
 	/* Handles unhandled errors during message sends */
