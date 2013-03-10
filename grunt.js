@@ -83,7 +83,7 @@ module.exports = function(grunt) {
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
         'SUnit',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
-        output_name: 'run'
+        output_name: 'amber_test_runner'
       },
       amber_dev: {
         working_dir: 'js',
