@@ -485,6 +485,8 @@ function Smalltalk() {
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
 
+        // During the bootstrap, #addCompiledMethod is not used.
+        // Therefore we populate the organizer here too
         klass.organization.elements.addElement(method.category);
 
         for(var i=0; i<method.messageSends.length; i++) {
@@ -503,17 +505,20 @@ function Smalltalk() {
 	    delete klass.methods[method.selector];
 
 		var selectors = Object.keys(klass.methods);
-		var shouldDeleteProtocol = true;
+        // Do *not* delete protocols from here.
+        // This is handled by #removeCompiledMethod
+        //
+		// var shouldDeleteProtocol = true;
 
-		for(var i = 0, l = selectors.length; i<l; i++) {
-            if(klass.methods[selectors[i]].category === protocol) {
-                shouldDeleteProtocol = false;
-				break;
-            };
-        };
-        if(shouldDeleteProtocol) {
-            klass.organization.elements.removeElement(protocol)
-        };
+		// for(var i = 0, l = selectors.length; i<l; i++) {
+        //     if(klass.methods[selectors[i]].category === protocol) {
+        //         shouldDeleteProtocol = false;
+		// 		break;
+        //     };
+        // };
+        // if(shouldDeleteProtocol) {
+        //     klass.organization.elements.removeElement(protocol)
+        // };
     };
 
 	/* Handles unhandled errors during message sends */
