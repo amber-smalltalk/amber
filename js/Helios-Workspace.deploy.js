@@ -159,6 +159,17 @@ messageSends: ["contents:"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_configureEditor",
+smalltalk.method({
+selector: "configureEditor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._editor())._at_put_("amberCodeWidget",self);
+return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{}, smalltalk.HLCodeWidget)})},
+messageSends: ["at:put:", "editor"]}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_contents",
 smalltalk.method({
 selector: "contents",
@@ -315,19 +326,6 @@ messageSends: []}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
-"_observeWrapper",
-smalltalk.method({
-selector: "observeWrapper",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@wrapper"])._onKeyDown_((function(e){
-return smalltalk.withContext(function($ctx2) {return _st(self)._onKeyDown_(e);
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"observeWrapper",{}, smalltalk.HLCodeWidget)})},
-messageSends: ["onKeyDown:"]}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
 "_onDoIt",
 smalltalk.method({
 selector: "onDoIt",
@@ -350,33 +348,6 @@ messageSends: ["inspectIt"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
-"_onKeyDown_",
-smalltalk.method({
-selector: "onKeyDown:",
-fn: function (anEvent){
-var self=this;
-return smalltalk.withContext(function($ctx1) { if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._onPrintIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._onDoIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._onInspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	};
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent}, smalltalk.HLCodeWidget)})},
-messageSends: []}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
 "_onPrintIt",
 smalltalk.method({
 selector: "onPrintIt",
@@ -385,6 +356,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._printIt();
 return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{}, smalltalk.HLCodeWidget)})},
 messageSends: ["printIt"]}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_onSaveIt",
+smalltalk.method({
+selector: "onSaveIt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{}, smalltalk.HLCodeWidget)})},
+messageSends: []}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
@@ -459,9 +440,19 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@code"]=_st(html)._textarea();
 _st(self)._setEditorOn_(_st(self["@code"])._element());
-_st(self)._observeWrapper();
+_st(self)._configureEditor();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLCodeWidget)})},
-messageSends: ["textarea", "setEditorOn:", "element", "observeWrapper"]}),
+messageSends: ["textarea", "setEditorOn:", "element", "configureEditor"]}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_saveIt",
+smalltalk.method({
+selector: "saveIt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{}, smalltalk.HLCodeWidget)})},
+messageSends: []}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
@@ -538,7 +529,8 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
                 indentWithTabs: true,
 				indentUnit: 4,
                 matchBrackets: true,
-                electricChars: false
+                electricChars: false,
+				keyMap: 'Amber'
 	});
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.HLCodeWidget)})},
 messageSends: []}),
@@ -551,10 +543,58 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
-_st(self)._setupCodeMirror();
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+$1=self;
+_st($1)._setupCodeMirror();
+_st($1)._setupCommands();
+$2=_st($1)._setupKeyMaps();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLCodeWidget.klass)})},
-messageSends: ["initialize", "setupCodeMirror"]}),
+messageSends: ["initialize", "setupCodeMirror", "setupCommands", "setupKeyMaps"]}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_keyMap",
+smalltalk.method({
+selector: "keyMap",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st(_st((smalltalk.HLManager || HLManager))._current())._keyBinder())._systemIsMac();
+if(smalltalk.assert($2)){
+$1=_st(self)._macKeyMap();
+} else {
+$1=_st(self)._pcKeyMap();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"keyMap",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: ["ifTrue:ifFalse:", "macKeyMap", "pcKeyMap", "systemIsMac", "keyBinder", "current"]}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_macKeyMap",
+smalltalk.method({
+selector: "macKeyMap",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=smalltalk.HashedCollection._fromPairs_([_st("Alt-Backspace").__minus_gt("delWordBefore"),_st("Alt-Delete").__minus_gt("delWordAfter"),_st("Alt-Left").__minus_gt("goWordBoundaryLeft"),_st("Alt-Right").__minus_gt("goWordBoundaryRight"),_st("Cmd-A").__minus_gt("selectAll"),_st("Cmd-Alt-F").__minus_gt("replace"),_st("Cmd-D").__minus_gt("doIt"),_st("Cmd-Down").__minus_gt("goDocEnd"),_st("Cmd-End").__minus_gt("goDocEnd"),_st("Cmd-F").__minus_gt("find"),_st("Cmd-G").__minus_gt("findNext"),_st("Cmd-I").__minus_gt("inspectIt"),_st("Cmd-Left").__minus_gt("goLineStart"),_st("Cmd-P").__minus_gt("printIt"),_st("Cmd-Right").__minus_gt("goLineEnd"),_st("Cmd-S").__minus_gt("saveIt"),_st("Cmd-Up").__minus_gt("goDocStart"),_st("Cmd-Y").__minus_gt("redo"),_st("Cmd-Z").__minus_gt("undo"),_st("Cmd-[").__minus_gt("indentLess"),_st("Cmd-]").__minus_gt("indentMore"),_st("Ctrl-Alt-Backspace").__minus_gt("delWordAfter"),_st("Shift-Cmd-Alt-F").__minus_gt("replaceAll"),_st("Shift-Cmd-G").__minus_gt("findPrev"),_st("Shift-Cmd-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic"])]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"macKeyMap",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: ["->"]}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_pcKeyMap",
+smalltalk.method({
+selector: "pcKeyMap",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=[_st("Alt-Left").__minus_gt("goLineStart"),_st("Alt-Right").__minus_gt("goLineEnd"),_st("Alt-Up").__minus_gt("goDocStart"),_st("Ctrl-A").__minus_gt("selectAll"),_st("Ctrl-Backspace").__minus_gt("delWordBefore"),_st("Ctrl-D").__minus_gt("doIt"),_st("Ctrl-Delete").__minus_gt("delWordAfter"),_st("Ctrl-Down").__minus_gt("goDocEnd"),_st("Ctrl-End").__minus_gt("goDocEnd"),_st("Ctrl-F").__minus_gt("find"),_st("Ctrl-G").__minus_gt("findNext"),_st("Ctrl-I").__minus_gt("inspectIt"),_st("Ctrl-Home").__minus_gt("goDocStart"),_st("Ctrl-Left").__minus_gt("goWordBoundaryLeft"),_st("Ctrl-P").__minus_gt("printIt"),_st("Ctrl-Right").__minus_gt("goWordBoundaryRight"),_st("Ctrl-S").__minus_gt("saveIt"),_st("Ctrl-Y").__minus_gt("redo"),_st("Ctrl-Z").__minus_gt("undo"),_st("Ctrl-[").__minus_gt("indentLess"),_st("Ctrl-]").__minus_gt("indentMore"),_st("Shift-Ctrl-F").__minus_gt("replace"),_st("Shift-Ctrl-G").__minus_gt("findPrev"),_st("Shift-Ctrl-R").__minus_gt("replaceAll"),_st("Shift-Ctrl-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic"])];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: ["->"]}),
 smalltalk.HLCodeWidget.klass);
 
 smalltalk.addMethod(
@@ -565,6 +605,41 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
 return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: []}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_setupCommands",
+smalltalk.method({
+selector: "setupCommands",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st((smalltalk.CodeMirror || CodeMirror))._basicAt_("commands");
+_st($1)._at_put_("doIt",(function(cm){
+return smalltalk.withContext(function($ctx2) {return _st(_st(cm)._amberCodeWidget())._doIt();
+}, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1)})}));
+_st($1)._at_put_("inspectIt",(function(cm){
+return smalltalk.withContext(function($ctx2) {return _st(_st(cm)._amberCodeWidget())._inspectIt();
+}, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1)})}));
+_st($1)._at_put_("printIt",(function(cm){
+return smalltalk.withContext(function($ctx2) {return _st(_st(cm)._amberCodeWidget())._printIt();
+}, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1)})}));
+$2=_st($1)._at_put_("saveIt",(function(cm){
+return smalltalk.withContext(function($ctx2) {return _st(_st(cm)._amberCodeWidget())._saveIt();
+}, function($ctx2) {$ctx2.fillBlock({cm:cm},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{}, smalltalk.HLCodeWidget.klass)})},
+messageSends: ["at:put:", "doIt", "amberCodeWidget", "basicAt:", "inspectIt", "printIt", "saveIt"]}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_setupKeyMaps",
+smalltalk.method({
+selector: "setupKeyMaps",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { CodeMirror.keyMap['Amber'] = self._keyMap();
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyMaps",{}, smalltalk.HLCodeWidget.klass)})},
 messageSends: []}),
 smalltalk.HLCodeWidget.klass);
 

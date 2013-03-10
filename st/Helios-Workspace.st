@@ -123,6 +123,10 @@ clear
       self contents: ''
 !
 
+configureEditor
+	self editor at: 'amberCodeWidget' put: self
+!
+
 doIt
 	| result |
 
@@ -158,11 +162,6 @@ makeInspectorOn: anObject
 		yourself
 !
 
-observeWrapper
-
-    wrapper onKeyDown: [ :e | self onKeyDown: e ]
-!
-
 print: aString
 	| start stop currentLine |
     currentLine := (editor getCursor: false) line.
@@ -194,6 +193,10 @@ printIt
 	self focus.
 !
 
+saveIt
+	"I do not do anything"
+!
+
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'amber',
@@ -202,7 +205,8 @@ setEditorOn: aTextarea
                 indentWithTabs: true,
 				indentUnit: 4,
                 matchBrackets: true,
-                electricChars: false
+                electricChars: false,
+				keyMap: 'Amber'
 	})>
 ! !
 
@@ -218,30 +222,13 @@ onInspectIt
 	self inspectIt
 !
 
-onKeyDown: anEvent
-
-    <if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._onPrintIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._onDoIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._onInspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
-!
-
 onPrintIt
 
 	self printIt
+!
+
+onSaveIt
+	"I do not do anything"
 ! !
 
 !HLCodeWidget methodsFor: 'rendering'!
@@ -249,19 +236,103 @@ onPrintIt
 renderContentOn: html
     code := html textarea.
     self setEditorOn: code element.
-    
-    self observeWrapper
+    self configureEditor
+! !
+
+!HLCodeWidget class methodsFor: 'accessing'!
+
+keyMap
+	^ HLManager current keyBinder systemIsMac
+		ifTrue: [ self macKeyMap ]
+		ifFalse: [ self pcKeyMap ]
+!
+
+macKeyMap
+	^ #{
+		'Alt-Backspace'		-> 'delWordBefore'.
+		'Alt-Delete'		-> 'delWordAfter'. 
+		'Alt-Left'		-> 'goWordBoundaryLeft'.
+		'Alt-Right'		-> 'goWordBoundaryRight'. 
+		'Cmd-A'			-> 'selectAll'. 
+		'Cmd-Alt-F'		-> 'replace'. 
+		'Cmd-D'			-> 'doIt'. 
+		'Cmd-Down'		-> 'goDocEnd'. 
+		'Cmd-End'		-> 'goDocEnd'. 
+		'Cmd-F'			-> 'find'.
+		'Cmd-G'			-> 'findNext'. 
+		'Cmd-I'			-> 'inspectIt'. 
+		'Cmd-Left'		-> 'goLineStart'. 
+		'Cmd-P'			-> 'printIt'. 
+		'Cmd-Right'		-> 'goLineEnd'. 
+		'Cmd-S'			-> 'saveIt'. 
+		'Cmd-Up'		-> 'goDocStart'. 
+		'Cmd-Y'			-> 'redo'.
+		'Cmd-Z'			-> 'undo'. 
+		'Cmd-['			-> 'indentLess'. 
+		'Cmd-]'			-> 'indentMore'.
+		'Ctrl-Alt-Backspace'	-> 'delWordAfter'. 
+		'Shift-Cmd-Alt-F'	-> 'replaceAll'.
+		'Shift-Cmd-G'		-> 'findPrev'. 
+		'Shift-Cmd-Z'		-> 'redo'. 
+    	'fallthrough' 	-> { 'basic' }
+  }
+!
+
+pcKeyMap
+	^ {
+		'Alt-Left' -> 'goLineStart'. 
+		'Alt-Right' -> 'goLineEnd'.
+		'Alt-Up' -> 'goDocStart'. 
+		'Ctrl-A' -> 'selectAll'. 
+		'Ctrl-Backspace' -> 'delWordBefore'. 
+		'Ctrl-D' -> 'doIt'. 
+		'Ctrl-Delete' -> 'delWordAfter'. 
+		'Ctrl-Down' -> 'goDocEnd'.
+		'Ctrl-End' -> 'goDocEnd'. 
+		'Ctrl-F' -> 'find'.
+		'Ctrl-G' -> 'findNext'. 
+		'Ctrl-I' -> 'inspectIt'.
+		'Ctrl-Home' -> 'goDocStart'. 
+		'Ctrl-Left' -> 'goWordBoundaryLeft'. 
+		'Ctrl-P' -> 'printIt'.
+		'Ctrl-Right' -> 'goWordBoundaryRight'. 
+		'Ctrl-S' -> 'saveIt'. 
+		'Ctrl-Y' -> 'redo'.
+		'Ctrl-Z' -> 'undo'. 
+		'Ctrl-[' -> 'indentLess'. 
+		'Ctrl-]' -> 'indentMore'.
+		'Shift-Ctrl-F' -> 'replace'. 
+		'Shift-Ctrl-G' -> 'findPrev'. 
+		'Shift-Ctrl-R' -> 'replaceAll'.
+		'Shift-Ctrl-Z' -> 'redo'. 
+		'fallthrough' -> #('basic')
+}
 ! !
 
 !HLCodeWidget class methodsFor: 'initialization'!
 
 initialize
 	super initialize.
-	self setupCodeMirror
+	self 
+		setupCodeMirror;
+		setupCommands;
+		setupKeyMaps.
 !
 
 setupCodeMirror
 	< CodeMirror.keyMap.default.fallthrough = ["basic"] >
+!
+
+setupCommands
+	(CodeMirror basicAt: 'commands') 
+		at: 'doIt' put: [ :cm | cm amberCodeWidget doIt ];
+		at: 'inspectIt' put: [ :cm | cm amberCodeWidget inspectIt ];
+		at: 'printIt' put: [ :cm | cm amberCodeWidget printIt ];
+		at: 'saveIt' put: [ :cm | cm amberCodeWidget saveIt ]
+!
+
+setupKeyMaps
+	<CodeMirror.keyMap['Amber'] = self._keyMap()>
 ! !
 
 HLCodeWidget subclass: #HLSourceCodeWidget
