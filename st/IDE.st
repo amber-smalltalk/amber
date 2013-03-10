@@ -57,8 +57,8 @@ updateNodes
 !ClassesList class methodsFor: 'instance creation'!
 
 on: aBrowser
-	^self new 
-		browser: aBrowser; 
+	^self new
+		browser: aBrowser;
 		yourself
 ! !
 
@@ -71,11 +71,11 @@ Widget subclass: #ClassesListNode
 renderOn: html
 	| li cssClass |
 	cssClass := ''.
-	li := html li 
-		onClick: [self browser selectClass: self theClass]. 
+	li := html li
+		onClick: [self browser selectClass: self theClass].
 	li asJQuery html: self label.
 
-	self browser selectedClass = self theClass ifTrue:  [
+	self browser selectedClass = self theClass ifTrue:	[
 		cssClass := cssClass, ' selected'].
 
 	self theClass comment isEmpty ifFalse: [
@@ -175,11 +175,11 @@ Widget subclass: #SourceArea
 !SourceArea methodsFor: 'accessing'!
 
 currentLine
-    ^editor getLine: (editor getCursor line)
+	^editor getLine: (editor getCursor line)
 !
 
 currentLineOrSelection
-    ^editor somethingSelected
+	^editor somethingSelected
 	ifFalse: [self currentLine]
 	ifTrue: [self selection]
 !
@@ -211,38 +211,38 @@ selection
 setEditorOn: aTextarea
 	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'amber',
-                lineNumbers: true,
-                enterMode: 'flat',
-                indentWithTabs: true,
+				lineNumbers: true,
+				enterMode: 'flat',
+				indentWithTabs: true,
 				indentUnit: 4,
-                matchBrackets: true,
-                electricChars: false
+				matchBrackets: true,
+				electricChars: false
 	})>
 !
 
 val
-    ^editor getValue
+	^editor getValue
 !
 
 val: aString
-    editor setValue: aString
+	editor setValue: aString
 ! !
 
 !SourceArea methodsFor: 'actions'!
 
 clear
-      self val: ''
+	self val: ''
 !
 
 doIt
-    | result |
-    result := self eval: self currentLineOrSelection.
-    self onDoIt ifNotNil: [self onDoIt value].
-    ^result
+	| result |
+	result := self eval: self currentLineOrSelection.
+	self onDoIt ifNotNil: [self onDoIt value].
+	^result
 !
 
 eval: aString
-	| compiler  |
+	| compiler	|
 	compiler := Compiler new.
 	[ compiler parseExpression: aString ] on: Error do: [:ex |
 		^window alert: ex messageText].
@@ -250,15 +250,15 @@ eval: aString
 !
 
 fileIn
-    Importer new import: self currentLineOrSelection readStream
+	Importer new import: self currentLineOrSelection readStream
 !
 
 focus
-      self editor focus.
+	self editor focus.
 !
 
 handleKeyDown: anEvent
-    <if(anEvent.ctrlKey) {
+	<if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
 			anEvent.preventDefault();
@@ -278,20 +278,20 @@ handleKeyDown: anEvent
 !
 
 inspectIt
-    self doIt inspect
+	self doIt inspect
 !
 
 print: aString
 	| start stop currentLine |
-    currentLine := (editor getCursor: false) line.
+	currentLine := (editor getCursor: false) line.
 	start := HashedCollection new.
 	start at: 'line' put: currentLine.
 	start at: 'ch' put: (editor getCursor: false) ch.
-    (editor getSelection) ifEmpty: [
-    	"select current line if selection is empty"
-    	start at: 'ch' put: (editor getLine: currentLine) size.
-        editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.
-    ].
+	(editor getSelection) ifEmpty: [
+		"select current line if selection is empty"
+		start at: 'ch' put: (editor getLine: currentLine) size.
+		editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.
+	].
 	stop := HashedCollection new.
 	stop at: 'line' put: currentLine.
 	stop at: 'ch' put: ((start at: 'ch') + aString size + 2).
@@ -302,7 +302,7 @@ print: aString
 !
 
 printIt
-    self print: self doIt printString.
+	self print: self doIt printString.
 	self focus.
 ! !
 
@@ -319,11 +319,11 @@ onKeyUp: aBlock
 !SourceArea methodsFor: 'rendering'!
 
 renderOn: html
-    | textarea |
-    div := html div class: 'source'.
-    div with: [textarea := html textarea].
-    self setEditorOn: textarea element.
-    div onKeyDown: [:e | self handleKeyDown: e]
+	| textarea |
+	div := html div class: 'source'.
+	div with: [textarea := html textarea].
+	self setEditorOn: textarea element.
+	div onKeyDown: [:e | self handleKeyDown: e]
 ! !
 
 !SourceArea class methodsFor: 'initialization'!
@@ -353,13 +353,13 @@ labelFor: aWidget
 !
 
 tabs
-    ^tabs ifNil: [tabs := Array new]
+	^tabs ifNil: [tabs := Array new]
 ! !
 
 !TabManager methodsFor: 'actions'!
 
 close
-    opened ifTrue: [
+	opened ifTrue: [
 	'#amber' asJQuery hide.
 	ul asJQuery hide.
 	selectedTab hide.
@@ -369,30 +369,30 @@ close
 !
 
 closeTab: aWidget
-    self removeTab: aWidget.
-    self selectTab: self tabs last.
-    aWidget remove.
-    self update
+	self removeTab: aWidget.
+	self selectTab: self tabs last.
+	aWidget remove.
+	self update
 !
 
 newBrowserTab
-    Browser open
+	Browser open
 !
 
 onResize: aBlock
-    <jQuery('#amber').resizable({
-	handles: 'n', 
+	<jQuery('#amber').resizable({
+	handles: 'n',
 	resize: aBlock,
 	minHeight: 230
 })>
 !
 
 onWindowResize: aBlock
-    <jQuery(window).resize(aBlock)>
+	<jQuery(window).resize(aBlock)>
 !
 
 open
-    opened ifFalse: [
+	opened ifFalse: [
 	'body' asJQuery addClass: 'amberBody'.
 	'#amber' asJQuery show.
 	ul asJQuery show.
@@ -402,7 +402,7 @@ open
 !
 
 removeBodyMargin
-    self setBodyMargin: 0
+	self setBodyMargin: 0
 !
 
 search: aString
@@ -414,55 +414,55 @@ search: aString
 !
 
 selectTab: aWidget
-    self open.
-    selectedTab := aWidget.
-    self tabs do: [:each |
+	self open.
+	selectedTab := aWidget.
+	self tabs do: [:each |
 	each hide].
-    aWidget show.
+	aWidget show.
 	
-    self update
+	self update
 !
 
 setBodyMargin: anInteger
-    '.amberBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
+	'.amberBody' asJQuery css: 'margin-bottom' put: anInteger asString, 'px'
 !
 
 updateBodyMargin
-    self setBodyMargin: '#amber' asJQuery height
+	self setBodyMargin: '#amber' asJQuery height
 !
 
 updatePosition
-    <jQuery('#amber').css('top', '').css('bottom', '0px')>
+	<jQuery('#amber').css('top', '').css('bottom', '0px')>
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
 
 addTab: aWidget
-    self tabs add: aWidget.
-    aWidget appendToJQuery: '#amber' asJQuery.
-    aWidget hide
+	self tabs add: aWidget.
+	aWidget appendToJQuery: '#amber' asJQuery.
+	aWidget hide
 !
 
 removeTab: aWidget
-    self tabs remove: aWidget.
-    self update
+	self tabs remove: aWidget.
+	self update
 ! !
 
 !TabManager methodsFor: 'initialization'!
 
 initialize
-    super initialize.
-    opened := true.
-    [:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
-    'body' asJQuery 
+	super initialize.
+	opened := true.
+	[:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
+	'body' asJQuery
 	addClass: 'amberBody'.
-    self appendToJQuery: '#amber' asJQuery.
-    self 
+	self appendToJQuery: '#amber' asJQuery.
+	self
 	addTab: IDETranscript current;
 	addTab: Workspace new;
 	addTab: TestRunner new.
-    self selectTab: self tabs last.
-    self 
+	self selectTab: self tabs last.
+	self
 	onResize: [self updateBodyMargin; updatePosition];
 	onWindowResize: [self updatePosition]
 ! !
@@ -489,7 +489,7 @@ renderTabFor: aWidget on: html
 			class: 'mtab';
 			with: [
 				aWidget canBeClosed ifTrue: [
-					html span 
+					html span
 						class: 'close';
 						with: 'x';
 					onClick: [self closeTab: aWidget]].
@@ -500,9 +500,9 @@ renderTabFor: aWidget on: html
 
 renderTabs
 	ul contents: [:html |
-	    self tabs do: [:each |
+		self tabs do: [:each |
 		self renderTabFor: each on: html].
-	    html li
+		html li
 		class: 'newtab';
 		with: [
 			html span class: 'ltab'.
@@ -512,10 +512,10 @@ renderTabs
 !
 
 renderToolbarOn: html
-	html div 
+	html div
 		id: 'amber_toolbar';
 		with: [
-			input := html input 
+			input := html input
 				class: 'implementors';
 				yourself.
 			input onKeyPress: [:event |
@@ -537,20 +537,20 @@ TabManager class instanceVariableNames: 'current'!
 toggleAmberIDE
 	(window jQuery: '#amber') length = 0
 		ifTrue: [ Browser open ]
-      	ifFalse: [ 
+		ifFalse: [
 			((window jQuery: '#amber') is: ':visible')
-				ifTrue: [ TabManager current close ] 
+				ifTrue: [ TabManager current close ]
 				ifFalse: [ TabManager current open ] ]
 ! !
 
 !TabManager class methodsFor: 'instance creation'!
 
 current
-    ^current ifNil: [current := super new]
+	^current ifNil: [current := super new]
 !
 
 new
-    self shouldNotImplement
+	self shouldNotImplement
 ! !
 
 Widget subclass: #TabWidget
@@ -560,13 +560,13 @@ Widget subclass: #TabWidget
 !TabWidget methodsFor: 'accessing'!
 
 label
-    self subclassResponsibility
+	self subclassResponsibility
 ! !
 
 !TabWidget methodsFor: 'actions'!
 
 close
-    TabManager current closeTab: self
+	TabManager current closeTab: self
 !
 
 hide
@@ -574,8 +574,8 @@ hide
 !
 
 open
-    TabManager current addTab: self.
-    TabManager current selectTab: self
+	TabManager current addTab: self.
+	TabManager current selectTab: self
 !
 
 remove
@@ -603,10 +603,10 @@ renderOn: html
 
 renderTab
 	div contents: [:html |
-	    html div
+		html div
 		class: 'amber_box';
 		with: [self renderBoxOn: html].
-	    html div
+		html div
 		class: 'amber_buttons';
 		with: [self renderButtonsOn: html]]
 !
@@ -618,13 +618,13 @@ update
 !TabWidget methodsFor: 'testing'!
 
 canBeClosed
-    ^false
+	^false
 ! !
 
 !TabWidget class methodsFor: 'instance creation'!
 
 open
-    ^self new open
+	^self new open
 ! !
 
 TabWidget subclass: #Browser
@@ -634,27 +634,27 @@ TabWidget subclass: #Browser
 !Browser methodsFor: 'accessing'!
 
 classCommentSource
-    ^selectedClass comment
+	^selectedClass comment
 !
 
 classDeclarationSource
 	| stream |
 	stream := '' writeStream.
 	selectedClass ifNil: [^self classDeclarationTemplate].
-	stream 
-	    nextPutAll: selectedClass superclass asString;
-	    nextPutAll: ' subclass: #';
-	    nextPutAll: selectedClass name;
-	    nextPutAll: String lf, String tab;
-	    nextPutAll: 'instanceVariableNames: '''.
-	selectedClass instanceVariableNames 
-	    do: [:each | stream nextPutAll: each] 
-	    separatedBy: [stream nextPutAll: ' '].
 	stream
-	    nextPutAll: '''', String lf, String tab;
-	    nextPutAll: 'package: ''';
-	    nextPutAll: selectedClass category;
-	    nextPutAll: ''''.
+		nextPutAll: selectedClass superclass asString;
+		nextPutAll: ' subclass: #';
+		nextPutAll: selectedClass name;
+		nextPutAll: String lf, String tab;
+		nextPutAll: 'instanceVariableNames: '''.
+	selectedClass instanceVariableNames
+		do: [:each | stream nextPutAll: each]
+		separatedBy: [stream nextPutAll: ' '].
+	stream
+		nextPutAll: '''', String lf, String tab;
+		nextPutAll: 'package: ''';
+		nextPutAll: selectedClass category;
+		nextPutAll: ''''.
 	^stream contents
 !
 
@@ -665,19 +665,19 @@ classDeclarationTemplate
 !
 
 classes
-    ^((Smalltalk current classes 
+	^((Smalltalk current classes
 	select: [:each | each category = selectedPackage])
 	sort: [:a :b | a name < b name]) asSet
 !
 
 declarationSource
-    ^selectedTab = #instance
+	^selectedTab = #instance
 	ifTrue: [self classDeclarationSource]
 	ifFalse: [self metaclassDeclarationSource]
 !
 
 dummyMethodSource
-    ^'messageSelectorAndArgumentNames
+	^'messageSelectorAndArgumentNames
 	"comment stating purpose of message"
 
 	| temporary variable names |
@@ -685,69 +685,69 @@ dummyMethodSource
 !
 
 label
-    ^selectedClass 
+	^selectedClass
 	ifNil: ['Browser (nil)']
 	ifNotNil: ['Browser: ', selectedClass name]
 !
 
 metaclassDeclarationSource
-    | stream |
-    stream := '' writeStream.
-    selectedClass ifNotNil: [
-	stream 
-	    nextPutAll: selectedClass asString;
-	    nextPutAll: ' class ';
-	    nextPutAll: 'instanceVariableNames: '''.
+	| stream |
+	stream := '' writeStream.
+	selectedClass ifNotNil: [
+	stream
+		nextPutAll: selectedClass asString;
+		nextPutAll: ' class ';
+		nextPutAll: 'instanceVariableNames: '''.
 	selectedClass class instanceVariableNames
-	    do: [:each | stream nextPutAll: each]
-	    separatedBy: [stream nextPutAll: ' '].
+		do: [:each | stream nextPutAll: each]
+		separatedBy: [stream nextPutAll: ' '].
 	stream nextPutAll: ''''].
-    ^stream contents
+	^stream contents
 !
 
 methodSource
-    ^selectedMethod
+	^selectedMethod
 	ifNil: [self dummyMethodSource]
 	ifNotNil: [selectedMethod source]
 !
 
 methods
-    | klass |
-    selectedTab = #comment ifTrue: [^#()].
-    selectedClass ifNotNil: [
+	| klass |
+	selectedTab = #comment ifTrue: [^#()].
+	selectedClass ifNotNil: [
 	klass := selectedTab = #instance
-	    ifTrue: [selectedClass]
-	    ifFalse: [selectedClass class]].
-    ^(selectedProtocol 
+		ifTrue: [selectedClass]
+		ifFalse: [selectedClass class]].
+	^(selectedProtocol
 	ifNil: [
-	    klass 
-		ifNil: [#()] 
+		klass
+		ifNil: [#()]
 		ifNotNil: [klass methodDictionary values]]
 	ifNotNil: [
-	    klass methodDictionary values select: [:each |
+		klass methodDictionary values select: [:each |
 		each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]
 !
 
 packages
-    | packages |
-    packages := Array new.
-    Smalltalk current classes do: [:each |
+	| packages |
+	packages := Array new.
+	Smalltalk current classes do: [:each |
 	(packages includes: each category) ifFalse: [
-	    packages add: each category]].
-    ^packages sort
+		packages add: each category]].
+	^packages sort
 !
 
 protocols
-    | klass |
-    selectedClass ifNotNil: [
+	| klass |
+	selectedClass ifNotNil: [
 	selectedTab = #comment ifTrue: [^#()].
 	klass := selectedTab = #instance
-	    ifTrue: [selectedClass]
-	    ifFalse: [selectedClass class].
+		ifTrue: [selectedClass]
+		ifFalse: [selectedClass class].
 	klass methodDictionary isEmpty ifTrue: [
-	    ^Array with: 'not yet classified'].
+		^Array with: 'not yet classified'].
 	^klass protocols].
-    ^Array new
+	^Array new
 !
 
 selectedClass
@@ -759,11 +759,11 @@ selectedPackage
 !
 
 source
-    selectedTab = #comment ifFalse: [
+	selectedTab = #comment ifFalse: [
 	^(selectedProtocol notNil or: [selectedMethod notNil])
-	    ifFalse: [self declarationSource]
-	    ifTrue: [self methodSource]].
-    ^selectedClass
+		ifFalse: [self declarationSource]
+		ifTrue: [self methodSource]].
+	^selectedClass
 	ifNil: ['']
 	ifNotNil: [self classCommentSource]
 ! !
@@ -772,8 +772,8 @@ source
 
 addInstanceVariableNamed: aString toClass: aClass
 	ClassBuilder new
-		addSubclassOf: aClass superclass 
-		named: aClass name 
+		addSubclassOf: aClass superclass
+		named: aClass name
 		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
 		package: aClass package name
 !
@@ -783,22 +783,22 @@ addNewClass
 	className := window prompt: 'New class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
-          	 self 
+			 self
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
 !
 
 addNewProtocol
-    | newProtocol |
-    newProtocol := window prompt: 'New method protocol'.
-    (newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
+	| newProtocol |
+	newProtocol := window prompt: 'New method protocol'.
+	(newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
 !
 
 cancelChanges
-    ^unsavedChanges 
+	^unsavedChanges
 	ifTrue: [window confirm: 'Cancel changes?']
 	ifFalse: [true]
 !
@@ -806,21 +806,21 @@ cancelChanges
 commitPackage
 	selectedPackage ifNotNil: [ |package|
 		package := Package named: selectedPackage.
-		{  	Exporter              -> (package commitPathJs, '/', selectedPackage, '.js').
+		{	Exporter		 -> (package commitPathJs, '/', selectedPackage, '.js').
 			StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-			ChunkExporter    -> (package commitPathSt, '/', selectedPackage, '.st')
+			ChunkExporter	 -> (package commitPathSt, '/', selectedPackage, '.st')
 		} do: [:commitStrategy| |fileContents|
 			fileContents := (commitStrategy key new exportPackage: selectedPackage).
-			self ajaxPutAt: commitStrategy value data:  fileContents
-  		]
+			self ajaxPutAt: commitStrategy value data:	fileContents
+		]
 	]
 !
 
 compile
-    | currentEditLine |
-    self disableSaveButton.
-    currentEditLine := sourceArea editor getCursor.
-    selectedTab = #comment 
+	| currentEditLine |
+	self disableSaveButton.
+	currentEditLine := sourceArea editor getCursor.
+	selectedTab = #comment
 	ifTrue: [
 			selectedClass ifNotNil: [
 				self compileClassComment]]
@@ -828,49 +828,49 @@ compile
 			(selectedProtocol notNil or: [selectedMethod notNil])
 				ifFalse: [self compileDefinition]
 				ifTrue: [self compileMethodDefinition]].
-    sourceArea editor setCursor: currentEditLine.
+	sourceArea editor setCursor: currentEditLine.
 !
 
 compileClassComment
-    selectedClass comment: sourceArea val
+	selectedClass comment: sourceArea val
 !
 
 compileDefinition
-    | newClass |
-    newClass := Compiler new evaluateExpression: sourceArea val.
-    self 
+	| newClass |
+	newClass := Compiler new evaluateExpression: sourceArea val.
+	self
 	resetClassesList;
 	updateCategoriesList;
 	updateClassesList.
-    self selectClass: newClass
+	self selectClass: newClass
 !
 
 compileMethodDefinition
-    selectedTab = #instance
+	selectedTab = #instance
 	ifTrue: [self compileMethodDefinitionFor: selectedClass]
 	ifFalse: [self compileMethodDefinitionFor: selectedClass class]
 !
 
 compileMethodDefinitionFor: aClass
-    | compiler method source node | 
-    source := sourceArea val.
-    selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].
-    compiler := Compiler new.
-    compiler source: source.
-    node := compiler parse: source.
-    node isParseFailure ifTrue: [
+	| compiler method source node |
+	source := sourceArea val.
+	selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].
+	compiler := Compiler new.
+	compiler source: source.
+	node := compiler parse: source.
+	node isParseFailure ifTrue: [
 	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
-    compiler currentClass: aClass.
-    method := compiler eval: (compiler compileNode: node).
-    compiler unknownVariables do: [:each |
-         "Do not try to redeclare javascript's objects"
-         (window at: each) ifNil: [
-	 	(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+	compiler currentClass: aClass.
+	method := compiler eval: (compiler compileNode: node).
+	compiler unknownVariables do: [:each |
+		 "Do not try to redeclare javascript's objects"
+		 (window at: each) ifNil: [
+		(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
-    ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
-    self updateMethodsList.
-    self selectMethod: method
+	ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
+	self updateMethodsList.
+	self selectMethod: method
 !
 
 copyClass
@@ -878,16 +878,16 @@ copyClass
 	className := window prompt: 'Copy class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		ClassBuilder new copyClass: self selectedClass named: className.
-          	 self 
+			 self
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
 !
 
 disableSaveButton
-    saveButton ifNotNil: [
+	saveButton ifNotNil: [
 	saveButton at: 'disabled' put: true].
-    unsavedChanges := false
+	unsavedChanges := false
 !
 
 handleSourceAreaKeyDown: anEvent
@@ -902,26 +902,26 @@ handleSourceAreaKeyDown: anEvent
 !
 
 hideClassButtons
-    classButtons asJQuery hide
+	classButtons asJQuery hide
 !
 
 hideMethodButtons
-    methodButtons asJQuery hide
+	methodButtons asJQuery hide
 !
 
 removeClass
-    (window confirm: 'Do you really want to remove ', selectedClass name, '?')
+	(window confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
-	    Smalltalk current removeClass: selectedClass.
-	    self resetClassesList.
-	    self selectClass: nil]
+		Smalltalk current removeClass: selectedClass.
+		self resetClassesList.
+		self selectClass: nil]
 !
 
 removeMethod
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	(window confirm: 'Do you really want to remove #', selectedMethod selector, '?')
-	    ifTrue: [
-		selectedTab = #instance 
+		ifTrue: [
+		selectedTab = #instance
 			ifTrue: [selectedClass removeCompiledMethod: selectedMethod]
 			ifFalse: [selectedClass class removeCompiledMethod: selectedMethod].
 		self selectMethod: nil]]
@@ -929,28 +929,28 @@ removeMethod
 
 removePackage
 
-  (window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
+	(window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
-	    Smalltalk current removePackage: selectedPackage.
-	    self updateCategoriesList]
+		Smalltalk current removePackage: selectedPackage.
+		self updateCategoriesList]
 !
 
 renameClass
-    | newName |
-    newName := window prompt: 'Rename class ', selectedClass name.
-    (newName notNil and: [newName notEmpty]) ifTrue: [
+	| newName |
+	newName := window prompt: 'Rename class ', selectedClass name.
+	(newName notNil and: [newName notEmpty]) ifTrue: [
 	selectedClass rename: newName.
-	self 
+	self
 		updateClassesList;
 		updateSourceAndButtons]
 !
 
 renamePackage
 
-  | newName |
-  newName := window prompt: 'Rename package ', selectedPackage.
-  newName ifNotNil: [
-    newName notEmpty ifTrue: [
+	| newName |
+	newName := window prompt: 'Rename package ', selectedPackage.
+	newName ifNotNil: [
+	newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.
 	self updateCategoriesList]]
 !
@@ -972,91 +972,91 @@ searchReferencesOf: aString
 !
 
 selectCategory: aCategory
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	selectedPackage := aCategory.
-	selectedClass := selectedProtocol := selectedMethod :=  nil.
+	selectedClass := selectedProtocol := selectedMethod :=	nil.
 	self resetClassesList.
-	self 
-	    updateCategoriesList;
-	    updateClassesList;
-	    updateProtocolsList;
-	    updateMethodsList;
-	    updateSourceAndButtons]
+	self
+		updateCategoriesList;
+		updateClassesList;
+		updateProtocolsList;
+		updateMethodsList;
+		updateSourceAndButtons]
 !
 
 selectClass: aClass
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	selectedClass := aClass.
 	selectedProtocol := selectedMethod := nil.
-	self 
-	    updateClassesList;
-	    updateProtocolsList;
-	    updateMethodsList;
-	    updateSourceAndButtons]
+	self
+		updateClassesList;
+		updateProtocolsList;
+		updateMethodsList;
+		updateSourceAndButtons]
 !
 
 selectMethod: aMethod
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	selectedMethod := aMethod.
-	self 
-	    updateProtocolsList;
-	    updateMethodsList;
-	    updateSourceAndButtons]
+	self
+		updateProtocolsList;
+		updateMethodsList;
+		updateSourceAndButtons]
 !
 
 selectProtocol: aString
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	selectedProtocol := aString.
 	selectedMethod := nil.
-	self 
-	    updateProtocolsList;
-	    updateMethodsList;
-	    updateSourceAndButtons]
+	self
+		updateProtocolsList;
+		updateMethodsList;
+		updateSourceAndButtons]
 !
 
 selectTab: aString
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	selectedTab := aString.
 	self selectProtocol: nil.
 	self updateTabsList]
 !
 
 setMethodProtocol: aString
-    self cancelChanges ifTrue: [
+	self cancelChanges ifTrue: [
 	(self protocols includes: aString)
-	    ifFalse: [self addNewProtocol]
-	    ifTrue: [
+		ifFalse: [self addNewProtocol]
+		ifTrue: [
 		selectedMethod category: aString.
 		selectedProtocol := aString.
 		selectedMethod := selectedMethod.
-		self 
-		    updateProtocolsList;
-		    updateMethodsList;
-		    updateSourceAndButtons]]
+		self
+			updateProtocolsList;
+			updateMethodsList;
+			updateSourceAndButtons]]
 !
 
 showClassButtons
-    classButtons asJQuery show
+	classButtons asJQuery show
 !
 
 showMethodButtons
-    methodButtons asJQuery show
+	methodButtons asJQuery show
 ! !
 
 !Browser methodsFor: 'initialization'!
 
 initialize
-    super initialize.
-    selectedTab := #instance.
-    selectedPackage := self packages first.
-    unsavedChanges := false
+	super initialize.
+	selectedTab := #instance.
+	selectedPackage := self packages first.
+	unsavedChanges := false
 ! !
 
 !Browser methodsFor: 'network'!
 
 ajaxPutAt: aURL data: aString
 	jQuery
-		ajax: aURL	options: #{	'type' -> 'PUT'.
+		ajax: aURL	options: #{ 'type' -> 'PUT'.
 								'data' -> aString.
 								'contentType' -> 'text/plain;charset=UTF-8'.
 								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
@@ -1065,31 +1065,31 @@ ajaxPutAt: aURL data: aString
 !Browser methodsFor: 'rendering'!
 
 renderBottomPanelOn: html
-    html div
+	html div
 	class: 'amber_sourceCode';
 	with: [
-	    sourceArea := SourceArea new.
-	    sourceArea renderOn: html.
-            sourceArea onKeyDown: [:e |
-                                   self handleSourceAreaKeyDown: e].
-	    sourceArea onKeyUp: [self updateStatus]]
+		sourceArea := SourceArea new.
+		sourceArea renderOn: html.
+			sourceArea onKeyDown: [:e |
+				self handleSourceAreaKeyDown: e].
+		sourceArea onKeyUp: [self updateStatus]]
 !
 
 renderBoxOn: html
-    self 
+	self
 	renderTopPanelOn: html;
 	renderTabsOn: html;
 	renderBottomPanelOn: html
 !
 
 renderButtonsOn: html
-    saveButton := html button.
-    saveButton 
+	saveButton := html button.
+	saveButton
 	with: 'Save';
 	onClick: [self compile].
-    methodButtons := html span.
-    classButtons := html span.
-    html div 
+	methodButtons := html span.
+	classButtons := html span.
+	html div
 	class: 'right';
 	with: [
 		html button
@@ -1099,30 +1099,30 @@ renderButtonsOn: html
 			with: 'PrintIt';
 			onClick: [sourceArea printIt].
 		html button with: 'InspectIt';
-			onClick: [sourceArea inspectIt]]. 
-    self updateSourceAndButtons
+			onClick: [sourceArea inspectIt]].
+	self updateSourceAndButtons
 !
 
 renderTabsOn: html
-    tabsList := html ul class: 'amber_tabs amber_browser'.
-    self updateTabsList.
+	tabsList := html ul class: 'amber_tabs amber_browser'.
+	self updateTabsList.
 !
 
 renderTopPanelOn: html
-	html div 
-		class: 'top'; 
+	html div
+		class: 'top';
 		with: [
 			packagesList := html ul class: 'amber_column browser packages'.
-          		html div class: 'amber_packagesButtons'; with: [
-				html button 
+				html div class: 'amber_packagesButtons'; with: [
+				html button
 					title: 'Commit classes in this package to disk';
 					onClick: [self commitPackage];
 					with: 'Commit'.
-        			html button
+					html button
 					title: 'Rename package';
 					onClick: [self renamePackage];
 					with: 'Rename'.
-        			html button
+					html button
 					title: 'Remove this package from the system';
 					onClick: [self removePackage];
 					with: 'Remove'].
@@ -1151,42 +1151,42 @@ resetClassesList
 !
 
 updateCategoriesList
-    packagesList contents: [:html |
+	packagesList contents: [:html |
 	self packages do: [:each || li label |
-	    each isEmpty 
+		each isEmpty
 		ifTrue: [label := 'Unclassified']
 		ifFalse: [label := each].
-	    li := html li.
-	    selectedPackage = each ifTrue: [
+		li := html li.
+		selectedPackage = each ifTrue: [
 		li class: 'selected'].
-	    li
+		li
 		with: label;
 		onClick: [self selectCategory: each]]]
 !
 
 updateClassesList
-    TabManager current update.
-    classesList updateNodes
+	TabManager current update.
+	classesList updateNodes
 !
 
 updateMethodsList
-    methodsList contents: [:html |
+	methodsList contents: [:html |
 	self methods do: [:each || li |
-	    li := html li.
-	    selectedMethod = each ifTrue: [
+		li := html li.
+		selectedMethod = each ifTrue: [
 		li class: 'selected'].
-	    li
+		li
 		with: each selector;
 		onClick: [self selectMethod: each]]]
 !
 
 updateProtocolsList
-    protocolsList contents: [:html |
+	protocolsList contents: [:html |
 	self protocols do: [:each || li |
-	    li := html li.
-	    selectedProtocol = each ifTrue: [
+		li := html li.
+		selectedProtocol = each ifTrue: [
 		li class: 'selected'].
-	    li 
+		li
 		with: each;
 		onClick: [self selectProtocol: each]]]
 !
@@ -1217,7 +1217,7 @@ updateSourceAndButtons
 			with: 'Remove method';
 			onClick: [self removeMethod].
 		protocolSelect := html select.
-                protocolSelect
+				protocolSelect
 			onChange: [ self setMethodProtocol: protocolSelect asJQuery val];
 			with: [
 				html option
@@ -1226,21 +1226,21 @@ updateSourceAndButtons
 				html option
 					class: 'important';
 					with: 'New...'.
-                currentProtocol := selectedProtocol.
-                (currentProtocol isNil and: [ selectedMethod notNil ])
-                	ifTrue: [ currentProtocol := selectedMethod category].
+				currentProtocol := selectedProtocol.
+				(currentProtocol isNil and: [ selectedMethod notNil ])
+					ifTrue: [ currentProtocol := selectedMethod category].
 				self protocols do: [:each | | option |
 					option := html option with: each.
 					currentProtocol = each ifTrue: [ option at: 'selected' put: 'selected' ] ]].
 		selectedMethod isNil ifFalse: [
 			referencesSelect := html select.
-                        referencesSelect
+						referencesSelect
 				onChange: [self searchReferencesOf: referencesSelect asJQuery val];
 				with: [ |option|
 					html option
 						with: 'References';
 						at: 'disabled' put: 'disabled';
-                        at: 'selected' put: 'selected'.
+						at: 'selected' put: 'selected'.
 					html option
 						class: 'important';
 						with: selectedMethod selector.
@@ -1271,41 +1271,41 @@ updateStatus
 !
 
 updateTabsList
-    tabsList contents: [:html || li |
+	tabsList contents: [:html || li |
 	li := html li.
 	selectedTab = #instance ifTrue: [li class: 'selected'].
 	li
-	    with: [
+		with: [
 		html span class: 'ltab'.
 		html span class: 'mtab'; with: 'Instance'.
 		html span class: 'rtab'];
-	    onClick: [self selectTab: #instance].
+		onClick: [self selectTab: #instance].
 	li := html li.
 	selectedTab = #class ifTrue: [li class: 'selected'].
 	li
-	    with: [
+		with: [
 		html span class: 'ltab'.
 		html span class: 'mtab'; with: 'Class'.
 		html span class: 'rtab'];
-	    onClick: [self selectTab: #class].
+		onClick: [self selectTab: #class].
 	li := html li.
 	selectedTab = #comment ifTrue: [li class: 'selected'].
 	li
-	    with: [
+		with: [
 		html span class: 'ltab'.
 		html span class: 'mtab'; with: 'Comment'.
 		html span class: 'rtab'];
-	    onClick: [self selectTab: #comment]]
+		onClick: [self selectTab: #comment]]
 ! !
 
 !Browser class methodsFor: 'convenience'!
 
 open
-    self new open
+	self new open
 !
 
 openOn: aClass
-    ^self new
+	^self new
 	open;
 	selectCategory: aClass category;
 	selectClass: aClass
@@ -1323,11 +1323,11 @@ allVariables
 
 	self receiver class allInstanceVariableNames do: [:each |
 		all at: each put: (self receiver instVarAt: each) ].
-    
-    selectedContext locals keysAndValuesDo: [ :key :value |
-    	all at: key put: value ].
-    
-    ^ all
+	
+	selectedContext locals keysAndValuesDo: [ :key :value |
+		all at: key put: value ].
+	
+	^ all
 !
 
 error
@@ -1351,7 +1351,7 @@ receiver
 !
 
 source
-	^self method 
+	^self method
 		ifNil: ['Method doesn''t exist!!']
 		ifNotNil: [self method source]
 ! !
@@ -1378,7 +1378,7 @@ selectContext: aContext
 	selectedContext := aContext.
 	selectedVariable := nil.
 	selectedVariableName := nil.
-	self 
+	self
 		updateContextsList;
 		updateSourceArea;
 		updateInspector;
@@ -1387,7 +1387,7 @@ selectContext: aContext
 !
 
 selectVariable: anObject named: aString
-    
+	
 	selectedVariable := anObject.
 	selectedVariableName := aString.
 	inspector contents: [:html | html with: anObject printString].
@@ -1416,9 +1416,9 @@ renderBottomPanelOn: html
 !
 
 renderBoxOn: html
-   self 
-	renderTopPanelOn: html;
-	renderBottomPanelOn: html
+	self
+		renderTopPanelOn: html;
+		renderBottomPanelOn: html
 !
 
 renderButtonsOn: html
@@ -1434,7 +1434,7 @@ renderButtonsOn: html
 	html button
 		with: 'InspectIt';
 		onClick: [sourceArea inspectIt].
-	html button 
+	html button
 		with: 'Proceed';
 		onClick: [self proceed].
 	html button
@@ -1444,7 +1444,7 @@ renderButtonsOn: html
 		class: 'amber_button debugger inspect';
 		with: 'Inspect';
 		onClick: [self inspectSelectedVariable].
-	 self 
+	 self
 		updateSourceArea;
 		updateStatus;
 		updateVariablesList;
@@ -1456,7 +1456,7 @@ renderContext: aContext on: html
 	li := html li.
 	selectedContext = aContext ifTrue: [
 		li class: 'selected'].
-	li 
+	li
 		with: aContext asString;
 		onClick: [self selectContext: aContext].
 	aContext outerContext ifNotNil: [self renderContext: aContext outerContext on: html]
@@ -1464,13 +1464,13 @@ renderContext: aContext on: html
 
 renderTopPanelOn: html
 	selectedContext := self error context.
-	html div 
-		class: 'top'; 
+	html div
+		class: 'top';
 		with: [
-			html div 
+			html div
 				class: 'label';
 				with: self error messageText.
-			ul := html ul 
+			ul := html ul
 				class: 'amber_column debugger contexts';
 				with: [self renderContext: self error context on: html]]
 ! !
@@ -1478,7 +1478,7 @@ renderTopPanelOn: html
 !Debugger methodsFor: 'testing'!
 
 canBeClosed
-    ^true
+	^true
 ! !
 
 !Debugger methodsFor: 'updating'!
@@ -1510,21 +1510,21 @@ updateStatus
 
 updateVariablesList
 	ul2 contents: [ :html | | li |
-		li := html li 
+		li := html li
 			with: 'self';
 			onClick: [ self selectVariable: self receiver named: 'self' ].
-                selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].
-        
-        self allVariables keysAndValuesDo: [:key :value |
-                        li := html li 
+				selectedVariableName = 'self' ifTrue: [ li class: 'selected' ].
+		
+		self allVariables keysAndValuesDo: [:key :value |
+						li := html li
 							with: key;
 							onClick: [ self selectVariable: value named: key ].
-                        selectedVariableName = key ifTrue: [
+						selectedVariableName = key ifTrue: [
 							li class: 'selected' ] ] ].
-                            
-	selectedVariable 
-    	ifNil: [ inspectButton at: 'disabled' put: true ] 
-        ifNotNil: [ inspectButton removeAt: 'disabled' ]
+							
+	selectedVariable
+		ifNil: [ inspectButton at: 'disabled' put: true ]
+		ifNotNil: [ inspectButton removeAt: 'disabled' ]
 ! !
 
 TabWidget subclass: #IDETranscript
@@ -1534,41 +1534,41 @@ TabWidget subclass: #IDETranscript
 !IDETranscript methodsFor: 'accessing'!
 
 label
-    ^'Transcript'
+	^'Transcript'
 ! !
 
 !IDETranscript methodsFor: 'actions'!
 
 clear
-    textarea asJQuery val: ''
+	textarea asJQuery val: ''
 !
 
 cr
-    textarea asJQuery val: textarea asJQuery val, String cr.
+	textarea asJQuery val: textarea asJQuery val, String cr.
 !
 
 open
-    TabManager current 
+	TabManager current
 	open;
 	selectTab: self
 !
 
 show: anObject
-    textarea ifNil: [self open].
-    textarea asJQuery val: textarea asJQuery val, anObject asString.
+	textarea ifNil: [self open].
+	textarea asJQuery val: textarea asJQuery val, anObject asString.
 ! !
 
 !IDETranscript methodsFor: 'rendering'!
 
 renderBoxOn: html
-    textarea := html textarea.
-    textarea 
+	textarea := html textarea.
+	textarea
 	class: 'amber_transcript';
 	at: 'spellcheck' put: 'false'
 !
 
 renderButtonsOn: html
-    html button
+	html button
 	with: 'Clear transcript';
 	onClick: [self clear]
 ! !
@@ -1588,11 +1588,11 @@ current
 !
 
 new
-    self shouldNotImplement
+	self shouldNotImplement
 !
 
 open
-    TabManager current 
+	TabManager current
 	open;
 	selectTab: self current
 ! !
@@ -1644,8 +1644,8 @@ inspect: anObject
 !
 
 refresh
-	self 
-		inspect: object; 
+	self
+		inspect: object;
 		updateVariablesList;
 		updateValueTextarea
 ! !
@@ -1653,38 +1653,38 @@ refresh
 !Inspector methodsFor: 'rendering'!
 
 renderBottomPanelOn: html
-    html div
+	html div
 	class: 'amber_sourceCode';
 	with: [
-	    sourceArea := SourceArea new
+		sourceArea := SourceArea new
 		receiver: object;
 		onDoIt: [self refresh];
 		yourself.
-            sourceArea renderOn: html]
+			sourceArea renderOn: html]
 !
 
 renderBoxOn: html
-	self 
+	self
 		renderTopPanelOn: html;
 		renderBottomPanelOn: html
 !
 
 renderButtonsOn: html
-	html button 
+	html button
 		with: 'DoIt';
 		onClick: [self sourceArea doIt].
-	html button 
+	html button
 		with: 'PrintIt';
 		onClick: [self sourceArea printIt].
-	html button 
+	html button
 		with: 'InspectIt';
 		onClick: [self sourceArea inspectIt].
 	self updateButtons
 !
 
 renderTopPanelOn: html
-	html div 
-		class: 'top'; 
+	html div
+		class: 'top';
 		with: [
 			variablesList := html ul class: 'amber_column variables'.
 			valueTextarea := html textarea class: 'amber_column value'; at: 'readonly' put: 'readonly'.
@@ -1693,9 +1693,9 @@ renderTopPanelOn: html
 					class: 'amber_button inspector refresh';
 					with: 'Refresh';
 					onClick: [self refresh].
-				diveButton := html button 
+				diveButton := html button
 					class: 'amber_button inspector dive';
-					with: 'Dive'; 
+					with: 'Dive';
 					onClick: [self dive]].
 			html div class: 'amber_clear'].
 	self
@@ -1713,7 +1713,7 @@ canBeClosed
 
 selectVariable: aString
 	self selectedVariable: aString.
-	self 
+	self
 		updateVariablesList;
 		updateValueTextarea;
 		updateButtons
@@ -1721,7 +1721,7 @@ selectVariable: aString
 
 updateButtons
 	(self selectedVariable notNil and: [(self variables at: self selectedVariable) notNil])
-		ifFalse: [diveButton at: 'disabled' put: true] 
+		ifFalse: [diveButton at: 'disabled' put: true]
 		ifTrue: [diveButton removeAt: 'disabled']
 !
 
@@ -1766,8 +1766,8 @@ percent: aNumber
 
 !ProgressBar methodsFor: 'rendering'!
 
-renderOn: html 
-	div := html div 
+renderOn: html
+	div := html div
 		class: 'progress_bar';
 		yourself.
 	self renderProgressBar
@@ -1775,7 +1775,7 @@ renderOn: html
 
 renderProgressBar
 	div contents: [:html |
-		html div 
+		html div
 			class: 'progress';
 			style: 'width:', self percent asString, '%']
 ! !
@@ -1824,17 +1824,17 @@ senders
 !ReferencesBrowser methodsFor: 'actions'!
 
 openBrowserOn: aMethod
-       | browser |
-       browser := Browser openOn: (aMethod methodClass isMetaclass 
+	| browser |
+	browser := Browser openOn: (aMethod methodClass isMetaclass
 		ifTrue: [aMethod methodClass instanceClass] ifFalse: [aMethod methodClass]).
-       aMethod methodClass isMetaclass ifTrue: [browser selectTab: #class].
-       browser
-               selectProtocol: aMethod category;
-               selectMethod: aMethod
+	aMethod methodClass isMetaclass ifTrue: [browser selectTab: #class].
+	browser
+		selectProtocol: aMethod category;
+		selectMethod: aMethod
 !
 
 search: aString
-	self 
+	self
 		searchReferencesFor: aString;
 		updateImplementorsList;
 		updateSendersList;
@@ -1865,14 +1865,14 @@ searchReferencesFor: aString
 	referencedClasses := Array new.
 	matches := Array new.
 	self searchMethodSource.
-	(selector match: '^[A-Z]') 
+	(selector match: '^[A-Z]')
 		ifFalse: [self searchSelectorReferences]
 		ifTrue: [self searchReferencedClasses]
 !
 
 searchSelectorReferences
-	self classesAndMetaclasses do: [:each | 
-		each methodDictionary keysAndValuesDo: [:key :value | 
+	self classesAndMetaclasses do: [:each |
+		each methodDictionary keysAndValuesDo: [:key :value |
 			key = selector ifTrue: [self implementors add: value].
 			(value messageSends includes: selector) ifTrue: [
 				self senders add: value]]]
@@ -1896,7 +1896,7 @@ setInputEvents
 !ReferencesBrowser methodsFor: 'rendering'!
 
 renderBoxOn: html
-	self 
+	self
 		renderInputOn: html;
 		renderImplementorsOn: html;
 		renderSendersOn: html;
@@ -1910,7 +1910,7 @@ renderImplementorsOn: html
 !
 
 renderInputOn: html
-	input := html input 
+	input := html input
 		class: 'implementors';
 		yourself.
 	input asJQuery val: selector.
@@ -1941,27 +1941,27 @@ canBeClosed
 !ReferencesBrowser methodsFor: 'updating'!
 
 updateImplementorsList
-    implementorsList contents: [:html |
+	implementorsList contents: [:html |
 	html li
-		class: 'column_label'; 
+		class: 'column_label';
 		with: 'Implementors (', self implementors size asString, ')';
 		style: 'font-weight: bold'.
 	self implementors do: [:each || li |
-	    li := html li.
-	    li
+		li := html li.
+		li
 		with: (each methodClass asString, ' >> ', self selector);
 		onClick: [self openBrowserOn: each]]]
 !
 
 updateMatchesList
-    matchesList contents: [:html |
+	matchesList contents: [:html |
 	html li
-		class: 'column_label'; 
+		class: 'column_label';
 		with: 'Regex matches (', self matches size asString, ')';
 		style: 'font-weight: bold'.
 	self matches do: [:each || li |
-	    li := html li.
-	    li
+		li := html li.
+		li
 		with: (each methodClass asString, ' >> ', each selector);
 		onClick: [self openBrowserOn: each]]]
 !
@@ -1969,7 +1969,7 @@ updateMatchesList
 updateReferencedClassesList
 	referencedClassesList contents: [:html |
 	html li
-		class: 'column_label'; 
+		class: 'column_label';
 		with: 'Class references (', self referencedClasses size asString, ')';
 		style: 'font-weight: bold'.
 	self referencedClasses do: [:each |
@@ -1981,7 +1981,7 @@ updateReferencedClassesList
 updateSendersList
 	sendersList contents: [:html |
 	html li
-		class: 'column_label'; 
+		class: 'column_label';
 		with: 'Senders (', self senders size asString, ')';
 		style: 'font-weight: bold'.
 	self senders do: [:each |
@@ -2009,22 +2009,22 @@ allClasses
 !
 
 classes
-    ^(self allClasses 
+	^(self allClasses
 	select: [:each | self selectedCategories includes: each category])
 	sort: [:a :b | a name > b name]
 !
 
 label
-    ^'SUnit'
+	^'SUnit'
 !
 
 packages
-    | packages |
-    packages := Array new.
-    self allClasses do: [:each |
+	| packages |
+	packages := Array new.
+	self allClasses do: [:each |
 	(packages includes: each category) ifFalse: [
-	    packages add: each category]].
-    ^packages sort
+		packages add: each category]].
+	^packages sort
 !
 
 progressBar
@@ -2040,7 +2040,7 @@ selectedCategories
 !
 
 selectedClasses
-	^selectedClasses  ifNil: [selectedClasses := Array new]
+	^selectedClasses ifNil: [selectedClasses := Array new]
 !
 
 statusInfo
@@ -2066,49 +2066,49 @@ run: aCollection
 | worker |
 	worker := TestSuiteRunner on: aCollection.
 	result := worker result.
-    worker announcer on: ResultAnnouncement do: [:ann |
-    	ann result == result ifTrue: [
+	worker announcer on: ResultAnnouncement do: [:ann |
+		ann result == result ifTrue: [
 			self progressBar updatePercent: result runs / result total * 100.
 			self updateStatusDiv.
 			self updateMethodsList
-  		]
+		]
 	].
 	worker run
 !
 
 selectAllCategories
-	self packages do: [:each | 
+	self packages do: [:each |
 		(selectedCategories includes: each) ifFalse: [
 			self selectedCategories add: each]].
-	self 
-	    updateCategoriesList;
-	    updateClassesList
+	self
+		updateCategoriesList;
+		updateClassesList
 !
 
 selectAllClasses
-	self classes do: [:each | 
+	self classes do: [:each |
 		(selectedClasses includes: each) ifFalse: [
 			self selectedClasses add: each]].
-	self 
-	    updateCategoriesList;
-	    updateClassesList
+	self
+		updateCategoriesList;
+		updateClassesList
 !
 
 toggleCategory: aCategory
-	(self isSelectedCategory: aCategory) 
+	(self isSelectedCategory: aCategory)
 		ifFalse: [selectedCategories add: aCategory]
 		ifTrue: [selectedCategories remove: aCategory].
-	self 
-	    updateCategoriesList;
-	    updateClassesList
+	self
+		updateCategoriesList;
+		updateClassesList
 !
 
 toggleClass: aClass
-	(self isSelectedClass: aClass) 
+	(self isSelectedClass: aClass)
 		ifFalse: [selectedClasses add: aClass]
 		ifTrue: [selectedClasses remove: aClass].
-	self 
-	    updateClassesList
+	self
+		updateClassesList
 ! !
 
 !TestRunner methodsFor: 'initialization'!
@@ -2139,14 +2139,14 @@ printTotal
 !TestRunner methodsFor: 'rendering'!
 
 renderBoxOn: html
-    self 
+	self
 	renderCategoriesOn: html;
 	renderClassesOn: html;
 	renderResultsOn: html
 !
 
 renderButtonsOn: html
-    html button
+	html button
 	with: 'Run selected';
 	onClick: [self run: self testCases]
 !
@@ -2163,18 +2163,18 @@ renderClassesOn: html
 
 renderErrorsOn: html
 	self result errors do: [:each |
-		html li 
+		html li
 			class: 'errors';
 			with: each class name, ' >> ', each selector;
-                        onClick: [self performFailure: each]]
+						onClick: [self performFailure: each]]
 !
 
 renderFailuresOn: html
 	self result failures do: [:each |
-		html li 
+		html li
 			class: 'failures';
 			with: each class name, ' >> ', each selector;
-                        onClick: [self performFailure: each]]
+						onClick: [self performFailure: each]]
 !
 
 renderResultsOn: html
@@ -2198,22 +2198,22 @@ isSelectedClass: aClass
 !TestRunner methodsFor: 'updating'!
 
 updateCategoriesList
-    packagesList contents: [:html |
-	    html li 
+	packagesList contents: [:html |
+		html li
 		class: 'all';
 		with: 'All';
 		onClick: [self selectAllCategories].
 	self packages do: [:each || li |
-	    li := html li.
-	    (self selectedCategories includes: each) ifTrue: [
+		li := html li.
+		(self selectedCategories includes: each) ifTrue: [
 		li class: 'selected'].
-	    li
+		li
 		with: each;
 		onClick: [self toggleCategory: each]]]
 !
 
 updateClassesList
-    classesList contents: [:html |
+	classesList contents: [:html |
 	(self selectedCategories isEmpty) ifFalse: [
 		html li
 			class: 'all';
@@ -2231,7 +2231,7 @@ updateClassesList
 updateMethodsList
 	methodsList contents: [:html |
 		self renderErrorsOn: html.
-                self renderFailuresOn: html]
+				self renderFailuresOn: html]
 !
 
 updateStatusDiv
@@ -2247,25 +2247,25 @@ TabWidget subclass: #Workspace
 !Workspace methodsFor: 'accessing'!
 
 label
-    ^'Workspace'
+	^'Workspace'
 ! !
 
 !Workspace methodsFor: 'actions'!
 
 clearWorkspace
-    sourceArea clear
+	sourceArea clear
 !
 
 doIt
-   sourceArea doIt
+	sourceArea doIt
 !
 
 fileIn
-    sourceArea fileIn
+	sourceArea fileIn
 !
 
 inspectIt
-    sourceArea inspectIt
+	sourceArea inspectIt
 !
 
 printIt
@@ -2280,28 +2280,28 @@ show
 !Workspace methodsFor: 'rendering'!
 
 renderBoxOn: html
-    sourceArea := SourceArea new.
-    sourceArea renderOn: html
+	sourceArea := SourceArea new.
+	sourceArea renderOn: html
 !
 
 renderButtonsOn: html
-    html button
+	html button
 	with: 'DoIt';
 	title: 'ctrl+d';
 	onClick: [self doIt].
-    html button
+	html button
 	with: 'PrintIt';
 	title: 'ctrl+p';
 	onClick: [self printIt].
-    html button
+	html button
 	with: 'InspectIt';
 	title: 'ctrl+i';
 	onClick: [self inspectIt].
-    html button
+	html button
 	with: 'FileIn';
 	title: 'ctrl+f';
 	onClick: [self fileIn].
-    html button
+	html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
 ! !
@@ -2309,7 +2309,7 @@ renderButtonsOn: html
 !Object methodsFor: '*IDE'!
 
 inspect
-	Inspector new 
+	Inspector new
 		inspect: self;
 		open
 !
@@ -2320,7 +2320,7 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	self class allInstanceVariableNames do: [:each |
 		variables at: each put: (self instVarAt: each)].
-	anInspector 
+	anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
@@ -2333,7 +2333,7 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	self withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector 
+	anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
@@ -2347,7 +2347,7 @@ inspectOn: anInspector
 	variables at: '#keys' put: self keys.
 	self keysAndValuesDo: [:key :value |
 		variables at: key put: value].
-	anInspector 
+	anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
@@ -2357,9 +2357,9 @@ inspectOn: anInspector
 inspectOn: anInspector
 	| label |
 	super inspectOn: anInspector.
-	self printString size > 30 
+	self printString size > 30
 		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
-		ifFalse: [label := self printString]. 
+		ifFalse: [label := self printString].
 	anInspector setLabel: label
 ! !
 
@@ -2371,7 +2371,7 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	elements withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector 
+	anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
@@ -2389,7 +2389,7 @@ inspectOn: anInspector
 	variables at: '#minutes' put: self minutes.
 	variables at: '#seconds' put: self seconds.
 	variables at: '#milliseconds' put: self milliseconds.
-	anInspector 
+	anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !
@@ -2406,7 +2406,7 @@ inspectOn: anInspector
 	variables at: '#temps' put: self temps.
 	self class instanceVariableNames do: [:each |
 		variables at: each put: (self instVarAt: each)].
-	anInspector 
+	anInspector
 		setLabel: self printString;
 		setVariables: variables
 ! !

@@ -158,25 +158,25 @@ Message selectors that can be inlined are answered by `IRSendInliner >> #inlined
 !IRInliner methodsFor: 'factory'!
 
 assignmentInliner
-	^ IRAssignmentInliner new 
+	^ IRAssignmentInliner new
 		translator: self;
 		yourself
 !
 
 nonLocalReturnInliner
-	^ IRNonLocalReturnInliner new 
+	^ IRNonLocalReturnInliner new
 		translator: self;
 		yourself
 !
 
 returnInliner
-	^ IRReturnInliner new 
+	^ IRReturnInliner new
 		translator: self;
 		yourself
 !
 
 sendInliner
-	^ IRSendInliner new 
+	^ IRSendInliner new
 		translator: self;
 		yourself
 ! !
@@ -184,14 +184,14 @@ sendInliner
 !IRInliner methodsFor: 'testing'!
 
 shouldInlineAssignment: anIRAssignment
-	^ anIRAssignment isInlined not and: [ 
+	^ anIRAssignment isInlined not and: [
 		anIRAssignment instructions last isSend and: [	
 			self shouldInlineSend: (anIRAssignment instructions last) ]]
 !
 
 shouldInlineReturn: anIRReturn
-	^ anIRReturn isInlined not and: [ 
-		anIRReturn instructions first isSend and: [	
+	^ anIRReturn isInlined not and: [
+		anIRReturn instructions first isSend and: [
 			self shouldInlineSend: (anIRReturn instructions first) ]]
 !
 
@@ -219,19 +219,19 @@ transformNonLocalReturn: anIRNonLocalReturn
 !
 
 visitIRAssignment: anIRAssignment
-	^ (self shouldInlineAssignment: anIRAssignment) 
+	^ (self shouldInlineAssignment: anIRAssignment)
 		ifTrue: [ self assignmentInliner inlineAssignment: anIRAssignment ]
 		ifFalse: [ super visitIRAssignment: anIRAssignment ]
 !
 
 visitIRNonLocalReturn: anIRNonLocalReturn
-	^ (self shouldInlineReturn: anIRNonLocalReturn) 
+	^ (self shouldInlineReturn: anIRNonLocalReturn)
 		ifTrue: [ self nonLocalReturnInliner inlineReturn: anIRNonLocalReturn ]
 		ifFalse: [ self transformNonLocalReturn: anIRNonLocalReturn ]
 !
 
 visitIRReturn: anIRReturn
-	^ (self shouldInlineReturn: anIRReturn) 
+	^ (self shouldInlineReturn: anIRReturn)
 		ifTrue: [ self returnInliner inlineReturn: anIRReturn ]
 		ifFalse: [ super visitIRReturn: anIRReturn ]
 !
@@ -260,7 +260,7 @@ visitIRInlinedClosure: anIRInlinedClosure
 !
 
 visitIRInlinedIfFalse: anIRInlinedIfFalse
-	self stream nextPutIf: [ 
+	self stream nextPutIf: [
 		self stream nextPutAll: '!! smalltalk.assert('.
 		self visit: anIRInlinedIfFalse instructions first.
 		self stream nextPutAll: ')' ]
@@ -268,17 +268,17 @@ visitIRInlinedIfFalse: anIRInlinedIfFalse
 !
 
 visitIRInlinedIfNil: anIRInlinedIfNil
-	self stream nextPutIf: [ 
-		self stream nextPutAll: '($receiver = '. 
+	self stream nextPutIf: [
+		self stream nextPutAll: '($receiver = '.
 		self visit: anIRInlinedIfNil instructions first.
 		self stream nextPutAll: ') == nil || $receiver == undefined' ]
 		with: [ self visit: anIRInlinedIfNil instructions last ]
 !
 
 visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
-	self stream 
-		nextPutIfElse: [ 
-			self stream nextPutAll: '($receiver = '. 
+	self stream
+		nextPutIfElse: [
+			self stream nextPutAll: '($receiver = '.
 			self visit: anIRInlinedIfNilIfNotNil instructions first.
 			self stream nextPutAll: ') == nil || $receiver == undefined' ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
@@ -286,17 +286,17 @@ visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
 !
 
 visitIRInlinedIfTrue: anIRInlinedIfTrue
-	self stream nextPutIf: [ 
-		self stream nextPutAll: 'smalltalk.assert('. 
+	self stream nextPutIf: [
+		self stream nextPutAll: 'smalltalk.assert('.
 		self visit: anIRInlinedIfTrue instructions first.
 		self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrue instructions last ]
 !
 
 visitIRInlinedIfTrueIfFalse: anIRInlinedIfTrueIfFalse
-	self stream 
-		nextPutIfElse: [ 
-			self stream nextPutAll: 'smalltalk.assert('. 
+	self stream
+		nextPutIfElse: [
+			self stream nextPutAll: 'smalltalk.assert('.
 			self visit: anIRInlinedIfTrueIfFalse instructions first.
 			self stream nextPutAll: ')' ]
 		with: [ self visit: anIRInlinedIfTrueIfFalse instructions second ]
@@ -314,7 +314,7 @@ visitIRInlinedReturn: anIRInlinedReturn
 !
 
 visitIRInlinedSequence: anIRInlinedSequence
-	anIRInlinedSequence instructions do: [ :each | 
+	anIRInlinedSequence instructions do: [ :each |
 		self stream nextPutStatementWith: [ self visit: each ]]
 ! !
 
@@ -369,8 +369,8 @@ ifFalse: anIRInstruction ifTrue: anotherIRInstruction
 !
 
 ifNil: anIRInstruction
-	^ self 
-		inlinedSend: IRInlinedIfNilIfNotNil new 
+	^ self
+		inlinedSend: IRInlinedIfNilIfNotNil new
 		with: anIRInstruction
 		with: (IRClosure new
 			scope: anIRInstruction scope copy;
@@ -385,7 +385,7 @@ ifNil: anIRInstruction ifNotNil: anotherIRInstruction
 !
 
 ifNotNil: anIRInstruction
-	^ self 
+	^ self
 		inlinedSend: IRInlinedIfNilIfNotNil new
 		with: (IRClosure new
 			scope: anIRInstruction scope copy;
@@ -415,7 +415,7 @@ inlineClosure: anIRClosure
 	inlinedClosure scope: anIRClosure scope.
 
 	"Add the possible temp declarations"
-	anIRClosure instructions do: [ :each | 
+	anIRClosure instructions do: [ :each |
 		each isSequence ifFalse: [
 			inlinedClosure add: each ]].
 
@@ -439,8 +439,8 @@ inlineClosure: anIRClosure
 
 inlineSend: anIRSend
 	self send: anIRSend.
-	^ self 
-		perform: self send selector 
+	^ self
+		perform: self send selector
 		withArguments: self send instructions allButFirst
 !
 
@@ -500,7 +500,7 @@ IRSendInliner subclass: #IRAssignmentInliner
 	instanceVariableNames: 'assignment'
 	package: 'Compiler-Inlining'!
 !IRAssignmentInliner commentStamp!
-I inline message sends together with assignments by moving them around into the inline closure instructions. 
+I inline message sends together with assignments by moving them around into the inline closure instructions.
 
 ##Example
 

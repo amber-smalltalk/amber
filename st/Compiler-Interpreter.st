@@ -56,27 +56,27 @@ receiver: anObject
 
 selector
 	^ self metod
-    	ifNotNil: [ self method selector ]
+		ifNotNil: [ self method selector ]
 ! !
 
 !AIContext methodsFor: 'initialization'!
 
 initializeFromMethodContext: aMethodContext
 	self pc: aMethodContext pc.
-    self receiver: aMethodContext receiver.
-    self method: aMethodContext method.
-    aMethodContext outerContext ifNotNil: [
+	self receiver: aMethodContext receiver.
+	self method: aMethodContext method.
+	aMethodContext outerContext ifNotNil: [
 		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
-    aMethodContext locals keysAndValuesDo: [ :key :value |
-    	self locals at: key put: value ]
+	aMethodContext locals keysAndValuesDo: [ :key :value |
+		self locals at: key put: value ]
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
 
 fromMethodContext: aMethodContext
 	^ self new
-    	initializeFromMethodContext: aMethodContext;
-        yourself
+		initializeFromMethodContext: aMethodContext;
+		yourself
 ! !
 
 Object subclass: #ASTDebugger
@@ -123,16 +123,16 @@ defaultInterpreterClass
 
 buildAST
 	"Build the AST tree from the method source code.
-    The AST is annotated with a SemanticAnalyzer, 
-    to know the semantics and bindings of each node needed for later debugging"
-    
-    | ast |
-    
-    ast := Smalltalk current parse: self method source.
-    (SemanticAnalyzer on: self context receiver class)
-    	visit: ast.    
-    
-    ^ ast
+	The AST is annotated with a SemanticAnalyzer,
+	to know the semantics and bindings of each node needed for later debugging"
+	
+	| ast |
+	
+	ast := Smalltalk current parse: self method source.
+	(SemanticAnalyzer on: self context receiver class)
+		visit: ast.
+	
+	^ ast
 !
 
 initializeInterpreter
@@ -141,9 +141,9 @@ initializeInterpreter
 
 initializeWithContext: aMethodContext
 	"TODO: do we need to handle block contexts?"
-    
-    self context: (AIContext fromMethodContext: aMethodContext).
-    self initializeInterpreter
+	
+	self context: (AIContext fromMethodContext: aMethodContext).
+	self initializeInterpreter
 ! !
 
 !ASTDebugger methodsFor: 'stepping'!
@@ -157,16 +157,16 @@ resume
 !
 
 step
-	"The ASTSteppingInterpreter stops at each node interpretation. 
-    One step will interpret nodes until:
-    - we get at the end
-    - the next node is a stepping node (send, assignment, etc.)"
-    
+	"The ASTSteppingInterpreter stops at each node interpretation.
+	One step will interpret nodes until:
+	- we get at the end
+	- the next node is a stepping node (send, assignment, etc.)"
+	
 	[ (self interpreter nextNode notNil and: [ self interpreter nextNode stopOnStepping ])
-		or: [ self interpreter atEnd not ] ] 
- 			whileFalse: [
-				self interpreter step. 
-                self step ]
+		or: [ self interpreter atEnd not ] ]
+			whileFalse: [
+				self interpreter step.
+				self step ]
 !
 
 stepInto
@@ -181,8 +181,8 @@ stepOver
 
 context: aMethodContext
 	^ self new
-    	initializeWithContext: aMethodContext;
-        yourself
+		initializeWithContext: aMethodContext;
+		yourself
 ! !
 
 Object subclass: #ASTInterpreter
@@ -194,13 +194,13 @@ It is built using Continuation Passing Style for stepping purposes.
 
 Usage example:
 
-    | ast interpreter |
-    ast := Smalltalk current parse: 'foo 1+2+4'.
-    (SemanticAnalyzer on: Object) visit: ast.
+	| ast interpreter |
+	ast := Smalltalk current parse: 'foo 1+2+4'.
+	(SemanticAnalyzer on: Object) visit: ast.
 
-    ASTInterpreter new
-        interpret: ast nodes first;
-        result "Answers 7"!
+	ASTInterpreter new
+		interpret: ast nodes first;
+		result "Answers 7"!
 
 !ASTInterpreter methodsFor: 'accessing'!
 
@@ -224,41 +224,41 @@ result
 
 initialize
 	super initialize.
-    shouldReturn := false
+	shouldReturn := false
 ! !
 
 !ASTInterpreter methodsFor: 'interpreting'!
 
 interpret: aNode
 	shouldReturn := false.
-    self interpret: aNode continue: [ :value |
-    	result := value ]
+	self interpret: aNode continue: [ :value |
+		result := value ]
 !
 
 interpret: aNode continue: aBlock
 	shouldReturn ifTrue: [ ^ self ].
 
-	aNode isNode 
-    	ifTrue: [ 	
-        	currentNode := aNode.
-            self interpretNode: aNode continue: [ :value |
-  				self continue: aBlock value: value ] ]
-        ifFalse: [ self continue: aBlock value: aNode ]
+	aNode isNode
+		ifTrue: [	
+			currentNode := aNode.
+			self interpretNode: aNode continue: [ :value |
+				self continue: aBlock value: value ] ]
+		ifFalse: [ self continue: aBlock value: aNode ]
 !
 
 interpretAssignmentNode: aNode continue: aBlock
 	self interpret: aNode right continue: [ :value |
-    	self 
-        	continue: aBlock
-            value: (self assign: aNode left to: value) ]
+		self
+			continue: aBlock
+			value: (self assign: aNode left to: value) ]
 !
 
 interpretBlockNode: aNode continue: aBlock
 	"TODO: Context should be set"
-    
-    self 
-    	continue: aBlock 
-        value: [ self interpret: aNode nodes first; result ]
+	
+	self
+		continue: aBlock
+		value: [ self interpret: aNode nodes first; result ]
 !
 
 interpretBlockSequenceNode: aNode continue: aBlock
@@ -268,16 +268,16 @@ interpretBlockSequenceNode: aNode continue: aBlock
 interpretCascadeNode: aNode continue: aBlock
 	"TODO: Handle super sends"
 	
-    self interpret: aNode receiver continue: [ :receiver |
+	self interpret: aNode receiver continue: [ :receiver |
 		"Only interpret the receiver once"
-        aNode nodes do: [ :each | each receiver: receiver ].
-  
-    	self 
-        	interpretAll: aNode nodes allButLast
-    		continue: [
-              	self 
-                	interpret: aNode nodes last
-                	continue: [ :val | self continue: aBlock value: val ] ] ]
+		aNode nodes do: [ :each | each receiver: receiver ].
+
+		self
+			interpretAll: aNode nodes allButLast
+			continue: [
+				self
+					interpret: aNode nodes last
+					continue: [ :val | self continue: aBlock value: val ] ] ]
 !
 
 interpretClassReferenceNode: aNode continue: aBlock
@@ -286,18 +286,18 @@ interpretClassReferenceNode: aNode continue: aBlock
 
 interpretDynamicArrayNode: aNode continue: aBlock
 	self interpretAll: aNode nodes continue: [ :array |
-    	self 
-        	continue: aBlock
+		self
+			continue: aBlock
 			value: array ]
 !
 
 interpretDynamicDictionaryNode: aNode continue: aBlock
-    self interpretAll: aNode nodes continue: [ :array | | hashedCollection |
-    	hashedCollection := HashedCollection new.
-        array do: [ :each | hashedCollection add: each ].
-        self 	
-        	continue: aBlock
-            value: hashedCollection ]
+	self interpretAll: aNode nodes continue: [ :array | | hashedCollection |
+		hashedCollection := HashedCollection new.
+		array do: [ :each | hashedCollection add: each ].
+		self	
+			continue: aBlock
+			value: hashedCollection ]
 !
 
 interpretJSStatementNode: aNode continue: aBlock
@@ -307,37 +307,37 @@ interpretJSStatementNode: aNode continue: aBlock
 
 interpretMethodNode: aNode continue: aBlock
 	self interpretAll: aNode nodes continue: [ :array |
-    	self continue: aBlock value: array first ]
+		self continue: aBlock value: array first ]
 !
 
 interpretNode: aNode continue: aBlock
-    aNode interpreter: self continue: aBlock
+	aNode interpreter: self continue: aBlock
 !
 
 interpretReturnNode: aNode continue: aBlock
-    self interpret: aNode nodes first continue: [ :value |
-    	shouldReturn := true.
+	self interpret: aNode nodes first continue: [ :value |
+		shouldReturn := true.
 		self continue: aBlock value: value ]
 !
 
 interpretSendNode: aNode continue: aBlock
 	"TODO: Handle super sends"
-    
-    self interpret: aNode receiver continue: [ :receiver |
-    	self interpretAll: aNode arguments continue: [ :args |
-    		self 
-            	messageFromSendNode: aNode 
-                arguments: args
-                do: [ :message |
-        			self context pc: self context pc + 1.
-        			self 
-            			continue: aBlock 
-                		value: (message sendTo: receiver) ] ] ]
+	
+	self interpret: aNode receiver continue: [ :receiver |
+		self interpretAll: aNode arguments continue: [ :args |
+			self
+				messageFromSendNode: aNode
+				arguments: args
+				do: [ :message |
+					self context pc: self context pc + 1.
+					self
+						continue: aBlock
+						value: (message sendTo: receiver) ] ] ]
 !
 
 interpretSequenceNode: aNode continue: aBlock
 	self interpretAll: aNode nodes continue: [ :array |
-    	self continue: aBlock value: array last ]
+		self continue: aBlock value: array last ]
 !
 
 interpretValueNode: aNode continue: aBlock
@@ -345,9 +345,9 @@ interpretValueNode: aNode continue: aBlock
 !
 
 interpretVariableNode: aNode continue: aBlock
-    self 
-    	continue: aBlock
-        value: (aNode binding isInstanceVar
+	self
+		continue: aBlock
+		value: (aNode binding isInstanceVar
 			ifTrue: [ self context receiver instVarAt: aNode value ]
 			ifFalse: [ self context localAt: aNode value ])
 ! !
@@ -355,62 +355,62 @@ interpretVariableNode: aNode continue: aBlock
 !ASTInterpreter methodsFor: 'private'!
 
 assign: aNode to: anObject
-	^ aNode binding isInstanceVar 
-    	ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]
-      	ifFalse: [ self context localAt: aNode value put: anObject ]
+	^ aNode binding isInstanceVar
+		ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]
+		ifFalse: [ self context localAt: aNode value put: anObject ]
 !
 
 continue: aBlock value: anObject
 	result := anObject.
-    aBlock value: anObject
+	aBlock value: anObject
 !
 
 eval: aString
-	"Evaluate aString as JS source inside an JS function. 
-    aString is not sandboxed."
-    
-    | source function |
-    
-    source := String streamContents: [ :str |
-    	str nextPutAll: '(function('.
-        self context locals keys 
-        	do: [ :each | str nextPutAll: each ]
-          	separatedBy: [ str nextPutAll: ',' ].
-        str 
-        	nextPutAll: '){ return (function() {';
-        	nextPutAll: aString;
-            nextPutAll: '})() })' ].
-            
+	"Evaluate aString as JS source inside an JS function.
+	aString is not sandboxed."
+	
+	| source function |
+	
+	source := String streamContents: [ :str |
+		str nextPutAll: '(function('.
+		self context locals keys
+			do: [ :each | str nextPutAll: each ]
+			separatedBy: [ str nextPutAll: ',' ].
+		str
+			nextPutAll: '){ return (function() {';
+			nextPutAll: aString;
+			nextPutAll: '})() })' ].
+			
 	function := Compiler new eval: source.
-    
+	
 	^ function valueWithPossibleArguments: self context locals values
 !
 
 interpretAll: aCollection continue: aBlock
-	self 
-    	interpretAll: aCollection 
-        continue: aBlock 
-        result: OrderedCollection new
+	self
+		interpretAll: aCollection
+		continue: aBlock
+		result: OrderedCollection new
 !
 
 interpretAll: nodes continue: aBlock result: aCollection
-	nodes isEmpty 
-    	ifTrue: [ self continue: aBlock value: aCollection ]
-    	ifFalse: [
-    		self interpret: nodes first continue: [:value |
-    			self 
-                	interpretAll: nodes allButFirst 
-                    continue: aBlock
-  					result: aCollection, { value } ] ]
+	nodes isEmpty
+		ifTrue: [ self continue: aBlock value: aCollection ]
+		ifFalse: [
+			self interpret: nodes first continue: [:value |
+				self
+					interpretAll: nodes allButFirst
+					continue: aBlock
+					result: aCollection, { value } ] ]
 !
 
 messageFromSendNode: aSendNode arguments: aCollection do: aBlock
-    self 
-        continue: aBlock
-        value: (Message new
-    		selector: aSendNode selector;
-        	arguments: aCollection;
-        	yourself)
+	self
+		continue: aBlock
+		value: (Message new
+			selector: aSendNode selector;
+			arguments: aCollection;
+			yourself)
 ! !
 
 !ASTInterpreter methodsFor: 'testing'!
@@ -428,21 +428,21 @@ Use `#step` to actually interpret the next node.
 
 Usage example:
 
-    | ast interpreter |
-    ast := Smalltalk current parse: 'foo 1+2+4'.
-    (SemanticAnalyzer on: Object) visit: ast.
+	| ast interpreter |
+	ast := Smalltalk current parse: 'foo 1+2+4'.
+	(SemanticAnalyzer on: Object) visit: ast.
 
-    interpreter := ASTSteppingInterpreter new
-        interpret: ast nodes first;
-        yourself.
-        
-    debugger step; step.
-    debugger step; step.
-    debugger result."Answers 1"
-    debugger step.
-    debugger result. "Answers 3"
-    debugger step.
-    debugger result. "Answers 7"!
+	interpreter := ASTSteppingInterpreter new
+		interpret: ast nodes first;
+		yourself.
+		
+	debugger step; step.
+	debugger step; step.
+	debugger result."Answers 1"
+	debugger step.
+	debugger result. "Answers 3"
+	debugger step.
+	debugger result. "Answers 7"!
 
 !ASTSteppingInterpreter methodsFor: 'accessing'!
 
@@ -454,15 +454,15 @@ nextNode
 
 initialize
 	super initialize.
-    continuation := [  ]
+	continuation := []
 ! !
 
 !ASTSteppingInterpreter methodsFor: 'interpreting'!
 
 interpret: aNode continue: aBlock
 	nextNode := aNode.
-	continuation := [ 
-    	super interpret: aNode continue: aBlock ]
+	continuation := [
+		super interpret: aNode continue: aBlock ]
 ! !
 
 !ASTSteppingInterpreter methodsFor: 'stepping'!

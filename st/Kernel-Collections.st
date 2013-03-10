@@ -29,7 +29,7 @@ value: aValue
 
 = anAssociation
 	^self class = anAssociation class and: [
-	    self key = anAssociation key and: [
+		self key = anAssociation key and: [
 		self value = anAssociation value]]
 ! !
 
@@ -52,7 +52,7 @@ storeOn: aStream
 !Association class methodsFor: 'instance creation'!
 
 key: aKey value: aValue
-	    ^self new
+		^self new
 		key: aKey;
 		value: aValue;
 		yourself
@@ -68,7 +68,7 @@ I provide a set of useful methods to the Collectiohn hierarchy such as enumerati
 
 !Collection methodsFor: 'accessing'!
 
-occurrencesOf: anObject 
+occurrencesOf: anObject
 	"Answer how many of the receiver's elements are equal to anObject."
 
 	| tally |
@@ -105,16 +105,16 @@ add: anObject
 
 addAll: aCollection
 	aCollection do: [:each |
-	    self add: each].
+		self add: each].
 	^aCollection
 !
 
 remove: anObject
-    ^self remove: anObject ifAbsent: [self errorNotFound]
+	^self remove: anObject ifAbsent: [self errorNotFound]
 !
 
 remove: anObject ifAbsent: aBlock
-    self subclassResponsibility
+	self subclassResponsibility
 ! !
 
 !Collection methodsFor: 'converting'!
@@ -138,9 +138,9 @@ asSet
 !Collection methodsFor: 'copying'!
 
 , aCollection
-	^self copy 
-	    addAll: aCollection; 
-	    yourself
+	^self copy
+		addAll: aCollection;
+		yourself
 !
 
 copyWith: anObject
@@ -152,7 +152,7 @@ copyWithAll: aCollection
 !
 
 copyWithoutAll: aCollection
-	"Answer a copy of the receiver that does not contain any elements 
+	"Answer a copy of the receiver that does not contain any elements
 	equal to those in aCollection."
 
 	^ self reject: [:each | aCollection includes: each]
@@ -184,15 +184,15 @@ do: aBlock separatedBy: anotherBlock
 	| actionBeforeElement |
 	actionBeforeElement := [actionBeforeElement := anotherBlock].
 	self do: [:each |
-    	actionBeforeElement value.
-	    aBlock value: each]
+		actionBeforeElement value.
+		aBlock value: each]
 !
 
 inject: anObject into: aBlock
 	| result |
 	result := anObject.
-	self do: [:each | 
-	    result := aBlock value: result value: each].
+	self do: [:each |
+		result := aBlock value: result value: each].
 	^result
 !
 
@@ -206,7 +206,7 @@ intersection: aCollection
 	
 	aCollection do: [ :each |
 		((set includes: each) and: [(outputSet includes: each) not])
-			ifTrue: [ 
+			ifTrue: [
 				outputSet add: each]].
 		
 	^ self class withAll: outputSet asArray
@@ -220,7 +220,7 @@ select: aBlock
 	| stream |
 	stream := self class new writeStream.
 	self do: [:each |
-	    (aBlock value: each) ifTrue: [
+		(aBlock value: each) ifTrue: [
 		stream nextPut: each]].
 	^stream contents
 ! !
@@ -246,9 +246,9 @@ printString
 !Collection methodsFor: 'testing'!
 
 ifEmpty: aBlock
-	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs: 
+	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs:
 		(myProtocol ifEmpty: ['As yet unclassified'])"
-	^ self isEmpty 
+	^ self isEmpty
 		ifTrue: [ aBlock value ]
 		ifFalse: [ self ]
 !
@@ -259,8 +259,8 @@ ifNotEmpty: aBlock
 
 includes: anObject
 	| sentinel |
-    sentinel := Object new.
-    ^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
+	sentinel := Object new.
+	^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
 !
 
 isEmpty
@@ -274,7 +274,7 @@ notEmpty
 !Collection class methodsFor: 'accessing'!
 
 streamClass
-	    ^Stream
+		^Stream
 ! !
 
 !Collection class methodsFor: 'instance creation'!
@@ -284,20 +284,20 @@ new: anInteger
 !
 
 with: anObject
-	    ^self new
+		^self new
 		add: anObject;
 		yourself
 !
 
 with: anObject with: anotherObject
-	    ^self new
+		^self new
 		add: anObject;
 		add: anotherObject;
 		yourself
 !
 
 with: firstObject with: secondObject with: thirdObject
-	    ^self new
+		^self new
 		add: firstObject;
 		add: secondObject;
 		add: thirdObject;
@@ -305,7 +305,7 @@ with: firstObject with: secondObject with: thirdObject
 !
 
 withAll: aCollection
-	    ^self new
+		^self new
 		addAll: aCollection;
 		yourself
 ! !
@@ -323,31 +323,31 @@ it is an IndexableCollection.!
 !IndexableCollection methodsFor: 'accessing'!
 
 at: anIndex
-	"Lookup the given index in the receiver. 
-	If it is present, answer the value stored at anIndex. 
+	"Lookup the given index in the receiver.
+	If it is present, answer the value stored at anIndex.
 	Otherwise, raise an error."
 
 	^self at: anIndex ifAbsent: [ self errorNotFound ]
 !
 
 at: anIndex ifAbsent: aBlock
-	"Lookup the given index in the receiver. 
-	If it is present, answer the value stored at anIndex. 
+	"Lookup the given index in the receiver.
+	If it is present, answer the value stored at anIndex.
 	Otherwise, answer the value of aBlock."
 
 	self subclassReponsibility
 !
 
 at: anIndex ifPresent: aBlock
-	"Lookup the given index in the receiver. 
-	If it is present, answer the value of evaluating aBlock with the value stored at anIndex. 
+	"Lookup the given index in the receiver.
+	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
 	Otherwise, answer nil."
 
 	^self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
-	"Lookup the given index in the receiver. 
+	"Lookup the given index in the receiver.
 	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
 	Otherwise, answer the value of anotherBlock."
 
@@ -404,7 +404,7 @@ Unlike a `Dictionary`, it can only have strings as keys.!
 associations
 	| associations |
 	associations := #().
-	self associationsDo: [:each |  associations add: each].
+	self associationsDo: [:each | associations add: each].
 	^associations
 !
 
@@ -416,12 +416,12 @@ at: aKey ifAbsent: aBlock
 
 at: aKey ifAbsentPut: aBlock
 	^self at: aKey ifAbsent: [
-	    self at: aKey put: aBlock value]
+		self at: aKey put: aBlock value]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
-	"Lookup the given key in the receiver. 
-	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key, 
+	"Lookup the given key in the receiver.
+	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,
 	otherwise answer the value of absentBlock."
 	^(self includesKey: aKey)
 		ifTrue: [ aBlock value: (self at: aKey) ]
@@ -470,15 +470,15 @@ addAll: aHashedCollection
 !
 
 remove: aKey ifAbsent: aBlock
-    ^self removeKey: aKey ifAbsent: aBlock
+	^self removeKey: aKey ifAbsent: aBlock
 !
 
 removeKey: aKey
-    ^self remove: aKey
+	^self remove: aKey
 !
 
 removeKey: aKey ifAbsent: aBlock
-	^(self includesKey: aKey) 
+	^(self includesKey: aKey)
 		ifFalse: [aBlock value]
 		ifTrue: [self basicDelete: aKey]
 ! !
@@ -515,7 +515,7 @@ deepCopy
 	| copy |
 	copy := self class new.
 	self keysAndValuesDo: [:key :value |
-	    copy at: key  put: value deepCopy].
+		copy at: key put: value deepCopy].
 	^copy
 !
 
@@ -523,7 +523,7 @@ shallowCopy
 	| copy |
 	copy := self class new.
 	self keysAndValuesDo: [:key :value |
-	    copy at: key  put: value].
+		copy at: key put: value].
 	^copy
 ! !
 
@@ -531,14 +531,14 @@ shallowCopy
 
 associationsDo: aBlock
 	self keysAndValuesDo: [:key :value |
-	    aBlock value: (Association key: key value: value)]
+		aBlock value: (Association key: key value: value)]
 !
 
 collect: aBlock
 	| newDict |
 	newDict := self class new.
 	self keysAndValuesDo: [:key :value |
-	    newDict at: key put: (aBlock value: value)].
+		newDict at: key put: (aBlock value: value)].
 	^newDict
 !
 
@@ -556,7 +556,7 @@ includes: anObject
 
 keysAndValuesDo: aBlock
 	self keysDo: [:each |
-	    aBlock value: each value: (self at: each)]
+		aBlock value: each value: (self at: each)]
 !
 
 keysDo: aBlock
@@ -567,7 +567,7 @@ select: aBlock
 	| newDict |
 	newDict := self class new.
 	self keysAndValuesDo: [:key :value |
-	    (aBlock value: value) ifTrue: [newDict at: key put: value]].
+		(aBlock value: value) ifTrue: [newDict at: key put: value]].
 	^newDict
 !
 
@@ -618,8 +618,8 @@ HashedCollection subclass: #Dictionary
 	instanceVariableNames: 'keys values'
 	package: 'Kernel-Collections'!
 !Dictionary commentStamp!
-I represent a set of elements that can be viewed from one of two perspectives: a set of associations, 
-or a container of values that are externally named where the name can be any object that responds to `=`. 
+I represent a set of elements that can be viewed from one of two perspectives: a set of associations,
+or a container of values that are externally named where the name can be any object that responds to `=`.
 
 The external name is referred to as the key.!
 
@@ -648,8 +648,8 @@ at: aKey put: aValue
 indexOf: anObject ifAbsent: aBlock
 
 	| index |
-    index := values indexOf: anObject ifAbsent: [0].
-    ^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
+	index := values indexOf: anObject ifAbsent: [0].
+	^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
 !
 
 keys
@@ -776,7 +776,7 @@ indexOf: anObject ifAbsent: aBlock
 
 indexOf: anObject startingAt: start
 	"Answer the index of the first occurence of anElement after start
-	within the receiver. If the receiver does not contain anElement, 
+	within the receiver. If the receiver does not contain anElement,
 	answer 0."
 	^self indexOf: anObject startingAt: start ifAbsent: [0]
 !
@@ -818,7 +818,7 @@ removeLast
 	(self class = aCollection class and: [
 		self size = aCollection size]) ifFalse: [^false].
 	self withIndexDo: [:each :i |
-                 (aCollection at: i) = each ifFalse: [^false]].
+				 (aCollection at: i) = each ifFalse: [^false]].
 	^true
 ! !
 
@@ -835,14 +835,14 @@ copyFrom: anIndex to: anotherIndex
 	range := anIndex to: anotherIndex.
 	newCollection := self class new: range size.
 	range withIndexDo: [:each :i |
-	    newCollection at: i put: (self at: each)].
+		newCollection at: i put: (self at: each)].
 	^newCollection
 !
 
 deepCopy
 	| newCollection |
 	newCollection := self class new: self size.
-	self withIndexDo: [:each :index | 
+	self withIndexDo: [:each :index |
 		newCollection at: index put: each deepCopy].
 	^newCollection
 !
@@ -850,7 +850,7 @@ deepCopy
 shallowCopy
 	| newCollection |
 	newCollection := self class new: self size.
-	self withIndexDo: [ :each :index | 
+	self withIndexDo: [ :each :index |
 		newCollection at: index put: each].
 	^newCollection
 ! !
@@ -922,7 +922,7 @@ remove: anObject ifAbsent: aBlock
 				return self;
 			}
 		};
-        aBlock._value();
+		aBlock._value();
 	>
 !
 
@@ -933,7 +933,7 @@ removeFrom: aNumber to: anotherNumber
 !Array methodsFor: 'converting'!
 
 asJavascript
-	^'[', ((self collect: [:each | each asJavascript]) join: ', '),  ']'
+	^'[', ((self collect: [:each | each asJavascript]) join: ', '),	 ']'
 !
 
 reversed
@@ -947,7 +947,7 @@ join: aString
 !
 
 sort
-    ^self basicPerform: 'sort'
+	^self basicPerform: 'sort'
 !
 
 sort: aBlock
@@ -973,20 +973,20 @@ new: anInteger
 !
 
 with: anObject
-	    ^(self new: 1)
+		^(self new: 1)
 		at: 1 put: anObject;
 		yourself
 !
 
 with: anObject with: anObject2
-	    ^(self new: 2)
+		^(self new: 2)
 		at: 1 put: anObject;
 		at: 2 put: anObject2;
 		yourself
 !
 
 with: anObject with: anObject2 with: anObject3
-	    ^(self new: 3)
+		^(self new: 3)
 		at: 1 put: anObject;
 		at: 2 put: anObject2;
 		at: 3 put: anObject3;
@@ -997,7 +997,7 @@ withAll: aCollection
 	| instance index |
 	index := 1.
 	instance := self new: aCollection size.
-	aCollection do: [:each  |
+	aCollection do: [:each	|
 		instance at: index put: each.
 		index := index + 1].
 	^instance
@@ -1114,11 +1114,11 @@ unescaped
 
 = aString
 	<
-    	if(!! aString._isString || !! aString._isString()) {
-        	return false;
-        }
-    	return String(self) === String(aString)
-    >
+		if(!! aString._isString || !! aString._isString()) {
+			return false;
+		}
+		return String(self) === String(aString)
+	>
 !
 
 == aString
@@ -1233,7 +1233,7 @@ match: aRegexp
 !
 
 matchesOf: aRegularExpression
-      <return self.match(aRegularExpression)>
+	<return self.match(aRegularExpression)>
 !
 
 replace: aString with: anotherString
@@ -1273,10 +1273,10 @@ trimRight: separators
 
 !String methodsFor: 'split join'!
 
-join: aCollection 
+join: aCollection
 	^ String
 		streamContents: [:stream | aCollection
-				do: [:each | stream nextPutAll: each asString] 
+				do: [:each | stream nextPutAll: each asString]
 				separatedBy: [stream nextPutAll: self]]
 !
 
@@ -1371,7 +1371,7 @@ space
 !
 
 streamClass
-	    ^StringStream
+		^StringStream
 !
 
 tab
@@ -1385,7 +1385,7 @@ fromCharCode: anInteger
 !
 
 fromString: aString
-	    <return new self.fn(aString)>
+		<return new self.fn(aString)>
 !
 
 streamContents: blockWithArg
@@ -1404,7 +1404,7 @@ CharacterArray subclass: #Symbol
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !Symbol commentStamp!
-I represent Strings that are created uniquely. 
+I represent Strings that are created uniquely.
 Symbols are unique through the system.
 
 Thus, someString asSymbol == someString asSymbol.!
@@ -1506,7 +1506,7 @@ withIndexDo: aBlock
 
 !Symbol methodsFor: 'evaluating'!
 
-value: anObject 
+value: anObject
 	^anObject perform: self
 ! !
 
@@ -1569,7 +1569,7 @@ remove: anObject
 
 = aCollection
 	self class = aCollection class ifFalse: [ ^ false ].
-    self size = aCollection size ifFalse: [ ^ false ].
+	self size = aCollection size ifFalse: [ ^ false ].
 	self do: [:each | (aCollection includes: each) ifFalse: [ ^ false ] ].
 	^ true
 ! !
@@ -1596,7 +1596,7 @@ do: aBlock
 
 select: aBlock
 	| collection |
-	collection := self class new. 
+	collection := self class new.
 	self do: [:each |
 		(aBlock value: each) ifTrue: [
 			collection add: each]].
@@ -1637,7 +1637,7 @@ back: anObject
 !
 
 front
-    ^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
+	^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
 !
 
 frontIfAbsent: aBlock
@@ -1646,13 +1646,13 @@ frontIfAbsent: aBlock
 		write isEmpty ifTrue: [
 			readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].
 			^aBlock value ].
-    	read := write.
-    	readIndex := 1.
-    	write := OrderedCollection new.
-    	read first ].
-    read at: readIndex put: nil.
-    readIndex := readIndex + 1.
-    ^result
+		read := write.
+		readIndex := 1.
+		write := OrderedCollection new.
+		read first ].
+	read at: readIndex put: nil.
+	readIndex := readIndex + 1.
+	^result
 ! !
 
 !Queue methodsFor: 'initialization'!
@@ -1660,8 +1660,8 @@ frontIfAbsent: aBlock
 initialize
 	super initialize.
 	read := OrderedCollection new.
-    write := OrderedCollection new.
-    readIndex := 1
+	write := OrderedCollection new.
+	readIndex := 1
 ! !
 
 Object subclass: #RegularExpression
@@ -1687,7 +1687,7 @@ test: aString
 !RegularExpression class methodsFor: 'instance creation'!
 
 fromString: aString
-	    ^self fromString: aString flag: ''
+		^self fromString: aString flag: ''
 !
 
 fromString: aString flag: anotherString
@@ -1709,8 +1709,8 @@ collection
 
 contents
 	^self collection
-	    copyFrom: 1 
-	    to: self streamSize
+		copyFrom: 1
+		to: self streamSize
 !
 
 position
@@ -1773,10 +1773,10 @@ skip: anInteger
 !Stream methodsFor: 'reading'!
 
 next
-	^self atEnd 
+	^self atEnd
 		ifTrue: [nil]
 		ifFalse: [
-			self position: self position + 1. 
+			self position: self position + 1.
 			collection at: self position]
 !
 
@@ -1784,14 +1784,14 @@ next: anInteger
 	| tempCollection |
 	tempCollection := self collection class new.
 	anInteger timesRepeat: [
-	    self atEnd ifFalse: [
+		self atEnd ifFalse: [
 		tempCollection add: self next]].
 	^tempCollection
 !
 
 peek
 	^self atEnd ifFalse: [
-	    self collection at: self position + 1]
+		self collection at: self position + 1]
 ! !
 
 !Stream methodsFor: 'testing'!
@@ -1818,13 +1818,13 @@ nextPut: anObject
 
 nextPutAll: aCollection
 	aCollection do: [:each |
-	    self nextPut: each]
+		self nextPut: each]
 ! !
 
 !Stream class methodsFor: 'instance creation'!
 
 on: aCollection
-	    ^self new 
+		^self new
 		setCollection: aCollection;
 		setStreamSize: aCollection size;
 		yourself
@@ -1842,7 +1842,7 @@ next: anInteger
 	| tempCollection |
 	tempCollection := self collection class new.
 	anInteger timesRepeat: [
-	    self atEnd ifFalse: [
+		self atEnd ifFalse: [
 		tempCollection := tempCollection, self next]].
 	^tempCollection
 ! !
@@ -1866,10 +1866,10 @@ nextPut: aString
 !
 
 nextPutAll: aString
-	self setCollection: 
-	    (self collection copyFrom: 1 to: self position),
-	    aString,
-	    (self collection copyFrom: (self position + 1 + aString size) to: self collection size).
+	self setCollection:
+		(self collection copyFrom: 1 to: self position),
+		aString,
+		(self collection copyFrom: (self position + 1 + aString size) to: self collection size).
 	self position: self position + aString size.
 	self setStreamSize: (self streamSize max: self position)
 !

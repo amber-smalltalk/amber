@@ -24,13 +24,13 @@ nextChunk
 
 	| char result chunk |
 	result := '' writeStream.
-        [char := stream next.
-        char notNil] whileTrue: [
-                 char = '!!' ifTrue: [
-                         stream peek = '!!'
-                                ifTrue: [stream next "skipping the escape double"]
-                                ifFalse: [^result contents trimBoth  "chunk end marker found"]].
-                 result nextPut: char].
+		[char := stream next.
+		char notNil] whileTrue: [
+				 char = '!!' ifTrue: [
+						 stream peek = '!!'
+								ifTrue: [stream next "skipping the escape double"]
+								ifFalse: [^result contents trimBoth	 "chunk end marker found"]].
+				 result nextPut: char].
 	^nil "a chunk needs to end with !!"
 ! !
 
@@ -47,10 +47,10 @@ Object subclass: #Exporter
 !Exporter methodsFor: 'fileOut'!
 
 exportAll
-    "Export all packages in the system."
+	"Export all packages in the system."
 
-    ^String streamContents: [:stream |
-    	Smalltalk current packages do: [:pkg |
+	^String streamContents: [:stream |
+		Smalltalk current packages do: [:pkg |
 		stream nextPutAll: (self exportPackage: pkg name)]]
 !
 
@@ -69,13 +69,13 @@ exportPackage: packageName
 
 	| package |
 	^String streamContents: [:stream |
-                package := Smalltalk current packageAt: packageName.
-                self exportPackageDefinitionOf: package on: stream.
+				package := Smalltalk current packageAt: packageName.
+				self exportPackageDefinitionOf: package on: stream.
 
 		"Export classes in dependency order.
 		Update (issue #171): Remove duplicates for export"
-	    	package sortedClasses asSet do: [:each |
-                        stream nextPutAll: (self exportClass: each)].
+			package sortedClasses asSet do: [:each |
+						stream nextPutAll: (self exportClass: each)].
 		self exportPackageExtensionsOf: package on: stream]
 ! !
 
@@ -83,29 +83,29 @@ exportPackage: packageName
 
 classNameFor: aClass
 	^aClass isMetaclass
-	    ifTrue: [aClass instanceClass name, '.klass']
-	    ifFalse: [
+		ifTrue: [aClass instanceClass name, '.klass']
+		ifFalse: [
 		aClass isNil
-		    ifTrue: ['nil']
-		    ifFalse: [aClass name]]
+			ifTrue: ['nil']
+			ifFalse: [aClass name]]
 !
 
 exportDefinitionOf: aClass on: aStream
-	aStream 
-	    nextPutAll: 'smalltalk.addClass(';
-	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
-	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
-	    nextPutAll: ', ['.
-	aClass instanceVariableNames 
-	    do: [:each | aStream nextPutAll: '''', each, '''']
-	    separatedBy: [aStream nextPutAll: ', '].
-	aStream	
-	    nextPutAll: '], ''';
-	    nextPutAll: aClass category, '''';
-	    nextPutAll: ');'.
+	aStream
+		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '''', (self classNameFor: aClass), ''', ';
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: ', ['.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ', '].
+	aStream
+		nextPutAll: '], ''';
+		nextPutAll: aClass category, '''';
+		nextPutAll: ');'.
 	aClass comment notEmpty ifTrue: [
-	    aStream 
-	    	lf;
+		aStream
+			lf;
 		nextPutAll: 'smalltalk.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
@@ -115,17 +115,17 @@ exportDefinitionOf: aClass on: aStream
 
 exportMetaDefinitionOf: aClass on: aStream
 	aClass class instanceVariableNames isEmpty ifFalse: [
-	    aStream 
+		aStream
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
 		nextPutAll: '.iVarNames = ['.
-	    aClass class instanceVariableNames
+		aClass class instanceVariableNames
 		do: [:each | aStream nextPutAll: '''', each, '''']
 		separatedBy: [aStream nextPutAll: ','].
-	    aStream nextPutAll: '];', String lf]
+		aStream nextPutAll: '];', String lf]
 !
 
 exportMethod: aMethod of: aClass on: aStream
-	aStream 
+	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
 		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
@@ -153,10 +153,10 @@ exportMethodsOf: aClass on: aStream
 !
 
 exportPackageDefinitionOf: package on: aStream
-	aStream 
-	    nextPutAll: 'smalltalk.addPackage(';
-	    nextPutAll: '''', package name, ''');';
-        lf
+	aStream
+		nextPutAll: 'smalltalk.addPackage(';
+		nextPutAll: '''', package name, ''');';
+		lf
 !
 
 exportPackageExtensionsOf: package on: aStream
@@ -165,7 +165,7 @@ exportPackageExtensionsOf: package on: aStream
 	| name |
 	name := package name.
 	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass | 
+		{each. each class} do: [:aClass |
 			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
 				(method category match: '^\*', name) ifTrue: [
 					self exportMethod: method of: aClass on: aStream ]]]]
@@ -185,48 +185,48 @@ chunkEscape: aString
 
 classNameFor: aClass
 	^aClass isMetaclass
-	    ifTrue: [aClass instanceClass name, ' class']
-	    ifFalse: [
+		ifTrue: [aClass instanceClass name, ' class']
+		ifFalse: [
 		aClass isNil
-		    ifTrue: ['nil']
-		    ifFalse: [aClass name]]
+			ifTrue: ['nil']
+			ifFalse: [aClass name]]
 !
 
 exportDefinitionOf: aClass on: aStream
-    "Chunk format."
+	"Chunk format."
 
-    aStream 
-        nextPutAll: (self classNameFor: aClass superclass);
-        nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
-        nextPutAll: '	instanceVariableNames: '''.
-    aClass instanceVariableNames 
-        do: [:each | aStream nextPutAll: each]
-        separatedBy: [aStream nextPutAll: ' '].
-    aStream 
-        nextPutAll: ''''; lf;
-        nextPutAll: '	package: ''', aClass category, '''!!'; lf.
-    aClass comment notEmpty ifTrue: [
-        aStream 
-        nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
-        nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
-    aStream lf
+	aStream
+		nextPutAll: (self classNameFor: aClass superclass);
+		nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+		nextPutAll: '	instanceVariableNames: '''.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: each]
+		separatedBy: [aStream nextPutAll: ' '].
+	aStream
+		nextPutAll: ''''; lf;
+		nextPutAll: '	package: ''', aClass category, '''!!'; lf.
+	aClass comment notEmpty ifTrue: [
+		aStream
+		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+	aStream lf
 !
 
 exportMetaDefinitionOf: aClass on: aStream
 
 	aClass class instanceVariableNames isEmpty ifFalse: [
-		aStream 
-		    nextPutAll: (self classNameFor: aClass class);
-		    nextPutAll: ' instanceVariableNames: '''.
-		aClass class instanceVariableNames 
-		    do: [:each | aStream nextPutAll: each]
-		    separatedBy: [aStream nextPutAll: ' '].
-		aStream	
-		    nextPutAll: '''!!'; lf; lf]
+		aStream
+			nextPutAll: (self classNameFor: aClass class);
+			nextPutAll: ' instanceVariableNames: '''.
+		aClass class instanceVariableNames
+			do: [:each | aStream nextPutAll: each]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream
+			nextPutAll: '''!!'; lf; lf]
 !
 
 exportMethod: aMethod of: aClass on: aStream
-	aStream 
+	aStream
 		lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;
 		nextPutAll: '!!'
 !
@@ -247,7 +247,7 @@ exportMethodsOf: aClass on: aStream
 
 	| map |
 	map := Dictionary new.
-	aClass protocolsDo: [:category :methods | 
+	aClass protocolsDo: [:category :methods |
 		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
 	(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 		methods := map at: category.
@@ -261,7 +261,7 @@ exportMethodsOf: aClass on: aStream
 exportPackageDefinitionOf: package on: aStream
 	"Chunk format."
 
-	aStream 
+	aStream
 		nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!!';
 		lf
 !
@@ -278,7 +278,7 @@ exportPackageExtensionsOf: package on: aStream
 	(Package sortedClasses: Smalltalk current classes) do: [:each |
 		{each. each class} do: [:aClass |
 			map := Dictionary new.
-			aClass protocolsDo: [:category :methods | 
+			aClass protocolsDo: [:category :methods |
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 				methods := map at: category.	
@@ -292,23 +292,23 @@ Exporter subclass: #StrippedExporter
 !StrippedExporter methodsFor: 'private'!
 
 exportDefinitionOf: aClass on: aStream
-	aStream 
-	    nextPutAll: 'smalltalk.addClass(';
-	    nextPutAll: '''', (self classNameFor: aClass), ''', ';
-	    nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
-	    nextPutAll: ', ['.
-	aClass instanceVariableNames 
-	    do: [:each | aStream nextPutAll: '''', each, '''']
-	    separatedBy: [aStream nextPutAll: ', '].
-	aStream	
-	    nextPutAll: '], ''';
-	    nextPutAll: aClass category, '''';
-	    nextPutAll: ');'.
+	aStream
+		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '''', (self classNameFor: aClass), ''', ';
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: ', ['.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ', '].
+	aStream
+		nextPutAll: '], ''';
+		nextPutAll: aClass category, '''';
+		nextPutAll: ');'.
 	aStream lf
 !
 
 exportMethod: aMethod of: aClass on: aStream
-	aStream 
+	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
 		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
 		nextPutAll: 'smalltalk.method({';lf;
@@ -327,19 +327,19 @@ Object subclass: #Importer
 !Importer methodsFor: 'fileIn'!
 
 import: aStream
-    | chunk result parser lastEmpty |
-    parser := ChunkParser on: aStream.
-    lastEmpty := false.
-    [chunk := parser nextChunk.
-     chunk isNil] whileFalse: [
-        chunk isEmpty
-       		ifTrue: [lastEmpty := true]
-       		ifFalse: [
-        		result := Compiler new evaluateExpression: chunk.
-        		lastEmpty 
-            			ifTrue: [
-                                  	lastEmpty := false.
-                                  	result scanFrom: parser]]]
+	| chunk result parser lastEmpty |
+	parser := ChunkParser on: aStream.
+	lastEmpty := false.
+	[chunk := parser nextChunk.
+	 chunk isNil] whileFalse: [
+		chunk isEmpty
+			ifTrue: [lastEmpty := true]
+			ifFalse: [
+				result := Compiler new evaluateExpression: chunk.
+				lastEmpty
+						ifTrue: [
+									lastEmpty := false.
+									result scanFrom: parser]]]
 ! !
 
 Object subclass: #PackageLoader
@@ -350,30 +350,30 @@ Object subclass: #PackageLoader
 
 initializePackageNamed: packageName prefix: aString
 
-	(Package named: packageName) 
-    	setupClasses;
-        commitPathJs: '/', aString, '/js';
-        commitPathSt: '/', aString, '/st'
+	(Package named: packageName)
+		setupClasses;
+		commitPathJs: '/', aString, '/js';
+		commitPathSt: '/', aString, '/st'
 !
 
 loadPackage: packageName prefix: aString	
 	| url |
-    url := '/', aString, '/js/', packageName, '.js'.
-	jQuery 
+	url := '/', aString, '/js/', packageName, '.js'.
+	jQuery
 		ajax: url
-        options: #{
+		options: #{
 			'type' -> 'GET'.
 			'dataType' -> 'script'.
-    		'complete' -> [ :jqXHR :textStatus | 
-				jqXHR readyState = 4 
-                	ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
-			'error' -> [ window alert: 'Could not load package at:  ', url ]
+			'complete' -> [ :jqXHR :textStatus |
+				jqXHR readyState = 4
+					ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
+			'error' -> [ window alert: 'Could not load package at:	', url ]
 		}
 !
 
 loadPackages: aCollection prefix: aString
 	aCollection do: [ :each |
-    	self loadPackage: each prefix: aString ]
+		self loadPackage: each prefix: aString ]
 ! !
 
 !PackageLoader class methodsFor: 'not yet classified'!

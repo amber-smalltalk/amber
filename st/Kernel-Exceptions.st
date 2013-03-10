@@ -5,10 +5,10 @@ Object subclass: #Error
 !Error commentStamp!
 From the ANSI standard:
 
-This protocol describes the behavior of instances of class `Error`. 
-These are used to represent error conditions that prevent the normal continuation of processing. 
+This protocol describes the behavior of instances of class `Error`.
+These are used to represent error conditions that prevent the normal continuation of processing.
 Actual error exceptions used by an application may be subclasses of this class.
-As `Error` is explicitly specified  to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.!
+As `Error` is explicitly specified	to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.!
 
 !Error methodsFor: 'accessing'!
 
@@ -58,7 +58,7 @@ signal
 !
 
 signal: aString
-	    ^self new
+		^self new
 		signal: aString
 ! !
 
@@ -73,9 +73,9 @@ See `boot.js` `inContext()` and `BlockClosure >> on:do:`!
 
 context: aMethodContext
 	"Set the context from the outside.
-    See boot.js `inContext()` exception handling"
-    
-    <self.context = aMethodContext>
+	See boot.js `inContext()` exception handling"
+	
+	<self.context = aMethodContext>
 !
 
 exception
@@ -94,15 +94,15 @@ messageText
 
 on: anException
 	^ self new
-    	exception: anException;
-        yourself
+		exception: anException;
+		yourself
 !
 
 on: anException context: aMethodContext
 	^ self new
-    	exception: anException;
-        context: aMethodContext;
-        yourself
+		exception: anException;
+		context: aMethodContext;
+		yourself
 ! !
 
 Error subclass: #MessageNotUnderstood
@@ -153,7 +153,7 @@ Object subclass: #ErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Exceptions'!
 !ErrorHandler commentStamp!
-ErrorHandler is used to manage Smalltalk errors. 
+ErrorHandler is used to manage Smalltalk errors.
 See `boot.js` `handleError()` function.
 
 Subclasses of `ErrorHandler` can register themselves as the current handler with

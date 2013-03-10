@@ -13,37 +13,37 @@ interpreter
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
-    ^ aNode
+	^ aNode
 !
 
 interpret: aString
-	^ self 
-    	interpret: aString 
-        withArguments: Dictionary new
+	^ self
+		interpret: aString
+		withArguments: Dictionary new
 !
 
 interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
-    
-    | ctx |
-    
-    ctx := AIContext new.
-    ctx receiver: anObject.
-    aDictionary keysAndValuesDo: [ :key :value |
-    	ctx localAt: key put: value ].
-    
-    ^ self interpreter
-    	context: ctx;
-    	interpret: (self parse: aString forClass: anObject class) 
-        	nodes first;
-        result
+	
+	| ctx |
+	
+	ctx := AIContext new.
+	ctx receiver: anObject.
+	aDictionary keysAndValuesDo: [ :key :value |
+		ctx localAt: key put: value ].
+	
+	^ self interpreter
+		context: ctx;
+		interpret: (self parse: aString forClass: anObject class)
+			nodes first;
+		result
 !
 
 interpret: aString withArguments: aDictionary
-	^ self 
-    	interpret: aString 
-        receiver: Object new
-        withArguments: aDictionary
+	^ self
+		interpret: aString
+		receiver: Object new
+		withArguments: aDictionary
 ! !
 
 !AbstractASTInterpreterTest methodsFor: 'parsing'!
@@ -74,8 +74,8 @@ testBinarySend
 
 testBlockLiteral
 	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
-    self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
-    self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
+	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
+	self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
 !
 
 testCascade
@@ -92,30 +92,30 @@ testDynamicDictionary
 
 testInlinedJSStatement
 	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
-    
-    self 
-    	assert: (self 
-    		interpret: 'foo: anInteger <return 2 + anInteger>' 
-        	withArguments: #{ 'anInteger' -> 3}) 
+	
+	self
+		assert: (self
+			interpret: 'foo: anInteger <return 2 + anInteger>'
+			withArguments: #{ 'anInteger' -> 3})
 		equals: 5
 !
 
 testInstVarAccess
-	self 
-    	assert: (self 
-    		interpret: 'foo ^ x'
-        	receiver: 2@3
-        	withArguments: #{})
-        equals: 2
+	self
+		assert: (self
+			interpret: 'foo ^ x'
+			receiver: 2@3
+			withArguments: #{})
+		equals: 2
 !
 
 testInstVarAssignment
-	self 
-    	assert: (self 
-    		interpret: 'foo: anInteger x := anInteger. ^ x'
-        	receiver: Point new
-        	withArguments: #{'anInteger' -> 2})
-        equals: 2
+	self
+		assert: (self
+			interpret: 'foo: anInteger x := anInteger. ^ x'
+			receiver: Point new
+			withArguments: #{'anInteger' -> 2})
+		equals: 2
 !
 
 testNonlocalReturn
@@ -123,12 +123,12 @@ testNonlocalReturn
 !
 
 testReceiver
-	self 
-    	assert: (self 
-    		interpret: 'foo ^ self'
-        	receiver: 2@3
-        	withArguments: #{})
-        equals: 2@3
+	self
+		assert: (self
+			interpret: 'foo ^ self'
+			receiver: 2@3
+			withArguments: #{})
+		equals: 2@3
 !
 
 testTempAssignment
@@ -149,55 +149,55 @@ interpreter
 
 testAtEnd
 	self interpret: 'foo 1 + 2'.
-    self deny: self interpreter atEnd.
+	self deny: self interpreter atEnd.
 
-    self interpreter step.
-    self deny: self interpreter atEnd.
-    
-    self interpreter step.
-    self deny: self interpreter atEnd.
-    
-    self interpreter step.
-    self deny: self interpreter atEnd.
-    
-    self interpreter step.
-    self assert: self interpreter atEnd
+	self interpreter step.
+	self deny: self interpreter atEnd.
+	
+	self interpreter step.
+	self deny: self interpreter atEnd.
+	
+	self interpreter step.
+	self deny: self interpreter atEnd.
+	
+	self interpreter step.
+	self assert: self interpreter atEnd
 !
 
 testMessageSend
 	self interpret: 'foo 1 + 2'.
-    
-    "SequenceNode"
-    self interpreter step.
-    
-    "SendNode"
-    self interpreter step.
-    
-     "ValueNode"
-    self interpreter step.
-    self assert: self interpreter currentNode value equals: 1.
-    
-    "ValueNode"
-    self interpreter step.
-    self assert: self interpreter currentNode value equals: 2.
-    
-    "Result"
-    self interpreter step.
-    self assert: self interpreter result equals: 3
+	
+	"SequenceNode"
+	self interpreter step.
+	
+	"SendNode"
+	self interpreter step.
+	
+	 "ValueNode"
+	self interpreter step.
+	self assert: self interpreter currentNode value equals: 1.
+	
+	"ValueNode"
+	self interpreter step.
+	self assert: self interpreter currentNode value equals: 2.
+	
+	"Result"
+	self interpreter step.
+	self assert: self interpreter result equals: 3
 !
 
 testSimpleStepping
 	self interpret: 'foo 1'.
-    
-    "SequenceNode"
-    self interpreter step.
-    
-    self assert: self interpreter result isNil.
-    
-    "ValueNode"
-    self interpreter step.
-    
-    self assert: self interpreter result equals: 1
+	
+	"SequenceNode"
+	self interpreter step.
+	
+	self assert: self interpreter result isNil.
+	
+	"ValueNode"
+	self interpreter step.
+	
+	self assert: self interpreter result equals: 1
 ! !
 
 TestCase subclass: #CodeGeneratorTest
@@ -265,40 +265,40 @@ testCascades
 
 testDynamicArrayElementsOrdered
 	self should: 'foo
-  | x |
-  x := 1.
-  ^ { x. true ifTrue: [ x := 2 ] }
+	| x |
+	x := 1.
+	^ { x. true ifTrue: [ x := 2 ] }
 ' return: #(1 2).
 !
 
 testDynamicDictionaryElementsOrdered
 	self should: 'foo
-  | x |
-  x := ''foo''->1.
-  ^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }
+	| x |
+	x := ''foo''->1.
+	^ #{ x. (true ifTrue: [ x := ''bar''->2 ]) }
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
 testInnerTemporalDependentElementsOrdered
 	self should: 'foo
-  | x |
-  x := Array.
-  ^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
+	| x |
+	x := Array.
+	^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
 ' return: {'foo'->Array. 'bar'->2}.
 	self should: 'foo
-  | x |
-  x := 1.
-  ^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
+	| x |
+	x := 1.
+	^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
 ' return: {'foo'->1. 'bar'->2}.
 	self should: 'foo
-  | x |
-  x := 1.
-  ^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
+	| x |
+	x := 1.
+	^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
 ' return: {'foo'->1. 'bar'->2}.
 	self should: 'foo
-  | x |
-  x := 1.
-  ^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
+	| x |
+	x := 1.
+	^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
@@ -349,15 +349,15 @@ testNonLocalReturn
 
 testSendReceiverAndArgumentsOrdered
 	self should: 'foo
-  | x |
-  x := 1.
-  ^ Array with: x with: (true ifTrue: [ x := 2 ])
+	| x |
+	x := 1.
+	^ Array with: x with: (true ifTrue: [ x := 2 ])
 ' return: #(1 2).
 
 	self should: 'foo
-  | x |
-  x := Array.
-  ^ x with: x with: (true ifTrue: [ x := 2 ])
+	| x |
+	x := Array.
+	^ x with: x with: (true ifTrue: [ x := 2 ])
 ' return: {Array. 2}.
 !
 

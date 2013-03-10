@@ -27,11 +27,11 @@ testGrow
 !
 
 testIllegal
-	self 
-		should: [empty at: 5] 
+	self
+		should: [empty at: 5]
 		raise: Error.
-	self 
-		should: [empty at: 5 put: #abc] 
+	self
+		should: [empty at: 5 put: #abc]
 		raise: Error
 !
 
@@ -62,40 +62,40 @@ TestCase subclass: #SUnitAsyncTest
 fakeError
 	flag := 'bad'.
 	self timeout: 10.
-    flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 5
+	flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 5
 !
 
 fakeErrorFailingInTearDown
 	flag := 'bad'.
 	self timeout: 10.
-    flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 5
+	flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 5
 !
 
 fakeFailure
 	flag := 'bad'.
 	self timeout: 10.
-    flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5
+	flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5
 !
 
 fakeMultipleTimeoutFailing
 	self timeout: 100.
-    (self async: [
+	(self async: [
 		self timeout: 5.
-        (self async: [ self finished ]) valueWithTimeout: 10
+		(self async: [ self finished ]) valueWithTimeout: 10
 	]) valueWithTimeout: 5
 !
 
 fakeMultipleTimeoutPassing
 	self timeout: 10.
-    (self async: [
+	(self async: [
 		self timeout: 20.
-        (self async: [ self finished ]) valueWithTimeout: 10
+		(self async: [ self finished ]) valueWithTimeout: 10
 	]) valueWithTimeout: 5
 !
 
 fakeTimeout
 	self timeout: 4.
-    (self async: [ self finished ]) valueWithTimeout: 5
+	(self async: [ self finished ]) valueWithTimeout: 5
 ! !
 
 !SUnitAsyncTest methodsFor: 'private'!
@@ -119,59 +119,59 @@ tearDown
 testAsyncErrorsAndFailures
 	| suite runner result assertBlock |
 	suite := #('fakeError' 'fakeErrorFailingInTearDown' 'fakeFailure' 'testPass') collect: [ :each | self class selector: each ].
-    runner := TestSuiteRunner on: suite.
-    self timeout: 200.
+	runner := TestSuiteRunner on: suite.
+	self timeout: 200.
 	result := runner result.
-    assertBlock := self async: [
+	assertBlock := self async: [
 		self assert: (self selectorSetOf: result errors) equals: #('fakeError') asSet.
 		self assert: (self selectorSetOf: result failures) equals: #('fakeErrorFailingInTearDown' 'fakeFailure') asSet.
 		self finished
-  	].
-    runner announcer on: ResultAnnouncement do: [:ann |
-    	ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].
+	].
+	runner announcer on: ResultAnnouncement do: [:ann |
+		ann result == result ifTrue: [ result runs = result total ifTrue: assertBlock ]].
 	runner run
 !
 
 testAsyncNeedsTimeout
-    self should: [ self async: [ ] ] raise: Error.
-    self timeout: 0.
-    self shouldnt: [ self async: [ ] ] raise: Error.
-    self finished
+	self should: [ self async: [ ] ] raise: Error.
+	self timeout: 0.
+	self shouldnt: [ self async: [ ] ] raise: Error.
+	self finished
 !
 
 testFinishedNeedsTimeout
-    self should: [ self finished ] raise: Error.
-    self timeout: 0.
-    self shouldnt: [ self finished ] raise: Error.
+	self should: [ self finished ] raise: Error.
+	self timeout: 0.
+	self shouldnt: [ self finished ] raise: Error.
 !
 
 testIsAsyncReturnsCorrectValues
-    self deny: self isAsync.
-    self timeout: 0.
-    self assert: self isAsync.
-    self finished.
-    self deny: self isAsync
+	self deny: self isAsync.
+	self timeout: 0.
+	self assert: self isAsync.
+	self finished.
+	self deny: self isAsync
 !
 
 testPass
 	flag := 'bad'.
 	self timeout: 10.
-    flag := (self async: [ self assert: true. self finished. flag := 'ok' ]) valueWithTimeout: 5
+	flag := (self async: [ self assert: true. self finished. flag := 'ok' ]) valueWithTimeout: 5
 !
 
 testTimeouts
 	| suite runner result assertBlock |
 	suite := #('fakeTimeout' 'fakeMultipleTimeoutFailing' 'fakeMultipleTimeoutPassing' 'testPass') collect: [ :each | self class selector: each ].
-    runner := TestSuiteRunner on: suite.
-    self timeout: 200.
+	runner := TestSuiteRunner on: suite.
+	self timeout: 200.
 	result := runner result.
-    assertBlock := self async: [
+	assertBlock := self async: [
 		self assert: (self selectorSetOf: result errors) equals: Set new.
 		self assert: (self selectorSetOf: result failures) equals: #('fakeMultipleTimeoutFailing' 'fakeTimeout') asSet.
 		self finished
-  	].
-    runner announcer on: ResultAnnouncement do: [:ann |
-    	ann result == result  ifTrue: [ result runs = result total ifTrue: assertBlock ]].
+	].
+	runner announcer on: ResultAnnouncement do: [:ann |
+		ann result == result ifTrue: [ result runs = result total ifTrue: assertBlock ]].
 	runner run
 !
 
@@ -179,8 +179,8 @@ testTwoAsyncPassesWithFinishedOnlyOneIsRun
 	| x |
 	flag := 'bad'.
 	self timeout: 10.
-    x := 0.
-    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
-    flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
+	x := 0.
+	flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
+	flag := (self async: [ self finished. flag := 'ok'. x := x+1. self assert: x equals: 1 ]) valueWithTimeout: 0.
 ! !
 
