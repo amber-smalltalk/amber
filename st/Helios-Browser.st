@@ -121,6 +121,17 @@ model: aBrowserModel
 !HLBrowserListWidget methodsFor: 'actions'!
 
 observeModel
+!
+
+observeSystem
+! !
+
+!HLBrowserListWidget methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    
+    self observeSystem
 ! !
 
 !HLBrowserListWidget class methodsFor: 'instance creation'!
@@ -284,11 +295,12 @@ allProtocol
 	^ self model allProtocol
 !
 
-iconForItem: aCompiledMethod
-	| override overriden |
+iconForItem: aSelector
+	| override overriden method |
     
-    override := self isOverride: aCompiledMethod.
-    overriden := self isOverridden: aCompiledMethod.
+    method := self methodForSelector: aSelector.
+    override := self isOverride: method.
+    overriden := self isOverridden: method.
     
 	^ override
     	ifTrue: [ overriden
@@ -298,6 +310,11 @@ iconForItem: aCompiledMethod
 			overriden
 			ifTrue: [ 'icon-arrow-down' ]
 			ifFalse: [ 'icon-none' ] ]
+!
+
+methodForSelector: aSelector
+	^ self model selectedClass
+    	methodDictionary at: aSelector
 !
 
 methodsInProtocol: aString
@@ -324,6 +341,11 @@ overridenSelectors
 
 selectorsCache
 	^ self class selectorsCache
+!
+
+selectorsInProtocol: aString
+	^ (self methodsInProtocol: aString)
+    	collect: [ :each | each selector ]
 ! !
 
 !HLMethodsListWidget methodsFor: 'actions'!
@@ -337,8 +359,16 @@ observeModel
     	self onMethodSelected: ann item ]
 !
 
-selectItem: aCompiledMethod
-   	self model selectedMethod: aCompiledMethod
+observeSystem
+	SystemAnnouncer current 
+    	on: MethodAdded 
+        do: [ :ann | self onMethodAdded: ann method ];
+        on: MethodRemoved 
+        do: [ :ann | self onMethodRemoved: ann method ]
+!
+
+selectItem: aSelector
+   	self model selectedMethod: (self methodForSelector: aSelector)
 ! !
 
 !HLMethodsListWidget methodsFor: 'cache'!
@@ -356,6 +386,18 @@ initialize
 
 !HLMethodsListWidget methodsFor: 'reactions'!
 
+onMethodAdded: aMethod
+	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
+    
+    self refresh
+!
+
+onMethodRemoved: aMethod
+	self items detect: [ :each | each selector = aMethod selector ] ifNone: [ ^ self ].
+    
+    self refresh
+!
+
 onMethodSelected: aMethod
 	self selectedItem: aMethod.
 	aMethod ifNil: [ ^ self ].
@@ -370,7 +412,7 @@ onProtocolSelected: aString
     	ifNil: [ #() ]
       	ifNotNil: [ aString
     		ifNil: [ #() ]
-      		ifNotNil: [ self methodsInProtocol: aString ] ]).
+      		ifNotNil: [ self selectorsInProtocol: aString ] ]).
         
     self refresh
 ! !
@@ -382,13 +424,11 @@ renderContentOn: html
     	ifFalse: [ html div 
         	class: 'class_side'; 
             with: [ super renderContentOn: html ] ]
-      	ifTrue: [ super renderContentOn: html ].
-        
-    "self flushSelectorsCache"
+      	ifTrue: [ super renderContentOn: html ]
 !
 
-renderItemLabel: aCompiledMethod on: html
-	html with: aCompiledMethod selector
+renderItemLabel: aSelector on: html
+	html with: aSelector
 ! !
 
 !HLMethodsListWidget methodsFor: 'testing'!
@@ -531,7 +571,7 @@ renderContentOn: html
 ! !
 
 Object subclass: #HLBrowserModel
-	instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedMethod showInstance showComment'
+	instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
 	package: 'Helios-Browser'!
 
 !HLBrowserModel methodsFor: 'accessing'!
@@ -574,13 +614,19 @@ selectedClass: aClass
 !
 
 selectedMethod
-	^ selectedMethod
+	^ self selectedClass
+    	ifNotNil: [ self selectedClass methodDictionary at: selectedSelector ]
 !
 
 selectedMethod: aCompiledMethod
-	selectedMethod = aCompiledMethod ifTrue: [ ^ self ].
+	selectedSelector = aCompiledMethod ifTrue: [ ^ self ].
+    
+    aCompiledMethod
+    	ifNil: [ selectedSelector := nil ]
+      	ifNotNil: [
+			selectedSelector = aCompiledMethod selector ifTrue: [ ^ self ].
+			selectedSelector := aCompiledMethod selector ].
 
-	selectedMethod := aCompiledMethod.    
     self announcer announce: (HLMethodSelected on: aCompiledMethod)
 !
 
@@ -643,7 +689,7 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLBrowserSourceWidget
-	instanceVariableNames: 'model codeWidget'
+	instanceVariableNames: 'model methodContents codeWidget'
 	package: 'Helios-Browser'!
 
 !HLBrowserSourceWidget methodsFor: 'accessing'!
@@ -653,11 +699,20 @@ codeWidget
 !
 
 contents
-	^ self sourceArea contents
+	^ self codeWidget contents
 !
 
 contents: aString
+	self methodContents: aString.
 	self codeWidget contents: aString
+!
+
+methodContents
+	^ methodContents ifNil: [ methodContents := '' ]
+!
+
+methodContents: aString
+	methodContents := aString
 !
 
 model
@@ -679,6 +734,20 @@ observeModel
     	self onClassSelected: ann item ].
     self model announcer on: HLProtocolSelected do: [ :ann |
     	self onProtocolSelected: ann item ]
+!
+
+observeSystem
+	SystemAnnouncer current
+    	on: MethodModified
+        do: [ :ann | self onMethodModified: ann method ]
+! !
+
+!HLBrowserSourceWidget methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    
+    self observeSystem
 ! !
 
 !HLBrowserSourceWidget methodsFor: 'reactions'!
@@ -687,6 +756,13 @@ onClassSelected: aClass
 	aClass ifNil: [ ^ self contents: '' ].
     
     self contents: aClass definition
+!
+
+onMethodModified: aMethod
+	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
+
+    self refresh
 !
 
 onMethodSelected: aCompiledMethod
@@ -707,6 +783,21 @@ renderContentOn: html
 	self codeWidget renderOn: html
 ! !
 
+!HLBrowserSourceWidget methodsFor: 'testing'!
+
+hasModification
+	^ (self methodContents = self contents) not
+! !
+
+!HLBrowserSourceWidget methodsFor: 'updating'!
+
+refresh
+	self hasModification ifTrue: [ ^ self ].
+    
+	self contents: self model selectedMethod source.
+    super refresh
+! !
+
 !HLBrowserSourceWidget class methodsFor: 'instance creation'!
 
 on: aBrowserModel
@@ -716,7 +807,7 @@ on: aBrowserModel
 ! !
 
 Object subclass: #HLClassCache
-	instanceVariableNames: 'class parentCache overrideCache overriddenCache'
+	instanceVariableNames: 'class selectorsCache overrideCache overriddenCache'
 	package: 'Helios-Browser'!
 
 !HLClassCache methodsFor: 'accessing'!
@@ -729,12 +820,12 @@ overrideCache
 	^ overrideCache ifNil: [ overrideCache := HashedCollection new ]
 !
 
-parentCache
-	^ parentCache
+selectorsCache
+	^ selectorsCache
 !
 
-parentCache: aCache
-	parentCache := aCache
+selectorsCache: aCache
+	selectorsCache := aCache
 !
 
 theClass
@@ -743,6 +834,40 @@ theClass
 
 theClass: aClass
 	class := aClass
+! !
+
+!HLClassCache methodsFor: 'actions'!
+
+invalidateChildrenSelector: aSelector
+	self theClass subclasses do: [ :each |
+    	(self selectorsCache cacheFor: each)
+        	removeSelector: aSelector;
+        	invalidateChildrenSelector: aSelector ]
+!
+
+invalidateParentSelector: aSelector
+	self theClass superclass ifNotNil: [
+    	(self selectorsCache cacheFor: self theClass superclass)
+        	removeSelector: aSelector;
+			invalidateParentSelector: aSelector ]
+!
+
+invalidateSelector: aSelector
+	self 
+    	invalidateParentSelector: aSelector;
+        invalidateChildrenSelector: aSelector;
+        removeSelector: aSelector
+! !
+
+!HLClassCache methodsFor: 'private'!
+
+removeSelector: aSelector
+	self overriddenCache 
+    	removeKey: aSelector
+        ifAbsent: [ ].
+    self overrideCache 
+    	removeKey: aSelector
+        ifAbsent: [ ]
 ! !
 
 !HLClassCache methodsFor: 'testing'!
@@ -761,10 +886,10 @@ isOverride: aMethod
 
 !HLClassCache class methodsFor: 'instance creation'!
 
-on: aClass parentCache: aCache
+on: aClass selectorsCache: aSelectorsCache
 	^ self new
     	theClass: aClass;
-        parentCache: aCache;
+        selectorsCache: aSelectorsCache;
         yourself
 ! !
 
@@ -786,12 +911,46 @@ classesCache
 	^ classesCache ifNil: [ classesCache := HashedCollection new ]
 ! !
 
+!HLSelectorsCache methodsFor: 'actions'!
+
+observeSystem
+	SystemAnnouncer current
+		on: MethodAdded
+        do: [ :ann | self onMethodAdded: ann method ];
+        on: MethodRemoved
+        do: [ :ann | self onMethodRemoved: ann method ]
+! !
+
 !HLSelectorsCache methodsFor: 'factory'!
 
 newCacheFor: aClass
 	^ HLClassCache 
     	on: aClass
-        parentCache: (self cacheFor: aClass superclass)
+        selectorsCache: self
+! !
+
+!HLSelectorsCache methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+    self observeSystem
+! !
+
+!HLSelectorsCache methodsFor: 'private'!
+
+invalidateCacheFor: aMethod
+	(self cacheFor: aMethod methodClass)
+    	invalidateSelector: aMethod selector
+! !
+
+!HLSelectorsCache methodsFor: 'reactions'!
+
+onMethodAdded: aMethod
+	self invalidateCacheFor: aMethod
+!
+
+onMethodRemoved: aMethod
+	self invalidateCacheFor: aMethod
 ! !
 
 !HLSelectorsCache methodsFor: 'testing'!

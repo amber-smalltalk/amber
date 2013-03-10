@@ -144,7 +144,6 @@ focus
 !
 
 inspectIt
-
 	| newInspector |
        
 	self announcer announce: (HLInspectItRequested on: model).
@@ -178,7 +177,6 @@ print: aString
 !
 
 printIt
-
 	| result |
 
 	result:=  self doIt.

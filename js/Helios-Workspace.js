@@ -357,7 +357,7 @@ newInspector=_st(self)._makeInspectorOn_(_st(self)._doIt());
 _st(newInspector)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector}, smalltalk.HLCodeWidget)})},
 args: [],
-source: "inspectIt\x0a\x0a\x09| newInspector |\x0a       \x0a\x09self announcer announce: (HLInspectItRequested on: model).\x0a\x09newInspector := self makeInspectorOn: self doIt.\x0a\x09newInspector open",
+source: "inspectIt\x0a\x09| newInspector |\x0a       \x0a\x09self announcer announce: (HLInspectItRequested on: model).\x0a\x09newInspector := self makeInspectorOn: self doIt.\x0a\x09newInspector open",
 messageSends: ["announce:", "on:", "announcer", "makeInspectorOn:", "doIt", "open"],
 referencedClasses: ["HLInspectItRequested"]
 }),
@@ -561,7 +561,7 @@ _st(self)._print_(_st(result)._printString());
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{result:result}, smalltalk.HLCodeWidget)})},
 args: [],
-source: "printIt\x0a\x0a\x09| result |\x0a\x0a\x09result:=  self doIt.\x0a       \x0a\x09self announcer announce: (HLPrintItRequested on: model).\x0a\x0a    self print: result printString.\x0a\x09self focus.",
+source: "printIt\x0a\x09| result |\x0a\x0a\x09result:=  self doIt.\x0a       \x0a\x09self announcer announce: (HLPrintItRequested on: model).\x0a\x0a    self print: result printString.\x0a\x09self focus.",
 messageSends: ["doIt", "announce:", "on:", "announcer", "print:", "printString", "focus"],
 referencedClasses: ["HLPrintItRequested"]
 }),
