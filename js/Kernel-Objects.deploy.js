@@ -2311,10 +2311,11 @@ return smalltalk.withContext(function($ctx1) { var $1,$2;
 smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
 $1=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
 _st($1)._protocol_(aString);
+_st($1)._theClass_(_st(self)._theClass());
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
-messageSends: ["addElement:", "announce:", "protocol:", "new", "yourself", "current"]}),
+messageSends: ["addElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"]}),
 smalltalk.ClassOrganizer);
 
 smalltalk.addMethod(
@@ -2327,10 +2328,22 @@ return smalltalk.withContext(function($ctx1) { var $1,$2;
 smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
 $1=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
 _st($1)._protocol_(aString);
+_st($1)._theClass_(_st(self)._theClass());
 $2=_st($1)._yourself();
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
-messageSends: ["removeElement:", "announce:", "protocol:", "new", "yourself", "current"]}),
+messageSends: ["removeElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"]}),
+smalltalk.ClassOrganizer);
+
+smalltalk.addMethod(
+"_theClass",
+smalltalk.method({
+selector: "theClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  return self.theClass ;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass",{}, smalltalk.ClassOrganizer)})},
+messageSends: []}),
 smalltalk.ClassOrganizer);
 
 
