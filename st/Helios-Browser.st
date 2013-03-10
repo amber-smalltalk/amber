@@ -1038,6 +1038,6 @@ isOverride
     superclass := self methodClass superclass.
 	superclass ifNil: [ ^ false ].
 	
-    ^ (self methodClass superclass lookupSelector: self selector) isNil
+    ^ (self methodClass superclass lookupSelector: self selector) notNil
 ! !
 

@@ -2378,9 +2378,9 @@ return false;
 } else {
 $1;
 };
-$2=_st(_st(_st(_st(self)._methodClass())._superclass())._lookupSelector_(_st(self)._selector()))._isNil();
+$2=_st(_st(_st(_st(self)._methodClass())._superclass())._lookupSelector_(_st(self)._selector()))._notNil();
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass}, smalltalk.CompiledMethod)})},
-messageSends: ["superclass", "methodClass", "ifNil:", "isNil", "lookupSelector:", "selector"]}),
+messageSends: ["superclass", "methodClass", "ifNil:", "notNil", "lookupSelector:", "selector"]}),
 smalltalk.CompiledMethod);
 
