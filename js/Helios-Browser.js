@@ -199,23 +199,11 @@ selector: "registerBindingsOn:",
 category: 'keybindings',
 fn: function (aBindingGroup){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
-$1=aBindingGroup;
-_st($1)._addGroupKey_labelled_((66),"Browse");
-_st($1)._addGroupKey_labelled_((71),"Go to");
-$2=_st($1)._addGroupKey_labelled_((84),"Toggle");
-_st(_st((smalltalk.HLBrowserCommand || HLBrowserCommand))._withAllSubclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$3=_st(each)._key();
-if(($receiver = $3) == nil || $receiver == undefined){
-return $3;
-} else {
-return _st(_st(aBindingGroup)._at_(_st(each)._bindingGroup()))._add_(_st(_st(each)._on_(_st(self)._model()))._asBinding());
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup}, smalltalk.HLBrowser)})},
+return smalltalk.withContext(function($ctx1) { _st((smalltalk.HLBrowserCommand || HLBrowserCommand))._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
+return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup},smalltalk.HLBrowser)})},
 args: ["aBindingGroup"],
-source: "registerBindingsOn: aBindingGroup\x0a\x09aBindingGroup \x0a    \x09addGroupKey: 66 labelled: 'Browse';\x0a        addGroupKey: 71 labelled: 'Go to';\x0a        addGroupKey: 84 labelled: 'Toggle'.\x0a        \x0a   \x09HLBrowserCommand withAllSubclasses do: [ :each |\x0a   \x09\x09each key ifNotNil: [\x0a  \x09\x09\x09(aBindingGroup at: each bindingGroup) \x0a  \x09\x09\x09\x09add: (each on: self model) asBinding ] ]",
-messageSends: ["addGroupKey:labelled:", "do:", "ifNotNil:", "add:", "asBinding", "on:", "model", "at:", "bindingGroup", "key", "withAllSubclasses"],
+source: "registerBindingsOn: aBindingGroup\x0a\x09HLBrowserCommand registerConcreteClassesOn: aBindingGroup for: self model\x0a\x09\x0a\x09\x22aBindingGroup \x0a    \x09addGroupKey: 66 labelled: 'Browse';\x0a        addGroupKey: 71 labelled: 'Go to';\x0a        addGroupKey: 84 labelled: 'Toggle';\x0a\x09\x09addGroupKey: 77 labelled: 'Move'.\x0a\x09\x09\x09\x0a\x09(aBindingGroup at: 'Move')\x0a\x09\x09addGroupKey: 77 labelled: 'Method';\x0a\x09\x09addGroupKey: 67 labelled: 'Class';\x0a\x09\x09addGroupKey: 80 labelled: 'Protocol'.\x0a        \x0a\x09HLMoveMethodToCommand concreteClasses do: [ :each |\x0a  \x09\x09\x09(aBindingGroup at: 'Move') \x0a\x09\x09\x09\x09at: each bindingGroup \x0a  \x09\x09\x09\x09add: (each on: self model) asBinding ].\x0a\x09\x09\x09\x0a   \x09HLBrowserCommand concreteClasses do: [ :each |\x0a  \x09\x09\x09aBindingGroup \x0a\x09\x09\x09\x09at: each bindingGroup\x0a  \x09\x09\x09\x09add: (each on: self model) asBinding ]\x22",
+messageSends: ["registerConcreteClassesOn:for:", "model"],
 referencedClasses: ["HLBrowserCommand"]
 }),
 smalltalk.HLBrowser);
@@ -3063,22 +3051,29 @@ selector: "onMethodModified:",
 category: 'reactions',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 $1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(aMethod)._methodClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(_st(_st(self)._model())._selectedMethod())._selector()).__eq(_st(aMethod)._selector());
-if(! smalltalk.assert($3)){
+$3=_st(_st(self)._model())._selectedMethod();
+if(($receiver = $3) == nil || $receiver == undefined){
 $4=self;
 return $4;
+} else {
+$3;
+};
+$5=_st(_st(_st(_st(self)._model())._selectedMethod())._selector()).__eq(_st(aMethod)._selector());
+if(! smalltalk.assert($5)){
+$6=self;
+return $6;
 };
 _st(self)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{aMethod:aMethod}, smalltalk.HLBrowserSourceWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{aMethod:aMethod},smalltalk.HLBrowserSourceWidget)})},
 args: ["aMethod"],
-source: "onMethodModified: aMethod\x0a\x0a\x09self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].\x0a    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].\x0a\x0a    self refresh",
-messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "model", "selector", "selectedMethod", "refresh"],
+source: "onMethodModified: aMethod\x0a\x0a\x09self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].\x0a\x09self model selectedMethod ifNil: [ ^ self ].\x0a    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].\x0a\x0a    self refresh",
+messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "model", "ifNil:", "selectedMethod", "selector", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserSourceWidget);

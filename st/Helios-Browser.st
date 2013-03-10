@@ -31,15 +31,28 @@ initialize
 !HLBrowser methodsFor: 'keybindings'!
 
 registerBindingsOn: aBindingGroup
-	aBindingGroup 
+	HLBrowserCommand registerConcreteClassesOn: aBindingGroup for: self model
+	
+	"aBindingGroup 
     	addGroupKey: 66 labelled: 'Browse';
         addGroupKey: 71 labelled: 'Go to';
-        addGroupKey: 84 labelled: 'Toggle'.
+        addGroupKey: 84 labelled: 'Toggle';
+		addGroupKey: 77 labelled: 'Move'.
+			
+	(aBindingGroup at: 'Move')
+		addGroupKey: 77 labelled: 'Method';
+		addGroupKey: 67 labelled: 'Class';
+		addGroupKey: 80 labelled: 'Protocol'.
         
-   	HLBrowserCommand withAllSubclasses do: [ :each |
-   		each key ifNotNil: [
-  			(aBindingGroup at: each bindingGroup) 
-  				add: (each on: self model) asBinding ] ]
+	HLMoveMethodToCommand concreteClasses do: [ :each |
+  			(aBindingGroup at: 'Move') 
+				at: each bindingGroup 
+  				add: (each on: self model) asBinding ].
+			
+   	HLBrowserCommand concreteClasses do: [ :each |
+  			aBindingGroup 
+				at: each bindingGroup
+  				add: (each on: self model) asBinding ]"
 ! !
 
 !HLBrowser methodsFor: 'rendering'!
@@ -1029,6 +1042,7 @@ onClassSelected: aClass
 onMethodModified: aMethod
 
 	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+	self model selectedMethod ifNil: [ ^ self ].
     self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
 
     self refresh

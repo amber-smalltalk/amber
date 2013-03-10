@@ -19,9 +19,21 @@ label
 
 !HLCommand methodsFor: 'converting'!
 
-asBinding
+asActionBinding
 	^ (HLBindingAction on: self key labelled: self label)
     	callback: [ self execute ]
+!
+
+asBinding
+	^ self isBindingGroup
+		ifTrue: [ self asGroupBinding ]
+		ifFalse: [ self asActionBinding ]
+!
+
+asGroupBinding
+	^ HLBindingGroup 
+		on: self key 
+		labelled: self label
 ! !
 
 !HLCommand methodsFor: 'executing'!
@@ -29,10 +41,23 @@ asBinding
 execute
 ! !
 
+!HLCommand methodsFor: 'registration'!
+
+registerOn: aBinding
+	^ aBinding add: self asBinding
+! !
+
+!HLCommand methodsFor: 'testing'!
+
+isBindingGroup
+	^ (self class methodDictionary includesKey: 'execute') not
+! !
+
 !HLCommand class methodsFor: 'accessing'!
 
-bindingGroup
-	^ nil
+concreteSubclasses
+	^ self subclasses select: [ :each |
+		each isConcrete ]
 !
 
 documentation
@@ -47,23 +72,85 @@ label
 	^ ''
 ! !
 
-HLCommand subclass: #HLBrowserCommand
+!HLCommand class methodsFor: 'registration'!
+
+registerConcreteClassesOn: aBinding
+	self concreteSubclasses do: [ :each | | binding |
+		binding := each registerOn: aBinding.
+		binding isBindingGroup ifTrue: [
+			each registerConcreteClassesOn: binding ] ]
+!
+
+registerOn: aBinding
+	^ self new registerOn: aBinding
+! !
+
+!HLCommand class methodsFor: 'testing'!
+
+isConcrete
+	^ self key notNil
+! !
+
+HLCommand subclass: #HLCloseTabCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
+
+!HLCloseTabCommand methodsFor: 'executing'!
+
+execute
+	HLManager current removeActiveTab
+! !
+
+!HLCloseTabCommand class methodsFor: 'accessing'!
+
+key
+	^ 87
+!
+
+label
+	^ 'Close tab'
+! !
+
+HLCommand subclass: #HLModelCommand
  instanceVariableNames: 'model'
  package: 'Helios-Commands'!
 
-!HLBrowserCommand methodsFor: 'accessing'!
+!HLModelCommand methodsFor: 'accessing'!
 
 model
 	^ model
 !
 
-model: aBrowserModel
-	model := aBrowserModel
+model: aModel
+	model := aModel
 ! !
+
+!HLModelCommand class methodsFor: 'instance creation'!
+
+for: aModel
+	^ self new
+! !
+
+!HLModelCommand class methodsFor: 'registration'!
+
+registerConcreteClassesOn: aBinding for: aModel
+	self concreteSubclasses do: [ :each | | binding |
+		binding := each registerOn: aBinding for: aModel.
+		binding isBindingGroup ifTrue: [
+			each registerConcreteClassesOn: binding for: aModel ] ]
+!
+
+registerOn: aBinding for: aModel
+	^ (self for: aModel) registerOn: aBinding
+! !
+
+HLModelCommand subclass: #HLBrowserCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLBrowserCommand class methodsFor: 'instance creation'!
 
-on: aBrowserModel
+for: aBrowserModel
 	^ self new
     	model: aBrowserModel;
         yourself
@@ -75,7 +162,11 @@ HLBrowserCommand subclass: #HLGoToCommand
 
 !HLGoToCommand class methodsFor: 'accessing'!
 
-bindingGroup
+key
+	^ 71
+!
+
+label
 	^ 'Go to'
 ! !
 
@@ -189,13 +280,83 @@ label
 	^ 'Source code'
 ! !
 
+HLBrowserCommand subclass: #HLMoveToCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
+
+!HLMoveToCommand class methodsFor: 'accessing'!
+
+key
+	^ 77
+!
+
+label
+	^ 'Move'
+! !
+
+HLMoveToCommand subclass: #HLMoveMethodToCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
+
+!HLMoveMethodToCommand class methodsFor: 'accessing'!
+
+key
+	^ 77
+!
+
+label
+	^ 'Method'
+! !
+
+HLMoveMethodToCommand subclass: #HLMoveMethodToClassCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
+
+!HLMoveMethodToClassCommand methodsFor: 'executing'!
+
+execute
+! !
+
+!HLMoveMethodToClassCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label	
+	^ 'to class'
+! !
+
+HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
+
+!HLMoveMethodToProtocolCommand methodsFor: 'executing'!
+
+execute
+! !
+
+!HLMoveMethodToProtocolCommand class methodsFor: 'accessing'!
+
+key
+	^ 84
+!
+
+label
+	^ 'to protocol'
+! !
+
 HLBrowserCommand subclass: #HLToggleCommand
  instanceVariableNames: ''
  package: 'Helios-Commands'!
 
 !HLToggleCommand class methodsFor: 'accessing'!
 
-bindingGroup
+key
+	^ 84
+!
+
+label
 	^ 'Toggle'
 ! !
 
@@ -243,37 +404,17 @@ label
 	^ 'Instance side'
 ! !
 
-HLCommand subclass: #HLCloseTabCommand
- instanceVariableNames: ''
- package: 'Helios-Commands'!
-
-!HLCloseTabCommand methodsFor: 'executing'!
-
-execute
-	HLManager current removeActiveTab
-! !
-
-!HLCloseTabCommand class methodsFor: 'accessing'!
-
-bindingGroup
-	^ 'Close'
-!
-
-key
-	^ 87
-!
-
-label
-	^ 'Close tab'
-! !
-
 HLCommand subclass: #HLOpenCommand
  instanceVariableNames: ''
  package: 'Helios-Commands'!
 
 !HLOpenCommand class methodsFor: 'accessing'!
 
-bindingGroup
+key
+	^ 79
+!
+
+label
 	^ 'Open'
 ! !
 
@@ -340,4 +481,10 @@ label
 HLCommand subclass: #HLViewCommand
  instanceVariableNames: ''
  package: 'Helios-Commands'!
+
+!HLViewCommand class methodsFor: 'accessing'!
+
+label
+	^ 'View'
+! !
 

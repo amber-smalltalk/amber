@@ -139,6 +139,15 @@ at: aString
       	ifNone: [ nil ]
 !
 
+at: aString add: aBinding
+	| binding |
+	
+	binding := self at: aString.
+	binding ifNil: [ ^ self ].
+		
+	binding add: aBinding
+!
+
 atKey: anInteger
 	^ self bindings 
     	detect: [ :each | each key = anInteger ]
@@ -194,23 +203,7 @@ activationKeyLabel
 !
 
 bindings
-	^ bindings ifNil: [ bindings := self defaulBindings ]
-!
-
-defaulBindings
-	| group |
-	
-	group := HLBindingGroup new
-		addGroupKey: 79 labelled: 'Open';
-		addGroupKey: 86 labelled: 'View';
-		add: HLCloseTabCommand new asBinding;
-		yourself.
-		
-	HLOpenCommand allSubclasses do: [ :each | 
-		(group at: each bindingGroup) 
-  			add: each new asBinding ].
-				
-	^ group
+	^ bindings ifNil: [ bindings := self defaultBindings ]
 !
 
 escapeKey
@@ -255,6 +248,22 @@ deactivate
 
 flushBindings
 	bindings := nil
+! !
+
+!HLKeyBinder methodsFor: 'defaults'!
+
+defaultBindings
+	| group |
+	
+	group := HLBindingGroup new
+		addGroupKey: 79 labelled: 'Open';
+		addGroupKey: 86 labelled: 'View';
+		add: HLCloseTabCommand new asBinding;
+		yourself.
+		
+	HLOpenCommand registerConcreteClassesOn: (group at: 'Open').
+				
+	^ group
 ! !
 
 !HLKeyBinder methodsFor: 'events'!
