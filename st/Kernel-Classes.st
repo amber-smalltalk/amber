@@ -167,6 +167,9 @@ addCompiledMethod: aMethod
     	at: aMethod selector 
         ifAbsent: [ nil ].
     
+   (self protocols includes: aMethod protocol)
+   		ifFalse: [ self organization addElement: aMethod protocol ].
+   
 	self basicAddCompiledMethod: aMethod.
     
     announcement := oldMethod 
@@ -179,6 +182,7 @@ addCompiledMethod: aMethod
                     oldMethod: oldMethod; 
 		            method: aMethod;
        			    yourself ].
+                    
                     
 	SystemAnnouncer current
 		   		announce: announcement
@@ -197,6 +201,9 @@ compile: aString category: anotherString
 
 removeCompiledMethod: aMethod
 	self basicRemoveCompiledMethod: aMethod.
+    
+    (self protocols includes: aMethod category)
+    	ifFalse: [ self organization removeElement: aMethod protocol ].
     
     SystemAnnouncer current
    		announce: (MethodRemoved new

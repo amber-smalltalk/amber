@@ -7,27 +7,31 @@ selector: "addCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 var oldMethod,announcement;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 oldMethod=_st(_st(self)._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=_st(_st(self)._protocols())._includes_(_st(aMethod)._protocol());
+if(! smalltalk.assert($1)){
+_st(_st(self)._organization())._addElement_(_st(aMethod)._protocol());
+};
 _st(self)._basicAddCompiledMethod_(aMethod);
-$1=oldMethod;
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st((smalltalk.MethodAdded || MethodAdded))._new();
-_st($2)._method_(aMethod);
-$3=_st($2)._yourself();
-announcement=$3;
+$2=oldMethod;
+if(($receiver = $2) == nil || $receiver == undefined){
+$3=_st((smalltalk.MethodAdded || MethodAdded))._new();
+_st($3)._method_(aMethod);
+$4=_st($3)._yourself();
+announcement=$4;
 } else {
-$4=_st((smalltalk.MethodModified || MethodModified))._new();
-_st($4)._oldMethod_(oldMethod);
-_st($4)._method_(aMethod);
-$5=_st($4)._yourself();
-announcement=$5;
+$5=_st((smalltalk.MethodModified || MethodModified))._new();
+_st($5)._oldMethod_(oldMethod);
+_st($5)._method_(aMethod);
+$6=_st($5)._yourself();
+announcement=$6;
 };
 _st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_(announcement);
 return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod,oldMethod:oldMethod,announcement:announcement}, smalltalk.Behavior)})},
-messageSends: ["at:ifAbsent:", "selector", "methodDictionary", "basicAddCompiledMethod:", "ifNil:ifNotNil:", "method:", "new", "yourself", "oldMethod:", "announce:", "current"]}),
+messageSends: ["at:ifAbsent:", "selector", "methodDictionary", "ifFalse:", "addElement:", "protocol", "organization", "includes:", "protocols", "basicAddCompiledMethod:", "ifNil:ifNotNil:", "method:", "new", "yourself", "oldMethod:", "announce:", "current"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
@@ -495,14 +499,18 @@ smalltalk.method({
 selector: "removeCompiledMethod:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 _st(self)._basicRemoveCompiledMethod_(aMethod);
-$1=_st((smalltalk.MethodRemoved || MethodRemoved))._new();
-_st($1)._method_(aMethod);
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+$1=_st(_st(self)._protocols())._includes_(_st(aMethod)._category());
+if(! smalltalk.assert($1)){
+_st(_st(self)._organization())._removeElement_(_st(aMethod)._protocol());
+};
+$2=_st((smalltalk.MethodRemoved || MethodRemoved))._new();
+_st($2)._method_(aMethod);
+$3=_st($2)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
 return self}, function($ctx1) {$ctx1.fill(self,"removeCompiledMethod:",{aMethod:aMethod}, smalltalk.Behavior)})},
-messageSends: ["basicRemoveCompiledMethod:", "announce:", "method:", "new", "yourself", "current"]}),
+messageSends: ["basicRemoveCompiledMethod:", "ifFalse:", "removeElement:", "protocol", "organization", "includes:", "category", "protocols", "announce:", "method:", "new", "yourself", "current"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(

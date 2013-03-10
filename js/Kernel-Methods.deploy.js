@@ -315,13 +315,13 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._basicAt_("category");
 if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
+$1=_st(self)._defaultCategory();
 } else {
 $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{}, smalltalk.CompiledMethod)})},
-messageSends: ["ifNil:", "basicAt:"]}),
+messageSends: ["ifNil:", "defaultCategory", "basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
@@ -347,6 +347,17 @@ return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._methodC
 };
 return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldCategory:oldCategory}, smalltalk.CompiledMethod)})},
 messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"]}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_defaultCategory",
+smalltalk.method({
+selector: "defaultCategory",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "as yet unclassified";
+}, function($ctx1) {$ctx1.fill(self,"defaultCategory",{}, smalltalk.CompiledMethod)})},
+messageSends: []}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(

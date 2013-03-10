@@ -2307,15 +2307,20 @@ smalltalk.method({
 selector: "addElement:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var alreadyExisting;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+alreadyExisting=_st(_st(self)._elements())._includes_(aString);
 smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
-$1=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
-_st($1)._protocol_(aString);
-_st($1)._theClass_(_st(self)._theClass());
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
-messageSends: ["addElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"]}),
+$1=alreadyExisting;
+if(! smalltalk.assert($1)){
+$2=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
+_st($2)._protocol_(aString);
+_st($2)._theClass_(_st(self)._theClass());
+$3=_st($2)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString,alreadyExisting:alreadyExisting}, smalltalk.ClassOrganizer)})},
+messageSends: ["includes:", "elements", "addElement:", "ifFalse:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"]}),
 smalltalk.ClassOrganizer);
 
 smalltalk.addMethod(
@@ -2324,15 +2329,20 @@ smalltalk.method({
 selector: "removeElement:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var alreadyExisting;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+alreadyExisting=_st(_st(self)._elements())._includes_(aString);
 smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
-$1=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
-_st($1)._protocol_(aString);
-_st($1)._theClass_(_st(self)._theClass());
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
-messageSends: ["removeElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"]}),
+$1=alreadyExisting;
+if(smalltalk.assert($1)){
+$2=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
+_st($2)._protocol_(aString);
+_st($2)._theClass_(_st(self)._theClass());
+$3=_st($2)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString,alreadyExisting:alreadyExisting}, smalltalk.ClassOrganizer)})},
+messageSends: ["includes:", "elements", "removeElement:", "ifTrue:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"]}),
 smalltalk.ClassOrganizer);
 
 smalltalk.addMethod(

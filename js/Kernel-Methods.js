@@ -443,15 +443,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=_st(self)._basicAt_("category");
 if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
+$1=_st(self)._defaultCategory();
 } else {
 $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{}, smalltalk.CompiledMethod)})},
 args: [],
-source: "category\x0a\x09^(self basicAt: 'category') ifNil: ['']",
-messageSends: ["ifNil:", "basicAt:"],
+source: "category\x0a\x09^(self basicAt: 'category') ifNil: [ self defaultCategory ]",
+messageSends: ["ifNil:", "defaultCategory", "basicAt:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
@@ -482,6 +482,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldC
 args: ["aString"],
 source: "category: aString\x0a\x09| oldCategory |\x0a    oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a    \x0a    self methodClass ifNotNil: [\x0a    \x09self methodClass organization addElement: aString.\x0a    \x0a\x09\x09(self methodClass methods \x0a    \x09\x09select: [ :each | each category = oldCategory ])\x0a        \x09ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]",
 messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+"_defaultCategory",
+smalltalk.method({
+selector: "defaultCategory",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "as yet unclassified";
+}, function($ctx1) {$ctx1.fill(self,"defaultCategory",{}, smalltalk.CompiledMethod)})},
+args: [],
+source: "defaultCategory\x0a\x09^ 'as yet unclassified'",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);

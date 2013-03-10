@@ -1,4 +1,4 @@
-smalltalk.addPackage('Benchfib', {});
+smalltalk.addPackage('Benchfib');
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
