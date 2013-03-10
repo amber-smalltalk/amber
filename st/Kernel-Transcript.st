@@ -37,15 +37,15 @@ Transcript class instanceVariableNames: 'current'!
 !Transcript class methodsFor: 'instance creation'!
 
 current
-    ^current
+	^current
 !
 
 new
-    self shouldNotImplement
+	self shouldNotImplement
 !
 
 open
-    self current open
+	self current open
 !
 
 register: aTranscript
@@ -55,14 +55,14 @@ register: aTranscript
 !Transcript class methodsFor: 'printing'!
 
 clear
-    self current clear
+	self current clear
 !
 
 cr
-    self current show: String cr
+	self current show: String cr
 !
 
 show: anObject
-    self current show: anObject
+	self current show: anObject
 ! !
 

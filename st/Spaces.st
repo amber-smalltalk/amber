@@ -10,13 +10,13 @@ The implementation creates an iframe on the same location as the window, and con
 
 ## Usage example:
 
-    | space |
-    
-    space := ObjectSpace new.
-    space do: [ smalltalk ] "Answers aSmalltalk"
-    (space do: [ smalltalk ]) == smalltalk "Answers false"
-    
-    space release "Remove the object space environment"!
+	| space |
+	
+	space := ObjectSpace new.
+	space do: [ smalltalk ] "Answers aSmalltalk"
+	(space do: [ smalltalk ]) == smalltalk "Answers false"
+	
+	space release "Remove the object space environment"!
 
 !ObjectSpace methodsFor: 'accessing'!
 
@@ -34,7 +34,7 @@ do: aBlock
 !ObjectSpace methodsFor: 'events'!
 
 whenReadyDo: aBlock
-	(window jQuery: frame) 
+	(window jQuery: frame)
 		bind: 'load'
 		do: aBlock
 ! !
