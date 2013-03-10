@@ -80,9 +80,7 @@ currentLineOrSelection
 !
 
 model
-	^ model ifNil: [ 
-    	self model: HLCodeModel new.
-		model ]
+	^ model ifNil: [ model := HLCodeModel new ]
 !
 
 model: aModel
@@ -307,6 +305,14 @@ pcKeyMap
 		'Shift-Ctrl-Z' -> 'redo'. 
 		'fallthrough' -> #('basic')
 }
+!
+
+tabLabel
+	^ 'Workspace'
+!
+
+tabPriority
+	^ 10
 ! !
 
 !HLCodeWidget class methodsFor: 'initialization'!
@@ -335,141 +341,106 @@ setupKeyMaps
 	<CodeMirror.keyMap['Amber'] = self._keyMap()>
 ! !
 
-HLCodeWidget subclass: #HLSourceCodeWidget
-	instanceVariableNames: ''
-	package: 'Helios-Workspace'!
-
-!HLSourceCodeWidget methodsFor: 'reactions'!
-
-onKeyDown: anEvent
-	(super onKeyDown: anEvent) ifFalse: [ ^ false ].
-    
-	anEvent ctrlKey ifTrue: [
-		anEvent keyCode = 83 ifTrue: [
-			self onSave.
-			anEvent preventDefault.
-			^ false ] ]
-!
-
-onSave
-! !
-
-HLWidget subclass: #HLWorkspace
-	instanceVariableNames: 'model codeWidget'
-	package: 'Helios-Workspace'!
-
-!HLWorkspace methodsFor: 'accessing'!
-
-codeWidget
-	^ codeWidget ifNil: [
-		codeWidget := HLCodeWidget new
-    		model: self model code;
-        	yourself ]
-!
-
-model
-	^ model ifNil: [ 
-    	self model: HLWorkspaceModel new.
-		model ]
-!
-
-model: aModel
-	model := aModel.
-     
-    self codeWidget model: aModel code.
-    self observeCodeWidget.
-! !
-
-!HLWorkspace methodsFor: 'actions'!
-
-observeCodeWidget
-! !
-
-!HLWorkspace methodsFor: 'reactions'!
-
-onDoIt
-!
-
-onInspectIt
-!
-
-onPrintIt
-! !
-
-!HLWorkspace methodsFor: 'rendering'!
-
-renderContentOn: html
-	html with: self codeWidget
-! !
-
-!HLWorkspace class methodsFor: 'accessing'!
-
-tabLabel
-	^ 'Workspace'
-!
-
-tabPriority
-	^ 10
-! !
-
-!HLWorkspace class methodsFor: 'testing'!
+!HLCodeWidget class methodsFor: 'testing'!
 
 canBeOpenAsTab
 	^ true
 ! !
 
-Object subclass: #HLWorkspaceModel
-	instanceVariableNames: 'announcer environment code'
+HLCodeWidget subclass: #HLSourceCodeWidget
+	instanceVariableNames: 'browserModel'
 	package: 'Helios-Workspace'!
 
-!HLWorkspaceModel methodsFor: 'accessing'!
+!HLSourceCodeWidget methodsFor: 'accessing'!
 
-announcer
-	^ announcer ifNil: [ announcer := Announcer new ]
+browserModel
+	^ browserModel
 !
 
-code
-	"Answers the code model working for this workspace model"
-	^ code ifNil:[ HLCodeModel on: self environment ]
-!
-
-environment
-	^ environment ifNil: [ HLManager current environment ]
-!
-
-environment: anEnvironment
-	environment := anEnvironment
+browserModel: aBrowserModel
+	browserModel := aBrowserModel.
+	self observeBrowserModel
 ! !
 
-!HLWorkspaceModel methodsFor: 'reactions'!
+!HLSourceCodeWidget methodsFor: 'actions'!
 
-onKeyDown: anEvent
+observeBrowserModel
+	self browserModel announcer
+		on: HLSaveSourceCode
+		do: [ :ann | self onSaveIt ];
+		on: HLParseErrorRaised
+		do: [ :ann | self onParseError: ann ];
+		on: HLCompileErrorRaised
+		do: [ :ann | self onCompileError: ann error ];
+		on: HLUnknownVariableErrorRaised
+		do: [ :ann | self onUnknownVariableError: ann error ];
+		on: HLInstVarAdded 
+		do: [ :ann | self onInstVarAdded ]
+!
 
-	<if(anEvent.ctrlKey) {
-		if(anEvent.keyCode === 80) { //ctrl+p
-			self._printIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 68) { //ctrl+d
-			self._doIt();
-			anEvent.preventDefault();
-			return false;
-		}
-		if(anEvent.keyCode === 73) { //ctrl+i
-			self._inspectIt();
-			anEvent.preventDefault();
-			return false;
-		}
-	}>
+saveIt
+	self browserModel saveSourceCode
 ! !
 
-!HLWorkspaceModel class methodsFor: 'actions'!
+!HLSourceCodeWidget methodsFor: 'reactions'!
 
-on: anEnvironment
+onCompileError: anError
+	self alert: anError messageText
+!
 
+onInstVarAdded
+	self  browserModel save: self contents
+!
+
+onParseError: anAnnouncement
+	| lineIndex newContents |
+	
+	lineIndex := 1.
+	
+	self contents: (String streamContents: [ :stream |
+		self contents linesDo: [ :each |
+			lineIndex = anAnnouncement line 
+				ifTrue: [ 
+					stream 
+						nextPutAll: (each copyFrom: 1 to: anAnnouncement column);
+						nextPutAll: '<- ';
+						nextPutAll: anAnnouncement message;
+						nextPutAll: ' ';
+						nextPutAll: (each copyFrom: anAnnouncement column + 1 to: each size) ]
+				ifFalse: [ stream nextPutAll: each ].
+			stream nextPutAll: String cr.
+			lineIndex := lineIndex + 1 ] ])
+!
+
+onSaveIt
+	self  browserModel save: self contents
+!
+
+onUnknownVariableError: anError
+	| confirm |
+
+	confirm := self confirm: (String streamContents: [ :stream |
+		stream 
+			nextPutAll: anError messageText;
+			nextPutAll: String cr;
+			nextPutAll: 'Would you like to define an instance variable?' ]).
+			
+	confirm ifFalse: [ ^ self ].
+	
+	self browserModel addInstVarNamed: anError variableName
+! !
+
+!HLSourceCodeWidget class methodsFor: 'instance creation'!
+
+on: aBrowserModel
 	^ self new
-    	environment: anEnvironment;
-        yourself
+		browserModel: aBrowserModel;
+		yourself
+! !
+
+!HLSourceCodeWidget class methodsFor: 'testing'!
+
+canBeOpenAsTab
+	^ false
 ! !
 

@@ -62,6 +62,16 @@ wrapper
 	^ wrapper
 ! !
 
+!HLWidget methodsFor: 'actions'!
+
+alert: aString
+	window alert: aString
+!
+
+confirm: aString
+	^ window confirm: aString
+! !
+
 !HLWidget methodsFor: 'keybindings'!
 
 registerBindings

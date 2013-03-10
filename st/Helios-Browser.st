@@ -686,10 +686,6 @@ Object subclass: #HLBrowserModel
 
 !HLBrowserModel methodsFor: 'accessing'!
 
-allProtocol
-	^ '-- All --'
-!
-
 announcer
 	^ announcer ifNil: [ announcer := Announcer new ]
 !
@@ -711,7 +707,9 @@ selectedClass
 !
 
 selectedClass: aClass
-	selectedClass = aClass ifTrue: [ ^ self ].
+	selectedClass = aClass ifTrue: [ 
+		aClass ifNil: [ ^ self ].
+		self selectedProtocol: nil ].
     
 	aClass 
    		ifNil: [ selectedClass := nil ]
@@ -791,6 +789,14 @@ showInstance: aBoolean
 
 !HLBrowserModel methodsFor: 'actions'!
 
+addInstVarNamed: aString
+	self environment addInstVarNamed: aString to: self selectedClass.
+	self announcer announce: (HLInstVarAdded new
+		theClass: self selectedClass;
+		variableName: aString;
+		yourself)
+!
+
 focusOnClasses
 	self announcer announce: HLClassesFocusRequested new
 !
@@ -809,6 +815,121 @@ focusOnProtocols
 
 focusOnSourceCode
 	self announcer announce: HLSourceCodeFocusRequested new
+!
+
+save: aString
+	self shouldCompileClassDefinition 
+		ifTrue: [ self compileClassDefinition: aString ]
+		ifFalse: [ 
+			self shouldCompileClassComment 
+				ifTrue: [ self compileClassComment: aString ]
+				ifFalse: [ self compileMethod: aString ] ]
+!
+
+saveSourceCode
+	self announcer announce: HLSaveSourceCode new
+! !
+
+!HLBrowserModel methodsFor: 'compiling'!
+
+compileClassComment: aString
+	self environment 
+		compileClassComment: aString 
+		for: self selectedClass
+!
+
+compileClassDefinition: aString
+	self environment compileClassDefinition: aString
+!
+
+compileMethod: aString
+	self withCompileErrorHandling: [ self environment 
+		compileMethod: aString 
+		for: self selectedClass
+		protocol: self compilationProtocol ]
+! !
+
+!HLBrowserModel methodsFor: 'defaults'!
+
+allProtocol
+	^ '-- All --'
+!
+
+unclassifiedProtocol
+	^ 'as yet unclassified'
+! !
+
+!HLBrowserModel methodsFor: 'error handling'!
+
+handleCompileError: anError
+	self announcer announce: (HLCompileErrorRaised new
+		error: anError;
+		yourself)
+!
+
+handleParseError: anError
+	| split line column messageToInsert |
+	
+	split := anError messageText tokenize: ' : '.
+	messageToInsert := split second.
+
+	"21 = 'Parse error on line ' size + 1"
+	split := split first copyFrom: 21 to: split first size.
+	
+	split := split tokenize: ' column '.
+	line := split first.
+	column := split second.
+	
+	self announcer announce: (HLParseErrorRaised new
+		line: line asNumber;
+		column: column asNumber;
+		message: messageToInsert;
+		error: anError;
+		yourself)
+!
+
+handleUnkownVariableError: anError
+	self announcer announce: (HLUnknownVariableErrorRaised new
+		error: anError;
+		yourself)
+!
+
+withCompileErrorHandling: aBlock
+	[
+		[
+			aBlock 
+				on: ParseError
+				do: [:ex | self handleParseError: ex ]
+		]
+			on: UnknownVariableError
+			do: [ :ex | self handleUnkownVariableError: ex ]
+	]
+		on: CompilerError
+		do: [ :ex | self handleCompileError: ex ]
+! !
+
+!HLBrowserModel methodsFor: 'private'!
+
+compilationProtocol
+	| currentProtocol |
+	
+	currentProtocol := self selectedProtocol.
+
+	^ currentProtocol = self allProtocol
+		ifTrue: [ self unclassifiedProtocol ]
+		ifFalse: [ currentProtocol ]
+! !
+
+!HLBrowserModel methodsFor: 'testing'!
+
+shouldCompileClassComment
+	"TODO"
+	
+	^ false
+!
+
+shouldCompileClassDefinition
+	^ self selectedProtocol isNil
 ! !
 
 !HLBrowserModel class methodsFor: 'actions'!
@@ -827,7 +948,7 @@ HLWidget subclass: #HLBrowserSourceWidget
 !HLBrowserSourceWidget methodsFor: 'accessing'!
 
 codeWidget
-	^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]
+	^ codeWidget ifNil: [ codeWidget := HLSourceCodeWidget on: self model ]
 !
 
 contents

@@ -48,6 +48,58 @@ HLAnnouncement subclass: #HLDiveRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLErrorRaised
+	instanceVariableNames: 'error'
+	package: 'Helios-Announcements'!
+
+!HLErrorRaised methodsFor: 'accessing'!
+
+error
+	^ error
+!
+
+error: anError
+	error := anError
+! !
+
+HLErrorRaised subclass: #HLCompileErrorRaised
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLErrorRaised subclass: #HLParseErrorRaised
+	instanceVariableNames: 'line column message'
+	package: 'Helios-Announcements'!
+
+!HLParseErrorRaised methodsFor: 'accessing'!
+
+column
+	^ column
+!
+
+column: anInteger
+	column := anInteger
+!
+
+line
+	^ line
+!
+
+line: anInteger
+	line := anInteger
+!
+
+message
+	^ message
+!
+
+message: aString
+	message := aString
+! !
+
+HLErrorRaised subclass: #HLUnknownVariableErrorRaised
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLAnnouncement subclass: #HLFocusRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
@@ -71,6 +123,28 @@ HLFocusRequested subclass: #HLProtocolsFocusRequested
 HLFocusRequested subclass: #HLSourceCodeFocusRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLInstVarAdded
+	instanceVariableNames: 'theClass variableName'
+	package: 'Helios-Announcements'!
+
+!HLInstVarAdded methodsFor: 'accessing'!
+
+theClass
+	^ theClass
+!
+
+theClass: aClass
+	theClass := aClass
+!
+
+variableName
+	^ variableName
+!
+
+variableName: aString
+	variableName := aString
+! !
 
 HLAnnouncement subclass: #HLItemSelected
 	instanceVariableNames: 'item'
@@ -115,6 +189,10 @@ HLItemSelected subclass: #HLProtocolSelected
 	package: 'Helios-Announcements'!
 
 HLAnnouncement subclass: #HLRefreshRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLAnnouncement subclass: #HLSaveSourceCode
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 

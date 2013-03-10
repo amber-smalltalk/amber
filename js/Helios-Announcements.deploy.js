@@ -60,6 +60,114 @@ smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-An
 smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLErrorRaised', smalltalk.HLAnnouncement, ['error'], 'Helios-Announcements');
+smalltalk.addMethod(
+"_error",
+smalltalk.method({
+selector: "error",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@error"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"error",{}, smalltalk.HLErrorRaised)})},
+messageSends: []}),
+smalltalk.HLErrorRaised);
+
+smalltalk.addMethod(
+"_error_",
+smalltalk.method({
+selector: "error:",
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@error"]=anError;
+return self}, function($ctx1) {$ctx1.fill(self,"error:",{anError:anError}, smalltalk.HLErrorRaised)})},
+messageSends: []}),
+smalltalk.HLErrorRaised);
+
+
+
+smalltalk.addClass('HLCompileErrorRaised', smalltalk.HLErrorRaised, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLParseErrorRaised', smalltalk.HLErrorRaised, ['line', 'column', 'message'], 'Helios-Announcements');
+smalltalk.addMethod(
+"_column",
+smalltalk.method({
+selector: "column",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@column"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"column",{}, smalltalk.HLParseErrorRaised)})},
+messageSends: []}),
+smalltalk.HLParseErrorRaised);
+
+smalltalk.addMethod(
+"_column_",
+smalltalk.method({
+selector: "column:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@column"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"column:",{anInteger:anInteger}, smalltalk.HLParseErrorRaised)})},
+messageSends: []}),
+smalltalk.HLParseErrorRaised);
+
+smalltalk.addMethod(
+"_line",
+smalltalk.method({
+selector: "line",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@line"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"line",{}, smalltalk.HLParseErrorRaised)})},
+messageSends: []}),
+smalltalk.HLParseErrorRaised);
+
+smalltalk.addMethod(
+"_line_",
+smalltalk.method({
+selector: "line:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@line"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"line:",{anInteger:anInteger}, smalltalk.HLParseErrorRaised)})},
+messageSends: []}),
+smalltalk.HLParseErrorRaised);
+
+smalltalk.addMethod(
+"_message",
+smalltalk.method({
+selector: "message",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@message"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"message",{}, smalltalk.HLParseErrorRaised)})},
+messageSends: []}),
+smalltalk.HLParseErrorRaised);
+
+smalltalk.addMethod(
+"_message_",
+smalltalk.method({
+selector: "message:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@message"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"message:",{aString:aString}, smalltalk.HLParseErrorRaised)})},
+messageSends: []}),
+smalltalk.HLParseErrorRaised);
+
+
+
+smalltalk.addClass('HLUnknownVariableErrorRaised', smalltalk.HLErrorRaised, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLFocusRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
@@ -76,6 +184,57 @@ smalltalk.addClass('HLProtocolsFocusRequested', smalltalk.HLFocusRequested, [], 
 
 
 smalltalk.addClass('HLSourceCodeFocusRequested', smalltalk.HLFocusRequested, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLInstVarAdded', smalltalk.HLAnnouncement, ['theClass', 'variableName'], 'Helios-Announcements');
+smalltalk.addMethod(
+"_theClass",
+smalltalk.method({
+selector: "theClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{}, smalltalk.HLInstVarAdded)})},
+messageSends: []}),
+smalltalk.HLInstVarAdded);
+
+smalltalk.addMethod(
+"_theClass_",
+smalltalk.method({
+selector: "theClass:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass}, smalltalk.HLInstVarAdded)})},
+messageSends: []}),
+smalltalk.HLInstVarAdded);
+
+smalltalk.addMethod(
+"_variableName",
+smalltalk.method({
+selector: "variableName",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@variableName"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableName",{}, smalltalk.HLInstVarAdded)})},
+messageSends: []}),
+smalltalk.HLInstVarAdded);
+
+smalltalk.addMethod(
+"_variableName_",
+smalltalk.method({
+selector: "variableName:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@variableName"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"variableName:",{aString:aString}, smalltalk.HLInstVarAdded)})},
+messageSends: []}),
+smalltalk.HLInstVarAdded);
+
 
 
 smalltalk.addClass('HLItemSelected', smalltalk.HLAnnouncement, ['item'], 'Helios-Announcements');
@@ -137,6 +296,9 @@ smalltalk.addClass('HLProtocolSelected', smalltalk.HLItemSelected, [], 'Helios-A
 
 
 smalltalk.addClass('HLRefreshRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLSaveSourceCode', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
 smalltalk.addClass('HLShowCommentToggled', smalltalk.HLAnnouncement, [], 'Helios-Announcements');

@@ -167,6 +167,40 @@ smalltalk.HLTab.klass);
 
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
 smalltalk.addMethod(
+"_alert_",
+smalltalk.method({
+selector: "alert:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(window)._alert_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString}, smalltalk.HLWidget)})},
+args: ["aString"],
+source: "alert: aString\x0a\x09window alert: aString",
+messageSends: ["alert:"],
+referencedClasses: []
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+"_confirm_",
+smalltalk.method({
+selector: "confirm:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(window)._confirm_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString}, smalltalk.HLWidget)})},
+args: ["aString"],
+source: "confirm: aString\x0a\x09^ window confirm: aString",
+messageSends: ["confirm:"],
+referencedClasses: []
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
 "_manager",
 smalltalk.method({
 selector: "manager",

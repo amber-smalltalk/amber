@@ -2,6 +2,92 @@ smalltalk.addPackage('Helios-Environments');
 smalltalk.addClass('HLEnvironment', smalltalk.Object, [], 'Helios-Environments');
 smalltalk.HLEnvironment.comment="Abstract class defining common behavior for local and remote environments"
 smalltalk.addMethod(
+"_addInstVarNamed_to_",
+smalltalk.method({
+selector: "addInstVarNamed:to:",
+category: 'compiling',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(aClass)._instanceVariableNames())._copy();
+_st($1)._add_(aString);
+$2=_st($1)._yourself();
+_st(_st(self)._classBuilder())._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),_st(aClass)._name(),$2,_st(_st(aClass)._package())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass}, smalltalk.HLEnvironment)})},
+args: ["aString", "aClass"],
+source: "addInstVarNamed: aString to: aClass\x0a\x09self classBuilder\x0a\x09\x09addSubclassOf: aClass superclass \x0a\x09\x09named: aClass name \x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package", "classBuilder"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_classBuilder",
+smalltalk.method({
+selector: "classBuilder",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._subclassResponsibility();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classBuilder",{}, smalltalk.HLEnvironment)})},
+args: [],
+source: "classBuilder\x0a\x09^ self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_compileClassComment_for_",
+smalltalk.method({
+selector: "compileClassComment:for:",
+category: 'compiling',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aClass)._comment_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment:for:",{aString:aString,aClass:aClass}, smalltalk.HLEnvironment)})},
+args: ["aString", "aClass"],
+source: "compileClassComment: aString for: aClass\x0a\x09aClass comment: aString",
+messageSends: ["comment:"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_compileClassDefinition_",
+smalltalk.method({
+selector: "compileClassDefinition:",
+category: 'compiling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._eval_on_(aString,_st((smalltalk.DoIt || DoIt))._new());
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString}, smalltalk.HLEnvironment)})},
+args: ["aString"],
+source: "compileClassDefinition: aString\x0a\x09self eval: aString on: DoIt new",
+messageSends: ["eval:on:", "new"],
+referencedClasses: ["DoIt"]
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_compileMethod_for_protocol_",
+smalltalk.method({
+selector: "compileMethod:for:protocol:",
+category: 'compiling',
+fn: function (sourceCode,class_,protocol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(class_)._compile_category_(sourceCode,protocol);
+return self}, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol}, smalltalk.HLEnvironment)})},
+args: ["sourceCode", "class", "protocol"],
+source: "compileMethod: sourceCode for: class protocol: protocol\x0a\x09class\x0a\x09\x09compile: sourceCode\x0a\x09\x09category: protocol",
+messageSends: ["compile:category:"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_eval_on_",
 smalltalk.method({
 selector: "eval:on:",
@@ -31,7 +117,7 @@ $1=_st(self)._subclassResponsibility();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{}, smalltalk.HLEnvironment)})},
 args: [],
-source: "packages\x0a\x0a\x09^ self subclassResponsibility",
+source: "packages\x0a\x09^ self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -40,6 +126,24 @@ smalltalk.HLEnvironment);
 
 
 smalltalk.addClass('HLLocalEnvironment', smalltalk.HLEnvironment, [], 'Helios-Environments');
+smalltalk.addMethod(
+"_classBuilder",
+smalltalk.method({
+selector: "classBuilder",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.ClassBuilder || ClassBuilder))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classBuilder",{}, smalltalk.HLLocalEnvironment)})},
+args: [],
+source: "classBuilder\x0a\x09^ ClassBuilder new",
+messageSends: ["new"],
+referencedClasses: ["ClassBuilder"]
+}),
+smalltalk.HLLocalEnvironment);
+
 smalltalk.addMethod(
 "_eval_on_",
 smalltalk.method({
@@ -82,7 +186,7 @@ $1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packages();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{}, smalltalk.HLLocalEnvironment)})},
 args: [],
-source: "packages\x0a\x0a\x09^ Smalltalk current packages",
+source: "packages\x0a\x09^ Smalltalk current packages",
 messageSends: ["packages", "current"],
 referencedClasses: ["Smalltalk"]
 }),

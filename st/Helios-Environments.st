@@ -7,8 +7,11 @@ Abstract class defining common behavior for local and remote environments!
 
 !HLEnvironment methodsFor: 'accessing'!
 
-packages
+classBuilder
+	^ self subclassResponsibility
+!
 
+packages
 	^ self subclassResponsibility
 ! !
 
@@ -19,14 +22,41 @@ eval: someCode on: aReceiver
 	^ self subclassResponsibility
 ! !
 
+!HLEnvironment methodsFor: 'compiling'!
+
+addInstVarNamed: aString to: aClass
+	self classBuilder
+		addSubclassOf: aClass superclass 
+		named: aClass name 
+		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+		package: aClass package name
+!
+
+compileClassComment: aString for: aClass
+	aClass comment: aString
+!
+
+compileClassDefinition: aString
+	self eval: aString on: DoIt new
+!
+
+compileMethod: sourceCode for: class protocol: protocol
+	class
+		compile: sourceCode
+		category: protocol
+! !
+
 HLEnvironment subclass: #HLLocalEnvironment
 	instanceVariableNames: ''
 	package: 'Helios-Environments'!
 
 !HLLocalEnvironment methodsFor: 'accessing'!
 
-packages
+classBuilder
+	^ ClassBuilder new
+!
 
+packages
 	^ Smalltalk current packages
 ! !
 
