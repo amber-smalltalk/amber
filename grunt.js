@@ -5,10 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-contrib-mincss');
 
-  grunt.registerTask('build:deploy', 'shell:compileDeploy concat:deploy min');
-  grunt.registerTask('build:dev', 'shell:compileDev concat:css imageEmbed mincss css2js concat:dev');
-//  grunt.registerTask('default', 'build:deploy build:dev');
-  grunt.registerTask('default', 'amberc');
+  grunt.registerTask('default', 'pegjs amberc:all');
 
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -22,7 +19,7 @@ module.exports = function(grunt) {
         src: 'js/parser.pegjs',
         dest: 'js/parser.js',
         trackLineAndColumn: true,
-        cache: false,
+        cache: true,
         export_var: 'smalltalk.parser'
       }
     },
@@ -31,6 +28,18 @@ module.exports = function(grunt) {
       _config: {
         amber_dir: process.cwd(),
         closure_jar: ''
+      },
+      all: {
+        working_dir: 'st',
+        target_dir : 'js',
+        src: ['Kernel-Objects.st', 'Kernel-Classes.st', 'Kernel-Methods.st', 'Kernel-Collections.st',
+              'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st',
+              'Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
+              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st',
+              'Canvas.st', 'SUnit.st', 'IDE.st',
+              'Kernel-Tests.st', 'Compiler-Tests.st', 'SUnit-Tests.st'
+              ],
+        deploy: true
       },
       amber_kernel: {
         working_dir: 'st',
@@ -42,7 +51,7 @@ module.exports = function(grunt) {
       amber_compiler: {
         working_dir: 'st',
         target_dir : 'js',
-        src: ['Importer-Exporter.st', 'Compiler.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
+        src: ['Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
               'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st'],
         output_name: 'Compiler',
         deploy: true
@@ -56,25 +65,34 @@ module.exports = function(grunt) {
       amber_IDE: {
         working_dir: 'st',
         target_dir : 'js',
-        src: ['IDE.st', 'Documentation.st'],
+        src: ['IDE.st'],
         libraries: ['Canvas'],
         deploy: true
       },
       amber_tests: {
         working_dir: 'st',
         target_dir : 'js',
-        src: ['Kernel-Tests.st', 'Compiler-Tests.st'],
+        src: ['Kernel-Tests.st', 'Compiler-Tests.st', 'SUnit-Tests.st'],
         libraries: ['SUnit']
+      },
+      amber_test_runner: {
+        working_dir: 'test',
+        src: ['Test.st'],
+        libraries: [
+        'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
+        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
+        'SUnit',
+        'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
+        output_name: 'run'
       },
       amber_dev: {
         working_dir: 'js',
-        src: ['Kernel-Objects.js', 'Kernel-Classes.js', 'Kernel-Methods.js', 'Kernel-Collections.js',
-              'Kernel-Exceptions.js', 'Kernel-Transcript.js', 'Kernel-Announcements.js',
-              'Compiler.js', 'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
+        src: [
+              'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
-              'Kernel-Tests.js', 'Compiler-Tests.js',
-              'Canvas.js', 'IDE.js', 'SUnit.js', 'Documentation.js'],
-        output_name: 'amber_lib'
+              'Canvas.js', 'IDE.js', 'SUnit.js',
+              'Kernel-Tests.js', 'Compiler-Tests.js', 'SUnit-Tests.js'],
+        output_name: 'amber_dev'
       },
       server: {
         working_dir: 'server',
@@ -97,7 +115,7 @@ module.exports = function(grunt) {
       tests: ['test/*.js'],
       grunt: ['grunt.js', 'grunt/**/*.js']
     },
-
+/*
     concat: {
       deploy: {
         src: ['tmp/amber-compiled.deploy.js'],
@@ -154,6 +172,7 @@ module.exports = function(grunt) {
         dest: 'dist/amber-<%= pkg.version %>.deploy.min.js'
       }
     }
+*/
   });
 
   grunt.registerMultiTask('css2js', 'Embed CSS into JS', function() {
