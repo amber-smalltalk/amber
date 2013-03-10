@@ -829,16 +829,22 @@ smalltalk.method({
 selector: "methodsInProtocol:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(aString).__eq(_st(self)._allProtocol());
-if(smalltalk.assert($2)){
-$1=_st(_st(_st(self)._model())._selectedClass())._methods();
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+$1=_st(_st(self)._model())._selectedClass();
+if(($receiver = $1) == nil || $receiver == undefined){
+return [];
 } else {
-$1=_st(_st(_st(self)._model())._selectedClass())._methodsInProtocol_(aString);
+$1;
 };
-return $1;
+$3=_st(aString).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($3)){
+$2=_st(_st(_st(self)._model())._selectedClass())._methods();
+} else {
+$2=_st(_st(_st(self)._model())._selectedClass())._methodsInProtocol_(aString);
+};
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:",{aString:aString}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["ifTrue:ifFalse:", "methods", "selectedClass", "model", "methodsInProtocol:", "=", "allProtocol"]}),
+messageSends: ["ifNil:", "selectedClass", "model", "ifTrue:ifFalse:", "methods", "methodsInProtocol:", "=", "allProtocol"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -884,20 +890,16 @@ smalltalk.method({
 selector: "onMethodAdded:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-var $early={};
-try {
-_st(_st(self)._items())._detect_ifNone_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq(_st(aMethod)._selector());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {$1=self;
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(aMethod)._methodClass());
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._setItemsForSelectedProtocol();
 _st(self)._refresh();
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"onMethodAdded:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["detect:ifNone:", "=", "selector", "items", "refresh"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodAdded:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
+messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "model", "setItemsForSelectedProtocol", "refresh"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -906,7 +908,7 @@ smalltalk.method({
 selector: "onMethodRemoved:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 var $early={};
 try {
 _st(_st(self)._items())._detect_ifNone_((function(each){
@@ -915,17 +917,23 @@ return smalltalk.withContext(function($ctx2) {return _st(each).__eq(_st(aMethod
 return smalltalk.withContext(function($ctx2) {$1=self;
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=_st(_st(_st(aMethod)._methodClass()).__eq(_st(_st(self)._model())._selectedClass()))._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(aMethod)._selector()).__eq(_st(self)._selectedItem());
+$2=_st(self)._selectedItem();
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+$3=_st(_st(_st(aMethod)._methodClass()).__eq(_st(_st(self)._model())._selectedClass()))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(aMethod)._selector()).__eq(_st(_st(self)._selectedItem())._selector());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($2)){
+if(smalltalk.assert($3)){
 _st(self)._selectItem_(nil);
 };
+};
+_st(self)._setItemsForSelectedProtocol();
 _st(self)._refresh();
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["detect:ifNone:", "=", "selector", "items", "ifTrue:", "selectItem:", "and:", "selectedItem", "selectedClass", "model", "methodClass", "refresh"]}),
+messageSends: ["detect:ifNone:", "=", "selector", "items", "ifNotNil:", "ifTrue:", "selectItem:", "and:", "selectedItem", "selectedClass", "model", "methodClass", "setItemsForSelectedProtocol", "refresh"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -954,24 +962,11 @@ smalltalk.method({
 selector: "onProtocolSelected:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
-_st(self)._selectedItem_(nil);
-$1=self;
-$3=_st(_st(self)._model())._selectedClass();
-if(($receiver = $3) == nil || $receiver == undefined){
-$2=[];
-} else {
-$4=aString;
-if(($receiver = $4) == nil || $receiver == undefined){
-$2=[];
-} else {
-$2=_st(self)._selectorsInProtocol_(aString);
-};
-};
-_st($1)._items_($2);
+return smalltalk.withContext(function($ctx1) { _st(self)._selectedItem_(nil);
+_st(self)._setItemsForSelectedProtocol();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "selectorsInProtocol:", "selectedClass", "model", "refresh"]}),
+messageSends: ["selectedItem:", "setItemsForSelectedProtocol", "refresh"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -1053,9 +1048,17 @@ smalltalk.method({
 selector: "selectItem:",
 fn: function (aSelector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedMethod_(_st(self)._methodForSelector_(aSelector));
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=aSelector;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st(_st(self)._model())._selectedMethod_(nil);
+return $2;
+} else {
+$1;
+};
+_st(_st(self)._model())._selectedMethod_(_st(self)._methodForSelector_(aSelector));
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aSelector:aSelector}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["selectedMethod:", "methodForSelector:", "model"]}),
+messageSends: ["ifNil:", "selectedMethod:", "model", "methodForSelector:"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -1084,6 +1087,37 @@ return smalltalk.withContext(function($ctx2) {return _st(each)._selector();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorsInProtocol:",{aString:aString}, smalltalk.HLMethodsListWidget)})},
 messageSends: ["collect:", "selector", "methodsInProtocol:"]}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_setItemsForProtocol_",
+smalltalk.method({
+selector: "setItemsForProtocol:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$4,$3,$1;
+$2=self;
+$4=aString;
+if(($receiver = $4) == nil || $receiver == undefined){
+$3=[];
+} else {
+$3=_st(self)._selectorsInProtocol_(aString);
+};
+$1=_st($2)._items_($3);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"setItemsForProtocol:",{aString:aString}, smalltalk.HLMethodsListWidget)})},
+messageSends: ["items:", "ifNil:ifNotNil:", "selectorsInProtocol:"]}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_setItemsForSelectedProtocol",
+smalltalk.method({
+selector: "setItemsForSelectedProtocol",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._setItemsForProtocol_(_st(_st(self)._model())._selectedProtocol());
+return self}, function($ctx1) {$ctx1.fill(self,"setItemsForSelectedProtocol",{}, smalltalk.HLMethodsListWidget)})},
+messageSends: ["setItemsForProtocol:", "selectedProtocol", "model"]}),
 smalltalk.HLMethodsListWidget);
 
 

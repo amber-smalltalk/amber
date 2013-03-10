@@ -351,6 +351,8 @@ methodForSelector: aSelector
 !
 
 methodsInProtocol: aString
+	self model selectedClass ifNil: [ ^ #() ].
+    
 	^ aString = self allProtocol
     	ifTrue: [ self model selectedClass methods ]
       	ifFalse: [ self model selectedClass methodsInProtocol: aString ]
@@ -401,6 +403,8 @@ observeSystem
 !
 
 selectItem: aSelector
+	aSelector ifNil: [ ^ self model selectedMethod: nil ].
+
    	self model selectedMethod: (self methodForSelector: aSelector)
 ! !
 
@@ -417,21 +421,36 @@ initialize
     self flushSelectorsCache
 ! !
 
+!HLMethodsListWidget methodsFor: 'private'!
+
+setItemsForProtocol: aString
+	^ self items: (aString
+    	ifNil: [ #() ]
+      	ifNotNil: [ self selectorsInProtocol: aString ])
+!
+
+setItemsForSelectedProtocol
+	self setItemsForProtocol: self model selectedProtocol
+! !
+
 !HLMethodsListWidget methodsFor: 'reactions'!
 
 onMethodAdded: aMethod
-	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
+	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
     
+    self setItemsForSelectedProtocol.
     self refresh
 !
 
 onMethodRemoved: aMethod
 	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
-    
-    (aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem ])
-  		ifTrue: [ self selectItem: nil ].
-    
-    self refresh
+
+    self selectedItem ifNotNil: [
+      	(aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem selector ])
+  			ifTrue: [ self selectItem: nil ] ].
+    self setItemsForSelectedProtocol.
+
+self refresh
 !
 
 onMethodSelected: aMethod
@@ -444,12 +463,7 @@ onMethodSelected: aMethod
 onProtocolSelected: aString
     self selectedItem: nil.
     
-    self items: (self model selectedClass 
-    	ifNil: [ #() ]
-      	ifNotNil: [ aString
-    		ifNil: [ #() ]
-      		ifNotNil: [ self selectorsInProtocol: aString ] ]).
-        
+	self setItemsForSelectedProtocol.
     self refresh
 ! !
 
