@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
-	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
-	package: 'Helios-Browser'!
+ instanceVariableNames: 'model built packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
+ package: 'Helios-Browser'!
 
 !HLBrowser methodsFor: 'accessing'!
 
@@ -19,6 +19,13 @@ model
 
 model: aModel
 	model := aModel
+! !
+
+!HLBrowser methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	built := false
 ! !
 
 !HLBrowser methodsFor: 'keybindings'!
@@ -46,7 +53,11 @@ renderContentOn: html
             with: (HLVerticalSplitter
             	with: self protocolsListWidget
                 with: self methodsListWidget)) 
-        with: self sourceWidget))
+        with: self sourceWidget)).
+	
+	built ifFalse: [
+		self packagesListWidget focus.
+		built := true ]
 ! !
 
 !HLBrowser methodsFor: 'widgets'!
@@ -103,8 +114,8 @@ canBeOpenAsTab
 ! !
 
 HLNavigationListWidget subclass: #HLBrowserListWidget
-	instanceVariableNames: 'model'
-	package: 'Helios-Browser'!
+ instanceVariableNames: 'model'
+ package: 'Helios-Browser'!
 
 !HLBrowserListWidget methodsFor: 'accessing'!
 
@@ -143,8 +154,8 @@ on: aModel
 ! !
 
 HLBrowserListWidget subclass: #HLClassesListWidget
-	instanceVariableNames: ''
-	package: 'Helios-Browser'!
+ instanceVariableNames: ''
+ package: 'Helios-Browser'!
 
 !HLClassesListWidget methodsFor: 'accessing'!
 
@@ -324,8 +335,8 @@ renderListOn: html
 ! !
 
 HLBrowserListWidget subclass: #HLMethodsListWidget
-	instanceVariableNames: ''
-	package: 'Helios-Browser'!
+ instanceVariableNames: ''
+ package: 'Helios-Browser'!
 
 !HLMethodsListWidget methodsFor: 'accessing'!
 
@@ -512,8 +523,8 @@ selectorsCache
 ! !
 
 HLBrowserListWidget subclass: #HLPackagesListWidget
-	instanceVariableNames: ''
-	package: 'Helios-Browser'!
+ instanceVariableNames: ''
+ package: 'Helios-Browser'!
 
 !HLPackagesListWidget methodsFor: 'accessing'!
 
@@ -579,8 +590,8 @@ renderButtonsOn: html
 ! !
 
 HLBrowserListWidget subclass: #HLProtocolsListWidget
-	instanceVariableNames: ''
-	package: 'Helios-Browser'!
+ instanceVariableNames: ''
+ package: 'Helios-Browser'!
 
 !HLProtocolsListWidget methodsFor: 'accessing'!
 
@@ -681,8 +692,8 @@ renderContentOn: html
 ! !
 
 Object subclass: #HLBrowserModel
-	instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
-	package: 'Helios-Browser'!
+ instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
+ package: 'Helios-Browser'!
 
 !HLBrowserModel methodsFor: 'accessing'!
 
@@ -722,8 +733,10 @@ selectedClass: aClass
 !
 
 selectedMethod
-	^ self selectedClass
-    	ifNotNil: [ self selectedClass methodDictionary at: selectedSelector ]
+	^ self selectedClass ifNotNil: [ 
+			self selectedClass methodDictionary 
+				at: selectedSelector 
+				ifAbsent: [ nil ] ]
 !
 
 selectedMethod: aCompiledMethod
@@ -818,12 +831,9 @@ focusOnSourceCode
 !
 
 save: aString
-	self shouldCompileClassDefinition 
+	(self shouldCompileClassDefinition: aString)
 		ifTrue: [ self compileClassDefinition: aString ]
-		ifFalse: [ 
-			self shouldCompileClassComment 
-				ifTrue: [ self compileClassComment: aString ]
-				ifFalse: [ self compileMethod: aString ] ]
+		ifFalse: [ self compileMethod: aString ]
 !
 
 saveSourceCode
@@ -915,6 +925,7 @@ compilationProtocol
 	| currentProtocol |
 	
 	currentProtocol := self selectedProtocol.
+	currentProtocol ifNil: [ currentProtocol := self unclassifiedProtocol ].
 	self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].
 
 	^ currentProtocol = self allProtocol
@@ -924,14 +935,9 @@ compilationProtocol
 
 !HLBrowserModel methodsFor: 'testing'!
 
-shouldCompileClassComment
-	"TODO"
-	
-	^ false
-!
-
-shouldCompileClassDefinition
-	^ self selectedProtocol isNil
+shouldCompileClassDefinition: aString
+	^ self selectedClass isNil or: [
+		aString first asUppercase = aString first ]
 ! !
 
 !HLBrowserModel class methodsFor: 'actions'!
@@ -944,8 +950,8 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLBrowserSourceWidget
-	instanceVariableNames: 'model methodContents codeWidget'
-	package: 'Helios-Browser'!
+ instanceVariableNames: 'model methodContents codeWidget'
+ package: 'Helios-Browser'!
 
 !HLBrowserSourceWidget methodsFor: 'accessing'!
 
@@ -1078,8 +1084,8 @@ on: aBrowserModel
 ! !
 
 Object subclass: #HLClassCache
-	instanceVariableNames: 'class selectorsCache overrideCache overriddenCache'
-	package: 'Helios-Browser'!
+ instanceVariableNames: 'class selectorsCache overrideCache overriddenCache'
+ package: 'Helios-Browser'!
 
 !HLClassCache methodsFor: 'accessing'!
 
@@ -1165,8 +1171,8 @@ on: aClass selectorsCache: aSelectorsCache
 ! !
 
 Object subclass: #HLSelectorsCache
-	instanceVariableNames: 'classesCache'
-	package: 'Helios-Browser'!
+ instanceVariableNames: 'classesCache'
+ package: 'Helios-Browser'!
 
 !HLSelectorsCache methodsFor: 'accessing'!
 

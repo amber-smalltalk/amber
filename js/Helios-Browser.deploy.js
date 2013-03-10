@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Browser');
-smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
+smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'built', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -44,6 +44,18 @@ $1=_st(_st(self)._model())._environment();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"environment",{}, smalltalk.HLBrowser)})},
 messageSends: ["environment", "model"]}),
+smalltalk.HLBrowser);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+self["@built"]=false;
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLBrowser)})},
+messageSends: ["initialize"]}),
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(
@@ -164,9 +176,16 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
+$1=self["@built"];
+if(! smalltalk.assert($1)){
+_st(_st(self)._packagesListWidget())._focus();
+self["@built"]=true;
+self["@built"];
+};
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLBrowser)})},
-messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget"]}),
+messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget", "ifFalse:", "focus"]}),
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(
@@ -1576,24 +1595,31 @@ selector: "compilationProtocol",
 fn: function (){
 var self=this;
 var currentProtocol;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$3;
 currentProtocol=_st(self)._selectedProtocol();
-$1=_st(self)._selectedMethod();
+$1=currentProtocol;
 if(($receiver = $1) == nil || $receiver == undefined){
+currentProtocol=_st(self)._unclassifiedProtocol();
+currentProtocol;
+} else {
 $1;
+};
+$2=_st(self)._selectedMethod();
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
 } else {
 currentProtocol=_st(_st(self)._selectedMethod())._protocol();
 currentProtocol;
 };
-$3=_st(currentProtocol).__eq(_st(self)._allProtocol());
-if(smalltalk.assert($3)){
-$2=_st(self)._unclassifiedProtocol();
+$4=_st(currentProtocol).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($4)){
+$3=_st(self)._unclassifiedProtocol();
 } else {
-$2=currentProtocol;
+$3=currentProtocol;
 };
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"compilationProtocol",{currentProtocol:currentProtocol}, smalltalk.HLBrowserModel)})},
-messageSends: ["selectedProtocol", "ifNotNil:", "protocol", "selectedMethod", "ifTrue:ifFalse:", "unclassifiedProtocol", "=", "allProtocol"]}),
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"compilationProtocol",{currentProtocol:currentProtocol},smalltalk.HLBrowserModel)})},
+messageSends: ["selectedProtocol", "ifNil:", "unclassifiedProtocol", "ifNotNil:", "protocol", "selectedMethod", "ifTrue:ifFalse:", "=", "allProtocol"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -1789,20 +1815,15 @@ smalltalk.method({
 selector: "save:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st(self)._shouldCompileClassDefinition();
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._shouldCompileClassDefinition_(aString);
 if(smalltalk.assert($1)){
 _st(self)._compileClassDefinition_(aString);
 } else {
-$2=_st(self)._shouldCompileClassComment();
-if(smalltalk.assert($2)){
-_st(self)._compileClassComment_(aString);
-} else {
 _st(self)._compileMethod_(aString);
 };
-};
-return self}, function($ctx1) {$ctx1.fill(self,"save:",{aString:aString}, smalltalk.HLBrowserModel)})},
-messageSends: ["ifTrue:ifFalse:", "compileClassDefinition:", "compileClassComment:", "compileMethod:", "shouldCompileClassComment", "shouldCompileClassDefinition"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"save:",{aString:aString},smalltalk.HLBrowserModel)})},
+messageSends: ["ifTrue:ifFalse:", "compileClassDefinition:", "compileMethod:", "shouldCompileClassDefinition:"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -1878,11 +1899,13 @@ $2=_st(self)._selectedClass();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=$2;
 } else {
-$1=_st(_st(_st(self)._selectedClass())._methodDictionary())._at_(self["@selectedSelector"]);
+$1=_st(_st(_st(self)._selectedClass())._methodDictionary())._at_ifAbsent_(self["@selectedSelector"],(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedMethod",{}, smalltalk.HLBrowserModel)})},
-messageSends: ["ifNotNil:", "at:", "methodDictionary", "selectedClass"]}),
+}, function($ctx1) {$ctx1.fill(self,"selectedMethod",{},smalltalk.HLBrowserModel)})},
+messageSends: ["ifNotNil:", "at:ifAbsent:", "methodDictionary", "selectedClass"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -1980,27 +2003,18 @@ messageSends: ["ifTrue:", "=", "selectedMethod:", "announce:", "on:", "announcer
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_shouldCompileClassComment",
+"_shouldCompileClassDefinition_",
 smalltalk.method({
-selector: "shouldCompileClassComment",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return false;
-}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassComment",{}, smalltalk.HLBrowserModel)})},
-messageSends: []}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_shouldCompileClassDefinition",
-smalltalk.method({
-selector: "shouldCompileClassDefinition",
-fn: function (){
+selector: "shouldCompileClassDefinition:",
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._selectedProtocol())._isNil();
+$1=_st(_st(_st(self)._selectedClass())._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(aString)._first())._asUppercase()).__eq(_st(aString)._first());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition",{}, smalltalk.HLBrowserModel)})},
-messageSends: ["isNil", "selectedProtocol"]}),
+}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition:",{aString:aString},smalltalk.HLBrowserModel)})},
+messageSends: ["or:", "=", "first", "asUppercase", "isNil", "selectedClass"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(

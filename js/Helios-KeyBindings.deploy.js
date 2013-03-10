@@ -25,6 +25,19 @@ messageSends: ["label"]}),
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
+"_isActive",
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._subclassResponsibility();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLBinding)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLBinding);
+
+smalltalk.addMethod(
 "_isBindingAction",
 smalltalk.method({
 selector: "isBindingAction",
@@ -136,16 +149,54 @@ messageSends: ["key:", "new", "label:", "yourself"]}),
 smalltalk.HLBinding.klass);
 
 
-smalltalk.addClass('HLBindingAction', smalltalk.HLBinding, ['callback'], 'Helios-KeyBindings');
+smalltalk.addClass('HLBindingAction', smalltalk.HLBinding, ['callback', 'activeBlock'], 'Helios-KeyBindings');
+smalltalk.addMethod(
+"_activeBlock",
+smalltalk.method({
+selector: "activeBlock",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@activeBlock"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@activeBlock"]=(function(){
+return smalltalk.withContext(function($ctx2) {return true;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+$1=self["@activeBlock"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"activeBlock",{},smalltalk.HLBindingAction)})},
+messageSends: ["ifNil:"]}),
+smalltalk.HLBindingAction);
+
+smalltalk.addMethod(
+"_activeBlock_",
+smalltalk.method({
+selector: "activeBlock:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@activeBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"activeBlock:",{aBlock:aBlock},smalltalk.HLBindingAction)})},
+messageSends: []}),
+smalltalk.HLBindingAction);
+
 smalltalk.addMethod(
 "_applyOn_",
 smalltalk.method({
 selector: "applyOn:",
 fn: function (aKeyBinder){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aKeyBinder)._applyBindingAction_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder}, smalltalk.HLBindingAction)})},
-messageSends: ["applyBindingAction:"]}),
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(self)._isActive();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(aKeyBinder)._applyBindingAction_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingAction)})},
+messageSends: ["ifFalse:", "isActive", "applyBindingAction:"]}),
 smalltalk.HLBindingAction);
 
 smalltalk.addMethod(
@@ -173,6 +224,19 @@ messageSends: []}),
 smalltalk.HLBindingAction);
 
 smalltalk.addMethod(
+"_isActive",
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._activeBlock())._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLBindingAction)})},
+messageSends: ["value", "activeBlock"]}),
+smalltalk.HLBindingAction);
+
+smalltalk.addMethod(
 "_isBindingAction",
 smalltalk.method({
 selector: "isBindingAction",
@@ -186,6 +250,21 @@ smalltalk.HLBindingAction);
 
 
 smalltalk.addClass('HLBindingGroup', smalltalk.HLBinding, ['bindings'], 'Helios-KeyBindings');
+smalltalk.addMethod(
+"_activeBindings",
+smalltalk.method({
+selector: "activeBindings",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._bindings())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._isActive();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"activeBindings",{},smalltalk.HLBindingGroup)})},
+messageSends: ["select:", "isActive", "bindings"]}),
+smalltalk.HLBindingGroup);
+
 smalltalk.addMethod(
 "_add_",
 smalltalk.method({
@@ -246,9 +325,15 @@ smalltalk.method({
 selector: "applyOn:",
 fn: function (aKeyBinder){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aKeyBinder)._applyBindingGroup_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder}, smalltalk.HLBindingGroup)})},
-messageSends: ["applyBindingGroup:"]}),
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(self)._isActive();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(aKeyBinder)._applyBindingGroup_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingGroup)})},
+messageSends: ["ifFalse:", "isActive", "applyBindingGroup:"]}),
 smalltalk.HLBindingGroup);
 
 smalltalk.addMethod(
@@ -318,6 +403,19 @@ messageSends: [",", "displayLabel"]}),
 smalltalk.HLBindingGroup);
 
 smalltalk.addMethod(
+"_isActive",
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._activeBindings())._notEmpty();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLBindingGroup)})},
+messageSends: ["notEmpty", "activeBindings"]}),
+smalltalk.HLBindingGroup);
+
+smalltalk.addMethod(
 "_isBindingGroup",
 smalltalk.method({
 selector: "isBindingGroup",
@@ -334,9 +432,13 @@ smalltalk.method({
 selector: "renderOn:html:",
 fn: function (aBindingHelper,html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aBindingHelper)._renderBindingGroup_on_(self,html);
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBindingHelper:aBindingHelper,html:html}, smalltalk.HLBindingGroup)})},
-messageSends: ["renderBindingGroup:on:"]}),
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._isActive();
+if(smalltalk.assert($1)){
+_st(aBindingHelper)._renderBindingGroup_on_(self,html);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBindingHelper:aBindingHelper,html:html},smalltalk.HLBindingGroup)})},
+messageSends: ["ifTrue:", "renderBindingGroup:on:", "isActive"]}),
 smalltalk.HLBindingGroup);
 
 
@@ -725,7 +827,7 @@ selector: "renderBindingGroup:on:",
 fn: function (aBindingGroup,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$6,$2;
-_st(_st(_st(aBindingGroup)._bindings())._sorted_((function(a,b){
+_st(_st(_st(aBindingGroup)._activeBindings())._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {return _st(_st(a)._key()).__lt(_st(b)._key());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})})))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {$1=_st(html)._span();
@@ -745,8 +847,8 @@ return $6;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderBindingGroup:on:",{aBindingGroup:aBindingGroup,html:html}, smalltalk.HLKeyBinderHelper)})},
-messageSends: ["do:", "class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder", "sorted:", "<", "key", "bindings"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderBindingGroup:on:",{aBindingGroup:aBindingGroup,html:html},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["do:", "class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder", "sorted:", "<", "key", "activeBindings"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(

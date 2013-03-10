@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Browser');
-smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
+smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'built', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -57,6 +57,23 @@ return $1;
 args: [],
 source: "environment\x0a\x09^ self model environment",
 messageSends: ["environment", "model"],
+referencedClasses: []
+}),
+smalltalk.HLBrowser);
+
+smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+self["@built"]=false;
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLBrowser)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09built := false",
+messageSends: ["initialize"],
 referencedClasses: []
 }),
 smalltalk.HLBrowser);
@@ -210,11 +227,18 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
+$1=self["@built"];
+if(! smalltalk.assert($1)){
+_st(_st(self)._packagesListWidget())._focus();
+self["@built"]=true;
+self["@built"];
+};
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLBrowser)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self packagesListWidget\x0a                with: self classesListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self protocolsListWidget\x0a                with: self methodsListWidget)) \x0a        with: self sourceWidget))",
-messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget"],
+source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self packagesListWidget\x0a                with: self classesListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self protocolsListWidget\x0a                with: self methodsListWidget)) \x0a        with: self sourceWidget)).\x0a\x09\x0a\x09built ifFalse: [\x0a\x09\x09self packagesListWidget focus.\x0a\x09\x09built := true ]",
+messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget", "ifFalse:", "focus"],
 referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter", "HLContainer"]
 }),
 smalltalk.HLBrowser);
@@ -2047,26 +2071,33 @@ category: 'private',
 fn: function (){
 var self=this;
 var currentProtocol;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$3;
 currentProtocol=_st(self)._selectedProtocol();
-$1=_st(self)._selectedMethod();
+$1=currentProtocol;
 if(($receiver = $1) == nil || $receiver == undefined){
+currentProtocol=_st(self)._unclassifiedProtocol();
+currentProtocol;
+} else {
 $1;
+};
+$2=_st(self)._selectedMethod();
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
 } else {
 currentProtocol=_st(_st(self)._selectedMethod())._protocol();
 currentProtocol;
 };
-$3=_st(currentProtocol).__eq(_st(self)._allProtocol());
-if(smalltalk.assert($3)){
-$2=_st(self)._unclassifiedProtocol();
+$4=_st(currentProtocol).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($4)){
+$3=_st(self)._unclassifiedProtocol();
 } else {
-$2=currentProtocol;
+$3=currentProtocol;
 };
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"compilationProtocol",{currentProtocol:currentProtocol}, smalltalk.HLBrowserModel)})},
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"compilationProtocol",{currentProtocol:currentProtocol},smalltalk.HLBrowserModel)})},
 args: [],
-source: "compilationProtocol\x0a\x09| currentProtocol |\x0a\x09\x0a\x09currentProtocol := self selectedProtocol.\x0a\x09self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].\x0a\x0a\x09^ currentProtocol = self allProtocol\x0a\x09\x09ifTrue: [ self unclassifiedProtocol ]\x0a\x09\x09ifFalse: [ currentProtocol ]",
-messageSends: ["selectedProtocol", "ifNotNil:", "protocol", "selectedMethod", "ifTrue:ifFalse:", "unclassifiedProtocol", "=", "allProtocol"],
+source: "compilationProtocol\x0a\x09| currentProtocol |\x0a\x09\x0a\x09currentProtocol := self selectedProtocol.\x0a\x09currentProtocol ifNil: [ currentProtocol := self unclassifiedProtocol ].\x0a\x09self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].\x0a\x0a\x09^ currentProtocol = self allProtocol\x0a\x09\x09ifTrue: [ self unclassifiedProtocol ]\x0a\x09\x09ifFalse: [ currentProtocol ]",
+messageSends: ["selectedProtocol", "ifNil:", "unclassifiedProtocol", "ifNotNil:", "protocol", "selectedMethod", "ifTrue:ifFalse:", "=", "allProtocol"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
@@ -2335,22 +2366,17 @@ selector: "save:",
 category: 'actions',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st(self)._shouldCompileClassDefinition();
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._shouldCompileClassDefinition_(aString);
 if(smalltalk.assert($1)){
 _st(self)._compileClassDefinition_(aString);
 } else {
-$2=_st(self)._shouldCompileClassComment();
-if(smalltalk.assert($2)){
-_st(self)._compileClassComment_(aString);
-} else {
 _st(self)._compileMethod_(aString);
 };
-};
-return self}, function($ctx1) {$ctx1.fill(self,"save:",{aString:aString}, smalltalk.HLBrowserModel)})},
+return self}, function($ctx1) {$ctx1.fill(self,"save:",{aString:aString},smalltalk.HLBrowserModel)})},
 args: ["aString"],
-source: "save: aString\x0a\x09self shouldCompileClassDefinition \x0a\x09\x09ifTrue: [ self compileClassDefinition: aString ]\x0a\x09\x09ifFalse: [ \x0a\x09\x09\x09self shouldCompileClassComment \x0a\x09\x09\x09\x09ifTrue: [ self compileClassComment: aString ]\x0a\x09\x09\x09\x09ifFalse: [ self compileMethod: aString ] ]",
-messageSends: ["ifTrue:ifFalse:", "compileClassDefinition:", "compileClassComment:", "compileMethod:", "shouldCompileClassComment", "shouldCompileClassDefinition"],
+source: "save: aString\x0a\x09(self shouldCompileClassDefinition: aString)\x0a\x09\x09ifTrue: [ self compileClassDefinition: aString ]\x0a\x09\x09ifFalse: [ self compileMethod: aString ]",
+messageSends: ["ifTrue:ifFalse:", "compileClassDefinition:", "compileMethod:", "shouldCompileClassDefinition:"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
@@ -2444,13 +2470,15 @@ $2=_st(self)._selectedClass();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=$2;
 } else {
-$1=_st(_st(_st(self)._selectedClass())._methodDictionary())._at_(self["@selectedSelector"]);
+$1=_st(_st(_st(self)._selectedClass())._methodDictionary())._at_ifAbsent_(self["@selectedSelector"],(function(){
+return smalltalk.withContext(function($ctx2) {return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedMethod",{}, smalltalk.HLBrowserModel)})},
+}, function($ctx1) {$ctx1.fill(self,"selectedMethod",{},smalltalk.HLBrowserModel)})},
 args: [],
-source: "selectedMethod\x0a\x09^ self selectedClass\x0a    \x09ifNotNil: [ self selectedClass methodDictionary at: selectedSelector ]",
-messageSends: ["ifNotNil:", "at:", "methodDictionary", "selectedClass"],
+source: "selectedMethod\x0a\x09^ self selectedClass ifNotNil: [ \x0a\x09\x09\x09self selectedClass methodDictionary \x0a\x09\x09\x09\x09at: selectedSelector \x0a\x09\x09\x09\x09ifAbsent: [ nil ] ]",
+messageSends: ["ifNotNil:", "at:ifAbsent:", "methodDictionary", "selectedClass"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
@@ -2575,35 +2603,21 @@ referencedClasses: ["HLProtocolSelected"]
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_shouldCompileClassComment",
+"_shouldCompileClassDefinition_",
 smalltalk.method({
-selector: "shouldCompileClassComment",
+selector: "shouldCompileClassDefinition:",
 category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return false;
-}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassComment",{}, smalltalk.HLBrowserModel)})},
-args: [],
-source: "shouldCompileClassComment\x0a\x09\x22TODO\x22\x0a\x09\x0a\x09^ false",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-"_shouldCompileClassDefinition",
-smalltalk.method({
-selector: "shouldCompileClassDefinition",
-category: 'testing',
-fn: function (){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._selectedProtocol())._isNil();
+$1=_st(_st(_st(self)._selectedClass())._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(aString)._first())._asUppercase()).__eq(_st(aString)._first());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition",{}, smalltalk.HLBrowserModel)})},
-args: [],
-source: "shouldCompileClassDefinition\x0a\x09^ self selectedProtocol isNil",
-messageSends: ["isNil", "selectedProtocol"],
+}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition:",{aString:aString},smalltalk.HLBrowserModel)})},
+args: ["aString"],
+source: "shouldCompileClassDefinition: aString\x0a\x09^ self selectedClass isNil or: [\x0a\x09\x09aString first asUppercase = aString first ]",
+messageSends: ["or:", "=", "first", "asUppercase", "isNil", "selectedClass"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);

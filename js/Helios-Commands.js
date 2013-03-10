@@ -649,10 +649,10 @@ selector: "key",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (67);
-}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCloseTabCommand.klass)})},
+return smalltalk.withContext(function($ctx1) { return (87);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCloseTabCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 87",
 messageSends: [],
 referencedClasses: []
 }),

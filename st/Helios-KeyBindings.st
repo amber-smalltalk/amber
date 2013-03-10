@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
-	instanceVariableNames: 'key label'
-	package: 'Helios-KeyBindings'!
+ instanceVariableNames: 'key label'
+ package: 'Helios-KeyBindings'!
 
 !HLBinding methodsFor: 'accessing'!
 
@@ -42,6 +42,10 @@ renderOn: aBindingHelper html: html
 
 !HLBinding methodsFor: 'testing'!
 
+isActive
+	^ self subclassResponsibility
+!
+
 isBindingAction
 	^ false
 !
@@ -60,10 +64,18 @@ on: anInteger labelled: aString
 ! !
 
 HLBinding subclass: #HLBindingAction
-	instanceVariableNames: 'callback'
-	package: 'Helios-KeyBindings'!
+ instanceVariableNames: 'callback activeBlock'
+ package: 'Helios-KeyBindings'!
 
 !HLBindingAction methodsFor: 'accessing'!
+
+activeBlock
+	^ activeBlock ifNil: [ activeBlock := [ true ] ]
+!
+
+activeBlock: aBlock
+	activeBlock := aBlock
+!
 
 callback
 	^ callback
@@ -76,20 +88,30 @@ callback: aBlock
 !HLBindingAction methodsFor: 'actions'!
 
 applyOn: aKeyBinder
+	self isActive ifFalse: [ ^ self ].
+	
 	aKeyBinder applyBindingAction: self
 ! !
 
 !HLBindingAction methodsFor: 'testing'!
+
+isActive
+	^ self activeBlock value
+!
 
 isBindingAction
 	^ true
 ! !
 
 HLBinding subclass: #HLBindingGroup
-	instanceVariableNames: 'bindings'
-	package: 'Helios-KeyBindings'!
+ instanceVariableNames: 'bindings'
+ package: 'Helios-KeyBindings'!
 
 !HLBindingGroup methodsFor: 'accessing'!
+
+activeBindings
+	^ self bindings select: [ :each | each isActive ]
+!
 
 add: aBinding
 	^ self bindings add: aBinding
@@ -134,24 +156,31 @@ displayLabel
 !HLBindingGroup methodsFor: 'actions'!
 
 applyOn: aKeyBinder
+	self isActive ifFalse: [ ^ self ].
+	
 	aKeyBinder applyBindingGroup: self
 ! !
 
 !HLBindingGroup methodsFor: 'rendering'!
 
 renderOn: aBindingHelper html: html
-	aBindingHelper renderBindingGroup: self on: html
+	self isActive ifTrue: [
+		aBindingHelper renderBindingGroup: self on: html ]
 ! !
 
 !HLBindingGroup methodsFor: 'testing'!
+
+isActive
+	^ self activeBindings notEmpty
+!
 
 isBindingGroup
 	^ true
 ! !
 
 Object subclass: #HLKeyBinder
-	instanceVariableNames: 'modifierKey active helper bindings selectedBinding'
-	package: 'Helios-KeyBindings'!
+ instanceVariableNames: 'modifierKey active helper bindings selectedBinding'
+ package: 'Helios-KeyBindings'!
 
 !HLKeyBinder methodsFor: 'accessing'!
 
@@ -292,8 +321,8 @@ systemIsMac
 ! !
 
 HLWidget subclass: #HLKeyBinderHelper
-	instanceVariableNames: 'keyBinder'
-	package: 'Helios-KeyBindings'!
+ instanceVariableNames: 'keyBinder'
+ package: 'Helios-KeyBindings'!
 
 !HLKeyBinderHelper methodsFor: 'accessing'!
 
@@ -332,7 +361,7 @@ registerBindings
 !HLKeyBinderHelper methodsFor: 'rendering'!
 
 renderBindingGroup: aBindingGroup on: html
-	(aBindingGroup bindings 
+	(aBindingGroup activeBindings 
     	sorted: [ :a :b | a key < b key ])
         do: [ :each |
 			html span class: 'command'; with: [

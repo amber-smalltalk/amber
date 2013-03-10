@@ -463,8 +463,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (67);
-}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCloseTabCommand.klass)})},
+return smalltalk.withContext(function($ctx1) { return (87);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCloseTabCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCloseTabCommand.klass);
 

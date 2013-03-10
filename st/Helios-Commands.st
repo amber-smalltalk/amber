@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Commands'!
 Object subclass: #HLCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLCommand methodsFor: 'accessing'!
 
@@ -48,8 +48,8 @@ label
 ! !
 
 HLCommand subclass: #HLBrowserCommand
-	instanceVariableNames: 'model'
-	package: 'Helios-Commands'!
+ instanceVariableNames: 'model'
+ package: 'Helios-Commands'!
 
 !HLBrowserCommand methodsFor: 'accessing'!
 
@@ -70,8 +70,8 @@ on: aBrowserModel
 ! !
 
 HLBrowserCommand subclass: #HLGoToCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLGoToCommand class methodsFor: 'accessing'!
 
@@ -80,8 +80,8 @@ bindingGroup
 ! !
 
 HLGoToCommand subclass: #HLGoToClassesCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLGoToClassesCommand methodsFor: 'executing'!
 
@@ -102,8 +102,8 @@ label
 ! !
 
 HLGoToCommand subclass: #HLGoToMethodsCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLGoToMethodsCommand methodsFor: 'executing'!
 
@@ -124,8 +124,8 @@ label
 ! !
 
 HLGoToCommand subclass: #HLGoToPackagesCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLGoToPackagesCommand methodsFor: 'executing'!
 
@@ -146,8 +146,8 @@ label
 ! !
 
 HLGoToCommand subclass: #HLGoToProtocolsCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLGoToProtocolsCommand methodsFor: 'executing'!
 
@@ -168,8 +168,8 @@ label
 ! !
 
 HLGoToCommand subclass: #HLGoToSourceCodeCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLGoToSourceCodeCommand methodsFor: 'executing'!
 
@@ -190,8 +190,8 @@ label
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLToggleCommand class methodsFor: 'accessing'!
 
@@ -200,8 +200,8 @@ bindingGroup
 ! !
 
 HLToggleCommand subclass: #HLToggleClassSideCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLToggleClassSideCommand methodsFor: 'executing'!
 
@@ -222,8 +222,8 @@ label
 ! !
 
 HLToggleCommand subclass: #HLToggleInstanceSideCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLToggleInstanceSideCommand methodsFor: 'executing'!
 
@@ -244,8 +244,8 @@ label
 ! !
 
 HLCommand subclass: #HLCloseTabCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLCloseTabCommand methodsFor: 'executing'!
 
@@ -260,7 +260,7 @@ bindingGroup
 !
 
 key
-	^ 67
+	^ 87
 !
 
 label
@@ -268,8 +268,8 @@ label
 ! !
 
 HLCommand subclass: #HLOpenCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLOpenCommand class methodsFor: 'accessing'!
 
@@ -278,8 +278,8 @@ bindingGroup
 ! !
 
 HLOpenCommand subclass: #HLOpenBrowserCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLOpenBrowserCommand methodsFor: 'executing'!
 
@@ -298,8 +298,8 @@ label
 ! !
 
 HLOpenCommand subclass: #HLOpenTranscriptCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLOpenTranscriptCommand methodsFor: 'executing'!
 
@@ -318,8 +318,8 @@ label
 ! !
 
 HLOpenCommand subclass: #HLOpenWorkspaceCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
 !HLOpenWorkspaceCommand methodsFor: 'executing'!
 
@@ -338,6 +338,6 @@ label
 ! !
 
 HLCommand subclass: #HLViewCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands'!
+ instanceVariableNames: ''
+ package: 'Helios-Commands'!
 
