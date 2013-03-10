@@ -548,6 +548,79 @@ referencedClasses: ["HLPackageSelected", "HLShowInstanceToggled", "HLClassSelect
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
+"_observeSystem",
+smalltalk.method({
+selector: "observeSystem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current();
+_st($1)._on_do_((smalltalk.ClassAdded || ClassAdded),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onClassAdded_(_st(ann)._theClass());
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_((smalltalk.ClassRemoved || ClassRemoved),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onClassRemoved_(_st(ann)._theClass());
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{}, smalltalk.HLClassesListWidget)})},
+args: [],
+source: "observeSystem\x0a\x09SystemAnnouncer current\x0a    \x09on: ClassAdded\x0a        do: [ :ann | self onClassAdded: ann theClass ];\x0a        on: ClassRemoved\x0a        do: [ :ann | self onClassRemoved: ann theClass ]",
+messageSends: ["on:do:", "onClassAdded:", "theClass", "current", "onClassRemoved:"],
+referencedClasses: ["ClassAdded", "SystemAnnouncer", "ClassRemoved"]
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onClassAdded_",
+smalltalk.method({
+selector: "onClassAdded:",
+category: 'reactions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(aClass)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._setItemsForSelectedPackage();
+_st(self)._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{aClass:aClass}, smalltalk.HLClassesListWidget)})},
+args: ["aClass"],
+source: "onClassAdded: aClass\x0a\x09aClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
+messageSends: ["ifFalse:", "=", "selectedPackage", "model", "package", "setItemsForSelectedPackage", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onClassRemoved_",
+smalltalk.method({
+selector: "onClassRemoved:",
+category: 'reactions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+$1=_st(_st(aClass)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(aClass).__eq(_st(_st(self)._model())._selectedClass());
+if(smalltalk.assert($3)){
+_st(self)._selectItem_(nil);
+};
+_st(self)._setItemsForSelectedPackage();
+_st(self)._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassRemoved:",{aClass:aClass}, smalltalk.HLClassesListWidget)})},
+args: ["aClass"],
+source: "onClassRemoved: aClass\x0a\x09aClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    aClass = self model selectedClass ifTrue: [ self selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
+messageSends: ["ifFalse:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "selectedClass", "setItemsForSelectedPackage", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
 "_onClassSelected_",
 smalltalk.method({
 selector: "onClassSelected:",
@@ -579,23 +652,13 @@ selector: "onPackageSelected:",
 category: 'reactions',
 fn: function (aPackage){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
-_st(self)._selectedItem_(nil);
-$1=self;
-$3=aPackage;
-if(($receiver = $3) == nil || $receiver == undefined){
-$2=[];
-} else {
-$2=_st(_st(_st(_st(aPackage)._classes())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._theNonMetaClass();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet())._asArray();
-};
-_st($1)._items_($2);
+return smalltalk.withContext(function($ctx1) { _st(self)._selectedItem_(nil);
+_st(self)._setItemsForSelectedPackage();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{aPackage:aPackage}, smalltalk.HLClassesListWidget)})},
 args: ["aPackage"],
-source: "onPackageSelected: aPackage\x0a    self selectedItem: nil.\x0a    \x0a    self items: (aPackage \x0a    \x09ifNil: [ #() ]\x0a  \x09\x09ifNotNil: [ (aPackage classes \x0a        \x09collect: [ :each | each theNonMetaClass ]) asSet asArray ]).\x0a\x0a    self refresh",
-messageSends: ["selectedItem:", "items:", "ifNil:ifNotNil:", "asArray", "asSet", "collect:", "theNonMetaClass", "classes", "refresh"],
+source: "onPackageSelected: aPackage\x0a    self selectedItem: nil.\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
+messageSends: ["selectedItem:", "setItemsForSelectedPackage", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -788,6 +851,48 @@ return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aClass:aClass}, sm
 args: ["aClass"],
 source: "selectItem: aClass\x0a    self model selectedClass: aClass",
 messageSends: ["selectedClass:", "model"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_setItemsForPackage_",
+smalltalk.method({
+selector: "setItemsForPackage:",
+category: 'private',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+$1=self;
+$3=aPackage;
+if(($receiver = $3) == nil || $receiver == undefined){
+$2=[];
+} else {
+$2=_st(_st(_st(_st(aPackage)._classes())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._theNonMetaClass();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet())._asArray();
+};
+_st($1)._items_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"setItemsForPackage:",{aPackage:aPackage}, smalltalk.HLClassesListWidget)})},
+args: ["aPackage"],
+source: "setItemsForPackage: aPackage\x0a\x09self items: (aPackage \x0a    \x09ifNil: [ #() ]\x0a  \x09\x09ifNotNil: [ (aPackage classes \x0a        \x09collect: [ :each | each theNonMetaClass ]) asSet asArray ]).",
+messageSends: ["items:", "ifNil:ifNotNil:", "asArray", "asSet", "collect:", "theNonMetaClass", "classes"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_setItemsForSelectedPackage",
+smalltalk.method({
+selector: "setItemsForSelectedPackage",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._setItemsForPackage_(_st(_st(self)._model())._selectedPackage());
+return self}, function($ctx1) {$ctx1.fill(self,"setItemsForSelectedPackage",{}, smalltalk.HLClassesListWidget)})},
+args: [],
+source: "setItemsForSelectedPackage\x0a\x09self setItemsForPackage: self model selectedPackage",
+messageSends: ["setItemsForPackage:", "selectedPackage", "model"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -1075,22 +1180,28 @@ selector: "onMethodRemoved:",
 category: 'reactions',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 var $early={};
 try {
 _st(_st(self)._items())._detect_ifNone_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._selector()).__eq(_st(aMethod)._selector());
+return smalltalk.withContext(function($ctx2) {return _st(each).__eq(_st(aMethod)._selector());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {$1=self;
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=_st(_st(_st(aMethod)._methodClass()).__eq(_st(_st(self)._model())._selectedClass()))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(aMethod)._selector()).__eq(_st(self)._selectedItem());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+_st(self)._selectItem_(nil);
+};
 _st(self)._refresh();
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
 args: ["aMethod"],
-source: "onMethodRemoved: aMethod\x0a\x09self items detect: [ :each | each selector = aMethod selector ] ifNone: [ ^ self ].\x0a    \x0a    self refresh",
-messageSends: ["detect:ifNone:", "=", "selector", "items", "refresh"],
+source: "onMethodRemoved: aMethod\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a    \x0a    (aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem ])\x0a  \x09\x09ifTrue: [ self selectItem: nil ].\x0a    \x0a    self refresh",
+messageSends: ["detect:ifNone:", "=", "selector", "items", "ifTrue:", "selectItem:", "and:", "selectedItem", "selectedClass", "model", "methodClass", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLMethodsListWidget);
@@ -2301,7 +2412,7 @@ return $4;
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{aMethod:aMethod}, smalltalk.HLBrowserSourceWidget)})},
 args: ["aMethod"],
-source: "onMethodModified: aMethod\x0a\x09self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].\x0a    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].\x0a\x0a    self refresh",
+source: "onMethodModified: aMethod\x0a\x0a\x09self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].\x0a    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].\x0a\x0a    self refresh",
 messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "model", "selector", "selectedMethod", "refresh"],
 referencedClasses: []
 }),

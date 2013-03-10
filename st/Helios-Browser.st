@@ -184,6 +184,14 @@ observeModel
 		on: HLClassSelected do: [ :ann | self onClassSelected: ann item ]
 !
 
+observeSystem
+	SystemAnnouncer current
+    	on: ClassAdded
+        do: [ :ann | self onClassAdded: ann theClass ];
+        on: ClassRemoved
+        do: [ :ann | self onClassRemoved: ann theClass ]
+!
+
 selectItem: aClass
     self model selectedClass: aClass
 !
@@ -192,7 +200,35 @@ showInstance: aBoolean
 	self model showInstance: aBoolean
 ! !
 
+!HLClassesListWidget methodsFor: 'private'!
+
+setItemsForPackage: aPackage
+	self items: (aPackage 
+    	ifNil: [ #() ]
+  		ifNotNil: [ (aPackage classes 
+        	collect: [ :each | each theNonMetaClass ]) asSet asArray ]).
+!
+
+setItemsForSelectedPackage
+	self setItemsForPackage: self model selectedPackage
+! !
+
 !HLClassesListWidget methodsFor: 'reactions'!
+
+onClassAdded: aClass
+	aClass package = self model selectedPackage ifFalse: [ ^ self ].
+    
+    self setItemsForSelectedPackage.
+    self refresh
+!
+
+onClassRemoved: aClass
+	aClass package = self model selectedPackage ifFalse: [ ^ self ].
+    aClass = self model selectedClass ifTrue: [ self selectItem: nil ].
+    
+    self setItemsForSelectedPackage.
+    self refresh
+!
 
 onClassSelected: aClass
 	self selectedItem: aClass.
@@ -204,11 +240,7 @@ onClassSelected: aClass
 onPackageSelected: aPackage
     self selectedItem: nil.
     
-    self items: (aPackage 
-    	ifNil: [ #() ]
-  		ifNotNil: [ (aPackage classes 
-        	collect: [ :each | each theNonMetaClass ]) asSet asArray ]).
-
+    self setItemsForSelectedPackage.
     self refresh
 !
 
@@ -393,7 +425,10 @@ onMethodAdded: aMethod
 !
 
 onMethodRemoved: aMethod
-	self items detect: [ :each | each selector = aMethod selector ] ifNone: [ ^ self ].
+	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
+    
+    (aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem ])
+  		ifTrue: [ self selectItem: nil ].
     
     self refresh
 !
@@ -759,6 +794,7 @@ onClassSelected: aClass
 !
 
 onMethodModified: aMethod
+
 	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
     self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
 
