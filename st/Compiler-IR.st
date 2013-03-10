@@ -231,7 +231,7 @@ visitSendNode: aNode
 
 visitSequenceNode: aNode
 	^ self
-		withSequence: IRSequence new	
+		withSequence: IRSequence new
 		do: [
 			aNode nodes do: [ :each | | instruction |
 				instruction := self visit: each.
@@ -1056,7 +1056,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll:	 anIRClosure method scope alias, ')})'
+		nextPutAll: anIRClosure method scope alias, ')})'
 !
 
 nextPutClosureWith: aBlock arguments: anArray

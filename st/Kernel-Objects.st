@@ -30,7 +30,7 @@ The hook method `#postCopy` can be overriden in subclasses to copy fields as nec
 
 ##Comparison
 
-Objects understand equality	 `#=` and identity `#==` comparison.
+Objects understand equality `#=` and identity `#==` comparison.
 
 ##Error handling
 
@@ -144,7 +144,7 @@ copy
 !
 
 deepCopy
-	<	
+	<
 		var copy = self.klass._new();
 		for(var i in self) {
 		if(/^@.+/.test(i)) {
@@ -238,7 +238,7 @@ perform: aSymbol withArguments: aCollection
 log: aString block: aBlock
 
 	| result |
-	console log: aString,	' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
+	console log: aString, ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
 	^result
 !
 
@@ -771,7 +771,7 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Number commentStamp!
-Number holds the most general methods for dealing with numbers. 
+Number holds the most general methods for dealing with numbers.
 Number is directly mapped to JavaScript Number.
 
 Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript.

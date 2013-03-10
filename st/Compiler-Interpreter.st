@@ -239,7 +239,7 @@ interpret: aNode continue: aBlock
 	shouldReturn ifTrue: [ ^ self ].
 
 	aNode isNode
-		ifTrue: [	
+		ifTrue: [
 			currentNode := aNode.
 			self interpretNode: aNode continue: [ :value |
 				self continue: aBlock value: value ] ]
@@ -295,7 +295,7 @@ interpretDynamicDictionaryNode: aNode continue: aBlock
 	self interpretAll: aNode nodes continue: [ :array | | hashedCollection |
 		hashedCollection := HashedCollection new.
 		array do: [ :each | hashedCollection add: each ].
-		self	
+		self
 			continue: aBlock
 			value: hashedCollection ]
 !

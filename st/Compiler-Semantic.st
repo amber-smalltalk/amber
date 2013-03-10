@@ -203,7 +203,7 @@ Object subclass: #ScopeVar
 	instanceVariableNames: 'scope name'
 	package: 'Compiler-Semantic'!
 !ScopeVar commentStamp!
-I am an entry in a LexicalScope that gets associated with variable nodes of the same name.	
+I am an entry in a LexicalScope that gets associated with variable nodes of the same name.
 There are 4 different subclasses of vars: temp vars, local vars, args, and unknown/global vars.!
 
 !ScopeVar methodsFor: 'accessing'!

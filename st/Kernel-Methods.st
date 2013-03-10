@@ -70,8 +70,8 @@ on: anErrorClass do: aBlock
 	^self try: self catch: [ :error | | smalltalkError |
 		smalltalkError := Smalltalk current asSmalltalkException: error.
 		(smalltalkError isKindOf: anErrorClass)
-		 ifTrue: [ aBlock value: smalltalkError ]
-		 ifFalse: [ smalltalkError signal ] ]
+		ifTrue: [ aBlock value: smalltalkError ]
+		ifFalse: [ smalltalkError signal ] ]
 ! !
 
 !BlockClosure methodsFor: 'evaluating'!
@@ -178,7 +178,7 @@ See referenced classes:
 
 or messages sent from this method:
 	
-	(String methodAt: 'lines')	messageSends!
+	(String methodAt: 'lines') messageSends!
 
 !CompiledMethod methodsFor: 'accessing'!
 
@@ -332,7 +332,7 @@ Generally, the system does not use instances of Message for efficiency reasons.
 However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission.
 This instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.
 
-See boot.js, `messageNotUnderstood`	 and its counterpart `Object>>doesNotUnderstand:`!
+See boot.js, `messageNotUnderstood` and its counterpart `Object>>doesNotUnderstand:`!
 
 !Message methodsFor: 'accessing'!
 
@@ -355,12 +355,12 @@ selector: aString
 !Message methodsFor: 'printing'!
 
 printString
-	^ String streamContents: [:aStream| 
+	^ String streamContents: [:aStream|
 												aStream
 													nextPutAll: super printString;
 													nextPutAll: '(';
 													nextPutAll: selector;
-													nextPutAll: ')'					]
+													nextPutAll: ')' ]
 !
 
 sendTo: anObject

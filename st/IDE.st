@@ -75,7 +75,7 @@ renderOn: html
 		onClick: [self browser selectClass: self theClass].
 	li asJQuery html: self label.
 
-	self browser selectedClass = self theClass ifTrue:	[
+	self browser selectedClass = self theClass ifTrue: [
 		cssClass := cssClass, ' selected'].
 
 	self theClass comment isEmpty ifFalse: [
@@ -242,7 +242,7 @@ doIt
 !
 
 eval: aString
-	| compiler	|
+	| compiler |
 	compiler := Compiler new.
 	[ compiler parseExpression: aString ] on: Error do: [:ex |
 		^window alert: ex messageText].
@@ -783,7 +783,7 @@ addNewClass
 	className := window prompt: 'New class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
-			 self
+			self
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
@@ -806,12 +806,12 @@ cancelChanges
 commitPackage
 	selectedPackage ifNotNil: [ |package|
 		package := Package named: selectedPackage.
-		{	Exporter		 -> (package commitPathJs, '/', selectedPackage, '.js').
+		{ Exporter -> (package commitPathJs, '/', selectedPackage, '.js').
 			StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-			ChunkExporter	 -> (package commitPathSt, '/', selectedPackage, '.st')
+			ChunkExporter -> (package commitPathSt, '/', selectedPackage, '.st')
 		} do: [:commitStrategy| |fileContents|
 			fileContents := (commitStrategy key new exportPackage: selectedPackage).
-			self ajaxPutAt: commitStrategy value data:	fileContents
+			self ajaxPutAt: commitStrategy value data: fileContents
 		]
 	]
 !
@@ -863,8 +863,8 @@ compileMethodDefinitionFor: aClass
 	compiler currentClass: aClass.
 	method := compiler eval: (compiler compileNode: node).
 	compiler unknownVariables do: [:each |
-		 "Do not try to redeclare javascript's objects"
-		 (window at: each) ifNil: [
+		"Do not try to redeclare javascript's objects"
+		(window at: each) ifNil: [
 		(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
@@ -878,7 +878,7 @@ copyClass
 	className := window prompt: 'Copy class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		ClassBuilder new copyClass: self selectedClass named: className.
-			 self
+			self
 			resetClassesList;
 			updateClassesList.
 		self selectClass: (Smalltalk current at: className)]
@@ -891,7 +891,7 @@ disableSaveButton
 !
 
 handleSourceAreaKeyDown: anEvent
-	 <if(anEvent.ctrlKey) {
+	<if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 83) { //ctrl+s
 			self._compile();
 			anEvent.preventDefault();
@@ -974,7 +974,7 @@ searchReferencesOf: aString
 selectCategory: aCategory
 	self cancelChanges ifTrue: [
 	selectedPackage := aCategory.
-	selectedClass := selectedProtocol := selectedMethod :=	nil.
+	selectedClass := selectedProtocol := selectedMethod := nil.
 	self resetClassesList.
 	self
 		updateCategoriesList;
@@ -1056,7 +1056,7 @@ initialize
 
 ajaxPutAt: aURL data: aString
 	jQuery
-		ajax: aURL	options: #{ 'type' -> 'PUT'.
+		ajax: aURL options: #{ 'type' -> 'PUT'.
 								'data' -> aString.
 								'contentType' -> 'text/plain;charset=UTF-8'.
 								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
@@ -1444,7 +1444,7 @@ renderButtonsOn: html
 		class: 'amber_button debugger inspect';
 		with: 'Inspect';
 		onClick: [self inspectSelectedVariable].
-	 self
+	self
 		updateSourceArea;
 		updateStatus;
 		updateVariablesList;
@@ -1493,7 +1493,7 @@ updateInspector
 !
 
 updateSourceArea
-	 sourceArea val: self source
+	sourceArea val: self source
 !
 
 updateStatus

@@ -244,7 +244,7 @@ testClassMigration
 	| instance oldClass |
 	
 	oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.
-	instance := (Smalltalk	current at: 'ObjectMock2') new.
+	instance := (Smalltalk current at: 'ObjectMock2') new.
 	
 	"Change the superclass of ObjectMock2"
 	ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')
@@ -928,7 +928,7 @@ testIdentity
 	self assert: #hello == #hello.
 	self deny: #hello == #world.
 
-	self assert: #hello	 = #hello yourself.
+	self assert: #hello = #hello yourself.
 	self assert: #hello yourself = #hello asString asSymbol
 !
 
@@ -1018,7 +1018,7 @@ testPropertyThatReturnsUndefined
 	| object |
 
 	object := self jsObject.
-	self shouldnt: [ object e ]	 raise: MessageNotUnderstood.
+	self shouldnt: [ object e ] raise: MessageNotUnderstood.
 	self assert: object e isNil
 !
 
@@ -1301,7 +1301,7 @@ testBasicAccess
 testBasicPerform
 	| o |
 	o := Object new.
-	o basicAt: 'func' put: ['hello'].	
+	o basicAt: 'func' put: ['hello'].
 	o basicAt: 'func2' put: [:a | a + 1].
 
 	self assert: (o basicPerform: 'func') equals: 'hello'.
@@ -1396,7 +1396,7 @@ setUp
 !
 
 tearDown
-	 Package
+	Package
 		defaultCommitPathJs: backUpCommitPathJs;
 		defaultCommitPathSt: backUpCommitPathSt
 ! !

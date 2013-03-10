@@ -818,7 +818,7 @@ removeLast
 	(self class = aCollection class and: [
 		self size = aCollection size]) ifFalse: [^false].
 	self withIndexDo: [:each :i |
-				 (aCollection at: i) = each ifFalse: [^false]].
+				(aCollection at: i) = each ifFalse: [^false]].
 	^true
 ! !
 
@@ -933,7 +933,7 @@ removeFrom: aNumber to: anotherNumber
 !Array methodsFor: 'converting'!
 
 asJavascript
-	^'[', ((self collect: [:each | each asJavascript]) join: ', '),	 ']'
+	^'[', ((self collect: [:each | each asJavascript]) join: ', '), ']'
 !
 
 reversed
@@ -997,7 +997,7 @@ withAll: aCollection
 	| instance index |
 	index := 1.
 	instance := self new: aCollection size.
-	aCollection do: [:each	|
+	aCollection do: [:each |
 		instance at: index put: each.
 		index := index + 1].
 	^instance

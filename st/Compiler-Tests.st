@@ -173,7 +173,7 @@ testMessageSend
 	"SendNode"
 	self interpreter step.
 	
-	 "ValueNode"
+	"ValueNode"
 	self interpreter step.
 	self assert: self interpreter currentNode value equals: 1.
 	

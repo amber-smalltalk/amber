@@ -26,11 +26,11 @@ nextChunk
 	result := '' writeStream.
 		[char := stream next.
 		char notNil] whileTrue: [
-				 char = '!!' ifTrue: [
-						 stream peek = '!!'
+				char = '!!' ifTrue: [
+						stream peek = '!!'
 								ifTrue: [stream next "skipping the escape double"]
-								ifFalse: [^result contents trimBoth	 "chunk end marker found"]].
-				 result nextPut: char].
+								ifFalse: [^result contents trimBoth "chunk end marker found"]].
+				result nextPut: char].
 	^nil "a chunk needs to end with !!"
 ! !
 
@@ -198,13 +198,13 @@ exportDefinitionOf: aClass on: aStream
 	aStream
 		nextPutAll: (self classNameFor: aClass superclass);
 		nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
-		nextPutAll: '	instanceVariableNames: '''.
+		nextPutAll: ' instanceVariableNames: '''.
 	aClass instanceVariableNames
 		do: [:each | aStream nextPutAll: each]
 		separatedBy: [aStream nextPutAll: ' '].
 	aStream
 		nextPutAll: ''''; lf;
-		nextPutAll: '	package: ''', aClass category, '''!!'; lf.
+		nextPutAll: ' package: ''', aClass category, '''!!'; lf.
 	aClass comment notEmpty ifTrue: [
 		aStream
 		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
@@ -281,7 +281,7 @@ exportPackageExtensionsOf: package on: aStream
 			aClass protocolsDo: [:category :methods |
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
-				methods := map at: category.	
+				methods := map at: category.
 				self exportMethods: methods category: category of: aClass on: aStream ]]]
 ! !
 
@@ -331,7 +331,7 @@ import: aStream
 	parser := ChunkParser on: aStream.
 	lastEmpty := false.
 	[chunk := parser nextChunk.
-	 chunk isNil] whileFalse: [
+	chunk isNil] whileFalse: [
 		chunk isEmpty
 			ifTrue: [lastEmpty := true]
 			ifFalse: [
@@ -356,7 +356,7 @@ initializePackageNamed: packageName prefix: aString
 		commitPathSt: '/', aString, '/st'
 !
 
-loadPackage: packageName prefix: aString	
+loadPackage: packageName prefix: aString
 	| url |
 	url := '/', aString, '/js/', packageName, '.js'.
 	jQuery
@@ -367,7 +367,7 @@ loadPackage: packageName prefix: aString
 			'complete' -> [ :jqXHR :textStatus |
 				jqXHR readyState = 4
 					ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
-			'error' -> [ window alert: 'Could not load package at:	', url ]
+			'error' -> [ window alert: 'Could not load package at: ', url ]
 		}
 !
 

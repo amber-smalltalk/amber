@@ -185,7 +185,7 @@ sendInliner
 
 shouldInlineAssignment: anIRAssignment
 	^ anIRAssignment isInlined not and: [
-		anIRAssignment instructions last isSend and: [	
+		anIRAssignment instructions last isSend and: [
 			self shouldInlineSend: (anIRAssignment instructions last) ]]
 !
 

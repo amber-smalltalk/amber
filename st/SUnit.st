@@ -22,7 +22,7 @@ A TestCase is an implementation of the command pattern to run a test.
 `TestCase` instances are created with the class method `#selector:`,
 passing the symbol that names the method to be executed when the test case runs.
 
-When you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test. 
+When you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.
 As that method develops and more `#test...` methods are added, you will find yourself refactoring temps
 into instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.
 As required, override `#tearDown` to nil references, release objects and deallocate.!
@@ -60,7 +60,7 @@ timeout: aNumber
 	
 	asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].
 	
-	 "to allow #async: message send without throwing an error"
+	"to allow #async: message send without throwing an error"
 	asyncTimeout := 0.
 	
 	asyncTimeout := (self async: [
@@ -294,7 +294,7 @@ Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
 	package: 'SUnit'!
 !TestResult commentStamp!
-A TestResult implements the collecting parameter pattern for running a bunch of tests.	
+A TestResult implements the collecting parameter pattern for running a bunch of tests.
 
 A TestResult holds tests that have run, sorted into the result categories of passed, failures and errors.
 
@@ -368,7 +368,7 @@ or does nothing if no more runs"
 !
 
 runCase: aTestCase
-	[[	self increaseRuns.
+	[[ self increaseRuns.
 		aTestCase runCase]
 	on: TestFailure do: [:ex | self addFailure: aTestCase]]
 	on: Error do: [:ex | self addError: aTestCase]

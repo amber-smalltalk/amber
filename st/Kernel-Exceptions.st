@@ -8,7 +8,7 @@ From the ANSI standard:
 This protocol describes the behavior of instances of class `Error`.
 These are used to represent error conditions that prevent the normal continuation of processing.
 Actual error exceptions used by an application may be subclasses of this class.
-As `Error` is explicitly specified	to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.!
+As `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.!
 
 !Error methodsFor: 'accessing'!
 
