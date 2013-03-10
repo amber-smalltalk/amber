@@ -2006,10 +2006,10 @@ selector: "allProtocol",
 category: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "-- All --";
+return smalltalk.withContext(function($ctx1) { return "-- all --";
 }, function($ctx1) {$ctx1.fill(self,"allProtocol",{}, smalltalk.HLBrowserModel)})},
 args: [],
-source: "allProtocol\x0a\x09^ '-- All --'",
+source: "allProtocol\x0a\x09^ '-- all --'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2047,19 +2047,26 @@ category: 'private',
 fn: function (){
 var self=this;
 var currentProtocol;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
 currentProtocol=_st(self)._selectedProtocol();
-$2=_st(currentProtocol).__eq(_st(self)._allProtocol());
-if(smalltalk.assert($2)){
-$1=_st(self)._unclassifiedProtocol();
+$1=_st(self)._selectedMethod();
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
 } else {
-$1=currentProtocol;
+currentProtocol=_st(_st(self)._selectedMethod())._protocol();
+currentProtocol;
 };
-return $1;
+$3=_st(currentProtocol).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($3)){
+$2=_st(self)._unclassifiedProtocol();
+} else {
+$2=currentProtocol;
+};
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"compilationProtocol",{currentProtocol:currentProtocol}, smalltalk.HLBrowserModel)})},
 args: [],
-source: "compilationProtocol\x0a\x09| currentProtocol |\x0a\x09\x0a\x09currentProtocol := self selectedProtocol.\x0a\x0a\x09^ currentProtocol = self allProtocol\x0a\x09\x09ifTrue: [ self unclassifiedProtocol ]\x0a\x09\x09ifFalse: [ currentProtocol ]",
-messageSends: ["selectedProtocol", "ifTrue:ifFalse:", "unclassifiedProtocol", "=", "allProtocol"],
+source: "compilationProtocol\x0a\x09| currentProtocol |\x0a\x09\x0a\x09currentProtocol := self selectedProtocol.\x0a\x09self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].\x0a\x0a\x09^ currentProtocol = self allProtocol\x0a\x09\x09ifTrue: [ self unclassifiedProtocol ]\x0a\x09\x09ifFalse: [ currentProtocol ]",
+messageSends: ["selectedProtocol", "ifNotNil:", "protocol", "selectedMethod", "ifTrue:ifFalse:", "unclassifiedProtocol", "=", "allProtocol"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
@@ -2108,7 +2115,7 @@ return smalltalk.withContext(function($ctx2) {return _st(_st(self)._environment
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"compileMethod:",{aString:aString}, smalltalk.HLBrowserModel)})},
 args: ["aString"],
-source: "compileMethod: aString\x0a\x09self withCompileErrorHandling: [ self environment \x0a\x09\x09compileMethod: aString \x0a\x09\x09for: self selectedClass\x0a\x09\x09protocol: self compilationProtocol ]",
+source: "compileMethod: aString\x0a\x0a\x09self withCompileErrorHandling: [ self environment \x0a\x09\x09compileMethod: aString \x0a\x09\x09for: self selectedClass\x0a\x09\x09protocol: self compilationProtocol ]",
 messageSends: ["withCompileErrorHandling:", "compileMethod:for:protocol:", "selectedClass", "compilationProtocol", "environment"],
 referencedClasses: []
 }),
@@ -2837,6 +2844,24 @@ referencedClasses: []
 smalltalk.HLBrowserSourceWidget);
 
 smalltalk.addMethod(
+"_hasFocus",
+smalltalk.method({
+selector: "hasFocus",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._codeWidget())._hasFocus();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"hasFocus",{}, smalltalk.HLBrowserSourceWidget)})},
+args: [],
+source: "hasFocus\x0a\x09^ self codeWidget hasFocus",
+messageSends: ["hasFocus", "codeWidget"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
 "_hasModification",
 smalltalk.method({
 selector: "hasModification",
@@ -3115,18 +3140,22 @@ selector: "refresh",
 category: 'updating',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 $1=_st(self)._hasModification();
 if(smalltalk.assert($1)){
 $2=self;
 return $2;
 };
+$3=_st(self)._hasFocus();
+if(smalltalk.assert($3)){
+$4=self;
+return $4;
+};
 _st(self)._contents_(_st(_st(_st(self)._model())._selectedMethod())._source());
-smalltalk.HLWidget.fn.prototype._refresh.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{}, smalltalk.HLBrowserSourceWidget)})},
 args: [],
-source: "refresh\x0a\x09self hasModification ifTrue: [ ^ self ].\x0a    \x0a\x09self contents: self model selectedMethod source.\x0a    super refresh",
-messageSends: ["ifTrue:", "hasModification", "contents:", "source", "selectedMethod", "model", "refresh"],
+source: "refresh\x0a\x09self hasModification ifTrue: [ ^ self ].\x0a    self hasFocus ifTrue: [ ^ self ].\x0a\x0a\x09self contents: self model selectedMethod source",
+messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "model"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserSourceWidget);

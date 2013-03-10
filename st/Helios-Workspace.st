@@ -237,6 +237,12 @@ renderContentOn: html
     self configureEditor
 ! !
 
+!HLCodeWidget methodsFor: 'testing'!
+
+hasFocus
+	^ code asJQuery is: ':active'
+! !
+
 !HLCodeWidget class methodsFor: 'accessing'!
 
 keyMap

@@ -361,6 +361,24 @@ referencedClasses: []
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_hasFocus",
+smalltalk.method({
+selector: "hasFocus",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self["@code"])._asJQuery())._is_(":active");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"hasFocus",{}, smalltalk.HLCodeWidget)})},
+args: [],
+source: "hasFocus\x0a\x09^ code asJQuery is: ':active'",
+messageSends: ["is:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_inspectIt",
 smalltalk.method({
 selector: "inspectIt",

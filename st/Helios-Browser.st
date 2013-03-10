@@ -843,6 +843,7 @@ compileClassDefinition: aString
 !
 
 compileMethod: aString
+
 	self withCompileErrorHandling: [ self environment 
 		compileMethod: aString 
 		for: self selectedClass
@@ -852,7 +853,7 @@ compileMethod: aString
 !HLBrowserModel methodsFor: 'defaults'!
 
 allProtocol
-	^ '-- All --'
+	^ '-- all --'
 !
 
 unclassifiedProtocol
@@ -914,6 +915,7 @@ compilationProtocol
 	| currentProtocol |
 	
 	currentProtocol := self selectedProtocol.
+	self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].
 
 	^ currentProtocol = self allProtocol
 		ifTrue: [ self unclassifiedProtocol ]
@@ -1050,6 +1052,10 @@ renderContentOn: html
 
 !HLBrowserSourceWidget methodsFor: 'testing'!
 
+hasFocus
+	^ self codeWidget hasFocus
+!
+
 hasModification
 	^ (self methodContents = self contents) not
 ! !
@@ -1058,9 +1064,9 @@ hasModification
 
 refresh
 	self hasModification ifTrue: [ ^ self ].
-    
-	self contents: self model selectedMethod source.
-    super refresh
+    self hasFocus ifTrue: [ ^ self ].
+
+	self contents: self model selectedMethod source
 ! !
 
 !HLBrowserSourceWidget class methodsFor: 'instance creation'!
