@@ -432,7 +432,7 @@ smalltalk.addClass('PackageAdded', smalltalk.PackageAnnouncement, [], 'Kernel-An
 smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
 
 
-smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['protocol'], 'Kernel-Announcements');
+smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
 smalltalk.addMethod(
 "_protocol",
 smalltalk.method({
@@ -462,6 +462,40 @@ return smalltalk.withContext(function($ctx1) { self["@protocol"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString}, smalltalk.ProtocolAnnouncement)})},
 args: ["aString"],
 source: "protocol: aString\x0a\x09protocol := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtocolAnnouncement);
+
+smalltalk.addMethod(
+"_theClass",
+smalltalk.method({
+selector: "theClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{}, smalltalk.ProtocolAnnouncement)})},
+args: [],
+source: "theClass\x0a\x09^ theClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtocolAnnouncement);
+
+smalltalk.addMethod(
+"_theClass_",
+smalltalk.method({
+selector: "theClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass}, smalltalk.ProtocolAnnouncement)})},
+args: ["aClass"],
+source: "theClass: aClass\x0a\x09theClass := aClass",
 messageSends: [],
 referencedClasses: []
 }),

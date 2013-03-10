@@ -1073,6 +1073,7 @@ addElement: aString
 
 	SystemAnnouncer current announce: (ProtocolAdded new
     	protocol: aString;
+        theClass: self theClass;
         yourself)
 !
 
@@ -1081,7 +1082,12 @@ removeElement: aString
 
 	SystemAnnouncer current announce: (ProtocolRemoved new
     	protocol: aString;
+        theClass: self theClass;
         yourself)
+!
+
+theClass
+	< return self.theClass >
 ! !
 
 Organizer subclass: #PackageOrganizer

@@ -318,7 +318,7 @@ smalltalk.addClass('PackageAdded', smalltalk.PackageAnnouncement, [], 'Kernel-An
 smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
 
 
-smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['protocol'], 'Kernel-Announcements');
+smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
 smalltalk.addMethod(
 "_protocol",
 smalltalk.method({
@@ -340,6 +340,30 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@protocol"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString}, smalltalk.ProtocolAnnouncement)})},
+messageSends: []}),
+smalltalk.ProtocolAnnouncement);
+
+smalltalk.addMethod(
+"_theClass",
+smalltalk.method({
+selector: "theClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{}, smalltalk.ProtocolAnnouncement)})},
+messageSends: []}),
+smalltalk.ProtocolAnnouncement);
+
+smalltalk.addMethod(
+"_theClass_",
+smalltalk.method({
+selector: "theClass:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass}, smalltalk.ProtocolAnnouncement)})},
 messageSends: []}),
 smalltalk.ProtocolAnnouncement);
 

@@ -210,7 +210,7 @@ PackageAnnouncement subclass: #PackageRemoved
 	package: 'Kernel-Announcements'!
 
 SystemAnnouncement subclass: #ProtocolAnnouncement
-	instanceVariableNames: 'protocol'
+	instanceVariableNames: 'theClass protocol'
 	package: 'Kernel-Announcements'!
 
 !ProtocolAnnouncement methodsFor: 'accessing'!
@@ -221,6 +221,14 @@ protocol
 
 protocol: aString
 	protocol := aString
+!
+
+theClass
+	^ theClass
+!
+
+theClass: aClass
+	theClass := aClass
 ! !
 
 ProtocolAnnouncement subclass: #ProtocolAdded

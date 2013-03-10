@@ -242,7 +242,9 @@ function Smalltalk() {
             enumerable:false, configurable: true, writable: false
 		});
 
-		klass.organization = new SmalltalkClassOrganizer();
+		klass.organization          = new SmalltalkClassOrganizer();
+        klass.organization.theClass = klass;
+
 		Object.defineProperty(klass, "methods", {
 			value: {},
 			enumerable: false, configurable: true, writable: true
