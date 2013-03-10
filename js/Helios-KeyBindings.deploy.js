@@ -12,6 +12,19 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{}, smalltalk.HLBinding)})},
+messageSends: ["label"]}),
+smalltalk.HLBinding);
+
+smalltalk.addMethod(
 "_isBindingAction",
 smalltalk.method({
 selector: "isBindingAction",
@@ -289,6 +302,19 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindings",{}, smalltalk.HLBindingGroup)})},
 messageSends: ["ifNil:", "new"]}),
+smalltalk.HLBindingGroup);
+
+smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(smalltalk.HLBinding.fn.prototype._displayLabel.apply(_st(self), [])).__comma("...");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{}, smalltalk.HLBindingGroup)})},
+messageSends: [",", "displayLabel"]}),
 smalltalk.HLBindingGroup);
 
 smalltalk.addMethod(
@@ -711,7 +737,7 @@ $4=_st($3)._with_(_st(_st(each)._shortcut())._asLowercase());
 $4;
 $5=_st(html)._a();
 _st($5)._class_("action");
-_st($5)._with_(_st(each)._label());
+_st($5)._with_(_st(each)._displayLabel());
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx4) {return _st(_st(self)._keyBinder())._applyBinding_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
@@ -720,7 +746,7 @@ return $6;
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderBindingGroup:on:",{aBindingGroup:aBindingGroup,html:html}, smalltalk.HLKeyBinderHelper)})},
-messageSends: ["do:", "class:", "span", "with:", "asLowercase", "shortcut", "a", "label", "onClick:", "applyBinding:", "keyBinder", "sorted:", "<", "key", "bindings"]}),
+messageSends: ["do:", "class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder", "sorted:", "<", "key", "bindings"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(

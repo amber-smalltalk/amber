@@ -17,6 +17,24 @@ referencedClasses: []
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{}, smalltalk.HLBinding)})},
+args: [],
+source: "displayLabel\x0a\x09^ self label",
+messageSends: ["label"],
+referencedClasses: []
+}),
+smalltalk.HLBinding);
+
+smalltalk.addMethod(
 "_isBindingAction",
 smalltalk.method({
 selector: "isBindingAction",
@@ -398,6 +416,24 @@ args: [],
 source: "bindings\x0a\x09^ bindings ifNil: [ bindings := OrderedCollection new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.HLBindingGroup);
+
+smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(smalltalk.HLBinding.fn.prototype._displayLabel.apply(_st(self), [])).__comma("...");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{}, smalltalk.HLBindingGroup)})},
+args: [],
+source: "displayLabel\x0a\x09^ super displayLabel, '...'",
+messageSends: [",", "displayLabel"],
+referencedClasses: []
 }),
 smalltalk.HLBindingGroup);
 
@@ -962,7 +998,7 @@ $4=_st($3)._with_(_st(_st(each)._shortcut())._asLowercase());
 $4;
 $5=_st(html)._a();
 _st($5)._class_("action");
-_st($5)._with_(_st(each)._label());
+_st($5)._with_(_st(each)._displayLabel());
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx4) {return _st(_st(self)._keyBinder())._applyBinding_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
@@ -972,8 +1008,8 @@ return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderBindingGroup:on:",{aBindingGroup:aBindingGroup,html:html}, smalltalk.HLKeyBinderHelper)})},
 args: ["aBindingGroup", "html"],
-source: "renderBindingGroup: aBindingGroup on: html\x0a\x09(aBindingGroup bindings \x0a    \x09sorted: [ :a :b | a key < b key ])\x0a        do: [ :each |\x0a\x09\x09\x09html span class: 'command'; with: [\x0a\x09\x09\x09\x09html span class: 'label'; with: each shortcut asLowercase.\x0a  \x09\x09\x09\x09html a \x0a                \x09class: 'action'; \x0a                    with: each label;\x0a  \x09\x09\x09\x09\x09onClick: [ self keyBinder applyBinding: each ] ] ]",
-messageSends: ["do:", "class:", "span", "with:", "asLowercase", "shortcut", "a", "label", "onClick:", "applyBinding:", "keyBinder", "sorted:", "<", "key", "bindings"],
+source: "renderBindingGroup: aBindingGroup on: html\x0a\x09(aBindingGroup bindings \x0a    \x09sorted: [ :a :b | a key < b key ])\x0a        do: [ :each |\x0a\x09\x09\x09html span class: 'command'; with: [\x0a\x09\x09\x09\x09html span class: 'label'; with: each shortcut asLowercase.\x0a  \x09\x09\x09\x09html a \x0a                \x09class: 'action'; \x0a                    with: each displayLabel;\x0a  \x09\x09\x09\x09\x09onClick: [ self keyBinder applyBinding: each ] ] ]",
+messageSends: ["do:", "class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:", "keyBinder", "sorted:", "<", "key", "bindings"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinderHelper);

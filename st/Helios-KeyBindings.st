@@ -5,6 +5,10 @@ Object subclass: #HLBinding
 
 !HLBinding methodsFor: 'accessing'!
 
+displayLabel
+	^ self label
+!
+
 key
 	^ key
 !
@@ -121,6 +125,10 @@ atKey: anInteger
 
 bindings
 	^ bindings ifNil: [ bindings := OrderedCollection new ]
+!
+
+displayLabel
+	^ super displayLabel, '...'
 ! !
 
 !HLBindingGroup methodsFor: 'actions'!
@@ -331,7 +339,7 @@ renderBindingGroup: aBindingGroup on: html
 				html span class: 'label'; with: each shortcut asLowercase.
   				html a 
                 	class: 'action'; 
-                    with: each label;
+                    with: each displayLabel;
   					onClick: [ self keyBinder applyBinding: each ] ] ]
 !
 
