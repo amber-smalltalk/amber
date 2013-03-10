@@ -470,6 +470,22 @@ referencedClasses: []
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
+"_activationKeyLabel",
+smalltalk.method({
+selector: "activationKeyLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "ctrl + space";
+}, function($ctx1) {$ctx1.fill(self,"activationKeyLabel",{}, smalltalk.HLKeyBinder)})},
+args: [],
+source: "activationKeyLabel\x0a\x09^ 'ctrl + space'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
 "_applyBinding_",
 smalltalk.method({
 selector: "applyBinding:",
@@ -703,20 +719,14 @@ selector: "helper",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=self["@helper"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@helper"]=_st((smalltalk.HLKeyBinderHelper || HLKeyBinderHelper))._on_(self);
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@helper"];
-} else {
-$1=$2;
-};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"helper",{}, smalltalk.HLKeyBinder)})},
 args: [],
-source: "helper\x0a\x09^ helper ifNil: [ helper := HLKeyBinderHelper on: self ]",
-messageSends: ["ifNil:", "on:"],
-referencedClasses: ["HLKeyBinderHelper"]
+source: "helper\x0a\x09^ helper",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.HLKeyBinder);
 
@@ -728,12 +738,14 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@helper"]=_st((smalltalk.HLKeyBinderHelper || HLKeyBinderHelper))._on_(self);
+_st(self["@helper"])._renderStart();
 self["@active"]=false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLKeyBinder)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a    active := false",
-messageSends: ["initialize"],
-referencedClasses: []
+source: "initialize\x0a\x09super initialize.\x0a\x09helper := HLKeyBinderHelper on: self.\x0a\x09helper renderStart.\x0a    active := false",
+messageSends: ["initialize", "on:", "renderStart"],
+referencedClasses: ["HLKeyBinderHelper"]
 }),
 smalltalk.HLKeyBinder);
 
@@ -1001,6 +1013,31 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderSelectionOn:",{html:html},
 args: ["html"],
 source: "renderSelectionOn: html\x0a\x09\x09html span \x0a        \x09class: 'selected'; \x0a            with: (self selectedBinding label ifNil: [ 'Action' ])",
 messageSends: ["class:", "span", "with:", "ifNil:", "label", "selectedBinding"],
+referencedClasses: []
+}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_renderStart",
+smalltalk.method({
+selector: "renderStart",
+category: 'rendering',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st((function(html){
+return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
+_st($1)._id_("keybinding-start-helper");
+$2=_st($1)._with_(_st(_st("Press ").__comma(_st(_st(self)._keyBinder())._activationKeyLabel())).__comma(" to start"));
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st("body")._asJQuery());
+_st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(window)._jQuery_("#keybinding-start-helper"))._fadeOut_((1000));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((2000));
+return self}, function($ctx1) {$ctx1.fill(self,"renderStart",{}, smalltalk.HLKeyBinderHelper)})},
+args: [],
+source: "renderStart\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'keybinding-start-helper';\x0a\x09\x09\x09with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[ (window jQuery: '#keybinding-start-helper') fadeOut: 1000 ] \x0a\x09\x09valueWithTimeout: 2000",
+messageSends: ["appendToJQuery:", "asJQuery", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "valueWithTimeout:", "fadeOut:", "jQuery:"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinderHelper);

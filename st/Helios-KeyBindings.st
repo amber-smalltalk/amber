@@ -152,6 +152,10 @@ activationKey
 	^ 32
 !
 
+activationKeyLabel
+	^ 'ctrl + space'
+!
+
 bindings
 	^ bindings ifNil: [ bindings := HLBindingGroup new ]
 !
@@ -162,7 +166,7 @@ escapeKey
 !
 
 helper
-	^ helper ifNil: [ helper := HLKeyBinderHelper on: self ]
+	^ helper
 !
 
 selectedBinding
@@ -249,6 +253,8 @@ setupEvents
 
 initialize
 	super initialize.
+	helper := HLKeyBinderHelper on: self.
+	helper renderStart.
     active := false
 ! !
 
@@ -329,6 +335,16 @@ renderSelectionOn: html
 		html span 
         	class: 'selected'; 
             with: (self selectedBinding label ifNil: [ 'Action' ])
+!
+
+renderStart
+	[ :html |
+		html div 
+			id: 'keybinding-start-helper';
+			with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.
+	
+	[ (window jQuery: '#keybinding-start-helper') fadeOut: 1000 ] 
+		valueWithTimeout: 2000
 ! !
 
 !HLKeyBinderHelper class methodsFor: 'instance creation'!

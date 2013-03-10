@@ -340,6 +340,17 @@ messageSends: []}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
+"_activationKeyLabel",
+smalltalk.method({
+selector: "activationKeyLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "ctrl + space";
+}, function($ctx1) {$ctx1.fill(self,"activationKeyLabel",{}, smalltalk.HLKeyBinder)})},
+messageSends: []}),
+smalltalk.HLKeyBinder);
+
+smalltalk.addMethod(
 "_applyBinding_",
 smalltalk.method({
 selector: "applyBinding:",
@@ -517,17 +528,11 @@ smalltalk.method({
 selector: "helper",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=self["@helper"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@helper"]=_st((smalltalk.HLKeyBinderHelper || HLKeyBinderHelper))._on_(self);
+return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@helper"];
-} else {
-$1=$2;
-};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"helper",{}, smalltalk.HLKeyBinder)})},
-messageSends: ["ifNil:", "on:"]}),
+messageSends: []}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
@@ -537,9 +542,11 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@helper"]=_st((smalltalk.HLKeyBinderHelper || HLKeyBinderHelper))._on_(self);
+_st(self["@helper"])._renderStart();
 self["@active"]=false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLKeyBinder)})},
-messageSends: ["initialize"]}),
+messageSends: ["initialize", "on:", "renderStart"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
@@ -743,6 +750,26 @@ $4=$5;
 $2=_st($3)._with_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"renderSelectionOn:",{html:html}, smalltalk.HLKeyBinderHelper)})},
 messageSends: ["class:", "span", "with:", "ifNil:", "label", "selectedBinding"]}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_renderStart",
+smalltalk.method({
+selector: "renderStart",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st((function(html){
+return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
+_st($1)._id_("keybinding-start-helper");
+$2=_st($1)._with_(_st(_st("Press ").__comma(_st(_st(self)._keyBinder())._activationKeyLabel())).__comma(" to start"));
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st("body")._asJQuery());
+_st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(window)._jQuery_("#keybinding-start-helper"))._fadeOut_((1000));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((2000));
+return self}, function($ctx1) {$ctx1.fill(self,"renderStart",{}, smalltalk.HLKeyBinderHelper)})},
+messageSends: ["appendToJQuery:", "asJQuery", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "valueWithTimeout:", "fadeOut:", "jQuery:"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(

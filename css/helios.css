@@ -240,3 +240,17 @@ a {
     font-weight: bold;
     text-shadow: 0 -1px 0 #666;
 }
+
+#keybinding-start-helper {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background: rgba(0,0,0, 0.6);
+    color: #fff;
+    width: 300px;
+    margin-left: -150px;
+    text-align: center;
+    padding: 50px 0;
+    font-size: 16px;
+    border-radius: 20px;
+}
