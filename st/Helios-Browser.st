@@ -584,8 +584,31 @@ observeModel
     	self onProtocolSelected: ann item ]
 !
 
+observeSystem
+    SystemAnnouncer current
+    	on: ProtocolAdded 
+        do: [ :ann | self onProtocolAdded: ann protocol to: ann theClass ];
+        on: ProtocolRemoved
+        do: [ :ann | self onProtocolRemoved: ann protocol from: ann theClass ]
+!
+
 selectItem: aString
     self model selectedProtocol: aString
+! !
+
+!HLProtocolsListWidget methodsFor: 'private'!
+
+setItemsForClass: aClass
+	self items: (aClass
+    	ifNil: [ Array with: self allProtocol ]
+      	ifNotNil: [ 
+        	(Array with: self allProtocol) 
+            	addAll: aClass protocols; 
+                yourself ])
+!
+
+setItemsForSelectedClass
+	self setItemsForClass: self model selectedClass
 ! !
 
 !HLProtocolsListWidget methodsFor: 'reactions'!
@@ -593,13 +616,24 @@ selectItem: aString
 onClassSelected: aClass
     self selectedItem: nil.
     
-    self items: (aClass
-    	ifNil: [ Array with: self allProtocol ]
-      	ifNotNil: [ 
-        	(Array with: self allProtocol) 
-            	addAll: aClass protocols; 
-                yourself ]).
+    self setItemsForSelectedClass.
+    self refresh
+!
 
+onProtocolAdded: aString to: aClass
+	aClass = self model selectedClass ifFalse: [ ^ self ].
+    
+    self setItemsForSelectedClass.
+    self refresh
+!
+
+onProtocolRemoved: aString from: aClass
+	aClass = self model selectedClass ifFalse: [ ^ self ].
+    
+    self model selectedProtocol = aString 
+    	ifTrue: [ self selectItem: nil ].
+        
+    self setItemsForSelectedClass.
     self refresh
 !
 
