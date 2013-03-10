@@ -479,7 +479,7 @@ function Smalltalk() {
      * Add/remove a method to/from a class 
      */
 
-	st.addMethod = function(jsSelector, method, klass) {
+	st.addMethod = function(jsSelector, method, klass, oneShot) {
 		method.jsSelector = jsSelector;
 		installMethod(method, klass);
 		klass.methods[method.selector] = method;
@@ -488,6 +488,8 @@ function Smalltalk() {
         // During the bootstrap, #addCompiledMethod is not used.
         // Therefore we populate the organizer here too
         klass.organization.elements.addElement(method.category);
+
+        if (oneShot) return;
 
         for(var i=0; i<method.messageSends.length; i++) {
             var dnuHandler = dnu.get(method.messageSends[i]);
