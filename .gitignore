@@ -8,6 +8,7 @@ server/FileServer*.js
 st/*.js
 
 # Ignoring run.js in test/
+test/amber_test_runner.js
 test/run.js
 
 # In case amber is also saved in a local Subversion
