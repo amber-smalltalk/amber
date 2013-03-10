@@ -215,8 +215,9 @@ compile: aString category: anotherString
 removeCompiledMethod: aMethod
 	self basicRemoveCompiledMethod: aMethod.
     
-    (self protocols includes: aMethod category)
-    	ifFalse: [ self organization removeElement: aMethod protocol ].
+    self methods 
+    	detect: [ :each | each protocol = aMethod protocol ]
+  		ifNone: [ self organization removeElement: aMethod protocol ].
     
     SystemAnnouncer current
    		announce: (MethodRemoved new
