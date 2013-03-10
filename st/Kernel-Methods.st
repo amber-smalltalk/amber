@@ -48,16 +48,16 @@ asCompiledMethod: aString
 
 currySelf
 	"Transforms [ :selfarg :x :y | stcode ] block
-    which represents JS function (selfarg, x, y, ...) {jscode}
-    into function (x, y, ...) {jscode} that takes selfarg from 'this'.
-    IOW, it is usable as JS method and first arg takes the receiver."
-    
-    <
-    	return function () {
-    		var args = [ this ];
-        	args.push.apply(args, arguments);
-        	return self.apply(null, args);
-    	}
+	which represents JS function (selfarg, x, y, ...) {jscode}
+	into function (x, y, ...) {jscode} that takes selfarg from 'this'.
+	IOW, it is usable as JS method and first arg takes the receiver."
+	
+	<
+		return function () {
+			var args = [ this ];
+			args.push.apply(args, arguments);
+			return self.apply(null, args);
+		}
 	>
 ! !
 
@@ -65,13 +65,13 @@ currySelf
 
 on: anErrorClass do: aBlock
 	"All exceptions thrown in the Smalltalk stack are cought.
-    Convert all JS exceptions to JavaScriptException instances."
-    
+	Convert all JS exceptions to JavaScriptException instances."
+	
 	^self try: self catch: [ :error | | smalltalkError |
-    	smalltalkError := Smalltalk current asSmalltalkException: error.
-	    (smalltalkError isKindOf: anErrorClass) 
-	     ifTrue: [ aBlock value: smalltalkError ]
-	     ifFalse: [ smalltalkError signal ] ]
+		smalltalkError := Smalltalk current asSmalltalkException: error.
+		(smalltalkError isKindOf: anErrorClass)
+		ifTrue: [ aBlock value: smalltalkError ]
+		ifFalse: [ smalltalkError signal ] ]
 ! !
 
 !BlockClosure methodsFor: 'evaluating'!
@@ -85,25 +85,25 @@ ensure: aBlock
 !
 
 new
-	"Use the receiver as a JS constructor. 
+	"Use the receiver as a JS constructor.
 	*Do not* use this method to instanciate Smalltalk objects!!"
 	<return new self()>
 !
 
 newValue: anObject
-	"Use the receiver as a JS constructor. 
+	"Use the receiver as a JS constructor.
 	*Do not* use this method to instanciate Smalltalk objects!!"
 	<return new self(anObject)>
 !
 
-newValue:  anObject value: anObject2
-	"Use the receiver as a JS constructor. 
+newValue: anObject value: anObject2
+	"Use the receiver as a JS constructor.
 	*Do not* use this method to instanciate Smalltalk objects!!"
 	<return new self(anObject, anObject2)>
 !
 
-newValue:  anObject value: anObject2 value: anObject3
-	"Use the receiver as a JS constructor. 
+newValue: anObject value: anObject2 value: anObject3
+	"Use the receiver as a JS constructor.
 	*Do not* use this method to instanciate Smalltalk objects!!"
 	<return new self(anObject, anObject2,anObject3)>
 !
@@ -146,16 +146,16 @@ fork
 
 valueWithInterval: aNumber
 	<
-    	var interval = setInterval(self, aNumber);
-    	return smalltalk.Timeout._on_(interval);
-    >
+		var interval = setInterval(self, aNumber);
+		return smalltalk.Timeout._on_(interval);
+	>
 !
 
 valueWithTimeout: aNumber
 	<
-    	var timeout = setTimeout(self, aNumber);
-    	return smalltalk.Timeout._on_(timeout);
-    >
+		var timeout = setTimeout(self, aNumber);
+		return smalltalk.Timeout._on_(timeout);
+	>
 ! !
 
 Object subclass: #CompiledMethod
@@ -178,7 +178,7 @@ See referenced classes:
 
 or messages sent from this method:
 	
-	(String methodAt: 'lines')  messageSends!
+	(String methodAt: 'lines') messageSends!
 
 !CompiledMethod methodsFor: 'accessing'!
 
@@ -192,15 +192,15 @@ category
 
 category: aString
 	| oldCategory |
-    oldCategory := self category.
+	oldCategory := self category.
 	self basicAt: 'category' put: aString.
-    
-    self methodClass ifNotNil: [
-    	self methodClass organization addElement: aString.
-    
-		(self methodClass methods 
-    		select: [ :each | each category = oldCategory ])
-        	ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]
+	
+	self methodClass ifNotNil: [
+		self methodClass organization addElement: aString.
+	
+		(self methodClass methods
+			select: [ :each | each category = oldCategory ])
+			ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]
 !
 
 fn
@@ -284,28 +284,28 @@ defaultMaxPoolSize
 !ForkPool methodsFor: 'initialization'!
 
 initialize
-    super initialize.
-    
+	super initialize.
+	
 	poolSize := 0.
-    queue := Queue new.
-    worker := self makeWorker
+	queue := Queue new.
+	worker := self makeWorker
 !
 
 makeWorker
 	| sentinel |
-    sentinel := Object new.
-    ^[ | block |
-        poolSize := poolSize - 1.
+	sentinel := Object new.
+	^[ | block |
+		poolSize := poolSize - 1.
 		block := queue frontIfAbsent: [ sentinel ].
-        block == sentinel ifFalse: [
-        	[ block value ] ensure: [ self addWorker ]]]
+		block == sentinel ifFalse: [
+			[ block value ] ensure: [ self addWorker ]]]
 ! !
 
 !ForkPool methodsFor: 'private'!
 
 addWorker
 	worker valueWithTimeout: 0.
-    poolSize := poolSize + 1
+	poolSize := poolSize + 1
 ! !
 
 ForkPool class instanceVariableNames: 'default'!
@@ -329,10 +329,10 @@ Object subclass: #Message
 	package: 'Kernel-Methods'!
 !Message commentStamp!
 Generally, the system does not use instances of Message for efficiency reasons.
-However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission. 
+However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission.
 This instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.
 
-See boot.js, `messageNotUnderstood`  and its counterpart `Object>>doesNotUnderstand:`!
+See boot.js, `messageNotUnderstood` and its counterpart `Object>>doesNotUnderstand:`!
 
 !Message methodsFor: 'accessing'!
 
@@ -355,12 +355,12 @@ selector: aString
 !Message methodsFor: 'printing'!
 
 printString
-	^ String streamContents: [:aStream|  
-                                  				aStream 
-                                  					nextPutAll: super printString;
-                                  					nextPutAll: '(';
-                                  					nextPutAll: selector;
-                                  					nextPutAll: ')' 				]
+	^ String streamContents: [:aStream|
+												aStream
+													nextPutAll: super printString;
+													nextPutAll: '(';
+													nextPutAll: selector;
+													nextPutAll: ')' ]
 !
 
 sendTo: anObject
@@ -381,7 +381,7 @@ Object subclass: #MethodContext
 	package: 'Kernel-Methods'!
 !MethodContext commentStamp!
 MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
-  
+
 MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js!
 
 !MethodContext methodsFor: 'accessing'!
@@ -400,8 +400,8 @@ method
 
 methodContext
 	self isBlockContext ifFalse: [ ^ self ].
-    
-    ^ self home
+	
+	^ self home
 !
 
 outerContext
@@ -422,33 +422,33 @@ receiver
 
 selector
 	<
-    	if(self.selector) {
-        	return smalltalk.convertSelector(self.selector);
-        } else {
-        	return nil;
-        }
-    >
+		if(self.selector) {
+			return smalltalk.convertSelector(self.selector);
+		} else {
+			return nil;
+		}
+	>
 !
 
 temps
 	self deprecatedAPI.
-    
+	
 	^ self locals
 ! !
 
 !MethodContext methodsFor: 'converting'!
 
 asString
-	^self isBlockContext 
-    	ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
-      	ifFalse: [ self receiver class printString, ' >> ', self selector ]
+	^self isBlockContext
+		ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
+		ifFalse: [ self receiver class printString, ' >> ', self selector ]
 ! !
 
 !MethodContext methodsFor: 'testing'!
 
 isBlockContext
 	"Block context do not have selectors."
-    
+	
 	^ self selector isNil
 ! !
 
@@ -465,37 +465,37 @@ Created instances will most probably be instance of `JSObjectProxy`.
 
 Usage example:
 
-    | ws |
-    ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.
-    ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]!
+	| ws |
+	ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.
+	ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]!
 
 !NativeFunction class methodsFor: 'instance creation'!
 
 constructor: aString
 	<
-    	var native=eval(aString); 
-        return new native();
+		var native=eval(aString);
+		return new native();
 	>
 !
 
 constructor: aString value:anObject
 	<
-    	var native=eval(aString); 
-        return new native(anObject);
+		var native=eval(aString);
+		return new native(anObject);
 	>
 !
 
 constructor: aString value:anObject value: anObject2
 	<
-    	var native=eval(aString); 
-        return new native(anObject,anObject2);
+		var native=eval(aString);
+		return new native(anObject,anObject2);
 	>
 !
 
 constructor: aString value:anObject value: anObject2 value:anObject3
 	<
-    	var native=eval(aString); 
-        return new native(anObject,anObject2, anObject3);
+		var native=eval(aString);
+		return new native(anObject,anObject2, anObject3);
 	>
 ! !
 
@@ -503,11 +503,11 @@ constructor: aString value:anObject value: anObject2 value:anObject3
 
 exists: aString
 	<
-    	if(aString in window) {
-        	return true
-        } else {
-        	return false
-        }
-    >
+		if(aString in window) {
+			return true
+		} else {
+			return false
+		}
+	>
 ! !
 

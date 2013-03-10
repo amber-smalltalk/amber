@@ -17,14 +17,14 @@ Object subclass: #TestCase
 	instanceVariableNames: 'testSelector asyncTimeout context'
 	package: 'SUnit'!
 !TestCase commentStamp!
-A TestCase is an implementation of the command pattern to run a test.  
+A TestCase is an implementation of the command pattern to run a test.
 
-`TestCase` instances are created with the class method `#selector:`, 
+`TestCase` instances are created with the class method `#selector:`,
 passing the symbol that names the method to be executed when the test case runs.
 
-When you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.  
-As that method develops and more `#test...` methods are added, you will find yourself refactoring temps 
-into instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.  
+When you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.
+As that method develops and more `#test...` methods are added, you will find yourself refactoring temps
+into instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.
 As required, override `#tearDown` to nil references, release objects and deallocate.!
 
 !TestCase methodsFor: 'accessing'!
@@ -46,8 +46,8 @@ setTestSelector: aSelector
 async: aBlock
 	| c |
 	self errorIfNotAsync: '#async'.
-    c := context.
-    ^ [ self isAsync ifTrue: [ c execute: aBlock ] ]
+	c := context.
+	^ [ self isAsync ifTrue: [ c execute: aBlock ] ]
 !
 
 finished
@@ -57,22 +57,22 @@ finished
 
 timeout: aNumber
 	"Set a grace time timeout in milliseconds to run the test asynchronously"
-    
+	
 	asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].
-    
-     "to allow #async: message send without throwing an error"
+	
+	"to allow #async: message send without throwing an error"
 	asyncTimeout := 0.
-    
-	asyncTimeout := (self async: [ 
-    	self assert: false description: 'SUnit grace time exhausted' ])
-        	valueWithTimeout: aNumber
+	
+	asyncTimeout := (self async: [
+		self assert: false description: 'SUnit grace time exhausted' ])
+			valueWithTimeout: aNumber
 ! !
 
 !TestCase methodsFor: 'error handling'!
 
 errorIfNotAsync: aString
-	self isAsync ifFalse: [ 
-    	self error: aString, ' used without prior #timeout:' ]
+	self isAsync ifFalse: [
+		self error: aString, ' used without prior #timeout:' ]
 ! !
 
 !TestCase methodsFor: 'private'!
@@ -129,14 +129,14 @@ should: aBlock
 !
 
 should: aBlock raise: anExceptionClass
-	self assert: ([aBlock value. false] 
-		on: anExceptionClass 
+	self assert: ([aBlock value. false]
+		on: anExceptionClass
 		do: [:ex | true])
 !
 
 shouldnt: aBlock raise: anExceptionClass
-	self assert: ([aBlock value. true] 
-		on: anExceptionClass 
+	self assert: ([aBlock value. true]
+		on: anExceptionClass
 		do: [:ex | false])
 ! !
 
@@ -198,34 +198,34 @@ testCase: aTestCase
 
 execute: aBlock
 	| failed |
-    
-    testCase context: self.
-    [ 
-    	failed := true. 
-        aBlock value. 
-        failed := false 
-	] 
-    	ensure: [
-        	testCase context: nil.
-            
-        	(failed and: [ testCase isAsync ]) ifTrue: [ 
-            	testCase finished ].
-        	testCase isAsync ifFalse: [ 
-        		testCase tearDown ] ]
+	
+	testCase context: self.
+	[
+		failed := true.
+		aBlock value.
+		failed := false
+	]
+		ensure: [
+			testCase context: nil.
+			
+			(failed and: [ testCase isAsync ]) ifTrue: [
+				testCase finished ].
+			testCase isAsync ifFalse: [
+				testCase tearDown ] ]
 !
 
 start
-	self execute: [ 
-    	testCase setUp. 
-        testCase performTest ]
+	self execute: [
+		testCase setUp.
+		testCase performTest ]
 ! !
 
 !TestContext class methodsFor: 'instance creation'!
 
 testCase: aTestCase
 	^self new
-        testCase: aTestCase;
-        yourself
+		testCase: aTestCase;
+		yourself
 ! !
 
 TestContext subclass: #ReportingTestContext
@@ -252,41 +252,41 @@ result: aTestResult
 !ReportingTestContext methodsFor: 'private'!
 
 withErrorReporting: aBlock
- 	[ aBlock
-		on: TestFailure 
-		do: [ :ex | result addFailure: testCase ] 
+	[ aBlock
+		on: TestFailure
+		do: [ :ex | result addFailure: testCase ]
 	]
-    	on: Error 
-        do: [ :ex | result addError: testCase ]
+		on: Error
+		do: [ :ex | result addError: testCase ]
 ! !
 
 !ReportingTestContext methodsFor: 'running'!
 
 execute: aBlock
-    [ 
-    	self withErrorReporting: [ super execute: aBlock ] 
+	[
+		self withErrorReporting: [ super execute: aBlock ]
 	]
-    	ensure: [ 
-        	testCase isAsync ifFalse: [ 
-            	result increaseRuns. finished value ] ]
+		ensure: [
+			testCase isAsync ifFalse: [
+				result increaseRuns. finished value ] ]
 ! !
 
 !ReportingTestContext class methodsFor: 'instance creation'!
 
 testCase: aTestCase result: aTestResult finished: aBlock
 	^(super testCase: aTestCase)
-        result: aTestResult;
-        finished: aBlock;
-        yourself
+		result: aTestResult;
+		finished: aBlock;
+		yourself
 ! !
 
 Error subclass: #TestFailure
 	instanceVariableNames: ''
 	package: 'SUnit'!
 !TestFailure commentStamp!
-The test framework distinguishes between failures and errors.  
-A failure is an event whose possibiity is explicitly anticipated and checked for in an assertion, 
-whereas an error is an unanticipated problem like a division by 0 or an index out of bounds.  
+The test framework distinguishes between failures and errors.
+A failure is an event whose possibiity is explicitly anticipated and checked for in an assertion,
+whereas an error is an unanticipated problem like a division by 0 or an index out of bounds.
 
 TestFailure is raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.!
 
@@ -294,7 +294,7 @@ Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
 	package: 'SUnit'!
 !TestResult commentStamp!
-A TestResult implements the collecting parameter pattern for running a bunch of tests.  
+A TestResult implements the collecting parameter pattern for running a bunch of tests.
 
 A TestResult holds tests that have run, sorted into the result categories of passed, failures and errors.
 
@@ -327,9 +327,9 @@ runs
 !
 
 status
-	^self errors isEmpty 
+	^self errors isEmpty
 		ifTrue: [
-			self failures isEmpty 
+			self failures isEmpty
 				ifTrue: ['success']
 				ifFalse: ['failure']]
 		ifFalse: ['error']
@@ -368,8 +368,8 @@ or does nothing if no more runs"
 !
 
 runCase: aTestCase
-	[[	self increaseRuns.
-    	aTestCase runCase]
+	[[ self increaseRuns.
+		aTestCase runCase]
 	on: TestFailure do: [:ex | self addFailure: aTestCase]]
 	on: Error do: [:ex | self addError: aTestCase]
 ! !
@@ -396,7 +396,7 @@ suite: aCollection
 
 resume
 	runNextTest fork.
-    announcer announce: (ResultAnnouncement new result: result)
+	announcer announce: (ResultAnnouncement new result: result)
 !
 
 run
@@ -409,14 +409,14 @@ run
 initialize
 	super initialize.
 	announcer := Announcer new.
-    result := TestResult new.
-    runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].
+	result := TestResult new.
+	runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].
 ! !
 
 !TestSuiteRunner methodsFor: 'private'!
 
 contextOf: anInteger
-   	^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
+	^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]
 ! !
 
 !TestSuiteRunner class methodsFor: 'instance creation'!

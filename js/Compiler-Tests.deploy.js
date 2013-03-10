@@ -1,4 +1,4 @@
-smalltalk.addPackage('Compiler-Tests', {});
+smalltalk.addPackage('Compiler-Tests');
 smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 "_analyze_forClass_",
@@ -10,7 +10,7 @@ return smalltalk.withContext(function($ctx1) { var $1;
 _st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(aClass))._visit_(aNode);
 $1=aNode;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["visit:", "on:"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -23,7 +23,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._interpret_withArguments_(aString,_st((smalltalk.Dictionary || Dictionary))._new());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:",{aString:aString}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:",{aString:aString},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["interpret:withArguments:", "new"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -46,7 +46,7 @@ _st($2)._interpret_(_st(_st(_st(self)._parse_forClass_(aString,_st(anObject)._cl
 $3=_st($2)._result();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["new", "receiver:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "interpret:", "first", "nodes", "parse:forClass:", "class", "result"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -59,7 +59,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._interpret_receiver_withArguments_(aString,_st((smalltalk.Object || Object))._new(),aDictionary);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpret:withArguments:",{aString:aString,aDictionary:aDictionary},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["interpret:receiver:withArguments:", "new"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -72,7 +72,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._subclassResponsibility();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["subclassResponsibility"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -85,7 +85,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["parse:", "current"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -98,7 +98,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass}, smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},smalltalk.AbstractASTInterpreterTest)})},
 messageSends: ["analyze:forClass:", "parse:"]}),
 smalltalk.AbstractASTInterpreterTest);
 
@@ -114,7 +114,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.ASTInterpreter || ASTInterpreter))._new();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["new"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -125,7 +125,7 @@ selector: "testBinarySend",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo 2+3+4"),(9));
-return self}, function($ctx1) {$ctx1.fill(self,"testBinarySend",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testBinarySend",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -138,7 +138,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]"),(1));
 _st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]"),(1));
 _st(self)._assert_equals_(_st(self)._interpret_("foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]"),(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testBlockLiteral",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testBlockLiteral",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -149,7 +149,7 @@ selector: "testCascade",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ OrderedCollection new add: 2; add: 3; yourself"),_st((smalltalk.OrderedCollection || OrderedCollection))._with_with_((2),(3)));
-return self}, function($ctx1) {$ctx1.fill(self,"testCascade",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testCascade",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:", "with:with:"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -160,7 +160,7 @@ selector: "testDynamicArray",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ {1+1. 2+2}"),[(2), (4)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArray",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArray",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -171,7 +171,7 @@ selector: "testDynamicDictionary",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._fromPairs_([_st((1)).__minus_gt((1)),_st((2)).__minus_gt((3))]));
-return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionary",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionary",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:", "->"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -183,7 +183,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo <return 2+3>"),(5));
 _st(self)._assert_equals_(_st(self)._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((3))])),(5));
-return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -194,7 +194,7 @@ selector: "testInstVarAccess",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ x",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAccess",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAccess",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -205,7 +205,7 @@ selector: "testInstVarAssignment",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st((smalltalk.Point || Point))._new(),smalltalk.HashedCollection._fromPairs_([_st("anInteger").__minus_gt((2))])),(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new", "->"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -216,7 +216,7 @@ selector: "testNonlocalReturn",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo true ifTrue: [ ^ 1 ]. ^2"),(1));
-return self}, function($ctx1) {$ctx1.fill(self,"testNonlocalReturn",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testNonlocalReturn",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -227,7 +227,7 @@ selector: "testReceiver",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ self",_st((2)).__at((3)),smalltalk.HashedCollection._fromPairs_([])),_st((2)).__at((3)));
-return self}, function($ctx1) {$ctx1.fill(self,"testReceiver",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testReceiver",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -238,7 +238,7 @@ selector: "testTempAssignment",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(self)._interpret_("foo | a | a := 2. ^ a"),(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{}, smalltalk.ASTInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
@@ -260,7 +260,7 @@ $1=self["@interpreter"];
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{}, smalltalk.ASTSteppingInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.ASTSteppingInterpreterTest)})},
 messageSends: ["ifNil:", "new"]}),
 smalltalk.ASTSteppingInterpreterTest);
 
@@ -280,7 +280,7 @@ _st(_st(self)._interpreter())._step();
 _st(self)._deny_(_st(_st(self)._interpreter())._atEnd());
 _st(_st(self)._interpreter())._step();
 _st(self)._assert_(_st(_st(self)._interpreter())._atEnd());
-return self}, function($ctx1) {$ctx1.fill(self,"testAtEnd",{}, smalltalk.ASTSteppingInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testAtEnd",{},smalltalk.ASTSteppingInterpreterTest)})},
 messageSends: ["interpret:", "deny:", "atEnd", "interpreter", "step", "assert:"]}),
 smalltalk.ASTSteppingInterpreterTest);
 
@@ -299,7 +299,7 @@ _st(_st(self)._interpreter())._step();
 _st(self)._assert_equals_(_st(_st(_st(self)._interpreter())._currentNode())._value(),(2));
 _st(_st(self)._interpreter())._step();
 _st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(3));
-return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{}, smalltalk.ASTSteppingInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},smalltalk.ASTSteppingInterpreterTest)})},
 messageSends: ["interpret:", "step", "interpreter", "assert:equals:", "value", "currentNode", "result"]}),
 smalltalk.ASTSteppingInterpreterTest);
 
@@ -314,7 +314,7 @@ _st(_st(self)._interpreter())._step();
 _st(self)._assert_(_st(_st(_st(self)._interpreter())._result())._isNil());
 _st(_st(self)._interpreter())._step();
 _st(self)._assert_equals_(_st(_st(self)._interpreter())._result(),(1));
-return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{}, smalltalk.ASTSteppingInterpreterTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testSimpleStepping",{},smalltalk.ASTSteppingInterpreterTest)})},
 messageSends: ["interpret:", "step", "interpreter", "assert:", "isNil", "result", "assert:equals:"]}),
 smalltalk.ASTSteppingInterpreterTest);
 
@@ -330,7 +330,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=(smalltalk.CodeGenerator || CodeGenerator);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{}, smalltalk.CodeGeneratorTest)})},
+}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.CodeGeneratorTest)})},
 messageSends: []}),
 smalltalk.CodeGeneratorTest);
 
@@ -346,7 +346,7 @@ _st($2)._codeGeneratorClass_(_st(self)._codeGeneratorClass());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"compiler",{}, smalltalk.CodeGeneratorTest)})},
+}, function($ctx1) {$ctx1.fill(self,"compiler",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["codeGeneratorClass:", "codeGeneratorClass", "new", "yourself"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -357,7 +357,7 @@ selector: "setUp",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@receiver"]=_st(_st(self)._targetClass())._new();
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["new", "targetClass"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -372,7 +372,7 @@ return smalltalk.withContext(function($ctx1) { method=_st(_st(self)._compiler()
 result=_st(self["@receiver"])._perform_(_st(method)._selector());
 _st(_st(self)._targetClass())._removeCompiledMethod_(method);
 _st(self)._assert_equals_(anObject,result);
-return self}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject,method:method,result:result}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject,method:method,result:result},smalltalk.CodeGeneratorTest)})},
 messageSends: ["install:forClass:category:", "targetClass", "compiler", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -385,7 +385,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=(smalltalk.DoIt || DoIt);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"targetClass",{}, smalltalk.CodeGeneratorTest)})},
+}, function($ctx1) {$ctx1.fill(self,"targetClass",{},smalltalk.CodeGeneratorTest)})},
 messageSends: []}),
 smalltalk.CodeGeneratorTest);
 
@@ -395,7 +395,7 @@ smalltalk.method({
 selector: "tearDown",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{}, smalltalk.CodeGeneratorTest)})},
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.CodeGeneratorTest)})},
 messageSends: []}),
 smalltalk.CodeGeneratorTest);
 
@@ -408,7 +408,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo | a | a := true ifTrue: [ 1 ]. ^ a",(1));
 _st(self)._should_return_("foo | a | a := false ifTrue: [ 1 ]. ^ a",nil);
 _st(self)._should_return_("foo | a | ^ a := true ifTrue: [ 1 ]",(1));
-return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -421,7 +421,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]",[(2), (3), (4)]);
 _st(self)._should_return_("foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]",[(2), (3), (4)]);
 _st(self)._should_return_("foo ^ #(1 2 3) collect: [ :each | each odd ifTrue: [ each + 1 ] ifFalse: [ each - 1 ] ]",[(2), (1), (4)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testBlockReturn",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testBlockReturn",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -432,7 +432,7 @@ selector: "testCascades",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^ Array new add: 3; add: 4; yourself",[(3), (4)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testCascades",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testCascades",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -442,8 +442,8 @@ smalltalk.method({
 selector: "testDynamicArrayElementsOrdered",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ { x. true ifTrue: [ x := 2 ] }\x0a",[(1), (2)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArrayElementsOrdered",{}, smalltalk.CodeGeneratorTest)})},
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { x. true ifTrue: [ x := 2 ] }\x0a",[(1), (2)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicArrayElementsOrdered",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -453,8 +453,8 @@ smalltalk.method({
 selector: "testDynamicDictionaryElementsOrdered",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a  | x |\x0a  x := 'foo'->1.\x0a  ^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]));
-return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{}, smalltalk.CodeGeneratorTest)})},
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'->1.\x0a\x09^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -464,11 +464,11 @@ smalltalk.method({
 selector: "testInnerTemporalDependentElementsOrdered",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: 'foo'->x with: 'bar'->(true ifTrue: [ x := 2 ])\x0a",[_st("foo").__minus_gt((smalltalk.Array || Array)),_st("bar").__minus_gt((2))]);
-_st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: 'foo'->x with: 'bar'->(true ifTrue: [ x := 2 ])\x0a",[_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]);
-_st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ { 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",[_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]);
-_st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]));
-return self}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{}, smalltalk.CodeGeneratorTest)})},
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: 'foo'->x with: 'bar'->(true ifTrue: [ x := 2 ])\x0a",[_st("foo").__minus_gt((smalltalk.Array || Array)),_st("bar").__minus_gt((2))]);
+_st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: 'foo'->x with: 'bar'->(true ifTrue: [ x := 2 ])\x0a",[_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]);
+_st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",[_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]);
+_st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_([_st("foo").__minus_gt((1)),_st("bar").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -487,7 +487,7 @@ _st(self)._should_return_("foo ^ false",false);
 _st(self)._should_return_("foo ^ #{1->2. 3->4}",smalltalk.HashedCollection._fromPairs_([_st((1)).__minus_gt((2)),_st((3)).__minus_gt((4))]));
 _st(self)._should_return_("foo ^ #hello",smalltalk.symbolFor("hello"));
 _st(self)._should_return_("foo ^ -123.456",(-123.456));
-return self}, function($ctx1) {$ctx1.fill(self,"testLiterals",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testLiterals",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -502,7 +502,7 @@ _st(self)._should_return_("foo ^ 1 + 1",(2));
 _st(self)._should_return_("foo ",self["@receiver"]);
 _st(self)._should_return_("foo self asString",self["@receiver"]);
 _st(self)._should_return_("foo | a b | a := 1. b := 2. ^ a + b",(3));
-return self}, function($ctx1) {$ctx1.fill(self,"testLocalReturn",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testLocalReturn",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -517,7 +517,7 @@ _st(self)._should_return_("foo ^ 1 + 1",(2));
 _st(self)._should_return_("foo ^ 1 + 2 * 3",(9));
 _st(self)._should_return_("foo ^ 1 to: 3",[(1), (2), (3)]);
 _st(self)._should_return_("foo ^ 1 to: 5 by: 2",[(1), (3), (5)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testMessageSends",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testMessageSends",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -531,7 +531,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^
 _st(self)._should_return_("foo ^ true ifTrue: [ false ifTrue: [ 1 ] ]",nil);
 _st(self)._should_return_("foo true ifTrue: [ false ifFalse: [ ^ 1 ] ]",(1));
 _st(self)._should_return_("foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]",self["@receiver"]);
-return self}, function($ctx1) {$ctx1.fill(self,"testNestedIfTrue",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testNestedIfTrue",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -545,7 +545,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo [
 _st(self)._should_return_("foo [ ^ 1 + 1 ] value",(2));
 _st(self)._should_return_("foo | a b | a := 1. b := 2. [ ^ a + b ] value. self halt",(3));
 _st(self)._should_return_("foo [ :x | ^ x + x ] value: 4. ^ 2",(8));
-return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -555,9 +555,9 @@ smalltalk.method({
 selector: "testSendReceiverAndArgumentsOrdered",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a  | x |\x0a  x := 1.\x0a  ^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a",[(1), (2)]);
-_st(self)._should_return_("foo\x0a  | x |\x0a  x := Array.\x0a  ^ x with: x with: (true ifTrue: [ x := 2 ])\x0a",[(smalltalk.Array || Array),(2)]);
-return self}, function($ctx1) {$ctx1.fill(self,"testSendReceiverAndArgumentsOrdered",{}, smalltalk.CodeGeneratorTest)})},
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: x with: (true ifTrue: [ x := 2 ])\x0a",[(1), (2)]);
+_st(self)._should_return_("foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: x with: (true ifTrue: [ x := 2 ])\x0a",[(smalltalk.Array || Array),(2)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testSendReceiverAndArgumentsOrdered",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -571,7 +571,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo t
 _st(self)._should_return_("foo false ifFalse: [ ^ 2 ]",(2));
 _st(self)._should_return_("foo ^ true ifFalse: [ 1 ]",nil);
 _st(self)._should_return_("foo ^ false ifFalse: [ 2 ]",(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testifFalse",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifFalse",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -585,7 +585,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo t
 _st(self)._should_return_("foo false ifFalse: [ ^ 2 ] ifTrue: [ ^1 ]",(2));
 _st(self)._should_return_("foo ^ true ifFalse: [ 1 ] ifTrue: [ 2 ]",(2));
 _st(self)._should_return_("foo ^ false ifFalse: [ 2 ] ifTrue: [ 1 ]",(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testifFalseIfTrue",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifFalseIfTrue",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -599,7 +599,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^
 _st(self)._should_return_("foo ^ nil ifNil: [ 2 ]",(2));
 _st(self)._should_return_("foo 1 ifNil: [ ^ 2 ]",self["@receiver"]);
 _st(self)._should_return_("foo nil ifNil: [ ^ 2 ]",(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testifNil",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifNil",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -613,7 +613,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^
 _st(self)._should_return_("foo ^ nil ifNil: [ 2 ] ifNotNil: [ 3 ]",(2));
 _st(self)._should_return_("foo 1 ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]",(3));
 _st(self)._should_return_("foo nil ifNil: [ ^ 2 ] ifNotNil: [ ^3 ]",(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testifNilIfNotNil",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifNilIfNotNil",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -627,7 +627,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^
 _st(self)._should_return_("foo ^ nil ifNotNil: [ 2 ]",nil);
 _st(self)._should_return_("foo 1 ifNotNil: [ ^ 2 ]",(2));
 _st(self)._should_return_("foo nil ifNotNil: [ ^ 2 ]",self["@receiver"]);
-return self}, function($ctx1) {$ctx1.fill(self,"testifNotNil",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifNotNil",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -641,7 +641,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo f
 _st(self)._should_return_("foo true ifTrue: [ ^ 2 ]",(2));
 _st(self)._should_return_("foo ^ false ifTrue: [ 1 ]",nil);
 _st(self)._should_return_("foo ^ true ifTrue: [ 2 ]",(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testifTrue",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifTrue",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -655,7 +655,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo f
 _st(self)._should_return_("foo true ifTrue: [ ^ 1 ] ifFalse: [ ^ 2 ]",(1));
 _st(self)._should_return_("foo ^ false ifTrue: [ 2 ] ifFalse: [ 1 ]",(1));
 _st(self)._should_return_("foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]",(2));
-return self}, function($ctx1) {$ctx1.fill(self,"testifTrueIfFalse",{}, smalltalk.CodeGeneratorTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testifTrueIfFalse",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
@@ -671,7 +671,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=(smalltalk.InliningCodeGenerator || InliningCodeGenerator);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{}, smalltalk.InliningCodeGeneratorTest)})},
+}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.InliningCodeGeneratorTest)})},
 messageSends: []}),
 smalltalk.InliningCodeGeneratorTest);
 
@@ -692,7 +692,7 @@ $2=_st($1)._yourself();
 node=$2;
 _st(_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._new())._visit_(node);
 _st(self)._assert_(_st(_st(node)._binding())._isClassRefVar());
-return self}, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node}, smalltalk.ScopeVarTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node},smalltalk.ScopeVarTest)})},
 messageSends: ["value:", "new", "yourself", "visit:", "assert:", "isClassRefVar", "binding"]}),
 smalltalk.ScopeVarTest);
 
@@ -711,7 +711,7 @@ node=$2;
 scope=_st((smalltalk.MethodLexicalScope || MethodLexicalScope))._new();
 _st(scope)._addIVar_("bzzz");
 _st(self)._assert_(_st(_st(scope)._bindingFor_(node))._isInstanceVar());
-return self}, function($ctx1) {$ctx1.fill(self,"testInstanceVar",{node:node,scope:scope}, smalltalk.ScopeVarTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testInstanceVar",{node:node,scope:scope},smalltalk.ScopeVarTest)})},
 messageSends: ["value:", "new", "yourself", "addIVar:", "assert:", "isInstanceVar", "bindingFor:"]}),
 smalltalk.ScopeVarTest);
 
@@ -732,7 +732,7 @@ node=$2;
 node;
 return _st(self)._assert_(_st(_st(_st((smalltalk.MethodLexicalScope || MethodLexicalScope))._new())._bindingFor_(node))._isPseudoVar());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"testPseudoVar",{node:node,pseudoVars:pseudoVars}, smalltalk.ScopeVarTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testPseudoVar",{node:node,pseudoVars:pseudoVars},smalltalk.ScopeVarTest)})},
 messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bindingFor:"]}),
 smalltalk.ScopeVarTest);
 
@@ -751,7 +751,7 @@ node=$2;
 scope=_st((smalltalk.MethodLexicalScope || MethodLexicalScope))._new();
 _st(scope)._addTemp_("bzzz");
 _st(self)._assert_(_st(_st(scope)._bindingFor_(node))._isTempVar());
-return self}, function($ctx1) {$ctx1.fill(self,"testTempVar",{node:node,scope:scope}, smalltalk.ScopeVarTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testTempVar",{node:node,scope:scope},smalltalk.ScopeVarTest)})},
 messageSends: ["value:", "new", "yourself", "addTemp:", "assert:", "isTempVar", "bindingFor:"]}),
 smalltalk.ScopeVarTest);
 
@@ -768,7 +768,7 @@ _st($1)._value_("bzzz");
 $2=_st($1)._yourself();
 node=$2;
 _st(self)._assert_(_st(_st(_st((smalltalk.MethodLexicalScope || MethodLexicalScope))._new())._bindingFor_(node))._isNil());
-return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVar",{node:node}, smalltalk.ScopeVarTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVar",{node:node},smalltalk.ScopeVarTest)})},
 messageSends: ["value:", "new", "yourself", "assert:", "isNil", "bindingFor:"]}),
 smalltalk.ScopeVarTest);
 
@@ -782,7 +782,7 @@ selector: "setUp",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@analyzer"]=_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_((smalltalk.Object || Object));
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["on:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -798,7 +798,7 @@ ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.InvalidAssignmentError || InvalidAssignmentError));
-return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -813,7 +813,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. ^ a";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 _st(self)._deny_(_st(_st(ast)._scope())._hasNonLocalReturn());
-return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -828,7 +828,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ ^ a]�
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 _st(self)._assert_(_st(_st(ast)._scope())._hasNonLocalReturn());
-return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn2",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testNonLocalReturn2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -843,7 +843,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ | b | b 
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 _st(self)._deny_(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._scope()).__eq_eq(_st(ast)._scope()));
-return self}, function($ctx1) {$ctx1.fill(self,"testScope",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testScope",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "first"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -858,7 +858,7 @@ return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ | b | 
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 _st(self)._deny_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope()).__eq_eq(_st(ast)._scope()));
-return self}, function($ctx1) {$ctx1.fill(self,"testScope2",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testScope2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "last"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -874,7 +874,7 @@ ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
 _st(self)._assert_equals_(_st(_st(ast)._scope())._scopeLevel(),(1));
 _st(self)._assert_equals_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._scope())._scopeLevel(),(3));
-return self}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testScopeLevel",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "first", "nodes", "last"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -890,7 +890,7 @@ ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.UnknownVariableError || UnknownVariableError));
-return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -906,7 +906,7 @@ ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.UnknownVariableError || UnknownVariableError));
-return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -920,7 +920,7 @@ var src,ast;
 return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
-return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -936,7 +936,7 @@ ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.ShadowingVariableError || ShadowingVariableError));
-return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -950,7 +950,7 @@ var src,ast;
 return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ | b | b := 2 ]";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
-return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing3",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing3",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -964,7 +964,7 @@ var src,ast;
 return smalltalk.withContext(function($ctx1) { src="foo | a | a + 1. [ [ [ | b | b := 2 ] ] ]";
 ast=_st(smalltalk)._parse_(src);
 _st(self["@analyzer"])._visit_(ast);
-return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing4",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing4",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -980,7 +980,7 @@ ast=_st(smalltalk)._parse_(src);
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@analyzer"])._visit_(ast);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.ShadowingVariableError || ShadowingVariableError));
-return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
@@ -998,7 +998,7 @@ _st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes()
 _st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._first())._receiver())._binding())._scope()).__eq_eq(_st(ast)._scope()));
 _st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._left())._binding())._isTempVar());
 _st(self)._assert_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._nodes())._first())._nodes())._first())._left())._binding())._scope()).__eq_eq(_st(_st(_st(_st(_st(ast)._nodes())._first())._nodes())._last())._scope()));
-return self}, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast}, smalltalk.SemanticAnalyzerTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"]}),
 smalltalk.SemanticAnalyzerTest);
 

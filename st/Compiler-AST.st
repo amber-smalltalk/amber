@@ -82,8 +82,8 @@ isValueNode
 !
 
 subtreeNeedsAliasing
-    ^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
-        (self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
+	^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
+		(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
 ! !
 
 !Node methodsFor: 'visiting'!
@@ -159,7 +159,7 @@ isBlockNode
 !
 
 subtreeNeedsAliasing
-    ^ self shouldBeAliased or: [ self shouldBeInlined ]
+	^ self shouldBeAliased or: [ self shouldBeInlined ]
 ! !
 
 !BlockNode methodsFor: 'visiting'!
@@ -343,13 +343,13 @@ arguments: aCollection
 cascadeNodeWithMessages: aCollection
 	| first |
 	first := SendNode new
-	    selector: self selector;
-	    arguments: self arguments;
-	    yourself.
+		selector: self selector;
+		arguments: self arguments;
+		yourself.
 	^CascadeNode new
-	    receiver: self receiver;
-	    nodes: (Array with: first), aCollection;
-	    yourself
+		receiver: self receiver;
+		nodes: (Array with: first), aCollection;
+		yourself
 !
 
 index
@@ -392,12 +392,12 @@ superSend: aBoolean
 
 valueForReceiver: anObject
 	^SendNode new
-	    receiver: (self receiver 
+		receiver: (self receiver
 		ifNil: [anObject]
 		ifNotNil: [self receiver valueForReceiver: anObject]);
-	    selector: self selector;
-	    arguments: self arguments;
-	    yourself
+		selector: self selector;
+		arguments: self arguments;
+		yourself
 ! !
 
 !SendNode methodsFor: 'testing'!
@@ -438,9 +438,9 @@ temps: aCollection
 
 asBlockSequenceNode
 	^BlockSequenceNode new
-	    nodes: self nodes;
-	    temps: self temps;
-	    yourself
+		nodes: self nodes;
+		temps: self temps;
+		yourself
 ! !
 
 !SequenceNode methodsFor: 'visiting'!
