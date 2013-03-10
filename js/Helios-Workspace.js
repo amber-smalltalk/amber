@@ -335,11 +335,11 @@ selector: "focus",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._editor())._focus();
+return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{}, smalltalk.HLCodeWidget)})},
 args: [],
-source: "focus\x0a      self editor focus",
-messageSends: ["focus", "editor"],
+source: "focus\x0a\x09editor focus",
+messageSends: ["focus"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget);

@@ -435,7 +435,6 @@ selector: "flushBindings",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@bindings"]=nil;
-self["@helper"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"flushBindings",{}, smalltalk.HLKeyBinder)})},
 messageSends: []}),
 smalltalk.HLKeyBinder);

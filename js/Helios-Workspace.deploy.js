@@ -249,9 +249,9 @@ smalltalk.method({
 selector: "focus",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._editor())._focus();
+return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{}, smalltalk.HLCodeWidget)})},
-messageSends: ["focus", "editor"]}),
+messageSends: ["focus"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(

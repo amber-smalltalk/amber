@@ -48,6 +48,30 @@ HLAnnouncement subclass: #HLDiveRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLFocusRequested subclass: #HLClassesFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLFocusRequested subclass: #HLMethodsFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLFocusRequested subclass: #HLPackagesFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLFocusRequested subclass: #HLProtocolsFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLFocusRequested subclass: #HLSourceCodeFocusRequested
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLAnnouncement subclass: #HLItemSelected
 	instanceVariableNames: 'item'
 	package: 'Helios-Announcements'!

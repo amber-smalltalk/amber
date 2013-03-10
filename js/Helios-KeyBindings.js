@@ -601,10 +601,9 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@bindings"]=nil;
-self["@helper"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"flushBindings",{}, smalltalk.HLKeyBinder)})},
 args: [],
-source: "flushBindings\x0a\x09bindings := nil.\x0a    helper := nil",
+source: "flushBindings\x0a\x09bindings := nil",
 messageSends: [],
 referencedClasses: []
 }),

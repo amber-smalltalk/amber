@@ -405,11 +405,14 @@ return smalltalk.withContext(function($ctx2) {return _st(self)._onPackageSelect
 _st($1)._on_do_((smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onShowInstanceToggled();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_((smalltalk.HLClassSelected || HLClassSelected),(function(ann){
+_st($1)._on_do_((smalltalk.HLClassSelected || HLClassSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onClassSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_((smalltalk.HLClassesFocusRequested || HLClassesFocusRequested),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onClassesFocusRequested();
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{}, smalltalk.HLClassesListWidget)})},
-messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model", "onShowInstanceToggled", "onClassSelected:"]}),
+messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model", "onShowInstanceToggled", "onClassSelected:", "onClassesFocusRequested"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -488,6 +491,17 @@ $1;
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass}, smalltalk.HLClassesListWidget)})},
 messageSends: ["selectedItem:", "ifNil:", "focus"]}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+"_onClassesFocusRequested",
+smalltalk.method({
+selector: "onClassesFocusRequested",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassesFocusRequested",{}, smalltalk.HLClassesListWidget)})},
+messageSends: ["focus"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -853,17 +867,22 @@ smalltalk.method({
 selector: "observeModel",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLProtocolSelected || HLProtocolSelected),(function(ann){
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(self)._model())._announcer();
+_st($1)._on_do_((smalltalk.HLProtocolSelected || HLProtocolSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onProtocolSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
+_st($1)._on_do_((smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onProtocolSelected_(nil);
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLMethodSelected || HLMethodSelected),(function(ann){
+_st($1)._on_do_((smalltalk.HLMethodSelected || HLMethodSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onMethodSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_((smalltalk.HLMethodsFocusRequested || HLMethodsFocusRequested),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onMethodsFocusRequested();
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["on:do:", "onProtocolSelected:", "item", "announcer", "model", "onMethodSelected:"]}),
+messageSends: ["on:do:", "onProtocolSelected:", "item", "announcer", "model", "onMethodSelected:", "onMethodsFocusRequested"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -954,6 +973,17 @@ $1;
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
 messageSends: ["selectedItem:", "ifNil:", "focus"]}),
+smalltalk.HLMethodsListWidget);
+
+smalltalk.addMethod(
+"_onMethodsFocusRequested",
+smalltalk.method({
+selector: "onMethodsFocusRequested",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodsFocusRequested",{}, smalltalk.HLMethodsListWidget)})},
+messageSends: ["focus"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -1188,11 +1218,16 @@ smalltalk.method({
 selector: "observeModel",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLPackageSelected || HLPackageSelected),(function(ann){
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(self)._model())._announcer();
+_st($1)._on_do_((smalltalk.HLPackageSelected || HLPackageSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onPackageSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_((smalltalk.HLPackagesFocusRequested || HLPackagesFocusRequested),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onPackagesFocusRequested();
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{}, smalltalk.HLPackagesListWidget)})},
-messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model"]}),
+messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model", "onPackagesFocusRequested"]}),
 smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
@@ -1205,6 +1240,17 @@ return smalltalk.withContext(function($ctx1) { _st(self)._selectedItem_(aPackag
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{aPackage:aPackage}, smalltalk.HLPackagesListWidget)})},
 messageSends: ["selectedItem:", "focus"]}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+"_onPackagesFocusRequested",
+smalltalk.method({
+selector: "onPackagesFocusRequested",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackagesFocusRequested",{}, smalltalk.HLPackagesListWidget)})},
+messageSends: ["focus"]}),
 smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
@@ -1274,17 +1320,22 @@ smalltalk.method({
 selector: "observeModel",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLClassSelected || HLClassSelected),(function(ann){
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(self)._model())._announcer();
+_st($1)._on_do_((smalltalk.HLClassSelected || HLClassSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onClassSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
+_st($1)._on_do_((smalltalk.HLShowInstanceToggled || HLShowInstanceToggled),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onClassSelected_(_st(_st(self)._model())._selectedClass());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLProtocolSelected || HLProtocolSelected),(function(ann){
+_st($1)._on_do_((smalltalk.HLProtocolSelected || HLProtocolSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onProtocolSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_((smalltalk.HLProtocolsFocusRequested || HLProtocolsFocusRequested),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onProtocolsFocusRequested();
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{}, smalltalk.HLProtocolsListWidget)})},
-messageSends: ["on:do:", "onClassSelected:", "item", "announcer", "model", "selectedClass", "onProtocolSelected:"]}),
+messageSends: ["on:do:", "onClassSelected:", "item", "announcer", "model", "selectedClass", "onProtocolSelected:", "onProtocolsFocusRequested"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(
@@ -1376,6 +1427,17 @@ $1;
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString}, smalltalk.HLProtocolsListWidget)})},
 messageSends: ["selectedItem:", "ifNil:", "focus"]}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+"_onProtocolsFocusRequested",
+smalltalk.method({
+selector: "onProtocolsFocusRequested",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onProtocolsFocusRequested",{}, smalltalk.HLProtocolsListWidget)})},
+messageSends: ["focus"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(
@@ -1517,6 +1579,61 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { self["@environment"]=anEnvironment;
 return self}, function($ctx1) {$ctx1.fill(self,"environment:",{anEnvironment:anEnvironment}, smalltalk.HLBrowserModel)})},
 messageSends: []}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_focusOnClasses",
+smalltalk.method({
+selector: "focusOnClasses",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._announcer())._announce_(_st((smalltalk.HLClassesFocusRequested || HLClassesFocusRequested))._new());
+return self}, function($ctx1) {$ctx1.fill(self,"focusOnClasses",{}, smalltalk.HLBrowserModel)})},
+messageSends: ["announce:", "new", "announcer"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_focusOnMethods",
+smalltalk.method({
+selector: "focusOnMethods",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._announcer())._announce_(_st((smalltalk.HLMethodsFocusRequested || HLMethodsFocusRequested))._new());
+return self}, function($ctx1) {$ctx1.fill(self,"focusOnMethods",{}, smalltalk.HLBrowserModel)})},
+messageSends: ["announce:", "new", "announcer"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_focusOnPackages",
+smalltalk.method({
+selector: "focusOnPackages",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._announcer())._announce_(_st((smalltalk.HLPackagesFocusRequested || HLPackagesFocusRequested))._new());
+return self}, function($ctx1) {$ctx1.fill(self,"focusOnPackages",{}, smalltalk.HLBrowserModel)})},
+messageSends: ["announce:", "new", "announcer"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_focusOnProtocols",
+smalltalk.method({
+selector: "focusOnProtocols",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._announcer())._announce_(_st((smalltalk.HLProtocolsFocusRequested || HLProtocolsFocusRequested))._new());
+return self}, function($ctx1) {$ctx1.fill(self,"focusOnProtocols",{}, smalltalk.HLBrowserModel)})},
+messageSends: ["announce:", "new", "announcer"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_focusOnSourceCode",
+smalltalk.method({
+selector: "focusOnSourceCode",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._announcer())._announce_(_st((smalltalk.HLSourceCodeFocusRequested || HLSourceCodeFocusRequested))._new());
+return self}, function($ctx1) {$ctx1.fill(self,"focusOnSourceCode",{}, smalltalk.HLBrowserModel)})},
+messageSends: ["announce:", "new", "announcer"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -1827,6 +1944,17 @@ messageSends: ["methodContents:", "contents:", "codeWidget"]}),
 smalltalk.HLBrowserSourceWidget);
 
 smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._codeWidget())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"focus",{}, smalltalk.HLBrowserSourceWidget)})},
+messageSends: ["focus", "codeWidget"]}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
 "_hasModification",
 smalltalk.method({
 selector: "hasModification",
@@ -1912,17 +2040,22 @@ smalltalk.method({
 selector: "observeModel",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLMethodSelected || HLMethodSelected),(function(ann){
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(_st(self)._model())._announcer();
+_st($1)._on_do_((smalltalk.HLMethodSelected || HLMethodSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onMethodSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLClassSelected || HLClassSelected),(function(ann){
+_st($1)._on_do_((smalltalk.HLClassSelected || HLClassSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onClassSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st(_st(_st(self)._model())._announcer())._on_do_((smalltalk.HLProtocolSelected || HLProtocolSelected),(function(ann){
+_st($1)._on_do_((smalltalk.HLProtocolSelected || HLProtocolSelected),(function(ann){
 return smalltalk.withContext(function($ctx2) {return _st(self)._onProtocolSelected_(_st(ann)._item());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_((smalltalk.HLSourceCodeFocusRequested || HLSourceCodeFocusRequested),(function(ann){
+return smalltalk.withContext(function($ctx2) {return _st(self)._onSourceCodeFocusRequested();
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{}, smalltalk.HLBrowserSourceWidget)})},
-messageSends: ["on:do:", "onMethodSelected:", "item", "announcer", "model", "onClassSelected:", "onProtocolSelected:"]}),
+messageSends: ["on:do:", "onMethodSelected:", "item", "announcer", "model", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"]}),
 smalltalk.HLBrowserSourceWidget);
 
 smalltalk.addMethod(
@@ -2015,6 +2148,17 @@ $1;
 _st(self)._contents_(_st(_st(_st(self)._model())._selectedClass())._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString}, smalltalk.HLBrowserSourceWidget)})},
 messageSends: ["ifNil:", "contents:", "selectedClass", "model", "definition"]}),
+smalltalk.HLBrowserSourceWidget);
+
+smalltalk.addMethod(
+"_onSourceCodeFocusRequested",
+smalltalk.method({
+selector: "onSourceCodeFocusRequested",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{}, smalltalk.HLBrowserSourceWidget)})},
+messageSends: ["focus"]}),
 smalltalk.HLBrowserSourceWidget);
 
 smalltalk.addMethod(

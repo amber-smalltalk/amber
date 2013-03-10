@@ -174,9 +174,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedClass_(_st(_st(self)._model())._selectedClass());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnClasses();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToClassesCommand)})},
-messageSends: ["selectedClass:", "selectedClass", "model"]}),
+messageSends: ["focusOnClasses", "model"]}),
 smalltalk.HLGoToClassesCommand);
 
 
@@ -210,9 +210,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedMethod_(_st(_st(self)._model())._selectedMethod());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnMethods();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToMethodsCommand)})},
-messageSends: ["selectedMethod:", "selectedMethod", "model"]}),
+messageSends: ["focusOnMethods", "model"]}),
 smalltalk.HLGoToMethodsCommand);
 
 
@@ -246,9 +246,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedPackage_(_st(_st(self)._model())._selectedPackage());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnPackages();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToPackagesCommand)})},
-messageSends: ["selectedPackage:", "selectedPackage", "model"]}),
+messageSends: ["focusOnPackages", "model"]}),
 smalltalk.HLGoToPackagesCommand);
 
 
@@ -282,9 +282,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._selectedProtocol_(_st(_st(self)._model())._selectedProtocol());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnProtocols();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToProtocolsCommand)})},
-messageSends: ["selectedProtocol:", "selectedProtocol", "model"]}),
+messageSends: ["focusOnProtocols", "model"]}),
 smalltalk.HLGoToProtocolsCommand);
 
 
@@ -309,6 +309,42 @@ return smalltalk.withContext(function($ctx1) { return "Protocols";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLGoToProtocolsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToProtocolsCommand.klass);
+
+
+smalltalk.addClass('HLGoToSourceCodeCommand', smalltalk.HLGoToCommand, [], 'Helios-Commands');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnSourceCode();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLGoToSourceCodeCommand)})},
+messageSends: ["focusOnSourceCode", "model"]}),
+smalltalk.HLGoToSourceCodeCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (83);
+}, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLGoToSourceCodeCommand.klass)})},
+messageSends: []}),
+smalltalk.HLGoToSourceCodeCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Source code";
+}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLGoToSourceCodeCommand.klass)})},
+messageSends: []}),
+smalltalk.HLGoToSourceCodeCommand.klass);
 
 
 smalltalk.addClass('HLToggleCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands');

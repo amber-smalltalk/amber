@@ -201,8 +201,7 @@ deactivate
 !
 
 flushBindings
-	bindings := nil.
-    helper := nil
+	bindings := nil
 ! !
 
 !HLKeyBinder methodsFor: 'events'!

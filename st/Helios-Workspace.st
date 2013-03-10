@@ -140,7 +140,7 @@ editor
 !
 
 focus
-      self editor focus
+	editor focus
 !
 
 inspectIt

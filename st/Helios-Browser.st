@@ -181,7 +181,8 @@ observeModel
 	self model announcer 
     	on: HLPackageSelected do: [ :ann | self onPackageSelected: ann item ];
     	on: HLShowInstanceToggled do: [ :ann | self onShowInstanceToggled ];
-		on: HLClassSelected do: [ :ann | self onClassSelected: ann item ]
+		on: HLClassSelected do: [ :ann | self onClassSelected: ann item ];
+		on: HLClassesFocusRequested do: [ :ann | self onClassesFocusRequested ]
 !
 
 observeSystem
@@ -236,6 +237,10 @@ onClassSelected: aClass
 	aClass ifNil: [ ^ self ].
     
     self focus
+!
+
+onClassesFocusRequested
+	self focus
 !
 
 onPackageSelected: aPackage
@@ -386,12 +391,15 @@ selectorsInProtocol: aString
 !HLMethodsListWidget methodsFor: 'actions'!
 
 observeModel
-	self model announcer on: HLProtocolSelected do: [ :ann |
-    	self onProtocolSelected: ann item ].
-    self model announcer on: HLShowInstanceToggled do: [ :ann |
-    	self onProtocolSelected: nil ].
-    self model announcer on: HLMethodSelected do: [ :ann |
-    	self onMethodSelected: ann item ]
+	self model announcer 
+		on: HLProtocolSelected 
+		do: [ :ann | self onProtocolSelected: ann item ];
+		on: HLShowInstanceToggled 
+		do: [ :ann | self onProtocolSelected: nil ];
+		on: HLMethodSelected 
+		do: [ :ann | self onMethodSelected: ann item ];
+		on: HLMethodsFocusRequested 
+		do: [ :ann | self onMethodsFocusRequested ]
 !
 
 observeSystem
@@ -460,6 +468,10 @@ onMethodSelected: aMethod
     self focus
 !
 
+onMethodsFocusRequested
+	self focus
+!
+
 onProtocolSelected: aString
     self selectedItem: nil.
     
@@ -521,8 +533,11 @@ focusClassesListWidget
 !
 
 observeModel
-    self model announcer on: HLPackageSelected do: [ :ann |
-    	self onPackageSelected: ann item ]
+    self model announcer 
+		on: HLPackageSelected 
+		do: [ :ann | self onPackageSelected: ann item ];
+		on: HLPackagesFocusRequested 
+		do: [ :ann | self onPackagesFocusRequested ]
 !
 
 selectItem: aPackage
@@ -533,6 +548,10 @@ selectItem: aPackage
 
 onPackageSelected: aPackage
 	self selectedItem: aPackage.
+	self focus
+!
+
+onPackagesFocusRequested
 	self focus
 ! !
 
@@ -576,12 +595,15 @@ selectedItem
 !HLProtocolsListWidget methodsFor: 'actions'!
 
 observeModel
-    self model announcer on: HLClassSelected do: [ :ann |
-    	self onClassSelected: ann item ].
-    self model announcer on: HLShowInstanceToggled do: [ :ann |
-    	self onClassSelected: self model selectedClass ].
-    self model announcer on: HLProtocolSelected do: [ :ann |
-    	self onProtocolSelected: ann item ]
+    self model announcer 
+		on: HLClassSelected 
+		do: [ :ann | self onClassSelected: ann item ];
+    	on: HLShowInstanceToggled 
+		do: [ :ann | self onClassSelected: self model selectedClass ];
+    	on: HLProtocolSelected
+		do: [ :ann | self onProtocolSelected: ann item ];
+		on: HLProtocolsFocusRequested 
+		do: [ :ann | self onProtocolsFocusRequested ]
 !
 
 observeSystem
@@ -642,6 +664,10 @@ onProtocolSelected: aString
 	aString ifNil: [ ^ self ].
     
     self focus
+!
+
+onProtocolsFocusRequested
+	self focus
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!
@@ -763,6 +789,28 @@ showInstance: aBoolean
     self announcer announce: HLShowInstanceToggled new
 ! !
 
+!HLBrowserModel methodsFor: 'actions'!
+
+focusOnClasses
+	self announcer announce: HLClassesFocusRequested new
+!
+
+focusOnMethods
+	self announcer announce: HLMethodsFocusRequested new
+!
+
+focusOnPackages
+	self announcer announce: HLPackagesFocusRequested new
+!
+
+focusOnProtocols
+	self announcer announce: HLProtocolsFocusRequested new
+!
+
+focusOnSourceCode
+	self announcer announce: HLSourceCodeFocusRequested new
+! !
+
 !HLBrowserModel class methodsFor: 'actions'!
 
 on: anEnvironment
@@ -811,13 +859,20 @@ model: aBrowserModel
 
 !HLBrowserSourceWidget methodsFor: 'actions'!
 
+focus
+	self codeWidget focus
+!
+
 observeModel
-	self model announcer on: HLMethodSelected do: [ :ann |
-    	self onMethodSelected: ann item ].
-    self model announcer on: HLClassSelected do: [ :ann |
-    	self onClassSelected: ann item ].
-    self model announcer on: HLProtocolSelected do: [ :ann |
-    	self onProtocolSelected: ann item ]
+	self model announcer 
+		on: HLMethodSelected 
+		do: [ :ann | self onMethodSelected: ann item ];
+    	on: HLClassSelected 
+		do: [ :ann | self onClassSelected: ann item ];
+    	on: HLProtocolSelected 
+		do: [ :ann | self onProtocolSelected: ann item ];
+		on: HLSourceCodeFocusRequested 
+		do: [ :ann | self onSourceCodeFocusRequested ]
 !
 
 observeSystem
@@ -860,6 +915,10 @@ onProtocolSelected: aString
 	self model selectedClass ifNil: [ ^ self contents: '' ].
     
     self contents: self model selectedClass definition
+!
+
+onSourceCodeFocusRequested
+	self focus
 ! !
 
 !HLBrowserSourceWidget methodsFor: 'rendering'!

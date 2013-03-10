@@ -86,7 +86,7 @@ HLGoToCommand subclass: #HLGoToClassesCommand
 !HLGoToClassesCommand methodsFor: 'executing'!
 
 execute
-	self model selectedClass: self model selectedClass
+	self model focusOnClasses
 ! !
 
 !HLGoToClassesCommand class methodsFor: 'accessing'!
@@ -108,7 +108,7 @@ HLGoToCommand subclass: #HLGoToMethodsCommand
 !HLGoToMethodsCommand methodsFor: 'executing'!
 
 execute
-	self model selectedMethod: self model selectedMethod
+	self model focusOnMethods
 ! !
 
 !HLGoToMethodsCommand class methodsFor: 'accessing'!
@@ -130,7 +130,7 @@ HLGoToCommand subclass: #HLGoToPackagesCommand
 !HLGoToPackagesCommand methodsFor: 'executing'!
 
 execute
-	self model selectedPackage: self model selectedPackage
+	self model focusOnPackages
 ! !
 
 !HLGoToPackagesCommand class methodsFor: 'accessing'!
@@ -152,7 +152,7 @@ HLGoToCommand subclass: #HLGoToProtocolsCommand
 !HLGoToProtocolsCommand methodsFor: 'executing'!
 
 execute
-	self model selectedProtocol: self model selectedProtocol
+	self model focusOnProtocols
 ! !
 
 !HLGoToProtocolsCommand class methodsFor: 'accessing'!
@@ -165,6 +165,28 @@ key
 
 label
 	^ 'Protocols'
+! !
+
+HLGoToCommand subclass: #HLGoToSourceCodeCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands'!
+
+!HLGoToSourceCodeCommand methodsFor: 'executing'!
+
+execute
+	self model focusOnSourceCode
+! !
+
+!HLGoToSourceCodeCommand class methodsFor: 'accessing'!
+
+key
+	"s"
+    
+	^ 83
+!
+
+label
+	^ 'Source code'
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand
