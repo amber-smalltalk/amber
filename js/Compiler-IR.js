@@ -1,4 +1,4 @@
-smalltalk.addPackage('Compiler-IR', {});
+smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.\x0aI rely on a builder object, instance of IRBuilder."
 smalltalk.addMethod(
@@ -3106,12 +3106,12 @@ return $6;
 return smalltalk.withContext(function($ctx2) {return _st(self)._nextPutAll_(",");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $7=self;
-_st($7)._nextPutAll_("}, ");
+_st($7)._nextPutAll_("},");
 _st($7)._nextPutAll_(_st(_st(aMethod)._theClass())._asJavascript());
 $8=_st($7)._nextPutAll_(")})");
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock}, smalltalk.JSStream)})},
 args: ["aMethod", "aBlock"],
-source: "nextPutContextFor: aMethod during: aBlock\x0a\x09self \x0a    \x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; \x0a        nextPutAll: String cr.\x0a    aBlock value.\x0a    \x0a    self \x0a    \x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias; \x0a        nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a    aMethod locals \x0a    \x09do: [ :each |\x0a    \x09\x09self \x0a        \x09\x09nextPutAll: each asVariableName;\x0a           \x09 \x09nextPutAll: ':';\x0a        \x09\x09nextPutAll: each asVariableName]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a    \x0a    self\x0a    \x09nextPutAll: '}, ';\x0a        nextPutAll: aMethod theClass asJavascript;\x0a        nextPutAll: ')})'",
+source: "nextPutContextFor: aMethod during: aBlock\x0a\x09self \x0a    \x09nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; \x0a        nextPutAll: String cr.\x0a    aBlock value.\x0a    \x0a    self \x0a    \x09nextPutAll: '}, function(', aMethod scope alias, ') {', aMethod scope alias; \x0a        nextPutAll: '.fill(self,', aMethod selector asJavascript, ',{'.\x0a\x0a    aMethod locals \x0a    \x09do: [ :each |\x0a    \x09\x09self \x0a        \x09\x09nextPutAll: each asVariableName;\x0a           \x09 \x09nextPutAll: ':';\x0a        \x09\x09nextPutAll: each asVariableName]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a    \x0a    self\x0a    \x09nextPutAll: '},';\x0a        nextPutAll: aMethod theClass asJavascript;\x0a        nextPutAll: ')})'",
 messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value", "asJavascript", "selector", "do:separatedBy:", "asVariableName", "locals", "theClass"],
 referencedClasses: ["String"]
 }),
