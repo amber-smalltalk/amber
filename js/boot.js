@@ -475,7 +475,9 @@ function Smalltalk() {
         delete st[klass.className];
     };
 
-	/* Add/remove a method to/from a class */
+	/* 
+     * Add/remove a method to/from a class 
+     */
 
 	st.addMethod = function(jsSelector, method, klass) {
 		method.jsSelector = jsSelector;

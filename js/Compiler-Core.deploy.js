@@ -1,4 +1,4 @@
-smalltalk.addPackage('Compiler-Core', {});
+smalltalk.addPackage('Compiler-Core');
 smalltalk.addClass('Compiler', smalltalk.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
 smalltalk.addMethod(
 "_codeGeneratorClass",
@@ -133,15 +133,17 @@ smalltalk.method({
 selector: "evaluateExpression:",
 fn: function (aString){
 var self=this;
-var result;
+var result,method;
 return smalltalk.withContext(function($ctx1) { var $1;
-_st((smalltalk.DoIt || DoIt))._addCompiledMethod_(_st(self)._eval_(_st(self)._compileExpression_(aString)));
+method=_st(self)._eval_(_st(self)._compileExpression_(aString));
+_st(method)._category_("doIt");
+_st((smalltalk.DoIt || DoIt))._addCompiledMethod_(method);
 result=_st(_st((smalltalk.DoIt || DoIt))._new())._doIt();
-_st((smalltalk.DoIt || DoIt))._removeCompiledMethod_(_st(_st((smalltalk.DoIt || DoIt))._methodDictionary())._at_("doIt"));
+_st((smalltalk.DoIt || DoIt))._removeCompiledMethod_(method);
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString,result:result}, smalltalk.Compiler)})},
-messageSends: ["addCompiledMethod:", "eval:", "compileExpression:", "doIt", "new", "removeCompiledMethod:", "at:", "methodDictionary"]}),
+}, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString,result:result,method:method}, smalltalk.Compiler)})},
+messageSends: ["eval:", "compileExpression:", "category:", "addCompiledMethod:", "doIt", "new", "removeCompiledMethod:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(

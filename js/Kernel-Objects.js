@@ -3193,17 +3193,22 @@ selector: "addElement:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var alreadyExisting;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+alreadyExisting=_st(_st(self)._elements())._includes_(aString);
 smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
-$1=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
-_st($1)._protocol_(aString);
-_st($1)._theClass_(_st(self)._theClass());
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
+$1=alreadyExisting;
+if(! smalltalk.assert($1)){
+$2=_st((smalltalk.ProtocolAdded || ProtocolAdded))._new();
+_st($2)._protocol_(aString);
+_st($2)._theClass_(_st(self)._theClass());
+$3=_st($2)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString,alreadyExisting:alreadyExisting}, smalltalk.ClassOrganizer)})},
 args: ["aString"],
-source: "addElement: aString\x0a\x09super addElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolAdded new\x0a    \x09protocol: aString;\x0a        theClass: self theClass;\x0a        yourself)",
-messageSends: ["addElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"],
+source: "addElement: aString\x0a\x09| alreadyExisting |\x0a    \x0a    alreadyExisting := self elements includes: aString.\x0a\x09super addElement: aString.\x0a\x09\x0a    alreadyExisting\x0a    \x09ifFalse: [\x0a          SystemAnnouncer current announce: (ProtocolAdded new\x0a              protocol: aString;\x0a              theClass: self theClass;\x0a              yourself) ]",
+messageSends: ["includes:", "elements", "addElement:", "ifFalse:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"],
 referencedClasses: ["ProtocolAdded", "SystemAnnouncer"]
 }),
 smalltalk.ClassOrganizer);
@@ -3215,17 +3220,22 @@ selector: "removeElement:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+var alreadyExisting;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+alreadyExisting=_st(_st(self)._elements())._includes_(aString);
 smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
-$1=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
-_st($1)._protocol_(aString);
-_st($1)._theClass_(_st(self)._theClass());
-$2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString}, smalltalk.ClassOrganizer)})},
+$1=alreadyExisting;
+if(smalltalk.assert($1)){
+$2=_st((smalltalk.ProtocolRemoved || ProtocolRemoved))._new();
+_st($2)._protocol_(aString);
+_st($2)._theClass_(_st(self)._theClass());
+$3=_st($2)._yourself();
+_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($3);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString,alreadyExisting:alreadyExisting}, smalltalk.ClassOrganizer)})},
 args: ["aString"],
-source: "removeElement: aString\x0a\x09super removeElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolRemoved new\x0a    \x09protocol: aString;\x0a        theClass: self theClass;\x0a        yourself)",
-messageSends: ["removeElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"],
+source: "removeElement: aString\x0a\x09| alreadyExisting |\x0a    \x0a    alreadyExisting := self elements includes: aString.\x0a    super removeElement: aString.\x0a\x0a\x09alreadyExisting \x0a    \x09ifTrue: [\x0a        \x09SystemAnnouncer current announce: (ProtocolRemoved new\x0a          \x09\x09protocol: aString;\x0a                theClass: self theClass;\x0a                yourself) ]",
+messageSends: ["includes:", "elements", "removeElement:", "ifTrue:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"],
 referencedClasses: ["ProtocolRemoved", "SystemAnnouncer"]
 }),
 smalltalk.ClassOrganizer);

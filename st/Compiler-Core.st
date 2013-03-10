@@ -77,10 +77,12 @@ eval: aString
 
 evaluateExpression: aString
 	"Unlike #eval: evaluate a Smalltalk expression and answer the returned object"
-	| result |
-	DoIt addCompiledMethod: (self eval: (self compileExpression: aString)).
+	| result method |
+    method := self eval: (self compileExpression: aString).
+    method category: 'doIt'.
+	DoIt addCompiledMethod: method.
 	result := DoIt new doIt.
-	DoIt removeCompiledMethod: (DoIt methodDictionary at: 'doIt').
+	DoIt removeCompiledMethod: method.
 	^result
 !
 
