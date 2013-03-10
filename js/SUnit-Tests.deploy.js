@@ -1,4 +1,4 @@
-smalltalk.addPackage('SUnit-Tests', {});
+smalltalk.addPackage('SUnit-Tests');
 smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
 smalltalk.addMethod(
 "_setUp",
@@ -8,7 +8,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@empty"]=_st((smalltalk.Set || Set))._new();
 self["@full"]=_st((smalltalk.Set || Set))._with_with_((5),smalltalk.symbolFor("abc"));
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.ExampleSetTest)})},
 messageSends: ["new", "with:with:"]}),
 smalltalk.ExampleSetTest);
 
@@ -20,7 +20,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@empty"])._add_((5));
 _st(self)._assert_(_st(self["@empty"])._includes_((5)));
-return self}, function($ctx1) {$ctx1.fill(self,"testAdd",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testAdd",{},smalltalk.ExampleSetTest)})},
 messageSends: ["add:", "assert:", "includes:"]}),
 smalltalk.ExampleSetTest);
 
@@ -32,7 +32,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@empty"])._addAll_(_st((1))._to_((100)));
 _st(self)._assert_equals_(_st(self["@empty"])._size(),(100));
-return self}, function($ctx1) {$ctx1.fill(self,"testGrow",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testGrow",{},smalltalk.ExampleSetTest)})},
 messageSends: ["addAll:", "to:", "assert:equals:", "size"]}),
 smalltalk.ExampleSetTest);
 
@@ -48,7 +48,7 @@ return smalltalk.withContext(function($ctx2) {return _st(self["@empty"])._at_((
 _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@empty"])._at_put_((5),smalltalk.symbolFor("abc"));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
-return self}, function($ctx1) {$ctx1.fill(self,"testIllegal",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testIllegal",{},smalltalk.ExampleSetTest)})},
 messageSends: ["should:raise:", "at:", "at:put:"]}),
 smalltalk.ExampleSetTest);
 
@@ -60,7 +60,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(self["@full"])._includes_((5)));
 _st(self)._assert_(_st(self["@full"])._includes_(smalltalk.symbolFor("abc")));
-return self}, function($ctx1) {$ctx1.fill(self,"testIncludes",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testIncludes",{},smalltalk.ExampleSetTest)})},
 messageSends: ["assert:", "includes:"]}),
 smalltalk.ExampleSetTest);
 
@@ -74,7 +74,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(se
 _st(self)._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
 _st(self["@full"])._add_((5));
 _st(self)._assert_equals_(_st(self["@full"])._occurrencesOf_((5)),(1));
-return self}, function($ctx1) {$ctx1.fill(self,"testOccurrences",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testOccurrences",{},smalltalk.ExampleSetTest)})},
 messageSends: ["assert:equals:", "occurrencesOf:", "add:"]}),
 smalltalk.ExampleSetTest);
 
@@ -87,7 +87,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@full"])._remove_((5));
 _st(self)._assert_(_st(self["@full"])._includes_(smalltalk.symbolFor("abc")));
 _st(self)._deny_(_st(self["@full"])._includes_((5)));
-return self}, function($ctx1) {$ctx1.fill(self,"testRemove",{}, smalltalk.ExampleSetTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testRemove",{},smalltalk.ExampleSetTest)})},
 messageSends: ["remove:", "assert:", "includes:", "deny:"]}),
 smalltalk.ExampleSetTest);
 
@@ -107,7 +107,7 @@ return smalltalk.withContext(function($ctx2) {self["@flag"]="ok";
 self["@flag"];
 return _st(self)._error_("Intentional");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"fakeError",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fakeError",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -122,7 +122,7 @@ _st(self)._timeout_((10));
 self["@flag"]=_st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._error_("Intentional");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"fakeErrorFailingInTearDown",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fakeErrorFailingInTearDown",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -139,7 +139,7 @@ return smalltalk.withContext(function($ctx2) {self["@flag"]="ok";
 self["@flag"];
 return _st(self)._assert_(false);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"fakeFailure",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fakeFailure",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -156,7 +156,7 @@ return _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._finished();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})})))._valueWithTimeout_((10));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutFailing",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutFailing",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -173,7 +173,7 @@ return _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._finished();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})})))._valueWithTimeout_((10));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutPassing",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutPassing",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -187,7 +187,7 @@ return smalltalk.withContext(function($ctx1) { _st(self)._timeout_((4));
 _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"fakeTimeout",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"fakeTimeout",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -202,7 +202,7 @@ $1=_st(_st(aCollection)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectorSetOf:",{aCollection:aCollection}, smalltalk.SUnitAsyncTest)})},
+}, function($ctx1) {$ctx1.fill(self,"selectorSetOf:",{aCollection:aCollection},smalltalk.SUnitAsyncTest)})},
 messageSends: ["asSet", "collect:", "selector"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -213,7 +213,7 @@ selector: "setUp",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@flag"]="ok";
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.SUnitAsyncTest)})},
 messageSends: []}),
 smalltalk.SUnitAsyncTest);
 
@@ -224,7 +224,7 @@ selector: "tearDown",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_("ok",self["@flag"]);
-return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["assert:equals:"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -255,7 +255,7 @@ return _st($2)._ifTrue_(assertBlock);
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 _st(runner)._run();
-return self}, function($ctx1) {$ctx1.fill(self,"testAsyncErrorsAndFailures",{suite:suite,runner:runner,result:result,assertBlock:assertBlock}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testAsyncErrorsAndFailures",{suite:suite,runner:runner,result:result,assertBlock:assertBlock},smalltalk.SUnitAsyncTest)})},
 messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:equals:", "selectorSetOf:", "errors", "asSet", "failures", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -275,7 +275,7 @@ return smalltalk.withContext(function($ctx2) {return _st(self)._async_((functio
 return smalltalk.withContext(function($ctx3) {}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
 _st(self)._finished();
-return self}, function($ctx1) {$ctx1.fill(self,"testAsyncNeedsTimeout",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testAsyncNeedsTimeout",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["should:raise:", "async:", "timeout:", "shouldnt:raise:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -292,7 +292,7 @@ _st(self)._timeout_((0));
 _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
-return self}, function($ctx1) {$ctx1.fill(self,"testFinishedNeedsTimeout",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testFinishedNeedsTimeout",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["should:raise:", "finished", "timeout:", "shouldnt:raise:"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -307,7 +307,7 @@ _st(self)._timeout_((0));
 _st(self)._assert_(_st(self)._isAsync());
 _st(self)._finished();
 _st(self)._deny_(_st(self)._isAsync());
-return self}, function($ctx1) {$ctx1.fill(self,"testIsAsyncReturnsCorrectValues",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testIsAsyncReturnsCorrectValues",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["deny:", "isAsync", "timeout:", "assert:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -325,7 +325,7 @@ _st(self)._finished();
 self["@flag"]="ok";
 return self["@flag"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
-return self}, function($ctx1) {$ctx1.fill(self,"testPass",{}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testPass",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -356,7 +356,7 @@ return _st($2)._ifTrue_(assertBlock);
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 _st(runner)._run();
-return self}, function($ctx1) {$ctx1.fill(self,"testTimeouts",{suite:suite,runner:runner,result:result,assertBlock:assertBlock}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testTimeouts",{suite:suite,runner:runner,result:result,assertBlock:assertBlock},smalltalk.SUnitAsyncTest)})},
 messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "async:", "assert:equals:", "selectorSetOf:", "errors", "new", "failures", "asSet", "finished", "on:do:", "ifTrue:", "=", "total", "runs", "==", "announcer", "run"]}),
 smalltalk.SUnitAsyncTest);
 
@@ -386,7 +386,7 @@ x=_st(x).__plus((1));
 x;
 return _st(self)._assert_equals_(x,(1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((0));
-return self}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x}, smalltalk.SUnitAsyncTest)})},
+return self}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished", "+", "assert:equals:"]}),
 smalltalk.SUnitAsyncTest);
 
