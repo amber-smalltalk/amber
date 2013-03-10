@@ -78,6 +78,10 @@ function SmalltalkOrganizer() {
     this.elements = [];
 }
 
+function SmalltalkClassOrganizer() {
+    this.elements = [];
+}
+
 function inherits(child, parent) {
 	child.prototype = Object.create(parent.prototype, {
 		constructor: { value: child,
@@ -92,6 +96,7 @@ inherits(SmalltalkNil, SmalltalkObject);
 inherits(SmalltalkMethod, SmalltalkObject);
 inherits(SmalltalkPackage, SmalltalkObject);
 inherits(SmalltalkOrganizer, SmalltalkObject);
+inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 
 function Smalltalk() {
@@ -233,7 +238,7 @@ function Smalltalk() {
             enumerable:false, configurable: true, writable: false
 		});
 
-		klass.organization = new SmalltalkOrganizer();
+		klass.organization = new SmalltalkClassOrganizer();
 		Object.defineProperty(klass, "methods", {
 			value: {},
 			enumerable: false, configurable: true, writable: true
@@ -813,6 +818,7 @@ smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Obje
 smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
 smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
+smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", SmalltalkClassOrganizer, smalltalk.Organizer, false);
 
 
 smalltalk.wrapClassName("Number", "Kernel", Number, smalltalk.Object);
