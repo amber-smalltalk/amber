@@ -248,6 +248,24 @@ messageSends: []}),
 smalltalk.HLBindingAction);
 
 
+smalltalk.addMethod(
+"_on_labelled_activeBlock_",
+smalltalk.method({
+selector: "on:labelled:activeBlock:",
+fn: function (anInteger,aString,aBlock){
+var self=this;
+var instance;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+instance=smalltalk.HLBinding.klass.fn.prototype._on_labelled_.apply(_st(self), [anInteger,aString]);
+$2=instance;
+_st($2)._activeBlock_(aBlock);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:labelled:activeBlock:",{anInteger:anInteger,aString:aString,aBlock:aBlock,instance:instance},smalltalk.HLBindingAction.klass)})},
+messageSends: ["on:labelled:", "activeBlock:", "yourself"]}),
+smalltalk.HLBindingAction.klass);
+
 
 smalltalk.addClass('HLBindingGroup', smalltalk.HLBinding, ['bindings'], 'Helios-KeyBindings');
 smalltalk.addMethod(
@@ -573,16 +591,15 @@ var self=this;
 var group;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 $1=_st((smalltalk.HLBindingGroup || HLBindingGroup))._new();
-_st($1)._addGroupKey_labelled_((79),"Open");
 _st($1)._addGroupKey_labelled_((86),"View");
 _st($1)._add_(_st(_st((smalltalk.HLCloseTabCommand || HLCloseTabCommand))._new())._asBinding());
 $2=_st($1)._yourself();
 group=$2;
-_st((smalltalk.HLOpenCommand || HLOpenCommand))._registerConcreteClassesOn_(_st(group)._at_("Open"));
+_st((smalltalk.HLOpenCommand || HLOpenCommand))._registerConcreteClassesOn_(group);
 $3=group;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"defaultBindings",{group:group},smalltalk.HLKeyBinder)})},
-messageSends: ["addGroupKey:labelled:", "new", "add:", "asBinding", "yourself", "registerConcreteClassesOn:", "at:"]}),
+messageSends: ["addGroupKey:labelled:", "new", "add:", "asBinding", "yourself", "registerConcreteClassesOn:"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(

@@ -343,6 +343,29 @@ referencedClasses: []
 smalltalk.HLBindingAction);
 
 
+smalltalk.addMethod(
+"_on_labelled_activeBlock_",
+smalltalk.method({
+selector: "on:labelled:activeBlock:",
+category: 'instance creation',
+fn: function (anInteger,aString,aBlock){
+var self=this;
+var instance;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+instance=smalltalk.HLBinding.klass.fn.prototype._on_labelled_.apply(_st(self), [anInteger,aString]);
+$2=instance;
+_st($2)._activeBlock_(aBlock);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:labelled:activeBlock:",{anInteger:anInteger,aString:aString,aBlock:aBlock,instance:instance},smalltalk.HLBindingAction.klass)})},
+args: ["anInteger", "aString", "aBlock"],
+source: "on: anInteger labelled: aString activeBlock: aBlock\x0a\x09| instance |\x0a\x09\x0a\x09instance := super on: anInteger labelled: aString.\x0a\x09^ instance \x0a\x09\x09activeBlock: aBlock;\x0a\x09\x09yourself",
+messageSends: ["on:labelled:", "activeBlock:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLBindingAction.klass);
+
 
 smalltalk.addClass('HLBindingGroup', smalltalk.HLBinding, ['bindings'], 'Helios-KeyBindings');
 smalltalk.addMethod(
@@ -779,18 +802,17 @@ var self=this;
 var group;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 $1=_st((smalltalk.HLBindingGroup || HLBindingGroup))._new();
-_st($1)._addGroupKey_labelled_((79),"Open");
 _st($1)._addGroupKey_labelled_((86),"View");
 _st($1)._add_(_st(_st((smalltalk.HLCloseTabCommand || HLCloseTabCommand))._new())._asBinding());
 $2=_st($1)._yourself();
 group=$2;
-_st((smalltalk.HLOpenCommand || HLOpenCommand))._registerConcreteClassesOn_(_st(group)._at_("Open"));
+_st((smalltalk.HLOpenCommand || HLOpenCommand))._registerConcreteClassesOn_(group);
 $3=group;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"defaultBindings",{group:group},smalltalk.HLKeyBinder)})},
 args: [],
-source: "defaultBindings\x0a\x09| group |\x0a\x09\x0a\x09group := HLBindingGroup new\x0a\x09\x09addGroupKey: 79 labelled: 'Open';\x0a\x09\x09addGroupKey: 86 labelled: 'View';\x0a\x09\x09add: HLCloseTabCommand new asBinding;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09HLOpenCommand registerConcreteClassesOn: (group at: 'Open').\x0a\x09\x09\x09\x09\x0a\x09^ group",
-messageSends: ["addGroupKey:labelled:", "new", "add:", "asBinding", "yourself", "registerConcreteClassesOn:", "at:"],
+source: "defaultBindings\x0a\x09| group |\x0a\x09\x0a\x09group := HLBindingGroup new\x0a\x09\x09addGroupKey: 86 labelled: 'View';\x0a\x09\x09add: HLCloseTabCommand new asBinding;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09HLOpenCommand registerConcreteClassesOn: group.\x0a\x09\x09\x09\x09\x0a\x09^ group",
+messageSends: ["addGroupKey:labelled:", "new", "add:", "asBinding", "yourself", "registerConcreteClassesOn:"],
 referencedClasses: ["HLBindingGroup", "HLCloseTabCommand", "HLOpenCommand"]
 }),
 smalltalk.HLKeyBinder);
