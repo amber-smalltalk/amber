@@ -959,10 +959,10 @@ selector: "setupCodeMirror",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
+return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
 return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.SourceArea.klass)})},
 args: [],
-source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap.default.fallthrough = [\x22basic\x22] >",
+source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap[\x22default\x22].fallthrough = [\x22basic\x22] >",
 messageSends: [],
 referencedClasses: []
 }),
