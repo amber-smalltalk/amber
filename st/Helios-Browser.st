@@ -844,6 +844,12 @@ saveSourceCode
 	self announcer announce: HLSaveSourceCode new
 ! !
 
+!HLBrowserModel methodsFor: 'commands actions'!
+
+moveMethodToClass: aClassName
+	console log: 'moveMethodToClass ', aClassName
+! !
+
 !HLBrowserModel methodsFor: 'compiling'!
 
 compileClassComment: aString

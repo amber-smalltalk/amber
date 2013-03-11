@@ -289,16 +289,6 @@ smalltalk.HLMoveMethodToCommand.klass);
 
 
 smalltalk.addClass('HLMoveMethodToClassCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Browser');
-smalltalk.addMethod(
-"_execute",
-smalltalk.method({
-selector: "execute",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
-messageSends: []}),
-smalltalk.HLMoveMethodToClassCommand);
-
 
 smalltalk.addMethod(
 "_key",
@@ -323,6 +313,57 @@ messageSends: []}),
 smalltalk.HLMoveMethodToClassCommand.klass);
 
 
+smalltalk.addClass('HLMethodMoveToClassSelectionCommand', smalltalk.HLMoveMethodToClassCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+"_asBinding",
+smalltalk.method({
+selector: "asBinding",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st((smalltalk.HLBindingInput || HLBindingInput))._on_labelled_activeBlock_(_st(self)._key(),_st(self)._label(),_st(self)._activeBlock()))._callback_((function(ex){
+return smalltalk.withContext(function($ctx2) {return _st(self)._execute_(ex);
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asBinding",{},smalltalk.HLMethodMoveToClassSelectionCommand)})},
+messageSends: ["callback:", "execute:", "on:labelled:activeBlock:", "key", "label", "activeBlock"]}),
+smalltalk.HLMethodMoveToClassSelectionCommand);
+
+smalltalk.addMethod(
+"_execute_",
+smalltalk.method({
+selector: "execute:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aClass:aClass},smalltalk.HLMethodMoveToClassSelectionCommand)})},
+messageSends: ["moveMethodToClass:", "model"]}),
+smalltalk.HLMethodMoveToClassSelectionCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (13);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMethodMoveToClassSelectionCommand.klass)})},
+messageSends: []}),
+smalltalk.HLMethodMoveToClassSelectionCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "select a class";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMethodMoveToClassSelectionCommand.klass)})},
+messageSends: []}),
+smalltalk.HLMethodMoveToClassSelectionCommand.klass);
+
+
 smalltalk.addClass('HLMoveMethodToProtocolCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 "_execute",
@@ -330,8 +371,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
-messageSends: []}),
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToProtocol();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+messageSends: ["moveMethodToProtocol", "model"]}),
 smalltalk.HLMoveMethodToProtocolCommand);
 
 
