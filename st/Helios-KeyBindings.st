@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
- instanceVariableNames: 'key label'
+ instanceVariableNames: 'key label each'
  package: 'Helios-KeyBindings'!
 
 !HLBinding methodsFor: 'accessing'!
@@ -36,6 +36,18 @@ applyOn: aKeyBinder
 ! !
 
 !HLBinding methodsFor: 'rendering'!
+
+renderBindingOn: html actionOn: aBinder
+
+	html span class: 'command'; with: [
+		html span 
+			class: 'label'; 
+			with: self shortcut asLowercase.
+  		html a 
+        	class: 'action'; 
+            with: self displayLabel;
+  			onClick: [ aBinder applyBinding: self ] ]
+!
 
 renderOn: aBindingHelper html: html
 ! !
@@ -112,6 +124,50 @@ on: anInteger labelled: aString activeBlock: aBlock
 	^ instance 
 		activeBlock: aBlock;
 		yourself
+! !
+
+HLBindingAction subclass: #HLBindingInput
+ instanceVariableNames: 'input'
+ package: 'Helios-KeyBindings'!
+
+!HLBindingInput methodsFor: 'actions'!
+
+applyOn: aBinder
+	self isActive ifFalse: [ ^ self ].
+	
+	aBinder applyBindingInput: self with: self input
+!
+
+input
+	^ input asJQuery val
+! !
+
+!HLBindingInput methodsFor: 'rendering'!
+
+renderBindingOn: html actionOn: aBinder
+
+	html span 
+		class: 'command'; 
+		with: [
+			"html form
+				class: 'form-search';
+				with: [
+					html div
+					  class: 'input-append';
+					  with: [
+						html input
+							type: 'text';
+							class: 'search-query';
+							placeholder: self displayLabel.
+						html button
+							type: 'submit';
+							class: 'btn';
+							with: 'Ok' ] ] ]
+		"
+		input := html input
+			class: 'search-query';
+			placeholder: self displayLabel ].
+		input asJQuery focus
 ! !
 
 HLBinding subclass: #HLBindingGroup
@@ -248,6 +304,11 @@ applyBindingAction: aBinding
 applyBindingGroup: aBinding
     selectedBinding := aBinding.
     self helper refresh
+!
+
+applyBindingInput: aBinding with: value
+    aBinding callback value: value.
+	self deactivate
 !
 
 deactivate
@@ -392,13 +453,7 @@ registerBindings
 renderBindingGroup: aBindingGroup on: html
 	(aBindingGroup activeBindings 
     	sorted: [ :a :b | a key < b key ])
-        do: [ :each |
-			html span class: 'command'; with: [
-				html span class: 'label'; with: each shortcut asLowercase.
-  				html a 
-                	class: 'action'; 
-                    with: each displayLabel;
-  					onClick: [ self keyBinder applyBinding: each ] ] ]
+        do: [ :each | each renderBindingOn: html actionOn: self keyBinder ]
 !
 
 renderBindingOn: html

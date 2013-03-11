@@ -1767,6 +1767,17 @@ messageSends: ["announce:", "error:", "new", "yourself", "announcer"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_moveMethodToClass_",
+smalltalk.method({
+selector: "moveMethodToClass:",
+fn: function (aClassName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(console)._log_(_st("moveMethodToClass ").__comma(aClassName));
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:",{aClassName:aClassName},smalltalk.HLBrowserModel)})},
+messageSends: ["log:", ","]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_packages",
 smalltalk.method({
 selector: "packages",

@@ -173,11 +173,6 @@ HLMoveMethodToCommand subclass: #HLMoveMethodToClassCommand
  instanceVariableNames: ''
  package: 'Helios-Commands-Browser'!
 
-!HLMoveMethodToClassCommand methodsFor: 'executing'!
-
-execute
-! !
-
 !HLMoveMethodToClassCommand class methodsFor: 'accessing'!
 
 key
@@ -188,6 +183,33 @@ label
 	^ 'to class'
 ! !
 
+HLMoveMethodToClassCommand subclass: #HLMethodMoveToClassSelectionCommand
+ instanceVariableNames: ''
+ package: 'Helios-Commands-Browser'!
+
+!HLMethodMoveToClassSelectionCommand methodsFor: 'actions'!
+
+execute: aClass
+	self model moveMethodToClass: aClass
+! !
+
+!HLMethodMoveToClassSelectionCommand methodsFor: 'converting'!
+
+asBinding
+	^ (HLBindingInput on: self key labelled: self label activeBlock: self activeBlock)
+    	callback: [:ex | self execute: ex ]
+! !
+
+!HLMethodMoveToClassSelectionCommand class methodsFor: 'accessing'!
+
+key
+	^ 13 "enter"
+!
+
+label
+	^ 'select a class'
+! !
+
 HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
  instanceVariableNames: ''
  package: 'Helios-Commands-Browser'!
@@ -195,6 +217,7 @@ HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
 !HLMoveMethodToProtocolCommand methodsFor: 'executing'!
 
 execute
+	self model moveMethodToProtocol
 ! !
 
 !HLMoveMethodToProtocolCommand class methodsFor: 'accessing'!
