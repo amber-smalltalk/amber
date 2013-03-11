@@ -351,7 +351,8 @@ $1=aStream;
 _st($1)._nextPutAll_(_st(self)._classNameFor_(_st(aClass)._superclass()));
 _st($1)._nextPutAll_(_st(" subclass: #").__comma(_st(self)._classNameFor_(aClass)));
 _st($1)._lf();
-$2=_st($1)._nextPutAll_(" instanceVariableNames: '");
+_st($1)._tab();
+$2=_st($1)._nextPutAll_("instanceVariableNames: '");
 _st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
@@ -360,7 +361,8 @@ return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(
 $3=aStream;
 _st($3)._nextPutAll_("'");
 _st($3)._lf();
-_st($3)._nextPutAll_(_st(_st(" package: '").__comma(_st(aClass)._category())).__comma("'!"));
+_st($3)._tab();
+_st($3)._nextPutAll_(_st(_st("package: '").__comma(_st(aClass)._category())).__comma("'!"));
 $4=_st($3)._lf();
 $5=_st(_st(aClass)._comment())._notEmpty();
 if(smalltalk.assert($5)){
@@ -373,7 +375,7 @@ $7;
 };
 _st(aStream)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
-messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "chunkEscape:", "comment", "notEmpty"]}),
+messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "chunkEscape:", "comment", "notEmpty"]}),
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
