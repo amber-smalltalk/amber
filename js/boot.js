@@ -823,23 +823,23 @@ smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", SmalltalkPackageOr
 smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", SmalltalkClassOrganizer, smalltalk.Organizer, false);
 
 
-smalltalk.wrapClassName("Number", "Kernel", Number, smalltalk.Object);
-smalltalk.wrapClassName("BlockClosure", "Kernel", Function, smalltalk.Object);
-smalltalk.wrapClassName("Boolean", "Kernel", Boolean, smalltalk.Object);
-smalltalk.wrapClassName("Date", "Kernel", Date, smalltalk.Object);
-smalltalk.wrapClassName("UndefinedObject", "Kernel", SmalltalkNil, smalltalk.Object, false);
+smalltalk.wrapClassName("Number", "Kernel-Objects", Number, smalltalk.Object);
+smalltalk.wrapClassName("BlockClosure", "Kernel-Methods", Function, smalltalk.Object);
+smalltalk.wrapClassName("Boolean", "Kernel-Objects", Boolean, smalltalk.Object);
+smalltalk.wrapClassName("Date", "Kernel-Objects", Date, smalltalk.Object);
+smalltalk.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, smalltalk.Object, false);
 
 smalltalk.addClass("Collection", smalltalk.Object, null, "Kernel");
 smalltalk.addClass("IndexableCollection", smalltalk.Collection, null, "Kernel");
 smalltalk.addClass("SequenceableCollection", smalltalk.IndexableCollection, null, "Kernel");
 smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Kernel");
-smalltalk.wrapClassName("String", "Kernel", String, smalltalk.CharacterArray);
-smalltalk.wrapClassName("Symbol", "Kernel", SmalltalkSymbol, smalltalk.CharacterArray, false);
-smalltalk.wrapClassName("Array", "Kernel", Array, smalltalk.SequenceableCollection);
-smalltalk.wrapClassName("RegularExpression", "Kernel", RegExp, smalltalk.Object);
+smalltalk.wrapClassName("String", "Kernel-Collections", String, smalltalk.CharacterArray);
+smalltalk.wrapClassName("Symbol", "Kernel-Collections", SmalltalkSymbol, smalltalk.CharacterArray, false);
+smalltalk.wrapClassName("Array", "Kernel-Collections", Array, smalltalk.SequenceableCollection);
+smalltalk.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, smalltalk.Object);
 
-smalltalk.wrapClassName("Error", "Kernel", Error, smalltalk.Object);
-smalltalk.wrapClassName("MethodContext", "Kernel", SmalltalkMethodContext, smalltalk.Object, false);
+smalltalk.wrapClassName("Error", "Kernel-Exceptions", Error, smalltalk.Object);
+smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, smalltalk.Object, false);
 
 /* Alias definitions */
 
