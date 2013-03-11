@@ -103,6 +103,17 @@ isBindingAction
 	^ true
 ! !
 
+!HLBindingAction class methodsFor: 'instance creation'!
+
+on: anInteger labelled: aString activeBlock: aBlock
+	| instance |
+	
+	instance := super on: anInteger labelled: aString.
+	^ instance 
+		activeBlock: aBlock;
+		yourself
+! !
+
 HLBinding subclass: #HLBindingGroup
  instanceVariableNames: 'bindings'
  package: 'Helios-KeyBindings'!
@@ -254,12 +265,11 @@ defaultBindings
 	| group |
 	
 	group := HLBindingGroup new
-		addGroupKey: 79 labelled: 'Open';
 		addGroupKey: 86 labelled: 'View';
 		add: HLCloseTabCommand new asBinding;
 		yourself.
 		
-	HLOpenCommand registerConcreteClassesOn: (group at: 'Open').
+	HLOpenCommand registerConcreteClassesOn: group.
 				
 	^ group
 ! !

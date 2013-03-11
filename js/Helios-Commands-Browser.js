@@ -349,6 +349,26 @@ smalltalk.HLMoveToCommand.klass);
 
 
 smalltalk.addClass('HLMoveMethodToCommand', smalltalk.HLMoveToCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+"_activeBlock",
+smalltalk.method({
+selector: "activeBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._model())._selectedMethod())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"activeBlock",{},smalltalk.HLMoveMethodToCommand)})},
+args: [],
+source: "activeBlock\x0a\x09^ [ self model selectedMethod notNil ]",
+messageSends: ["notNil", "selectedMethod", "model"],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToCommand);
+
 
 smalltalk.addMethod(
 "_key",
