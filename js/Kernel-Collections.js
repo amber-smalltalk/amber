@@ -5712,5 +5712,23 @@ referencedClasses: []
 }),
 smalltalk.StringStream);
 
+smalltalk.addMethod(
+"_tab",
+smalltalk.method({
+selector: "tab",
+category: 'writing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._tab());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tab",{},smalltalk.StringStream)})},
+args: [],
+source: "tab\x0a\x09^self nextPutAll: String tab\x0a",
+messageSends: ["nextPutAll:", "tab"],
+referencedClasses: ["String"]
+}),
+smalltalk.StringStream);
+
 
 

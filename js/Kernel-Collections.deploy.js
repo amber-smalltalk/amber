@@ -4212,5 +4212,18 @@ return self}, function($ctx1) {$ctx1.fill(self,"space",{},smalltalk.StringStream
 messageSends: ["nextPut:"]}),
 smalltalk.StringStream);
 
+smalltalk.addMethod(
+"_tab",
+smalltalk.method({
+selector: "tab",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._tab());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tab",{},smalltalk.StringStream)})},
+messageSends: ["nextPutAll:", "tab"]}),
+smalltalk.StringStream);
+
 
 
