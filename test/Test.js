@@ -9,7 +9,7 @@ category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._runTestSuite();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.NodeTestRunner.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.NodeTestRunner.klass)})},
 args: [],
 source: "initialize\x0a\x09self runTestSuite",
 messageSends: ["runTestSuite"],
@@ -51,7 +51,7 @@ return _st(self)._throw_(_st(_st(_st(_st(_st(_st(_st(result)._errors())._first()
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann,result:result},$ctx1)})}));
 _st(worker)._run();
-return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker}, smalltalk.NodeTestRunner.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"runTestSuite",{suite:suite,worker:worker},smalltalk.NodeTestRunner.klass)})},
 args: [],
 source: "runTestSuite\x0a\x09| suite worker |\x0a\x0a\x09suite := OrderedCollection new.\x0a    (TestCase allSubclasses select: [ :each | each isAbstract not ])\x0a\x09do: [ :each | suite addAll: each buildSuite ].\x0a\x0a\x09worker := TestSuiteRunner on: suite.\x0a\x09worker announcer on: ResultAnnouncement do:\x0a\x09[ :ann | | result |\x0a    \x09result := ann result.\x0a        result runs = result total ifTrue: [\x0a\x09        console log: result runs asString, ' tests run, ', result failures size asString, ' failures, ', result errors size asString, ' errors.'.\x0a\x0a            result failures isEmpty ifFalse: [\x0a                self throw: result failures first class name, ' >> ', result failures first selector, ' is failing!' ].\x0a            result errors isEmpty ifFalse: [\x0a                self throw: result errors first class name, ' >> ', result errors first selector, ' has errors!' ].\x0a    ]].\x0a    worker run",
 messageSends: ["new", "do:", "addAll:", "buildSuite", "select:", "not", "isAbstract", "allSubclasses", "on:", "on:do:", "result", "ifTrue:", "log:", ",", "asString", "size", "errors", "failures", "runs", "ifFalse:", "throw:", "selector", "first", "name", "class", "isEmpty", "=", "total", "announcer", "run"],
