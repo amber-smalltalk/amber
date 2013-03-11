@@ -1879,10 +1879,12 @@ nextPut: aString
 !
 
 nextPutAll: aString
-	self setCollection:
-		(self collection copyFrom: 1 to: self position),
-		aString,
-		(self collection copyFrom: (self position + 1 + aString size) to: self collection size).
+	| pre post |
+	self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [
+		pre := self collection copyFrom: 1 to: self position.
+		post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.
+		self setCollection: pre, aString, post
+	].
 	self position: self position + aString size.
 	self setStreamSize: (self streamSize max: self position)
 !

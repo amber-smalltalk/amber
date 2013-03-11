@@ -4194,11 +4194,22 @@ smalltalk.method({
 selector: "nextPutAll:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._setCollection_(_st(_st(_st(_st(self)._collection())._copyFrom_to_((1),_st(self)._position())).__comma(aString)).__comma(_st(_st(self)._collection())._copyFrom_to_(_st(_st(_st(self)._position()).__plus((1))).__plus(_st(aString)._size()),_st(_st(self)._collection())._size())));
+var pre,post;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._atEnd();
+if(smalltalk.assert($1)){
+_st(self)._setCollection_(_st(_st(self)._collection()).__comma(aString));
+} else {
+pre=_st(_st(self)._collection())._copyFrom_to_((1),_st(self)._position());
+pre;
+post=_st(_st(self)._collection())._copyFrom_to_(_st(_st(_st(self)._position()).__plus((1))).__plus(_st(aString)._size()),_st(_st(self)._collection())._size());
+post;
+_st(self)._setCollection_(_st(_st(pre).__comma(aString)).__comma(post));
+};
 _st(self)._position_(_st(_st(self)._position()).__plus(_st(aString)._size()));
 _st(self)._setStreamSize_(_st(_st(self)._streamSize())._max_(_st(self)._position()));
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString},smalltalk.StringStream)})},
-messageSends: ["setCollection:", ",", "copyFrom:to:", "+", "size", "position", "collection", "position:", "setStreamSize:", "max:", "streamSize"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
+messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "atEnd", "position:", "setStreamSize:", "max:", "streamSize"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
