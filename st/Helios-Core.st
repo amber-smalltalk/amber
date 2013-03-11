@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Core'!
 Object subclass: #HLTab
-	instanceVariableNames: 'widget label'
-	package: 'Helios-Core'!
+ instanceVariableNames: 'widget label'
+ package: 'Helios-Core'!
 
 !HLTab methodsFor: 'accessing'!
 
@@ -11,6 +11,17 @@ activate
 
 add
 	self manager addTab: self
+!
+
+displayLabel
+	^ self label size > 20 
+		ifTrue: [ (self label first: 20), '...' ]
+		ifFalse: [ self label ]
+!
+
+focus
+	self widget canHaveFocus ifTrue: [
+		self widget focus ]
 !
 
 label
@@ -49,8 +60,8 @@ on: aWidget labelled: aString
 ! !
 
 Widget subclass: #HLWidget
-	instanceVariableNames: 'wrapper'
-	package: 'Helios-Core'!
+ instanceVariableNames: 'wrapper'
+ package: 'Helios-Core'!
 
 !HLWidget methodsFor: 'accessing'!
 
@@ -93,6 +104,12 @@ renderOn: html
     [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery
 ! !
 
+!HLWidget methodsFor: 'testing'!
+
+canHaveFocus
+	^ false
+! !
+
 !HLWidget methodsFor: 'updating'!
 
 refresh
@@ -124,12 +141,12 @@ canBeOpenAsTab
 ! !
 
 HLWidget subclass: #HLDebugger
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
+ instanceVariableNames: ''
+ package: 'Helios-Core'!
 
 HLWidget subclass: #HLFocusableWidget
-	instanceVariableNames: 'hiddenInput'
-	package: 'Helios-Core'!
+ instanceVariableNames: 'hiddenInput'
+ package: 'Helios-Core'!
 
 !HLFocusableWidget methodsFor: 'accessing'!
 
@@ -174,9 +191,15 @@ renderOn: html
 			self renderContentOn: html ]
 ! !
 
+!HLFocusableWidget methodsFor: 'testing'!
+
+canHaveFocus
+	^ true
+! !
+
 HLFocusableWidget subclass: #HLListWidget
-	instanceVariableNames: 'items selectedItem'
-	package: 'Helios-Core'!
+ instanceVariableNames: 'items selectedItem'
+ package: 'Helios-Core'!
 
 !HLListWidget methodsFor: 'accessing'!
 
@@ -312,8 +335,8 @@ renderListOn: html
 ! !
 
 HLListWidget subclass: #HLNavigationListWidget
-	instanceVariableNames: 'previous next'
-	package: 'Helios-Core'!
+ instanceVariableNames: 'previous next'
+ package: 'Helios-Core'!
 
 !HLNavigationListWidget methodsFor: 'accessing'!
 
@@ -358,8 +381,8 @@ setupKeyBindings
 ! !
 
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab keyBinder environment history'
-	package: 'Helios-Core'!
+ instanceVariableNames: 'tabs activeTab keyBinder environment history'
+ package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
 
@@ -428,6 +451,7 @@ removeTab: aTab
 
 	self removeFromHistory: aTab.
 	self tabs remove: aTab.
+	self keyBinder flushBindings.
 	self refresh.
 	self history ifNotEmpty: [
 		self history last activate ]
@@ -496,16 +520,17 @@ renderTabsOn: html
 					with: [
 						html a
 							with: [
-      							((html tag: 'i') class: 'icon-remove-circle')
+      							((html tag: 'i') class: 'icon-remove')
   									onClick: [ self removeTab: each ].
-                              	html with: each label ];
+                              	html with: each displayLabel ];
 							onClick: [ each activate ] ] ].
 			self renderAddOn: html ]
 !
 
 show: aTab
 	(window jQuery: '#container') empty.
-	aTab widget appendToJQuery: '#container' asJQuery
+	aTab widget appendToJQuery: '#container' asJQuery.
+	aTab focus
 ! !
 
 HLManager class instanceVariableNames: 'current'!
@@ -531,8 +556,8 @@ new
 ! !
 
 HLWidget subclass: #HLSUnit
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
+ instanceVariableNames: ''
+ package: 'Helios-Core'!
 
 !HLSUnit class methodsFor: 'accessing'!
 
@@ -551,8 +576,8 @@ canBeOpenAsTab
 ! !
 
 HLWidget subclass: #HLTranscript
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
+ instanceVariableNames: ''
+ package: 'Helios-Core'!
 
 !HLTranscript class methodsFor: 'accessing'!
 

@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
- instanceVariableNames: 'model built packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
+ instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
  package: 'Helios-Browser'!
 
 !HLBrowser methodsFor: 'accessing'!
@@ -19,13 +19,6 @@ model
 
 model: aModel
 	model := aModel
-! !
-
-!HLBrowser methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	built := false
 ! !
 
 !HLBrowser methodsFor: 'keybindings'!
@@ -68,9 +61,7 @@ renderContentOn: html
                 with: self methodsListWidget)) 
         with: self sourceWidget)).
 	
-	built ifFalse: [
-		self packagesListWidget focus.
-		built := true ]
+	self packagesListWidget focus
 ! !
 
 !HLBrowser methodsFor: 'widgets'!

@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Inspector'!
 HLWidget subclass: #HLInspector
-	instanceVariableNames: 'model variablesWidget displayWidget codeWidget label'
-	package: 'Helios-Inspector'!
+ instanceVariableNames: 'model variablesWidget displayWidget codeWidget label'
+ package: 'Helios-Inspector'!
 
 !HLInspector methodsFor: 'accessing'!
 
@@ -145,7 +145,9 @@ renderContentOn: html
     	with: (HLVerticalSplitter 
             		with: self variablesWidget
             	    with: self displayWidget)
-        with: self codeWidget))
+        with: self codeWidget)).
+	
+	self variablesWidget focus
 ! !
 
 !HLInspector class methodsFor: 'accessing'!
@@ -165,8 +167,8 @@ canBeOpenAsTab
 ! !
 
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
-	instanceVariableNames: 'model'
-	package: 'Helios-Inspector'!
+ instanceVariableNames: 'model'
+ package: 'Helios-Inspector'!
 
 !HLInspectorDisplayWidget methodsFor: 'accessing'!
 
@@ -196,8 +198,8 @@ selectionDisplayString
 ! !
 
 Object subclass: #HLInspectorModel
-	instanceVariableNames: 'announcer environment inspectee code variables selection'
-	package: 'Helios-Inspector'!
+ instanceVariableNames: 'announcer environment inspectee code variables selection'
+ package: 'Helios-Inspector'!
 
 !HLInspectorModel methodsFor: 'accessing'!
 
@@ -301,8 +303,8 @@ on: anEnvironment
 ! !
 
 HLNavigationListWidget subclass: #HLInspectorVariablesWidget
-	instanceVariableNames: 'announcer model list diveButton'
-	package: 'Helios-Inspector'!
+ instanceVariableNames: 'announcer model list diveButton'
+ package: 'Helios-Inspector'!
 
 !HLInspectorVariablesWidget methodsFor: 'accessing'!
 

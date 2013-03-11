@@ -464,16 +464,15 @@ smalltalk.HLBindingGroup);
 
 
 
-smalltalk.addClass('HLKeyBinder', smalltalk.Object, ['modifierKey', 'active', 'helper', 'bindings', 'selectedBinding'], 'Helios-KeyBindings');
+smalltalk.addClass('HLKeyBinder', smalltalk.Object, ['modifierKey', 'helper', 'bindings', 'selectedBinding'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 "_activate",
 smalltalk.method({
 selector: "activate",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@active"]=true;
-_st(_st(self)._helper())._show();
-return self}, function($ctx1) {$ctx1.fill(self,"activate",{}, smalltalk.HLKeyBinder)})},
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._helper())._show();
+return self}, function($ctx1) {$ctx1.fill(self,"activate",{},smalltalk.HLKeyBinder)})},
 messageSends: ["show", "helper"]}),
 smalltalk.HLKeyBinder);
 
@@ -559,10 +558,9 @@ smalltalk.method({
 selector: "deactivate",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@active"]=false;
-self["@selectedBinding"]=nil;
+return smalltalk.withContext(function($ctx1) { self["@selectedBinding"]=nil;
 _st(_st(self)._helper())._hide();
-return self}, function($ctx1) {$ctx1.fill(self,"deactivate",{}, smalltalk.HLKeyBinder)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deactivate",{},smalltalk.HLKeyBinder)})},
 messageSends: ["hide", "helper"]}),
 smalltalk.HLKeyBinder);
 
@@ -710,12 +708,15 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@helper"]=_st((smalltalk.HLKeyBinderHelper || HLKeyBinderHelper))._on_(self);
-_st(self["@helper"])._renderStart();
+$1=self["@helper"];
+_st($1)._renderStart();
+$2=_st($1)._renderCog();
 self["@active"]=false;
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLKeyBinder)})},
-messageSends: ["initialize", "on:", "renderStart"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLKeyBinder)})},
+messageSends: ["initialize", "on:", "renderStart", "renderCog"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
@@ -724,16 +725,11 @@ smalltalk.method({
 selector: "isActive",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=self["@active"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=false;
-} else {
-$1=$2;
-};
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(".").__comma(_st(_st(self)._helper())._cssClass()))._asJQuery())._is_(":visible");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{}, smalltalk.HLKeyBinder)})},
-messageSends: ["ifNil:"]}),
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLKeyBinder)})},
+messageSends: ["is:", "asJQuery", ",", "cssClass", "helper"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
@@ -801,8 +797,20 @@ selector: "hide",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(_st(".").__comma(_st(self)._cssClass()))._asJQuery())._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"hide",{}, smalltalk.HLKeyBinderHelper)})},
-messageSends: ["remove", "asJQuery", ",", "cssClass"]}),
+_st(self)._showCog();
+return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["remove", "asJQuery", ",", "cssClass", "showCog"]}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_hideCog",
+smalltalk.method({
+selector: "hideCog",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st("#cog-helper")._asJQuery())._hide();
+return self}, function($ctx1) {$ctx1.fill(self,"hideCog",{},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["hide", "asJQuery"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(
@@ -882,6 +890,51 @@ messageSends: ["renderOn:html:", "selectedBinding"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(
+"_renderCloseOn_",
+smalltalk.method({
+selector: "renderCloseOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(html)._a();
+_st($1)._class_("close");
+_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(html)._tag_("i"))._class_("icon-remove");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._keyBinder())._deactivate();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderCloseOn:",{html:html},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["class:", "a", "with:", "tag:", "onClick:", "deactivate", "keyBinder"]}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_renderCog",
+smalltalk.method({
+selector: "renderCog",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
+_st((function(html){
+return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
+_st($1)._id_("cog-helper");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx3) {$3=_st(html)._a();
+_st($3)._with_((function(){
+return smalltalk.withContext(function($ctx4) {return _st(_st(html)._tag_("i"))._class_("icon-cog");
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx4) {return _st(_st(self)._keyBinder())._activate();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
+return $4;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st("body")._asJQuery());
+return self}, function($ctx1) {$ctx1.fill(self,"renderCog",{},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["appendToJQuery:", "asJQuery", "id:", "div", "with:", "class:", "tag:", "a", "onClick:", "activate", "keyBinder"]}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
 "_renderContentOn_",
 smalltalk.method({
 selector: "renderContentOn:",
@@ -893,11 +946,12 @@ _st($1)._class_(_st(self)._cssClass());
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {$3=self;
 _st($3)._renderSelectionOn_(html);
-$4=_st($3)._renderBindingOn_(html);
+_st($3)._renderBindingOn_(html);
+$4=_st($3)._renderCloseOn_(html);
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLKeyBinderHelper)})},
-messageSends: ["class:", "cssClass", "div", "with:", "renderSelectionOn:", "renderBindingOn:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["class:", "cssClass", "div", "with:", "renderSelectionOn:", "renderBindingOn:", "renderCloseOn:"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(
@@ -960,9 +1014,21 @@ smalltalk.method({
 selector: "show",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._appendToJQuery_(_st("body")._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"show",{}, smalltalk.HLKeyBinderHelper)})},
-messageSends: ["appendToJQuery:", "asJQuery"]}),
+return smalltalk.withContext(function($ctx1) { _st(self)._hideCog();
+_st(self)._appendToJQuery_(_st("body")._asJQuery());
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["hideCog", "appendToJQuery:", "asJQuery"]}),
+smalltalk.HLKeyBinderHelper);
+
+smalltalk.addMethod(
+"_showCog",
+smalltalk.method({
+selector: "showCog",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st("#cog-helper")._asJQuery())._show();
+return self}, function($ctx1) {$ctx1.fill(self,"showCog",{},smalltalk.HLKeyBinderHelper)})},
+messageSends: ["show", "asJQuery"]}),
 smalltalk.HLKeyBinderHelper);
 
 

@@ -27,14 +27,29 @@ a {
     cursor: pointer;
 }
 
+.CodeMirror pre {
+    line-height: 16px;
+}
+
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
     font-size: 13px;
     padding: 2px 8px;
 }
 
-.navbar-inner {
-    min-height: 30px;
+.navbar .navbar-fixed-top {
+    font-size: 12px;
+    line-height: 16px;
 }
+
+.navbar-inner {
+    min-height: 26px;
+}
+
+
+.navbar .nav > li {
+    line-height: 16px;
+}
+
 
 .navbar .nav > li > a {
     padding: 5px 15px;
@@ -42,7 +57,9 @@ a {
 
 .navbar-fixed-top i {
     opacity: 0.2;
-    margin-right: 10px;
+    margin-right: 5px;
+    height: 12px;
+    margin-top: 0;
 }
 
 .navbar-fixed-top .active i {
@@ -61,23 +78,10 @@ a {
     margin-right: 2px;
 }
 
-/* .nav-pills.nav-stacked > li > a { */
-/*     width: 14px; */
-/*     height: 14px; */
-/*     display: inline-block; */
-/*     margin-right: 4px; */
-/* } */
-
 .nav-pills > .active > a {
     background: #ccc;
     color: #fff;
 }
-
-/* .focused .nav-pills{ */
-/*     box-shadow: inset 0 0 4px #000AFF; */
-/*     -webkit-box-shadow: inset 0 0 4px #000AFF; */
-/*     -moz-box-shadow: inset 0 0 4px #000AFF; */
-/* } */
 
 .focused .nav-pills > .active > a, .nav-pills > .active > a:hover {
     background: #08C;
@@ -86,7 +90,7 @@ a {
 
 #container {
     position: fixed;
-    top: 30px;
+    top: 26px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -233,13 +237,23 @@ a {
 }
 
 .key_helper .selected {
-    background: #0C8;
+    background: rgb(7, 195, 221);
     height: 30px;
     padding: 4px;
     color: white;
     font-weight: bold;
     text-shadow: 0 -1px 0 #666;
 }
+
+.key_helper .close {
+    font-size: 14px;
+    line-height: 22px;
+}
+
+.key_helper .close:hover {
+    opacity: 0.8;
+}
+
 
 #keybinding-start-helper {
     position: fixed;
@@ -253,4 +267,21 @@ a {
     padding: 50px 0;
     font-size: 16px;
     border-radius: 20px;
+}
+
+#cog-helper {
+    position: fixed;
+    bottom: 4px;
+    left: 4px;
+    z-index: 1000;
+    opacity: 0.6;
+    transition: all .5s;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    -ms-transition: all .5s;
+}
+
+#cog-helper:hover {
+    opacity: 1;
 }

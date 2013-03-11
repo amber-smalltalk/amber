@@ -298,8 +298,9 @@ selector: "renderContentOn:",
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._variablesWidget(),_st(self)._displayWidget()),_st(self)._codeWidget())));
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLInspector)})},
-messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget"]}),
+_st(_st(self)._variablesWidget())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspector)})},
+messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget", "focus"]}),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(

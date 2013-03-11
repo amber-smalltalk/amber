@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Browser');
-smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'built', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
+smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -57,23 +57,6 @@ return $1;
 args: [],
 source: "environment\x0a\x09^ self model environment",
 messageSends: ["environment", "model"],
-referencedClasses: []
-}),
-smalltalk.HLBrowser);
-
-smalltalk.addMethod(
-"_initialize",
-smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
-self["@built"]=false;
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLBrowser)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09built := false",
-messageSends: ["initialize"],
 referencedClasses: []
 }),
 smalltalk.HLBrowser);
@@ -215,18 +198,12 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-_st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
-$1=self["@built"];
-if(! smalltalk.assert($1)){
+return smalltalk.withContext(function($ctx1) { _st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
 _st(_st(self)._packagesListWidget())._focus();
-self["@built"]=true;
-self["@built"];
-};
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLBrowser)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowser)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self packagesListWidget\x0a                with: self classesListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self protocolsListWidget\x0a                with: self methodsListWidget)) \x0a        with: self sourceWidget)).\x0a\x09\x0a\x09built ifFalse: [\x0a\x09\x09self packagesListWidget focus.\x0a\x09\x09built := true ]",
-messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget", "ifFalse:", "focus"],
+source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self packagesListWidget\x0a                with: self classesListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self protocolsListWidget\x0a                with: self methodsListWidget)) \x0a        with: self sourceWidget)).\x0a\x09\x0a\x09self packagesListWidget focus",
+messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget", "focus"],
 referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter", "HLContainer"]
 }),
 smalltalk.HLBrowser);

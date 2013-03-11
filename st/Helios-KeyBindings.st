@@ -188,7 +188,7 @@ isBindingGroup
 ! !
 
 Object subclass: #HLKeyBinder
- instanceVariableNames: 'modifierKey active helper bindings selectedBinding'
+ instanceVariableNames: 'modifierKey helper bindings selectedBinding'
  package: 'Helios-KeyBindings'!
 
 !HLKeyBinder methodsFor: 'accessing'!
@@ -222,7 +222,6 @@ selectedBinding
 !HLKeyBinder methodsFor: 'actions'!
 
 activate
-	active := true.
 	self helper show
 !
 
@@ -241,7 +240,6 @@ applyBindingGroup: aBinding
 !
 
 deactivate
-	active := false.
     selectedBinding := nil.
 	self helper hide
 !
@@ -315,14 +313,16 @@ setupEvents
 initialize
 	super initialize.
 	helper := HLKeyBinderHelper on: self.
-	helper renderStart.
+	helper 	
+		renderStart;
+		renderCog.
     active := false
 ! !
 
 !HLKeyBinder methodsFor: 'testing'!
 
 isActive
-	^ active ifNil: [ false ]
+	^ ('.', self helper cssClass) asJQuery is: ':visible'
 !
 
 systemIsMac
@@ -354,11 +354,21 @@ selectedBinding
 !HLKeyBinderHelper methodsFor: 'actions'!
 
 hide
-	('.', self cssClass) asJQuery remove
+	('.', self cssClass) asJQuery remove.
+	self showCog
+!
+
+hideCog
+	'#cog-helper' asJQuery hide
 !
 
 show
+	self hideCog.
 	self appendToJQuery: 'body' asJQuery
+!
+
+showCog
+	'#cog-helper' asJQuery show
 ! !
 
 !HLKeyBinderHelper methodsFor: 'keyBindings'!
@@ -385,11 +395,30 @@ renderBindingOn: html
 	self selectedBinding renderOn: self html: html
 !
 
+renderCloseOn: html
+	html a
+		class: 'close';
+		with: [ (html tag: 'i') class: 'icon-remove' ];
+		onClick: [ self keyBinder deactivate ]
+!
+
+renderCog
+	[ :html |
+		html 
+			div id: 'cog-helper'; 
+			with: [
+				html a 
+					with: [ (html tag: 'i') class: 'icon-cog' ];
+					onClick: [ self keyBinder activate ] ] ]
+		appendToJQuery: 'body' asJQuery
+!
+
 renderContentOn: html
 	html div class: self cssClass; with: [
       	self 
         	renderSelectionOn:html;
-          	renderBindingOn: html ]
+          	renderBindingOn: html;
+			renderCloseOn: html ]
 !
 
 renderSelectionOn: html

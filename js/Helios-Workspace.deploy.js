@@ -148,6 +148,17 @@ messageSends: ["announcer", "model"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_canHaveFocus",
+smalltalk.method({
+selector: "canHaveFocus",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLCodeWidget)})},
+messageSends: []}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_clear",
 smalltalk.method({
 selector: "clear",

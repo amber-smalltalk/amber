@@ -404,10 +404,11 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._variablesWidget(),_st(self)._displayWidget()),_st(self)._codeWidget())));
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLInspector)})},
+_st(_st(self)._variablesWidget())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspector)})},
 args: ["html"],
-source: "renderContentOn: html\x0a   \x09html with: (HLContainer with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            \x09\x09with: self variablesWidget\x0a            \x09    with: self displayWidget)\x0a        with: self codeWidget))\x0a ",
-messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget"],
+source: "renderContentOn: html\x0a   \x09html with: (HLContainer with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            \x09\x09with: self variablesWidget\x0a            \x09    with: self displayWidget)\x0a        with: self codeWidget)).\x0a\x09\x0a\x09self variablesWidget focus\x0a ",
+messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget", "focus"],
 referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter", "HLContainer"]
 }),
 smalltalk.HLInspector);

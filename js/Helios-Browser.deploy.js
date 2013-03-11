@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Browser');
-smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'built', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
+smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget'], 'Helios-Browser');
 smalltalk.addMethod(
 "_announcer",
 smalltalk.method({
@@ -44,18 +44,6 @@ $1=_st(_st(self)._model())._environment();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"environment",{}, smalltalk.HLBrowser)})},
 messageSends: ["environment", "model"]}),
-smalltalk.HLBrowser);
-
-smalltalk.addMethod(
-"_initialize",
-smalltalk.method({
-selector: "initialize",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
-self["@built"]=false;
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{}, smalltalk.HLBrowser)})},
-messageSends: ["initialize"]}),
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(
@@ -164,16 +152,10 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-_st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
-$1=self["@built"];
-if(! smalltalk.assert($1)){
+return smalltalk.withContext(function($ctx1) { _st(html)._with_(_st((smalltalk.HLContainer || HLContainer))._with_(_st((smalltalk.HLHorizontalSplitter || HLHorizontalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st((smalltalk.HLVerticalSplitter || HLVerticalSplitter))._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
 _st(_st(self)._packagesListWidget())._focus();
-self["@built"]=true;
-self["@built"];
-};
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLBrowser)})},
-messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget", "ifFalse:", "focus"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowser)})},
+messageSends: ["with:", "with:with:", "packagesListWidget", "classesListWidget", "protocolsListWidget", "methodsListWidget", "sourceWidget", "focus"]}),
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(

@@ -1217,13 +1217,13 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.HLWorkspace || HLWorkspace))._openAsTab();
+$1=_st((smalltalk.HLCodeWidget || HLCodeWidget))._openAsTab();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenWorkspaceCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLOpenWorkspaceCommand)})},
 args: [],
-source: "execute\x0a\x09^ HLWorkspace openAsTab",
+source: "execute\x0a\x09^ HLCodeWidget openAsTab",
 messageSends: ["openAsTab"],
-referencedClasses: ["HLWorkspace"]
+referencedClasses: ["HLCodeWidget"]
 }),
 smalltalk.HLOpenWorkspaceCommand);
 

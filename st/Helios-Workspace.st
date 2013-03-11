@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Workspace'!
 Object subclass: #HLCodeModel
-	instanceVariableNames: 'announcer environment receiver'
-	package: 'Helios-Workspace'!
+ instanceVariableNames: 'announcer environment receiver'
+ package: 'Helios-Workspace'!
 
 !HLCodeModel methodsFor: 'accessing'!
 
@@ -52,8 +52,8 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLCodeWidget
-	instanceVariableNames: 'model wrapper code editor'
-	package: 'Helios-Workspace'!
+ instanceVariableNames: 'model wrapper code editor'
+ package: 'Helios-Workspace'!
 
 !HLCodeWidget methodsFor: 'accessing'!
 
@@ -239,6 +239,10 @@ renderContentOn: html
 
 !HLCodeWidget methodsFor: 'testing'!
 
+canHaveFocus
+	^ true
+!
+
 hasFocus
 	^ code asJQuery is: ':active'
 ! !
@@ -354,8 +358,8 @@ canBeOpenAsTab
 ! !
 
 HLCodeWidget subclass: #HLSourceCodeWidget
-	instanceVariableNames: 'browserModel'
-	package: 'Helios-Workspace'!
+ instanceVariableNames: 'browserModel'
+ package: 'Helios-Workspace'!
 
 !HLSourceCodeWidget methodsFor: 'accessing'!
 

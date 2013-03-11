@@ -876,9 +876,9 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.HLWorkspace || HLWorkspace))._openAsTab();
+$1=_st((smalltalk.HLCodeWidget || HLCodeWidget))._openAsTab();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenWorkspaceCommand)})},
+}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLOpenWorkspaceCommand)})},
 messageSends: ["openAsTab"]}),
 smalltalk.HLOpenWorkspaceCommand);
 

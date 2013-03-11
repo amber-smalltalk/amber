@@ -198,6 +198,22 @@ referencedClasses: []
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_canHaveFocus",
+smalltalk.method({
+selector: "canHaveFocus",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLCodeWidget)})},
+args: [],
+source: "canHaveFocus\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_clear",
 smalltalk.method({
 selector: "clear",
