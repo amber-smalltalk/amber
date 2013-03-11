@@ -1,16 +1,28 @@
 Smalltalk current createPackage: 'Helios-Commands-Core'!
 Object subclass: #HLCommand
- instanceVariableNames: ''
+ instanceVariableNames: 'input'
  package: 'Helios-Commands-Core'!
 
 !HLCommand methodsFor: 'accessing'!
 
-activeBlock
-	^ [ true ]
-!
-
 documentation
 	^ self class documentation
+!
+
+input
+	^ input
+!
+
+input: aString
+	^ input := aString
+!
+
+inputCompletion
+	^ #()
+!
+
+inputLabel
+	^ self label
 !
 
 key
@@ -24,8 +36,9 @@ label
 !HLCommand methodsFor: 'converting'!
 
 asActionBinding
-	^ (HLBindingAction on: self key labelled: self label activeBlock: self activeBlock)
-    	callback: [ self execute ]
+	^ (HLBindingAction on: self key labelled: self label)
+    	command: self;
+		yourself
 !
 
 asBinding
@@ -38,6 +51,12 @@ asGroupBinding
 	^ HLBindingGroup 
 		on: self key 
 		labelled: self label
+! !
+
+!HLCommand methodsFor: 'error handling'!
+
+commandError: aString
+	self error: aString
 ! !
 
 !HLCommand methodsFor: 'executing'!
@@ -53,16 +72,19 @@ registerOn: aBinding
 
 !HLCommand methodsFor: 'testing'!
 
+isActive
+	^ true
+!
+
 isBindingGroup
 	^ (self class methodDictionary includesKey: 'execute') not
+!
+
+isInputRequired
+	^ false
 ! !
 
 !HLCommand class methodsFor: 'accessing'!
-
-concreteSubclasses
-	^ self subclasses select: [ :each |
-		each isConcrete ]
-!
 
 documentation
 	^ ''
@@ -76,23 +98,13 @@ label
 	^ ''
 ! !
 
-!HLCommand class methodsFor: 'converting'!
-
-asBindingOn: aBinding
-	| instance |
-	
-	instance := self new asBinding.
-	aBinding add: instance.
-	^ instance
-! !
-
 !HLCommand class methodsFor: 'registration'!
 
 registerConcreteClassesOn: aBinding
 	| newBinding |
 	
 	self isConcrete
-		ifTrue: [ newBinding := self asBindingOn: aBinding ]
+		ifTrue: [ newBinding := self registerOn: aBinding ]
 		ifFalse: [ newBinding := aBinding ].
 		
 	self subclasses do: [ :each | each registerConcreteClassesOn: newBinding ]
@@ -151,10 +163,14 @@ for: aModel
 !HLModelCommand class methodsFor: 'registration'!
 
 registerConcreteClassesOn: aBinding for: aModel
-	self concreteSubclasses do: [ :each | | binding |
-		binding := each registerOn: aBinding for: aModel.
-		binding isBindingGroup ifTrue: [
-			each registerConcreteClassesOn: binding for: aModel ] ]
+	| newBinding |
+	
+	self isConcrete
+		ifTrue: [ newBinding := self registerOn: aBinding for: aModel ]
+		ifFalse: [ newBinding := aBinding ].
+		
+	self subclasses do: [ :each |
+		each registerConcreteClassesOn: newBinding for: aModel ]
 !
 
 registerOn: aBinding for: aModel

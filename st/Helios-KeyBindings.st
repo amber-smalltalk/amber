@@ -5,6 +5,10 @@ Object subclass: #HLBinding
 
 !HLBinding methodsFor: 'accessing'!
 
+atKey: aKey
+	^ nil
+!
+
 displayLabel
 	^ self label
 !
@@ -32,13 +36,14 @@ shortcut
 !HLBinding methodsFor: 'actions'!
 
 applyOn: aKeyBinder
-	self subclassResponsibility
+!
+
+applyOn: aKeyBinder then: aBlock
 ! !
 
 !HLBinding methodsFor: 'rendering'!
 
-renderBindingOn: html actionOn: aBinder
-
+renderActionFor: aBinder html: html
 	html span class: 'command'; with: [
 		html span 
 			class: 'label'; 
@@ -58,11 +63,9 @@ isActive
 	^ self subclassResponsibility
 !
 
-isBindingAction
-	^ false
-!
-
-isBindingGroup
+isFinal
+	" Answer true if the receiver is the final binding of a sequence "
+	
 	^ false
 ! !
 
@@ -76,98 +79,45 @@ on: anInteger labelled: aString
 ! !
 
 HLBinding subclass: #HLBindingAction
- instanceVariableNames: 'callback activeBlock'
+ instanceVariableNames: 'command'
  package: 'Helios-KeyBindings'!
 
 !HLBindingAction methodsFor: 'accessing'!
 
-activeBlock
-	^ activeBlock ifNil: [ activeBlock := [ true ] ]
+command
+	^ command
 !
 
-activeBlock: aBlock
-	activeBlock := aBlock
+command: aCommand
+	command := aCommand
 !
 
-callback
-	^ callback
-!
-
-callback: aBlock
-	callback := aBlock
+inputBinding
+	^ HLBindingInput new
+		label: self command inputLabel;
+		callback: [ :val | 
+			self command 
+				input: val;
+				execute ];
+		yourself
 ! !
 
 !HLBindingAction methodsFor: 'actions'!
 
 applyOn: aKeyBinder
-	self isActive ifFalse: [ ^ self ].
-	
-	aKeyBinder applyBindingAction: self
+	self command isInputRequired
+		ifTrue: [ aKeyBinder selectBinding: self inputBinding ]
+		ifFalse: [ self command execute ]
 ! !
 
 !HLBindingAction methodsFor: 'testing'!
 
 isActive
-	^ self activeBlock value
+	^ self command isActive
 !
 
-isBindingAction
-	^ true
-! !
-
-!HLBindingAction class methodsFor: 'instance creation'!
-
-on: anInteger labelled: aString activeBlock: aBlock
-	| instance |
-	
-	instance := super on: anInteger labelled: aString.
-	^ instance 
-		activeBlock: aBlock;
-		yourself
-! !
-
-HLBindingAction subclass: #HLBindingInput
- instanceVariableNames: 'input'
- package: 'Helios-KeyBindings'!
-
-!HLBindingInput methodsFor: 'actions'!
-
-applyOn: aBinder
-	self isActive ifFalse: [ ^ self ].
-	
-	aBinder applyBindingInput: self with: self input
-!
-
-input
-	^ input asJQuery val
-! !
-
-!HLBindingInput methodsFor: 'rendering'!
-
-renderBindingOn: html actionOn: aBinder
-
-	html span 
-		class: 'command'; 
-		with: [
-			"html form
-				class: 'form-search';
-				with: [
-					html div
-					  class: 'input-append';
-					  with: [
-						html input
-							type: 'text';
-							class: 'search-query';
-							placeholder: self displayLabel.
-						html button
-							type: 'submit';
-							class: 'btn';
-							with: 'Ok' ] ] ]
-		"
-		input := html input
-			class: 'search-query';
-			placeholder: self displayLabel ].
-		input asJQuery focus
+isFinal
+	^ self command isInputRequired not
 ! !
 
 HLBinding subclass: #HLBindingGroup
@@ -187,12 +137,6 @@ add: aBinding
 addActionKey: anInteger labelled: aString callback: aBlock
 	self add: ((HLBindingAction on: anInteger labelled: aString)
     	callback: aBlock;
-        yourself)
-!
-
-addActionKey: anInteger labelled: aString command: aCommand
-	self add: ((HLBindingAction on: anInteger labelled: aString)
-    	command: aCommand;
         yourself)
 !
 
@@ -229,14 +173,6 @@ displayLabel
 	^ super displayLabel, '...'
 ! !
 
-!HLBindingGroup methodsFor: 'actions'!
-
-applyOn: aKeyBinder
-	self isActive ifFalse: [ ^ self ].
-	
-	aKeyBinder applyBindingGroup: self
-! !
-
 !HLBindingGroup methodsFor: 'rendering'!
 
 renderOn: aBindingHelper html: html
@@ -248,9 +184,54 @@ renderOn: aBindingHelper html: html
 
 isActive
 	^ self activeBindings notEmpty
+! !
+
+HLBinding subclass: #HLBindingInput
+ instanceVariableNames: 'input callback'
+ package: 'Helios-KeyBindings'!
+
+!HLBindingInput methodsFor: 'accessing'!
+
+callback
+	^ callback ifNil: [ callback := [ :value | ] ]
 !
 
-isBindingGroup
+callback: aBlock
+	callback := aBlock
+!
+
+input
+	^ input asJQuery val
+!
+
+renderActionFor: aBinder html: html
+	html span 
+		class: 'command'; 
+		with: [
+			input := html input
+				class: 'search-query';
+				placeholder: self displayLabel ].
+				
+	input onKeyPress: [:event |
+		event keyCode = 13 ifTrue: [
+			self applyOn: aBinder ] ].
+				
+	input asJQuery focus
+! !
+
+!HLBindingInput methodsFor: 'actions'!
+
+applyOn: aKeyBinder
+	self evaluate: self input
+!
+
+evaluate: aString
+	self callback value: aString
+! !
+
+!HLBindingInput methodsFor: 'testing'!
+
+isActive
 	^ true
 ! !
 
@@ -293,22 +274,12 @@ activate
 !
 
 applyBinding: aBinding
-    aBinding applyOn: self
-!
-
-applyBindingAction: aBinding
-    aBinding callback value.
-	self deactivate
-!
-
-applyBindingGroup: aBinding
-    selectedBinding := aBinding.
-    self helper refresh
-!
-
-applyBindingInput: aBinding with: value
-    aBinding callback value: value.
-	self deactivate
+	aBinding isActive ifFalse: [ ^ self ].
+	
+	self selectBinding: aBinding.
+    aBinding applyOn: self.
+	
+	aBinding isFinal ifTrue: [ self deactivate ]
 !
 
 deactivate
@@ -318,6 +289,11 @@ deactivate
 
 flushBindings
 	bindings := nil
+!
+
+selectBinding: aBinding	
+	selectedBinding := aBinding.
+	self helper refresh
 ! !
 
 !HLKeyBinder methodsFor: 'defaults'!
@@ -453,7 +429,7 @@ registerBindings
 renderBindingGroup: aBindingGroup on: html
 	(aBindingGroup activeBindings 
     	sorted: [ :a :b | a key < b key ])
-        do: [ :each | each renderBindingOn: html actionOn: self keyBinder ]
+        do: [ :each | each renderActionFor: self keyBinder html: html ]
 !
 
 renderBindingOn: html

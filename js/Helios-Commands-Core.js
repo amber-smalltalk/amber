@@ -1,25 +1,5 @@
 smalltalk.addPackage('Helios-Commands-Core');
-smalltalk.addClass('HLCommand', smalltalk.Object, [], 'Helios-Commands-Core');
-smalltalk.addMethod(
-"_activeBlock",
-smalltalk.method({
-selector: "activeBlock",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=(function(){
-return smalltalk.withContext(function($ctx2) {return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"activeBlock",{},smalltalk.HLCommand)})},
-args: [],
-source: "activeBlock\x0a\x09^ [ true ]",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLCommand);
-
+smalltalk.addClass('HLCommand', smalltalk.Object, ['input'], 'Helios-Commands-Core');
 smalltalk.addMethod(
 "_asActionBinding",
 smalltalk.method({
@@ -27,15 +7,16 @@ selector: "asActionBinding",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.HLBindingAction || HLBindingAction))._on_labelled_activeBlock_(_st(self)._key(),_st(self)._label(),_st(self)._activeBlock()))._callback_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._execute();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st((smalltalk.HLBindingAction || HLBindingAction))._on_labelled_(_st(self)._key(),_st(self)._label());
+_st($2)._command_(self);
+$3=_st($2)._yourself();
+$1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asActionBinding",{},smalltalk.HLCommand)})},
 args: [],
-source: "asActionBinding\x0a\x09^ (HLBindingAction on: self key labelled: self label activeBlock: self activeBlock)\x0a    \x09callback: [ self execute ]",
-messageSends: ["callback:", "execute", "on:labelled:activeBlock:", "key", "label", "activeBlock"],
+source: "asActionBinding\x0a\x09^ (HLBindingAction on: self key labelled: self label)\x0a    \x09command: self;\x0a\x09\x09yourself",
+messageSends: ["command:", "on:labelled:", "key", "label", "yourself"],
 referencedClasses: ["HLBindingAction"]
 }),
 smalltalk.HLCommand);
@@ -82,6 +63,22 @@ referencedClasses: ["HLBindingGroup"]
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
+"_commandError_",
+smalltalk.method({
+selector: "commandError:",
+category: 'error handling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._error_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"commandError:",{aString:aString},smalltalk.HLCommand)})},
+args: ["aString"],
+source: "commandError: aString\x0a\x09self error: aString",
+messageSends: ["error:"],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
 "_documentation",
 smalltalk.method({
 selector: "documentation",
@@ -115,6 +112,93 @@ referencedClasses: []
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
+"_input",
+smalltalk.method({
+selector: "input",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@input"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"input",{},smalltalk.HLCommand)})},
+args: [],
+source: "input\x0a\x09^ input",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+"_input_",
+smalltalk.method({
+selector: "input:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+self["@input"]=aString;
+$1=self["@input"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"input:",{aString:aString},smalltalk.HLCommand)})},
+args: ["aString"],
+source: "input: aString\x0a\x09^ input := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+"_inputCompletion",
+smalltalk.method({
+selector: "inputCompletion",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return [];
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLCommand)})},
+args: [],
+source: "inputCompletion\x0a\x09^ #()",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+"_inputLabel",
+smalltalk.method({
+selector: "inputLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLCommand)})},
+args: [],
+source: "inputLabel\x0a\x09^ self label",
+messageSends: ["label"],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+"_isActive",
+smalltalk.method({
+selector: "isActive",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCommand)})},
+args: [],
+source: "isActive\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
 "_isBindingGroup",
 smalltalk.method({
 selector: "isBindingGroup",
@@ -128,6 +212,22 @@ return $1;
 args: [],
 source: "isBindingGroup\x0a\x09^ (self class methodDictionary includesKey: 'execute') not",
 messageSends: ["not", "includesKey:", "methodDictionary", "class"],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+"_isInputRequired",
+smalltalk.method({
+selector: "isInputRequired",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLCommand)})},
+args: [],
+source: "isInputRequired\x0a\x09^ false",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLCommand);
@@ -186,47 +286,6 @@ referencedClasses: []
 }),
 smalltalk.HLCommand);
 
-
-smalltalk.addMethod(
-"_asBindingOn_",
-smalltalk.method({
-selector: "asBindingOn:",
-category: 'converting',
-fn: function (aBinding){
-var self=this;
-var instance;
-return smalltalk.withContext(function($ctx1) { var $1;
-instance=_st(_st(self)._new())._asBinding();
-_st(aBinding)._add_(instance);
-$1=instance;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asBindingOn:",{aBinding:aBinding,instance:instance},smalltalk.HLCommand.klass)})},
-args: ["aBinding"],
-source: "asBindingOn: aBinding\x0a\x09| instance |\x0a\x09\x0a\x09instance := self new asBinding.\x0a\x09aBinding add: instance.\x0a\x09^ instance",
-messageSends: ["asBinding", "new", "add:"],
-referencedClasses: []
-}),
-smalltalk.HLCommand.klass);
-
-smalltalk.addMethod(
-"_concreteSubclasses",
-smalltalk.method({
-selector: "concreteSubclasses",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._subclasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._isConcrete();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"concreteSubclasses",{},smalltalk.HLCommand.klass)})},
-args: [],
-source: "concreteSubclasses\x0a\x09^ self subclasses select: [ :each |\x0a\x09\x09each isConcrete ]",
-messageSends: ["select:", "isConcrete", "subclasses"],
-referencedClasses: []
-}),
-smalltalk.HLCommand.klass);
 
 smalltalk.addMethod(
 "_documentation",
@@ -305,7 +364,7 @@ var newBinding;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(self)._isConcrete();
 if(smalltalk.assert($1)){
-newBinding=_st(self)._asBindingOn_(aBinding);
+newBinding=_st(self)._registerOn_(aBinding);
 newBinding;
 } else {
 newBinding=aBinding;
@@ -316,8 +375,8 @@ return smalltalk.withContext(function($ctx2) {return _st(each)._registerConcret
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:",{aBinding:aBinding,newBinding:newBinding},smalltalk.HLCommand.klass)})},
 args: ["aBinding"],
-source: "registerConcreteClassesOn: aBinding\x0a\x09| newBinding |\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ newBinding := self asBindingOn: aBinding ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each | each registerConcreteClassesOn: newBinding ]",
-messageSends: ["ifTrue:ifFalse:", "asBindingOn:", "isConcrete", "do:", "registerConcreteClassesOn:", "subclasses"],
+source: "registerConcreteClassesOn: aBinding\x0a\x09| newBinding |\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ newBinding := self registerOn: aBinding ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each | each registerConcreteClassesOn: newBinding ]",
+messageSends: ["ifTrue:ifFalse:", "registerOn:", "isConcrete", "do:", "registerConcreteClassesOn:", "subclasses"],
 referencedClasses: []
 }),
 smalltalk.HLCommand.klass);
@@ -453,20 +512,23 @@ selector: "registerConcreteClassesOn:for:",
 category: 'registration',
 fn: function (aBinding,aModel){
 var self=this;
+var newBinding;
 return smalltalk.withContext(function($ctx1) { var $1;
-_st(_st(self)._concreteSubclasses())._do_((function(each){
-var binding;
-return smalltalk.withContext(function($ctx2) {binding=_st(each)._registerOn_for_(aBinding,aModel);
-binding;
-$1=_st(binding)._isBindingGroup();
+$1=_st(self)._isConcrete();
 if(smalltalk.assert($1)){
-return _st(each)._registerConcreteClassesOn_for_(binding,aModel);
+newBinding=_st(self)._registerOn_for_(aBinding,aModel);
+newBinding;
+} else {
+newBinding=aBinding;
+newBinding;
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each,binding:binding},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:for:",{aBinding:aBinding,aModel:aModel},smalltalk.HLModelCommand.klass)})},
+_st(_st(self)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._registerConcreteClassesOn_for_(newBinding,aModel);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:for:",{aBinding:aBinding,aModel:aModel,newBinding:newBinding},smalltalk.HLModelCommand.klass)})},
 args: ["aBinding", "aModel"],
-source: "registerConcreteClassesOn: aBinding for: aModel\x0a\x09self concreteSubclasses do: [ :each | | binding |\x0a\x09\x09binding := each registerOn: aBinding for: aModel.\x0a\x09\x09binding isBindingGroup ifTrue: [\x0a\x09\x09\x09each registerConcreteClassesOn: binding for: aModel ] ]",
-messageSends: ["do:", "registerOn:for:", "ifTrue:", "registerConcreteClassesOn:for:", "isBindingGroup", "concreteSubclasses"],
+source: "registerConcreteClassesOn: aBinding for: aModel\x0a\x09| newBinding |\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ newBinding := self registerOn: aBinding for: aModel ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each |\x0a\x09\x09each registerConcreteClassesOn: newBinding for: aModel ]",
+messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"],
 referencedClasses: []
 }),
 smalltalk.HLModelCommand.klass);

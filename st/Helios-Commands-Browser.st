@@ -173,6 +173,28 @@ HLMoveMethodToCommand subclass: #HLMoveMethodToClassCommand
  instanceVariableNames: ''
  package: 'Helios-Commands-Browser'!
 
+!HLMoveMethodToClassCommand methodsFor: 'accessing'!
+
+inputLabel
+	^ 'Move method to class:'
+! !
+
+!HLMoveMethodToClassCommand methodsFor: 'executing'!
+
+execute
+	| class |
+	class := Smalltalk current at: self input.
+	class ifNil: [ self commandError: 'No class named: ', self input ].
+	
+	self model moveMethodToClass: class
+! !
+
+!HLMoveMethodToClassCommand methodsFor: 'testing'!
+
+isInputRequired
+	^ true
+! !
+
 !HLMoveMethodToClassCommand class methodsFor: 'accessing'!
 
 key
@@ -181,33 +203,6 @@ key
 
 label	
 	^ 'to class'
-! !
-
-HLMoveMethodToClassCommand subclass: #HLMethodMoveToClassSelectionCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
-
-!HLMethodMoveToClassSelectionCommand methodsFor: 'actions'!
-
-execute: aClass
-	self model moveMethodToClass: aClass
-! !
-
-!HLMethodMoveToClassSelectionCommand methodsFor: 'converting'!
-
-asBinding
-	^ (HLBindingInput on: self key labelled: self label activeBlock: self activeBlock)
-    	callback: [:ex | self execute: ex ]
-! !
-
-!HLMethodMoveToClassSelectionCommand class methodsFor: 'accessing'!
-
-key
-	^ 13 "enter"
-!
-
-label
-	^ 'select a class'
 ! !
 
 HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
