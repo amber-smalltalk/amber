@@ -728,7 +728,7 @@ smalltalk.method({
 selector: "setupCodeMirror",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
+return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
 return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.SourceArea.klass)})},
 messageSends: []}),
 smalltalk.SourceArea.klass);
