@@ -1889,5 +1889,9 @@ nextPutAll: aString
 
 space
 	self nextPut: ' '
+!
+
+tab
+	^self nextPutAll: String tab
 ! !
 
