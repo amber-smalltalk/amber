@@ -1,0 +1,2 @@
+#!/bin/bash
+node `dirname $0`/../server/server.js $@
