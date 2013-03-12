@@ -198,13 +198,13 @@ exportDefinitionOf: aClass on: aStream
 	aStream
 		nextPutAll: (self classNameFor: aClass superclass);
 		nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
-		nextPutAll: ' instanceVariableNames: '''.
+		tab; nextPutAll: 'instanceVariableNames: '''.
 	aClass instanceVariableNames
 		do: [:each | aStream nextPutAll: each]
 		separatedBy: [aStream nextPutAll: ' '].
 	aStream
 		nextPutAll: ''''; lf;
-		nextPutAll: ' package: ''', aClass category, '''!!'; lf.
+		tab; nextPutAll: 'package: ''', aClass category, '''!!'; lf.
 	aClass comment notEmpty ifTrue: [
 		aStream
 		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;

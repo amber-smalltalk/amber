@@ -5685,13 +5685,24 @@ selector: "nextPutAll:",
 category: 'writing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._setCollection_(_st(_st(_st(_st(self)._collection())._copyFrom_to_((1),_st(self)._position())).__comma(aString)).__comma(_st(_st(self)._collection())._copyFrom_to_(_st(_st(_st(self)._position()).__plus((1))).__plus(_st(aString)._size()),_st(_st(self)._collection())._size())));
+var pre,post;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._atEnd();
+if(smalltalk.assert($1)){
+_st(self)._setCollection_(_st(_st(self)._collection()).__comma(aString));
+} else {
+pre=_st(_st(self)._collection())._copyFrom_to_((1),_st(self)._position());
+pre;
+post=_st(_st(self)._collection())._copyFrom_to_(_st(_st(_st(self)._position()).__plus((1))).__plus(_st(aString)._size()),_st(_st(self)._collection())._size());
+post;
+_st(self)._setCollection_(_st(_st(pre).__comma(aString)).__comma(post));
+};
 _st(self)._position_(_st(_st(self)._position()).__plus(_st(aString)._size()));
 _st(self)._setStreamSize_(_st(_st(self)._streamSize())._max_(_st(self)._position()));
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString},smalltalk.StringStream)})},
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
 args: ["aString"],
-source: "nextPutAll: aString\x0a\x09self setCollection:\x0a\x09\x09(self collection copyFrom: 1 to: self position),\x0a\x09\x09aString,\x0a\x09\x09(self collection copyFrom: (self position + 1 + aString size) to: self collection size).\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",
-messageSends: ["setCollection:", ",", "copyFrom:to:", "+", "size", "position", "collection", "position:", "setStreamSize:", "max:", "streamSize"],
+source: "nextPutAll: aString\x0a\x09| pre post |\x0a\x09self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [\x0a\x09\x09pre := self collection copyFrom: 1 to: self position.\x0a\x09\x09post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.\x0a\x09\x09self setCollection: pre, aString, post\x0a\x09].\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",
+messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "atEnd", "position:", "setStreamSize:", "max:", "streamSize"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
@@ -5709,6 +5720,24 @@ args: [],
 source: "space\x0a\x09self nextPut: ' '",
 messageSends: ["nextPut:"],
 referencedClasses: []
+}),
+smalltalk.StringStream);
+
+smalltalk.addMethod(
+"_tab",
+smalltalk.method({
+selector: "tab",
+category: 'writing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._tab());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tab",{},smalltalk.StringStream)})},
+args: [],
+source: "tab\x0a\x09^self nextPutAll: String tab\x0a",
+messageSends: ["nextPutAll:", "tab"],
+referencedClasses: ["String"]
 }),
 smalltalk.StringStream);
 
