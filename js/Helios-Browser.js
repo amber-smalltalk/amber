@@ -2307,6 +2307,22 @@ referencedClasses: ["HLUnknownVariableErrorRaised"]
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_moveMethodToClass_",
+smalltalk.method({
+selector: "moveMethodToClass:",
+category: 'commands actions',
+fn: function (aClassName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toClass_(_st(self)._selectedMethod(),aClassName);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:",{aClassName:aClassName},smalltalk.HLBrowserModel)})},
+args: ["aClassName"],
+source: "moveMethodToClass: aClassName\x0a\x09self environment \x0a\x09\x09moveMethod: self selectedMethod \x0a\x09\x09toClass: aClassName",
+messageSends: ["moveMethod:toClass:", "selectedMethod", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_moveMethodToClass_ifAbsent_",
 smalltalk.method({
 selector: "moveMethodToClass:ifAbsent:",

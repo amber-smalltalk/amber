@@ -22,7 +22,7 @@ eval: someCode on: aReceiver
 	^ self subclassResponsibility
 !
 
-moveMethod: aMethod toClass: aClassName ifAbsent: aBlock
+moveMethod: aMethod toClass: aClassName
 	self subclassResponsibility
 ! !
 
@@ -74,11 +74,12 @@ eval: aString on: aReceiver
 	^ compiler evaluateExpression: aString on: aReceiver
 !
 
-moveMethod: aMethod toClass: aClassName ifAbsent: aBlock
+moveMethod: aMethod toClass: aClassName
 	| destinationClass |
 	
 	destinationClass := Smalltalk current at: aClassName asSymbol.
-	destinationClass ifNil: [ ^ aBlock value ].
+	destinationClass ifNil: [ self error: 'Invalid class name' ].
+	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
 	
 	destinationClass adoptMethod: aMethod.
 	aMethod methodClass forsakeMethod: aMethod.

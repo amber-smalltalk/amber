@@ -16,21 +16,6 @@ referencedClasses: []
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
-"_applyOn_then_",
-smalltalk.method({
-selector: "applyOn:then:",
-category: 'actions',
-fn: function (aKeyBinder,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"applyOn:then:",{aKeyBinder:aKeyBinder,aBlock:aBlock},smalltalk.HLBinding)})},
-args: ["aKeyBinder", "aBlock"],
-source: "applyOn: aKeyBinder then: aBlock",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBinding);
-
-smalltalk.addMethod(
 "_atKey_",
 smalltalk.method({
 selector: "atKey:",
@@ -337,20 +322,19 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
 $2=_st((smalltalk.HLBindingInput || HLBindingInput))._new();
 _st($2)._label_(_st(_st(self)._command())._inputLabel());
 _st($2)._ghostText_(_st(_st(self)._command())._displayLabel());
-_st($2)._callback_((function(val,errorBlock){
+_st($2)._callback_((function(val){
 return smalltalk.withContext(function($ctx2) {$3=_st(self)._command();
 _st($3)._input_(val);
-_st($3)._errorBlock_(errorBlock);
 $4=_st($3)._execute();
 return $4;
-}, function($ctx2) {$ctx2.fillBlock({val:val,errorBlock:errorBlock},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({val:val},$ctx1)})}));
 $5=_st($2)._yourself();
 $1=$5;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputBinding",{},smalltalk.HLBindingAction)})},
 args: [],
-source: "inputBinding\x0a\x09^ HLBindingInput new\x0a\x09\x09label: self command inputLabel;\x0a\x09\x09ghostText: self command displayLabel;\x0a\x09\x09callback: [ :val :errorBlock | \x0a\x09\x09\x09self command \x0a\x09\x09\x09\x09input: val;\x0a\x09\x09\x09\x09errorBlock: errorBlock;\x0a\x09\x09\x09\x09execute ];\x0a\x09\x09yourself",
-messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "callback:", "input:", "errorBlock:", "execute", "yourself"],
+source: "inputBinding\x0a\x09^ HLBindingInput new\x0a\x09\x09label: self command inputLabel;\x0a\x09\x09ghostText: self command displayLabel;\x0a\x09\x09callback: [ :val | \x0a\x09\x09\x09self command \x0a\x09\x09\x09\x09input: val;\x0a\x09\x09\x09\x09execute ];\x0a\x09\x09yourself",
+messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "callback:", "input:", "execute", "yourself"],
 referencedClasses: ["HLBindingInput"]
 }),
 smalltalk.HLBindingAction);
@@ -648,15 +632,11 @@ fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._isFinal_(true);
 _st(self)._inputText_(_st(_st(_st(self)._input())._asJQuery())._val());
-_st(self)._evaluate_onError_(_st(self)._inputText(),(function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._errorStatus();
-_st(self)._refresh();
-return _st(self)._isFinal_(false);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(self)._evaluate_(_st(self)._inputText());
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingInput)})},
 args: ["aKeyBinder"],
-source: "applyOn: aKeyBinder\x0a\x0a\x09self isFinal: true.\x0a\x09self inputText: self input asJQuery val.\x0a\x09self \x0a\x09\x09evaluate: self inputText\x0a\x09\x09onError: [ \x0a\x09\x09\x09self errorStatus.\x0a\x09\x09\x09self refresh.\x0a\x09\x09\x09self isFinal: false ]",
-messageSends: ["isFinal:", "inputText:", "val", "asJQuery", "input", "evaluate:onError:", "inputText", "errorStatus", "refresh"],
+source: "applyOn: aKeyBinder\x0a\x0a\x09self isFinal: true.\x0a\x09self inputText: self input asJQuery val.\x0a\x09self evaluate: self inputText",
+messageSends: ["isFinal:", "inputText:", "val", "asJQuery", "input", "evaluate:", "inputText"],
 referencedClasses: []
 }),
 smalltalk.HLBindingInput);
@@ -730,10 +710,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._status_("error");
+_st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"errorStatus",{},smalltalk.HLBindingInput)})},
 args: [],
-source: "errorStatus\x0a\x09self status: 'error'",
-messageSends: ["status:"],
+source: "errorStatus\x0a\x09self status: 'error'.\x0a\x09self refresh",
+messageSends: ["status:", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLBindingInput);
@@ -745,28 +726,17 @@ selector: "evaluate:",
 category: 'actions',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._callback())._value_(aString);
+return smalltalk.withContext(function($ctx1) { _st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._callback())._value_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+return smalltalk.withContext(function($ctx2) {_st(self)._errorStatus();
+return _st(self)._isFinal_(false);
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"evaluate:",{aString:aString},smalltalk.HLBindingInput)})},
 args: ["aString"],
-source: "evaluate: aString\x0a\x09self callback value: aString",
-messageSends: ["value:", "callback"],
-referencedClasses: []
-}),
-smalltalk.HLBindingInput);
-
-smalltalk.addMethod(
-"_evaluate_onError_",
-smalltalk.method({
-selector: "evaluate:onError:",
-category: 'actions',
-fn: function (aString,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._callback())._value_value_(aString,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"evaluate:onError:",{aString:aString,aBlock:aBlock},smalltalk.HLBindingInput)})},
-args: ["aString", "aBlock"],
-source: "evaluate: aString onError: aBlock\x0a\x09self callback value: aString value: aBlock",
-messageSends: ["value:value:", "callback"],
-referencedClasses: []
+source: "evaluate: aString\x0a\x09\x0a\x09[ self callback value: aString ]\x0a\x09on: Error\x0a\x09do: [:ex | \x0a\x09\x09self errorStatus.\x0a\x09\x09self isFinal: false ].",
+messageSends: ["on:do:", "errorStatus", "isFinal:", "value:", "callback"],
+referencedClasses: ["Error"]
 }),
 smalltalk.HLBindingInput);
 
@@ -935,7 +905,7 @@ self["@input"]=$2;
 _st(_st(self["@input"])._asJQuery())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"privateRenderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
 args: ["aBinder", "html"],
-source: "privateRenderOn: aBinder html: html\x0a\x0a\x09input := html input\x0a\x09\x09class: 'controls';\x0a\x09\x09type: 'text';\x0a\x09\x09placeholder: self ghostText;\x0a\x09\x09with: self inputText.\x0a\x09\x09\x09\x09\x0a\x09\x22input onKeyPress: [ :event |\x0a\x09\x09event keyCode = 13 \x0a\x09\x09\x09ifTrue: [ self applyOn: aBinder ] ].\x0a\x09\x22\x09\x09\x09\x0a\x09input asJQuery focus",
+source: "privateRenderOn: aBinder html: html\x0a\x09input := html input\x0a\x09\x09class: 'controls';\x0a\x09\x09type: 'text';\x0a\x09\x09placeholder: self ghostText;\x0a\x09\x09with: self inputText.\x0a\x09\x09\x09\x0a\x09input asJQuery focus",
 messageSends: ["class:", "input", "type:", "placeholder:", "ghostText", "with:", "inputText", "focus", "asJQuery"],
 referencedClasses: []
 }),

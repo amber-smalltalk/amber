@@ -106,16 +106,16 @@ referencedClasses: []
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
-"_moveMethod_toClass_ifAbsent_",
+"_moveMethod_toClass_",
 smalltalk.method({
-selector: "moveMethod:toClass:ifAbsent:",
+selector: "moveMethod:toClass:",
 category: 'actions',
-fn: function (aMethod,aClassName,aBlock){
+fn: function (aMethod,aClassName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:ifAbsent:",{aMethod:aMethod,aClassName:aClassName,aBlock:aBlock},smalltalk.HLEnvironment)})},
-args: ["aMethod", "aClassName", "aBlock"],
-source: "moveMethod: aMethod toClass: aClassName ifAbsent: aBlock\x0a\x09self subclassResponsibility",
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName},smalltalk.HLEnvironment)})},
+args: ["aMethod", "aClassName"],
+source: "moveMethod: aMethod toClass: aClassName\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -191,28 +191,32 @@ referencedClasses: ["Compiler", "Error"]
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
-"_moveMethod_toClass_ifAbsent_",
+"_moveMethod_toClass_",
 smalltalk.method({
-selector: "moveMethod:toClass:ifAbsent:",
+selector: "moveMethod:toClass:",
 category: 'actions',
-fn: function (aMethod,aClassName,aBlock){
+fn: function (aMethod,aClassName){
 var self=this;
 var destinationClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 destinationClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(aClassName)._asSymbol());
 $1=destinationClass;
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(aBlock)._value();
-return $2;
+_st(self)._error_("Invalid class name");
 } else {
 $1;
 };
+$2=_st(destinationClass).__eq_eq(_st(aMethod)._methodClass());
+if(smalltalk.assert($2)){
+$3=self;
+return $3;
+};
 _st(destinationClass)._adoptMethod_(aMethod);
 _st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:ifAbsent:",{aMethod:aMethod,aClassName:aClassName,aBlock:aBlock,destinationClass:destinationClass},smalltalk.HLLocalEnvironment)})},
-args: ["aMethod", "aClassName", "aBlock"],
-source: "moveMethod: aMethod toClass: aClassName ifAbsent: aBlock\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := Smalltalk current at: aClassName asSymbol.\x0a\x09destinationClass ifNil: [ ^ aBlock value ].\x0a\x09\x0a\x09destinationClass adoptMethod: aMethod.\x0a\x09aMethod methodClass forsakeMethod: aMethod.\x0a\x09",
-messageSends: ["at:", "asSymbol", "current", "ifNil:", "value", "adoptMethod:", "forsakeMethod:", "methodClass"],
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.HLLocalEnvironment)})},
+args: ["aMethod", "aClassName"],
+source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := Smalltalk current at: aClassName asSymbol.\x0a\x09destinationClass ifNil: [ self error: 'Invalid class name' ].\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass adoptMethod: aMethod.\x0a\x09aMethod methodClass forsakeMethod: aMethod.\x0a\x09",
+messageSends: ["at:", "asSymbol", "current", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "adoptMethod:", "forsakeMethod:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLLocalEnvironment);

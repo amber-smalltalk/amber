@@ -11,16 +11,6 @@ messageSends: []}),
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
-"_applyOn_then_",
-smalltalk.method({
-selector: "applyOn:then:",
-fn: function (aKeyBinder,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"applyOn:then:",{aKeyBinder:aKeyBinder,aBlock:aBlock},smalltalk.HLBinding)})},
-messageSends: []}),
-smalltalk.HLBinding);
-
-smalltalk.addMethod(
 "_atKey_",
 smalltalk.method({
 selector: "atKey:",
@@ -246,18 +236,17 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
 $2=_st((smalltalk.HLBindingInput || HLBindingInput))._new();
 _st($2)._label_(_st(_st(self)._command())._inputLabel());
 _st($2)._ghostText_(_st(_st(self)._command())._displayLabel());
-_st($2)._callback_((function(val,errorBlock){
+_st($2)._callback_((function(val){
 return smalltalk.withContext(function($ctx2) {$3=_st(self)._command();
 _st($3)._input_(val);
-_st($3)._errorBlock_(errorBlock);
 $4=_st($3)._execute();
 return $4;
-}, function($ctx2) {$ctx2.fillBlock({val:val,errorBlock:errorBlock},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({val:val},$ctx1)})}));
 $5=_st($2)._yourself();
 $1=$5;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputBinding",{},smalltalk.HLBindingAction)})},
-messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "callback:", "input:", "errorBlock:", "execute", "yourself"]}),
+messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "callback:", "input:", "execute", "yourself"]}),
 smalltalk.HLBindingAction);
 
 smalltalk.addMethod(
@@ -482,13 +471,9 @@ fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._isFinal_(true);
 _st(self)._inputText_(_st(_st(_st(self)._input())._asJQuery())._val());
-_st(self)._evaluate_onError_(_st(self)._inputText(),(function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._errorStatus();
-_st(self)._refresh();
-return _st(self)._isFinal_(false);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(self)._evaluate_(_st(self)._inputText());
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingInput)})},
-messageSends: ["isFinal:", "inputText:", "val", "asJQuery", "input", "evaluate:onError:", "inputText", "errorStatus", "refresh"]}),
+messageSends: ["isFinal:", "inputText:", "val", "asJQuery", "input", "evaluate:", "inputText"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
@@ -544,8 +529,9 @@ selector: "errorStatus",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._status_("error");
+_st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"errorStatus",{},smalltalk.HLBindingInput)})},
-messageSends: ["status:"]}),
+messageSends: ["status:", "refresh"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
@@ -554,20 +540,14 @@ smalltalk.method({
 selector: "evaluate:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._callback())._value_(aString);
+return smalltalk.withContext(function($ctx1) { _st((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._callback())._value_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+return smalltalk.withContext(function($ctx2) {_st(self)._errorStatus();
+return _st(self)._isFinal_(false);
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"evaluate:",{aString:aString},smalltalk.HLBindingInput)})},
-messageSends: ["value:", "callback"]}),
-smalltalk.HLBindingInput);
-
-smalltalk.addMethod(
-"_evaluate_onError_",
-smalltalk.method({
-selector: "evaluate:onError:",
-fn: function (aString,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._callback())._value_value_(aString,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"evaluate:onError:",{aString:aString,aBlock:aBlock},smalltalk.HLBindingInput)})},
-messageSends: ["value:value:", "callback"]}),
+messageSends: ["on:do:", "errorStatus", "isFinal:", "value:", "callback"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(

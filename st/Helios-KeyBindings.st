@@ -38,9 +38,6 @@ shortcut
 applyOn: aKeyBinder
 !
 
-applyOn: aKeyBinder then: aBlock
-!
-
 release
 ! !
 
@@ -99,10 +96,9 @@ inputBinding
 	^ HLBindingInput new
 		label: self command inputLabel;
 		ghostText: self command displayLabel;
-		callback: [ :val :errorBlock | 
+		callback: [ :val | 
 			self command 
 				input: val;
-				errorBlock: errorBlock;
 				execute ];
 		yourself
 ! !
@@ -249,24 +245,21 @@ applyOn: aKeyBinder
 
 	self isFinal: true.
 	self inputText: self input asJQuery val.
-	self 
-		evaluate: self inputText
-		onError: [ 
-			self errorStatus.
-			self refresh.
-			self isFinal: false ]
+	self evaluate: self inputText
 !
 
 errorStatus
-	self status: 'error'
+	self status: 'error'.
+	self refresh
 !
 
 evaluate: aString
-	self callback value: aString
-!
-
-evaluate: aString onError: aBlock
-	self callback value: aString value: aBlock
+	
+	[ self callback value: aString ]
+	on: Error
+	do: [:ex | 
+		self errorStatus.
+		self isFinal: false ].
 !
 
 release
@@ -279,17 +272,12 @@ release
 !HLBindingInput methodsFor: 'rendering'!
 
 privateRenderOn: aBinder html: html
-
 	input := html input
 		class: 'controls';
 		type: 'text';
 		placeholder: self ghostText;
 		with: self inputText.
-				
-	"input onKeyPress: [ :event |
-		event keyCode = 13 
-			ifTrue: [ self applyOn: aBinder ] ].
-	"			
+			
 	input asJQuery focus
 !
 

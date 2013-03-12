@@ -304,9 +304,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_ifAbsent_(_st(self)._input(),_st(self)._errorBlock());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
-messageSends: ["moveMethodToClass:ifAbsent:", "input", "errorBlock", "model"]}),
+messageSends: ["moveMethodToClass:", "input", "model"]}),
 smalltalk.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(

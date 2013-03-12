@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Commands-Core');
-smalltalk.addClass('HLCommand', smalltalk.Object, ['input', 'errorBlock'], 'Helios-Commands-Core');
+smalltalk.addClass('HLCommand', smalltalk.Object, ['input'], 'Helios-Commands-Core');
 smalltalk.addMethod(
 "_asActionBinding",
 smalltalk.method({
@@ -92,40 +92,6 @@ return $1;
 args: [],
 source: "documentation\x0a\x09^ self class documentation",
 messageSends: ["documentation", "class"],
-referencedClasses: []
-}),
-smalltalk.HLCommand);
-
-smalltalk.addMethod(
-"_errorBlock",
-smalltalk.method({
-selector: "errorBlock",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@errorBlock"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"errorBlock",{},smalltalk.HLCommand)})},
-args: [],
-source: "errorBlock\x0a\x09^ errorBlock",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLCommand);
-
-smalltalk.addMethod(
-"_errorBlock_",
-smalltalk.method({
-selector: "errorBlock:",
-category: 'accessing',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { self["@errorBlock"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"errorBlock:",{aBlock:aBlock},smalltalk.HLCommand)})},
-args: ["aBlock"],
-source: "errorBlock: aBlock\x0a\x09errorBlock := aBlock",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLCommand);

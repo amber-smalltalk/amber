@@ -186,7 +186,7 @@ inputLabel
 !HLMoveMethodToClassCommand methodsFor: 'executing'!
 
 execute
-	self model moveMethodToClass: self input ifAbsent: self errorBlock
+	self model moveMethodToClass: self input
 ! !
 
 !HLMoveMethodToClassCommand methodsFor: 'testing'!

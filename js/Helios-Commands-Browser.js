@@ -425,11 +425,11 @@ selector: "execute",
 category: 'executing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_ifAbsent_(_st(self)._input(),_st(self)._errorBlock());
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 args: [],
-source: "execute\x0a\x09self model moveMethodToClass: self input ifAbsent: self errorBlock",
-messageSends: ["moveMethodToClass:ifAbsent:", "input", "errorBlock", "model"],
+source: "execute\x0a\x09self model moveMethodToClass: self input",
+messageSends: ["moveMethodToClass:", "input", "model"],
 referencedClasses: []
 }),
 smalltalk.HLMoveMethodToClassCommand);

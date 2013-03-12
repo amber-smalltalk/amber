@@ -1,20 +1,12 @@
 Smalltalk current createPackage: 'Helios-Commands-Core'!
 Object subclass: #HLCommand
- instanceVariableNames: 'input errorBlock'
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: 'input'
+	package: 'Helios-Commands-Core'!
 
 !HLCommand methodsFor: 'accessing'!
 
 documentation
 	^ self class documentation
-!
-
-errorBlock
-	^ errorBlock
-!
-
-errorBlock: aBlock
-	errorBlock := aBlock
 !
 
 input
@@ -129,8 +121,8 @@ isConcrete
 ! !
 
 HLCommand subclass: #HLCloseTabCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
 
 !HLCloseTabCommand methodsFor: 'executing'!
 
@@ -149,8 +141,8 @@ label
 ! !
 
 HLCommand subclass: #HLModelCommand
- instanceVariableNames: 'model'
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: 'model'
+	package: 'Helios-Commands-Core'!
 
 !HLModelCommand methodsFor: 'accessing'!
 
@@ -186,8 +178,8 @@ registerOn: aBinding for: aModel
 ! !
 
 HLCommand subclass: #HLOpenCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
 
 !HLOpenCommand class methodsFor: 'accessing'!
 
@@ -200,8 +192,8 @@ label
 ! !
 
 HLOpenCommand subclass: #HLOpenBrowserCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
 
 !HLOpenBrowserCommand methodsFor: 'executing'!
 
@@ -220,8 +212,8 @@ label
 ! !
 
 HLOpenCommand subclass: #HLOpenTranscriptCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
 
 !HLOpenTranscriptCommand methodsFor: 'executing'!
 
@@ -240,8 +232,8 @@ label
 ! !
 
 HLOpenCommand subclass: #HLOpenWorkspaceCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
 
 !HLOpenWorkspaceCommand methodsFor: 'executing'!
 
@@ -260,8 +252,8 @@ label
 ! !
 
 HLCommand subclass: #HLViewCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
 
 !HLViewCommand class methodsFor: 'accessing'!
 

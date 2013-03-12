@@ -75,13 +75,13 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
-"_moveMethod_toClass_ifAbsent_",
+"_moveMethod_toClass_",
 smalltalk.method({
-selector: "moveMethod:toClass:ifAbsent:",
-fn: function (aMethod,aClassName,aBlock){
+selector: "moveMethod:toClass:",
+fn: function (aMethod,aClassName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:ifAbsent:",{aMethod:aMethod,aClassName:aClassName,aBlock:aBlock},smalltalk.HLEnvironment)})},
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName},smalltalk.HLEnvironment)})},
 messageSends: ["subclassResponsibility"]}),
 smalltalk.HLEnvironment);
 
@@ -140,25 +140,29 @@ messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "ev
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
-"_moveMethod_toClass_ifAbsent_",
+"_moveMethod_toClass_",
 smalltalk.method({
-selector: "moveMethod:toClass:ifAbsent:",
-fn: function (aMethod,aClassName,aBlock){
+selector: "moveMethod:toClass:",
+fn: function (aMethod,aClassName){
 var self=this;
 var destinationClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 destinationClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(aClassName)._asSymbol());
 $1=destinationClass;
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(aBlock)._value();
-return $2;
+_st(self)._error_("Invalid class name");
 } else {
 $1;
 };
+$2=_st(destinationClass).__eq_eq(_st(aMethod)._methodClass());
+if(smalltalk.assert($2)){
+$3=self;
+return $3;
+};
 _st(destinationClass)._adoptMethod_(aMethod);
 _st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:ifAbsent:",{aMethod:aMethod,aClassName:aClassName,aBlock:aBlock,destinationClass:destinationClass},smalltalk.HLLocalEnvironment)})},
-messageSends: ["at:", "asSymbol", "current", "ifNil:", "value", "adoptMethod:", "forsakeMethod:", "methodClass"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.HLLocalEnvironment)})},
+messageSends: ["at:", "asSymbol", "current", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "adoptMethod:", "forsakeMethod:"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(

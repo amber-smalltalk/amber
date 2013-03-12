@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
- instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
- package: 'Helios-Browser'!
+	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
+	package: 'Helios-Browser'!
 
 !HLBrowser methodsFor: 'accessing'!
 
@@ -118,8 +118,8 @@ canBeOpenAsTab
 ! !
 
 HLNavigationListWidget subclass: #HLBrowserListWidget
- instanceVariableNames: 'model'
- package: 'Helios-Browser'!
+	instanceVariableNames: 'model'
+	package: 'Helios-Browser'!
 
 !HLBrowserListWidget methodsFor: 'accessing'!
 
@@ -158,8 +158,8 @@ on: aModel
 ! !
 
 HLBrowserListWidget subclass: #HLClassesListWidget
- instanceVariableNames: ''
- package: 'Helios-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Browser'!
 
 !HLClassesListWidget methodsFor: 'accessing'!
 
@@ -339,8 +339,8 @@ renderListOn: html
 ! !
 
 HLBrowserListWidget subclass: #HLMethodsListWidget
- instanceVariableNames: ''
- package: 'Helios-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Browser'!
 
 !HLMethodsListWidget methodsFor: 'accessing'!
 
@@ -527,8 +527,8 @@ selectorsCache
 ! !
 
 HLBrowserListWidget subclass: #HLPackagesListWidget
- instanceVariableNames: ''
- package: 'Helios-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Browser'!
 
 !HLPackagesListWidget methodsFor: 'accessing'!
 
@@ -594,8 +594,8 @@ renderButtonsOn: html
 ! !
 
 HLBrowserListWidget subclass: #HLProtocolsListWidget
- instanceVariableNames: ''
- package: 'Helios-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Browser'!
 
 !HLProtocolsListWidget methodsFor: 'accessing'!
 
@@ -696,8 +696,8 @@ renderContentOn: html
 ! !
 
 Object subclass: #HLBrowserModel
- instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
- package: 'Helios-Browser'!
+	instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
+	package: 'Helios-Browser'!
 
 !HLBrowserModel methodsFor: 'accessing'!
 
@@ -846,6 +846,12 @@ saveSourceCode
 
 !HLBrowserModel methodsFor: 'commands actions'!
 
+moveMethodToClass: aClassName
+	self environment 
+		moveMethod: self selectedMethod 
+		toClass: aClassName
+!
+
 moveMethodToClass: aClassName ifAbsent: aBlock
 	self environment 
 		moveMethod: self selectedMethod 
@@ -963,8 +969,8 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLBrowserSourceWidget
- instanceVariableNames: 'model methodContents codeWidget'
- package: 'Helios-Browser'!
+	instanceVariableNames: 'model methodContents codeWidget'
+	package: 'Helios-Browser'!
 
 !HLBrowserSourceWidget methodsFor: 'accessing'!
 
@@ -1098,8 +1104,8 @@ on: aBrowserModel
 ! !
 
 Object subclass: #HLClassCache
- instanceVariableNames: 'class selectorsCache overrideCache overriddenCache'
- package: 'Helios-Browser'!
+	instanceVariableNames: 'class selectorsCache overrideCache overriddenCache'
+	package: 'Helios-Browser'!
 
 !HLClassCache methodsFor: 'accessing'!
 
@@ -1185,8 +1191,8 @@ on: aClass selectorsCache: aSelectorsCache
 ! !
 
 Object subclass: #HLSelectorsCache
- instanceVariableNames: 'classesCache'
- package: 'Helios-Browser'!
+	instanceVariableNames: 'classesCache'
+	package: 'Helios-Browser'!
 
 !HLSelectorsCache methodsFor: 'accessing'!
 
