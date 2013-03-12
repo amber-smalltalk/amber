@@ -328,14 +328,11 @@ selector: "adoptMethod:",
 category: '*Helios-Environments',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self;
-_st($1)._compile_(_st(aMethod)._source());
-$2=_st($1)._category_(_st(aMethod)._protocol());
+return smalltalk.withContext(function($ctx1) { _st(self)._compile_category_(_st(aMethod)._source(),_st(aMethod)._protocol());
 return self}, function($ctx1) {$ctx1.fill(self,"adoptMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "adoptMethod: aMethod\x0a\x09self \x0a\x09\x09compile: aMethod source;\x0a\x09\x09category: aMethod protocol.",
-messageSends: ["compile:", "source", "category:", "protocol"],
+source: "adoptMethod: aMethod\x0a\x09self \x0a\x09\x09compile: aMethod source\x0a\x09\x09category: aMethod protocol.",
+messageSends: ["compile:category:", "source", "protocol"],
 referencedClasses: []
 }),
 smalltalk.Behavior);

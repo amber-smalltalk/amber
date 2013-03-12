@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
-	instanceVariableNames: 'key label each'
+	instanceVariableNames: 'key label'
 	package: 'Helios-KeyBindings'!
 
 !HLBinding methodsFor: 'accessing'!
@@ -39,6 +39,9 @@ applyOn: aKeyBinder
 !
 
 applyOn: aKeyBinder then: aBlock
+!
+
+release
 ! !
 
 !HLBinding methodsFor: 'rendering'!
@@ -95,9 +98,10 @@ command: aCommand
 inputBinding
 	^ HLBindingInput new
 		label: self command inputLabel;
-		callback: [ :val | 
+		callback: [ :val :errorBlock | 
 			self command 
 				input: val;
+				errorBlock: errorBlock;
 				execute ];
 		yourself
 ! !
@@ -173,6 +177,12 @@ displayLabel
 	^ super displayLabel, '...'
 ! !
 
+!HLBindingGroup methodsFor: 'actions'!
+
+release
+	self bindings do: [ :each | each release ]
+! !
+
 !HLBindingGroup methodsFor: 'rendering'!
 
 renderOn: aBindingHelper html: html
@@ -187,7 +197,7 @@ isActive
 ! !
 
 HLBinding subclass: #HLBindingInput
-	instanceVariableNames: 'input callback'
+	instanceVariableNames: 'input callback status inputText wrapper binder'
 	package: 'Helios-KeyBindings'!
 
 !HLBindingInput methodsFor: 'accessing'!
@@ -204,6 +214,14 @@ input
 	^ input asJQuery val
 !
 
+inputText
+	^ inputText ifNil: [ inputText := '' ].
+!
+
+inputText: aText
+	inputText := aText
+!
+
 renderOn: aBinder html: html
 	html span 
 		class: 'command'; 
@@ -217,16 +235,72 @@ renderOn: aBinder html: html
 			self applyOn: aBinder ] ].
 				
 	input asJQuery focus
+!
+
+status
+	^ status ifNil: [ status := 'info' ]
+!
+
+status: aStatus
+	status := aStatus
 ! !
 
 !HLBindingInput methodsFor: 'actions'!
 
 applyOn: aKeyBinder
-	self evaluate: self input
+	self 
+		evaluate: self input 
+		onError: [ 
+			self errorStatus.
+			self refresh.
+			^ false ]
+!
+
+errorStatus
+	self status: 'error'
 !
 
 evaluate: aString
 	self callback value: aString
+!
+
+evaluate: aString onError: aBlock
+	self callback value: aString value: aBlock
+!
+
+release
+	status := nil.
+	wrapper := nil.
+	binder := nil.
+	inputText := nil
+! !
+
+!HLBindingInput methodsFor: 'rendering'!
+
+refresh
+	wrapper ifNil: [ ^ self ].
+    
+	wrapper asJQuery empty.
+    [ :html | self renderActionFor: binder html: html ] appendToJQuery: wrapper asJQuery
+!
+
+renderActionFor: aBinder html: html
+	binder := aBinder.
+	wrapper ifNil: [ wrapper := html span ].
+	
+	wrapper
+		class: 'control-group ', self status; 
+		with: [
+			input := html input
+				class: 'input';
+				placeholder: self displayLabel;
+				with: self inputText ].
+				
+	input onKeyPress: [ :event |
+		event keyCode = 13 
+			ifTrue: [ self applyOn: aBinder ] ].
+				
+	input asJQuery focus
 ! !
 
 !HLBindingInput methodsFor: 'testing'!
@@ -283,6 +357,7 @@ applyBinding: aBinding
 !
 
 deactivate
+	selectedBinding ifNotNil: [ selectedBinding release ].
     selectedBinding := nil.
 	self helper hide
 !
@@ -362,8 +437,7 @@ initialize
 	helper := HLKeyBinderHelper on: self.
 	helper 	
 		renderStart;
-		renderCog.
-    active := false
+		renderCog
 ! !
 
 !HLKeyBinder methodsFor: 'testing'!

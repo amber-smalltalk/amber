@@ -240,12 +240,9 @@ smalltalk.method({
 selector: "adoptMethod:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self;
-_st($1)._compile_(_st(aMethod)._source());
-$2=_st($1)._category_(_st(aMethod)._protocol());
+return smalltalk.withContext(function($ctx1) { _st(self)._compile_category_(_st(aMethod)._source(),_st(aMethod)._protocol());
 return self}, function($ctx1) {$ctx1.fill(self,"adoptMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
-messageSends: ["compile:", "source", "category:", "protocol"]}),
+messageSends: ["compile:category:", "source", "protocol"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(

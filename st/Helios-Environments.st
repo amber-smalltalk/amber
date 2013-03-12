@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Environments'!
 Object subclass: #HLEnvironment
- instanceVariableNames: ''
- package: 'Helios-Environments'!
+	instanceVariableNames: ''
+	package: 'Helios-Environments'!
 !HLEnvironment commentStamp!
 Abstract class defining common behavior for local and remote environments!
 
@@ -51,8 +51,8 @@ compileMethod: sourceCode for: class protocol: protocol
 ! !
 
 HLEnvironment subclass: #HLLocalEnvironment
- instanceVariableNames: ''
- package: 'Helios-Environments'!
+	instanceVariableNames: ''
+	package: 'Helios-Environments'!
 
 !HLLocalEnvironment methodsFor: 'accessing'!
 
@@ -85,8 +85,8 @@ moveMethod: aMethod toClass: aClassName ifAbsent: aBlock
 ! !
 
 HLEnvironment subclass: #HLRemoteEnvironment
- instanceVariableNames: ''
- package: 'Helios-Environments'!
+	instanceVariableNames: ''
+	package: 'Helios-Environments'!
 
 !HLRemoteEnvironment methodsFor: 'accessing'!
 
@@ -112,8 +112,8 @@ eval: someCode on: aReceiver
 ! !
 
 Object subclass: #HLRemoteObject
- instanceVariableNames: ''
- package: 'Helios-Environments'!
+	instanceVariableNames: ''
+	package: 'Helios-Environments'!
 !HLRemoteObject commentStamp!
 This is a local proxy to a remote object.
 Tipically useful for evaluating and inspecting and interacting with instances of a remote VM.!
@@ -144,7 +144,7 @@ printString
 
 adoptMethod: aMethod
 	self 
-		compile: aMethod source;
+		compile: aMethod source
 		category: aMethod protocol.
 !
 
