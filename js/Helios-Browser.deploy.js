@@ -1767,14 +1767,14 @@ messageSends: ["announce:", "error:", "new", "yourself", "announcer"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_moveMethodToClass_",
+"_moveMethodToClass_ifAbsent_",
 smalltalk.method({
-selector: "moveMethodToClass:",
-fn: function (aClassName){
+selector: "moveMethodToClass:ifAbsent:",
+fn: function (aClassName,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(console)._log_(_st("moveMethodToClass ").__comma(aClassName));
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:",{aClassName:aClassName},smalltalk.HLBrowserModel)})},
-messageSends: ["log:", ","]}),
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toClass_ifAbsent_(_st(self)._selectedMethod(),aClassName,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:ifAbsent:",{aClassName:aClassName,aBlock:aBlock},smalltalk.HLBrowserModel)})},
+messageSends: ["moveMethod:toClass:ifAbsent:", "selectedMethod", "environment"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(

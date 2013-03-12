@@ -75,6 +75,17 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_moveMethod_toClass_ifAbsent_",
+smalltalk.method({
+selector: "moveMethod:toClass:ifAbsent:",
+fn: function (aMethod,aClassName,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:ifAbsent:",{aMethod:aMethod,aClassName:aClassName,aBlock:aBlock},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_packages",
 smalltalk.method({
 selector: "packages",
@@ -126,6 +137,28 @@ return $2;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler}, smalltalk.HLLocalEnvironment)})},
 messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_moveMethod_toClass_ifAbsent_",
+smalltalk.method({
+selector: "moveMethod:toClass:ifAbsent:",
+fn: function (aMethod,aClassName,aBlock){
+var self=this;
+var destinationClass;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+destinationClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(aClassName)._asSymbol());
+$1=destinationClass;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st(aBlock)._value();
+return $2;
+} else {
+$1;
+};
+_st(destinationClass)._adoptMethod_(aMethod);
+_st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:ifAbsent:",{aMethod:aMethod,aClassName:aClassName,aBlock:aBlock,destinationClass:destinationClass},smalltalk.HLLocalEnvironment)})},
+messageSends: ["at:", "asSymbol", "current", "ifNil:", "value", "adoptMethod:", "forsakeMethod:", "methodClass"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
@@ -200,4 +233,29 @@ messageSends: []}),
 smalltalk.HLRemoteObject);
 
 
+
+smalltalk.addMethod(
+"_adoptMethod_",
+smalltalk.method({
+selector: "adoptMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=self;
+_st($1)._compile_(_st(aMethod)._source());
+$2=_st($1)._category_(_st(aMethod)._protocol());
+return self}, function($ctx1) {$ctx1.fill(self,"adoptMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
+messageSends: ["compile:", "source", "category:", "protocol"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+"_forsakeMethod_",
+smalltalk.method({
+selector: "forsakeMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._removeCompiledMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"forsakeMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
+messageSends: ["removeCompiledMethod:"]}),
+smalltalk.Behavior);
 

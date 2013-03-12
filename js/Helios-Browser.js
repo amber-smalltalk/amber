@@ -2307,17 +2307,17 @@ referencedClasses: ["HLUnknownVariableErrorRaised"]
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_moveMethodToClass_",
+"_moveMethodToClass_ifAbsent_",
 smalltalk.method({
-selector: "moveMethodToClass:",
+selector: "moveMethodToClass:ifAbsent:",
 category: 'commands actions',
-fn: function (aClassName){
+fn: function (aClassName,aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(console)._log_(_st("moveMethodToClass ").__comma(aClassName));
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:",{aClassName:aClassName},smalltalk.HLBrowserModel)})},
-args: ["aClassName"],
-source: "moveMethodToClass: aClassName\x0a\x09console log: 'moveMethodToClass ', aClassName",
-messageSends: ["log:", ","],
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toClass_ifAbsent_(_st(self)._selectedMethod(),aClassName,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:ifAbsent:",{aClassName:aClassName,aBlock:aBlock},smalltalk.HLBrowserModel)})},
+args: ["aClassName", "aBlock"],
+source: "moveMethodToClass: aClassName ifAbsent: aBlock\x0a\x09self environment \x0a\x09\x09moveMethod: self selectedMethod \x0a\x09\x09toClass: aClassName \x0a\x09\x09ifAbsent: aBlock",
+messageSends: ["moveMethod:toClass:ifAbsent:", "selectedMethod", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);

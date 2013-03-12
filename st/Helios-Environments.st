@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Environments'!
 Object subclass: #HLEnvironment
-	instanceVariableNames: ''
-	package: 'Helios-Environments'!
+ instanceVariableNames: ''
+ package: 'Helios-Environments'!
 !HLEnvironment commentStamp!
 Abstract class defining common behavior for local and remote environments!
 
@@ -20,6 +20,10 @@ packages
 eval: someCode on: aReceiver
 
 	^ self subclassResponsibility
+!
+
+moveMethod: aMethod toClass: aClassName ifAbsent: aBlock
+	self subclassResponsibility
 ! !
 
 !HLEnvironment methodsFor: 'compiling'!
@@ -47,8 +51,8 @@ compileMethod: sourceCode for: class protocol: protocol
 ! !
 
 HLEnvironment subclass: #HLLocalEnvironment
-	instanceVariableNames: ''
-	package: 'Helios-Environments'!
+ instanceVariableNames: ''
+ package: 'Helios-Environments'!
 
 !HLLocalEnvironment methodsFor: 'accessing'!
 
@@ -68,11 +72,21 @@ eval: aString on: aReceiver
 	[ compiler parseExpression: aString ] on: Error do: [ :ex |
 		^ window alert: ex messageText ].
 	^ compiler evaluateExpression: aString on: aReceiver
+!
+
+moveMethod: aMethod toClass: aClassName ifAbsent: aBlock
+	| destinationClass |
+	
+	destinationClass := Smalltalk current at: aClassName asSymbol.
+	destinationClass ifNil: [ ^ aBlock value ].
+	
+	destinationClass adoptMethod: aMethod.
+	aMethod methodClass forsakeMethod: aMethod.
 ! !
 
 HLEnvironment subclass: #HLRemoteEnvironment
-	instanceVariableNames: ''
-	package: 'Helios-Environments'!
+ instanceVariableNames: ''
+ package: 'Helios-Environments'!
 
 !HLRemoteEnvironment methodsFor: 'accessing'!
 
@@ -98,8 +112,8 @@ eval: someCode on: aReceiver
 ! !
 
 Object subclass: #HLRemoteObject
-	instanceVariableNames: ''
-	package: 'Helios-Environments'!
+ instanceVariableNames: ''
+ package: 'Helios-Environments'!
 !HLRemoteObject commentStamp!
 This is a local proxy to a remote object.
 Tipically useful for evaluating and inspecting and interacting with instances of a remote VM.!
@@ -124,5 +138,17 @@ inspectOn: anInspector
 
 printString
 	^ 'this is a remote object'
+! !
+
+!Behavior methodsFor: '*Helios-Environments'!
+
+adoptMethod: aMethod
+	self 
+		compile: aMethod source;
+		category: aMethod protocol.
+!
+
+forsakeMethod: aMethod
+	self removeCompiledMethod: aMethod
 ! !
 

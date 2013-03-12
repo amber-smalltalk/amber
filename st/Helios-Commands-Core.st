@@ -1,12 +1,20 @@
 Smalltalk current createPackage: 'Helios-Commands-Core'!
 Object subclass: #HLCommand
- instanceVariableNames: 'input'
+ instanceVariableNames: 'input errorBlock'
  package: 'Helios-Commands-Core'!
 
 !HLCommand methodsFor: 'accessing'!
 
 documentation
 	^ self class documentation
+!
+
+errorBlock
+	^ errorBlock
+!
+
+errorBlock: aBlock
+	errorBlock := aBlock
 !
 
 input

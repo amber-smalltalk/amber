@@ -411,21 +411,12 @@ selector: "execute",
 category: 'executing',
 fn: function (){
 var self=this;
-var class_;
-return smalltalk.withContext(function($ctx1) { var $1;
-class_=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(self)._input());
-$1=class_;
-if(($receiver = $1) == nil || $receiver == undefined){
-_st(self)._commandError_(_st("No class named: ").__comma(_st(self)._input()));
-} else {
-$1;
-};
-_st(_st(self)._model())._moveMethodToClass_(class_);
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{class_:class_},smalltalk.HLMoveMethodToClassCommand)})},
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_ifAbsent_(_st(self)._input(),_st(self)._errorBlock());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 args: [],
-source: "execute\x0a\x09| class |\x0a\x09class := Smalltalk current at: self input.\x0a\x09class ifNil: [ self commandError: 'No class named: ', self input ].\x0a\x09\x0a\x09self model moveMethodToClass: class",
-messageSends: ["at:", "input", "current", "ifNil:", "commandError:", ",", "moveMethodToClass:", "model"],
-referencedClasses: ["Smalltalk"]
+source: "execute\x0a\x09self model moveMethodToClass: self input ifAbsent: self errorBlock",
+messageSends: ["moveMethodToClass:ifAbsent:", "input", "errorBlock", "model"],
+referencedClasses: []
 }),
 smalltalk.HLMoveMethodToClassCommand);
 
