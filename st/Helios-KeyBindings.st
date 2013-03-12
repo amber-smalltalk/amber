@@ -379,7 +379,9 @@ flushBindings
 	bindings := nil
 !
 
-selectBinding: aBinding	
+selectBinding: aBinding
+	aBinding = selectedBinding ifTrue: [ ^ self ].
+	
 	selectedBinding := aBinding.
 	self helper refresh
 ! !

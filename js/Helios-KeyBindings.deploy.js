@@ -1050,10 +1050,16 @@ smalltalk.method({
 selector: "selectBinding:",
 fn: function (aBinding){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@selectedBinding"]=aBinding;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(aBinding).__eq(self["@selectedBinding"]);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+self["@selectedBinding"]=aBinding;
 _st(_st(self)._helper())._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"selectBinding:",{aBinding:aBinding},smalltalk.HLKeyBinder)})},
-messageSends: ["refresh", "helper"]}),
+messageSends: ["ifTrue:", "=", "refresh", "helper"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(

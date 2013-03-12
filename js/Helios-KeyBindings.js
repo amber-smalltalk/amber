@@ -1401,12 +1401,18 @@ selector: "selectBinding:",
 category: 'actions',
 fn: function (aBinding){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@selectedBinding"]=aBinding;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(aBinding).__eq(self["@selectedBinding"]);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+self["@selectedBinding"]=aBinding;
 _st(_st(self)._helper())._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"selectBinding:",{aBinding:aBinding},smalltalk.HLKeyBinder)})},
 args: ["aBinding"],
-source: "selectBinding: aBinding\x09\x0a\x09selectedBinding := aBinding.\x0a\x09self helper refresh",
-messageSends: ["refresh", "helper"],
+source: "selectBinding: aBinding\x0a\x09aBinding = selectedBinding ifTrue: [ ^ self ].\x0a\x09\x0a\x09selectedBinding := aBinding.\x0a\x09self helper refresh",
+messageSends: ["ifTrue:", "=", "refresh", "helper"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinder);
