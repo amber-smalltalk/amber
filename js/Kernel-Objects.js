@@ -2077,6 +2077,46 @@ referencedClasses: []
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_at_ifPresent_",
+smalltalk.method({
+selector: "at:ifPresent:",
+category: 'accessing',
+fn: function (aSymbol,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var obj = self['@jsObject'],
+			symbol = aSymbol._asString();
+		return symbol in obj ? aBlock(obj[symbol]) : nil;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aSymbol:aSymbol,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+args: ["aSymbol", "aBlock"],
+source: "at: aSymbol ifPresent: aBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined or return nil\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'],\x0a\x09\x09\x09symbol = aSymbol._asString();\x0a\x09\x09return symbol in obj ? aBlock(obj[symbol]) : nil;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_at_ifPresent_ifAbsent_",
+smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+category: 'accessing',
+fn: function (aSymbol,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var obj = self['@jsObject'],
+			symbol = aSymbol._asString();
+		return symbol in obj ? aBlock(obj[symbol]) : anotherBlock();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
+args: ["aSymbol", "aBlock", "anotherBlock"],
+source: "at: aSymbol ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined\x0a\x09or return value of anotherBlock\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'],\x0a\x09\x09\x09symbol = aSymbol._asString();\x0a\x09\x09return symbol in obj ? aBlock(obj[symbol]) : anotherBlock();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",

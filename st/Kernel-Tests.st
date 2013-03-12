@@ -985,6 +985,24 @@ testAtIfAbsent
 	self assert: (testObject at: 'f' ifAbsent: ['Property does not exist']) equals: nil.
 !
 
+testAtIfPresent
+	| testObject |
+	testObject := self jsObject.
+	self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString]) equals: nil.
+	self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString]) equals: 'hello nil'.
+	self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString]) equals: 'hello 1'.
+	self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString]) equals: 'hello nil'.
+!
+
+testAtIfPresentIfAbsent
+	| testObject |
+	testObject := self jsObject.
+	self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'not present'.
+	self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.
+	self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello 1'.
+	self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.
+!
+
 testDNU
 	self should: [self jsObject foo] raise: MessageNotUnderstood
 !
