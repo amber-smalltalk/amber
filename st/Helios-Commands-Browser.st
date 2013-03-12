@@ -153,10 +153,10 @@ HLMoveToCommand subclass: #HLMoveMethodToCommand
  instanceVariableNames: ''
  package: 'Helios-Commands-Browser'!
 
-!HLMoveMethodToCommand methodsFor: 'accessing'!
+!HLMoveMethodToCommand methodsFor: 'testing'!
 
-activeBlock
-	^ [ self model selectedMethod notNil ]
+isActive
+	^ self model selectedMethod notNil
 ! !
 
 !HLMoveMethodToCommand class methodsFor: 'accessing'!
