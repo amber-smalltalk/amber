@@ -38,6 +38,22 @@ referencedClasses: []
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_availableProtocolsFor_",
+smalltalk.method({
+selector: "availableProtocolsFor:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass},smalltalk.HLEnvironment)})},
+args: ["aClass"],
+source: "availableProtocolsFor: aClass\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_classBuilder",
 smalltalk.method({
 selector: "classBuilder",
@@ -175,6 +191,32 @@ args: [],
 source: "availableClassNames\x0a\x09^ Smalltalk current classes \x0a\x09\x09collect: [ :each | each name ]",
 messageSends: ["collect:", "name", "classes", "current"],
 referencedClasses: ["Smalltalk"]
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_availableProtocolsFor_",
+smalltalk.method({
+selector: "availableProtocolsFor:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+var protocols;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+protocols=_st(aClass)._protocols();
+$1=_st(aClass)._superclass();
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(protocols)._addAll_(_st(self)._availableProtocolsFor_(_st(aClass)._superclass()));
+};
+$2=_st(_st(protocols)._asSet())._asArray();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},smalltalk.HLLocalEnvironment)})},
+args: ["aClass"],
+source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray",
+messageSends: ["protocols", "ifNotNil:", "addAll:", "availableProtocolsFor:", "superclass", "asArray", "asSet"],
+referencedClasses: []
 }),
 smalltalk.HLLocalEnvironment);
 

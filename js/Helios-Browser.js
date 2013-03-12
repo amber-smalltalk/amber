@@ -2047,6 +2047,24 @@ referencedClasses: []
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_availableProtocols",
+smalltalk.method({
+selector: "availableProtocols",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._environment())._availableProtocolsFor_(_st(self)._selectedClass());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availableProtocols",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "availableProtocols\x0a\x09^ self environment availableProtocolsFor: self selectedClass",
+messageSends: ["availableProtocolsFor:", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_compilationProtocol",
 smalltalk.method({
 selector: "compilationProtocol",

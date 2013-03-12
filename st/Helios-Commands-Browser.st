@@ -213,10 +213,30 @@ HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 
+!HLMoveMethodToProtocolCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'select a protocol'
+!
+
+inputCompletion
+	^ self model availableProtocols
+!
+
+inputLabel
+	^ 'Move method to a protocol:'
+! !
+
 !HLMoveMethodToProtocolCommand methodsFor: 'executing'!
 
 execute
-	self model moveMethodToProtocol
+	self model moveMethodToProtocol: self input
+! !
+
+!HLMoveMethodToProtocolCommand methodsFor: 'testing'!
+
+isInputRequired
+	^ true
 ! !
 
 !HLMoveMethodToProtocolCommand class methodsFor: 'accessing'!

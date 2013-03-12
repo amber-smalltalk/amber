@@ -27,6 +27,17 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_availableProtocolsFor_",
+smalltalk.method({
+selector: "availableProtocolsFor:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_classBuilder",
 smalltalk.method({
 selector: "classBuilder",
@@ -125,6 +136,27 @@ return smalltalk.withContext(function($ctx2) {return _st(each)._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.HLLocalEnvironment)})},
 messageSends: ["collect:", "name", "classes", "current"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_availableProtocolsFor_",
+smalltalk.method({
+selector: "availableProtocolsFor:",
+fn: function (aClass){
+var self=this;
+var protocols;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+protocols=_st(aClass)._protocols();
+$1=_st(aClass)._superclass();
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(protocols)._addAll_(_st(self)._availableProtocolsFor_(_st(aClass)._superclass()));
+};
+$2=_st(_st(protocols)._asSet())._asArray();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},smalltalk.HLLocalEnvironment)})},
+messageSends: ["protocols", "ifNotNil:", "addAll:", "availableProtocolsFor:", "superclass", "asArray", "asSet"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(

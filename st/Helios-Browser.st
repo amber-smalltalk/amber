@@ -709,6 +709,10 @@ availableClassNames
 	^ self environment availableClassNames
 !
 
+availableProtocols
+	^ self environment availableProtocolsFor: self selectedClass
+!
+
 environment
 	^ environment ifNil: [ HLManager current environment ]
 !

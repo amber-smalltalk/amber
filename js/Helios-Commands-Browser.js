@@ -520,17 +520,83 @@ smalltalk.HLMoveMethodToClassCommand.klass);
 
 smalltalk.addClass('HLMoveMethodToProtocolCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "select a protocol";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+args: [],
+source: "displayLabel\x0a\x09^ 'select a protocol'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
 "_execute",
 smalltalk.method({
 selector: "execute",
 category: 'executing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToProtocol();
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToProtocol_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 args: [],
-source: "execute\x0a\x09self model moveMethodToProtocol",
-messageSends: ["moveMethodToProtocol", "model"],
+source: "execute\x0a\x09self model moveMethodToProtocol: self input",
+messageSends: ["moveMethodToProtocol:", "input", "model"],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
+"_inputCompletion",
+smalltalk.method({
+selector: "inputCompletion",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._model())._availableProtocols();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+args: [],
+source: "inputCompletion\x0a\x09^ self model availableProtocols",
+messageSends: ["availableProtocols", "model"],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
+"_inputLabel",
+smalltalk.method({
+selector: "inputLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Move method to a protocol:";
+}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+args: [],
+source: "inputLabel\x0a\x09^ 'Move method to a protocol:'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
+"_isInputRequired",
+smalltalk.method({
+selector: "isInputRequired",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+args: [],
+source: "isInputRequired\x0a\x09^ true",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLMoveMethodToProtocolCommand);

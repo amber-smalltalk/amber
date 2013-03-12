@@ -370,14 +370,60 @@ smalltalk.HLMoveMethodToClassCommand.klass);
 
 smalltalk.addClass('HLMoveMethodToProtocolCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "select a protocol";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+messageSends: []}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
 "_execute",
 smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToProtocol();
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToProtocol_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
-messageSends: ["moveMethodToProtocol", "model"]}),
+messageSends: ["moveMethodToProtocol:", "input", "model"]}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
+"_inputCompletion",
+smalltalk.method({
+selector: "inputCompletion",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._model())._availableProtocols();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+messageSends: ["availableProtocols", "model"]}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
+"_inputLabel",
+smalltalk.method({
+selector: "inputLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Move method to a protocol:";
+}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+messageSends: []}),
+smalltalk.HLMoveMethodToProtocolCommand);
+
+smalltalk.addMethod(
+"_isInputRequired",
+smalltalk.method({
+selector: "isInputRequired",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand);
 
 

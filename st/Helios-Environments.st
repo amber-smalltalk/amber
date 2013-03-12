@@ -11,6 +11,10 @@ availableClassNames
 	self subclassResponsibility
 !
 
+availableProtocolsFor: aClass
+	self subclassResponsibility
+!
+
 classBuilder
 	^ self subclassResponsibility
 !
@@ -63,6 +67,14 @@ HLEnvironment subclass: #HLLocalEnvironment
 availableClassNames
 	^ Smalltalk current classes 
 		collect: [ :each | each name ]
+!
+
+availableProtocolsFor: aClass
+	| protocols |
+	
+	protocols := aClass protocols.
+	aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].
+	^ protocols asSet asArray
 !
 
 classBuilder
