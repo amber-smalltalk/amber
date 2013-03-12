@@ -712,9 +712,9 @@ referencedClasses: []
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
-"_renderActionFor_html_",
+"_renderOn_html_",
 smalltalk.method({
-selector: "renderActionFor:html:",
+selector: "renderOn:html:",
 category: 'accessing',
 fn: function (aBinder,html){
 var self=this;
@@ -735,9 +735,9 @@ return _st(self)._applyOn_(aBinder);
 };
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(_st(self["@input"])._asJQuery())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"renderActionFor:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
 args: ["aBinder", "html"],
-source: "renderActionFor: aBinder html: html\x0a\x09html span \x0a\x09\x09class: 'command'; \x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09class: 'search-query';\x0a\x09\x09\x09\x09placeholder: self displayLabel ].\x0a\x09\x09\x09\x09\x0a\x09input onKeyPress: [:event |\x0a\x09\x09event keyCode = 13 ifTrue: [\x0a\x09\x09\x09self applyOn: aBinder ] ].\x0a\x09\x09\x09\x09\x0a\x09input asJQuery focus",
+source: "renderOn: aBinder html: html\x0a\x09html span \x0a\x09\x09class: 'command'; \x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09class: 'search-query';\x0a\x09\x09\x09\x09placeholder: self displayLabel ].\x0a\x09\x09\x09\x09\x0a\x09input onKeyPress: [:event |\x0a\x09\x09event keyCode = 13 ifTrue: [\x0a\x09\x09\x09self applyOn: aBinder ] ].\x0a\x09\x09\x09\x09\x0a\x09input asJQuery focus",
 messageSends: ["class:", "span", "with:", "input", "placeholder:", "displayLabel", "onKeyPress:", "ifTrue:", "applyOn:", "=", "keyCode", "focus", "asJQuery"],
 referencedClasses: []
 }),

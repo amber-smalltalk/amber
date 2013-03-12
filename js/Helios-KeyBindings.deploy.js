@@ -527,9 +527,9 @@ messageSends: []}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
-"_renderActionFor_html_",
+"_renderOn_html_",
 smalltalk.method({
-selector: "renderActionFor:html:",
+selector: "renderOn:html:",
 fn: function (aBinder,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2,$5;
@@ -549,7 +549,7 @@ return _st(self)._applyOn_(aBinder);
 };
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
 _st(_st(self["@input"])._asJQuery())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"renderActionFor:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
 messageSends: ["class:", "span", "with:", "input", "placeholder:", "displayLabel", "onKeyPress:", "ifTrue:", "applyOn:", "=", "keyCode", "focus", "asJQuery"]}),
 smalltalk.HLBindingInput);
 

@@ -204,7 +204,7 @@ input
 	^ input asJQuery val
 !
 
-renderActionFor: aBinder html: html
+renderOn: aBinder html: html
 	html span 
 		class: 'command'; 
 		with: [
