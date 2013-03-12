@@ -96,6 +96,7 @@ inputBinding
 	^ HLBindingInput new
 		label: self command inputLabel;
 		ghostText: self command displayLabel;
+		inputCompletion: self command inputCompletion;
 		callback: [ :val | 
 			self command 
 				input: val;
@@ -194,7 +195,7 @@ isActive
 ! !
 
 HLBinding subclass: #HLBindingInput
-	instanceVariableNames: 'input callback status inputText wrapper binder ghostText isFinal'
+	instanceVariableNames: 'input callback status wrapper binder ghostText isFinal message messageTag inputCompletion'
 	package: 'Helios-KeyBindings'!
 
 !HLBindingInput methodsFor: 'accessing'!
@@ -223,12 +224,20 @@ input
 	^ input
 !
 
-inputText
-	^ inputText ifNil: [ inputText := '' ].
+inputCompletion
+	^ inputCompletion ifNil: [ #() ]
 !
 
-inputText: aText
-	inputText := aText
+inputCompletion: aCollection
+	inputCompletion := aCollection
+!
+
+message
+	^ message ifNil: [ message := '' ]
+!
+
+message: aString
+	message := aString
 !
 
 status
@@ -242,10 +251,14 @@ status: aStatus
 !HLBindingInput methodsFor: 'actions'!
 
 applyOn: aKeyBinder
-
 	self isFinal: true.
-	self inputText: self input asJQuery val.
-	self evaluate: self inputText
+	self evaluate: self input asJQuery val
+!
+
+clearStatus
+	self status: 'info'.
+	self message: ''.
+	self refresh
 !
 
 errorStatus
@@ -257,7 +270,11 @@ evaluate: aString
 	
 	[ self callback value: aString ]
 	on: Error
-	do: [:ex | 
+	do: [:ex |
+		self input asJQuery 
+			one: 'keydown' 
+			do: [ self clearStatus ].
+		self message: ex messageText.
 		self errorStatus.
 		self isFinal: false ].
 !
@@ -271,29 +288,31 @@ release
 
 !HLBindingInput methodsFor: 'rendering'!
 
-privateRenderOn: aBinder html: html
-	input := html input
-		class: 'controls';
-		type: 'text';
-		placeholder: self ghostText;
-		with: self inputText.
-			
-	input asJQuery focus
-!
-
 refresh
 	wrapper ifNil: [ ^ self ].
     
-	wrapper class: 'control-group ', self status.
+	wrapper class: self status.
+	messageTag contents: self message
 !
 
-renderOn: aBinder html: root
+renderOn: aBinder html: html
 	binder := aBinder.
-	wrapper ifNil: [ wrapper := root span ].
+	wrapper ifNil: [ wrapper := html span ].
 	
-	wrapper class: 'control-group ', self status.
-	
-	[:html | self privateRenderOn: binder html: html ] appendToJQuery: wrapper asJQuery
+	wrapper 
+		class: self status;
+		with: [
+			input := html input
+				placeholder: self ghostText;
+				yourself.
+			input asJQuery 
+				typeahead: #{ 'source' -> self inputCompletion }.
+			messageTag := (html span
+				class: 'help-inline';
+				with: self message;
+				yourself) ].
+			
+	input asJQuery focus
 ! !
 
 !HLBindingInput methodsFor: 'testing'!

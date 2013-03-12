@@ -179,6 +179,10 @@ displayLabel
 	^ 'select a class'
 !
 
+inputCompletion
+	^ self model availableClassNames
+!
+
 inputLabel
 	^ 'Move method to class:'
 ! !

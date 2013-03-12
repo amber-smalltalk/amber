@@ -7,6 +7,10 @@ Abstract class defining common behavior for local and remote environments!
 
 !HLEnvironment methodsFor: 'accessing'!
 
+availableClassNames
+	self subclassResponsibility
+!
+
 classBuilder
 	^ self subclassResponsibility
 !
@@ -55,6 +59,11 @@ HLEnvironment subclass: #HLLocalEnvironment
 	package: 'Helios-Environments'!
 
 !HLLocalEnvironment methodsFor: 'accessing'!
+
+availableClassNames
+	^ Smalltalk current classes 
+		collect: [ :each | each name ]
+!
 
 classBuilder
 	^ ClassBuilder new

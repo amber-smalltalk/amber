@@ -16,6 +16,17 @@ messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_availableClassNames",
+smalltalk.method({
+selector: "availableClassNames",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_classBuilder",
 smalltalk.method({
 selector: "classBuilder",
@@ -101,6 +112,21 @@ smalltalk.HLEnvironment);
 
 
 smalltalk.addClass('HLLocalEnvironment', smalltalk.HLEnvironment, [], 'Helios-Environments');
+smalltalk.addMethod(
+"_availableClassNames",
+smalltalk.method({
+selector: "availableClassNames",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._name();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.HLLocalEnvironment)})},
+messageSends: ["collect:", "name", "classes", "current"]}),
+smalltalk.HLLocalEnvironment);
+
 smalltalk.addMethod(
 "_classBuilder",
 smalltalk.method({

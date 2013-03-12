@@ -1559,6 +1559,19 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_availableClassNames",
+smalltalk.method({
+selector: "availableClassNames",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._environment())._availableClassNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.HLBrowserModel)})},
+messageSends: ["availableClassNames", "environment"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_compilationProtocol",
 smalltalk.method({
 selector: "compilationProtocol",

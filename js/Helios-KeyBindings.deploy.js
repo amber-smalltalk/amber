@@ -236,6 +236,7 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
 $2=_st((smalltalk.HLBindingInput || HLBindingInput))._new();
 _st($2)._label_(_st(_st(self)._command())._inputLabel());
 _st($2)._ghostText_(_st(_st(self)._command())._displayLabel());
+_st($2)._inputCompletion_(_st(_st(self)._command())._inputCompletion());
 _st($2)._callback_((function(val){
 return smalltalk.withContext(function($ctx2) {$3=_st(self)._command();
 _st($3)._input_(val);
@@ -246,7 +247,7 @@ $5=_st($2)._yourself();
 $1=$5;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputBinding",{},smalltalk.HLBindingAction)})},
-messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "callback:", "input:", "execute", "yourself"]}),
+messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "inputCompletion:", "inputCompletion", "callback:", "input:", "execute", "yourself"]}),
 smalltalk.HLBindingAction);
 
 smalltalk.addMethod(
@@ -462,7 +463,7 @@ smalltalk.HLBindingGroup);
 
 
 
-smalltalk.addClass('HLBindingInput', smalltalk.HLBinding, ['input', 'callback', 'status', 'inputText', 'wrapper', 'binder', 'ghostText', 'isFinal'], 'Helios-KeyBindings');
+smalltalk.addClass('HLBindingInput', smalltalk.HLBinding, ['input', 'callback', 'status', 'wrapper', 'binder', 'ghostText', 'isFinal', 'message', 'messageTag', 'inputCompletion'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 "_applyOn_",
 smalltalk.method({
@@ -470,10 +471,9 @@ selector: "applyOn:",
 fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._isFinal_(true);
-_st(self)._inputText_(_st(_st(_st(self)._input())._asJQuery())._val());
-_st(self)._evaluate_(_st(self)._inputText());
+_st(self)._evaluate_(_st(_st(_st(self)._input())._asJQuery())._val());
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingInput)})},
-messageSends: ["isFinal:", "inputText:", "val", "asJQuery", "input", "evaluate:", "inputText"]}),
+messageSends: ["isFinal:", "evaluate:", "val", "asJQuery", "input"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
@@ -523,6 +523,19 @@ messageSends: []}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
+"_clearStatus",
+smalltalk.method({
+selector: "clearStatus",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._status_("info");
+_st(self)._message_("");
+_st(self)._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"clearStatus",{},smalltalk.HLBindingInput)})},
+messageSends: ["status:", "message:", "refresh"]}),
+smalltalk.HLBindingInput);
+
+smalltalk.addMethod(
 "_errorStatus",
 smalltalk.method({
 selector: "errorStatus",
@@ -543,11 +556,15 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._callback())._value_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
-return smalltalk.withContext(function($ctx2) {_st(self)._errorStatus();
+return smalltalk.withContext(function($ctx2) {_st(_st(_st(self)._input())._asJQuery())._one_do_("keydown",(function(){
+return smalltalk.withContext(function($ctx3) {return _st(self)._clearStatus();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+_st(self)._message_(_st(ex)._messageText());
+_st(self)._errorStatus();
 return _st(self)._isFinal_(false);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"evaluate:",{aString:aString},smalltalk.HLBindingInput)})},
-messageSends: ["on:do:", "errorStatus", "isFinal:", "value:", "callback"]}),
+messageSends: ["on:do:", "one:do:", "clearStatus", "asJQuery", "input", "message:", "messageText", "errorStatus", "isFinal:", "value:", "callback"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
@@ -588,32 +605,31 @@ messageSends: []}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
-"_inputText",
+"_inputCompletion",
 smalltalk.method({
-selector: "inputText",
+selector: "inputCompletion",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=self["@inputText"];
+$2=self["@inputCompletion"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@inputText"]="";
-$1=self["@inputText"];
+$1=[];
 } else {
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"inputText",{},smalltalk.HLBindingInput)})},
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLBindingInput)})},
 messageSends: ["ifNil:"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
-"_inputText_",
+"_inputCompletion_",
 smalltalk.method({
-selector: "inputText:",
-fn: function (aText){
+selector: "inputCompletion:",
+fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@inputText"]=aText;
-return self}, function($ctx1) {$ctx1.fill(self,"inputText:",{aText:aText},smalltalk.HLBindingInput)})},
+return smalltalk.withContext(function($ctx1) { self["@inputCompletion"]=aCollection;
+return self}, function($ctx1) {$ctx1.fill(self,"inputCompletion:",{aCollection:aCollection},smalltalk.HLBindingInput)})},
 messageSends: []}),
 smalltalk.HLBindingInput);
 
@@ -659,21 +675,33 @@ messageSends: []}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
-"_privateRenderOn_html_",
+"_message",
 smalltalk.method({
-selector: "privateRenderOn:html:",
-fn: function (aBinder,html){
+selector: "message",
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st(html)._input();
-_st($1)._class_("controls");
-_st($1)._type_("text");
-_st($1)._placeholder_(_st(self)._ghostText());
-$2=_st($1)._with_(_st(self)._inputText());
-self["@input"]=$2;
-_st(_st(self["@input"])._asJQuery())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"privateRenderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
-messageSends: ["class:", "input", "type:", "placeholder:", "ghostText", "with:", "inputText", "focus", "asJQuery"]}),
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@message"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@message"]="";
+$1=self["@message"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"message",{},smalltalk.HLBindingInput)})},
+messageSends: ["ifNil:"]}),
+smalltalk.HLBindingInput);
+
+smalltalk.addMethod(
+"_message_",
+smalltalk.method({
+selector: "message:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@message"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"message:",{aString:aString},smalltalk.HLBindingInput)})},
+messageSends: []}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
@@ -690,9 +718,10 @@ return $2;
 } else {
 $1;
 };
-_st(self["@wrapper"])._class_(_st("control-group ").__comma(_st(self)._status()));
+_st(self["@wrapper"])._class_(_st(self)._status());
+_st(self["@messageTag"])._contents_(_st(self)._message());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLBindingInput)})},
-messageSends: ["ifNil:", "class:", ",", "status"]}),
+messageSends: ["ifNil:", "class:", "status", "contents:", "message"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(
@@ -713,23 +742,36 @@ smalltalk.addMethod(
 "_renderOn_html_",
 smalltalk.method({
 selector: "renderOn:html:",
-fn: function (aBinder,root){
+fn: function (aBinder,html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$5,$6,$7,$3;
 self["@binder"]=aBinder;
 $1=self["@wrapper"];
 if(($receiver = $1) == nil || $receiver == undefined){
-self["@wrapper"]=_st(root)._span();
+self["@wrapper"]=_st(html)._span();
 self["@wrapper"];
 } else {
 $1;
 };
-_st(self["@wrapper"])._class_(_st("control-group ").__comma(_st(self)._status()));
-_st((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(self)._privateRenderOn_html_(self["@binder"],html);
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st(self["@wrapper"])._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBinder:aBinder,root:root},smalltalk.HLBindingInput)})},
-messageSends: ["ifNil:", "span", "class:", ",", "status", "appendToJQuery:", "asJQuery", "privateRenderOn:html:"]}),
+$2=self["@wrapper"];
+_st($2)._class_(_st(self)._status());
+$3=_st($2)._with_((function(){
+return smalltalk.withContext(function($ctx2) {$4=_st(html)._input();
+_st($4)._placeholder_(_st(self)._ghostText());
+$5=_st($4)._yourself();
+self["@input"]=$5;
+self["@input"];
+_st(_st(self["@input"])._asJQuery())._typeahead_(smalltalk.HashedCollection._fromPairs_([_st("source").__minus_gt(_st(self)._inputCompletion())]));
+$6=_st(html)._span();
+_st($6)._class_("help-inline");
+_st($6)._with_(_st(self)._message());
+$7=_st($6)._yourself();
+self["@messageTag"]=$7;
+return self["@messageTag"];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(self["@input"])._asJQuery())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
+messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "ghostText", "input", "yourself", "typeahead:", "->", "inputCompletion", "asJQuery", "message", "focus"]}),
 smalltalk.HLBindingInput);
 
 smalltalk.addMethod(

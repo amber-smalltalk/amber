@@ -705,6 +705,10 @@ announcer
 	^ announcer ifNil: [ announcer := Announcer new ]
 !
 
+availableClassNames
+	^ self environment availableClassNames
+!
+
 environment
 	^ environment ifNil: [ HLManager current environment ]
 !

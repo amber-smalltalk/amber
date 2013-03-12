@@ -310,6 +310,19 @@ messageSends: ["moveMethodToClass:", "input", "model"]}),
 smalltalk.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(
+"_inputCompletion",
+smalltalk.method({
+selector: "inputCompletion",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._model())._availableClassNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToClassCommand)})},
+messageSends: ["availableClassNames", "model"]}),
+smalltalk.HLMoveMethodToClassCommand);
+
+smalltalk.addMethod(
 "_inputLabel",
 smalltalk.method({
 selector: "inputLabel",

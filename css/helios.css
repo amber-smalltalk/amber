@@ -254,6 +254,25 @@ a {
     opacity: 0.8;
 }
 
+.key_helper input {
+    outline: none;
+    border: none;
+    font-size: 12px;
+    padding: 2px 4px;
+    background: #EEE;
+}
+
+.key_helper .error .help-inline,
+.key_helper .error input {
+    color: #B91010;
+    font-weight: bold;
+}
+
+.typeahead.dropdown-menu {
+    position: fixed !important;
+    top: auto !important;
+    bottom: 30px !important;
+}
 
 #keybinding-start-helper {
     position: fixed;
