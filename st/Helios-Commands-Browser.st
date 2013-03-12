@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Commands-Browser'!
 HLModelCommand subclass: #HLBrowserCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLBrowserCommand class methodsFor: 'instance creation'!
 
@@ -12,8 +12,8 @@ for: aBrowserModel
 ! !
 
 HLBrowserCommand subclass: #HLBrowserGoToCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLBrowserGoToCommand class methodsFor: 'accessing'!
 
@@ -26,8 +26,8 @@ label
 ! !
 
 HLBrowserGoToCommand subclass: #HLGoToClassesCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLGoToClassesCommand methodsFor: 'executing'!
 
@@ -48,8 +48,8 @@ label
 ! !
 
 HLBrowserGoToCommand subclass: #HLGoToMethodsCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLGoToMethodsCommand methodsFor: 'executing'!
 
@@ -70,8 +70,8 @@ label
 ! !
 
 HLBrowserGoToCommand subclass: #HLGoToPackagesCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLGoToPackagesCommand methodsFor: 'executing'!
 
@@ -92,8 +92,8 @@ label
 ! !
 
 HLBrowserGoToCommand subclass: #HLGoToProtocolsCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLGoToProtocolsCommand methodsFor: 'executing'!
 
@@ -114,8 +114,8 @@ label
 ! !
 
 HLBrowserGoToCommand subclass: #HLGoToSourceCodeCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLGoToSourceCodeCommand methodsFor: 'executing'!
 
@@ -136,8 +136,8 @@ label
 ! !
 
 HLBrowserCommand subclass: #HLMoveToCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLMoveToCommand class methodsFor: 'accessing'!
 
@@ -150,8 +150,8 @@ label
 ! !
 
 HLMoveToCommand subclass: #HLMoveMethodToCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLMoveMethodToCommand methodsFor: 'testing'!
 
@@ -170,10 +170,14 @@ label
 ! !
 
 HLMoveMethodToCommand subclass: #HLMoveMethodToClassCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLMoveMethodToClassCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'select a class'
+!
 
 inputLabel
 	^ 'Move method to class:'
@@ -202,8 +206,8 @@ label
 ! !
 
 HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLMoveMethodToProtocolCommand methodsFor: 'executing'!
 
@@ -222,8 +226,8 @@ label
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLToggleCommand class methodsFor: 'accessing'!
 
@@ -236,8 +240,8 @@ label
 ! !
 
 HLToggleCommand subclass: #HLToggleClassSideCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLToggleClassSideCommand methodsFor: 'executing'!
 
@@ -258,8 +262,8 @@ label
 ! !
 
 HLToggleCommand subclass: #HLToggleInstanceSideCommand
- instanceVariableNames: ''
- package: 'Helios-Commands-Browser'!
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
 
 !HLToggleInstanceSideCommand methodsFor: 'executing'!
 

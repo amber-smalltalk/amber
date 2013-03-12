@@ -403,6 +403,22 @@ smalltalk.HLMoveMethodToCommand.klass);
 
 smalltalk.addClass('HLMoveMethodToClassCommand', smalltalk.HLMoveMethodToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "select a class";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveMethodToClassCommand)})},
+args: [],
+source: "displayLabel\x0a\x09^ 'select a class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToClassCommand);
+
+smalltalk.addMethod(
 "_execute",
 smalltalk.method({
 selector: "execute",
