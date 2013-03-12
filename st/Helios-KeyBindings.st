@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
- instanceVariableNames: 'key label each'
- package: 'Helios-KeyBindings'!
+	instanceVariableNames: 'key label each'
+	package: 'Helios-KeyBindings'!
 
 !HLBinding methodsFor: 'accessing'!
 
@@ -79,8 +79,8 @@ on: anInteger labelled: aString
 ! !
 
 HLBinding subclass: #HLBindingAction
- instanceVariableNames: 'command'
- package: 'Helios-KeyBindings'!
+	instanceVariableNames: 'command'
+	package: 'Helios-KeyBindings'!
 
 !HLBindingAction methodsFor: 'accessing'!
 
@@ -121,8 +121,8 @@ isFinal
 ! !
 
 HLBinding subclass: #HLBindingGroup
- instanceVariableNames: 'bindings'
- package: 'Helios-KeyBindings'!
+	instanceVariableNames: 'bindings'
+	package: 'Helios-KeyBindings'!
 
 !HLBindingGroup methodsFor: 'accessing'!
 
@@ -187,8 +187,8 @@ isActive
 ! !
 
 HLBinding subclass: #HLBindingInput
- instanceVariableNames: 'input callback'
- package: 'Helios-KeyBindings'!
+	instanceVariableNames: 'input callback'
+	package: 'Helios-KeyBindings'!
 
 !HLBindingInput methodsFor: 'accessing'!
 
@@ -236,8 +236,8 @@ isActive
 ! !
 
 Object subclass: #HLKeyBinder
- instanceVariableNames: 'modifierKey helper bindings selectedBinding'
- package: 'Helios-KeyBindings'!
+	instanceVariableNames: 'modifierKey helper bindings selectedBinding'
+	package: 'Helios-KeyBindings'!
 
 !HLKeyBinder methodsFor: 'accessing'!
 
@@ -377,8 +377,8 @@ systemIsMac
 ! !
 
 HLWidget subclass: #HLKeyBinderHelper
- instanceVariableNames: 'keyBinder'
- package: 'Helios-KeyBindings'!
+	instanceVariableNames: 'keyBinder'
+	package: 'Helios-KeyBindings'!
 
 !HLKeyBinderHelper methodsFor: 'accessing'!
 

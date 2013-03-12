@@ -182,11 +182,7 @@ inputLabel
 !HLMoveMethodToClassCommand methodsFor: 'executing'!
 
 execute
-	| class |
-	class := Smalltalk current at: self input.
-	class ifNil: [ self commandError: 'No class named: ', self input ].
-	
-	self model moveMethodToClass: class
+	self model moveMethodToClass: self input ifAbsent: self errorBlock
 ! !
 
 !HLMoveMethodToClassCommand methodsFor: 'testing'!

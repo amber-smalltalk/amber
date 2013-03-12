@@ -293,18 +293,9 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-var class_;
-return smalltalk.withContext(function($ctx1) { var $1;
-class_=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(self)._input());
-$1=class_;
-if(($receiver = $1) == nil || $receiver == undefined){
-_st(self)._commandError_(_st("No class named: ").__comma(_st(self)._input()));
-} else {
-$1;
-};
-_st(_st(self)._model())._moveMethodToClass_(class_);
-return self}, function($ctx1) {$ctx1.fill(self,"execute",{class_:class_},smalltalk.HLMoveMethodToClassCommand)})},
-messageSends: ["at:", "input", "current", "ifNil:", "commandError:", ",", "moveMethodToClass:", "model"]}),
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._moveMethodToClass_ifAbsent_(_st(self)._input(),_st(self)._errorBlock());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
+messageSends: ["moveMethodToClass:ifAbsent:", "input", "errorBlock", "model"]}),
 smalltalk.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(

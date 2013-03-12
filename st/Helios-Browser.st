@@ -846,8 +846,11 @@ saveSourceCode
 
 !HLBrowserModel methodsFor: 'commands actions'!
 
-moveMethodToClass: aClassName
-	console log: 'moveMethodToClass ', aClassName
+moveMethodToClass: aClassName ifAbsent: aBlock
+	self environment 
+		moveMethod: self selectedMethod 
+		toClass: aClassName 
+		ifAbsent: aBlock
 ! !
 
 !HLBrowserModel methodsFor: 'compiling'!
