@@ -162,6 +162,60 @@ label
 	^ 'Commit package'
 ! !
 
+HLBrowserCommand subclass: #HLFindCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLFindCommand class methodsFor: 'accessing'!
+
+key
+	^ 70
+!
+
+label
+	^ 'Find'
+! !
+
+HLFindCommand subclass: #HLFindClassCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLFindClassCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'select a class'
+!
+
+inputCompletion
+	^ self model availableClassNames
+!
+
+inputLabel
+	^ 'Find a class'
+! !
+
+!HLFindClassCommand methodsFor: 'executing'!
+
+execute
+	self model openClassNamed: self input
+! !
+
+!HLFindClassCommand methodsFor: 'testing'!
+
+isInputRequired
+	^ true
+! !
+
+!HLFindClassCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label
+	^ 'Class'
+! !
+
 HLBrowserCommand subclass: #HLMoveToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

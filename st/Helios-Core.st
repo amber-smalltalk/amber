@@ -198,7 +198,7 @@ canHaveFocus
 ! !
 
 HLFocusableWidget subclass: #HLListWidget
-	instanceVariableNames: 'items selectedItem'
+	instanceVariableNames: 'items selectedItem mapping'
 	package: 'Helios-Core'!
 
 !HLListWidget methodsFor: 'accessing'!
@@ -241,6 +241,12 @@ activateFirstListItem
 	self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))
 !
 
+activateItem: anObject
+	self activateListItem: (mapping 
+		at: anObject
+		ifAbsent: [ ^ self ]) asJQuery
+!
+
 activateListItem: aListItem
 	| parent position |
     
@@ -270,6 +276,12 @@ focus
 
 selectItem: anObject
 	self selectedItem: anObject
+!
+
+selectListItem: anObject
+	self selectListItem: (mapping 
+		at: anObject
+		ifAbsent: [ ^ self ]) asJQuery
 ! !
 
 !HLListWidget methodsFor: 'defaults'!
@@ -294,6 +306,20 @@ setupKeyBindings
 			self activateListItem: next ] ]
 ! !
 
+!HLListWidget methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	
+	mapping := Dictionary new.
+! !
+
+!HLListWidget methodsFor: 'private'!
+
+registerMappingFrom: anObject to: aTag
+	mapping at: anObject put: aTag
+! !
+
 !HLListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
@@ -313,6 +339,8 @@ renderItem: anObject on: html
 	| li |
     
 	li := html li.
+	self registerMappingFrom: anObject to: li.
+	
     li
     	class: (self cssClassForItem: anObject);
         at: 'list-data' put: (self items indexOf: anObject) asString;
@@ -330,6 +358,8 @@ renderItemLabel: anObject on: html
 !
 
 renderListOn: html
+	mapping := Dictionary new.
+	
 	self items do: [ :each | 
     	self renderItem: each on: html ]
 ! !

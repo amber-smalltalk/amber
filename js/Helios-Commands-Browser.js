@@ -380,6 +380,158 @@ referencedClasses: []
 smalltalk.HLCommitPackageCommand.klass);
 
 
+smalltalk.addClass('HLFindCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (70);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 70",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Find";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLFindCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Find'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindCommand.klass);
+
+
+smalltalk.addClass('HLFindClassCommand', smalltalk.HLFindCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+"_displayLabel",
+smalltalk.method({
+selector: "displayLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "select a class";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLFindClassCommand)})},
+args: [],
+source: "displayLabel\x0a\x09^ 'select a class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand);
+
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._openClassNamed_(_st(self)._input());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindClassCommand)})},
+args: [],
+source: "execute\x0a\x09self model openClassNamed: self input",
+messageSends: ["openClassNamed:", "input", "model"],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand);
+
+smalltalk.addMethod(
+"_inputCompletion",
+smalltalk.method({
+selector: "inputCompletion",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._model())._availableClassNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindClassCommand)})},
+args: [],
+source: "inputCompletion\x0a\x09^ self model availableClassNames",
+messageSends: ["availableClassNames", "model"],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand);
+
+smalltalk.addMethod(
+"_inputLabel",
+smalltalk.method({
+selector: "inputLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Find a class";
+}, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLFindClassCommand)})},
+args: [],
+source: "inputLabel\x0a\x09^ 'Find a class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand);
+
+smalltalk.addMethod(
+"_isInputRequired",
+smalltalk.method({
+selector: "isInputRequired",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLFindClassCommand)})},
+args: [],
+source: "isInputRequired\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (67);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindClassCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 67",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Class";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLFindClassCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLFindClassCommand.klass);
+
+
 smalltalk.addClass('HLMoveToCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(

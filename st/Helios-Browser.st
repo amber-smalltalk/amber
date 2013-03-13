@@ -251,7 +251,9 @@ onClassSelected: aClass
 	self selectedItem: aClass.
 	aClass ifNil: [ ^ self ].
     
-    self focus
+	self 
+		selectListItem: aClass;
+		focus
 !
 
 onClassesFocusRequested
@@ -301,6 +303,8 @@ renderItem: aClass level: anInteger on: html
 	| li |
     
 	li := html li.
+	self registerMappingFrom: aClass to: li.
+	
     li
     	at: 'list-data' put: (self items indexOf: aClass);
     	class: (self cssClassForItem: aClass);
@@ -582,8 +586,10 @@ selectItem: aPackage
 !HLPackagesListWidget methodsFor: 'reactions'!
 
 onPackageSelected: aPackage
-	self selectedItem: aPackage.
-	self focus
+	self 
+		selectedItem: aPackage;
+		selectListItem: aPackage;
+		focus
 !
 
 onPackagesFocusRequested
@@ -896,6 +902,14 @@ moveMethodToClass: aClassName
 
 moveMethodToProtocol: aProtocol
 	self environment moveMethod: self selectedMethod toProtocol: aProtocol
+!
+
+openClassNamed: aString
+	| class |
+	
+	class := self environment classNamed: aString.
+	self selectedPackage: class package.
+	self selectedClass: class
 !
 
 removeMethod

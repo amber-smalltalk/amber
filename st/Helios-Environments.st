@@ -19,6 +19,10 @@ classBuilder
 	^ self subclassResponsibility
 !
 
+classNamed: aString
+	self subclassResponsibility
+!
+
 packages
 	^ self subclassResponsibility
 ! !
@@ -91,6 +95,11 @@ availableProtocolsFor: aClass
 
 classBuilder
 	^ ClassBuilder new
+!
+
+classNamed: aString
+	^ (Smalltalk current at: aString asSymbol)
+		ifNil: [ self error: 'Invalid class name' ]
 !
 
 packages

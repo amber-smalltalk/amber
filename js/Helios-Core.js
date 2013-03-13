@@ -617,7 +617,7 @@ smalltalk.HLFocusableWidget);
 
 
 
-smalltalk.addClass('HLListWidget', smalltalk.HLFocusableWidget, ['items', 'selectedItem'], 'Helios-Core');
+smalltalk.addClass('HLListWidget', smalltalk.HLFocusableWidget, ['items', 'selectedItem', 'mapping'], 'Helios-Core');
 smalltalk.addMethod(
 "_activateFirstListItem",
 smalltalk.method({
@@ -630,6 +630,30 @@ return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{}, small
 args: [],
 source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))",
 messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+"_activateItem_",
+smalltalk.method({
+selector: "activateItem:",
+category: 'actions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+var $early={};
+try {
+_st(self)._activateListItem_(_st(_st(self["@mapping"])._at_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {$1=self;
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._asJQuery());
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"activateItem:",{anObject:anObject},smalltalk.HLListWidget)})},
+args: ["anObject"],
+source: "activateItem: anObject\x0a\x09self activateListItem: (mapping \x0a\x09\x09at: anObject\x0a\x09\x09ifAbsent: [ ^ self ]) asJQuery",
+messageSends: ["activateListItem:", "asJQuery", "at:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -753,6 +777,23 @@ referencedClasses: []
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
+"_initialize",
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.HLFocusableWidget.fn.prototype._initialize.apply(_st(self), []);
+self["@mapping"]=_st((smalltalk.Dictionary || Dictionary))._new();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLListWidget)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09mapping := Dictionary new.",
+messageSends: ["initialize", "new"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_items",
 smalltalk.method({
 selector: "items",
@@ -811,6 +852,22 @@ referencedClasses: []
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
+"_registerMappingFrom_to_",
+smalltalk.method({
+selector: "registerMappingFrom:to:",
+category: 'private',
+fn: function (anObject,aTag){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self["@mapping"])._at_put_(anObject,aTag);
+return self}, function($ctx1) {$ctx1.fill(self,"registerMappingFrom:to:",{anObject:anObject,aTag:aTag},smalltalk.HLListWidget)})},
+args: ["anObject", "aTag"],
+source: "registerMappingFrom: anObject to: aTag\x0a\x09mapping at: anObject put: aTag",
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_renderButtonsOn_",
 smalltalk.method({
 selector: "renderButtonsOn:",
@@ -862,6 +919,7 @@ var self=this;
 var li;
 return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
 li=_st(html)._li();
+_st(self)._registerMappingFrom_to_(anObject,li);
 $1=li;
 _st($1)._class_(_st(self)._cssClassForItem_(anObject));
 _st($1)._at_put_("list-data",_st(_st(_st(self)._items())._indexOf_(anObject))._asString());
@@ -876,10 +934,10 @@ return smalltalk.withContext(function($ctx3) {return _st(self)._activateListIte
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li}, smalltalk.HLListWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li},smalltalk.HLListWidget)})},
 args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a    li\x0a    \x09class: (self cssClassForItem: anObject);\x0a        at: 'list-data' put: (self items indexOf: anObject) asString;\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
-messageSends: ["li", "class:", "cssClassForItem:", "at:put:", "asString", "indexOf:", "items", "with:", "iconForItem:", "tag:", "renderItemLabel:on:", "a", "onClick:", "activateListItem:", "asJQuery"],
+source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: anObject to: li.\x0a\x09\x0a    li\x0a    \x09class: (self cssClassForItem: anObject);\x0a        at: 'list-data' put: (self items indexOf: anObject) asString;\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
+messageSends: ["li", "registerMappingFrom:to:", "class:", "cssClassForItem:", "at:put:", "asString", "indexOf:", "items", "with:", "iconForItem:", "tag:", "renderItemLabel:on:", "a", "onClick:", "activateListItem:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -907,14 +965,15 @@ selector: "renderListOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._items())._do_((function(each){
+return smalltalk.withContext(function($ctx1) { self["@mapping"]=_st((smalltalk.Dictionary || Dictionary))._new();
+_st(_st(self)._items())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._renderItem_on_(each,html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderListOn:",{html:html}, smalltalk.HLListWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderListOn:",{html:html},smalltalk.HLListWidget)})},
 args: ["html"],
-source: "renderListOn: html\x0a\x09self items do: [ :each | \x0a    \x09self renderItem: each on: html ]",
-messageSends: ["do:", "renderItem:on:", "items"],
-referencedClasses: []
+source: "renderListOn: html\x0a\x09mapping := Dictionary new.\x0a\x09\x0a\x09self items do: [ :each | \x0a    \x09self renderItem: each on: html ]",
+messageSends: ["new", "do:", "renderItem:on:", "items"],
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.HLListWidget);
 
@@ -930,6 +989,30 @@ return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{anObject:anObject}
 args: ["anObject"],
 source: "selectItem: anObject\x0a\x09self selectedItem: anObject",
 messageSends: ["selectedItem:"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+"_selectListItem_",
+smalltalk.method({
+selector: "selectListItem:",
+category: 'actions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+var $early={};
+try {
+_st(self)._selectListItem_(_st(_st(self["@mapping"])._at_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {$1=self;
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._asJQuery());
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"selectListItem:",{anObject:anObject},smalltalk.HLListWidget)})},
+args: ["anObject"],
+source: "selectListItem: anObject\x0a\x09self selectListItem: (mapping \x0a\x09\x09at: anObject\x0a\x09\x09ifAbsent: [ ^ self ]) asJQuery\x0a",
+messageSends: ["selectListItem:", "asJQuery", "at:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

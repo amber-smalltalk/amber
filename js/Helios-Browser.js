@@ -619,7 +619,7 @@ selector: "onClassSelected:",
 category: 'reactions',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 _st(self)._selectedItem_(aClass);
 $1=aClass;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -628,11 +628,13 @@ return $2;
 } else {
 $1;
 };
-_st(self)._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass}, smalltalk.HLClassesListWidget)})},
+$3=self;
+_st($3)._selectListItem_(aClass);
+$4=_st($3)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
 args: ["aClass"],
-source: "onClassSelected: aClass\x0a\x09self selectedItem: aClass.\x0a\x09aClass ifNil: [ ^ self ].\x0a    \x0a    self focus",
-messageSends: ["selectedItem:", "ifNil:", "focus"],
+source: "onClassSelected: aClass\x0a\x09self selectedItem: aClass.\x0a\x09aClass ifNil: [ ^ self ].\x0a    \x0a\x09self \x0a\x09\x09selectListItem: aClass;\x0a\x09\x09focus",
+messageSends: ["selectedItem:", "ifNil:", "selectListItem:", "focus"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -748,6 +750,7 @@ var self=this;
 var li;
 return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
 li=_st(html)._li();
+_st(self)._registerMappingFrom_to_(aClass,li);
 $1=li;
 _st($1)._at_put_("list-data",_st(_st(self)._items())._indexOf_(aClass));
 _st($1)._class_(_st(self)._cssClassForItem_(aClass));
@@ -765,10 +768,10 @@ return $4;
 _st(_st(self)._getChildrenOf_(aClass))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li}, smalltalk.HLClassesListWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "anInteger", "html"],
-source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a    li\x0a    \x09at: 'list-data' put: (self items indexOf: aClass);\x0a    \x09class: (self cssClassForItem: aClass);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
-messageSends: ["li", "at:put:", "indexOf:", "items", "class:", "cssClassForItem:", "with:", "iconForItem:", "tag:", "renderItemLabel:level:on:", "a", "onClick:", "activateListItem:", "asJQuery", "do:", "renderItem:level:on:", "+", "getChildrenOf:"],
+source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: aClass to: li.\x0a\x09\x0a    li\x0a    \x09at: 'list-data' put: (self items indexOf: aClass);\x0a    \x09class: (self cssClassForItem: aClass);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
+messageSends: ["li", "registerMappingFrom:to:", "at:put:", "indexOf:", "items", "class:", "cssClassForItem:", "with:", "iconForItem:", "tag:", "renderItemLabel:level:on:", "a", "onClick:", "activateListItem:", "asJQuery", "do:", "renderItem:level:on:", "+", "getChildrenOf:"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -1650,12 +1653,15 @@ selector: "onPackageSelected:",
 category: 'reactions',
 fn: function (aPackage){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._selectedItem_(aPackage);
-_st(self)._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{aPackage:aPackage}, smalltalk.HLPackagesListWidget)})},
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=self;
+_st($1)._selectedItem_(aPackage);
+_st($1)._selectListItem_(aPackage);
+$2=_st($1)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{aPackage:aPackage},smalltalk.HLPackagesListWidget)})},
 args: ["aPackage"],
-source: "onPackageSelected: aPackage\x0a\x09self selectedItem: aPackage.\x0a\x09self focus",
-messageSends: ["selectedItem:", "focus"],
+source: "onPackageSelected: aPackage\x0a\x09self \x0a\x09\x09selectedItem: aPackage;\x0a\x09\x09selectListItem: aPackage;\x0a\x09\x09focus",
+messageSends: ["selectedItem:", "selectListItem:", "focus"],
 referencedClasses: []
 }),
 smalltalk.HLPackagesListWidget);
@@ -2458,6 +2464,25 @@ return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToProtocol:",{aProtoco
 args: ["aProtocol"],
 source: "moveMethodToProtocol: aProtocol\x0a\x09self environment moveMethod: self selectedMethod toProtocol: aProtocol",
 messageSends: ["moveMethod:toProtocol:", "selectedMethod", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_openClassNamed_",
+smalltalk.method({
+selector: "openClassNamed:",
+category: 'commands actions',
+fn: function (aString){
+var self=this;
+var class_;
+return smalltalk.withContext(function($ctx1) { class_=_st(_st(self)._environment())._classNamed_(aString);
+_st(self)._selectedPackage_(_st(class_)._package());
+_st(self)._selectedClass_(class_);
+return self}, function($ctx1) {$ctx1.fill(self,"openClassNamed:",{aString:aString,class_:class_},smalltalk.HLBrowserModel)})},
+args: ["aString"],
+source: "openClassNamed: aString\x0a\x09| class |\x0a\x09\x0a\x09class := self environment classNamed: aString.\x0a\x09self selectedPackage: class package.\x0a\x09self selectedClass: class",
+messageSends: ["classNamed:", "environment", "selectedPackage:", "package", "selectedClass:"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);

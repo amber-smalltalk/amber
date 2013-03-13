@@ -72,6 +72,22 @@ referencedClasses: []
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_classNamed_",
+smalltalk.method({
+selector: "classNamed:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},smalltalk.HLEnvironment)})},
+args: ["aString"],
+source: "classNamed: aString\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_commitPackage_",
 smalltalk.method({
 selector: "commitPackage:",
@@ -283,6 +299,29 @@ args: [],
 source: "classBuilder\x0a\x09^ ClassBuilder new",
 messageSends: ["new"],
 referencedClasses: ["ClassBuilder"]
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_classNamed_",
+smalltalk.method({
+selector: "classNamed:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(_st(aString)._asSymbol());
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(self)._error_("Invalid class name");
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},smalltalk.HLLocalEnvironment)})},
+args: ["aString"],
+source: "classNamed: aString\x0a\x09^ (Smalltalk current at: aString asSymbol)\x0a\x09\x09ifNil: [ self error: 'Invalid class name' ]",
+messageSends: ["ifNil:", "error:", "at:", "asSymbol", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLLocalEnvironment);
 
