@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Core');
-smalltalk.addClass('HLTab', smalltalk.Object, ['widget', 'label'], 'Helios-Core');
+smalltalk.addClass('HLTab', smalltalk.Widget, ['widget', 'label', 'root'], 'Helios-Core');
 smalltalk.addMethod(
 "_activate",
 smalltalk.method({
@@ -7,7 +7,7 @@ selector: "activate",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._manager())._activate_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"activate",{}, smalltalk.HLTab)})},
+return self}, function($ctx1) {$ctx1.fill(self,"activate",{},smalltalk.HLTab)})},
 messageSends: ["activate:", "manager"]}),
 smalltalk.HLTab);
 
@@ -18,7 +18,7 @@ selector: "add",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._manager())._addTab_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"add",{}, smalltalk.HLTab)})},
+return self}, function($ctx1) {$ctx1.fill(self,"add",{},smalltalk.HLTab)})},
 messageSends: ["addTab:", "manager"]}),
 smalltalk.HLTab);
 
@@ -56,6 +56,23 @@ messageSends: ["ifTrue:", "focus", "widget", "canHaveFocus"]}),
 smalltalk.HLTab);
 
 smalltalk.addMethod(
+"_hide",
+smalltalk.method({
+selector: "hide",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@root"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(_st(self["@root"])._asJQuery())._hide();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.HLTab)})},
+messageSends: ["ifNotNil:", "hide", "asJQuery"]}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
 "_isActive",
 smalltalk.method({
 selector: "isActive",
@@ -64,7 +81,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(_st(_st(self)._manager())._activeTab()).__eq(self);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"isActive",{}, smalltalk.HLTab)})},
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLTab)})},
 messageSends: ["=", "activeTab", "manager"]}),
 smalltalk.HLTab);
 
@@ -82,7 +99,7 @@ $1="";
 $1=$2;
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLTab)})},
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLTab)})},
 messageSends: ["ifNil:"]}),
 smalltalk.HLTab);
 
@@ -93,7 +110,7 @@ selector: "label:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@label"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString}, smalltalk.HLTab)})},
+return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.HLTab)})},
 messageSends: []}),
 smalltalk.HLTab);
 
@@ -106,8 +123,88 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st((smalltalk.HLManager || HLManager))._current();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"manager",{}, smalltalk.HLTab)})},
+}, function($ctx1) {$ctx1.fill(self,"manager",{},smalltalk.HLTab)})},
 messageSends: ["current"]}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
+"_registerBindings",
+smalltalk.method({
+selector: "registerBindings",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._widget())._registerBindings();
+return self}, function($ctx1) {$ctx1.fill(self,"registerBindings",{},smalltalk.HLTab)})},
+messageSends: ["registerBindings", "widget"]}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
+"_remove",
+smalltalk.method({
+selector: "remove",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@root"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(_st(self["@root"])._asJQuery())._remove();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLTab)})},
+messageSends: ["ifNotNil:", "remove", "asJQuery"]}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
+"_renderOn_",
+smalltalk.method({
+selector: "renderOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("tab");
+$2=_st($1)._yourself();
+self["@root"]=$2;
+_st(self)._renderTab();
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLTab)})},
+messageSends: ["class:", "div", "yourself", "renderTab"]}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
+"_renderTab",
+smalltalk.method({
+selector: "renderTab",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(self["@root"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
+_st($1)._class_("amber_box");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx3) {return _st(_st(self)._widget())._renderOn_(html);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderTab",{},smalltalk.HLTab)})},
+messageSends: ["contents:", "class:", "div", "with:", "renderOn:", "widget"]}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
+"_show",
+smalltalk.method({
+selector: "show",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@root"];
+if(($receiver = $1) == nil || $receiver == undefined){
+_st(self)._appendToJQuery_(_st("body")._asJQuery());
+} else {
+_st(_st(self["@root"])._asJQuery())._show();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.HLTab)})},
+messageSends: ["ifNil:ifNotNil:", "appendToJQuery:", "asJQuery", "show"]}),
 smalltalk.HLTab);
 
 smalltalk.addMethod(
@@ -119,7 +216,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@widget"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"widget",{}, smalltalk.HLTab)})},
+}, function($ctx1) {$ctx1.fill(self,"widget",{},smalltalk.HLTab)})},
 messageSends: []}),
 smalltalk.HLTab);
 
@@ -130,7 +227,7 @@ selector: "widget:",
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { self["@widget"]=aWidget;
-return self}, function($ctx1) {$ctx1.fill(self,"widget:",{aWidget:aWidget}, smalltalk.HLTab)})},
+return self}, function($ctx1) {$ctx1.fill(self,"widget:",{aWidget:aWidget},smalltalk.HLTab)})},
 messageSends: []}),
 smalltalk.HLTab);
 
@@ -148,7 +245,7 @@ _st($2)._label_(aString);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:labelled:",{aWidget:aWidget,aString:aString}, smalltalk.HLTab.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:labelled:",{aWidget:aWidget,aString:aString},smalltalk.HLTab.klass)})},
 messageSends: ["widget:", "new", "label:", "yourself"]}),
 smalltalk.HLTab.klass);
 
@@ -929,13 +1026,14 @@ fn: function (aTab){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st(_st(self)._keyBinder())._flushBindings();
+_st(aTab)._registerBindings();
 self["@activeTab"]=aTab;
 $1=self;
 _st($1)._refresh();
 _st($1)._addToHistory_(aTab);
 $2=_st($1)._show_(aTab);
-return self}, function($ctx1) {$ctx1.fill(self,"activate:",{aTab:aTab}, smalltalk.HLManager)})},
-messageSends: ["flushBindings", "keyBinder", "refresh", "addToHistory:", "show:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"activate:",{aTab:aTab},smalltalk.HLManager)})},
+messageSends: ["flushBindings", "keyBinder", "registerBindings", "refresh", "addToHistory:", "show:"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -1086,9 +1184,8 @@ selector: "refresh",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(window)._jQuery_(".navbar"))._remove();
-_st(_st(window)._jQuery_("#container"))._remove();
 _st(self)._appendToJQuery_(_st("body")._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"refresh",{}, smalltalk.HLManager)})},
+return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLManager)})},
 messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery"]}),
 smalltalk.HLManager);
 
@@ -1131,12 +1228,13 @@ return $2;
 _st(self)._removeFromHistory_(aTab);
 _st(_st(self)._tabs())._remove_(aTab);
 _st(_st(self)._keyBinder())._flushBindings();
+_st(aTab)._remove();
 _st(self)._refresh();
 _st(_st(self)._history())._ifNotEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._history())._last())._activate();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeTab:",{aTab:aTab},smalltalk.HLManager)})},
-messageSends: ["ifFalse:", "includes:", "tabs", "removeFromHistory:", "remove:", "flushBindings", "keyBinder", "refresh", "ifNotEmpty:", "activate", "last", "history"]}),
+messageSends: ["ifFalse:", "includes:", "tabs", "removeFromHistory:", "remove:", "flushBindings", "keyBinder", "remove", "refresh", "ifNotEmpty:", "activate", "last", "history"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -1198,9 +1296,8 @@ return smalltalk.withContext(function($ctx3) {return _st(self)._renderTabsOn_(h
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(html)._div())._id_("container");
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html}, smalltalk.HLManager)})},
-messageSends: ["class:", "div", "with:", "renderTabsOn:", "id:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLManager)})},
+messageSends: ["class:", "div", "with:", "renderTabsOn:"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -1250,11 +1347,15 @@ smalltalk.method({
 selector: "show:",
 fn: function (aTab){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(window)._jQuery_("#container"))._empty();
-_st(_st(aTab)._widget())._appendToJQuery_(_st("#container")._asJQuery());
-_st(aTab)._focus();
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+_st(_st(self)._tabs())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._hide();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=aTab;
+_st($1)._show();
+$2=_st($1)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aTab:aTab},smalltalk.HLManager)})},
-messageSends: ["empty", "jQuery:", "appendToJQuery:", "asJQuery", "widget", "focus"]}),
+messageSends: ["do:", "hide", "tabs", "show", "focus"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(

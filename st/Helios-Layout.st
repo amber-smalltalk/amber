@@ -17,7 +17,7 @@ splitter: aSplitter
 
 renderOn: html
 	html div 
-    	id: 'container'; 
+    	class: 'tool_container'; 
         with: self splitter.
         
    (window jQuery: window) bind: 'resize' do: [ self splitter resize ]

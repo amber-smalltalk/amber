@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Helios-Core'!
-Object subclass: #HLTab
-	instanceVariableNames: 'widget label'
+Widget subclass: #HLTab
+	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!
 
 !HLTab methodsFor: 'accessing'!
@@ -42,6 +42,43 @@ widget
 
 widget: aWidget
 	widget := aWidget
+! !
+
+!HLTab methodsFor: 'actions'!
+
+hide
+	root ifNotNil: [
+		root asJQuery hide ]
+!
+
+registerBindings
+	self widget registerBindings
+!
+
+remove
+	root ifNotNil: [ root asJQuery remove ]
+!
+
+show
+	root
+		ifNil: [ self appendToJQuery: 'body' asJQuery ]
+		ifNotNil: [ root asJQuery show ]
+! !
+
+!HLTab methodsFor: 'rendering'!
+
+renderOn: html
+	root := html div
+		class: 'tab';
+		yourself.
+	self renderTab
+!
+
+renderTab
+	root contents: [ :html |
+		html div
+			class: 'amber_box';
+			with: [ self widget renderOn: html ] ]
 ! !
 
 !HLTab methodsFor: 'testing'!
@@ -446,6 +483,7 @@ tabs
 
 activate: aTab
 	self keyBinder flushBindings.
+	aTab registerBindings.
 	activeTab := aTab.
 	
 	self 
@@ -478,6 +516,7 @@ removeTab: aTab
 	self removeFromHistory: aTab.
 	self tabs remove: aTab.
 	self keyBinder flushBindings.
+	aTab remove.
 	self refresh.
 	self history ifNotEmpty: [
 		self history last activate ]
@@ -500,7 +539,6 @@ initialize
 
 refresh
 	(window jQuery: '.navbar') remove.
-	(window jQuery: '#container') remove.
 	self appendToJQuery: 'body' asJQuery
 !
 
@@ -532,8 +570,7 @@ renderContentOn: html
 		class: 'navbar navbar-fixed-top';
 		with: [ html div 
 			class: 'navbar-inner';
-			with: [ self renderTabsOn: html ] ].
-	html div id: 'container'
+			with: [ self renderTabsOn: html ] ]
 !
 
 renderTabsOn: html
@@ -554,9 +591,8 @@ renderTabsOn: html
 !
 
 show: aTab
-	(window jQuery: '#container') empty.
-	aTab widget appendToJQuery: '#container' asJQuery.
-	aTab focus
+	self tabs do: [ :each | each hide ].
+	aTab show; focus
 ! !
 
 HLManager class instanceVariableNames: 'current'!

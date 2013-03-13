@@ -21,31 +21,18 @@ model: aModel
 	model := aModel
 ! !
 
+!HLBrowser methodsFor: 'actions'!
+
+focus
+	^ self packagesListWidget focus
+! !
+
 !HLBrowser methodsFor: 'keybindings'!
 
 registerBindingsOn: aBindingGroup
-	HLBrowserCommand registerConcreteClassesOn: aBindingGroup for: self model
-	
-	"aBindingGroup 
-    	addGroupKey: 66 labelled: 'Browse';
-        addGroupKey: 71 labelled: 'Go to';
-        addGroupKey: 84 labelled: 'Toggle';
-		addGroupKey: 77 labelled: 'Move'.
-			
-	(aBindingGroup at: 'Move')
-		addGroupKey: 77 labelled: 'Method';
-		addGroupKey: 67 labelled: 'Class';
-		addGroupKey: 80 labelled: 'Protocol'.
-        
-	HLMoveMethodToCommand concreteClasses do: [ :each |
-  			(aBindingGroup at: 'Move') 
-				at: each bindingGroup 
-  				add: (each on: self model) asBinding ].
-			
-   	HLBrowserCommand concreteClasses do: [ :each |
-  			aBindingGroup 
-				at: each bindingGroup
-  				add: (each on: self model) asBinding ]"
+	HLBrowserCommand 
+		registerConcreteClassesOn: aBindingGroup 
+		for: self model
 ! !
 
 !HLBrowser methodsFor: 'rendering'!
@@ -62,6 +49,12 @@ renderContentOn: html
         with: self sourceWidget)).
 	
 	self packagesListWidget focus
+! !
+
+!HLBrowser methodsFor: 'testing'!
+
+canHaveFocus
+	^ true
 ! !
 
 !HLBrowser methodsFor: 'widgets'!

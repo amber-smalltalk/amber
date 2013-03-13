@@ -19,6 +19,22 @@ referencedClasses: []
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(
+"_canHaveFocus",
+smalltalk.method({
+selector: "canHaveFocus",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLBrowser)})},
+args: [],
+source: "canHaveFocus\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLBrowser);
+
+smalltalk.addMethod(
 "_classesListWidget",
 smalltalk.method({
 selector: "classesListWidget",
@@ -57,6 +73,24 @@ return $1;
 args: [],
 source: "environment\x0a\x09^ self model environment",
 messageSends: ["environment", "model"],
+referencedClasses: []
+}),
+smalltalk.HLBrowser);
+
+smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._packagesListWidget())._focus();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLBrowser)})},
+args: [],
+source: "focus\x0a\x09^ self packagesListWidget focus",
+messageSends: ["focus", "packagesListWidget"],
 referencedClasses: []
 }),
 smalltalk.HLBrowser);
@@ -185,7 +219,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st((smalltalk.HLBrowserCommand || HLBrowserCommand))._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
 return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup},smalltalk.HLBrowser)})},
 args: ["aBindingGroup"],
-source: "registerBindingsOn: aBindingGroup\x0a\x09HLBrowserCommand registerConcreteClassesOn: aBindingGroup for: self model\x0a\x09\x0a\x09\x22aBindingGroup \x0a    \x09addGroupKey: 66 labelled: 'Browse';\x0a        addGroupKey: 71 labelled: 'Go to';\x0a        addGroupKey: 84 labelled: 'Toggle';\x0a\x09\x09addGroupKey: 77 labelled: 'Move'.\x0a\x09\x09\x09\x0a\x09(aBindingGroup at: 'Move')\x0a\x09\x09addGroupKey: 77 labelled: 'Method';\x0a\x09\x09addGroupKey: 67 labelled: 'Class';\x0a\x09\x09addGroupKey: 80 labelled: 'Protocol'.\x0a        \x0a\x09HLMoveMethodToCommand concreteClasses do: [ :each |\x0a  \x09\x09\x09(aBindingGroup at: 'Move') \x0a\x09\x09\x09\x09at: each bindingGroup \x0a  \x09\x09\x09\x09add: (each on: self model) asBinding ].\x0a\x09\x09\x09\x0a   \x09HLBrowserCommand concreteClasses do: [ :each |\x0a  \x09\x09\x09aBindingGroup \x0a\x09\x09\x09\x09at: each bindingGroup\x0a  \x09\x09\x09\x09add: (each on: self model) asBinding ]\x22",
+source: "registerBindingsOn: aBindingGroup\x0a\x09HLBrowserCommand \x0a\x09\x09registerConcreteClassesOn: aBindingGroup \x0a\x09\x09for: self model",
 messageSends: ["registerConcreteClassesOn:for:", "model"],
 referencedClasses: ["HLBrowserCommand"]
 }),

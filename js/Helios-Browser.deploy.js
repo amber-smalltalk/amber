@@ -14,6 +14,17 @@ messageSends: ["announcer", "model"]}),
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(
+"_canHaveFocus",
+smalltalk.method({
+selector: "canHaveFocus",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLBrowser)})},
+messageSends: []}),
+smalltalk.HLBrowser);
+
+smalltalk.addMethod(
 "_classesListWidget",
 smalltalk.method({
 selector: "classesListWidget",
@@ -44,6 +55,19 @@ $1=_st(_st(self)._model())._environment();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"environment",{}, smalltalk.HLBrowser)})},
 messageSends: ["environment", "model"]}),
+smalltalk.HLBrowser);
+
+smalltalk.addMethod(
+"_focus",
+smalltalk.method({
+selector: "focus",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._packagesListWidget())._focus();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLBrowser)})},
+messageSends: ["focus", "packagesListWidget"]}),
 smalltalk.HLBrowser);
 
 smalltalk.addMethod(

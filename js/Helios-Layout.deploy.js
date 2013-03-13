@@ -8,13 +8,13 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(html)._div();
-_st($1)._id_("container");
+_st($1)._class_("tool_container");
 $2=_st($1)._with_(_st(self)._splitter());
 _st(_st(window)._jQuery_(window))._bind_do_("resize",(function(){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._splitter())._resize();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html}, smalltalk.HLContainer)})},
-messageSends: ["id:", "div", "with:", "splitter", "bind:do:", "resize", "jQuery:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLContainer)})},
+messageSends: ["class:", "div", "with:", "splitter", "bind:do:", "resize", "jQuery:"]}),
 smalltalk.HLContainer);
 
 smalltalk.addMethod(
