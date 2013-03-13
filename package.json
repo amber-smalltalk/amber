@@ -16,7 +16,6 @@
         "type": "git",
         "url": "git://github.com/amber-smalltalk/amber.git#0.10.0"
     },
-    "files": [ "." ],
     "bin": {
         "amber": "./bin/amber",
         "amberc": "./bin/amberc",
