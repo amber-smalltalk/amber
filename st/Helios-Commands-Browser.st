@@ -249,6 +249,46 @@ label
 	^ 'to protocol'
 ! !
 
+HLBrowserCommand subclass: #HLRemoveCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRemoveCommand class methodsFor: 'accessing'!
+
+key
+	^ 88
+!
+
+label
+	^ 'Remove'
+! !
+
+HLRemoveCommand subclass: #HLRemoveMethodCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRemoveMethodCommand methodsFor: 'executing'!
+
+execute
+	self model removeMethod
+! !
+
+!HLRemoveMethodCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedMethod notNil
+! !
+
+!HLRemoveMethodCommand class methodsFor: 'accessing'!
+
+key
+	^ 77
+!
+
+label
+	^ 'Method'
+! !
+
 HLBrowserCommand subclass: #HLToggleCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

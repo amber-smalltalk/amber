@@ -32,6 +32,14 @@ eval: someCode on: aReceiver
 
 moveMethod: aMethod toClass: aClassName
 	self subclassResponsibility
+!
+
+moveMethod: aMethod toProtocol: aProtocol
+	self subclassResponsibility
+!
+
+removeMethod: aMethod
+	self sublcassResponsibility
 ! !
 
 !HLEnvironment methodsFor: 'compiling'!
@@ -104,6 +112,14 @@ moveMethod: aMethod toClass: aClassName
 	
 	destinationClass adoptMethod: aMethod.
 	aMethod methodClass forsakeMethod: aMethod.
+!
+
+moveMethod: aMethod toProtocol: aProtocol
+	aMethod category: aProtocol
+!
+
+removeMethod: aMethod
+	aMethod methodClass forsakeMethod: aMethod
 ! !
 
 HLEnvironment subclass: #HLRemoteEnvironment

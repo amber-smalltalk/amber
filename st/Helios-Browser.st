@@ -721,6 +721,16 @@ environment: anEnvironment
 	environment := anEnvironment
 !
 
+handleUnkownVariableError: anError
+	self announcer announce: (HLUnknownVariableErrorRaised new
+		error: anError;
+		yourself)
+!
+
+manager
+	^ HLManager current
+!
+
 packages
 	^ self environment packages
 !
@@ -860,11 +870,13 @@ moveMethodToClass: aClassName
 		toClass: aClassName
 !
 
-moveMethodToClass: aClassName ifAbsent: aBlock
-	self environment 
-		moveMethod: self selectedMethod 
-		toClass: aClassName 
-		ifAbsent: aBlock
+moveMethodToProtocol: aProtocol
+	self environment moveMethod: self selectedMethod toProtocol: aProtocol
+!
+
+removeMethod
+	(self manager confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector)
+		ifTrue: [ self environment removeMethod: self selectedMethod ]
 ! !
 
 !HLBrowserModel methodsFor: 'compiling'!
@@ -922,12 +934,6 @@ handleParseError: anError
 		line: line asNumber;
 		column: column asNumber;
 		message: messageToInsert;
-		error: anError;
-		yourself)
-!
-
-handleUnkownVariableError: anError
-	self announcer announce: (HLUnknownVariableErrorRaised new
 		error: anError;
 		yourself)
 !

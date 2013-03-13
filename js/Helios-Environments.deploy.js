@@ -108,6 +108,17 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_moveMethod_toProtocol_",
+smalltalk.method({
+selector: "moveMethod:toProtocol:",
+fn: function (aMethod,aProtocol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_packages",
 smalltalk.method({
 selector: "packages",
@@ -118,6 +129,17 @@ $1=_st(self)._subclassResponsibility();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{}, smalltalk.HLEnvironment)})},
 messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+"_removeMethod_",
+smalltalk.method({
+selector: "removeMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._sublcassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},smalltalk.HLEnvironment)})},
+messageSends: ["sublcassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 
@@ -224,6 +246,17 @@ messageSends: ["at:", "asSymbol", "current", "ifNil:", "error:", "ifTrue:", "=="
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
+"_moveMethod_toProtocol_",
+smalltalk.method({
+selector: "moveMethod:toProtocol:",
+fn: function (aMethod,aProtocol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aMethod)._category_(aProtocol);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},smalltalk.HLLocalEnvironment)})},
+messageSends: ["category:"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
 "_packages",
 smalltalk.method({
 selector: "packages",
@@ -234,6 +267,17 @@ $1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packages();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{}, smalltalk.HLLocalEnvironment)})},
 messageSends: ["packages", "current"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_removeMethod_",
+smalltalk.method({
+selector: "removeMethod:",
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},smalltalk.HLLocalEnvironment)})},
+messageSends: ["forsakeMethod:", "methodClass"]}),
 smalltalk.HLLocalEnvironment);
 
 

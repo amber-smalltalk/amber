@@ -1793,6 +1793,19 @@ messageSends: ["announce:", "error:", "new", "yourself", "announcer"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
+"_manager",
+smalltalk.method({
+selector: "manager",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLManager || HLManager))._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"manager",{},smalltalk.HLBrowserModel)})},
+messageSends: ["current"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
 "_moveMethodToClass_",
 smalltalk.method({
 selector: "moveMethodToClass:",
@@ -1804,14 +1817,14 @@ messageSends: ["moveMethod:toClass:", "selectedMethod", "environment"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_moveMethodToClass_ifAbsent_",
+"_moveMethodToProtocol_",
 smalltalk.method({
-selector: "moveMethodToClass:ifAbsent:",
-fn: function (aClassName,aBlock){
+selector: "moveMethodToProtocol:",
+fn: function (aProtocol){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toClass_ifAbsent_(_st(self)._selectedMethod(),aClassName,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:ifAbsent:",{aClassName:aClassName,aBlock:aBlock},smalltalk.HLBrowserModel)})},
-messageSends: ["moveMethod:toClass:ifAbsent:", "selectedMethod", "environment"]}),
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toProtocol_(_st(self)._selectedMethod(),aProtocol);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToProtocol:",{aProtocol:aProtocol},smalltalk.HLBrowserModel)})},
+messageSends: ["moveMethod:toProtocol:", "selectedMethod", "environment"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -1825,6 +1838,21 @@ $1=_st(_st(self)._environment())._packages();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{}, smalltalk.HLBrowserModel)})},
 messageSends: ["packages", "environment"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_removeMethod",
+smalltalk.method({
+selector: "removeMethod",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._manager())._confirm_(_st(_st(_st("Do you REALLY want to remove method ").__comma(_st(_st(_st(self)._selectedMethod())._methodClass())._name())).__comma(" >> #")).__comma(_st(_st(self)._selectedMethod())._selector()));
+if(smalltalk.assert($1)){
+_st(_st(self)._environment())._removeMethod_(_st(self)._selectedMethod());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod",{},smalltalk.HLBrowserModel)})},
+messageSends: ["ifTrue:", "removeMethod:", "selectedMethod", "environment", "confirm:", ",", "selector", "name", "methodClass", "manager"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(

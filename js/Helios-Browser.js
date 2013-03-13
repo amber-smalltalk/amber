@@ -2326,7 +2326,7 @@ smalltalk.addMethod(
 "_handleUnkownVariableError_",
 smalltalk.method({
 selector: "handleUnkownVariableError:",
-category: 'error handling',
+category: 'accessing',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
@@ -2339,6 +2339,24 @@ args: ["anError"],
 source: "handleUnkownVariableError: anError\x0a\x09self announcer announce: (HLUnknownVariableErrorRaised new\x0a\x09\x09error: anError;\x0a\x09\x09yourself)",
 messageSends: ["announce:", "error:", "new", "yourself", "announcer"],
 referencedClasses: ["HLUnknownVariableErrorRaised"]
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_manager",
+smalltalk.method({
+selector: "manager",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.HLManager || HLManager))._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"manager",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "manager\x0a\x09^ HLManager current",
+messageSends: ["current"],
+referencedClasses: ["HLManager"]
 }),
 smalltalk.HLBrowserModel);
 
@@ -2359,17 +2377,17 @@ referencedClasses: []
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
-"_moveMethodToClass_ifAbsent_",
+"_moveMethodToProtocol_",
 smalltalk.method({
-selector: "moveMethodToClass:ifAbsent:",
+selector: "moveMethodToProtocol:",
 category: 'commands actions',
-fn: function (aClassName,aBlock){
+fn: function (aProtocol){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toClass_ifAbsent_(_st(self)._selectedMethod(),aClassName,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:ifAbsent:",{aClassName:aClassName,aBlock:aBlock},smalltalk.HLBrowserModel)})},
-args: ["aClassName", "aBlock"],
-source: "moveMethodToClass: aClassName ifAbsent: aBlock\x0a\x09self environment \x0a\x09\x09moveMethod: self selectedMethod \x0a\x09\x09toClass: aClassName \x0a\x09\x09ifAbsent: aBlock",
-messageSends: ["moveMethod:toClass:ifAbsent:", "selectedMethod", "environment"],
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._environment())._moveMethod_toProtocol_(_st(self)._selectedMethod(),aProtocol);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToProtocol:",{aProtocol:aProtocol},smalltalk.HLBrowserModel)})},
+args: ["aProtocol"],
+source: "moveMethodToProtocol: aProtocol\x0a\x09self environment moveMethod: self selectedMethod toProtocol: aProtocol",
+messageSends: ["moveMethod:toProtocol:", "selectedMethod", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
@@ -2388,6 +2406,26 @@ return $1;
 args: [],
 source: "packages\x0a\x09^ self environment packages",
 messageSends: ["packages", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+"_removeMethod",
+smalltalk.method({
+selector: "removeMethod",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._manager())._confirm_(_st(_st(_st("Do you REALLY want to remove method ").__comma(_st(_st(_st(self)._selectedMethod())._methodClass())._name())).__comma(" >> #")).__comma(_st(_st(self)._selectedMethod())._selector()));
+if(smalltalk.assert($1)){
+_st(_st(self)._environment())._removeMethod_(_st(self)._selectedMethod());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "removeMethod\x0a\x09(self manager confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector)\x0a\x09\x09ifTrue: [ self environment removeMethod: self selectedMethod ]",
+messageSends: ["ifTrue:", "removeMethod:", "selectedMethod", "environment", "confirm:", ",", "selector", "name", "methodClass", "manager"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
