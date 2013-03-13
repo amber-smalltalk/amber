@@ -16,13 +16,15 @@ Here's a summary of change since the 0.9.1 release:
   - an AST interpreter
   - support for blocks contexts
 
-- SUnit improvements and cleanup, with support for async assertions
 - New build system based on grunt.js, replacing the old makefiles
-- Improved ClassBuilder with better class migration support
 - New bin/amberc compiler written in Amber/Node.js
+- SUnit improvements and cleanup, with support for async assertions
+- Improved ClassBuilder with better class migration support
 - Improved loader for third party packages
+- New: Announcements
 - Classes can be augmented by light-weight methods created from blocks
 - Snippets of HTML can be marked to become virtual tags in HTMLCanvas
+- Amber server supports Basic HTTP authentication (not recommended for production environments/unencrypted connections)
 - New IDE on it's way for Amber 1.0
 
 
