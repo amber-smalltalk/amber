@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Core'!
 Object subclass: #HLTab
- instanceVariableNames: 'widget label'
- package: 'Helios-Core'!
+	instanceVariableNames: 'widget label'
+	package: 'Helios-Core'!
 
 !HLTab methodsFor: 'accessing'!
 
@@ -60,8 +60,8 @@ on: aWidget labelled: aString
 ! !
 
 Widget subclass: #HLWidget
- instanceVariableNames: 'wrapper'
- package: 'Helios-Core'!
+	instanceVariableNames: 'wrapper'
+	package: 'Helios-Core'!
 
 !HLWidget methodsFor: 'accessing'!
 
@@ -141,12 +141,12 @@ canBeOpenAsTab
 ! !
 
 HLWidget subclass: #HLDebugger
- instanceVariableNames: ''
- package: 'Helios-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
 
 HLWidget subclass: #HLFocusableWidget
- instanceVariableNames: 'hiddenInput'
- package: 'Helios-Core'!
+	instanceVariableNames: 'hiddenInput'
+	package: 'Helios-Core'!
 
 !HLFocusableWidget methodsFor: 'accessing'!
 
@@ -198,8 +198,8 @@ canHaveFocus
 ! !
 
 HLFocusableWidget subclass: #HLListWidget
- instanceVariableNames: 'items selectedItem'
- package: 'Helios-Core'!
+	instanceVariableNames: 'items selectedItem'
+	package: 'Helios-Core'!
 
 !HLListWidget methodsFor: 'accessing'!
 
@@ -335,8 +335,8 @@ renderListOn: html
 ! !
 
 HLListWidget subclass: #HLNavigationListWidget
- instanceVariableNames: 'previous next'
- package: 'Helios-Core'!
+	instanceVariableNames: 'previous next'
+	package: 'Helios-Core'!
 
 !HLNavigationListWidget methodsFor: 'accessing'!
 
@@ -381,8 +381,8 @@ setupKeyBindings
 ! !
 
 HLWidget subclass: #HLManager
- instanceVariableNames: 'tabs activeTab keyBinder environment history'
- package: 'Helios-Core'!
+	instanceVariableNames: 'tabs activeTab keyBinder environment history'
+	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
 
@@ -556,8 +556,8 @@ new
 ! !
 
 HLWidget subclass: #HLSUnit
- instanceVariableNames: ''
- package: 'Helios-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
 
 !HLSUnit class methodsFor: 'accessing'!
 
@@ -576,8 +576,8 @@ canBeOpenAsTab
 ! !
 
 HLWidget subclass: #HLTranscript
- instanceVariableNames: ''
- package: 'Helios-Core'!
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
 
 !HLTranscript class methodsFor: 'accessing'!
 
@@ -593,5 +593,27 @@ tabPriority
 
 canBeOpenAsTab
 	^ true
+! !
+
+!Package methodsFor: '*Helios-Core'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 'type' -> 'PUT'.
+					'data' -> aString.
+					'contentType' -> 'text/plain;charset=UTF-8'.
+					'error' -> [:xhr | window 
+						alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+!
+
+heliosCommit
+
+	{ Exporter -> (self commitPathJs, '/', self name, '.js').
+			StrippedExporter -> (self commitPathJs, '/', self name, '.deploy.js').
+			ChunkExporter -> (self commitPathSt, '/', self name, '.st')
+		} do: [ :commitStrategy || fileContents |
+			fileContents := (commitStrategy key new exportPackage: self name).
+			self ajaxPutAt: commitStrategy value data: fileContents ]
 ! !
 

@@ -135,6 +135,33 @@ label
 	^ 'Source code'
 ! !
 
+HLBrowserCommand subclass: #HLCommitPackageCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLCommitPackageCommand methodsFor: 'executing'!
+
+execute
+	self model commitPackage
+! !
+
+!HLCommitPackageCommand methodsFor: 'testing'!
+
+isActive
+	^ true
+	" slf model isPackageDirty"
+! !
+
+!HLCommitPackageCommand class methodsFor: 'accessing'!
+
+key
+	^ 75
+!
+
+label
+	^ 'Commit package'
+! !
+
 HLBrowserCommand subclass: #HLMoveToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

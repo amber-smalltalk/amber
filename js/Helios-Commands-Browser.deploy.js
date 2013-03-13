@@ -223,6 +223,53 @@ messageSends: []}),
 smalltalk.HLGoToSourceCodeCommand.klass);
 
 
+smalltalk.addClass('HLCommitPackageCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._commitPackage();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommitPackageCommand)})},
+messageSends: ["commitPackage", "model"]}),
+smalltalk.HLCommitPackageCommand);
+
+smalltalk.addMethod(
+"_isActive",
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCommitPackageCommand)})},
+messageSends: []}),
+smalltalk.HLCommitPackageCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (75);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommitPackageCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCommitPackageCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Commit package";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommitPackageCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCommitPackageCommand.klass);
+
+
 smalltalk.addClass('HLMoveToCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(

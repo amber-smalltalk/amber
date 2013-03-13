@@ -51,6 +51,17 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
+"_commitPackage_",
+smalltalk.method({
+selector: "commitPackage:",
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage:",{aPackage:aPackage},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
 "_compileClassComment_for_",
 smalltalk.method({
 selector: "compileClassComment:for:",
@@ -192,6 +203,17 @@ $1=_st((smalltalk.ClassBuilder || ClassBuilder))._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classBuilder",{}, smalltalk.HLLocalEnvironment)})},
 messageSends: ["new"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_commitPackage_",
+smalltalk.method({
+selector: "commitPackage:",
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aPackage)._heliosCommit();
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage:",{aPackage:aPackage},smalltalk.HLLocalEnvironment)})},
+messageSends: ["heliosCommit"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(

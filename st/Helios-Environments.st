@@ -25,6 +25,10 @@ packages
 
 !HLEnvironment methodsFor: 'actions'!
 
+commitPackage: aPackage
+	self subclassResponsibility
+!
+
 eval: someCode on: aReceiver
 
 	^ self subclassResponsibility
@@ -94,6 +98,10 @@ packages
 ! !
 
 !HLLocalEnvironment methodsFor: 'actions'!
+
+commitPackage: aPackage
+	aPackage heliosCommit
+!
 
 eval: aString on: aReceiver
 	| compiler  |

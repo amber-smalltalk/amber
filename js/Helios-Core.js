@@ -1779,3 +1779,42 @@ referencedClasses: []
 smalltalk.HLTranscript.klass);
 
 
+smalltalk.addMethod(
+"_ajaxPutAt_data_",
+smalltalk.method({
+selector: "ajaxPutAt:data:",
+category: '*Helios-Core',
+fn: function (aURL,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
+return smalltalk.withContext(function($ctx2) {return _st(window)._alert_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
+}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
+return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.Package)})},
+args: ["aURL", "aString"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL \x0a\x09\x09options: #{ 'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09'error' -> [:xhr | window \x0a\x09\x09\x09\x09\x09\x09alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:options:", "->", "alert:", ",", "responseText"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+"_heliosCommit",
+smalltalk.method({
+selector: "heliosCommit",
+category: '*Helios-Core',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st([_st((smalltalk.Exporter || Exporter)).__minus_gt(_st(_st(_st(_st(self)._commitPathJs()).__comma("/")).__comma(_st(self)._name())).__comma(".js")),_st((smalltalk.StrippedExporter || StrippedExporter)).__minus_gt(_st(_st(_st(_st(self)._commitPathJs()).__comma("/")).__comma(_st(self)._name())).__comma(".deploy.js")),_st((smalltalk.ChunkExporter || ChunkExporter)).__minus_gt(_st(_st(_st(_st(self)._commitPathSt()).__comma("/")).__comma(_st(self)._name())).__comma(".st"))])._do_((function(commitStrategy){
+var fileContents;
+return smalltalk.withContext(function($ctx2) {fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(_st(self)._name());
+fileContents;
+return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
+}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"heliosCommit",{},smalltalk.Package)})},
+args: [],
+source: "heliosCommit\x0a\x0a\x09{ Exporter -> (self commitPathJs, '/', self name, '.js').\x0a\x09\x09\x09StrippedExporter -> (self commitPathJs, '/', self name, '.deploy.js').\x0a\x09\x09\x09ChunkExporter -> (self commitPathSt, '/', self name, '.st')\x0a\x09\x09} do: [ :commitStrategy || fileContents |\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: self name).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]",
+messageSends: ["do:", "exportPackage:", "name", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "commitPathJs", "commitPathSt"],
+referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
+}),
+smalltalk.Package);
+

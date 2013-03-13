@@ -419,6 +419,10 @@ observeModel
 
 observeSystem
 	SystemAnnouncer current 
+    	on: ProtocolAdded
+        do: [ :ann | self onProtocolAdded: ann theClass ];
+    	on: ProtocolRemoved
+        do: [ :ann | self onProtocolRemoved: ann theClass ];
     	on: MethodAdded 
         do: [ :ann | self onMethodAdded: ann method ];
         on: MethodRemoved 
@@ -484,6 +488,22 @@ onMethodSelected: aMethod
 !
 
 onMethodsFocusRequested
+	self focus
+!
+
+onProtocolAdded: aClass
+	self model selectedClass = aClass ifFalse: [ ^ self ].
+	
+	self setItemsForSelectedProtocol.
+    self refresh.
+	self focus
+!
+
+onProtocolRemoved: aClass
+	self model selectedClass = aClass ifFalse: [ ^ self ].
+	
+	self setItemsForSelectedProtocol.
+    self refresh.
 	self focus
 !
 
@@ -863,6 +883,10 @@ saveSourceCode
 ! !
 
 !HLBrowserModel methodsFor: 'commands actions'!
+
+commitPackage
+	self environment commitPackage: self selectedPackage
+!
 
 moveMethodToClass: aClassName
 	self environment 

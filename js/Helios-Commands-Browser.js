@@ -313,6 +313,73 @@ referencedClasses: []
 smalltalk.HLGoToSourceCodeCommand.klass);
 
 
+smalltalk.addClass('HLCommitPackageCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+"_execute",
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._commitPackage();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommitPackageCommand)})},
+args: [],
+source: "execute\x0a\x09self model commitPackage",
+messageSends: ["commitPackage", "model"],
+referencedClasses: []
+}),
+smalltalk.HLCommitPackageCommand);
+
+smalltalk.addMethod(
+"_isActive",
+smalltalk.method({
+selector: "isActive",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCommitPackageCommand)})},
+args: [],
+source: "isActive\x0a\x09^ true\x0a\x09\x22 slf model isPackageDirty\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommitPackageCommand);
+
+
+smalltalk.addMethod(
+"_key",
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return (75);
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommitPackageCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 75",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommitPackageCommand.klass);
+
+smalltalk.addMethod(
+"_label",
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "Commit package";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommitPackageCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Commit package'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommitPackageCommand.klass);
+
+
 smalltalk.addClass('HLMoveToCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(
