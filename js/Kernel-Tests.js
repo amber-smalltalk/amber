@@ -2420,6 +2420,72 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
+"_testAtIfPresent",
+smalltalk.method({
+selector: "testAtIfPresent",
+category: 'tests',
+fn: function (){
+var self=this;
+var testObject;
+return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_("abc",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})),nil);
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_("e",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})),"hello nil");
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_("a",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})),"hello 1");
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_("f",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})})),"hello nil");
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
+args: [],
+source: "testAtIfPresent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString]) equals: nil.\x0a\x09self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString]) equals: 'hello nil'.",
+messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+"_testAtIfPresentIfAbsent",
+smalltalk.method({
+selector: "testAtIfPresentIfAbsent",
+category: 'tests',
+fn: function (){
+var self=this;
+var testObject;
+return smalltalk.withContext(function($ctx1) { testObject=_st(self)._jsObject();
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("abc",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return "not present";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"not present");
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("e",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return "not present";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"hello nil");
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("a",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return "not present";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"hello 1");
+_st(self)._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("f",(function(x){
+return smalltalk.withContext(function($ctx2) {return _st("hello ").__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return "not present";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"hello nil");
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
+args: [],
+source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.",
+messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
 "_testDNU",
 smalltalk.method({
 selector: "testDNU",
