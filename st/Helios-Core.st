@@ -135,8 +135,6 @@ renderContentOn: html
 !
 
 renderOn: html
-    self registerBindings.
-
 	wrapper := html div.
     [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery
 ! !

@@ -484,15 +484,14 @@ selector: "renderOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._registerBindings();
-self["@wrapper"]=_st(html)._div();
+return smalltalk.withContext(function($ctx1) { self["@wrapper"]=_st(html)._div();
 _st((function(renderer){
 return smalltalk.withContext(function($ctx2) {return _st(self)._renderContentOn_(renderer);
 }, function($ctx2) {$ctx2.fillBlock({renderer:renderer},$ctx1)})}))._appendToJQuery_(_st(self["@wrapper"])._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html}, smalltalk.HLWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLWidget)})},
 args: ["html"],
-source: "renderOn: html\x0a    self registerBindings.\x0a\x0a\x09wrapper := html div.\x0a    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery",
-messageSends: ["registerBindings", "div", "appendToJQuery:", "asJQuery", "renderContentOn:"],
+source: "renderOn: html\x0a\x09wrapper := html div.\x0a    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery",
+messageSends: ["div", "appendToJQuery:", "asJQuery", "renderContentOn:"],
 referencedClasses: []
 }),
 smalltalk.HLWidget);

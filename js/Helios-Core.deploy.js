@@ -358,13 +358,12 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._registerBindings();
-self["@wrapper"]=_st(html)._div();
+return smalltalk.withContext(function($ctx1) { self["@wrapper"]=_st(html)._div();
 _st((function(renderer){
 return smalltalk.withContext(function($ctx2) {return _st(self)._renderContentOn_(renderer);
 }, function($ctx2) {$ctx2.fillBlock({renderer:renderer},$ctx1)})}))._appendToJQuery_(_st(self["@wrapper"])._asJQuery());
-return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html}, smalltalk.HLWidget)})},
-messageSends: ["registerBindings", "div", "appendToJQuery:", "asJQuery", "renderContentOn:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLWidget)})},
+messageSends: ["div", "appendToJQuery:", "asJQuery", "renderContentOn:"]}),
 smalltalk.HLWidget);
 
 smalltalk.addMethod(
