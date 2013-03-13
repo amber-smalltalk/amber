@@ -248,7 +248,7 @@ activateItem: anObject
 !
 
 activateListItem: aListItem
-	| parent position |
+	| parent position item |
     
 	(aListItem get: 0) ifNil: [ ^self ].
 
@@ -265,7 +265,9 @@ activateListItem: aListItem
 		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ].
         
    "Activate the corresponding item"
-   self selectItem: (self items at: (aListItem attr: 'list-data') asNumber)
+   item := (self items at: (aListItem attr: 'list-data') asNumber).
+   self selectedItem == item ifFalse: [
+	   self selectItem: item ]
 !
 
 focus
@@ -276,12 +278,6 @@ focus
 
 selectItem: anObject
 	self selectedItem: anObject
-!
-
-selectListItem: anObject
-	self selectListItem: (mapping 
-		at: anObject
-		ifAbsent: [ ^ self ]) asJQuery
 ! !
 
 !HLListWidget methodsFor: 'defaults'!

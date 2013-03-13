@@ -252,7 +252,7 @@ onClassSelected: aClass
 	aClass ifNil: [ ^ self ].
     
 	self 
-		selectListItem: aClass;
+		activateItem: aClass;
 		focus
 !
 
@@ -488,7 +488,9 @@ onMethodSelected: aMethod
 	self selectedItem: aMethod.
 	aMethod ifNil: [ ^ self ].
     
-    self focus
+    self 
+		activateItem: aMethod;
+		focus
 !
 
 onMethodsFocusRequested
@@ -588,7 +590,7 @@ selectItem: aPackage
 onPackageSelected: aPackage
 	self 
 		selectedItem: aPackage;
-		selectListItem: aPackage;
+		activateItem: aPackage;
 		focus
 !
 
@@ -704,7 +706,9 @@ onProtocolSelected: aString
 	self selectedItem: aString.
 	aString ifNil: [ ^ self ].
     
-    self focus
+    self 
+		activateItem: aString;
+		focus
 !
 
 onProtocolsFocusRequested

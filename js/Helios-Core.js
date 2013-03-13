@@ -665,8 +665,8 @@ selector: "activateListItem:",
 category: 'actions',
 fn: function (aListItem){
 var self=this;
-var parent,position;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+var parent,position,item;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 $1=_st(aListItem)._get_((0));
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=self;
@@ -686,11 +686,15 @@ $4=_st(_st(_st(_st(aListItem)._position())._top()).__plus(_st(aListItem)._height
 if(smalltalk.assert($4)){
 _st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(aListItem)._height())).__minus(_st(_st(parent)._height()).__minus(_st(_st(aListItem)._position())._top()))).__plus((10)));
 };
-_st(self)._selectItem_(_st(_st(self)._items())._at_(_st(_st(aListItem)._attr_("list-data"))._asNumber()));
-return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,parent:parent,position:position}, smalltalk.HLListWidget)})},
+item=_st(_st(self)._items())._at_(_st(_st(aListItem)._attr_("list-data"))._asNumber());
+$5=_st(_st(self)._selectedItem()).__eq_eq(item);
+if(! smalltalk.assert($5)){
+_st(self)._selectItem_(item);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,parent:parent,position:position,item:item},smalltalk.HLListWidget)})},
 args: ["aListItem"],
-source: "activateListItem: aListItem\x0a\x09| parent position |\x0a    \x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x0a\x09position := self positionOf: aListItem.\x0a\x0a    parent := aListItem parent.\x0a\x09parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a    \x22Move the scrollbar to show the active element\x22\x0a    aListItem position top < 0 ifTrue: [\x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].\x0a    aListItem position top + aListItem height > parent height ifTrue: [ \x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ].\x0a        \x0a   \x22Activate the corresponding item\x22\x0a   self selectItem: (self items at: (aListItem attr: 'list-data') asNumber)",
-messageSends: ["ifNil:", "get:", "positionOf:", "parent", "removeClass:", "children", "addClass:", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "<", "height", ">", "selectItem:", "at:", "asNumber", "attr:", "items"],
+source: "activateListItem: aListItem\x0a\x09| parent position item |\x0a    \x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x0a\x09position := self positionOf: aListItem.\x0a\x0a    parent := aListItem parent.\x0a\x09parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a    \x22Move the scrollbar to show the active element\x22\x0a    aListItem position top < 0 ifTrue: [\x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].\x0a    aListItem position top + aListItem height > parent height ifTrue: [ \x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ].\x0a        \x0a   \x22Activate the corresponding item\x22\x0a   item := (self items at: (aListItem attr: 'list-data') asNumber).\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
+messageSends: ["ifNil:", "get:", "positionOf:", "parent", "removeClass:", "children", "addClass:", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "<", "height", ">", "at:", "asNumber", "attr:", "items", "ifFalse:", "selectItem:", "==", "selectedItem"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -989,30 +993,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{anObject:anObject}
 args: ["anObject"],
 source: "selectItem: anObject\x0a\x09self selectedItem: anObject",
 messageSends: ["selectedItem:"],
-referencedClasses: []
-}),
-smalltalk.HLListWidget);
-
-smalltalk.addMethod(
-"_selectListItem_",
-smalltalk.method({
-selector: "selectListItem:",
-category: 'actions',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-var $early={};
-try {
-_st(self)._selectListItem_(_st(_st(self["@mapping"])._at_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {$1=self;
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._asJQuery());
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"selectListItem:",{anObject:anObject},smalltalk.HLListWidget)})},
-args: ["anObject"],
-source: "selectListItem: anObject\x0a\x09self selectListItem: (mapping \x0a\x09\x09at: anObject\x0a\x09\x09ifAbsent: [ ^ self ]) asJQuery\x0a",
-messageSends: ["selectListItem:", "asJQuery", "at:ifAbsent:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

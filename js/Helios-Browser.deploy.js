@@ -478,10 +478,10 @@ return $2;
 $1;
 };
 $3=self;
-_st($3)._selectListItem_(aClass);
+_st($3)._activateItem_(aClass);
 $4=_st($3)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "selectListItem:", "focus"]}),
+messageSends: ["selectedItem:", "ifNil:", "activateItem:", "focus"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -959,7 +959,7 @@ smalltalk.method({
 selector: "onMethodSelected:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 _st(self)._selectedItem_(aMethod);
 $1=aMethod;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -968,9 +968,11 @@ return $2;
 } else {
 $1;
 };
-_st(self)._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod}, smalltalk.HLMethodsListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "focus"]}),
+$3=self;
+_st($3)._activateItem_(aMethod);
+$4=_st($3)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLMethodsListWidget)})},
+messageSends: ["selectedItem:", "ifNil:", "activateItem:", "focus"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -1275,10 +1277,10 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=self;
 _st($1)._selectedItem_(aPackage);
-_st($1)._selectListItem_(aPackage);
+_st($1)._activateItem_(aPackage);
 $2=_st($1)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{aPackage:aPackage},smalltalk.HLPackagesListWidget)})},
-messageSends: ["selectedItem:", "selectListItem:", "focus"]}),
+messageSends: ["selectedItem:", "activateItem:", "focus"]}),
 smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
@@ -1454,7 +1456,7 @@ smalltalk.method({
 selector: "onProtocolSelected:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 _st(self)._selectedItem_(aString);
 $1=aString;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -1463,9 +1465,11 @@ return $2;
 } else {
 $1;
 };
-_st(self)._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString}, smalltalk.HLProtocolsListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "focus"]}),
+$3=self;
+_st($3)._activateItem_(aString);
+$4=_st($3)._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString},smalltalk.HLProtocolsListWidget)})},
+messageSends: ["selectedItem:", "ifNil:", "activateItem:", "focus"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(

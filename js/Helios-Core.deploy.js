@@ -489,8 +489,8 @@ smalltalk.method({
 selector: "activateListItem:",
 fn: function (aListItem){
 var self=this;
-var parent,position;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+var parent,position,item;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 $1=_st(aListItem)._get_((0));
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=self;
@@ -510,9 +510,13 @@ $4=_st(_st(_st(_st(aListItem)._position())._top()).__plus(_st(aListItem)._height
 if(smalltalk.assert($4)){
 _st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(aListItem)._height())).__minus(_st(_st(parent)._height()).__minus(_st(_st(aListItem)._position())._top()))).__plus((10)));
 };
-_st(self)._selectItem_(_st(_st(self)._items())._at_(_st(_st(aListItem)._attr_("list-data"))._asNumber()));
-return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,parent:parent,position:position}, smalltalk.HLListWidget)})},
-messageSends: ["ifNil:", "get:", "positionOf:", "parent", "removeClass:", "children", "addClass:", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "<", "height", ">", "selectItem:", "at:", "asNumber", "attr:", "items"]}),
+item=_st(_st(self)._items())._at_(_st(_st(aListItem)._attr_("list-data"))._asNumber());
+$5=_st(_st(self)._selectedItem()).__eq_eq(item);
+if(! smalltalk.assert($5)){
+_st(self)._selectItem_(item);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,parent:parent,position:position,item:item},smalltalk.HLListWidget)})},
+messageSends: ["ifNil:", "get:", "positionOf:", "parent", "removeClass:", "children", "addClass:", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "<", "height", ">", "at:", "asNumber", "attr:", "items", "ifFalse:", "selectItem:", "==", "selectedItem"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -736,25 +740,6 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._selectedItem_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{anObject:anObject}, smalltalk.HLListWidget)})},
 messageSends: ["selectedItem:"]}),
-smalltalk.HLListWidget);
-
-smalltalk.addMethod(
-"_selectListItem_",
-smalltalk.method({
-selector: "selectListItem:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-var $early={};
-try {
-_st(self)._selectListItem_(_st(_st(self["@mapping"])._at_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {$1=self;
-throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._asJQuery());
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"selectListItem:",{anObject:anObject},smalltalk.HLListWidget)})},
-messageSends: ["selectListItem:", "asJQuery", "at:ifAbsent:"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
