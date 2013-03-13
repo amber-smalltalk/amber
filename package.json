@@ -14,7 +14,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git://github.com/NicolasPetton/amber.git#0.10.0"
+        "url": "git://github.com/amber-smalltalk/amber.git#0.10.0"
     },
     "files": [ "." ],
     "bin": {
