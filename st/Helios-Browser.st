@@ -243,10 +243,11 @@ onClassRemoved: aClass
 onClassSelected: aClass
 	self selectedItem: aClass.
 	aClass ifNil: [ ^ self ].
-    
-	self 
-		activateItem: aClass;
-		focus
+
+	self hasFocus ifFalse: [
+		self 
+			activateItem: aClass;
+			focus ]
 !
 
 onClassesFocusRequested
@@ -481,9 +482,10 @@ onMethodSelected: aMethod
 	self selectedItem: aMethod.
 	aMethod ifNil: [ ^ self ].
     
-    self 
-		activateItem: aMethod;
-		focus
+	self hasFocus ifFalse: [
+		self 
+			activateItem: aMethod;
+			focus ]
 !
 
 onMethodsFocusRequested
@@ -581,10 +583,11 @@ selectItem: aPackage
 !HLPackagesListWidget methodsFor: 'reactions'!
 
 onPackageSelected: aPackage
-	self 
-		selectedItem: aPackage;
-		activateItem: aPackage;
-		focus
+	self selectedItem: aPackage.
+	self hasFocus ifFalse: [
+		self
+			activateItem: aPackage;
+			focus ]
 !
 
 onPackagesFocusRequested
@@ -699,9 +702,10 @@ onProtocolSelected: aString
 	self selectedItem: aString.
 	aString ifNil: [ ^ self ].
     
-    self 
-		activateItem: aString;
-		focus
+	self hasFocus ifFalse: [
+		self 
+			activateItem: aString;
+			focus ]
 !
 
 onProtocolsFocusRequested

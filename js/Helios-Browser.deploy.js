@@ -492,7 +492,7 @@ smalltalk.method({
 selector: "onClassSelected:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 _st(self)._selectedItem_(aClass);
 $1=aClass;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -501,11 +501,15 @@ return $2;
 } else {
 $1;
 };
-$3=self;
-_st($3)._activateItem_(aClass);
-$4=_st($3)._focus();
+$3=_st(self)._hasFocus();
+if(! smalltalk.assert($3)){
+$4=self;
+_st($4)._activateItem_(aClass);
+$5=_st($4)._focus();
+$5;
+};
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "activateItem:", "focus"]}),
+messageSends: ["selectedItem:", "ifNil:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -983,7 +987,7 @@ smalltalk.method({
 selector: "onMethodSelected:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 _st(self)._selectedItem_(aMethod);
 $1=aMethod;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -992,11 +996,15 @@ return $2;
 } else {
 $1;
 };
-$3=self;
-_st($3)._activateItem_(aMethod);
-$4=_st($3)._focus();
+$3=_st(self)._hasFocus();
+if(! smalltalk.assert($3)){
+$4=self;
+_st($4)._activateItem_(aMethod);
+$5=_st($4)._focus();
+$5;
+};
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLMethodsListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "activateItem:", "focus"]}),
+messageSends: ["selectedItem:", "ifNil:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -1298,13 +1306,17 @@ smalltalk.method({
 selector: "onPackageSelected:",
 fn: function (aPackage){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self;
-_st($1)._selectedItem_(aPackage);
-_st($1)._activateItem_(aPackage);
-$2=_st($1)._focus();
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+_st(self)._selectedItem_(aPackage);
+$1=_st(self)._hasFocus();
+if(! smalltalk.assert($1)){
+$2=self;
+_st($2)._activateItem_(aPackage);
+$3=_st($2)._focus();
+$3;
+};
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{aPackage:aPackage},smalltalk.HLPackagesListWidget)})},
-messageSends: ["selectedItem:", "activateItem:", "focus"]}),
+messageSends: ["selectedItem:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
 smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
@@ -1480,7 +1492,7 @@ smalltalk.method({
 selector: "onProtocolSelected:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 _st(self)._selectedItem_(aString);
 $1=aString;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -1489,11 +1501,15 @@ return $2;
 } else {
 $1;
 };
-$3=self;
-_st($3)._activateItem_(aString);
-$4=_st($3)._focus();
+$3=_st(self)._hasFocus();
+if(! smalltalk.assert($3)){
+$4=self;
+_st($4)._activateItem_(aString);
+$5=_st($4)._focus();
+$5;
+};
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString},smalltalk.HLProtocolsListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "activateItem:", "focus"]}),
+messageSends: ["selectedItem:", "ifNil:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(
