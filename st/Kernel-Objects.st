@@ -681,6 +681,25 @@ at: aSymbol ifAbsent: aBlock
 	>
 !
 
+at: aSymbol ifPresent: aBlock
+	"return the evaluation of aBlock with the value if the property is defined or return nil"
+	<
+		var obj = self['@jsObject'],
+			symbol = aSymbol._asString();
+		return symbol in obj ? aBlock(obj[symbol]) : nil;
+	>
+!
+
+at: aSymbol ifPresent: aBlock ifAbsent: anotherBlock
+	"return the evaluation of aBlock with the value if the property is defined
+	or return value of anotherBlock"
+	<
+		var obj = self['@jsObject'],
+			symbol = aSymbol._asString();
+		return symbol in obj ? aBlock(obj[symbol]) : anotherBlock();
+	>
+!
+
 at: aSymbol put: anObject
 	<self['@jsObject'][aSymbol._asString()] = anObject>
 !

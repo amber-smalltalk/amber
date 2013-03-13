@@ -1483,6 +1483,36 @@ messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_at_ifPresent_",
+smalltalk.method({
+selector: "at:ifPresent:",
+fn: function (aSymbol,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var obj = self['@jsObject'],
+			symbol = aSymbol._asString();
+		return symbol in obj ? aBlock(obj[symbol]) : nil;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aSymbol:aSymbol,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+messageSends: []}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_at_ifPresent_ifAbsent_",
+smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+fn: function (aSymbol,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		var obj = self['@jsObject'],
+			symbol = aSymbol._asString();
+		return symbol in obj ? aBlock(obj[symbol]) : anotherBlock();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
+messageSends: []}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",
