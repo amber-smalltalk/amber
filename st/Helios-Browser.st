@@ -242,9 +242,11 @@ onClassRemoved: aClass
 
 onClassSelected: aClass
 	| selectedClass |
+	
+	aClass ifNil: [ ^ self ].
+	
 	selectedClass := aClass theNonMetaClass.
 	self selectedItem: selectedClass.
-	aClass ifNil: [ ^ self ].
 
 	self hasFocus ifFalse: [
 		self 

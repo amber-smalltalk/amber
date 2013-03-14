@@ -655,8 +655,6 @@ fn: function (aClass){
 var self=this;
 var selectedClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
-selectedClass=_st(aClass)._theNonMetaClass();
-_st(self)._selectedItem_(selectedClass);
 $1=aClass;
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=self;
@@ -664,6 +662,8 @@ return $2;
 } else {
 $1;
 };
+selectedClass=_st(aClass)._theNonMetaClass();
+_st(self)._selectedItem_(selectedClass);
 $3=_st(self)._hasFocus();
 if(! smalltalk.assert($3)){
 $4=self;
@@ -673,8 +673,8 @@ $5;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass,selectedClass:selectedClass},smalltalk.HLClassesListWidget)})},
 args: ["aClass"],
-source: "onClassSelected: aClass\x0a\x09| selectedClass |\x0a\x09selectedClass := aClass theNonMetaClass.\x0a\x09self selectedItem: selectedClass.\x0a\x09aClass ifNil: [ ^ self ].\x0a\x0a\x09self hasFocus ifFalse: [\x0a\x09\x09self \x0a\x09\x09\x09activateItem: selectedClass;\x0a\x09\x09\x09focus ]",
-messageSends: ["theNonMetaClass", "selectedItem:", "ifNil:", "ifFalse:", "activateItem:", "focus", "hasFocus"],
+source: "onClassSelected: aClass\x0a\x09| selectedClass |\x0a\x09\x0a\x09aClass ifNil: [ ^ self ].\x0a\x09\x0a\x09selectedClass := aClass theNonMetaClass.\x0a\x09self selectedItem: selectedClass.\x0a\x0a\x09self hasFocus ifFalse: [\x0a\x09\x09self \x0a\x09\x09\x09activateItem: selectedClass;\x0a\x09\x09\x09focus ]",
+messageSends: ["ifNil:", "theNonMetaClass", "selectedItem:", "ifFalse:", "activateItem:", "focus", "hasFocus"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);

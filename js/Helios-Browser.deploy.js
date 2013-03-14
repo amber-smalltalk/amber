@@ -494,8 +494,6 @@ fn: function (aClass){
 var self=this;
 var selectedClass;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
-selectedClass=_st(aClass)._theNonMetaClass();
-_st(self)._selectedItem_(selectedClass);
 $1=aClass;
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=self;
@@ -503,6 +501,8 @@ return $2;
 } else {
 $1;
 };
+selectedClass=_st(aClass)._theNonMetaClass();
+_st(self)._selectedItem_(selectedClass);
 $3=_st(self)._hasFocus();
 if(! smalltalk.assert($3)){
 $4=self;
@@ -511,7 +511,7 @@ $5=_st($4)._focus();
 $5;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass,selectedClass:selectedClass},smalltalk.HLClassesListWidget)})},
-messageSends: ["theNonMetaClass", "selectedItem:", "ifNil:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
+messageSends: ["ifNil:", "theNonMetaClass", "selectedItem:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
