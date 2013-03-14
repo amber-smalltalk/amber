@@ -235,17 +235,6 @@ perform: aSymbol withArguments: aCollection
 
 !Object methodsFor: 'printing'!
 
-log: aString block: aBlock
-
-	| result |
-	console log: aString, ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
-	^result
-!
-
-printNl
-	<console.log(self)>
-!
-
 printOn: aStream
 	"Append to the aStream, a string representing the receiver."
 	

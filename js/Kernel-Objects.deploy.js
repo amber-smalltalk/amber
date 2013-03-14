@@ -465,24 +465,6 @@ messageSends: []}),
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_log_block_",
-smalltalk.method({
-selector: "log:block:",
-fn: function (aString,aBlock){
-var self=this;
-var result;
-return smalltalk.withContext(function($ctx1) { var $1;
-_st(console)._log_(_st(_st(aString).__comma(" time: ")).__comma(_st(_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
-return smalltalk.withContext(function($ctx2) {result=_st(aBlock)._value();
-return result;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._printString()));
-$1=result;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"log:block:",{aString:aString,aBlock:aBlock,result:result},smalltalk.Object)})},
-messageSends: ["log:", ",", "printString", "millisecondsToRun:", "value"]}),
-smalltalk.Object);
-
-smalltalk.addMethod(
 "_notNil",
 smalltalk.method({
 selector: "notNil",
@@ -526,17 +508,6 @@ selector: "postCopy",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"postCopy",{},smalltalk.Object)})},
-messageSends: []}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-"_printNl",
-smalltalk.method({
-selector: "printNl",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { console.log(self);
-return self}, function($ctx1) {$ctx1.fill(self,"printNl",{},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
 
