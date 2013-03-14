@@ -868,33 +868,49 @@ smalltalk.method({
 selector: "setupKeyBindings",
 fn: function (){
 var self=this;
-var next;
+var active,selected,interval,repeatInterval;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+active=false;
+repeatInterval=(60);
 _st(_st(self["@hiddenInput"])._asJQuery())._unbind_("keydown");
 _st(_st(self["@hiddenInput"])._asJQuery())._keydown_((function(e){
-var selected;
-return smalltalk.withContext(function($ctx2) {selected=_st(window)._jQuery_(".focused .nav-pills .active");
-selected;
-$1=_st(_st(e)._which()).__eq((38));
+return smalltalk.withContext(function($ctx2) {$1=_st(_st(_st(e)._which()).__eq((38)))._and_((function(){
+return smalltalk.withContext(function($ctx3) {return _st(active).__eq(false);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-_st(self)._activateListItem_(_st(selected)._prev());
+active=true;
+active;
+interval=_st((function(){
+return smalltalk.withContext(function($ctx3) {selected=_st(window)._jQuery_(".focused .nav-pills .active");
+selected;
+return _st(self)._activateListItem_(_st(selected)._prev());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
+interval;
 };
-$2=_st(_st(e)._which()).__eq((40));
+$2=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
+return smalltalk.withContext(function($ctx3) {return _st(active).__eq(false);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($2)){
-next=_st(selected)._next();
-next;
-$3=_st(next)._get_((0));
-if(($receiver = $3) == nil || $receiver == undefined){
-next=_st(window)._jQuery_(".focused .nav-pills li:first-child");
-next;
-} else {
-$3;
+active=true;
+active;
+interval=_st((function(){
+return smalltalk.withContext(function($ctx3) {selected=_st(window)._jQuery_(".focused .nav-pills .active");
+selected;
+return _st(self)._activateListItem_(_st(selected)._next());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
+return interval;
 };
-return _st(self)._activateListItem_(next);
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+_st(_st(self["@hiddenInput"])._asJQuery())._keyup_((function(e){
+return smalltalk.withContext(function($ctx2) {$3=active;
+if(smalltalk.assert($3)){
+active=false;
+active;
+return _st(interval)._clearInterval();
 };
-}, function($ctx2) {$ctx2.fillBlock({e:e,selected:selected},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{next:next}, smalltalk.HLListWidget)})},
-messageSends: ["unbind:", "asJQuery", "keydown:", "jQuery:", "ifTrue:", "activateListItem:", "prev", "=", "which", "next", "ifNil:", "get:"]}),
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,selected:selected,interval:interval,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
+messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "valueWithInterval:", "jQuery:", "activateListItem:", "prev", "and:", "=", "which", "next", "keyup:", "clearInterval"]}),
 smalltalk.HLListWidget);
 
 

@@ -324,17 +324,34 @@ defaultItems
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings
-	| next |
+	"TODO: refactor"
+	| active selected interval repeatInterval |
+	
+	active := false.
+	repeatInterval := 60.
 	hiddenInput asJQuery unbind: 'keydown'.
 
-	hiddenInput asJQuery keydown: [ :e | | selected |
-    	selected := window jQuery: '.focused .nav-pills .active'.
-        e which = 38 ifTrue: [ 
-        	self activateListItem: selected prev ].
-      	e which = 40 ifTrue: [
-          	next := selected next.
-            (next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].
-			self activateListItem: next ] ]
+	hiddenInput asJQuery keydown: [ :e |
+		
+        (e which = 38 and: [ active = false ]) ifTrue: [ 
+			active := true.
+        	interval := [ 
+				selected := window jQuery: '.focused .nav-pills .active'.
+				self activateListItem: selected prev ]
+					valueWithInterval: repeatInterval ].
+			
+      	(e which = 40 and: [ active = false ]) ifTrue: [
+            active := true.
+			"(next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ]."
+			interval := [ 
+				selected := window jQuery: '.focused .nav-pills .active'.
+				self activateListItem: selected next ]
+				valueWithInterval: repeatInterval ] ].
+	
+	hiddenInput asJQuery keyup: [ :e |
+		active ifTrue: [
+			active := false.
+			interval clearInterval ] ]
 ! !
 
 !HLListWidget methodsFor: 'initialization'!
