@@ -272,7 +272,7 @@ maxPoolSize: anInteger
 
 fork: aBlock
 	poolSize < self maxPoolSize ifTrue: [ self addWorker ].
-	queue back: aBlock
+	queue nextPut: aBlock
 ! !
 
 !ForkPool methodsFor: 'defaults'!
@@ -296,7 +296,7 @@ makeWorker
 	sentinel := Object new.
 	^[ | block |
 		poolSize := poolSize - 1.
-		block := queue frontIfAbsent: [ sentinel ].
+		block := queue nextIfAbsent: [ sentinel ].
 		block == sentinel ifFalse: [
 			[ block value ] ensure: [ self addWorker ]]]
 ! !

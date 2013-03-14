@@ -528,9 +528,9 @@ $1=_st(self["@poolSize"]).__lt(_st(self)._maxPoolSize());
 if(smalltalk.assert($1)){
 _st(self)._addWorker();
 };
-_st(self["@queue"])._back_(aBlock);
+_st(self["@queue"])._nextPut_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},smalltalk.ForkPool)})},
-messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "back:"]}),
+messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "nextPut:"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
@@ -560,7 +560,7 @@ $1=(function(){
 var block;
 return smalltalk.withContext(function($ctx2) {self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
-block=_st(self["@queue"])._frontIfAbsent_((function(){
+block=_st(self["@queue"])._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx3) {return sentinel;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 block;
@@ -575,7 +575,7 @@ return smalltalk.withContext(function($ctx3) {return _st(self)._addWorker();
 }, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1)})});
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},smalltalk.ForkPool)})},
-messageSends: ["new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="]}),
+messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(

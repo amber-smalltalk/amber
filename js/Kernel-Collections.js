@@ -4919,47 +4919,50 @@ smalltalk.Set);
 
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
-smalltalk.Queue.comment="A Queue am a one-sided queue.\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by the Queue; write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
+smalltalk.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
 smalltalk.addMethod(
-"_back_",
+"_initialize",
 smalltalk.method({
-selector: "back:",
-category: 'accessing',
-fn: function (anObject){
+selector: "initialize",
+category: 'initialization',
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@write"])._add_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"back:",{anObject:anObject},smalltalk.Queue)})},
-args: ["anObject"],
-source: "back: anObject\x0a\x09write add: anObject",
-messageSends: ["add:"],
-referencedClasses: []
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@read"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@readIndex"]=(1);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Queue)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09read := OrderedCollection new.\x0a\x09write := OrderedCollection new.\x0a\x09readIndex := 1",
+messageSends: ["initialize", "new"],
+referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_front",
+"_next",
 smalltalk.method({
-selector: "front",
+selector: "next",
 category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._frontIfAbsent_((function(){
+$1=_st(self)._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._error_("Cannot read from empty Queue.");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"front",{},smalltalk.Queue)})},
+}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Queue)})},
 args: [],
-source: "front\x0a\x09^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]",
-messageSends: ["frontIfAbsent:", "error:"],
+source: "next\x0a\x09^self nextIfAbsent: [ self error: 'Cannot read from empty Queue.' ]",
+messageSends: ["nextIfAbsent:", "error:"],
 referencedClasses: []
 }),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_frontIfAbsent_",
+"_nextIfAbsent_",
 smalltalk.method({
-selector: "frontIfAbsent:",
+selector: "nextIfAbsent:",
 category: 'accessing',
 fn: function (aBlock){
 var self=this;
@@ -4994,30 +4997,27 @@ $4=result;
 return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"frontIfAbsent:",{aBlock:aBlock,result:result},smalltalk.Queue)})},
+}, function($ctx1) {$ctx1.fill(self,"nextIfAbsent:",{aBlock:aBlock,result:result},smalltalk.Queue)})},
 args: ["aBlock"],
-source: "frontIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a\x09\x09read := write.\x0a\x09\x09readIndex := 1.\x0a\x09\x09write := OrderedCollection new.\x0a\x09\x09read first ].\x0a\x09read at: readIndex put: nil.\x0a\x09readIndex := readIndex + 1.\x0a\x09^result",
+source: "nextIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a\x09\x09read := write.\x0a\x09\x09readIndex := 1.\x0a\x09\x09write := OrderedCollection new.\x0a\x09\x09read first ].\x0a\x09read at: readIndex put: nil.\x0a\x09readIndex := readIndex + 1.\x0a\x09^result",
 messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first", "at:put:", "+"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_initialize",
+"_nextPut_",
 smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
+selector: "nextPut:",
+category: 'accessing',
+fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@read"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-self["@readIndex"]=(1);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Queue)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09read := OrderedCollection new.\x0a\x09write := OrderedCollection new.\x0a\x09readIndex := 1",
-messageSends: ["initialize", "new"],
-referencedClasses: ["OrderedCollection"]
+return smalltalk.withContext(function($ctx1) { _st(self["@write"])._add_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},smalltalk.Queue)})},
+args: ["anObject"],
+source: "nextPut: anObject\x0a\x09write add: anObject",
+messageSends: ["add:"],
+referencedClasses: []
 }),
 smalltalk.Queue);
 

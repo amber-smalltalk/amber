@@ -1637,27 +1637,30 @@ Object subclass: #Queue
 	instanceVariableNames: 'read readIndex write'
 	package: 'Kernel-Collections'!
 !Queue commentStamp!
-A Queue am a one-sided queue.
+I am a one-sided queue.
+
+## Usage
+
+Use `#nextPut:` to add items to the queue.
+Use `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.
+
+## Implementation notes
 
 A Queue uses two OrderedCollections inside,
 `read` is at the front, is not modified and only read using `readIndex`.
 `write` is at the back and is appended new items.
 When `read` is exhausted, `write` is promoted to `read` and new `write` is created.
 
-As a consequence, no data moving is done by the Queue; write appending may do data moving
+As a consequence, no data moving is done by me, write appending may do data moving
 when growing `write`, but this is left to engine to implement as good as it chooses to.!
 
 !Queue methodsFor: 'accessing'!
 
-back: anObject
-	write add: anObject
+next
+	^self nextIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
 !
 
-front
-	^self frontIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
-!
-
-frontIfAbsent: aBlock
+nextIfAbsent: aBlock
 	| result |
 	result := read at: readIndex ifAbsent: [
 		write isEmpty ifTrue: [
@@ -1670,6 +1673,10 @@ frontIfAbsent: aBlock
 	read at: readIndex put: nil.
 	readIndex := readIndex + 1.
 	^result
+!
+
+nextPut: anObject
+	write add: anObject
 ! !
 
 !Queue methodsFor: 'initialization'!

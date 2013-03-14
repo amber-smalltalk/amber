@@ -3629,35 +3629,38 @@ smalltalk.Set);
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
 smalltalk.addMethod(
-"_back_",
+"_initialize",
 smalltalk.method({
-selector: "back:",
-fn: function (anObject){
+selector: "initialize",
+fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@write"])._add_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"back:",{anObject:anObject},smalltalk.Queue)})},
-messageSends: ["add:"]}),
+return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@read"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@readIndex"]=(1);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Queue)})},
+messageSends: ["initialize", "new"]}),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_front",
+"_next",
 smalltalk.method({
-selector: "front",
+selector: "next",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._frontIfAbsent_((function(){
+$1=_st(self)._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._error_("Cannot read from empty Queue.");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"front",{},smalltalk.Queue)})},
-messageSends: ["frontIfAbsent:", "error:"]}),
+}, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Queue)})},
+messageSends: ["nextIfAbsent:", "error:"]}),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_frontIfAbsent_",
+"_nextIfAbsent_",
 smalltalk.method({
-selector: "frontIfAbsent:",
+selector: "nextIfAbsent:",
 fn: function (aBlock){
 var self=this;
 var result;
@@ -3691,22 +3694,19 @@ $4=result;
 return $4;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"frontIfAbsent:",{aBlock:aBlock,result:result},smalltalk.Queue)})},
+}, function($ctx1) {$ctx1.fill(self,"nextIfAbsent:",{aBlock:aBlock,result:result},smalltalk.Queue)})},
 messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first", "at:put:", "+"]}),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_initialize",
+"_nextPut_",
 smalltalk.method({
-selector: "initialize",
-fn: function (){
+selector: "nextPut:",
+fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@read"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-self["@readIndex"]=(1);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Queue)})},
-messageSends: ["initialize", "new"]}),
+return smalltalk.withContext(function($ctx1) { _st(self["@write"])._add_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},smalltalk.Queue)})},
+messageSends: ["add:"]}),
 smalltalk.Queue);
 
 

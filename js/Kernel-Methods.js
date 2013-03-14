@@ -732,11 +732,11 @@ $1=_st(self["@poolSize"]).__lt(_st(self)._maxPoolSize());
 if(smalltalk.assert($1)){
 _st(self)._addWorker();
 };
-_st(self["@queue"])._back_(aBlock);
+_st(self["@queue"])._nextPut_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},smalltalk.ForkPool)})},
 args: ["aBlock"],
-source: "fork: aBlock\x0a\x09poolSize < self maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue back: aBlock",
-messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "back:"],
+source: "fork: aBlock\x0a\x09poolSize < self maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue nextPut: aBlock",
+messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "nextPut:"],
 referencedClasses: []
 }),
 smalltalk.ForkPool);
@@ -774,7 +774,7 @@ $1=(function(){
 var block;
 return smalltalk.withContext(function($ctx2) {self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
-block=_st(self["@queue"])._frontIfAbsent_((function(){
+block=_st(self["@queue"])._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx3) {return sentinel;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 block;
@@ -790,8 +790,8 @@ return smalltalk.withContext(function($ctx3) {return _st(self)._addWorker();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},smalltalk.ForkPool)})},
 args: [],
-source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^[ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue frontIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ]]]",
-messageSends: ["new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
+source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^[ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue nextIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ]]]",
+messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
 referencedClasses: ["Object"]
 }),
 smalltalk.ForkPool);
