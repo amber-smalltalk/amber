@@ -826,6 +826,38 @@ referencedClasses: []
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
+"_activateNextListItem",
+smalltalk.method({
+selector: "activateNextListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
+return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
+args: [],
+source: "activateNextListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') next",
+messageSends: ["activateListItem:", "next", "jQuery:"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+"_activatePreviousListItem",
+smalltalk.method({
+selector: "activatePreviousListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._prev());
+return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},smalltalk.HLListWidget)})},
+args: [],
+source: "activatePreviousListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') prev",
+messageSends: ["activateListItem:", "prev", "jQuery:"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
 "_cssClassForItem_",
 smalltalk.method({
 selector: "cssClassForItem:",
@@ -1164,10 +1196,10 @@ selector: "setupKeyBindings",
 category: 'events',
 fn: function (){
 var self=this;
-var active,selected,interval,repeatInterval;
+var active,interval,delay,repeatInterval;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 active=false;
-repeatInterval=(60);
+repeatInterval=(70);
 _st(_st(self["@hiddenInput"])._asJQuery())._unbind_("keydown");
 _st(_st(self["@hiddenInput"])._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {$1=_st(_st(_st(e)._which()).__eq((38)))._and_((function(){
@@ -1176,12 +1208,14 @@ return smalltalk.withContext(function($ctx3) {return _st(active).__eq(false);
 if(smalltalk.assert($1)){
 active=true;
 active;
-interval=_st((function(){
-return smalltalk.withContext(function($ctx3) {selected=_st(window)._jQuery_(".focused .nav-pills .active");
-selected;
-return _st(self)._activateListItem_(_st(selected)._prev());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
-interval;
+_st(self)._activatePreviousListItem();
+delay=_st((function(){
+return smalltalk.withContext(function($ctx3) {interval=_st((function(){
+return smalltalk.withContext(function($ctx4) {return _st(self)._activatePreviousListItem();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
+return interval;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
+delay;
 };
 $2=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(active).__eq(false);
@@ -1189,12 +1223,14 @@ return smalltalk.withContext(function($ctx3) {return _st(active).__eq(false);
 if(smalltalk.assert($2)){
 active=true;
 active;
-interval=_st((function(){
-return smalltalk.withContext(function($ctx3) {selected=_st(window)._jQuery_(".focused .nav-pills .active");
-selected;
-return _st(self)._activateListItem_(_st(selected)._next());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
+_st(self)._activateNextListItem();
+delay=_st((function(){
+return smalltalk.withContext(function($ctx3) {interval=_st((function(){
+return smalltalk.withContext(function($ctx4) {return _st(self)._activateNextListItem();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
 return interval;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
+return delay;
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(_st(self["@hiddenInput"])._asJQuery())._keyup_((function(e){
@@ -1202,13 +1238,14 @@ return smalltalk.withContext(function($ctx2) {$3=active;
 if(smalltalk.assert($3)){
 active=false;
 active;
-return _st(interval)._clearInterval();
+_st(interval)._clearInterval();
+return _st(delay)._clearTimeout();
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,selected:selected,interval:interval,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09\x22TODO: refactor\x22\x0a\x09| active selected interval repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 60.\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a        \x09interval := [ \x0a\x09\x09\x09\x09selected := window jQuery: '.focused .nav-pills .active'.\x0a\x09\x09\x09\x09self activateListItem: selected prev ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09\x22(next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ].\x22\x0a\x09\x09\x09interval := [ \x0a\x09\x09\x09\x09selected := window jQuery: '.focused .nav-pills .active'.\x0a\x09\x09\x09\x09self activateListItem: selected next ]\x0a\x09\x09\x09\x09valueWithInterval: repeatInterval ] ].\x0a\x09\x0a\x09hiddenInput asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval clearInterval ] ]",
-messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "valueWithInterval:", "jQuery:", "activateListItem:", "prev", "and:", "=", "which", "next", "keyup:", "clearInterval"],
+source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activateNextListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09hiddenInput asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval clearInterval.\x0a\x09\x09\x09delay clearTimeout ] ]",
+messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "clearInterval", "clearTimeout"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

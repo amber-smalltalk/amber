@@ -305,6 +305,14 @@ activateListItem: aListItem
 	   self selectItem: item ]
 !
 
+activateNextListItem
+	self activateListItem: (window jQuery: '.focused .nav-pills .active') next
+!
+
+activatePreviousListItem
+	self activateListItem: (window jQuery: '.focused .nav-pills .active') prev
+!
+
 focus
 	super focus.
     self items isEmpty ifFalse: [ 
@@ -324,34 +332,37 @@ defaultItems
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings
-	"TODO: refactor"
-	| active selected interval repeatInterval |
+	"TODO: refactor this!!"
+	
+	| active interval delay repeatInterval |
 	
 	active := false.
-	repeatInterval := 60.
+	repeatInterval := 70.
 	hiddenInput asJQuery unbind: 'keydown'.
 
 	hiddenInput asJQuery keydown: [ :e |
 		
         (e which = 38 and: [ active = false ]) ifTrue: [ 
 			active := true.
-        	interval := [ 
-				selected := window jQuery: '.focused .nav-pills .active'.
-				self activateListItem: selected prev ]
-					valueWithInterval: repeatInterval ].
+			self activatePreviousListItem.
+        	delay := [
+				interval := [ self activatePreviousListItem ]
+					valueWithInterval: repeatInterval ]
+						valueWithTimeout: 300 ].
 			
       	(e which = 40 and: [ active = false ]) ifTrue: [
             active := true.
-			"(next get: 0) ifNil: [ next := window jQuery: '.focused .nav-pills li:first-child' ]."
-			interval := [ 
-				selected := window jQuery: '.focused .nav-pills .active'.
-				self activateListItem: selected next ]
-				valueWithInterval: repeatInterval ] ].
+			self activateNextListItem.
+        	delay := [
+				interval := [ self activateNextListItem ]
+					valueWithInterval: repeatInterval ]
+						valueWithTimeout: 300 ] ].
 	
 	hiddenInput asJQuery keyup: [ :e |
 		active ifTrue: [
 			active := false.
-			interval clearInterval ] ]
+			interval clearInterval.
+			delay clearTimeout ] ]
 ! !
 
 !HLListWidget methodsFor: 'initialization'!
