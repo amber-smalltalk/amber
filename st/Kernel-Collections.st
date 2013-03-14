@@ -1011,8 +1011,16 @@ I am the abstract superclass of string-like collections.!
 
 !CharacterArray methodsFor: 'accessing'!
 
+at: anIndex ifAbsent: aBlock
+	<return self._raw().charAt(anIndex - 1) || aBlock()>
+!
+
 at: anIndex put: anObject
 	self errorReadOnly
+!
+
+size
+	<return self._raw().length>
 ! !
 
 !CharacterArray methodsFor: 'adding'!
@@ -1025,14 +1033,48 @@ remove: anObject
 	self errorReadOnly
 ! !
 
+!CharacterArray methodsFor: 'comparing'!
+
+< aString
+	<return self._raw() < aString._raw()>
+!
+
+<= aString
+	<return self._raw() <= aString._raw()>
+!
+
+= aString
+	<
+		return aString._raw &&
+			aString._class() == self._class() &&
+			self._raw() == aString._raw()
+	>
+!
+
+> aString
+	<return self._raw() >> aString._raw()>
+!
+
+>= aString
+	<return self._raw() >>= aString._raw()>
+! !
+
 !CharacterArray methodsFor: 'converting'!
+
+asJSON
+	^ self asString
+!
 
 asLowercase
 	^self class fromString: self asString asLowercase
 !
 
 asNumber
-	^self asString asNumber
+	<return Number(self._raw())>
+!
+
+asSelector
+	<return smalltalk.selector(self._raw())>
 !
 
 asString
@@ -1050,7 +1092,21 @@ asUppercase
 !CharacterArray methodsFor: 'copying'!
 
 , aString
-	^self asString, aString asString
+		<return self._raw() + aString._raw()>
+!
+
+copyFrom: anIndex to: anotherIndex
+	<return self._class()._fromString_(self._raw().substring(anIndex - 1, anotherIndex))>
+! !
+
+!CharacterArray methodsFor: 'enumerating'!
+
+do: aBlock
+	<var raw=self._raw();for(var i=0;i<raw.length;i++){aBlock(raw.charAt(i));}>
+!
+
+withIndexDo: aBlock
+	<var raw=self._raw();for(var i=0;i<raw.length;i++){aBlock(raw.charAt(i), i+1);}>
 ! !
 
 !CharacterArray methodsFor: 'error handling'!
@@ -1086,16 +1142,8 @@ asciiValue
 	<return self.charCodeAt(0);>
 !
 
-at: anIndex ifAbsent: aBlock
-	<return String(self).charAt(anIndex - 1) || aBlock()>
-!
-
 escaped
 	<return escape(self)>
-!
-
-size
-	<return self.length>
 !
 
 unescaped
@@ -1104,40 +1152,11 @@ unescaped
 
 !String methodsFor: 'comparing'!
 
-< aString
-	<return String(self) < aString._asString()>
-!
-
-<= aString
-	<return String(self) <= aString._asString()>
-!
-
-= aString
-	<
-		if(!! aString._isString || !! aString._isString()) {
-			return false;
-		}
-		return String(self) === String(aString)
-	>
-!
-
 == aString
 	^self = aString
-!
-
-> aString
-	<return String(self) >> aString._asString()>
-!
-
->= aString
-	<return String(self) >>= aString._asString()>
 ! !
 
 !String methodsFor: 'converting'!
-
-asJSON
-	^self
-!
 
 asJavaScriptSelector
 	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
@@ -1156,16 +1175,8 @@ asLowercase
 	<return self.toLowerCase()>
 !
 
-asNumber
-	<return Number(self)>
-!
-
 asRegexp
 	^ RegularExpression fromString: self
-!
-
-asSelector
-	<return smalltalk.selector(self)>
 !
 
 asString
@@ -1180,6 +1191,10 @@ asUppercase
 	<return self.toUpperCase()>
 !
 
+raw
+	<return String(self)>
+!
+
 reversed
 	<return self.split("").reverse().join("")>
 !
@@ -1190,30 +1205,12 @@ tokenize: aString
 
 !String methodsFor: 'copying'!
 
-, aString
-	<return self + aString>
-!
-
-copyFrom: anIndex to: anotherIndex
-	<return self.substring(anIndex - 1, anotherIndex)>
-!
-
 deepCopy
 	^self shallowCopy
 !
 
 shallowCopy
 	^self class fromString: self
-! !
-
-!String methodsFor: 'enumerating'!
-
-do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i));}>
-!
-
-withIndexDo: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);}>
 ! !
 
 !String methodsFor: 'printing'!
@@ -1385,7 +1382,7 @@ fromCharCode: anInteger
 !
 
 fromString: aString
-		<return new self.fn(aString)>
+		<return String(aString)>
 !
 
 streamContents: blockWithArg
@@ -1422,51 +1419,10 @@ Symbols are unique through the system.
 
 Thus, someString asSymbol == someString asSymbol.!
 
-!Symbol methodsFor: 'accessing'!
-
-at: anIndex ifAbsent: aBlock
-	^self asString at: anIndex ifAbsent: aBlock
-!
-
-size
-	^self asString size
-! !
-
-!Symbol methodsFor: 'comparing'!
-
-< aSymbol
-	^self asString < aSymbol asString
-!
-
-<= aSymbol
-	^self asString <= aSymbol asString
-!
-
-= aSymbol
-	aSymbol class = self class ifFalse: [^false].
-	^self asString = aSymbol asString
-!
-
-> aSymbol
-	^self asString > aSymbol asString
-!
-
->= aSymbol
-	^self asString >= aSymbol asString
-! !
-
 !Symbol methodsFor: 'converting'!
-
-asJSON
-	^self asString asJSON
-!
 
 asJavascript
 	^'smalltalk.symbolFor(', self asString asJavascript, ')'
-!
-
-asSelector
-	^self asString asSelector
 !
 
 asString
@@ -1479,13 +1435,13 @@ asSuperSelector
 
 asSymbol
 	^self
+!
+
+raw
+	<return String(self.value)>
 ! !
 
 !Symbol methodsFor: 'copying'!
-
-copyFrom: anIndex to: anotherIndex
-	^self class fromString: (self asString copyFrom: anIndex to: anotherIndex)
-!
 
 deepCopy
 	^self
@@ -1505,16 +1461,8 @@ detect: aBlock
 	^ self asString detect: aBlock
 !
 
-do: aBlock
-	self asString do: aBlock
-!
-
 select: aBlock
 	^ (self asString select: aBlock) asSymbol
-!
-
-withIndexDo: aBlock
-	self asString withIndexDo: aBlock
 ! !
 
 !Symbol methodsFor: 'evaluating'!

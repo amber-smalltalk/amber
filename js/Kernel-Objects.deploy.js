@@ -554,6 +554,21 @@ messageSends: [",", "name", "class"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_raw",
+smalltalk.method({
+selector: "raw",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(console)._log_("raw called:");
+_st(console)._log_(self);
+$1=_st(_st(self)._asString())._raw();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"raw",{},smalltalk.Object)})},
+messageSends: ["log:", "raw", "asString"]}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_respondsTo_",
 smalltalk.method({
 selector: "respondsTo:",

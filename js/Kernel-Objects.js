@@ -775,6 +775,26 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_raw",
+smalltalk.method({
+selector: "raw",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(console)._log_("raw called:");
+_st(console)._log_(self);
+$1=_st(_st(self)._asString())._raw();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"raw",{},smalltalk.Object)})},
+args: [],
+source: "raw\x0a\x09console log: 'raw called:'.\x0a\x09console log: self.\x0a\x09^ self asString raw",
+messageSends: ["log:", "raw", "asString"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_respondsTo_",
 smalltalk.method({
 selector: "respondsTo:",
