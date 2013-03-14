@@ -241,12 +241,14 @@ onClassRemoved: aClass
 !
 
 onClassSelected: aClass
-	self selectedItem: aClass.
+	| selectedClass |
+	selectedClass := aClass theNonMetaClass.
+	self selectedItem: selectedClass.
 	aClass ifNil: [ ^ self ].
 
 	self hasFocus ifFalse: [
 		self 
-			activateItem: aClass;
+			activateItem: selectedClass;
 			focus ]
 !
 
