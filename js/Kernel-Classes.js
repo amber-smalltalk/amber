@@ -922,19 +922,17 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._name();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Class)})},
-args: [],
-source: "printString\x0a\x09^self name",
-messageSends: ["name"],
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._name());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Class)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self name",
+messageSends: ["nextPutAll:", "name"],
 referencedClasses: []
 }),
 smalltalk.Class);
@@ -1129,19 +1127,20 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._instanceClass())._name()).__comma(" class");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Metaclass)})},
-args: [],
-source: "printString\x0a\x09^self instanceClass name, ' class'",
-messageSends: [",", "name", "instanceClass"],
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_(_st(_st(self)._instanceClass())._name());
+$2=_st($1)._nextPutAll_(" class");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Metaclass)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: self instanceClass name;\x0a\x09\x09nextPutAll: ' class'",
+messageSends: ["nextPutAll:", "name", "instanceClass"],
 referencedClasses: []
 }),
 smalltalk.Metaclass);

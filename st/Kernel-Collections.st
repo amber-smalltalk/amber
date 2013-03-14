@@ -35,18 +35,10 @@ value: aValue
 
 !Association methodsFor: 'printing'!
 
-printString
-	"print the contents of the Association into a string and return the string"
-	^String streamContents: [:aStream |
-		self storeOn: aStream]
-!
-
-storeOn: aStream
-	"Store in the format: key->value"
-
-	key storeOn: aStream.
-	aStream nextPutAll: '->'.
-	value storeOn: aStream.
+printOn: aStream
+	self key printOn: aStream.
+	aStream nextPutAll: ' -> '.
+	self value printOn: aStream
 ! !
 
 !Association class methodsFor: 'instance creation'!
@@ -229,18 +221,6 @@ select: aBlock
 
 errorNotFound
 	self error: 'Object is not in the collection'
-! !
-
-!Collection methodsFor: 'printing'!
-
-printString
-	"print the contents of the Collection into a string and return it"
-	^String streamContents: [:aStream |
-		aStream
-			nextPutAll: super printString, ' ('.
-		self do: [:each | aStream nextPutAll: each printString]
-			separatedBy: [aStream nextPutAll: ' '].
-		aStream nextPutAll: ')']
 ! !
 
 !Collection methodsFor: 'testing'!
@@ -581,22 +561,14 @@ withIndexDo: aBlock
 
 !HashedCollection methodsFor: 'printing'!
 
-printString
-	"print the contents of the HashedCollection into a string and return the string"
-	^String streamContents: [:aStream |
-		aStream nextPutAll: 'a ', self class name, '('.
-		self associations
-			do: [:each | each storeOn: aStream]
-			separatedBy: [ aStream nextPutAll: ' , '].
-		aStream nextPutAll: ')']
-!
-
-storeOn: aStream
-	aStream nextPutAll: '#{'.
+printOn: aStream
+	super printOn: aStream.
+	
+	aStream nextPutAll: ' ('.
 	self associations
-		do: [:each | each storeOn: aStream]
-		separatedBy: [ aStream nextPutAll: '. '].
-	aStream nextPutAll: '}'
+		do: [:each | each printOn: aStream ]
+		separatedBy: [ aStream nextPutAll: ' , ' ].
+	aStream nextPutAll: ')'
 ! !
 
 !HashedCollection methodsFor: 'testing'!
@@ -1061,8 +1033,8 @@ errorReadOnly
 
 !CharacterArray methodsFor: 'printing'!
 
-printString
-	^self asString printString
+printOn: aStream
+	self asString printOn: aStream
 ! !
 
 !CharacterArray class methodsFor: 'instance creation'!
@@ -1222,8 +1194,11 @@ printNl
 	<console.log(self)>
 !
 
-printString
-	^'''', self, ''''
+printOn: aStream
+	aStream 
+		nextPutAll: '''';
+		nextPutAll: self;
+		nextPutAll: ''''
 ! !
 
 !String methodsFor: 'regular expressions'!
@@ -1350,6 +1325,12 @@ includesSubString: subString
 
 isString
 	^true
+!
+
+isVowel
+	"Answer true if the receiver is a one character string containing a voyel"
+	
+	^ self size = 1 and: [ 'aeiou' includes: self asLowercase ]
 ! !
 
 !String class methodsFor: 'accessing'!
@@ -1525,12 +1506,15 @@ value: anObject
 
 !Symbol methodsFor: 'printing'!
 
+printOn: aStream
+	aStream nextPutAll: '#'.
+	super printOn: aStream
+! !
+
+!Symbol methodsFor: 'testing'!
+
 isSymbol
 	^true
-!
-
-printString
-	^'#', self asString
 ! !
 
 !Symbol class methodsFor: 'instance creation'!
@@ -1621,6 +1605,18 @@ select: aBlock
 initialize
 	super initialize.
 	elements := #()
+! !
+
+!Set methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	
+	aStream nextPutAll: ' ('.
+	self 
+		do: [ :each | each printOn: aStream ]
+		separatedBy: [ aStream nextPutAll: ' ' ].
+	aStream nextPutAll: ')'
 ! !
 
 !Set methodsFor: 'testing'!
