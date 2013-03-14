@@ -3225,19 +3225,6 @@ messageSends: []}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_asSuperSelector",
-smalltalk.method({
-selector: "asSuperSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asSuperSelector();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSuperSelector",{},smalltalk.Symbol)})},
-messageSends: ["asSuperSelector", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_asSymbol",
 smalltalk.method({
 selector: "asSymbol",

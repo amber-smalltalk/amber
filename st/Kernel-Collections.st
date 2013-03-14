@@ -1466,10 +1466,6 @@ asString
 	<return self.value>
 !
 
-asSuperSelector
-	^self asString asSuperSelector
-!
-
 asSymbol
 	^self
 ! !

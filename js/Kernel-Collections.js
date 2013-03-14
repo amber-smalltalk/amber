@@ -4370,24 +4370,6 @@ referencedClasses: []
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_asSuperSelector",
-smalltalk.method({
-selector: "asSuperSelector",
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asSuperSelector();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSuperSelector",{},smalltalk.Symbol)})},
-args: [],
-source: "asSuperSelector\x0a\x09^self asString asSuperSelector",
-messageSends: ["asSuperSelector", "asString"],
-referencedClasses: []
-}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_asSymbol",
 smalltalk.method({
 selector: "asSymbol",
