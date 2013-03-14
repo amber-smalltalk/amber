@@ -1179,10 +1179,6 @@ nextPutStatementWith: aBlock
 	stream nextPutAll: ';'; lf
 !
 
-nextPutVar: aString
-	stream nextPutAll: 'var ', aString, ';'; lf
-!
-
 nextPutVars: aCollection
 	aCollection ifEmpty: [ ^self ].
 	

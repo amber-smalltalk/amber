@@ -2509,20 +2509,6 @@ messageSends: ["value", "nextPutAll:", "lf"]}),
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutVar_",
-smalltalk.method({
-selector: "nextPutVar:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self["@stream"];
-_st($1)._nextPutAll_(_st(_st("var ").__comma(aString)).__comma(";"));
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutVar:",{aString:aString},smalltalk.JSStream)})},
-messageSends: ["nextPutAll:", ",", "lf"]}),
-smalltalk.JSStream);
-
-smalltalk.addMethod(
 "_nextPutVars_",
 smalltalk.method({
 selector: "nextPutVars:",

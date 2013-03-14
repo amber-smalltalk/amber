@@ -446,11 +446,14 @@ smalltalk.method({
 selector: "visitIRInlinedClosure:",
 fn: function (anIRInlinedClosure){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(anIRInlinedClosure)._instructions())._do_((function(each){
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._stream())._nextPutVars_(_st(_st(anIRInlinedClosure)._tempDeclarations())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(_st(each)._name())._asVariableName();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+_st(_st(anIRInlinedClosure)._instructions())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._visit_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedClosure:",{anIRInlinedClosure:anIRInlinedClosure},smalltalk.IRInliningJSTranslator)})},
-messageSends: ["do:", "visit:", "instructions"]}),
+messageSends: ["nextPutVars:", "collect:", "asVariableName", "name", "tempDeclarations", "stream", "do:", "visit:", "instructions"]}),
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
@@ -711,14 +714,11 @@ selector: "inlineClosure:",
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,sequence,statements;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
 inlinedClosure=_st(self)._inlinedClosure();
 _st(inlinedClosure)._scope_(_st(anIRClosure)._scope());
-_st(_st(anIRClosure)._instructions())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(each)._isSequence();
-if(! smalltalk.assert($1)){
-return _st(inlinedClosure)._add_(each);
-};
+_st(_st(anIRClosure)._tempDeclarations())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(inlinedClosure)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 sequence=_st(self)._inlinedSequence();
 _st(inlinedClosure)._add_(sequence);
@@ -727,19 +727,19 @@ _st(statements)._ifNotEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {_st(_st(statements)._allButLast())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(sequence)._add_(each);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
-$2=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
+$1=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st(statements)._last())._isBlockReturn();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($2)){
+if(smalltalk.assert($1)){
 return _st(sequence)._add_(_st(_st(_st(statements)._last())._instructions())._first());
 } else {
 return _st(sequence)._add_(_st(statements)._last());
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$3=inlinedClosure;
-return $3;
+$2=inlinedClosure;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements},smalltalk.IRSendInliner)})},
-messageSends: ["inlinedClosure", "scope:", "scope", "do:", "ifFalse:", "add:", "isSequence", "instructions", "inlinedSequence", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "first", "and:", "isBlockReturn", "isReturn"]}),
+messageSends: ["inlinedClosure", "scope:", "scope", "do:", "add:", "tempDeclarations", "inlinedSequence", "instructions", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "first", "and:", "isBlockReturn", "isReturn"]}),
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(

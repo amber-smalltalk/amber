@@ -255,6 +255,8 @@ visitIRInlinedAssignment: anIRInlinedAssignment
 !
 
 visitIRInlinedClosure: anIRInlinedClosure
+	self stream nextPutVars: (anIRInlinedClosure tempDeclarations collect: [ :each |
+		each name asVariableName ]).
 	anIRInlinedClosure instructions do: [ :each |
 		self visit: each ]
 !
@@ -415,9 +417,8 @@ inlineClosure: anIRClosure
 	inlinedClosure scope: anIRClosure scope.
 
 	"Add the possible temp declarations"
-	anIRClosure instructions do: [ :each |
-		each isSequence ifFalse: [
-			inlinedClosure add: each ]].
+	anIRClosure tempDeclarations do: [ :each |
+			inlinedClosure add: each ].
 
 	"Add a block sequence"
 	sequence := self inlinedSequence.

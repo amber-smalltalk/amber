@@ -3353,25 +3353,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutVar_",
-smalltalk.method({
-selector: "nextPutVar:",
-category: 'streaming',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=self["@stream"];
-_st($1)._nextPutAll_(_st(_st("var ").__comma(aString)).__comma(";"));
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutVar:",{aString:aString},smalltalk.JSStream)})},
-args: ["aString"],
-source: "nextPutVar: aString\x0a\x09stream nextPutAll: 'var ', aString, ';'; lf",
-messageSends: ["nextPutAll:", ",", "lf"],
-referencedClasses: []
-}),
-smalltalk.JSStream);
-
-smalltalk.addMethod(
 "_nextPutVars_",
 smalltalk.method({
 selector: "nextPutVars:",
