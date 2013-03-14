@@ -30,9 +30,9 @@ Building Amber
 Since 0.10.0 Amber uses [Grunt.js](http://gruntjs.com/) as build system.
 To compile Amber on the commandline execute the following commands:
 
-#    cd ${Amber_DIR}
-#    npm install
-#    ./node_modules/grunt/bin/grunt
+    cd ${Amber_DIR}
+    npm install
+    ./node_modules/grunt/bin/grunt
 
 More infos
 ----------
