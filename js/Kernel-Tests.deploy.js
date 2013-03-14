@@ -1156,7 +1156,7 @@ $1=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($1)._at_put_("firstname","James");
 _st($1)._at_put_("lastname","Bond");
 $2=_st($1)._printString();
-_st(self)._assert_equals_($2,"a Dictionary('firstname'->'James' , 'lastname'->'Bond')");
+_st(self)._assert_equals_($2,"a Dictionary ('firstname' -> 'James' , 'lastname' -> 'Bond')");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{},smalltalk.DictionaryTest)})},
 messageSends: ["assert:equals:", "at:put:", "new", "printString"]}),
 smalltalk.DictionaryTest);
@@ -1345,21 +1345,21 @@ var self=this;
 var array;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 array=_st((smalltalk.Array || Array))._new();
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ()");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ()");
 $1=array;
 _st($1)._add_((1));
 $2=_st($1)._add_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array (1 3)");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array (1 3)");
 _st(array)._add_("foo");
-_st(self)._assert_equals_(_st(array)._printString(),"a Array (1 3 'foo')");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array (1 3 'foo')");
 $3=array;
 _st($3)._remove_((1));
 $4=_st($3)._remove_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ('foo')");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ('foo')");
 _st(array)._addLast_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ('foo' 3)");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ('foo' 3)");
 _st(array)._addLast_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ('foo' 3 3)");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ('foo' 3 3)");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},smalltalk.ArrayTest)})},
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"]}),
 smalltalk.ArrayTest);

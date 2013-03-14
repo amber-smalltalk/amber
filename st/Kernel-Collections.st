@@ -938,6 +938,18 @@ sorted: aBlock
 	^self copy sort: aBlock
 ! !
 
+!Array methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	
+	aStream nextPutAll: ' ('.
+	self 
+		do: [ :each | each printOn: aStream ]
+		separatedBy: [ aStream nextPutAll: ' ' ].
+	aStream nextPutAll: ')'
+! !
+
 !Array class methodsFor: 'instance creation'!
 
 new: anInteger
@@ -1366,7 +1378,7 @@ fromCharCode: anInteger
 !
 
 fromString: aString
-		<return new self.fn(aString)>
+		<return String(aString)>
 !
 
 streamContents: blockWithArg

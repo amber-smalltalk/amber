@@ -1928,6 +1928,24 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
+"_printOn_",
+smalltalk.method({
+selector: "printOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.SequenceableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+_st(aStream)._nextPutAll_(" (");
+_st(self)._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._printOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(" ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(aStream)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Array)})},
+messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]}),
+smalltalk.Array);
+
+smalltalk.addMethod(
 "_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
@@ -2977,7 +2995,7 @@ smalltalk.method({
 selector: "fromString:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self.fn(aString);
+return smalltalk.withContext(function($ctx1) { return String(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},smalltalk.String.klass)})},
 messageSends: []}),
 smalltalk.String.klass);

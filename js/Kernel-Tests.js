@@ -1447,10 +1447,10 @@ $1=_st((smalltalk.Dictionary || Dictionary))._new();
 _st($1)._at_put_("firstname","James");
 _st($1)._at_put_("lastname","Bond");
 $2=_st($1)._printString();
-_st(self)._assert_equals_($2,"a Dictionary('firstname'->'James' , 'lastname'->'Bond')");
+_st(self)._assert_equals_($2,"a Dictionary ('firstname' -> 'James' , 'lastname' -> 'Bond')");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{},smalltalk.DictionaryTest)})},
 args: [],
-source: "testPrintString\x0a\x09self\x0a\x09\x09assert: (Dictionary new\x0a\x09\x09\x09\x09\x09\x09\x09at:'firstname' put: 'James';\x0a\x09\x09\x09\x09\x09\x09\x09at:'lastname' put: 'Bond';\x0a\x09\x09\x09\x09\x09\x09\x09printString)\x0a\x09\x09equals: 'a Dictionary(''firstname''->''James'' , ''lastname''->''Bond'')'",
+source: "testPrintString\x0a\x09self\x0a\x09\x09assert: (Dictionary new\x0a\x09\x09\x09\x09\x09\x09\x09at:'firstname' put: 'James';\x0a\x09\x09\x09\x09\x09\x09\x09at:'lastname' put: 'Bond';\x0a\x09\x09\x09\x09\x09\x09\x09printString)\x0a\x09\x09equals: 'a Dictionary (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'",
 messageSends: ["assert:equals:", "at:put:", "new", "printString"],
 referencedClasses: ["Dictionary"]
 }),
@@ -1691,24 +1691,24 @@ var self=this;
 var array;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 array=_st((smalltalk.Array || Array))._new();
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ()");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ()");
 $1=array;
 _st($1)._add_((1));
 $2=_st($1)._add_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array (1 3)");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array (1 3)");
 _st(array)._add_("foo");
-_st(self)._assert_equals_(_st(array)._printString(),"a Array (1 3 'foo')");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array (1 3 'foo')");
 $3=array;
 _st($3)._remove_((1));
 $4=_st($3)._remove_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ('foo')");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ('foo')");
 _st(array)._addLast_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ('foo' 3)");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ('foo' 3)");
 _st(array)._addLast_((3));
-_st(self)._assert_equals_(_st(array)._printString(),"a Array ('foo' 3 3)");
+_st(self)._assert_equals_(_st(array)._printString(),"an Array ('foo' 3 3)");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},smalltalk.ArrayTest)})},
 args: [],
-source: "testPrintString\x0a\x09| array |\x0a\x09array := Array new.\x0a\x09self assert: array printString equals: 'a Array ()'.\x0a\x09array add: 1; add: 3.\x0a\x09self assert: array printString equals: 'a Array (1 3)'.\x0a\x09array add: 'foo'.\x0a\x09self assert: array printString equals: 'a Array (1 3 ''foo'')'.\x0a\x09array remove: 1; remove: 3.\x0a\x09self assert: array printString equals: 'a Array (''foo'')'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'a Array (''foo'' 3)'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'a Array (''foo'' 3 3)'.",
+source: "testPrintString\x0a\x09| array |\x0a\x09array := Array new.\x0a\x09self assert: array printString equals: 'an Array ()'.\x0a\x09array add: 1; add: 3.\x0a\x09self assert: array printString equals: 'an Array (1 3)'.\x0a\x09array add: 'foo'.\x0a\x09self assert: array printString equals: 'an Array (1 3 ''foo'')'.\x0a\x09array remove: 1; remove: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'')'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'' 3)'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'' 3 3)'.",
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"],
 referencedClasses: ["Array"]
 }),
