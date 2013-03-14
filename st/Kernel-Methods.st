@@ -352,19 +352,20 @@ selector: aString
 	selector := aString
 ! !
 
-!Message methodsFor: 'printing'!
-
-printString
-	^ String streamContents: [:aStream|
-												aStream
-													nextPutAll: super printString;
-													nextPutAll: '(';
-													nextPutAll: selector;
-													nextPutAll: ')' ]
-!
+!Message methodsFor: 'actions'!
 
 sendTo: anObject
 	^ anObject perform: self selector withArguments: self arguments
+! !
+
+!Message methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	aStream
+		nextPutAll: '(';
+		nextPutAll: self selector;
+		nextPutAll: ')'
 ! !
 
 !Message class methodsFor: 'instance creation'!
@@ -412,10 +413,6 @@ pc
 	<return self.pc>
 !
 
-printString
-	^super printString, '(', self asString, ')'
-!
-
 receiver
 	<return self.receiver>
 !
@@ -442,6 +439,16 @@ asString
 	^self isBlockContext
 		ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
 		ifFalse: [ self receiver class printString, ' >> ', self selector ]
+! !
+
+!MethodContext methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	aStream 
+		nextPutAll: '(';
+		nextPutAll: self asString;
+		nextPutAll: ')'
 ! !
 
 !MethodContext methodsFor: 'testing'!

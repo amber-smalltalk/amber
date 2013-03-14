@@ -677,23 +677,19 @@ messageSends: []}),
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$1=_st((smalltalk.String || String))._streamContents_((function(aStream){
-return smalltalk.withContext(function($ctx2) {$2=aStream;
-_st($2)._nextPutAll_(smalltalk.Object.fn.prototype._printString.apply(_st(self), []));
-_st($2)._nextPutAll_("(");
-_st($2)._nextPutAll_(self["@selector"]);
-$3=_st($2)._nextPutAll_(")");
-return $3;
-}, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Message)})},
-messageSends: ["streamContents:", "nextPutAll:", "printString"]}),
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+$1=aStream;
+_st($1)._nextPutAll_("(");
+_st($1)._nextPutAll_(_st(self)._selector());
+$2=_st($1)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Message)})},
+messageSends: ["printOn:", "nextPutAll:", "selector"]}),
 smalltalk.Message);
 
 smalltalk.addMethod(
@@ -860,16 +856,19 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(smalltalk.Object.fn.prototype._printString.apply(_st(self), [])).__comma("(")).__comma(_st(self)._asString())).__comma(")");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.MethodContext)})},
-messageSends: [",", "asString", "printString"]}),
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+$1=aStream;
+_st($1)._nextPutAll_("(");
+_st($1)._nextPutAll_(_st(self)._asString());
+$2=_st($1)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.MethodContext)})},
+messageSends: ["printOn:", "nextPutAll:", "asString"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(

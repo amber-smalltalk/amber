@@ -368,8 +368,8 @@ asJavascript
 
 !Class methodsFor: 'printing'!
 
-printString
-	^self name
+printOn: aStream
+	aStream nextPutAll: self name
 ! !
 
 !Class methodsFor: 'testing'!
@@ -426,8 +426,10 @@ asJavascript
 
 !Metaclass methodsFor: 'printing'!
 
-printString
-	^self instanceClass name, ' class'
+printOn: aStream
+	aStream
+		nextPutAll: self instanceClass name;
+		nextPutAll: ' class'
 ! !
 
 !Metaclass methodsFor: 'testing'!

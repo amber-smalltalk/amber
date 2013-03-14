@@ -709,16 +709,14 @@ messageSends: []}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._name();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Class)})},
-messageSends: ["name"]}),
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._name());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Class)})},
+messageSends: ["nextPutAll:", "name"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
@@ -860,16 +858,17 @@ messageSends: []}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._instanceClass())._name()).__comma(" class");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Metaclass)})},
-messageSends: [",", "name", "instanceClass"]}),
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_(_st(_st(self)._instanceClass())._name());
+$2=_st($1)._nextPutAll_(" class");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Metaclass)})},
+messageSends: ["nextPutAll:", "name", "instanceClass"]}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(

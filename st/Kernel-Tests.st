@@ -594,7 +594,7 @@ testPrintString
 							at:'firstname' put: 'James';
 							at:'lastname' put: 'Bond';
 							printString)
-		equals: 'a Dictionary(''firstname''->''James'' , ''lastname''->''Bond'')'
+		equals: 'a Dictionary (''firstname'' -> ''James'' , ''lastname'' -> ''Bond'')'
 !
 
 testRemoveKey
@@ -706,17 +706,17 @@ testIfEmpty
 testPrintString
 	| array |
 	array := Array new.
-	self assert: array printString equals: 'a Array ()'.
+	self assert: array printString equals: 'an Array ()'.
 	array add: 1; add: 3.
-	self assert: array printString equals: 'a Array (1 3)'.
+	self assert: array printString equals: 'an Array (1 3)'.
 	array add: 'foo'.
-	self assert: array printString equals: 'a Array (1 3 ''foo'')'.
+	self assert: array printString equals: 'an Array (1 3 ''foo'')'.
 	array remove: 1; remove: 3.
-	self assert: array printString equals: 'a Array (''foo'')'.
+	self assert: array printString equals: 'an Array (''foo'')'.
 	array addLast: 3.
-	self assert: array printString equals: 'a Array (''foo'' 3)'.
+	self assert: array printString equals: 'an Array (''foo'' 3)'.
 	array addLast: 3.
-	self assert: array printString equals: 'a Array (''foo'' 3 3)'.
+	self assert: array printString equals: 'an Array (''foo'' 3 3)'.
 ! !
 
 !ArrayTest class methodsFor: 'accessing'!

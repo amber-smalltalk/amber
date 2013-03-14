@@ -1,4 +1,250 @@
 smalltalk.addPackage('Compiler-Core');
+smalltalk.addClass('AbstractCodeGenerator', smalltalk.Object, ['currentClass', 'source'], 'Compiler-Core');
+smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API."
+smalltalk.addMethod(
+"_classNameFor_",
+smalltalk.method({
+selector: "classNameFor:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
+} else {
+$3=_st(aClass)._isNil();
+if(smalltalk.assert($3)){
+$1="nil";
+} else {
+$1=_st(aClass)._name();
+};
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
+args: ["aClass"],
+source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [aClass instanceClass name, '.klass']\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: ['nil']\x0a\x09\x09\x09ifFalse: [aClass name]]",
+messageSends: ["ifTrue:ifFalse:", ",", "name", "instanceClass", "isNil", "isMetaclass"],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_compileNode_",
+smalltalk.method({
+selector: "compileNode:",
+category: 'compiling',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode},smalltalk.AbstractCodeGenerator)})},
+args: ["aNode"],
+source: "compileNode: aNode\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_currentClass",
+smalltalk.method({
+selector: "currentClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=self["@currentClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.AbstractCodeGenerator)})},
+args: [],
+source: "currentClass\x0a\x09^currentClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_currentClass_",
+smalltalk.method({
+selector: "currentClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@currentClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
+args: ["aClass"],
+source: "currentClass: aClass\x0a\x09currentClass := aClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_pseudoVariables",
+smalltalk.method({
+selector: "pseudoVariables",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return ["self", "super", "true", "false", "nil", "thisContext"];
+}, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
+args: [],
+source: "pseudoVariables\x0a\x09^#('self' 'super' 'true' 'false' 'nil' 'thisContext')",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_safeVariableNameFor_",
+smalltalk.method({
+selector: "safeVariableNameFor:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._reservedWords())._includes_(aString);
+if(smalltalk.assert($2)){
+$1=_st(aString).__comma("_");
+} else {
+$1=aString;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
+args: ["aString"],
+source: "safeVariableNameFor: aString\x0a\x09^(Smalltalk current reservedWords includes: aString)\x0a\x09\x09ifTrue: [aString, '_']\x0a\x09\x09ifFalse: [aString]",
+messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_source",
+smalltalk.method({
+selector: "source",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$1;
+$2=self["@source"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.AbstractCodeGenerator)})},
+args: [],
+source: "source\x0a\x09^source ifNil: ['']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+smalltalk.addMethod(
+"_source_",
+smalltalk.method({
+selector: "source:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
+args: ["aString"],
+source: "source: aString\x0a\x09source := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractCodeGenerator);
+
+
+
+smalltalk.addClass('CodeGenerator', smalltalk.AbstractCodeGenerator, [], 'Compiler-Core');
+smalltalk.CodeGenerator.comment="I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.\x0aSee `InliningCodeGenerator` for an optimized JavaScript code generation."
+smalltalk.addMethod(
+"_compileNode_",
+smalltalk.method({
+selector: "compileNode:",
+category: 'compiling',
+fn: function (aNode){
+var self=this;
+var ir,stream;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+_st(_st(self)._semanticAnalyzer())._visit_(aNode);
+ir=_st(_st(self)._translator())._visit_(aNode);
+$2=_st(self)._irTranslator();
+_st($2)._visit_(ir);
+$3=_st($2)._contents();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},smalltalk.CodeGenerator)})},
+args: ["aNode"],
+source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09^ self irTranslator\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
+messageSends: ["visit:", "semanticAnalyzer", "translator", "irTranslator", "contents"],
+referencedClasses: []
+}),
+smalltalk.CodeGenerator);
+
+smalltalk.addMethod(
+"_irTranslator",
+smalltalk.method({
+selector: "irTranslator",
+category: 'compiling',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.IRJSTranslator || IRJSTranslator))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"irTranslator",{},smalltalk.CodeGenerator)})},
+args: [],
+source: "irTranslator\x0a\x09^ IRJSTranslator new",
+messageSends: ["new"],
+referencedClasses: ["IRJSTranslator"]
+}),
+smalltalk.CodeGenerator);
+
+smalltalk.addMethod(
+"_semanticAnalyzer",
+smalltalk.method({
+selector: "semanticAnalyzer",
+category: 'compiling',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(_st(self)._currentClass());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},smalltalk.CodeGenerator)})},
+args: [],
+source: "semanticAnalyzer\x0a\x09^ SemanticAnalyzer on: self currentClass",
+messageSends: ["on:", "currentClass"],
+referencedClasses: ["SemanticAnalyzer"]
+}),
+smalltalk.CodeGenerator);
+
+smalltalk.addMethod(
+"_translator",
+smalltalk.method({
+selector: "translator",
+category: 'compiling',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+$2=_st((smalltalk.IRASTTranslator || IRASTTranslator))._new();
+_st($2)._source_(_st(self)._source());
+_st($2)._theClass_(_st(self)._currentClass());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"translator",{},smalltalk.CodeGenerator)})},
+args: [],
+source: "translator\x0a\x09^ IRASTTranslator new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
+messageSends: ["source:", "source", "new", "theClass:", "currentClass", "yourself"],
+referencedClasses: ["IRASTTranslator"]
+}),
+smalltalk.CodeGenerator);
+
+
+
 smalltalk.addClass('Compiler', smalltalk.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
 smalltalk.Compiler.comment="I provide the public interface for compiling Amber source code into JavaScript.\x0a\x0aThe code generator used to produce JavaScript can be plugged with `#codeGeneratorClass`.\x0aThe default code generator is an instance of `InlinedCodeGenerator`"
 smalltalk.addMethod(
@@ -760,252 +1006,6 @@ messageSends: ["visitNode:"],
 referencedClasses: []
 }),
 smalltalk.NodeVisitor);
-
-
-
-smalltalk.addClass('AbstractCodeGenerator', smalltalk.NodeVisitor, ['currentClass', 'source'], 'Compiler-Core');
-smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API."
-smalltalk.addMethod(
-"_classNameFor_",
-smalltalk.method({
-selector: "classNameFor:",
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st(aClass)._isMetaclass();
-if(smalltalk.assert($2)){
-$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
-} else {
-$3=_st(aClass)._isNil();
-if(smalltalk.assert($3)){
-$1="nil";
-} else {
-$1=_st(aClass)._name();
-};
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
-args: ["aClass"],
-source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [aClass instanceClass name, '.klass']\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: ['nil']\x0a\x09\x09\x09ifFalse: [aClass name]]",
-messageSends: ["ifTrue:ifFalse:", ",", "name", "instanceClass", "isNil", "isMetaclass"],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_compileNode_",
-smalltalk.method({
-selector: "compileNode:",
-category: 'compiling',
-fn: function (aNode){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode},smalltalk.AbstractCodeGenerator)})},
-args: ["aNode"],
-source: "compileNode: aNode\x0a\x09self subclassResponsibility",
-messageSends: ["subclassResponsibility"],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_currentClass",
-smalltalk.method({
-selector: "currentClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self["@currentClass"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.AbstractCodeGenerator)})},
-args: [],
-source: "currentClass\x0a\x09^currentClass",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_currentClass_",
-smalltalk.method({
-selector: "currentClass:",
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { self["@currentClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"currentClass:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
-args: ["aClass"],
-source: "currentClass: aClass\x0a\x09currentClass := aClass",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_pseudoVariables",
-smalltalk.method({
-selector: "pseudoVariables",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return ["self", "super", "true", "false", "nil", "thisContext"];
-}, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
-args: [],
-source: "pseudoVariables\x0a\x09^#('self' 'super' 'true' 'false' 'nil' 'thisContext')",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_safeVariableNameFor_",
-smalltalk.method({
-selector: "safeVariableNameFor:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._reservedWords())._includes_(aString);
-if(smalltalk.assert($2)){
-$1=_st(aString).__comma("_");
-} else {
-$1=aString;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
-args: ["aString"],
-source: "safeVariableNameFor: aString\x0a\x09^(Smalltalk current reservedWords includes: aString)\x0a\x09\x09ifTrue: [aString, '_']\x0a\x09\x09ifFalse: [aString]",
-messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_source",
-smalltalk.method({
-selector: "source",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=self["@source"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.AbstractCodeGenerator)})},
-args: [],
-source: "source\x0a\x09^source ifNil: ['']",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-smalltalk.addMethod(
-"_source_",
-smalltalk.method({
-selector: "source:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { self["@source"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
-args: ["aString"],
-source: "source: aString\x0a\x09source := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.AbstractCodeGenerator);
-
-
-
-smalltalk.addClass('CodeGenerator', smalltalk.AbstractCodeGenerator, [], 'Compiler-Core');
-smalltalk.CodeGenerator.comment="I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.\x0aSee `InliningCodeGenerator` for an optimized JavaScript code generation."
-smalltalk.addMethod(
-"_compileNode_",
-smalltalk.method({
-selector: "compileNode:",
-category: 'compiling',
-fn: function (aNode){
-var self=this;
-var ir,stream;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-_st(_st(self)._semanticAnalyzer())._visit_(aNode);
-ir=_st(_st(self)._translator())._visit_(aNode);
-$2=_st(self)._irTranslator();
-_st($2)._visit_(ir);
-$3=_st($2)._contents();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},smalltalk.CodeGenerator)})},
-args: ["aNode"],
-source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09^ self irTranslator\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
-messageSends: ["visit:", "semanticAnalyzer", "translator", "irTranslator", "contents"],
-referencedClasses: []
-}),
-smalltalk.CodeGenerator);
-
-smalltalk.addMethod(
-"_irTranslator",
-smalltalk.method({
-selector: "irTranslator",
-category: 'compiling',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.IRJSTranslator || IRJSTranslator))._new();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"irTranslator",{},smalltalk.CodeGenerator)})},
-args: [],
-source: "irTranslator\x0a\x09^ IRJSTranslator new",
-messageSends: ["new"],
-referencedClasses: ["IRJSTranslator"]
-}),
-smalltalk.CodeGenerator);
-
-smalltalk.addMethod(
-"_semanticAnalyzer",
-smalltalk.method({
-selector: "semanticAnalyzer",
-category: 'compiling',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(_st(self)._currentClass());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},smalltalk.CodeGenerator)})},
-args: [],
-source: "semanticAnalyzer\x0a\x09^ SemanticAnalyzer on: self currentClass",
-messageSends: ["on:", "currentClass"],
-referencedClasses: ["SemanticAnalyzer"]
-}),
-smalltalk.CodeGenerator);
-
-smalltalk.addMethod(
-"_translator",
-smalltalk.method({
-selector: "translator",
-category: 'compiling',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.IRASTTranslator || IRASTTranslator))._new();
-_st($2)._source_(_st(self)._source());
-_st($2)._theClass_(_st(self)._currentClass());
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"translator",{},smalltalk.CodeGenerator)})},
-args: [],
-source: "translator\x0a\x09^ IRASTTranslator new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
-messageSends: ["source:", "source", "new", "theClass:", "currentClass", "yourself"],
-referencedClasses: ["IRASTTranslator"]
-}),
-smalltalk.CodeGenerator);
 
 
 

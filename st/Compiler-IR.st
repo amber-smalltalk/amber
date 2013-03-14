@@ -651,12 +651,6 @@ index: anInteger
 	index := anInteger
 !
 
-javascriptSelector
-	^ self classSend
-		ifNil: [ self selector asSelector ]
-		ifNotNil: [ self selector asSuperSelector ]
-!
-
 selector
 	^ selector
 !

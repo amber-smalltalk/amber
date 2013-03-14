@@ -235,30 +235,19 @@ perform: aSymbol withArguments: aCollection
 
 !Object methodsFor: 'printing'!
 
-log: aString block: aBlock
-
-	| result |
-	console log: aString, ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
-	^result
-!
-
-printNl
-	<console.log(self)>
+printOn: aStream
+	"Append to the aStream, a string representing the receiver."
+	
+	aStream nextPutAll: (self class name first isVowel
+		ifTrue: [ 'an ' ]
+		ifFalse: [ 'a ' ]).
+	aStream nextPutAll: self class name
 !
 
 printString
-	^'a ', self class name
-!
+	"Answer a String representation of the receiver."
 
-storeOn: aStream
-	aStream nextPutAll: self printString
-!
-
-storeString
-	"Answer a String representation of the receiver from which the receiver
-	can be reconstructed."
-
-	^ String streamContents: [:s | self storeOn: s]
+	^ String streamContents: [ :stream | self printOn: stream ]
 ! !
 
 !Object methodsFor: 'testing'!
@@ -431,6 +420,10 @@ or: aBlock
 
 asJSON
 	^self
+!
+
+asString
+	< return self.toString() >
 ! !
 
 !Boolean methodsFor: 'copying'!
@@ -445,8 +438,8 @@ shallowCopy
 
 !Boolean methodsFor: 'printing'!
 
-printString
-	<return self.toString()>
+printOn: aStream
+	aStream nextPutAll: self asString
 ! !
 
 !Boolean methodsFor: 'testing'!
@@ -602,8 +595,8 @@ asTimeString
 
 !Date methodsFor: 'printing'!
 
-printString
-	^self asString
+printOn: aStream
+	aStream nextPutAll: self asString
 ! !
 
 !Date class methodsFor: 'instance creation'!
@@ -729,6 +722,12 @@ keysAndValuesDo: aBlock
 	>
 ! !
 
+!JSObjectProxy methodsFor: 'printing'!
+
+printOn: aStream
+	aStream nextPutAll: self jsObject toString
+! !
+
 !JSObjectProxy methodsFor: 'proxy'!
 
 addObjectVariablesTo: aDictionary
@@ -759,10 +758,6 @@ inspectOn: anInspector
 	anInspector setLabel: self printString.
 	self addObjectVariablesTo: variables.
 	anInspector setVariables: variables
-!
-
-printString
-	^self jsObject toString
 ! !
 
 !JSObjectProxy methodsFor: 'testing'!
@@ -918,7 +913,7 @@ asPoint
 !
 
 asString
-	^self printString
+	< return String(self) >
 !
 
 atRandom
@@ -1019,12 +1014,12 @@ to: stop do: aBlock
 
 !Number methodsFor: 'printing'!
 
-printShowingDecimalPlaces: placesDesired
-	<return self.toFixed(placesDesired)>
+printOn: aStream
+	aStream nextPutAll: self asString
 !
 
-printString
-	<return String(self)>
+printShowingDecimalPlaces: placesDesired
+	<return self.toFixed(placesDesired)>
 ! !
 
 !Number methodsFor: 'testing'!
@@ -1198,8 +1193,12 @@ sortedClasses
 
 !Package methodsFor: 'printing'!
 
-printString
-	^self name
+printOn: aStream
+	super printOn: aStream.
+	aStream 
+		nextPutAll: ' (';
+		nextPutAll: self name;
+		nextPutAll: ')'
 ! !
 
 !Package methodsFor: 'private'!
@@ -1392,16 +1391,17 @@ asPoint
 
 !Point methodsFor: 'printing'!
 
-printString
+printOn: aStream
 	"Print receiver in classic x@y notation."
 
-	^String streamContents: [:stream |
-		stream nextPutAll: x printString, '@'.
-		(y notNil and: [y negative])
-			ifTrue: [
-				"Avoid ambiguous @- construct"
-				stream space].
-		stream nextPutAll: y printString]
+	x printOn: aStream.
+	
+	aStream nextPutAll: '@'.
+	(y notNil and: [y negative]) ifTrue: [
+			"Avoid ambiguous @- construct"
+			aStream space ].
+	
+	y printOn: aStream
 ! !
 
 !Point methodsFor: 'transforming'!
@@ -1718,8 +1718,8 @@ shallowCopy
 
 !UndefinedObject methodsFor: 'printing'!
 
-printString
-	^'nil'
+printOn: aStream
+	aStream nextPutAll: 'nil'
 ! !
 
 !UndefinedObject methodsFor: 'testing'!

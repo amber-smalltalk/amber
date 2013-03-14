@@ -651,29 +651,6 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_log_block_",
-smalltalk.method({
-selector: "log:block:",
-category: 'printing',
-fn: function (aString,aBlock){
-var self=this;
-var result;
-return smalltalk.withContext(function($ctx1) { var $1;
-_st(console)._log_(_st(_st(aString).__comma(" time: ")).__comma(_st(_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
-return smalltalk.withContext(function($ctx2) {result=_st(aBlock)._value();
-return result;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._printString()));
-$1=result;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"log:block:",{aString:aString,aBlock:aBlock,result:result},smalltalk.Object)})},
-args: ["aString", "aBlock"],
-source: "log: aString block: aBlock\x0a\x0a\x09| result |\x0a\x09console log: aString, ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.\x0a\x09^result",
-messageSends: ["log:", ",", "printString", "millisecondsToRun:", "value"],
-referencedClasses: ["Date"]
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
 "_notNil",
 smalltalk.method({
 selector: "notNil",
@@ -741,17 +718,26 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_printNl",
+"_printOn_",
 smalltalk.method({
-selector: "printNl",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { console.log(self);
-return self}, function($ctx1) {$ctx1.fill(self,"printNl",{},smalltalk.Object)})},
-args: [],
-source: "printNl\x0a\x09<console.log(self)>",
-messageSends: [],
+return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+$1=aStream;
+$3=_st(_st(_st(_st(self)._class())._name())._first())._isVowel();
+if(smalltalk.assert($3)){
+$2="an ";
+} else {
+$2="a ";
+};
+_st($1)._nextPutAll_($2);
+_st(aStream)._nextPutAll_(_st(_st(self)._class())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Object)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09\x22Append to the aStream, a string representing the receiver.\x22\x0a\x09\x0a\x09aStream nextPutAll: (self class name first isVowel\x0a\x09\x09ifTrue: [ 'an ' ]\x0a\x09\x09ifFalse: [ 'a ' ]).\x0a\x09aStream nextPutAll: self class name",
+messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "class"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -764,13 +750,15 @@ category: 'printing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st("a ").__comma(_st(_st(self)._class())._name());
+$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {return _st(self)._printOn_(stream);
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Object)})},
 args: [],
-source: "printString\x0a\x09^'a ', self class name",
-messageSends: [",", "name", "class"],
-referencedClasses: []
+source: "printString\x0a\x09\x22Answer a String representation of the receiver.\x22\x0a\x0a\x09^ String streamContents: [ :stream | self printOn: stream ]",
+messageSends: ["streamContents:", "printOn:"],
+referencedClasses: ["String"]
 }),
 smalltalk.Object);
 
@@ -845,42 +833,6 @@ args: [],
 source: "size\x0a\x09self error: 'Object not indexable'",
 messageSends: ["error:"],
 referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-"_storeOn_",
-smalltalk.method({
-selector: "storeOn:",
-category: 'printing',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._printString());
-return self}, function($ctx1) {$ctx1.fill(self,"storeOn:",{aStream:aStream},smalltalk.Object)})},
-args: ["aStream"],
-source: "storeOn: aStream\x0a\x09aStream nextPutAll: self printString",
-messageSends: ["nextPutAll:", "printString"],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-"_storeString",
-smalltalk.method({
-selector: "storeString",
-category: 'printing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(s){
-return smalltalk.withContext(function($ctx2) {return _st(self)._storeOn_(s);
-}, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"storeString",{},smalltalk.Object)})},
-args: [],
-source: "storeString\x0a\x09\x22Answer a String representation of the receiver from which the receiver\x0a\x09can be reconstructed.\x22\x0a\x0a\x09^ String streamContents: [:s | self storeOn: s]",
-messageSends: ["streamContents:", "storeOn:"],
-referencedClasses: ["String"]
 }),
 smalltalk.Object);
 
@@ -1140,6 +1092,22 @@ referencedClasses: []
 smalltalk.Boolean);
 
 smalltalk.addMethod(
+"_asString",
+smalltalk.method({
+selector: "asString",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) {  return self.toString() ;
+return self}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Boolean)})},
+args: [],
+source: "asString\x0a\x09< return self.toString() >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
 "_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
@@ -1294,17 +1262,17 @@ referencedClasses: []
 smalltalk.Boolean);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.toString();
-return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Boolean)})},
-args: [],
-source: "printString\x0a\x09<return self.toString()>",
-messageSends: [],
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Boolean)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self asString",
+messageSends: ["nextPutAll:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Boolean);
@@ -1776,19 +1744,17 @@ referencedClasses: []
 smalltalk.Date);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._asString();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Date)})},
-args: [],
-source: "printString\x0a\x09^self asString",
-messageSends: ["asString"],
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Date)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self asString",
+messageSends: ["nextPutAll:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Date);
@@ -2274,19 +2240,17 @@ referencedClasses: []
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-category: 'proxy',
-fn: function (){
+selector: "printOn:",
+category: 'printing',
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._jsObject())._toString();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
-args: [],
-source: "printString\x0a\x09^self jsObject toString",
-messageSends: ["toString", "jsObject"],
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(_st(self)._jsObject())._toString());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self jsObject toString",
+messageSends: ["nextPutAll:", "toString", "jsObject"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -2629,13 +2593,11 @@ selector: "asString",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._printString();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Number)})},
+return smalltalk.withContext(function($ctx1) {  return String(self) ;
+return self}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Number)})},
 args: [],
-source: "asString\x0a\x09^self printString",
-messageSends: ["printString"],
+source: "asString\x0a\x09< return String(self) >",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2869,6 +2831,22 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
+"_printOn_",
+smalltalk.method({
+selector: "printOn:",
+category: 'printing',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(_st(self)._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Number)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self asString",
+messageSends: ["nextPutAll:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
 "_printShowingDecimalPlaces_",
 smalltalk.method({
 selector: "printShowingDecimalPlaces:",
@@ -2879,22 +2857,6 @@ return smalltalk.withContext(function($ctx1) { return self.toFixed(placesDesire
 return self}, function($ctx1) {$ctx1.fill(self,"printShowingDecimalPlaces:",{placesDesired:placesDesired},smalltalk.Number)})},
 args: ["placesDesired"],
 source: "printShowingDecimalPlaces: placesDesired\x0a\x09<return self.toFixed(placesDesired)>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-"_printString",
-smalltalk.method({
-selector: "printString",
-category: 'printing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return String(self);
-return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Number)})},
-args: [],
-source: "printString\x0a\x09<return String(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3510,19 +3472,22 @@ referencedClasses: []
 smalltalk.Package);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._name();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Package)})},
-args: [],
-source: "printString\x0a\x09^self name",
-messageSends: ["name"],
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+$1=aStream;
+_st($1)._nextPutAll_(" (");
+_st($1)._nextPutAll_(_st(self)._name());
+$2=_st($1)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Package)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream \x0a\x09\x09nextPutAll: ' (';\x0a\x09\x09nextPutAll: self name;\x0a\x09\x09nextPutAll: ')'",
+messageSends: ["printOn:", "nextPutAll:", "name"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -4017,29 +3982,27 @@ referencedClasses: []
 smalltalk.Point);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {_st(stream)._nextPutAll_(_st(_st(self["@x"])._printString()).__comma("@"));
-$2=_st(_st(self["@y"])._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self["@y"])._negative();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($2)){
-_st(stream)._space();
+return smalltalk.withContext(function($ctx1) { var $1;
+_st(self["@x"])._printOn_(aStream);
+_st(aStream)._nextPutAll_("@");
+$1=_st(_st(self["@y"])._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(self["@y"])._negative();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($1)){
+_st(aStream)._space();
 };
-return _st(stream)._nextPutAll_(_st(self["@y"])._printString());
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Point)})},
-args: [],
-source: "printString\x0a\x09\x22Print receiver in classic x@y notation.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09stream nextPutAll: x printString, '@'.\x0a\x09\x09(y notNil and: [y negative])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x22Avoid ambiguous @- construct\x22\x0a\x09\x09\x09\x09stream space].\x0a\x09\x09stream nextPutAll: y printString]",
-messageSends: ["streamContents:", "nextPutAll:", ",", "printString", "ifTrue:", "space", "and:", "negative", "notNil"],
-referencedClasses: ["String"]
+_st(self["@y"])._printOn_(aStream);
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Point)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09\x22Print receiver in classic x@y notation.\x22\x0a\x0a\x09x printOn: aStream.\x0a\x09\x0a\x09aStream nextPutAll: '@'.\x0a\x09(y notNil and: [y negative]) ifTrue: [\x0a\x09\x09\x09\x22Avoid ambiguous @- construct\x22\x0a\x09\x09\x09aStream space ].\x0a\x09\x0a\x09y printOn: aStream",
+messageSends: ["printOn:", "nextPutAll:", "ifTrue:", "space", "and:", "negative", "notNil"],
+referencedClasses: []
 }),
 smalltalk.Point);
 
@@ -4833,17 +4796,17 @@ referencedClasses: []
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "nil";
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.UndefinedObject)})},
-args: [],
-source: "printString\x0a\x09^'nil'",
-messageSends: [],
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_("nil");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.UndefinedObject)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: 'nil'",
+messageSends: ["nextPutAll:"],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);

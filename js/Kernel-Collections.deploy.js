@@ -42,31 +42,16 @@ messageSends: []}),
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(aStream){
-return smalltalk.withContext(function($ctx2) {return _st(self)._storeOn_(aStream);
-}, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Association)})},
-messageSends: ["streamContents:", "storeOn:"]}),
-smalltalk.Association);
-
-smalltalk.addMethod(
-"_storeOn_",
-smalltalk.method({
-selector: "storeOn:",
+selector: "printOn:",
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@key"])._storeOn_(aStream);
-_st(aStream)._nextPutAll_("->");
-_st(self["@value"])._storeOn_(aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"storeOn:",{aStream:aStream},smalltalk.Association)})},
-messageSends: ["storeOn:", "nextPutAll:"]}),
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._key())._printOn_(aStream);
+_st(aStream)._nextPutAll_(" -> ");
+_st(_st(self)._value())._printOn_(aStream);
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Association)})},
+messageSends: ["printOn:", "key", "nextPutAll:", "value"]}),
 smalltalk.Association);
 
 smalltalk.addMethod(
@@ -481,27 +466,6 @@ $2=tally;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"occurrencesOf:",{anObject:anObject,tally:tally},smalltalk.Collection)})},
 messageSends: ["do:", "ifTrue:", "+", "="]}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
-"_printString",
-smalltalk.method({
-selector: "printString",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(aStream){
-return smalltalk.withContext(function($ctx2) {_st(aStream)._nextPutAll_(_st(smalltalk.Object.fn.prototype._printString.apply(_st(self), [])).__comma(" ("));
-_st(self)._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(aStream)._nextPutAll_(_st(each)._printString());
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx3) {return _st(aStream)._nextPutAll_(" ");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return _st(aStream)._nextPutAll_(")");
-}, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Collection)})},
-messageSends: ["streamContents:", "nextPutAll:", ",", "printString", "do:separatedBy:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
@@ -1164,24 +1128,21 @@ messageSends: ["do:", "keys"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(aStream){
-return smalltalk.withContext(function($ctx2) {_st(aStream)._nextPutAll_(_st(_st("a ").__comma(_st(_st(self)._class())._name())).__comma("("));
+return smalltalk.withContext(function($ctx1) { smalltalk.IndexableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+_st(aStream)._nextPutAll_(" (");
 _st(_st(self)._associations())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(each)._storeOn_(aStream);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx3) {return _st(aStream)._nextPutAll_(" , ");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return _st(aStream)._nextPutAll_(")");
-}, function($ctx2) {$ctx2.fillBlock({aStream:aStream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.HashedCollection)})},
-messageSends: ["streamContents:", "nextPutAll:", ",", "name", "class", "do:separatedBy:", "storeOn:", "associations"]}),
+return smalltalk.withContext(function($ctx2) {return _st(each)._printOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(" , ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(aStream)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.HashedCollection)})},
+messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
@@ -1278,23 +1239,6 @@ $1=_st(_st(self)._keys())._size();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.HashedCollection)})},
 messageSends: ["size", "keys"]}),
-smalltalk.HashedCollection);
-
-smalltalk.addMethod(
-"_storeOn_",
-smalltalk.method({
-selector: "storeOn:",
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_("#{");
-_st(_st(self)._associations())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._storeOn_(aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(". ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(aStream)._nextPutAll_("}");
-return self}, function($ctx1) {$ctx1.fill(self,"storeOn:",{aStream:aStream},smalltalk.HashedCollection)})},
-messageSends: ["nextPutAll:", "do:separatedBy:", "storeOn:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
@@ -1984,6 +1928,24 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
+"_printOn_",
+smalltalk.method({
+selector: "printOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.SequenceableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+_st(aStream)._nextPutAll_(" (");
+_st(self)._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._printOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(" ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(aStream)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Array)})},
+messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]}),
+smalltalk.Array);
+
+smalltalk.addMethod(
 "_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
@@ -2287,16 +2249,14 @@ messageSends: ["error:"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._printString();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.CharacterArray)})},
-messageSends: ["printString", "asString"]}),
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._asString())._printOn_(aStream);
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.CharacterArray)})},
+messageSends: ["printOn:", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -2624,6 +2584,21 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
+"_isVowel",
+smalltalk.method({
+selector: "isVowel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(self)._size()).__eq((1)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {return _st("aeiou")._includes_(_st(self)._asLowercase());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isVowel",{},smalltalk.String)})},
+messageSends: ["and:", "includes:", "asLowercase", "=", "size"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_join_",
 smalltalk.method({
 selector: "join:",
@@ -2796,16 +2771,18 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st("'").__comma(self)).__comma("'");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.String)})},
-messageSends: [","]}),
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("'");
+_st($1)._nextPutAll_(self);
+$2=_st($1)._nextPutAll_("'");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.String)})},
+messageSends: ["nextPutAll:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3018,7 +2995,7 @@ smalltalk.method({
 selector: "fromString:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self.fn(aString);
+return smalltalk.withContext(function($ctx1) { return String(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},smalltalk.String.klass)})},
 messageSends: []}),
 smalltalk.String.klass);
@@ -3248,19 +3225,6 @@ messageSends: []}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_asSuperSelector",
-smalltalk.method({
-selector: "asSuperSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asSuperSelector();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSuperSelector",{},smalltalk.Symbol)})},
-messageSends: ["asSuperSelector", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_asSymbol",
 smalltalk.method({
 selector: "asSymbol",
@@ -3361,16 +3325,15 @@ messageSends: []}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_printString",
+"_printOn_",
 smalltalk.method({
-selector: "printString",
-fn: function (){
+selector: "printOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st("#").__comma(_st(self)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Symbol)})},
-messageSends: [",", "asString"]}),
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_("#");
+smalltalk.CharacterArray.fn.prototype._printOn_.apply(_st(self), [aStream]);
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Symbol)})},
+messageSends: ["nextPutAll:", "printOn:"]}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
@@ -3597,6 +3560,24 @@ return smalltalk.withContext(function($ctx1) { smalltalk.Collection.fn.prototyp
 self["@elements"]=[];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Set)})},
 messageSends: ["initialize"]}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+"_printOn_",
+smalltalk.method({
+selector: "printOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { smalltalk.Collection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+_st(aStream)._nextPutAll_(" (");
+_st(self)._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._printOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(" ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(aStream)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Set)})},
+messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(

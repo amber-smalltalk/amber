@@ -1407,24 +1407,6 @@ messageSends: []}),
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_javascriptSelector",
-smalltalk.method({
-selector: "javascriptSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._classSend();
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(_st(self)._selector())._asSelector();
-} else {
-$1=_st(_st(self)._selector())._asSuperSelector();
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"javascriptSelector",{},smalltalk.IRSend)})},
-messageSends: ["ifNil:ifNotNil:", "asSelector", "selector", "asSuperSelector", "classSend"]}),
-smalltalk.IRSend);
-
-smalltalk.addMethod(
 "_selector",
 smalltalk.method({
 selector: "selector",
