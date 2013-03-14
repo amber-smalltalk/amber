@@ -1197,7 +1197,7 @@ category: 'events',
 fn: function (){
 var self=this;
 var active,interval,delay,repeatInterval;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 active=false;
 repeatInterval=(70);
 _st(_st(self["@hiddenInput"])._asJQuery())._unbind_("keydown");
@@ -1238,14 +1238,24 @@ return smalltalk.withContext(function($ctx2) {$3=active;
 if(smalltalk.assert($3)){
 active=false;
 active;
+$4=interval;
+if(($receiver = $4) == nil || $receiver == undefined){
+$4;
+} else {
 _st(interval)._clearInterval();
+};
+$5=delay;
+if(($receiver = $5) == nil || $receiver == undefined){
+return $5;
+} else {
 return _st(delay)._clearTimeout();
+};
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activateNextListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09hiddenInput asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval clearInterval.\x0a\x09\x09\x09delay clearTimeout ] ]",
-messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "clearInterval", "clearTimeout"],
+source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activateNextListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09hiddenInput asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
+messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "ifNotNil:", "clearInterval", "clearTimeout"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

@@ -361,8 +361,8 @@ setupKeyBindings
 	hiddenInput asJQuery keyup: [ :e |
 		active ifTrue: [
 			active := false.
-			interval clearInterval.
-			delay clearTimeout ] ]
+			interval ifNotNil: [ interval clearInterval ].
+			delay ifNotNil: [ delay clearTimeout] ] ]
 ! !
 
 !HLListWidget methodsFor: 'initialization'!

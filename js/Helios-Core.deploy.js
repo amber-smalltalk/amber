@@ -891,7 +891,7 @@ selector: "setupKeyBindings",
 fn: function (){
 var self=this;
 var active,interval,delay,repeatInterval;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 active=false;
 repeatInterval=(70);
 _st(_st(self["@hiddenInput"])._asJQuery())._unbind_("keydown");
@@ -932,12 +932,22 @@ return smalltalk.withContext(function($ctx2) {$3=active;
 if(smalltalk.assert($3)){
 active=false;
 active;
+$4=interval;
+if(($receiver = $4) == nil || $receiver == undefined){
+$4;
+} else {
 _st(interval)._clearInterval();
+};
+$5=delay;
+if(($receiver = $5) == nil || $receiver == undefined){
+return $5;
+} else {
 return _st(delay)._clearTimeout();
+};
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
-messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "clearInterval", "clearTimeout"]}),
+messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "ifNotNil:", "clearInterval", "clearTimeout"]}),
 smalltalk.HLListWidget);
 
 
