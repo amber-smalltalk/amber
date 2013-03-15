@@ -233,8 +233,16 @@ includes: anObject
 	^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
 !
 
+isCollection
+	^true
+!
+
 isEmpty
 	^self size = 0
+!
+
+isMutable
+	^true
 !
 
 notEmpty
@@ -1078,6 +1086,12 @@ printOn: aStream
 
 putOn: aStream
 	aStream nextPutAll: self
+! !
+
+!CharacterArray methodsFor: 'testing'!
+
+isMutable
+	^false
 ! !
 
 !CharacterArray class methodsFor: 'instance creation'!
