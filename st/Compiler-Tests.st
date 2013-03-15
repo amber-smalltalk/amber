@@ -263,6 +263,11 @@ testCascades
 	self should: 'foo ^ Array new add: 3; add: 4; yourself' return: #(3 4)
 !
 
+testCascadesGH428
+	
+	self should: 'foo ^ #(3 4) at: 2 put: 1; yourself' return: #(3 1)
+!
+
 testDynamicArrayElementsOrdered
 	self should: 'foo
 	| x |

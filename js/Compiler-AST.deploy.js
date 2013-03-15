@@ -1162,9 +1162,13 @@ smalltalk.method({
 selector: "isImmutable",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(_st(self)._value())._isCollection())._not())._or_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._value())._isMutable())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.ValueNode)})},
-messageSends: []}),
+messageSends: ["or:", "not", "isMutable", "value", "isCollection"]}),
 smalltalk.ValueNode);
 
 smalltalk.addMethod(

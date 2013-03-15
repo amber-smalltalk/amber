@@ -437,6 +437,17 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testCascadesGH428",
+smalltalk.method({
+selector: "testCascadesGH428",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^ #(3 4) at: 2 put: 1; yourself",[(3), (1)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testCascadesGH428",{},smalltalk.CodeGeneratorTest)})},
+messageSends: ["should:return:"]}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testDynamicArrayElementsOrdered",
 smalltalk.method({
 selector: "testDynamicArrayElementsOrdered",

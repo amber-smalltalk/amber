@@ -482,7 +482,7 @@ value: anObject
 !ValueNode methodsFor: 'testing'!
 
 isImmutable
-	^true
+	^self value isCollection not or: [ self value isMutable not ]
 !
 
 isValueNode

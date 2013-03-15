@@ -514,6 +514,22 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isCollection",
+smalltalk.method({
+selector: "isCollection",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isCollection",{},smalltalk.Object)})},
+args: [],
+source: "isCollection\x0a\x09^false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isKindOf_",
 smalltalk.method({
 selector: "isKindOf:",
