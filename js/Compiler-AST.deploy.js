@@ -1162,9 +1162,11 @@ smalltalk.method({
 selector: "isImmutable",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._value())._isImmutable();
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.ValueNode)})},
-messageSends: []}),
+messageSends: ["isImmutable", "value"]}),
 smalltalk.ValueNode);
 
 smalltalk.addMethod(

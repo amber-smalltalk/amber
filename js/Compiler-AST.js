@@ -1589,11 +1589,13 @@ selector: "isImmutable",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._value())._isImmutable();
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.ValueNode)})},
 args: [],
-source: "isImmutable\x0a\x09^true",
-messageSends: [],
+source: "isImmutable\x0a\x09^ self value isImmutable",
+messageSends: ["isImmutable", "value"],
 referencedClasses: []
 }),
 smalltalk.ValueNode);

@@ -1366,6 +1366,10 @@ includesSubString: subString
 	< return self.indexOf(subString) !!= -1 >
 !
 
+isImmutable
+	^ true
+!
+
 isString
 	^true
 !

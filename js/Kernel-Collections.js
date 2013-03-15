@@ -3558,6 +3558,22 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.String)})},
+args: [],
+source: "isImmutable\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_isString",
 smalltalk.method({
 selector: "isString",

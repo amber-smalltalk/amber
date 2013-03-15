@@ -522,6 +522,17 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testMutableLiterals",
+smalltalk.method({
+selector: "testMutableLiterals",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^ #( 1 2 ) at: 1 put: 3; yourself",[(3), (2)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testMutableLiterals",{},smalltalk.CodeGeneratorTest)})},
+messageSends: ["should:return:"]}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testNestedIfTrue",
 smalltalk.method({
 selector: "testNestedIfTrue",
