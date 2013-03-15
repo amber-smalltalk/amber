@@ -4135,34 +4135,26 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testAtEnd",
+"_testAtStartAtEnd",
 smalltalk.method({
-selector: "testAtEnd",
-category: 'tests',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testAtEnd",{},smalltalk.StreamTest)})},
-args: [],
-source: "testAtEnd",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.StreamTest);
-
-smalltalk.addMethod(
-"_testAtStart",
-smalltalk.method({
-selector: "testAtStart",
+selector: "testAtStartAtEnd",
 category: 'tests',
 fn: function (){
 var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
+_st(self)._assert_(_st(stream)._atStart());
+_st(self)._assert_(_st(stream)._atEnd());
 _st(stream)._nextPutAll_(_st(self)._newCollection());
-return self}, function($ctx1) {$ctx1.fill(self,"testAtStart",{stream:stream},smalltalk.StreamTest)})},
+_st(self)._assert_(_st(stream)._atEnd());
+_st(self)._deny_(_st(stream)._atStart());
+_st(stream)._position_((1));
+_st(self)._deny_(_st(stream)._atEnd());
+_st(self)._deny_(_st(stream)._atStart());
+return self}, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},smalltalk.StreamTest)})},
 args: [],
-source: "testAtStart\x0a\x09| stream |\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.",
-messageSends: ["newStream", "nextPutAll:", "newCollection"],
+source: "testAtStartAtEnd\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09self assert: stream atStart.\x0a\x09self assert: stream atEnd.\x0a\x09\x0a\x09stream nextPutAll: self newCollection.\x0a\x09self assert: stream atEnd.\x0a\x09self deny: stream atStart.\x0a\x09\x0a\x09stream position: 1.\x0a\x09self deny: stream atEnd.\x0a\x09self deny: stream atStart",
+messageSends: ["newStream", "assert:", "atStart", "atEnd", "nextPutAll:", "newCollection", "deny:", "position:"],
 referencedClasses: []
 }),
 smalltalk.StreamTest);
@@ -4177,10 +4169,31 @@ var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
 _st(stream)._nextPutAll_(_st(self)._newCollection());
+_st(self)._assert_equals_(_st(stream)._contents(),_st(self)._newCollection());
 return self}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},smalltalk.StreamTest)})},
 args: [],
-source: "testContents\x0a\x09| stream |\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.",
-messageSends: ["newStream", "nextPutAll:", "newCollection"],
+source: "testContents\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.\x0a\x09\x0a\x09self assert: stream contents equals: self newCollection",
+messageSends: ["newStream", "nextPutAll:", "newCollection", "assert:equals:", "contents"],
+referencedClasses: []
+}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testIsEmpty",
+smalltalk.method({
+selector: "testIsEmpty",
+category: 'tests',
+fn: function (){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
+_st(self)._assert_(_st(stream)._isEmpty());
+_st(stream)._nextPutAll_(_st(self)._newCollection());
+_st(self)._deny_(_st(stream)._isEmpty());
+return self}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},smalltalk.StreamTest)})},
+args: [],
+source: "testIsEmpty\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09self assert: stream isEmpty.\x0a\x09\x0a\x09stream nextPutAll: self newCollection.\x0a\x09self deny: stream isEmpty",
+messageSends: ["newStream", "assert:", "isEmpty", "nextPutAll:", "newCollection", "deny:"],
 referencedClasses: []
 }),
 smalltalk.StreamTest);
@@ -4192,13 +4205,21 @@ selector: "testPosition",
 category: 'tests',
 fn: function (){
 var self=this;
-var stream;
-return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
-_st(stream)._nextPutAll_(_st(self)._newCollection());
-return self}, function($ctx1) {$ctx1.fill(self,"testPosition",{stream:stream},smalltalk.StreamTest)})},
+var collection,stream;
+return smalltalk.withContext(function($ctx1) { collection=_st(self)._newCollection();
+stream=_st(self)._newStream();
+_st(stream)._nextPutAll_(collection);
+_st(self)._assert_equals_(_st(stream)._position(),_st(collection)._size());
+_st(stream)._position_((0));
+_st(self)._assert_equals_(_st(stream)._position(),(0));
+_st(stream)._next();
+_st(self)._assert_equals_(_st(stream)._position(),(1));
+_st(stream)._next();
+_st(self)._assert_equals_(_st(stream)._position(),(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},smalltalk.StreamTest)})},
 args: [],
-source: "testPosition\x0a\x09| stream |\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.",
-messageSends: ["newStream", "nextPutAll:", "newCollection"],
+source: "testPosition\x0a\x09| collection stream |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09stream nextPutAll: collection.\x0a\x09self assert: stream position equals: collection size.\x0a\x09\x0a\x09stream position: 0.\x0a\x09self assert: stream position equals: 0.\x0a\x09\x0a\x09stream next.\x0a\x09self assert: stream position equals: 1.\x0a\x09\x0a\x09stream next.\x0a\x09self assert: stream position equals: 2",
+messageSends: ["newCollection", "newStream", "nextPutAll:", "assert:equals:", "position", "size", "position:", "next"],
 referencedClasses: []
 }),
 smalltalk.StreamTest);
@@ -4210,10 +4231,21 @@ selector: "testReading",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testReading",{},smalltalk.StreamTest)})},
+var stream,collection;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+collection=_st(self)._newCollection();
+stream=_st(self)._newStream();
+$1=stream;
+_st($1)._nextPutAll_(collection);
+$2=_st($1)._position_((0));
+_st(collection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_equals_(_st(stream)._next(),each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._assert_(_st(_st(stream)._next())._isNil());
+return self}, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},smalltalk.StreamTest)})},
 args: [],
-source: "testReading",
-messageSends: [],
+source: "testReading\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09stream \x0a\x09\x09nextPutAll: collection;\x0a\x09\x09position: 0.\x0a\x09\x0a\x09collection do: [ :each |\x0a\x09\x09self assert: stream next equals: each ].\x0a\x09\x09\x0a\x09self assert: stream next isNil",
+messageSends: ["newCollection", "newStream", "nextPutAll:", "position:", "do:", "assert:equals:", "next", "assert:", "isNil"],
 referencedClasses: []
 }),
 smalltalk.StreamTest);
@@ -4240,10 +4272,17 @@ selector: "testWrite",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testWrite",{},smalltalk.StreamTest)})},
+var stream,collection;
+return smalltalk.withContext(function($ctx1) { collection=_st(self)._newCollection();
+stream=_st(self)._newStream();
+_st(collection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(stream).__lt_lt(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._assert_equals_(_st(stream)._contents(),collection);
+return self}, function($ctx1) {$ctx1.fill(self,"testWrite",{stream:stream,collection:collection},smalltalk.StreamTest)})},
 args: [],
-source: "testWrite",
-messageSends: [],
+source: "testWrite\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09collection do: [ :each | stream << each ].\x0a\x09self assert: stream contents equals: collection",
+messageSends: ["newCollection", "newStream", "do:", "<<", "assert:equals:", "contents"],
 referencedClasses: []
 }),
 smalltalk.StreamTest);
@@ -4255,28 +4294,20 @@ selector: "testWriting",
 category: 'tests',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testWriting",{},smalltalk.StreamTest)})},
+var stream,collection;
+return smalltalk.withContext(function($ctx1) { collection=_st(self)._newCollection();
+stream=_st(self)._newStream();
+_st(collection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPut_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+_st(self)._assert_equals_(_st(stream)._contents(),collection);
+stream=_st(self)._newStream();
+_st(stream)._nextPutAll_(collection);
+_st(self)._assert_equals_(_st(stream)._contents(),collection);
+return self}, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},smalltalk.StreamTest)})},
 args: [],
-source: "testWriting",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.StreamTest);
-
-smalltalk.addMethod(
-"_testisEmpty",
-smalltalk.method({
-selector: "testisEmpty",
-category: 'tests',
-fn: function (){
-var self=this;
-var stream;
-return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
-_st(stream)._nextPutAll_(_st(self)._newCollection());
-return self}, function($ctx1) {$ctx1.fill(self,"testisEmpty",{stream:stream},smalltalk.StreamTest)})},
-args: [],
-source: "testisEmpty\x0a\x09| stream |\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.",
-messageSends: ["newStream", "nextPutAll:", "newCollection"],
+source: "testWriting\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09collection do: [ :each | stream nextPut: each ].\x0a\x09self assert: stream contents equals: collection.\x0a\x09\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: collection.\x0a\x09self assert: stream contents equals: collection",
+messageSends: ["newCollection", "newStream", "do:", "nextPut:", "assert:equals:", "contents", "nextPutAll:"],
 referencedClasses: []
 }),
 smalltalk.StreamTest);
@@ -4315,6 +4346,82 @@ messageSends: ["isNil", "collectionClass"],
 referencedClasses: []
 }),
 smalltalk.StreamTest.klass);
+
+
+smalltalk.addClass('ArrayStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_newCollection",
+smalltalk.method({
+selector: "newCollection",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=[true,(1),_st((3)).__at((4)),"foo"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},smalltalk.ArrayStreamTest)})},
+args: [],
+source: "newCollection\x0a\x09^ { true. 1. 3@4. 'foo' }",
+messageSends: ["@"],
+referencedClasses: []
+}),
+smalltalk.ArrayStreamTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(smalltalk.Array || Array);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.ArrayStreamTest.klass)})},
+args: [],
+source: "collectionClass\x0a\x09^ Array",
+messageSends: [],
+referencedClasses: ["Array"]
+}),
+smalltalk.ArrayStreamTest.klass);
+
+
+smalltalk.addClass('StringStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_newCollection",
+smalltalk.method({
+selector: "newCollection",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return "hello world";
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},smalltalk.StringStreamTest)})},
+args: [],
+source: "newCollection\x0a\x09^ 'hello world'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.StringStreamTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(smalltalk.String || String);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.StringStreamTest.klass)})},
+args: [],
+source: "collectionClass\x0a\x09^ String",
+messageSends: [],
+referencedClasses: ["String"]
+}),
+smalltalk.StringStreamTest.klass);
 
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');

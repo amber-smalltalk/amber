@@ -1077,7 +1077,7 @@ printOn: aStream
 !CharacterArray methodsFor: 'streaming'!
 
 putOn: aStream
-	aStream nextPutAll: self
+	aStream nextPutString: self
 ! !
 
 !CharacterArray class methodsFor: 'instance creation'!
@@ -1874,6 +1874,10 @@ nextPutAll: aCollection
 		self nextPut: each]
 !
 
+nextPutString: aString
+	self nextPut: aString
+!
+
 write: anObject
 	anObject putOn: self
 ! !
@@ -1931,6 +1935,10 @@ nextPutAll: aString
 	].
 	self position: self position + aString size.
 	self setStreamSize: (self streamSize max: self position)
+!
+
+nextPutString: aString
+	self nextPutAll: aString
 !
 
 space

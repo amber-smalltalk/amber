@@ -1656,43 +1656,101 @@ newStream
 
 !StreamTest methodsFor: 'tests'!
 
-testAtEnd
-!
-
-testAtStart
+testAtStartAtEnd
 	| stream |
+	
 	stream := self newStream.
+	self assert: stream atStart.
+	self assert: stream atEnd.
+	
 	stream nextPutAll: self newCollection.
+	self assert: stream atEnd.
+	self deny: stream atStart.
+	
+	stream position: 1.
+	self deny: stream atEnd.
+	self deny: stream atStart
 !
 
 testContents
 	| stream |
+	
 	stream := self newStream.
 	stream nextPutAll: self newCollection.
+	
+	self assert: stream contents equals: self newCollection
+!
+
+testIsEmpty
+	| stream |
+	
+	stream := self newStream.
+	self assert: stream isEmpty.
+	
+	stream nextPutAll: self newCollection.
+	self deny: stream isEmpty
 !
 
 testPosition
-	| stream |
+	| collection stream |
+	
+	collection := self newCollection.
 	stream := self newStream.
-	stream nextPutAll: self newCollection.
+	
+	stream nextPutAll: collection.
+	self assert: stream position equals: collection size.
+	
+	stream position: 0.
+	self assert: stream position equals: 0.
+	
+	stream next.
+	self assert: stream position equals: 1.
+	
+	stream next.
+	self assert: stream position equals: 2
 !
 
 testReading
+	| stream collection |
+	
+	collection := self newCollection.
+	stream := self newStream.
+	
+	stream 
+		nextPutAll: collection;
+		position: 0.
+	
+	collection do: [ :each |
+		self assert: stream next equals: each ].
+		
+	self assert: stream next isNil
 !
 
 testStreamContents
 !
 
 testWrite
+	| stream collection |
+	
+	collection := self newCollection.
+	stream := self newStream.
+	
+	collection do: [ :each | stream << each ].
+	self assert: stream contents equals: collection
 !
 
 testWriting
-!
-
-testisEmpty
-	| stream |
+	| stream collection |
+	
+	collection := self newCollection.
 	stream := self newStream.
-	stream nextPutAll: self newCollection.
+	
+	collection do: [ :each | stream nextPut: each ].
+	self assert: stream contents equals: collection.
+	
+	stream := self newStream.
+	stream nextPutAll: collection.
+	self assert: stream contents equals: collection
 ! !
 
 !StreamTest class methodsFor: 'accessing'!
@@ -1705,6 +1763,38 @@ collectionClass
 
 isAbstract
 	^ self collectionClass isNil
+! !
+
+StreamTest subclass: #ArrayStreamTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!ArrayStreamTest methodsFor: 'accessing'!
+
+newCollection
+	^ { true. 1. 3@4. 'foo' }
+! !
+
+!ArrayStreamTest class methodsFor: 'accessing'!
+
+collectionClass
+	^ Array
+! !
+
+StreamTest subclass: #StringStreamTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!StringStreamTest methodsFor: 'accessing'!
+
+newCollection
+	^ 'hello world'
+! !
+
+!StringStreamTest class methodsFor: 'accessing'!
+
+collectionClass
+	^ String
 ! !
 
 TestCase subclass: #UndefinedTest

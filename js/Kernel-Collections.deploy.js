@@ -2307,9 +2307,9 @@ smalltalk.method({
 selector: "putOn:",
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(self);
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutString_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.CharacterArray)})},
-messageSends: ["nextPutAll:"]}),
+messageSends: ["nextPutString:"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -4011,6 +4011,17 @@ messageSends: ["do:", "nextPut:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
+"_nextPutString_",
+smalltalk.method({
+selector: "nextPutString:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._nextPut_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.Stream)})},
+messageSends: ["nextPut:"]}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
 "_peek",
 smalltalk.method({
 selector: "peek",
@@ -4274,6 +4285,17 @@ _st(self)._position_(_st(_st(self)._position()).__plus(_st(aString)._size()));
 _st(self)._setStreamSize_(_st(_st(self)._streamSize())._max_(_st(self)._position()));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
 messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "atEnd", "position:", "setStreamSize:", "max:", "streamSize"]}),
+smalltalk.StringStream);
+
+smalltalk.addMethod(
+"_nextPutString_",
+smalltalk.method({
+selector: "nextPutString:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._nextPutAll_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.StringStream)})},
+messageSends: ["nextPutAll:"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(

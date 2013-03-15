@@ -3106,11 +3106,11 @@ selector: "putOn:",
 category: 'streaming',
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(self);
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutString_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.CharacterArray)})},
 args: ["aStream"],
-source: "putOn: aStream\x0a\x09aStream nextPutAll: self",
-messageSends: ["nextPutAll:"],
+source: "putOn: aStream\x0a\x09aStream nextPutString: self",
+messageSends: ["nextPutString:"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
@@ -5440,6 +5440,22 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
+"_nextPutString_",
+smalltalk.method({
+selector: "nextPutString:",
+category: 'writing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._nextPut_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.Stream)})},
+args: ["aString"],
+source: "nextPutString: aString\x0a\x09self nextPut: aString",
+messageSends: ["nextPut:"],
+referencedClasses: []
+}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
 "_peek",
 smalltalk.method({
 selector: "peek",
@@ -5797,6 +5813,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pr
 args: ["aString"],
 source: "nextPutAll: aString\x0a\x09| pre post |\x0a\x09self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [\x0a\x09\x09pre := self collection copyFrom: 1 to: self position.\x0a\x09\x09post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.\x0a\x09\x09self setCollection: pre, aString, post\x0a\x09].\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",
 messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "atEnd", "position:", "setStreamSize:", "max:", "streamSize"],
+referencedClasses: []
+}),
+smalltalk.StringStream);
+
+smalltalk.addMethod(
+"_nextPutString_",
+smalltalk.method({
+selector: "nextPutString:",
+category: 'writing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._nextPutAll_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.StringStream)})},
+args: ["aString"],
+source: "nextPutString: aString\x0a\x09self nextPutAll: aString",
+messageSends: ["nextPutAll:"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
