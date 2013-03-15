@@ -263,8 +263,16 @@ includes: anObject
 	^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
 !
 
+isCollection
+	^true
+!
+
 isEmpty
 	^self size = 0
+!
+
+isMutable
+	^true
 !
 
 notEmpty
@@ -1063,6 +1071,12 @@ errorReadOnly
 
 printString
 	^self asString printString
+! !
+
+!CharacterArray methodsFor: 'testing'!
+
+isMutable
+	^false
 ! !
 
 !CharacterArray class methodsFor: 'instance creation'!

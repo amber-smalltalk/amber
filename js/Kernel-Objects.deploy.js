@@ -368,6 +368,17 @@ messageSends: []}),
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isCollection",
+smalltalk.method({
+selector: "isCollection",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isCollection",{},smalltalk.Object)})},
+messageSends: []}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isKindOf_",
 smalltalk.method({
 selector: "isKindOf:",

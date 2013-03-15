@@ -436,6 +436,17 @@ messageSends: ["asSet", "new", "do:", "ifTrue:", "add:", "and:", "not", "include
 smalltalk.Collection);
 
 smalltalk.addMethod(
+"_isCollection",
+smalltalk.method({
+selector: "isCollection",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isCollection",{},smalltalk.Collection)})},
+messageSends: []}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
 "_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
@@ -446,6 +457,17 @@ $1=_st(_st(self)._size()).__eq((0));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isEmpty",{},smalltalk.Collection)})},
 messageSends: ["=", "size"]}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+"_isMutable",
+smalltalk.method({
+selector: "isMutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isMutable",{},smalltalk.Collection)})},
+messageSends: []}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
@@ -2284,6 +2306,17 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._error_("Object is read-only");
 return self}, function($ctx1) {$ctx1.fill(self,"errorReadOnly",{},smalltalk.CharacterArray)})},
 messageSends: ["error:"]}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"_isMutable",
+smalltalk.method({
+selector: "isMutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isMutable",{},smalltalk.CharacterArray)})},
+messageSends: []}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(

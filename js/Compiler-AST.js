@@ -1589,11 +1589,15 @@ selector: "isImmutable",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(_st(self)._value())._isCollection())._not())._or_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._value())._isMutable())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.ValueNode)})},
 args: [],
-source: "isImmutable\x0a\x09^true",
-messageSends: [],
+source: "isImmutable\x0a\x09^self value isCollection not or: [ self value isMutable not ]",
+messageSends: ["or:", "not", "isMutable", "value", "isCollection"],
 referencedClasses: []
 }),
 smalltalk.ValueNode);

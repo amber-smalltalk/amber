@@ -291,6 +291,10 @@ isClass
 	^false
 !
 
+isCollection
+	^false
+!
+
 isKindOf: aClass
 	^(self isMemberOf: aClass)
 		ifTrue: [true]
