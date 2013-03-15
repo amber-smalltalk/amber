@@ -644,24 +644,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_readStream",
-smalltalk.method({
-selector: "readStream",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._stream();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"readStream",{},smalltalk.Collection)})},
-args: [],
-source: "readStream\x0a\x09^self stream",
-messageSends: ["stream"],
-referencedClasses: []
-}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
 "_reject_",
 smalltalk.method({
 selector: "reject:",
@@ -759,60 +741,6 @@ referencedClasses: []
 }),
 smalltalk.Collection);
 
-smalltalk.addMethod(
-"_stream",
-smalltalk.method({
-selector: "stream",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._streamClass())._on_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"stream",{},smalltalk.Collection)})},
-args: [],
-source: "stream\x0a\x09^self streamClass on: self",
-messageSends: ["on:", "streamClass"],
-referencedClasses: []
-}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
-"_streamClass",
-smalltalk.method({
-selector: "streamClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._class())._streamClass();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.Collection)})},
-args: [],
-source: "streamClass\x0a\x09^self class streamClass",
-messageSends: ["streamClass", "class"],
-referencedClasses: []
-}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
-"_writeStream",
-smalltalk.method({
-selector: "writeStream",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._stream();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"writeStream",{},smalltalk.Collection)})},
-args: [],
-source: "writeStream\x0a\x09^self stream",
-messageSends: ["stream"],
-referencedClasses: []
-}),
-smalltalk.Collection);
-
 
 smalltalk.addMethod(
 "_new_",
@@ -829,24 +757,6 @@ args: ["anInteger"],
 source: "new: anInteger\x0a\x09^self new",
 messageSends: ["new"],
 referencedClasses: []
-}),
-smalltalk.Collection.klass);
-
-smalltalk.addMethod(
-"_streamClass",
-smalltalk.method({
-selector: "streamClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=(smalltalk.Stream || Stream);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.Collection.klass)})},
-args: [],
-source: "streamClass\x0a\x09\x09^Stream",
-messageSends: [],
-referencedClasses: ["Stream"]
 }),
 smalltalk.Collection.klass);
 
@@ -1068,7 +978,7 @@ smalltalk.addMethod(
 "_with_do_",
 smalltalk.method({
 selector: "with:do:",
-category: 'enumeration',
+category: 'enumarating',
 fn: function (anotherCollection,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._withIndexDo_((function(each,index){
@@ -1086,7 +996,7 @@ smalltalk.addMethod(
 "_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
-category: 'enumeration',
+category: 'enumarating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._subclassReponsibility();
@@ -1728,13 +1638,11 @@ selector: "withIndexDo:",
 category: 'enumerating',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(value,key);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aBlock"],
-source: "withIndexDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]",
-messageSends: ["keysAndValuesDo:", "value:value:"],
+source: "withIndexDo: aBlock\x0a\x09self keysAndValuesDo: aBlock",
+messageSends: ["keysAndValuesDo:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -2394,6 +2302,42 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
+"_newStream",
+smalltalk.method({
+selector: "newStream",
+category: 'streaming',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._streamClass())._on_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newStream",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "newStream\x0a\x09^self streamClass on: self",
+messageSends: ["on:", "streamClass"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+"_readStream",
+smalltalk.method({
+selector: "readStream",
+category: 'streaming',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._stream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"readStream",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "readStream\x0a\x09\x22For Pharo compatibility\x22\x0a\x09\x0a\x09^self stream",
+messageSends: ["stream"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
 "_removeLast",
 smalltalk.method({
 selector: "removeLast",
@@ -2467,6 +2411,42 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
+"_stream",
+smalltalk.method({
+selector: "stream",
+category: 'streaming',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._newStream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"stream",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "stream\x0a\x09^self newStream",
+messageSends: ["newStream"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+"_streamClass",
+smalltalk.method({
+selector: "streamClass",
+category: 'streaming',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._streamClass();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "streamClass\x0a\x09^self class streamClass",
+messageSends: ["streamClass", "class"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
 "_third",
 smalltalk.method({
 selector: "third",
@@ -2516,6 +2496,63 @@ referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+"_writeStream",
+smalltalk.method({
+selector: "writeStream",
+category: 'streaming',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._stream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"writeStream",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "writeStream\x0a\x09\x22For Pharo compatibility\x22\x0a\x09\x0a\x09^self stream",
+messageSends: ["stream"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+
+smalltalk.addMethod(
+"_streamClass",
+smalltalk.method({
+selector: "streamClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(smalltalk.Stream || Stream);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.SequenceableCollection.klass)})},
+args: [],
+source: "streamClass\x0a\x09\x09^Stream",
+messageSends: [],
+referencedClasses: ["Stream"]
+}),
+smalltalk.SequenceableCollection.klass);
+
+smalltalk.addMethod(
+"_streamContents_",
+smalltalk.method({
+selector: "streamContents:",
+category: 'streaming',
+fn: function (aBlock){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { var $1;
+stream=_st(_st(self)._streamClass())._on_(_st(self)._new());
+_st(aBlock)._value_(stream);
+$1=_st(stream)._contents();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"streamContents:",{aBlock:aBlock,stream:stream},smalltalk.SequenceableCollection.klass)})},
+args: ["aBlock"],
+source: "streamContents: aBlock\x0a\x09| stream |\x0a\x09stream := (self streamClass on: self new).\x0a\x09aBlock value: stream.\x0a\x09^ stream contents",
+messageSends: ["on:", "new", "streamClass", "value:", "contents"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection.klass);
 
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
@@ -4184,27 +4221,6 @@ referencedClasses: ["StringStream"]
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_streamContents_",
-smalltalk.method({
-selector: "streamContents:",
-category: 'instance creation',
-fn: function (blockWithArg){
-var self=this;
-var stream;
-return smalltalk.withContext(function($ctx1) { var $1;
-stream=_st(_st(self)._streamClass())._on_(_st((smalltalk.String || String))._new());
-_st(blockWithArg)._value_(stream);
-$1=_st(stream)._contents();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamContents:",{blockWithArg:blockWithArg,stream:stream},smalltalk.String.klass)})},
-args: ["blockWithArg"],
-source: "streamContents: blockWithArg\x0a\x09|stream|\x0a\x09stream := (self streamClass on: String new).\x0a\x09blockWithArg value: stream.\x0a\x09^ stream contents",
-messageSends: ["on:", "new", "streamClass", "value:", "contents"],
-referencedClasses: ["String"]
-}),
-smalltalk.String.klass);
-
-smalltalk.addMethod(
 "_tab",
 smalltalk.method({
 selector: "tab",
@@ -4523,6 +4539,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.S
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09self asString do: aBlock",
 messageSends: ["do:", "asString"],
+referencedClasses: []
+}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_indexOf_",
+smalltalk.method({
+selector: "indexOf:",
+category: 'accessing',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._asString())._indexOf_(anElement);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anElement:anElement},smalltalk.Symbol)})},
+args: ["anElement"],
+source: "indexOf: anElement\x0a\x09^ self asString indexOf: anElement",
+messageSends: ["indexOf:", "asString"],
 referencedClasses: []
 }),
 smalltalk.Symbol);

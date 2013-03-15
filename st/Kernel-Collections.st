@@ -69,24 +69,8 @@ occurrencesOf: anObject
 	^tally
 !
 
-readStream
-	^self stream
-!
-
 size
 	self subclassResponsibility
-!
-
-stream
-	^self streamClass on: self
-!
-
-streamClass
-	^self class streamClass
-!
-
-writeStream
-	^self stream
 ! !
 
 !Collection methodsFor: 'adding/removing'!
@@ -257,12 +241,6 @@ notEmpty
 	^self isEmpty not
 ! !
 
-!Collection class methodsFor: 'accessing'!
-
-streamClass
-		^Stream
-! !
-
 !Collection class methodsFor: 'instance creation'!
 
 new: anInteger
@@ -360,7 +338,7 @@ indexOf: anObject ifAbsent: aBlock
 	self subclassResponsibility
 ! !
 
-!IndexableCollection methodsFor: 'enumeration'!
+!IndexableCollection methodsFor: 'enumarating'!
 
 with: anotherCollection do: aBlock
 	"Calls aBlock with every value from self
@@ -562,7 +540,7 @@ valuesDo: aBlock
 !
 
 withIndexDo: aBlock
-	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
+	self keysAndValuesDo: aBlock
 ! !
 
 !HashedCollection methodsFor: 'printing'!
@@ -856,10 +834,51 @@ withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
 
+!SequenceableCollection methodsFor: 'streaming'!
+
+newStream
+	^self streamClass on: self
+!
+
+readStream
+	"For Pharo compatibility"
+	
+	^self stream
+!
+
+stream
+	^self newStream
+!
+
+streamClass
+	^self class streamClass
+!
+
+writeStream
+	"For Pharo compatibility"
+	
+	^self stream
+! !
+
 !SequenceableCollection methodsFor: 'testing'!
 
 includes: anObject
 	^(self indexOf: anObject ifAbsent: [nil]) notNil
+! !
+
+!SequenceableCollection class methodsFor: 'accessing'!
+
+streamClass
+		^Stream
+! !
+
+!SequenceableCollection class methodsFor: 'streaming'!
+
+streamContents: aBlock
+	| stream |
+	stream := (self streamClass on: self new).
+	aBlock value: stream.
+	^ stream contents
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1393,13 +1412,6 @@ fromString: aString
 		<return String(aString)>
 !
 
-streamContents: blockWithArg
-	|stream|
-	stream := (self streamClass on: String new).
-	blockWithArg value: stream.
-	^ stream contents
-!
-
 value: aUTFCharCode
 
 	<return String.fromCharCode(aUTFCharCode);>
@@ -1431,6 +1443,10 @@ Thus, someString asSymbol == someString asSymbol.!
 
 at: anIndex ifAbsent: aBlock
 	^self asString at: anIndex ifAbsent: aBlock
+!
+
+indexOf: anElement
+	^ self asString indexOf: anElement
 !
 
 size
