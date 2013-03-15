@@ -250,6 +250,12 @@ printString
 	^ String streamContents: [ :stream | self printOn: stream ]
 ! !
 
+!Object methodsFor: 'streaming'!
+
+putOn: aStream
+	aStream nextPut: self
+! !
+
 !Object methodsFor: 'testing'!
 
 ifNil: aBlock

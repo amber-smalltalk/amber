@@ -763,6 +763,22 @@ referencedClasses: ["String"]
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+category: 'streaming',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPut_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Object)})},
+args: ["aStream"],
+source: "putOn: aStream\x0a\x09aStream nextPut: self",
+messageSends: ["nextPut:"],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_respondsTo_",
 smalltalk.method({
 selector: "respondsTo:",

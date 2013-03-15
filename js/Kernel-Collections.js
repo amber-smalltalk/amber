@@ -626,6 +626,24 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+category: 'streaming',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._putOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Collection)})},
+args: ["aStream"],
+source: "putOn: aStream\x0a\x09self do: [ :each | each putOn: aStream ]",
+messageSends: ["do:", "putOn:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
 "_readStream",
 smalltalk.method({
 selector: "readStream",
@@ -3043,6 +3061,22 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+category: 'streaming',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.CharacterArray)})},
+args: ["aStream"],
+source: "putOn: aStream\x0a\x09aStream nextPutAll: self",
+messageSends: ["nextPutAll:"],
+referencedClasses: []
+}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
 "_remove_",
 smalltalk.method({
 selector: "remove:",
@@ -5112,6 +5146,22 @@ smalltalk.RegularExpression.klass);
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection."
 smalltalk.addMethod(
+"__lt_lt",
+smalltalk.method({
+selector: "<<",
+category: 'writing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._write_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"<<",{anObject:anObject},smalltalk.Stream)})},
+args: ["anObject"],
+source: "<< anObject\x0a\x09self write: anObject",
+messageSends: ["write:"],
+referencedClasses: []
+}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
 "_atEnd",
 smalltalk.method({
 selector: "atEnd",
@@ -5527,6 +5577,22 @@ return $1;
 args: [],
 source: "streamSize\x0a\x09^streamSize",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
+"_write_",
+smalltalk.method({
+selector: "write:",
+category: 'writing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(anObject)._putOn_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"write:",{anObject:anObject},smalltalk.Stream)})},
+args: ["anObject"],
+source: "write: anObject\x0a\x09anObject putOn: self",
+messageSends: ["putOn:"],
 referencedClasses: []
 }),
 smalltalk.Stream);

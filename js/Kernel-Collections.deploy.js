@@ -469,6 +469,19 @@ messageSends: ["do:", "ifTrue:", "+", "="]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._putOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Collection)})},
+messageSends: ["do:", "putOn:"]}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
 "_readStream",
 smalltalk.method({
 selector: "readStream",
@@ -2260,6 +2273,17 @@ messageSends: ["printOn:", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.CharacterArray)})},
+messageSends: ["nextPutAll:"]}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
 "_remove_",
 smalltalk.method({
 selector: "remove:",
@@ -3773,6 +3797,17 @@ smalltalk.RegularExpression.klass);
 
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.addMethod(
+"__lt_lt",
+smalltalk.method({
+selector: "<<",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._write_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"<<",{anObject:anObject},smalltalk.Stream)})},
+messageSends: ["write:"]}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
 "_atEnd",
 smalltalk.method({
 selector: "atEnd",
@@ -4075,6 +4110,17 @@ $1=self["@streamSize"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"streamSize",{},smalltalk.Stream)})},
 messageSends: []}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
+"_write_",
+smalltalk.method({
+selector: "write:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(anObject)._putOn_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"write:",{anObject:anObject},smalltalk.Stream)})},
+messageSends: ["putOn:"]}),
 smalltalk.Stream);
 
 

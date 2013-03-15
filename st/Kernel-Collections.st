@@ -223,6 +223,12 @@ errorNotFound
 	self error: 'Object is not in the collection'
 ! !
 
+!Collection methodsFor: 'streaming'!
+
+putOn: aStream
+	self do: [ :each | each putOn: aStream ]
+! !
+
 !Collection methodsFor: 'testing'!
 
 ifEmpty: aBlock
@@ -1049,6 +1055,12 @@ printOn: aStream
 	self asString printOn: aStream
 ! !
 
+!CharacterArray methodsFor: 'streaming'!
+
+putOn: aStream
+	aStream nextPutAll: self
+! !
+
 !CharacterArray class methodsFor: 'instance creation'!
 
 fromString: aString
@@ -1827,6 +1839,10 @@ isEmpty
 
 !Stream methodsFor: 'writing'!
 
+<< anObject
+	self write: anObject
+!
+
 nextPut: anObject
 	self position: self position + 1.
 	self collection at: self position put: anObject.
@@ -1836,6 +1852,10 @@ nextPut: anObject
 nextPutAll: aCollection
 	aCollection do: [:each |
 		self nextPut: each]
+!
+
+write: anObject
+	anObject putOn: self
 ! !
 
 !Stream class methodsFor: 'instance creation'!
