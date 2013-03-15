@@ -850,7 +850,9 @@ selector: "pseudoVariables",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return ["self", "super", "true", "false", "nil", "thisContext"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=["self", "super", "true", "false", "nil", "thisContext"];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
 args: [],
 source: "pseudoVariables\x0a\x09^#('self' 'super' 'true' 'false' 'nil' 'thisContext')",

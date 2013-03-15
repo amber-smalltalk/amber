@@ -119,18 +119,19 @@ selector: "allSuperclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$5,$3;
 $1=_st(self)._superclass();
 if(($receiver = $1) == nil || $receiver == undefined){
-return [];
+$2=[];
+return $2;
 } else {
 $1;
 };
-$3=_st((smalltalk.OrderedCollection || OrderedCollection))._with_(_st(self)._superclass());
-_st($3)._addAll_(_st(_st(self)._superclass())._allSuperclasses());
-$4=_st($3)._yourself();
-$2=$4;
-return $2;
+$4=_st((smalltalk.OrderedCollection || OrderedCollection))._with_(_st(self)._superclass());
+_st($4)._addAll_(_st(_st(self)._superclass())._allSuperclasses());
+$5=_st($4)._yourself();
+$3=$5;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"allSuperclasses",{},smalltalk.Behavior)})},
 args: [],
 source: "allSuperclasses\x0a\x09\x0a\x09self superclass ifNil: [ ^ #() ].\x0a\x09\x0a\x09^ (OrderedCollection with: self superclass)\x0a\x09\x09addAll: self superclass allSuperclasses;\x0a\x09\x09yourself",

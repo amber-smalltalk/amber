@@ -4472,7 +4472,9 @@ selector: "pseudoVariableNames",
 category: 'packages',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return ["self", "super", "nil", "true", "false", "thisContext"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=["self", "super", "nil", "true", "false", "thisContext"];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariableNames",{},smalltalk.Smalltalk)})},
 args: [],
 source: "pseudoVariableNames\x0a\x09^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')",

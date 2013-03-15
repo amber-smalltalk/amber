@@ -845,7 +845,9 @@ selector: "defaultValues",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return [(1), (2), (3), (-4)];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=[(1), (2), (3), (-4)];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultValues",{},smalltalk.CollectionTest)})},
 args: [],
 source: "defaultValues\x0a\x09^ #(1 2 3 -4)",

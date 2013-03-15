@@ -2455,40 +2455,41 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var klass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$6,$7,$5,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$7,$8,$6,$5;
 $1=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
 if(smalltalk.assert($1)){
-return [];
+$2=[];
+return $2;
 };
-$2=self["@selectedClass"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$2;
+$3=self["@selectedClass"];
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
 } else {
-$3=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
-if(smalltalk.assert($3)){
+$4=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
+if(smalltalk.assert($4)){
 klass=self["@selectedClass"];
 } else {
 klass=_st(self["@selectedClass"])._class();
 };
 klass;
 };
-$6=self["@selectedProtocol"];
-if(($receiver = $6) == nil || $receiver == undefined){
-$7=klass;
+$7=self["@selectedProtocol"];
 if(($receiver = $7) == nil || $receiver == undefined){
-$5=[];
+$8=klass;
+if(($receiver = $8) == nil || $receiver == undefined){
+$6=[];
 } else {
-$5=_st(_st(klass)._methodDictionary())._values();
+$6=_st(_st(klass)._methodDictionary())._values();
 };
 } else {
-$5=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
+$6=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(self["@selectedProtocol"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 };
-$4=_st($5)._sort_((function(a,b){
+$5=_st($6)._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {return _st(_st(a)._selector()).__lt(_st(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
-return $4;
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},smalltalk.Browser)})},
 args: [],
 source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [^#()].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [selectedClass]\x0a\x09\x09ifFalse: [selectedClass class]].\x0a\x09^(selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [#()]\x0a\x09\x09ifNotNil: [klass methodDictionary values]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodDictionary values select: [:each |\x0a\x09\x09each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]",
@@ -2531,32 +2532,33 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var klass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self["@selectedClass"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
 $2=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
 if(smalltalk.assert($2)){
-return [];
+$3=[];
+return $3;
 };
-$3=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
-if(smalltalk.assert($3)){
+$4=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
+if(smalltalk.assert($4)){
 klass=self["@selectedClass"];
 } else {
 klass=_st(self["@selectedClass"])._class();
 };
 klass;
-$4=_st(_st(klass)._methodDictionary())._isEmpty();
-if(smalltalk.assert($4)){
-$5=_st((smalltalk.Array || Array))._with_("not yet classified");
-return $5;
-};
-$6=_st(klass)._protocols();
+$5=_st(_st(klass)._methodDictionary())._isEmpty();
+if(smalltalk.assert($5)){
+$6=_st((smalltalk.Array || Array))._with_("not yet classified");
 return $6;
 };
-$7=_st((smalltalk.Array || Array))._new();
+$7=_st(klass)._protocols();
 return $7;
+};
+$8=_st((smalltalk.Array || Array))._new();
+return $8;
 }, function($ctx1) {$ctx1.fill(self,"protocols",{klass:klass},smalltalk.Browser)})},
 args: [],
 source: "protocols\x0a\x09| klass |\x0a\x09selectedClass ifNotNil: [\x0a\x09selectedTab = #comment ifTrue: [^#()].\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [selectedClass]\x0a\x09\x09ifFalse: [selectedClass class].\x0a\x09klass methodDictionary isEmpty ifTrue: [\x0a\x09\x09^Array with: 'not yet classified'].\x0a\x09^klass protocols].\x0a\x09^Array new",

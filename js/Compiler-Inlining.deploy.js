@@ -912,7 +912,9 @@ smalltalk.method({
 selector: "inlinedSelectors",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return ["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=["ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:", "ifNil:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil"];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"inlinedSelectors",{},smalltalk.IRSendInliner.klass)})},
 messageSends: []}),
 smalltalk.IRSendInliner.klass);
