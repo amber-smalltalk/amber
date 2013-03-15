@@ -514,6 +514,22 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Object)})},
+args: [],
+source: "isImmutable\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isKindOf_",
 smalltalk.method({
 selector: "isKindOf:",
@@ -759,6 +775,22 @@ args: [],
 source: "printString\x0a\x09\x22Answer a String representation of the receiver.\x22\x0a\x0a\x09^ String streamContents: [ :stream | self printOn: stream ]",
 messageSends: ["streamContents:", "printOn:"],
 referencedClasses: ["String"]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+category: 'streaming',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPut_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Object)})},
+args: ["aStream"],
+source: "putOn: aStream\x0a\x09aStream nextPut: self",
+messageSends: ["nextPut:"],
+referencedClasses: []
 }),
 smalltalk.Object);
 
@@ -1217,6 +1249,22 @@ return smalltalk.withContext(function($ctx1) { return true;
 }, function($ctx1) {$ctx1.fill(self,"isBoolean",{},smalltalk.Boolean)})},
 args: [],
 source: "isBoolean\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Boolean)})},
+args: [],
+source: "isImmutable\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2480,6 +2528,22 @@ args: ["aNumber"],
 source: "@ aNumber\x0a\x09^Point x: self y: aNumber",
 messageSends: ["x:y:"],
 referencedClasses: ["Point"]
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+"_IsImmutable",
+smalltalk.method({
+selector: "IsImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"IsImmutable",{},smalltalk.Number)})},
+args: [],
+source: "IsImmutable\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Number);
 
@@ -4759,6 +4823,22 @@ return $1;
 args: ["aBlock", "anotherBlock"],
 source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value",
 messageSends: ["value"],
+referencedClasses: []
+}),
+smalltalk.UndefinedObject);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.UndefinedObject)})},
+args: [],
+source: "isImmutable\x0a\x09^ true",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.UndefinedObject);

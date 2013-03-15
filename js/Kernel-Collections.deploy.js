@@ -469,16 +469,16 @@ messageSends: ["do:", "ifTrue:", "+", "="]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_readStream",
+"_putOn_",
 smalltalk.method({
-selector: "readStream",
-fn: function (){
+selector: "putOn:",
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._stream();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"readStream",{},smalltalk.Collection)})},
-messageSends: ["stream"]}),
+return smalltalk.withContext(function($ctx1) { _st(self)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {return _st(each)._putOn_(aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Collection)})},
+messageSends: ["do:", "putOn:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
@@ -554,45 +554,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.Collection)})
 messageSends: ["subclassResponsibility"]}),
 smalltalk.Collection);
 
-smalltalk.addMethod(
-"_stream",
-smalltalk.method({
-selector: "stream",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._streamClass())._on_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"stream",{},smalltalk.Collection)})},
-messageSends: ["on:", "streamClass"]}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
-"_streamClass",
-smalltalk.method({
-selector: "streamClass",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._class())._streamClass();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.Collection)})},
-messageSends: ["streamClass", "class"]}),
-smalltalk.Collection);
-
-smalltalk.addMethod(
-"_writeStream",
-smalltalk.method({
-selector: "writeStream",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._stream();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"writeStream",{},smalltalk.Collection)})},
-messageSends: ["stream"]}),
-smalltalk.Collection);
-
 
 smalltalk.addMethod(
 "_new_",
@@ -605,19 +566,6 @@ $1=_st(self)._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"new:",{anInteger:anInteger},smalltalk.Collection.klass)})},
 messageSends: ["new"]}),
-smalltalk.Collection.klass);
-
-smalltalk.addMethod(
-"_streamClass",
-smalltalk.method({
-selector: "streamClass",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=(smalltalk.Stream || Stream);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.Collection.klass)})},
-messageSends: []}),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
@@ -1775,6 +1723,32 @@ messageSends: ["at:", "size"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
+"_newStream",
+smalltalk.method({
+selector: "newStream",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._streamClass())._on_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newStream",{},smalltalk.SequenceableCollection)})},
+messageSends: ["on:", "streamClass"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+"_readStream",
+smalltalk.method({
+selector: "readStream",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._stream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"readStream",{},smalltalk.SequenceableCollection)})},
+messageSends: ["stream"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
 "_removeLast",
 smalltalk.method({
 selector: "removeLast",
@@ -1828,6 +1802,32 @@ messageSends: ["new:", "size", "class", "withIndexDo:", "at:put:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
+"_stream",
+smalltalk.method({
+selector: "stream",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._newStream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"stream",{},smalltalk.SequenceableCollection)})},
+messageSends: ["newStream"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+"_streamClass",
+smalltalk.method({
+selector: "streamClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._streamClass();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.SequenceableCollection)})},
+messageSends: ["streamClass", "class"]}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
 "_third",
 smalltalk.method({
 selector: "third",
@@ -1862,6 +1862,48 @@ return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},sm
 messageSends: []}),
 smalltalk.SequenceableCollection);
 
+smalltalk.addMethod(
+"_writeStream",
+smalltalk.method({
+selector: "writeStream",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._stream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"writeStream",{},smalltalk.SequenceableCollection)})},
+messageSends: ["stream"]}),
+smalltalk.SequenceableCollection);
+
+
+smalltalk.addMethod(
+"_streamClass",
+smalltalk.method({
+selector: "streamClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(smalltalk.Stream || Stream);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.SequenceableCollection.klass)})},
+messageSends: []}),
+smalltalk.SequenceableCollection.klass);
+
+smalltalk.addMethod(
+"_streamContents_",
+smalltalk.method({
+selector: "streamContents:",
+fn: function (aBlock){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { var $1;
+stream=_st(_st(self)._streamClass())._on_(_st(self)._new());
+_st(aBlock)._value_(stream);
+$1=_st(stream)._contents();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"streamContents:",{aBlock:aBlock,stream:stream},smalltalk.SequenceableCollection.klass)})},
+messageSends: ["on:", "new", "streamClass", "value:", "contents"]}),
+smalltalk.SequenceableCollection.klass);
 
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
@@ -2260,6 +2302,17 @@ messageSends: ["printOn:", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutString_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.CharacterArray)})},
+messageSends: ["nextPutString:"]}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
 "_remove_",
 smalltalk.method({
 selector: "remove:",
@@ -2569,6 +2622,17 @@ fn: function (subString){
 var self=this;
 return smalltalk.withContext(function($ctx1) {  return self.indexOf(subString) != -1 ;
 return self}, function($ctx1) {$ctx1.fill(self,"includesSubString:",{subString:subString},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);
 
@@ -3066,22 +3130,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_streamContents_",
-smalltalk.method({
-selector: "streamContents:",
-fn: function (blockWithArg){
-var self=this;
-var stream;
-return smalltalk.withContext(function($ctx1) { var $1;
-stream=_st(_st(self)._streamClass())._on_(_st((smalltalk.String || String))._new());
-_st(blockWithArg)._value_(stream);
-$1=_st(stream)._contents();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"streamContents:",{blockWithArg:blockWithArg,stream:stream},smalltalk.String.klass)})},
-messageSends: ["on:", "new", "streamClass", "value:", "contents"]}),
-smalltalk.String.klass);
-
-smalltalk.addMethod(
 "_tab",
 smalltalk.method({
 selector: "tab",
@@ -3311,6 +3359,19 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(self)._asString())._do_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Symbol)})},
 messageSends: ["do:", "asString"]}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_indexOf_",
+smalltalk.method({
+selector: "indexOf:",
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._asString())._indexOf_(anElement);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anElement:anElement},smalltalk.Symbol)})},
+messageSends: ["indexOf:", "asString"]}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
@@ -3773,6 +3834,17 @@ smalltalk.RegularExpression.klass);
 
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.addMethod(
+"__lt_lt",
+smalltalk.method({
+selector: "<<",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._write_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"<<",{anObject:anObject},smalltalk.Stream)})},
+messageSends: ["write:"]}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
 "_atEnd",
 smalltalk.method({
 selector: "atEnd",
@@ -3939,6 +4011,17 @@ messageSends: ["do:", "nextPut:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
+"_nextPutString_",
+smalltalk.method({
+selector: "nextPutString:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._nextPut_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.Stream)})},
+messageSends: ["nextPut:"]}),
+smalltalk.Stream);
+
+smalltalk.addMethod(
 "_peek",
 smalltalk.method({
 selector: "peek",
@@ -4077,6 +4160,17 @@ return $1;
 messageSends: []}),
 smalltalk.Stream);
 
+smalltalk.addMethod(
+"_write_",
+smalltalk.method({
+selector: "write:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(anObject)._putOn_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"write:",{anObject:anObject},smalltalk.Stream)})},
+messageSends: ["putOn:"]}),
+smalltalk.Stream);
+
 
 smalltalk.addMethod(
 "_on_",
@@ -4191,6 +4285,17 @@ _st(self)._position_(_st(_st(self)._position()).__plus(_st(aString)._size()));
 _st(self)._setStreamSize_(_st(_st(self)._streamSize())._max_(_st(self)._position()));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
 messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "atEnd", "position:", "setStreamSize:", "max:", "streamSize"]}),
+smalltalk.StringStream);
+
+smalltalk.addMethod(
+"_nextPutString_",
+smalltalk.method({
+selector: "nextPutString:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._nextPutAll_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutString:",{aString:aString},smalltalk.StringStream)})},
+messageSends: ["nextPutAll:"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(

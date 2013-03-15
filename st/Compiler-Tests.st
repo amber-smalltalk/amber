@@ -332,6 +332,15 @@ testMessageSends
 	self should: 'foo ^ 1 to: 5 by: 2' return: #(1 3 5)
 !
 
+testMutableLiterals
+	"Mutable literals must be aliased in cascades.
+	See https://github.com/amber-smalltalk/amber/issues/428"
+	
+	self 
+		should: 'foo ^ #( 1 2 ) at: 1 put: 3; yourself' 
+		return: #(3 2)
+!
+
 testNestedIfTrue
 	self should: 'foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]' return: 1.
 	self should: 'foo ^ true ifTrue: [ false ifTrue: [ 1 ] ]' return: nil.

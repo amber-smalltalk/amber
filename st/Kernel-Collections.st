@@ -69,24 +69,8 @@ occurrencesOf: anObject
 	^tally
 !
 
-readStream
-	^self stream
-!
-
 size
 	self subclassResponsibility
-!
-
-stream
-	^self streamClass on: self
-!
-
-streamClass
-	^self class streamClass
-!
-
-writeStream
-	^self stream
 ! !
 
 !Collection methodsFor: 'adding/removing'!
@@ -223,6 +207,12 @@ errorNotFound
 	self error: 'Object is not in the collection'
 ! !
 
+!Collection methodsFor: 'streaming'!
+
+putOn: aStream
+	self do: [ :each | each putOn: aStream ]
+! !
+
 !Collection methodsFor: 'testing'!
 
 ifEmpty: aBlock
@@ -249,12 +239,6 @@ isEmpty
 
 notEmpty
 	^self isEmpty not
-! !
-
-!Collection class methodsFor: 'accessing'!
-
-streamClass
-		^Stream
 ! !
 
 !Collection class methodsFor: 'instance creation'!
@@ -354,7 +338,7 @@ indexOf: anObject ifAbsent: aBlock
 	self subclassResponsibility
 ! !
 
-!IndexableCollection methodsFor: 'enumeration'!
+!IndexableCollection methodsFor: 'enumarating'!
 
 with: anotherCollection do: aBlock
 	"Calls aBlock with every value from self
@@ -850,10 +834,51 @@ withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
 ! !
 
+!SequenceableCollection methodsFor: 'streaming'!
+
+newStream
+	^self streamClass on: self
+!
+
+readStream
+	"For Pharo compatibility"
+	
+	^self stream
+!
+
+stream
+	^self newStream
+!
+
+streamClass
+	^self class streamClass
+!
+
+writeStream
+	"For Pharo compatibility"
+	
+	^self stream
+! !
+
 !SequenceableCollection methodsFor: 'testing'!
 
 includes: anObject
 	^(self indexOf: anObject ifAbsent: [nil]) notNil
+! !
+
+!SequenceableCollection class methodsFor: 'accessing'!
+
+streamClass
+		^Stream
+! !
+
+!SequenceableCollection class methodsFor: 'streaming'!
+
+streamContents: aBlock
+	| stream |
+	stream := (self streamClass on: self new).
+	aBlock value: stream.
+	^ stream contents
 ! !
 
 SequenceableCollection subclass: #Array
@@ -1047,6 +1072,12 @@ errorReadOnly
 
 printOn: aStream
 	self asString printOn: aStream
+! !
+
+!CharacterArray methodsFor: 'streaming'!
+
+putOn: aStream
+	aStream nextPutString: self
 ! !
 
 !CharacterArray class methodsFor: 'instance creation'!
@@ -1335,6 +1366,10 @@ includesSubString: subString
 	< return self.indexOf(subString) !!= -1 >
 !
 
+isImmutable
+	^ true
+!
+
 isString
 	^true
 !
@@ -1381,13 +1416,6 @@ fromString: aString
 		<return String(aString)>
 !
 
-streamContents: blockWithArg
-	|stream|
-	stream := (self streamClass on: String new).
-	blockWithArg value: stream.
-	^ stream contents
-!
-
 value: aUTFCharCode
 
 	<return String.fromCharCode(aUTFCharCode);>
@@ -1419,6 +1447,10 @@ Thus, someString asSymbol == someString asSymbol.!
 
 at: anIndex ifAbsent: aBlock
 	^self asString at: anIndex ifAbsent: aBlock
+!
+
+indexOf: anElement
+	^ self asString indexOf: anElement
 !
 
 size
@@ -1834,6 +1866,10 @@ isEmpty
 
 !Stream methodsFor: 'writing'!
 
+<< anObject
+	self write: anObject
+!
+
 nextPut: anObject
 	self position: self position + 1.
 	self collection at: self position put: anObject.
@@ -1843,6 +1879,14 @@ nextPut: anObject
 nextPutAll: aCollection
 	aCollection do: [:each |
 		self nextPut: each]
+!
+
+nextPutString: aString
+	self nextPut: aString
+!
+
+write: anObject
+	anObject putOn: self
 ! !
 
 !Stream class methodsFor: 'instance creation'!
@@ -1898,6 +1942,10 @@ nextPutAll: aString
 	].
 	self position: self position + aString size.
 	self setStreamSize: (self streamSize max: self position)
+!
+
+nextPutString: aString
+	self nextPutAll: aString
 !
 
 space

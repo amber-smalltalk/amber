@@ -368,6 +368,17 @@ messageSends: []}),
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return false;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Object)})},
+messageSends: []}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isKindOf_",
 smalltalk.method({
 selector: "isKindOf:",
@@ -544,6 +555,17 @@ return smalltalk.withContext(function($ctx2) {return _st(self)._printOn_(stream
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Object)})},
 messageSends: ["streamContents:", "printOn:"]}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+"_putOn_",
+smalltalk.method({
+selector: "putOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPut_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Object)})},
+messageSends: ["nextPut:"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -877,6 +899,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return true;
 }, function($ctx1) {$ctx1.fill(self,"isBoolean",{},smalltalk.Boolean)})},
+messageSends: []}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Boolean)})},
 messageSends: []}),
 smalltalk.Boolean);
 
@@ -1776,6 +1809,17 @@ $1=_st((smalltalk.Point || Point))._x_y_(self,aNumber);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"@",{aNumber:aNumber},smalltalk.Number)})},
 messageSends: ["x:y:"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+"_IsImmutable",
+smalltalk.method({
+selector: "IsImmutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"IsImmutable",{},smalltalk.Number)})},
+messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(
@@ -3460,6 +3504,17 @@ $1=_st(anotherBlock)._value();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.UndefinedObject)})},
 messageSends: ["value"]}),
+smalltalk.UndefinedObject);
+
+smalltalk.addMethod(
+"_isImmutable",
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.UndefinedObject)})},
+messageSends: []}),
 smalltalk.UndefinedObject);
 
 smalltalk.addMethod(

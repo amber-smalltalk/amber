@@ -250,6 +250,12 @@ printString
 	^ String streamContents: [ :stream | self printOn: stream ]
 ! !
 
+!Object methodsFor: 'streaming'!
+
+putOn: aStream
+	aStream nextPut: self
+! !
+
 !Object methodsFor: 'testing'!
 
 ifNil: aBlock
@@ -278,6 +284,10 @@ isBoolean
 
 isClass
 	^false
+!
+
+isImmutable
+	^ false
 !
 
 isKindOf: aClass
@@ -445,6 +455,10 @@ printOn: aStream
 !Boolean methodsFor: 'testing'!
 
 isBoolean
+	^ true
+!
+
+isImmutable
 	^ true
 ! !
 
@@ -1023,6 +1037,10 @@ printShowingDecimalPlaces: placesDesired
 ! !
 
 !Number methodsFor: 'testing'!
+
+IsImmutable
+	^ true
+!
 
 even
 	^ 0 = (self \\ 2)
@@ -1742,6 +1760,10 @@ ifNotNil: aBlock
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
 	^anotherBlock value
+!
+
+isImmutable
+	^ true
 !
 
 isNil

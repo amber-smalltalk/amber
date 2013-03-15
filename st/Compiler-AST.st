@@ -482,7 +482,7 @@ value: anObject
 !ValueNode methodsFor: 'testing'!
 
 isImmutable
-	^true
+	^ self value isImmutable
 !
 
 isValueNode
