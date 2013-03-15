@@ -858,7 +858,69 @@ messageSends: ["isNil", "collectionClass"]}),
 smalltalk.CollectionTest.klass);
 
 
-smalltalk.addClass('HashedCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
+smalltalk.addClass('IndexableCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_testAt",
+smalltalk.method({
+selector: "testAt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_((4)),(-4));
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._at_((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.IndexableCollectionTest)})},
+messageSends: ["assert:equals:", "at:", "collection", "should:raise:"]}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+"_testAtIfAbsent",
+smalltalk.method({
+selector: "testAtIfAbsent",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_ifAbsent_(_st(_st(_st(self)._collection())._size()).__plus((1)),(function(){
+return smalltalk.withContext(function($ctx2) {return "none";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"none");
+return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},smalltalk.IndexableCollectionTest)})},
+messageSends: ["assert:equals:", "at:ifAbsent:", "+", "size", "collection"]}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+"_testIndexOf",
+smalltalk.method({
+selector: "testIndexOf",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_((2)),(2));
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._indexOf_((999));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+_st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_ifAbsent_((999),(function(){
+return smalltalk.withContext(function($ctx2) {return "sentinel";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"sentinel");
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.IndexableCollectionTest)})},
+messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"]}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+"_testWithIndexDo",
+smalltalk.method({
+selector: "testWithIndexDo",
+fn: function (){
+var self=this;
+var collection;
+return smalltalk.withContext(function($ctx1) { collection=_st(self)._collection();
+_st(_st(self)._collection())._withIndexDo_((function(each,index){
+return smalltalk.withContext(function($ctx2) {return _st(self)._assert_equals_(_st(collection)._at_(index),each);
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"testWithIndexDo",{collection:collection},smalltalk.IndexableCollectionTest)})},
+messageSends: ["collection", "withIndexDo:", "assert:equals:", "at:"]}),
+smalltalk.IndexableCollectionTest);
+
+
+
+smalltalk.addClass('HashedCollectionTest', smalltalk.IndexableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_collection",
 smalltalk.method({
@@ -883,6 +945,20 @@ $1=smalltalk.HashedCollection._fromPairs_([_st("b").__minus_gt((1)),_st("a").__m
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.HashedCollectionTest)})},
 messageSends: ["->"]}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+"_testAt",
+smalltalk.method({
+selector: "testAt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_("a"),(2));
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._at_((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.HashedCollectionTest)})},
+messageSends: ["assert:equals:", "at:", "collection", "should:raise:"]}),
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
@@ -1255,34 +1331,7 @@ messageSends: []}),
 smalltalk.DictionaryTest.klass);
 
 
-smalltalk.addClass('SequenceableCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-"_testAt",
-smalltalk.method({
-selector: "testAt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_((4)),(-4));
-_st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._at_((5));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
-return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.SequenceableCollectionTest)})},
-messageSends: ["assert:equals:", "at:", "collection", "should:raise:"]}),
-smalltalk.SequenceableCollectionTest);
-
-smalltalk.addMethod(
-"_testAtIfAbsent",
-smalltalk.method({
-selector: "testAtIfAbsent",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._at_ifAbsent_(_st(_st(_st(self)._collection())._size()).__plus((1)),(function(){
-return smalltalk.withContext(function($ctx2) {return "none";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"none");
-return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{},smalltalk.SequenceableCollectionTest)})},
-messageSends: ["assert:equals:", "at:ifAbsent:", "+", "size", "collection"]}),
-smalltalk.SequenceableCollectionTest);
-
+smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTest, [], 'Kernel-Tests');
 
 
 smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
@@ -1544,6 +1593,23 @@ messageSends: ["assert:", "includesSubString:", "deny:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
+"_testIndexOf",
+smalltalk.method({
+selector: "testIndexOf",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_("e"),(2));
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._indexOf_((999));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+_st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_ifAbsent_((999),(function(){
+return smalltalk.withContext(function($ctx2) {return "sentinel";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"sentinel");
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.StringTest)})},
+messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"]}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
 "_testJoin",
 smalltalk.method({
 selector: "testJoin",
@@ -1778,6 +1844,23 @@ _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFo
 _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(_st(_st(smalltalk.symbolFor("hello"))._asString())._asSymbol()));
 return self}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},smalltalk.SymbolTest)})},
 messageSends: ["assert:", "==", "deny:", "=", "yourself", "asSymbol", "asString"]}),
+smalltalk.SymbolTest);
+
+smalltalk.addMethod(
+"_testIndexOf",
+smalltalk.method({
+selector: "testIndexOf",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_("e"),(2));
+_st(self)._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._indexOf_((999));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+_st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_ifAbsent_((999),(function(){
+return smalltalk.withContext(function($ctx2) {return "sentinel";
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"sentinel");
+return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.SymbolTest)})},
+messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"]}),
 smalltalk.SymbolTest);
 
 smalltalk.addMethod(
@@ -3083,6 +3166,174 @@ return self}, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},smalltalk
 messageSends: ["new", "add:", "assert:equals:", "size", "asArray"]}),
 smalltalk.SetTest);
 
+
+
+smalltalk.addClass('StreamTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._class())._collectionClass();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.StreamTest)})},
+messageSends: ["collectionClass", "class"]}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_newCollection",
+smalltalk.method({
+selector: "newCollection",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._collectionClass())._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newCollection",{},smalltalk.StreamTest)})},
+messageSends: ["new", "collectionClass"]}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_newStream",
+smalltalk.method({
+selector: "newStream",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(_st(self)._collectionClass())._new())._stream();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newStream",{},smalltalk.StreamTest)})},
+messageSends: ["stream", "new", "collectionClass"]}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testAtEnd",
+smalltalk.method({
+selector: "testAtEnd",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testAtEnd",{},smalltalk.StreamTest)})},
+messageSends: []}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testAtStart",
+smalltalk.method({
+selector: "testAtStart",
+fn: function (){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
+_st(stream)._nextPutAll_(_st(self)._newCollection());
+return self}, function($ctx1) {$ctx1.fill(self,"testAtStart",{stream:stream},smalltalk.StreamTest)})},
+messageSends: ["newStream", "nextPutAll:", "newCollection"]}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testContents",
+smalltalk.method({
+selector: "testContents",
+fn: function (){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
+_st(stream)._nextPutAll_(_st(self)._newCollection());
+return self}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},smalltalk.StreamTest)})},
+messageSends: ["newStream", "nextPutAll:", "newCollection"]}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testPosition",
+smalltalk.method({
+selector: "testPosition",
+fn: function (){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
+_st(stream)._nextPutAll_(_st(self)._newCollection());
+return self}, function($ctx1) {$ctx1.fill(self,"testPosition",{stream:stream},smalltalk.StreamTest)})},
+messageSends: ["newStream", "nextPutAll:", "newCollection"]}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testReading",
+smalltalk.method({
+selector: "testReading",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testReading",{},smalltalk.StreamTest)})},
+messageSends: []}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testStreamContents",
+smalltalk.method({
+selector: "testStreamContents",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testStreamContents",{},smalltalk.StreamTest)})},
+messageSends: []}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testWrite",
+smalltalk.method({
+selector: "testWrite",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testWrite",{},smalltalk.StreamTest)})},
+messageSends: []}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testWriting",
+smalltalk.method({
+selector: "testWriting",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"testWriting",{},smalltalk.StreamTest)})},
+messageSends: []}),
+smalltalk.StreamTest);
+
+smalltalk.addMethod(
+"_testisEmpty",
+smalltalk.method({
+selector: "testisEmpty",
+fn: function (){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { stream=_st(self)._newStream();
+_st(stream)._nextPutAll_(_st(self)._newCollection());
+return self}, function($ctx1) {$ctx1.fill(self,"testisEmpty",{stream:stream},smalltalk.StreamTest)})},
+messageSends: ["newStream", "nextPutAll:", "newCollection"]}),
+smalltalk.StreamTest);
+
+
+smalltalk.addMethod(
+"_collectionClass",
+smalltalk.method({
+selector: "collectionClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return nil;
+}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.StreamTest.klass)})},
+messageSends: []}),
+smalltalk.StreamTest.klass);
+
+smalltalk.addMethod(
+"_isAbstract",
+smalltalk.method({
+selector: "isAbstract",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(_st(self)._collectionClass())._isNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isAbstract",{},smalltalk.StreamTest.klass)})},
+messageSends: ["isNil", "collectionClass"]}),
+smalltalk.StreamTest.klass);
 
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
