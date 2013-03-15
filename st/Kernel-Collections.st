@@ -540,7 +540,7 @@ valuesDo: aBlock
 !
 
 withIndexDo: aBlock
-	self keysAndValuesDo: aBlock
+	self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]
 ! !
 
 !HashedCollection methodsFor: 'printing'!

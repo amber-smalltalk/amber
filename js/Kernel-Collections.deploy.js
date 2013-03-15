@@ -1223,9 +1223,11 @@ smalltalk.method({
 selector: "withIndexDo:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_(aBlock);
+return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(value,key);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
-messageSends: ["keysAndValuesDo:"]}),
+messageSends: ["keysAndValuesDo:", "value:value:"]}),
 smalltalk.HashedCollection);
 
 
