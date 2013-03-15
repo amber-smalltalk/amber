@@ -2156,11 +2156,68 @@ smalltalk.method({
 selector: ",",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__comma(_st(aString)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.CharacterArray)})},
-messageSends: [",", "asString"]}),
+return smalltalk.withContext(function($ctx1) { return self._raw() + aString._raw();
+return self}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"__lt",
+smalltalk.method({
+selector: "<",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._raw() < aString._raw();
+return self}, function($ctx1) {$ctx1.fill(self,"<",{aString:aString},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"__lt_eq",
+smalltalk.method({
+selector: "<=",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._raw() <= aString._raw();
+return self}, function($ctx1) {$ctx1.fill(self,"<=",{aString:aString},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"__eq",
+smalltalk.method({
+selector: "=",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+		return aString._raw &&
+			aString._class() == self._class() &&
+			self._raw() == aString._raw()
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"__gt",
+smalltalk.method({
+selector: ">",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._raw() > aString._raw();
+return self}, function($ctx1) {$ctx1.fill(self,">",{aString:aString},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"__gt_eq",
+smalltalk.method({
+selector: ">=",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._raw() >= aString._raw();
+return self}, function($ctx1) {$ctx1.fill(self,">=",{aString:aString},smalltalk.CharacterArray)})},
+messageSends: []}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -2172,6 +2229,19 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._errorReadOnly();
 return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.CharacterArray)})},
 messageSends: ["errorReadOnly"]}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"_asJSON",
+smalltalk.method({
+selector: "asJSON",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=_st(self)._asString();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.CharacterArray)})},
+messageSends: ["asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -2193,11 +2263,20 @@ smalltalk.method({
 selector: "asNumber",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asNumber();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asNumber",{},smalltalk.CharacterArray)})},
-messageSends: ["asNumber", "asString"]}),
+return smalltalk.withContext(function($ctx1) { return Number(self._raw());
+return self}, function($ctx1) {$ctx1.fill(self,"asNumber",{},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"_asSelector",
+smalltalk.method({
+selector: "asSelector",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return smalltalk.selector(self._raw());
+return self}, function($ctx1) {$ctx1.fill(self,"asSelector",{},smalltalk.CharacterArray)})},
+messageSends: []}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -2240,6 +2319,17 @@ messageSends: ["fromString:", "asUppercase", "asString", "class"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
+"_at_ifAbsent_",
+smalltalk.method({
+selector: "at:ifAbsent:",
+fn: function (anIndex,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._raw().charAt(anIndex - 1) || aBlock();
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",
@@ -2248,6 +2338,28 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._errorReadOnly();
 return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{anIndex:anIndex,anObject:anObject},smalltalk.CharacterArray)})},
 messageSends: ["errorReadOnly"]}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"_copyFrom_to_",
+smalltalk.method({
+selector: "copyFrom:to:",
+fn: function (anIndex,anotherIndex){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._class()._fromString_(self._raw().substring(anIndex - 1, anotherIndex));
+return self}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"_do_",
+smalltalk.method({
+selector: "do:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var raw=self._raw();for(var i=0;i<raw.length;i++){aBlock(raw.charAt(i));};
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.CharacterArray)})},
+messageSends: []}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -2294,6 +2406,28 @@ return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},sma
 messageSends: ["errorReadOnly"]}),
 smalltalk.CharacterArray);
 
+smalltalk.addMethod(
+"_size",
+smalltalk.method({
+selector: "size",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return self._raw().length;
+return self}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
+smalltalk.addMethod(
+"_withIndexDo_",
+smalltalk.method({
+selector: "withIndexDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var raw=self._raw();for(var i=0;i<raw.length;i++){aBlock(raw.charAt(i), i+1);};
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.CharacterArray)})},
+messageSends: []}),
+smalltalk.CharacterArray);
+
 
 smalltalk.addMethod(
 "_fromString_",
@@ -2309,55 +2443,6 @@ smalltalk.CharacterArray.klass);
 
 smalltalk.addClass('String', smalltalk.CharacterArray, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__comma",
-smalltalk.method({
-selector: ",",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self + aString;
-return self}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"__lt",
-smalltalk.method({
-selector: "<",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return String(self) < aString._asString();
-return self}, function($ctx1) {$ctx1.fill(self,"<",{aString:aString},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"__lt_eq",
-smalltalk.method({
-selector: "<=",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return String(self) <= aString._asString();
-return self}, function($ctx1) {$ctx1.fill(self,"<=",{aString:aString},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"__eq",
-smalltalk.method({
-selector: "=",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-		if(! aString._isString || ! aString._isString()) {
-			return false;
-		}
-		return String(self) === String(aString)
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"=",{aString:aString},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
 "__eq_eq",
 smalltalk.method({
 selector: "==",
@@ -2368,41 +2453,6 @@ $1=_st(self).__eq(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"==",{aString:aString},smalltalk.String)})},
 messageSends: ["="]}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"__gt",
-smalltalk.method({
-selector: ">",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return String(self) > aString._asString();
-return self}, function($ctx1) {$ctx1.fill(self,">",{aString:aString},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"__gt_eq",
-smalltalk.method({
-selector: ">=",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return String(self) >= aString._asString();
-return self}, function($ctx1) {$ctx1.fill(self,">=",{aString:aString},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_asJSON",
-smalltalk.method({
-selector: "asJSON",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.String)})},
-messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2446,17 +2496,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asNumber",
-smalltalk.method({
-selector: "asNumber",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return Number(self);
-return self}, function($ctx1) {$ctx1.fill(self,"asNumber",{},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
 "_asRegexp",
 smalltalk.method({
 selector: "asRegexp",
@@ -2467,17 +2506,6 @@ $1=_st((smalltalk.RegularExpression || RegularExpression))._fromString_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asRegexp",{},smalltalk.String)})},
 messageSends: ["fromString:"]}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_asSelector",
-smalltalk.method({
-selector: "asSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.selector(self);
-return self}, function($ctx1) {$ctx1.fill(self,"asSelector",{},smalltalk.String)})},
-messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2529,28 +2557,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
-smalltalk.method({
-selector: "at:ifAbsent:",
-fn: function (anIndex,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return String(self).charAt(anIndex - 1) || aBlock();
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_copyFrom_to_",
-smalltalk.method({
-selector: "copyFrom:to:",
-fn: function (anIndex,anotherIndex){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self.substring(anIndex - 1, anotherIndex);
-return self}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
 "_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
@@ -2561,17 +2567,6 @@ $1=_st(self)._shallowCopy();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.String)})},
 messageSends: ["shallowCopy"]}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_do_",
-smalltalk.method({
-selector: "do:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { for(var i=0;i<self.length;i++){aBlock(self.charAt(i));};
-return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.String)})},
-messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2810,6 +2805,17 @@ messageSends: ["nextPutAll:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
+"_raw",
+smalltalk.method({
+selector: "raw",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return String(self);
+return self}, function($ctx1) {$ctx1.fill(self,"raw",{},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_replace_with_",
 smalltalk.method({
 selector: "replace:with:",
@@ -2855,17 +2861,6 @@ $1=_st(_st(self)._class())._fromString_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.String)})},
 messageSends: ["fromString:", "class"]}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_size",
-smalltalk.method({
-selector: "size",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self.length;
-return self}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.String)})},
-messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -2965,17 +2960,6 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return unescape(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unescaped",{},smalltalk.String)})},
-messageSends: []}),
-smalltalk.String);
-
-smalltalk.addMethod(
-"_withIndexDo_",
-smalltalk.method({
-selector: "withIndexDo:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);};
-return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);
 
@@ -3130,88 +3114,6 @@ smalltalk.String.klass);
 
 smalltalk.addClass('Symbol', smalltalk.CharacterArray, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__lt",
-smalltalk.method({
-selector: "<",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__lt(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"<",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: ["<", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__lt_eq",
-smalltalk.method({
-selector: "<=",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__lt_eq(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"<=",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: ["<=", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__eq",
-smalltalk.method({
-selector: "=",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st(_st(aSymbol)._class()).__eq(_st(self)._class());
-if(! smalltalk.assert($1)){
-return false;
-};
-$2=_st(_st(self)._asString()).__eq(_st(aSymbol)._asString());
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"=",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: ["ifFalse:", "=", "class", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__gt",
-smalltalk.method({
-selector: ">",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__gt(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,">",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: [">", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__gt_eq",
-smalltalk.method({
-selector: ">=",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__gt_eq(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,">=",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: [">=", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asJSON",
-smalltalk.method({
-selector: "asJSON",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asJSON();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Symbol)})},
-messageSends: ["asJSON", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
@@ -3222,19 +3124,6 @@ $1=_st(_st("smalltalk.symbolFor(").__comma(_st(_st(self)._asString())._asJavascr
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Symbol)})},
 messageSends: [",", "asJavascript", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asSelector",
-smalltalk.method({
-selector: "asSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asSelector();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSelector",{},smalltalk.Symbol)})},
-messageSends: ["asSelector", "asString"]}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
@@ -3262,19 +3151,6 @@ messageSends: []}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
-smalltalk.method({
-selector: "at:ifAbsent:",
-fn: function (anIndex,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._at_ifAbsent_(anIndex,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["at:ifAbsent:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_collect_",
 smalltalk.method({
 selector: "collect:",
@@ -3285,19 +3161,6 @@ $1=_st(_st(_st(self)._asString())._collect_(aBlock))._asSymbol();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.Symbol)})},
 messageSends: ["asSymbol", "collect:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_copyFrom_to_",
-smalltalk.method({
-selector: "copyFrom:to:",
-fn: function (anIndex,anotherIndex){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._class())._fromString_(_st(_st(self)._asString())._copyFrom_to_(anIndex,anotherIndex));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},smalltalk.Symbol)})},
-messageSends: ["fromString:", "copyFrom:to:", "asString", "class"]}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
@@ -3327,17 +3190,6 @@ messageSends: ["detect:", "asString"]}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_do_",
-smalltalk.method({
-selector: "do:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._asString())._do_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["do:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_isSymbol",
 smalltalk.method({
 selector: "isSymbol",
@@ -3358,6 +3210,17 @@ return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_("#");
 smalltalk.CharacterArray.fn.prototype._printOn_.apply(_st(self), [aStream]);
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Symbol)})},
 messageSends: ["nextPutAll:", "printOn:"]}),
+smalltalk.Symbol);
+
+smalltalk.addMethod(
+"_raw",
+smalltalk.method({
+selector: "raw",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { return String(self.value);
+return self}, function($ctx1) {$ctx1.fill(self,"raw",{},smalltalk.Symbol)})},
+messageSends: []}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
@@ -3387,19 +3250,6 @@ messageSends: []}),
 smalltalk.Symbol);
 
 smalltalk.addMethod(
-"_size",
-smalltalk.method({
-selector: "size",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._size();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.Symbol)})},
-messageSends: ["size", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
 "_value_",
 smalltalk.method({
 selector: "value:",
@@ -3410,17 +3260,6 @@ $1=_st(anObject)._perform_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},smalltalk.Symbol)})},
 messageSends: ["perform:"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_withIndexDo_",
-smalltalk.method({
-selector: "withIndexDo:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._asString())._withIndexDo_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["withIndexDo:", "asString"]}),
 smalltalk.Symbol);
 
 

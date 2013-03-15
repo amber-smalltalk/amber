@@ -131,6 +131,12 @@ asString
 	^self printString
 !
 
+raw
+	console log: 'raw called:'.
+	console log: self.
+	^ self asString raw
+!
+
 test
 	| a |
 	a := 1.
