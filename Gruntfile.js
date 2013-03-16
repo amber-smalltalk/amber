@@ -9,7 +9,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'peg amberc:all');
 
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: grunt.file.readJSON('package.json'),
 
     meta: {
       banner: '/*!\n <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \n License: <%= pkg.license.type %> \n*/\n'
