@@ -2,8 +2,9 @@ module.exports = function(grunt) {
 
   grunt.loadTasks('./grunt/tasks');
 
-  grunt.loadNpmTasks('grunt-image-embed');
-  grunt.loadNpmTasks('grunt-contrib-mincss');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+//  grunt.loadNpmTasks('grunt-image-embed');
+//  grunt.loadNpmTasks('grunt-contrib-mincss');
 
   grunt.registerTask('default', 'peg amberc:all');
 
@@ -108,7 +109,7 @@ module.exports = function(grunt) {
       }
     },
 
-    lint: {
+    jshint: {
       amber: ['js/*.js'],
       server: ['server/*.js'],
       repl: ['repl/*.js'],
