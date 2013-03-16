@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-image-embed');
   grunt.loadNpmTasks('grunt-contrib-mincss');
 
-  grunt.registerTask('default', 'pegjs amberc:all');
+  grunt.registerTask('default', 'peg amberc:all');
 
   grunt.initConfig({
     pkg: '<json:package.json>',
@@ -14,7 +14,7 @@ module.exports = function(grunt) {
       banner: '/*!\n <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \n License: <%= pkg.license.type %> \n*/\n'
     },
 
-    pegjs: {
+    peg: {
       amber_parser: {
         src: 'js/parser.pegjs',
         dest: 'js/parser.js',

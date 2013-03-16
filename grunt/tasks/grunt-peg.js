@@ -14,7 +14,7 @@ module.exports = function(grunt) {
        }
      },
    */
-  grunt.registerMultiTask('pegjs', 'Generate JavaScript parser from PEG.js grammar description', function() {
+  grunt.registerMultiTask('peg', 'Generate JavaScript parser from PEG.js grammar description', function() {
     var pegOptions = {
       cache: this.data.cache || false,
       trackLineAndColumn: this.data.trackLineAndColumn || false
