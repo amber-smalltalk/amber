@@ -48,11 +48,11 @@ initialize
 !
 
 checkDirectoryLayout
-	(path existsSync: self basePath, 'index.html') ifFalse: [
+	(fs existsSync: self basePath, 'index.html') ifFalse: [
 		console warn: 'Warning: project directory does not contain index.html'].
-	(path existsSync: self basePath, 'st') ifFalse: [
+	(fs existsSync: self basePath, 'st') ifFalse: [
 		console warn: 'Warning: project directory is missing an "st" directory'].
-	(path existsSync: self basePath, 'js') ifFalse: [
+	(fs existsSync: self basePath, 'js') ifFalse: [
 		console warn: 'Warning: project directory is missing a "js" directory'].
 ! !
 
@@ -111,7 +111,7 @@ handleGETRequest: aRequest respondTo: aResponse
 	| uri filename |
 	uri := (url parse: aRequest url) pathname.
 	filename := path join: self basePath with: uri.
-	path exists: filename do: [:aBoolean |
+	fs exists: filename do: [:aBoolean |
 		aBoolean
 			ifFalse: [self respondNotFoundTo: aResponse]
 			ifTrue: [self respondFileNamed: filename to: aResponse]]
