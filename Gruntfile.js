@@ -2,25 +2,28 @@ module.exports = function(grunt) {
 
   grunt.loadTasks('./grunt/tasks');
 
-  grunt.loadNpmTasks('grunt-image-embed');
-  grunt.loadNpmTasks('grunt-contrib-mincss');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+//  grunt.loadNpmTasks('grunt-image-embed');
+//  grunt.loadNpmTasks('grunt-contrib-mincss');
 
-  grunt.registerTask('default', 'pegjs amberc:all');
+  grunt.registerTask('default', 'peg amberc:all');
 
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    pkg: grunt.file.readJSON('package.json'),
 
     meta: {
       banner: '/*!\n <%= pkg.title || pkg.name %> - v<%= pkg.version %> - <%= grunt.template.today("yyyy-mm-dd") %> \n License: <%= pkg.license.type %> \n*/\n'
     },
 
-    pegjs: {
+    peg: {
       amber_parser: {
+        options: {
+          trackLineAndColumn: true,
+          cache: true,
+          export_var: 'smalltalk.parser'
+        },
         src: 'js/parser.pegjs',
         dest: 'js/parser.js',
-        trackLineAndColumn: true,
-        cache: true,
-        export_var: 'smalltalk.parser'
       }
     },
 
@@ -108,7 +111,7 @@ module.exports = function(grunt) {
       }
     },
 
-    lint: {
+    jshint: {
       amber: ['js/*.js'],
       server: ['server/*.js'],
       repl: ['repl/*.js'],
@@ -173,32 +176,5 @@ module.exports = function(grunt) {
       }
     }
 */
-  });
-
-  grunt.registerMultiTask('css2js', 'Embed CSS into JS', function() {
-    var cssContent = grunt.task.directive(grunt.file.expandFiles(this.data.src)[0], grunt.file.read);
-    var content =
-      'var css="' + cssContent + '";' +
-      'var cssTag = document.createElement("link");' +
-      'document.head = document.head || document.getElementsByTagName("head")[0];' +
-      'cssTag.href = "data:text/css,"+css;' +
-      'cssTag.rel = "stylesheet";' +
-      'document.head.appendChild(cssTag);';
-
-    grunt.file.write(this.data.dest, content);
-
-    grunt.log.writeln('File "' + this.data.dest + '" created.');
-  });
-
-  grunt.registerMultiTask('pegjs', 'Generate JavaScript parser from PEG.js description', function() {
-    var PEG = require('pegjs');
-    var pegOptions = {
-      cache: this.data.cache || false,
-      trackLineAndColumn: this.data.trackLineAndColumn || false
-    };
-    var export_var = this.data.export_var || 'module.exports';
-    var parser = PEG.buildParser(grunt.file.read(this.data.src), pegOptions);
-    var content = export_var + ' = ' + parser.toSource() + ';\n';
-    grunt.file.write(this.data.dest, content);
   });
 };
