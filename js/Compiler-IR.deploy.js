@@ -1999,6 +1999,9 @@ return smalltalk.withContext(function($ctx2) {return _st(_st(self)._stream())._
 return smalltalk.withContext(function($ctx3) {_st(_st(self)._stream())._nextPutVars_(_st(_st(anIRMethod)._tempDeclarations())._collect_((function(each){
 return smalltalk.withContext(function($ctx4) {return _st(_st(each)._name())._asVariableName();
 }, function($ctx4) {$ctx4.fillBlock({each:each},$ctx1)})})));
+_st(_st(anIRMethod)._classReferences())._do_((function(each){
+return smalltalk.withContext(function($ctx4) {return _st(_st(self)._stream())._nextPutClassRefFunction_(each);
+}, function($ctx4) {$ctx4.fillBlock({each:each},$ctx1)})}));
 return _st(_st(self)._stream())._nextPutContextFor_during_(anIRMethod,(function(){
 return smalltalk.withContext(function($ctx4) {$1=_st(_st(anIRMethod)._internalVariables())._notEmpty();
 if(smalltalk.assert($1)){
@@ -2018,7 +2021,7 @@ return smalltalk.IRVisitor.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMe
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}),_st(anIRMethod)._arguments());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},smalltalk.IRJSTranslator)})},
-messageSends: ["nextPutMethodDeclaration:with:", "nextPutFunctionWith:arguments:", "nextPutVars:", "collect:", "asVariableName", "name", "tempDeclarations", "stream", "nextPutContextFor:during:", "ifTrue:", "alias", "variable", "asArray", "internalVariables", "notEmpty", "ifTrue:ifFalse:", "nextPutNonLocalReturnHandlingWith:", "visitIRMethod:", "hasNonLocalReturn", "scope", "arguments"]}),
+messageSends: ["nextPutMethodDeclaration:with:", "nextPutFunctionWith:arguments:", "nextPutVars:", "collect:", "asVariableName", "name", "tempDeclarations", "stream", "do:", "nextPutClassRefFunction:", "classReferences", "nextPutContextFor:during:", "ifTrue:", "alias", "variable", "asArray", "internalVariables", "notEmpty", "ifTrue:ifFalse:", "nextPutNonLocalReturnHandlingWith:", "visitIRMethod:", "hasNonLocalReturn", "scope", "arguments"]}),
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
@@ -2250,6 +2253,28 @@ _st($7)._nextPutAll_("},");
 $8=_st($7)._nextPutAll_(_st(_st(_st(_st(anIRClosure)._method())._scope())._alias()).__comma(")})"));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},smalltalk.JSStream)})},
 messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value", "do:separatedBy:", "asVariableName", "locals", "method"]}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutClassRefFunction_",
+smalltalk.method({
+selector: "nextPutClassRefFunction:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=self["@stream"];
+_st($1)._nextPutAll_("function $");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_("(){return smalltalk.");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_("||(typeof ");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_("==\x22undefined\x22?nil:");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_(")}");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutClassRefFunction:",{aString:aString},smalltalk.JSStream)})},
+messageSends: ["nextPutAll:", "lf"]}),
 smalltalk.JSStream);
 
 smalltalk.addMethod(

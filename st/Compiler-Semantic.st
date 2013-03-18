@@ -306,7 +306,7 @@ I am an class reference variable!
 !ClassRefVar methodsFor: 'accessing'!
 
 alias
-	^ '(smalltalk.', self name, ' || ', self name, ')'
+	^ '$', self name, '()'
 ! !
 
 !ClassRefVar methodsFor: 'testing'!

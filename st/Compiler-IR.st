@@ -922,6 +922,7 @@ visitIRMethod: anIRMethod
 			nextPutFunctionWith: [
 				self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |
 					each name asVariableName ]).
+				anIRMethod classReferences do: [ :each | self stream nextPutClassRefFunction: each ].
 				self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
@@ -1051,6 +1052,20 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	self
 		nextPutAll: '},';
 		nextPutAll: anIRClosure method scope alias, ')})'
+!
+
+nextPutClassRefFunction: aString
+	stream
+		nextPutAll: 'function $';
+		nextPutAll: aString;
+		nextPutAll: '(){return smalltalk.';
+		nextPutAll: aString;
+		nextPutAll: '||(typeof ';
+		nextPutAll: aString;
+		nextPutAll: '=="undefined"?nil:';
+		nextPutAll: aString;
+		nextPutAll: ')}';
+		lf
 !
 
 nextPutClosureWith: aBlock arguments: anArray
