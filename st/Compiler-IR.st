@@ -1137,7 +1137,7 @@ nextPutIfElse: aBlock with: ifBlock with: elseBlock
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream
 		nextPutAll: 'smalltalk.method({'; lf;
-		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
 	aBlock value.
 	stream

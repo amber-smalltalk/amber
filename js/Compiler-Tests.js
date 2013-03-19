@@ -575,6 +575,23 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testBackslashSelectors",
+smalltalk.method({
+selector: "testBackslashSelectors",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("\x5c arg ^ 4",(4));
+_st(self)._should_return_("\x5c\x5c arg ^ 42",(42));
+return self}, function($ctx1) {$ctx1.fill(self,"testBackslashSelectors",{},smalltalk.CodeGeneratorTest)})},
+args: [],
+source: "testBackslashSelectors\x0a\x09\x0a\x09self should: '\x5c arg ^ 4' return: 4.\x0a\x09self should: '\x5c\x5c arg ^ 42' return: 42",
+messageSends: ["should:return:"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testBlockReturn",
 smalltalk.method({
 selector: "testBlockReturn",

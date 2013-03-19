@@ -1829,25 +1829,13 @@ messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(
-"__backslash",
+"__backslash_backslash",
 smalltalk.method({
-selector: "\x5c",
+selector: "\x5c\x5c",
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self % aNumber;
 return self}, function($ctx1) {$ctx1.fill(self,"\x5c\x5c",{aNumber:aNumber},smalltalk.Number)})},
-messageSends: []}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-"__backslash_backslash",
-smalltalk.method({
-selector: "\x5c\x5c",
-fn: function (aNumber) {
-    var self = this;
-    return self % aNumber;
-    return self;
-},
 messageSends: []}),
 smalltalk.Number);
 

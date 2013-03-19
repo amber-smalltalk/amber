@@ -252,6 +252,12 @@ testAssignment
 	self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1
 !
 
+testBackslashSelectors
+	
+	self should: '\ arg ^ 4' return: 4.
+	self should: '\\ arg ^ 42' return: 42
+!
+
 testBlockReturn
 	self should: 'foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]' return: #(2 3 4).
 	self should: 'foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]' return: #(2 3 4).
