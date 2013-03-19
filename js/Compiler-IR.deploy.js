@@ -2453,32 +2453,28 @@ smalltalk.method({
 selector: "nextPutBlockContextFor:during:",
 fn: function (anIRClosure,aBlock){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self;
 _st($1)._nextPutAll_(_st(_st("return smalltalk.withContext(function(").__comma(_st(_st(anIRClosure)._scope())._alias())).__comma(") {"));
-$2=_st($1)._nextPutAll_(_st($String())._cr());
+$2=_st($1)._lf();
 _st(aBlock)._value();
 $3=self;
 _st($3)._nextPutAll_(_st(_st("}, function(").__comma(_st(_st(anIRClosure)._scope())._alias())).__comma(") {"));
 $4=_st($3)._nextPutAll_(_st(_st(_st(anIRClosure)._scope())._alias()).__comma(".fillBlock({"));
 _st(_st(anIRClosure)._locals())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$5=self;
+return smalltalk.withContext(function($ctx2) {$5=self;
 _st($5)._nextPutAll_(_st(each)._asVariableName());
 _st($5)._nextPutAll_(":");
 $6=_st($5)._nextPutAll_(_st(each)._asVariableName());
 return $6;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._nextPutAll_(",");
+return smalltalk.withContext(function($ctx2) {return _st(self)._nextPutAll_(",");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $7=self;
 _st($7)._nextPutAll_("},");
 $8=_st($7)._nextPutAll_(_st(_st(_st(_st(anIRClosure)._method())._scope())._alias()).__comma(")})"));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},smalltalk.JSStream)})},
-messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value", "do:separatedBy:", "asVariableName", "locals", "method"]}),
+messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "do:separatedBy:", "asVariableName", "locals", "method"]}),
 smalltalk.JSStream);
 
 smalltalk.addMethod(
@@ -2535,12 +2531,10 @@ smalltalk.method({
 selector: "nextPutContextFor:during:",
 fn: function (aMethod,aBlock){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self;
 _st($1)._nextPutAll_(_st(_st("return smalltalk.withContext(function(").__comma(_st(_st(aMethod)._scope())._alias())).__comma(") { "));
-$2=_st($1)._nextPutAll_(_st($String())._cr());
+$2=_st($1)._lf();
 _st(aBlock)._value();
 $3=self;
 _st($3)._nextPutAll_(_st(_st(_st("}, function(").__comma(_st(_st(aMethod)._scope())._alias())).__comma(") {")).__comma(_st(_st(aMethod)._scope())._alias()));
@@ -2561,7 +2555,7 @@ _st($7)._nextPutAll_("},");
 _st($7)._nextPutAll_(_st(_st(aMethod)._theClass())._asJavascript());
 $8=_st($7)._nextPutAll_(")})");
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutContextFor:during:",{aMethod:aMethod,aBlock:aBlock},smalltalk.JSStream)})},
-messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value", "asJavascript", "selector", "do:separatedBy:", "asVariableName", "locals", "theClass"]}),
+messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "asJavascript", "selector", "do:separatedBy:", "asVariableName", "locals", "theClass"]}),
 smalltalk.JSStream);
 
 smalltalk.addMethod(
