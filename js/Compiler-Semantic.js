@@ -1052,7 +1052,7 @@ $1=_st(_st("$").__comma(_st(self)._name())).__comma("()");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"alias",{},smalltalk.ClassRefVar)})},
 args: [],
-source: "alias\x0a\x09^ '$', self name, '()'",
+source: "alias\x0a\x09\x22Fixes issue #190.\x0a\x09A function is created in the method definition, answering the class or nil.\x0a\x09See JSStream >> #nextPutClassRefFunction:\x22\x0a\x09\x0a\x09^ '$', self name, '()'",
 messageSends: [",", "name"],
 referencedClasses: []
 }),

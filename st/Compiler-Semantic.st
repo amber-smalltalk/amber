@@ -306,6 +306,10 @@ I am an class reference variable!
 !ClassRefVar methodsFor: 'accessing'!
 
 alias
+	"Fixes issue #190.
+	A function is created in the method definition, answering the class or nil.
+	See JSStream >> #nextPutClassRefFunction:"
+	
 	^ '$', self name, '()'
 ! !
 

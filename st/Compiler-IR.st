@@ -1055,6 +1055,9 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 !
 
 nextPutClassRefFunction: aString
+	"Creates an inner function $aString into method and called as `$Foo()`whenever the global is accessed.
+	This ensures that undefined global access will answer `nil`"
+	
 	stream
 		nextPutAll: 'function $';
 		nextPutAll: aString;
