@@ -6,7 +6,7 @@ module.exports = function(grunt) {
 //  grunt.loadNpmTasks('grunt-image-embed');
 //  grunt.loadNpmTasks('grunt-contrib-mincss');
 
-  grunt.registerTask('default', 'peg amberc:all');
+  grunt.registerTask('default', ['peg', 'amberc:all']);
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
