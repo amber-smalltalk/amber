@@ -561,6 +561,18 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testPascalCaseGlobal",
+smalltalk.method({
+selector: "testPascalCaseGlobal",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^Object",_st(smalltalk)._at_("Object"));
+_st(self)._should_return_("foo ^NonExistent",nil);
+return self}, function($ctx1) {$ctx1.fill(self,"testPascalCaseGlobal",{},smalltalk.CodeGeneratorTest)})},
+messageSends: ["should:return:", "at:"]}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testSendReceiverAndArgumentsOrdered",
 smalltalk.method({
 selector: "testSendReceiverAndArgumentsOrdered",

@@ -1048,11 +1048,11 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(_st("(smalltalk.").__comma(_st(self)._name())).__comma(" || ")).__comma(_st(self)._name())).__comma(")");
+$1=_st(_st("$").__comma(_st(self)._name())).__comma("()");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"alias",{},smalltalk.ClassRefVar)})},
 args: [],
-source: "alias\x0a\x09^ '(smalltalk.', self name, ' || ', self name, ')'",
+source: "alias\x0a\x09^ '$', self name, '()'",
 messageSends: [",", "name"],
 referencedClasses: []
 }),
