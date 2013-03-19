@@ -2699,6 +2699,9 @@ return smalltalk.withContext(function($ctx2) {return _st(_st(self)._stream())._
 return smalltalk.withContext(function($ctx3) {_st(_st(self)._stream())._nextPutVars_(_st(_st(anIRMethod)._tempDeclarations())._collect_((function(each){
 return smalltalk.withContext(function($ctx4) {return _st(_st(each)._name())._asVariableName();
 }, function($ctx4) {$ctx4.fillBlock({each:each},$ctx1)})})));
+_st(_st(anIRMethod)._classReferences())._do_((function(each){
+return smalltalk.withContext(function($ctx4) {return _st(_st(self)._stream())._nextPutClassRefFunction_(each);
+}, function($ctx4) {$ctx4.fillBlock({each:each},$ctx1)})}));
 return _st(_st(self)._stream())._nextPutContextFor_during_(anIRMethod,(function(){
 return smalltalk.withContext(function($ctx4) {$1=_st(_st(anIRMethod)._internalVariables())._notEmpty();
 if(smalltalk.assert($1)){
@@ -2719,8 +2722,8 @@ return smalltalk.IRVisitor.fn.prototype._visitIRMethod_.apply(_st(self), [anIRMe
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRMethod:",{anIRMethod:anIRMethod},smalltalk.IRJSTranslator)})},
 args: ["anIRMethod"],
-source: "visitIRMethod: anIRMethod\x0a\x0a\x09self stream\x0a\x09\x09nextPutMethodDeclaration: anIRMethod\x0a\x09\x09with: [ self stream\x0a\x09\x09\x09nextPutFunctionWith: [\x0a\x09\x09\x09\x09self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |\x0a\x09\x09\x09\x09\x09each name asVariableName ]).\x0a\x09\x09\x09\x09self stream nextPutContextFor: anIRMethod during: [\x0a\x09\x09\x09\x09anIRMethod internalVariables notEmpty ifTrue: [\x0a\x09\x09\x09\x09\x09self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |\x0a\x09\x09\x09\x09\x09\x09each variable alias ]) ].\x0a\x09\x09\x09\x09anIRMethod scope hasNonLocalReturn\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09self stream nextPutNonLocalReturnHandlingWith: [\x0a\x09\x09\x09\x09\x09\x09\x09super visitIRMethod: anIRMethod ]]\x0a\x09\x09\x09\x09\x09ifFalse: [ super visitIRMethod: anIRMethod ]]]\x0a\x09\x09\x09arguments: anIRMethod arguments ]",
-messageSends: ["nextPutMethodDeclaration:with:", "nextPutFunctionWith:arguments:", "nextPutVars:", "collect:", "asVariableName", "name", "tempDeclarations", "stream", "nextPutContextFor:during:", "ifTrue:", "alias", "variable", "asArray", "internalVariables", "notEmpty", "ifTrue:ifFalse:", "nextPutNonLocalReturnHandlingWith:", "visitIRMethod:", "hasNonLocalReturn", "scope", "arguments"],
+source: "visitIRMethod: anIRMethod\x0a\x0a\x09self stream\x0a\x09\x09nextPutMethodDeclaration: anIRMethod\x0a\x09\x09with: [ self stream\x0a\x09\x09\x09nextPutFunctionWith: [\x0a\x09\x09\x09\x09self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |\x0a\x09\x09\x09\x09\x09each name asVariableName ]).\x0a\x09\x09\x09\x09anIRMethod classReferences do: [ :each | self stream nextPutClassRefFunction: each ].\x0a\x09\x09\x09\x09self stream nextPutContextFor: anIRMethod during: [\x0a\x09\x09\x09\x09anIRMethod internalVariables notEmpty ifTrue: [\x0a\x09\x09\x09\x09\x09self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |\x0a\x09\x09\x09\x09\x09\x09each variable alias ]) ].\x0a\x09\x09\x09\x09anIRMethod scope hasNonLocalReturn\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09self stream nextPutNonLocalReturnHandlingWith: [\x0a\x09\x09\x09\x09\x09\x09\x09super visitIRMethod: anIRMethod ]]\x0a\x09\x09\x09\x09\x09ifFalse: [ super visitIRMethod: anIRMethod ]]]\x0a\x09\x09\x09arguments: anIRMethod arguments ]",
+messageSends: ["nextPutMethodDeclaration:with:", "nextPutFunctionWith:arguments:", "nextPutVars:", "collect:", "asVariableName", "name", "tempDeclarations", "stream", "do:", "nextPutClassRefFunction:", "classReferences", "nextPutContextFor:during:", "ifTrue:", "alias", "variable", "asArray", "internalVariables", "notEmpty", "ifTrue:ifFalse:", "nextPutNonLocalReturnHandlingWith:", "visitIRMethod:", "hasNonLocalReturn", "scope", "arguments"],
 referencedClasses: []
 }),
 smalltalk.IRJSTranslator);
@@ -3028,6 +3031,33 @@ args: ["anIRClosure", "aBlock"],
 source: "nextPutBlockContextFor: anIRClosure during: aBlock\x0a\x09self\x0a\x09\x09nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: String cr.\x0a\x09\x0a\x09aBlock value.\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '}, function(', anIRClosure scope alias, ') {';\x0a\x09\x09nextPutAll: anIRClosure scope alias, '.fillBlock({'.\x0a\x09\x0a\x09anIRClosure locals\x0a\x09\x09do: [ :each |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09nextPutAll: each asVariableName;\x0a\x09\x09\x09\x09nextPutAll: ':';\x0a\x09\x09\x09\x09nextPutAll: each asVariableName]\x0a\x09\x09separatedBy: [ self nextPutAll: ',' ].\x0a\x09\x0a\x09self\x0a\x09\x09nextPutAll: '},';\x0a\x09\x09nextPutAll: anIRClosure method scope alias, ')})'",
 messageSends: ["nextPutAll:", ",", "alias", "scope", "cr", "value", "do:separatedBy:", "asVariableName", "locals", "method"],
 referencedClasses: ["String"]
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+"_nextPutClassRefFunction_",
+smalltalk.method({
+selector: "nextPutClassRefFunction:",
+category: 'streaming',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { var $1,$2;
+$1=self["@stream"];
+_st($1)._nextPutAll_("function $");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_("(){return smalltalk.");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_("||(typeof ");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_("==\x22undefined\x22?nil:");
+_st($1)._nextPutAll_(aString);
+_st($1)._nextPutAll_(")}");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutClassRefFunction:",{aString:aString},smalltalk.JSStream)})},
+args: ["aString"],
+source: "nextPutClassRefFunction: aString\x0a\x09stream\x0a\x09\x09nextPutAll: 'function $';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '(){return smalltalk.';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '||(typeof ';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: '==\x22undefined\x22?nil:';\x0a\x09\x09nextPutAll: aString;\x0a\x09\x09nextPutAll: ')}';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "lf"],
+referencedClasses: []
 }),
 smalltalk.JSStream);
 

@@ -766,6 +766,23 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testPascalCaseGlobal",
+smalltalk.method({
+selector: "testPascalCaseGlobal",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { _st(self)._should_return_("foo ^Object",_st(smalltalk)._at_("Object"));
+_st(self)._should_return_("foo ^NonExistent",nil);
+return self}, function($ctx1) {$ctx1.fill(self,"testPascalCaseGlobal",{},smalltalk.CodeGeneratorTest)})},
+args: [],
+source: "testPascalCaseGlobal\x0a\x09self should: 'foo ^Object' return: (smalltalk at: 'Object').\x0a\x09self should: 'foo ^NonExistent' return: nil",
+messageSends: ["should:return:", "at:"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testSendReceiverAndArgumentsOrdered",
 smalltalk.method({
 selector: "testSendReceiverAndArgumentsOrdered",
