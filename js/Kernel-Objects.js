@@ -2554,31 +2554,14 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-"__backslash",
+"__backslash_backslash",
 smalltalk.method({
-selector: "\x5c",
+selector: "\x5c\x5c",
 category: 'arithmetic',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return self % aNumber;
 return self}, function($ctx1) {$ctx1.fill(self,"\x5c\x5c",{aNumber:aNumber},smalltalk.Number)})},
-args: ["aNumber"],
-source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-"__backslash_backslash",
-smalltalk.method({
-selector: "\x5c\x5c",
-category: 'arithmetic',
-fn: function (aNumber) {
-    var self = this;
-    return self % aNumber;
-    return self;
-},
 args: ["aNumber"],
 source: "\x5c\x5c aNumber\x0a\x09<return self % aNumber>",
 messageSends: [],

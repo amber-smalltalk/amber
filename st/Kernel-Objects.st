@@ -845,10 +845,6 @@ identityHash
 	<return self % aNumber>
 !
 
-\\ aNumber
-	<return self % aNumber>
-!
-
 abs
 	<return Math.abs(self);>
 !
