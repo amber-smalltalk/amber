@@ -348,15 +348,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "includesSelector:",
 category: 'testing',
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._methodDictionary())._includesKey_(_st(aSymbol)._asString());
+$1=_st(_st(self)._methodDictionary())._includesKey_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includesSelector:",{aSymbol:aSymbol},smalltalk.Behavior)})},
-args: ["aSymbol"],
-source: "includesSelector: aSymbol\x0a\x09^ self methodDictionary includesKey: aSymbol asString",
-messageSends: ["includesKey:", "asString", "methodDictionary"],
+}, function($ctx1) {$ctx1.fill(self,"includesSelector:",{aString:aString},smalltalk.Behavior)})},
+args: ["aString"],
+source: "includesSelector: aString\x0a\x09^ self methodDictionary includesKey: aString",
+messageSends: ["includesKey:", "methodDictionary"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
@@ -434,15 +434,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "methodAt:",
 category: 'accessing',
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._methodDictionary())._at_(_st(aSymbol)._asString());
+$1=_st(_st(self)._methodDictionary())._at_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodAt:",{aSymbol:aSymbol},smalltalk.Behavior)})},
-args: ["aSymbol"],
-source: "methodAt: aSymbol\x0a\x09^ self methodDictionary at: aSymbol asString",
-messageSends: ["at:", "asString", "methodDictionary"],
+}, function($ctx1) {$ctx1.fill(self,"methodAt:",{aString:aString},smalltalk.Behavior)})},
+args: ["aString"],
+source: "methodAt: aString\x0a\x09^ self methodDictionary at: aString",
+messageSends: ["at:", "methodDictionary"],
 referencedClasses: []
 }),
 smalltalk.Behavior);

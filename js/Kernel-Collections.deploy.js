@@ -2249,10 +2249,10 @@ selector: "asSymbol",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._subclassResponsibility();
+$1=_st(self)._asString();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSymbol",{},smalltalk.CharacterArray)})},
-messageSends: ["subclassResponsibility"]}),
+messageSends: ["asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
@@ -2529,10 +2529,10 @@ selector: "asSymbol",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.Symbol || Symbol))._lookup_(self);
+$1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSymbol",{},smalltalk.String)})},
-messageSends: ["lookup:"]}),
+messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
@@ -3150,351 +3150,6 @@ return smalltalk.withContext(function($ctx1) { return String.fromCharCode(aUTFC
 return self}, function($ctx1) {$ctx1.fill(self,"value:",{aUTFCharCode:aUTFCharCode},smalltalk.String.klass)})},
 messageSends: []}),
 smalltalk.String.klass);
-
-
-smalltalk.addClass('Symbol', smalltalk.CharacterArray, [], 'Kernel-Collections');
-smalltalk.addMethod(
-"__lt",
-smalltalk.method({
-selector: "<",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__lt(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"<",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: ["<", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__lt_eq",
-smalltalk.method({
-selector: "<=",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__lt_eq(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"<=",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: ["<=", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__eq",
-smalltalk.method({
-selector: "=",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st(_st(aSymbol)._class()).__eq(_st(self)._class());
-if(! smalltalk.assert($1)){
-return false;
-};
-$2=_st(_st(self)._asString()).__eq(_st(aSymbol)._asString());
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"=",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: ["ifFalse:", "=", "class", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__gt",
-smalltalk.method({
-selector: ">",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__gt(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,">",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: [">", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"__gt_eq",
-smalltalk.method({
-selector: ">=",
-fn: function (aSymbol){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString()).__gt_eq(_st(aSymbol)._asString());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,">=",{aSymbol:aSymbol},smalltalk.Symbol)})},
-messageSends: [">=", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asJSON",
-smalltalk.method({
-selector: "asJSON",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asJSON();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Symbol)})},
-messageSends: ["asJSON", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asJavascript",
-smalltalk.method({
-selector: "asJavascript",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st("smalltalk.symbolFor(").__comma(_st(_st(self)._asString())._asJavascript())).__comma(")");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Symbol)})},
-messageSends: [",", "asJavascript", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asSelector",
-smalltalk.method({
-selector: "asSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._asSelector();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSelector",{},smalltalk.Symbol)})},
-messageSends: ["asSelector", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asString",
-smalltalk.method({
-selector: "asString",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return self.value;
-return self}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Symbol)})},
-messageSends: []}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_asSymbol",
-smalltalk.method({
-selector: "asSymbol",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asSymbol",{},smalltalk.Symbol)})},
-messageSends: []}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_at_ifAbsent_",
-smalltalk.method({
-selector: "at:ifAbsent:",
-fn: function (anIndex,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._at_ifAbsent_(anIndex,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["at:ifAbsent:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_collect_",
-smalltalk.method({
-selector: "collect:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._asString())._collect_(aBlock))._asSymbol();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["asSymbol", "collect:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_copyFrom_to_",
-smalltalk.method({
-selector: "copyFrom:to:",
-fn: function (anIndex,anotherIndex){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._class())._fromString_(_st(_st(self)._asString())._copyFrom_to_(anIndex,anotherIndex));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex},smalltalk.Symbol)})},
-messageSends: ["fromString:", "copyFrom:to:", "asString", "class"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_deepCopy",
-smalltalk.method({
-selector: "deepCopy",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.Symbol)})},
-messageSends: []}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_detect_",
-smalltalk.method({
-selector: "detect:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._detect_(aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"detect:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["detect:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_do_",
-smalltalk.method({
-selector: "do:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._asString())._do_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["do:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_indexOf_",
-smalltalk.method({
-selector: "indexOf:",
-fn: function (anElement){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._indexOf_(anElement);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"indexOf:",{anElement:anElement},smalltalk.Symbol)})},
-messageSends: ["indexOf:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_isSymbol",
-smalltalk.method({
-selector: "isSymbol",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
-}, function($ctx1) {$ctx1.fill(self,"isSymbol",{},smalltalk.Symbol)})},
-messageSends: []}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_printOn_",
-smalltalk.method({
-selector: "printOn:",
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aStream)._nextPutAll_("#");
-smalltalk.CharacterArray.fn.prototype._printOn_.apply(_st(self), [aStream]);
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Symbol)})},
-messageSends: ["nextPutAll:", "printOn:"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_select_",
-smalltalk.method({
-selector: "select:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._asString())._select_(aBlock))._asSymbol();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["asSymbol", "select:", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_shallowCopy",
-smalltalk.method({
-selector: "shallowCopy",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.Symbol)})},
-messageSends: []}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_size",
-smalltalk.method({
-selector: "size",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._asString())._size();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"size",{},smalltalk.Symbol)})},
-messageSends: ["size", "asString"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_value_",
-smalltalk.method({
-selector: "value:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(anObject)._perform_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},smalltalk.Symbol)})},
-messageSends: ["perform:"]}),
-smalltalk.Symbol);
-
-smalltalk.addMethod(
-"_withIndexDo_",
-smalltalk.method({
-selector: "withIndexDo:",
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._asString())._withIndexDo_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.Symbol)})},
-messageSends: ["withIndexDo:", "asString"]}),
-smalltalk.Symbol);
-
-
-smalltalk.addMethod(
-"_basicNew",
-smalltalk.method({
-selector: "basicNew",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
-return self}, function($ctx1) {$ctx1.fill(self,"basicNew",{},smalltalk.Symbol.klass)})},
-messageSends: ["shouldNotImplement"]}),
-smalltalk.Symbol.klass);
-
-smalltalk.addMethod(
-"_fromString_",
-smalltalk.method({
-selector: "fromString:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._lookup_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromString:",{aString:aString},smalltalk.Symbol.klass)})},
-messageSends: ["lookup:"]}),
-smalltalk.Symbol.klass);
-
-smalltalk.addMethod(
-"_lookup_",
-smalltalk.method({
-selector: "lookup:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.symbolFor(aString);;
-return self}, function($ctx1) {$ctx1.fill(self,"lookup:",{aString:aString},smalltalk.Symbol.klass)})},
-messageSends: []}),
-smalltalk.Symbol.klass);
 
 
 smalltalk.addClass('Set', smalltalk.Collection, ['elements'], 'Kernel-Collections');

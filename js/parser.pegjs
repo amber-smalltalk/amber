@@ -17,7 +17,7 @@ symbol         = "#"val:(
                        / node:string {return node._value()})*
                   {
                       return smalltalk.ValueNode._new()
-                             ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
+                             ._value_(val.join("").replace(/\"/ig, '"'))
                   }
 number         = n:(hex / float / integer) {
                      return smalltalk.ValueNode._new()

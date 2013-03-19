@@ -892,7 +892,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                               return smalltalk.ValueNode._new()
-                                     ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
+                                     ._value_(val.join("").replace(/\"/ig, '"'))
                           })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {

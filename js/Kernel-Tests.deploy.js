@@ -1680,257 +1680,6 @@ messageSends: []}),
 smalltalk.StringTest.klass);
 
 
-smalltalk.addClass('SymbolTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-"_collection",
-smalltalk.method({
-selector: "collection",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.symbolFor("hello");
-}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.SymbolTest)})},
-messageSends: []}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_collectionWithDuplicates",
-smalltalk.method({
-selector: "collectionWithDuplicates",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.symbolFor("phhaaarorra");
-}, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.SymbolTest)})},
-messageSends: []}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAsString",
-smalltalk.method({
-selector: "testAsString",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._asString(),"hello");
-return self}, function($ctx1) {$ctx1.fill(self,"testAsString",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:equals:", "asString"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAsSymbol",
-smalltalk.method({
-selector: "testAsSymbol",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq_eq(_st(smalltalk.symbolFor("hello"))._asSymbol()));
-return self}, function($ctx1) {$ctx1.fill(self,"testAsSymbol",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:", "==", "asSymbol"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAt",
-smalltalk.method({
-selector: "testAt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_((1)),"h");
-_st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_((5)),"o");
-_st(self)._assert_equals_(_st(smalltalk.symbolFor("hello"))._at_ifAbsent_((6),(function(){
-return smalltalk.withContext(function($ctx2) {return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),nil);
-return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:equals:", "at:", "at:ifAbsent:"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testAtPut",
-smalltalk.method({
-selector: "testAtPut",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st("hello")._at_put_((1),"a");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
-return self}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},smalltalk.SymbolTest)})},
-messageSends: ["should:raise:", "at:put:"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testCollect",
-smalltalk.method({
-selector: "testCollect",
-fn: function (){
-var self=this;
-var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection=smalltalk.symbolFor("hheelllloo");
-_st(self)._assertSameContents_as_(_st(_st(self)._collection())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__comma(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{newCollection:newCollection},smalltalk.SymbolTest)})},
-messageSends: ["assertSameContents:as:", "collect:", ",", "collection"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testComparing",
-smalltalk.method({
-selector: "testComparing",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("ab")).__gt(smalltalk.symbolFor("aa")));
-_st(self)._deny_(_st(smalltalk.symbolFor("ab")).__gt(smalltalk.symbolFor("ba")));
-_st(self)._assert_(_st(smalltalk.symbolFor("ab")).__lt(smalltalk.symbolFor("ba")));
-_st(self)._deny_(_st(smalltalk.symbolFor("bb")).__lt(smalltalk.symbolFor("ba")));
-_st(self)._assert_(_st(smalltalk.symbolFor("ab")).__gt_eq(smalltalk.symbolFor("aa")));
-_st(self)._deny_(_st(smalltalk.symbolFor("ab")).__gt_eq(smalltalk.symbolFor("ba")));
-_st(self)._assert_(_st(smalltalk.symbolFor("ab")).__lt_eq(smalltalk.symbolFor("ba")));
-_st(self)._deny_(_st(smalltalk.symbolFor("bb")).__lt_eq(smalltalk.symbolFor("ba")));
-return self}, function($ctx1) {$ctx1.fill(self,"testComparing",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:", ">", "deny:", "<", ">=", "<="]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testCopying",
-smalltalk.method({
-selector: "testCopying",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._copy()).__eq_eq(smalltalk.symbolFor("hello")));
-_st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._deepCopy()).__eq_eq(smalltalk.symbolFor("hello")));
-return self}, function($ctx1) {$ctx1.fill(self,"testCopying",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:", "==", "copy", "deepCopy"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testDetect",
-smalltalk.method({
-selector: "testDetect",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq("h");
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),"h");
-_st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._detect_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(each).__eq("z");
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
-return self}, function($ctx1) {$ctx1.fill(self,"testDetect",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:equals:", "detect:", "=", "collection", "should:raise:"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testEquality",
-smalltalk.method({
-selector: "testEquality",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("hello")));
-_st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq(smalltalk.symbolFor("world")));
-_st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFor("hello"))._yourself()));
-_st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(smalltalk.symbolFor("hello")));
-_st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq("hello"));
-_st(self)._deny_(_st("hello").__eq(smalltalk.symbolFor("hello")));
-return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:", "=", "deny:", "yourself"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testIdentity",
-smalltalk.method({
-selector: "testIdentity",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq_eq(smalltalk.symbolFor("hello")));
-_st(self)._deny_(_st(smalltalk.symbolFor("hello")).__eq_eq(smalltalk.symbolFor("world")));
-_st(self)._assert_(_st(smalltalk.symbolFor("hello")).__eq(_st(smalltalk.symbolFor("hello"))._yourself()));
-_st(self)._assert_(_st(_st(smalltalk.symbolFor("hello"))._yourself()).__eq(_st(_st(smalltalk.symbolFor("hello"))._asString())._asSymbol()));
-return self}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:", "==", "deny:", "=", "yourself", "asSymbol", "asString"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testIndexOf",
-smalltalk.method({
-selector: "testIndexOf",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_("e"),(2));
-_st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._collection())._indexOf_((999));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
-_st(self)._assert_equals_(_st(_st(self)._collection())._indexOf_ifAbsent_((999),(function(){
-return smalltalk.withContext(function($ctx2) {return "sentinel";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"sentinel");
-return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testIsEmpty",
-smalltalk.method({
-selector: "testIsEmpty",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._deny_(_st(_st(self)._collection())._isEmpty());
-_st(self)._assert_(_st(_st("")._asSymbol())._isEmpty());
-return self}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},smalltalk.SymbolTest)})},
-messageSends: ["deny:", "isEmpty", "collection", "assert:", "asSymbol"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testIsSymbolIsString",
-smalltalk.method({
-selector: "testIsSymbolIsString",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(smalltalk.symbolFor("hello"))._isSymbol());
-_st(self)._deny_(_st("hello")._isSymbol());
-_st(self)._deny_(_st(smalltalk.symbolFor("hello"))._isString());
-_st(self)._assert_(_st("hello")._isString());
-return self}, function($ctx1) {$ctx1.fill(self,"testIsSymbolIsString",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:", "isSymbol", "deny:", "isString"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testSelect",
-smalltalk.method({
-selector: "testSelect",
-fn: function (){
-var self=this;
-var newCollection;
-return smalltalk.withContext(function($ctx1) { newCollection="o";
-_st(self)._assertSameContents_as_(_st(_st(self)._collection())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each).__eq("o");
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})),newCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"testSelect",{newCollection:newCollection},smalltalk.SymbolTest)})},
-messageSends: ["assertSameContents:as:", "select:", "=", "collection"]}),
-smalltalk.SymbolTest);
-
-smalltalk.addMethod(
-"_testSize",
-smalltalk.method({
-selector: "testSize",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._assert_equals_(_st(smalltalk.symbolFor("a"))._size(),(1));
-_st(self)._assert_equals_(_st(smalltalk.symbolFor("aaaaa"))._size(),(5));
-return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.SymbolTest)})},
-messageSends: ["assert:equals:", "size"]}),
-smalltalk.SymbolTest);
-
-
-smalltalk.addMethod(
-"_collectionClass",
-smalltalk.method({
-selector: "collectionClass",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=(smalltalk.Symbol || Symbol);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"collectionClass",{},smalltalk.SymbolTest.klass)})},
-messageSends: []}),
-smalltalk.SymbolTest.klass);
-
-
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 "_jsObject",

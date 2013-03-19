@@ -71,9 +71,7 @@ function SmalltalkMetaclass() {
 function SmalltalkPackage() {}
 function SmalltalkMethod() {}
 function SmalltalkNil() {}
-function SmalltalkSymbol(string) {
-	this.value = string;
-}
+
 function SmalltalkOrganizer() {
 }
 
@@ -163,17 +161,6 @@ function Smalltalk() {
 				return messageNotUnderstood(this, selector, args);
 			};
 		}
-	};
-
-	/* The symbol table ensures symbol unicity */
-
-	var symbolTable = {};
-	st.symbolFor = function(string) {
-		if(symbolTable[string] === undefined) {
-			symbolTable[string] = new SmalltalkSymbol(string);
-		}
-
-		return symbolTable[string];
 	};
 
 	/* Unique ID number generator */
@@ -716,6 +703,9 @@ function Smalltalk() {
         }
     };
 
+    /* Backward compatibility with Amber 0.9.1 */
+    st.symbolFor = function(aString) { return aString; }
+
     /* Smalltalk initialization. Called on page load */
 
     st.initialize = function() {
@@ -829,12 +819,11 @@ smalltalk.wrapClassName("Boolean", "Kernel-Objects", Boolean, smalltalk.Object);
 smalltalk.wrapClassName("Date", "Kernel-Objects", Date, smalltalk.Object);
 smalltalk.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, smalltalk.Object, false);
 
-smalltalk.addClass("Collection", smalltalk.Object, null, "Kernel");
-smalltalk.addClass("IndexableCollection", smalltalk.Collection, null, "Kernel");
-smalltalk.addClass("SequenceableCollection", smalltalk.IndexableCollection, null, "Kernel");
-smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Kernel");
+smalltalk.addClass("Collection", smalltalk.Object, null, "Kernel-Collections");
+smalltalk.addClass("IndexableCollection", smalltalk.Collection, null, "Kernel-Collections");
+smalltalk.addClass("SequenceableCollection", smalltalk.IndexableCollection, null, "Kernel-Collections");
+smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Kernel-Collections");
 smalltalk.wrapClassName("String", "Kernel-Collections", String, smalltalk.CharacterArray);
-smalltalk.wrapClassName("Symbol", "Kernel-Collections", SmalltalkSymbol, smalltalk.CharacterArray, false);
 smalltalk.wrapClassName("Array", "Kernel-Collections", Array, smalltalk.SequenceableCollection);
 smalltalk.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, smalltalk.Object);
 

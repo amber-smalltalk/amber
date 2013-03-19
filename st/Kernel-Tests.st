@@ -871,133 +871,6 @@ collectionClass
 	^ String
 ! !
 
-SequenceableCollectionTest subclass: #SymbolTest
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-!SymbolTest methodsFor: 'accessing'!
-
-collection
-	^ #hello
-!
-
-collectionWithDuplicates
-	^ #phhaaarorra
-! !
-
-!SymbolTest methodsFor: 'tests'!
-
-testAsString
-	self assert: #hello asString equals: 'hello'
-!
-
-testAsSymbol
-	self assert: #hello == #hello asSymbol
-!
-
-testAt
-	self assert: (#hello at: 1) equals: 'h'.
-	self assert: (#hello at: 5) equals: 'o'.
-	self assert: (#hello at: 6 ifAbsent: [nil]) equals: nil
-!
-
-testAtPut
-	"Symbol instances are read-only"
-	self should: ['hello' at: 1 put: 'a'] raise: Error
-!
-
-testCollect
-	| newCollection |
-	newCollection := #hheelllloo.
-	self
-		assertSameContents: (self collection collect: [ :each |
-			each, each ])
-		as: newCollection
-!
-
-testComparing
-	self assert: #ab > #aa.
-	self deny: #ab > #ba.
-
-	self assert: #ab < #ba.
-	self deny: #bb < #ba.
-
-	self assert: #ab >= #aa.
-	self deny: #ab >= #ba.
-
-	self assert: #ab <= #ba.
-	self deny: #bb <= #ba
-!
-
-testCopying
-	self assert: #hello copy == #hello.
-	self assert: #hello deepCopy == #hello
-!
-
-testDetect
-	self assert: (self collection detect: [ :each | each = 'h' ]) equals: 'h'.
-	self
-		should: [ self collection detect: [ :each | each = 'z' ] ]
-		raise: Error
-!
-
-testEquality
-	self assert: (#hello = #hello).
-	self deny: #hello = #world.
-
-	self assert: (#hello = #hello yourself).
-	self assert: (#hello yourself = #hello).
-
-	self deny: #hello = 'hello'.
-	self deny: 'hello' = #hello.
-!
-
-testIdentity
-	self assert: #hello == #hello.
-	self deny: #hello == #world.
-
-	self assert: #hello = #hello yourself.
-	self assert: #hello yourself = #hello asString asSymbol
-!
-
-testIndexOf
-	self assert: (self collection indexOf: 'e') equals: 2.
-	self should: [ self collection indexOf: 999 ] raise: Error.
-	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
-!
-
-testIsEmpty
-	self deny: self collection isEmpty.
-	self assert: '' asSymbol isEmpty
-!
-
-testIsSymbolIsString
-	self assert: #hello isSymbol.
-	self deny: 'hello' isSymbol.
-	self deny: #hello isString.
-	self assert: 'hello' isString
-!
-
-testSelect
-	| newCollection |
-	newCollection := 'o'.
-	self
-		assertSameContents: (self collection select: [ :each |
-			each = 'o' ])
-		as: newCollection
-!
-
-testSize
-	self assert: #a size equals: 1.
-	self assert: #aaaaa size equals: 5
-! !
-
-!SymbolTest class methodsFor: 'accessing'!
-
-collectionClass
-	^ Symbol
-! !
-
 TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -1021,11 +894,13 @@ testAtIfAbsent
 
 testAtIfPresent
 	| testObject |
+	
 	testObject := self jsObject.
-	self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString]) equals: nil.
-	self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString]) equals: 'hello nil'.
-	self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString]) equals: 'hello 1'.
-	self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString]) equals: 'hello nil'.
+	
+	self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.
+	self assert: (testObject at: 'e' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.
+	self assert: (testObject at: 'a' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello 1'.
+	self assert: (testObject at: 'f' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.
 !
 
 testAtIfPresentIfAbsent

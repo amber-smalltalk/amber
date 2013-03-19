@@ -133,12 +133,12 @@ smalltalk.addMethod(
 "_basicPerform_",
 smalltalk.method({
 selector: "basicPerform:",
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicPerform_withArguments_(aSymbol,[]);
+$1=_st(self)._basicPerform_withArguments_(aString,[]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"basicPerform:",{aSymbol:aSymbol},smalltalk.Object)})},
+}, function($ctx1) {$ctx1.fill(self,"basicPerform:",{aString:aString},smalltalk.Object)})},
 messageSends: ["basicPerform:withArguments:"]}),
 smalltalk.Object);
 
@@ -146,10 +146,10 @@ smalltalk.addMethod(
 "_basicPerform_withArguments_",
 smalltalk.method({
 selector: "basicPerform:withArguments:",
-fn: function (aSymbol,aCollection){
+fn: function (aString,aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self[aSymbol].apply(self, aCollection);;
-return self}, function($ctx1) {$ctx1.fill(self,"basicPerform:withArguments:",{aSymbol:aSymbol,aCollection:aCollection},smalltalk.Object)})},
+return smalltalk.withContext(function($ctx1) { return self[aString].apply(self, aCollection);;
+return self}, function($ctx1) {$ctx1.fill(self,"basicPerform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
 
@@ -327,10 +327,10 @@ smalltalk.addMethod(
 "_instVarAt_",
 smalltalk.method({
 selector: "instVarAt:",
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self['@'+aSymbol._asString()];
-return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aSymbol:aSymbol},smalltalk.Object)})},
+return smalltalk.withContext(function($ctx1) {  return self['@'+aString] ;
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
 
@@ -338,10 +338,10 @@ smalltalk.addMethod(
 "_instVarAt_put_",
 smalltalk.method({
 selector: "instVarAt:put:",
-fn: function (aSymbol,anObject){
+fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self['@' + aSymbol._asString()] = anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aSymbol:aSymbol,anObject:anObject},smalltalk.Object)})},
+return smalltalk.withContext(function($ctx1) {  self['@' + aString] = anObject ;
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
 
@@ -492,12 +492,12 @@ smalltalk.addMethod(
 "_perform_",
 smalltalk.method({
 selector: "perform:",
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._perform_withArguments_(aSymbol,[]);
+$1=_st(self)._perform_withArguments_(aString,[]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"perform:",{aSymbol:aSymbol},smalltalk.Object)})},
+}, function($ctx1) {$ctx1.fill(self,"perform:",{aString:aString},smalltalk.Object)})},
 messageSends: ["perform:withArguments:"]}),
 smalltalk.Object);
 
@@ -505,10 +505,10 @@ smalltalk.addMethod(
 "_perform_withArguments_",
 smalltalk.method({
 selector: "perform:withArguments:",
-fn: function (aSymbol,aCollection){
+fn: function (aString,aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.send(self, aSymbol._asSelector(), aCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aSymbol:aSymbol,aCollection:aCollection},smalltalk.Object)})},
+return smalltalk.withContext(function($ctx1) { return smalltalk.send(self, aString._asSelector(), aCollection);
+return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
 
@@ -1469,10 +1469,10 @@ smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self['@jsObject'][aSymbol._asString()];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aSymbol:aSymbol},smalltalk.JSObjectProxy)})},
+return smalltalk.withContext(function($ctx1) { return self['@jsObject'][aString];
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -1480,14 +1480,13 @@ smalltalk.addMethod(
 "_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
-fn: function (aSymbol,aBlock){
+fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var obj = self['@jsObject'],
-			symbol = aSymbol._asString();
-		return symbol in obj ? obj[symbol] : aBlock();
+		var obj = self['@jsObject'];
+		return aString in obj ? obj[aString] : aBlock();
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -1495,14 +1494,13 @@ smalltalk.addMethod(
 "_at_ifPresent_",
 smalltalk.method({
 selector: "at:ifPresent:",
-fn: function (aSymbol,aBlock){
+fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var obj = self['@jsObject'],
-			symbol = aSymbol._asString();
-		return symbol in obj ? aBlock(obj[symbol]) : nil;
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock(obj[aString]) : nil;
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aSymbol:aSymbol,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -1510,14 +1508,13 @@ smalltalk.addMethod(
 "_at_ifPresent_ifAbsent_",
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
-fn: function (aSymbol,aBlock,anotherBlock){
+fn: function (aString,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-		var obj = self['@jsObject'],
-			symbol = aSymbol._asString();
-		return symbol in obj ? aBlock(obj[symbol]) : anotherBlock();
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock(obj[aString]) : anotherBlock();
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aSymbol:aSymbol,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -1525,10 +1522,10 @@ smalltalk.addMethod(
 "_at_put_",
 smalltalk.method({
 selector: "at:put:",
-fn: function (aSymbol,anObject){
+fn: function (aString,anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self['@jsObject'][aSymbol._asString()] = anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aSymbol:aSymbol,anObject:anObject},smalltalk.JSObjectProxy)})},
+return smalltalk.withContext(function($ctx1) { self['@jsObject'][aString] = anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -3087,10 +3084,10 @@ smalltalk.addMethod(
 "_at_",
 smalltalk.method({
 selector: "at:",
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self[aSymbol._asString()];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aSymbol:aSymbol},smalltalk.Smalltalk)})},
+return smalltalk.withContext(function($ctx1) { return self[aString];
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);
 
