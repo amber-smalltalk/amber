@@ -368,12 +368,12 @@ function $IRVerbatim(){return smalltalk.IRVerbatim||(typeof IRVerbatim=="undefin
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($IRVerbatim())._new();
-_st($2)._source_(_st(aNode)._source());
+_st($2)._source_(_st(_st(aNode)._source())._crlfSanitized());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},smalltalk.IRASTTranslator)})},
-messageSends: ["source:", "source", "new", "yourself"]}),
+messageSends: ["source:", "crlfSanitized", "source", "new", "yourself"]}),
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
@@ -389,7 +389,7 @@ function $IRReturn(){return smalltalk.IRReturn||(typeof IRReturn=="undefined"?ni
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=_st($IRMethod())._new();
-_st($1)._source_(_st(self)._source());
+_st($1)._source_(_st(_st(self)._source())._crlfSanitized());
 _st($1)._theClass_(_st(self)._theClass());
 _st($1)._arguments_(_st(aNode)._arguments());
 _st($1)._selector_(_st(aNode)._selector());
@@ -421,7 +421,7 @@ _st(_st(_st(self)._method())._add_(_st($IRReturn())._new()))._add_($7);
 $8=_st(self)._method();
 return $8;
 }, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},smalltalk.IRASTTranslator)})},
-messageSends: ["method:", "source:", "source", "new", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "messageSends:", "messageSends", "superSends:", "superSends", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "add:", "name:", "name", "method", "temps", "visit:", "nodes", "ifFalse:", "variable:", "at:", "pseudoVars", "hasLocalReturn"]}),
+messageSends: ["method:", "source:", "crlfSanitized", "source", "new", "theClass:", "theClass", "arguments:", "arguments", "selector:", "selector", "messageSends:", "messageSends", "superSends:", "superSends", "classReferences:", "classReferences", "scope:", "scope", "yourself", "do:", "add:", "name:", "name", "method", "temps", "visit:", "nodes", "ifFalse:", "variable:", "at:", "pseudoVars", "hasLocalReturn"]}),
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(

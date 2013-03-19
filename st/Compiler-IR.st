@@ -167,14 +167,14 @@ visitDynamicDictionaryNode: aNode
 
 visitJSStatementNode: aNode
 	^ IRVerbatim new
-		source: aNode source;
+		source: aNode source crlfSanitized;
 		yourself
 !
 
 visitMethodNode: aNode
 
 	self method: (IRMethod new
-		source: self source;
+		source: self source crlfSanitized;
 		theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;

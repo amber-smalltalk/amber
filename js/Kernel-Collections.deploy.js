@@ -2589,6 +2589,21 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
+"_crlfSanitized",
+smalltalk.method({
+selector: "crlfSanitized",
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._lines())._join_(_st($String())._lf());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},smalltalk.String)})},
+messageSends: ["join:", "lf", "lines"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_deepCopy",
 smalltalk.method({
 selector: "deepCopy",

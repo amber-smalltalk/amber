@@ -3503,6 +3503,26 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
+"_crlfSanitized",
+smalltalk.method({
+selector: "crlfSanitized",
+category: 'converting',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._lines())._join_(_st($String())._lf());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},smalltalk.String)})},
+args: [],
+source: "crlfSanitized\x0a\x09^self lines join: String lf",
+messageSends: ["join:", "lf", "lines"],
+referencedClasses: ["String"]
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
 "_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
