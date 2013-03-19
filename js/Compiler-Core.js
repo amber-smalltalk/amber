@@ -86,7 +86,9 @@ selector: "pseudoVariables",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return ["self", "super", "true", "false", "nil", "thisContext"];
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=["self", "super", "true", "false", "nil", "thisContext"];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
 args: [],
 source: "pseudoVariables\x0a\x09^#('self' 'super' 'true' 'false' 'nil' 'thisContext')",
@@ -102,8 +104,9 @@ selector: "safeVariableNameFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._reservedWords())._includes_(aString);
+$2=_st(_st(_st($Smalltalk())._current())._reservedWords())._includes_(aString);
 if(smalltalk.assert($2)){
 $1=_st(aString).__comma("_");
 } else {
@@ -192,8 +195,9 @@ selector: "irTranslator",
 category: 'compiling',
 fn: function (){
 var self=this;
+function $IRJSTranslator(){return smalltalk.IRJSTranslator||(typeof IRJSTranslator=="undefined"?nil:IRJSTranslator)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.IRJSTranslator || IRJSTranslator))._new();
+$1=_st($IRJSTranslator())._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},smalltalk.CodeGenerator)})},
 args: [],
@@ -210,8 +214,9 @@ selector: "semanticAnalyzer",
 category: 'compiling',
 fn: function (){
 var self=this;
+function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.SemanticAnalyzer || SemanticAnalyzer))._on_(_st(self)._currentClass());
+$1=_st($SemanticAnalyzer())._on_(_st(self)._currentClass());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"semanticAnalyzer",{},smalltalk.CodeGenerator)})},
 args: [],
@@ -228,8 +233,9 @@ selector: "translator",
 category: 'compiling',
 fn: function (){
 var self=this;
+function $IRASTTranslator(){return smalltalk.IRASTTranslator||(typeof IRASTTranslator=="undefined"?nil:IRASTTranslator)}
 return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.IRASTTranslator || IRASTTranslator))._new();
+$2=_st($IRASTTranslator())._new();
 _st($2)._source_(_st(self)._source());
 _st($2)._theClass_(_st(self)._currentClass());
 $3=_st($2)._yourself();
@@ -254,10 +260,11 @@ selector: "codeGeneratorClass",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $InliningCodeGenerator(){return smalltalk.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@codeGeneratorClass"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$1=(smalltalk.InliningCodeGenerator || InliningCodeGenerator);
+$1=$InliningCodeGenerator();
 } else {
 $1=$2;
 };
@@ -331,8 +338,9 @@ selector: "compileExpression:",
 category: 'compiling',
 fn: function (aString){
 var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { var $1;
-_st(self)._currentClass_((smalltalk.DoIt || DoIt));
+_st(self)._currentClass_($DoIt());
 _st(self)._source_(_st(_st("doIt ^[").__comma(aString)).__comma("] value"));
 $1=_st(self)._compileNode_(_st(self)._parse_(_st(self)._source()));
 return $1;
@@ -446,8 +454,9 @@ selector: "evaluateExpression:",
 category: 'compiling',
 fn: function (aString){
 var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._evaluateExpression_on_(aString,_st((smalltalk.DoIt || DoIt))._new());
+$1=_st(self)._evaluateExpression_on_(aString,_st($DoIt())._new());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
@@ -488,8 +497,9 @@ selector: "install:forClass:category:",
 category: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
+$1=_st(_st($ClassBuilder())._new())._installMethod_forClass_category_(_st(self)._eval_(_st(self)._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},smalltalk.Compiler)})},
 args: ["aString", "aBehavior", "anotherString"],
@@ -506,8 +516,9 @@ selector: "parse:",
 category: 'compiling',
 fn: function (aString){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._parse_(aString);
+$1=_st(_st($Smalltalk())._current())._parse_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
@@ -566,9 +577,11 @@ selector: "recompileAll",
 category: 'compiling',
 fn: function (){
 var self=this;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=(smalltalk.Transcript || Transcript);
+_st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$1=$Transcript();
 _st($1)._show_(each);
 $2=_st($1)._cr();
 $2;
@@ -681,7 +694,8 @@ selector: "recompileAll",
 category: 'compiling',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._do_((function(each){
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { _st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(self)._recompile_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler.klass)})},

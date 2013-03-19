@@ -136,8 +136,9 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@subscriptions"]=_st((smalltalk.Array || Array))._new();
+self["@subscriptions"]=_st($Array())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Announcer)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09subscriptions := Array new",
@@ -153,8 +154,9 @@ selector: "on:do:",
 category: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
+function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.AnnouncementSubscription || AnnouncementSubscription))._new();
+$1=_st($AnnouncementSubscription())._new();
 _st($1)._block_(aBlock);
 _st($1)._announcementClass_(aClass);
 $2=_st($1)._yourself();

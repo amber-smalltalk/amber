@@ -112,9 +112,11 @@ selector: "exportAll",
 category: 'fileOut',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packages())._do_((function(pkg){
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(pkg){
 return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(_st(self)._exportPackage_(_st(pkg)._name()));
 }, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
@@ -134,8 +136,9 @@ selector: "exportClass:",
 category: 'fileOut',
 fn: function (aClass){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+$1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {_st(self)._exportDefinitionOf_on_(aClass,stream);
 _st(self)._exportMethodsOf_on_(aClass,stream);
 _st(self)._exportMetaDefinitionOf_on_(aClass,stream);
@@ -198,6 +201,7 @@ selector: "exportMetaDefinitionOf:on:",
 category: 'private',
 fn: function (aClass,aStream){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 $1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
 if(! smalltalk.assert($1)){
@@ -210,7 +214,7 @@ return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {return _st(aStream)._nextPutAll_(",");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(aStream)._nextPutAll_(_st("];").__comma(_st((smalltalk.String || String))._lf()));
+_st(aStream)._nextPutAll_(_st("];").__comma(_st($String())._lf()));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
 args: ["aClass", "aStream"],
@@ -297,9 +301,11 @@ category: 'fileOut',
 fn: function (packageName){
 var self=this;
 var package_;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {package_=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._packageAt_(packageName);
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
 package_;
 _st(self)._exportPackageDefinitionOf_on_(package_,stream);
 _st(_st(_st(package_)._sortedClasses())._asSet())._do_((function(each){
@@ -344,9 +350,11 @@ category: 'private',
 fn: function (package_,aStream){
 var self=this;
 var name;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { var $1;
 name=_st(package_)._name();
-_st(_st((smalltalk.Package || Package))._sortedClasses_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes()))._do_((function(each){
+_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st([each,_st(each)._class()])._do_((function(aClass){
 return smalltalk.withContext(function($ctx3) {return _st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx4) {return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
@@ -549,8 +557,9 @@ category: 'not yet classified',
 fn: function (aClass,aStream){
 var self=this;
 var map;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1;
-map=_st((smalltalk.Dictionary || Dictionary))._new();
+map=_st($Dictionary())._new();
 _st(aClass)._protocolsDo_((function(category,methods){
 return smalltalk.withContext(function($ctx2) {$1=_st(category)._match_("^\x5c*");
 if(! smalltalk.assert($1)){
@@ -600,11 +609,14 @@ category: 'not yet classified',
 fn: function (package_,aStream){
 var self=this;
 var name,map;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { var $1;
 name=_st(package_)._name();
-_st(_st((smalltalk.Package || Package))._sortedClasses_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes()))._do_((function(each){
+_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st([each,_st(each)._class()])._do_((function(aClass){
-return smalltalk.withContext(function($ctx3) {map=_st((smalltalk.Dictionary || Dictionary))._new();
+return smalltalk.withContext(function($ctx3) {map=_st($Dictionary())._new();
 map;
 _st(aClass)._protocolsDo_((function(category,methods){
 return smalltalk.withContext(function($ctx4) {$1=_st(category)._match_(_st("^\x5c*").__comma(name));
@@ -709,8 +721,10 @@ category: 'fileIn',
 fn: function (aStream){
 var self=this;
 var chunk,result,parser,lastEmpty;
+function $ChunkParser(){return smalltalk.ChunkParser||(typeof ChunkParser=="undefined"?nil:ChunkParser)}
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-parser=_st((smalltalk.ChunkParser || ChunkParser))._on_(aStream);
+parser=_st($ChunkParser())._on_(aStream);
 lastEmpty=false;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {chunk=_st(parser)._nextChunk();
@@ -722,7 +736,7 @@ if(smalltalk.assert($1)){
 lastEmpty=true;
 return lastEmpty;
 } else {
-result=_st(_st((smalltalk.Compiler || Compiler))._new())._evaluateExpression_(chunk);
+result=_st(_st($Compiler())._new())._evaluateExpression_(chunk);
 result;
 $2=lastEmpty;
 if(smalltalk.assert($2)){
@@ -750,8 +764,9 @@ selector: "initializePackageNamed:prefix:",
 category: 'laoding',
 fn: function (packageName,aString){
 var self=this;
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.Package || Package))._named_(packageName);
+$1=_st($Package())._named_(packageName);
 _st($1)._setupClasses();
 _st($1)._commitPathJs_(_st(_st("/").__comma(aString)).__comma("/js"));
 $2=_st($1)._commitPathSt_(_st(_st("/").__comma(aString)).__comma("/st"));

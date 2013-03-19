@@ -567,7 +567,8 @@ selector: "register",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((smalltalk.ErrorHandler || ErrorHandler))._setCurrent_(_st(self)._new());
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { _st($ErrorHandler())._setCurrent_(_st(self)._new());
 return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.ErrorHandler.klass)})},
 args: [],
 source: "register\x0a\x09ErrorHandler setCurrent: self new",

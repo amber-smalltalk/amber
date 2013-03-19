@@ -40,12 +40,13 @@ selector: "benchmark",
 fn: function (){
 var self=this;
 var size,flags,prime,k,count;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 size=(8190);
 _st((1))._to_do_(self,(function(iter){
 return smalltalk.withContext(function($ctx2) {count=(0);
 count;
-flags=_st((smalltalk.Array || Array))._new();
+flags=_st($Array())._new();
 flags;
 _st(size)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(flags)._add_(true);
@@ -128,10 +129,11 @@ selector: "jstinyBenchmarks",
 fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
+function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { var $1;
 n1=(1);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx2) {t1=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(n1)._jsbenchmark();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 t1;
@@ -142,7 +144,7 @@ return n1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 n2=(28);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx2) {t2=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {r=_st(n2)._jsbenchFib();
 return r;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
@@ -165,10 +167,11 @@ selector: "tinyBenchmarks",
 fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
+function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { var $1;
 n1=(1);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t1=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx2) {t1=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(n1)._benchmark();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 t1;
@@ -179,7 +182,7 @@ return n1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 n2=(16);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t2=_st((smalltalk.Date || Date))._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx2) {t2=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {r=_st(n2)._benchFib();
 return r;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));

@@ -94,7 +94,8 @@ selector: "fork",
 category: 'timeout/interval',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ForkPool || ForkPool))._default())._fork_(self);
+function $ForkPool(){return smalltalk.ForkPool||(typeof ForkPool=="undefined"?nil:ForkPool)}
+return smalltalk.withContext(function($ctx1) { _st(_st($ForkPool())._default())._fork_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"fork",{},smalltalk.BlockClosure)})},
 args: [],
 source: "fork\x0a\x09ForkPool default fork: self",
@@ -190,10 +191,11 @@ selector: "on:do:",
 category: 'error handling',
 fn: function (anErrorClass,aBlock){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $1=_st(self)._try_catch_(self,(function(error){
 var smalltalkError;
-return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._asSmalltalkException_(error);
+return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st($Smalltalk())._current())._asSmalltalkException_(error);
 smalltalkError;
 $2=_st(smalltalkError)._isKindOf_(anErrorClass);
 if(smalltalk.assert($2)){
@@ -218,8 +220,9 @@ selector: "timeToRun",
 category: 'evaluating',
 fn: function (){
 var self=this;
+function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.Date || Date))._millisecondsToRun_(self);
+$1=_st($Date())._millisecondsToRun_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"timeToRun",{},smalltalk.BlockClosure)})},
 args: [],
@@ -748,9 +751,10 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $Queue(){return smalltalk.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@poolSize"]=(0);
-self["@queue"]=_st((smalltalk.Queue || Queue))._new();
+self["@queue"]=_st($Queue())._new();
 self["@worker"]=_st(self)._makeWorker();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ForkPool)})},
 args: [],
@@ -768,8 +772,9 @@ category: 'initialization',
 fn: function (){
 var self=this;
 var sentinel;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
-sentinel=_st((smalltalk.Object || Object))._new();
+sentinel=_st($Object())._new();
 $1=(function(){
 var block;
 return smalltalk.withContext(function($ctx2) {self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
@@ -868,7 +873,9 @@ selector: "defaultMaxPoolSize",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (100);
+return smalltalk.withContext(function($ctx1) { var $1;
+$1=(100);
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},smalltalk.ForkPool.klass)})},
 args: [],
 source: "defaultMaxPoolSize\x0a\x09^100",

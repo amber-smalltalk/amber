@@ -147,8 +147,9 @@ smalltalk.method({
 selector: "asArray",
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.Array || Array))._withAll_(self);
+$1=_st($Array())._withAll_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asArray",{},smalltalk.Collection)})},
 messageSends: ["withAll:"]}),
@@ -188,8 +189,9 @@ smalltalk.method({
 selector: "asSet",
 fn: function (){
 var self=this;
+function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.Set || Set))._withAll_(self);
+$1=_st($Set())._withAll_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSet",{},smalltalk.Collection)})},
 messageSends: ["withAll:"]}),
@@ -365,8 +367,9 @@ selector: "includes:",
 fn: function (anObject){
 var self=this;
 var sentinel;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { var $1;
-sentinel=_st((smalltalk.Object || Object))._new();
+sentinel=_st($Object())._new();
 $1=_st(_st(self)._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each).__eq(anObject);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
@@ -403,9 +406,10 @@ selector: "intersection:",
 fn: function (aCollection){
 var self=this;
 var set,outputSet;
+function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 set=_st(self)._asSet();
-outputSet=_st((smalltalk.Set || Set))._new();
+outputSet=_st($Set())._new();
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {$1=_st(_st(set)._includes_(each))._and_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(_st(outputSet)._includes_(each))._not();
@@ -816,8 +820,9 @@ smalltalk.method({
 selector: "asDictionary",
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.Dictionary || Dictionary))._fromPairs_(_st(self)._associations());
+$1=_st($Dictionary())._fromPairs_(_st(self)._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.HashedCollection)})},
 messageSends: ["fromPairs:", "associations"]}),
@@ -865,8 +870,9 @@ smalltalk.method({
 selector: "associationsDo:",
 fn: function (aBlock){
 var self=this;
+function $Association(){return smalltalk.Association||(typeof Association=="undefined"?nil:Association)}
 return smalltalk.withContext(function($ctx1) { _st(self)._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_(_st((smalltalk.Association || Association))._key_value_(key,value));
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_(_st($Association())._key_value_(key,value));
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"associationsDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 messageSends: ["keysAndValuesDo:", "value:", "key:value:"]}),
@@ -1257,8 +1263,9 @@ smalltalk.method({
 selector: "asHashedCollection",
 fn: function (){
 var self=this;
+function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.HashedCollection || HashedCollection))._fromPairs_(_st(self)._associations());
+$1=_st($HashedCollection())._fromPairs_(_st(self)._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
 messageSends: ["fromPairs:", "associations"]}),
@@ -1882,8 +1889,9 @@ smalltalk.method({
 selector: "streamClass",
 fn: function (){
 var self=this;
+function $Stream(){return smalltalk.Stream||(typeof Stream=="undefined"?nil:Stream)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=(smalltalk.Stream || Stream);
+$1=$Stream();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.SequenceableCollection.klass)})},
 messageSends: []}),
@@ -2491,8 +2499,9 @@ smalltalk.method({
 selector: "asRegexp",
 fn: function (){
 var self=this;
+function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.RegularExpression || RegularExpression))._fromString_(self);
+$1=_st($RegularExpression())._fromString_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asRegexp",{},smalltalk.String)})},
 messageSends: ["fromString:"]}),
@@ -2668,8 +2677,9 @@ smalltalk.method({
 selector: "join:",
 fn: function (aCollection){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
+$1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {return _st(aCollection)._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(_st(each)._asString());
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
@@ -2688,14 +2698,15 @@ selector: "lineIndicesDo:",
 fn: function (aBlock){
 var self=this;
 var cr,lf,start,sz,nextLF,nextCR;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 var $early={};
 try {
 start=(1);
 sz=_st(self)._size();
-cr=_st((smalltalk.String || String))._cr();
+cr=_st($String())._cr();
 nextCR=_st(self)._indexOf_startingAt_(cr,(1));
-lf=_st((smalltalk.String || String))._lf();
+lf=_st($String())._lf();
 nextLF=_st(self)._indexOf_startingAt_(lf,(1));
 _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(start).__lt_eq(sz);
@@ -2777,8 +2788,9 @@ selector: "lines",
 fn: function (){
 var self=this;
 var lines;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1;
-lines=_st((smalltalk.Array || Array))._new();
+lines=_st($Array())._new();
 _st(self)._linesDo_((function(aLine){
 return smalltalk.withContext(function($ctx2) {return _st(lines)._add_(aLine);
 }, function($ctx2) {$ctx2.fillBlock({aLine:aLine},$ctx1)})}));
@@ -2855,8 +2867,9 @@ smalltalk.method({
 selector: "replace:with:",
 fn: function (aString,anotherString){
 var self=this;
+function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._replaceRegexp_with_(_st((smalltalk.RegularExpression || RegularExpression))._fromString_flag_(aString,"g"),anotherString);
+$1=_st(self)._replaceRegexp_with_(_st($RegularExpression())._fromString_flag_(aString,"g"),anotherString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"replace:with:",{aString:aString,anotherString:anotherString},smalltalk.String)})},
 messageSends: ["replaceRegexp:with:", "fromString:flag:"]}),
@@ -2964,8 +2977,9 @@ smalltalk.method({
 selector: "trimLeft:",
 fn: function (separators){
 var self=this;
+function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._replaceRegexp_with_(_st((smalltalk.RegularExpression || RegularExpression))._fromString_flag_(_st(_st("^[").__comma(separators)).__comma("]+"),"g"),"");
+$1=_st(self)._replaceRegexp_with_(_st($RegularExpression())._fromString_flag_(_st(_st("^[").__comma(separators)).__comma("]+"),"g"),"");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"trimLeft:",{separators:separators},smalltalk.String)})},
 messageSends: ["replaceRegexp:with:", "fromString:flag:", ","]}),
@@ -2990,8 +3004,9 @@ smalltalk.method({
 selector: "trimRight:",
 fn: function (separators){
 var self=this;
+function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._replaceRegexp_with_(_st((smalltalk.RegularExpression || RegularExpression))._fromString_flag_(_st(_st("[").__comma(separators)).__comma("]+$"),"g"),"");
+$1=_st(self)._replaceRegexp_with_(_st($RegularExpression())._fromString_flag_(_st(_st("[").__comma(separators)).__comma("]+$"),"g"),"");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"trimRight:",{separators:separators},smalltalk.String)})},
 messageSends: ["replaceRegexp:with:", "fromString:flag:", ","]}),
@@ -3082,7 +3097,7 @@ selector: "random",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return (Math.random()*(22/32)+(10/32)).toString(32).slice(2);;
-return self}, function($ctx1) {$ctx1.fill(self,"random",{}, smalltalk.String.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"random",{},smalltalk.String.klass)})},
 messageSends: []}),
 smalltalk.String.klass);
 
@@ -3101,7 +3116,7 @@ return _st(aString)._includesSubString_(result);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue();
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result}, smalltalk.String.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result},smalltalk.String.klass)})},
 messageSends: ["whileTrue", "random", "includesSubString:"]}),
 smalltalk.String.klass);
 
@@ -3122,8 +3137,9 @@ smalltalk.method({
 selector: "streamClass",
 fn: function (){
 var self=this;
+function $StringStream(){return smalltalk.StringStream||(typeof StringStream=="undefined"?nil:StringStream)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=(smalltalk.StringStream || StringStream);
+$1=$StringStream();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"streamClass",{},smalltalk.String.klass)})},
 messageSends: []}),
@@ -3377,6 +3393,7 @@ selector: "frontIfAbsent:",
 fn: function (aBlock){
 var self=this;
 var result;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 var $early={};
 try {
@@ -3397,7 +3414,7 @@ self["@read"]=self["@write"];
 self["@read"];
 self["@readIndex"]=(1);
 self["@readIndex"];
-self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@write"]=_st($OrderedCollection())._new();
 self["@write"];
 return _st(self["@read"])._first();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -3417,9 +3434,10 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@read"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
-self["@write"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@read"]=_st($OrderedCollection())._new();
+self["@write"]=_st($OrderedCollection())._new();
 self["@readIndex"]=(1);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Queue)})},
 messageSends: ["initialize", "new"]}),
@@ -3852,8 +3870,9 @@ smalltalk.method({
 selector: "cr",
 fn: function (){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._cr());
+$1=_st(self)._nextPutAll_(_st($String())._cr());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.StringStream)})},
 messageSends: ["nextPutAll:", "cr"]}),
@@ -3865,8 +3884,9 @@ smalltalk.method({
 selector: "crlf",
 fn: function (){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._crlf());
+$1=_st(self)._nextPutAll_(_st($String())._crlf());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"crlf",{},smalltalk.StringStream)})},
 messageSends: ["nextPutAll:", "crlf"]}),
@@ -3878,8 +3898,9 @@ smalltalk.method({
 selector: "lf",
 fn: function (){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._lf());
+$1=_st(self)._nextPutAll_(_st($String())._lf());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lf",{},smalltalk.StringStream)})},
 messageSends: ["nextPutAll:", "lf"]}),
@@ -3970,8 +3991,9 @@ smalltalk.method({
 selector: "tab",
 fn: function (){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._nextPutAll_(_st((smalltalk.String || String))._tab());
+$1=_st(self)._nextPutAll_(_st($String())._tab());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"tab",{},smalltalk.StringStream)})},
 messageSends: ["nextPutAll:", "tab"]}),

@@ -6,8 +6,9 @@ smalltalk.method({
 selector: "setUp",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@empty"]=_st((smalltalk.Set || Set))._new();
-self["@full"]=_st((smalltalk.Set || Set))._with_with_((5),smalltalk.symbolFor("abc"));
+function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+return smalltalk.withContext(function($ctx1) { self["@empty"]=_st($Set())._new();
+self["@full"]=_st($Set())._with_with_((5),"abc");
 return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.ExampleSetTest)})},
 messageSends: ["new", "with:with:"]}),
 smalltalk.ExampleSetTest);
@@ -42,12 +43,13 @@ smalltalk.method({
 selector: "testIllegal",
 fn: function (){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@empty"])._at_((5));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 _st(self)._should_raise_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@empty"])._at_put_((5),smalltalk.symbolFor("abc"));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+return smalltalk.withContext(function($ctx2) {return _st(self["@empty"])._at_put_((5),"abc");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testIllegal",{},smalltalk.ExampleSetTest)})},
 messageSends: ["should:raise:", "at:", "at:put:"]}),
 smalltalk.ExampleSetTest);
@@ -59,7 +61,7 @@ selector: "testIncludes",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self)._assert_(_st(self["@full"])._includes_((5)));
-_st(self)._assert_(_st(self["@full"])._includes_(smalltalk.symbolFor("abc")));
+_st(self)._assert_(_st(self["@full"])._includes_("abc"));
 return self}, function($ctx1) {$ctx1.fill(self,"testIncludes",{},smalltalk.ExampleSetTest)})},
 messageSends: ["assert:", "includes:"]}),
 smalltalk.ExampleSetTest);
@@ -85,7 +87,7 @@ selector: "testRemove",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { _st(self["@full"])._remove_((5));
-_st(self)._assert_(_st(self["@full"])._includes_(smalltalk.symbolFor("abc")));
+_st(self)._assert_(_st(self["@full"])._includes_("abc"));
 _st(self)._deny_(_st(self["@full"])._includes_((5)));
 return self}, function($ctx1) {$ctx1.fill(self,"testRemove",{},smalltalk.ExampleSetTest)})},
 messageSends: ["remove:", "assert:", "includes:", "deny:"]}),
@@ -235,11 +237,13 @@ selector: "testAsyncErrorsAndFailures",
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
+function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 suite=_st(["fakeError", "fakeErrorFailingInTearDown", "fakeFailure", "testPass"])._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._class())._selector_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
+runner=_st($TestSuiteRunner())._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
@@ -247,7 +251,7 @@ return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(sel
 _st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._failures()),_st(["fakeErrorFailingInTearDown", "fakeFailure"])._asSet());
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+_st(_st(runner)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
 return smalltalk.withContext(function($ctx2) {$1=_st(_st(ann)._result()).__eq_eq(result);
 if(smalltalk.assert($1)){
 $2=_st(_st(result)._runs()).__eq(_st(result)._total());
@@ -265,15 +269,16 @@ smalltalk.method({
 selector: "testAsyncNeedsTimeout",
 fn: function (){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._async_((function(){
 return smalltalk.withContext(function($ctx3) {}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 _st(self)._timeout_((0));
 _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._async_((function(){
 return smalltalk.withContext(function($ctx3) {}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 _st(self)._finished();
 return self}, function($ctx1) {$ctx1.fill(self,"testAsyncNeedsTimeout",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["should:raise:", "async:", "timeout:", "shouldnt:raise:", "finished"]}),
@@ -285,13 +290,14 @@ smalltalk.method({
 selector: "testFinishedNeedsTimeout",
 fn: function (){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { _st(self)._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._finished();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 _st(self)._timeout_((0));
 _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._finished();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(smalltalk.Error || Error));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testFinishedNeedsTimeout",{},smalltalk.SUnitAsyncTest)})},
 messageSends: ["should:raise:", "finished", "timeout:", "shouldnt:raise:"]}),
 smalltalk.SUnitAsyncTest);
@@ -336,19 +342,22 @@ selector: "testTimeouts",
 fn: function (){
 var self=this;
 var suite,runner,result,assertBlock;
+function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 suite=_st(["fakeTimeout", "fakeMultipleTimeoutFailing", "fakeMultipleTimeoutPassing", "testPass"])._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(self)._class())._selector_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-runner=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(suite);
+runner=_st($TestSuiteRunner())._on_(suite);
 _st(self)._timeout_((200));
 result=_st(runner)._result();
 assertBlock=_st(self)._async_((function(){
-return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._errors()),_st((smalltalk.Set || Set))._new());
+return smalltalk.withContext(function($ctx2) {_st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._errors()),_st($Set())._new());
 _st(self)._assert_equals_(_st(self)._selectorSetOf_(_st(result)._failures()),_st(["fakeMultipleTimeoutFailing", "fakeTimeout"])._asSet());
 return _st(self)._finished();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(runner)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+_st(_st(runner)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
 return smalltalk.withContext(function($ctx2) {$1=_st(_st(ann)._result()).__eq_eq(result);
 if(smalltalk.assert($1)){
 $2=_st(_st(result)._runs()).__eq(_st(result)._total());

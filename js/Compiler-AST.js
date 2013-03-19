@@ -170,10 +170,11 @@ selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@nodes"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@nodes"]=_st((smalltalk.Array || Array))._new();
+self["@nodes"]=_st($Array())._new();
 $1=self["@nodes"];
 } else {
 $1=$2;
@@ -425,8 +426,9 @@ selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.Array || Array))._with_with_(_st(self)._left(),_st(self)._right());
+$1=_st($Array())._with_with_(_st(self)._left(),_st(self)._right());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.AssignmentNode)})},
 args: [],
@@ -514,10 +516,11 @@ selector: "parameters",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@parameters"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@parameters"]=_st((smalltalk.Array || Array))._new();
+self["@parameters"]=_st($Array())._new();
 $1=self["@parameters"];
 } else {
 $1=$2;
@@ -1180,15 +1183,18 @@ category: 'accessing',
 fn: function (aCollection){
 var self=this;
 var first;
+function $SendNode(){return smalltalk.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
+function $CascadeNode(){return smalltalk.CascadeNode||(typeof CascadeNode=="undefined"?nil:CascadeNode)}
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$5,$3;
-$1=_st((smalltalk.SendNode || SendNode))._new();
+$1=_st($SendNode())._new();
 _st($1)._selector_(_st(self)._selector());
 _st($1)._arguments_(_st(self)._arguments());
 $2=_st($1)._yourself();
 first=$2;
-$4=_st((smalltalk.CascadeNode || CascadeNode))._new();
+$4=_st($CascadeNode())._new();
 _st($4)._receiver_(_st(self)._receiver());
-_st($4)._nodes_(_st(_st((smalltalk.Array || Array))._with_(first)).__comma(aCollection));
+_st($4)._nodes_(_st(_st($Array())._with_(first)).__comma(aCollection));
 $5=_st($4)._yourself();
 $3=$5;
 return $3;
@@ -1257,8 +1263,9 @@ selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.Array || Array))._withAll_(_st(self)._arguments());
+$2=_st($Array())._withAll_(_st(self)._arguments());
 _st($2)._add_(_st(self)._receiver());
 $3=_st($2)._yourself();
 $1=$3;
@@ -1385,8 +1392,9 @@ selector: "valueForReceiver:",
 category: 'accessing',
 fn: function (anObject){
 var self=this;
+function $SendNode(){return smalltalk.SendNode||(typeof SendNode=="undefined"?nil:SendNode)}
 return smalltalk.withContext(function($ctx1) { var $2,$3,$5,$4,$6,$1;
-$2=_st((smalltalk.SendNode || SendNode))._new();
+$2=_st($SendNode())._new();
 $3=$2;
 $5=_st(self)._receiver();
 if(($receiver = $5) == nil || $receiver == undefined){
@@ -1436,8 +1444,9 @@ selector: "asBlockSequenceNode",
 category: 'testing',
 fn: function (){
 var self=this;
+function $BlockSequenceNode(){return smalltalk.BlockSequenceNode||(typeof BlockSequenceNode=="undefined"?nil:BlockSequenceNode)}
 return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.BlockSequenceNode || BlockSequenceNode))._new();
+$2=_st($BlockSequenceNode())._new();
 _st($2)._nodes_(_st(self)._nodes());
 _st($2)._temps_(_st(self)._temps());
 $3=_st($2)._yourself();

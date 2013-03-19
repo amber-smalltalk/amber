@@ -167,7 +167,8 @@ smalltalk.method({
 selector: "runCase",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.TestContext || TestContext))._testCase_(self))._start();
+function $TestContext(){return smalltalk.TestContext||(typeof TestContext=="undefined"?nil:TestContext)}
+return smalltalk.withContext(function($ctx1) { _st(_st($TestContext())._testCase_(self))._start();
 return self}, function($ctx1) {$ctx1.fill(self,"runCase",{},smalltalk.TestCase)})},
 messageSends: ["start", "testCase:"]}),
 smalltalk.TestCase);
@@ -255,8 +256,9 @@ smalltalk.method({
 selector: "signalFailure:",
 fn: function (aString){
 var self=this;
+function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.TestFailure || TestFailure))._new();
+$1=_st($TestFailure())._new();
 _st($1)._messageText_(aString);
 $2=_st($1)._signal();
 return self}, function($ctx1) {$ctx1.fill(self,"signalFailure:",{aString:aString},smalltalk.TestCase)})},
@@ -348,8 +350,9 @@ smalltalk.method({
 selector: "lookupHierarchyRoot",
 fn: function (){
 var self=this;
+function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=(smalltalk.TestCase || TestCase);
+$1=$TestCase();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lookupHierarchyRoot",{},smalltalk.TestCase.klass)})},
 messageSends: []}),
@@ -527,11 +530,13 @@ smalltalk.method({
 selector: "withErrorReporting:",
 fn: function (aBlock){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 return smalltalk.withContext(function($ctx1) { _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(aBlock)._on_do_((smalltalk.TestFailure || TestFailure),(function(ex){
+return smalltalk.withContext(function($ctx2) {return _st(aBlock)._on_do_($TestFailure(),(function(ex){
 return smalltalk.withContext(function($ctx3) {return _st(self["@result"])._addFailure_(self["@testCase"]);
 }, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {return _st(self["@result"])._addError_(self["@testCase"]);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withErrorReporting:",{aBlock:aBlock},smalltalk.ReportingTestContext)})},
@@ -626,11 +631,13 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@timestamp"]=_st((smalltalk.Date || Date))._now();
+self["@timestamp"]=_st($Date())._now();
 self["@runs"]=(0);
-self["@errors"]=_st((smalltalk.Array || Array))._new();
-self["@failures"]=_st((smalltalk.Array || Array))._new();
+self["@errors"]=_st($Array())._new();
+self["@failures"]=_st($Array())._new();
 self["@total"]=(0);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TestResult)})},
 messageSends: ["initialize", "now", "new"]}),
@@ -658,14 +665,16 @@ smalltalk.method({
 selector: "runCase:",
 fn: function (aTestCase){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
 return smalltalk.withContext(function($ctx1) { _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st((function(){
 return smalltalk.withContext(function($ctx3) {_st(self)._increaseRuns();
 return _st(aTestCase)._runCase();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_((smalltalk.TestFailure || TestFailure),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_($TestFailure(),(function(ex){
 return smalltalk.withContext(function($ctx3) {return _st(self)._addFailure_(aTestCase);
 }, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {return _st(self)._addError_(aTestCase);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"runCase:",{aTestCase:aTestCase},smalltalk.TestResult)})},
@@ -767,8 +776,9 @@ smalltalk.method({
 selector: "contextOf:",
 fn: function (anInteger){
 var self=this;
+function $ReportingTestContext(){return smalltalk.ReportingTestContext||(typeof ReportingTestContext=="undefined"?nil:ReportingTestContext)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st((smalltalk.ReportingTestContext || ReportingTestContext))._testCase_result_finished_(_st(self["@suite"])._at_(anInteger),self["@result"],(function(){
+$1=_st($ReportingTestContext())._testCase_result_finished_(_st(self["@suite"])._at_(anInteger),self["@result"],(function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._resume();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
@@ -782,10 +792,12 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { var $1;
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@announcer"]=_st((smalltalk.Announcer || Announcer))._new();
-self["@result"]=_st((smalltalk.TestResult || TestResult))._new();
+self["@announcer"]=_st($Announcer())._new();
+self["@result"]=_st($TestResult())._new();
 self["@runNextTest"]=(function(){
 var runs;
 return smalltalk.withContext(function($ctx2) {runs=_st(self["@result"])._runs();
@@ -818,8 +830,9 @@ smalltalk.method({
 selector: "resume",
 fn: function (){
 var self=this;
+function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { _st(self["@runNextTest"])._fork();
-_st(self["@announcer"])._announce_(_st(_st((smalltalk.ResultAnnouncement || ResultAnnouncement))._new())._result_(self["@result"]));
+_st(self["@announcer"])._announce_(_st(_st($ResultAnnouncement())._new())._result_(self["@result"]));
 return self}, function($ctx1) {$ctx1.fill(self,"resume",{},smalltalk.TestSuiteRunner)})},
 messageSends: ["fork", "announce:", "result:", "new"]}),
 smalltalk.TestSuiteRunner);

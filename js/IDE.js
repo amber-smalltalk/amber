@@ -60,6 +60,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var classes,children,others;
+function $ClassesListNode(){return smalltalk.ClassesListNode||(typeof ClassesListNode=="undefined"?nil:ClassesListNode)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 classes=_st(_st(self)._browser())._classes();
 children=[];
@@ -73,7 +74,7 @@ return _st(children)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=_st(children)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st((smalltalk.ClassesListNode || ClassesListNode))._on_browser_classes_level_(each,_st(self)._browser(),others,(0));
+return smalltalk.withContext(function($ctx2) {return _st($ClassesListNode())._on_browser_classes_level_(each,_st(self)._browser(),others,(0));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"getNodes",{classes:classes,children:children,others:others},smalltalk.ClassesList)})},
@@ -232,6 +233,7 @@ category: 'accessing',
 fn: function (aCollection){
 var self=this;
 var children,others;
+function $ClassesListNode(){return smalltalk.ClassesListNode||(typeof ClassesListNode=="undefined"?nil:ClassesListNode)}
 return smalltalk.withContext(function($ctx1) { var $1;
 children=[];
 others=[];
@@ -244,7 +246,7 @@ return _st(others)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 self["@nodes"]=_st(children)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st((smalltalk.ClassesListNode || ClassesListNode))._on_browser_classes_level_(each,_st(self)._browser(),others,_st(_st(self)._level()).__plus((1)));
+return smalltalk.withContext(function($ctx2) {return _st($ClassesListNode())._on_browser_classes_level_(each,_st(self)._browser(),others,_st(_st(self)._level()).__plus((1)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"getNodesFrom:",{aCollection:aCollection,children:children,others:others},smalltalk.ClassesListNode)})},
 args: ["aCollection"],
@@ -262,8 +264,9 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var str;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1;
-str=_st(_st((smalltalk.String || String))._new())._writeStream();
+str=_st(_st($String())._new())._writeStream();
 _st(_st(self)._level())._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(str)._nextPutAll_("&nbsp;&nbsp;&nbsp;&nbsp;");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -434,14 +437,17 @@ selector: "handleError:",
 category: 'error handling',
 fn: function (anError){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $Debugger(){return smalltalk.Debugger||(typeof Debugger=="undefined"?nil:Debugger)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st((function(){
-return smalltalk.withContext(function($ctx2) {$1=_st((smalltalk.Debugger || Debugger))._new();
+return smalltalk.withContext(function($ctx2) {$1=_st($Debugger())._new();
 _st($1)._error_(anError);
 $2=_st($1)._open();
 return $2;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(error){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.ErrorHandler || ErrorHandler))._new())._handleError_(error);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(error){
+return smalltalk.withContext(function($ctx2) {return _st(_st($ErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.DebugErrorHandler)})},
 args: ["anError"],
@@ -579,13 +585,15 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 var compiler;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 var $early={};
 try {
-compiler=_st((smalltalk.Compiler || Compiler))._new();
+compiler=_st($Compiler())._new();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpression_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
@@ -608,7 +616,8 @@ selector: "fileIn",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.Importer || Importer))._new())._import_(_st(_st(self)._currentLineOrSelection())._readStream());
+function $Importer(){return smalltalk.Importer||(typeof Importer=="undefined"?nil:Importer)}
+return smalltalk.withContext(function($ctx1) { _st(_st($Importer())._new())._import_(_st(_st(self)._currentLineOrSelection())._readStream());
 return self}, function($ctx1) {$ctx1.fill(self,"fileIn",{},smalltalk.SourceArea)})},
 args: [],
 source: "fileIn\x0a\x09Importer new import: self currentLineOrSelection readStream",
@@ -755,15 +764,16 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 var start,stop,currentLine;
+function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { currentLine=_st(_st(self["@editor"])._getCursor_(false))._line();
-start=_st((smalltalk.HashedCollection || HashedCollection))._new();
+start=_st($HashedCollection())._new();
 _st(start)._at_put_("line",currentLine);
 _st(start)._at_put_("ch",_st(_st(self["@editor"])._getCursor_(false))._ch());
 _st(_st(self["@editor"])._getSelection())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {_st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
 return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(currentLine),_st("ch").__minus_gt((0))]),start);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-stop=_st((smalltalk.HashedCollection || HashedCollection))._new();
+stop=_st($HashedCollection())._new();
 _st(stop)._at_put_("line",currentLine);
 _st(stop)._at_put_("ch",_st(_st(_st(start)._at_("ch")).__plus(_st(aString)._size())).__plus((2)));
 _st(self["@editor"])._replaceSelection_(_st(_st(_st(_st(self["@editor"])._getSelection()).__comma(" ")).__comma(aString)).__comma(" "));
@@ -801,10 +811,11 @@ selector: "receiver",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@receiver"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st((smalltalk.DoIt || DoIt))._new();
+$1=_st($DoIt())._new();
 } else {
 $1=$2;
 };
@@ -1040,6 +1051,9 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $IDETranscript(){return smalltalk.IDETranscript||(typeof IDETranscript=="undefined"?nil:IDETranscript)}
+function $Workspace(){return smalltalk.Workspace||(typeof Workspace=="undefined"?nil:Workspace)}
+function $TestRunner(){return smalltalk.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
 self["@opened"]=true;
@@ -1049,9 +1063,9 @@ return smalltalk.withContext(function($ctx2) {return _st(_st(html)._div())._id_
 _st(_st("body")._asJQuery())._addClass_("amberBody");
 _st(self)._appendToJQuery_(_st("#amber")._asJQuery());
 $1=self;
-_st($1)._addTab_(_st((smalltalk.IDETranscript || IDETranscript))._current());
-_st($1)._addTab_(_st((smalltalk.Workspace || Workspace))._new());
-$2=_st($1)._addTab_(_st((smalltalk.TestRunner || TestRunner))._new());
+_st($1)._addTab_(_st($IDETranscript())._current());
+_st($1)._addTab_(_st($Workspace())._new());
+$2=_st($1)._addTab_(_st($TestRunner())._new());
 _st(self)._selectTab_(_st(_st(self)._tabs())._last());
 $3=self;
 _st($3)._onResize_((function(){
@@ -1104,7 +1118,8 @@ selector: "newBrowserTab",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((smalltalk.Browser || Browser))._open();
+function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
+return smalltalk.withContext(function($ctx1) { _st($Browser())._open();
 return self}, function($ctx1) {$ctx1.fill(self,"newBrowserTab",{},smalltalk.TabManager)})},
 args: [],
 source: "newBrowserTab\x0a\x09Browser open",
@@ -1357,13 +1372,16 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 var searchedClass;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
+function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
 return smalltalk.withContext(function($ctx1) { var $1;
-searchedClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+searchedClass=_st(_st($Smalltalk())._current())._at_(aString);
 $1=_st(searchedClass)._isClass();
 if(smalltalk.assert($1)){
-_st((smalltalk.Browser || Browser))._openOn_(searchedClass);
+_st($Browser())._openOn_(searchedClass);
 } else {
-_st((smalltalk.ReferencesBrowser || ReferencesBrowser))._search_(aString);
+_st($ReferencesBrowser())._search_(aString);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString,searchedClass:searchedClass},smalltalk.TabManager)})},
 args: ["aString"],
@@ -1418,10 +1436,11 @@ selector: "tabs",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@tabs"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@tabs"]=_st((smalltalk.Array || Array))._new();
+self["@tabs"]=_st($Array())._new();
 $1=self["@tabs"];
 } else {
 $1=$2;
@@ -1532,16 +1551,18 @@ selector: "toggleAmberIDE",
 category: 'actions',
 fn: function (){
 var self=this;
+function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
+function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
 if(smalltalk.assert($1)){
-_st((smalltalk.Browser || Browser))._open();
+_st($Browser())._open();
 } else {
 $2=_st(_st(window)._jQuery_("#amber"))._is_(":visible");
 if(smalltalk.assert($2)){
-_st(_st((smalltalk.TabManager || TabManager))._current())._close();
+_st(_st($TabManager())._current())._close();
 } else {
-_st(_st((smalltalk.TabManager || TabManager))._current())._open();
+_st(_st($TabManager())._current())._open();
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{},smalltalk.TabManager.klass)})},
@@ -1577,7 +1598,8 @@ selector: "close",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.TabManager || TabManager))._current())._closeTab_(self);
+function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
+return smalltalk.withContext(function($ctx1) { _st(_st($TabManager())._current())._closeTab_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"close",{},smalltalk.TabWidget)})},
 args: [],
 source: "close\x0a\x09TabManager current closeTab: self",
@@ -1625,8 +1647,9 @@ selector: "open",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.TabManager || TabManager))._current())._addTab_(self);
-_st(_st((smalltalk.TabManager || TabManager))._current())._selectTab_(self);
+function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
+return smalltalk.withContext(function($ctx1) { _st(_st($TabManager())._current())._addTab_(self);
+_st(_st($TabManager())._current())._selectTab_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.TabWidget)})},
 args: [],
 source: "open\x0a\x09TabManager current addTab: self.\x0a\x09TabManager current selectTab: self",
@@ -1792,11 +1815,12 @@ selector: "addInstanceVariableNamed:toClass:",
 category: 'actions',
 fn: function (aString,aClass){
 var self=this;
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(_st(aClass)._instanceVariableNames())._copy();
 _st($1)._add_(aString);
 $2=_st($1)._yourself();
-_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),_st(aClass)._name(),$2,_st(_st(aClass)._package())._name());
+_st(_st($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),_st(aClass)._name(),$2,_st(_st(aClass)._package())._name());
 return self}, function($ctx1) {$ctx1.fill(self,"addInstanceVariableNamed:toClass:",{aString:aString,aClass:aClass},smalltalk.Browser)})},
 args: ["aString", "aClass"],
 source: "addInstanceVariableNamed: aString toClass: aClass\x0a\x09ClassBuilder new\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aClass name\x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
@@ -1813,18 +1837,20 @@ category: 'actions',
 fn: function (){
 var self=this;
 var className;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 className=_st(window)._prompt_("New class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(className)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-_st((smalltalk.Object || Object))._subclass_instanceVariableNames_package_(className,"",_st(self)._selectedPackage());
+_st($Object())._subclass_instanceVariableNames_package_(className,"",_st(self)._selectedPackage());
 $2=self;
 _st($2)._resetClassesList();
 $3=_st($2)._updateClassesList();
 $3;
-_st(self)._selectClass_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(className));
+_st(self)._selectClass_(_st(_st($Smalltalk())._current())._at_(className));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"addNewClass",{className:className},smalltalk.Browser)})},
 args: [],
@@ -1942,6 +1968,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var stream;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7;
 stream=_st("")._writeStream();
 $1=self["@selectedClass"];
@@ -1955,7 +1982,7 @@ $3=stream;
 _st($3)._nextPutAll_(_st(_st(self["@selectedClass"])._superclass())._asString());
 _st($3)._nextPutAll_(" subclass: #");
 _st($3)._nextPutAll_(_st(self["@selectedClass"])._name());
-_st($3)._nextPutAll_(_st(_st((smalltalk.String || String))._lf()).__comma(_st((smalltalk.String || String))._tab()));
+_st($3)._nextPutAll_(_st(_st($String())._lf()).__comma(_st($String())._tab()));
 $4=_st($3)._nextPutAll_("instanceVariableNames: '");
 _st(_st(self["@selectedClass"])._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(each);
@@ -1963,7 +1990,7 @@ return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(e
 return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(" ");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=stream;
-_st($5)._nextPutAll_(_st(_st("'").__comma(_st((smalltalk.String || String))._lf())).__comma(_st((smalltalk.String || String))._tab()));
+_st($5)._nextPutAll_(_st(_st("'").__comma(_st($String())._lf())).__comma(_st($String())._tab()));
 _st($5)._nextPutAll_("package: '");
 _st($5)._nextPutAll_(_st(self["@selectedClass"])._category());
 $6=_st($5)._nextPutAll_("'");
@@ -2002,8 +2029,9 @@ selector: "classes",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._select_((function(each){
+$1=_st(_st(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {return _st(_st(a)._name()).__lt(_st(b)._name());
@@ -2024,14 +2052,19 @@ selector: "commitPackage",
 category: 'actions',
 fn: function (){
 var self=this;
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
+function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
+function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=self["@selectedPackage"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-package_=_st((smalltalk.Package || Package))._named_(self["@selectedPackage"]);
+var package_;
+package_=_st($Package())._named_(self["@selectedPackage"]);
 package_;
-_st([_st((smalltalk.Exporter || Exporter)).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".js")),_st((smalltalk.StrippedExporter || StrippedExporter)).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".deploy.js")),_st((smalltalk.ChunkExporter || ChunkExporter)).__minus_gt(_st(_st(_st(_st(package_)._commitPathSt()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".st"))])._do_((function(commitStrategy){
+_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathSt()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".st"))])._do_((function(commitStrategy){
 var fileContents;
 return smalltalk.withContext(function($ctx2) {fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(self["@selectedPackage"]);
 fileContents;
@@ -2057,7 +2090,7 @@ var currentEditLine;
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 _st(self)._disableSaveButton();
 currentEditLine=_st(_st(self["@sourceArea"])._editor())._getCursor();
-$1=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
+$1=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($1)){
 $2=self["@selectedClass"];
 if(($receiver = $2) == nil || $receiver == undefined){
@@ -2108,8 +2141,9 @@ category: 'actions',
 fn: function (){
 var self=this;
 var newClass;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-newClass=_st(_st((smalltalk.Compiler || Compiler))._new())._evaluateExpression_(_st(self["@sourceArea"])._val());
+newClass=_st(_st($Compiler())._new())._evaluateExpression_(_st(self["@sourceArea"])._val());
 $1=self;
 _st($1)._resetClassesList();
 _st($1)._updateCategoriesList();
@@ -2131,7 +2165,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
+$1=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($1)){
 _st(self)._compileMethodDefinitionFor_(self["@selectedClass"]);
 } else {
@@ -2153,6 +2187,8 @@ category: 'actions',
 fn: function (aClass){
 var self=this;
 var compiler,method,source,node;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
 var $early={};
 try {
@@ -2164,7 +2200,7 @@ self["@selectedProtocol"];
 } else {
 $1;
 };
-compiler=_st((smalltalk.Compiler || Compiler))._new();
+compiler=_st($Compiler())._new();
 _st(compiler)._source_(source);
 node=_st(compiler)._parse_(source);
 $2=_st(node)._isParseFailure();
@@ -2187,7 +2223,7 @@ throw $early=[$6];
 return $4;
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
+_st(_st($ClassBuilder())._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
 _st(self)._updateMethodsList();
 _st(self)._selectMethod_(method);
 return self}
@@ -2208,18 +2244,20 @@ category: 'actions',
 fn: function (){
 var self=this;
 var className;
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 className=_st(window)._prompt_("Copy class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(className)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._copyClass_named_(_st(self)._selectedClass(),className);
+_st(_st($ClassBuilder())._new())._copyClass_named_(_st(self)._selectedClass(),className);
 $2=self;
 _st($2)._resetClassesList();
 $3=_st($2)._updateClassesList();
 $3;
-_st(self)._selectClass_(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(className));
+_st(self)._selectClass_(_st(_st($Smalltalk())._current())._at_(className));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass",{className:className},smalltalk.Browser)})},
 args: [],
@@ -2237,7 +2275,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
+$2=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($2)){
 $1=_st(self)._classDeclarationSource();
 } else {
@@ -2354,7 +2392,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
-self["@selectedTab"]=smalltalk.symbolFor("instance");
+self["@selectedTab"]="instance";
 self["@selectedPackage"]=_st(_st(self)._packages())._first();
 self["@unsavedChanges"]=false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Browser)})},
@@ -2455,40 +2493,41 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var klass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$6,$7,$5,$4;
-$1=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$7,$8,$6,$5;
+$1=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($1)){
-return [];
+$2=[];
+return $2;
 };
-$2=self["@selectedClass"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$2;
+$3=self["@selectedClass"];
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
 } else {
-$3=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
-if(smalltalk.assert($3)){
+$4=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($4)){
 klass=self["@selectedClass"];
 } else {
 klass=_st(self["@selectedClass"])._class();
 };
 klass;
 };
-$6=self["@selectedProtocol"];
-if(($receiver = $6) == nil || $receiver == undefined){
-$7=klass;
+$7=self["@selectedProtocol"];
 if(($receiver = $7) == nil || $receiver == undefined){
-$5=[];
+$8=klass;
+if(($receiver = $8) == nil || $receiver == undefined){
+$6=[];
 } else {
-$5=_st(_st(klass)._methodDictionary())._values();
+$6=_st(_st(klass)._methodDictionary())._values();
 };
 } else {
-$5=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
+$6=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(self["@selectedProtocol"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 };
-$4=_st($5)._sort_((function(a,b){
+$5=_st($6)._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {return _st(_st(a)._selector()).__lt(_st(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
-return $4;
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},smalltalk.Browser)})},
 args: [],
 source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [^#()].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [selectedClass]\x0a\x09\x09ifFalse: [selectedClass class]].\x0a\x09^(selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [#()]\x0a\x09\x09ifNotNil: [klass methodDictionary values]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodDictionary values select: [:each |\x0a\x09\x09each category = selectedProtocol]]) sort: [:a :b | a selector < b selector]",
@@ -2505,9 +2544,11 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var packages;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-packages=_st((smalltalk.Array || Array))._new();
-_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._do_((function(each){
+packages=_st($Array())._new();
+_st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {$1=_st(packages)._includes_(_st(each)._category());
 if(! smalltalk.assert($1)){
 return _st(packages)._add_(_st(each)._category());
@@ -2531,32 +2572,34 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var klass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self["@selectedClass"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-$2=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
+$2=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($2)){
-return [];
+$3=[];
+return $3;
 };
-$3=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
-if(smalltalk.assert($3)){
+$4=_st(self["@selectedTab"]).__eq("instance");
+if(smalltalk.assert($4)){
 klass=self["@selectedClass"];
 } else {
 klass=_st(self["@selectedClass"])._class();
 };
 klass;
-$4=_st(_st(klass)._methodDictionary())._isEmpty();
-if(smalltalk.assert($4)){
-$5=_st((smalltalk.Array || Array))._with_("not yet classified");
-return $5;
-};
-$6=_st(klass)._protocols();
+$5=_st(_st(klass)._methodDictionary())._isEmpty();
+if(smalltalk.assert($5)){
+$6=_st($Array())._with_("not yet classified");
 return $6;
 };
-$7=_st((smalltalk.Array || Array))._new();
+$7=_st(klass)._protocols();
 return $7;
+};
+$8=_st($Array())._new();
+return $8;
 }, function($ctx1) {$ctx1.fill(self,"protocols",{klass:klass},smalltalk.Browser)})},
 args: [],
 source: "protocols\x0a\x09| klass |\x0a\x09selectedClass ifNotNil: [\x0a\x09selectedTab = #comment ifTrue: [^#()].\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [selectedClass]\x0a\x09\x09ifFalse: [selectedClass class].\x0a\x09klass methodDictionary isEmpty ifTrue: [\x0a\x09\x09^Array with: 'not yet classified'].\x0a\x09^klass protocols].\x0a\x09^Array new",
@@ -2572,10 +2615,11 @@ selector: "removeClass",
 category: 'actions',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(window)._confirm_(_st(_st("Do you really want to remove ").__comma(_st(self["@selectedClass"])._name())).__comma("?"));
 if(smalltalk.assert($1)){
-_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removeClass_(self["@selectedClass"]);
+_st(_st($Smalltalk())._current())._removeClass_(self["@selectedClass"]);
 _st(self)._resetClassesList();
 _st(self)._selectClass_(nil);
 };
@@ -2599,7 +2643,7 @@ $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 $2=_st(window)._confirm_(_st(_st("Do you really want to remove #").__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
 if(smalltalk.assert($2)){
-$3=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
+$3=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($3)){
 _st(self["@selectedClass"])._removeCompiledMethod_(self["@selectedMethod"]);
 } else {
@@ -2623,10 +2667,11 @@ selector: "removePackage",
 category: 'actions',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1;
 $1=_st(window)._confirm_(_st(_st("Do you really want to remove the whole package ").__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
 if(smalltalk.assert($1)){
-_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._removePackage_(self["@selectedPackage"]);
+_st(_st($Smalltalk())._current())._removePackage_(self["@selectedPackage"]);
 _st(self)._updateCategoriesList();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"removePackage",{},smalltalk.Browser)})},
@@ -2673,6 +2718,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 var newName;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 newName=_st(window)._prompt_(_st("Rename package ").__comma(self["@selectedPackage"]));
 $1=newName;
@@ -2681,7 +2727,7 @@ $1;
 } else {
 $2=_st(newName)._notEmpty();
 if(smalltalk.assert($2)){
-_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._renamePackage_to_(self["@selectedPackage"],newName);
+_st(_st($Smalltalk())._current())._renamePackage_to_(self["@selectedPackage"],newName);
 _st(self)._updateCategoriesList();
 };
 };
@@ -2700,11 +2746,12 @@ selector: "renderBottomPanelOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
+function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {self["@sourceArea"]=_st((smalltalk.SourceArea || SourceArea))._new();
+return smalltalk.withContext(function($ctx2) {self["@sourceArea"]=_st($SourceArea())._new();
 self["@sourceArea"];
 _st(self["@sourceArea"])._renderOn_(html);
 _st(self["@sourceArea"])._onKeyDown_((function(e){
@@ -2813,6 +2860,7 @@ selector: "renderTopPanelOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
+function $ClassesList(){return smalltalk.ClassesList||(typeof ClassesList=="undefined"?nil:ClassesList)}
 return smalltalk.withContext(function($ctx1) { var $1,$3,$5,$6,$7,$8,$9,$10,$4,$11,$12,$2;
 $1=_st(html)._div();
 _st($1)._class_("top");
@@ -2845,7 +2893,7 @@ $10=_st($9)._with_("Remove");
 return $10;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4;
-self["@classesList"]=_st((smalltalk.ClassesList || ClassesList))._on_(self);
+self["@classesList"]=_st($ClassesList())._on_(self);
 self["@classesList"];
 _st(self["@classesList"])._renderOn_(html);
 self["@protocolsList"]=_st(_st(html)._ul())._class_("amber_column browser protocols");
@@ -2891,10 +2939,12 @@ selector: "search:",
 category: 'actions',
 fn: function (aString){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
-searchedClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+var searchedClass;
+searchedClass=_st(_st($Smalltalk())._current())._at_(aString);
 searchedClass;
 $2=_st(searchedClass)._isClass();
 if(smalltalk.assert($2)){
@@ -2918,7 +2968,8 @@ selector: "searchClassReferences",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((smalltalk.ReferencesBrowser || ReferencesBrowser))._search_(_st(self["@selectedClass"])._name());
+function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
+return smalltalk.withContext(function($ctx1) { _st($ReferencesBrowser())._search_(_st(self["@selectedClass"])._name());
 return self}, function($ctx1) {$ctx1.fill(self,"searchClassReferences",{},smalltalk.Browser)})},
 args: [],
 source: "searchClassReferences\x0a\x09ReferencesBrowser search: selectedClass name",
@@ -2934,7 +2985,8 @@ selector: "searchReferencesOf:",
 category: 'actions',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((smalltalk.ReferencesBrowser || ReferencesBrowser))._search_(aString);
+function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
+return smalltalk.withContext(function($ctx1) { _st($ReferencesBrowser())._search_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"searchReferencesOf:",{aString:aString},smalltalk.Browser)})},
 args: ["aString"],
 source: "searchReferencesOf: aString\x0a\x09ReferencesBrowser search: aString",
@@ -3193,7 +3245,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$5,$4;
-$1=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
+$1=_st(self["@selectedTab"]).__eq("comment");
 if(! smalltalk.assert($1)){
 $3=_st(_st(self["@selectedProtocol"])._notNil())._or_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self["@selectedMethod"])._notNil();
@@ -3268,7 +3320,8 @@ selector: "updateClassesList",
 category: 'updating',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.TabManager || TabManager))._current())._update();
+function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
+return smalltalk.withContext(function($ctx1) { _st(_st($TabManager())._current())._update();
 _st(self["@classesList"])._updateNodes();
 return self}, function($ctx1) {$ctx1.fill(self,"updateClassesList",{},smalltalk.Browser)})},
 args: [],
@@ -3528,7 +3581,7 @@ _st(self["@tabsList"])._contents_((function(html){
 var li;
 return smalltalk.withContext(function($ctx2) {li=_st(html)._li();
 li;
-$1=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("instance"));
+$1=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($1)){
 _st(li)._class_("selected");
 };
@@ -3542,12 +3595,12 @@ $4;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $5=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_(smalltalk.symbolFor("instance"));
+return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_("instance");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $5;
 li=_st(html)._li();
 li;
-$6=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("class"));
+$6=_st(self["@selectedTab"]).__eq("class");
 if(smalltalk.assert($6)){
 _st(li)._class_("selected");
 };
@@ -3561,12 +3614,12 @@ $9;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $10=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_(smalltalk.symbolFor("class"));
+return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_("class");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $10;
 li=_st(html)._li();
 li;
-$11=_st(self["@selectedTab"]).__eq(smalltalk.symbolFor("comment"));
+$11=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($11)){
 _st(li)._class_("selected");
 };
@@ -3580,7 +3633,7 @@ $14;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $15=_st($12)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_(smalltalk.symbolFor("comment"));
+return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_("comment");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $15;
 }, function($ctx2) {$ctx2.fillBlock({html:html,li:li},$ctx1)})}));
@@ -3641,8 +3694,9 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var all;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1;
-all=_st((smalltalk.Dictionary || Dictionary))._new();
+all=_st($Dictionary())._new();
 _st(_st(_st(_st(self)._receiver())._class())._allInstanceVariableNames())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(all)._at_put_(each,_st(_st(self)._receiver())._instVarAt_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -3818,11 +3872,12 @@ selector: "renderBottomPanelOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
+function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode debugger");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {self["@sourceArea"]=_st((smalltalk.SourceArea || SourceArea))._new();
+return smalltalk.withContext(function($ctx2) {self["@sourceArea"]=_st($SourceArea())._new();
 self["@sourceArea"];
 return _st(self["@sourceArea"])._renderOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -4232,7 +4287,8 @@ selector: "cr",
 category: 'actions',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@textarea"])._asJQuery())._val_(_st(_st(_st(self["@textarea"])._asJQuery())._val()).__comma(_st((smalltalk.String || String))._cr()));
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { _st(_st(self["@textarea"])._asJQuery())._val_(_st(_st(_st(self["@textarea"])._asJQuery())._val()).__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.IDETranscript)})},
 args: [],
 source: "cr\x0a\x09textarea asJQuery val: textarea asJQuery val, String cr.",
@@ -4264,8 +4320,9 @@ selector: "open",
 category: 'actions',
 fn: function (){
 var self=this;
+function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.TabManager || TabManager))._current();
+$1=_st($TabManager())._current();
 _st($1)._open();
 $2=_st($1)._selectTab_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.IDETranscript)})},
@@ -4373,7 +4430,8 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st((smalltalk.Transcript || Transcript))._register_(_st(self)._current());
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { _st($Transcript())._register_(_st(self)._current());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.IDETranscript.klass)})},
 args: [],
 source: "initialize\x0a\x09Transcript register: self current",
@@ -4405,8 +4463,9 @@ selector: "open",
 category: 'instance creation',
 fn: function (){
 var self=this;
+function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.TabManager || TabManager))._current();
+$1=_st($TabManager())._current();
 _st($1)._open();
 $2=_st($1)._selectTab_(_st(self)._current());
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.IDETranscript.klass)})},
@@ -4519,11 +4578,12 @@ selector: "renderBottomPanelOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
+function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
 return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {$3=_st((smalltalk.SourceArea || SourceArea))._new();
+return smalltalk.withContext(function($ctx2) {$3=_st($SourceArea())._new();
 _st($3)._receiver_(self["@object"]);
 _st($3)._onDoIt_((function(){
 return smalltalk.withContext(function($ctx3) {return _st(self)._refresh();
@@ -4996,8 +5056,9 @@ selector: "classesAndMetaclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes()).__comma(_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._classes())._collect_((function(each){
+$1=_st(_st(_st($Smalltalk())._current())._classes()).__comma(_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(each)._class();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
 return $1;
@@ -5016,10 +5077,11 @@ selector: "implementors",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@implementors"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@implementors"]=_st((smalltalk.Array || Array))._new();
+self["@implementors"]=_st($Array())._new();
 $1=self["@implementors"];
 } else {
 $1=$2;
@@ -5073,10 +5135,11 @@ selector: "matches",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@matches"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@matches"]=_st((smalltalk.Array || Array))._new();
+self["@matches"]=_st($Array())._new();
 $1=self["@matches"];
 } else {
 $1=$2;
@@ -5098,8 +5161,9 @@ category: 'actions',
 fn: function (aMethod){
 var self=this;
 var browser;
+function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
 return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$5,$6;
-$1=(smalltalk.Browser || Browser);
+$1=$Browser();
 $3=_st(_st(aMethod)._methodClass())._isMetaclass();
 if(smalltalk.assert($3)){
 $2=_st(_st(aMethod)._methodClass())._instanceClass();
@@ -5109,7 +5173,7 @@ $2=_st(aMethod)._methodClass();
 browser=_st($1)._openOn_($2);
 $4=_st(_st(aMethod)._methodClass())._isMetaclass();
 if(smalltalk.assert($4)){
-_st(browser)._selectTab_(smalltalk.symbolFor("class"));
+_st(browser)._selectTab_("class");
 };
 $5=browser;
 _st($5)._selectProtocol_(_st(aMethod)._category());
@@ -5129,10 +5193,11 @@ selector: "referencedClasses",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@referencedClasses"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@referencedClasses"]=_st((smalltalk.Array || Array))._new();
+self["@referencedClasses"]=_st($Array())._new();
 $1=self["@referencedClasses"];
 } else {
 $1=$2;
@@ -5337,12 +5402,13 @@ selector: "searchReferencesFor:",
 category: 'actions',
 fn: function (aString){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1;
 self["@selector"]=aString;
-self["@implementors"]=_st((smalltalk.Array || Array))._new();
-self["@senders"]=_st((smalltalk.Array || Array))._new();
-self["@referencedClasses"]=_st((smalltalk.Array || Array))._new();
-self["@matches"]=_st((smalltalk.Array || Array))._new();
+self["@implementors"]=_st($Array())._new();
+self["@senders"]=_st($Array())._new();
+self["@referencedClasses"]=_st($Array())._new();
+self["@matches"]=_st($Array())._new();
 _st(self)._searchMethodSource();
 $1=_st(self["@selector"])._match_("^[A-Z]");
 if(smalltalk.assert($1)){
@@ -5411,10 +5477,11 @@ selector: "senders",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@senders"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@senders"]=_st((smalltalk.Array || Array))._new();
+self["@senders"]=_st($Array())._new();
 $1=self["@senders"];
 } else {
 $1=$2;
@@ -5620,8 +5687,9 @@ selector: "allClasses",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.TestCase || TestCase))._allSubclasses())._select_((function(each){
+$1=_st(_st($TestCase())._allSubclasses())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(_st(each)._isAbstract())._not();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
@@ -5662,8 +5730,9 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
-self["@result"]=_st((smalltalk.TestResult || TestResult))._new();
+self["@result"]=_st($TestResult())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TestRunner)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09result := TestResult new",
@@ -5732,8 +5801,9 @@ category: 'accessing',
 fn: function (){
 var self=this;
 var packages;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-packages=_st((smalltalk.Array || Array))._new();
+packages=_st($Array())._new();
 _st(_st(self)._allClasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {$1=_st(packages)._includes_(_st(each)._category());
 if(! smalltalk.assert($1)){
@@ -5845,10 +5915,11 @@ selector: "progressBar",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $ProgressBar(){return smalltalk.ProgressBar||(typeof ProgressBar=="undefined"?nil:ProgressBar)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@progressBar"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@progressBar"]=_st((smalltalk.ProgressBar || ProgressBar))._new();
+self["@progressBar"]=_st($ProgressBar())._new();
 $1=self["@progressBar"];
 } else {
 $1=$2;
@@ -6033,10 +6104,12 @@ category: 'actions',
 fn: function (aCollection){
 var self=this;
 var worker;
+function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
+function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { var $1;
-worker=_st((smalltalk.TestSuiteRunner || TestSuiteRunner))._on_(aCollection);
+worker=_st($TestSuiteRunner())._on_(aCollection);
 self["@result"]=_st(worker)._result();
-_st(_st(worker)._announcer())._on_do_((smalltalk.ResultAnnouncement || ResultAnnouncement),(function(ann){
+_st(_st(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
 return smalltalk.withContext(function($ctx2) {$1=_st(_st(ann)._result()).__eq_eq(self["@result"]);
 if(smalltalk.assert($1)){
 _st(_st(self)._progressBar())._updatePercent_(_st(_st(_st(self["@result"])._runs()).__slash(_st(self["@result"])._total())).__star((100)));
@@ -6110,10 +6183,11 @@ selector: "selectedCategories",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@selectedCategories"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@selectedCategories"]=_st((smalltalk.Array || Array))._new();
+self["@selectedCategories"]=_st($Array())._new();
 $1=self["@selectedCategories"];
 } else {
 $1=$2;
@@ -6134,10 +6208,11 @@ selector: "selectedClasses",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@selectedClasses"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@selectedClasses"]=_st((smalltalk.Array || Array))._new();
+self["@selectedClasses"]=_st($Array())._new();
 $1=self["@selectedClasses"];
 } else {
 $1=$2;
@@ -6469,7 +6544,8 @@ selector: "renderBoxOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@sourceArea"]=_st((smalltalk.SourceArea || SourceArea))._new();
+function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
+return smalltalk.withContext(function($ctx1) { self["@sourceArea"]=_st($SourceArea())._new();
 _st(self["@sourceArea"])._renderOn_(html);
 return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.Workspace)})},
 args: ["html"],
@@ -6550,8 +6626,9 @@ selector: "inspect",
 category: '*IDE',
 fn: function (){
 var self=this;
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.Inspector || Inspector))._new();
+$1=_st($Inspector())._new();
 _st($1)._inspect_(self);
 $2=_st($1)._open();
 return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.Object)})},
@@ -6570,8 +6647,9 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-variables=_st((smalltalk.Dictionary || Dictionary))._new();
+variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(_st(_st(self)._class())._allInstanceVariableNames())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(each,_st(self)._instVarAt_(each));
@@ -6595,8 +6673,9 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-variables=_st((smalltalk.Dictionary || Dictionary))._new();
+variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(self)._withIndexDo_((function(each,i){
 return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(i,each);
@@ -6620,8 +6699,9 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-variables=_st((smalltalk.Dictionary || Dictionary))._new();
+variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#keys",_st(self)._keys());
 _st(self)._keysAndValuesDo_((function(key,value){
@@ -6673,8 +6753,9 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-variables=_st((smalltalk.Dictionary || Dictionary))._new();
+variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(self["@elements"])._withIndexDo_((function(each,i){
 return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(i,each);
@@ -6698,8 +6779,9 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-variables=_st((smalltalk.Dictionary || Dictionary))._new();
+variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#year",_st(self)._year());
 _st(variables)._at_put_("#month",_st(self)._month());
@@ -6727,8 +6809,9 @@ category: '*IDE',
 fn: function (anInspector){
 var self=this;
 var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-variables=_st((smalltalk.Dictionary || Dictionary))._new();
+variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#home",_st(self)._home());
 _st(variables)._at_put_("#receiver",_st(self)._receiver());

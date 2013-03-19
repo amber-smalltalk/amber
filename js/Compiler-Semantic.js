@@ -8,7 +8,8 @@ selector: "addArg:",
 category: 'adding',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._args())._at_put_(aString,_st((smalltalk.ArgVar || ArgVar))._on_(aString));
+function $ArgVar(){return smalltalk.ArgVar||(typeof ArgVar=="undefined"?nil:ArgVar)}
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._args())._at_put_(aString,_st($ArgVar())._on_(aString));
 _st(_st(_st(self)._args())._at_(aString))._scope_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addArg:",{aString:aString},smalltalk.LexicalScope)})},
 args: ["aString"],
@@ -25,7 +26,8 @@ selector: "addTemp:",
 category: 'adding',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._temps())._at_put_(aString,_st((smalltalk.TempVar || TempVar))._on_(aString));
+function $TempVar(){return smalltalk.TempVar||(typeof TempVar=="undefined"?nil:TempVar)}
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._temps())._at_put_(aString,_st($TempVar())._on_(aString));
 _st(_st(_st(self)._temps())._at_(aString))._scope_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addTemp:",{aString:aString},smalltalk.LexicalScope)})},
 args: ["aString"],
@@ -78,10 +80,11 @@ selector: "args",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@args"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@args"]=_st((smalltalk.Dictionary || Dictionary))._new();
+self["@args"]=_st($Dictionary())._new();
 $1=self["@args"];
 } else {
 $1=$2;
@@ -375,20 +378,21 @@ selector: "scopeLevel",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
 $1=_st(self)._outerScope();
 if(($receiver = $1) == nil || $receiver == undefined){
-return (1);
+$2=(1);
+return $2;
 } else {
 $1;
 };
-$2=_st(self)._isInlined();
-if(smalltalk.assert($2)){
-$3=_st(_st(self)._outerScope())._scopeLevel();
-return $3;
-};
-$4=_st(_st(_st(self)._outerScope())._scopeLevel()).__plus((1));
+$3=_st(self)._isInlined();
+if(smalltalk.assert($3)){
+$4=_st(_st(self)._outerScope())._scopeLevel();
 return $4;
+};
+$5=_st(_st(_st(self)._outerScope())._scopeLevel()).__plus((1));
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"scopeLevel",{},smalltalk.LexicalScope)})},
 args: [],
 source: "scopeLevel\x0a\x09self outerScope ifNil: [ ^ 1 ].\x0a\x09self isInlined ifTrue: [ ^ self outerScope scopeLevel ].\x0a\x09\x0a\x09^ self outerScope scopeLevel + 1",
@@ -404,10 +408,11 @@ selector: "temps",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@temps"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@temps"]=_st((smalltalk.Dictionary || Dictionary))._new();
+self["@temps"]=_st($Dictionary())._new();
 $1=self["@temps"];
 } else {
 $1=$2;
@@ -432,7 +437,8 @@ selector: "addIVar:",
 category: 'adding',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._iVars())._at_put_(aString,_st((smalltalk.InstanceVar || InstanceVar))._on_(aString));
+function $InstanceVar(){return smalltalk.InstanceVar||(typeof InstanceVar=="undefined"?nil:InstanceVar)}
+return smalltalk.withContext(function($ctx1) { _st(_st(self)._iVars())._at_put_(aString,_st($InstanceVar())._on_(aString));
 _st(_st(_st(self)._iVars())._at_(aString))._scope_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addIVar:",{aString:aString},smalltalk.MethodLexicalScope)})},
 args: ["aString"],
@@ -560,10 +566,11 @@ selector: "iVars",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@iVars"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@iVars"]=_st((smalltalk.Dictionary || Dictionary))._new();
+self["@iVars"]=_st($Dictionary())._new();
 $1=self["@iVars"];
 } else {
 $1=$2;
@@ -657,10 +664,11 @@ selector: "nonLocalReturns",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@nonLocalReturns"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@nonLocalReturns"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@nonLocalReturns"]=_st($OrderedCollection())._new();
 $1=self["@nonLocalReturns"];
 } else {
 $1=$2;
@@ -681,13 +689,16 @@ selector: "pseudoVars",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $PseudoVar(){return smalltalk.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
 $1=self["@pseudoVars"];
 if(($receiver = $1) == nil || $receiver == undefined){
-self["@pseudoVars"]=_st((smalltalk.Dictionary || Dictionary))._new();
+self["@pseudoVars"]=_st($Dictionary())._new();
 self["@pseudoVars"];
-_st(_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._pseudoVariableNames())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$2=_st((smalltalk.PseudoVar || PseudoVar))._on_(each);
+_st(_st(_st($Smalltalk())._current())._pseudoVariableNames())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {$2=_st($PseudoVar())._on_(each);
 _st($2)._scope_(_st(self)._methodScope());
 $3=_st($2)._yourself();
 return _st(self["@pseudoVars"])._at_put_(each,$3);
@@ -729,10 +740,11 @@ selector: "unknownVariables",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@unknownVariables"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@unknownVariables"]=_st((smalltalk.OrderedCollection || OrderedCollection))._new();
+self["@unknownVariables"]=_st($OrderedCollection())._new();
 $1=self["@unknownVariables"];
 } else {
 $1=$2;
@@ -939,12 +951,13 @@ selector: "validateAssignment",
 category: 'testing',
 fn: function (){
 var self=this;
+function $InvalidAssignmentError(){return smalltalk.InvalidAssignmentError||(typeof InvalidAssignmentError=="undefined"?nil:InvalidAssignmentError)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 $1=_st(_st(self)._isArgVar())._or_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._isPseudoVar();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-$2=_st((smalltalk.InvalidAssignmentError || InvalidAssignmentError))._new();
+$2=_st($InvalidAssignmentError())._new();
 _st($2)._variableName_(_st(self)._name());
 $3=_st($2)._signal();
 $3;
@@ -1201,10 +1214,11 @@ selector: "classReferences",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@classReferences"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@classReferences"]=_st((smalltalk.Set || Set))._new();
+self["@classReferences"]=_st($Set())._new();
 $1=self["@classReferences"];
 } else {
 $1=$2;
@@ -1225,8 +1239,9 @@ selector: "errorShadowingVariable:",
 category: 'error handling',
 fn: function (aString){
 var self=this;
+function $ShadowingVariableError(){return smalltalk.ShadowingVariableError||(typeof ShadowingVariableError=="undefined"?nil:ShadowingVariableError)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
-$1=_st((smalltalk.ShadowingVariableError || ShadowingVariableError))._new();
+$1=_st($ShadowingVariableError())._new();
 _st($1)._variableName_(aString);
 $2=_st($1)._signal();
 return self}, function($ctx1) {$ctx1.fill(self,"errorShadowingVariable:",{aString:aString},smalltalk.SemanticAnalyzer)})},
@@ -1245,13 +1260,14 @@ category: 'error handling',
 fn: function (aNode){
 var self=this;
 var identifier;
+function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
 identifier=_st(aNode)._value();
 $1=_st(_st(_st(["jQuery", "window", "document", "process", "global"])._includes_(identifier))._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {return _st(self)._isVariableGloballyUndefined_(identifier);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-$2=_st((smalltalk.UnknownVariableError || UnknownVariableError))._new();
+$2=_st($UnknownVariableError())._new();
 _st($2)._variableName_(_st(aNode)._value());
 $3=_st($2)._signal();
 $3;
@@ -1289,10 +1305,11 @@ selector: "messageSends",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@messageSends"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@messageSends"]=_st((smalltalk.Dictionary || Dictionary))._new();
+self["@messageSends"]=_st($Dictionary())._new();
 $1=self["@messageSends"];
 } else {
 $1=$2;
@@ -1313,8 +1330,9 @@ selector: "newBlockScope",
 category: 'factory',
 fn: function (){
 var self=this;
+function $LexicalScope(){return smalltalk.LexicalScope||(typeof LexicalScope=="undefined"?nil:LexicalScope)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._newScopeOfClass_((smalltalk.LexicalScope || LexicalScope));
+$1=_st(self)._newScopeOfClass_($LexicalScope());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"newBlockScope",{},smalltalk.SemanticAnalyzer)})},
 args: [],
@@ -1331,8 +1349,9 @@ selector: "newMethodScope",
 category: 'factory',
 fn: function (){
 var self=this;
+function $MethodLexicalScope(){return smalltalk.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._newScopeOfClass_((smalltalk.MethodLexicalScope || MethodLexicalScope));
+$1=_st(self)._newScopeOfClass_($MethodLexicalScope());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"newMethodScope",{},smalltalk.SemanticAnalyzer)})},
 args: [],
@@ -1410,10 +1429,11 @@ selector: "superSends",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { var $2,$1;
 $2=self["@superSends"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@superSends"]=_st((smalltalk.Dictionary || Dictionary))._new();
+self["@superSends"]=_st($Dictionary())._new();
 $1=self["@superSends"];
 } else {
 $1=$2;
@@ -1557,9 +1577,10 @@ selector: "visitClassReferenceNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+function $ClassRefVar(){return smalltalk.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 _st(_st(self)._classReferences())._add_(_st(aNode)._value());
-$1=_st((smalltalk.ClassRefVar || ClassRefVar))._new();
+$1=_st($ClassRefVar())._new();
 _st($1)._name_(_st(aNode)._value());
 $2=_st($1)._yourself();
 _st(aNode)._binding_($2);
@@ -1634,24 +1655,26 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
+function $IRSendInliner(){return smalltalk.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 return smalltalk.withContext(function($ctx1) { var $1,$2;
 $1=_st(_st(_st(aNode)._receiver())._value()).__eq("super");
 if(smalltalk.assert($1)){
 _st(aNode)._superSend_(true);
 _st(_st(aNode)._receiver())._value_("self");
 _st(_st(self)._superSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
-return smalltalk.withContext(function($ctx2) {return _st((smalltalk.Set || Set))._new();
+return smalltalk.withContext(function($ctx2) {return _st($Set())._new();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(_st(self)._superSends())._at_(_st(aNode)._selector()))._add_(aNode);
 } else {
-$2=_st(_st((smalltalk.IRSendInliner || IRSendInliner))._inlinedSelectors())._includes_(_st(aNode)._selector());
+$2=_st(_st($IRSendInliner())._inlinedSelectors())._includes_(_st(aNode)._selector());
 if(smalltalk.assert($2)){
 _st(aNode)._shouldBeInlined_(true);
 _st(_st(aNode)._receiver())._shouldBeAliased_(true);
 };
 };
 _st(_st(self)._messageSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
-return smalltalk.withContext(function($ctx2) {return _st((smalltalk.Set || Set))._new();
+return smalltalk.withContext(function($ctx2) {return _st($Set())._new();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(_st(self)._messageSends())._at_(_st(aNode)._selector()))._add_(aNode);
 _st(aNode)._index_(_st(_st(_st(self)._messageSends())._at_(_st(aNode)._selector()))._size());
@@ -1691,12 +1714,13 @@ selector: "visitVariableNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+function $UnknownVar(){return smalltalk.UnknownVar||(typeof UnknownVar=="undefined"?nil:UnknownVar)}
 return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$2;
 $1=aNode;
 $3=_st(self["@currentScope"])._lookupVariable_(aNode);
 if(($receiver = $3) == nil || $receiver == undefined){
 _st(self)._errorUnknownVariable_(aNode);
-$4=_st((smalltalk.UnknownVar || UnknownVar))._new();
+$4=_st($UnknownVar())._new();
 _st($4)._name_(_st(aNode)._value());
 $5=_st($4)._yourself();
 $2=$5;
