@@ -167,14 +167,14 @@ visitDynamicDictionaryNode: aNode
 
 visitJSStatementNode: aNode
 	^ IRVerbatim new
-		source: aNode source;
+		source: aNode source crlfSanitized;
 		yourself
 !
 
 visitMethodNode: aNode
 
 	self method: (IRMethod new
-		source: self source;
+		source: self source crlfSanitized;
 		theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;
@@ -1032,8 +1032,7 @@ nextPutAssignment
 
 nextPutBlockContextFor: anIRClosure during: aBlock
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';
-		nextPutAll: String cr.
+		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
 	
 	aBlock value.
 	
@@ -1083,8 +1082,7 @@ nextPutClosureWith: aBlock arguments: anArray
 
 nextPutContextFor: aMethod during: aBlock
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';
-		nextPutAll: String cr.
+		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
 	aBlock value.
 	
 	self

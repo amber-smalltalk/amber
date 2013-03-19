@@ -9,7 +9,8 @@ category: 'not yet classified',
 fn: function (){
 var self=this;
 var result;
-return smalltalk.withContext(function($ctx1) { result=_st((0))._tinyBenchmarks();
+return smalltalk.withContext(function($ctx1) { 
+result=_st((0))._tinyBenchmarks();
 _st(console)._log_(_st("0 tinyBenchmarks => ").__comma(result));
 return self}, function($ctx1) {$ctx1.fill(self,"main",{result:result},smalltalk.Benchfib.klass)})},
 args: [],
@@ -27,7 +28,8 @@ selector: "benchFib",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self).__lt((2));
 if(smalltalk.assert($2)){
 $1=(1);
@@ -52,27 +54,33 @@ fn: function (){
 var self=this;
 var size,flags,prime,k,count;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 size=(8190);
 _st((1))._to_do_(self,(function(iter){
-return smalltalk.withContext(function($ctx2) {count=(0);
+return smalltalk.withContext(function($ctx2) {
+count=(0);
 count;
 flags=_st($Array())._new();
 flags;
 _st(size)._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(flags)._add_(true);
+return smalltalk.withContext(function($ctx3) {
+return _st(flags)._add_(true);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return _st((1))._to_do_(size,(function(i){
-return smalltalk.withContext(function($ctx3) {$1=_st(flags)._at_(i);
+return smalltalk.withContext(function($ctx3) {
+$1=_st(flags)._at_(i);
 if(smalltalk.assert($1)){
 prime=_st(i).__plus((1));
 prime;
 k=_st(i).__plus(prime);
 k;
 _st((function(){
-return smalltalk.withContext(function($ctx4) {return _st(k).__lt_eq(size);
+return smalltalk.withContext(function($ctx4) {
+return _st(k).__lt_eq(size);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx4) {_st(flags)._at_put_(k,false);
+return smalltalk.withContext(function($ctx4) {
+_st(flags)._at_put_(k,false);
 k=_st(k).__plus(prime);
 return k;
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
@@ -98,7 +106,8 @@ selector: "jsbenchFib",
 category: '*Benchfib',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { if (this < 2) {
+return smalltalk.withContext(function($ctx1) { 
+if (this < 2) {
 return 1;
 } else {
 return (this-1)._jsbenchFib() + (this-2)._jsbenchFib() + 1;};
@@ -118,6 +127,7 @@ category: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 var size = 8190;
 var count;
 for (var z=0;z<this;z++) {
@@ -156,28 +166,35 @@ fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 n1=(1);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t1=_st($Date())._millisecondsToRun_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(n1)._jsbenchmark();
+return smalltalk.withContext(function($ctx2) {
+t1=_st($Date())._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(n1)._jsbenchmark();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 t1;
 return _st(t1).__lt((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {n1=_st(n1).__star((2));
+return smalltalk.withContext(function($ctx2) {
+n1=_st(n1).__star((2));
 return n1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 n2=(28);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t2=_st($Date())._millisecondsToRun_((function(){
-return smalltalk.withContext(function($ctx3) {r=_st(n2)._jsbenchFib();
+return smalltalk.withContext(function($ctx2) {
+t2=_st($Date())._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) {
+r=_st(n2)._jsbenchFib();
 return r;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 t2;
 return _st(t2).__lt((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {n2=_st(n2).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+n2=_st(n2).__plus((1));
 return n2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");
@@ -199,28 +216,35 @@ fn: function (){
 var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 n1=(1);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t1=_st($Date())._millisecondsToRun_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(n1)._benchmark();
+return smalltalk.withContext(function($ctx2) {
+t1=_st($Date())._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(n1)._benchmark();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 t1;
 return _st(t1).__lt((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {n1=_st(n1).__star((2));
+return smalltalk.withContext(function($ctx2) {
+n1=_st(n1).__star((2));
 return n1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 n2=(16);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {t2=_st($Date())._millisecondsToRun_((function(){
-return smalltalk.withContext(function($ctx3) {r=_st(n2)._benchFib();
+return smalltalk.withContext(function($ctx2) {
+t2=_st($Date())._millisecondsToRun_((function(){
+return smalltalk.withContext(function($ctx3) {
+r=_st(n2)._benchFib();
 return r;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 t2;
 return _st(t2).__lt((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {n2=_st(n2).__plus((1));
+return smalltalk.withContext(function($ctx2) {
+n2=_st(n2).__plus((1));
 return n2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $1=_st(_st(_st(_st(_st(_st(_st(n1).__star((500000))).__star((1000))).__slash(t1))._printString()).__comma(" bytecodes/sec; ")).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString())).__comma(" sends/sec");

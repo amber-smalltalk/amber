@@ -1195,6 +1195,10 @@ asUppercase
 	<return self.toUpperCase()>
 !
 
+crlfSanitized
+	^self lines join: String lf
+!
+
 reversed
 	<return self.split("").reverse().join("")>
 !
