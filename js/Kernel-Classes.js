@@ -1078,8 +1078,7 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {$2=stream;
 _st($2)._nextPutAll_(_st(self)._asString());
-_st($2)._nextPutAll_(" class ");
-$3=_st($2)._nextPutAll_("instanceVariableNames: '");
+$3=_st($2)._nextPutAll_(" instanceVariableNames: '");
 $3;
 _st(_st(self)._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(each);
@@ -1091,7 +1090,7 @@ return _st(stream)._nextPutAll_("'");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.Metaclass)})},
 args: [],
-source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: self asString;\x0a\x09\x09\x09nextPutAll: ' class ';\x0a\x09\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09\x09self instanceVariableNames\x0a\x09\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09\x09stream nextPutAll: '''' ]",
+source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: self asString;\x0a\x09\x09\x09nextPutAll: ' instanceVariableNames: '''.\x0a\x09\x09self instanceVariableNames\x0a\x09\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09\x09stream nextPutAll: '''' ]",
 messageSends: ["streamContents:", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames"],
 referencedClasses: ["String"]
 }),

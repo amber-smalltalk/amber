@@ -370,8 +370,7 @@ definition
 	^ String streamContents: [ :stream |
 		stream
 			nextPutAll: self asString;
-			nextPutAll: ' class ';
-			nextPutAll: 'instanceVariableNames: '''.
+			nextPutAll: ' instanceVariableNames: '''.
 		self instanceVariableNames
 			do: [ :each | stream nextPutAll: each ]
 			separatedBy: [ stream nextPutAll: ' ' ].

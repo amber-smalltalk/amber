@@ -814,8 +814,7 @@ return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
 $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {$2=stream;
 _st($2)._nextPutAll_(_st(self)._asString());
-_st($2)._nextPutAll_(" class ");
-$3=_st($2)._nextPutAll_("instanceVariableNames: '");
+$3=_st($2)._nextPutAll_(" instanceVariableNames: '");
 $3;
 _st(_st(self)._instanceVariableNames())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(each);
