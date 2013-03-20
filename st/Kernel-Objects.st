@@ -265,7 +265,7 @@ ifNil: aBlock
 
 ifNil: aBlock ifNotNil: anotherBlock
 	"inlined in the Compiler"
-	^anotherBlock value
+	^anotherBlock value: self
 !
 
 ifNotNil: aBlock

@@ -416,12 +416,12 @@ fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(anotherBlock)._value();
+$1=_st(anotherBlock)._value_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Object)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value",
-messageSends: ["value"],
+source: "ifNil: aBlock ifNotNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^anotherBlock value: self",
+messageSends: ["value:"],
 referencedClasses: []
 }),
 smalltalk.Object);

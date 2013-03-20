@@ -309,10 +309,10 @@ fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(anotherBlock)._value();
+$1=_st(anotherBlock)._value_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNil:ifNotNil:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Object)})},
-messageSends: ["value"]}),
+messageSends: ["value:"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(

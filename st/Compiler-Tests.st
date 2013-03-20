@@ -423,7 +423,13 @@ testifNotNil
 
 testifNotNilWithArgument
 	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ]' return: 3.
-	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil.
+	
+	self should: 'foo ^ 1 ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 3.
+	self should: 'foo ^ nil ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 5.
+	
+	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 3.
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 5
 !
 
 testifTrue

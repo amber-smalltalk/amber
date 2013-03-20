@@ -739,6 +739,10 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._should_return_("foo ^ 1 ifNotNil: [ :val | val + 2 ]",(3));
 _st(self)._should_return_("foo ^ nil ifNotNil: [ :val | val + 2 ]",nil);
+_st(self)._should_return_("foo ^ 1 ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]",(3));
+_st(self)._should_return_("foo ^ nil ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]",(5));
+_st(self)._should_return_("foo ^ 1 ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]",(3));
+_st(self)._should_return_("foo ^ nil ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]",(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testifNotNilWithArgument",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
