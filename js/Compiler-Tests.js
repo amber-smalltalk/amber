@@ -976,6 +976,24 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
+"_testifNotNilWithArgument",
+smalltalk.method({
+selector: "testifNotNilWithArgument",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._should_return_("foo ^ 1 ifNotNil: [ :val | val + 2 ]",(3));
+_st(self)._should_return_("foo ^ nil ifNotNil: [ :val | val + 2 ]",nil);
+return self}, function($ctx1) {$ctx1.fill(self,"testifNotNilWithArgument",{},smalltalk.CodeGeneratorTest)})},
+args: [],
+source: "testifNotNilWithArgument\x0a\x09self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ]' return: 3.\x0a\x09self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil",
+messageSends: ["should:return:"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
 "_testifTrue",
 smalltalk.method({
 selector: "testifTrue",

@@ -421,6 +421,11 @@ testifNotNil
 	self should: 'foo nil ifNotNil: [ ^ 2 ]' return: receiver.
 !
 
+testifNotNilWithArgument
+	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ]' return: 3.
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil
+!
+
 testifTrue
 	self should: 'foo false ifTrue: [ ^ 1 ]' return: receiver.
 	self should: 'foo true ifTrue: [ ^ 2 ]' return: 2.

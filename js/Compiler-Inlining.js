@@ -117,46 +117,6 @@ smalltalk.IRInlinedReturn);
 
 
 
-smalltalk.addClass('IRInlinedNonLocalReturn', smalltalk.IRInlinedReturn, [], 'Compiler-Inlining');
-smalltalk.IRInlinedNonLocalReturn.comment="I represent an inlined non local return instruction."
-smalltalk.addMethod(
-"_accept_",
-smalltalk.method({
-selector: "accept:",
-category: 'visiting',
-fn: function (aVisitor){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(aVisitor)._visitIRInlinedNonLocalReturn_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},smalltalk.IRInlinedNonLocalReturn)})},
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitIRInlinedNonLocalReturn: self",
-messageSends: ["visitIRInlinedNonLocalReturn:"],
-referencedClasses: []
-}),
-smalltalk.IRInlinedNonLocalReturn);
-
-smalltalk.addMethod(
-"_isInlined",
-smalltalk.method({
-selector: "isInlined",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return true;
-}, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.IRInlinedNonLocalReturn)})},
-args: [],
-source: "isInlined\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.IRInlinedNonLocalReturn);
-
-
-
 smalltalk.addClass('IRInlinedSend', smalltalk.IRSend, [], 'Compiler-Inlining');
 smalltalk.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions."
 smalltalk.addMethod(
@@ -335,29 +295,6 @@ args: [],
 source: "assignmentInliner\x0a\x09^ IRAssignmentInliner new\x0a\x09\x09translator: self;\x0a\x09\x09yourself",
 messageSends: ["translator:", "new", "yourself"],
 referencedClasses: ["IRAssignmentInliner"]
-}),
-smalltalk.IRInliner);
-
-smalltalk.addMethod(
-"_nonLocalReturnInliner",
-smalltalk.method({
-selector: "nonLocalReturnInliner",
-category: 'factory',
-fn: function (){
-var self=this;
-function $IRNonLocalReturnInliner(){return smalltalk.IRNonLocalReturnInliner||(typeof IRNonLocalReturnInliner=="undefined"?nil:IRNonLocalReturnInliner)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($IRNonLocalReturnInliner())._new();
-_st($2)._translator_(self);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nonLocalReturnInliner",{},smalltalk.IRInliner)})},
-args: [],
-source: "nonLocalReturnInliner\x0a\x09^ IRNonLocalReturnInliner new\x0a\x09\x09translator: self;\x0a\x09\x09yourself",
-messageSends: ["translator:", "new", "yourself"],
-referencedClasses: ["IRNonLocalReturnInliner"]
 }),
 smalltalk.IRInliner);
 
@@ -549,18 +486,13 @@ category: 'visiting',
 fn: function (anIRNonLocalReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self)._shouldInlineReturn_(anIRNonLocalReturn);
-if(smalltalk.assert($2)){
-$1=_st(_st(self)._nonLocalReturnInliner())._inlineReturn_(anIRNonLocalReturn);
-} else {
+var $1;
 $1=_st(self)._transformNonLocalReturn_(anIRNonLocalReturn);
-};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitIRNonLocalReturn:",{anIRNonLocalReturn:anIRNonLocalReturn},smalltalk.IRInliner)})},
 args: ["anIRNonLocalReturn"],
-source: "visitIRNonLocalReturn: anIRNonLocalReturn\x0a\x09^ (self shouldInlineReturn: anIRNonLocalReturn)\x0a\x09\x09ifTrue: [ self nonLocalReturnInliner inlineReturn: anIRNonLocalReturn ]\x0a\x09\x09ifFalse: [ self transformNonLocalReturn: anIRNonLocalReturn ]",
-messageSends: ["ifTrue:ifFalse:", "inlineReturn:", "nonLocalReturnInliner", "transformNonLocalReturn:", "shouldInlineReturn:"],
+source: "visitIRNonLocalReturn: anIRNonLocalReturn\x0a\x09^ self transformNonLocalReturn: anIRNonLocalReturn",
+messageSends: ["transformNonLocalReturn:"],
 referencedClasses: []
 }),
 smalltalk.IRInliner);
@@ -1041,8 +973,12 @@ category: 'inlining',
 fn: function (anIRClosure){
 var self=this;
 var inlinedClosure,sequence,statements;
+function $IRTempDeclaration(){return smalltalk.IRTempDeclaration||(typeof IRTempDeclaration=="undefined"?nil:IRTempDeclaration)}
+function $AliasVar(){return smalltalk.AliasVar||(typeof AliasVar=="undefined"?nil:AliasVar)}
+function $IRVariable(){return smalltalk.IRVariable||(typeof IRVariable=="undefined"?nil:IRVariable)}
+function $IRAssignment(){return smalltalk.IRAssignment||(typeof IRAssignment=="undefined"?nil:IRAssignment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
 inlinedClosure=_st(self)._inlinedClosure();
 _st(inlinedClosure)._scope_(_st(anIRClosure)._scope());
 _st(_st(anIRClosure)._tempDeclarations())._do_((function(each){
@@ -1050,6 +986,26 @@ return smalltalk.withContext(function($ctx2) {
 return _st(inlinedClosure)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 sequence=_st(self)._inlinedSequence();
+_st(_st(anIRClosure)._arguments())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st($IRTempDeclaration())._new();
+_st($1)._name_(each);
+$2=_st($1)._yourself();
+_st(inlinedClosure)._add_($2);
+$3=_st($IRAssignment())._new();
+$4=_st($AliasVar())._new();
+_st($4)._scope_(_st(inlinedClosure)._scope());
+_st($4)._name_(each);
+$5=_st($4)._yourself();
+_st($3)._add_(_st(_st($IRVariable())._new())._variable_($5));
+$6=_st($AliasVar())._new();
+_st($6)._scope_(_st(inlinedClosure)._scope());
+_st($6)._name_("$receiver");
+$7=_st($6)._yourself();
+_st($3)._add_(_st(_st($IRVariable())._new())._variable_($7));
+$8=_st($3)._yourself();
+return _st(sequence)._add_($8);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(inlinedClosure)._add_(sequence);
 statements=_st(_st(_st(anIRClosure)._instructions())._last())._instructions();
 _st(statements)._ifNotEmpty_((function(){
@@ -1058,23 +1014,23 @@ _st(_st(statements)._allButLast())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(sequence)._add_(each);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
-$1=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
+$9=_st(_st(_st(statements)._last())._isReturn())._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(statements)._last())._isBlockReturn();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($1)){
+if(smalltalk.assert($9)){
 return _st(sequence)._add_(_st(_st(_st(statements)._last())._instructions())._first());
 } else {
 return _st(sequence)._add_(_st(statements)._last());
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=inlinedClosure;
-return $2;
+$10=inlinedClosure;
+return $10;
 }, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure,inlinedClosure:inlinedClosure,sequence:sequence,statements:statements},smalltalk.IRSendInliner)})},
 args: ["anIRClosure"],
-source: "inlineClosure: anIRClosure\x0a\x09| inlinedClosure sequence statements |\x0a\x0a\x09inlinedClosure := self inlinedClosure.\x0a\x09inlinedClosure scope: anIRClosure scope.\x0a\x0a\x09\x22Add the possible temp declarations\x22\x0a\x09anIRClosure tempDeclarations do: [ :each |\x0a\x09\x09\x09inlinedClosure add: each ].\x0a\x0a\x09\x22Add a block sequence\x22\x0a\x09sequence := self inlinedSequence.\x0a\x09inlinedClosure add: sequence.\x0a\x0a\x09\x22Get all the statements\x22\x0a\x09statements := anIRClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements allButLast do: [ :each | sequence add: each ].\x0a\x0a\x09\x09\x22Inlined closures don't have implicit local returns\x22\x0a\x09\x09(statements last isReturn and: [ statements last isBlockReturn ])\x0a\x09\x09\x09ifTrue: [ sequence add: statements last instructions first ]\x0a\x09\x09\x09ifFalse: [ sequence add: statements last ] ].\x0a\x0a\x09^ inlinedClosure",
-messageSends: ["inlinedClosure", "scope:", "scope", "do:", "add:", "tempDeclarations", "inlinedSequence", "instructions", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "first", "and:", "isBlockReturn", "isReturn"],
-referencedClasses: []
+source: "inlineClosure: anIRClosure\x0a\x09| inlinedClosure sequence statements |\x0a\x0a\x09inlinedClosure := self inlinedClosure.\x0a\x09inlinedClosure scope: anIRClosure scope.\x0a\x0a\x09\x22Add the possible temp declarations\x22\x0a\x09anIRClosure tempDeclarations do: [ :each |\x0a\x09\x09\x09inlinedClosure add: each ].\x0a\x0a\x09\x22Add a block sequence\x22\x0a\x09sequence := self inlinedSequence.\x0a\x0a\x09\x22Map the closure arguments to the receiver of the message send\x22\x0a\x09anIRClosure arguments do: [ :each |\x0a\x09\x09inlinedClosure add: (IRTempDeclaration new name: each; yourself).\x0a\x09\x09sequence add: (IRAssignment new\x0a\x09\x09\x09add: (IRVariable new variable: (AliasVar new scope: inlinedClosure scope; name: each; yourself));\x0a\x09\x09\x09add: (IRVariable new variable: (AliasVar new scope: inlinedClosure scope; name: '$receiver'; yourself));\x0a\x09\x09\x09yourself) ].\x0a\x09\x09\x09\x0a\x09\x22To ensure the correct order of the closure instructions: first the temps then the sequence\x22\x0a\x09inlinedClosure add: sequence.\x0a\x0a\x09\x22Get all the statements\x22\x0a\x09statements := anIRClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements allButLast do: [ :each | sequence add: each ].\x0a\x0a\x09\x09\x22Inlined closures don't have implicit local returns\x22\x0a\x09\x09(statements last isReturn and: [ statements last isBlockReturn ])\x0a\x09\x09\x09ifTrue: [ sequence add: statements last instructions first ]\x0a\x09\x09\x09ifFalse: [ sequence add: statements last ] ].\x0a\x0a\x09^ inlinedClosure",
+messageSends: ["inlinedClosure", "scope:", "scope", "do:", "add:", "tempDeclarations", "inlinedSequence", "name:", "new", "yourself", "variable:", "arguments", "instructions", "last", "ifNotEmpty:", "allButLast", "ifTrue:ifFalse:", "first", "and:", "isBlockReturn", "isReturn"],
+referencedClasses: ["IRTempDeclaration", "AliasVar", "IRVariable", "IRAssignment"]
 }),
 smalltalk.IRSendInliner);
 
@@ -1160,36 +1116,28 @@ fn: function (inlinedSend,anIRInstruction,anotherIRInstruction){
 var self=this;
 var inlinedClosure1,inlinedClosure2;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7;
+var $1,$2,$3,$4,$5;
 $1=_st(anIRInstruction)._isClosure();
 if(! smalltalk.assert($1)){
 _st(self)._inliningError_("Message argument should be a block");
 };
-$2=_st(_st(_st(anIRInstruction)._arguments())._size()).__eq((0));
+$2=_st(anotherIRInstruction)._isClosure();
 if(! smalltalk.assert($2)){
-_st(self)._inliningError_("Inlined block should have zero argument");
-};
-$3=_st(anotherIRInstruction)._isClosure();
-if(! smalltalk.assert($3)){
 _st(self)._inliningError_("Message argument should be a block");
-};
-$4=_st(_st(_st(anotherIRInstruction)._arguments())._size()).__eq((0));
-if(! smalltalk.assert($4)){
-_st(self)._inliningError_("Inlined block should have zero argument");
 };
 inlinedClosure1=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anIRInstruction));
 inlinedClosure2=_st(_st(self)._translator())._visit_(_st(self)._inlineClosure_(anotherIRInstruction));
-$5=inlinedSend;
-_st($5)._add_(_st(_st(_st(self)._send())._instructions())._first());
-_st($5)._add_(inlinedClosure1);
-$6=_st($5)._add_(inlinedClosure2);
+$3=inlinedSend;
+_st($3)._add_(_st(_st(_st(self)._send())._instructions())._first());
+_st($3)._add_(inlinedClosure1);
+$4=_st($3)._add_(inlinedClosure2);
 _st(_st(self)._send())._replaceWith_(inlinedSend);
-$7=inlinedSend;
-return $7;
+$5=inlinedSend;
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,anotherIRInstruction:anotherIRInstruction,inlinedClosure1:inlinedClosure1,inlinedClosure2:inlinedClosure2},smalltalk.IRSendInliner)})},
 args: ["inlinedSend", "anIRInstruction", "anotherIRInstruction"],
-source: "inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09^ inlinedSend",
-messageSends: ["ifFalse:", "inliningError:", "isClosure", "=", "size", "arguments", "visit:", "inlineClosure:", "translator", "add:", "first", "instructions", "send", "replaceWith:"],
+source: "inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction\x0a\x09| inlinedClosure1 inlinedClosure2 |\x0a\x0a\x09anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x09anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].\x0a\x0a\x09inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).\x0a\x09inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).\x0a\x0a\x09inlinedSend\x0a\x09\x09add: self send instructions first;\x0a\x09\x09add: inlinedClosure1;\x0a\x09\x09add: inlinedClosure2.\x0a\x0a\x09self send replaceWith: inlinedSend.\x0a\x09^ inlinedSend",
+messageSends: ["ifFalse:", "inliningError:", "isClosure", "visit:", "inlineClosure:", "translator", "add:", "first", "instructions", "send", "replaceWith:"],
 referencedClasses: []
 }),
 smalltalk.IRSendInliner);
@@ -1458,48 +1406,6 @@ messageSends: ["inlineClosure:", "instructions", "last", "ifNotEmpty:", "ifTrue:
 referencedClasses: ["IRAssignment"]
 }),
 smalltalk.IRAssignmentInliner);
-
-
-
-smalltalk.addClass('IRNonLocalReturnInliner', smalltalk.IRSendInliner, [], 'Compiler-Inlining');
-smalltalk.addMethod(
-"_inlineClosure_",
-smalltalk.method({
-selector: "inlineClosure:",
-category: 'inlining',
-fn: function (anIRClosure){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=smalltalk.IRSendInliner.fn.prototype._inlineCLosure_.apply(_st(self), [anIRClosure]);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"inlineClosure:",{anIRClosure:anIRClosure},smalltalk.IRNonLocalReturnInliner)})},
-args: ["anIRClosure"],
-source: "inlineClosure: anIRClosure\x0a\x09\x22| inlinedClosure statements |\x0a\x0a\x09inlinedClosure := super inlineClosure: anIRClosure.\x0a\x09statements := inlinedClosure instructions last instructions.\x0a\x09\x0a\x09statements ifNotEmpty: [\x0a\x09\x09statements last replaceWith: (IRNonLocalReturn new\x0a\x09\x09\x09add: statements last copy;\x0a\x09\x09\x09yourself) ].\x0a\x0a\x09^ inlinedClosure\x22\x0a\x0a\x09^ super inlineCLosure: anIRClosure",
-messageSends: ["inlineCLosure:"],
-referencedClasses: []
-}),
-smalltalk.IRNonLocalReturnInliner);
-
-smalltalk.addMethod(
-"_inlinedReturn",
-smalltalk.method({
-selector: "inlinedReturn",
-category: 'factory',
-fn: function (){
-var self=this;
-function $IRInlinedNonLocalReturn(){return smalltalk.IRInlinedNonLocalReturn||(typeof IRInlinedNonLocalReturn=="undefined"?nil:IRInlinedNonLocalReturn)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($IRInlinedNonLocalReturn())._new();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"inlinedReturn",{},smalltalk.IRNonLocalReturnInliner)})},
-args: [],
-source: "inlinedReturn\x0a\x09^ IRInlinedNonLocalReturn new",
-messageSends: ["new"],
-referencedClasses: ["IRInlinedNonLocalReturn"]
-}),
-smalltalk.IRNonLocalReturnInliner);
 
 
 

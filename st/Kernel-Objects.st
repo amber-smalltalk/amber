@@ -270,12 +270,12 @@ ifNil: aBlock ifNotNil: anotherBlock
 
 ifNotNil: aBlock
 	"inlined in the Compiler"
-	^aBlock value
+	^aBlock value: self
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
-	^aBlock value
+	^aBlock value: self
 !
 
 isBoolean

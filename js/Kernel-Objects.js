@@ -435,12 +435,12 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(aBlock)._value();
+$1=_st(aBlock)._value_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},smalltalk.Object)})},
 args: ["aBlock"],
-source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
-messageSends: ["value"],
+source: "ifNotNil: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value: self",
+messageSends: ["value:"],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -454,12 +454,12 @@ fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(aBlock)._value();
+$1=_st(aBlock)._value_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Object)})},
 args: ["aBlock", "anotherBlock"],
-source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value",
-messageSends: ["value"],
+source: "ifNotNil: aBlock ifNil: anotherBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09^aBlock value: self",
+messageSends: ["value:"],
 referencedClasses: []
 }),
 smalltalk.Object);

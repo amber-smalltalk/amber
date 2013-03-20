@@ -323,10 +323,10 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(aBlock)._value();
+$1=_st(aBlock)._value_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:",{aBlock:aBlock},smalltalk.Object)})},
-messageSends: ["value"]}),
+messageSends: ["value:"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
@@ -337,10 +337,10 @@ fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(aBlock)._value();
+$1=_st(aBlock)._value_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotNil:ifNil:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Object)})},
-messageSends: ["value"]}),
+messageSends: ["value:"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
