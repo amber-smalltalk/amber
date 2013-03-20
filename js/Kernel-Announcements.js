@@ -8,7 +8,8 @@ selector: "announcementClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@announcementClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"announcementClass",{},smalltalk.AnnouncementSubscription)})},
@@ -26,7 +27,8 @@ selector: "announcementClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@announcementClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@announcementClass"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"announcementClass:",{aClass:aClass},smalltalk.AnnouncementSubscription)})},
 args: ["aClass"],
 source: "announcementClass: aClass\x0a\x09announcementClass := aClass",
@@ -42,7 +44,8 @@ selector: "block",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@block"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"block",{},smalltalk.AnnouncementSubscription)})},
@@ -60,7 +63,8 @@ selector: "block:",
 category: 'accessing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@block"]=aBlock;
+return smalltalk.withContext(function($ctx1) { 
+self["@block"]=aBlock;
 return self}, function($ctx1) {$ctx1.fill(self,"block:",{aBlock:aBlock},smalltalk.AnnouncementSubscription)})},
 args: ["aBlock"],
 source: "block: aBlock\x0a\x09block := aBlock",
@@ -76,7 +80,8 @@ selector: "deliver:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
 _st(_st(self)._block())._value_(anAnnouncement);
@@ -96,7 +101,8 @@ selector: "handlesAnnouncement:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(anAnnouncement)._isKindOf_(_st(self)._announcementClass());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
@@ -118,8 +124,10 @@ selector: "announce:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@subscriptions"])._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._deliver_(anAnnouncement);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@subscriptions"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._deliver_(anAnnouncement);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncement:anAnnouncement},smalltalk.Announcer)})},
 args: ["anAnnouncement"],
@@ -137,7 +145,8 @@ category: 'initialization',
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@subscriptions"]=_st($Array())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Announcer)})},
 args: [],
@@ -155,7 +164,8 @@ category: 'subscribing',
 fn: function (aClass,aBlock){
 var self=this;
 function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st($AnnouncementSubscription())._new();
 _st($1)._block_(aBlock);
 _st($1)._announcementClass_(aClass);
@@ -182,7 +192,8 @@ selector: "current",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@current"]=smalltalk.Announcer.klass.fn.prototype._new.apply(_st(self), []);
@@ -206,7 +217,8 @@ selector: "new",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._shouldNotImplement();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.SystemAnnouncer.klass)})},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",
@@ -225,7 +237,8 @@ selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@theClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.SystemAnnouncement)})},
@@ -243,7 +256,8 @@ selector: "theClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.SystemAnnouncement)})},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
@@ -262,7 +276,8 @@ selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@theClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ClassAnnouncement)})},
@@ -280,7 +295,8 @@ selector: "theClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ClassAnnouncement)})},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
@@ -319,7 +335,8 @@ selector: "method",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@method"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodAnnouncement)})},
@@ -337,7 +354,8 @@ selector: "method:",
 category: 'accessing',
 fn: function (aCompiledMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@method"]=aCompiledMethod;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=aCompiledMethod;
 return self}, function($ctx1) {$ctx1.fill(self,"method:",{aCompiledMethod:aCompiledMethod},smalltalk.MethodAnnouncement)})},
 args: ["aCompiledMethod"],
 source: "method: aCompiledMethod\x0a\x09method := aCompiledMethod",
@@ -359,7 +377,8 @@ selector: "oldMethod",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@oldMethod"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"oldMethod",{},smalltalk.MethodModified)})},
@@ -377,7 +396,8 @@ selector: "oldMethod:",
 category: 'accessing',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@oldMethod"]=aMethod;
+return smalltalk.withContext(function($ctx1) { 
+self["@oldMethod"]=aMethod;
 return self}, function($ctx1) {$ctx1.fill(self,"oldMethod:",{aMethod:aMethod},smalltalk.MethodModified)})},
 args: ["aMethod"],
 source: "oldMethod: aMethod\x0a\x09oldMethod := aMethod",
@@ -399,7 +419,8 @@ selector: "package",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@package"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"package",{},smalltalk.PackageAnnouncement)})},
@@ -417,7 +438,8 @@ selector: "package:",
 category: 'accessing',
 fn: function (aPackage){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@package"]=aPackage;
+return smalltalk.withContext(function($ctx1) { 
+self["@package"]=aPackage;
 return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage},smalltalk.PackageAnnouncement)})},
 args: ["aPackage"],
 source: "package: aPackage\x0a\x09package := aPackage",
@@ -442,7 +464,8 @@ selector: "protocol",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@protocol"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"protocol",{},smalltalk.ProtocolAnnouncement)})},
@@ -460,7 +483,8 @@ selector: "protocol:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@protocol"]=aString;
+return smalltalk.withContext(function($ctx1) { 
+self["@protocol"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString},smalltalk.ProtocolAnnouncement)})},
 args: ["aString"],
 source: "protocol: aString\x0a\x09protocol := aString",
@@ -476,7 +500,8 @@ selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@theClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ProtocolAnnouncement)})},
@@ -494,7 +519,8 @@ selector: "theClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ProtocolAnnouncement)})},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",

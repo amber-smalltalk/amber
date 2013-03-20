@@ -8,7 +8,8 @@ selector: "applyTo:arguments:",
 category: 'evaluating',
 fn: function (anObject,aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.apply(anObject, aCollection);
+return smalltalk.withContext(function($ctx1) { 
+return self.apply(anObject, aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},smalltalk.BlockClosure)})},
 args: ["anObject", "aCollection"],
 source: "applyTo: anObject arguments: aCollection\x0a\x09<return self.apply(anObject, aCollection)>",
@@ -24,7 +25,8 @@ selector: "asCompiledMethod:",
 category: 'converting',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.method({selector:aString, fn:self});;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.method({selector:aString, fn:self});;
 return self}, function($ctx1) {$ctx1.fill(self,"asCompiledMethod:",{aString:aString},smalltalk.BlockClosure)})},
 args: ["aString"],
 source: "asCompiledMethod: aString\x0a\x09<return smalltalk.method({selector:aString, fn:self});>",
@@ -40,7 +42,8 @@ selector: "compiledSource",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.toString();
+return smalltalk.withContext(function($ctx1) { 
+return self.toString();
 return self}, function($ctx1) {$ctx1.fill(self,"compiledSource",{},smalltalk.BlockClosure)})},
 args: [],
 source: "compiledSource\x0a\x09<return self.toString()>",
@@ -57,6 +60,7 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		return function () {
 			var args = [ this ];
 			args.push.apply(args, arguments);
@@ -78,7 +82,8 @@ selector: "ensure:",
 category: 'evaluating',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { try{return self()}finally{aBlock._value()};
+return smalltalk.withContext(function($ctx1) { 
+try{return self()}finally{aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"ensure:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["aBlock"],
 source: "ensure: aBlock\x0a\x09<try{return self()}finally{aBlock._value()}>",
@@ -95,7 +100,8 @@ category: 'timeout/interval',
 fn: function (){
 var self=this;
 function $ForkPool(){return smalltalk.ForkPool||(typeof ForkPool=="undefined"?nil:ForkPool)}
-return smalltalk.withContext(function($ctx1) { _st(_st($ForkPool())._default())._fork_(self);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($ForkPool())._default())._fork_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"fork",{},smalltalk.BlockClosure)})},
 args: [],
 source: "fork\x0a\x09ForkPool default fork: self",
@@ -111,7 +117,8 @@ selector: "new",
 category: 'evaluating',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self();
+return smalltalk.withContext(function($ctx1) { 
+return new self();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.BlockClosure)})},
 args: [],
 source: "new\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self()>",
@@ -127,7 +134,8 @@ selector: "newValue:",
 category: 'evaluating',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject);
+return smalltalk.withContext(function($ctx1) { 
+return new self(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
 args: ["anObject"],
 source: "newValue: anObject\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject)>",
@@ -143,7 +151,8 @@ selector: "newValue:value:",
 category: 'evaluating',
 fn: function (anObject,anObject2){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2);
+return smalltalk.withContext(function($ctx1) { 
+return new self(anObject, anObject2);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2"],
 source: "newValue: anObject value: anObject2\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
@@ -159,7 +168,8 @@ selector: "newValue:value:value:",
 category: 'evaluating',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self(anObject, anObject2,anObject3);
+return smalltalk.withContext(function($ctx1) { 
+return new self(anObject, anObject2,anObject3);
 return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
 source: "newValue: anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2,anObject3)>",
@@ -175,7 +185,8 @@ selector: "numArgs",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.length;
+return smalltalk.withContext(function($ctx1) { 
+return self.length;
 return self}, function($ctx1) {$ctx1.fill(self,"numArgs",{},smalltalk.BlockClosure)})},
 args: [],
 source: "numArgs\x0a\x09<return self.length>",
@@ -192,10 +203,12 @@ category: 'error handling',
 fn: function (anErrorClass,aBlock){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $1=_st(self)._try_catch_(self,(function(error){
 var smalltalkError;
-return smalltalk.withContext(function($ctx2) {smalltalkError=_st(_st($Smalltalk())._current())._asSmalltalkException_(error);
+return smalltalk.withContext(function($ctx2) {
+smalltalkError=_st(_st($Smalltalk())._current())._asSmalltalkException_(error);
 smalltalkError;
 $2=_st(smalltalkError)._isKindOf_(anErrorClass);
 if(smalltalk.assert($2)){
@@ -221,7 +234,8 @@ category: 'evaluating',
 fn: function (){
 var self=this;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st($Date())._millisecondsToRun_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"timeToRun",{},smalltalk.BlockClosure)})},
@@ -239,7 +253,8 @@ selector: "value",
 category: 'evaluating',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self();;
+return smalltalk.withContext(function($ctx1) { 
+return self();;
 return self}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.BlockClosure)})},
 args: [],
 source: "value\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self();>",
@@ -255,7 +270,8 @@ selector: "value:",
 category: 'evaluating',
 fn: function (anArg){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self(anArg);;
+return smalltalk.withContext(function($ctx1) { 
+return self(anArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:",{anArg:anArg},smalltalk.BlockClosure)})},
 args: ["anArg"],
 source: "value: anArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(anArg);>",
@@ -271,7 +287,8 @@ selector: "value:value:",
 category: 'evaluating',
 fn: function (firstArg,secondArg){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self(firstArg, secondArg);;
+return smalltalk.withContext(function($ctx1) { 
+return self(firstArg, secondArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArg:firstArg,secondArg:secondArg},smalltalk.BlockClosure)})},
 args: ["firstArg", "secondArg"],
 source: "value: firstArg value: secondArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg);>",
@@ -287,7 +304,8 @@ selector: "value:value:value:",
 category: 'evaluating',
 fn: function (firstArg,secondArg,thirdArg){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self(firstArg, secondArg, thirdArg);;
+return smalltalk.withContext(function($ctx1) { 
+return self(firstArg, secondArg, thirdArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArg:firstArg,secondArg:secondArg,thirdArg:thirdArg},smalltalk.BlockClosure)})},
 args: ["firstArg", "secondArg", "thirdArg"],
 source: "value: firstArg value: secondArg value: thirdArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
@@ -304,6 +322,7 @@ category: 'timeout/interval',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var interval = setInterval(self, aNumber);
 		return smalltalk.Timeout._on_(interval);
 	;
@@ -322,7 +341,8 @@ selector: "valueWithPossibleArguments:",
 category: 'evaluating',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.apply(null, aCollection);;
+return smalltalk.withContext(function($ctx1) { 
+return self.apply(null, aCollection);;
 return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},smalltalk.BlockClosure)})},
 args: ["aCollection"],
 source: "valueWithPossibleArguments: aCollection\x0a\x09<return self.apply(null, aCollection);>",
@@ -339,6 +359,7 @@ category: 'timeout/interval',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var timeout = setTimeout(self, aNumber);
 		return smalltalk.Timeout._on_(timeout);
 	;
@@ -357,8 +378,10 @@ selector: "whileFalse",
 category: 'controlling',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},smalltalk.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileFalse: []",
@@ -374,7 +397,8 @@ selector: "whileFalse:",
 category: 'controlling',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { while(!self()) {aBlock()};
+return smalltalk.withContext(function($ctx1) { 
+while(!self()) {aBlock()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["aBlock"],
 source: "whileFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(!self()) {aBlock()}>",
@@ -390,8 +414,10 @@ selector: "whileTrue",
 category: 'controlling',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._whileTrue_((function(){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},smalltalk.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileTrue: []",
@@ -407,7 +433,8 @@ selector: "whileTrue:",
 category: 'controlling',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { while(self()) {aBlock()};
+return smalltalk.withContext(function($ctx1) { 
+while(self()) {aBlock()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["aBlock"],
 source: "whileTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(self()) {aBlock()}>",
@@ -427,7 +454,8 @@ selector: "arguments",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.args || [];
+return smalltalk.withContext(function($ctx1) { 
+return self.args || [];
 return self}, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.CompiledMethod)})},
 args: [],
 source: "arguments\x0a\x09<return self.args || []>",
@@ -443,7 +471,8 @@ selector: "category",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self)._basicAt_("category");
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=_st(self)._defaultCategory();
@@ -467,7 +496,8 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 var oldCategory;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 oldCategory=_st(self)._category();
 _st(self)._basicAt_put_("category",aString);
 $1=_st(self)._methodClass();
@@ -476,9 +506,11 @@ $1;
 } else {
 _st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
 _st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(oldCategory);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._category()).__eq(oldCategory);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldCategory);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldCategory);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldCategory:oldCategory},smalltalk.CompiledMethod)})},
@@ -496,7 +528,8 @@ selector: "defaultCategory",
 category: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "as yet unclassified";
+return smalltalk.withContext(function($ctx1) { 
+return "as yet unclassified";
 }, function($ctx1) {$ctx1.fill(self,"defaultCategory",{},smalltalk.CompiledMethod)})},
 args: [],
 source: "defaultCategory\x0a\x09^ 'as yet unclassified'",
@@ -512,7 +545,8 @@ selector: "fn",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._basicAt_("fn");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fn",{},smalltalk.CompiledMethod)})},
@@ -530,7 +564,8 @@ selector: "fn:",
 category: 'accessing',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("fn",aBlock);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._basicAt_put_("fn",aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fn:",{aBlock:aBlock},smalltalk.CompiledMethod)})},
 args: ["aBlock"],
 source: "fn: aBlock\x0a\x09self basicAt: 'fn' put: aBlock",
@@ -546,7 +581,8 @@ selector: "messageSends",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._basicAt_("messageSends");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},smalltalk.CompiledMethod)})},
@@ -564,7 +600,8 @@ selector: "methodClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._basicAt_("methodClass");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodClass",{},smalltalk.CompiledMethod)})},
@@ -582,7 +619,8 @@ selector: "protocol",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._category();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"protocol",{},smalltalk.CompiledMethod)})},
@@ -600,7 +638,8 @@ selector: "referencedClasses",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._basicAt_("referencedClasses");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},smalltalk.CompiledMethod)})},
@@ -618,7 +657,8 @@ selector: "selector",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._basicAt_("selector");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.CompiledMethod)})},
@@ -636,7 +676,8 @@ selector: "selector:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("selector",aString);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._basicAt_put_("selector",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.CompiledMethod)})},
 args: ["aString"],
 source: "selector: aString\x0a\x09self basicAt: 'selector' put: aString",
@@ -652,7 +693,8 @@ selector: "source",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self)._basicAt_("source");
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="";
@@ -675,7 +717,8 @@ selector: "source:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicAt_put_("source",aString);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._basicAt_put_("source",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"source:",{aString:aString},smalltalk.CompiledMethod)})},
 args: ["aString"],
 source: "source: aString\x0a\x09self basicAt: 'source' put: aString",
@@ -695,7 +738,8 @@ selector: "addWorker",
 category: 'private',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@worker"])._valueWithTimeout_((0));
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@worker"])._valueWithTimeout_((0));
 self["@poolSize"]=_st(self["@poolSize"]).__plus((1));
 return self}, function($ctx1) {$ctx1.fill(self,"addWorker",{},smalltalk.ForkPool)})},
 args: [],
@@ -712,7 +756,8 @@ selector: "defaultMaxPoolSize",
 category: 'defaults',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._class())._defaultMaxPoolSize();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},smalltalk.ForkPool)})},
@@ -730,7 +775,8 @@ selector: "fork:",
 category: 'actions',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@poolSize"]).__lt(_st(self)._maxPoolSize());
 if(smalltalk.assert($1)){
 _st(self)._addWorker();
@@ -752,7 +798,8 @@ category: 'initialization',
 fn: function (){
 var self=this;
 function $Queue(){return smalltalk.Queue||(typeof Queue=="undefined"?nil:Queue)}
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@poolSize"]=(0);
 self["@queue"]=_st($Queue())._new();
 self["@worker"]=_st(self)._makeWorker();
@@ -773,22 +820,27 @@ fn: function (){
 var self=this;
 var sentinel;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 sentinel=_st($Object())._new();
 $1=(function(){
 var block;
-return smalltalk.withContext(function($ctx2) {self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
+return smalltalk.withContext(function($ctx2) {
+self["@poolSize"]=_st(self["@poolSize"]).__minus((1));
 self["@poolSize"];
 block=_st(self["@queue"])._frontIfAbsent_((function(){
-return smalltalk.withContext(function($ctx3) {return sentinel;
+return smalltalk.withContext(function($ctx3) {
+return sentinel;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){
 return _st((function(){
-return smalltalk.withContext(function($ctx3) {return _st(block)._value();
+return smalltalk.withContext(function($ctx3) {
+return _st(block)._value();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._addWorker();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._addWorker();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 };
 }, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1)})});
@@ -808,7 +860,8 @@ selector: "maxPoolSize",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@maxPoolSize"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=_st(self)._defaultMaxPoolSize();
@@ -831,7 +884,8 @@ selector: "maxPoolSize:",
 category: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@maxPoolSize"]=anInteger;
+return smalltalk.withContext(function($ctx1) { 
+self["@maxPoolSize"]=anInteger;
 return self}, function($ctx1) {$ctx1.fill(self,"maxPoolSize:",{anInteger:anInteger},smalltalk.ForkPool)})},
 args: ["anInteger"],
 source: "maxPoolSize: anInteger\x0a\x09maxPoolSize := anInteger",
@@ -849,7 +903,8 @@ selector: "default",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@default"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@default"]=_st(self)._new();
@@ -873,7 +928,8 @@ selector: "defaultMaxPoolSize",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=(100);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},smalltalk.ForkPool.klass)})},
@@ -891,7 +947,8 @@ selector: "resetDefault",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@default"]=nil;
+return smalltalk.withContext(function($ctx1) { 
+self["@default"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"resetDefault",{},smalltalk.ForkPool.klass)})},
 args: [],
 source: "resetDefault\x0a\x09default := nil",
@@ -910,7 +967,8 @@ selector: "arguments",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@arguments"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.Message)})},
@@ -928,7 +986,8 @@ selector: "arguments:",
 category: 'accessing',
 fn: function (anArray){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@arguments"]=anArray;
+return smalltalk.withContext(function($ctx1) { 
+self["@arguments"]=anArray;
 return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{anArray:anArray},smalltalk.Message)})},
 args: ["anArray"],
 source: "arguments: anArray\x0a\x09arguments := anArray",
@@ -944,7 +1003,8 @@ selector: "printOn:",
 category: 'printing',
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_("(");
@@ -965,7 +1025,8 @@ selector: "selector",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@selector"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.Message)})},
@@ -983,7 +1044,8 @@ selector: "selector:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@selector"]=aString;
+return smalltalk.withContext(function($ctx1) { 
+self["@selector"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.Message)})},
 args: ["aString"],
 source: "selector: aString\x0a\x09selector := aString",
@@ -999,7 +1061,8 @@ selector: "sendTo:",
 category: 'actions',
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(anObject)._perform_withArguments_(_st(self)._selector(),_st(self)._arguments());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendTo:",{anObject:anObject},smalltalk.Message)})},
@@ -1018,7 +1081,8 @@ selector: "selector:arguments:",
 category: 'instance creation',
 fn: function (aString,anArray){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._selector_(aString);
 _st($2)._arguments_(anArray);
@@ -1043,7 +1107,8 @@ selector: "asString",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self)._isBlockContext();
 if(smalltalk.assert($2)){
 $1=_st(_st("a block (in ").__comma(_st(_st(_st(_st(self)._methodContext())._receiver())._class())._printString())).__comma(")");
@@ -1066,7 +1131,8 @@ selector: "home",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.methodContext || self.homeContext;
+return smalltalk.withContext(function($ctx1) { 
+return self.methodContext || self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"home",{},smalltalk.MethodContext)})},
 args: [],
 source: "home\x0a\x09<return self.methodContext || self.homeContext>",
@@ -1082,7 +1148,8 @@ selector: "isBlockContext",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._selector())._isNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.MethodContext)})},
@@ -1100,7 +1167,8 @@ selector: "locals",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.locals;
+return smalltalk.withContext(function($ctx1) { 
+return self.locals;
 return self}, function($ctx1) {$ctx1.fill(self,"locals",{},smalltalk.MethodContext)})},
 args: [],
 source: "locals\x0a\x09<return self.locals>",
@@ -1116,7 +1184,8 @@ selector: "method",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(self)._methodContext())._receiver())._class())._lookupSelector_(_st(_st(self)._methodContext())._selector());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},
@@ -1134,7 +1203,8 @@ selector: "methodContext",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._isBlockContext();
 if(! smalltalk.assert($1)){
 $2=self;
@@ -1157,7 +1227,8 @@ selector: "outerContext",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.homeContext;
+return smalltalk.withContext(function($ctx1) { 
+return self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"outerContext",{},smalltalk.MethodContext)})},
 args: [],
 source: "outerContext\x0a\x09<return self.homeContext>",
@@ -1173,7 +1244,8 @@ selector: "pc",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.pc;
+return smalltalk.withContext(function($ctx1) { 
+return self.pc;
 return self}, function($ctx1) {$ctx1.fill(self,"pc",{},smalltalk.MethodContext)})},
 args: [],
 source: "pc\x0a\x09<return self.pc>",
@@ -1189,7 +1261,8 @@ selector: "printOn:",
 category: 'printing',
 fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_("(");
@@ -1210,7 +1283,8 @@ selector: "receiver",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.receiver;
+return smalltalk.withContext(function($ctx1) { 
+return self.receiver;
 return self}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.MethodContext)})},
 args: [],
 source: "receiver\x0a\x09<return self.receiver>",
@@ -1227,6 +1301,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		if(self.selector) {
 			return smalltalk.convertSelector(self.selector);
 		} else {
@@ -1248,7 +1323,8 @@ selector: "temps",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(self)._deprecatedAPI();
 $1=_st(self)._locals();
 return $1;
@@ -1273,6 +1349,7 @@ category: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var native=eval(aString);
 		return new native();
 	;
@@ -1292,6 +1369,7 @@ category: 'instance creation',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var native=eval(aString);
 		return new native(anObject);
 	;
@@ -1311,6 +1389,7 @@ category: 'instance creation',
 fn: function (aString,anObject,anObject2){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var native=eval(aString);
 		return new native(anObject,anObject2);
 	;
@@ -1330,6 +1409,7 @@ category: 'instance creation',
 fn: function (aString,anObject,anObject2,anObject3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var native=eval(aString);
 		return new native(anObject,anObject2, anObject3);
 	;
@@ -1349,6 +1429,7 @@ category: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		if(aString in window) {
 			return true
 		} else {

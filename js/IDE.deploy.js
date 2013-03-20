@@ -6,7 +6,8 @@ smalltalk.method({
 selector: "browser",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@browser"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"browser",{},smalltalk.ClassesList)})},
@@ -19,7 +20,8 @@ smalltalk.method({
 selector: "browser:",
 fn: function (aBrowser){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@browser"]=aBrowser;
+return smalltalk.withContext(function($ctx1) { 
+self["@browser"]=aBrowser;
 return self}, function($ctx1) {$ctx1.fill(self,"browser:",{aBrowser:aBrowser},smalltalk.ClassesList)})},
 messageSends: []}),
 smalltalk.ClassesList);
@@ -30,7 +32,8 @@ smalltalk.method({
 selector: "category",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._browser())._selectedPackage();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.ClassesList)})},
@@ -45,12 +48,14 @@ fn: function (){
 var self=this;
 var classes,children,others;
 function $ClassesListNode(){return smalltalk.ClassesListNode||(typeof ClassesListNode=="undefined"?nil:ClassesListNode)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 classes=_st(_st(self)._browser())._classes();
 children=[];
 others=[];
 _st(classes)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(classes)._includes_(_st(each)._superclass());
+return smalltalk.withContext(function($ctx2) {
+$1=_st(classes)._includes_(_st(each)._superclass());
 if(smalltalk.assert($1)){
 return _st(others)._add_(each);
 } else {
@@ -58,7 +63,8 @@ return _st(children)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=_st(children)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st($ClassesListNode())._on_browser_classes_level_(each,_st(self)._browser(),others,(0));
+return smalltalk.withContext(function($ctx2) {
+return _st($ClassesListNode())._on_browser_classes_level_(each,_st(self)._browser(),others,(0));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"getNodes",{classes:classes,children:children,others:others},smalltalk.ClassesList)})},
@@ -71,7 +77,8 @@ smalltalk.method({
 selector: "nodes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self["@nodes"];
 if(($receiver = $1) == nil || $receiver == undefined){
 self["@nodes"]=_st(self)._getNodes();
@@ -91,7 +98,8 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._ul();
 _st($1)._class_("amber_column browser classes");
 $2=_st($1)._yourself();
@@ -107,7 +115,8 @@ smalltalk.method({
 selector: "resetNodes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@nodes"]=nil;
+return smalltalk.withContext(function($ctx1) { 
+self["@nodes"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"resetNodes",{},smalltalk.ClassesList)})},
 messageSends: []}),
 smalltalk.ClassesList);
@@ -118,9 +127,12 @@ smalltalk.method({
 selector: "updateNodes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@ul"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._nodes())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(each)._renderOn_(html);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@ul"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._nodes())._do_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(each)._renderOn_(html);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateNodes",{},smalltalk.ClassesList)})},
@@ -134,7 +146,8 @@ smalltalk.method({
 selector: "on:",
 fn: function (aBrowser){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._browser_(aBrowser);
 $3=_st($2)._yourself();
@@ -152,7 +165,8 @@ smalltalk.method({
 selector: "browser",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@browser"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"browser",{},smalltalk.ClassesListNode)})},
@@ -165,7 +179,8 @@ smalltalk.method({
 selector: "browser:",
 fn: function (aBrowser){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@browser"]=aBrowser;
+return smalltalk.withContext(function($ctx1) { 
+self["@browser"]=aBrowser;
 return self}, function($ctx1) {$ctx1.fill(self,"browser:",{aBrowser:aBrowser},smalltalk.ClassesListNode)})},
 messageSends: []}),
 smalltalk.ClassesListNode);
@@ -178,11 +193,13 @@ fn: function (aCollection){
 var self=this;
 var children,others;
 function $ClassesListNode(){return smalltalk.ClassesListNode||(typeof ClassesListNode=="undefined"?nil:ClassesListNode)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 children=[];
 others=[];
 _st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
 if(smalltalk.assert($1)){
 return _st(children)._add_(each);
 } else {
@@ -190,7 +207,8 @@ return _st(others)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 self["@nodes"]=_st(children)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st($ClassesListNode())._on_browser_classes_level_(each,_st(self)._browser(),others,_st(_st(self)._level()).__plus((1)));
+return smalltalk.withContext(function($ctx2) {
+return _st($ClassesListNode())._on_browser_classes_level_(each,_st(self)._browser(),others,_st(_st(self)._level()).__plus((1)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"getNodesFrom:",{aCollection:aCollection,children:children,others:others},smalltalk.ClassesListNode)})},
 messageSends: ["do:", "ifTrue:ifFalse:", "add:", "=", "theClass", "superclass", "collect:", "on:browser:classes:level:", "browser", "+", "level"]}),
@@ -204,10 +222,12 @@ fn: function (){
 var self=this;
 var str;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 str=_st(_st($String())._new())._writeStream();
 _st(_st(self)._level())._timesRepeat_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(str)._nextPutAll_("&nbsp;&nbsp;&nbsp;&nbsp;");
+return smalltalk.withContext(function($ctx2) {
+return _st(str)._nextPutAll_("&nbsp;&nbsp;&nbsp;&nbsp;");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(str)._nextPutAll_(_st(_st(self)._theClass())._name());
 $1=_st(str)._contents();
@@ -222,7 +242,8 @@ smalltalk.method({
 selector: "level",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@level"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"level",{},smalltalk.ClassesListNode)})},
@@ -235,7 +256,8 @@ smalltalk.method({
 selector: "level:",
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@level"]=anInteger;
+return smalltalk.withContext(function($ctx1) { 
+self["@level"]=anInteger;
 return self}, function($ctx1) {$ctx1.fill(self,"level:",{anInteger:anInteger},smalltalk.ClassesListNode)})},
 messageSends: []}),
 smalltalk.ClassesListNode);
@@ -246,7 +268,8 @@ smalltalk.method({
 selector: "nodes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@nodes"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.ClassesListNode)})},
@@ -260,10 +283,12 @@ selector: "renderOn:",
 fn: function (html){
 var self=this;
 var li,cssClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 cssClass="";
 li=_st(_st(html)._li())._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._browser())._selectClass_(_st(self)._theClass());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._browser())._selectClass_(_st(self)._theClass());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(_st(li)._asJQuery())._html_(_st(self)._label());
 $1=_st(_st(_st(self)._browser())._selectedClass()).__eq(_st(self)._theClass());
@@ -278,7 +303,8 @@ cssClass;
 };
 _st(li)._class_(cssClass);
 _st(_st(self)._nodes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._renderOn_(html);
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._renderOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html,li:li,cssClass:cssClass},smalltalk.ClassesListNode)})},
 messageSends: ["onClick:", "selectClass:", "theClass", "browser", "li", "html:", "label", "asJQuery", "ifTrue:", ",", "=", "selectedClass", "ifFalse:", "isEmpty", "comment", "class:", "do:", "renderOn:", "nodes"]}),
@@ -290,7 +316,8 @@ smalltalk.method({
 selector: "theClass",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@theClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ClassesListNode)})},
@@ -303,7 +330,8 @@ smalltalk.method({
 selector: "theClass:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ClassesListNode)})},
 messageSends: []}),
 smalltalk.ClassesListNode);
@@ -315,7 +343,8 @@ smalltalk.method({
 selector: "on:browser:classes:level:",
 fn: function (aClass,aBrowser,aCollection,anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._theClass_(aClass);
 _st($2)._browser_(aBrowser);
@@ -339,14 +368,17 @@ var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $Debugger(){return smalltalk.Debugger||(typeof Debugger=="undefined"?nil:Debugger)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st((function(){
-return smalltalk.withContext(function($ctx2) {$1=_st($Debugger())._new();
+return smalltalk.withContext(function($ctx2) {
+$1=_st($Debugger())._new();
 _st($1)._error_(anError);
 $2=_st($1)._open();
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(error){
-return smalltalk.withContext(function($ctx2) {return _st(_st($ErrorHandler())._new())._handleError_(error);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($ErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.DebugErrorHandler)})},
 messageSends: ["on:do:", "handleError:", "new", "error:", "open"]}),
@@ -359,7 +391,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._register();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.DebugErrorHandler.klass)})},
 messageSends: ["register"]}),
 smalltalk.DebugErrorHandler.klass);
@@ -372,7 +405,8 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._val_("");
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._val_("");
 return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.SourceArea)})},
 messageSends: ["val:"]}),
 smalltalk.SourceArea);
@@ -383,7 +417,8 @@ smalltalk.method({
 selector: "currentLine",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@editor"])._getLine_(_st(_st(self["@editor"])._getCursor())._line());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentLine",{},smalltalk.SourceArea)})},
@@ -396,7 +431,8 @@ smalltalk.method({
 selector: "currentLineOrSelection",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self["@editor"])._somethingSelected();
 if(smalltalk.assert($2)){
 $1=_st(self)._selection();
@@ -415,7 +451,8 @@ selector: "doIt",
 fn: function (){
 var self=this;
 var result;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 result=_st(self)._eval_(_st(self)._currentLineOrSelection());
 $1=_st(self)._onDoIt();
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -435,7 +472,8 @@ smalltalk.method({
 selector: "editor",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@editor"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editor",{},smalltalk.SourceArea)})},
@@ -451,14 +489,17 @@ var self=this;
 var compiler;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 var $early={};
 try {
 compiler=_st($Compiler())._new();
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(compiler)._parseExpression_(aString);
+return smalltalk.withContext(function($ctx2) {
+return _st(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
-return smalltalk.withContext(function($ctx2) {$1=_st(window)._alert_(_st(ex)._messageText());
+return smalltalk.withContext(function($ctx2) {
+$1=_st(window)._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 $2=_st(compiler)._evaluateExpression_on_(aString,_st(self)._receiver());
@@ -476,7 +517,8 @@ selector: "fileIn",
 fn: function (){
 var self=this;
 function $Importer(){return smalltalk.Importer||(typeof Importer=="undefined"?nil:Importer)}
-return smalltalk.withContext(function($ctx1) { _st(_st($Importer())._new())._import_(_st(_st(self)._currentLineOrSelection())._readStream());
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Importer())._new())._import_(_st(_st(self)._currentLineOrSelection())._readStream());
 return self}, function($ctx1) {$ctx1.fill(self,"fileIn",{},smalltalk.SourceArea)})},
 messageSends: ["import:", "readStream", "currentLineOrSelection", "new"]}),
 smalltalk.SourceArea);
@@ -487,7 +529,8 @@ smalltalk.method({
 selector: "focus",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._editor())._focus();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._editor())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.SourceArea)})},
 messageSends: ["focus", "editor"]}),
 smalltalk.SourceArea);
@@ -498,7 +541,8 @@ smalltalk.method({
 selector: "handleKeyDown:",
 fn: function (anEvent){
 var self=this;
-return smalltalk.withContext(function($ctx1) { if(anEvent.ctrlKey) {
+return smalltalk.withContext(function($ctx1) { 
+if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 80) { //ctrl+p
 			self._printIt();
 			anEvent.preventDefault();
@@ -525,7 +569,8 @@ smalltalk.method({
 selector: "inspectIt",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._doIt())._inspect();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._doIt())._inspect();
 return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{},smalltalk.SourceArea)})},
 messageSends: ["inspect", "doIt"]}),
 smalltalk.SourceArea);
@@ -536,7 +581,8 @@ smalltalk.method({
 selector: "onDoIt",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@onDoIt"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"onDoIt",{},smalltalk.SourceArea)})},
@@ -549,7 +595,8 @@ smalltalk.method({
 selector: "onDoIt:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@onDoIt"]=aBlock;
+return smalltalk.withContext(function($ctx1) { 
+self["@onDoIt"]=aBlock;
 return self}, function($ctx1) {$ctx1.fill(self,"onDoIt:",{aBlock:aBlock},smalltalk.SourceArea)})},
 messageSends: []}),
 smalltalk.SourceArea);
@@ -560,7 +607,8 @@ smalltalk.method({
 selector: "onKeyDown:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@div"])._onKeyDown_(aBlock);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@div"])._onKeyDown_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{aBlock:aBlock},smalltalk.SourceArea)})},
 messageSends: ["onKeyDown:"]}),
 smalltalk.SourceArea);
@@ -571,7 +619,8 @@ smalltalk.method({
 selector: "onKeyUp:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@div"])._onKeyUp_(aBlock);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@div"])._onKeyUp_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{aBlock:aBlock},smalltalk.SourceArea)})},
 messageSends: ["onKeyUp:"]}),
 smalltalk.SourceArea);
@@ -584,12 +633,14 @@ fn: function (aString){
 var self=this;
 var start,stop,currentLine;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
-return smalltalk.withContext(function($ctx1) { currentLine=_st(_st(self["@editor"])._getCursor_(false))._line();
+return smalltalk.withContext(function($ctx1) { 
+currentLine=_st(_st(self["@editor"])._getCursor_(false))._line();
 start=_st($HashedCollection())._new();
 _st(start)._at_put_("line",currentLine);
 _st(start)._at_put_("ch",_st(_st(self["@editor"])._getCursor_(false))._ch());
 _st(_st(self["@editor"])._getSelection())._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {_st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
+return smalltalk.withContext(function($ctx2) {
+_st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
 return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(currentLine),_st("ch").__minus_gt((0))]),start);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 stop=_st($HashedCollection())._new();
@@ -608,7 +659,8 @@ smalltalk.method({
 selector: "printIt",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._print_(_st(_st(self)._doIt())._printString());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._print_(_st(_st(self)._doIt())._printString());
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{},smalltalk.SourceArea)})},
 messageSends: ["print:", "printString", "doIt", "focus"]}),
@@ -621,7 +673,8 @@ selector: "receiver",
 fn: function (){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@receiver"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=_st($DoIt())._new();
@@ -639,7 +692,8 @@ smalltalk.method({
 selector: "receiver:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@receiver"]=anObject;
+return smalltalk.withContext(function($ctx1) { 
+self["@receiver"]=anObject;
 return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},smalltalk.SourceArea)})},
 messageSends: []}),
 smalltalk.SourceArea);
@@ -651,14 +705,17 @@ selector: "renderOn:",
 fn: function (html){
 var self=this;
 var textarea;
-return smalltalk.withContext(function($ctx1) { self["@div"]=_st(_st(html)._div())._class_("source");
+return smalltalk.withContext(function($ctx1) { 
+self["@div"]=_st(_st(html)._div())._class_("source");
 _st(self["@div"])._with_((function(){
-return smalltalk.withContext(function($ctx2) {textarea=_st(html)._textarea();
+return smalltalk.withContext(function($ctx2) {
+textarea=_st(html)._textarea();
 return textarea;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._setEditorOn_(_st(textarea)._element());
 _st(self["@div"])._onKeyDown_((function(e){
-return smalltalk.withContext(function($ctx2) {return _st(self)._handleKeyDown_(e);
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._handleKeyDown_(e);
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html,textarea:textarea},smalltalk.SourceArea)})},
 messageSends: ["class:", "div", "with:", "textarea", "setEditorOn:", "element", "onKeyDown:", "handleKeyDown:"]}),
@@ -670,7 +727,8 @@ smalltalk.method({
 selector: "selection",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@editor"])._getSelection();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selection",{},smalltalk.SourceArea)})},
@@ -683,7 +741,8 @@ smalltalk.method({
 selector: "setEditorOn:",
 fn: function (aTextarea){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+return smalltalk.withContext(function($ctx1) { 
+self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'amber',
 				lineNumbers: true,
 				enterMode: 'flat',
@@ -702,7 +761,8 @@ smalltalk.method({
 selector: "val",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@editor"])._getValue();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"val",{},smalltalk.SourceArea)})},
@@ -715,7 +775,8 @@ smalltalk.method({
 selector: "val:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@editor"])._setValue_(aString);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@editor"])._setValue_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"val:",{aString:aString},smalltalk.SourceArea)})},
 messageSends: ["setValue:"]}),
 smalltalk.SourceArea);
@@ -727,7 +788,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Widget.klass.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.Widget.klass.fn.prototype._initialize.apply(_st(self), []);
 _st(self)._setupCodeMirror();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.SourceArea.klass)})},
 messageSends: ["initialize", "setupCodeMirror"]}),
@@ -739,7 +801,8 @@ smalltalk.method({
 selector: "setupCodeMirror",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
+return smalltalk.withContext(function($ctx1) { 
+ CodeMirror.keyMap["default"].fallthrough = ["basic"] ;
 return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.SourceArea.klass)})},
 messageSends: []}),
 smalltalk.SourceArea.klass);
@@ -752,7 +815,8 @@ smalltalk.method({
 selector: "addTab:",
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._tabs())._add_(aWidget);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._tabs())._add_(aWidget);
 _st(aWidget)._appendToJQuery_(_st("#amber")._asJQuery());
 _st(aWidget)._hide();
 return self}, function($ctx1) {$ctx1.fill(self,"addTab:",{aWidget:aWidget},smalltalk.TabManager)})},
@@ -765,7 +829,8 @@ smalltalk.method({
 selector: "close",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@opened"];
 if(smalltalk.assert($1)){
 _st(_st("#amber")._asJQuery())._hide();
@@ -786,7 +851,8 @@ smalltalk.method({
 selector: "closeTab:",
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._removeTab_(aWidget);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._removeTab_(aWidget);
 _st(self)._selectTab_(_st(_st(self)._tabs())._last());
 _st(aWidget)._remove();
 _st(self)._update();
@@ -803,11 +869,13 @@ var self=this;
 function $IDETranscript(){return smalltalk.IDETranscript||(typeof IDETranscript=="undefined"?nil:IDETranscript)}
 function $Workspace(){return smalltalk.Workspace||(typeof Workspace=="undefined"?nil:Workspace)}
 function $TestRunner(){return smalltalk.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
 smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
 self["@opened"]=true;
 _st((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(html)._div())._id_("amber");
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(html)._div())._id_("amber");
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st("body")._asJQuery());
 _st(_st("body")._asJQuery())._addClass_("amberBody");
 _st(self)._appendToJQuery_(_st("#amber")._asJQuery());
@@ -818,13 +886,15 @@ $2=_st($1)._addTab_(_st($TestRunner())._new());
 _st(self)._selectTab_(_st(_st(self)._tabs())._last());
 $3=self;
 _st($3)._onResize_((function(){
-return smalltalk.withContext(function($ctx2) {$4=self;
+return smalltalk.withContext(function($ctx2) {
+$4=self;
 _st($4)._updateBodyMargin();
 $5=_st($4)._updatePosition();
 return $5;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $6=_st($3)._onWindowResize_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._updatePosition();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._updatePosition();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TabManager)})},
 messageSends: ["initialize", "appendToJQuery:", "asJQuery", "id:", "div", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"]}),
@@ -837,7 +907,8 @@ selector: "labelFor:",
 fn: function (aWidget){
 var self=this;
 var label,maxSize;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 maxSize=(15);
 label=_st(_st(aWidget)._label())._copyFrom_to_((0),_st(_st(_st(aWidget)._label())._size())._min_(maxSize));
 $1=_st(_st(_st(aWidget)._label())._size()).__gt(maxSize);
@@ -858,7 +929,8 @@ selector: "newBrowserTab",
 fn: function (){
 var self=this;
 function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
-return smalltalk.withContext(function($ctx1) { _st($Browser())._open();
+return smalltalk.withContext(function($ctx1) { 
+_st($Browser())._open();
 return self}, function($ctx1) {$ctx1.fill(self,"newBrowserTab",{},smalltalk.TabManager)})},
 messageSends: ["open"]}),
 smalltalk.TabManager);
@@ -869,7 +941,8 @@ smalltalk.method({
 selector: "onResize:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { jQuery('#amber').resizable({
+return smalltalk.withContext(function($ctx1) { 
+jQuery('#amber').resizable({
 	handles: 'n',
 	resize: aBlock,
 	minHeight: 230
@@ -884,7 +957,8 @@ smalltalk.method({
 selector: "onWindowResize:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { jQuery(window).resize(aBlock);
+return smalltalk.withContext(function($ctx1) { 
+jQuery(window).resize(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"onWindowResize:",{aBlock:aBlock},smalltalk.TabManager)})},
 messageSends: []}),
 smalltalk.TabManager);
@@ -895,7 +969,8 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@opened"];
 if(! smalltalk.assert($1)){
 _st(_st("body")._asJQuery())._addClass_("amberBody");
@@ -916,7 +991,8 @@ smalltalk.method({
 selector: "removeBodyMargin",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._setBodyMargin_((0));
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._setBodyMargin_((0));
 return self}, function($ctx1) {$ctx1.fill(self,"removeBodyMargin",{},smalltalk.TabManager)})},
 messageSends: ["setBodyMargin:"]}),
 smalltalk.TabManager);
@@ -927,7 +1003,8 @@ smalltalk.method({
 selector: "removeTab:",
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._tabs())._remove_(aWidget);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._tabs())._remove_(aWidget);
 _st(self)._update();
 return self}, function($ctx1) {$ctx1.fill(self,"removeTab:",{aWidget:aWidget},smalltalk.TabManager)})},
 messageSends: ["remove:", "tabs", "update"]}),
@@ -939,7 +1016,8 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(_st(html)._div())._id_("logo");
 _st(self)._renderToolbarOn_(html);
 $1=_st(html)._ul();
@@ -958,7 +1036,8 @@ selector: "renderTabFor:on:",
 fn: function (aWidget,html){
 var self=this;
 var li;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$5,$6,$7,$4,$8;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$6,$7,$4,$8;
 li=_st(html)._li();
 $1=_st(self["@selectedTab"]).__eq(aWidget);
 if(smalltalk.assert($1)){
@@ -966,17 +1045,20 @@ _st(li)._class_("selected");
 };
 $2=li;
 _st($2)._with_((function(){
-return smalltalk.withContext(function($ctx2) {_st(_st(html)._span())._class_("ltab");
+return smalltalk.withContext(function($ctx2) {
+_st(_st(html)._span())._class_("ltab");
 $3=_st(html)._span();
 _st($3)._class_("mtab");
 $4=_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx3) {$5=_st(aWidget)._canBeClosed();
+return smalltalk.withContext(function($ctx3) {
+$5=_st(aWidget)._canBeClosed();
 if(smalltalk.assert($5)){
 $6=_st(html)._span();
 _st($6)._class_("close");
 _st($6)._with_("x");
 $7=_st($6)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._closeTab_(aWidget);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._closeTab_(aWidget);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 $7;
 };
@@ -986,7 +1068,8 @@ $4;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $8=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._selectTab_(aWidget);
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._selectTab_(aWidget);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabFor:on:",{aWidget:aWidget,html:html,li:li},smalltalk.TabManager)})},
 messageSends: ["li", "ifTrue:", "class:", "=", "with:", "span", "onClick:", "closeTab:", "canBeClosed", "labelFor:", "selectTab:"]}),
@@ -998,15 +1081,19 @@ smalltalk.method({
 selector: "renderTabs",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@ul"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {_st(_st(self)._tabs())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(self)._renderTabFor_on_(each,html);
+return smalltalk.withContext(function($ctx2) {
+_st(_st(self)._tabs())._do_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._renderTabFor_on_(each,html);
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
 $1=_st(html)._li();
 _st($1)._class_("newtab");
 _st($1)._with_((function(){
-return smalltalk.withContext(function($ctx3) {_st(_st(html)._span())._class_("ltab");
+return smalltalk.withContext(function($ctx3) {
+_st(_st(html)._span())._class_("ltab");
 $2=_st(html)._span();
 _st($2)._class_("mtab");
 $3=_st($2)._with_(" + ");
@@ -1014,7 +1101,8 @@ $3;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._newBrowserTab();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._newBrowserTab();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
@@ -1028,17 +1116,20 @@ smalltalk.method({
 selector: "renderToolbarOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$6,$7,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$6,$7,$2;
 $1=_st(html)._div();
 _st($1)._id_("amber_toolbar");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(html)._input();
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._input();
 _st($3)._class_("implementors");
 $4=_st($3)._yourself();
 self["@input"]=$4;
 self["@input"];
 _st(self["@input"])._onKeyPress_((function(event){
-return smalltalk.withContext(function($ctx3) {$5=_st(_st(event)._keyCode()).__eq((13));
+return smalltalk.withContext(function($ctx3) {
+$5=_st(_st(event)._keyCode()).__eq((13));
 if(smalltalk.assert($5)){
 return _st(self)._search_(_st(_st(self["@input"])._asJQuery())._val());
 };
@@ -1046,7 +1137,8 @@ return _st(self)._search_(_st(_st(self["@input"])._asJQuery())._val());
 $6=_st(html)._div();
 _st($6)._id_("amber_close");
 $7=_st($6)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._close();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._close();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $7;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -1064,7 +1156,8 @@ var searchedClass;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
 function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 searchedClass=_st(_st($Smalltalk())._current())._at_(aString);
 $1=_st(searchedClass)._isClass();
 if(smalltalk.assert($1)){
@@ -1082,10 +1175,12 @@ smalltalk.method({
 selector: "selectTab:",
 fn: function (aWidget){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._open();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._open();
 self["@selectedTab"]=aWidget;
 _st(_st(self)._tabs())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._hide();
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._hide();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(aWidget)._show();
 _st(self)._update();
@@ -1099,7 +1194,8 @@ smalltalk.method({
 selector: "setBodyMargin:",
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(".amberBody")._asJQuery())._css_put_("margin-bottom",_st(_st(anInteger)._asString()).__comma("px"));
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(".amberBody")._asJQuery())._css_put_("margin-bottom",_st(_st(anInteger)._asString()).__comma("px"));
 return self}, function($ctx1) {$ctx1.fill(self,"setBodyMargin:",{anInteger:anInteger},smalltalk.TabManager)})},
 messageSends: ["css:put:", ",", "asString", "asJQuery"]}),
 smalltalk.TabManager);
@@ -1111,7 +1207,8 @@ selector: "tabs",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@tabs"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@tabs"]=_st($Array())._new();
@@ -1130,7 +1227,8 @@ smalltalk.method({
 selector: "update",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._renderTabs();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._renderTabs();
 return self}, function($ctx1) {$ctx1.fill(self,"update",{},smalltalk.TabManager)})},
 messageSends: ["renderTabs"]}),
 smalltalk.TabManager);
@@ -1141,7 +1239,8 @@ smalltalk.method({
 selector: "updateBodyMargin",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._setBodyMargin_(_st(_st("#amber")._asJQuery())._height());
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._setBodyMargin_(_st(_st("#amber")._asJQuery())._height());
 return self}, function($ctx1) {$ctx1.fill(self,"updateBodyMargin",{},smalltalk.TabManager)})},
 messageSends: ["setBodyMargin:", "height", "asJQuery"]}),
 smalltalk.TabManager);
@@ -1152,7 +1251,8 @@ smalltalk.method({
 selector: "updatePosition",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { jQuery('#amber').css('top', '').css('bottom', '0px');
+return smalltalk.withContext(function($ctx1) { 
+jQuery('#amber').css('top', '').css('bottom', '0px');
 return self}, function($ctx1) {$ctx1.fill(self,"updatePosition",{},smalltalk.TabManager)})},
 messageSends: []}),
 smalltalk.TabManager);
@@ -1165,7 +1265,8 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@current"]=smalltalk.Widget.klass.fn.prototype._new.apply(_st(self), []);
@@ -1184,7 +1285,8 @@ smalltalk.method({
 selector: "new",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._shouldNotImplement();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.TabManager.klass)})},
 messageSends: ["shouldNotImplement"]}),
 smalltalk.TabManager.klass);
@@ -1197,7 +1299,8 @@ fn: function (){
 var self=this;
 function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
 if(smalltalk.assert($1)){
 _st($Browser())._open();
@@ -1221,7 +1324,8 @@ smalltalk.method({
 selector: "canBeClosed",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return false;
+return smalltalk.withContext(function($ctx1) { 
+return false;
 }, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.TabWidget)})},
 messageSends: []}),
 smalltalk.TabWidget);
@@ -1233,7 +1337,8 @@ selector: "close",
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { _st(_st($TabManager())._current())._closeTab_(self);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($TabManager())._current())._closeTab_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"close",{},smalltalk.TabWidget)})},
 messageSends: ["closeTab:", "current"]}),
 smalltalk.TabWidget);
@@ -1244,7 +1349,8 @@ smalltalk.method({
 selector: "hide",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@div"])._asJQuery())._hide();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@div"])._asJQuery())._hide();
 return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.TabWidget)})},
 messageSends: ["hide", "asJQuery"]}),
 smalltalk.TabWidget);
@@ -1255,7 +1361,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._subclassResponsibility();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.TabWidget)})},
 messageSends: ["subclassResponsibility"]}),
 smalltalk.TabWidget);
@@ -1267,7 +1374,8 @@ selector: "open",
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { _st(_st($TabManager())._current())._addTab_(self);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($TabManager())._current())._addTab_(self);
 _st(_st($TabManager())._current())._selectTab_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.TabWidget)})},
 messageSends: ["addTab:", "current", "selectTab:"]}),
@@ -1279,7 +1387,8 @@ smalltalk.method({
 selector: "remove",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@div"])._asJQuery())._remove();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@div"])._asJQuery())._remove();
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.TabWidget)})},
 messageSends: ["remove", "asJQuery"]}),
 smalltalk.TabWidget);
@@ -1290,7 +1399,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.TabWidget)})},
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.TabWidget)})},
 messageSends: []}),
 smalltalk.TabWidget);
 
@@ -1300,7 +1410,8 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.TabWidget)})},
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.TabWidget)})},
 messageSends: []}),
 smalltalk.TabWidget);
 
@@ -1310,7 +1421,8 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("amberTool");
 $2=_st($1)._yourself();
@@ -1326,18 +1438,22 @@ smalltalk.method({
 selector: "renderTab",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@div"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._div();
 _st($1)._class_("amber_box");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._renderBoxOn_(html);
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._renderBoxOn_(html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $2;
 $3=_st(html)._div();
 _st($3)._class_("amber_buttons");
 $4=_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._renderButtonsOn_(html);
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._renderButtonsOn_(html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
@@ -1351,7 +1467,8 @@ smalltalk.method({
 selector: "show",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@div"])._asJQuery())._show();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@div"])._asJQuery())._show();
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.TabWidget)})},
 messageSends: ["show", "asJQuery"]}),
 smalltalk.TabWidget);
@@ -1362,7 +1479,8 @@ smalltalk.method({
 selector: "update",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._renderTab();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._renderTab();
 return self}, function($ctx1) {$ctx1.fill(self,"update",{},smalltalk.TabWidget)})},
 messageSends: ["renderTab"]}),
 smalltalk.TabWidget);
@@ -1374,7 +1492,8 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._new())._open();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.TabWidget.klass)})},
@@ -1390,7 +1509,8 @@ selector: "addInstanceVariableNamed:toClass:",
 fn: function (aString,aClass){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(_st(aClass)._instanceVariableNames())._copy();
 _st($1)._add_(aString);
 $2=_st($1)._yourself();
@@ -1408,10 +1528,12 @@ var self=this;
 var className;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 className=_st(window)._prompt_("New class");
 $1=_st(_st(className)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(className)._notEmpty();
+return smalltalk.withContext(function($ctx2) {
+return _st(className)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 _st($Object())._subclass_instanceVariableNames_package_(className,"",_st(self)._selectedPackage());
@@ -1432,10 +1554,12 @@ selector: "addNewProtocol",
 fn: function (){
 var self=this;
 var newProtocol;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 newProtocol=_st(window)._prompt_("New method protocol");
 $1=_st(_st(newProtocol)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(newProtocol)._notEmpty();
+return smalltalk.withContext(function($ctx2) {
+return _st(newProtocol)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 _st(self["@selectedMethod"])._category_(newProtocol);
@@ -1451,8 +1575,10 @@ smalltalk.method({
 selector: "ajaxPutAt:data:",
 fn: function (aURL,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
-return smalltalk.withContext(function($ctx2) {return _st(window)._alert_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
+return smalltalk.withContext(function($ctx1) { 
+_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
+return smalltalk.withContext(function($ctx2) {
+return _st(window)._alert_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
 }, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.Browser)})},
 messageSends: ["ajax:options:", "->", "alert:", ",", "responseText"]}),
@@ -1464,7 +1590,8 @@ smalltalk.method({
 selector: "canBeClosed",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { 
+return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.Browser)})},
 messageSends: []}),
 smalltalk.Browser);
@@ -1475,7 +1602,8 @@ smalltalk.method({
 selector: "cancelChanges",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@unsavedChanges"];
 if(smalltalk.assert($2)){
 $1=_st(window)._confirm_("Cancel changes?");
@@ -1493,7 +1621,8 @@ smalltalk.method({
 selector: "classCommentSource",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@selectedClass"])._comment();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classCommentSource",{},smalltalk.Browser)})},
@@ -1508,7 +1637,8 @@ fn: function (){
 var self=this;
 var stream;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
 stream=_st("")._writeStream();
 $1=self["@selectedClass"];
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -1524,9 +1654,11 @@ _st($3)._nextPutAll_(_st(self["@selectedClass"])._name());
 _st($3)._nextPutAll_(_st(_st($String())._lf()).__comma(_st($String())._tab()));
 $4=_st($3)._nextPutAll_("instanceVariableNames: '");
 _st(_st(self["@selectedClass"])._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(each);
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(" ");
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(" ");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=stream;
 _st($5)._nextPutAll_(_st(_st("'").__comma(_st($String())._lf())).__comma(_st($String())._tab()));
@@ -1545,7 +1677,8 @@ smalltalk.method({
 selector: "classDeclarationTemplate",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st("Object subclass: #NameOfSubclass\x0a\x09instanceVariableNames: ''\x0a\x09package: '").__comma(_st(self)._selectedPackage())).__comma("'");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classDeclarationTemplate",{},smalltalk.Browser)})},
@@ -1559,11 +1692,14 @@ selector: "classes",
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._category()).__eq(self["@selectedPackage"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._sort_((function(a,b){
-return smalltalk.withContext(function($ctx2) {return _st(_st(a)._name()).__lt(_st(b)._name());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._name()).__lt(_st(b)._name());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})})))._asSet();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Browser)})},
@@ -1580,7 +1716,8 @@ function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:P
 function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
 function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@selectedPackage"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -1590,7 +1727,8 @@ package_=_st($Package())._named_(self["@selectedPackage"]);
 package_;
 _st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathSt()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".st"))])._do_((function(commitStrategy){
 var fileContents;
-return smalltalk.withContext(function($ctx2) {fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(self["@selectedPackage"]);
+return smalltalk.withContext(function($ctx2) {
+fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(self["@selectedPackage"]);
 fileContents;
 return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
@@ -1606,7 +1744,8 @@ selector: "compile",
 fn: function (){
 var self=this;
 var currentEditLine;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st(self)._disableSaveButton();
 currentEditLine=_st(_st(self["@sourceArea"])._editor())._getCursor();
 $1=_st(self["@selectedTab"]).__eq("comment");
@@ -1619,7 +1758,8 @@ _st(self)._compileClassComment();
 };
 } else {
 $3=_st(_st(self["@selectedProtocol"])._notNil())._or_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@selectedMethod"])._notNil();
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@selectedMethod"])._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($3)){
 _st(self)._compileMethodDefinition();
@@ -1638,7 +1778,8 @@ smalltalk.method({
 selector: "compileClassComment",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@selectedClass"])._comment_(_st(self["@sourceArea"])._val());
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@selectedClass"])._comment_(_st(self["@sourceArea"])._val());
 return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment",{},smalltalk.Browser)})},
 messageSends: ["comment:", "val"]}),
 smalltalk.Browser);
@@ -1651,7 +1792,8 @@ fn: function (){
 var self=this;
 var newClass;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 newClass=_st(_st($Compiler())._new())._evaluateExpression_(_st(self["@sourceArea"])._val());
 $1=self;
 _st($1)._resetClassesList();
@@ -1668,7 +1810,8 @@ smalltalk.method({
 selector: "compileMethodDefinition",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($1)){
 _st(self)._compileMethodDefinitionFor_(self["@selectedClass"]);
@@ -1688,7 +1831,8 @@ var self=this;
 var compiler,method,source,node;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
 var $early={};
 try {
 source=_st(self["@sourceArea"])._val();
@@ -1710,7 +1854,8 @@ return $3;
 _st(compiler)._currentClass_(aClass);
 method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
 _st(_st(compiler)._unknownVariables())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$4=_st(window)._at_(each);
+return smalltalk.withContext(function($ctx2) {
+$4=_st(window)._at_(each);
 if(($receiver = $4) == nil || $receiver == undefined){
 $5=_st(window)._confirm_(_st(_st("Declare '").__comma(each)).__comma("' as instance variable?"));
 if(smalltalk.assert($5)){
@@ -1740,10 +1885,12 @@ var self=this;
 var className;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 className=_st(window)._prompt_("Copy class");
 $1=_st(_st(className)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(className)._notEmpty();
+return smalltalk.withContext(function($ctx2) {
+return _st(className)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 _st(_st($ClassBuilder())._new())._copyClass_named_(_st(self)._selectedClass(),className);
@@ -1763,7 +1910,8 @@ smalltalk.method({
 selector: "declarationSource",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($2)){
 $1=_st(self)._classDeclarationSource();
@@ -1781,7 +1929,8 @@ smalltalk.method({
 selector: "disableSaveButton",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@saveButton"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -1799,7 +1948,8 @@ smalltalk.method({
 selector: "dummyMethodSource",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements";
+return smalltalk.withContext(function($ctx1) { 
+return "messageSelectorAndArgumentNames\x0a\x09\x22comment stating purpose of message\x22\x0a\x0a\x09| temporary variable names |\x0a\x09statements";
 }, function($ctx1) {$ctx1.fill(self,"dummyMethodSource",{},smalltalk.Browser)})},
 messageSends: []}),
 smalltalk.Browser);
@@ -1810,7 +1960,8 @@ smalltalk.method({
 selector: "handleSourceAreaKeyDown:",
 fn: function (anEvent){
 var self=this;
-return smalltalk.withContext(function($ctx1) { if(anEvent.ctrlKey) {
+return smalltalk.withContext(function($ctx1) { 
+if(anEvent.ctrlKey) {
 		if(anEvent.keyCode === 83) { //ctrl+s
 			self._compile();
 			anEvent.preventDefault();
@@ -1828,7 +1979,8 @@ smalltalk.method({
 selector: "hideClassButtons",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@classButtons"])._asJQuery())._hide();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@classButtons"])._asJQuery())._hide();
 return self}, function($ctx1) {$ctx1.fill(self,"hideClassButtons",{},smalltalk.Browser)})},
 messageSends: ["hide", "asJQuery"]}),
 smalltalk.Browser);
@@ -1839,7 +1991,8 @@ smalltalk.method({
 selector: "hideMethodButtons",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@methodButtons"])._asJQuery())._hide();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@methodButtons"])._asJQuery())._hide();
 return self}, function($ctx1) {$ctx1.fill(self,"hideMethodButtons",{},smalltalk.Browser)})},
 messageSends: ["hide", "asJQuery"]}),
 smalltalk.Browser);
@@ -1850,7 +2003,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
 self["@selectedTab"]="instance";
 self["@selectedPackage"]=_st(_st(self)._packages())._first();
 self["@unsavedChanges"]=false;
@@ -1864,7 +2018,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@selectedClass"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="Browser (nil)";
@@ -1883,7 +2038,8 @@ selector: "metaclassDeclarationSource",
 fn: function (){
 var self=this;
 var stream;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 stream=_st("")._writeStream();
 $1=self["@selectedClass"];
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -1895,9 +2051,11 @@ _st($2)._nextPutAll_(" class ");
 $3=_st($2)._nextPutAll_("instanceVariableNames: '");
 $3;
 _st(_st(_st(self["@selectedClass"])._class())._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(each);
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {return _st(stream)._nextPutAll_(" ");
+return smalltalk.withContext(function($ctx2) {
+return _st(stream)._nextPutAll_(" ");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(stream)._nextPutAll_("'");
 };
@@ -1913,7 +2071,8 @@ smalltalk.method({
 selector: "methodSource",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@selectedMethod"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=_st(self)._dummyMethodSource();
@@ -1932,7 +2091,8 @@ selector: "methods",
 fn: function (){
 var self=this;
 var klass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$7,$8,$6,$5;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$7,$8,$6,$5;
 $1=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($1)){
 $2=[];
@@ -1960,11 +2120,13 @@ $6=_st(_st(klass)._methodDictionary())._values();
 };
 } else {
 $6=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._category()).__eq(self["@selectedProtocol"]);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._category()).__eq(self["@selectedProtocol"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 };
 $5=_st($6)._sort_((function(a,b){
-return smalltalk.withContext(function($ctx2) {return _st(_st(a)._selector()).__lt(_st(b)._selector());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt(_st(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
 return $5;
 }, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},smalltalk.Browser)})},
@@ -1980,10 +2142,12 @@ var self=this;
 var packages;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 packages=_st($Array())._new();
 _st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(packages)._includes_(_st(each)._category());
+return smalltalk.withContext(function($ctx2) {
+$1=_st(packages)._includes_(_st(each)._category());
 if(! smalltalk.assert($1)){
 return _st(packages)._add_(_st(each)._category());
 };
@@ -2002,7 +2166,8 @@ fn: function (){
 var self=this;
 var klass;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self["@selectedClass"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -2040,7 +2205,8 @@ selector: "removeClass",
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(window)._confirm_(_st(_st("Do you really want to remove ").__comma(_st(self["@selectedClass"])._name())).__comma("?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removeClass_(self["@selectedClass"]);
@@ -2057,7 +2223,8 @@ smalltalk.method({
 selector: "removeMethod",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 $2=_st(window)._confirm_(_st(_st("Do you really want to remove #").__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
@@ -2082,7 +2249,8 @@ selector: "removePackage",
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(window)._confirm_(_st(_st("Do you really want to remove the whole package ").__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removePackage_(self["@selectedPackage"]);
@@ -2099,10 +2267,12 @@ selector: "renameClass",
 fn: function (){
 var self=this;
 var newName;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 newName=_st(window)._prompt_(_st("Rename class ").__comma(_st(self["@selectedClass"])._name()));
 $1=_st(_st(newName)._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(newName)._notEmpty();
+return smalltalk.withContext(function($ctx2) {
+return _st(newName)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 _st(self["@selectedClass"])._rename_(newName);
@@ -2123,7 +2293,8 @@ fn: function (){
 var self=this;
 var newName;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 newName=_st(window)._prompt_(_st("Rename package ").__comma(self["@selectedPackage"]));
 $1=newName;
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -2146,18 +2317,22 @@ selector: "renderBottomPanelOn:",
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {self["@sourceArea"]=_st($SourceArea())._new();
+return smalltalk.withContext(function($ctx2) {
+self["@sourceArea"]=_st($SourceArea())._new();
 self["@sourceArea"];
 _st(self["@sourceArea"])._renderOn_(html);
 _st(self["@sourceArea"])._onKeyDown_((function(e){
-return smalltalk.withContext(function($ctx3) {return _st(self)._handleSourceAreaKeyDown_(e);
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._handleSourceAreaKeyDown_(e);
 }, function($ctx3) {$ctx3.fillBlock({e:e},$ctx1)})}));
 return _st(self["@sourceArea"])._onKeyUp_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._updateStatus();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._updateStatus();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},smalltalk.Browser)})},
@@ -2170,7 +2345,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._renderTopPanelOn_(html);
 _st($1)._renderTabsOn_(html);
@@ -2185,34 +2361,40 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$5,$6,$7,$8,$9,$10,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$6,$7,$8,$9,$10,$4;
 self["@saveButton"]=_st(html)._button();
 $1=self["@saveButton"];
 _st($1)._with_("Save");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._compile();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._compile();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 self["@methodButtons"]=_st(html)._span();
 self["@classButtons"]=_st(html)._span();
 $3=_st(html)._div();
 _st($3)._class_("right");
 $4=_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx2) {$5=_st(html)._button();
+return smalltalk.withContext(function($ctx2) {
+$5=_st(html)._button();
 _st($5)._with_("DoIt");
 $6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self["@sourceArea"])._doIt();
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@sourceArea"])._doIt();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $6;
 $7=_st(html)._button();
 _st($7)._with_("PrintIt");
 $8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self["@sourceArea"])._printIt();
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@sourceArea"])._printIt();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $8;
 $9=_st(html)._button();
 _st($9)._with_("InspectIt");
 $10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self["@sourceArea"])._inspectIt();
+return smalltalk.withContext(function($ctx3) {
+return _st(self["@sourceArea"])._inspectIt();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $10;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -2227,7 +2409,8 @@ smalltalk.method({
 selector: "renderTabsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@tabsList"]=_st(_st(html)._ul())._class_("amber_tabs amber_browser");
+return smalltalk.withContext(function($ctx1) { 
+self["@tabsList"]=_st(_st(html)._ul())._class_("amber_tabs amber_browser");
 _st(self)._updateTabsList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html},smalltalk.Browser)})},
 messageSends: ["class:", "ul", "updateTabsList"]}),
@@ -2240,33 +2423,39 @@ selector: "renderTopPanelOn:",
 fn: function (html){
 var self=this;
 function $ClassesList(){return smalltalk.ClassesList||(typeof ClassesList=="undefined"?nil:ClassesList)}
-return smalltalk.withContext(function($ctx1) { var $1,$3,$5,$6,$7,$8,$9,$10,$4,$11,$12,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$5,$6,$7,$8,$9,$10,$4,$11,$12,$2;
 $1=_st(html)._div();
 _st($1)._class_("top");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {self["@packagesList"]=_st(_st(html)._ul())._class_("amber_column browser packages");
+return smalltalk.withContext(function($ctx2) {
+self["@packagesList"]=_st(_st(html)._ul())._class_("amber_column browser packages");
 self["@packagesList"];
 $3=_st(html)._div();
 _st($3)._class_("amber_packagesButtons");
 $4=_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx3) {$5=_st(html)._button();
+return smalltalk.withContext(function($ctx3) {
+$5=_st(html)._button();
 _st($5)._title_("Commit classes in this package to disk");
 _st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._commitPackage();
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._commitPackage();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 $6=_st($5)._with_("Commit");
 $6;
 $7=_st(html)._button();
 _st($7)._title_("Rename package");
 _st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._renamePackage();
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._renamePackage();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 $8=_st($7)._with_("Rename");
 $8;
 $9=_st(html)._button();
 _st($9)._title_("Remove this package from the system");
 _st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._removePackage();
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._removePackage();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 $10=_st($9)._with_("Remove");
 return $10;
@@ -2297,7 +2486,8 @@ smalltalk.method({
 selector: "resetClassesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@classesList"])._resetNodes();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@classesList"])._resetNodes();
 return self}, function($ctx1) {$ctx1.fill(self,"resetClassesList",{},smalltalk.Browser)})},
 messageSends: ["resetNodes"]}),
 smalltalk.Browser);
@@ -2309,7 +2499,8 @@ selector: "search:",
 fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 var searchedClass;
@@ -2333,7 +2524,8 @@ selector: "searchClassReferences",
 fn: function (){
 var self=this;
 function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
-return smalltalk.withContext(function($ctx1) { _st($ReferencesBrowser())._search_(_st(self["@selectedClass"])._name());
+return smalltalk.withContext(function($ctx1) { 
+_st($ReferencesBrowser())._search_(_st(self["@selectedClass"])._name());
 return self}, function($ctx1) {$ctx1.fill(self,"searchClassReferences",{},smalltalk.Browser)})},
 messageSends: ["search:", "name"]}),
 smalltalk.Browser);
@@ -2345,7 +2537,8 @@ selector: "searchReferencesOf:",
 fn: function (aString){
 var self=this;
 function $ReferencesBrowser(){return smalltalk.ReferencesBrowser||(typeof ReferencesBrowser=="undefined"?nil:ReferencesBrowser)}
-return smalltalk.withContext(function($ctx1) { _st($ReferencesBrowser())._search_(aString);
+return smalltalk.withContext(function($ctx1) { 
+_st($ReferencesBrowser())._search_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"searchReferencesOf:",{aString:aString},smalltalk.Browser)})},
 messageSends: ["search:"]}),
 smalltalk.Browser);
@@ -2356,7 +2549,8 @@ smalltalk.method({
 selector: "selectCategory:",
 fn: function (aCategory){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 self["@selectedPackage"]=aCategory;
@@ -2384,7 +2578,8 @@ smalltalk.method({
 selector: "selectClass:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 self["@selectedClass"]=aClass;
@@ -2409,7 +2604,8 @@ smalltalk.method({
 selector: "selectMethod:",
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 self["@selectedMethod"]=aMethod;
@@ -2430,7 +2626,8 @@ smalltalk.method({
 selector: "selectProtocol:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 self["@selectedProtocol"]=aString;
@@ -2453,7 +2650,8 @@ smalltalk.method({
 selector: "selectTab:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 self["@selectedTab"]=aString;
@@ -2471,7 +2669,8 @@ smalltalk.method({
 selector: "selectedClass",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@selectedClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedClass",{},smalltalk.Browser)})},
@@ -2484,7 +2683,8 @@ smalltalk.method({
 selector: "selectedPackage",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@selectedPackage"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedPackage",{},smalltalk.Browser)})},
@@ -2497,7 +2697,8 @@ smalltalk.method({
 selector: "setMethodProtocol:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 $1=_st(self)._cancelChanges();
 if(smalltalk.assert($1)){
 $2=_st(_st(self)._protocols())._includes_(aString);
@@ -2526,7 +2727,8 @@ smalltalk.method({
 selector: "showClassButtons",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@classButtons"])._asJQuery())._show();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@classButtons"])._asJQuery())._show();
 return self}, function($ctx1) {$ctx1.fill(self,"showClassButtons",{},smalltalk.Browser)})},
 messageSends: ["show", "asJQuery"]}),
 smalltalk.Browser);
@@ -2537,7 +2739,8 @@ smalltalk.method({
 selector: "showMethodButtons",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@methodButtons"])._asJQuery())._show();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@methodButtons"])._asJQuery())._show();
 return self}, function($ctx1) {$ctx1.fill(self,"showMethodButtons",{},smalltalk.Browser)})},
 messageSends: ["show", "asJQuery"]}),
 smalltalk.Browser);
@@ -2548,11 +2751,13 @@ smalltalk.method({
 selector: "source",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$5,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$5,$4;
 $1=_st(self["@selectedTab"]).__eq("comment");
 if(! smalltalk.assert($1)){
 $3=_st(_st(self["@selectedProtocol"])._notNil())._or_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@selectedMethod"])._notNil();
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@selectedMethod"])._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($3)){
 $2=_st(self)._methodSource();
@@ -2578,11 +2783,14 @@ smalltalk.method({
 selector: "updateCategoriesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@packagesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._packages())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._packages())._do_((function(each){
 var li,label;
-return smalltalk.withContext(function($ctx3) {$1=_st(each)._isEmpty();
+return smalltalk.withContext(function($ctx3) {
+$1=_st(each)._isEmpty();
 if(smalltalk.assert($1)){
 label="Unclassified";
 label;
@@ -2599,7 +2807,8 @@ _st(li)._class_("selected");
 $3=li;
 _st($3)._with_(label);
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._selectCategory_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._selectCategory_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li,label:label},$ctx1)})}));
@@ -2615,7 +2824,8 @@ selector: "updateClassesList",
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { _st(_st($TabManager())._current())._update();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($TabManager())._current())._update();
 _st(self["@classesList"])._updateNodes();
 return self}, function($ctx1) {$ctx1.fill(self,"updateClassesList",{},smalltalk.Browser)})},
 messageSends: ["update", "current", "updateNodes"]}),
@@ -2627,11 +2837,14 @@ smalltalk.method({
 selector: "updateMethodsList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st(self["@methodsList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._methods())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._methods())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $1=_st(self["@selectedMethod"]).__eq(each);
 if(smalltalk.assert($1)){
@@ -2640,7 +2853,8 @@ _st(li)._class_("selected");
 $2=li;
 _st($2)._with_(_st(each)._selector());
 $3=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._selectMethod_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._selectMethod_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $3;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx1)})}));
@@ -2655,11 +2869,14 @@ smalltalk.method({
 selector: "updateProtocolsList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st(self["@protocolsList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._protocols())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._protocols())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $1=_st(self["@selectedProtocol"]).__eq(each);
 if(smalltalk.assert($1)){
@@ -2668,7 +2885,8 @@ _st(li)._class_("selected");
 $2=li;
 _st($2)._with_(each);
 $3=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._selectProtocol_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._selectProtocol_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $3;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx1)})}));
@@ -2684,57 +2902,68 @@ selector: "updateSourceAndButtons",
 fn: function (){
 var self=this;
 var currentProtocol;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$15,$16,$17,$18,$19,$20,$14,$21,$22,$24,$25,$26,$27,$23,$28,$29;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$15,$16,$17,$18,$19,$20,$14,$21,$22,$24,$25,$26,$27,$23,$28,$29;
 _st(self)._disableSaveButton();
 _st(self["@classButtons"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._button();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._button();
 _st($1)._title_("Create a new class");
 _st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._addNewClass();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._addNewClass();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $2=_st($1)._with_("New class");
 $2;
 $3=_st(html)._button();
 _st($3)._with_("Rename class");
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._renameClass();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._renameClass();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4;
 $5=_st(html)._button();
 _st($5)._with_("Copy class");
 $6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._copyClass();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._copyClass();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $6;
 $7=_st(html)._button();
 _st($7)._with_("Remove class");
 $8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._removeClass();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._removeClass();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $8;
 $9=_st(html)._button();
 _st($9)._with_("References");
 $10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._searchClassReferences();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._searchClassReferences();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $10;
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 _st(self["@methodButtons"])._contents_((function(html){
 var protocolSelect,referencesSelect;
-return smalltalk.withContext(function($ctx2) {$11=_st(html)._button();
+return smalltalk.withContext(function($ctx2) {
+$11=_st(html)._button();
 _st($11)._with_("Remove method");
 $12=_st($11)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._removeMethod();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._removeMethod();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $12;
 protocolSelect=_st(html)._select();
 protocolSelect;
 $13=protocolSelect;
 _st($13)._onChange_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._setMethodProtocol_(_st(_st(protocolSelect)._asJQuery())._val());
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._setMethodProtocol_(_st(_st(protocolSelect)._asJQuery())._val());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $14=_st($13)._with_((function(){
-return smalltalk.withContext(function($ctx3) {$15=_st(html)._option();
+return smalltalk.withContext(function($ctx3) {
+$15=_st(html)._option();
 _st($15)._with_("Method protocol");
 $16=_st($15)._at_put_("disabled","disabled");
 $16;
@@ -2745,7 +2974,8 @@ $18;
 currentProtocol=self["@selectedProtocol"];
 currentProtocol;
 $19=_st(_st(currentProtocol)._isNil())._and_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self["@selectedMethod"])._notNil();
+return smalltalk.withContext(function($ctx4) {
+return _st(self["@selectedMethod"])._notNil();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($19)){
 currentProtocol=_st(self["@selectedMethod"])._category();
@@ -2753,7 +2983,8 @@ currentProtocol;
 };
 return _st(_st(self)._protocols())._do_((function(each){
 var option;
-return smalltalk.withContext(function($ctx4) {option=_st(_st(html)._option())._with_(each);
+return smalltalk.withContext(function($ctx4) {
+option=_st(_st(html)._option())._with_(each);
 option;
 $20=_st(currentProtocol).__eq(each);
 if(smalltalk.assert($20)){
@@ -2768,11 +2999,13 @@ referencesSelect=_st(html)._select();
 referencesSelect;
 $22=referencesSelect;
 _st($22)._onChange_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._searchReferencesOf_(_st(_st(referencesSelect)._asJQuery())._val());
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._searchReferencesOf_(_st(_st(referencesSelect)._asJQuery())._val());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $23=_st($22)._with_((function(){
 var option;
-return smalltalk.withContext(function($ctx3) {$24=_st(html)._option();
+return smalltalk.withContext(function($ctx3) {
+$24=_st(html)._option();
 _st($24)._with_("References");
 _st($24)._at_put_("disabled","disabled");
 $25=_st($24)._at_put_("selected","selected");
@@ -2782,7 +3015,8 @@ _st($26)._class_("important");
 $27=_st($26)._with_(_st(self["@selectedMethod"])._selector());
 $27;
 return _st(_st(_st(self["@selectedMethod"])._messageSends())._sorted())._do_((function(each){
-return smalltalk.withContext(function($ctx4) {return _st(_st(html)._option())._with_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(html)._option())._with_(each);
 }, function($ctx4) {$ctx4.fillBlock({each:each},$ctx1)})}));
 }, function($ctx3) {$ctx3.fillBlock({option:option},$ctx1)})}));
 return $23;
@@ -2792,7 +3026,8 @@ $28=_st(self["@selectedMethod"])._isNil();
 if(smalltalk.assert($28)){
 _st(self)._hideMethodButtons();
 $29=_st(_st(self["@selectedClass"])._isNil())._or_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@selectedProtocol"])._notNil();
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@selectedProtocol"])._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($29)){
 _st(self)._hideClassButtons();
@@ -2814,7 +3049,8 @@ smalltalk.method({
 selector: "updateStatus",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(_st(self)._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
@@ -2845,10 +3081,12 @@ smalltalk.method({
 selector: "updateTabsList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
 _st(self["@tabsList"])._contents_((function(html){
 var li;
-return smalltalk.withContext(function($ctx2) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+li=_st(html)._li();
 li;
 $1=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($1)){
@@ -2856,7 +3094,8 @@ _st(li)._class_("selected");
 };
 $2=li;
 _st($2)._with_((function(){
-return smalltalk.withContext(function($ctx3) {_st(_st(html)._span())._class_("ltab");
+return smalltalk.withContext(function($ctx3) {
+_st(_st(html)._span())._class_("ltab");
 $3=_st(html)._span();
 _st($3)._class_("mtab");
 $4=_st($3)._with_("Instance");
@@ -2864,7 +3103,8 @@ $4;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $5=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_("instance");
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._selectTab_("instance");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $5;
 li=_st(html)._li();
@@ -2875,7 +3115,8 @@ _st(li)._class_("selected");
 };
 $7=li;
 _st($7)._with_((function(){
-return smalltalk.withContext(function($ctx3) {_st(_st(html)._span())._class_("ltab");
+return smalltalk.withContext(function($ctx3) {
+_st(_st(html)._span())._class_("ltab");
 $8=_st(html)._span();
 _st($8)._class_("mtab");
 $9=_st($8)._with_("Class");
@@ -2883,7 +3124,8 @@ $9;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $10=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_("class");
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._selectTab_("class");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $10;
 li=_st(html)._li();
@@ -2894,7 +3136,8 @@ _st(li)._class_("selected");
 };
 $12=li;
 _st($12)._with_((function(){
-return smalltalk.withContext(function($ctx3) {_st(_st(html)._span())._class_("ltab");
+return smalltalk.withContext(function($ctx3) {
+_st(_st(html)._span())._class_("ltab");
 $13=_st(html)._span();
 _st($13)._class_("mtab");
 $14=_st($13)._with_("Comment");
@@ -2902,7 +3145,8 @@ $14;
 return _st(_st(html)._span())._class_("rtab");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $15=_st($12)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectTab_("comment");
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._selectTab_("comment");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $15;
 }, function($ctx2) {$ctx2.fillBlock({html:html,li:li},$ctx1)})}));
@@ -2917,7 +3161,8 @@ smalltalk.method({
 selector: "open",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._new())._open();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._new())._open();
 return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.Browser.klass)})},
 messageSends: ["open", "new"]}),
 smalltalk.Browser.klass);
@@ -2928,7 +3173,8 @@ smalltalk.method({
 selector: "openOn:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._open();
 _st($2)._selectCategory_(_st(aClass)._category());
@@ -2949,13 +3195,16 @@ fn: function (){
 var self=this;
 var all;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 all=_st($Dictionary())._new();
 _st(_st(_st(_st(self)._receiver())._class())._allInstanceVariableNames())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(all)._at_put_(each,_st(_st(self)._receiver())._instVarAt_(each));
+return smalltalk.withContext(function($ctx2) {
+return _st(all)._at_put_(each,_st(_st(self)._receiver())._instVarAt_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(_st(self["@selectedContext"])._locals())._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {return _st(all)._at_put_(key,value);
+return smalltalk.withContext(function($ctx2) {
+return _st(all)._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $1=all;
 return $1;
@@ -2969,7 +3218,8 @@ smalltalk.method({
 selector: "canBeClosed",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { 
+return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.Debugger)})},
 messageSends: []}),
 smalltalk.Debugger);
@@ -2980,7 +3230,8 @@ smalltalk.method({
 selector: "error",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@error"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"error",{},smalltalk.Debugger)})},
@@ -2993,7 +3244,8 @@ smalltalk.method({
 selector: "error:",
 fn: function (anError){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@error"]=anError;
+return smalltalk.withContext(function($ctx1) { 
+self["@error"]=anError;
 return self}, function($ctx1) {$ctx1.fill(self,"error:",{anError:anError},smalltalk.Debugger)})},
 messageSends: []}),
 smalltalk.Debugger);
@@ -3004,7 +3256,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
 _st(self["@unsavedChanges"]).__eq(false);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Debugger)})},
 messageSends: ["initialize", "="]}),
@@ -3016,7 +3269,8 @@ smalltalk.method({
 selector: "inspectSelectedVariable",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@selectedVariable"])._inspect();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@selectedVariable"])._inspect();
 return self}, function($ctx1) {$ctx1.fill(self,"inspectSelectedVariable",{},smalltalk.Debugger)})},
 messageSends: ["inspect"]}),
 smalltalk.Debugger);
@@ -3027,7 +3281,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "[Debugger]";
+return smalltalk.withContext(function($ctx1) { 
+return "[Debugger]";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.Debugger)})},
 messageSends: []}),
 smalltalk.Debugger);
@@ -3038,7 +3293,8 @@ smalltalk.method({
 selector: "method",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@selectedContext"])._method();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.Debugger)})},
@@ -3051,7 +3307,8 @@ smalltalk.method({
 selector: "proceed",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._close();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._close();
 _st(_st(self["@selectedContext"])._receiver())._perform_withArguments_(_st(self["@selectedContext"])._selector(),_st(self["@selectedContext"])._temps());
 return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},smalltalk.Debugger)})},
 messageSends: ["close", "perform:withArguments:", "selector", "temps", "receiver"]}),
@@ -3063,7 +3320,8 @@ smalltalk.method({
 selector: "receiver",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self["@selectedContext"])._receiver();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.Debugger)})},
@@ -3077,18 +3335,21 @@ selector: "renderBottomPanelOn:",
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode debugger");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {self["@sourceArea"]=_st($SourceArea())._new();
+return smalltalk.withContext(function($ctx2) {
+self["@sourceArea"]=_st($SourceArea())._new();
 self["@sourceArea"];
 return _st(self["@sourceArea"])._renderOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 self["@ul2"]=_st(_st(html)._ul())._class_("amber_column debugger variables");
 self["@inspector"]=_st(_st(html)._div())._class_("amber_column debugger inspector");
 _st(self["@sourceArea"])._onKeyUp_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._updateStatus();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._updateStatus();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderBottomPanelOn:",{html:html},smalltalk.Debugger)})},
 messageSends: ["class:", "div", "with:", "new", "renderOn:", "ul", "onKeyUp:", "updateStatus"]}),
@@ -3100,7 +3361,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._renderTopPanelOn_(html);
 $2=_st($1)._renderBottomPanelOn_(html);
@@ -3114,43 +3376,51 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16;
 $1=_st(html)._button();
 _st($1)._with_("Save");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._save();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._save();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 self["@saveButton"]=$2;
 $3=_st(html)._button();
 _st($3)._with_("DoIt");
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@sourceArea"])._doIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@sourceArea"])._doIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=_st(html)._button();
 _st($5)._with_("PrintIt");
 $6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@sourceArea"])._printIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@sourceArea"])._printIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $7=_st(html)._button();
 _st($7)._with_("InspectIt");
 $8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self["@sourceArea"])._inspectIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@sourceArea"])._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $9=_st(html)._button();
 _st($9)._with_("Proceed");
 $10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._proceed();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._proceed();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $11=_st(html)._button();
 _st($11)._with_("Abandon");
 $12=_st($11)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._close();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $13=_st(html)._button();
 _st($13)._class_("amber_button debugger inspect");
 _st($13)._with_("Inspect");
 $14=_st($13)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._inspectSelectedVariable();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._inspectSelectedVariable();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 self["@inspectButton"]=$14;
 $15=self;
@@ -3169,7 +3439,8 @@ selector: "renderContext:on:",
 fn: function (aContext,html){
 var self=this;
 var li;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 li=_st(html)._li();
 $1=_st(self["@selectedContext"]).__eq(aContext);
 if(smalltalk.assert($1)){
@@ -3178,7 +3449,8 @@ _st(li)._class_("selected");
 $2=li;
 _st($2)._with_(_st(aContext)._asString());
 $3=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._selectContext_(aContext);
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._selectContext_(aContext);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $4=_st(aContext)._outerContext();
 if(($receiver = $4) == nil || $receiver == undefined){
@@ -3196,19 +3468,22 @@ smalltalk.method({
 selector: "renderTopPanelOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$6,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$6,$2;
 self["@selectedContext"]=_st(_st(self)._error())._context();
 $1=_st(html)._div();
 _st($1)._class_("top");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {$3=_st(html)._div();
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._div();
 _st($3)._class_("label");
 $4=_st($3)._with_(_st(_st(self)._error())._messageText());
 $4;
 $5=_st(html)._ul();
 _st($5)._class_("amber_column debugger contexts");
 $6=_st($5)._with_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._renderContext_on_(_st(_st(self)._error())._context(),html);
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._renderContext_on_(_st(_st(self)._error())._context(),html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 self["@ul"]=$6;
 return self["@ul"];
@@ -3224,7 +3499,8 @@ selector: "save",
 fn: function (){
 var self=this;
 var protocol;
-return smalltalk.withContext(function($ctx1) { protocol=_st(_st(_st(_st(_st(self["@selectedContext"])._receiver())._class())._methodDictionary())._at_(_st(self["@selectedContext"])._selector()))._category();
+return smalltalk.withContext(function($ctx1) { 
+protocol=_st(_st(_st(_st(_st(self["@selectedContext"])._receiver())._class())._methodDictionary())._at_(_st(self["@selectedContext"])._selector()))._category();
 _st(_st(_st(self["@selectedContext"])._receiver())._class())._compile_category_(_st(self["@sourceArea"])._val(),protocol);
 _st(self)._updateStatus();
 return self}, function($ctx1) {$ctx1.fill(self,"save",{protocol:protocol},smalltalk.Debugger)})},
@@ -3237,7 +3513,8 @@ smalltalk.method({
 selector: "selectContext:",
 fn: function (aContext){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 self["@selectedContext"]=aContext;
 self["@selectedVariable"]=nil;
 self["@selectedVariableName"]=nil;
@@ -3257,10 +3534,12 @@ smalltalk.method({
 selector: "selectVariable:named:",
 fn: function (anObject,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@selectedVariable"]=anObject;
+return smalltalk.withContext(function($ctx1) { 
+self["@selectedVariable"]=anObject;
 self["@selectedVariableName"]=aString;
 _st(self["@inspector"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(html)._with_(_st(anObject)._printString());
+return smalltalk.withContext(function($ctx2) {
+return _st(html)._with_(_st(anObject)._printString());
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 _st(self)._updateVariablesList();
 return self}, function($ctx1) {$ctx1.fill(self,"selectVariable:named:",{anObject:anObject,aString:aString},smalltalk.Debugger)})},
@@ -3273,7 +3552,8 @@ smalltalk.method({
 selector: "source",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self)._method();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="Method doesn't exist!";
@@ -3291,8 +3571,10 @@ smalltalk.method({
 selector: "updateContextsList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@ul"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(self)._renderContext_on_(_st(_st(self)._error())._context(),html);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@ul"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._renderContext_on_(_st(_st(self)._error())._context(),html);
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateContextsList",{},smalltalk.Debugger)})},
 messageSends: ["contents:", "renderContext:on:", "context", "error"]}),
@@ -3304,8 +3586,10 @@ smalltalk.method({
 selector: "updateInspector",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@inspector"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@inspector"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateInspector",{},smalltalk.Debugger)})},
 messageSends: ["contents:"]}),
 smalltalk.Debugger);
@@ -3316,7 +3600,8 @@ smalltalk.method({
 selector: "updateSourceArea",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@sourceArea"])._val_(_st(self)._source());
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@sourceArea"])._val_(_st(self)._source());
 return self}, function($ctx1) {$ctx1.fill(self,"updateSourceArea",{},smalltalk.Debugger)})},
 messageSends: ["val:", "source"]}),
 smalltalk.Debugger);
@@ -3327,7 +3612,8 @@ smalltalk.method({
 selector: "updateStatus",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(_st(self)._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
@@ -3358,13 +3644,16 @@ smalltalk.method({
 selector: "updateVariablesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
 _st(self["@ul2"])._contents_((function(html){
 var li;
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._with_("self");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectVariable_named_(_st(self)._receiver(),"self");
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._selectVariable_named_(_st(self)._receiver(),"self");
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 li=$2;
 li;
@@ -3373,10 +3662,12 @@ if(smalltalk.assert($3)){
 _st(li)._class_("selected");
 };
 return _st(_st(self)._allVariables())._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx3) {$4=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+$4=_st(html)._li();
 _st($4)._with_(key);
 $5=_st($4)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._selectVariable_named_(value,key);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._selectVariable_named_(value,key);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 li=$5;
 li;
@@ -3405,7 +3696,8 @@ smalltalk.method({
 selector: "clear",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@textarea"])._asJQuery())._val_("");
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@textarea"])._asJQuery())._val_("");
 return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.IDETranscript)})},
 messageSends: ["val:", "asJQuery"]}),
 smalltalk.IDETranscript);
@@ -3417,7 +3709,8 @@ selector: "cr",
 fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { _st(_st(self["@textarea"])._asJQuery())._val_(_st(_st(_st(self["@textarea"])._asJQuery())._val()).__comma(_st($String())._cr()));
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@textarea"])._asJQuery())._val_(_st(_st(_st(self["@textarea"])._asJQuery())._val()).__comma(_st($String())._cr()));
 return self}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.IDETranscript)})},
 messageSends: ["val:", ",", "cr", "val", "asJQuery"]}),
 smalltalk.IDETranscript);
@@ -3428,7 +3721,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Transcript";
+return smalltalk.withContext(function($ctx1) { 
+return "Transcript";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.IDETranscript)})},
 messageSends: []}),
 smalltalk.IDETranscript);
@@ -3440,7 +3734,8 @@ selector: "open",
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st($TabManager())._current();
 _st($1)._open();
 $2=_st($1)._selectTab_(self);
@@ -3454,7 +3749,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 self["@textarea"]=_st(html)._textarea();
 $1=self["@textarea"];
 _st($1)._class_("amber_transcript");
@@ -3469,11 +3765,13 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._button();
 _st($1)._with_("Clear transcript");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._clear();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._clear();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.IDETranscript)})},
 messageSends: ["with:", "button", "onClick:", "clear"]}),
@@ -3485,7 +3783,8 @@ smalltalk.method({
 selector: "show:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@textarea"];
 if(($receiver = $1) == nil || $receiver == undefined){
 _st(self)._open();
@@ -3505,7 +3804,8 @@ smalltalk.method({
 selector: "current",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@current"]=smalltalk.TabWidget.klass.fn.prototype._new.apply(_st(self), []);
@@ -3525,7 +3825,8 @@ selector: "initialize",
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-return smalltalk.withContext(function($ctx1) { _st($Transcript())._register_(_st(self)._current());
+return smalltalk.withContext(function($ctx1) { 
+_st($Transcript())._register_(_st(self)._current());
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.IDETranscript.klass)})},
 messageSends: ["register:", "current"]}),
 smalltalk.IDETranscript.klass);
@@ -3536,7 +3837,8 @@ smalltalk.method({
 selector: "new",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._shouldNotImplement();
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._shouldNotImplement();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.IDETranscript.klass)})},
 messageSends: ["shouldNotImplement"]}),
 smalltalk.IDETranscript.klass);
@@ -3548,7 +3850,8 @@ selector: "open",
 fn: function (){
 var self=this;
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st($TabManager())._current();
 _st($1)._open();
 $2=_st($1)._selectTab_(_st(self)._current());
@@ -3564,7 +3867,8 @@ smalltalk.method({
 selector: "canBeClosed",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { 
+return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.Inspector)})},
 messageSends: []}),
 smalltalk.Inspector);
@@ -3575,7 +3879,8 @@ smalltalk.method({
 selector: "dive",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(_st(self)._variables())._at_(_st(self)._selectedVariable()))._inspect();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(self)._variables())._at_(_st(self)._selectedVariable()))._inspect();
 return self}, function($ctx1) {$ctx1.fill(self,"dive",{},smalltalk.Inspector)})},
 messageSends: ["inspect", "at:", "selectedVariable", "variables"]}),
 smalltalk.Inspector);
@@ -3586,7 +3891,8 @@ smalltalk.method({
 selector: "inspect:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@object"]=anObject;
+return smalltalk.withContext(function($ctx1) { 
+self["@object"]=anObject;
 self["@variables"]=[];
 _st(self["@object"])._inspectOn_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector)})},
@@ -3599,7 +3905,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@label"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="Inspector (nil)";
@@ -3617,7 +3924,8 @@ smalltalk.method({
 selector: "refresh",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._inspect_(self["@object"]);
 _st($1)._updateVariablesList();
@@ -3633,14 +3941,17 @@ selector: "renderBottomPanelOn:",
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
 $1=_st(html)._div();
 _st($1)._class_("amber_sourceCode");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {$3=_st($SourceArea())._new();
+return smalltalk.withContext(function($ctx2) {
+$3=_st($SourceArea())._new();
 _st($3)._receiver_(self["@object"]);
 _st($3)._onDoIt_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._refresh();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._refresh();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4=_st($3)._yourself();
 self["@sourceArea"]=$4;
@@ -3657,7 +3968,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._renderTopPanelOn_(html);
 $2=_st($1)._renderBottomPanelOn_(html);
@@ -3671,21 +3983,25 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
 $1=_st(html)._button();
 _st($1)._with_("DoIt");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._sourceArea())._doIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._sourceArea())._doIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3=_st(html)._button();
 _st($3)._with_("PrintIt");
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._sourceArea())._printIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._sourceArea())._printIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=_st(html)._button();
 _st($5)._with_("InspectIt");
 $6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._sourceArea())._inspectIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._sourceArea())._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self)._updateButtons();
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.Inspector)})},
@@ -3698,11 +4014,13 @@ smalltalk.method({
 selector: "renderTopPanelOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$5,$7,$8,$9,$10,$6,$2,$11,$12;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$7,$8,$9,$10,$6,$2,$11,$12;
 $1=_st(html)._div();
 _st($1)._class_("top");
 $2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {self["@variablesList"]=_st(_st(html)._ul())._class_("amber_column variables");
+return smalltalk.withContext(function($ctx2) {
+self["@variablesList"]=_st(_st(html)._ul())._class_("amber_column variables");
 self["@variablesList"];
 $3=_st(html)._textarea();
 _st($3)._class_("amber_column value");
@@ -3712,18 +4030,21 @@ self["@valueTextarea"];
 $5=_st(html)._div();
 _st($5)._class_("amber_tabs inspector");
 $6=_st($5)._with_((function(){
-return smalltalk.withContext(function($ctx3) {$7=_st(html)._button();
+return smalltalk.withContext(function($ctx3) {
+$7=_st(html)._button();
 _st($7)._class_("amber_button inspector refresh");
 _st($7)._with_("Refresh");
 $8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._refresh();
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._refresh();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 $8;
 $9=_st(html)._button();
 _st($9)._class_("amber_button inspector dive");
 _st($9)._with_("Dive");
 $10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._dive();
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._dive();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 self["@diveButton"]=$10;
 return self["@diveButton"];
@@ -3744,7 +4065,8 @@ smalltalk.method({
 selector: "selectVariable:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(self)._selectedVariable_(aString);
 $1=self;
 _st($1)._updateVariablesList();
@@ -3760,7 +4082,8 @@ smalltalk.method({
 selector: "selectedVariable",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@selectedVariable"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedVariable",{},smalltalk.Inspector)})},
@@ -3773,7 +4096,8 @@ smalltalk.method({
 selector: "selectedVariable:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@selectedVariable"]=aString;
+return smalltalk.withContext(function($ctx1) { 
+self["@selectedVariable"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"selectedVariable:",{aString:aString},smalltalk.Inspector)})},
 messageSends: []}),
 smalltalk.Inspector);
@@ -3784,7 +4108,8 @@ smalltalk.method({
 selector: "setLabel:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@label"]=aString;
+return smalltalk.withContext(function($ctx1) { 
+self["@label"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"setLabel:",{aString:aString},smalltalk.Inspector)})},
 messageSends: []}),
 smalltalk.Inspector);
@@ -3795,7 +4120,8 @@ smalltalk.method({
 selector: "setVariables:",
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@variables"]=aCollection;
+return smalltalk.withContext(function($ctx1) { 
+self["@variables"]=aCollection;
 return self}, function($ctx1) {$ctx1.fill(self,"setVariables:",{aCollection:aCollection},smalltalk.Inspector)})},
 messageSends: []}),
 smalltalk.Inspector);
@@ -3806,7 +4132,8 @@ smalltalk.method({
 selector: "sourceArea",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@sourceArea"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceArea",{},smalltalk.Inspector)})},
@@ -3819,9 +4146,11 @@ smalltalk.method({
 selector: "updateButtons",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(self)._selectedVariable())._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._variables())._at_(_st(self)._selectedVariable()))._notNil();
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._variables())._at_(_st(self)._selectedVariable()))._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 _st(self["@diveButton"])._removeAt_("disabled");
@@ -3838,7 +4167,8 @@ smalltalk.method({
 selector: "updateValueTextarea",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
 $1=_st(self["@valueTextarea"])._asJQuery();
 $3=_st(_st(self)._selectedVariable())._isNil();
 if(smalltalk.assert($3)){
@@ -3857,16 +4187,20 @@ smalltalk.method({
 selector: "updateVariablesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st(self["@variablesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._variables())._keys())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._variables())._keys())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $1=li;
 _st($1)._with_(each);
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._selectVariable_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._selectVariable_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 $2;
 $3=_st(_st(self)._selectedVariable()).__eq(each);
@@ -3885,7 +4219,8 @@ smalltalk.method({
 selector: "variables",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@variables"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variables",{},smalltalk.Inspector)})},
@@ -3899,7 +4234,8 @@ smalltalk.method({
 selector: "on:",
 fn: function (anObject){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._inspect_(anObject);
 $3=_st($2)._yourself();
@@ -3917,7 +4253,8 @@ smalltalk.method({
 selector: "percent",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@percent"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=(0);
@@ -3935,7 +4272,8 @@ smalltalk.method({
 selector: "percent:",
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@percent"]=aNumber;
+return smalltalk.withContext(function($ctx1) { 
+self["@percent"]=aNumber;
 return self}, function($ctx1) {$ctx1.fill(self,"percent:",{aNumber:aNumber},smalltalk.ProgressBar)})},
 messageSends: []}),
 smalltalk.ProgressBar);
@@ -3946,7 +4284,8 @@ smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("progress_bar");
 $2=_st($1)._yourself();
@@ -3962,9 +4301,11 @@ smalltalk.method({
 selector: "renderProgressBar",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(self["@div"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._div();
 _st($1)._class_("progress");
 $2=_st($1)._style_(_st(_st("width:").__comma(_st(_st(self)._percent())._asString())).__comma("%"));
 return $2;
@@ -3979,7 +4320,8 @@ smalltalk.method({
 selector: "updatePercent:",
 fn: function (aNumber){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._percent_(aNumber);
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._percent_(aNumber);
 _st(self)._renderProgressBar();
 return self}, function($ctx1) {$ctx1.fill(self,"updatePercent:",{aNumber:aNumber},smalltalk.ProgressBar)})},
 messageSends: ["percent:", "renderProgressBar"]}),
@@ -3994,7 +4336,8 @@ smalltalk.method({
 selector: "canBeClosed",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { 
+return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeClosed",{},smalltalk.ReferencesBrowser)})},
 messageSends: []}),
 smalltalk.ReferencesBrowser);
@@ -4006,9 +4349,11 @@ selector: "classesAndMetaclasses",
 fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st($Smalltalk())._current())._classes()).__comma(_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._class();
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._class();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classesAndMetaclasses",{},smalltalk.ReferencesBrowser)})},
@@ -4022,7 +4367,8 @@ selector: "implementors",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@implementors"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@implementors"]=_st($Array())._new();
@@ -4041,7 +4387,8 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
 self["@selector"]="";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ReferencesBrowser)})},
 messageSends: ["initialize"]}),
@@ -4053,7 +4400,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "[References]";
+return smalltalk.withContext(function($ctx1) { 
+return "[References]";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.ReferencesBrowser)})},
 messageSends: []}),
 smalltalk.ReferencesBrowser);
@@ -4065,7 +4413,8 @@ selector: "matches",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@matches"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@matches"]=_st($Array())._new();
@@ -4086,7 +4435,8 @@ fn: function (aMethod){
 var self=this;
 var browser;
 function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:Browser)}
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2,$4,$5,$6;
 $1=$Browser();
 $3=_st(_st(aMethod)._methodClass())._isMetaclass();
 if(smalltalk.assert($3)){
@@ -4113,7 +4463,8 @@ selector: "referencedClasses",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@referencedClasses"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@referencedClasses"]=_st($Array())._new();
@@ -4132,7 +4483,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._renderInputOn_(html);
 _st($1)._renderImplementorsOn_(html);
@@ -4149,7 +4501,8 @@ smalltalk.method({
 selector: "renderImplementorsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@implementorsList"]=_st(_st(html)._ul())._class_("amber_column implementors");
+return smalltalk.withContext(function($ctx1) { 
+self["@implementorsList"]=_st(_st(html)._ul())._class_("amber_column implementors");
 _st(self)._updateImplementorsList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderImplementorsOn:",{html:html},smalltalk.ReferencesBrowser)})},
 messageSends: ["class:", "ul", "updateImplementorsList"]}),
@@ -4161,7 +4514,8 @@ smalltalk.method({
 selector: "renderInputOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._input();
 _st($1)._class_("implementors");
 $2=_st($1)._yourself();
@@ -4178,7 +4532,8 @@ smalltalk.method({
 selector: "renderMatchesOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@matchesList"]=_st(_st(html)._ul())._class_("amber_column matches");
+return smalltalk.withContext(function($ctx1) { 
+self["@matchesList"]=_st(_st(html)._ul())._class_("amber_column matches");
 _st(self)._updateMatchesList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderMatchesOn:",{html:html},smalltalk.ReferencesBrowser)})},
 messageSends: ["class:", "ul", "updateMatchesList"]}),
@@ -4190,7 +4545,8 @@ smalltalk.method({
 selector: "renderReferencedClassesOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@referencedClassesList"]=_st(_st(html)._ul())._class_("amber_column referenced_classes");
+return smalltalk.withContext(function($ctx1) { 
+self["@referencedClassesList"]=_st(_st(html)._ul())._class_("amber_column referenced_classes");
 _st(self)._updateReferencedClassesList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderReferencedClassesOn:",{html:html},smalltalk.ReferencesBrowser)})},
 messageSends: ["class:", "ul", "updateReferencedClassesList"]}),
@@ -4202,7 +4558,8 @@ smalltalk.method({
 selector: "renderSendersOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@sendersList"]=_st(_st(html)._ul())._class_("amber_column senders");
+return smalltalk.withContext(function($ctx1) { 
+self["@sendersList"]=_st(_st(html)._ul())._class_("amber_column senders");
 _st(self)._updateSendersList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderSendersOn:",{html:html},smalltalk.ReferencesBrowser)})},
 messageSends: ["class:", "ul", "updateSendersList"]}),
@@ -4214,7 +4571,8 @@ smalltalk.method({
 selector: "search:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._searchReferencesFor_(aString);
 _st($1)._updateImplementorsList();
@@ -4232,11 +4590,14 @@ selector: "searchMethodSource",
 fn: function (){
 var self=this;
 var regex;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 regex=_st(self["@selector"])._allButFirst();
 _st(_st(self)._classesAndMetaclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(each)._methodDictionary())._values())._do_((function(value){
-return smalltalk.withContext(function($ctx3) {$1=_st(_st(value)._source())._match_(regex);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._methodDictionary())._values())._do_((function(value){
+return smalltalk.withContext(function($ctx3) {
+$1=_st(_st(value)._source())._match_(regex);
 if(smalltalk.assert($1)){
 return _st(_st(self)._matches())._add_(value);
 };
@@ -4252,10 +4613,13 @@ smalltalk.method({
 selector: "searchReferencedClasses",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(_st(self)._classesAndMetaclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(each)._methodDictionary())._values())._do_((function(value){
-return smalltalk.withContext(function($ctx3) {$1=_st(_st(value)._referencedClasses())._includes_(self["@selector"]);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._methodDictionary())._values())._do_((function(value){
+return smalltalk.withContext(function($ctx3) {
+$1=_st(_st(value)._referencedClasses())._includes_(self["@selector"]);
 if(smalltalk.assert($1)){
 return _st(_st(self)._referencedClasses())._add_(value);
 };
@@ -4272,7 +4636,8 @@ selector: "searchReferencesFor:",
 fn: function (aString){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 self["@selector"]=aString;
 self["@implementors"]=_st($Array())._new();
 self["@senders"]=_st($Array())._new();
@@ -4295,10 +4660,13 @@ smalltalk.method({
 selector: "searchSelectorReferences",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(_st(self)._classesAndMetaclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._methodDictionary())._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx3) {$1=_st(key).__eq(self["@selector"]);
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._methodDictionary())._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx3) {
+$1=_st(key).__eq(self["@selector"]);
 if(smalltalk.assert($1)){
 _st(_st(self)._implementors())._add_(value);
 };
@@ -4318,7 +4686,8 @@ smalltalk.method({
 selector: "selector",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@selector"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.ReferencesBrowser)})},
@@ -4332,7 +4701,8 @@ selector: "senders",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@senders"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@senders"]=_st($Array())._new();
@@ -4351,16 +4721,20 @@ smalltalk.method({
 selector: "setInputEvents",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
 $1=self["@input"];
 _st($1)._onKeyUp_((function(){
-return smalltalk.withContext(function($ctx2) {self["@timer"]=_st((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._search_(_st(_st(self["@input"])._asJQuery())._val());
+return smalltalk.withContext(function($ctx2) {
+self["@timer"]=_st((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._search_(_st(_st(self["@input"])._asJQuery())._val());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((100));
 return self["@timer"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=_st($1)._onKeyDown_((function(){
-return smalltalk.withContext(function($ctx2) {$3=self["@timer"];
+return smalltalk.withContext(function($ctx2) {
+$3=self["@timer"];
 if(($receiver = $3) == nil || $receiver == undefined){
 return $3;
 } else {
@@ -4377,21 +4751,25 @@ smalltalk.method({
 selector: "updateImplementorsList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@implementorsList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("column_label");
 _st($1)._with_(_st(_st("Implementors (").__comma(_st(_st(_st(self)._implementors())._size())._asString())).__comma(")"));
 $2=_st($1)._style_("font-weight: bold");
 $2;
 return _st(_st(self)._implementors())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $3=li;
 _st($3)._with_(_st(_st(_st(_st(each)._methodClass())._asString()).__comma(" >> ")).__comma(_st(self)._selector()));
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._openBrowserOn_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._openBrowserOn_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx1)})}));
@@ -4406,21 +4784,25 @@ smalltalk.method({
 selector: "updateMatchesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@matchesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("column_label");
 _st($1)._with_(_st(_st("Regex matches (").__comma(_st(_st(_st(self)._matches())._size())._asString())).__comma(")"));
 $2=_st($1)._style_("font-weight: bold");
 $2;
 return _st(_st(self)._matches())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $3=li;
 _st($3)._with_(_st(_st(_st(_st(each)._methodClass())._asString()).__comma(" >> ")).__comma(_st(each)._selector()));
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._openBrowserOn_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._openBrowserOn_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx1)})}));
@@ -4435,18 +4817,22 @@ smalltalk.method({
 selector: "updateReferencedClassesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@referencedClassesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("column_label");
 _st($1)._with_(_st(_st("Class references (").__comma(_st(_st(_st(self)._referencedClasses())._size())._asString())).__comma(")"));
 $2=_st($1)._style_("font-weight: bold");
 $2;
 return _st(_st(self)._referencedClasses())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {$3=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+$3=_st(html)._li();
 _st($3)._with_(_st(_st(_st(_st(each)._methodClass())._asString()).__comma(" >> ")).__comma(_st(each)._selector()));
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._openBrowserOn_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._openBrowserOn_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
@@ -4461,18 +4847,22 @@ smalltalk.method({
 selector: "updateSendersList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
 _st(self["@sendersList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("column_label");
 _st($1)._with_(_st(_st("Senders (").__comma(_st(_st(_st(self)._senders())._size())._asString())).__comma(")"));
 $2=_st($1)._style_("font-weight: bold");
 $2;
 return _st(_st(self)._senders())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {$3=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+$3=_st(html)._li();
 _st($3)._with_(_st(_st(_st(_st(each)._methodClass())._asString()).__comma(" >> ")).__comma(_st(each)._selector()));
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._openBrowserOn_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._openBrowserOn_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $4;
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
@@ -4488,7 +4878,8 @@ smalltalk.method({
 selector: "search:",
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._searchReferencesFor_(aString);
 $3=_st($2)._open();
@@ -4507,9 +4898,11 @@ selector: "allClasses",
 fn: function (){
 var self=this;
 function $TestCase(){return smalltalk.TestCase||(typeof TestCase=="undefined"?nil:TestCase)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st($TestCase())._allSubclasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._isAbstract())._not();
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._isAbstract())._not();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allClasses",{},smalltalk.TestRunner)})},
@@ -4522,11 +4915,14 @@ smalltalk.method({
 selector: "classes",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(self)._allClasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._selectedCategories())._includes_(_st(each)._category());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._selectedCategories())._includes_(_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._sort_((function(a,b){
-return smalltalk.withContext(function($ctx2) {return _st(_st(a)._name()).__gt(_st(b)._name());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._name()).__gt(_st(b)._name());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.TestRunner)})},
@@ -4540,7 +4936,8 @@ selector: "initialize",
 fn: function (){
 var self=this;
 function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
-return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
 self["@result"]=_st($TestResult())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TestRunner)})},
 messageSends: ["initialize", "new"]}),
@@ -4552,7 +4949,8 @@ smalltalk.method({
 selector: "isSelectedCategory:",
 fn: function (aCategory){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._selectedCategories())._includes_(aCategory);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isSelectedCategory:",{aCategory:aCategory},smalltalk.TestRunner)})},
@@ -4565,7 +4963,8 @@ smalltalk.method({
 selector: "isSelectedClass:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._selectedClasses())._includes_(aClass);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isSelectedClass:",{aClass:aClass},smalltalk.TestRunner)})},
@@ -4578,7 +4977,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "SUnit";
+return smalltalk.withContext(function($ctx1) { 
+return "SUnit";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.TestRunner)})},
 messageSends: []}),
 smalltalk.TestRunner);
@@ -4591,10 +4991,12 @@ fn: function (){
 var self=this;
 var packages;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 packages=_st($Array())._new();
 _st(_st(self)._allClasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(packages)._includes_(_st(each)._category());
+return smalltalk.withContext(function($ctx2) {
+$1=_st(packages)._includes_(_st(each)._category());
 if(! smalltalk.assert($1)){
 return _st(packages)._add_(_st(each)._category());
 };
@@ -4611,7 +5013,8 @@ smalltalk.method({
 selector: "performFailure:",
 fn: function (aTestCase){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aTestCase)._runCase();
+return smalltalk.withContext(function($ctx1) { 
+_st(aTestCase)._runCase();
 return self}, function($ctx1) {$ctx1.fill(self,"performFailure:",{aTestCase:aTestCase},smalltalk.TestRunner)})},
 messageSends: ["runCase"]}),
 smalltalk.TestRunner);
@@ -4622,7 +5025,8 @@ smalltalk.method({
 selector: "printErrors",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(_st(self)._result())._errors())._size())._asString()).__comma(" errors, ");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printErrors",{},smalltalk.TestRunner)})},
@@ -4635,7 +5039,8 @@ smalltalk.method({
 selector: "printFailures",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(_st(self)._result())._failures())._size())._asString()).__comma(" failures");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printFailures",{},smalltalk.TestRunner)})},
@@ -4648,7 +5053,8 @@ smalltalk.method({
 selector: "printPasses",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(_st(_st(self)._result())._runs()).__minus(_st(_st(_st(self)._result())._errors())._size())).__minus(_st(_st(_st(self)._result())._failures())._size()))._asString()).__comma(" passes, ");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printPasses",{},smalltalk.TestRunner)})},
@@ -4661,7 +5067,8 @@ smalltalk.method({
 selector: "printTotal",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(self)._result())._total())._asString()).__comma(" runs, ");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"printTotal",{},smalltalk.TestRunner)})},
@@ -4675,7 +5082,8 @@ selector: "progressBar",
 fn: function (){
 var self=this;
 function $ProgressBar(){return smalltalk.ProgressBar||(typeof ProgressBar=="undefined"?nil:ProgressBar)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@progressBar"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@progressBar"]=_st($ProgressBar())._new();
@@ -4694,7 +5102,8 @@ smalltalk.method({
 selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=self;
 _st($1)._renderCategoriesOn_(html);
 _st($1)._renderClassesOn_(html);
@@ -4709,11 +5118,13 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(html)._button();
 _st($1)._with_("Run selected");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._run_(_st(self)._testCases());
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._run_(_st(self)._testCases());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.TestRunner)})},
 messageSends: ["with:", "button", "onClick:", "run:", "testCases"]}),
@@ -4725,7 +5136,8 @@ smalltalk.method({
 selector: "renderCategoriesOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@packagesList"]=_st(_st(html)._ul())._class_("amber_column sunit packages");
+return smalltalk.withContext(function($ctx1) { 
+self["@packagesList"]=_st(_st(html)._ul())._class_("amber_column sunit packages");
 _st(self)._updateCategoriesList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderCategoriesOn:",{html:html},smalltalk.TestRunner)})},
 messageSends: ["class:", "ul", "updateCategoriesList"]}),
@@ -4737,7 +5149,8 @@ smalltalk.method({
 selector: "renderClassesOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@classesList"]=_st(_st(html)._ul())._class_("amber_column sunit classes");
+return smalltalk.withContext(function($ctx1) { 
+self["@classesList"]=_st(_st(html)._ul())._class_("amber_column sunit classes");
 _st(self)._updateClassesList();
 return self}, function($ctx1) {$ctx1.fill(self,"renderClassesOn:",{html:html},smalltalk.TestRunner)})},
 messageSends: ["class:", "ul", "updateClassesList"]}),
@@ -4749,13 +5162,16 @@ smalltalk.method({
 selector: "renderErrorsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(_st(_st(self)._result())._errors())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("errors");
 _st($1)._with_(_st(_st(_st(_st(each)._class())._name()).__comma(" >> ")).__comma(_st(each)._selector()));
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._performFailure_(each);
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._performFailure_(each);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -4769,13 +5185,16 @@ smalltalk.method({
 selector: "renderFailuresOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st(_st(_st(self)._result())._failures())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("failures");
 _st($1)._with_(_st(_st(_st(_st(each)._class())._name()).__comma(" >> ")).__comma(_st(each)._selector()));
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._performFailure_(each);
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._performFailure_(each);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -4789,7 +5208,8 @@ smalltalk.method({
 selector: "renderResultsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@statusDiv"]=_st(html)._div();
+return smalltalk.withContext(function($ctx1) { 
+self["@statusDiv"]=_st(html)._div();
 _st(html)._with_(_st(self)._progressBar());
 self["@methodsList"]=_st(_st(html)._ul())._class_("amber_column sunit results");
 _st(self)._updateMethodsList();
@@ -4804,7 +5224,8 @@ smalltalk.method({
 selector: "result",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@result"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.TestRunner)})},
@@ -4820,11 +5241,13 @@ var self=this;
 var worker;
 function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
 function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 worker=_st($TestSuiteRunner())._on_(aCollection);
 self["@result"]=_st(worker)._result();
 _st(_st(worker)._announcer())._on_do_($ResultAnnouncement(),(function(ann){
-return smalltalk.withContext(function($ctx2) {$1=_st(_st(ann)._result()).__eq_eq(self["@result"]);
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(ann)._result()).__eq_eq(self["@result"]);
 if(smalltalk.assert($1)){
 _st(_st(self)._progressBar())._updatePercent_(_st(_st(_st(self["@result"])._runs()).__slash(_st(self["@result"])._total())).__star((100)));
 _st(self)._updateStatusDiv();
@@ -4842,9 +5265,11 @@ smalltalk.method({
 selector: "selectAllCategories",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st(_st(self)._packages())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(self["@selectedCategories"])._includes_(each);
+return smalltalk.withContext(function($ctx2) {
+$1=_st(self["@selectedCategories"])._includes_(each);
 if(! smalltalk.assert($1)){
 return _st(_st(self)._selectedCategories())._add_(each);
 };
@@ -4862,9 +5287,11 @@ smalltalk.method({
 selector: "selectAllClasses",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st(_st(self)._classes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(self["@selectedClasses"])._includes_(each);
+return smalltalk.withContext(function($ctx2) {
+$1=_st(self["@selectedClasses"])._includes_(each);
 if(! smalltalk.assert($1)){
 return _st(_st(self)._selectedClasses())._add_(each);
 };
@@ -4883,7 +5310,8 @@ selector: "selectedCategories",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@selectedCategories"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@selectedCategories"]=_st($Array())._new();
@@ -4903,7 +5331,8 @@ selector: "selectedClasses",
 fn: function (){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=self["@selectedClasses"];
 if(($receiver = $2) == nil || $receiver == undefined){
 self["@selectedClasses"]=_st($Array())._new();
@@ -4922,7 +5351,8 @@ smalltalk.method({
 selector: "statusInfo",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(self)._printTotal()).__comma(_st(self)._printPasses())).__comma(_st(self)._printErrors())).__comma(_st(self)._printFailures());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"statusInfo",{},smalltalk.TestRunner)})},
@@ -4936,12 +5366,15 @@ selector: "testCases",
 fn: function (){
 var self=this;
 var testCases;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 testCases=[];
 _st(_st(_st(self)._selectedClasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._selectedCategories())._includes_(_st(each)._category());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._selectedCategories())._includes_(_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(testCases)._addAll_(_st(each)._buildSuite());
+return smalltalk.withContext(function($ctx2) {
+return _st(testCases)._addAll_(_st(each)._buildSuite());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=testCases;
 return $1;
@@ -4955,7 +5388,8 @@ smalltalk.method({
 selector: "toggleCategory:",
 fn: function (aCategory){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 $1=_st(self)._isSelectedCategory_(aCategory);
 if(smalltalk.assert($1)){
 _st(self["@selectedCategories"])._remove_(aCategory);
@@ -4975,7 +5409,8 @@ smalltalk.method({
 selector: "toggleClass:",
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._isSelectedClass_(aClass);
 if(smalltalk.assert($1)){
 _st(self["@selectedClasses"])._remove_(aClass);
@@ -4993,18 +5428,22 @@ smalltalk.method({
 selector: "updateCategoriesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
 _st(self["@packagesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._li();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._li();
 _st($1)._class_("all");
 _st($1)._with_("All");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectAllCategories();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._selectAllCategories();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $2;
 return _st(_st(self)._packages())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $3=_st(_st(self)._selectedCategories())._includes_(each);
 if(smalltalk.assert($3)){
@@ -5013,7 +5452,8 @@ _st(li)._class_("selected");
 $4=li;
 _st($4)._with_(each);
 $5=_st($4)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._toggleCategory_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._toggleCategory_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $5;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx1)})}));
@@ -5028,21 +5468,25 @@ smalltalk.method({
 selector: "updateClassesList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
 _st(self["@classesList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(_st(self)._selectedCategories())._isEmpty();
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(self)._selectedCategories())._isEmpty();
 if(! smalltalk.assert($1)){
 $2=_st(html)._li();
 _st($2)._class_("all");
 _st($2)._with_("All");
 $3=_st($2)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(self)._selectAllClasses();
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._selectAllClasses();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $3;
 };
 return _st(_st(self)._classes())._do_((function(each){
 var li;
-return smalltalk.withContext(function($ctx3) {li=_st(html)._li();
+return smalltalk.withContext(function($ctx3) {
+li=_st(html)._li();
 li;
 $4=_st(_st(self)._selectedClasses())._includes_(each);
 if(smalltalk.assert($4)){
@@ -5051,7 +5495,8 @@ _st(li)._class_("selected");
 $5=li;
 _st($5)._with_(_st(each)._name());
 $6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx4) {return _st(self)._toggleClass_(each);
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._toggleClass_(each);
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $6;
 }, function($ctx3) {$ctx3.fillBlock({each:each,li:li},$ctx1)})}));
@@ -5066,8 +5511,10 @@ smalltalk.method({
 selector: "updateMethodsList",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@methodsList"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {_st(self)._renderErrorsOn_(html);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@methodsList"])._contents_((function(html){
+return smalltalk.withContext(function($ctx2) {
+_st(self)._renderErrorsOn_(html);
 return _st(self)._renderFailuresOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsList",{},smalltalk.TestRunner)})},
@@ -5080,9 +5527,11 @@ smalltalk.method({
 selector: "updateStatusDiv",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@statusDiv"])._class_(_st("sunit status ").__comma(_st(self["@result"])._status()));
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@statusDiv"])._class_(_st("sunit status ").__comma(_st(self["@result"])._status()));
 _st(self["@statusDiv"])._contents_((function(html){
-return smalltalk.withContext(function($ctx2) {return _st(_st(html)._span())._with_(_st(self)._statusInfo());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(html)._span())._with_(_st(self)._statusInfo());
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateStatusDiv",{},smalltalk.TestRunner)})},
 messageSends: ["class:", ",", "status", "contents:", "with:", "statusInfo", "span"]}),
@@ -5097,7 +5546,8 @@ smalltalk.method({
 selector: "clearWorkspace",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@sourceArea"])._clear();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@sourceArea"])._clear();
 return self}, function($ctx1) {$ctx1.fill(self,"clearWorkspace",{},smalltalk.Workspace)})},
 messageSends: ["clear"]}),
 smalltalk.Workspace);
@@ -5108,7 +5558,8 @@ smalltalk.method({
 selector: "doIt",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@sourceArea"])._doIt();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@sourceArea"])._doIt();
 return self}, function($ctx1) {$ctx1.fill(self,"doIt",{},smalltalk.Workspace)})},
 messageSends: ["doIt"]}),
 smalltalk.Workspace);
@@ -5119,7 +5570,8 @@ smalltalk.method({
 selector: "fileIn",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@sourceArea"])._fileIn();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@sourceArea"])._fileIn();
 return self}, function($ctx1) {$ctx1.fill(self,"fileIn",{},smalltalk.Workspace)})},
 messageSends: ["fileIn"]}),
 smalltalk.Workspace);
@@ -5130,7 +5582,8 @@ smalltalk.method({
 selector: "inspectIt",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@sourceArea"])._inspectIt();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@sourceArea"])._inspectIt();
 return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{},smalltalk.Workspace)})},
 messageSends: ["inspectIt"]}),
 smalltalk.Workspace);
@@ -5141,7 +5594,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Workspace";
+return smalltalk.withContext(function($ctx1) { 
+return "Workspace";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.Workspace)})},
 messageSends: []}),
 smalltalk.Workspace);
@@ -5152,7 +5606,8 @@ smalltalk.method({
 selector: "printIt",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@sourceArea"])._printIt();
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@sourceArea"])._printIt();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{},smalltalk.Workspace)})},
 messageSends: ["printIt"]}),
 smalltalk.Workspace);
@@ -5164,7 +5619,8 @@ selector: "renderBoxOn:",
 fn: function (html){
 var self=this;
 function $SourceArea(){return smalltalk.SourceArea||(typeof SourceArea=="undefined"?nil:SourceArea)}
-return smalltalk.withContext(function($ctx1) { self["@sourceArea"]=_st($SourceArea())._new();
+return smalltalk.withContext(function($ctx1) { 
+self["@sourceArea"]=_st($SourceArea())._new();
 _st(self["@sourceArea"])._renderOn_(html);
 return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.Workspace)})},
 messageSends: ["new", "renderOn:"]}),
@@ -5176,35 +5632,41 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
 $1=_st(html)._button();
 _st($1)._with_("DoIt");
 _st($1)._title_("ctrl+d");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._doIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._doIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3=_st(html)._button();
 _st($3)._with_("PrintIt");
 _st($3)._title_("ctrl+p");
 $4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._printIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._printIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=_st(html)._button();
 _st($5)._with_("InspectIt");
 _st($5)._title_("ctrl+i");
 $6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._inspectIt();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $7=_st(html)._button();
 _st($7)._with_("FileIn");
 _st($7)._title_("ctrl+f");
 $8=_st($7)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._fileIn();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._fileIn();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $9=_st(html)._button();
 _st($9)._with_("Clear workspace");
 $10=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._clearWorkspace();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._clearWorkspace();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.Workspace)})},
 messageSends: ["with:", "button", "title:", "onClick:", "doIt", "printIt", "inspectIt", "fileIn", "clearWorkspace"]}),
@@ -5216,7 +5678,8 @@ smalltalk.method({
 selector: "show",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.TabWidget.fn.prototype._show.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.TabWidget.fn.prototype._show.apply(_st(self), []);
 _st(self["@sourceArea"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.Workspace)})},
 messageSends: ["show", "focus"]}),
@@ -5231,7 +5694,8 @@ selector: "inspect",
 fn: function (){
 var self=this;
 function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st($Inspector())._new();
 _st($1)._inspect_(self);
 $2=_st($1)._open();
@@ -5247,11 +5711,13 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(_st(_st(self)._class())._allInstanceVariableNames())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(each,_st(self)._instVarAt_(each));
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(each,_st(self)._instVarAt_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=anInspector;
 _st($1)._setLabel_(_st(self)._printString());
@@ -5268,11 +5734,13 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(self)._withIndexDo_((function(each,i){
-return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(i,each);
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(i,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1)})}));
 $1=anInspector;
 _st($1)._setLabel_(_st(self)._printString());
@@ -5289,12 +5757,14 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#keys",_st(self)._keys());
 _st(self)._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(key,value);
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $1=anInspector;
 _st($1)._setLabel_(_st(self)._printString());
@@ -5310,7 +5780,8 @@ selector: "inspectOn:",
 fn: function (anInspector){
 var self=this;
 var label;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 smalltalk.CharacterArray.fn.prototype._inspectOn_.apply(_st(self), [anInspector]);
 $1=_st(_st(_st(self)._printString())._size()).__gt((30));
 if(smalltalk.assert($1)){
@@ -5333,11 +5804,13 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(self["@elements"])._withIndexDo_((function(each,i){
-return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(i,each);
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(i,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1)})}));
 $1=anInspector;
 _st($1)._setLabel_(_st(self)._printString());
@@ -5354,7 +5827,8 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#year",_st(self)._year());
@@ -5379,7 +5853,8 @@ fn: function (anInspector){
 var self=this;
 var variables;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#home",_st(self)._home());
@@ -5387,7 +5862,8 @@ _st(variables)._at_put_("#receiver",_st(self)._receiver());
 _st(variables)._at_put_("#selector",_st(self)._selector());
 _st(variables)._at_put_("#temps",_st(self)._temps());
 _st(_st(_st(self)._class())._instanceVariableNames())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(variables)._at_put_(each,_st(self)._instVarAt_(each));
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(each,_st(self)._instVarAt_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=anInspector;
 _st($1)._setLabel_(_st(self)._printString());
