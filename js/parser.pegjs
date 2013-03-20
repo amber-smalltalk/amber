@@ -6,18 +6,17 @@ ws             = (separator / comments)*
 identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 varIdentifier  = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("")}
 keyword        = first:identifier last:[:] {return first + last}
+selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("")}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                      return smalltalk.ValueNode._new()
                             ._value_(val.join("").replace(/\"/ig, '"'))
                  }
 
-symbol         = "#"val:(
-                         digits:[a-zA-Z0-9\:]+ {return digits.join("")}
-                       / node:string {return node._value()})*
+symbol         = "#"val:(selector / node:string {return node._value()})
                   {
                       return smalltalk.ValueNode._new()
-                             ._value_(val.join("").replace(/\"/ig, '"'))
+                             ._value_(val)
                   }
 number         = n:(hex / float / integer) {
                      return smalltalk.ValueNode._new()

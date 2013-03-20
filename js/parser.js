@@ -43,6 +43,7 @@ smalltalk.parser = (function(){
         "identifier": parse_identifier,
         "varIdentifier": parse_varIdentifier,
         "keyword": parse_keyword,
+        "selector": parse_selector,
         "className": parse_className,
         "string": parse_string,
         "symbol": parse_symbol,
@@ -579,6 +580,75 @@ smalltalk.parser = (function(){
         return result0;
       }
       
+      function parse_selector() {
+        var cacheKey = "selector@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
+        var result0, result1, result2;
+        var pos0, pos1;
+        
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        if (/^[a-zA-Z]/.test(input.charAt(pos.offset))) {
+          result0 = input.charAt(pos.offset);
+          advance(pos, 1);
+        } else {
+          result0 = null;
+          if (reportFailures === 0) {
+            matchFailed("[a-zA-Z]");
+          }
+        }
+        if (result0 !== null) {
+          result1 = [];
+          if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+            result2 = input.charAt(pos.offset);
+            advance(pos, 1);
+          } else {
+            result2 = null;
+            if (reportFailures === 0) {
+              matchFailed("[a-zA-Z0-9:]");
+            }
+          }
+          while (result2 !== null) {
+            result1.push(result2);
+            if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+              result2 = input.charAt(pos.offset);
+              advance(pos, 1);
+            } else {
+              result2 = null;
+              if (reportFailures === 0) {
+                matchFailed("[a-zA-Z0-9:]");
+              }
+            }
+          }
+          if (result1 !== null) {
+            result0 = [result0, result1];
+          } else {
+            result0 = null;
+            pos = clone(pos1);
+          }
+        } else {
+          result0 = null;
+          pos = clone(pos1);
+        }
+        if (result0 !== null) {
+          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+        }
+        if (result0 === null) {
+          pos = clone(pos0);
+        }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
+        return result0;
+      }
+      
       function parse_className() {
         var cacheKey = "className@" + pos.offset;
         var cachedResult = cache[cacheKey];
@@ -778,7 +848,7 @@ smalltalk.parser = (function(){
           return cachedResult.result;
         }
         
-        var result0, result1, result2, result3;
+        var result0, result1;
         var pos0, pos1, pos2;
         
         pos0 = clone(pos);
@@ -793,94 +863,15 @@ smalltalk.parser = (function(){
           }
         }
         if (result0 !== null) {
-          result1 = [];
-          pos2 = clone(pos);
-          if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
-            result3 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result3 = null;
-            if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9:]");
-            }
-          }
-          if (result3 !== null) {
-            result2 = [];
-            while (result3 !== null) {
-              result2.push(result3);
-              if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
-                result3 = input.charAt(pos.offset);
-                advance(pos, 1);
-              } else {
-                result3 = null;
-                if (reportFailures === 0) {
-                  matchFailed("[a-zA-Z0-9:]");
-                }
-              }
-            }
-          } else {
-            result2 = null;
-          }
-          if (result2 !== null) {
-            result2 = (function(offset, line, column, digits) {return digits.join("")})(pos2.offset, pos2.line, pos2.column, result2);
-          }
-          if (result2 === null) {
-            pos = clone(pos2);
-          }
-          if (result2 === null) {
+          result1 = parse_selector();
+          if (result1 === null) {
             pos2 = clone(pos);
-            result2 = parse_string();
-            if (result2 !== null) {
-              result2 = (function(offset, line, column, node) {return node._value()})(pos2.offset, pos2.line, pos2.column, result2);
+            result1 = parse_string();
+            if (result1 !== null) {
+              result1 = (function(offset, line, column, node) {return node._value()})(pos2.offset, pos2.line, pos2.column, result1);
             }
-            if (result2 === null) {
+            if (result1 === null) {
               pos = clone(pos2);
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            pos2 = clone(pos);
-            if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
-              result3 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result3 = null;
-              if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9:]");
-              }
-            }
-            if (result3 !== null) {
-              result2 = [];
-              while (result3 !== null) {
-                result2.push(result3);
-                if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
-                  result3 = input.charAt(pos.offset);
-                  advance(pos, 1);
-                } else {
-                  result3 = null;
-                  if (reportFailures === 0) {
-                    matchFailed("[a-zA-Z0-9:]");
-                  }
-                }
-              }
-            } else {
-              result2 = null;
-            }
-            if (result2 !== null) {
-              result2 = (function(offset, line, column, digits) {return digits.join("")})(pos2.offset, pos2.line, pos2.column, result2);
-            }
-            if (result2 === null) {
-              pos = clone(pos2);
-            }
-            if (result2 === null) {
-              pos2 = clone(pos);
-              result2 = parse_string();
-              if (result2 !== null) {
-                result2 = (function(offset, line, column, node) {return node._value()})(pos2.offset, pos2.line, pos2.column, result2);
-              }
-              if (result2 === null) {
-                pos = clone(pos2);
-              }
             }
           }
           if (result1 !== null) {
@@ -896,7 +887,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                               return smalltalk.ValueNode._new()
-                                     ._value_(val.join("").replace(/\"/ig, '"'))
+                                     ._value_(val)
                           })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
