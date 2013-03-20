@@ -13,7 +13,8 @@ string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                             ._value_(val.join("").replace(/\"/ig, '"'))
                  }
 
-symbol         = "#"val:(selector / node:string {return node._value()})
+symbol         = "#" rest:bareSymbol {return rest}
+bareSymbol         = val:(selector / node:string {return node._value()})
                   {
                       return smalltalk.ValueNode._new()
                              ._value_(val)
@@ -27,7 +28,7 @@ float          = neg:[-]?int:[0-9]+ "." dec:[0-9]+ {return parseFloat((neg + int
 integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10))}
 literalArray   = "#(" rest:literalArrayRest {return rest}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest}
-literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray) ws {return lit._value()})* ws ")" {
+literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value()})* ws ")" {
                      return smalltalk.ValueNode._new()
                             ._value_(lits)
                  }
