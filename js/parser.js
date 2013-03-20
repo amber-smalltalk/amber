@@ -54,6 +54,8 @@ smalltalk.parser = (function(){
         "dynamicArray": parse_dynamicArray,
         "dynamicDictionary": parse_dynamicDictionary,
         "pseudoVariable": parse_pseudoVariable,
+        "parseTimeLiteral": parse_parseTimeLiteral,
+        "runtimeLiteral": parse_runtimeLiteral,
         "literal": parse_literal,
         "variable": parse_variable,
         "classReference": parse_classReference,
@@ -1251,7 +1253,7 @@ smalltalk.parser = (function(){
             result2 = [];
             pos2 = clone(pos);
             pos3 = clone(pos);
-            result3 = parse_literal();
+            result3 = parse_parseTimeLiteral();
             if (result3 !== null) {
               result4 = parse_ws();
               if (result4 !== null) {
@@ -1274,7 +1276,7 @@ smalltalk.parser = (function(){
               result2.push(result3);
               pos2 = clone(pos);
               pos3 = clone(pos);
-              result3 = parse_literal();
+              result3 = parse_parseTimeLiteral();
               if (result3 !== null) {
                 result4 = parse_ws();
                 if (result4 !== null) {
@@ -1597,8 +1599,8 @@ smalltalk.parser = (function(){
         return result0;
       }
       
-      function parse_literal() {
-        var cacheKey = "literal@" + pos.offset;
+      function parse_parseTimeLiteral() {
+        var cacheKey = "parseTimeLiteral@" + pos.offset;
         var cachedResult = cache[cacheKey];
         if (cachedResult) {
           pos = clone(cachedResult.nextPos);
@@ -1613,21 +1615,59 @@ smalltalk.parser = (function(){
           if (result0 === null) {
             result0 = parse_literalArray();
             if (result0 === null) {
-              result0 = parse_dynamicDictionary();
+              result0 = parse_string();
               if (result0 === null) {
-                result0 = parse_dynamicArray();
-                if (result0 === null) {
-                  result0 = parse_string();
-                  if (result0 === null) {
-                    result0 = parse_symbol();
-                    if (result0 === null) {
-                      result0 = parse_block();
-                    }
-                  }
-                }
+                result0 = parse_symbol();
               }
             }
           }
+        }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
+        return result0;
+      }
+      
+      function parse_runtimeLiteral() {
+        var cacheKey = "runtimeLiteral@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
+        var result0;
+        
+        result0 = parse_dynamicDictionary();
+        if (result0 === null) {
+          result0 = parse_dynamicArray();
+          if (result0 === null) {
+            result0 = parse_block();
+          }
+        }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
+        return result0;
+      }
+      
+      function parse_literal() {
+        var cacheKey = "literal@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
+        var result0;
+        
+        result0 = parse_runtimeLiteral();
+        if (result0 === null) {
+          result0 = parse_parseTimeLiteral();
         }
         
         cache[cacheKey] = {

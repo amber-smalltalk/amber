@@ -26,7 +26,7 @@ number         = n:(hex / float / integer) {
 hex            = neg:[-]? "16r" num:[0-9a-fA-F]+ {return parseInt((neg + num.join("")), 16)}
 float          = neg:[-]?int:[0-9]+ "." dec:[0-9]+ {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)}
 integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10))}
-literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
+literalArray   = "#(" ws lits:(lit:parseTimeLiteral ws {return lit._value()})* ws ")" {
                      return smalltalk.ValueNode._new()
                             ._value_(lits)
                  }
@@ -45,7 +45,9 @@ pseudoVariable = val:(
                        return smalltalk.ValueNode._new()
                               ._value_(val)
                    }
-literal        = pseudoVariable / number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
+parseTimeLiteral        = pseudoVariable / number / literalArray / string / symbol
+runtimeLiteral        = dynamicDictionary / dynamicArray / block
+literal        = runtimeLiteral / parseTimeLiteral
 
 
 variable       = identifier:varIdentifier {
