@@ -136,7 +136,7 @@ module.exports = function(grunt) {
     });
 
     compiledFiles.forEach(function(file) {
-      if (path.existsSync(file)) {
+      if (fs.existsSync(file)) {
         console.log('Move: ' + file + ' -> ' + path.join(target_dir, file));
         fs.renameSync(file, path.join(target_dir, file));
       }

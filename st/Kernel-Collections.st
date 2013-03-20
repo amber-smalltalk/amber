@@ -1049,7 +1049,7 @@ asString
 !
 
 asSymbol
-	^self subclassResponsibility
+	^self asString
 !
 
 asUppercase
@@ -1188,11 +1188,15 @@ asString
 !
 
 asSymbol
-	^Symbol lookup: self
+	^ self
 !
 
 asUppercase
 	<return self.toUpperCase()>
+!
+
+crlfSanitized
+	^self lines join: String lf
 !
 
 reversed
@@ -1432,143 +1436,6 @@ randomNotIn: aString
 	| result |
     [ result := self random. aString includesSubString: result ] whileTrue.
     ^result
-! !
-
-CharacterArray subclass: #Symbol
-	instanceVariableNames: ''
-	package: 'Kernel-Collections'!
-!Symbol commentStamp!
-I represent Strings that are created uniquely.
-Symbols are unique through the system.
-
-Thus, someString asSymbol == someString asSymbol.!
-
-!Symbol methodsFor: 'accessing'!
-
-at: anIndex ifAbsent: aBlock
-	^self asString at: anIndex ifAbsent: aBlock
-!
-
-indexOf: anElement
-	^ self asString indexOf: anElement
-!
-
-size
-	^self asString size
-! !
-
-!Symbol methodsFor: 'comparing'!
-
-< aSymbol
-	^self asString < aSymbol asString
-!
-
-<= aSymbol
-	^self asString <= aSymbol asString
-!
-
-= aSymbol
-	aSymbol class = self class ifFalse: [^false].
-	^self asString = aSymbol asString
-!
-
-> aSymbol
-	^self asString > aSymbol asString
-!
-
->= aSymbol
-	^self asString >= aSymbol asString
-! !
-
-!Symbol methodsFor: 'converting'!
-
-asJSON
-	^self asString asJSON
-!
-
-asJavascript
-	^'smalltalk.symbolFor(', self asString asJavascript, ')'
-!
-
-asSelector
-	^self asString asSelector
-!
-
-asString
-	<return self.value>
-!
-
-asSymbol
-	^self
-! !
-
-!Symbol methodsFor: 'copying'!
-
-copyFrom: anIndex to: anotherIndex
-	^self class fromString: (self asString copyFrom: anIndex to: anotherIndex)
-!
-
-deepCopy
-	^self
-!
-
-shallowCopy
-	^self
-! !
-
-!Symbol methodsFor: 'enumerating'!
-
-collect: aBlock
-	^ (self asString collect: aBlock) asSymbol
-!
-
-detect: aBlock
-	^ self asString detect: aBlock
-!
-
-do: aBlock
-	self asString do: aBlock
-!
-
-select: aBlock
-	^ (self asString select: aBlock) asSymbol
-!
-
-withIndexDo: aBlock
-	self asString withIndexDo: aBlock
-! !
-
-!Symbol methodsFor: 'evaluating'!
-
-value: anObject
-	^anObject perform: self
-! !
-
-!Symbol methodsFor: 'printing'!
-
-printOn: aStream
-	aStream nextPutAll: '#'.
-	super printOn: aStream
-! !
-
-!Symbol methodsFor: 'testing'!
-
-isSymbol
-	^true
-! !
-
-!Symbol class methodsFor: 'instance creation'!
-
-basicNew
-	self shouldNotImplement
-!
-
-fromString: aString
-	^self lookup: aString
-!
-
-lookup: aString
-	<return smalltalk.symbolFor(aString);>
 ! !
 
 Collection subclass: #Set

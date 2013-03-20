@@ -252,6 +252,12 @@ testAssignment
 	self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1
 !
 
+testBackslashSelectors
+	
+	self should: '\ arg ^ 4' return: 4.
+	self should: '\\ arg ^ 42' return: 42
+!
+
 testBlockReturn
 	self should: 'foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]' return: #(2 3 4).
 	self should: 'foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]' return: #(2 3 4).
@@ -356,6 +362,11 @@ testNonLocalReturn
 	self should: 'foo [ :x | ^ x + x ] value: 4. ^ 2' return: 8
 !
 
+testPascalCaseGlobal
+	self should: 'foo ^Object' return: (smalltalk at: 'Object').
+	self should: 'foo ^NonExistent' return: nil
+!
+
 testSendReceiverAndArgumentsOrdered
 	self should: 'foo
 	| x |
@@ -408,6 +419,17 @@ testifNotNil
 
 	self should: 'foo 1 ifNotNil: [ ^ 2 ]' return: 2.
 	self should: 'foo nil ifNotNil: [ ^ 2 ]' return: receiver.
+!
+
+testifNotNilWithArgument
+	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ]' return: 3.
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil.
+	
+	self should: 'foo ^ 1 ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 3.
+	self should: 'foo ^ nil ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 5.
+	
+	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 3.
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 5
 !
 
 testifTrue

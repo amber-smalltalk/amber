@@ -167,14 +167,14 @@ visitDynamicDictionaryNode: aNode
 
 visitJSStatementNode: aNode
 	^ IRVerbatim new
-		source: aNode source;
+		source: aNode source crlfSanitized;
 		yourself
 !
 
 visitMethodNode: aNode
 
 	self method: (IRMethod new
-		source: self source;
+		source: self source crlfSanitized;
 		theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;
@@ -922,6 +922,7 @@ visitIRMethod: anIRMethod
 			nextPutFunctionWith: [
 				self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |
 					each name asVariableName ]).
+				anIRMethod classReferences do: [ :each | self stream nextPutClassRefFunction: each ].
 				self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
@@ -1031,8 +1032,7 @@ nextPutAssignment
 
 nextPutBlockContextFor: anIRClosure during: aBlock
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';
-		nextPutAll: String cr.
+		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
 	
 	aBlock value.
 	
@@ -1053,6 +1053,23 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 		nextPutAll: anIRClosure method scope alias, ')})'
 !
 
+nextPutClassRefFunction: aString
+	"Creates an inner function $aString into method and called as `$Foo()`whenever the global is accessed.
+	This ensures that undefined global access will answer `nil`"
+	
+	stream
+		nextPutAll: 'function $';
+		nextPutAll: aString;
+		nextPutAll: '(){return smalltalk.';
+		nextPutAll: aString;
+		nextPutAll: '||(typeof ';
+		nextPutAll: aString;
+		nextPutAll: '=="undefined"?nil:';
+		nextPutAll: aString;
+		nextPutAll: ')}';
+		lf
+!
+
 nextPutClosureWith: aBlock arguments: anArray
 	stream nextPutAll: '(function('.
 	anArray
@@ -1065,8 +1082,7 @@ nextPutClosureWith: aBlock arguments: anArray
 
 nextPutContextFor: aMethod during: aBlock
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';
-		nextPutAll: String cr.
+		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
 	aBlock value.
 	
 	self
@@ -1119,7 +1135,7 @@ nextPutIfElse: aBlock with: ifBlock with: elseBlock
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream
 		nextPutAll: 'smalltalk.method({'; lf;
-		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
 	aBlock value.
 	stream

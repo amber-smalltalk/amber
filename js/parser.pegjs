@@ -6,18 +6,18 @@ ws             = (separator / comments)*
 identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 varIdentifier  = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("")}
 keyword        = first:identifier last:[:] {return first + last}
+selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("")}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                      return smalltalk.ValueNode._new()
                             ._value_(val.join("").replace(/\"/ig, '"'))
                  }
 
-symbol         = "#"val:(
-                         digits:[a-zA-Z0-9\:]+ {return digits.join("")}
-                       / node:string {return node._value()})*
+symbol         = "#" rest:bareSymbol {return rest}
+bareSymbol         = val:(selector / binarySelector / node:string {return node._value()})
                   {
                       return smalltalk.ValueNode._new()
-                             ._value_(smalltalk.symbolFor(val.join("").replace(/\"/ig, '"')))
+                             ._value_(val)
                   }
 number         = n:(hex / float / integer) {
                      return smalltalk.ValueNode._new()
@@ -26,7 +26,9 @@ number         = n:(hex / float / integer) {
 hex            = neg:[-]? "16r" num:[0-9a-fA-F]+ {return parseInt((neg + num.join("")), 16)}
 float          = neg:[-]?int:[0-9]+ "." dec:[0-9]+ {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)}
 integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10))}
-literalArray   = "#(" ws lits:(lit:literal ws {return lit._value()})* ws ")" {
+literalArray   = "#(" rest:literalArrayRest {return rest}
+bareLiteralArray   = "(" rest:literalArrayRest {return rest}
+literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value()})* ws ")" {
                      return smalltalk.ValueNode._new()
                             ._value_(lits)
                  }
@@ -45,7 +47,9 @@ pseudoVariable = val:(
                        return smalltalk.ValueNode._new()
                               ._value_(val)
                    }
-literal        = pseudoVariable / number / literalArray / dynamicDictionary / dynamicArray / string / symbol / block
+parseTimeLiteral        = pseudoVariable / number / literalArray / string / symbol
+runtimeLiteral        = dynamicDictionary / dynamicArray / block
+literal        = runtimeLiteral / parseTimeLiteral
 
 
 variable       = identifier:varIdentifier {

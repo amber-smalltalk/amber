@@ -183,7 +183,7 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 				callback();
 				return;
 			}
-			path.exists(self.closure_jar, function(exists) {
+			fs.exists(self.closure_jar, function(exists) {
 				if (!exists) {
 					console.warn('Can not find Closure compiler at: ' + self.closure_jar);
 					defaults.closure = false;
@@ -214,11 +214,11 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
 	var amberJsFile = path.join(this.amber_dir, 'js', jsFile);
 	console.log('Resolving: ' + jsFile);
-	path.exists(jsFile, function(exists) {
+	fs.exists(jsFile, function(exists) {
 		if (exists) {
 			callback(jsFile);
 		} else {
-			path.exists(amberJsFile, function(exists) {
+			fs.exists(amberJsFile, function(exists) {
 				if (exists) {
 					callback(amberJsFile);
 				} else {
@@ -273,11 +273,11 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 		console.log('Checking: ' + stFile);
 		var category = path.basename(stFile, '.st');
 		var amberStFile = path.join(self.amber_dir, 'st', stFile);
-		path.exists(stFile, function(exists) {
+		fs.exists(stFile, function(exists) {
 			if (exists) {
 				_callback(stFile, category);
 			} else {
-				path.exists(amberStFile, function(exists) {
+				fs.exists(amberStFile, function(exists) {
 					if (exists) {
 						_callback(amberStFile, category);
 					} else {
@@ -491,7 +491,7 @@ AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
 	var self = this;
 	async_map(this.defaults.compiled, function(file, callback) {
-			path.exists(file, function(exists) {
+			fs.exists(file, function(exists) {
 				if (exists)
 					callback(null, null);
 				else
@@ -545,7 +545,7 @@ AmberC.prototype.compose_js_files = function() {
 	});
 
 	program_files.forEach(function(file) {
-		if(path.existsSync(file)) {
+		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
 			fileStream.write(fs.readFileSync(file));
 		} else {
@@ -558,7 +558,7 @@ AmberC.prototype.compose_js_files = function() {
 		fileStream.write('smalltalk.' + defaults.main + '._main()');
 	}
 
-	if (undefined !== defaults.mainfile && path.existsSync(defaults.mainfile)) {
+	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
 		console.log('Adding main file: ' + defaults.mainfile);
 		fileStream.write(fs.readFileSync(defaults.mainfile));
 	}
