@@ -14,7 +14,7 @@ string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                  }
 
 symbol         = "#" rest:bareSymbol {return rest}
-bareSymbol         = val:(selector / node:string {return node._value()})
+bareSymbol         = val:(selector / binarySelector / node:string {return node._value()})
                   {
                       return smalltalk.ValueNode._new()
                              ._value_(val)

@@ -903,13 +903,16 @@ smalltalk.parser = (function(){
         pos0 = clone(pos);
         result0 = parse_selector();
         if (result0 === null) {
-          pos1 = clone(pos);
-          result0 = parse_string();
-          if (result0 !== null) {
-            result0 = (function(offset, line, column, node) {return node._value()})(pos1.offset, pos1.line, pos1.column, result0);
-          }
+          result0 = parse_binarySelector();
           if (result0 === null) {
-            pos = clone(pos1);
+            pos1 = clone(pos);
+            result0 = parse_string();
+            if (result0 !== null) {
+              result0 = (function(offset, line, column, node) {return node._value()})(pos1.offset, pos1.line, pos1.column, result0);
+            }
+            if (result0 === null) {
+              pos = clone(pos1);
+            }
           }
         }
         if (result0 !== null) {
