@@ -109,7 +109,7 @@ packages
 !HLLocalEnvironment methodsFor: 'actions'!
 
 commitPackage: aPackage
-	aPackage heliosCommit
+	aPackage commit
 !
 
 eval: aString on: aReceiver

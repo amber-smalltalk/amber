@@ -683,25 +683,3 @@ canBeOpenAsTab
 	^ true
 ! !
 
-!Package methodsFor: '*Helios-Core'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 'type' -> 'PUT'.
-					'data' -> aString.
-					'contentType' -> 'text/plain;charset=UTF-8'.
-					'error' -> [:xhr | window 
-						alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
-!
-
-heliosCommit
-
-	{ Exporter -> (self commitPathJs, '/', self name, '.js').
-			StrippedExporter -> (self commitPathJs, '/', self name, '.deploy.js').
-			ChunkExporter -> (self commitPathSt, '/', self name, '.st')
-		} do: [ :commitStrategy || fileContents |
-			fileContents := (commitStrategy key new exportPackage: self name).
-			self ajaxPutAt: commitStrategy value data: fileContents ]
-! !
-
