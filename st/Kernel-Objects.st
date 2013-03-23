@@ -1163,14 +1163,6 @@ commitPathSt: aString
 	commitPathSt := aString
 !
 
-dependencies
-	^self propertyAt: 'dependencies' ifAbsent: [#()]
-!
-
-dependencies: anArray
-	^self propertyAt: 'dependencies' put: anArray
-!
-
 name
 	<return self.pkgName>
 !
@@ -1181,10 +1173,6 @@ name: aString
 
 organization
 	^ self basicAt: 'organization'
-!
-
-properties
-	^Smalltalk current readJSObject: (self basicAt: 'properties')
 ! !
 
 !Package methodsFor: 'classes'!
@@ -1215,37 +1203,6 @@ printOn: aStream
 		nextPutAll: ')'
 ! !
 
-!Package methodsFor: 'private'!
-
-jsProperties
-	<return self.properties>
-!
-
-jsProperties: aJSObject
-	<return self.properties = aJSObject>
-!
-
-propertiesAsJSON
-	<return JSON.stringify(self.properties)>
-! !
-
-!Package methodsFor: 'properties'!
-
-propertyAt: key
-
-	<return self.properties[key]>
-!
-
-propertyAt: key ifAbsent: block
-
-	^(self propertyAt: key) ifNil: [block value]
-!
-
-propertyAt: key put: value
-
-	<return self.properties[key] = value>
-! !
-
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 
 !Package class methodsFor: 'accessing'!
@@ -1263,12 +1220,12 @@ named: aPackageName ifAbsent: aBlock
 !Package class methodsFor: 'commit paths'!
 
 commitPathsFromLoader
-<
-	var cp = typeof amber !!== 'undefined' && amber.commitPath;
-	if (!!cp) return;
-	if (cp.js) self._defaultCommitPathJs_(cp.js);
-	if (cp.st) self._defaultCommitPathSt_(cp.st);
->
+	<
+		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
+		if (!!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	>
 !
 
 defaultCommitPathJs
@@ -1301,11 +1258,11 @@ initialize
 
 !Package class methodsFor: 'loading-storing'!
 
-fetch: aPackageName
-	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
+load: aPackageName
+	self load: aPackageName prefix: self defaultCommitPathJs, '/'
 !
 
-fetch: aPackageName prefix: aPrefix
+load: aPackageName prefix: aPrefix
 	jQuery
 		getScript: (aPrefix , aPackageName , '.js')
 		onSuccess: [
