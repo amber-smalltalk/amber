@@ -342,14 +342,26 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #Packagehandler
+Object subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 
-!Packagehandler methodsFor: 'loading'!
+!PackageHandler methodsFor: 'committing'!
 
 commit: aPackage
-!
+	aPackage ifNotNil: [
+		{ 
+			Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+			StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+			ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+		} 
+			do: [ :commitStrategy|| fileContents |
+				fileContents := (commitStrategy key new exportPackage: aPackage).
+				self ajaxPutAt: commitStrategy value data: fileContents ]
+	]
+! !
+
+!PackageHandler methodsFor: 'loading'!
 
 loadPackage: packageName prefix: aString
 	| url |
@@ -371,7 +383,17 @@ loadPackages: aCollection prefix: aString
 		self loadPackage: each prefix: aString ]
 ! !
 
-!Packagehandler methodsFor: 'private'!
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+!
 
 setupPackageNamed: packageName prefix: aString
 
@@ -381,9 +403,15 @@ setupPackageNamed: packageName prefix: aString
 		commitPathSt: '/', aString, '/st'
 ! !
 
-!Packagehandler class methodsFor: 'not yet classified'!
+!PackageHandler class methodsFor: 'not yet classified'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
+! !
+
+!Package methodsFor: '*Importer-Exporter'!
+
+commit
+	^ PackageHandler new commit: self
 ! !
 

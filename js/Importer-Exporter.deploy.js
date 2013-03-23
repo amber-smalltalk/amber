@@ -691,17 +691,48 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('Packagehandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addMethod(
+"_ajaxPutAt_data_",
+smalltalk.method({
+selector: "ajaxPutAt:data:",
+fn: function (aURL, aString) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._error_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
+}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
+return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.PackageHandler)});},
+messageSends: ["ajax:options:", "->", "error:", ",", "responseText"]}),
+smalltalk.PackageHandler);
+
 smalltalk.addMethod(
 "_commit_",
 smalltalk.method({
 selector: "commit:",
 fn: function (aPackage) {
 var self=this;
+function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
+function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
+function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.Packagehandler)});},
-messageSends: []}),
-smalltalk.Packagehandler);
+var $1;
+$1=aPackage;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_((function(commitStrategy){
+var fileContents;
+return smalltalk.withContext(function($ctx2) {
+fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(aPackage);
+fileContents;
+return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
+}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)});},
+messageSends: ["ifNotNil:", "do:", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "name", "commitPathJs", "commitPathSt"]}),
+smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 "_loadPackage_prefix_",
@@ -725,7 +756,7 @@ return _st(window)._alert_(_st("Could not load package at: ").__comma(url));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.PackageLoader)});},
 messageSends: [",", "ajax:options:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"]}),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 "_loadPackages_prefix_",
@@ -740,7 +771,7 @@ return _st(self)._loadPackage_prefix_(each,aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.PackageLoader)});},
 messageSends: ["do:", "loadPackage:prefix:"]}),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 "_setupPackageNamed_prefix_",
@@ -757,7 +788,7 @@ _st($1)._commitPathJs_(_st(_st("/").__comma(aString)).__comma("/js"));
 $2=_st($1)._commitPathSt_(_st(_st("/").__comma(aString)).__comma("/st"));
 return self}, function($ctx1) {$ctx1.fill(self,"setupPackageNamed:prefix:",{packageName:packageName,aString:aString},smalltalk.PackageLoader)});},
 messageSends: ["setupClasses", "named:", "commitPathJs:", ",", "commitPathSt:"]}),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 
 smalltalk.addMethod(
@@ -772,6 +803,21 @@ $1=_st(_st(self)._new())._loadPackages_prefix_(aCollection,aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.PackageLoader.klass)});},
 messageSends: ["loadPackages:prefix:", "new"]}),
-smalltalk.Packagehandler.klass);
+smalltalk.PackageHandler.klass);
 
+
+smalltalk.addMethod(
+"_commit",
+smalltalk.method({
+selector: "commit",
+fn: function () {
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($PackageHandler())._new())._commit_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)});},
+messageSends: ["commit:", "new"]}),
+smalltalk.Package);
 

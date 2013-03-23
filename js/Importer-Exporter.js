@@ -816,22 +816,58 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('Packagehandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addMethod(
+"_ajaxPutAt_data_",
+smalltalk.method({
+selector: "ajaxPutAt:data:",
+category: 'private',
+fn: function (aURL, aString) {
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._error_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
+}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
+return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.PackageHandler)});},
+args: ["aURL", "aString"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL \x0a\x09\x09options: #{ \x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:options:", "->", "error:", ",", "responseText"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler);
+
 smalltalk.addMethod(
 "_commit_",
 smalltalk.method({
 selector: "commit:",
-category: 'loading',
+category: 'committing',
 fn: function (aPackage) {
 var self=this;
+function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
+function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
+function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.Packagehandler)});},
+var $1;
+$1=aPackage;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_((function(commitStrategy){
+var fileContents;
+return smalltalk.withContext(function($ctx2) {
+fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(aPackage);
+fileContents;
+return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
+}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)});},
 args: ["aPackage"],
-source: "commit: aPackage",
-messageSends: [],
-referencedClasses: []
+source: "commit: aPackage\x0a\x09aPackage ifNotNil: [\x0a\x09\x09{ \x0a\x09\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09\x09} \x0a\x09\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09\x09fileContents := (commitStrategy key new exportPackage: aPackage).\x0a\x09\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09]",
+messageSends: ["ifNotNil:", "do:", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "name", "commitPathJs", "commitPathSt"],
+referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 }),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 "_loadPackage_prefix_",
@@ -860,7 +896,7 @@ source: "loadPackage: packageName prefix: aString\x0a\x09| url |\x0a\x09url := '
 messageSends: [",", "ajax:options:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"],
 referencedClasses: []
 }),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 "_loadPackages_prefix_",
@@ -880,7 +916,7 @@ source: "loadPackages: aCollection prefix: aString\x0a\x09aCollection do: [ :eac
 messageSends: ["do:", "loadPackage:prefix:"],
 referencedClasses: []
 }),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 "_setupPackageNamed_prefix_",
@@ -902,7 +938,7 @@ source: "setupPackageNamed: packageName prefix: aString\x0a\x0a\x09(Package name
 messageSends: ["setupClasses", "named:", "commitPathJs:", ",", "commitPathSt:"],
 referencedClasses: ["Package"]
 }),
-smalltalk.Packagehandler);
+smalltalk.PackageHandler);
 
 
 smalltalk.addMethod(
@@ -922,6 +958,26 @@ source: "loadPackages: aCollection prefix: aString\x0a\x09^ self new loadPackage
 messageSends: ["loadPackages:prefix:", "new"],
 referencedClasses: []
 }),
-smalltalk.Packagehandler.klass);
+smalltalk.PackageHandler.klass);
 
+
+smalltalk.addMethod(
+"_commit",
+smalltalk.method({
+selector: "commit",
+category: '*Importer-Exporter',
+fn: function () {
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($PackageHandler())._new())._commit_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)});},
+args: [],
+source: "commit\x0a\x09^ PackageHandler new commit: self",
+messageSends: ["commit:", "new"],
+referencedClasses: ["PackageHandler"]
+}),
+smalltalk.Package);
 
