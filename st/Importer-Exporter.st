@@ -342,18 +342,13 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #PackageLoader
+Object subclass: #Packagehandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 
-!PackageLoader methodsFor: 'laoding'!
+!Packagehandler methodsFor: 'loading'!
 
-initializePackageNamed: packageName prefix: aString
-
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
+commit: aPackage
 !
 
 loadPackage: packageName prefix: aString
@@ -366,7 +361,7 @@ loadPackage: packageName prefix: aString
 			'dataType' -> 'script'.
 			'complete' -> [ :jqXHR :textStatus |
 				jqXHR readyState = 4
-					ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
+					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
 			'error' -> [ window alert: 'Could not load package at: ', url ]
 		}
 !
@@ -376,7 +371,17 @@ loadPackages: aCollection prefix: aString
 		self loadPackage: each prefix: aString ]
 ! !
 
-!PackageLoader class methodsFor: 'not yet classified'!
+!Packagehandler methodsFor: 'private'!
+
+setupPackageNamed: packageName prefix: aString
+
+	(Package named: packageName)
+		setupClasses;
+		commitPathJs: '/', aString, '/js';
+		commitPathSt: '/', aString, '/st'
+! !
+
+!Packagehandler class methodsFor: 'not yet classified'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
