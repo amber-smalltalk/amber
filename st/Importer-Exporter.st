@@ -349,16 +349,14 @@ Object subclass: #PackageHandler
 !PackageHandler methodsFor: 'committing'!
 
 commit: aPackage
-	aPackage ifNotNil: [
-		{ 
-			Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
-			StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
-			ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
-		} 
-			do: [ :commitStrategy|| fileContents |
-				fileContents := (commitStrategy key new exportPackage: aPackage).
-				self ajaxPutAt: commitStrategy value data: fileContents ]
-	]
+	{ 
+		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+	} 
+		do: [ :commitStrategy|| fileContents |
+			fileContents := (commitStrategy key new exportPackage: aPackage name).
+			self ajaxPutAt: commitStrategy value data: fileContents ]
 ! !
 
 !PackageHandler methodsFor: 'loading'!

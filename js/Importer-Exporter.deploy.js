@@ -717,21 +717,15 @@ function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?ni
 function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=aPackage;
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
 _st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_((function(commitStrategy){
 var fileContents;
 return smalltalk.withContext(function($ctx2) {
-fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(aPackage);
+fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(_st(aPackage)._name());
 fileContents;
 return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
-};
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)});},
-messageSends: ["ifNotNil:", "do:", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "name", "commitPathJs", "commitPathSt"]}),
+messageSends: ["do:", "exportPackage:", "name", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "commitPathJs", "commitPathSt"]}),
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
