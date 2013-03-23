@@ -3497,7 +3497,7 @@ fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9;
+var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9,$11,$13,$12;
 _st(self)._deny_(_st(_st($Object())._new())._isNil());
 $1=self;
 $4=_st($Object())._new();
@@ -3524,13 +3524,14 @@ $9=false;
 $9=true;
 };
 _st($8)._assert_equals_($9,true);
-_st(self)._assert_equals_(_st(_st($Object())._new())._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {
-return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),true);
+$11=self;
+$13=_st($Object())._new();
+if(($receiver = $13) == nil || $receiver == undefined){
+$12=false;
+} else {
+$12=true;
+};
+_st($11)._assert_equals_($12,true);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.ObjectTest)})},
 args: [],
 source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [true]) = true.\x0a\x09self assert: (Object new ifNotNil: [true]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [false] ifNotNil: [true]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [true] ifNil: [false]) equals: true",
@@ -4566,7 +4567,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$6,$7;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9;
 $1=self;
 if(($receiver = nil) == nil || $receiver == undefined){
 $2=true;
@@ -4589,13 +4590,14 @@ $7=true;
 $7=false;
 };
 _st($6)._assert_equals_($7,true);
-_st(self)._deny_(_st(_st(nil)._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {
-return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq(true));
+$8=self;
+if(($receiver = nil) == nil || $receiver == undefined){
+$10=false;
+} else {
+$10=true;
+};
+$9=_st($10).__eq(true);
+_st($8)._deny_($9);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.UndefinedTest)})},
 args: [],
 source: "testIfNil\x0a\x09self assert: (nil ifNil: [true]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true]) = true.\x0a\x09self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true] ifNil: [false]) = true",

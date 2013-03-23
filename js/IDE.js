@@ -2010,26 +2010,6 @@ referencedClasses: []
 smalltalk.Browser);
 
 smalltalk.addMethod(
-"_ajaxPutAt_data_",
-smalltalk.method({
-selector: "ajaxPutAt:data:",
-category: 'network',
-fn: function (aURL,aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
-return smalltalk.withContext(function($ctx2) {
-return _st(window)._alert_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
-}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
-return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.Browser)})},
-args: ["aURL", "aString"],
-source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL options: #{ 'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
-messageSends: ["ajax:options:", "->", "alert:", ",", "responseText"],
-referencedClasses: []
-}),
-smalltalk.Browser);
-
-smalltalk.addMethod(
 "_canBeClosed",
 smalltalk.method({
 selector: "canBeClosed",
@@ -2189,9 +2169,6 @@ category: 'actions',
 fn: function (){
 var self=this;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
-function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
-function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selectedPackage"];
@@ -2201,19 +2178,13 @@ $1;
 var package_;
 package_=_st($Package())._named_(self["@selectedPackage"]);
 package_;
-_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathJs()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(package_)._commitPathSt()).__comma("/")).__comma(self["@selectedPackage"])).__comma(".st"))])._do_((function(commitStrategy){
-var fileContents;
-return smalltalk.withContext(function($ctx2) {
-fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(self["@selectedPackage"]);
-fileContents;
-return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
-}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
+_st(package_)._commit();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},smalltalk.Browser)})},
 args: [],
-source: "commitPackage\x0a\x09selectedPackage ifNotNil: [ |package|\x0a\x09\x09package := Package named: selectedPackage.\x0a\x09\x09{ Exporter -> (package commitPathJs, '/', selectedPackage, '.js').\x0a\x09\x09\x09StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').\x0a\x09\x09\x09ChunkExporter -> (package commitPathSt, '/', selectedPackage, '.st')\x0a\x09\x09} do: [:commitStrategy| |fileContents|\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: selectedPackage).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents\x0a\x09\x09]\x0a\x09]",
-messageSends: ["ifNotNil:", "named:", "do:", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "commitPathJs", "commitPathSt"],
-referencedClasses: ["Package", "Exporter", "StrippedExporter", "ChunkExporter"]
+source: "commitPackage\x0a\x09selectedPackage ifNotNil: [ |package|\x0a\x09\x09package := Package named: selectedPackage.\x0a\x09\x09package commit ]",
+messageSends: ["ifNotNil:", "named:", "commit"],
+referencedClasses: ["Package"]
 }),
 smalltalk.Browser);
 
