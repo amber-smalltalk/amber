@@ -804,16 +804,8 @@ cancelChanges
 !
 
 commitPackage
-	selectedPackage ifNotNil: [ |package|
-		package := Package named: selectedPackage.
-		{ Exporter -> (package commitPathJs, '/', selectedPackage, '.js').
-			StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-			ChunkExporter -> (package commitPathSt, '/', selectedPackage, '.st')
-		} do: [:commitStrategy| |fileContents|
-			fileContents := (commitStrategy key new exportPackage: selectedPackage).
-			self ajaxPutAt: commitStrategy value data: fileContents
-		]
-	]
+	selectedPackage ifNotNil: [
+		(Package named: selectedPackage) commit ]
 !
 
 compile
@@ -1050,16 +1042,6 @@ initialize
 	selectedTab := #instance.
 	selectedPackage := self packages first.
 	unsavedChanges := false
-! !
-
-!Browser methodsFor: 'network'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL options: #{ 'type' -> 'PUT'.
-								'data' -> aString.
-								'contentType' -> 'text/plain;charset=UTF-8'.
-								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
 !Browser methodsFor: 'rendering'!

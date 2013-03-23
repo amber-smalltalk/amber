@@ -342,19 +342,24 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #PackageLoader
+Object subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 
-!PackageLoader methodsFor: 'laoding'!
+!PackageHandler methodsFor: 'committing'!
 
-initializePackageNamed: packageName prefix: aString
+commit: aPackage
+	{ 
+		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+	} 
+		do: [ :commitStrategy|| fileContents |
+			fileContents := (commitStrategy key new exportPackage: aPackage name).
+			self ajaxPutAt: commitStrategy value data: fileContents ]
+! !
 
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
-!
+!PackageHandler methodsFor: 'loading'!
 
 loadPackage: packageName prefix: aString
 	| url |
@@ -366,7 +371,7 @@ loadPackage: packageName prefix: aString
 			'dataType' -> 'script'.
 			'complete' -> [ :jqXHR :textStatus |
 				jqXHR readyState = 4
-					ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
+					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
 			'error' -> [ window alert: 'Could not load package at: ', url ]
 		}
 !
@@ -376,9 +381,35 @@ loadPackages: aCollection prefix: aString
 		self loadPackage: each prefix: aString ]
 ! !
 
-!PackageLoader class methodsFor: 'not yet classified'!
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+!
+
+setupPackageNamed: packageName prefix: aString
+
+	(Package named: packageName)
+		setupClasses;
+		commitPathJs: '/', aString, '/js';
+		commitPathSt: '/', aString, '/st'
+! !
+
+!PackageHandler class methodsFor: 'not yet classified'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
+! !
+
+!Package methodsFor: '*Importer-Exporter'!
+
+commit
+	^ PackageHandler new commit: self
 ! !
 
