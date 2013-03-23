@@ -1163,6 +1163,13 @@ commitPathSt: aString
 	commitPathSt := aString
 !
 
+commitStrategies
+	^ { Exporter -> (self commitPathJs, '/', self name, '.js').
+		StrippedExporter -> (self commitPathJs, '/', self name, '.deploy.js').
+		ChunkExporter -> (self commitPathSt, '/', self name, '.st')
+	}
+!
+
 dependencies
 	^self propertyAt: 'dependencies' ifAbsent: [#()]
 !
@@ -1187,6 +1194,15 @@ properties
 	^Smalltalk current readJSObject: (self basicAt: 'properties')
 ! !
 
+!Package methodsFor: 'actions'!
+
+commit
+	self commitStrategies do: [:commitStrategy| |fileContents|
+		fileContents := (commitStrategy key new exportPackage: self name).
+		self ajaxPutAt: commitStrategy value data: fileContents
+	]
+! !
+
 !Package methodsFor: 'classes'!
 
 classes
@@ -1203,6 +1219,16 @@ sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
 	^self class sortedClasses: self classes
+! !
+
+!Package methodsFor: 'network'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL options: #{ 'type' -> 'PUT'.
+								'data' -> aString.
+								'contentType' -> 'text/plain;charset=UTF-8'.
+								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
 !Package methodsFor: 'printing'!

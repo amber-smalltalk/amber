@@ -3519,6 +3519,26 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Objects'
 smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
 smalltalk.Package.comment="A Package is similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aA Package has a name, an Array of \x22requires\x22, a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name:\x0a\x0a\x09Smalltalk current packageAt: 'Kernel'\x0a\x0a...but you can also use:\x0a\x0a\x09Package named: 'Kernel'\x0a\x0aA Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports \x22class extensions\x22 so a Package\x0acan define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class\x0aString where the method category \x22*IDE\x22 defines #inspectOn: which thus is a method belonging to the IDE package.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package fetch: 'Additional-Examples'"
 smalltalk.addMethod(
+"_ajaxPutAt_data_",
+smalltalk.method({
+selector: "ajaxPutAt:data:",
+category: 'network',
+fn: function (aURL,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._fromPairs_([_st("type").__minus_gt("PUT"),_st("data").__minus_gt(aString),_st("contentType").__minus_gt("text/plain;charset=UTF-8"),_st("error").__minus_gt((function(xhr){
+return smalltalk.withContext(function($ctx2) {
+return _st(window)._alert_(_st(_st(_st(_st("Commiting ").__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
+}, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
+return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.Package)})},
+args: ["aURL", "aString"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL options: #{ 'type' -> 'PUT'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09\x09\x09\x09\x09\x09'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:options:", "->", "alert:", ",", "responseText"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
 "_classes",
 smalltalk.method({
 selector: "classes",
@@ -3533,6 +3553,29 @@ return $1;
 args: [],
 source: "classes\x0a\x09^ self organization elements",
 messageSends: ["elements", "organization"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+"_commit",
+smalltalk.method({
+selector: "commit",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._commitStrategies())._do_((function(commitStrategy){
+var fileContents;
+return smalltalk.withContext(function($ctx2) {
+fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(_st(self)._name());
+fileContents;
+return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
+}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
+args: [],
+source: "commit\x0a\x09self commitStrategies do: [:commitStrategy| |fileContents|\x0a\x09\x09fileContents := (commitStrategy key new exportPackage: self name).\x0a\x09\x09self ajaxPutAt: commitStrategy value data: fileContents\x0a\x09]",
+messageSends: ["do:", "exportPackage:", "name", "new", "key", "ajaxPutAt:data:", "value", "commitStrategies"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -3616,6 +3659,28 @@ args: ["aString"],
 source: "commitPathSt: aString\x0a\x09commitPathSt := aString",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+"_commitStrategies",
+smalltalk.method({
+selector: "commitStrategies",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
+function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
+function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[_st($Exporter()).__minus_gt(_st(_st(_st(_st(self)._commitPathJs()).__comma("/")).__comma(_st(self)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(self)._commitPathJs()).__comma("/")).__comma(_st(self)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(self)._commitPathSt()).__comma("/")).__comma(_st(self)._name())).__comma(".st"))];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitStrategies",{},smalltalk.Package)})},
+args: [],
+source: "commitStrategies\x0a\x09^ { Exporter -> (self commitPathJs, '/', self name, '.js').\x0a\x09\x09StrippedExporter -> (self commitPathJs, '/', self name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (self commitPathSt, '/', self name, '.st')\x0a\x09}",
+messageSends: ["->", ",", "name", "commitPathJs", "commitPathSt"],
+referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 }),
 smalltalk.Package);
 
