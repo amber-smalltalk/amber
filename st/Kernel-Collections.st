@@ -1155,7 +1155,7 @@ asJSON
 !
 
 asJavaScriptSelector
-	^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.
+	^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
 !
 
 asJavascript

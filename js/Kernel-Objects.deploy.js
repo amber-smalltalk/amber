@@ -1687,20 +1687,21 @@ smalltalk.addMethod(
 "_doesNotUnderstand_",
 smalltalk.method({
 selector: "doesNotUnderstand:",
-fn: function (aMessage) {
+fn: function (aMessage){
 var self=this;
+var jsSelector;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(self)._canForwardMessage_(aMessage);
-if(smalltalk.assert($2)){
-$1=_st(self)._forwardMessage_(aMessage);
+var $2,$1;
+jsSelector=_st(self)._selectorToForwardMessage_(aMessage);
+$2=jsSelector;
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
-$3=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-return $3;
+$1=_st(self)._forwardMessage_jsSelector_(aMessage,jsSelector);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
-messageSends: ["ifTrue:ifFalse:", "forwardMessage:", "doesNotUnderstand:", "canForwardMessage:"]}),
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,jsSelector:jsSelector},smalltalk.JSObjectProxy)})},
+messageSends: ["selectorToForwardMessage:", "ifNotNil:ifNil:", "forwardMessage:jsSelector:", "doesNotUnderstand:"]}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
@@ -1714,6 +1715,20 @@ return smalltalk.withContext(function($ctx1) {
 		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
+messageSends: []}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_forwardMessage_jsSelector_",
+smalltalk.method({
+selector: "forwardMessage:jsSelector:",
+fn: function (aMessage,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:jsSelector:",{aMessage:aMessage,aString:aString},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -1788,6 +1803,25 @@ return smalltalk.withContext(function($ctx1) {
 _st(aStream)._nextPutAll_(_st(_st(self)._jsObject())._toString());
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)});},
 messageSends: ["nextPutAll:", "toString", "jsObject"]}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_selectorToForwardMessage_",
+smalltalk.method({
+selector: "selectorToForwardMessage:",
+fn: function (aMessage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var jsSelector = aMessage._selector()._asJavaScriptSelector();
+		if(jsSelector in self._jsObject()) {
+			return jsSelector;
+		} else {
+			return nil;
+		}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"selectorToForwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
+messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(

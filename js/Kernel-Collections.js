@@ -3527,12 +3527,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._asSelector())._replace_with_("^_",""))._replace_with_("_.*","");
+$1=_st(self)._replace_with_("^([a-zA-Z0-9]*).*$","$1");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},smalltalk.String)})},
 args: [],
-source: "asJavaScriptSelector\x0a\x09^(self asSelector replace: '^_' with: '') replace: '_.*' with: ''.",
-messageSends: ["replace:with:", "asSelector"],
+source: "asJavaScriptSelector\x0a\x09^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
+messageSends: ["replace:with:"],
 referencedClasses: []
 }),
 smalltalk.String);

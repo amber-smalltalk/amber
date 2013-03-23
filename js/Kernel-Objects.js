@@ -2307,22 +2307,23 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "doesNotUnderstand:",
 category: 'proxy',
-fn: function (aMessage) {
+fn: function (aMessage){
 var self=this;
+var jsSelector;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(self)._canForwardMessage_(aMessage);
-if(smalltalk.assert($2)){
-$1=_st(self)._forwardMessage_(aMessage);
+var $2,$1;
+jsSelector=_st(self)._selectorToForwardMessage_(aMessage);
+$2=jsSelector;
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
-$3=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-return $3;
+$1=_st(self)._forwardMessage_jsSelector_(aMessage,jsSelector);
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,jsSelector:jsSelector},smalltalk.JSObjectProxy)})},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09\x0a\x09^ (self canForwardMessage: aMessage)\x0a\x09\x09ifTrue: [ self forwardMessage: aMessage ]\x0a\x09\x09ifFalse: [ ^ super doesNotUnderstand: aMessage ]",
-messageSends: ["ifTrue:ifFalse:", "forwardMessage:", "doesNotUnderstand:", "canForwardMessage:"],
+source: "doesNotUnderstand: aMessage\x0a\x09| jsSelector |\x0a\x09jsSelector := self selectorToForwardMessage: aMessage.\x0a\x09^ jsSelector\x0a\x09\x09ifNotNil: [ self forwardMessage: aMessage jsSelector: jsSelector ]\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]",
+messageSends: ["selectorToForwardMessage:", "ifNotNil:ifNil:", "forwardMessage:jsSelector:", "doesNotUnderstand:"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -2341,6 +2342,25 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
 args: ["aMessage"],
 source: "forwardMessage: aMessage\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_forwardMessage_jsSelector_",
+smalltalk.method({
+selector: "forwardMessage:jsSelector:",
+category: 'proxy',
+fn: function (aMessage,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:jsSelector:",{aMessage:aMessage,aString:aString},smalltalk.JSObjectProxy)})},
+args: ["aMessage", "aString"],
+source: "forwardMessage: aMessage jsSelector: aString\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, aMessage._arguments());\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2440,6 +2460,30 @@ return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smal
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09aStream nextPutAll: self jsObject toString",
 messageSends: ["nextPutAll:", "toString", "jsObject"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_selectorToForwardMessage_",
+smalltalk.method({
+selector: "selectorToForwardMessage:",
+category: 'testing',
+fn: function (aMessage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var jsSelector = aMessage._selector()._asJavaScriptSelector();
+		if(jsSelector in self._jsObject()) {
+			return jsSelector;
+		} else {
+			return nil;
+		}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"selectorToForwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
+args: ["aMessage"],
+source: "selectorToForwardMessage: aMessage\x0a\x09<\x0a\x09\x09var jsSelector = aMessage._selector()._asJavaScriptSelector();\x0a\x09\x09if(jsSelector in self._jsObject()) {\x0a\x09\x09\x09return jsSelector;\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);

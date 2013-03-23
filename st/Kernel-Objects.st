@@ -753,15 +753,22 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	
-	^ (self canForwardMessage: aMessage)
-		ifTrue: [ self forwardMessage: aMessage ]
-		ifFalse: [ ^ super doesNotUnderstand: aMessage ]
+	| jsSelector |
+	jsSelector := self selectorToForwardMessage: aMessage.
+	^ jsSelector
+		ifNotNil: [ self forwardMessage: aMessage jsSelector: jsSelector ]
+		ifNil: [ super doesNotUnderstand: aMessage ]
 !
 
 forwardMessage: aMessage
 	<
 		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
+	>
+!
+
+forwardMessage: aMessage jsSelector: aString
+	<
+		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
 	>
 !
 
@@ -783,6 +790,17 @@ canForwardMessage: aMessage
 			return true
 		} else {
 			return false;
+		}
+	>
+!
+
+selectorToForwardMessage: aMessage
+	<
+		var jsSelector = aMessage._selector()._asJavaScriptSelector();
+		if(jsSelector in self._jsObject()) {
+			return jsSelector;
+		} else {
+			return nil;
 		}
 	>
 ! !

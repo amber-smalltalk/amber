@@ -2672,10 +2672,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._asSelector())._replace_with_("^_",""))._replace_with_("_.*","");
+$1=_st(self)._replace_with_("^([a-zA-Z0-9]*).*$","$1");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},smalltalk.String)})},
-messageSends: ["replace:with:", "asSelector"]}),
+messageSends: ["replace:with:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
