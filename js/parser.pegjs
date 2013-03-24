@@ -3,10 +3,10 @@ start = method
 separator      = [ \t\v\f\u00A0\uFEFF\n\r\u2028\u2029]+
 comments       = (["][^"]*["])+
 ws             = (separator / comments)*
-identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
-varIdentifier  = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("")}
+identifier     = first:[_a-zA-Z] others:[_a-zA-Z0-9]* {return first + others.join("")}
+varIdentifier  = first:[_a-z] others:[_a-zA-Z0-9]* {return first + others.join("")}
 keyword        = first:identifier last:[:] {return first + last}
-selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("")}
+selector      = first:[_a-zA-Z] others:[_a-zA-Z0-9\:]* {return first + others.join("")}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                      return smalltalk.ValueNode._new()
