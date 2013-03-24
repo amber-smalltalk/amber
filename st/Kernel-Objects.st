@@ -764,18 +764,6 @@ doesNotUnderstand: aMessage
 		ifNil: [ super doesNotUnderstand: aMessage ]
 !
 
-forwardMessage: aMessage
-	<
-		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
-	>
-!
-
-forwardMessage: aMessage jsSelector: aString
-	<
-		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
-	>
-!
-
 forwardMessage: aString withArguments: anArray
 	<
 		return smalltalk.send(self._jsObject(), aString, anArray);
@@ -789,19 +777,6 @@ inspectOn: anInspector
 	anInspector setLabel: self printString.
 	self addObjectVariablesTo: variables.
 	anInspector setVariables: variables
-! !
-
-!JSObjectProxy methodsFor: 'testing'!
-
-canForwardMessage: aMessage
-	<
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return true
-		} else {
-			return false;
-		}
-	>
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!

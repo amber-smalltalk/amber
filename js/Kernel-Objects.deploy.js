@@ -1665,25 +1665,6 @@ messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-"_canForwardMessage_",
-smalltalk.method({
-selector: "canForwardMessage:",
-fn: function (aMessage) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return true
-		} else {
-			return false;
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"canForwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
-messageSends: []}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
 "_doesNotUnderstand_",
 smalltalk.method({
 selector: "doesNotUnderstand:",
@@ -1702,34 +1683,6 @@ $1=_st(self)._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments(
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
 messageSends: ["ifNotNil:ifNil:", "forwardMessage:withArguments:", "arguments", "doesNotUnderstand:", "lookupProperty:", "asJavaScriptSelector", "selector"]}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-"_forwardMessage_",
-smalltalk.method({
-selector: "forwardMessage:",
-fn: function (aMessage) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
-messageSends: []}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-"_forwardMessage_jsSelector_",
-smalltalk.method({
-selector: "forwardMessage:jsSelector:",
-fn: function (aMessage,aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:jsSelector:",{aMessage:aMessage,aString:aString},smalltalk.JSObjectProxy)})},
-messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
