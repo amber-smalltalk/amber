@@ -133,6 +133,12 @@ testReceiver
 
 testTempAssignment
 	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+!
+
+testThisContext
+	self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.
+	self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.
+	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest

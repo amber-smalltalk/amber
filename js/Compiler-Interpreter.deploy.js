@@ -202,19 +202,19 @@ smalltalk.addMethod(
 "_selector",
 smalltalk.method({
 selector: "selector",
-fn: function () {
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(self)._metod();
+$2=_st(self)._method();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=$2;
 } else {
 $1=_st(_st(self)._method())._selector();
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.AIContext)});},
-messageSends: ["ifNotNil:", "selector", "method", "metod"]}),
+}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.AIContext)})},
+messageSends: ["ifNotNil:", "selector", "method"]}),
 smalltalk.AIContext);
 
 

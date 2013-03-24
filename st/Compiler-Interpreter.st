@@ -57,7 +57,7 @@ receiver: anObject
 !
 
 selector
-	^ self metod
+	^ self method
 		ifNotNil: [ self method selector ]
 ! !
 

@@ -270,6 +270,20 @@ return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{},smalltalk
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
+smalltalk.addMethod(
+"_testThisContext",
+smalltalk.method({
+selector: "testThisContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(_st(self)._interpret_("foo ^ thisContext"))._outerContext())._isNil());
+_st(self)._assert_(_st(_st(_st(self)._interpret_("foo ^ [ thisContext ] value"))._outerContext())._notNil());
+_st(self)._assert_(_st(self)._interpret_("foo ^ [ thisContext ] value outerContext == thisContext"));
+return self}, function($ctx1) {$ctx1.fill(self,"testThisContext",{},smalltalk.ASTInterpreterTest)})},
+messageSends: ["assert:", "isNil", "outerContext", "interpret:", "notNil"]}),
+smalltalk.ASTInterpreterTest);
+
 
 
 smalltalk.addClass('ASTSteppingInterpreterTest', smalltalk.AbstractASTInterpreterTest, ['interpreter'], 'Compiler-Tests');
