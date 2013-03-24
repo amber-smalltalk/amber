@@ -2665,20 +2665,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJavaScriptSelector",
-smalltalk.method({
-selector: "asJavaScriptSelector",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(self)._asSelector())._replace_with_("^_",""))._replace_with_("_.*","");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},smalltalk.String)})},
-messageSends: ["replace:with:", "asSelector"]}),
-smalltalk.String);
-
-smalltalk.addMethod(
 "_asJavascript",
 smalltalk.method({
 selector: "asJavascript",

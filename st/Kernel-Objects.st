@@ -716,6 +716,12 @@ jsObject: aJSObject
 	jsObject := aJSObject
 !
 
+lookupProperty: aString
+	"Looks up a property in JS object.
+	Return the property if it is present, or nil if it is not present."
+	<return aString in self._jsObject() ? aString : nil>
+!
+
 value
 	"if attribute 'value' exists on the JS object return it,
 	otherwise return the result of Object>>value."
@@ -753,15 +759,14 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	
-	^ (self canForwardMessage: aMessage)
-		ifTrue: [ self forwardMessage: aMessage ]
-		ifFalse: [ ^ super doesNotUnderstand: aMessage ]
+	^(self lookupProperty: aMessage selector asJavaScriptSelector)
+		ifNotNil: [ :jsSelector | self forwardMessage: jsSelector withArguments: aMessage arguments ]
+		ifNil: [ super doesNotUnderstand: aMessage ]
 !
 
-forwardMessage: aMessage
+forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
+		return smalltalk.send(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -772,19 +777,6 @@ inspectOn: anInspector
 	anInspector setLabel: self printString.
 	self addObjectVariablesTo: variables.
 	anInspector setVariables: variables
-! !
-
-!JSObjectProxy methodsFor: 'testing'!
-
-canForwardMessage: aMessage
-	<
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return true
-		} else {
-			return false;
-		}
-	>
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
@@ -1731,5 +1723,12 @@ notNil
 
 new
 		self error: 'You cannot create new instances of UndefinedObject. Use nil'
+! !
+
+!String methodsFor: '*Kernel-Objects'!
+
+asJavaScriptSelector
+	"Return first keyword of the selector, without trailing colon."
+	^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
 ! !
 
