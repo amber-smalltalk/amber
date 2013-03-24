@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'FileServer'!
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url port basePath util username password'
+	instanceVariableNames: 'path http fs url port basePath util username password fallbackPage'
 	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
@@ -11,6 +11,14 @@ basePath
 
 basePath: aString
 	basePath := aString
+!
+
+fallbackPage
+	^fallbackPage
+!
+
+fallbackPage: aString
+	fallbackPage := aString
 !
 
 password: aPassword
@@ -55,6 +63,7 @@ initialize
 	port := self class defaultPort.
 	username := nil.
 	password := nil.
+	fallbackPage := nil.
 ! !
 
 !FileServer methodsFor: 'private'!
@@ -202,6 +211,7 @@ respondNotCreatedTo: aResponse
 !
 
 respondNotFoundTo: aResponse
+	self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].
 	aResponse 
 		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
 		write: '404 Not found';
@@ -237,7 +247,8 @@ commandLineActions
 	^#{
 		'-p' -> [:fileServer :value | fileServer port: value].
 		'--username' -> [:fileServer :value | fileServer username: value].
-		'--password' -> [:fileServer :value | fileServer password: value]
+		'--password' -> [:fileServer :value | fileServer password: value].
+		'--fallback-page' -> [:fileServer :value | fileServer fallbackPage: value]
 	}
 !
 
