@@ -716,6 +716,12 @@ jsObject: aJSObject
 	jsObject := aJSObject
 !
 
+lookupProperty: aString
+	"Looks up a property in JS object.
+	Return the property if it is present, or nil if it is not present."
+	<return aString in self._jsObject() ? aString : nil>
+!
+
 value
 	"if attribute 'value' exists on the JS object return it,
 	otherwise return the result of Object>>value."
@@ -753,10 +759,8 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	| jsSelector |
-	jsSelector := self selectorToForwardMessage: aMessage.
-	^ jsSelector
-		ifNotNil: [ self forwardMessage: aMessage jsSelector: jsSelector ]
+	^(self lookupProperty: aMessage selector asJavaScriptSelector)
+		ifNotNil: [ :jsSelector | self forwardMessage: jsSelector withArguments: aMessage arguments ]
 		ifNil: [ super doesNotUnderstand: aMessage ]
 !
 
@@ -769,6 +773,12 @@ forwardMessage: aMessage
 forwardMessage: aMessage jsSelector: aString
 	<
 		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
+	>
+!
+
+forwardMessage: aString withArguments: anArray
+	<
+		return smalltalk.send(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -790,17 +800,6 @@ canForwardMessage: aMessage
 			return true
 		} else {
 			return false;
-		}
-	>
-!
-
-selectorToForwardMessage: aMessage
-	<
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return jsSelector;
-		} else {
-			return nil;
 		}
 	>
 ! !

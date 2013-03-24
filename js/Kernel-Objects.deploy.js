@@ -1689,19 +1689,19 @@ smalltalk.method({
 selector: "doesNotUnderstand:",
 fn: function (aMessage){
 var self=this;
-var jsSelector;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-jsSelector=_st(self)._selectorToForwardMessage_(aMessage);
-$2=jsSelector;
+$2=_st(self)._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
-$1=_st(self)._forwardMessage_jsSelector_(aMessage,jsSelector);
+var jsSelector;
+jsSelector=$receiver;
+$1=_st(self)._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage,jsSelector:jsSelector},smalltalk.JSObjectProxy)})},
-messageSends: ["selectorToForwardMessage:", "ifNotNil:ifNil:", "forwardMessage:jsSelector:", "doesNotUnderstand:"]}),
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
+messageSends: ["ifNotNil:ifNil:", "forwardMessage:withArguments:", "arguments", "doesNotUnderstand:", "lookupProperty:", "asJavaScriptSelector", "selector"]}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
@@ -1729,6 +1729,20 @@ return smalltalk.withContext(function($ctx1) {
 		return smalltalk.send(self._jsObject(), aString, aMessage._arguments());
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:jsSelector:",{aMessage:aMessage,aString:aString},smalltalk.JSObjectProxy)})},
+messageSends: []}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_forwardMessage_withArguments_",
+smalltalk.method({
+selector: "forwardMessage:withArguments:",
+fn: function (aString,anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		return smalltalk.send(self._jsObject(), aString, anArray);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},smalltalk.JSObjectProxy)})},
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
@@ -1794,6 +1808,18 @@ messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
+"_lookupProperty_",
+smalltalk.method({
+selector: "lookupProperty:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return aString in self._jsObject() ? aString : nil;
+return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},smalltalk.JSObjectProxy)})},
+messageSends: []}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
 "_printOn_",
 smalltalk.method({
 selector: "printOn:",
@@ -1803,25 +1829,6 @@ return smalltalk.withContext(function($ctx1) {
 _st(aStream)._nextPutAll_(_st(_st(self)._jsObject())._toString());
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)});},
 messageSends: ["nextPutAll:", "toString", "jsObject"]}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-"_selectorToForwardMessage_",
-smalltalk.method({
-selector: "selectorToForwardMessage:",
-fn: function (aMessage){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return jsSelector;
-		} else {
-			return nil;
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"selectorToForwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
-messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
