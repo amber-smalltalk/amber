@@ -408,35 +408,35 @@ smalltalk.parser = (function(){
         
         pos0 = clone(pos);
         pos1 = clone(pos);
-        if (/^[a-zA-Z]/.test(input.charAt(pos.offset))) {
+        if (/^[_a-zA-Z]/.test(input.charAt(pos.offset))) {
           result0 = input.charAt(pos.offset);
           advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
-            matchFailed("[a-zA-Z]");
+            matchFailed("[_a-zA-Z]");
           }
         }
         if (result0 !== null) {
           result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+          if (/^[_a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
             result2 = input.charAt(pos.offset);
             advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9]");
+              matchFailed("[_a-zA-Z0-9]");
             }
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+            if (/^[_a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
               result2 = input.charAt(pos.offset);
               advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9]");
+                matchFailed("[_a-zA-Z0-9]");
               }
             }
           }
@@ -477,35 +477,35 @@ smalltalk.parser = (function(){
         
         pos0 = clone(pos);
         pos1 = clone(pos);
-        if (/^[a-z]/.test(input.charAt(pos.offset))) {
+        if (/^[_a-z]/.test(input.charAt(pos.offset))) {
           result0 = input.charAt(pos.offset);
           advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
-            matchFailed("[a-z]");
+            matchFailed("[_a-z]");
           }
         }
         if (result0 !== null) {
           result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+          if (/^[_a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
             result2 = input.charAt(pos.offset);
             advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9]");
+              matchFailed("[_a-zA-Z0-9]");
             }
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
+            if (/^[_a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
               result2 = input.charAt(pos.offset);
               advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9]");
+                matchFailed("[_a-zA-Z0-9]");
               }
             }
           }
@@ -594,35 +594,35 @@ smalltalk.parser = (function(){
         
         pos0 = clone(pos);
         pos1 = clone(pos);
-        if (/^[a-zA-Z]/.test(input.charAt(pos.offset))) {
+        if (/^[_a-zA-Z]/.test(input.charAt(pos.offset))) {
           result0 = input.charAt(pos.offset);
           advance(pos, 1);
         } else {
           result0 = null;
           if (reportFailures === 0) {
-            matchFailed("[a-zA-Z]");
+            matchFailed("[_a-zA-Z]");
           }
         }
         if (result0 !== null) {
           result1 = [];
-          if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+          if (/^[_a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
             result2 = input.charAt(pos.offset);
             advance(pos, 1);
           } else {
             result2 = null;
             if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9:]");
+              matchFailed("[_a-zA-Z0-9:]");
             }
           }
           while (result2 !== null) {
             result1.push(result2);
-            if (/^[a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
+            if (/^[_a-zA-Z0-9:]/.test(input.charAt(pos.offset))) {
               result2 = input.charAt(pos.offset);
               advance(pos, 1);
             } else {
               result2 = null;
               if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9:]");
+                matchFailed("[_a-zA-Z0-9:]");
               }
             }
           }
