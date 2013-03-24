@@ -2279,68 +2279,45 @@ referencedClasses: []
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-"_canForwardMessage_",
-smalltalk.method({
-selector: "canForwardMessage:",
-category: 'testing',
-fn: function (aMessage) {
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return true
-		} else {
-			return false;
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"canForwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
-args: ["aMessage"],
-source: "canForwardMessage: aMessage\x0a\x09<\x0a\x09\x09var jsSelector = aMessage._selector()._asJavaScriptSelector();\x0a\x09\x09if(jsSelector in self._jsObject()) {\x0a\x09\x09\x09return true\x0a\x09\x09} else {\x0a\x09\x09\x09return false;\x0a\x09\x09}\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
 "_doesNotUnderstand_",
 smalltalk.method({
 selector: "doesNotUnderstand:",
 category: 'proxy',
-fn: function (aMessage) {
+fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(self)._canForwardMessage_(aMessage);
-if(smalltalk.assert($2)){
-$1=_st(self)._forwardMessage_(aMessage);
+var $2,$1;
+$2=_st(self)._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
-$3=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-return $3;
+var jsSelector;
+jsSelector=$receiver;
+$1=_st(self)._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09\x0a\x09^ (self canForwardMessage: aMessage)\x0a\x09\x09ifTrue: [ self forwardMessage: aMessage ]\x0a\x09\x09ifFalse: [ ^ super doesNotUnderstand: aMessage ]",
-messageSends: ["ifTrue:ifFalse:", "forwardMessage:", "doesNotUnderstand:", "canForwardMessage:"],
+source: "doesNotUnderstand: aMessage\x0a\x09^(self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNotNil: [ :jsSelector | self forwardMessage: jsSelector withArguments: aMessage arguments ]\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]",
+messageSends: ["ifNotNil:ifNil:", "forwardMessage:withArguments:", "arguments", "doesNotUnderstand:", "lookupProperty:", "asJavaScriptSelector", "selector"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
-"_forwardMessage_",
+"_forwardMessage_withArguments_",
 smalltalk.method({
-selector: "forwardMessage:",
+selector: "forwardMessage:withArguments:",
 category: 'proxy',
-fn: function (aMessage) {
+fn: function (aString,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
+		return smalltalk.send(self._jsObject(), aString, anArray);
 	;
-return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:",{aMessage:aMessage},smalltalk.JSObjectProxy)});},
-args: ["aMessage"],
-source: "forwardMessage: aMessage\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());\x0a\x09>",
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},smalltalk.JSObjectProxy)})},
+args: ["aString", "anArray"],
+source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2422,6 +2399,23 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.JSObjectProxy)});},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock(i, o[i]);\x0a\x09\x09}\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+"_lookupProperty_",
+smalltalk.method({
+selector: "lookupProperty:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return aString in self._jsObject() ? aString : nil;
+return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},smalltalk.JSObjectProxy)})},
+args: ["aString"],
+source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Return the property if it is present, or nil if it is not present.\x22\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5135,4 +5129,23 @@ referencedClasses: []
 }),
 smalltalk.UndefinedObject.klass);
 
+
+smalltalk.addMethod(
+"_asJavaScriptSelector",
+smalltalk.method({
+selector: "asJavaScriptSelector",
+category: '*Kernel-Objects',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._replace_with_("^([a-zA-Z0-9]*).*$","$1");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asJavaScriptSelector",{},smalltalk.String)})},
+args: [],
+source: "asJavaScriptSelector\x0a\x09\x22Return first keyword of the selector, without trailing colon.\x22\x0a\x09^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'",
+messageSends: ["replace:with:"],
+referencedClasses: []
+}),
+smalltalk.String);
 
