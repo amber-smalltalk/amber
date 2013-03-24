@@ -264,16 +264,8 @@ interpretBlockNode: aNode continue: aBlock
 	self
 		continue: aBlock
 		value: [ 
-			| blockResult |
-			
-			self context: (AIContext new
-				outerContext: self context;
-				yourself).
-			
-			blockResult := self interpret: aNode nodes first; result.
-			
-			self context: self context outerContext.
-			blockResult ]
+			self withBlockContext: [ 
+				self interpret: aNode nodes first; result ] ]
 !
 
 interpretBlockSequenceNode: aNode continue: aBlock
@@ -426,6 +418,24 @@ messageFromSendNode: aSendNode arguments: aCollection do: aBlock
 			selector: aSendNode selector;
 			arguments: aCollection;
 			yourself)
+!
+
+withBlockContext: aBlock
+	"Evaluate aBlock with a BlockContext:
+	- a context is pushed before aBlock evaluation.
+	- the context is poped after aBlock evaluation
+	- the result of aBlock evaluation is answered"
+	
+	| blockResult |
+			
+	self context: (AIContext new
+		outerContext: self context;
+		yourself).
+	
+	blockResult := aBlock value.
+	
+	self context: self context outerContext.
+	^ blockResult
 ! !
 
 !ASTInterpreter methodsFor: 'testing'!

@@ -901,31 +901,25 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "interpretBlockNode:continue:",
 category: 'interpreting',
-fn: function (aNode, aBlock) {
+fn: function (aNode,aBlock){
 var self=this;
-function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 _st(self)._continue_value_(aBlock,(function(){
-var blockResult;
 return smalltalk.withContext(function($ctx2) {
-$1=_st($AIContext())._new();
-_st($1)._outerContext_(_st(self)._context());
-$2=_st($1)._yourself();
-_st(self)._context_($2);
-$3=self;
-_st($3)._interpret_(_st(_st(aNode)._nodes())._first());
-$4=_st($3)._result();
-blockResult=$4;
-blockResult;
-_st(self)._context_(_st(_st(self)._context())._outerContext());
-return blockResult;
-}, function($ctx2) {$ctx2.fillBlock({blockResult:blockResult},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"interpretBlockNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)});},
+return _st(self)._withBlockContext_((function(){
+return smalltalk.withContext(function($ctx3) {
+$1=self;
+_st($1)._interpret_(_st(_st(aNode)._nodes())._first());
+$2=_st($1)._result();
+return $2;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpretBlockNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 args: ["aNode", "aBlock"],
-source: "interpretBlockNode: aNode continue: aBlock\x0a\x09self\x0a\x09\x09continue: aBlock\x0a\x09\x09value: [ \x0a\x09\x09\x09| blockResult |\x0a\x09\x09\x09\x0a\x09\x09\x09self context: (AIContext new\x0a\x09\x09\x09\x09outerContext: self context;\x0a\x09\x09\x09\x09yourself).\x0a\x09\x09\x09\x0a\x09\x09\x09blockResult := self interpret: aNode nodes first; result.\x0a\x09\x09\x09\x0a\x09\x09\x09self context: self context outerContext.\x0a\x09\x09\x09blockResult ]",
-messageSends: ["continue:value:", "context:", "outerContext:", "context", "new", "yourself", "interpret:", "first", "nodes", "result", "outerContext"],
-referencedClasses: ["AIContext"]
+source: "interpretBlockNode: aNode continue: aBlock\x0a\x09self\x0a\x09\x09continue: aBlock\x0a\x09\x09value: [ \x0a\x09\x09\x09self withBlockContext: [ \x0a\x09\x09\x09\x09self interpret: aNode nodes first; result ] ]",
+messageSends: ["continue:value:", "withBlockContext:", "interpret:", "first", "nodes", "result"],
+referencedClasses: []
 }),
 smalltalk.ASTInterpreter);
 
@@ -1272,6 +1266,33 @@ args: [],
 source: "shouldReturn\x0a\x09^ shouldReturn ifNil: [ false ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+"_withBlockContext_",
+smalltalk.method({
+selector: "withBlockContext:",
+category: 'private',
+fn: function (aBlock){
+var self=this;
+var blockResult;
+function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st($AIContext())._new();
+_st($1)._outerContext_(_st(self)._context());
+$2=_st($1)._yourself();
+_st(self)._context_($2);
+blockResult=_st(aBlock)._value();
+_st(self)._context_(_st(_st(self)._context())._outerContext());
+$3=blockResult;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"withBlockContext:",{aBlock:aBlock,blockResult:blockResult},smalltalk.ASTInterpreter)})},
+args: ["aBlock"],
+source: "withBlockContext: aBlock\x0a\x09\x22Evaluate aBlock with a BlockContext:\x0a\x09- a context is pushed before aBlock evaluation.\x0a\x09- the context is poped after aBlock evaluation\x0a\x09- the result of aBlock evaluation is answered\x22\x0a\x09\x0a\x09| blockResult |\x0a\x09\x09\x09\x0a\x09self context: (AIContext new\x0a\x09\x09outerContext: self context;\x0a\x09\x09yourself).\x0a\x09\x0a\x09blockResult := aBlock value.\x0a\x09\x0a\x09self context: self context outerContext.\x0a\x09^ blockResult",
+messageSends: ["context:", "outerContext:", "context", "new", "yourself", "value", "outerContext"],
+referencedClasses: ["AIContext"]
 }),
 smalltalk.ASTInterpreter);
 
