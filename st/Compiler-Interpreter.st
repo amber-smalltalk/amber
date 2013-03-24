@@ -19,7 +19,9 @@ localAt: aString put: anObject
 !
 
 locals
-	^ locals ifNil: [ locals := Dictionary new ]
+	locals ifNil: [ self initializeLocals ].
+	
+	^ locals
 !
 
 method
@@ -69,6 +71,11 @@ initializeFromMethodContext: aMethodContext
 		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
 	aMethodContext locals keysAndValuesDo: [ :key :value |
 		self locals at: key put: value ]
+!
+
+initializeLocals
+	locals := Dictionary new.
+	locals at: 'thisContext' put: self.
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
@@ -254,11 +261,19 @@ interpretAssignmentNode: aNode continue: aBlock
 !
 
 interpretBlockNode: aNode continue: aBlock
-	"TODO: Context should be set"
-	
 	self
 		continue: aBlock
-		value: [ self interpret: aNode nodes first; result ]
+		value: [ 
+			| blockResult |
+			
+			self context: (AIContext new
+				outerContext: self context;
+				yourself).
+			
+			blockResult := self interpret: aNode nodes first; result.
+			
+			self context: self context outerContext.
+			blockResult ]
 !
 
 interpretBlockSequenceNode: aNode continue: aBlock
