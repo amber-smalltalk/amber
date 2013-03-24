@@ -2298,8 +2298,8 @@ $1=_st(self)._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments(
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
 args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^(self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNotNil: [ :jsSelector | self forwardMessage: jsSelector withArguments: aMessage arguments ]\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]",
-messageSends: ["ifNotNil:ifNil:", "forwardMessage:withArguments:", "arguments", "doesNotUnderstand:", "lookupProperty:", "asJavaScriptSelector", "selector"],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
+messageSends: ["ifNil:ifNotNil:", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments", "lookupProperty:", "asJavaScriptSelector", "selector"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);

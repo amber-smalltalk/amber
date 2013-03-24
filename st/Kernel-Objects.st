@@ -760,9 +760,12 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	^(self lookupProperty: aMessage selector asJavaScriptSelector)
-		ifNotNil: [ :jsSelector | self forwardMessage: jsSelector withArguments: aMessage arguments ]
+	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
 		ifNil: [ super doesNotUnderstand: aMessage ]
+		ifNotNil: [ :jsSelector | 
+			self 
+				forwardMessage: jsSelector 
+				withArguments: aMessage arguments ]
 !
 
 forwardMessage: aString withArguments: anArray
