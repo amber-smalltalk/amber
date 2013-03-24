@@ -718,7 +718,8 @@ jsObject: aJSObject
 
 lookupProperty: aString
 	"Looks up a property in JS object.
-	Return the property if it is present, or nil if it is not present."
+	Answer the property if it is present, or nil if it is not present."
+	
 	<return aString in self._jsObject() ? aString : nil>
 !
 

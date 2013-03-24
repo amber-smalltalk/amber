@@ -2415,7 +2415,7 @@ return smalltalk.withContext(function($ctx1) {
 return aString in self._jsObject() ? aString : nil;
 return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},smalltalk.JSObjectProxy)})},
 args: ["aString"],
-source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Return the property if it is present, or nil if it is not present.\x22\x0a\x09<return aString in self._jsObject() ? aString : nil>",
+source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
 messageSends: [],
 referencedClasses: []
 }),
