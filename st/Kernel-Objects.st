@@ -1725,3 +1725,10 @@ new
 		self error: 'You cannot create new instances of UndefinedObject. Use nil'
 ! !
 
+!String methodsFor: '*Kernel-Objects'!
+
+asJavaScriptSelector
+	"Return first keyword of the selector, without trailing colon."
+	^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+! !
+

@@ -1154,10 +1154,6 @@ asJSON
 	^self
 !
 
-asJavaScriptSelector
-	^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
-!
-
 asJavascript
 	<
 		if(self.search(/^[a-zA-Z0-9_:.$ ]*$/) == -1)
