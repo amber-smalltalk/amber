@@ -1,3 +1,4 @@
+Smalltalk current createPackage: 'FileServer'!
 Object subclass: #FileServer
 	instanceVariableNames: 'path http fs url port basePath util username password'
 	package: 'FileServer'!
@@ -12,6 +13,10 @@ basePath: aString
 	basePath := aString
 !
 
+password: aPassword
+	password := aPassword.
+!
+
 port
 	^port
 !
@@ -24,16 +29,21 @@ username: aUsername
 	username := aUsername.
 !
 
-password: aPassword
-	password := aPassword.
-!
-
 username: aUsername password: aPassword
 	username := aUsername.
 	password := aPassword.
 ! !
 
 !FileServer methodsFor: 'initialization'!
+
+checkDirectoryLayout
+	(fs existsSync: self basePath, 'index.html') ifFalse: [
+		console warn: 'Warning: project directory does not contain index.html'].
+	(fs existsSync: self basePath, 'st') ifFalse: [
+		console warn: 'Warning: project directory is missing an "st" directory'].
+	(fs existsSync: self basePath, 'js') ifFalse: [
+		console warn: 'Warning: project directory is missing a "js" directory'].
+!
 
 initialize
 	super initialize.
@@ -45,27 +55,9 @@ initialize
 	port := self class defaultPort.
 	username := nil.
 	password := nil.
-!
-
-checkDirectoryLayout
-	(fs existsSync: self basePath, 'index.html') ifFalse: [
-		console warn: 'Warning: project directory does not contain index.html'].
-	(fs existsSync: self basePath, 'st') ifFalse: [
-		console warn: 'Warning: project directory is missing an "st" directory'].
-	(fs existsSync: self basePath, 'js') ifFalse: [
-		console warn: 'Warning: project directory is missing a "js" directory'].
 ! !
 
 !FileServer methodsFor: 'private'!
-
-require: aModuleString
-	"call to the require function"
-	^require value: aModuleString
-!
-
-writeData: data toFileNamed: aFilename
-	console log: aFilename
-!
 
 base64Decode: aString
 	<return (new Buffer(aString, 'base64').toString())>
@@ -94,18 +86,18 @@ isAuthenticated: aRequest
 			ifTrue: [^true]
 			ifFalse: [^false]
 	].
+!
+
+require: aModuleString
+	"call to the require function"
+	^require value: aModuleString
+!
+
+writeData: data toFileNamed: aFilename
+	console log: aFilename
 ! !
 
 !FileServer methodsFor: 'request handling'!
-
-handleRequest: aRequest respondTo: aResponse
-	aRequest method = 'PUT'
-		ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].
-	aRequest method = 'GET'
-		ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].
-	aRequest method = 'OPTIONS'
-		ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]
-!
 
 handleGETRequest: aRequest respondTo: aResponse
 	| uri filename |
@@ -115,6 +107,15 @@ handleGETRequest: aRequest respondTo: aResponse
 		aBoolean
 			ifFalse: [self respondNotFoundTo: aResponse]
 			ifTrue: [self respondFileNamed: filename to: aResponse]]
+!
+
+handleOPTIONSRequest: aRequest respondTo: aResponse
+	aResponse writeHead: 200 options: #{'Access-Control-Allow-Origin' -> '*'.
+					'Access-Control-Allow-Methods' -> 'GET, PUT, POST, DELETE, OPTIONS'.
+					'Access-Control-Allow-Headers' -> 'Content-Type, Accept'.
+					'Content-Length' -> 0.
+					'Access-Control-Max-Age' -> 10}.
+	aResponse end
 !
 
 handlePUTRequest: aRequest respondTo: aResponse
@@ -142,13 +143,26 @@ handlePUTRequest: aRequest respondTo: aResponse
 		stream writable ifTrue: [stream end]]
 !
 
-handleOPTIONSRequest: aRequest respondTo: aResponse
-	aResponse writeHead: 200 options: #{'Access-Control-Allow-Origin' -> '*'.
-					'Access-Control-Allow-Methods' -> 'GET, PUT, POST, DELETE, OPTIONS'.
-					'Access-Control-Allow-Headers' -> 'Content-Type, Accept'.
-					'Content-Length' -> 0.
-					'Access-Control-Max-Age' -> 10}.
-	aResponse end
+handleRequest: aRequest respondTo: aResponse
+	aRequest method = 'PUT'
+		ifTrue: [self handlePUTRequest: aRequest respondTo: aResponse].
+	aRequest method = 'GET'
+		ifTrue:[self handleGETRequest: aRequest respondTo: aResponse].
+	aRequest method = 'OPTIONS'
+		ifTrue:[self handleOPTIONSRequest: aRequest respondTo: aResponse]
+!
+
+respondAuthenticationRequiredTo: aResponse
+	aResponse
+		writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm="Secured Developer Area"'};
+		write: '<html><body>Authentication needed</body></html>';
+		end.
+!
+
+respondCreatedTo: aResponse
+	aResponse
+		writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
+		end.
 !
 
 respondFileNamed: aFilename to: aResponse
@@ -180,10 +194,10 @@ respondInternalErrorTo: aResponse
 		end
 !
 
-respondAuthenticationRequiredTo: aResponse
+respondNotCreatedTo: aResponse
 	aResponse
-		writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm="Secured Developer Area"'};
-		write: '<html><body>Authentication needed</body></html>';
+		writeHead: 400 options: #{'Content-Type' -> 'text/plain'};
+		write: 'File could not be created. Did you forget to create the st/js directories on the server?';
 		end.
 !
 
@@ -194,19 +208,6 @@ respondNotFoundTo: aResponse
 		end
 !
 
-respondNotCreatedTo: aResponse
-	aResponse
-		writeHead: 400 options: #{'Content-Type' -> 'text/plain'};
-		write: 'File could not be created. Did you forget to create the st/js directories on the server?';
-		end.
-!
-
-respondCreatedTo: aResponse
-	aResponse
-		writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
-		end.
-!
-
 respondOKTo: aResponse
 	aResponse
 		writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};
@@ -215,25 +216,29 @@ respondOKTo: aResponse
 
 !FileServer methodsFor: 'starting'!
 
-startOn: aPort
-	self port: aPort.
-	self start
-!
-
 start
 	(http createServer: [:request :response |
 	      self handleRequest: request respondTo: response])
 	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
 	      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];
 	      listen: self port.
+!
+
+startOn: aPort
+	self port: aPort.
+	self start
 ! !
 
 FileServer class instanceVariableNames: 'mimeTypes'!
 
 !FileServer class methodsFor: 'accessing'!
 
-defaultPort
-	^4000
+commandLineActions
+	^#{
+		'-p' -> [:fileServer :value | fileServer port: value].
+		'--username' -> [:fileServer :value | fileServer username: value].
+		'--password' -> [:fileServer :value | fileServer password: value]
+	}
 !
 
 defaultMimeTypes
@@ -650,20 +655,16 @@ defaultMimeTypes
 	}
 !
 
-mimeTypes
-	^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]
+defaultPort
+	^4000
 !
 
 mimeTypeFor: aString
 	^self mimeTypes at: (aString replace: '.*[\.]' with: '') ifAbsent: ['text/plain']
 !
 
-commandLineActions
-	^#{
-		'-p' -> [:fileServer :value | fileServer port: value].
-		'--username' -> [:fileServer :value | fileServer username: value].
-		'--password' -> [:fileServer :value | fileServer password: value]
-	}
+mimeTypes
+	^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]
 ! !
 
 !FileServer class methodsFor: 'initialization'!
