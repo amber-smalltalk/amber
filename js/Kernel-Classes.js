@@ -2,7 +2,6 @@ smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.Behavior.comment="Behavior is the superclass of all class objects.\x0a\x0aIt defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0aInstances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aBehavior also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy."
 smalltalk.addMethod(
-"_addCompiledMethod_",
 smalltalk.method({
 selector: "addCompiledMethod:",
 category: 'compiling',
@@ -46,7 +45,6 @@ referencedClasses: ["MethodAdded", "MethodModified", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allInstanceVariableNames",
 smalltalk.method({
 selector: "allInstanceVariableNames",
 category: 'accessing',
@@ -73,7 +71,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSelectors",
 smalltalk.method({
 selector: "allSelectors",
 category: 'accessing',
@@ -98,7 +95,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSubclasses",
 smalltalk.method({
 selector: "allSubclasses",
 category: 'accessing',
@@ -123,17 +119,18 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSubclassesDo_",
 smalltalk.method({
 selector: "allSubclassesDo:",
 category: 'enumerating',
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._subclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {_st(aBlock)._value_(each);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+_st(aBlock)._value_(each);
 return _st(each)._allSubclassesDo_(aBlock);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock}, smalltalk.Behavior)})},
+return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock},smalltalk.Behavior)})},
 args: ["aBlock"],
 source: "allSubclassesDo: aBlock\x0a\x09\x22Evaluate the argument, aBlock, for each of the receiver's subclasses.\x22\x0a\x0a\x09self subclasses do: [ :each |\x0a    \x09aBlock value: each.\x0a        each allSubclassesDo: aBlock ].",
 messageSends: ["do:", "value:", "allSubclassesDo:", "subclasses"],
@@ -142,7 +139,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSuperclasses",
 smalltalk.method({
 selector: "allSuperclasses",
 category: 'accessing',
@@ -172,7 +168,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicAddCompiledMethod_",
 smalltalk.method({
 selector: "basicAddCompiledMethod:",
 category: 'private',
@@ -189,7 +184,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicNew",
 smalltalk.method({
 selector: "basicNew",
 category: 'instance creation',
@@ -206,7 +200,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicRemoveCompiledMethod_",
 smalltalk.method({
 selector: "basicRemoveCompiledMethod:",
 category: 'private',
@@ -226,7 +219,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_canUnderstand_",
 smalltalk.method({
 selector: "canUnderstand:",
 category: 'testing',
@@ -251,7 +243,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_comment",
 smalltalk.method({
 selector: "comment",
 category: 'accessing',
@@ -275,7 +266,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_comment_",
 smalltalk.method({
 selector: "comment:",
 category: 'accessing',
@@ -299,7 +289,6 @@ referencedClasses: ["ClassCommentChanged", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_commentStamp",
 smalltalk.method({
 selector: "commentStamp",
 category: 'accessing',
@@ -322,7 +311,6 @@ referencedClasses: ["ClassCommentReader"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_commentStamp_prior_",
 smalltalk.method({
 selector: "commentStamp:prior:",
 category: 'accessing',
@@ -341,7 +329,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 category: 'compiling',
@@ -358,7 +345,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_compile_category_",
 smalltalk.method({
 selector: "compile:category:",
 category: 'compiling',
@@ -376,7 +362,6 @@ referencedClasses: ["Compiler"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 category: 'accessing',
@@ -393,7 +378,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_includesSelector_",
 smalltalk.method({
 selector: "includesSelector:",
 category: 'testing',
@@ -412,7 +396,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_inheritsFrom_",
 smalltalk.method({
 selector: "inheritsFrom:",
 category: 'testing',
@@ -431,7 +414,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_instanceVariableNames",
 smalltalk.method({
 selector: "instanceVariableNames",
 category: 'accessing',
@@ -448,7 +430,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_lookupSelector_",
 smalltalk.method({
 selector: "lookupSelector:",
 category: 'accessing',
@@ -485,7 +466,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodAt_",
 smalltalk.method({
 selector: "methodAt:",
 category: 'accessing',
@@ -504,7 +484,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodDictionary",
 smalltalk.method({
 selector: "methodDictionary",
 category: 'accessing',
@@ -528,7 +507,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methods",
 smalltalk.method({
 selector: "methods",
 category: 'accessing',
@@ -547,7 +525,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsFor_",
 smalltalk.method({
 selector: "methodsFor:",
 category: 'accessing',
@@ -570,7 +547,6 @@ referencedClasses: ["ClassCategoryReader"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsFor_stamp_",
 smalltalk.method({
 selector: "methodsFor:stamp:",
 category: 'accessing',
@@ -589,7 +565,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsInProtocol_",
 smalltalk.method({
 selector: "methodsInProtocol:",
 category: 'accessing',
@@ -611,7 +586,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_name",
 smalltalk.method({
 selector: "name",
 category: 'accessing',
@@ -628,7 +602,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
@@ -647,7 +620,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_organization",
 smalltalk.method({
 selector: "organization",
 category: 'accessing',
@@ -666,7 +638,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_protocols",
 smalltalk.method({
 selector: "protocols",
 category: 'accessing',
@@ -685,7 +656,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_protocolsDo_",
 smalltalk.method({
 selector: "protocolsDo:",
 category: 'enumerating',
@@ -716,7 +686,6 @@ referencedClasses: ["HashedCollection", "Array"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_prototype",
 smalltalk.method({
 selector: "prototype",
 category: 'accessing',
@@ -733,7 +702,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_removeCompiledMethod_",
 smalltalk.method({
 selector: "removeCompiledMethod:",
 category: 'compiling',
@@ -764,7 +732,6 @@ referencedClasses: ["MethodRemoved", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_selectors",
 smalltalk.method({
 selector: "selectors",
 category: 'accessing',
@@ -783,7 +750,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_subclasses",
 smalltalk.method({
 selector: "subclasses",
 category: 'accessing',
@@ -800,7 +766,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_superclass",
 smalltalk.method({
 selector: "superclass",
 category: 'accessing',
@@ -817,7 +782,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_theMetaClass",
 smalltalk.method({
 selector: "theMetaClass",
 category: 'accessing',
@@ -836,7 +800,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_theNonMetaClass",
 smalltalk.method({
 selector: "theNonMetaClass",
 category: 'accessing',
@@ -855,7 +818,6 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_withAllSubclasses",
 smalltalk.method({
 selector: "withAllSubclasses",
 category: 'accessing',
@@ -882,7 +844,6 @@ smalltalk.Behavior);
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.Class.comment="Class is __the__ class object.\x0a\x0aInstances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder`"
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
@@ -901,7 +862,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_category",
 smalltalk.method({
 selector: "category",
 category: 'accessing',
@@ -925,7 +885,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 category: 'accessing',
@@ -967,7 +926,6 @@ referencedClasses: ["String"]
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_isClass",
 smalltalk.method({
 selector: "isClass",
 category: 'testing',
@@ -984,7 +942,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_package",
 smalltalk.method({
 selector: "package",
 category: 'accessing',
@@ -1001,7 +958,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_package_",
 smalltalk.method({
 selector: "package:",
 category: 'accessing',
@@ -1018,7 +974,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -1035,7 +990,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_rename_",
 smalltalk.method({
 selector: "rename:",
 category: 'accessing',
@@ -1053,7 +1007,6 @@ referencedClasses: ["ClassBuilder"]
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:",
 category: 'class creation',
@@ -1072,7 +1025,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_category_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:category:",
 category: 'class creation',
@@ -1092,7 +1044,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_classVariableNames_poolDictionaries_category_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
 category: 'class creation',
@@ -1111,7 +1062,6 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:package:",
 category: 'class creation',
@@ -1135,7 +1085,6 @@ smalltalk.Class);
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.Metaclass.comment="Metaclass is the root of the class hierarchy.\x0a\x0aMetaclass instances are metaclasses, one for each real class.\x0aMetaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of."
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
@@ -1154,7 +1103,6 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 category: 'accessing',
@@ -1188,7 +1136,6 @@ referencedClasses: ["String"]
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_instanceClass",
 smalltalk.method({
 selector: "instanceClass",
 category: 'accessing',
@@ -1205,7 +1152,6 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_instanceVariableNames_",
 smalltalk.method({
 selector: "instanceVariableNames:",
 category: 'accessing',
@@ -1223,7 +1169,6 @@ referencedClasses: ["ClassBuilder"]
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_isMetaclass",
 smalltalk.method({
 selector: "isMetaclass",
 category: 'testing',
@@ -1240,7 +1185,6 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -1260,7 +1204,6 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_theMetaClass",
 smalltalk.method({
 selector: "theMetaClass",
 category: 'accessing',
@@ -1279,7 +1222,6 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_theNonMetaClass",
 smalltalk.method({
 selector: "theNonMetaClass",
 category: 'accessing',
@@ -1302,7 +1244,6 @@ smalltalk.Metaclass);
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.ClassBuilder.comment="ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`."
 smalltalk.addMethod(
-"_addSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
 category: 'class definition',
@@ -1334,7 +1275,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicAddSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 category: 'private',
@@ -1354,7 +1294,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicClass_instanceVariableNames_",
 smalltalk.method({
 selector: "basicClass:instanceVariableNames:",
 category: 'private',
@@ -1371,7 +1310,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicClass_instanceVariables_",
 smalltalk.method({
 selector: "basicClass:instanceVariables:",
 category: 'private',
@@ -1393,7 +1331,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicRemoveClass_",
 smalltalk.method({
 selector: "basicRemoveClass:",
 category: 'private',
@@ -1410,7 +1347,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicRenameClass_to_",
 smalltalk.method({
 selector: "basicRenameClass:to:",
 category: 'private',
@@ -1431,7 +1367,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicSwapClassNames_with_",
 smalltalk.method({
 selector: "basicSwapClassNames:with:",
 category: 'private',
@@ -1452,7 +1387,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
 category: 'class definition',
@@ -1477,7 +1411,6 @@ referencedClasses: ["ClassDefinitionChanged", "SystemAnnouncer"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_copyClass_named_",
 smalltalk.method({
 selector: "copyClass:named:",
 category: 'copying',
@@ -1499,7 +1432,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_copyClass_to_",
 smalltalk.method({
 selector: "copyClass:to:",
 category: 'copying',
@@ -1527,7 +1459,6 @@ referencedClasses: ["Compiler"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_installMethod_forClass_category_",
 smalltalk.method({
 selector: "installMethod:forClass:category:",
 category: 'method definition',
@@ -1549,7 +1480,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_instanceVariableNamesFor_",
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
 category: 'accessing',
@@ -1571,7 +1501,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_migrateClass_superclass_",
 smalltalk.method({
 selector: "migrateClass:superclass:",
 category: 'class migration',
@@ -1589,7 +1518,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_migrateClassNamed_superclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
 category: 'class migration',
@@ -1634,7 +1562,6 @@ referencedClasses: ["Smalltalk", "Error"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_rawRenameClass_to_",
 smalltalk.method({
 selector: "rawRenameClass:to:",
 category: 'private',
@@ -1653,7 +1580,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_renameClass_to_",
 smalltalk.method({
 selector: "renameClass:to:",
 category: 'class migration',
@@ -1677,7 +1603,6 @@ referencedClasses: ["ClassRenamed", "SystemAnnouncer"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
 category: 'public',
@@ -1694,7 +1619,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_superclass_subclass_",
 smalltalk.method({
 selector: "superclass:subclass:",
 category: 'class definition',
@@ -1713,7 +1637,6 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_superclass_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
 category: 'class definition',
@@ -1755,7 +1678,6 @@ smalltalk.ClassBuilder);
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category'], 'Kernel-Classes');
 smalltalk.ClassCategoryReader.comment="ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file."
 smalltalk.addMethod(
-"_class_category_",
 smalltalk.method({
 selector: "class:category:",
 category: 'accessing',
@@ -1773,7 +1695,6 @@ referencedClasses: []
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_compileMethod_",
 smalltalk.method({
 selector: "compileMethod:",
 category: 'private',
@@ -1791,7 +1712,6 @@ referencedClasses: ["Compiler"]
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -1808,7 +1728,6 @@ referencedClasses: []
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_scanFrom_",
 smalltalk.method({
 selector: "scanFrom:",
 category: 'fileIn',
@@ -1840,7 +1759,6 @@ smalltalk.ClassCategoryReader);
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class'], 'Kernel-Classes');
 smalltalk.ClassCommentReader.comment="ClassCommentReader represents a mechanism for retrieving class comments stored on a file.\x0aSee `ClassCategoryReader` too."
 smalltalk.addMethod(
-"_class_",
 smalltalk.method({
 selector: "class:",
 category: 'accessing',
@@ -1857,7 +1775,6 @@ referencedClasses: []
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -1874,7 +1791,6 @@ referencedClasses: []
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_scanFrom_",
 smalltalk.method({
 selector: "scanFrom:",
 category: 'fileIn',
@@ -1897,7 +1813,6 @@ referencedClasses: []
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_setComment_",
 smalltalk.method({
 selector: "setComment:",
 category: 'private',
@@ -1917,7 +1832,6 @@ smalltalk.ClassCommentReader);
 
 smalltalk.addClass('ClassSorterNode', smalltalk.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
 smalltalk.addMethod(
-"_getNodesFrom_",
 smalltalk.method({
 selector: "getNodesFrom:",
 category: 'accessing',
@@ -1951,7 +1865,6 @@ referencedClasses: ["ClassSorterNode"]
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_level",
 smalltalk.method({
 selector: "level",
 category: 'accessing',
@@ -1970,7 +1883,6 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_level_",
 smalltalk.method({
 selector: "level:",
 category: 'accessing',
@@ -1987,7 +1899,6 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_nodes",
 smalltalk.method({
 selector: "nodes",
 category: 'accessing',
@@ -2006,7 +1917,6 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -2025,7 +1935,6 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
@@ -2042,7 +1951,6 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_traverseClassesWith_",
 smalltalk.method({
 selector: "traverseClassesWith:",
 category: 'visiting',
@@ -2067,7 +1975,6 @@ smalltalk.ClassSorterNode);
 
 
 smalltalk.addMethod(
-"_on_classes_level_",
 smalltalk.method({
 selector: "on:classes:level:",
 category: 'instance creation',

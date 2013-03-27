@@ -1,7 +1,6 @@
 smalltalk.addPackage('Canvas');
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
-"_a",
 smalltalk.method({
 selector: "a",
 category: 'tags',
@@ -20,7 +19,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_abbr",
 smalltalk.method({
 selector: "abbr",
 category: 'tags',
@@ -39,7 +37,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_address",
 smalltalk.method({
 selector: "address",
 category: 'tags',
@@ -58,7 +55,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_area",
 smalltalk.method({
 selector: "area",
 category: 'tags',
@@ -77,7 +73,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_article",
 smalltalk.method({
 selector: "article",
 category: 'tags',
@@ -96,7 +91,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_aside",
 smalltalk.method({
 selector: "aside",
 category: 'tags',
@@ -115,7 +109,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_audio",
 smalltalk.method({
 selector: "audio",
 category: 'tags',
@@ -134,7 +127,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_base",
 smalltalk.method({
 selector: "base",
 category: 'tags',
@@ -153,7 +145,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_blockquote",
 smalltalk.method({
 selector: "blockquote",
 category: 'tags',
@@ -172,7 +163,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_body",
 smalltalk.method({
 selector: "body",
 category: 'tags',
@@ -191,7 +181,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_br",
 smalltalk.method({
 selector: "br",
 category: 'tags',
@@ -210,7 +199,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_button",
 smalltalk.method({
 selector: "button",
 category: 'tags',
@@ -229,7 +217,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_canvas",
 smalltalk.method({
 selector: "canvas",
 category: 'tags',
@@ -248,7 +235,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_caption",
 smalltalk.method({
 selector: "caption",
 category: 'tags',
@@ -267,7 +253,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_cite",
 smalltalk.method({
 selector: "cite",
 category: 'tags',
@@ -286,7 +271,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_code",
 smalltalk.method({
 selector: "code",
 category: 'tags',
@@ -305,7 +289,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_col",
 smalltalk.method({
 selector: "col",
 category: 'tags',
@@ -324,7 +307,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_colgroup",
 smalltalk.method({
 selector: "colgroup",
 category: 'tags',
@@ -343,7 +325,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_command",
 smalltalk.method({
 selector: "command",
 category: 'tags',
@@ -362,7 +343,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_datalist",
 smalltalk.method({
 selector: "datalist",
 category: 'tags',
@@ -381,7 +361,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_dd",
 smalltalk.method({
 selector: "dd",
 category: 'tags',
@@ -400,7 +379,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_del",
 smalltalk.method({
 selector: "del",
 category: 'tags',
@@ -419,7 +397,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_details",
 smalltalk.method({
 selector: "details",
 category: 'tags',
@@ -438,7 +415,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_div",
 smalltalk.method({
 selector: "div",
 category: 'tags',
@@ -457,7 +433,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_div_",
 smalltalk.method({
 selector: "div:",
 category: 'tags',
@@ -476,7 +451,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_dl",
 smalltalk.method({
 selector: "dl",
 category: 'tags',
@@ -495,7 +469,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_dt",
 smalltalk.method({
 selector: "dt",
 category: 'tags',
@@ -514,7 +487,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_em",
 smalltalk.method({
 selector: "em",
 category: 'tags',
@@ -533,7 +505,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_embed",
 smalltalk.method({
 selector: "embed",
 category: 'tags',
@@ -552,7 +523,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_entity_",
 smalltalk.method({
 selector: "entity:",
 category: 'adding',
@@ -576,7 +546,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_fieldset",
 smalltalk.method({
 selector: "fieldset",
 category: 'tags',
@@ -595,7 +564,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_figcaption",
 smalltalk.method({
 selector: "figcaption",
 category: 'tags',
@@ -614,7 +582,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_figure",
 smalltalk.method({
 selector: "figure",
 category: 'tags',
@@ -633,7 +600,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_footer",
 smalltalk.method({
 selector: "footer",
 category: 'tags',
@@ -652,7 +618,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_form",
 smalltalk.method({
 selector: "form",
 category: 'tags',
@@ -671,7 +636,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h1",
 smalltalk.method({
 selector: "h1",
 category: 'tags',
@@ -690,7 +654,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h1_",
 smalltalk.method({
 selector: "h1:",
 category: 'tags',
@@ -709,7 +672,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h2",
 smalltalk.method({
 selector: "h2",
 category: 'tags',
@@ -728,7 +690,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h2_",
 smalltalk.method({
 selector: "h2:",
 category: 'tags',
@@ -747,7 +708,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h3",
 smalltalk.method({
 selector: "h3",
 category: 'tags',
@@ -766,7 +726,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h3_",
 smalltalk.method({
 selector: "h3:",
 category: 'tags',
@@ -785,7 +744,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h4",
 smalltalk.method({
 selector: "h4",
 category: 'tags',
@@ -804,7 +762,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h4_",
 smalltalk.method({
 selector: "h4:",
 category: 'tags',
@@ -823,7 +780,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h5",
 smalltalk.method({
 selector: "h5",
 category: 'tags',
@@ -842,7 +798,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h5_",
 smalltalk.method({
 selector: "h5:",
 category: 'tags',
@@ -861,7 +816,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h6",
 smalltalk.method({
 selector: "h6",
 category: 'tags',
@@ -880,7 +834,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h6_",
 smalltalk.method({
 selector: "h6:",
 category: 'tags',
@@ -899,7 +852,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_head",
 smalltalk.method({
 selector: "head",
 category: 'tags',
@@ -918,7 +870,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_header",
 smalltalk.method({
 selector: "header",
 category: 'tags',
@@ -937,7 +888,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_hgroup",
 smalltalk.method({
 selector: "hgroup",
 category: 'tags',
@@ -956,7 +906,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_hr",
 smalltalk.method({
 selector: "hr",
 category: 'tags',
@@ -975,7 +924,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_html",
 smalltalk.method({
 selector: "html",
 category: 'tags',
@@ -994,7 +942,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_iframe",
 smalltalk.method({
 selector: "iframe",
 category: 'tags',
@@ -1013,7 +960,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_iframe_",
 smalltalk.method({
 selector: "iframe:",
 category: 'tags',
@@ -1032,7 +978,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_img",
 smalltalk.method({
 selector: "img",
 category: 'tags',
@@ -1051,7 +996,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_img_",
 smalltalk.method({
 selector: "img:",
 category: 'tags',
@@ -1070,7 +1014,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -1096,7 +1039,6 @@ referencedClasses: ["TagBrush"]
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_initializeFromJQuery_",
 smalltalk.method({
 selector: "initializeFromJQuery:",
 category: 'initialization',
@@ -1114,7 +1056,6 @@ referencedClasses: ["TagBrush"]
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_input",
 smalltalk.method({
 selector: "input",
 category: 'tags',
@@ -1133,7 +1074,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_label",
 smalltalk.method({
 selector: "label",
 category: 'tags',
@@ -1152,7 +1092,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_legend",
 smalltalk.method({
 selector: "legend",
 category: 'tags',
@@ -1171,7 +1110,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_li",
 smalltalk.method({
 selector: "li",
 category: 'tags',
@@ -1190,7 +1128,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_li_",
 smalltalk.method({
 selector: "li:",
 category: 'tags',
@@ -1209,7 +1146,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_link",
 smalltalk.method({
 selector: "link",
 category: 'tags',
@@ -1228,7 +1164,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_map",
 smalltalk.method({
 selector: "map",
 category: 'tags',
@@ -1247,7 +1182,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_mark",
 smalltalk.method({
 selector: "mark",
 category: 'tags',
@@ -1266,7 +1200,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_menu",
 smalltalk.method({
 selector: "menu",
 category: 'tags',
@@ -1285,7 +1218,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_meta",
 smalltalk.method({
 selector: "meta",
 category: 'tags',
@@ -1304,7 +1236,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_nav",
 smalltalk.method({
 selector: "nav",
 category: 'tags',
@@ -1323,7 +1254,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_newTag_",
 smalltalk.method({
 selector: "newTag:",
 category: 'tags',
@@ -1343,7 +1273,6 @@ referencedClasses: ["TagBrush"]
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_noscript",
 smalltalk.method({
 selector: "noscript",
 category: 'tags',
@@ -1362,7 +1291,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_object",
 smalltalk.method({
 selector: "object",
 category: 'tags',
@@ -1381,7 +1309,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ol",
 smalltalk.method({
 selector: "ol",
 category: 'tags',
@@ -1400,7 +1327,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ol_",
 smalltalk.method({
 selector: "ol:",
 category: 'tags',
@@ -1419,7 +1345,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_optgroup",
 smalltalk.method({
 selector: "optgroup",
 category: 'tags',
@@ -1438,7 +1363,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_option",
 smalltalk.method({
 selector: "option",
 category: 'tags',
@@ -1457,7 +1381,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_output",
 smalltalk.method({
 selector: "output",
 category: 'tags',
@@ -1476,7 +1399,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_p",
 smalltalk.method({
 selector: "p",
 category: 'tags',
@@ -1495,7 +1417,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_p_",
 smalltalk.method({
 selector: "p:",
 category: 'tags',
@@ -1514,7 +1435,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_param",
 smalltalk.method({
 selector: "param",
 category: 'tags',
@@ -1533,7 +1453,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_pre",
 smalltalk.method({
 selector: "pre",
 category: 'tags',
@@ -1552,7 +1471,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_progress",
 smalltalk.method({
 selector: "progress",
 category: 'tags',
@@ -1571,7 +1489,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_root",
 smalltalk.method({
 selector: "root",
 category: 'accessing',
@@ -1590,7 +1507,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_root_",
 smalltalk.method({
 selector: "root:",
 category: 'accessing',
@@ -1607,7 +1523,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_script",
 smalltalk.method({
 selector: "script",
 category: 'tags',
@@ -1626,7 +1541,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_section",
 smalltalk.method({
 selector: "section",
 category: 'tags',
@@ -1645,7 +1559,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_select",
 smalltalk.method({
 selector: "select",
 category: 'tags',
@@ -1664,7 +1577,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_small",
 smalltalk.method({
 selector: "small",
 category: 'tags',
@@ -1683,7 +1595,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_snippet_",
 smalltalk.method({
 selector: "snippet:",
 category: 'accessing',
@@ -1712,7 +1623,6 @@ referencedClasses: ["TagBrush"]
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'tags',
@@ -1731,7 +1641,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_span",
 smalltalk.method({
 selector: "span",
 category: 'tags',
@@ -1750,7 +1659,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_span_",
 smalltalk.method({
 selector: "span:",
 category: 'tags',
@@ -1769,7 +1677,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_strong",
 smalltalk.method({
 selector: "strong",
 category: 'tags',
@@ -1788,7 +1695,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_strong_",
 smalltalk.method({
 selector: "strong:",
 category: 'tags',
@@ -1807,7 +1713,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_style",
 smalltalk.method({
 selector: "style",
 category: 'tags',
@@ -1827,7 +1732,6 @@ referencedClasses: ["StyleTag"]
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_style_",
 smalltalk.method({
 selector: "style:",
 category: 'tags',
@@ -1849,7 +1753,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_sub",
 smalltalk.method({
 selector: "sub",
 category: 'tags',
@@ -1868,7 +1771,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_summary",
 smalltalk.method({
 selector: "summary",
 category: 'tags',
@@ -1887,7 +1789,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_sup",
 smalltalk.method({
 selector: "sup",
 category: 'tags',
@@ -1906,7 +1807,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_table",
 smalltalk.method({
 selector: "table",
 category: 'tags',
@@ -1925,7 +1825,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tag_",
 smalltalk.method({
 selector: "tag:",
 category: 'tags',
@@ -1944,7 +1843,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tbody",
 smalltalk.method({
 selector: "tbody",
 category: 'tags',
@@ -1963,7 +1861,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_td",
 smalltalk.method({
 selector: "td",
 category: 'tags',
@@ -1982,7 +1879,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_textarea",
 smalltalk.method({
 selector: "textarea",
 category: 'tags',
@@ -2001,7 +1897,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tfoot",
 smalltalk.method({
 selector: "tfoot",
 category: 'tags',
@@ -2020,7 +1915,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_th",
 smalltalk.method({
 selector: "th",
 category: 'tags',
@@ -2039,7 +1933,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_thead",
 smalltalk.method({
 selector: "thead",
 category: 'tags',
@@ -2058,7 +1951,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_time",
 smalltalk.method({
 selector: "time",
 category: 'tags',
@@ -2077,7 +1969,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_title",
 smalltalk.method({
 selector: "title",
 category: 'tags',
@@ -2096,7 +1987,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tr",
 smalltalk.method({
 selector: "tr",
 category: 'tags',
@@ -2115,7 +2005,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ul",
 smalltalk.method({
 selector: "ul",
 category: 'tags',
@@ -2134,7 +2023,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ul_",
 smalltalk.method({
 selector: "ul:",
 category: 'tags',
@@ -2153,7 +2041,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_video",
 smalltalk.method({
 selector: "video",
 category: 'tags',
@@ -2172,7 +2059,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 category: 'adding',
@@ -2192,7 +2078,6 @@ smalltalk.HTMLCanvas);
 
 
 smalltalk.addMethod(
-"_browserVersion",
 smalltalk.method({
 selector: "browserVersion",
 category: 'instance creation',
@@ -2211,7 +2096,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isMSIE",
 smalltalk.method({
 selector: "isMSIE",
 category: 'instance creation',
@@ -2230,7 +2114,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isMozilla",
 smalltalk.method({
 selector: "isMozilla",
 category: 'instance creation',
@@ -2249,7 +2132,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isOpera",
 smalltalk.method({
 selector: "isOpera",
 category: 'instance creation',
@@ -2268,7 +2150,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isWebkit",
 smalltalk.method({
 selector: "isWebkit",
 category: 'instance creation',
@@ -2287,7 +2168,6 @@ referencedClasses: []
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_onJQuery_",
 smalltalk.method({
 selector: "onJQuery:",
 category: 'instance creation',
@@ -2313,7 +2193,6 @@ smalltalk.HTMLCanvas.klass);
 smalltalk.addClass('HTMLSnippet', smalltalk.Object, ['snippets'], 'Canvas');
 smalltalk.HTMLSnippet.comment="HTMLSnippet instance is the registry of html snippets.\x0aHTMLSnippet current is the public singleton instance.\x0a\x0aAt the beginning, it scans the document for any html elements\x0awith 'data-snippet=\x22foo\x22' attribute and takes them off the document,\x0aremembering them in the store under the specified name.\x0aIt also install method #foo into HTMLCanvas dynamically.\x0a\x0aEvery html snippet should mark a 'caret', a place where contents\x0acan be inserted, by 'data-snippet=\x22*\x22' (a special name for caret).\x0aFor example:\x0a\x0a<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>\x0a\x0adefines a list element with a link inside; the link itself is marked as a caret.\x0a\x0aYou can later issue\x0a\x0ahtml menuelement href: '/foo'; with: 'A foo'\x0a\x0ato insert the whole snippet and directly manipulate the caret, so it renders:\x0a\x0a<li class='...'><a href='/foo'>A foo</a></li>\x0a\x0aFor a self-careting tags (not very useful, but you do not need to fill class etc.\x0ayou can use\x0a\x0a<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>\x0a\x0aand in code later do:\x0a\x0ahtml bar with: [ xxx ]\x0a\x0ato render\x0a\x0a<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>"
 smalltalk.addMethod(
-"_initializeFromJQuery_",
 smalltalk.method({
 selector: "initializeFromJQuery:",
 category: 'initialization',
@@ -2333,7 +2212,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_installSnippetFromJQuery_",
 smalltalk.method({
 selector: "installSnippetFromJQuery:",
 category: 'snippet installation',
@@ -2364,7 +2242,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_",
 smalltalk.method({
 selector: "snippetAt:",
 category: 'accessing',
@@ -2383,7 +2260,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_compile_",
 smalltalk.method({
 selector: "snippetAt:compile:",
 category: 'method generation',
@@ -2405,7 +2281,6 @@ referencedClasses: ["HTMLCanvas", "ClassBuilder"]
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_install_",
 smalltalk.method({
 selector: "snippetAt:install:",
 category: 'snippet installation',
@@ -2423,7 +2298,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippets",
 smalltalk.method({
 selector: "snippets",
 category: 'accessing',
@@ -2448,7 +2322,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetsFromJQuery_",
 smalltalk.method({
 selector: "snippetsFromJQuery:",
 category: 'private',
@@ -2469,7 +2342,6 @@ smalltalk.HTMLSnippet);
 
 smalltalk.HTMLSnippet.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 category: 'instance creation',
@@ -2488,7 +2360,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_ensureCurrent",
 smalltalk.method({
 selector: "ensureCurrent",
 category: 'initialization',
@@ -2515,7 +2386,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -2537,7 +2407,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_isDOMAvailable",
 smalltalk.method({
 selector: "isDOMAvailable",
 category: 'instance creation',
@@ -2554,7 +2423,6 @@ referencedClasses: []
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
@@ -2573,7 +2441,6 @@ smalltalk.HTMLSnippet.klass);
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
-"_accesskey_",
 smalltalk.method({
 selector: "accesskey:",
 category: 'attributes',
@@ -2590,7 +2457,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_action_",
 smalltalk.method({
 selector: "action:",
 category: 'attributes',
@@ -2607,7 +2473,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_addBrush_",
 smalltalk.method({
 selector: "addBrush:",
 category: 'adding',
@@ -2627,7 +2492,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_align_",
 smalltalk.method({
 selector: "align:",
 category: 'attributes',
@@ -2644,7 +2508,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_alt_",
 smalltalk.method({
 selector: "alt:",
 category: 'attributes',
@@ -2661,7 +2524,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_append_",
 smalltalk.method({
 selector: "append:",
 category: 'adding',
@@ -2678,7 +2540,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendBlock_",
 smalltalk.method({
 selector: "appendBlock:",
 category: 'adding',
@@ -2699,7 +2560,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendChild_",
 smalltalk.method({
 selector: "appendChild:",
 category: 'adding',
@@ -2721,7 +2581,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendString_",
 smalltalk.method({
 selector: "appendString:",
 category: 'adding',
@@ -2738,7 +2597,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 category: 'adding',
@@ -2755,7 +2613,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_asJQuery",
 smalltalk.method({
 selector: "asJQuery",
 category: 'converting',
@@ -2774,7 +2631,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 category: 'attributes',
@@ -2791,7 +2647,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_class_",
 smalltalk.method({
 selector: "class:",
 category: 'attributes',
@@ -2808,7 +2663,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_cols_",
 smalltalk.method({
 selector: "cols:",
 category: 'attributes',
@@ -2825,7 +2679,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_contenteditable_",
 smalltalk.method({
 selector: "contenteditable:",
 category: 'attributes',
@@ -2842,7 +2695,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_contents_",
 smalltalk.method({
 selector: "contents:",
 category: 'adding',
@@ -2862,7 +2714,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_contextmenu_",
 smalltalk.method({
 selector: "contextmenu:",
 category: 'attributes',
@@ -2879,7 +2730,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_createElementFor_",
 smalltalk.method({
 selector: "createElementFor:",
 category: 'private',
@@ -2896,7 +2746,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_createTextNodeFor_",
 smalltalk.method({
 selector: "createTextNodeFor:",
 category: 'private',
@@ -2913,7 +2762,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_draggable_",
 smalltalk.method({
 selector: "draggable:",
 category: 'attributes',
@@ -2930,7 +2778,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_element",
 smalltalk.method({
 selector: "element",
 category: 'accessing',
@@ -2949,7 +2796,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_empty",
 smalltalk.method({
 selector: "empty",
 category: 'adding',
@@ -2966,7 +2812,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_for_",
 smalltalk.method({
 selector: "for:",
 category: 'attributes',
@@ -2983,7 +2828,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_height_",
 smalltalk.method({
 selector: "height:",
 category: 'attributes',
@@ -3000,7 +2844,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_hidden",
 smalltalk.method({
 selector: "hidden",
 category: 'attributes',
@@ -3017,7 +2860,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_href_",
 smalltalk.method({
 selector: "href:",
 category: 'attributes',
@@ -3034,7 +2876,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_id_",
 smalltalk.method({
 selector: "id:",
 category: 'attributes',
@@ -3051,7 +2892,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_initializeFromJQuery_canvas_",
 smalltalk.method({
 selector: "initializeFromJQuery:canvas:",
 category: 'initialization',
@@ -3069,7 +2909,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_initializeFromString_canvas_",
 smalltalk.method({
 selector: "initializeFromString:canvas:",
 category: 'initialization',
@@ -3087,7 +2926,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_media_",
 smalltalk.method({
 selector: "media:",
 category: 'attributes',
@@ -3104,7 +2942,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_method_",
 smalltalk.method({
 selector: "method:",
 category: 'attributes',
@@ -3121,7 +2958,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_name_",
 smalltalk.method({
 selector: "name:",
 category: 'attributes',
@@ -3138,7 +2974,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onBlur_",
 smalltalk.method({
 selector: "onBlur:",
 category: 'events',
@@ -3155,7 +2990,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onChange_",
 smalltalk.method({
 selector: "onChange:",
 category: 'events',
@@ -3172,7 +3006,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onClick_",
 smalltalk.method({
 selector: "onClick:",
 category: 'events',
@@ -3189,7 +3022,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onDblClick_",
 smalltalk.method({
 selector: "onDblClick:",
 category: 'events',
@@ -3206,7 +3038,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onFocus_",
 smalltalk.method({
 selector: "onFocus:",
 category: 'events',
@@ -3223,7 +3054,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onFocusIn_",
 smalltalk.method({
 selector: "onFocusIn:",
 category: 'events',
@@ -3240,7 +3070,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onFocusOut_",
 smalltalk.method({
 selector: "onFocusOut:",
 category: 'events',
@@ -3257,7 +3086,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onHover_",
 smalltalk.method({
 selector: "onHover:",
 category: 'events',
@@ -3274,7 +3102,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onKeyDown_",
 smalltalk.method({
 selector: "onKeyDown:",
 category: 'events',
@@ -3291,7 +3118,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onKeyPress_",
 smalltalk.method({
 selector: "onKeyPress:",
 category: 'events',
@@ -3308,7 +3134,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onKeyUp_",
 smalltalk.method({
 selector: "onKeyUp:",
 category: 'events',
@@ -3325,7 +3150,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseDown_",
 smalltalk.method({
 selector: "onMouseDown:",
 category: 'events',
@@ -3342,7 +3166,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseEnter_",
 smalltalk.method({
 selector: "onMouseEnter:",
 category: 'events',
@@ -3359,7 +3182,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseLeave_",
 smalltalk.method({
 selector: "onMouseLeave:",
 category: 'events',
@@ -3376,7 +3198,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseMove_",
 smalltalk.method({
 selector: "onMouseMove:",
 category: 'events',
@@ -3393,7 +3214,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseOut_",
 smalltalk.method({
 selector: "onMouseOut:",
 category: 'events',
@@ -3410,7 +3230,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseOver_",
 smalltalk.method({
 selector: "onMouseOver:",
 category: 'events',
@@ -3427,7 +3246,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseUp_",
 smalltalk.method({
 selector: "onMouseUp:",
 category: 'events',
@@ -3444,7 +3262,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onSelect_",
 smalltalk.method({
 selector: "onSelect:",
 category: 'events',
@@ -3461,7 +3278,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onSubmit_",
 smalltalk.method({
 selector: "onSubmit:",
 category: 'events',
@@ -3478,7 +3294,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onUnload_",
 smalltalk.method({
 selector: "onUnload:",
 category: 'events',
@@ -3495,7 +3310,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_placeholder_",
 smalltalk.method({
 selector: "placeholder:",
 category: 'attributes',
@@ -3512,7 +3326,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_rel_",
 smalltalk.method({
 selector: "rel:",
 category: 'attributes',
@@ -3529,7 +3342,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_removeAt_",
 smalltalk.method({
 selector: "removeAt:",
 category: 'attributes',
@@ -3546,7 +3358,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_rows_",
 smalltalk.method({
 selector: "rows:",
 category: 'attributes',
@@ -3563,7 +3374,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_src_",
 smalltalk.method({
 selector: "src:",
 category: 'attributes',
@@ -3580,7 +3390,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_style_",
 smalltalk.method({
 selector: "style:",
 category: 'attributes',
@@ -3597,7 +3406,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_tabindex_",
 smalltalk.method({
 selector: "tabindex:",
 category: 'attributes',
@@ -3614,7 +3422,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_target_",
 smalltalk.method({
 selector: "target:",
 category: 'attributes',
@@ -3631,7 +3438,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_title_",
 smalltalk.method({
 selector: "title:",
 category: 'attributes',
@@ -3648,7 +3454,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_type_",
 smalltalk.method({
 selector: "type:",
 category: 'attributes',
@@ -3665,7 +3470,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_valign_",
 smalltalk.method({
 selector: "valign:",
 category: 'attributes',
@@ -3682,7 +3486,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 category: 'attributes',
@@ -3699,7 +3502,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_width_",
 smalltalk.method({
 selector: "width:",
 category: 'attributes',
@@ -3716,7 +3518,6 @@ referencedClasses: []
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 category: 'adding',
@@ -3734,7 +3535,6 @@ smalltalk.TagBrush);
 
 
 smalltalk.addMethod(
-"_fromJQuery_canvas_",
 smalltalk.method({
 selector: "fromJQuery:canvas:",
 category: 'instance creation',
@@ -3756,7 +3556,6 @@ referencedClasses: []
 smalltalk.TagBrush.klass);
 
 smalltalk.addMethod(
-"_fromString_canvas_",
 smalltalk.method({
 selector: "fromString:canvas:",
 category: 'instance creation',
@@ -3781,7 +3580,6 @@ smalltalk.TagBrush.klass);
 smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
 smalltalk.StyleTag.comment="I'm a <style> tag use to inline CSS or load a stylesheet.\x0a\x0aFor inlining handle IE compatibility problems."
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 category: 'adding',
@@ -3806,7 +3604,6 @@ smalltalk.StyleTag);
 
 
 smalltalk.addMethod(
-"_canvas_",
 smalltalk.method({
 selector: "canvas:",
 category: 'instance creation',
@@ -3830,7 +3627,6 @@ smalltalk.StyleTag.klass);
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 category: 'adding',
@@ -3847,7 +3643,6 @@ referencedClasses: []
 smalltalk.Widget);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 category: 'adding',
@@ -3865,7 +3660,6 @@ referencedClasses: ["HTMLCanvas"]
 smalltalk.Widget);
 
 smalltalk.addMethod(
-"_renderOn_",
 smalltalk.method({
 selector: "renderOn:",
 category: 'rendering',
@@ -3883,7 +3677,6 @@ smalltalk.Widget);
 
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 category: '*Canvas',
@@ -3900,7 +3693,6 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 category: '*Canvas',
@@ -3917,7 +3709,6 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 category: '*Canvas',
@@ -3934,7 +3725,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 category: '*Canvas',
@@ -3952,7 +3742,6 @@ referencedClasses: ["HTMLCanvas"]
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_asSnippet",
 smalltalk.method({
 selector: "asSnippet",
 category: '*Canvas',
@@ -3972,7 +3761,6 @@ referencedClasses: ["HTMLSnippet"]
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 category: '*Canvas',
@@ -3989,7 +3777,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 category: '*Canvas',
@@ -4006,7 +3793,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJQuery",
 smalltalk.method({
 selector: "asJQuery",
 category: '*Canvas',
@@ -4023,7 +3809,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJQuery",
 smalltalk.method({
 selector: "asJQuery",
 category: '*Canvas',

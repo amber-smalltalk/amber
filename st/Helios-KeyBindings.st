@@ -282,8 +282,7 @@ evaluate: aString
 release
 	status := nil.
 	wrapper := nil.
-	binder := nil.
-	inputText := nil
+	binder := nil
 ! !
 
 !HLBindingInput methodsFor: 'rendering'!

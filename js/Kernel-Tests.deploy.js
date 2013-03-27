@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Tests');
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testCanClearInterval",
 smalltalk.method({
 selector: "testCanClearInterval",
 fn: function (){
@@ -20,7 +19,6 @@ messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testCanClearTimeout",
 smalltalk.method({
 selector: "testCanClearTimeout",
 fn: function (){
@@ -39,7 +37,6 @@ messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal",
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testCompiledSource",
 smalltalk.method({
 selector: "testCompiledSource",
 fn: function (){
@@ -54,7 +51,6 @@ messageSends: ["assert:", "includesSubString:", "compiledSource", "+"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testCurrySelf",
 smalltalk.method({
 selector: "testCurrySelf",
 fn: function (){
@@ -81,7 +77,6 @@ messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testEnsure",
 smalltalk.method({
 selector: "testEnsure",
 fn: function (){
@@ -99,7 +94,6 @@ messageSends: ["assert:equals:", "ensure:"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testEnsureRaises",
 smalltalk.method({
 selector: "testEnsureRaises",
 fn: function (){
@@ -121,7 +115,6 @@ messageSends: ["should:raise:", "ensure:", "signal", "new"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testExceptionSemantics",
 smalltalk.method({
 selector: "testExceptionSemantics",
 fn: function (){
@@ -147,7 +140,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "on:do:", "finished", 
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testNumArgs",
 smalltalk.method({
 selector: "testNumArgs",
 fn: function (){
@@ -164,7 +156,6 @@ messageSends: ["assert:equals:", "numArgs"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testOnDo",
 smalltalk.method({
 selector: "testOnDo",
 fn: function (){
@@ -183,7 +174,6 @@ messageSends: ["assert:", "on:do:", "signal", "new"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testValue",
 smalltalk.method({
 selector: "testValue",
 fn: function (){
@@ -210,7 +200,6 @@ messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testValueWithPossibleArguments",
 smalltalk.method({
 selector: "testValueWithPossibleArguments",
 fn: function (){
@@ -233,7 +222,6 @@ messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testWhileFalse",
 smalltalk.method({
 selector: "testWhileFalse",
 fn: function (){
@@ -263,7 +251,6 @@ messageSends: ["whileFalse:", "+", ">", "assert:equals:", "whileFalse"]}),
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testWhileTrue",
 smalltalk.method({
 selector: "testWhileTrue",
 fn: function (){
@@ -296,7 +283,6 @@ smalltalk.BlockClosureTest);
 
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 fn: function (){
@@ -317,7 +303,6 @@ messageSends: ["deny:", "=", "assert:", "yourself"]}),
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 fn: function (){
@@ -338,7 +323,6 @@ messageSends: ["deny:", "==", "assert:", "yourself"]}),
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testIfTrueIfFalse",
 smalltalk.method({
 selector: "testIfTrueIfFalse",
 fn: function (){
@@ -398,7 +382,6 @@ messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFa
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testIfTrueIfFalseWithBoxing",
 smalltalk.method({
 selector: "testIfTrueIfFalseWithBoxing",
 fn: function (){
@@ -466,7 +449,6 @@ messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFa
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testLogic",
 smalltalk.method({
 selector: "testLogic",
 fn: function (){
@@ -496,7 +478,6 @@ messageSends: ["assert:", "&", "deny:", "|", ">"]}),
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testLogicKeywords",
 smalltalk.method({
 selector: "testLogicKeywords",
 fn: function (){
@@ -568,7 +549,6 @@ messageSends: ["assert:", "and:", "deny:", "or:", ">"]}),
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testNonBooleanError",
 smalltalk.method({
 selector: "testNonBooleanError",
 fn: function (){
@@ -589,7 +569,6 @@ smalltalk.BooleanTest);
 
 smalltalk.addClass('ClassBuilderTest', smalltalk.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -602,7 +581,6 @@ messageSends: ["new"]}),
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 fn: function (){
@@ -623,7 +601,6 @@ messageSends: ["ifNotNil:", "removeClass:", "current"]}),
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassCopy",
 smalltalk.method({
 selector: "testClassCopy",
 fn: function (){
@@ -641,7 +618,6 @@ messageSends: ["copyClass:named:", "assert:", "==", "superclass", "instanceVaria
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassMigration",
 smalltalk.method({
 selector: "testClassMigration",
 fn: function (){
@@ -668,7 +644,6 @@ messageSends: ["copyClass:named:", "new", "at:", "current", "subclass:instanceVa
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassMigrationWithClassInstanceVariables",
 smalltalk.method({
 selector: "testClassMigrationWithClassInstanceVariables",
 fn: function (){
@@ -687,7 +662,6 @@ messageSends: ["copyClass:named:", "instanceVariableNames:", "class", "subclass:
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassMigrationWithSubclasses",
 smalltalk.method({
 selector: "testClassMigrationWithSubclasses",
 fn: function (){
@@ -714,7 +688,6 @@ messageSends: ["copyClass:named:", "subclass:instanceVariableNames:package:", "a
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testInstanceVariableNames",
 smalltalk.method({
 selector: "testInstanceVariableNames",
 fn: function (){
@@ -729,7 +702,6 @@ smalltalk.ClassBuilderTest);
 
 smalltalk.addClass('CollectionTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_assertSameContents_as_",
 smalltalk.method({
 selector: "assertSameContents:as:",
 fn: function (aCollection,anotherCollection){
@@ -745,7 +717,6 @@ messageSends: ["assert:", "=", "size", "do:", "occurrencesOf:"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 fn: function (){
@@ -759,7 +730,6 @@ messageSends: ["withAll:", "defaultValues", "collectionClass"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -773,7 +743,6 @@ messageSends: ["collectionClass", "class"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 fn: function (){
@@ -787,7 +756,6 @@ messageSends: ["withAll:", "collectionClass"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_defaultValues",
 smalltalk.method({
 selector: "defaultValues",
 fn: function (){
@@ -801,7 +769,6 @@ messageSends: []}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_isCollectionReadOnly",
 smalltalk.method({
 selector: "isCollectionReadOnly",
 fn: function (){
@@ -813,7 +780,6 @@ messageSends: []}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testAsArray",
 smalltalk.method({
 selector: "testAsArray",
 fn: function (){
@@ -825,7 +791,6 @@ messageSends: ["assertSameContents:as:", "collection", "asArray"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testAsOrderedCollection",
 smalltalk.method({
 selector: "testAsOrderedCollection",
 fn: function (){
@@ -837,7 +802,6 @@ messageSends: ["assertSameContents:as:", "collection", "asOrderedCollection"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testAsSet",
 smalltalk.method({
 selector: "testAsSet",
 fn: function (){
@@ -856,7 +820,6 @@ messageSends: ["collectionWithDuplicates", "asSet", "assert:equals:", "size", "d
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testCollect",
 smalltalk.method({
 selector: "testCollect",
 fn: function (){
@@ -873,7 +836,6 @@ messageSends: ["assertSameContents:as:", "collect:", "abs", "collection"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testDetect",
 smalltalk.method({
 selector: "testDetect",
 fn: function (){
@@ -896,7 +858,6 @@ messageSends: ["assert:equals:", "detect:", "<", "collection", "should:raise:", 
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testDo",
 smalltalk.method({
 selector: "testDo",
 fn: function (){
@@ -915,7 +876,6 @@ messageSends: ["new", "do:", "add:", "collection", "assertSameContents:as:"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testIsEmpty",
 smalltalk.method({
 selector: "testIsEmpty",
 fn: function (){
@@ -928,7 +888,6 @@ messageSends: ["assert:", "isEmpty", "new", "collectionClass", "deny:", "collect
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testSelect",
 smalltalk.method({
 selector: "testSelect",
 fn: function (){
@@ -945,7 +904,6 @@ messageSends: ["assertSameContents:as:", "select:", "even", "collection"]}),
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 fn: function (){
@@ -959,7 +917,6 @@ smalltalk.CollectionTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -971,7 +928,6 @@ messageSends: []}),
 smalltalk.CollectionTest.klass);
 
 smalltalk.addMethod(
-"_isAbstract",
 smalltalk.method({
 selector: "isAbstract",
 fn: function (){
@@ -987,7 +943,6 @@ smalltalk.CollectionTest.klass);
 
 smalltalk.addClass('IndexableCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 fn: function (){
@@ -1004,7 +959,6 @@ messageSends: ["assert:equals:", "at:", "collection", "should:raise:"]}),
 smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
-"_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
 fn: function (){
@@ -1019,7 +973,6 @@ messageSends: ["assert:equals:", "at:ifAbsent:", "+", "size", "collection"]}),
 smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
-"_testIndexOf",
 smalltalk.method({
 selector: "testIndexOf",
 fn: function (){
@@ -1040,7 +993,6 @@ messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "ind
 smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
-"_testWithIndexDo",
 smalltalk.method({
 selector: "testWithIndexDo",
 fn: function (){
@@ -1060,7 +1012,6 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addClass('HashedCollectionTest', smalltalk.IndexableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 fn: function (){
@@ -1074,7 +1025,6 @@ messageSends: ["->"]}),
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 fn: function (){
@@ -1088,7 +1038,6 @@ messageSends: ["->"]}),
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 fn: function (){
@@ -1105,7 +1054,6 @@ messageSends: ["assert:equals:", "at:", "collection", "should:raise:"]}),
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
-"_testIndexOf",
 smalltalk.method({
 selector: "testIndexOf",
 fn: function (){
@@ -1127,7 +1075,6 @@ smalltalk.HashedCollectionTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -1144,7 +1091,6 @@ smalltalk.HashedCollectionTest.klass);
 
 smalltalk.addClass('DictionaryTest', smalltalk.HashedCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 fn: function (){
@@ -1165,7 +1111,6 @@ messageSends: ["at:put:", "new", "yourself"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 fn: function (){
@@ -1189,7 +1134,6 @@ messageSends: ["at:put:", "new", "yourself"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testAccessing",
 smalltalk.method({
 selector: "testAccessing",
 fn: function (){
@@ -1221,7 +1165,6 @@ messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testDynamicDictionaries",
 smalltalk.method({
 selector: "testDynamicDictionaries",
 fn: function (){
@@ -1234,7 +1177,6 @@ messageSends: ["assert:equals:", "asDictionary", "->", "with:"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 fn: function (){
@@ -1274,7 +1216,6 @@ messageSends: ["assert:", "=", "new", "at:put:", "yourself", "deny:"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testIfAbsent",
 smalltalk.method({
 selector: "testIfAbsent",
 fn: function (){
@@ -1295,7 +1236,6 @@ messageSends: ["new", "at:ifAbsent:", "assert:"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testIfPresent",
 smalltalk.method({
 selector: "testIfPresent",
 fn: function (){
@@ -1323,7 +1263,6 @@ messageSends: ["new", "at:put:", "at:ifPresent:", "assert:equals:", "assert:", "
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testIfPresentIfAbsent",
 smalltalk.method({
 selector: "testIfPresentIfAbsent",
 fn: function (){
@@ -1359,7 +1298,6 @@ messageSends: ["new", "at:put:", "at:ifPresent:ifAbsent:", "assert:equals:", "as
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testKeys",
 smalltalk.method({
 selector: "testKeys",
 fn: function (){
@@ -1377,7 +1315,6 @@ messageSends: ["new", "at:put:", "assert:equals:", "keys"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testPointKey",
 smalltalk.method({
 selector: "testPointKey",
 fn: function (){
@@ -1401,7 +1338,6 @@ messageSends: ["new", "at:put:", "@", "assert:equals:", "at:", "removeKey:", "at
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
 fn: function (){
@@ -1419,7 +1355,6 @@ messageSends: ["assert:equals:", "at:put:", "new", "printString"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testRemoveKey",
 smalltalk.method({
 selector: "testRemoveKey",
 fn: function (){
@@ -1442,7 +1377,6 @@ messageSends: ["new", "at:put:", "assert:equals:", "keys", "removeKey:", "values
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testRemoveKeyIfAbsent",
 smalltalk.method({
 selector: "testRemoveKeyIfAbsent",
 fn: function (){
@@ -1471,7 +1405,6 @@ messageSends: ["new", "at:put:", "assert:equals:", "removeKey:", "removeKey:ifAb
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 fn: function (){
@@ -1490,7 +1423,6 @@ messageSends: ["new", "assert:equals:", "size", "at:put:"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testValues",
 smalltalk.method({
 selector: "testValues",
 fn: function (){
@@ -1509,7 +1441,6 @@ smalltalk.DictionaryTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -1529,7 +1460,6 @@ smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTe
 
 smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
 fn: function (){
@@ -1560,7 +1490,6 @@ messageSends: ["assert:equals:", "at:", "at:ifAbsent:"]}),
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-"_testFirstN",
 smalltalk.method({
 selector: "testFirstN",
 fn: function (){
@@ -1572,7 +1501,6 @@ messageSends: ["assert:equals:", "first:"]}),
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-"_testIfEmpty",
 smalltalk.method({
 selector: "testIfEmpty",
 fn: function (){
@@ -1587,7 +1515,6 @@ messageSends: ["assert:equals:", "ifEmpty:"]}),
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-"_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
 fn: function (){
@@ -1618,7 +1545,6 @@ smalltalk.ArrayTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -1635,7 +1561,6 @@ smalltalk.ArrayTest.klass);
 
 smalltalk.addClass('StringTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 fn: function (){
@@ -1647,7 +1572,6 @@ messageSends: []}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 fn: function (){
@@ -1659,7 +1583,6 @@ messageSends: []}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAddRemove",
 smalltalk.method({
 selector: "testAddRemove",
 fn: function (){
@@ -1679,7 +1602,6 @@ messageSends: ["should:raise:", "add:", "remove:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAsArray",
 smalltalk.method({
 selector: "testAsArray",
 fn: function (){
@@ -1691,7 +1613,6 @@ messageSends: ["assert:equals:", "asArray"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 fn: function (){
@@ -1708,7 +1629,6 @@ messageSends: ["assert:equals:", "at:", "at:ifAbsent:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAtPut",
 smalltalk.method({
 selector: "testAtPut",
 fn: function (){
@@ -1724,7 +1644,6 @@ messageSends: ["should:raise:", "at:put:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testCollect",
 smalltalk.method({
 selector: "testCollect",
 fn: function (){
@@ -1741,7 +1660,6 @@ messageSends: ["assertSameContents:as:", "collect:", ",", "collection"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testCopyWithoutAll",
 smalltalk.method({
 selector: "testCopyWithoutAll",
 fn: function (){
@@ -1753,7 +1671,6 @@ messageSends: ["assert:equals:", "copyWithoutAll:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testDetect",
 smalltalk.method({
 selector: "testDetect",
 fn: function (){
@@ -1776,7 +1693,6 @@ messageSends: ["assert:equals:", "detect:", "=", "collection", "should:raise:"]}
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 fn: function (){
@@ -1792,7 +1708,6 @@ messageSends: ["assert:equals:", "deny:", "=", "yourself"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 fn: function (){
@@ -1808,7 +1723,6 @@ messageSends: ["assert:", "==", "deny:", "yourself"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testIncludesSubString",
 smalltalk.method({
 selector: "testIncludesSubString",
 fn: function (){
@@ -1821,7 +1735,6 @@ messageSends: ["assert:", "includesSubString:", "deny:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testIndexOf",
 smalltalk.method({
 selector: "testIndexOf",
 fn: function (){
@@ -1842,7 +1755,6 @@ messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "ind
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testJoin",
 smalltalk.method({
 selector: "testJoin",
 fn: function (){
@@ -1854,7 +1766,6 @@ messageSends: ["assert:equals:", "join:"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testSelect",
 smalltalk.method({
 selector: "testSelect",
 fn: function (){
@@ -1871,7 +1782,6 @@ messageSends: ["assertSameContents:as:", "select:", "=", "collection"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 fn: function (){
@@ -1884,7 +1794,6 @@ messageSends: ["assert:equals:", "size"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testStreamContents",
 smalltalk.method({
 selector: "testStreamContents",
 fn: function (){
@@ -1906,7 +1815,6 @@ smalltalk.StringTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -1923,7 +1831,6 @@ smalltalk.StringTest.klass);
 
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_jsObject",
 smalltalk.method({
 selector: "jsObject",
 fn: function (){
@@ -1935,7 +1842,6 @@ messageSends: []}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
 fn: function (){
@@ -1964,7 +1870,6 @@ messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testAtIfPresent",
 smalltalk.method({
 selector: "testAtIfPresent",
 fn: function (){
@@ -1993,7 +1898,6 @@ messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"]})
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testAtIfPresentIfAbsent",
 smalltalk.method({
 selector: "testAtIfPresentIfAbsent",
 fn: function (){
@@ -2034,7 +1938,6 @@ messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asS
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testDNU",
 smalltalk.method({
 selector: "testDNU",
 fn: function (){
@@ -2050,7 +1953,6 @@ messageSends: ["should:raise:", "foo", "jsObject"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testMessageSend",
 smalltalk.method({
 selector: "testMessageSend",
 fn: function (){
@@ -2064,7 +1966,6 @@ messageSends: ["assert:equals:", "a", "jsObject", "b", "c:"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testMethodWithArguments",
 smalltalk.method({
 selector: "testMethodWithArguments",
 fn: function (){
@@ -2076,7 +1977,6 @@ messageSends: ["assert:equals:", "c:", "jsObject"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testPrinting",
 smalltalk.method({
 selector: "testPrinting",
 fn: function (){
@@ -2088,7 +1988,6 @@ messageSends: ["assert:equals:", "printString", "jsObject"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testPropertyThatReturnsEmptyString",
 smalltalk.method({
 selector: "testPropertyThatReturnsEmptyString",
 fn: function (){
@@ -2104,7 +2003,6 @@ messageSends: ["jsObject", "assert:equals:", "d", "d:"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testPropertyThatReturnsUndefined",
 smalltalk.method({
 selector: "testPropertyThatReturnsUndefined",
 fn: function (){
@@ -2123,7 +2021,6 @@ messageSends: ["jsObject", "shouldnt:raise:", "e", "assert:", "isNil"]}),
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testValue",
 smalltalk.method({
 selector: "testValue",
 fn: function (){
@@ -2139,7 +2036,6 @@ messageSends: ["jsObject", "assert:equals:", "printString", "value", "at:put:"]}
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testYourself",
 smalltalk.method({
 selector: "testYourself",
 fn: function (){
@@ -2160,7 +2056,6 @@ smalltalk.JSObjectProxyTest);
 
 smalltalk.addClass('JavaScriptExceptionTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testCatchingException",
 smalltalk.method({
 selector: "testCatchingException",
 fn: function (){
@@ -2179,7 +2074,6 @@ messageSends: ["on:do:", "assert:", "=", "exception", "throwException"]}),
 smalltalk.JavaScriptExceptionTest);
 
 smalltalk.addMethod(
-"_testRaisingException",
 smalltalk.method({
 selector: "testRaisingException",
 fn: function (){
@@ -2195,7 +2089,6 @@ messageSends: ["should:raise:", "throwException"]}),
 smalltalk.JavaScriptExceptionTest);
 
 smalltalk.addMethod(
-"_throwException",
 smalltalk.method({
 selector: "throwException",
 fn: function (){
@@ -2210,7 +2103,6 @@ smalltalk.JavaScriptExceptionTest);
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAbs",
 smalltalk.method({
 selector: "testAbs",
 fn: function (){
@@ -2223,7 +2115,6 @@ messageSends: ["assert:equals:", "abs"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testArithmetic",
 smalltalk.method({
 selector: "testArithmetic",
 fn: function (){
@@ -2241,7 +2132,6 @@ messageSends: ["assert:equals:", "+", "-", "/", "*"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testComparison",
 smalltalk.method({
 selector: "testComparison",
 fn: function (){
@@ -2260,7 +2150,6 @@ messageSends: ["assert:", ">", "<", "deny:", ">=", "<="]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testCopying",
 smalltalk.method({
 selector: "testCopying",
 fn: function (){
@@ -2273,7 +2162,6 @@ messageSends: ["assert:", "==", "copy", "deepCopy"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 fn: function (){
@@ -2294,7 +2182,6 @@ messageSends: ["assert:", "=", "deny:", "yourself"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testHexNumbers",
 smalltalk.method({
 selector: "testHexNumbers",
 fn: function (){
@@ -2312,7 +2199,6 @@ messageSends: ["assert:equals:", "truncated"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 fn: function (){
@@ -2330,7 +2216,6 @@ messageSends: ["assert:", "==", "deny:", "yourself"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testInvalidHexNumbers",
 smalltalk.method({
 selector: "testInvalidHexNumbers",
 fn: function (){
@@ -2506,7 +2391,6 @@ messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", 
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testMinMax",
 smalltalk.method({
 selector: "testMinMax",
 fn: function (){
@@ -2519,7 +2403,6 @@ messageSends: ["assert:equals:", "max:", "min:"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testNegated",
 smalltalk.method({
 selector: "testNegated",
 fn: function (){
@@ -2532,7 +2415,6 @@ messageSends: ["assert:equals:", "negated"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testPrintShowingDecimalPlaces",
 smalltalk.method({
 selector: "testPrintShowingDecimalPlaces",
 fn: function (){
@@ -2556,7 +2438,6 @@ messageSends: ["assert:equals:", "printShowingDecimalPlaces:", "negated"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testRounded",
 smalltalk.method({
 selector: "testRounded",
 fn: function (){
@@ -2570,7 +2451,6 @@ messageSends: ["assert:equals:", "rounded"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testSqrt",
 smalltalk.method({
 selector: "testSqrt",
 fn: function (){
@@ -2583,7 +2463,6 @@ messageSends: ["assert:equals:", "sqrt"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testSquared",
 smalltalk.method({
 selector: "testSquared",
 fn: function (){
@@ -2595,7 +2474,6 @@ messageSends: ["assert:equals:", "squared"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testTimesRepeat",
 smalltalk.method({
 selector: "testTimesRepeat",
 fn: function (){
@@ -2620,7 +2498,6 @@ messageSends: ["timesRepeat:", "+", "assert:equals:"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testTo",
 smalltalk.method({
 selector: "testTo",
 fn: function (){
@@ -2632,7 +2509,6 @@ messageSends: ["assert:equals:", "to:"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testToBy",
 smalltalk.method({
 selector: "testToBy",
 fn: function (){
@@ -2649,7 +2525,6 @@ messageSends: ["assert:equals:", "to:by:", "should:raise:"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testTruncated",
 smalltalk.method({
 selector: "testTruncated",
 fn: function (){
@@ -2666,7 +2541,6 @@ smalltalk.NumberTest);
 
 smalltalk.addClass('ObjectMock', smalltalk.Object, ['foo', 'bar'], 'Kernel-Tests');
 smalltalk.addMethod(
-"_foo",
 smalltalk.method({
 selector: "foo",
 fn: function (){
@@ -2680,7 +2554,6 @@ messageSends: []}),
 smalltalk.ObjectMock);
 
 smalltalk.addMethod(
-"_foo_",
 smalltalk.method({
 selector: "foo:",
 fn: function (anObject){
@@ -2695,7 +2568,6 @@ smalltalk.ObjectMock);
 
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_notDefined",
 smalltalk.method({
 selector: "notDefined",
 fn: function (){
@@ -2707,7 +2579,6 @@ messageSends: []}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testBasicAccess",
 smalltalk.method({
 selector: "testBasicAccess",
 fn: function (){
@@ -2724,7 +2595,6 @@ messageSends: ["new", "basicAt:put:", "assert:equals:", "basicAt:"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testBasicPerform",
 smalltalk.method({
 selector: "testBasicPerform",
 fn: function (){
@@ -2748,7 +2618,6 @@ messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "b
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testDNU",
 smalltalk.method({
 selector: "testDNU",
 fn: function (){
@@ -2765,7 +2634,6 @@ messageSends: ["should:raise:", "foo", "new"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 fn: function (){
@@ -2783,7 +2651,6 @@ messageSends: ["new", "deny:", "=", "assert:", "yourself"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testHalt",
 smalltalk.method({
 selector: "testHalt",
 fn: function (){
@@ -2800,7 +2667,6 @@ messageSends: ["should:raise:", "halt", "new"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 fn: function (){
@@ -2818,14 +2684,13 @@ messageSends: ["new", "deny:", "==", "assert:", "yourself"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testIfNil",
 smalltalk.method({
 selector: "testIfNil",
 fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9;
+var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9,$11,$13,$12;
 _st(self)._deny_(_st(_st($Object())._new())._isNil());
 $1=self;
 $4=_st($Object())._new();
@@ -2852,19 +2717,19 @@ $9=false;
 $9=true;
 };
 _st($8)._assert_equals_($9,true);
-_st(self)._assert_equals_(_st(_st($Object())._new())._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {
-return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),true);
+$11=self;
+$13=_st($Object())._new();
+if(($receiver = $13) == nil || $receiver == undefined){
+$12=false;
+} else {
+$12=true;
+};
+_st($11)._assert_equals_($12,true);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.ObjectTest)})},
 messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testInstVars",
 smalltalk.method({
 selector: "testInstVars",
 fn: function (){
@@ -2882,7 +2747,6 @@ messageSends: ["new", "assert:equals:", "instVarAt:", "instVarAt:put:"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testNilUndefined",
 smalltalk.method({
 selector: "testNilUndefined",
 fn: function (){
@@ -2894,7 +2758,6 @@ messageSends: ["assert:equals:", "notDefined"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testYourself",
 smalltalk.method({
 selector: "testYourself",
 fn: function (){
@@ -2909,7 +2772,6 @@ messageSends: ["new", "assert:", "==", "yourself"]}),
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testidentityHash",
 smalltalk.method({
 selector: "testidentityHash",
 fn: function (){
@@ -2929,7 +2791,6 @@ smalltalk.ObjectTest);
 
 smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -2952,7 +2813,6 @@ messageSends: ["defaultCommitPathJs", "defaultCommitPathSt", "resetCommitPaths",
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 fn: function (){
@@ -2968,7 +2828,6 @@ messageSends: ["defaultCommitPathJs:", "defaultCommitPathSt:"]}),
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathJsShouldBeServerGrulJs",
 smalltalk.method({
 selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 fn: function (){
@@ -2980,7 +2839,6 @@ messageSends: ["assert:equals:", "commitPathJs"]}),
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathStShouldBeGrulSt",
 smalltalk.method({
 selector: "testGrulCommitPathStShouldBeGrulSt",
 fn: function (){
@@ -2992,7 +2850,6 @@ messageSends: ["assert:equals:", "commitPathSt"]}),
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathJsShouldBeJs",
 smalltalk.method({
 selector: "testZorkCommitPathJsShouldBeJs",
 fn: function (){
@@ -3004,7 +2861,6 @@ messageSends: ["assert:equals:", "commitPathJs"]}),
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathStShouldBeSt",
 smalltalk.method({
 selector: "testZorkCommitPathStShouldBeSt",
 fn: function (){
@@ -3019,7 +2875,6 @@ smalltalk.PackageTest);
 
 smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -3036,7 +2891,6 @@ messageSends: ["setUp", "defaultCommitPathJs:", "defaultCommitPathSt:"]}),
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathJsShouldBeServerGrulJs",
 smalltalk.method({
 selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 fn: function (){
@@ -3048,7 +2902,6 @@ messageSends: ["assert:equals:", "commitPathJs"]}),
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathStShouldBeGrulSt",
 smalltalk.method({
 selector: "testGrulCommitPathStShouldBeGrulSt",
 fn: function (){
@@ -3060,7 +2913,6 @@ messageSends: ["assert:equals:", "commitPathSt"]}),
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathJsShouldBeJavascript",
 smalltalk.method({
 selector: "testZorkCommitPathJsShouldBeJavascript",
 fn: function (){
@@ -3072,7 +2924,6 @@ messageSends: ["assert:equals:", "commitPathJs"]}),
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathStShouldBeSmalltalk",
 smalltalk.method({
 selector: "testZorkCommitPathStShouldBeSmalltalk",
 fn: function (){
@@ -3085,7 +2936,6 @@ smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 
 smalltalk.addMethod(
-"_shouldInheritSelectors",
 smalltalk.method({
 selector: "shouldInheritSelectors",
 fn: function (){
@@ -3099,7 +2949,6 @@ smalltalk.PackageWithDefaultCommitPathChangedTest.klass);
 
 smalltalk.addClass('PointTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAccessing",
 smalltalk.method({
 selector: "testAccessing",
 fn: function (){
@@ -3115,7 +2964,6 @@ messageSends: ["assert:equals:", "x", "x:y:", "y", "x:", "new", "y:"]}),
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testArithmetic",
 smalltalk.method({
 selector: "testArithmetic",
 fn: function (){
@@ -3131,7 +2979,6 @@ messageSends: ["assert:equals:", "*", "@", "x:y:", "+", "-", "/"]}),
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 fn: function (){
@@ -3144,7 +2991,6 @@ messageSends: ["assert:equals:", "@", "x:y:"]}),
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testEgality",
 smalltalk.method({
 selector: "testEgality",
 fn: function (){
@@ -3157,7 +3003,6 @@ messageSends: ["assert:", "=", "@", "deny:"]}),
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testTranslateBy",
 smalltalk.method({
 selector: "testTranslateBy",
 fn: function (){
@@ -3175,7 +3020,6 @@ smalltalk.PointTest);
 
 smalltalk.addClass('RandomTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_textNext",
 smalltalk.method({
 selector: "textNext",
 fn: function (){
@@ -3200,7 +3044,6 @@ smalltalk.RandomTest);
 
 smalltalk.addClass('SetTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAddRemove",
 smalltalk.method({
 selector: "testAddRemove",
 fn: function (){
@@ -3221,7 +3064,6 @@ messageSends: ["new", "assert:", "isEmpty", "add:", "includes:", "remove:", "den
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 fn: function (){
@@ -3238,7 +3080,6 @@ messageSends: ["should:raise:", "at:put:", "new"]}),
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testCollect",
 smalltalk.method({
 selector: "testCollect",
 fn: function (){
@@ -3253,7 +3094,6 @@ messageSends: ["assert:equals:", "collect:", "\x5c\x5c", "asSet"]}),
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testComparing",
 smalltalk.method({
 selector: "testComparing",
 fn: function (){
@@ -3268,7 +3108,6 @@ messageSends: ["assert:equals:", "asSet", "deny:", "="]}),
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
 fn: function (){
@@ -3298,7 +3137,6 @@ messageSends: ["new", "assert:equals:", "printString", "add:", "remove:"]}),
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 fn: function (){
@@ -3313,7 +3151,6 @@ messageSends: ["assert:equals:", "size", "new", "withAll:"]}),
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testUnicity",
 smalltalk.method({
 selector: "testUnicity",
 fn: function (){
@@ -3337,7 +3174,6 @@ smalltalk.SetTest);
 
 smalltalk.addClass('StreamTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -3351,7 +3187,6 @@ messageSends: ["collectionClass", "class"]}),
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_newCollection",
 smalltalk.method({
 selector: "newCollection",
 fn: function (){
@@ -3365,7 +3200,6 @@ messageSends: ["new", "collectionClass"]}),
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_newStream",
 smalltalk.method({
 selector: "newStream",
 fn: function (){
@@ -3379,7 +3213,6 @@ messageSends: ["stream", "new", "collectionClass"]}),
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testAtStartAtEnd",
 smalltalk.method({
 selector: "testAtStartAtEnd",
 fn: function (){
@@ -3400,7 +3233,6 @@ messageSends: ["newStream", "assert:", "atStart", "atEnd", "nextPutAll:", "newCo
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testContents",
 smalltalk.method({
 selector: "testContents",
 fn: function (){
@@ -3415,7 +3247,6 @@ messageSends: ["newStream", "nextPutAll:", "newCollection", "assert:equals:", "c
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testIsEmpty",
 smalltalk.method({
 selector: "testIsEmpty",
 fn: function (){
@@ -3431,7 +3262,6 @@ messageSends: ["newStream", "assert:", "isEmpty", "nextPutAll:", "newCollection"
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testPosition",
 smalltalk.method({
 selector: "testPosition",
 fn: function (){
@@ -3453,7 +3283,6 @@ messageSends: ["newCollection", "newStream", "nextPutAll:", "assert:equals:", "p
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testReading",
 smalltalk.method({
 selector: "testReading",
 fn: function (){
@@ -3476,7 +3305,6 @@ messageSends: ["newCollection", "newStream", "nextPutAll:", "position:", "do:", 
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testStreamContents",
 smalltalk.method({
 selector: "testStreamContents",
 fn: function (){
@@ -3487,7 +3315,6 @@ messageSends: []}),
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testWrite",
 smalltalk.method({
 selector: "testWrite",
 fn: function (){
@@ -3506,7 +3333,6 @@ messageSends: ["newCollection", "newStream", "do:", "<<", "assert:equals:", "con
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testWriting",
 smalltalk.method({
 selector: "testWriting",
 fn: function (){
@@ -3529,7 +3355,6 @@ smalltalk.StreamTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -3541,7 +3366,6 @@ messageSends: []}),
 smalltalk.StreamTest.klass);
 
 smalltalk.addMethod(
-"_isAbstract",
 smalltalk.method({
 selector: "isAbstract",
 fn: function (){
@@ -3557,7 +3381,6 @@ smalltalk.StreamTest.klass);
 
 smalltalk.addClass('ArrayStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_newCollection",
 smalltalk.method({
 selector: "newCollection",
 fn: function (){
@@ -3572,7 +3395,6 @@ smalltalk.ArrayStreamTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -3589,7 +3411,6 @@ smalltalk.ArrayStreamTest.klass);
 
 smalltalk.addClass('StringStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_newCollection",
 smalltalk.method({
 selector: "newCollection",
 fn: function (){
@@ -3602,7 +3423,6 @@ smalltalk.StringStreamTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 fn: function (){
@@ -3619,7 +3439,6 @@ smalltalk.StringStreamTest.klass);
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testCopying",
 smalltalk.method({
 selector: "testCopying",
 fn: function (){
@@ -3631,7 +3450,6 @@ messageSends: ["assert:equals:", "copy"]}),
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-"_testDeepCopy",
 smalltalk.method({
 selector: "testDeepCopy",
 fn: function (){
@@ -3643,13 +3461,12 @@ messageSends: ["assert:", "=", "deepCopy"]}),
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-"_testIfNil",
 smalltalk.method({
 selector: "testIfNil",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$6,$7;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9;
 $1=self;
 if(($receiver = nil) == nil || $receiver == undefined){
 $2=true;
@@ -3672,19 +3489,19 @@ $7=true;
 $7=false;
 };
 _st($6)._assert_equals_($7,true);
-_st(self)._deny_(_st(_st(nil)._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {
-return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq(true));
+$8=self;
+if(($receiver = nil) == nil || $receiver == undefined){
+$10=false;
+} else {
+$10=true;
+};
+$9=_st($10).__eq(true);
+_st($8)._deny_($9);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.UndefinedTest)})},
 messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"]}),
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-"_testIsNil",
 smalltalk.method({
 selector: "testIsNil",
 fn: function (){

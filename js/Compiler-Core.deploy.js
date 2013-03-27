@@ -1,7 +1,6 @@
 smalltalk.addPackage('Compiler-Core');
 smalltalk.addClass('AbstractCodeGenerator', smalltalk.Object, ['currentClass', 'source'], 'Compiler-Core');
 smalltalk.addMethod(
-"_classNameFor_",
 smalltalk.method({
 selector: "classNameFor:",
 fn: function (aClass){
@@ -25,7 +24,6 @@ messageSends: ["ifTrue:ifFalse:", ",", "name", "instanceClass", "isNil", "isMeta
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 fn: function (aNode){
@@ -37,7 +35,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_currentClass",
 smalltalk.method({
 selector: "currentClass",
 fn: function (){
@@ -51,7 +48,6 @@ messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_currentClass_",
 smalltalk.method({
 selector: "currentClass:",
 fn: function (aClass){
@@ -63,7 +59,6 @@ messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_pseudoVariables",
 smalltalk.method({
 selector: "pseudoVariables",
 fn: function (){
@@ -77,7 +72,6 @@ messageSends: []}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_safeVariableNameFor_",
 smalltalk.method({
 selector: "safeVariableNameFor:",
 fn: function (aString){
@@ -97,7 +91,6 @@ messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"]}
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 fn: function (){
@@ -116,7 +109,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 fn: function (aString){
@@ -131,7 +123,6 @@ smalltalk.AbstractCodeGenerator);
 
 smalltalk.addClass('CodeGenerator', smalltalk.AbstractCodeGenerator, [], 'Compiler-Core');
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 fn: function (aNode){
@@ -151,7 +142,6 @@ messageSends: ["visit:", "semanticAnalyzer", "translator", "irTranslator", "cont
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
-"_irTranslator",
 smalltalk.method({
 selector: "irTranslator",
 fn: function (){
@@ -166,7 +156,6 @@ messageSends: ["new"]}),
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
-"_semanticAnalyzer",
 smalltalk.method({
 selector: "semanticAnalyzer",
 fn: function (){
@@ -181,7 +170,6 @@ messageSends: ["on:", "currentClass"]}),
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
-"_translator",
 smalltalk.method({
 selector: "translator",
 fn: function (){
@@ -203,7 +191,6 @@ smalltalk.CodeGenerator);
 
 smalltalk.addClass('Compiler', smalltalk.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
 smalltalk.addMethod(
-"_codeGeneratorClass",
 smalltalk.method({
 selector: "codeGeneratorClass",
 fn: function (){
@@ -223,7 +210,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_codeGeneratorClass_",
 smalltalk.method({
 selector: "codeGeneratorClass:",
 fn: function (aClass){
@@ -235,7 +221,6 @@ messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 fn: function (aString){
@@ -249,7 +234,6 @@ messageSends: ["compileNode:", "parse:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compile_forClass_",
 smalltalk.method({
 selector: "compile:forClass:",
 fn: function (aString,aClass){
@@ -265,7 +249,6 @@ messageSends: ["currentClass:", "source:", "compile:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compileExpression_",
 smalltalk.method({
 selector: "compileExpression:",
 fn: function (aString){
@@ -282,7 +265,6 @@ messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "sourc
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compileExpression_on_",
 smalltalk.method({
 selector: "compileExpression:on:",
 fn: function (aString,anObject){
@@ -298,7 +280,6 @@ messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 fn: function (aNode){
@@ -319,7 +300,6 @@ messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:"
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_currentClass",
 smalltalk.method({
 selector: "currentClass",
 fn: function (){
@@ -333,7 +313,6 @@ messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_currentClass_",
 smalltalk.method({
 selector: "currentClass:",
 fn: function (aClass){
@@ -345,7 +324,6 @@ messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_eval_",
 smalltalk.method({
 selector: "eval:",
 fn: function (aString){
@@ -357,7 +335,6 @@ messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_evaluateExpression_",
 smalltalk.method({
 selector: "evaluateExpression:",
 fn: function (aString){
@@ -372,7 +349,6 @@ messageSends: ["evaluateExpression:on:", "new"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_evaluateExpression_on_",
 smalltalk.method({
 selector: "evaluateExpression:on:",
 fn: function (aString,anObject){
@@ -392,7 +368,6 @@ messageSends: ["eval:", "compileExpression:on:", "category:", "addCompiledMethod
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_install_forClass_category_",
 smalltalk.method({
 selector: "install:forClass:category:",
 fn: function (aString,aBehavior,anotherString){
@@ -407,7 +382,6 @@ messageSends: ["installMethod:forClass:category:", "eval:", "compile:forClass:",
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_parse_",
 smalltalk.method({
 selector: "parse:",
 fn: function (aString){
@@ -422,7 +396,6 @@ messageSends: ["parse:", "current"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_parseExpression_",
 smalltalk.method({
 selector: "parseExpression:",
 fn: function (aString){
@@ -436,7 +409,6 @@ messageSends: ["parse:", ","]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_recompile_",
 smalltalk.method({
 selector: "recompile:",
 fn: function (aClass){
@@ -457,7 +429,6 @@ messageSends: ["do:", "log:", ",", "selector", "name", "install:forClass:categor
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_recompileAll",
 smalltalk.method({
 selector: "recompileAll",
 fn: function (){
@@ -482,7 +453,6 @@ messageSends: ["do:", "show:", "cr", "valueWithTimeout:", "recompile:", "classes
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 fn: function (){
@@ -501,7 +471,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 fn: function (aString){
@@ -513,7 +482,6 @@ messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_unknownVariables",
 smalltalk.method({
 selector: "unknownVariables",
 fn: function (){
@@ -527,7 +495,6 @@ messageSends: []}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_unknownVariables_",
 smalltalk.method({
 selector: "unknownVariables:",
 fn: function (aCollection){
@@ -540,7 +507,6 @@ smalltalk.Compiler);
 
 
 smalltalk.addMethod(
-"_recompile_",
 smalltalk.method({
 selector: "recompile:",
 fn: function (aClass){
@@ -552,7 +518,6 @@ messageSends: ["recompile:", "new"]}),
 smalltalk.Compiler.klass);
 
 smalltalk.addMethod(
-"_recompileAll",
 smalltalk.method({
 selector: "recompileAll",
 fn: function (){
@@ -569,11 +534,30 @@ smalltalk.Compiler.klass);
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "xxxDoIt",
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(each)._commit();
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.DoIt)})},
+messageSends: ["value", "do:", "commit", "packages", "current"]}),
+smalltalk.DoIt);
+
 
 
 smalltalk.addClass('NodeVisitor', smalltalk.Object, [], 'Compiler-Core');
 smalltalk.addMethod(
-"_visit_",
 smalltalk.method({
 selector: "visit:",
 fn: function (aNode){
@@ -587,7 +571,6 @@ messageSends: ["accept:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitAll_",
 smalltalk.method({
 selector: "visitAll:",
 fn: function (aCollection){
@@ -604,7 +587,6 @@ messageSends: ["collect:", "visit:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitAssignmentNode_",
 smalltalk.method({
 selector: "visitAssignmentNode:",
 fn: function (aNode){
@@ -618,7 +600,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitBlockNode_",
 smalltalk.method({
 selector: "visitBlockNode:",
 fn: function (aNode){
@@ -632,7 +613,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitBlockSequenceNode_",
 smalltalk.method({
 selector: "visitBlockSequenceNode:",
 fn: function (aNode){
@@ -646,7 +626,6 @@ messageSends: ["visitSequenceNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitCascadeNode_",
 smalltalk.method({
 selector: "visitCascadeNode:",
 fn: function (aNode){
@@ -660,7 +639,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
 fn: function (aNode){
@@ -674,7 +652,6 @@ messageSends: ["visitVariableNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitDynamicArrayNode_",
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
 fn: function (aNode){
@@ -688,7 +665,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitDynamicDictionaryNode_",
 smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 fn: function (aNode){
@@ -702,7 +678,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitJSStatementNode_",
 smalltalk.method({
 selector: "visitJSStatementNode:",
 fn: function (aNode){
@@ -716,7 +691,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitMethodNode_",
 smalltalk.method({
 selector: "visitMethodNode:",
 fn: function (aNode){
@@ -730,7 +704,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitNode_",
 smalltalk.method({
 selector: "visitNode:",
 fn: function (aNode){
@@ -744,7 +717,6 @@ messageSends: ["visitAll:", "nodes"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitReturnNode_",
 smalltalk.method({
 selector: "visitReturnNode:",
 fn: function (aNode){
@@ -758,7 +730,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitSendNode_",
 smalltalk.method({
 selector: "visitSendNode:",
 fn: function (aNode){
@@ -772,7 +743,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitSequenceNode_",
 smalltalk.method({
 selector: "visitSequenceNode:",
 fn: function (aNode){
@@ -786,7 +756,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitValueNode_",
 smalltalk.method({
 selector: "visitValueNode:",
 fn: function (aNode){
@@ -800,7 +769,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitVariableNode_",
 smalltalk.method({
 selector: "visitVariableNode:",
 fn: function (aNode){

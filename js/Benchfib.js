@@ -2,7 +2,6 @@ smalltalk.addPackage('Benchfib');
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
-"_main",
 smalltalk.method({
 selector: "main",
 category: 'not yet classified',
@@ -22,7 +21,6 @@ smalltalk.Benchfib.klass);
 
 
 smalltalk.addMethod(
-"_benchFib",
 smalltalk.method({
 selector: "benchFib",
 category: '*Benchfib',
@@ -46,7 +44,6 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_benchmark",
 smalltalk.method({
 selector: "benchmark",
 category: '*Benchfib',
@@ -100,7 +97,6 @@ referencedClasses: ["Array"]
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_jsbenchFib",
 smalltalk.method({
 selector: "jsbenchFib",
 category: '*Benchfib',
@@ -120,7 +116,6 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_jsbenchmark",
 smalltalk.method({
 selector: "jsbenchmark",
 category: '*Benchfib',
@@ -158,7 +153,6 @@ referencedClasses: []
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_jstinyBenchmarks",
 smalltalk.method({
 selector: "jstinyBenchmarks",
 category: '*Benchfib',
@@ -208,7 +202,6 @@ referencedClasses: ["Date"]
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_tinyBenchmarks",
 smalltalk.method({
 selector: "tinyBenchmarks",
 category: '*Benchfib',

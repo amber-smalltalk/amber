@@ -18,7 +18,6 @@ smalltalk.InliningError.comment="Instances of InliningError are signaled when us
 smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.InvalidAssignmentError.comment="I get signaled when a pseudo variable gets assigned."
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -37,7 +36,6 @@ referencedClasses: []
 smalltalk.InvalidAssignmentError);
 
 smalltalk.addMethod(
-"_variableName",
 smalltalk.method({
 selector: "variableName",
 category: 'accessing',
@@ -56,7 +54,6 @@ referencedClasses: []
 smalltalk.InvalidAssignmentError);
 
 smalltalk.addMethod(
-"_variableName_",
 smalltalk.method({
 selector: "variableName:",
 category: 'accessing',
@@ -77,7 +74,6 @@ smalltalk.InvalidAssignmentError);
 smalltalk.addClass('ShadowingVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.ShadowingVariableError.comment="I get signaled when a variable in a block or method scope shadows a variable of the same name in an outer scope."
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -96,7 +92,6 @@ referencedClasses: []
 smalltalk.ShadowingVariableError);
 
 smalltalk.addMethod(
-"_variableName",
 smalltalk.method({
 selector: "variableName",
 category: 'accessing',
@@ -115,7 +110,6 @@ referencedClasses: []
 smalltalk.ShadowingVariableError);
 
 smalltalk.addMethod(
-"_variableName_",
 smalltalk.method({
 selector: "variableName:",
 category: 'accessing',
@@ -136,7 +130,6 @@ smalltalk.ShadowingVariableError);
 smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.UnknownVariableError.comment="I get signaled when a variable is not defined.\x0aThe default behavior is to allow it, as this is how Amber currently is able to seamlessly send messages to JavaScript objects."
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -155,7 +148,6 @@ referencedClasses: []
 smalltalk.UnknownVariableError);
 
 smalltalk.addMethod(
-"_variableName",
 smalltalk.method({
 selector: "variableName",
 category: 'accessing',
@@ -174,7 +166,6 @@ referencedClasses: []
 smalltalk.UnknownVariableError);
 
 smalltalk.addMethod(
-"_variableName_",
 smalltalk.method({
 selector: "variableName:",
 category: 'accessing',
@@ -195,7 +186,6 @@ smalltalk.UnknownVariableError);
 smalltalk.addClass('RethrowErrorHandler', smalltalk.ErrorHandler, [], 'Compiler-Exceptions');
 smalltalk.RethrowErrorHandler.comment="This class is used in the commandline version of the compiler.\x0aIt uses the handleError: message of ErrorHandler for printing the stacktrace and throws the error again as JS exception.\x0aAs a result Smalltalk errors are not swallowd by the Amber runtime and compilation can be aborted."
 smalltalk.addMethod(
-"_basicSignal_",
 smalltalk.method({
 selector: "basicSignal:",
 category: 'error handling',
@@ -212,7 +202,6 @@ referencedClasses: []
 smalltalk.RethrowErrorHandler);
 
 smalltalk.addMethod(
-"_handleError_",
 smalltalk.method({
 selector: "handleError:",
 category: 'error handling',

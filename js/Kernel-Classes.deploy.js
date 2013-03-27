@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
-"_addCompiledMethod_",
 smalltalk.method({
 selector: "addCompiledMethod:",
 fn: function (aMethod){
@@ -40,7 +39,6 @@ messageSends: ["at:ifAbsent:", "selector", "methodDictionary", "ifFalse:", "addE
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allInstanceVariableNames",
 smalltalk.method({
 selector: "allInstanceVariableNames",
 fn: function (){
@@ -62,7 +60,6 @@ messageSends: ["copy", "instanceVariableNames", "ifNotNil:", "addAll:", "allInst
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSelectors",
 smalltalk.method({
 selector: "allSelectors",
 fn: function (){
@@ -82,7 +79,6 @@ messageSends: ["inject:into:", "selectors", "addAll:", "yourself", "allSuperclas
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSubclasses",
 smalltalk.method({
 selector: "allSubclasses",
 fn: function (){
@@ -102,21 +98,21 @@ messageSends: ["subclasses", "do:", "addAll:", "allSubclasses"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSubclassesDo_",
 smalltalk.method({
 selector: "allSubclassesDo:",
 fn: function (aBlock){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._subclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {_st(aBlock)._value_(each);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+_st(aBlock)._value_(each);
 return _st(each)._allSubclassesDo_(aBlock);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock}, smalltalk.Behavior)})},
+return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock},smalltalk.Behavior)})},
 messageSends: ["do:", "value:", "allSubclassesDo:", "subclasses"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSuperclasses",
 smalltalk.method({
 selector: "allSuperclasses",
 fn: function (){
@@ -141,7 +137,6 @@ messageSends: ["ifNil:", "superclass", "addAll:", "allSuperclasses", "with:", "y
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicAddCompiledMethod_",
 smalltalk.method({
 selector: "basicAddCompiledMethod:",
 fn: function (aMethod){
@@ -153,7 +148,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicNew",
 smalltalk.method({
 selector: "basicNew",
 fn: function (){
@@ -165,7 +159,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicRemoveCompiledMethod_",
 smalltalk.method({
 selector: "basicRemoveCompiledMethod:",
 fn: function (aMethod){
@@ -180,7 +173,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_canUnderstand_",
 smalltalk.method({
 selector: "canUnderstand:",
 fn: function (aSelector){
@@ -200,7 +192,6 @@ messageSends: ["or:", "and:", "canUnderstand:", "superclass", "notNil", "include
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_comment",
 smalltalk.method({
 selector: "comment",
 fn: function (){
@@ -219,7 +210,6 @@ messageSends: ["ifNil:", "basicAt:"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_comment_",
 smalltalk.method({
 selector: "comment:",
 fn: function (aString){
@@ -238,7 +228,6 @@ messageSends: ["basicAt:put:", "announce:", "theClass:", "new", "yourself", "cur
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_commentStamp",
 smalltalk.method({
 selector: "commentStamp",
 fn: function (){
@@ -256,7 +245,6 @@ messageSends: ["class:", "new", "yourself"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_commentStamp_prior_",
 smalltalk.method({
 selector: "commentStamp:prior:",
 fn: function (aStamp,prior){
@@ -270,7 +258,6 @@ messageSends: ["commentStamp"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 fn: function (aString){
@@ -282,7 +269,6 @@ messageSends: ["compile:category:"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_compile_category_",
 smalltalk.method({
 selector: "compile:category:",
 fn: function (aString,anotherString){
@@ -295,7 +281,6 @@ messageSends: ["install:forClass:category:", "new"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 fn: function (){
@@ -307,7 +292,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_includesSelector_",
 smalltalk.method({
 selector: "includesSelector:",
 fn: function (aString){
@@ -321,7 +305,6 @@ messageSends: ["includesKey:", "methodDictionary"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_inheritsFrom_",
 smalltalk.method({
 selector: "inheritsFrom:",
 fn: function (aClass){
@@ -335,7 +318,6 @@ messageSends: ["includes:", "allSubclasses"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_instanceVariableNames",
 smalltalk.method({
 selector: "instanceVariableNames",
 fn: function (){
@@ -347,7 +329,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_lookupSelector_",
 smalltalk.method({
 selector: "lookupSelector:",
 fn: function (selector){
@@ -379,7 +360,6 @@ messageSends: ["whileFalse:", "ifTrue:", "methodAt:", "includesSelector:", "supe
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodAt_",
 smalltalk.method({
 selector: "methodAt:",
 fn: function (aString){
@@ -393,7 +373,6 @@ messageSends: ["at:", "methodDictionary"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodDictionary",
 smalltalk.method({
 selector: "methodDictionary",
 fn: function (){
@@ -412,7 +391,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methods",
 smalltalk.method({
 selector: "methods",
 fn: function (){
@@ -426,7 +404,6 @@ messageSends: ["values", "methodDictionary"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsFor_",
 smalltalk.method({
 selector: "methodsFor:",
 fn: function (aString){
@@ -444,7 +421,6 @@ messageSends: ["class:category:", "new", "yourself"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsFor_stamp_",
 smalltalk.method({
 selector: "methodsFor:stamp:",
 fn: function (aString,aStamp){
@@ -458,7 +434,6 @@ messageSends: ["methodsFor:"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsInProtocol_",
 smalltalk.method({
 selector: "methodsInProtocol:",
 fn: function (aString){
@@ -475,7 +450,6 @@ messageSends: ["select:", "=", "protocol", "values", "methodDictionary"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_name",
 smalltalk.method({
 selector: "name",
 fn: function (){
@@ -487,7 +461,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function (){
@@ -501,7 +474,6 @@ messageSends: ["initialize", "basicNew"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_organization",
 smalltalk.method({
 selector: "organization",
 fn: function (){
@@ -515,7 +487,6 @@ messageSends: ["basicAt:"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_protocols",
 smalltalk.method({
 selector: "protocols",
 fn: function (){
@@ -529,7 +500,6 @@ messageSends: ["sorted", "elements", "organization"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_protocolsDo_",
 smalltalk.method({
 selector: "protocolsDo:",
 fn: function (aBlock){
@@ -555,7 +525,6 @@ messageSends: ["new", "do:", "add:", "at:ifAbsentPut:", "category", "values", "m
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_prototype",
 smalltalk.method({
 selector: "prototype",
 fn: function (){
@@ -567,7 +536,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_removeCompiledMethod_",
 smalltalk.method({
 selector: "removeCompiledMethod:",
 fn: function (aMethod){
@@ -593,7 +561,6 @@ messageSends: ["basicRemoveCompiledMethod:", "detect:ifNone:", "=", "protocol", 
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_selectors",
 smalltalk.method({
 selector: "selectors",
 fn: function (){
@@ -607,7 +574,6 @@ messageSends: ["keys", "methodDictionary"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_subclasses",
 smalltalk.method({
 selector: "subclasses",
 fn: function (){
@@ -619,7 +585,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_superclass",
 smalltalk.method({
 selector: "superclass",
 fn: function (){
@@ -631,7 +596,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_theMetaClass",
 smalltalk.method({
 selector: "theMetaClass",
 fn: function (){
@@ -645,7 +609,6 @@ messageSends: ["class"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_theNonMetaClass",
 smalltalk.method({
 selector: "theNonMetaClass",
 fn: function (){
@@ -659,7 +622,6 @@ messageSends: []}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_withAllSubclasses",
 smalltalk.method({
 selector: "withAllSubclasses",
 fn: function (){
@@ -680,7 +642,6 @@ smalltalk.Behavior);
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 fn: function (){
@@ -694,7 +655,6 @@ messageSends: [",", "name"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_category",
 smalltalk.method({
 selector: "category",
 fn: function (){
@@ -713,7 +673,6 @@ messageSends: ["ifNil:ifNotNil:", "name", "package"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 fn: function (){
@@ -750,7 +709,6 @@ messageSends: ["streamContents:", "nextPutAll:", "asString", "superclass", "name
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_isClass",
 smalltalk.method({
 selector: "isClass",
 fn: function (){
@@ -762,7 +720,6 @@ messageSends: []}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_package",
 smalltalk.method({
 selector: "package",
 fn: function (){
@@ -774,7 +731,6 @@ messageSends: []}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_package_",
 smalltalk.method({
 selector: "package:",
 fn: function (aPackage){
@@ -786,7 +742,6 @@ messageSends: []}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -798,7 +753,6 @@ messageSends: ["nextPutAll:", "name"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_rename_",
 smalltalk.method({
 selector: "rename:",
 fn: function (aString){
@@ -811,7 +765,6 @@ messageSends: ["renameClass:to:", "new"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:",
 fn: function (aString,anotherString){
@@ -825,7 +778,6 @@ messageSends: ["subclass:instanceVariableNames:package:"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_category_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:category:",
 fn: function (aString,aString2,aString3){
@@ -840,7 +792,6 @@ messageSends: ["deprecatedAPI", "subclass:instanceVariableNames:package:"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_classVariableNames_poolDictionaries_category_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
 fn: function (aString,aString2,classVars,pools,aString3){
@@ -854,7 +805,6 @@ messageSends: ["subclass:instanceVariableNames:package:"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:package:",
 fn: function (aString,aString2,aString3){
@@ -872,7 +822,6 @@ smalltalk.Class);
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 fn: function (){
@@ -886,7 +835,6 @@ messageSends: [",", "name", "instanceClass"]}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 fn: function (){
@@ -915,7 +863,6 @@ messageSends: ["streamContents:", "nextPutAll:", "asString", "do:separatedBy:", 
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_instanceClass",
 smalltalk.method({
 selector: "instanceClass",
 fn: function (){
@@ -927,7 +874,6 @@ messageSends: []}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_instanceVariableNames_",
 smalltalk.method({
 selector: "instanceVariableNames:",
 fn: function (aCollection){
@@ -940,7 +886,6 @@ messageSends: ["class:instanceVariableNames:", "new"]}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_isMetaclass",
 smalltalk.method({
 selector: "isMetaclass",
 fn: function (){
@@ -952,7 +897,6 @@ messageSends: []}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -967,7 +911,6 @@ messageSends: ["nextPutAll:", "name", "instanceClass"]}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_theMetaClass",
 smalltalk.method({
 selector: "theMetaClass",
 fn: function (){
@@ -981,7 +924,6 @@ messageSends: []}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_theNonMetaClass",
 smalltalk.method({
 selector: "theNonMetaClass",
 fn: function (){
@@ -998,7 +940,6 @@ smalltalk.Metaclass);
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
-"_addSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
 fn: function (aClass,aString,aCollection,packageName){
@@ -1025,7 +966,6 @@ messageSends: ["at:", "current", "ifNotNil:", "ifFalse:", "migrateClassNamed:sup
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicAddSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 fn: function (aClass,aString,aCollection,packageName){
@@ -1040,7 +980,6 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicClass_instanceVariableNames_",
 smalltalk.method({
 selector: "basicClass:instanceVariableNames:",
 fn: function (aClass,aString){
@@ -1052,7 +991,6 @@ messageSends: ["basicClass:instanceVariables:", "instanceVariableNamesFor:"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicClass_instanceVariables_",
 smalltalk.method({
 selector: "basicClass:instanceVariables:",
 fn: function (aClass,aCollection){
@@ -1069,7 +1007,6 @@ messageSends: ["ifFalse:", "error:", ",", "name", "isMetaclass", "basicAt:put:"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicRemoveClass_",
 smalltalk.method({
 selector: "basicRemoveClass:",
 fn: function (aClass){
@@ -1081,7 +1018,6 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicRenameClass_to_",
 smalltalk.method({
 selector: "basicRenameClass:to:",
 fn: function (aClass,aString){
@@ -1097,7 +1033,6 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicSwapClassNames_with_",
 smalltalk.method({
 selector: "basicSwapClassNames:with:",
 fn: function (aClass,anotherClass){
@@ -1113,7 +1048,6 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
 fn: function (aClass,aString){
@@ -1133,7 +1067,6 @@ messageSends: ["basicClass:instanceVariableNames:", "setupClass:", "announce:", 
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_copyClass_named_",
 smalltalk.method({
 selector: "copyClass:named:",
 fn: function (aClass,aString){
@@ -1150,7 +1083,6 @@ messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_copyClass_to_",
 smalltalk.method({
 selector: "copyClass:to:",
 fn: function (aClass,anotherClass){
@@ -1173,7 +1105,6 @@ messageSends: ["comment:", "comment", "do:", "install:forClass:category:", "sour
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_installMethod_forClass_category_",
 smalltalk.method({
 selector: "installMethod:forClass:category:",
 fn: function (aCompiledMethod,aBehavior,aString){
@@ -1190,7 +1121,6 @@ messageSends: ["category:", "addCompiledMethod:", "setupClass:"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_instanceVariableNamesFor_",
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
 fn: function (aString){
@@ -1207,7 +1137,6 @@ messageSends: ["reject:", "isEmpty", "tokenize:"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_migrateClass_superclass_",
 smalltalk.method({
 selector: "migrateClass:superclass:",
 fn: function (aClass,anotherClass){
@@ -1220,7 +1149,6 @@ messageSends: ["log:", "name", "migrateClassNamed:superclass:instanceVariableNam
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_migrateClassNamed_superclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
 fn: function (aString,aClass,aCollection,packageName){
@@ -1260,7 +1188,6 @@ messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_rawRenameClass_to_",
 smalltalk.method({
 selector: "rawRenameClass:to:",
 fn: function (aClass,aString){
@@ -1274,7 +1201,6 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_renameClass_to_",
 smalltalk.method({
 selector: "renameClass:to:",
 fn: function (aClass,aString){
@@ -1293,7 +1219,6 @@ messageSends: ["basicRenameClass:to:", "announce:", "theClass:", "new", "yoursel
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
 fn: function (aClass){
@@ -1305,7 +1230,6 @@ messageSends: []}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_superclass_subclass_",
 smalltalk.method({
 selector: "superclass:subclass:",
 fn: function (aClass,aString){
@@ -1319,7 +1243,6 @@ messageSends: ["superclass:subclass:instanceVariableNames:package:"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_superclass_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
 fn: function (aClass,aString,aString2,aString3){
@@ -1355,7 +1278,6 @@ smalltalk.ClassBuilder);
 
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category'], 'Kernel-Classes');
 smalltalk.addMethod(
-"_class_category_",
 smalltalk.method({
 selector: "class:category:",
 fn: function (aClass,aString){
@@ -1368,7 +1290,6 @@ messageSends: []}),
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_compileMethod_",
 smalltalk.method({
 selector: "compileMethod:",
 fn: function (aString){
@@ -1381,7 +1302,6 @@ messageSends: ["install:forClass:category:", "new"]}),
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -1393,7 +1313,6 @@ messageSends: ["initialize"]}),
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_scanFrom_",
 smalltalk.method({
 selector: "scanFrom:",
 fn: function (aChunkParser){
@@ -1419,7 +1338,6 @@ smalltalk.ClassCategoryReader);
 
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class'], 'Kernel-Classes');
 smalltalk.addMethod(
-"_class_",
 smalltalk.method({
 selector: "class:",
 fn: function (aClass){
@@ -1431,7 +1349,6 @@ messageSends: []}),
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -1443,7 +1360,6 @@ messageSends: ["initialize"]}),
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_scanFrom_",
 smalltalk.method({
 selector: "scanFrom:",
 fn: function (aChunkParser){
@@ -1461,7 +1377,6 @@ messageSends: ["nextChunk", "ifFalse:", "setComment:", "isEmpty"]}),
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_setComment_",
 smalltalk.method({
 selector: "setComment:",
 fn: function (aString){
@@ -1476,7 +1391,6 @@ smalltalk.ClassCommentReader);
 
 smalltalk.addClass('ClassSorterNode', smalltalk.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
 smalltalk.addMethod(
-"_getNodesFrom_",
 smalltalk.method({
 selector: "getNodesFrom:",
 fn: function (aCollection){
@@ -1505,7 +1419,6 @@ messageSends: ["do:", "ifTrue:ifFalse:", "add:", "=", "theClass", "superclass", 
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_level",
 smalltalk.method({
 selector: "level",
 fn: function (){
@@ -1519,7 +1432,6 @@ messageSends: []}),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_level_",
 smalltalk.method({
 selector: "level:",
 fn: function (anInteger){
@@ -1531,7 +1443,6 @@ messageSends: []}),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_nodes",
 smalltalk.method({
 selector: "nodes",
 fn: function (){
@@ -1545,7 +1456,6 @@ messageSends: []}),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 fn: function (){
@@ -1559,7 +1469,6 @@ messageSends: []}),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 fn: function (aClass){
@@ -1571,7 +1480,6 @@ messageSends: []}),
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_traverseClassesWith_",
 smalltalk.method({
 selector: "traverseClassesWith:",
 fn: function (aCollection){
@@ -1591,7 +1499,6 @@ smalltalk.ClassSorterNode);
 
 
 smalltalk.addMethod(
-"_on_classes_level_",
 smalltalk.method({
 selector: "on:classes:level:",
 fn: function (aClass,aCollection,anInteger){

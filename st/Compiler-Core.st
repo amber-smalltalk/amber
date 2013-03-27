@@ -225,6 +225,12 @@ Object subclass: #DoIt
 !DoIt commentStamp!
 `DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`.!
 
+!DoIt methodsFor: 'xxxDoIt'!
+
+xxxDoIt ^[Smalltalk current packages do: [ :each |
+	each commit ]] value
+! !
+
 Object subclass: #NodeVisitor
 	instanceVariableNames: ''
 	package: 'Compiler-Core'!

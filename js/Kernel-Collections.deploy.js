@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Collections');
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 fn: function (anAssociation){
@@ -21,7 +20,6 @@ messageSends: ["and:", "=", "value", "key", "class"]}),
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_key",
 smalltalk.method({
 selector: "key",
 fn: function (){
@@ -35,7 +33,6 @@ messageSends: []}),
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_key_",
 smalltalk.method({
 selector: "key:",
 fn: function (aKey){
@@ -47,7 +44,6 @@ messageSends: []}),
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -61,7 +57,6 @@ messageSends: ["printOn:", "key", "nextPutAll:", "value"]}),
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_value",
 smalltalk.method({
 selector: "value",
 fn: function (){
@@ -75,7 +70,6 @@ messageSends: []}),
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 fn: function (aValue){
@@ -88,7 +82,6 @@ smalltalk.Association);
 
 
 smalltalk.addMethod(
-"_key_value_",
 smalltalk.method({
 selector: "key:value:",
 fn: function (aKey,aValue){
@@ -108,7 +101,6 @@ smalltalk.Association.klass);
 
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 fn: function (aCollection){
@@ -125,7 +117,6 @@ messageSends: ["addAll:", "copy", "yourself"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 fn: function (anObject){
@@ -137,7 +128,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_addAll_",
 smalltalk.method({
 selector: "addAll:",
 fn: function (aCollection){
@@ -155,7 +145,6 @@ messageSends: ["do:", "add:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asArray",
 smalltalk.method({
 selector: "asArray",
 fn: function (){
@@ -170,7 +159,6 @@ messageSends: ["withAll:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 fn: function (){
@@ -187,7 +175,6 @@ messageSends: ["collect:", "asJSON", "asArray"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asOrderedCollection",
 smalltalk.method({
 selector: "asOrderedCollection",
 fn: function (){
@@ -201,7 +188,6 @@ messageSends: ["asArray"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asSet",
 smalltalk.method({
 selector: "asSet",
 fn: function (){
@@ -216,7 +202,6 @@ messageSends: ["withAll:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_collect_",
 smalltalk.method({
 selector: "collect:",
 fn: function (aBlock){
@@ -236,7 +221,6 @@ messageSends: ["writeStream", "new", "class", "do:", "nextPut:", "value:", "cont
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_copyWith_",
 smalltalk.method({
 selector: "copyWith:",
 fn: function (anObject){
@@ -253,7 +237,6 @@ messageSends: ["add:", "copy", "yourself"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_copyWithAll_",
 smalltalk.method({
 selector: "copyWithAll:",
 fn: function (aCollection){
@@ -270,7 +253,6 @@ messageSends: ["addAll:", "copy", "yourself"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_copyWithoutAll_",
 smalltalk.method({
 selector: "copyWithoutAll:",
 fn: function (aCollection){
@@ -287,7 +269,6 @@ messageSends: ["reject:", "includes:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_detect_",
 smalltalk.method({
 selector: "detect:",
 fn: function (aBlock){
@@ -304,7 +285,6 @@ messageSends: ["detect:ifNone:", "errorNotFound"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 fn: function (aBlock,anotherBlock){
@@ -316,7 +296,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
@@ -328,7 +307,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_do_separatedBy_",
 smalltalk.method({
 selector: "do:separatedBy:",
 fn: function (aBlock,anotherBlock){
@@ -350,7 +328,6 @@ messageSends: ["do:", "value", "value:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_errorNotFound",
 smalltalk.method({
 selector: "errorNotFound",
 fn: function (){
@@ -362,7 +339,6 @@ messageSends: ["error:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_ifEmpty_",
 smalltalk.method({
 selector: "ifEmpty:",
 fn: function (aBlock){
@@ -381,7 +357,6 @@ messageSends: ["ifTrue:ifFalse:", "value", "isEmpty"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_ifNotEmpty_",
 smalltalk.method({
 selector: "ifNotEmpty:",
 fn: function (aBlock){
@@ -395,7 +370,6 @@ messageSends: ["ifTrue:", "notEmpty"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 fn: function (anObject){
@@ -418,7 +392,6 @@ messageSends: ["new", "~=", "detect:ifNone:", "="]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_inject_into_",
 smalltalk.method({
 selector: "inject:into:",
 fn: function (anObject,aBlock){
@@ -439,7 +412,6 @@ messageSends: ["do:", "value:value:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_intersection_",
 smalltalk.method({
 selector: "intersection:",
 fn: function (aCollection){
@@ -467,7 +439,6 @@ messageSends: ["asSet", "new", "do:", "ifTrue:", "add:", "and:", "not", "include
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
 fn: function (){
@@ -481,7 +452,6 @@ messageSends: ["=", "size"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_notEmpty",
 smalltalk.method({
 selector: "notEmpty",
 fn: function (){
@@ -495,7 +465,6 @@ messageSends: ["not", "isEmpty"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_occurrencesOf_",
 smalltalk.method({
 selector: "occurrencesOf:",
 fn: function (anObject){
@@ -519,7 +488,6 @@ messageSends: ["do:", "ifTrue:", "+", "="]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_putOn_",
 smalltalk.method({
 selector: "putOn:",
 fn: function (aStream){
@@ -534,7 +502,6 @@ messageSends: ["do:", "putOn:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_reject_",
 smalltalk.method({
 selector: "reject:",
 fn: function (aBlock){
@@ -551,7 +518,6 @@ messageSends: ["select:", "=", "value:"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 fn: function (anObject){
@@ -568,7 +534,6 @@ messageSends: ["remove:ifAbsent:", "errorNotFound"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
 fn: function (anObject,aBlock){
@@ -580,7 +545,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_select_",
 smalltalk.method({
 selector: "select:",
 fn: function (aBlock){
@@ -603,7 +567,6 @@ messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "nextPut:", "val
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 fn: function (){
@@ -616,7 +579,6 @@ smalltalk.Collection);
 
 
 smalltalk.addMethod(
-"_new_",
 smalltalk.method({
 selector: "new:",
 fn: function (anInteger){
@@ -630,7 +592,6 @@ messageSends: ["new"]}),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 fn: function (anObject){
@@ -647,7 +608,6 @@ messageSends: ["add:", "new", "yourself"]}),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_with_with_",
 smalltalk.method({
 selector: "with:with:",
 fn: function (anObject,anotherObject){
@@ -665,7 +625,6 @@ messageSends: ["add:", "new", "yourself"]}),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_with_with_with_",
 smalltalk.method({
 selector: "with:with:with:",
 fn: function (firstObject,secondObject,thirdObject){
@@ -684,7 +643,6 @@ messageSends: ["add:", "new", "yourself"]}),
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_withAll_",
 smalltalk.method({
 selector: "withAll:",
 fn: function (aCollection){
@@ -703,7 +661,6 @@ smalltalk.Collection.klass);
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"_at_",
 smalltalk.method({
 selector: "at:",
 fn: function (anIndex){
@@ -720,7 +677,6 @@ messageSends: ["at:ifAbsent:", "errorNotFound"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 fn: function (anIndex,aBlock){
@@ -732,7 +688,6 @@ messageSends: ["subclassReponsibility"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_ifPresent_",
 smalltalk.method({
 selector: "at:ifPresent:",
 fn: function (anIndex,aBlock){
@@ -749,7 +704,6 @@ messageSends: ["at:ifPresent:ifAbsent:"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_ifPresent_ifAbsent_",
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
 fn: function (anIndex,aBlock,anotherBlock){
@@ -761,7 +715,6 @@ messageSends: ["subclassReponsibility"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 fn: function (anIndex,anObject){
@@ -773,7 +726,6 @@ messageSends: ["subclassReponsibility"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_indexOf_",
 smalltalk.method({
 selector: "indexOf:",
 fn: function (anObject){
@@ -790,7 +742,6 @@ messageSends: ["indexOf:ifAbsent:", "errorNotFound"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 fn: function (anObject,aBlock){
@@ -802,7 +753,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_with_do_",
 smalltalk.method({
 selector: "with:do:",
 fn: function (anotherCollection,aBlock){
@@ -817,7 +767,6 @@ messageSends: ["withIndexDo:", "value:value:", "at:"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 fn: function (aBlock){
@@ -832,7 +781,6 @@ smalltalk.IndexableCollection);
 
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 fn: function (aCollection){
@@ -844,7 +792,6 @@ messageSends: ["shouldNotImplement"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 fn: function (aHashedCollection){
@@ -866,7 +813,6 @@ messageSends: ["ifFalse:", "=", "class", "size", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 fn: function (anAssociation){
@@ -878,7 +824,6 @@ messageSends: ["at:put:", "key", "value"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_addAll_",
 smalltalk.method({
 selector: "addAll:",
 fn: function (aHashedCollection){
@@ -893,7 +838,6 @@ messageSends: ["addAll:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_asDictionary",
 smalltalk.method({
 selector: "asDictionary",
 fn: function (){
@@ -908,7 +852,6 @@ messageSends: ["fromPairs:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 fn: function (){
@@ -928,7 +871,6 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "asJSON"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_associations",
 smalltalk.method({
 selector: "associations",
 fn: function (){
@@ -948,7 +890,6 @@ messageSends: ["associationsDo:", "add:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_associationsDo_",
 smalltalk.method({
 selector: "associationsDo:",
 fn: function (aBlock){
@@ -964,7 +905,6 @@ messageSends: ["keysAndValuesDo:", "value:", "key:value:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 fn: function (aKey,aBlock){
@@ -982,7 +922,6 @@ messageSends: ["ifTrue:ifFalse:", "basicAt:", "includesKey:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_ifAbsentPut_",
 smalltalk.method({
 selector: "at:ifAbsentPut:",
 fn: function (aKey,aBlock){
@@ -999,7 +938,6 @@ messageSends: ["at:ifAbsent:", "at:put:", "value"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_ifPresent_ifAbsent_",
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
 fn: function (aKey,aBlock,anotherBlock){
@@ -1017,7 +955,6 @@ messageSends: ["ifTrue:ifFalse:", "value:", "at:", "includesKey:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 fn: function (aKey,aValue){
@@ -1031,7 +968,6 @@ messageSends: ["basicAt:put:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_collect_",
 smalltalk.method({
 selector: "collect:",
 fn: function (aBlock){
@@ -1051,7 +987,6 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "value:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
 fn: function (){
@@ -1071,7 +1006,6 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:", "deepCopy"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 fn: function (aBlock,anotherBlock){
@@ -1085,7 +1019,6 @@ messageSends: ["detect:ifNone:", "values"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
@@ -1097,7 +1030,6 @@ messageSends: ["valuesDo:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 fn: function (anObject){
@@ -1111,7 +1043,6 @@ messageSends: ["includes:", "values"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_includesKey_",
 smalltalk.method({
 selector: "includesKey:",
 fn: function (aKey){
@@ -1123,7 +1054,6 @@ messageSends: []}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 fn: function (anObject,aBlock){
@@ -1140,7 +1070,6 @@ messageSends: ["detect:ifNone:", "=", "at:", "keys"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_keys",
 smalltalk.method({
 selector: "keys",
 fn: function (){
@@ -1161,7 +1090,6 @@ messageSends: []}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_keysAndValuesDo_",
 smalltalk.method({
 selector: "keysAndValuesDo:",
 fn: function (aBlock){
@@ -1176,7 +1104,6 @@ messageSends: ["keysDo:", "value:value:", "at:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_keysDo_",
 smalltalk.method({
 selector: "keysDo:",
 fn: function (aBlock){
@@ -1188,7 +1115,6 @@ messageSends: ["do:", "keys"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -1209,7 +1135,6 @@ messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
 fn: function (aKey,aBlock){
@@ -1223,7 +1148,6 @@ messageSends: ["removeKey:ifAbsent:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_removeKey_",
 smalltalk.method({
 selector: "removeKey:",
 fn: function (aKey){
@@ -1237,7 +1161,6 @@ messageSends: ["remove:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_removeKey_ifAbsent_",
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 fn: function (aKey,aBlock){
@@ -1256,7 +1179,6 @@ messageSends: ["ifFalse:ifTrue:", "value", "basicDelete:", "includesKey:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_select_",
 smalltalk.method({
 selector: "select:",
 fn: function (aBlock){
@@ -1279,7 +1201,6 @@ messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "at:put:", "value:
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
 fn: function (){
@@ -1299,7 +1220,6 @@ messageSends: ["new", "class", "keysAndValuesDo:", "at:put:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 fn: function (){
@@ -1313,7 +1233,6 @@ messageSends: ["size", "keys"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_values",
 smalltalk.method({
 selector: "values",
 fn: function (){
@@ -1330,7 +1249,6 @@ messageSends: ["collect:", "at:", "keys"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_valuesDo_",
 smalltalk.method({
 selector: "valuesDo:",
 fn: function (aBlock){
@@ -1345,7 +1263,6 @@ messageSends: ["keysAndValuesDo:", "value:"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 fn: function (aBlock){
@@ -1361,7 +1278,6 @@ smalltalk.HashedCollection);
 
 
 smalltalk.addMethod(
-"_fromPairs_",
 smalltalk.method({
 selector: "fromPairs:",
 fn: function (aCollection){
@@ -1383,7 +1299,6 @@ smalltalk.HashedCollection.klass);
 
 smalltalk.addClass('Dictionary', smalltalk.HashedCollection, ['keys', 'values'], 'Kernel-Collections');
 smalltalk.addMethod(
-"_asHashedCollection",
 smalltalk.method({
 selector: "asHashedCollection",
 fn: function (){
@@ -1398,7 +1313,6 @@ messageSends: ["fromPairs:", "associations"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 fn: function (){
@@ -1412,7 +1326,6 @@ messageSends: ["asJSON", "asHashedCollection"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 fn: function (aKey,aBlock){
@@ -1427,7 +1340,6 @@ messageSends: []}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 fn: function (aKey,aValue){
@@ -1448,7 +1360,6 @@ messageSends: []}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_includesKey_",
 smalltalk.method({
 selector: "includesKey:",
 fn: function (aKey){
@@ -1460,7 +1371,6 @@ messageSends: []}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 fn: function (anObject,aBlock){
@@ -1484,7 +1394,6 @@ messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "value", "at:", "="]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -1498,7 +1407,6 @@ messageSends: ["initialize"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_keys",
 smalltalk.method({
 selector: "keys",
 fn: function (){
@@ -1512,7 +1420,6 @@ messageSends: ["copy"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_keysAndValuesDo_",
 smalltalk.method({
 selector: "keysAndValuesDo:",
 fn: function (aBlock){
@@ -1526,7 +1433,6 @@ messageSends: ["with:do:"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_keysDo_",
 smalltalk.method({
 selector: "keysDo:",
 fn: function (aBlock){
@@ -1540,7 +1446,6 @@ messageSends: ["do:"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_positionOfKey_",
 smalltalk.method({
 selector: "positionOfKey:",
 fn: function (anObject){
@@ -1558,7 +1463,6 @@ messageSends: []}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_removeKey_ifAbsent_",
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 fn: function (aKey,aBlock){
@@ -1583,7 +1487,6 @@ messageSends: []}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_values",
 smalltalk.method({
 selector: "values",
 fn: function (){
@@ -1597,7 +1500,6 @@ messageSends: ["copy"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_valuesDo_",
 smalltalk.method({
 selector: "valuesDo:",
 fn: function (aBlock){
@@ -1614,7 +1516,6 @@ smalltalk.Dictionary);
 
 smalltalk.addClass('SequenceableCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 fn: function (aCollection){
@@ -1645,7 +1546,6 @@ messageSends: ["ifFalse:", "and:", "=", "size", "class", "withIndexDo:", "at:"]}
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_addLast_",
 smalltalk.method({
 selector: "addLast:",
 fn: function (anObject){
@@ -1657,7 +1557,6 @@ messageSends: ["add:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_allButFirst",
 smalltalk.method({
 selector: "allButFirst",
 fn: function (){
@@ -1671,7 +1570,6 @@ messageSends: ["copyFrom:to:", "size"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_allButLast",
 smalltalk.method({
 selector: "allButLast",
 fn: function (){
@@ -1685,7 +1583,6 @@ messageSends: ["copyFrom:to:", "-", "size"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_atRandom",
 smalltalk.method({
 selector: "atRandom",
 fn: function (){
@@ -1699,7 +1596,6 @@ messageSends: ["at:", "atRandom", "size"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_copyFrom_to_",
 smalltalk.method({
 selector: "copyFrom:to:",
 fn: function (anIndex,anotherIndex){
@@ -1720,7 +1616,6 @@ messageSends: ["to:", "new:", "size", "class", "withIndexDo:", "at:put:", "at:"]
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
 fn: function (){
@@ -1740,7 +1635,6 @@ messageSends: ["new:", "size", "class", "withIndexDo:", "at:put:", "deepCopy"]})
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 fn: function (aBlock,anotherBlock){
@@ -1757,7 +1651,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
@@ -1769,7 +1662,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_first",
 smalltalk.method({
 selector: "first",
 fn: function (){
@@ -1783,7 +1675,6 @@ messageSends: ["at:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_first_",
 smalltalk.method({
 selector: "first:",
 fn: function (n){
@@ -1797,7 +1688,6 @@ messageSends: ["copyFrom:to:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_fourth",
 smalltalk.method({
 selector: "fourth",
 fn: function (){
@@ -1811,7 +1701,6 @@ messageSends: ["at:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 fn: function (anObject){
@@ -1828,7 +1717,6 @@ messageSends: ["notNil", "indexOf:ifAbsent:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 fn: function (anObject,aBlock){
@@ -1845,7 +1733,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_indexOf_startingAt_",
 smalltalk.method({
 selector: "indexOf:startingAt:",
 fn: function (anObject,start){
@@ -1862,7 +1749,6 @@ messageSends: ["indexOf:startingAt:ifAbsent:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_indexOf_startingAt_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:startingAt:ifAbsent:",
 fn: function (anObject,start,aBlock){
@@ -1879,7 +1765,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_last",
 smalltalk.method({
 selector: "last",
 fn: function (){
@@ -1893,7 +1778,6 @@ messageSends: ["at:", "size"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_newStream",
 smalltalk.method({
 selector: "newStream",
 fn: function (){
@@ -1907,7 +1791,6 @@ messageSends: ["on:", "streamClass"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_readStream",
 smalltalk.method({
 selector: "readStream",
 fn: function (){
@@ -1921,7 +1804,6 @@ messageSends: ["stream"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_removeLast",
 smalltalk.method({
 selector: "removeLast",
 fn: function (){
@@ -1933,7 +1815,6 @@ messageSends: ["remove:", "last"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_reversed",
 smalltalk.method({
 selector: "reversed",
 fn: function (){
@@ -1945,7 +1826,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_second",
 smalltalk.method({
 selector: "second",
 fn: function (){
@@ -1959,7 +1839,6 @@ messageSends: ["at:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
 fn: function (){
@@ -1979,7 +1858,6 @@ messageSends: ["new:", "size", "class", "withIndexDo:", "at:put:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_stream",
 smalltalk.method({
 selector: "stream",
 fn: function (){
@@ -1993,7 +1871,6 @@ messageSends: ["newStream"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_streamClass",
 smalltalk.method({
 selector: "streamClass",
 fn: function (){
@@ -2007,7 +1884,6 @@ messageSends: ["streamClass", "class"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_third",
 smalltalk.method({
 selector: "third",
 fn: function (){
@@ -2021,7 +1897,6 @@ messageSends: ["at:"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_with_do_",
 smalltalk.method({
 selector: "with:do:",
 fn: function (anotherCollection,aBlock){
@@ -2033,7 +1908,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 fn: function (aBlock){
@@ -2045,7 +1919,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_writeStream",
 smalltalk.method({
 selector: "writeStream",
 fn: function (){
@@ -2060,7 +1933,6 @@ smalltalk.SequenceableCollection);
 
 
 smalltalk.addMethod(
-"_streamClass",
 smalltalk.method({
 selector: "streamClass",
 fn: function (){
@@ -2075,7 +1947,6 @@ messageSends: []}),
 smalltalk.SequenceableCollection.klass);
 
 smalltalk.addMethod(
-"_streamContents_",
 smalltalk.method({
 selector: "streamContents:",
 fn: function (aBlock){
@@ -2094,7 +1965,6 @@ smalltalk.SequenceableCollection.klass);
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 fn: function (anObject){
@@ -2106,7 +1976,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 fn: function (){
@@ -2123,7 +1992,6 @@ messageSends: [",", "join:", "collect:", "asJavascript"]}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 fn: function (anIndex,aBlock){
@@ -2138,7 +2006,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 fn: function (anIndex,anObject){
@@ -2150,7 +2017,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_join_",
 smalltalk.method({
 selector: "join:",
 fn: function (aString){
@@ -2162,7 +2028,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -2183,7 +2048,6 @@ messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
 fn: function (anObject,aBlock){
@@ -2203,7 +2067,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_removeFrom_to_",
 smalltalk.method({
 selector: "removeFrom:to:",
 fn: function (aNumber,anotherNumber){
@@ -2215,7 +2078,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_reversed",
 smalltalk.method({
 selector: "reversed",
 fn: function (){
@@ -2227,7 +2089,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 fn: function (){
@@ -2239,7 +2100,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sort",
 smalltalk.method({
 selector: "sort",
 fn: function (){
@@ -2253,7 +2113,6 @@ messageSends: ["basicPerform:"]}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sort_",
 smalltalk.method({
 selector: "sort:",
 fn: function (aBlock){
@@ -2269,7 +2128,6 @@ messageSends: []}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sorted",
 smalltalk.method({
 selector: "sorted",
 fn: function (){
@@ -2283,7 +2141,6 @@ messageSends: ["sort", "copy"]}),
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sorted_",
 smalltalk.method({
 selector: "sorted:",
 fn: function (aBlock){
@@ -2298,7 +2155,6 @@ smalltalk.Array);
 
 
 smalltalk.addMethod(
-"_new_",
 smalltalk.method({
 selector: "new:",
 fn: function (anInteger){
@@ -2310,7 +2166,6 @@ messageSends: []}),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 fn: function (anObject){
@@ -2327,7 +2182,6 @@ messageSends: ["at:put:", "new:", "yourself"]}),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_with_with_",
 smalltalk.method({
 selector: "with:with:",
 fn: function (anObject,anObject2){
@@ -2345,7 +2199,6 @@ messageSends: ["at:put:", "new:", "yourself"]}),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_with_with_with_",
 smalltalk.method({
 selector: "with:with:with:",
 fn: function (anObject,anObject2,anObject3){
@@ -2364,7 +2217,6 @@ messageSends: ["at:put:", "new:", "yourself"]}),
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_withAll_",
 smalltalk.method({
 selector: "withAll:",
 fn: function (aCollection){
@@ -2389,7 +2241,6 @@ smalltalk.Array.klass);
 
 smalltalk.addClass('CharacterArray', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 fn: function (aString){
@@ -2403,7 +2254,6 @@ messageSends: [",", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 fn: function (anObject){
@@ -2415,7 +2265,6 @@ messageSends: ["errorReadOnly"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asLowercase",
 smalltalk.method({
 selector: "asLowercase",
 fn: function (){
@@ -2429,7 +2278,6 @@ messageSends: ["fromString:", "asLowercase", "asString", "class"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asNumber",
 smalltalk.method({
 selector: "asNumber",
 fn: function (){
@@ -2443,7 +2291,6 @@ messageSends: ["asNumber", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asString",
 smalltalk.method({
 selector: "asString",
 fn: function (){
@@ -2457,7 +2304,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asSymbol",
 smalltalk.method({
 selector: "asSymbol",
 fn: function (){
@@ -2471,7 +2317,6 @@ messageSends: ["asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asUppercase",
 smalltalk.method({
 selector: "asUppercase",
 fn: function (){
@@ -2485,7 +2330,6 @@ messageSends: ["fromString:", "asUppercase", "asString", "class"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 fn: function (anIndex,anObject){
@@ -2497,7 +2341,6 @@ messageSends: ["errorReadOnly"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_errorReadOnly",
 smalltalk.method({
 selector: "errorReadOnly",
 fn: function (){
@@ -2509,7 +2352,6 @@ messageSends: ["error:"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -2521,7 +2363,6 @@ messageSends: ["printOn:", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_putOn_",
 smalltalk.method({
 selector: "putOn:",
 fn: function (aStream){
@@ -2533,7 +2374,6 @@ messageSends: ["nextPutString:"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 fn: function (anObject){
@@ -2546,7 +2386,6 @@ smalltalk.CharacterArray);
 
 
 smalltalk.addMethod(
-"_fromString_",
 smalltalk.method({
 selector: "fromString:",
 fn: function (aString){
@@ -2560,7 +2399,6 @@ smalltalk.CharacterArray.klass);
 
 smalltalk.addClass('String', smalltalk.CharacterArray, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 fn: function (aString){
@@ -2572,7 +2410,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"__lt",
 smalltalk.method({
 selector: "<",
 fn: function (aString){
@@ -2584,7 +2421,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"__lt_eq",
 smalltalk.method({
 selector: "<=",
 fn: function (aString){
@@ -2596,7 +2432,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 fn: function (aString){
@@ -2613,7 +2448,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"__eq_eq",
 smalltalk.method({
 selector: "==",
 fn: function (aString){
@@ -2627,7 +2461,6 @@ messageSends: ["="]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"__gt",
 smalltalk.method({
 selector: ">",
 fn: function (aString){
@@ -2639,7 +2472,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"__gt_eq",
 smalltalk.method({
 selector: ">=",
 fn: function (aString){
@@ -2651,7 +2483,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 fn: function (){
@@ -2665,7 +2496,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 fn: function (){
@@ -2682,7 +2512,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asLowercase",
 smalltalk.method({
 selector: "asLowercase",
 fn: function (){
@@ -2694,7 +2523,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asNumber",
 smalltalk.method({
 selector: "asNumber",
 fn: function (){
@@ -2706,7 +2534,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asRegexp",
 smalltalk.method({
 selector: "asRegexp",
 fn: function (){
@@ -2721,7 +2548,6 @@ messageSends: ["fromString:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asSelector",
 smalltalk.method({
 selector: "asSelector",
 fn: function (){
@@ -2733,7 +2559,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asString",
 smalltalk.method({
 selector: "asString",
 fn: function (){
@@ -2747,7 +2572,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asSymbol",
 smalltalk.method({
 selector: "asSymbol",
 fn: function (){
@@ -2761,7 +2585,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asUppercase",
 smalltalk.method({
 selector: "asUppercase",
 fn: function (){
@@ -2773,7 +2596,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asciiValue",
 smalltalk.method({
 selector: "asciiValue",
 fn: function (){
@@ -2785,7 +2607,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 fn: function (anIndex,aBlock){
@@ -2797,7 +2618,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_copyFrom_to_",
 smalltalk.method({
 selector: "copyFrom:to:",
 fn: function (anIndex,anotherIndex){
@@ -2809,7 +2629,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_crlfSanitized",
 smalltalk.method({
 selector: "crlfSanitized",
 fn: function (){
@@ -2824,7 +2643,6 @@ messageSends: ["join:", "lf", "lines"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
 fn: function (){
@@ -2838,7 +2656,6 @@ messageSends: ["shallowCopy"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
@@ -2850,7 +2667,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_escaped",
 smalltalk.method({
 selector: "escaped",
 fn: function (){
@@ -2862,7 +2678,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_includesSubString_",
 smalltalk.method({
 selector: "includesSubString:",
 fn: function (subString){
@@ -2874,7 +2689,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
 fn: function (){
@@ -2886,7 +2700,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_isString",
 smalltalk.method({
 selector: "isString",
 fn: function (){
@@ -2898,7 +2711,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_isVowel",
 smalltalk.method({
 selector: "isVowel",
 fn: function (){
@@ -2915,7 +2727,6 @@ messageSends: ["and:", "includes:", "asLowercase", "=", "size"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_join_",
 smalltalk.method({
 selector: "join:",
 fn: function (aCollection){
@@ -2939,7 +2750,6 @@ messageSends: ["streamContents:", "do:separatedBy:", "nextPutAll:", "asString"]}
 smalltalk.String);
 
 smalltalk.addMethod(
-"_lineIndicesDo_",
 smalltalk.method({
 selector: "lineIndicesDo:",
 fn: function (aBlock){
@@ -3009,7 +2819,6 @@ messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", "ifTrue:
 smalltalk.String);
 
 smalltalk.addMethod(
-"_lineNumber_",
 smalltalk.method({
 selector: "lineNumber:",
 fn: function (anIndex){
@@ -3037,7 +2846,6 @@ messageSends: ["lineIndicesDo:", "ifTrue:", "copyFrom:to:", "=", "+"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_lines",
 smalltalk.method({
 selector: "lines",
 fn: function (){
@@ -3058,7 +2866,6 @@ messageSends: ["new", "linesDo:", "add:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_linesDo_",
 smalltalk.method({
 selector: "linesDo:",
 fn: function (aBlock){
@@ -3073,7 +2880,6 @@ messageSends: ["lineIndicesDo:", "value:", "copyFrom:to:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_match_",
 smalltalk.method({
 selector: "match:",
 fn: function (aRegexp){
@@ -3085,7 +2891,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_matchesOf_",
 smalltalk.method({
 selector: "matchesOf:",
 fn: function (aRegularExpression){
@@ -3097,7 +2902,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_printNl",
 smalltalk.method({
 selector: "printNl",
 fn: function (){
@@ -3109,7 +2913,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -3125,7 +2928,6 @@ messageSends: ["nextPutAll:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_replace_with_",
 smalltalk.method({
 selector: "replace:with:",
 fn: function (aString,anotherString){
@@ -3140,7 +2942,6 @@ messageSends: ["replaceRegexp:with:", "fromString:flag:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_replaceRegexp_with_",
 smalltalk.method({
 selector: "replaceRegexp:with:",
 fn: function (aRegexp,aString){
@@ -3152,7 +2953,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_reversed",
 smalltalk.method({
 selector: "reversed",
 fn: function (){
@@ -3164,7 +2964,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
 fn: function (){
@@ -3178,7 +2977,6 @@ messageSends: ["fromString:", "class"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 fn: function (){
@@ -3190,7 +2988,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_tokenize_",
 smalltalk.method({
 selector: "tokenize:",
 fn: function (aString){
@@ -3202,7 +2999,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimBoth",
 smalltalk.method({
 selector: "trimBoth",
 fn: function (){
@@ -3216,7 +3012,6 @@ messageSends: ["trimBoth:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimBoth_",
 smalltalk.method({
 selector: "trimBoth:",
 fn: function (separators){
@@ -3230,7 +3025,6 @@ messageSends: ["trimRight:", "trimLeft:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimLeft",
 smalltalk.method({
 selector: "trimLeft",
 fn: function (){
@@ -3244,7 +3038,6 @@ messageSends: ["trimLeft:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimLeft_",
 smalltalk.method({
 selector: "trimLeft:",
 fn: function (separators){
@@ -3259,7 +3052,6 @@ messageSends: ["replaceRegexp:with:", "fromString:flag:", ","]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimRight",
 smalltalk.method({
 selector: "trimRight",
 fn: function (){
@@ -3273,7 +3065,6 @@ messageSends: ["trimRight:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimRight_",
 smalltalk.method({
 selector: "trimRight:",
 fn: function (separators){
@@ -3288,7 +3079,6 @@ messageSends: ["replaceRegexp:with:", "fromString:flag:", ","]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_unescaped",
 smalltalk.method({
 selector: "unescaped",
 fn: function (){
@@ -3300,7 +3090,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 fn: function (aBlock){
@@ -3313,7 +3102,6 @@ smalltalk.String);
 
 
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 fn: function (){
@@ -3325,7 +3113,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_crlf",
 smalltalk.method({
 selector: "crlf",
 fn: function (){
@@ -3337,7 +3124,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_fromCharCode_",
 smalltalk.method({
 selector: "fromCharCode:",
 fn: function (anInteger){
@@ -3349,7 +3135,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_fromString_",
 smalltalk.method({
 selector: "fromString:",
 fn: function (aString){
@@ -3361,7 +3146,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_lf",
 smalltalk.method({
 selector: "lf",
 fn: function (){
@@ -3373,7 +3157,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_random",
 smalltalk.method({
 selector: "random",
 fn: function (){
@@ -3385,7 +3168,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_randomNotIn_",
 smalltalk.method({
 selector: "randomNotIn:",
 fn: function (aString){
@@ -3406,7 +3188,6 @@ messageSends: ["whileTrue", "random", "includesSubString:"]}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_space",
 smalltalk.method({
 selector: "space",
 fn: function (){
@@ -3418,7 +3199,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_streamClass",
 smalltalk.method({
 selector: "streamClass",
 fn: function (){
@@ -3433,7 +3213,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_tab",
 smalltalk.method({
 selector: "tab",
 fn: function (){
@@ -3445,7 +3224,6 @@ messageSends: []}),
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 fn: function (aUTFCharCode){
@@ -3459,7 +3237,6 @@ smalltalk.String.klass);
 
 smalltalk.addClass('Set', smalltalk.Collection, ['elements'], 'Kernel-Collections');
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 fn: function (aCollection){
@@ -3491,7 +3268,6 @@ messageSends: ["ifFalse:", "=", "class", "size", "do:", "includes:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 fn: function (anObject){
@@ -3512,7 +3288,6 @@ messageSends: []}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_asArray",
 smalltalk.method({
 selector: "asArray",
 fn: function (){
@@ -3526,7 +3301,6 @@ messageSends: ["copy"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_collect_",
 smalltalk.method({
 selector: "collect:",
 fn: function (aBlock){
@@ -3540,7 +3314,6 @@ messageSends: ["withAll:", "collect:", "class"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 fn: function (aBlock,anotherBlock){
@@ -3554,7 +3327,6 @@ messageSends: ["detect:ifNone:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
@@ -3566,7 +3338,6 @@ messageSends: ["do:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 fn: function (anObject){
@@ -3580,7 +3351,6 @@ messageSends: ["includes:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -3593,7 +3363,6 @@ messageSends: ["initialize"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -3614,7 +3383,6 @@ messageSends: ["printOn:", "nextPutAll:", "do:separatedBy:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 fn: function (anObject){
@@ -3626,7 +3394,6 @@ messageSends: ["remove:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_select_",
 smalltalk.method({
 selector: "select:",
 fn: function (aBlock){
@@ -3649,7 +3416,6 @@ messageSends: ["new", "class", "do:", "ifTrue:", "add:", "value:"]}),
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 fn: function (){
@@ -3666,7 +3432,6 @@ smalltalk.Set);
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -3682,7 +3447,6 @@ messageSends: ["initialize", "new"]}),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_next",
 smalltalk.method({
 selector: "next",
 fn: function (){
@@ -3699,7 +3463,6 @@ messageSends: ["nextIfAbsent:", "error:"]}),
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_nextIfAbsent_",
 smalltalk.method({
 selector: "nextIfAbsent:",
 fn: function (aBlock){
@@ -3743,7 +3506,6 @@ messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 fn: function (anObject){
@@ -3758,7 +3520,6 @@ smalltalk.Queue);
 
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 fn: function (aString){
@@ -3770,7 +3531,6 @@ messageSends: []}),
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
-"_exec_",
 smalltalk.method({
 selector: "exec:",
 fn: function (aString){
@@ -3782,7 +3542,6 @@ messageSends: []}),
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
-"_test_",
 smalltalk.method({
 selector: "test:",
 fn: function (aString){
@@ -3795,7 +3554,6 @@ smalltalk.RegularExpression);
 
 
 smalltalk.addMethod(
-"_fromString_",
 smalltalk.method({
 selector: "fromString:",
 fn: function (aString){
@@ -3809,7 +3567,6 @@ messageSends: ["fromString:flag:"]}),
 smalltalk.RegularExpression.klass);
 
 smalltalk.addMethod(
-"_fromString_flag_",
 smalltalk.method({
 selector: "fromString:flag:",
 fn: function (aString,anotherString){
@@ -3823,7 +3580,6 @@ smalltalk.RegularExpression.klass);
 
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.addMethod(
-"__lt_lt",
 smalltalk.method({
 selector: "<<",
 fn: function (anObject){
@@ -3835,7 +3591,6 @@ messageSends: ["write:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_atEnd",
 smalltalk.method({
 selector: "atEnd",
 fn: function (){
@@ -3849,7 +3604,6 @@ messageSends: ["=", "size", "position"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_atStart",
 smalltalk.method({
 selector: "atStart",
 fn: function (){
@@ -3863,7 +3617,6 @@ messageSends: ["=", "position"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_close",
 smalltalk.method({
 selector: "close",
 fn: function (){
@@ -3874,7 +3627,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 fn: function (){
@@ -3888,7 +3640,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_contents",
 smalltalk.method({
 selector: "contents",
 fn: function (){
@@ -3902,7 +3653,6 @@ messageSends: ["copyFrom:to:", "streamSize", "collection"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
@@ -3920,7 +3670,6 @@ messageSends: ["whileFalse:", "value:", "next", "atEnd"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_flush",
 smalltalk.method({
 selector: "flush",
 fn: function (){
@@ -3931,7 +3680,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
 fn: function (){
@@ -3945,7 +3693,6 @@ messageSends: ["=", "size"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_next",
 smalltalk.method({
 selector: "next",
 fn: function (){
@@ -3965,7 +3712,6 @@ messageSends: ["ifTrue:ifFalse:", "position:", "+", "position", "at:", "atEnd"]}
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_next_",
 smalltalk.method({
 selector: "next:",
 fn: function (anInteger){
@@ -3988,7 +3734,6 @@ messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "add:",
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 fn: function (anObject){
@@ -4002,7 +3747,6 @@ messageSends: ["position:", "+", "position", "at:put:", "collection", "setStream
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_nextPutAll_",
 smalltalk.method({
 selector: "nextPutAll:",
 fn: function (aCollection){
@@ -4017,7 +3761,6 @@ messageSends: ["do:", "nextPut:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_nextPutString_",
 smalltalk.method({
 selector: "nextPutString:",
 fn: function (aString){
@@ -4029,7 +3772,6 @@ messageSends: ["nextPut:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_peek",
 smalltalk.method({
 selector: "peek",
 fn: function (){
@@ -4046,7 +3788,6 @@ messageSends: ["ifFalse:", "at:", "+", "position", "collection", "atEnd"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_position",
 smalltalk.method({
 selector: "position",
 fn: function (){
@@ -4066,7 +3807,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_position_",
 smalltalk.method({
 selector: "position:",
 fn: function (anInteger){
@@ -4078,7 +3818,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_reset",
 smalltalk.method({
 selector: "reset",
 fn: function (){
@@ -4090,7 +3829,6 @@ messageSends: ["position:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_resetContents",
 smalltalk.method({
 selector: "resetContents",
 fn: function (){
@@ -4103,7 +3841,6 @@ messageSends: ["reset", "setStreamSize:"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_setCollection_",
 smalltalk.method({
 selector: "setCollection:",
 fn: function (aCollection){
@@ -4115,7 +3852,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_setStreamSize_",
 smalltalk.method({
 selector: "setStreamSize:",
 fn: function (anInteger){
@@ -4127,7 +3863,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_setToEnd",
 smalltalk.method({
 selector: "setToEnd",
 fn: function (){
@@ -4139,7 +3874,6 @@ messageSends: ["position:", "size"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 fn: function (){
@@ -4153,7 +3887,6 @@ messageSends: ["streamSize"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_skip_",
 smalltalk.method({
 selector: "skip:",
 fn: function (anInteger){
@@ -4165,7 +3898,6 @@ messageSends: ["position:", "min:max:", "size", "+", "position"]}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_streamSize",
 smalltalk.method({
 selector: "streamSize",
 fn: function (){
@@ -4179,7 +3911,6 @@ messageSends: []}),
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_write_",
 smalltalk.method({
 selector: "write:",
 fn: function (anObject){
@@ -4192,7 +3923,6 @@ smalltalk.Stream);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (aCollection){
@@ -4212,7 +3942,6 @@ smalltalk.Stream.klass);
 
 smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel-Collections');
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 fn: function (){
@@ -4227,7 +3956,6 @@ messageSends: ["nextPutAll:", "cr"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_crlf",
 smalltalk.method({
 selector: "crlf",
 fn: function (){
@@ -4242,7 +3970,6 @@ messageSends: ["nextPutAll:", "crlf"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_lf",
 smalltalk.method({
 selector: "lf",
 fn: function (){
@@ -4257,7 +3984,6 @@ messageSends: ["nextPutAll:", "lf"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_next_",
 smalltalk.method({
 selector: "next:",
 fn: function (anInteger){
@@ -4281,7 +4007,6 @@ messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", ",", "n
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 fn: function (aString){
@@ -4293,7 +4018,6 @@ messageSends: ["nextPutAll:"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_nextPutAll_",
 smalltalk.method({
 selector: "nextPutAll:",
 fn: function (aString){
@@ -4318,7 +4042,6 @@ messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_nextPutString_",
 smalltalk.method({
 selector: "nextPutString:",
 fn: function (aString){
@@ -4330,7 +4053,6 @@ messageSends: ["nextPutAll:"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_space",
 smalltalk.method({
 selector: "space",
 fn: function (){
@@ -4342,7 +4064,6 @@ messageSends: ["nextPut:"]}),
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_tab",
 smalltalk.method({
 selector: "tab",
 fn: function (){

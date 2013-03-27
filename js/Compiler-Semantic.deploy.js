@@ -1,7 +1,6 @@
 smalltalk.addPackage('Compiler-Semantic');
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_addArg_",
 smalltalk.method({
 selector: "addArg:",
 fn: function (aString){
@@ -15,7 +14,6 @@ messageSends: ["at:put:", "on:", "args", "scope:", "at:"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_addTemp_",
 smalltalk.method({
 selector: "addTemp:",
 fn: function (aString){
@@ -29,7 +27,6 @@ messageSends: ["at:put:", "on:", "temps", "scope:", "at:"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 fn: function (){
@@ -43,7 +40,6 @@ messageSends: [",", "asString", "scopeLevel"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_allVariableNames",
 smalltalk.method({
 selector: "allVariableNames",
 fn: function (){
@@ -57,7 +53,6 @@ messageSends: [",", "keys", "temps", "args"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_args",
 smalltalk.method({
 selector: "args",
 fn: function (){
@@ -78,7 +73,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_bindingFor_",
 smalltalk.method({
 selector: "bindingFor:",
 fn: function (aStringOrNode){
@@ -101,7 +95,6 @@ messageSends: ["at:ifAbsent:", "value", "temps", "args", "pseudoVars"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_canInlineNonLocalReturns",
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
 fn: function (){
@@ -118,7 +111,6 @@ messageSends: ["and:", "canInlineNonLocalReturns", "outerScope", "isInlined"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_instruction",
 smalltalk.method({
 selector: "instruction",
 fn: function (){
@@ -132,7 +124,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_instruction_",
 smalltalk.method({
 selector: "instruction:",
 fn: function (anIRInstruction){
@@ -144,7 +135,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_isBlockScope",
 smalltalk.method({
 selector: "isBlockScope",
 fn: function (){
@@ -158,7 +148,6 @@ messageSends: ["not", "isMethodScope"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 fn: function (){
@@ -175,7 +164,6 @@ messageSends: ["and:", "isInlined", "instruction", "notNil"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_isMethodScope",
 smalltalk.method({
 selector: "isMethodScope",
 fn: function (){
@@ -187,7 +175,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_lookupVariable_",
 smalltalk.method({
 selector: "lookupVariable:",
 fn: function (aNode){
@@ -215,7 +202,6 @@ messageSends: ["bindingFor:", "ifNil:", "ifNotNil:", "lookupVariable:", "outerSc
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_methodScope",
 smalltalk.method({
 selector: "methodScope",
 fn: function (){
@@ -234,7 +220,6 @@ messageSends: ["ifNotNil:", "methodScope", "outerScope"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_node",
 smalltalk.method({
 selector: "node",
 fn: function (){
@@ -248,7 +233,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_node_",
 smalltalk.method({
 selector: "node:",
 fn: function (aNode){
@@ -260,7 +244,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_outerScope",
 smalltalk.method({
 selector: "outerScope",
 fn: function (){
@@ -274,7 +257,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_outerScope_",
 smalltalk.method({
 selector: "outerScope:",
 fn: function (aLexicalScope){
@@ -286,7 +268,6 @@ messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_pseudoVars",
 smalltalk.method({
 selector: "pseudoVars",
 fn: function (){
@@ -300,7 +281,6 @@ messageSends: ["pseudoVars", "methodScope"]}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_scopeLevel",
 smalltalk.method({
 selector: "scopeLevel",
 fn: function (){
@@ -326,7 +306,6 @@ messageSends: ["ifNil:", "outerScope", "ifTrue:", "scopeLevel", "isInlined", "+"
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_temps",
 smalltalk.method({
 selector: "temps",
 fn: function (){
@@ -350,7 +329,6 @@ smalltalk.LexicalScope);
 
 smalltalk.addClass('MethodLexicalScope', smalltalk.LexicalScope, ['iVars', 'pseudoVars', 'unknownVariables', 'localReturn', 'nonLocalReturns'], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_addIVar_",
 smalltalk.method({
 selector: "addIVar:",
 fn: function (aString){
@@ -364,7 +342,6 @@ messageSends: ["at:put:", "on:", "iVars", "scope:", "at:"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_addNonLocalReturn_",
 smalltalk.method({
 selector: "addNonLocalReturn:",
 fn: function (aScope){
@@ -376,7 +353,6 @@ messageSends: ["add:", "nonLocalReturns"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_allVariableNames",
 smalltalk.method({
 selector: "allVariableNames",
 fn: function (){
@@ -390,7 +366,6 @@ messageSends: [",", "keys", "iVars", "allVariableNames"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_bindingFor_",
 smalltalk.method({
 selector: "bindingFor:",
 fn: function (aNode){
@@ -412,7 +387,6 @@ messageSends: ["ifNil:", "at:ifAbsent:", "value", "iVars", "bindingFor:"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_canInlineNonLocalReturns",
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
 fn: function (){
@@ -424,7 +398,6 @@ messageSends: []}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_hasLocalReturn",
 smalltalk.method({
 selector: "hasLocalReturn",
 fn: function (){
@@ -438,7 +411,6 @@ messageSends: ["localReturn"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_hasNonLocalReturn",
 smalltalk.method({
 selector: "hasNonLocalReturn",
 fn: function (){
@@ -452,7 +424,6 @@ messageSends: ["notEmpty", "nonLocalReturns"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_iVars",
 smalltalk.method({
 selector: "iVars",
 fn: function (){
@@ -473,7 +444,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_isMethodScope",
 smalltalk.method({
 selector: "isMethodScope",
 fn: function (){
@@ -485,7 +455,6 @@ messageSends: []}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_localReturn",
 smalltalk.method({
 selector: "localReturn",
 fn: function (){
@@ -504,7 +473,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_localReturn_",
 smalltalk.method({
 selector: "localReturn:",
 fn: function (aBoolean){
@@ -516,7 +484,6 @@ messageSends: []}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_methodScope",
 smalltalk.method({
 selector: "methodScope",
 fn: function (){
@@ -530,7 +497,6 @@ messageSends: []}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_nonLocalReturns",
 smalltalk.method({
 selector: "nonLocalReturns",
 fn: function (){
@@ -551,7 +517,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_pseudoVars",
 smalltalk.method({
 selector: "pseudoVars",
 fn: function (){
@@ -582,7 +547,6 @@ messageSends: ["ifNil:", "new", "do:", "at:put:", "scope:", "methodScope", "on:"
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_removeNonLocalReturn_",
 smalltalk.method({
 selector: "removeNonLocalReturn:",
 fn: function (aScope){
@@ -596,7 +560,6 @@ messageSends: ["remove:ifAbsent:", "nonLocalReturns"]}),
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_unknownVariables",
 smalltalk.method({
 selector: "unknownVariables",
 fn: function (){
@@ -620,7 +583,6 @@ smalltalk.MethodLexicalScope);
 
 smalltalk.addClass('ScopeVar', smalltalk.Object, ['scope', 'name'], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 fn: function (){
@@ -634,7 +596,6 @@ messageSends: ["asVariableName", "name"]}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isArgVar",
 smalltalk.method({
 selector: "isArgVar",
 fn: function (){
@@ -646,7 +607,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isClassRefVar",
 smalltalk.method({
 selector: "isClassRefVar",
 fn: function (){
@@ -658,7 +618,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isInstanceVar",
 smalltalk.method({
 selector: "isInstanceVar",
 fn: function (){
@@ -670,7 +629,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isPseudoVar",
 smalltalk.method({
 selector: "isPseudoVar",
 fn: function (){
@@ -682,7 +640,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isTempVar",
 smalltalk.method({
 selector: "isTempVar",
 fn: function (){
@@ -694,7 +651,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isUnknownVar",
 smalltalk.method({
 selector: "isUnknownVar",
 fn: function (){
@@ -706,7 +662,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_name",
 smalltalk.method({
 selector: "name",
 fn: function (){
@@ -720,7 +675,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_name_",
 smalltalk.method({
 selector: "name:",
 fn: function (aString){
@@ -732,7 +686,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 fn: function (){
@@ -746,7 +699,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 fn: function (aScope){
@@ -758,7 +710,6 @@ messageSends: []}),
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_validateAssignment",
 smalltalk.method({
 selector: "validateAssignment",
 fn: function (){
@@ -782,7 +733,6 @@ smalltalk.ScopeVar);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (aString){
@@ -801,7 +751,6 @@ smalltalk.ScopeVar.klass);
 
 smalltalk.addClass('AliasVar', smalltalk.ScopeVar, ['node'], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_node",
 smalltalk.method({
 selector: "node",
 fn: function (){
@@ -815,7 +764,6 @@ messageSends: []}),
 smalltalk.AliasVar);
 
 smalltalk.addMethod(
-"_node_",
 smalltalk.method({
 selector: "node:",
 fn: function (aNode){
@@ -830,7 +778,6 @@ smalltalk.AliasVar);
 
 smalltalk.addClass('ArgVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_isArgVar",
 smalltalk.method({
 selector: "isArgVar",
 fn: function (){
@@ -845,7 +792,6 @@ smalltalk.ArgVar);
 
 smalltalk.addClass('ClassRefVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 fn: function (){
@@ -859,7 +805,6 @@ messageSends: [",", "name"]}),
 smalltalk.ClassRefVar);
 
 smalltalk.addMethod(
-"_isClassRefVar",
 smalltalk.method({
 selector: "isClassRefVar",
 fn: function (){
@@ -874,7 +819,6 @@ smalltalk.ClassRefVar);
 
 smalltalk.addClass('InstanceVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 fn: function (){
@@ -888,7 +832,6 @@ messageSends: [",", "name"]}),
 smalltalk.InstanceVar);
 
 smalltalk.addMethod(
-"_isInstanceVar",
 smalltalk.method({
 selector: "isInstanceVar",
 fn: function (){
@@ -903,7 +846,6 @@ smalltalk.InstanceVar);
 
 smalltalk.addClass('PseudoVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 fn: function (){
@@ -917,7 +859,6 @@ messageSends: ["name"]}),
 smalltalk.PseudoVar);
 
 smalltalk.addMethod(
-"_isPseudoVar",
 smalltalk.method({
 selector: "isPseudoVar",
 fn: function (){
@@ -932,7 +873,6 @@ smalltalk.PseudoVar);
 
 smalltalk.addClass('TempVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_isTempVar",
 smalltalk.method({
 selector: "isTempVar",
 fn: function (){
@@ -947,7 +887,6 @@ smalltalk.TempVar);
 
 smalltalk.addClass('UnknownVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_isUnknownVar",
 smalltalk.method({
 selector: "isUnknownVar",
 fn: function (){
@@ -962,7 +901,6 @@ smalltalk.UnknownVar);
 
 smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
 smalltalk.addMethod(
-"_classReferences",
 smalltalk.method({
 selector: "classReferences",
 fn: function (){
@@ -983,7 +921,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_errorShadowingVariable_",
 smalltalk.method({
 selector: "errorShadowingVariable:",
 fn: function (aString){
@@ -999,7 +936,6 @@ messageSends: ["variableName:", "new", "signal"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_errorUnknownVariable_",
 smalltalk.method({
 selector: "errorUnknownVariable:",
 fn: function (aNode){
@@ -1026,7 +962,6 @@ messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "ad
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_isVariableGloballyUndefined_",
 smalltalk.method({
 selector: "isVariableGloballyUndefined:",
 fn: function (aString){
@@ -1038,7 +973,6 @@ messageSends: []}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_messageSends",
 smalltalk.method({
 selector: "messageSends",
 fn: function (){
@@ -1059,7 +993,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_newBlockScope",
 smalltalk.method({
 selector: "newBlockScope",
 fn: function (){
@@ -1074,7 +1007,6 @@ messageSends: ["newScopeOfClass:"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_newMethodScope",
 smalltalk.method({
 selector: "newMethodScope",
 fn: function (){
@@ -1089,7 +1021,6 @@ messageSends: ["newScopeOfClass:"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_newScopeOfClass_",
 smalltalk.method({
 selector: "newScopeOfClass:",
 fn: function (aLexicalScopeClass){
@@ -1106,7 +1037,6 @@ messageSends: ["outerScope:", "new", "yourself"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_popScope",
 smalltalk.method({
 selector: "popScope",
 fn: function (){
@@ -1125,7 +1055,6 @@ messageSends: ["ifNotNil:", "outerScope"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_pushScope_",
 smalltalk.method({
 selector: "pushScope:",
 fn: function (aScope){
@@ -1138,7 +1067,6 @@ messageSends: ["outerScope:"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_superSends",
 smalltalk.method({
 selector: "superSends",
 fn: function (){
@@ -1159,7 +1087,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 fn: function (){
@@ -1173,7 +1100,6 @@ messageSends: []}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 fn: function (aClass){
@@ -1185,7 +1111,6 @@ messageSends: []}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_validateVariableScope_",
 smalltalk.method({
 selector: "validateVariableScope:",
 fn: function (aString){
@@ -1203,7 +1128,6 @@ messageSends: ["ifNotNil:", "errorShadowingVariable:", "lookupVariable:"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitAssignmentNode_",
 smalltalk.method({
 selector: "visitAssignmentNode:",
 fn: function (aNode){
@@ -1216,7 +1140,6 @@ messageSends: ["visitAssignmentNode:", "beAssigned", "left"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitBlockNode_",
 smalltalk.method({
 selector: "visitBlockNode:",
 fn: function (aNode){
@@ -1237,7 +1160,6 @@ messageSends: ["pushScope:", "newBlockScope", "scope:", "node:", "do:", "validat
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitCascadeNode_",
 smalltalk.method({
 selector: "visitCascadeNode:",
 fn: function (aNode){
@@ -1261,7 +1183,6 @@ messageSends: ["do:", "receiver:", "receiver", "nodes", "visitCascadeNode:", "if
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
 fn: function (aNode){
@@ -1279,7 +1200,6 @@ messageSends: ["add:", "value", "classReferences", "binding:", "name:", "new", "
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitMethodNode_",
 smalltalk.method({
 selector: "visitMethodNode:",
 fn: function (aNode){
@@ -1309,7 +1229,6 @@ messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "addIVa
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitReturnNode_",
 smalltalk.method({
 selector: "visitReturnNode:",
 fn: function (aNode){
@@ -1329,7 +1248,6 @@ messageSends: ["scope:", "ifTrue:ifFalse:", "localReturn:", "addNonLocalReturn:"
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitSendNode_",
 smalltalk.method({
 selector: "visitSendNode:",
 fn: function (aNode){
@@ -1366,7 +1284,6 @@ messageSends: ["ifTrue:ifFalse:", "superSend:", "value:", "receiver", "at:ifAbse
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitSequenceNode_",
 smalltalk.method({
 selector: "visitSequenceNode:",
 fn: function (aNode){
@@ -1383,7 +1300,6 @@ messageSends: ["do:", "validateVariableScope:", "addTemp:", "temps", "visitSeque
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitVariableNode_",
 smalltalk.method({
 selector: "visitVariableNode:",
 fn: function (aNode){
@@ -1409,7 +1325,6 @@ smalltalk.SemanticAnalyzer);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (aClass){

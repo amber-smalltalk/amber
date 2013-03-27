@@ -1,7 +1,6 @@
 smalltalk.addPackage('Compiler-Tests');
 smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_analyze_forClass_",
 smalltalk.method({
 selector: "analyze:forClass:",
 category: 'interpreting',
@@ -22,7 +21,6 @@ referencedClasses: ["SemanticAnalyzer"]
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpret_",
 smalltalk.method({
 selector: "interpret:",
 category: 'interpreting',
@@ -42,7 +40,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpret_receiver_withArguments_",
 smalltalk.method({
 selector: "interpret:receiver:withArguments:",
 category: 'interpreting',
@@ -73,7 +70,6 @@ referencedClasses: ["AIContext"]
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpret_withArguments_",
 smalltalk.method({
 selector: "interpret:withArguments:",
 category: 'interpreting',
@@ -93,7 +89,6 @@ referencedClasses: ["Object"]
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpreter",
 smalltalk.method({
 selector: "interpreter",
 category: 'accessing',
@@ -112,7 +107,6 @@ referencedClasses: []
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_parse_",
 smalltalk.method({
 selector: "parse:",
 category: 'parsing',
@@ -132,7 +126,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_parse_forClass_",
 smalltalk.method({
 selector: "parse:forClass:",
 category: 'parsing',
@@ -154,7 +147,6 @@ smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addClass('ASTInterpreterTest', smalltalk.AbstractASTInterpreterTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_interpreter",
 smalltalk.method({
 selector: "interpreter",
 category: 'accessing',
@@ -174,7 +166,6 @@ referencedClasses: ["ASTInterpreter"]
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testBinarySend",
 smalltalk.method({
 selector: "testBinarySend",
 category: 'tests',
@@ -191,7 +182,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testBlockLiteral",
 smalltalk.method({
 selector: "testBlockLiteral",
 category: 'tests',
@@ -210,7 +200,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testCascade",
 smalltalk.method({
 selector: "testCascade",
 category: 'tests',
@@ -228,7 +217,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testDynamicArray",
 smalltalk.method({
 selector: "testDynamicArray",
 category: 'tests',
@@ -245,7 +233,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testDynamicDictionary",
 smalltalk.method({
 selector: "testDynamicDictionary",
 category: 'tests',
@@ -262,7 +249,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testInlinedJSStatement",
 smalltalk.method({
 selector: "testInlinedJSStatement",
 category: 'tests',
@@ -280,7 +266,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testInstVarAccess",
 smalltalk.method({
 selector: "testInstVarAccess",
 category: 'tests',
@@ -297,7 +282,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testInstVarAssignment",
 smalltalk.method({
 selector: "testInstVarAssignment",
 category: 'tests',
@@ -315,7 +299,6 @@ referencedClasses: ["Point"]
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testNonlocalReturn",
 smalltalk.method({
 selector: "testNonlocalReturn",
 category: 'tests',
@@ -332,7 +315,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testReceiver",
 smalltalk.method({
 selector: "testReceiver",
 category: 'tests',
@@ -349,7 +331,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testTempAssignment",
 smalltalk.method({
 selector: "testTempAssignment",
 category: 'tests',
@@ -366,7 +347,6 @@ referencedClasses: []
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testThisContext",
 smalltalk.method({
 selector: "testThisContext",
 category: 'tests',
@@ -388,7 +368,6 @@ smalltalk.ASTInterpreterTest);
 
 smalltalk.addClass('ASTSteppingInterpreterTest', smalltalk.AbstractASTInterpreterTest, ['interpreter'], 'Compiler-Tests');
 smalltalk.addMethod(
-"_interpreter",
 smalltalk.method({
 selector: "interpreter",
 category: 'accessing',
@@ -414,7 +393,6 @@ referencedClasses: ["ASTSteppingInterpreter"]
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
-"_testAtEnd",
 smalltalk.method({
 selector: "testAtEnd",
 category: 'tests',
@@ -440,7 +418,6 @@ referencedClasses: []
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
-"_testMessageSend",
 smalltalk.method({
 selector: "testMessageSend",
 category: 'tests',
@@ -465,7 +442,6 @@ referencedClasses: []
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
-"_testSimpleStepping",
 smalltalk.method({
 selector: "testSimpleStepping",
 category: 'tests',
@@ -489,7 +465,6 @@ smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addClass('CodeGeneratorTest', smalltalk.TestCase, ['receiver'], 'Compiler-Tests');
 smalltalk.addMethod(
-"_codeGeneratorClass",
 smalltalk.method({
 selector: "codeGeneratorClass",
 category: 'accessing',
@@ -509,7 +484,6 @@ referencedClasses: ["CodeGenerator"]
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_compiler",
 smalltalk.method({
 selector: "compiler",
 category: 'factory',
@@ -532,7 +506,6 @@ referencedClasses: ["Compiler"]
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'initialization',
@@ -549,7 +522,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_should_return_",
 smalltalk.method({
 selector: "should:return:",
 category: 'testing',
@@ -570,7 +542,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_targetClass",
 smalltalk.method({
 selector: "targetClass",
 category: 'accessing',
@@ -590,7 +561,6 @@ referencedClasses: ["DoIt"]
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 category: 'initialization',
@@ -606,7 +576,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testAssignment",
 smalltalk.method({
 selector: "testAssignment",
 category: 'tests',
@@ -625,7 +594,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testBackslashSelectors",
 smalltalk.method({
 selector: "testBackslashSelectors",
 category: 'tests',
@@ -643,7 +611,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testBlockReturn",
 smalltalk.method({
 selector: "testBlockReturn",
 category: 'tests',
@@ -662,7 +629,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testCascades",
 smalltalk.method({
 selector: "testCascades",
 category: 'tests',
@@ -679,7 +645,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testDynamicArrayElementsOrdered",
 smalltalk.method({
 selector: "testDynamicArrayElementsOrdered",
 category: 'tests',
@@ -696,7 +661,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testDynamicDictionaryElementsOrdered",
 smalltalk.method({
 selector: "testDynamicDictionaryElementsOrdered",
 category: 'tests',
@@ -713,7 +677,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testInnerTemporalDependentElementsOrdered",
 smalltalk.method({
 selector: "testInnerTemporalDependentElementsOrdered",
 category: 'tests',
@@ -734,7 +697,6 @@ referencedClasses: ["Array"]
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testLiterals",
 smalltalk.method({
 selector: "testLiterals",
 category: 'tests',
@@ -759,7 +721,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testLocalReturn",
 smalltalk.method({
 selector: "testLocalReturn",
 category: 'tests',
@@ -780,7 +741,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testMessageSends",
 smalltalk.method({
 selector: "testMessageSends",
 category: 'tests',
@@ -801,7 +761,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testMutableLiterals",
 smalltalk.method({
 selector: "testMutableLiterals",
 category: 'tests',
@@ -818,7 +777,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testNestedIfTrue",
 smalltalk.method({
 selector: "testNestedIfTrue",
 category: 'tests',
@@ -838,7 +796,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testNonLocalReturn",
 smalltalk.method({
 selector: "testNonLocalReturn",
 category: 'tests',
@@ -858,7 +815,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testPascalCaseGlobal",
 smalltalk.method({
 selector: "testPascalCaseGlobal",
 category: 'tests',
@@ -876,7 +832,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testSendReceiverAndArgumentsOrdered",
 smalltalk.method({
 selector: "testSendReceiverAndArgumentsOrdered",
 category: 'tests',
@@ -895,7 +850,6 @@ referencedClasses: ["Array"]
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifFalse",
 smalltalk.method({
 selector: "testifFalse",
 category: 'tests',
@@ -915,7 +869,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifFalseIfTrue",
 smalltalk.method({
 selector: "testifFalseIfTrue",
 category: 'tests',
@@ -935,7 +888,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNil",
 smalltalk.method({
 selector: "testifNil",
 category: 'tests',
@@ -955,7 +907,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNilIfNotNil",
 smalltalk.method({
 selector: "testifNilIfNotNil",
 category: 'tests',
@@ -975,7 +926,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNotNil",
 smalltalk.method({
 selector: "testifNotNil",
 category: 'tests',
@@ -995,7 +945,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNotNilWithArgument",
 smalltalk.method({
 selector: "testifNotNilWithArgument",
 category: 'tests',
@@ -1017,7 +966,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifTrue",
 smalltalk.method({
 selector: "testifTrue",
 category: 'tests',
@@ -1037,7 +985,6 @@ referencedClasses: []
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifTrueIfFalse",
 smalltalk.method({
 selector: "testifTrueIfFalse",
 category: 'tests',
@@ -1060,7 +1007,6 @@ smalltalk.CodeGeneratorTest);
 
 smalltalk.addClass('InliningCodeGeneratorTest', smalltalk.CodeGeneratorTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_codeGeneratorClass",
 smalltalk.method({
 selector: "codeGeneratorClass",
 category: 'accessing',
@@ -1083,7 +1029,6 @@ smalltalk.InliningCodeGeneratorTest);
 
 smalltalk.addClass('ScopeVarTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_testClassRefVar",
 smalltalk.method({
 selector: "testClassRefVar",
 category: 'tests',
@@ -1109,7 +1054,6 @@ referencedClasses: ["ClassReferenceNode", "SemanticAnalyzer"]
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testInstanceVar",
 smalltalk.method({
 selector: "testInstanceVar",
 category: 'tests',
@@ -1136,7 +1080,6 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"]
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testPseudoVar",
 smalltalk.method({
 selector: "testPseudoVar",
 category: 'tests',
@@ -1166,7 +1109,6 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"]
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testTempVar",
 smalltalk.method({
 selector: "testTempVar",
 category: 'tests',
@@ -1193,7 +1135,6 @@ referencedClasses: ["VariableNode", "MethodLexicalScope"]
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testUnknownVar",
 smalltalk.method({
 selector: "testUnknownVar",
 category: 'tests',
@@ -1221,7 +1162,6 @@ smalltalk.ScopeVarTest);
 
 smalltalk.addClass('SemanticAnalyzerTest', smalltalk.TestCase, ['analyzer'], 'Compiler-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -1240,7 +1180,6 @@ referencedClasses: ["Object", "SemanticAnalyzer"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testAssignment",
 smalltalk.method({
 selector: "testAssignment",
 category: 'tests',
@@ -1264,7 +1203,6 @@ referencedClasses: ["InvalidAssignmentError"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testNonLocalReturn",
 smalltalk.method({
 selector: "testNonLocalReturn",
 category: 'tests',
@@ -1285,7 +1223,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testNonLocalReturn2",
 smalltalk.method({
 selector: "testNonLocalReturn2",
 category: 'tests',
@@ -1306,7 +1243,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testScope",
 smalltalk.method({
 selector: "testScope",
 category: 'tests',
@@ -1327,7 +1263,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testScope2",
 smalltalk.method({
 selector: "testScope2",
 category: 'tests',
@@ -1348,7 +1283,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testScopeLevel",
 smalltalk.method({
 selector: "testScopeLevel",
 category: 'tests',
@@ -1370,7 +1304,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testUnknownVariables",
 smalltalk.method({
 selector: "testUnknownVariables",
 category: 'tests',
@@ -1394,7 +1327,6 @@ referencedClasses: ["UnknownVariableError"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testUnknownVariablesWithScope",
 smalltalk.method({
 selector: "testUnknownVariablesWithScope",
 category: 'tests',
@@ -1418,7 +1350,6 @@ referencedClasses: ["UnknownVariableError"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing",
 smalltalk.method({
 selector: "testVariableShadowing",
 category: 'tests',
@@ -1438,7 +1369,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing2",
 smalltalk.method({
 selector: "testVariableShadowing2",
 category: 'tests',
@@ -1462,7 +1392,6 @@ referencedClasses: ["ShadowingVariableError"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing3",
 smalltalk.method({
 selector: "testVariableShadowing3",
 category: 'tests',
@@ -1482,7 +1411,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing4",
 smalltalk.method({
 selector: "testVariableShadowing4",
 category: 'tests',
@@ -1502,7 +1430,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing5",
 smalltalk.method({
 selector: "testVariableShadowing5",
 category: 'tests',
@@ -1526,7 +1453,6 @@ referencedClasses: ["ShadowingVariableError"]
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariablesLookup",
 smalltalk.method({
 selector: "testVariablesLookup",
 category: 'tests',

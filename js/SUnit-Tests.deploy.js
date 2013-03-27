@@ -1,7 +1,6 @@
 smalltalk.addPackage('SUnit-Tests');
 smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -15,7 +14,6 @@ messageSends: ["new", "with:with:"]}),
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testAdd",
 smalltalk.method({
 selector: "testAdd",
 fn: function (){
@@ -28,7 +26,6 @@ messageSends: ["add:", "assert:", "includes:"]}),
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testGrow",
 smalltalk.method({
 selector: "testGrow",
 fn: function (){
@@ -41,7 +38,6 @@ messageSends: ["addAll:", "to:", "assert:equals:", "size"]}),
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testIllegal",
 smalltalk.method({
 selector: "testIllegal",
 fn: function (){
@@ -61,7 +57,6 @@ messageSends: ["should:raise:", "at:", "at:put:"]}),
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testIncludes",
 smalltalk.method({
 selector: "testIncludes",
 fn: function (){
@@ -74,7 +69,6 @@ messageSends: ["assert:", "includes:"]}),
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testOccurrences",
 smalltalk.method({
 selector: "testOccurrences",
 fn: function (){
@@ -89,7 +83,6 @@ messageSends: ["assert:equals:", "occurrencesOf:", "add:"]}),
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testRemove",
 smalltalk.method({
 selector: "testRemove",
 fn: function (){
@@ -106,7 +99,6 @@ smalltalk.ExampleSetTest);
 
 smalltalk.addClass('SUnitAsyncTest', smalltalk.TestCase, ['flag'], 'SUnit-Tests');
 smalltalk.addMethod(
-"_fakeError",
 smalltalk.method({
 selector: "fakeError",
 fn: function (){
@@ -125,7 +117,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeErrorFailingInTearDown",
 smalltalk.method({
 selector: "fakeErrorFailingInTearDown",
 fn: function (){
@@ -142,7 +133,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeFailure",
 smalltalk.method({
 selector: "fakeFailure",
 fn: function (){
@@ -161,7 +151,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeMultipleTimeoutFailing",
 smalltalk.method({
 selector: "fakeMultipleTimeoutFailing",
 fn: function (){
@@ -181,7 +170,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeMultipleTimeoutPassing",
 smalltalk.method({
 selector: "fakeMultipleTimeoutPassing",
 fn: function (){
@@ -201,7 +189,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeTimeout",
 smalltalk.method({
 selector: "fakeTimeout",
 fn: function (){
@@ -217,7 +204,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_selectorSetOf_",
 smalltalk.method({
 selector: "selectorSetOf:",
 fn: function (aCollection){
@@ -234,7 +220,6 @@ messageSends: ["asSet", "collect:", "selector"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -246,7 +231,6 @@ messageSends: []}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 fn: function (){
@@ -258,7 +242,6 @@ messageSends: ["assert:equals:"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testAsyncErrorsAndFailures",
 smalltalk.method({
 selector: "testAsyncErrorsAndFailures",
 fn: function (){
@@ -295,7 +278,6 @@ messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "a
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testAsyncNeedsTimeout",
 smalltalk.method({
 selector: "testAsyncNeedsTimeout",
 fn: function (){
@@ -321,7 +303,6 @@ messageSends: ["should:raise:", "async:", "timeout:", "shouldnt:raise:", "finish
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testFinishedNeedsTimeout",
 smalltalk.method({
 selector: "testFinishedNeedsTimeout",
 fn: function (){
@@ -342,7 +323,6 @@ messageSends: ["should:raise:", "finished", "timeout:", "shouldnt:raise:"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testIsAsyncReturnsCorrectValues",
 smalltalk.method({
 selector: "testIsAsyncReturnsCorrectValues",
 fn: function (){
@@ -358,7 +338,6 @@ messageSends: ["deny:", "isAsync", "timeout:", "assert:", "finished"]}),
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testPass",
 smalltalk.method({
 selector: "testPass",
 fn: function (){
@@ -378,7 +357,6 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:", "finished"]
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testTimeouts",
 smalltalk.method({
 selector: "testTimeouts",
 fn: function (){
@@ -416,7 +394,6 @@ messageSends: ["collect:", "selector:", "class", "on:", "timeout:", "result", "a
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testTwoAsyncPassesWithFinishedOnlyOneIsRun",
 smalltalk.method({
 selector: "testTwoAsyncPassesWithFinishedOnlyOneIsRun",
 fn: function (){

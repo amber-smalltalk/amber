@@ -13,7 +13,6 @@ smalltalk.addClass('InliningError', smalltalk.SemanticError, [], 'Compiler-Excep
 
 smalltalk.addClass('InvalidAssignmentError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 fn: function (){
@@ -27,7 +26,6 @@ messageSends: [",", "variableName"]}),
 smalltalk.InvalidAssignmentError);
 
 smalltalk.addMethod(
-"_variableName",
 smalltalk.method({
 selector: "variableName",
 fn: function (){
@@ -41,7 +39,6 @@ messageSends: []}),
 smalltalk.InvalidAssignmentError);
 
 smalltalk.addMethod(
-"_variableName_",
 smalltalk.method({
 selector: "variableName:",
 fn: function (aString){
@@ -56,7 +53,6 @@ smalltalk.InvalidAssignmentError);
 
 smalltalk.addClass('ShadowingVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 fn: function (){
@@ -70,7 +66,6 @@ messageSends: [",", "variableName"]}),
 smalltalk.ShadowingVariableError);
 
 smalltalk.addMethod(
-"_variableName",
 smalltalk.method({
 selector: "variableName",
 fn: function (){
@@ -84,7 +79,6 @@ messageSends: []}),
 smalltalk.ShadowingVariableError);
 
 smalltalk.addMethod(
-"_variableName_",
 smalltalk.method({
 selector: "variableName:",
 fn: function (aString){
@@ -99,7 +93,6 @@ smalltalk.ShadowingVariableError);
 
 smalltalk.addClass('UnknownVariableError', smalltalk.SemanticError, ['variableName'], 'Compiler-Exceptions');
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 fn: function (){
@@ -113,7 +106,6 @@ messageSends: [",", "variableName"]}),
 smalltalk.UnknownVariableError);
 
 smalltalk.addMethod(
-"_variableName",
 smalltalk.method({
 selector: "variableName",
 fn: function (){
@@ -127,7 +119,6 @@ messageSends: []}),
 smalltalk.UnknownVariableError);
 
 smalltalk.addMethod(
-"_variableName_",
 smalltalk.method({
 selector: "variableName:",
 fn: function (aString){
@@ -142,7 +133,6 @@ smalltalk.UnknownVariableError);
 
 smalltalk.addClass('RethrowErrorHandler', smalltalk.ErrorHandler, [], 'Compiler-Exceptions');
 smalltalk.addMethod(
-"_basicSignal_",
 smalltalk.method({
 selector: "basicSignal:",
 fn: function (anError){
@@ -154,7 +144,6 @@ messageSends: []}),
 smalltalk.RethrowErrorHandler);
 
 smalltalk.addMethod(
-"_handleError_",
 smalltalk.method({
 selector: "handleError:",
 fn: function (anError){

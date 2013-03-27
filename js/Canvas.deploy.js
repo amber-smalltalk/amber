@@ -1,7 +1,6 @@
 smalltalk.addPackage('Canvas');
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
-"_a",
 smalltalk.method({
 selector: "a",
 fn: function (){
@@ -15,7 +14,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_abbr",
 smalltalk.method({
 selector: "abbr",
 fn: function (){
@@ -29,7 +27,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_address",
 smalltalk.method({
 selector: "address",
 fn: function (){
@@ -43,7 +40,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_area",
 smalltalk.method({
 selector: "area",
 fn: function (){
@@ -57,7 +53,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_article",
 smalltalk.method({
 selector: "article",
 fn: function (){
@@ -71,7 +66,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_aside",
 smalltalk.method({
 selector: "aside",
 fn: function (){
@@ -85,7 +79,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_audio",
 smalltalk.method({
 selector: "audio",
 fn: function (){
@@ -99,7 +92,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_base",
 smalltalk.method({
 selector: "base",
 fn: function (){
@@ -113,7 +105,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_blockquote",
 smalltalk.method({
 selector: "blockquote",
 fn: function (){
@@ -127,7 +118,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_body",
 smalltalk.method({
 selector: "body",
 fn: function (){
@@ -141,7 +131,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_br",
 smalltalk.method({
 selector: "br",
 fn: function (){
@@ -155,7 +144,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_button",
 smalltalk.method({
 selector: "button",
 fn: function (){
@@ -169,7 +157,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_canvas",
 smalltalk.method({
 selector: "canvas",
 fn: function (){
@@ -183,7 +170,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_caption",
 smalltalk.method({
 selector: "caption",
 fn: function (){
@@ -197,7 +183,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_cite",
 smalltalk.method({
 selector: "cite",
 fn: function (){
@@ -211,7 +196,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_code",
 smalltalk.method({
 selector: "code",
 fn: function (){
@@ -225,7 +209,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_col",
 smalltalk.method({
 selector: "col",
 fn: function (){
@@ -239,7 +222,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_colgroup",
 smalltalk.method({
 selector: "colgroup",
 fn: function (){
@@ -253,7 +235,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_command",
 smalltalk.method({
 selector: "command",
 fn: function (){
@@ -267,7 +248,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_datalist",
 smalltalk.method({
 selector: "datalist",
 fn: function (){
@@ -281,7 +261,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_dd",
 smalltalk.method({
 selector: "dd",
 fn: function (){
@@ -295,7 +274,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_del",
 smalltalk.method({
 selector: "del",
 fn: function (){
@@ -309,7 +287,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_details",
 smalltalk.method({
 selector: "details",
 fn: function (){
@@ -323,7 +300,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_div",
 smalltalk.method({
 selector: "div",
 fn: function (){
@@ -337,7 +313,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_div_",
 smalltalk.method({
 selector: "div:",
 fn: function (aBlock){
@@ -351,7 +326,6 @@ messageSends: ["with:", "div"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_dl",
 smalltalk.method({
 selector: "dl",
 fn: function (){
@@ -365,7 +339,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_dt",
 smalltalk.method({
 selector: "dt",
 fn: function (){
@@ -379,7 +352,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_em",
 smalltalk.method({
 selector: "em",
 fn: function (){
@@ -393,7 +365,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_embed",
 smalltalk.method({
 selector: "embed",
 fn: function (){
@@ -407,7 +378,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_entity_",
 smalltalk.method({
 selector: "entity:",
 fn: function (aString){
@@ -426,7 +396,6 @@ messageSends: ["text", "html:", ",", "asJQuery", "ifFalse:", "error:", "=", "siz
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_fieldset",
 smalltalk.method({
 selector: "fieldset",
 fn: function (){
@@ -440,7 +409,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_figcaption",
 smalltalk.method({
 selector: "figcaption",
 fn: function (){
@@ -454,7 +422,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_figure",
 smalltalk.method({
 selector: "figure",
 fn: function (){
@@ -468,7 +435,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_footer",
 smalltalk.method({
 selector: "footer",
 fn: function (){
@@ -482,7 +448,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_form",
 smalltalk.method({
 selector: "form",
 fn: function (){
@@ -496,7 +461,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h1",
 smalltalk.method({
 selector: "h1",
 fn: function (){
@@ -510,7 +474,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h1_",
 smalltalk.method({
 selector: "h1:",
 fn: function (anObject){
@@ -524,7 +487,6 @@ messageSends: ["with:", "h1"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h2",
 smalltalk.method({
 selector: "h2",
 fn: function (){
@@ -538,7 +500,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h2_",
 smalltalk.method({
 selector: "h2:",
 fn: function (anObject){
@@ -552,7 +513,6 @@ messageSends: ["with:", "h2"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h3",
 smalltalk.method({
 selector: "h3",
 fn: function (){
@@ -566,7 +526,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h3_",
 smalltalk.method({
 selector: "h3:",
 fn: function (anObject){
@@ -580,7 +539,6 @@ messageSends: ["with:", "h3"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h4",
 smalltalk.method({
 selector: "h4",
 fn: function (){
@@ -594,7 +552,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h4_",
 smalltalk.method({
 selector: "h4:",
 fn: function (anObject){
@@ -608,7 +565,6 @@ messageSends: ["with:", "h4"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h5",
 smalltalk.method({
 selector: "h5",
 fn: function (){
@@ -622,7 +578,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h5_",
 smalltalk.method({
 selector: "h5:",
 fn: function (anObject){
@@ -636,7 +591,6 @@ messageSends: ["with:", "h5"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h6",
 smalltalk.method({
 selector: "h6",
 fn: function (){
@@ -650,7 +604,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_h6_",
 smalltalk.method({
 selector: "h6:",
 fn: function (anObject){
@@ -664,7 +617,6 @@ messageSends: ["with:", "h6"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_head",
 smalltalk.method({
 selector: "head",
 fn: function (){
@@ -678,7 +630,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_header",
 smalltalk.method({
 selector: "header",
 fn: function (){
@@ -692,7 +643,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_hgroup",
 smalltalk.method({
 selector: "hgroup",
 fn: function (){
@@ -706,7 +656,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_hr",
 smalltalk.method({
 selector: "hr",
 fn: function (){
@@ -720,7 +669,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_html",
 smalltalk.method({
 selector: "html",
 fn: function (){
@@ -734,7 +682,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_iframe",
 smalltalk.method({
 selector: "iframe",
 fn: function (){
@@ -748,7 +695,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_iframe_",
 smalltalk.method({
 selector: "iframe:",
 fn: function (aString){
@@ -762,7 +708,6 @@ messageSends: ["src:", "iframe"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_img",
 smalltalk.method({
 selector: "img",
 fn: function (){
@@ -776,7 +721,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_img_",
 smalltalk.method({
 selector: "img:",
 fn: function (aString){
@@ -790,7 +734,6 @@ messageSends: ["src:", "img"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -811,7 +754,6 @@ messageSends: ["initialize", "ifNil:", "fromString:canvas:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_initializeFromJQuery_",
 smalltalk.method({
 selector: "initializeFromJQuery:",
 fn: function (aJQuery){
@@ -824,7 +766,6 @@ messageSends: ["fromJQuery:canvas:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_input",
 smalltalk.method({
 selector: "input",
 fn: function (){
@@ -838,7 +779,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_label",
 smalltalk.method({
 selector: "label",
 fn: function (){
@@ -852,7 +792,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_legend",
 smalltalk.method({
 selector: "legend",
 fn: function (){
@@ -866,7 +805,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_li",
 smalltalk.method({
 selector: "li",
 fn: function (){
@@ -880,7 +818,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_li_",
 smalltalk.method({
 selector: "li:",
 fn: function (anObject){
@@ -894,7 +831,6 @@ messageSends: ["with:", "li"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_link",
 smalltalk.method({
 selector: "link",
 fn: function (){
@@ -908,7 +844,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_map",
 smalltalk.method({
 selector: "map",
 fn: function (){
@@ -922,7 +857,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_mark",
 smalltalk.method({
 selector: "mark",
 fn: function (){
@@ -936,7 +870,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_menu",
 smalltalk.method({
 selector: "menu",
 fn: function (){
@@ -950,7 +883,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_meta",
 smalltalk.method({
 selector: "meta",
 fn: function (){
@@ -964,7 +896,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_nav",
 smalltalk.method({
 selector: "nav",
 fn: function (){
@@ -978,7 +909,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_newTag_",
 smalltalk.method({
 selector: "newTag:",
 fn: function (aString){
@@ -993,7 +923,6 @@ messageSends: ["fromString:canvas:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_noscript",
 smalltalk.method({
 selector: "noscript",
 fn: function (){
@@ -1007,7 +936,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_object",
 smalltalk.method({
 selector: "object",
 fn: function (){
@@ -1021,7 +949,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ol",
 smalltalk.method({
 selector: "ol",
 fn: function (){
@@ -1035,7 +962,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ol_",
 smalltalk.method({
 selector: "ol:",
 fn: function (anObject){
@@ -1049,7 +975,6 @@ messageSends: ["with:", "ol"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_optgroup",
 smalltalk.method({
 selector: "optgroup",
 fn: function (){
@@ -1063,7 +988,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_option",
 smalltalk.method({
 selector: "option",
 fn: function (){
@@ -1077,7 +1001,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_output",
 smalltalk.method({
 selector: "output",
 fn: function (){
@@ -1091,7 +1014,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_p",
 smalltalk.method({
 selector: "p",
 fn: function (){
@@ -1105,7 +1027,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_p_",
 smalltalk.method({
 selector: "p:",
 fn: function (anObject){
@@ -1119,7 +1040,6 @@ messageSends: ["with:", "p"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_param",
 smalltalk.method({
 selector: "param",
 fn: function (){
@@ -1133,7 +1053,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_pre",
 smalltalk.method({
 selector: "pre",
 fn: function (){
@@ -1147,7 +1066,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_progress",
 smalltalk.method({
 selector: "progress",
 fn: function (){
@@ -1161,7 +1079,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_root",
 smalltalk.method({
 selector: "root",
 fn: function (){
@@ -1175,7 +1092,6 @@ messageSends: []}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_root_",
 smalltalk.method({
 selector: "root:",
 fn: function (aTagBrush){
@@ -1187,7 +1103,6 @@ messageSends: []}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_script",
 smalltalk.method({
 selector: "script",
 fn: function (){
@@ -1201,7 +1116,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_section",
 smalltalk.method({
 selector: "section",
 fn: function (){
@@ -1215,7 +1129,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_select",
 smalltalk.method({
 selector: "select",
 fn: function (){
@@ -1229,7 +1142,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_small",
 smalltalk.method({
 selector: "small",
 fn: function (){
@@ -1243,7 +1155,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_snippet_",
 smalltalk.method({
 selector: "snippet:",
 fn: function (anElement){
@@ -1267,7 +1178,6 @@ messageSends: ["clone", "asJQuery", "with:", "fromJQuery:canvas:", "find:", "ifT
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 fn: function (){
@@ -1281,7 +1191,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_span",
 smalltalk.method({
 selector: "span",
 fn: function (){
@@ -1295,7 +1204,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_span_",
 smalltalk.method({
 selector: "span:",
 fn: function (anObject){
@@ -1309,7 +1217,6 @@ messageSends: ["with:", "span"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_strong",
 smalltalk.method({
 selector: "strong",
 fn: function (){
@@ -1323,7 +1230,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_strong_",
 smalltalk.method({
 selector: "strong:",
 fn: function (anObject){
@@ -1337,7 +1243,6 @@ messageSends: ["with:", "strong"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_style",
 smalltalk.method({
 selector: "style",
 fn: function (){
@@ -1352,7 +1257,6 @@ messageSends: ["addBrush:", "canvas:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_style_",
 smalltalk.method({
 selector: "style:",
 fn: function (aString){
@@ -1369,7 +1273,6 @@ messageSends: ["with:", "style", "yourself"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_sub",
 smalltalk.method({
 selector: "sub",
 fn: function (){
@@ -1383,7 +1286,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_summary",
 smalltalk.method({
 selector: "summary",
 fn: function (){
@@ -1397,7 +1299,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_sup",
 smalltalk.method({
 selector: "sup",
 fn: function (){
@@ -1411,7 +1312,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_table",
 smalltalk.method({
 selector: "table",
 fn: function (){
@@ -1425,7 +1325,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tag_",
 smalltalk.method({
 selector: "tag:",
 fn: function (aString){
@@ -1439,7 +1338,6 @@ messageSends: ["addBrush:", "newTag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tbody",
 smalltalk.method({
 selector: "tbody",
 fn: function (){
@@ -1453,7 +1351,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_td",
 smalltalk.method({
 selector: "td",
 fn: function (){
@@ -1467,7 +1364,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_textarea",
 smalltalk.method({
 selector: "textarea",
 fn: function (){
@@ -1481,7 +1377,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tfoot",
 smalltalk.method({
 selector: "tfoot",
 fn: function (){
@@ -1495,7 +1390,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_th",
 smalltalk.method({
 selector: "th",
 fn: function (){
@@ -1509,7 +1403,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_thead",
 smalltalk.method({
 selector: "thead",
 fn: function (){
@@ -1523,7 +1416,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_time",
 smalltalk.method({
 selector: "time",
 fn: function (){
@@ -1537,7 +1429,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_title",
 smalltalk.method({
 selector: "title",
 fn: function (){
@@ -1551,7 +1442,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_tr",
 smalltalk.method({
 selector: "tr",
 fn: function (){
@@ -1565,7 +1455,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ul",
 smalltalk.method({
 selector: "ul",
 fn: function (){
@@ -1579,7 +1468,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_ul_",
 smalltalk.method({
 selector: "ul:",
 fn: function (anObject){
@@ -1593,7 +1481,6 @@ messageSends: ["with:", "ul"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_video",
 smalltalk.method({
 selector: "video",
 fn: function (){
@@ -1607,7 +1494,6 @@ messageSends: ["tag:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 fn: function (anObject){
@@ -1622,7 +1508,6 @@ smalltalk.HTMLCanvas);
 
 
 smalltalk.addMethod(
-"_browserVersion",
 smalltalk.method({
 selector: "browserVersion",
 fn: function (){
@@ -1636,7 +1521,6 @@ messageSends: ["version", "at:"]}),
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isMSIE",
 smalltalk.method({
 selector: "isMSIE",
 fn: function (){
@@ -1650,7 +1534,6 @@ messageSends: ["notNil", "at:"]}),
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isMozilla",
 smalltalk.method({
 selector: "isMozilla",
 fn: function (){
@@ -1664,7 +1547,6 @@ messageSends: ["notNil", "at:"]}),
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isOpera",
 smalltalk.method({
 selector: "isOpera",
 fn: function (){
@@ -1678,7 +1560,6 @@ messageSends: ["notNil", "at:"]}),
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_isWebkit",
 smalltalk.method({
 selector: "isWebkit",
 fn: function (){
@@ -1692,7 +1573,6 @@ messageSends: ["notNil", "at:"]}),
 smalltalk.HTMLCanvas.klass);
 
 smalltalk.addMethod(
-"_onJQuery_",
 smalltalk.method({
 selector: "onJQuery:",
 fn: function (aJQuery){
@@ -1712,7 +1592,6 @@ smalltalk.HTMLCanvas.klass);
 
 smalltalk.addClass('HTMLSnippet', smalltalk.Object, ['snippets'], 'Canvas');
 smalltalk.addMethod(
-"_initializeFromJQuery_",
 smalltalk.method({
 selector: "initializeFromJQuery:",
 fn: function (aJQuery){
@@ -1727,7 +1606,6 @@ messageSends: ["do:", "installSnippetFromJQuery:", "asJQuery", "snippetsFromJQue
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_installSnippetFromJQuery_",
 smalltalk.method({
 selector: "installSnippetFromJQuery:",
 fn: function (element){
@@ -1753,7 +1631,6 @@ messageSends: ["attr:", "ifFalse:", "ifTrue:ifFalse:", "allButFirst", "attr:put:
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_",
 smalltalk.method({
 selector: "snippetAt:",
 fn: function (aString){
@@ -1767,7 +1644,6 @@ messageSends: ["at:", "snippets"]}),
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_compile_",
 smalltalk.method({
 selector: "snippetAt:compile:",
 fn: function (aString,anElement){
@@ -1784,7 +1660,6 @@ messageSends: ["installMethod:forClass:category:", "asCompiledMethod:", "currySe
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetAt_install_",
 smalltalk.method({
 selector: "snippetAt:install:",
 fn: function (aString,anElement){
@@ -1797,7 +1672,6 @@ messageSends: ["at:put:", "snippets", "snippetAt:compile:"]}),
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippets",
 smalltalk.method({
 selector: "snippets",
 fn: function (){
@@ -1817,7 +1691,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
-"_snippetsFromJQuery_",
 smalltalk.method({
 selector: "snippetsFromJQuery:",
 fn: function (aJQuery){
@@ -1833,7 +1706,6 @@ smalltalk.HTMLSnippet);
 
 smalltalk.HTMLSnippet.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 fn: function (){
@@ -1847,7 +1719,6 @@ messageSends: []}),
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_ensureCurrent",
 smalltalk.method({
 selector: "ensureCurrent",
 fn: function (){
@@ -1869,7 +1740,6 @@ messageSends: ["ifNil:", "initializeFromJQuery:", "asJQuery", "new", "yourself"]
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -1886,7 +1756,6 @@ messageSends: ["initialize", "ifTrue:", "ensureCurrent", "isDOMAvailable"]}),
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_isDOMAvailable",
 smalltalk.method({
 selector: "isDOMAvailable",
 fn: function (){
@@ -1898,7 +1767,6 @@ messageSends: []}),
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function (){
@@ -1912,7 +1780,6 @@ smalltalk.HTMLSnippet.klass);
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
-"_accesskey_",
 smalltalk.method({
 selector: "accesskey:",
 fn: function (aString){
@@ -1924,7 +1791,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_action_",
 smalltalk.method({
 selector: "action:",
 fn: function (aString){
@@ -1936,7 +1802,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_addBrush_",
 smalltalk.method({
 selector: "addBrush:",
 fn: function (aTagBrush){
@@ -1951,7 +1816,6 @@ messageSends: ["appendChild:", "element"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_align_",
 smalltalk.method({
 selector: "align:",
 fn: function (aString){
@@ -1963,7 +1827,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_alt_",
 smalltalk.method({
 selector: "alt:",
 fn: function (aString){
@@ -1975,7 +1838,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_append_",
 smalltalk.method({
 selector: "append:",
 fn: function (anObject){
@@ -1987,7 +1849,6 @@ messageSends: ["appendToBrush:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendBlock_",
 smalltalk.method({
 selector: "appendBlock:",
 fn: function (aBlock){
@@ -2003,7 +1864,6 @@ messageSends: ["root", "root:", "value:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendChild_",
 smalltalk.method({
 selector: "appendChild:",
 fn: function (anElement){
@@ -2020,7 +1880,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendString_",
 smalltalk.method({
 selector: "appendString:",
 fn: function (aString){
@@ -2032,7 +1891,6 @@ messageSends: ["appendChild:", "createTextNodeFor:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 fn: function (aTagBrush){
@@ -2044,7 +1902,6 @@ messageSends: ["addBrush:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_asJQuery",
 smalltalk.method({
 selector: "asJQuery",
 fn: function (){
@@ -2058,7 +1915,6 @@ messageSends: ["jQuery:", "element"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 fn: function (aString,aValue){
@@ -2070,7 +1926,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_class_",
 smalltalk.method({
 selector: "class:",
 fn: function (aString){
@@ -2082,7 +1937,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_cols_",
 smalltalk.method({
 selector: "cols:",
 fn: function (aString){
@@ -2094,7 +1948,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_contenteditable_",
 smalltalk.method({
 selector: "contenteditable:",
 fn: function (aString){
@@ -2106,7 +1959,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_contents_",
 smalltalk.method({
 selector: "contents:",
 fn: function (anObject){
@@ -2121,7 +1973,6 @@ messageSends: ["empty", "append:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_contextmenu_",
 smalltalk.method({
 selector: "contextmenu:",
 fn: function (aString){
@@ -2133,7 +1984,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_createElementFor_",
 smalltalk.method({
 selector: "createElementFor:",
 fn: function (aString){
@@ -2145,7 +1995,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_createTextNodeFor_",
 smalltalk.method({
 selector: "createTextNodeFor:",
 fn: function (aString){
@@ -2157,7 +2006,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_draggable_",
 smalltalk.method({
 selector: "draggable:",
 fn: function (aString){
@@ -2169,7 +2017,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_element",
 smalltalk.method({
 selector: "element",
 fn: function (){
@@ -2183,7 +2030,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_empty",
 smalltalk.method({
 selector: "empty",
 fn: function (){
@@ -2195,7 +2041,6 @@ messageSends: ["empty", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_for_",
 smalltalk.method({
 selector: "for:",
 fn: function (aString){
@@ -2207,7 +2052,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_height_",
 smalltalk.method({
 selector: "height:",
 fn: function (aString){
@@ -2219,7 +2063,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_hidden",
 smalltalk.method({
 selector: "hidden",
 fn: function (){
@@ -2231,7 +2074,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_href_",
 smalltalk.method({
 selector: "href:",
 fn: function (aString){
@@ -2243,7 +2085,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_id_",
 smalltalk.method({
 selector: "id:",
 fn: function (aString){
@@ -2255,7 +2096,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_initializeFromJQuery_canvas_",
 smalltalk.method({
 selector: "initializeFromJQuery:canvas:",
 fn: function (aJQuery,aCanvas){
@@ -2268,7 +2108,6 @@ messageSends: ["get:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_initializeFromString_canvas_",
 smalltalk.method({
 selector: "initializeFromString:canvas:",
 fn: function (aString,aCanvas){
@@ -2281,7 +2120,6 @@ messageSends: ["createElementFor:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_media_",
 smalltalk.method({
 selector: "media:",
 fn: function (aString){
@@ -2293,7 +2131,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_method_",
 smalltalk.method({
 selector: "method:",
 fn: function (aString){
@@ -2305,7 +2142,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_name_",
 smalltalk.method({
 selector: "name:",
 fn: function (aString){
@@ -2317,7 +2153,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onBlur_",
 smalltalk.method({
 selector: "onBlur:",
 fn: function (aBlock){
@@ -2329,7 +2164,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onChange_",
 smalltalk.method({
 selector: "onChange:",
 fn: function (aBlock){
@@ -2341,7 +2175,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onClick_",
 smalltalk.method({
 selector: "onClick:",
 fn: function (aBlock){
@@ -2353,7 +2186,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onDblClick_",
 smalltalk.method({
 selector: "onDblClick:",
 fn: function (aBlock){
@@ -2365,7 +2197,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onFocus_",
 smalltalk.method({
 selector: "onFocus:",
 fn: function (aBlock){
@@ -2377,7 +2208,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onFocusIn_",
 smalltalk.method({
 selector: "onFocusIn:",
 fn: function (aBlock){
@@ -2389,7 +2219,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onFocusOut_",
 smalltalk.method({
 selector: "onFocusOut:",
 fn: function (aBlock){
@@ -2401,7 +2230,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onHover_",
 smalltalk.method({
 selector: "onHover:",
 fn: function (aBlock){
@@ -2413,7 +2241,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onKeyDown_",
 smalltalk.method({
 selector: "onKeyDown:",
 fn: function (aBlock){
@@ -2425,7 +2252,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onKeyPress_",
 smalltalk.method({
 selector: "onKeyPress:",
 fn: function (aBlock){
@@ -2437,7 +2263,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onKeyUp_",
 smalltalk.method({
 selector: "onKeyUp:",
 fn: function (aBlock){
@@ -2449,7 +2274,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseDown_",
 smalltalk.method({
 selector: "onMouseDown:",
 fn: function (aBlock){
@@ -2461,7 +2285,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseEnter_",
 smalltalk.method({
 selector: "onMouseEnter:",
 fn: function (aBlock){
@@ -2473,7 +2296,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseLeave_",
 smalltalk.method({
 selector: "onMouseLeave:",
 fn: function (aBlock){
@@ -2485,7 +2307,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseMove_",
 smalltalk.method({
 selector: "onMouseMove:",
 fn: function (aBlock){
@@ -2497,7 +2318,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseOut_",
 smalltalk.method({
 selector: "onMouseOut:",
 fn: function (aBlock){
@@ -2509,7 +2329,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseOver_",
 smalltalk.method({
 selector: "onMouseOver:",
 fn: function (aBlock){
@@ -2521,7 +2340,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onMouseUp_",
 smalltalk.method({
 selector: "onMouseUp:",
 fn: function (aBlock){
@@ -2533,7 +2351,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onSelect_",
 smalltalk.method({
 selector: "onSelect:",
 fn: function (aBlock){
@@ -2545,7 +2362,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onSubmit_",
 smalltalk.method({
 selector: "onSubmit:",
 fn: function (aBlock){
@@ -2557,7 +2373,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_onUnload_",
 smalltalk.method({
 selector: "onUnload:",
 fn: function (aBlock){
@@ -2569,7 +2384,6 @@ messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_placeholder_",
 smalltalk.method({
 selector: "placeholder:",
 fn: function (aString){
@@ -2581,7 +2395,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_rel_",
 smalltalk.method({
 selector: "rel:",
 fn: function (aString){
@@ -2593,7 +2406,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_removeAt_",
 smalltalk.method({
 selector: "removeAt:",
 fn: function (aString){
@@ -2605,7 +2417,6 @@ messageSends: []}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_rows_",
 smalltalk.method({
 selector: "rows:",
 fn: function (aString){
@@ -2617,7 +2428,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_src_",
 smalltalk.method({
 selector: "src:",
 fn: function (aString){
@@ -2629,7 +2439,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_style_",
 smalltalk.method({
 selector: "style:",
 fn: function (aString){
@@ -2641,7 +2450,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_tabindex_",
 smalltalk.method({
 selector: "tabindex:",
 fn: function (aNumber){
@@ -2653,7 +2461,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_target_",
 smalltalk.method({
 selector: "target:",
 fn: function (aString){
@@ -2665,7 +2472,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_title_",
 smalltalk.method({
 selector: "title:",
 fn: function (aString){
@@ -2677,7 +2483,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_type_",
 smalltalk.method({
 selector: "type:",
 fn: function (aString){
@@ -2689,7 +2494,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_valign_",
 smalltalk.method({
 selector: "valign:",
 fn: function (aString){
@@ -2701,7 +2505,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 fn: function (aString){
@@ -2713,7 +2516,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_width_",
 smalltalk.method({
 selector: "width:",
 fn: function (aString){
@@ -2725,7 +2527,6 @@ messageSends: ["at:put:"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 fn: function (anObject){
@@ -2738,7 +2539,6 @@ smalltalk.TagBrush);
 
 
 smalltalk.addMethod(
-"_fromJQuery_canvas_",
 smalltalk.method({
 selector: "fromJQuery:canvas:",
 fn: function (aJQuery,aCanvas){
@@ -2755,7 +2555,6 @@ messageSends: ["initializeFromJQuery:canvas:", "new", "yourself"]}),
 smalltalk.TagBrush.klass);
 
 smalltalk.addMethod(
-"_fromString_canvas_",
 smalltalk.method({
 selector: "fromString:canvas:",
 fn: function (aString,aCanvas){
@@ -2774,7 +2573,6 @@ smalltalk.TagBrush.klass);
 
 smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 fn: function (aString){
@@ -2794,7 +2592,6 @@ smalltalk.StyleTag);
 
 
 smalltalk.addMethod(
-"_canvas_",
 smalltalk.method({
 selector: "canvas:",
 fn: function (aCanvas){
@@ -2813,7 +2610,6 @@ smalltalk.StyleTag.klass);
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 fn: function (aTagBrush){
@@ -2825,7 +2621,6 @@ messageSends: ["appendToJQuery:", "asJQuery"]}),
 smalltalk.Widget);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 fn: function (aJQuery){
@@ -2838,7 +2633,6 @@ messageSends: ["renderOn:", "onJQuery:"]}),
 smalltalk.Widget);
 
 smalltalk.addMethod(
-"_renderOn_",
 smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
@@ -2851,7 +2645,6 @@ smalltalk.Widget);
 
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 fn: function (aTagBrush){
@@ -2863,7 +2656,6 @@ messageSends: ["append:", "asString"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 fn: function (aJQuery){
@@ -2875,7 +2667,6 @@ messageSends: ["append:", "asString"]}),
 smalltalk.Object);
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 fn: function (aTagBrush){
@@ -2887,7 +2678,6 @@ messageSends: ["appendBlock:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 fn: function (aJQuery){
@@ -2900,7 +2690,6 @@ messageSends: ["value:", "onJQuery:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_asSnippet",
 smalltalk.method({
 selector: "asSnippet",
 fn: function (){
@@ -2915,7 +2704,6 @@ messageSends: ["snippetAt:", "asString", "current"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_appendToBrush_",
 smalltalk.method({
 selector: "appendToBrush:",
 fn: function (aTagBrush){
@@ -2927,7 +2715,6 @@ messageSends: ["appendString:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_appendToJQuery_",
 smalltalk.method({
 selector: "appendToJQuery:",
 fn: function (aJQuery){
@@ -2939,7 +2726,6 @@ messageSends: ["append:"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJQuery",
 smalltalk.method({
 selector: "asJQuery",
 fn: function (){
@@ -2951,7 +2737,6 @@ messageSends: []}),
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJQuery",
 smalltalk.method({
 selector: "asJQuery",
 fn: function (){

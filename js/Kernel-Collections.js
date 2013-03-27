@@ -2,7 +2,6 @@ smalltalk.addPackage('Kernel-Collections');
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`"
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 category: 'comparing',
@@ -27,7 +26,6 @@ referencedClasses: []
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_key",
 smalltalk.method({
 selector: "key",
 category: 'accessing',
@@ -46,7 +44,6 @@ referencedClasses: []
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_key_",
 smalltalk.method({
 selector: "key:",
 category: 'accessing',
@@ -63,7 +60,6 @@ referencedClasses: []
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -82,7 +78,6 @@ referencedClasses: []
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_value",
 smalltalk.method({
 selector: "value",
 category: 'accessing',
@@ -101,7 +96,6 @@ referencedClasses: []
 smalltalk.Association);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 category: 'accessing',
@@ -119,7 +113,6 @@ smalltalk.Association);
 
 
 smalltalk.addMethod(
-"_key_value_",
 smalltalk.method({
 selector: "key:value:",
 category: 'instance creation',
@@ -145,7 +138,6 @@ smalltalk.Association.klass);
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collectiohn hierarchy such as enumerating and converting methods."
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 category: 'copying',
@@ -167,7 +159,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
@@ -184,7 +175,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_addAll_",
 smalltalk.method({
 selector: "addAll:",
 category: 'adding/removing',
@@ -207,7 +197,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asArray",
 smalltalk.method({
 selector: "asArray",
 category: 'converting',
@@ -227,7 +216,6 @@ referencedClasses: ["Array"]
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
@@ -249,7 +237,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asOrderedCollection",
 smalltalk.method({
 selector: "asOrderedCollection",
 category: 'converting',
@@ -268,7 +255,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_asSet",
 smalltalk.method({
 selector: "asSet",
 category: 'converting',
@@ -288,7 +274,6 @@ referencedClasses: ["Set"]
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_collect_",
 smalltalk.method({
 selector: "collect:",
 category: 'enumerating',
@@ -313,7 +298,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_copyWith_",
 smalltalk.method({
 selector: "copyWith:",
 category: 'copying',
@@ -335,7 +319,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_copyWithAll_",
 smalltalk.method({
 selector: "copyWithAll:",
 category: 'copying',
@@ -357,7 +340,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_copyWithoutAll_",
 smalltalk.method({
 selector: "copyWithoutAll:",
 category: 'copying',
@@ -379,7 +361,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_detect_",
 smalltalk.method({
 selector: "detect:",
 category: 'enumerating',
@@ -401,7 +382,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
@@ -418,7 +398,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
@@ -435,7 +414,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_do_separatedBy_",
 smalltalk.method({
 selector: "do:separatedBy:",
 category: 'enumerating',
@@ -462,7 +440,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_errorNotFound",
 smalltalk.method({
 selector: "errorNotFound",
 category: 'error handling',
@@ -479,7 +456,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_ifEmpty_",
 smalltalk.method({
 selector: "ifEmpty:",
 category: 'testing',
@@ -503,7 +479,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_ifNotEmpty_",
 smalltalk.method({
 selector: "ifNotEmpty:",
 category: 'testing',
@@ -522,7 +497,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 category: 'testing',
@@ -550,7 +524,6 @@ referencedClasses: ["Object"]
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_inject_into_",
 smalltalk.method({
 selector: "inject:into:",
 category: 'enumerating',
@@ -576,7 +549,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_intersection_",
 smalltalk.method({
 selector: "intersection:",
 category: 'enumerating',
@@ -609,7 +581,6 @@ referencedClasses: ["Set"]
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
 category: 'testing',
@@ -628,7 +599,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_notEmpty",
 smalltalk.method({
 selector: "notEmpty",
 category: 'testing',
@@ -647,7 +617,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_occurrencesOf_",
 smalltalk.method({
 selector: "occurrencesOf:",
 category: 'accessing',
@@ -676,7 +645,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_putOn_",
 smalltalk.method({
 selector: "putOn:",
 category: 'streaming',
@@ -696,7 +664,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_reject_",
 smalltalk.method({
 selector: "reject:",
 category: 'enumerating',
@@ -718,7 +685,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 category: 'adding/removing',
@@ -740,7 +706,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
 category: 'adding/removing',
@@ -757,7 +722,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_select_",
 smalltalk.method({
 selector: "select:",
 category: 'enumerating',
@@ -785,7 +749,6 @@ referencedClasses: []
 smalltalk.Collection);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 category: 'accessing',
@@ -803,7 +766,6 @@ smalltalk.Collection);
 
 
 smalltalk.addMethod(
-"_new_",
 smalltalk.method({
 selector: "new:",
 category: 'instance creation',
@@ -822,7 +784,6 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 category: 'instance creation',
@@ -844,7 +805,6 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_with_with_",
 smalltalk.method({
 selector: "with:with:",
 category: 'instance creation',
@@ -867,7 +827,6 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_with_with_with_",
 smalltalk.method({
 selector: "with:with:with:",
 category: 'instance creation',
@@ -891,7 +850,6 @@ referencedClasses: []
 smalltalk.Collection.klass);
 
 smalltalk.addMethod(
-"_withAll_",
 smalltalk.method({
 selector: "withAll:",
 category: 'instance creation',
@@ -916,7 +874,6 @@ smalltalk.Collection.klass);
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
 smalltalk.IndexableCollection.comment="I am a key-value store, that is,\x0ait stores values under indexes.\x0a\x0aAs a rule of thumb, if a collection has at: and at:put:,\x0ait is an IndexableCollection."
 smalltalk.addMethod(
-"_at_",
 smalltalk.method({
 selector: "at:",
 category: 'accessing',
@@ -938,7 +895,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
@@ -955,7 +911,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_ifPresent_",
 smalltalk.method({
 selector: "at:ifPresent:",
 category: 'accessing',
@@ -977,7 +932,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_ifPresent_ifAbsent_",
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
 category: 'accessing',
@@ -994,7 +948,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
@@ -1011,7 +964,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_indexOf_",
 smalltalk.method({
 selector: "indexOf:",
 category: 'accessing',
@@ -1033,7 +985,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 category: 'accessing',
@@ -1050,7 +1001,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_with_do_",
 smalltalk.method({
 selector: "with:do:",
 category: 'enumarating',
@@ -1070,7 +1020,6 @@ referencedClasses: []
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 category: 'enumarating',
@@ -1091,7 +1040,6 @@ smalltalk.IndexableCollection);
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
 smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, it can only have strings as keys."
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 category: 'copying',
@@ -1108,7 +1056,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 category: 'comparing',
@@ -1135,7 +1082,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
@@ -1152,7 +1098,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_addAll_",
 smalltalk.method({
 selector: "addAll:",
 category: 'adding/removing',
@@ -1172,7 +1117,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_asDictionary",
 smalltalk.method({
 selector: "asDictionary",
 category: 'converting',
@@ -1192,7 +1136,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
@@ -1217,7 +1160,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_associations",
 smalltalk.method({
 selector: "associations",
 category: 'accessing',
@@ -1242,7 +1184,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_associationsDo_",
 smalltalk.method({
 selector: "associationsDo:",
 category: 'enumerating',
@@ -1263,7 +1204,6 @@ referencedClasses: ["Association"]
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
@@ -1286,7 +1226,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_ifAbsentPut_",
 smalltalk.method({
 selector: "at:ifAbsentPut:",
 category: 'accessing',
@@ -1308,7 +1247,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_ifPresent_ifAbsent_",
 smalltalk.method({
 selector: "at:ifPresent:ifAbsent:",
 category: 'accessing',
@@ -1331,7 +1269,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
@@ -1350,7 +1287,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_collect_",
 smalltalk.method({
 selector: "collect:",
 category: 'enumerating',
@@ -1375,7 +1311,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
@@ -1400,7 +1335,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
@@ -1419,7 +1353,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
@@ -1436,7 +1369,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 category: 'enumerating',
@@ -1455,7 +1387,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_includesKey_",
 smalltalk.method({
 selector: "includesKey:",
 category: 'testing',
@@ -1472,7 +1403,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 category: 'accessing',
@@ -1494,7 +1424,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_keys",
 smalltalk.method({
 selector: "keys",
 category: 'accessing',
@@ -1520,7 +1449,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_keysAndValuesDo_",
 smalltalk.method({
 selector: "keysAndValuesDo:",
 category: 'enumerating',
@@ -1540,7 +1468,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_keysDo_",
 smalltalk.method({
 selector: "keysDo:",
 category: 'enumerating',
@@ -1557,7 +1484,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -1583,7 +1509,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
 category: 'adding/removing',
@@ -1602,7 +1527,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_removeKey_",
 smalltalk.method({
 selector: "removeKey:",
 category: 'adding/removing',
@@ -1621,7 +1545,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_removeKey_ifAbsent_",
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 category: 'adding/removing',
@@ -1645,7 +1568,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_select_",
 smalltalk.method({
 selector: "select:",
 category: 'enumerating',
@@ -1673,7 +1595,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
@@ -1698,7 +1619,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 category: 'accessing',
@@ -1717,7 +1637,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_values",
 smalltalk.method({
 selector: "values",
 category: 'accessing',
@@ -1739,7 +1658,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_valuesDo_",
 smalltalk.method({
 selector: "valuesDo:",
 category: 'enumerating',
@@ -1759,7 +1677,6 @@ referencedClasses: []
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 category: 'enumerating',
@@ -1780,7 +1697,6 @@ smalltalk.HashedCollection);
 
 
 smalltalk.addMethod(
-"_fromPairs_",
 smalltalk.method({
 selector: "fromPairs:",
 category: 'instance creation',
@@ -1808,7 +1724,6 @@ smalltalk.HashedCollection.klass);
 smalltalk.addClass('Dictionary', smalltalk.HashedCollection, ['keys', 'values'], 'Kernel-Collections');
 smalltalk.Dictionary.comment="I represent a set of elements that can be viewed from one of two perspectives: a set of associations,\x0aor a container of values that are externally named where the name can be any object that responds to `=`.\x0a\x0aThe external name is referred to as the key."
 smalltalk.addMethod(
-"_asHashedCollection",
 smalltalk.method({
 selector: "asHashedCollection",
 category: 'converting',
@@ -1828,7 +1743,6 @@ referencedClasses: ["HashedCollection"]
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
@@ -1847,7 +1761,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
@@ -1867,7 +1780,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
@@ -1893,7 +1805,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_includesKey_",
 smalltalk.method({
 selector: "includesKey:",
 category: 'testing',
@@ -1910,7 +1821,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 category: 'accessing',
@@ -1939,7 +1849,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -1958,7 +1867,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_keys",
 smalltalk.method({
 selector: "keys",
 category: 'accessing',
@@ -1977,7 +1885,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_keysAndValuesDo_",
 smalltalk.method({
 selector: "keysAndValuesDo:",
 category: 'enumerating',
@@ -1996,7 +1903,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_keysDo_",
 smalltalk.method({
 selector: "keysDo:",
 category: 'enumerating',
@@ -2015,7 +1921,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_positionOfKey_",
 smalltalk.method({
 selector: "positionOfKey:",
 category: 'private',
@@ -2038,7 +1943,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_removeKey_ifAbsent_",
 smalltalk.method({
 selector: "removeKey:ifAbsent:",
 category: 'adding/removing',
@@ -2068,7 +1972,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_values",
 smalltalk.method({
 selector: "values",
 category: 'accessing',
@@ -2087,7 +1990,6 @@ referencedClasses: []
 smalltalk.Dictionary);
 
 smalltalk.addMethod(
-"_valuesDo_",
 smalltalk.method({
 selector: "valuesDo:",
 category: 'enumerating',
@@ -2110,7 +2012,6 @@ smalltalk.Dictionary);
 smalltalk.addClass('SequenceableCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
 smalltalk.SequenceableCollection.comment="I am an IndexableCollection\x0awith numeric indexes starting with 1."
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 category: 'comparing',
@@ -2146,7 +2047,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_addLast_",
 smalltalk.method({
 selector: "addLast:",
 category: 'adding',
@@ -2163,7 +2063,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_allButFirst",
 smalltalk.method({
 selector: "allButFirst",
 category: 'accessing',
@@ -2182,7 +2081,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_allButLast",
 smalltalk.method({
 selector: "allButLast",
 category: 'accessing',
@@ -2201,7 +2099,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_atRandom",
 smalltalk.method({
 selector: "atRandom",
 category: 'accessing',
@@ -2220,7 +2117,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_copyFrom_to_",
 smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
@@ -2246,7 +2142,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
@@ -2271,7 +2166,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
@@ -2293,7 +2187,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
@@ -2310,7 +2203,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_first",
 smalltalk.method({
 selector: "first",
 category: 'accessing',
@@ -2329,7 +2221,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_first_",
 smalltalk.method({
 selector: "first:",
 category: 'accessing',
@@ -2348,7 +2239,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_fourth",
 smalltalk.method({
 selector: "fourth",
 category: 'accessing',
@@ -2367,7 +2257,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 category: 'testing',
@@ -2389,7 +2278,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_indexOf_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:ifAbsent:",
 category: 'accessing',
@@ -2411,7 +2299,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_indexOf_startingAt_",
 smalltalk.method({
 selector: "indexOf:startingAt:",
 category: 'accessing',
@@ -2433,7 +2320,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_indexOf_startingAt_ifAbsent_",
 smalltalk.method({
 selector: "indexOf:startingAt:ifAbsent:",
 category: 'accessing',
@@ -2455,7 +2341,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_last",
 smalltalk.method({
 selector: "last",
 category: 'accessing',
@@ -2474,7 +2359,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_newStream",
 smalltalk.method({
 selector: "newStream",
 category: 'streaming',
@@ -2493,7 +2377,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_readStream",
 smalltalk.method({
 selector: "readStream",
 category: 'streaming',
@@ -2512,7 +2395,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_removeLast",
 smalltalk.method({
 selector: "removeLast",
 category: 'adding',
@@ -2529,7 +2411,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_reversed",
 smalltalk.method({
 selector: "reversed",
 category: 'converting',
@@ -2546,7 +2427,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_second",
 smalltalk.method({
 selector: "second",
 category: 'accessing',
@@ -2565,7 +2445,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
@@ -2590,7 +2469,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_stream",
 smalltalk.method({
 selector: "stream",
 category: 'streaming',
@@ -2609,7 +2487,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_streamClass",
 smalltalk.method({
 selector: "streamClass",
 category: 'streaming',
@@ -2628,7 +2505,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_third",
 smalltalk.method({
 selector: "third",
 category: 'accessing',
@@ -2647,7 +2523,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_with_do_",
 smalltalk.method({
 selector: "with:do:",
 category: 'enumerating',
@@ -2664,7 +2539,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 category: 'enumerating',
@@ -2681,7 +2555,6 @@ referencedClasses: []
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
-"_writeStream",
 smalltalk.method({
 selector: "writeStream",
 category: 'streaming',
@@ -2701,7 +2574,6 @@ smalltalk.SequenceableCollection);
 
 
 smalltalk.addMethod(
-"_streamClass",
 smalltalk.method({
 selector: "streamClass",
 category: 'accessing',
@@ -2721,7 +2593,6 @@ referencedClasses: ["Stream"]
 smalltalk.SequenceableCollection.klass);
 
 smalltalk.addMethod(
-"_streamContents_",
 smalltalk.method({
 selector: "streamContents:",
 category: 'streaming',
@@ -2746,7 +2617,6 @@ smalltalk.SequenceableCollection.klass);
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
 smalltalk.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0aIn Amber, OrderedCollection is an alias for Array."
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
@@ -2763,7 +2633,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
@@ -2785,7 +2654,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
@@ -2805,7 +2673,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
@@ -2822,7 +2689,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_join_",
 smalltalk.method({
 selector: "join:",
 category: 'enumerating',
@@ -2839,7 +2705,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -2865,7 +2730,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_remove_ifAbsent_",
 smalltalk.method({
 selector: "remove:ifAbsent:",
 category: 'adding/removing',
@@ -2890,7 +2754,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_removeFrom_to_",
 smalltalk.method({
 selector: "removeFrom:to:",
 category: 'adding/removing',
@@ -2907,7 +2770,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_reversed",
 smalltalk.method({
 selector: "reversed",
 category: 'converting',
@@ -2924,7 +2786,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 category: 'accessing',
@@ -2941,7 +2802,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sort",
 smalltalk.method({
 selector: "sort",
 category: 'enumerating',
@@ -2960,7 +2820,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sort_",
 smalltalk.method({
 selector: "sort:",
 category: 'enumerating',
@@ -2981,7 +2840,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sorted",
 smalltalk.method({
 selector: "sorted",
 category: 'enumerating',
@@ -3000,7 +2858,6 @@ referencedClasses: []
 smalltalk.Array);
 
 smalltalk.addMethod(
-"_sorted_",
 smalltalk.method({
 selector: "sorted:",
 category: 'enumerating',
@@ -3020,7 +2877,6 @@ smalltalk.Array);
 
 
 smalltalk.addMethod(
-"_new_",
 smalltalk.method({
 selector: "new:",
 category: 'instance creation',
@@ -3037,7 +2893,6 @@ referencedClasses: []
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_with_",
 smalltalk.method({
 selector: "with:",
 category: 'instance creation',
@@ -3059,7 +2914,6 @@ referencedClasses: []
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_with_with_",
 smalltalk.method({
 selector: "with:with:",
 category: 'instance creation',
@@ -3082,7 +2936,6 @@ referencedClasses: []
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_with_with_with_",
 smalltalk.method({
 selector: "with:with:with:",
 category: 'instance creation',
@@ -3106,7 +2959,6 @@ referencedClasses: []
 smalltalk.Array.klass);
 
 smalltalk.addMethod(
-"_withAll_",
 smalltalk.method({
 selector: "withAll:",
 category: 'instance creation',
@@ -3137,7 +2989,6 @@ smalltalk.Array.klass);
 smalltalk.addClass('CharacterArray', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
 smalltalk.CharacterArray.comment="I am the abstract superclass of string-like collections."
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 category: 'copying',
@@ -3156,7 +3007,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding',
@@ -3173,7 +3023,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asLowercase",
 smalltalk.method({
 selector: "asLowercase",
 category: 'converting',
@@ -3192,7 +3041,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asNumber",
 smalltalk.method({
 selector: "asNumber",
 category: 'converting',
@@ -3211,7 +3059,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asString",
 smalltalk.method({
 selector: "asString",
 category: 'converting',
@@ -3230,7 +3077,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asSymbol",
 smalltalk.method({
 selector: "asSymbol",
 category: 'converting',
@@ -3249,7 +3095,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_asUppercase",
 smalltalk.method({
 selector: "asUppercase",
 category: 'converting',
@@ -3268,7 +3113,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_at_put_",
 smalltalk.method({
 selector: "at:put:",
 category: 'accessing',
@@ -3285,7 +3129,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_errorReadOnly",
 smalltalk.method({
 selector: "errorReadOnly",
 category: 'error handling',
@@ -3302,7 +3145,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -3319,7 +3161,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_putOn_",
 smalltalk.method({
 selector: "putOn:",
 category: 'streaming',
@@ -3336,7 +3177,6 @@ referencedClasses: []
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 category: 'adding',
@@ -3354,7 +3194,6 @@ smalltalk.CharacterArray);
 
 
 smalltalk.addMethod(
-"_fromString_",
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
@@ -3374,7 +3213,6 @@ smalltalk.CharacterArray.klass);
 smalltalk.addClass('String', smalltalk.CharacterArray, [], 'Kernel-Collections');
 smalltalk.String.comment="I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.\x0a\x0aString inherits many useful methods from its hierarchy, such as\x0a\x09`Collection >> #,`"
 smalltalk.addMethod(
-"__comma",
 smalltalk.method({
 selector: ",",
 category: 'copying',
@@ -3391,7 +3229,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"__lt",
 smalltalk.method({
 selector: "<",
 category: 'comparing',
@@ -3408,7 +3245,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"__lt_eq",
 smalltalk.method({
 selector: "<=",
 category: 'comparing',
@@ -3425,7 +3261,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 category: 'comparing',
@@ -3447,7 +3282,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"__eq_eq",
 smalltalk.method({
 selector: "==",
 category: 'comparing',
@@ -3466,7 +3300,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"__gt",
 smalltalk.method({
 selector: ">",
 category: 'comparing',
@@ -3483,7 +3316,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"__gt_eq",
 smalltalk.method({
 selector: ">=",
 category: 'comparing',
@@ -3500,7 +3332,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJSON",
 smalltalk.method({
 selector: "asJSON",
 category: 'converting',
@@ -3519,7 +3350,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
@@ -3541,7 +3371,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asLowercase",
 smalltalk.method({
 selector: "asLowercase",
 category: 'converting',
@@ -3558,7 +3387,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asNumber",
 smalltalk.method({
 selector: "asNumber",
 category: 'converting',
@@ -3575,7 +3403,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asRegexp",
 smalltalk.method({
 selector: "asRegexp",
 category: 'converting',
@@ -3595,7 +3422,6 @@ referencedClasses: ["RegularExpression"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asSelector",
 smalltalk.method({
 selector: "asSelector",
 category: 'converting',
@@ -3612,7 +3438,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asString",
 smalltalk.method({
 selector: "asString",
 category: 'converting',
@@ -3631,7 +3456,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asSymbol",
 smalltalk.method({
 selector: "asSymbol",
 category: 'converting',
@@ -3650,7 +3474,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asUppercase",
 smalltalk.method({
 selector: "asUppercase",
 category: 'converting',
@@ -3667,7 +3490,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_asciiValue",
 smalltalk.method({
 selector: "asciiValue",
 category: 'accessing',
@@ -3684,7 +3506,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_at_ifAbsent_",
 smalltalk.method({
 selector: "at:ifAbsent:",
 category: 'accessing',
@@ -3701,7 +3522,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_copyFrom_to_",
 smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
@@ -3718,7 +3538,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_crlfSanitized",
 smalltalk.method({
 selector: "crlfSanitized",
 category: 'converting',
@@ -3738,7 +3557,6 @@ referencedClasses: ["String"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_deepCopy",
 smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
@@ -3757,7 +3575,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
@@ -3774,7 +3591,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_escaped",
 smalltalk.method({
 selector: "escaped",
 category: 'accessing',
@@ -3791,7 +3607,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_includesSubString_",
 smalltalk.method({
 selector: "includesSubString:",
 category: 'testing',
@@ -3808,7 +3623,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
 category: 'testing',
@@ -3825,7 +3639,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_isString",
 smalltalk.method({
 selector: "isString",
 category: 'testing',
@@ -3842,7 +3655,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_isVowel",
 smalltalk.method({
 selector: "isVowel",
 category: 'testing',
@@ -3864,7 +3676,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_join_",
 smalltalk.method({
 selector: "join:",
 category: 'split join',
@@ -3893,7 +3704,6 @@ referencedClasses: ["String"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_lineIndicesDo_",
 smalltalk.method({
 selector: "lineIndicesDo:",
 category: 'split join',
@@ -3968,7 +3778,6 @@ referencedClasses: ["String"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_lineNumber_",
 smalltalk.method({
 selector: "lineNumber:",
 category: 'split join',
@@ -4001,7 +3810,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_lines",
 smalltalk.method({
 selector: "lines",
 category: 'split join',
@@ -4027,7 +3835,6 @@ referencedClasses: ["Array"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_linesDo_",
 smalltalk.method({
 selector: "linesDo:",
 category: 'split join',
@@ -4047,7 +3854,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_match_",
 smalltalk.method({
 selector: "match:",
 category: 'regular expressions',
@@ -4064,7 +3870,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_matchesOf_",
 smalltalk.method({
 selector: "matchesOf:",
 category: 'regular expressions',
@@ -4081,7 +3886,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_printNl",
 smalltalk.method({
 selector: "printNl",
 category: 'printing',
@@ -4098,7 +3902,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -4119,7 +3922,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_replace_with_",
 smalltalk.method({
 selector: "replace:with:",
 category: 'regular expressions',
@@ -4139,7 +3941,6 @@ referencedClasses: ["RegularExpression"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_replaceRegexp_with_",
 smalltalk.method({
 selector: "replaceRegexp:with:",
 category: 'regular expressions',
@@ -4156,7 +3957,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_reversed",
 smalltalk.method({
 selector: "reversed",
 category: 'converting',
@@ -4173,7 +3973,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_shallowCopy",
 smalltalk.method({
 selector: "shallowCopy",
 category: 'copying',
@@ -4192,7 +3991,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 category: 'accessing',
@@ -4209,7 +4007,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_tokenize_",
 smalltalk.method({
 selector: "tokenize:",
 category: 'converting',
@@ -4226,7 +4023,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimBoth",
 smalltalk.method({
 selector: "trimBoth",
 category: 'regular expressions',
@@ -4245,7 +4041,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimBoth_",
 smalltalk.method({
 selector: "trimBoth:",
 category: 'regular expressions',
@@ -4264,7 +4059,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimLeft",
 smalltalk.method({
 selector: "trimLeft",
 category: 'regular expressions',
@@ -4283,7 +4077,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimLeft_",
 smalltalk.method({
 selector: "trimLeft:",
 category: 'regular expressions',
@@ -4303,7 +4096,6 @@ referencedClasses: ["RegularExpression"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimRight",
 smalltalk.method({
 selector: "trimRight",
 category: 'regular expressions',
@@ -4322,7 +4114,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_trimRight_",
 smalltalk.method({
 selector: "trimRight:",
 category: 'regular expressions',
@@ -4342,7 +4133,6 @@ referencedClasses: ["RegularExpression"]
 smalltalk.String);
 
 smalltalk.addMethod(
-"_unescaped",
 smalltalk.method({
 selector: "unescaped",
 category: 'accessing',
@@ -4359,7 +4149,6 @@ referencedClasses: []
 smalltalk.String);
 
 smalltalk.addMethod(
-"_withIndexDo_",
 smalltalk.method({
 selector: "withIndexDo:",
 category: 'enumerating',
@@ -4377,7 +4166,6 @@ smalltalk.String);
 
 
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 category: 'accessing',
@@ -4394,7 +4182,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_crlf",
 smalltalk.method({
 selector: "crlf",
 category: 'accessing',
@@ -4411,7 +4198,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_fromCharCode_",
 smalltalk.method({
 selector: "fromCharCode:",
 category: 'instance creation',
@@ -4428,7 +4214,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_fromString_",
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
@@ -4445,7 +4230,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_lf",
 smalltalk.method({
 selector: "lf",
 category: 'accessing',
@@ -4462,7 +4246,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_random",
 smalltalk.method({
 selector: "random",
 category: 'random',
@@ -4479,7 +4262,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_randomNotIn_",
 smalltalk.method({
 selector: "randomNotIn:",
 category: 'random',
@@ -4505,7 +4287,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_space",
 smalltalk.method({
 selector: "space",
 category: 'accessing',
@@ -4522,7 +4303,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_streamClass",
 smalltalk.method({
 selector: "streamClass",
 category: 'accessing',
@@ -4542,7 +4322,6 @@ referencedClasses: ["StringStream"]
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_tab",
 smalltalk.method({
 selector: "tab",
 category: 'accessing',
@@ -4559,7 +4338,6 @@ referencedClasses: []
 smalltalk.String.klass);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 category: 'instance creation',
@@ -4579,7 +4357,6 @@ smalltalk.String.klass);
 smalltalk.addClass('Set', smalltalk.Collection, ['elements'], 'Kernel-Collections');
 smalltalk.Set.comment="I represent an unordered set of objects without duplicates."
 smalltalk.addMethod(
-"__eq",
 smalltalk.method({
 selector: "=",
 category: 'comparing',
@@ -4616,7 +4393,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'adding/removing',
@@ -4642,7 +4418,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_asArray",
 smalltalk.method({
 selector: "asArray",
 category: 'converting',
@@ -4661,7 +4436,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_collect_",
 smalltalk.method({
 selector: "collect:",
 category: 'enumerating',
@@ -4680,7 +4454,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_detect_ifNone_",
 smalltalk.method({
 selector: "detect:ifNone:",
 category: 'enumerating',
@@ -4699,7 +4472,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
@@ -4716,7 +4488,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_includes_",
 smalltalk.method({
 selector: "includes:",
 category: 'testing',
@@ -4735,7 +4506,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -4753,7 +4523,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -4779,7 +4548,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 category: 'adding/removing',
@@ -4796,7 +4564,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_select_",
 smalltalk.method({
 selector: "select:",
 category: 'enumerating',
@@ -4824,7 +4591,6 @@ referencedClasses: []
 smalltalk.Set);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 category: 'accessing',
@@ -4847,7 +4613,6 @@ smalltalk.Set);
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
 smalltalk.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -4868,7 +4633,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_next",
 smalltalk.method({
 selector: "next",
 category: 'accessing',
@@ -4890,7 +4654,6 @@ referencedClasses: []
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_nextIfAbsent_",
 smalltalk.method({
 selector: "nextIfAbsent:",
 category: 'accessing',
@@ -4939,7 +4702,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.Queue);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 category: 'accessing',
@@ -4960,7 +4722,6 @@ smalltalk.Queue);
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
 smalltalk.RegularExpression.comment="I represent a regular expression object. My instances are JavaScript `RegExp` object."
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 category: 'evaluating',
@@ -4977,7 +4738,6 @@ referencedClasses: []
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
-"_exec_",
 smalltalk.method({
 selector: "exec:",
 category: 'evaluating',
@@ -4994,7 +4754,6 @@ referencedClasses: []
 smalltalk.RegularExpression);
 
 smalltalk.addMethod(
-"_test_",
 smalltalk.method({
 selector: "test:",
 category: 'evaluating',
@@ -5012,7 +4771,6 @@ smalltalk.RegularExpression);
 
 
 smalltalk.addMethod(
-"_fromString_",
 smalltalk.method({
 selector: "fromString:",
 category: 'instance creation',
@@ -5031,7 +4789,6 @@ referencedClasses: []
 smalltalk.RegularExpression.klass);
 
 smalltalk.addMethod(
-"_fromString_flag_",
 smalltalk.method({
 selector: "fromString:flag:",
 category: 'instance creation',
@@ -5051,7 +4808,6 @@ smalltalk.RegularExpression.klass);
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
 smalltalk.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection."
 smalltalk.addMethod(
-"__lt_lt",
 smalltalk.method({
 selector: "<<",
 category: 'writing',
@@ -5068,7 +4824,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_atEnd",
 smalltalk.method({
 selector: "atEnd",
 category: 'testing',
@@ -5087,7 +4842,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_atStart",
 smalltalk.method({
 selector: "atStart",
 category: 'testing',
@@ -5106,7 +4860,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_close",
 smalltalk.method({
 selector: "close",
 category: 'actions',
@@ -5122,7 +4875,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
@@ -5141,7 +4893,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_contents",
 smalltalk.method({
 selector: "contents",
 category: 'accessing',
@@ -5160,7 +4911,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'enumerating',
@@ -5183,7 +4933,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_flush",
 smalltalk.method({
 selector: "flush",
 category: 'actions',
@@ -5199,7 +4948,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_isEmpty",
 smalltalk.method({
 selector: "isEmpty",
 category: 'testing',
@@ -5218,7 +4966,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_next",
 smalltalk.method({
 selector: "next",
 category: 'reading',
@@ -5243,7 +4990,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_next_",
 smalltalk.method({
 selector: "next:",
 category: 'reading',
@@ -5271,7 +5017,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 category: 'writing',
@@ -5290,7 +5035,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_nextPutAll_",
 smalltalk.method({
 selector: "nextPutAll:",
 category: 'writing',
@@ -5310,7 +5054,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_nextPutString_",
 smalltalk.method({
 selector: "nextPutString:",
 category: 'writing',
@@ -5327,7 +5070,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_peek",
 smalltalk.method({
 selector: "peek",
 category: 'reading',
@@ -5349,7 +5091,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_position",
 smalltalk.method({
 selector: "position",
 category: 'accessing',
@@ -5374,7 +5115,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_position_",
 smalltalk.method({
 selector: "position:",
 category: 'accessing',
@@ -5391,7 +5131,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_reset",
 smalltalk.method({
 selector: "reset",
 category: 'actions',
@@ -5408,7 +5147,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_resetContents",
 smalltalk.method({
 selector: "resetContents",
 category: 'actions',
@@ -5426,7 +5164,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_setCollection_",
 smalltalk.method({
 selector: "setCollection:",
 category: 'accessing',
@@ -5443,7 +5180,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_setStreamSize_",
 smalltalk.method({
 selector: "setStreamSize:",
 category: 'accessing',
@@ -5460,7 +5196,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_setToEnd",
 smalltalk.method({
 selector: "setToEnd",
 category: 'positioning',
@@ -5477,7 +5212,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_size",
 smalltalk.method({
 selector: "size",
 category: 'accessing',
@@ -5496,7 +5230,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_skip_",
 smalltalk.method({
 selector: "skip:",
 category: 'positioning',
@@ -5513,7 +5246,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_streamSize",
 smalltalk.method({
 selector: "streamSize",
 category: 'accessing',
@@ -5532,7 +5264,6 @@ referencedClasses: []
 smalltalk.Stream);
 
 smalltalk.addMethod(
-"_write_",
 smalltalk.method({
 selector: "write:",
 category: 'writing',
@@ -5550,7 +5281,6 @@ smalltalk.Stream);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
@@ -5576,7 +5306,6 @@ smalltalk.Stream.klass);
 smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel-Collections');
 smalltalk.StringStream.comment="I am a Stream specific to `String` objects."
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 category: 'writing',
@@ -5596,7 +5325,6 @@ referencedClasses: ["String"]
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_crlf",
 smalltalk.method({
 selector: "crlf",
 category: 'writing',
@@ -5616,7 +5344,6 @@ referencedClasses: ["String"]
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_lf",
 smalltalk.method({
 selector: "lf",
 category: 'writing',
@@ -5636,7 +5363,6 @@ referencedClasses: ["String"]
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_next_",
 smalltalk.method({
 selector: "next:",
 category: 'reading',
@@ -5665,7 +5391,6 @@ referencedClasses: []
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 category: 'writing',
@@ -5682,7 +5407,6 @@ referencedClasses: []
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_nextPutAll_",
 smalltalk.method({
 selector: "nextPutAll:",
 category: 'writing',
@@ -5712,7 +5436,6 @@ referencedClasses: []
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_nextPutString_",
 smalltalk.method({
 selector: "nextPutString:",
 category: 'writing',
@@ -5729,7 +5452,6 @@ referencedClasses: []
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_space",
 smalltalk.method({
 selector: "space",
 category: 'writing',
@@ -5746,7 +5468,6 @@ referencedClasses: []
 smalltalk.StringStream);
 
 smalltalk.addMethod(
-"_tab",
 smalltalk.method({
 selector: "tab",
 category: 'writing',

@@ -400,7 +400,7 @@ renderListOn: html
 ! !
 
 HLBrowserListWidget subclass: #HLMethodsListWidget
-	instanceVariableNames: ''
+	instanceVariableNames: 'selectorsCache'
 	package: 'Helios-Browser'!
 
 !HLMethodsListWidget methodsFor: 'accessing'!
@@ -498,19 +498,6 @@ selectItem: aSelector
 	aSelector ifNil: [ ^ self model selectedMethod: nil ].
 
    	self model selectedMethod: (self methodForSelector: aSelector)
-! !
-
-!HLMethodsListWidget methodsFor: 'cache'!
-
-flushSelectorsCache
-	selectorsCache := Dictionary new
-! !
-
-!HLMethodsListWidget methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-    self flushSelectorsCache
 ! !
 
 !HLMethodsListWidget methodsFor: 'private'!

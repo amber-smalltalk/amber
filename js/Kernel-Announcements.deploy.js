@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Announcements');
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_announcementClass",
 smalltalk.method({
 selector: "announcementClass",
 fn: function (){
@@ -15,7 +14,6 @@ messageSends: []}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_announcementClass_",
 smalltalk.method({
 selector: "announcementClass:",
 fn: function (aClass){
@@ -27,7 +25,6 @@ messageSends: []}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_block",
 smalltalk.method({
 selector: "block",
 fn: function (){
@@ -41,7 +38,6 @@ messageSends: []}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_block_",
 smalltalk.method({
 selector: "block:",
 fn: function (aBlock){
@@ -53,7 +49,6 @@ messageSends: []}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_deliver_",
 smalltalk.method({
 selector: "deliver:",
 fn: function (anAnnouncement){
@@ -69,7 +64,6 @@ messageSends: ["ifTrue:", "value:", "block", "handlesAnnouncement:"]}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_handlesAnnouncement_",
 smalltalk.method({
 selector: "handlesAnnouncement:",
 fn: function (anAnnouncement){
@@ -86,7 +80,6 @@ smalltalk.AnnouncementSubscription);
 
 smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_announce_",
 smalltalk.method({
 selector: "announce:",
 fn: function (anAnnouncement){
@@ -101,7 +94,6 @@ messageSends: ["do:", "deliver:"]}),
 smalltalk.Announcer);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -115,7 +107,6 @@ messageSends: ["initialize", "new"]}),
 smalltalk.Announcer);
 
 smalltalk.addMethod(
-"_on_do_",
 smalltalk.method({
 selector: "on:do:",
 fn: function (aClass,aBlock){
@@ -138,7 +129,6 @@ smalltalk.addClass('SystemAnnouncer', smalltalk.Announcer, [], 'Kernel-Announcem
 
 smalltalk.SystemAnnouncer.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 fn: function (){
@@ -158,7 +148,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.SystemAnnouncer.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function (){
@@ -172,7 +161,6 @@ smalltalk.SystemAnnouncer.klass);
 
 smalltalk.addClass('SystemAnnouncement', smalltalk.Object, ['theClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 fn: function (){
@@ -186,7 +174,6 @@ messageSends: []}),
 smalltalk.SystemAnnouncement);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 fn: function (aClass){
@@ -201,7 +188,6 @@ smalltalk.SystemAnnouncement);
 
 smalltalk.addClass('ClassAnnouncement', smalltalk.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 fn: function (){
@@ -215,7 +201,6 @@ messageSends: []}),
 smalltalk.ClassAnnouncement);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 fn: function (aClass){
@@ -245,7 +230,6 @@ smalltalk.addClass('ClassRenamed', smalltalk.ClassAnnouncement, [], 'Kernel-Anno
 
 smalltalk.addClass('MethodAnnouncement', smalltalk.SystemAnnouncement, ['method'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 fn: function (){
@@ -259,7 +243,6 @@ messageSends: []}),
 smalltalk.MethodAnnouncement);
 
 smalltalk.addMethod(
-"_method_",
 smalltalk.method({
 selector: "method:",
 fn: function (aCompiledMethod){
@@ -277,7 +260,6 @@ smalltalk.addClass('MethodAdded', smalltalk.MethodAnnouncement, [], 'Kernel-Anno
 
 smalltalk.addClass('MethodModified', smalltalk.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_oldMethod",
 smalltalk.method({
 selector: "oldMethod",
 fn: function (){
@@ -291,7 +273,6 @@ messageSends: []}),
 smalltalk.MethodModified);
 
 smalltalk.addMethod(
-"_oldMethod_",
 smalltalk.method({
 selector: "oldMethod:",
 fn: function (aMethod){
@@ -309,7 +290,6 @@ smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-An
 
 smalltalk.addClass('PackageAnnouncement', smalltalk.SystemAnnouncement, ['package'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_package",
 smalltalk.method({
 selector: "package",
 fn: function (){
@@ -323,7 +303,6 @@ messageSends: []}),
 smalltalk.PackageAnnouncement);
 
 smalltalk.addMethod(
-"_package_",
 smalltalk.method({
 selector: "package:",
 fn: function (aPackage){
@@ -344,7 +323,6 @@ smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-
 
 smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_protocol",
 smalltalk.method({
 selector: "protocol",
 fn: function (){
@@ -358,7 +336,6 @@ messageSends: []}),
 smalltalk.ProtocolAnnouncement);
 
 smalltalk.addMethod(
-"_protocol_",
 smalltalk.method({
 selector: "protocol:",
 fn: function (aString){
@@ -370,7 +347,6 @@ messageSends: []}),
 smalltalk.ProtocolAnnouncement);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 fn: function (){
@@ -384,7 +360,6 @@ messageSends: []}),
 smalltalk.ProtocolAnnouncement);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 fn: function (aClass){

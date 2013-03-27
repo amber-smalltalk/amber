@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Exceptions');
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(
-"_context",
 smalltalk.method({
 selector: "context",
 fn: function (){
@@ -13,7 +12,6 @@ messageSends: []}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -25,7 +23,6 @@ messageSends: ["messageText:", ",", "name", "class"]}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_isSmalltalkError",
 smalltalk.method({
 selector: "isSmalltalkError",
 fn: function (){
@@ -37,7 +34,6 @@ messageSends: []}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_jsStack",
 smalltalk.method({
 selector: "jsStack",
 fn: function (){
@@ -49,7 +45,6 @@ messageSends: []}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 fn: function (){
@@ -63,7 +58,6 @@ messageSends: []}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_messageText_",
 smalltalk.method({
 selector: "messageText:",
 fn: function (aString){
@@ -75,7 +69,6 @@ messageSends: []}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_signal",
 smalltalk.method({
 selector: "signal",
 fn: function (){
@@ -87,7 +80,6 @@ messageSends: []}),
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_signal_",
 smalltalk.method({
 selector: "signal:",
 fn: function (aString){
@@ -101,7 +93,6 @@ smalltalk.Error);
 
 
 smalltalk.addMethod(
-"_signal",
 smalltalk.method({
 selector: "signal",
 fn: function (){
@@ -115,7 +106,6 @@ messageSends: ["signal", "new"]}),
 smalltalk.Error.klass);
 
 smalltalk.addMethod(
-"_signal_",
 smalltalk.method({
 selector: "signal:",
 fn: function (aString){
@@ -131,7 +121,6 @@ smalltalk.Error.klass);
 
 smalltalk.addClass('JavaScriptException', smalltalk.Error, ['exception'], 'Kernel-Exceptions');
 smalltalk.addMethod(
-"_context_",
 smalltalk.method({
 selector: "context:",
 fn: function (aMethodContext){
@@ -143,7 +132,6 @@ messageSends: []}),
 smalltalk.JavaScriptException);
 
 smalltalk.addMethod(
-"_exception",
 smalltalk.method({
 selector: "exception",
 fn: function (){
@@ -157,7 +145,6 @@ messageSends: []}),
 smalltalk.JavaScriptException);
 
 smalltalk.addMethod(
-"_exception_",
 smalltalk.method({
 selector: "exception:",
 fn: function (anException){
@@ -169,7 +156,6 @@ messageSends: []}),
 smalltalk.JavaScriptException);
 
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 fn: function (){
@@ -182,7 +168,6 @@ smalltalk.JavaScriptException);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (anException){
@@ -199,7 +184,6 @@ messageSends: ["exception:", "new", "yourself"]}),
 smalltalk.JavaScriptException.klass);
 
 smalltalk.addMethod(
-"_on_context_",
 smalltalk.method({
 selector: "on:context:",
 fn: function (anException,aMethodContext){
@@ -219,7 +203,6 @@ smalltalk.JavaScriptException.klass);
 
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 smalltalk.addMethod(
-"_message",
 smalltalk.method({
 selector: "message",
 fn: function (){
@@ -233,7 +216,6 @@ messageSends: []}),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_message_",
 smalltalk.method({
 selector: "message:",
 fn: function (aMessage){
@@ -245,7 +227,6 @@ messageSends: []}),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 fn: function (){
@@ -259,7 +240,6 @@ messageSends: [",", "selector", "message", "asString", "receiver"]}),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_receiver",
 smalltalk.method({
 selector: "receiver",
 fn: function (){
@@ -273,7 +253,6 @@ messageSends: []}),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_receiver_",
 smalltalk.method({
 selector: "receiver:",
 fn: function (anObject){
@@ -288,7 +267,6 @@ smalltalk.MessageNotUnderstood);
 
 smalltalk.addClass('NonBooleanReceiver', smalltalk.Error, ['object'], 'Kernel-Exceptions');
 smalltalk.addMethod(
-"_object",
 smalltalk.method({
 selector: "object",
 fn: function (){
@@ -302,7 +280,6 @@ messageSends: []}),
 smalltalk.NonBooleanReceiver);
 
 smalltalk.addMethod(
-"_object_",
 smalltalk.method({
 selector: "object:",
 fn: function (anObject){
@@ -317,7 +294,6 @@ smalltalk.NonBooleanReceiver);
 
 smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel-Exceptions');
 smalltalk.addMethod(
-"_handleError_",
 smalltalk.method({
 selector: "handleError:",
 fn: function (anError){
@@ -336,7 +312,6 @@ messageSends: ["ifNotNil:", "logErrorContext:", "context", "logError:"]}),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_log_",
 smalltalk.method({
 selector: "log:",
 fn: function (aString){
@@ -348,7 +323,6 @@ messageSends: ["log:"]}),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_logContext_",
 smalltalk.method({
 selector: "logContext:",
 fn: function (aContext){
@@ -367,7 +341,6 @@ messageSends: ["ifNotNil:", "logContext:", "home", "log:", ",", "asString", "sel
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_logError_",
 smalltalk.method({
 selector: "logError:",
 fn: function (anError){
@@ -379,7 +352,6 @@ messageSends: ["log:", "messageText"]}),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_logErrorContext_",
 smalltalk.method({
 selector: "logErrorContext:",
 fn: function (aContext){
@@ -404,7 +376,6 @@ smalltalk.ErrorHandler);
 
 smalltalk.ErrorHandler.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 fn: function (){
@@ -424,7 +395,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -436,7 +406,6 @@ messageSends: ["register"]}),
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-"_register",
 smalltalk.method({
 selector: "register",
 fn: function (){
@@ -449,7 +418,6 @@ messageSends: ["setCurrent:", "new"]}),
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-"_setCurrent_",
 smalltalk.method({
 selector: "setCurrent:",
 fn: function (anHandler){

@@ -2,7 +2,6 @@ smalltalk.addPackage('Spaces');
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.ObjectSpace.comment="I am a connection to another Smalltalk environment.\x0aThe implementation creates an iframe on the same location as the window, and connect to the Amber environment.\x0a\x0a\x0a\x0a## Usage example:\x0a\x0a\x09| space |\x0a\x09\x0a\x09space := ObjectSpace new.\x0a\x09space do: [ smalltalk ] \x22Answers aSmalltalk\x22\x0a\x09(space do: [ smalltalk ]) == smalltalk \x22Answers false\x22\x0a\x09\x0a\x09space release \x22Remove the object space environment\x22"
 smalltalk.addMethod(
-"_connectTo_",
 smalltalk.method({
 selector: "connectTo:",
 category: 'initialization',
@@ -20,7 +19,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_create",
 smalltalk.method({
 selector: "create",
 category: 'initialization',
@@ -39,7 +37,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_destroy",
 smalltalk.method({
 selector: "destroy",
 category: 'releasing',
@@ -65,7 +62,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_do_",
 smalltalk.method({
 selector: "do:",
 category: 'evaluating',
@@ -90,7 +86,6 @@ referencedClasses: ["ObjectSpaceConnectionError"]
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_frame",
 smalltalk.method({
 selector: "frame",
 category: 'accessing',
@@ -109,7 +104,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -127,7 +121,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_isConnected",
 smalltalk.method({
 selector: "isConnected",
 category: 'initialization',
@@ -146,7 +139,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_release",
 smalltalk.method({
 selector: "release",
 category: 'releasing',
@@ -163,7 +155,6 @@ referencedClasses: []
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
-"_whenReadyDo_",
 smalltalk.method({
 selector: "whenReadyDo:",
 category: 'events',
@@ -181,7 +172,6 @@ smalltalk.ObjectSpace);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
@@ -205,7 +195,6 @@ smalltalk.ObjectSpace.klass);
 
 smalltalk.addClass('ObjectSpaceConnectionError', smalltalk.Error, [], 'Spaces');
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -225,7 +214,6 @@ smalltalk.ObjectSpaceConnectionError);
 
 smalltalk.addClass('ObjectSpaceTest', smalltalk.TestCase, ['space'], 'Spaces');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'initialization',
@@ -243,7 +231,6 @@ referencedClasses: ["ObjectSpace"]
 smalltalk.ObjectSpaceTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 category: 'initialization',
@@ -260,7 +247,6 @@ referencedClasses: []
 smalltalk.ObjectSpaceTest);
 
 smalltalk.addMethod(
-"_testConnection",
 smalltalk.method({
 selector: "testConnection",
 category: 'tests',
@@ -285,7 +271,6 @@ referencedClasses: ["ObjectSpaceConnectionError"]
 smalltalk.ObjectSpaceTest);
 
 smalltalk.addMethod(
-"_testCreate",
 smalltalk.method({
 selector: "testCreate",
 category: 'tests',
@@ -303,7 +288,6 @@ referencedClasses: []
 smalltalk.ObjectSpaceTest);
 
 smalltalk.addMethod(
-"_testEvaluation",
 smalltalk.method({
 selector: "testEvaluation",
 category: 'tests',
@@ -332,7 +316,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.ObjectSpaceTest);
 
 smalltalk.addMethod(
-"_testRelease",
 smalltalk.method({
 selector: "testRelease",
 category: 'tests',

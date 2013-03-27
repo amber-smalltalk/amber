@@ -1,7 +1,6 @@
 smalltalk.addPackage('Compiler-AST');
 smalltalk.addClass('Node', smalltalk.Object, ['position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -15,7 +14,6 @@ messageSends: ["visitNode:"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_addNode_",
 smalltalk.method({
 selector: "addNode:",
 fn: function (aNode){
@@ -27,7 +25,6 @@ messageSends: ["add:", "nodes"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isAssignmentNode",
 smalltalk.method({
 selector: "isAssignmentNode",
 fn: function (){
@@ -39,7 +36,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isBlockNode",
 smalltalk.method({
 selector: "isBlockNode",
 fn: function (){
@@ -51,7 +47,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isBlockSequenceNode",
 smalltalk.method({
 selector: "isBlockSequenceNode",
 fn: function (){
@@ -63,7 +58,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
 fn: function (){
@@ -75,7 +69,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isNode",
 smalltalk.method({
 selector: "isNode",
 fn: function (){
@@ -87,7 +80,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isReturnNode",
 smalltalk.method({
 selector: "isReturnNode",
 fn: function (){
@@ -99,7 +91,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isSendNode",
 smalltalk.method({
 selector: "isSendNode",
 fn: function (){
@@ -111,7 +102,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_isValueNode",
 smalltalk.method({
 selector: "isValueNode",
 fn: function (){
@@ -123,7 +113,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_nodes",
 smalltalk.method({
 selector: "nodes",
 fn: function (){
@@ -144,7 +133,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_nodes_",
 smalltalk.method({
 selector: "nodes:",
 fn: function (aCollection){
@@ -156,7 +144,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_position",
 smalltalk.method({
 selector: "position",
 fn: function (){
@@ -176,7 +163,6 @@ messageSends: ["ifNil:", "@"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_position_",
 smalltalk.method({
 selector: "position:",
 fn: function (aPosition){
@@ -188,7 +174,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_shouldBeAliased",
 smalltalk.method({
 selector: "shouldBeAliased",
 fn: function (){
@@ -207,7 +192,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_shouldBeAliased_",
 smalltalk.method({
 selector: "shouldBeAliased:",
 fn: function (aBoolean){
@@ -219,7 +203,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_shouldBeInlined",
 smalltalk.method({
 selector: "shouldBeInlined",
 fn: function (){
@@ -238,7 +221,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_shouldBeInlined_",
 smalltalk.method({
 selector: "shouldBeInlined:",
 fn: function (aBoolean){
@@ -250,7 +232,6 @@ messageSends: []}),
 smalltalk.Node);
 
 smalltalk.addMethod(
-"_subtreeNeedsAliasing",
 smalltalk.method({
 selector: "subtreeNeedsAliasing",
 fn: function (){
@@ -279,7 +260,6 @@ smalltalk.Node);
 
 smalltalk.addClass('AssignmentNode', smalltalk.Node, ['left', 'right'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -293,7 +273,6 @@ messageSends: ["visitAssignmentNode:"]}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
-"_isAssignmentNode",
 smalltalk.method({
 selector: "isAssignmentNode",
 fn: function (){
@@ -305,7 +284,6 @@ messageSends: []}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
-"_left",
 smalltalk.method({
 selector: "left",
 fn: function (){
@@ -319,7 +297,6 @@ messageSends: []}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
-"_left_",
 smalltalk.method({
 selector: "left:",
 fn: function (aNode){
@@ -331,7 +308,6 @@ messageSends: []}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
-"_nodes",
 smalltalk.method({
 selector: "nodes",
 fn: function (){
@@ -346,7 +322,6 @@ messageSends: ["with:with:", "left", "right"]}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
-"_right",
 smalltalk.method({
 selector: "right",
 fn: function (){
@@ -360,7 +335,6 @@ messageSends: []}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
-"_right_",
 smalltalk.method({
 selector: "right:",
 fn: function (aNode){
@@ -375,7 +349,6 @@ smalltalk.AssignmentNode);
 
 smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -389,7 +362,6 @@ messageSends: ["visitBlockNode:"]}),
 smalltalk.BlockNode);
 
 smalltalk.addMethod(
-"_isBlockNode",
 smalltalk.method({
 selector: "isBlockNode",
 fn: function (){
@@ -401,7 +373,6 @@ messageSends: []}),
 smalltalk.BlockNode);
 
 smalltalk.addMethod(
-"_parameters",
 smalltalk.method({
 selector: "parameters",
 fn: function (){
@@ -422,7 +393,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.BlockNode);
 
 smalltalk.addMethod(
-"_parameters_",
 smalltalk.method({
 selector: "parameters:",
 fn: function (aCollection){
@@ -434,7 +404,6 @@ messageSends: []}),
 smalltalk.BlockNode);
 
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 fn: function (){
@@ -448,7 +417,6 @@ messageSends: []}),
 smalltalk.BlockNode);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 fn: function (aLexicalScope){
@@ -460,7 +428,6 @@ messageSends: []}),
 smalltalk.BlockNode);
 
 smalltalk.addMethod(
-"_subtreeNeedsAliasing",
 smalltalk.method({
 selector: "subtreeNeedsAliasing",
 fn: function (){
@@ -480,7 +447,6 @@ smalltalk.BlockNode);
 
 smalltalk.addClass('CascadeNode', smalltalk.Node, ['receiver'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -494,7 +460,6 @@ messageSends: ["visitCascadeNode:"]}),
 smalltalk.CascadeNode);
 
 smalltalk.addMethod(
-"_receiver",
 smalltalk.method({
 selector: "receiver",
 fn: function (){
@@ -508,7 +473,6 @@ messageSends: []}),
 smalltalk.CascadeNode);
 
 smalltalk.addMethod(
-"_receiver_",
 smalltalk.method({
 selector: "receiver:",
 fn: function (aNode){
@@ -523,7 +487,6 @@ smalltalk.CascadeNode);
 
 smalltalk.addClass('DynamicArrayNode', smalltalk.Node, [], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -540,7 +503,6 @@ smalltalk.DynamicArrayNode);
 
 smalltalk.addClass('DynamicDictionaryNode', smalltalk.Node, [], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -557,7 +519,6 @@ smalltalk.DynamicDictionaryNode);
 
 smalltalk.addClass('JSStatementNode', smalltalk.Node, ['source'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -571,7 +532,6 @@ messageSends: ["visitJSStatementNode:"]}),
 smalltalk.JSStatementNode);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 fn: function (){
@@ -590,7 +550,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.JSStatementNode);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 fn: function (aString){
@@ -605,7 +564,6 @@ smalltalk.JSStatementNode);
 
 smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends', 'superSends'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -619,7 +577,6 @@ messageSends: ["visitMethodNode:"]}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 fn: function (){
@@ -638,7 +595,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_arguments_",
 smalltalk.method({
 selector: "arguments:",
 fn: function (aCollection){
@@ -650,7 +606,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_classReferences",
 smalltalk.method({
 selector: "classReferences",
 fn: function (){
@@ -664,7 +619,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_classReferences_",
 smalltalk.method({
 selector: "classReferences:",
 fn: function (aCollection){
@@ -676,7 +630,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_messageSends",
 smalltalk.method({
 selector: "messageSends",
 fn: function (){
@@ -690,7 +643,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_messageSends_",
 smalltalk.method({
 selector: "messageSends:",
 fn: function (aCollection){
@@ -702,7 +654,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 fn: function (){
@@ -716,7 +667,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 fn: function (aMethodScope){
@@ -728,7 +678,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 fn: function (){
@@ -742,7 +691,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 fn: function (aString){
@@ -754,7 +702,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 fn: function (){
@@ -768,7 +715,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 fn: function (aString){
@@ -780,7 +726,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_superSends",
 smalltalk.method({
 selector: "superSends",
 fn: function (){
@@ -794,7 +739,6 @@ messageSends: []}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
-"_superSends_",
 smalltalk.method({
 selector: "superSends:",
 fn: function (aCollection){
@@ -809,7 +753,6 @@ smalltalk.MethodNode);
 
 smalltalk.addClass('ReturnNode', smalltalk.Node, ['scope'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -823,7 +766,6 @@ messageSends: ["visitReturnNode:"]}),
 smalltalk.ReturnNode);
 
 smalltalk.addMethod(
-"_isReturnNode",
 smalltalk.method({
 selector: "isReturnNode",
 fn: function (){
@@ -835,7 +777,6 @@ messageSends: []}),
 smalltalk.ReturnNode);
 
 smalltalk.addMethod(
-"_nonLocalReturn",
 smalltalk.method({
 selector: "nonLocalReturn",
 fn: function (){
@@ -849,7 +790,6 @@ messageSends: ["not", "isMethodScope", "scope"]}),
 smalltalk.ReturnNode);
 
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 fn: function (){
@@ -863,7 +803,6 @@ messageSends: []}),
 smalltalk.ReturnNode);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 fn: function (aLexicalScope){
@@ -878,7 +817,6 @@ smalltalk.ReturnNode);
 
 smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -892,7 +830,6 @@ messageSends: ["visitSendNode:"]}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 fn: function (){
@@ -912,7 +849,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_arguments_",
 smalltalk.method({
 selector: "arguments:",
 fn: function (aCollection){
@@ -924,7 +860,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_cascadeNodeWithMessages_",
 smalltalk.method({
 selector: "cascadeNodeWithMessages:",
 fn: function (aCollection){
@@ -951,7 +886,6 @@ messageSends: ["selector:", "selector", "new", "arguments:", "arguments", "yours
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_index",
 smalltalk.method({
 selector: "index",
 fn: function (){
@@ -965,7 +899,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_index_",
 smalltalk.method({
 selector: "index:",
 fn: function (anInteger){
@@ -977,7 +910,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_isSendNode",
 smalltalk.method({
 selector: "isSendNode",
 fn: function (){
@@ -989,7 +921,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_nodes",
 smalltalk.method({
 selector: "nodes",
 fn: function (){
@@ -1007,7 +938,6 @@ messageSends: ["add:", "receiver", "withAll:", "arguments", "yourself"]}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_receiver",
 smalltalk.method({
 selector: "receiver",
 fn: function (){
@@ -1021,7 +951,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_receiver_",
 smalltalk.method({
 selector: "receiver:",
 fn: function (aNode){
@@ -1033,7 +962,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 fn: function (){
@@ -1047,7 +975,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 fn: function (aString){
@@ -1059,7 +986,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_superSend",
 smalltalk.method({
 selector: "superSend",
 fn: function (){
@@ -1078,7 +1004,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_superSend_",
 smalltalk.method({
 selector: "superSend:",
 fn: function (aBoolean){
@@ -1090,7 +1015,6 @@ messageSends: []}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
-"_valueForReceiver_",
 smalltalk.method({
 selector: "valueForReceiver:",
 fn: function (anObject){
@@ -1120,7 +1044,6 @@ smalltalk.SendNode);
 
 smalltalk.addClass('SequenceNode', smalltalk.Node, ['temps', 'scope'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -1134,7 +1057,6 @@ messageSends: ["visitSequenceNode:"]}),
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
-"_asBlockSequenceNode",
 smalltalk.method({
 selector: "asBlockSequenceNode",
 fn: function (){
@@ -1153,7 +1075,6 @@ messageSends: ["nodes:", "nodes", "new", "temps:", "temps", "yourself"]}),
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 fn: function (){
@@ -1167,7 +1088,6 @@ messageSends: []}),
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 fn: function (aLexicalScope){
@@ -1179,7 +1099,6 @@ messageSends: []}),
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
-"_temps",
 smalltalk.method({
 selector: "temps",
 fn: function (){
@@ -1198,7 +1117,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
-"_temps_",
 smalltalk.method({
 selector: "temps:",
 fn: function (aCollection){
@@ -1213,7 +1131,6 @@ smalltalk.SequenceNode);
 
 smalltalk.addClass('BlockSequenceNode', smalltalk.SequenceNode, [], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -1227,7 +1144,6 @@ messageSends: ["visitBlockSequenceNode:"]}),
 smalltalk.BlockSequenceNode);
 
 smalltalk.addMethod(
-"_isBlockSequenceNode",
 smalltalk.method({
 selector: "isBlockSequenceNode",
 fn: function (){
@@ -1242,7 +1158,6 @@ smalltalk.BlockSequenceNode);
 
 smalltalk.addClass('ValueNode', smalltalk.Node, ['value'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -1256,7 +1171,6 @@ messageSends: ["visitValueNode:"]}),
 smalltalk.ValueNode);
 
 smalltalk.addMethod(
-"_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
 fn: function (){
@@ -1270,7 +1184,6 @@ messageSends: ["isImmutable", "value"]}),
 smalltalk.ValueNode);
 
 smalltalk.addMethod(
-"_isValueNode",
 smalltalk.method({
 selector: "isValueNode",
 fn: function (){
@@ -1282,7 +1195,6 @@ messageSends: []}),
 smalltalk.ValueNode);
 
 smalltalk.addMethod(
-"_value",
 smalltalk.method({
 selector: "value",
 fn: function (){
@@ -1296,7 +1208,6 @@ messageSends: []}),
 smalltalk.ValueNode);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 fn: function (anObject){
@@ -1311,7 +1222,6 @@ smalltalk.ValueNode);
 
 smalltalk.addClass('VariableNode', smalltalk.ValueNode, ['assigned', 'binding'], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -1325,7 +1235,6 @@ messageSends: ["visitVariableNode:"]}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 fn: function (){
@@ -1339,7 +1248,6 @@ messageSends: ["alias", "binding"]}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_assigned",
 smalltalk.method({
 selector: "assigned",
 fn: function (){
@@ -1358,7 +1266,6 @@ messageSends: ["ifNil:"]}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_assigned_",
 smalltalk.method({
 selector: "assigned:",
 fn: function (aBoolean){
@@ -1370,7 +1277,6 @@ messageSends: []}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_beAssigned",
 smalltalk.method({
 selector: "beAssigned",
 fn: function (){
@@ -1383,7 +1289,6 @@ messageSends: ["validateAssignment", "binding"]}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_binding",
 smalltalk.method({
 selector: "binding",
 fn: function (){
@@ -1397,7 +1302,6 @@ messageSends: []}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_binding_",
 smalltalk.method({
 selector: "binding:",
 fn: function (aScopeVar){
@@ -1409,7 +1313,6 @@ messageSends: []}),
 smalltalk.VariableNode);
 
 smalltalk.addMethod(
-"_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
 fn: function (){
@@ -1424,7 +1327,6 @@ smalltalk.VariableNode);
 
 smalltalk.addClass('ClassReferenceNode', smalltalk.VariableNode, [], 'Compiler-AST');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 fn: function (aVisitor){
@@ -1440,7 +1342,6 @@ smalltalk.ClassReferenceNode);
 
 
 smalltalk.addMethod(
-"_isNode",
 smalltalk.method({
 selector: "isNode",
 fn: function (){

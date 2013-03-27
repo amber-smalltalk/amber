@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Tests');
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testCanClearInterval",
 smalltalk.method({
 selector: "testCanClearInterval",
 category: 'tests',
@@ -25,7 +24,6 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testCanClearTimeout",
 smalltalk.method({
 selector: "testCanClearTimeout",
 category: 'tests',
@@ -49,7 +47,6 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testCompiledSource",
 smalltalk.method({
 selector: "testCompiledSource",
 category: 'tests',
@@ -69,7 +66,6 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testCurrySelf",
 smalltalk.method({
 selector: "testCurrySelf",
 category: 'tests',
@@ -101,7 +97,6 @@ referencedClasses: ["Array", "ClassBuilder"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testEnsure",
 smalltalk.method({
 selector: "testEnsure",
 category: 'tests',
@@ -124,7 +119,6 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testEnsureRaises",
 smalltalk.method({
 selector: "testEnsureRaises",
 category: 'tests',
@@ -151,7 +145,6 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testExceptionSemantics",
 smalltalk.method({
 selector: "testExceptionSemantics",
 category: 'tests',
@@ -182,7 +175,6 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testNumArgs",
 smalltalk.method({
 selector: "testNumArgs",
 category: 'tests',
@@ -204,7 +196,6 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testOnDo",
 smalltalk.method({
 selector: "testOnDo",
 category: 'tests',
@@ -228,7 +219,6 @@ referencedClasses: ["Error"]
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testValue",
 smalltalk.method({
 selector: "testValue",
 category: 'tests',
@@ -260,7 +250,6 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testValueWithPossibleArguments",
 smalltalk.method({
 selector: "testValueWithPossibleArguments",
 category: 'tests',
@@ -288,7 +277,6 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testWhileFalse",
 smalltalk.method({
 selector: "testWhileFalse",
 category: 'tests',
@@ -323,7 +311,6 @@ referencedClasses: []
 smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
-"_testWhileTrue",
 smalltalk.method({
 selector: "testWhileTrue",
 category: 'tests',
@@ -361,7 +348,6 @@ smalltalk.BlockClosureTest);
 
 smalltalk.addClass('BooleanTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 category: 'tests',
@@ -387,7 +373,6 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 category: 'tests',
@@ -413,7 +398,6 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testIfTrueIfFalse",
 smalltalk.method({
 selector: "testIfTrueIfFalse",
 category: 'tests',
@@ -478,7 +462,6 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testIfTrueIfFalseWithBoxing",
 smalltalk.method({
 selector: "testIfTrueIfFalseWithBoxing",
 category: 'tests',
@@ -551,7 +534,6 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testLogic",
 smalltalk.method({
 selector: "testLogic",
 category: 'tests',
@@ -586,7 +568,6 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testLogicKeywords",
 smalltalk.method({
 selector: "testLogicKeywords",
 category: 'tests',
@@ -663,7 +644,6 @@ referencedClasses: []
 smalltalk.BooleanTest);
 
 smalltalk.addMethod(
-"_testNonBooleanError",
 smalltalk.method({
 selector: "testNonBooleanError",
 category: 'tests',
@@ -689,7 +669,6 @@ smalltalk.BooleanTest);
 
 smalltalk.addClass('ClassBuilderTest', smalltalk.TestCase, ['builder', 'theClass'], 'Kernel-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -707,7 +686,6 @@ referencedClasses: ["ClassBuilder"]
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 category: 'running',
@@ -733,7 +711,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassCopy",
 smalltalk.method({
 selector: "testClassCopy",
 category: 'tests',
@@ -756,7 +733,6 @@ referencedClasses: ["ObjectMock"]
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassMigration",
 smalltalk.method({
 selector: "testClassMigration",
 category: 'tests',
@@ -788,7 +764,6 @@ referencedClasses: ["ObjectMock", "Smalltalk", "ObjectMock2"]
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassMigrationWithClassInstanceVariables",
 smalltalk.method({
 selector: "testClassMigrationWithClassInstanceVariables",
 category: 'tests',
@@ -812,7 +787,6 @@ referencedClasses: ["ObjectMock", "ObjectMock2", "Smalltalk"]
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testClassMigrationWithSubclasses",
 smalltalk.method({
 selector: "testClassMigrationWithSubclasses",
 category: 'tests',
@@ -844,7 +818,6 @@ referencedClasses: ["ObjectMock", "ObjectMock2", "ObjectMock3", "Smalltalk", "Ob
 smalltalk.ClassBuilderTest);
 
 smalltalk.addMethod(
-"_testInstanceVariableNames",
 smalltalk.method({
 selector: "testInstanceVariableNames",
 category: 'tests',
@@ -864,7 +837,6 @@ smalltalk.ClassBuilderTest);
 
 smalltalk.addClass('CollectionTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_assertSameContents_as_",
 smalltalk.method({
 selector: "assertSameContents:as:",
 category: 'convenience',
@@ -885,7 +857,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
@@ -904,7 +875,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -923,7 +893,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 category: 'accessing',
@@ -942,7 +911,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_defaultValues",
 smalltalk.method({
 selector: "defaultValues",
 category: 'accessing',
@@ -961,7 +929,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_isCollectionReadOnly",
 smalltalk.method({
 selector: "isCollectionReadOnly",
 category: 'testing',
@@ -978,7 +945,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testAsArray",
 smalltalk.method({
 selector: "testAsArray",
 category: 'tests',
@@ -995,7 +961,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testAsOrderedCollection",
 smalltalk.method({
 selector: "testAsOrderedCollection",
 category: 'tests',
@@ -1012,7 +977,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testAsSet",
 smalltalk.method({
 selector: "testAsSet",
 category: 'tests',
@@ -1036,7 +1000,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testCollect",
 smalltalk.method({
 selector: "testCollect",
 category: 'tests',
@@ -1058,7 +1021,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testDetect",
 smalltalk.method({
 selector: "testDetect",
 category: 'tests',
@@ -1086,7 +1048,6 @@ referencedClasses: ["Error"]
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testDo",
 smalltalk.method({
 selector: "testDo",
 category: 'tests',
@@ -1110,7 +1071,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testIsEmpty",
 smalltalk.method({
 selector: "testIsEmpty",
 category: 'tests',
@@ -1128,7 +1088,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testSelect",
 smalltalk.method({
 selector: "testSelect",
 category: 'tests',
@@ -1150,7 +1109,6 @@ referencedClasses: []
 smalltalk.CollectionTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 category: 'tests',
@@ -1169,7 +1127,6 @@ smalltalk.CollectionTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -1186,7 +1143,6 @@ referencedClasses: []
 smalltalk.CollectionTest.klass);
 
 smalltalk.addMethod(
-"_isAbstract",
 smalltalk.method({
 selector: "isAbstract",
 category: 'testing',
@@ -1207,7 +1163,6 @@ smalltalk.CollectionTest.klass);
 
 smalltalk.addClass('IndexableCollectionTest', smalltalk.CollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 category: 'tests',
@@ -1229,7 +1184,6 @@ referencedClasses: ["Error"]
 smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
-"_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
 category: 'tests',
@@ -1249,7 +1203,6 @@ referencedClasses: []
 smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
-"_testIndexOf",
 smalltalk.method({
 selector: "testIndexOf",
 category: 'tests',
@@ -1275,7 +1228,6 @@ referencedClasses: ["Error"]
 smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
-"_testWithIndexDo",
 smalltalk.method({
 selector: "testWithIndexDo",
 category: 'tests',
@@ -1300,7 +1252,6 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addClass('HashedCollectionTest', smalltalk.IndexableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
@@ -1319,7 +1270,6 @@ referencedClasses: []
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 category: 'accessing',
@@ -1338,7 +1288,6 @@ referencedClasses: []
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 category: 'tests',
@@ -1360,7 +1309,6 @@ referencedClasses: ["Error"]
 smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
-"_testIndexOf",
 smalltalk.method({
 selector: "testIndexOf",
 category: 'tests',
@@ -1387,7 +1335,6 @@ smalltalk.HashedCollectionTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -1409,7 +1356,6 @@ smalltalk.HashedCollectionTest.klass);
 
 smalltalk.addClass('DictionaryTest', smalltalk.HashedCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
@@ -1435,7 +1381,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 category: 'accessing',
@@ -1464,7 +1409,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testAccessing",
 smalltalk.method({
 selector: "testAccessing",
 category: 'tests',
@@ -1501,7 +1445,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testDynamicDictionaries",
 smalltalk.method({
 selector: "testDynamicDictionaries",
 category: 'tests',
@@ -1519,7 +1462,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 category: 'tests',
@@ -1564,7 +1506,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testIfAbsent",
 smalltalk.method({
 selector: "testIfAbsent",
 category: 'tests',
@@ -1590,7 +1531,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testIfPresent",
 smalltalk.method({
 selector: "testIfPresent",
 category: 'tests',
@@ -1623,7 +1563,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testIfPresentIfAbsent",
 smalltalk.method({
 selector: "testIfPresentIfAbsent",
 category: 'tests',
@@ -1664,7 +1603,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testKeys",
 smalltalk.method({
 selector: "testKeys",
 category: 'tests',
@@ -1687,7 +1625,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testPointKey",
 smalltalk.method({
 selector: "testPointKey",
 category: 'tests',
@@ -1716,7 +1653,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
 category: 'tests',
@@ -1739,7 +1675,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testRemoveKey",
 smalltalk.method({
 selector: "testRemoveKey",
 category: 'tests',
@@ -1767,7 +1702,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testRemoveKeyIfAbsent",
 smalltalk.method({
 selector: "testRemoveKeyIfAbsent",
 category: 'tests',
@@ -1801,7 +1735,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 category: 'tests',
@@ -1825,7 +1758,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(
-"_testValues",
 smalltalk.method({
 selector: "testValues",
 category: 'tests',
@@ -1849,7 +1781,6 @@ smalltalk.DictionaryTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -1874,7 +1805,6 @@ smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTe
 
 smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
 category: 'tests',
@@ -1910,7 +1840,6 @@ referencedClasses: []
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-"_testFirstN",
 smalltalk.method({
 selector: "testFirstN",
 category: 'tests',
@@ -1927,7 +1856,6 @@ referencedClasses: []
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-"_testIfEmpty",
 smalltalk.method({
 selector: "testIfEmpty",
 category: 'tests',
@@ -1947,7 +1875,6 @@ referencedClasses: []
 smalltalk.ArrayTest);
 
 smalltalk.addMethod(
-"_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
 category: 'tests',
@@ -1983,7 +1910,6 @@ smalltalk.ArrayTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -2005,7 +1931,6 @@ smalltalk.ArrayTest.klass);
 
 smalltalk.addClass('StringTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collection",
 smalltalk.method({
 selector: "collection",
 category: 'accessing',
@@ -2022,7 +1947,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_collectionWithDuplicates",
 smalltalk.method({
 selector: "collectionWithDuplicates",
 category: 'accessing',
@@ -2039,7 +1963,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAddRemove",
 smalltalk.method({
 selector: "testAddRemove",
 category: 'tests',
@@ -2064,7 +1987,6 @@ referencedClasses: ["Error"]
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAsArray",
 smalltalk.method({
 selector: "testAsArray",
 category: 'tests',
@@ -2081,7 +2003,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 category: 'tests',
@@ -2103,7 +2024,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testAtPut",
 smalltalk.method({
 selector: "testAtPut",
 category: 'tests',
@@ -2124,7 +2044,6 @@ referencedClasses: ["Error"]
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testCollect",
 smalltalk.method({
 selector: "testCollect",
 category: 'tests',
@@ -2146,7 +2065,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testCopyWithoutAll",
 smalltalk.method({
 selector: "testCopyWithoutAll",
 category: 'tests',
@@ -2163,7 +2081,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testDetect",
 smalltalk.method({
 selector: "testDetect",
 category: 'tests',
@@ -2191,7 +2108,6 @@ referencedClasses: ["Error"]
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 category: 'tests',
@@ -2212,7 +2128,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 category: 'tests',
@@ -2233,7 +2148,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testIncludesSubString",
 smalltalk.method({
 selector: "testIncludesSubString",
 category: 'tests',
@@ -2251,7 +2165,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testIndexOf",
 smalltalk.method({
 selector: "testIndexOf",
 category: 'tests',
@@ -2277,7 +2190,6 @@ referencedClasses: ["Error"]
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testJoin",
 smalltalk.method({
 selector: "testJoin",
 category: 'tests',
@@ -2294,7 +2206,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testSelect",
 smalltalk.method({
 selector: "testSelect",
 category: 'tests',
@@ -2316,7 +2227,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 category: 'tests',
@@ -2334,7 +2244,6 @@ referencedClasses: []
 smalltalk.StringTest);
 
 smalltalk.addMethod(
-"_testStreamContents",
 smalltalk.method({
 selector: "testStreamContents",
 category: 'tests',
@@ -2361,7 +2270,6 @@ smalltalk.StringTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -2383,7 +2291,6 @@ smalltalk.StringTest.klass);
 
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_jsObject",
 smalltalk.method({
 selector: "jsObject",
 category: 'accessing',
@@ -2400,7 +2307,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testAtIfAbsent",
 smalltalk.method({
 selector: "testAtIfAbsent",
 category: 'tests',
@@ -2434,7 +2340,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testAtIfPresent",
 smalltalk.method({
 selector: "testAtIfPresent",
 category: 'tests',
@@ -2468,7 +2373,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testAtIfPresentIfAbsent",
 smalltalk.method({
 selector: "testAtIfPresentIfAbsent",
 category: 'tests',
@@ -2514,7 +2418,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testDNU",
 smalltalk.method({
 selector: "testDNU",
 category: 'tests',
@@ -2535,7 +2438,6 @@ referencedClasses: ["MessageNotUnderstood"]
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testMessageSend",
 smalltalk.method({
 selector: "testMessageSend",
 category: 'tests',
@@ -2554,7 +2456,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testMethodWithArguments",
 smalltalk.method({
 selector: "testMethodWithArguments",
 category: 'tests',
@@ -2571,7 +2472,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testPrinting",
 smalltalk.method({
 selector: "testPrinting",
 category: 'tests',
@@ -2588,7 +2488,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testPropertyThatReturnsEmptyString",
 smalltalk.method({
 selector: "testPropertyThatReturnsEmptyString",
 category: 'tests',
@@ -2609,7 +2508,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testPropertyThatReturnsUndefined",
 smalltalk.method({
 selector: "testPropertyThatReturnsUndefined",
 category: 'tests',
@@ -2633,7 +2531,6 @@ referencedClasses: ["MessageNotUnderstood"]
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testValue",
 smalltalk.method({
 selector: "testValue",
 category: 'tests',
@@ -2654,7 +2551,6 @@ referencedClasses: []
 smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
-"_testYourself",
 smalltalk.method({
 selector: "testYourself",
 category: 'tests',
@@ -2680,7 +2576,6 @@ smalltalk.JSObjectProxyTest);
 
 smalltalk.addClass('JavaScriptExceptionTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testCatchingException",
 smalltalk.method({
 selector: "testCatchingException",
 category: 'tests',
@@ -2704,7 +2599,6 @@ referencedClasses: ["Error"]
 smalltalk.JavaScriptExceptionTest);
 
 smalltalk.addMethod(
-"_testRaisingException",
 smalltalk.method({
 selector: "testRaisingException",
 category: 'tests',
@@ -2725,7 +2619,6 @@ referencedClasses: ["JavaScriptException"]
 smalltalk.JavaScriptExceptionTest);
 
 smalltalk.addMethod(
-"_throwException",
 smalltalk.method({
 selector: "throwException",
 category: 'helpers',
@@ -2745,7 +2638,6 @@ smalltalk.JavaScriptExceptionTest);
 
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAbs",
 smalltalk.method({
 selector: "testAbs",
 category: 'tests',
@@ -2763,7 +2655,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testArithmetic",
 smalltalk.method({
 selector: "testArithmetic",
 category: 'tests',
@@ -2786,7 +2677,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testComparison",
 smalltalk.method({
 selector: "testComparison",
 category: 'tests',
@@ -2810,7 +2700,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testCopying",
 smalltalk.method({
 selector: "testCopying",
 category: 'tests',
@@ -2828,7 +2717,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 category: 'tests',
@@ -2854,7 +2742,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testHexNumbers",
 smalltalk.method({
 selector: "testHexNumbers",
 category: 'tests',
@@ -2877,7 +2764,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 category: 'tests',
@@ -2900,7 +2786,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testInvalidHexNumbers",
 smalltalk.method({
 selector: "testInvalidHexNumbers",
 category: 'tests',
@@ -3081,7 +2966,6 @@ referencedClasses: ["MessageNotUnderstood"]
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testMinMax",
 smalltalk.method({
 selector: "testMinMax",
 category: 'tests',
@@ -3099,7 +2983,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testNegated",
 smalltalk.method({
 selector: "testNegated",
 category: 'tests',
@@ -3117,7 +3000,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testPrintShowingDecimalPlaces",
 smalltalk.method({
 selector: "testPrintShowingDecimalPlaces",
 category: 'tests',
@@ -3146,7 +3028,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testRounded",
 smalltalk.method({
 selector: "testRounded",
 category: 'tests',
@@ -3165,7 +3046,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testSqrt",
 smalltalk.method({
 selector: "testSqrt",
 category: 'tests',
@@ -3183,7 +3063,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testSquared",
 smalltalk.method({
 selector: "testSquared",
 category: 'tests',
@@ -3200,7 +3079,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testTimesRepeat",
 smalltalk.method({
 selector: "testTimesRepeat",
 category: 'tests',
@@ -3230,7 +3108,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testTo",
 smalltalk.method({
 selector: "testTo",
 category: 'tests',
@@ -3247,7 +3124,6 @@ referencedClasses: []
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testToBy",
 smalltalk.method({
 selector: "testToBy",
 category: 'tests',
@@ -3269,7 +3145,6 @@ referencedClasses: ["Error"]
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
-"_testTruncated",
 smalltalk.method({
 selector: "testTruncated",
 category: 'tests',
@@ -3292,7 +3167,6 @@ smalltalk.NumberTest);
 smalltalk.addClass('ObjectMock', smalltalk.Object, ['foo', 'bar'], 'Kernel-Tests');
 smalltalk.ObjectMock.comment="ObjectMock is there only to perform tests on classes."
 smalltalk.addMethod(
-"_foo",
 smalltalk.method({
 selector: "foo",
 category: 'not yet classified',
@@ -3311,7 +3185,6 @@ referencedClasses: []
 smalltalk.ObjectMock);
 
 smalltalk.addMethod(
-"_foo_",
 smalltalk.method({
 selector: "foo:",
 category: 'not yet classified',
@@ -3331,7 +3204,6 @@ smalltalk.ObjectMock);
 
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_notDefined",
 smalltalk.method({
 selector: "notDefined",
 category: 'tests',
@@ -3348,7 +3220,6 @@ referencedClasses: []
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testBasicAccess",
 smalltalk.method({
 selector: "testBasicAccess",
 category: 'tests',
@@ -3370,7 +3241,6 @@ referencedClasses: ["Object"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testBasicPerform",
 smalltalk.method({
 selector: "testBasicPerform",
 category: 'tests',
@@ -3399,7 +3269,6 @@ referencedClasses: ["Object"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testDNU",
 smalltalk.method({
 selector: "testDNU",
 category: 'tests',
@@ -3421,7 +3290,6 @@ referencedClasses: ["Object", "MessageNotUnderstood"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testEquality",
 smalltalk.method({
 selector: "testEquality",
 category: 'tests',
@@ -3444,7 +3312,6 @@ referencedClasses: ["Object"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testHalt",
 smalltalk.method({
 selector: "testHalt",
 category: 'tests',
@@ -3466,7 +3333,6 @@ referencedClasses: ["Object", "Error"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testIdentity",
 smalltalk.method({
 selector: "testIdentity",
 category: 'tests',
@@ -3489,7 +3355,6 @@ referencedClasses: ["Object"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testIfNil",
 smalltalk.method({
 selector: "testIfNil",
 category: 'tests',
@@ -3497,7 +3362,7 @@ fn: function (){
 var self=this;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9;
+var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9,$11,$13,$12;
 _st(self)._deny_(_st(_st($Object())._new())._isNil());
 $1=self;
 $4=_st($Object())._new();
@@ -3524,13 +3389,14 @@ $9=false;
 $9=true;
 };
 _st($8)._assert_equals_($9,true);
-_st(self)._assert_equals_(_st(_st($Object())._new())._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {
-return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),true);
+$11=self;
+$13=_st($Object())._new();
+if(($receiver = $13) == nil || $receiver == undefined){
+$12=false;
+} else {
+$12=true;
+};
+_st($11)._assert_equals_($12,true);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.ObjectTest)})},
 args: [],
 source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [true]) = true.\x0a\x09self assert: (Object new ifNotNil: [true]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [false] ifNotNil: [true]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [true] ifNil: [false]) equals: true",
@@ -3540,7 +3406,6 @@ referencedClasses: ["Object"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testInstVars",
 smalltalk.method({
 selector: "testInstVars",
 category: 'tests',
@@ -3563,7 +3428,6 @@ referencedClasses: ["ObjectMock"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testNilUndefined",
 smalltalk.method({
 selector: "testNilUndefined",
 category: 'tests',
@@ -3580,7 +3444,6 @@ referencedClasses: []
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testYourself",
 smalltalk.method({
 selector: "testYourself",
 category: 'tests',
@@ -3600,7 +3463,6 @@ referencedClasses: ["ObjectMock"]
 smalltalk.ObjectTest);
 
 smalltalk.addMethod(
-"_testidentityHash",
 smalltalk.method({
 selector: "testidentityHash",
 category: 'tests',
@@ -3625,7 +3487,6 @@ smalltalk.ObjectTest);
 
 smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -3653,7 +3514,6 @@ referencedClasses: ["Package"]
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 category: 'running',
@@ -3674,7 +3534,6 @@ referencedClasses: ["Package"]
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathJsShouldBeServerGrulJs",
 smalltalk.method({
 selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 category: 'tests',
@@ -3691,7 +3550,6 @@ referencedClasses: []
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathStShouldBeGrulSt",
 smalltalk.method({
 selector: "testGrulCommitPathStShouldBeGrulSt",
 category: 'tests',
@@ -3708,7 +3566,6 @@ referencedClasses: []
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathJsShouldBeJs",
 smalltalk.method({
 selector: "testZorkCommitPathJsShouldBeJs",
 category: 'tests',
@@ -3725,7 +3582,6 @@ referencedClasses: []
 smalltalk.PackageTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathStShouldBeSt",
 smalltalk.method({
 selector: "testZorkCommitPathStShouldBeSt",
 category: 'tests',
@@ -3745,7 +3601,6 @@ smalltalk.PackageTest);
 
 smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -3767,7 +3622,6 @@ referencedClasses: ["Package"]
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathJsShouldBeServerGrulJs",
 smalltalk.method({
 selector: "testGrulCommitPathJsShouldBeServerGrulJs",
 category: 'tests',
@@ -3784,7 +3638,6 @@ referencedClasses: []
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testGrulCommitPathStShouldBeGrulSt",
 smalltalk.method({
 selector: "testGrulCommitPathStShouldBeGrulSt",
 category: 'tests',
@@ -3801,7 +3654,6 @@ referencedClasses: []
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathJsShouldBeJavascript",
 smalltalk.method({
 selector: "testZorkCommitPathJsShouldBeJavascript",
 category: 'tests',
@@ -3818,7 +3670,6 @@ referencedClasses: []
 smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 smalltalk.addMethod(
-"_testZorkCommitPathStShouldBeSmalltalk",
 smalltalk.method({
 selector: "testZorkCommitPathStShouldBeSmalltalk",
 category: 'tests',
@@ -3836,7 +3687,6 @@ smalltalk.PackageWithDefaultCommitPathChangedTest);
 
 
 smalltalk.addMethod(
-"_shouldInheritSelectors",
 smalltalk.method({
 selector: "shouldInheritSelectors",
 category: 'accessing',
@@ -3855,7 +3705,6 @@ smalltalk.PackageWithDefaultCommitPathChangedTest.klass);
 
 smalltalk.addClass('PointTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAccessing",
 smalltalk.method({
 selector: "testAccessing",
 category: 'tests',
@@ -3876,7 +3725,6 @@ referencedClasses: ["Point"]
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testArithmetic",
 smalltalk.method({
 selector: "testArithmetic",
 category: 'tests',
@@ -3897,7 +3745,6 @@ referencedClasses: ["Point"]
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 category: 'tests',
@@ -3915,7 +3762,6 @@ referencedClasses: ["Point"]
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testEgality",
 smalltalk.method({
 selector: "testEgality",
 category: 'tests',
@@ -3933,7 +3779,6 @@ referencedClasses: []
 smalltalk.PointTest);
 
 smalltalk.addMethod(
-"_testTranslateBy",
 smalltalk.method({
 selector: "testTranslateBy",
 category: 'tests',
@@ -3956,7 +3801,6 @@ smalltalk.PointTest);
 
 smalltalk.addClass('RandomTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_textNext",
 smalltalk.method({
 selector: "textNext",
 category: 'tests',
@@ -3986,7 +3830,6 @@ smalltalk.RandomTest);
 
 smalltalk.addClass('SetTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testAddRemove",
 smalltalk.method({
 selector: "testAddRemove",
 category: 'tests',
@@ -4012,7 +3855,6 @@ referencedClasses: ["Set"]
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testAt",
 smalltalk.method({
 selector: "testAt",
 category: 'tests',
@@ -4034,7 +3876,6 @@ referencedClasses: ["Set", "Error"]
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testCollect",
 smalltalk.method({
 selector: "testCollect",
 category: 'tests',
@@ -4054,7 +3895,6 @@ referencedClasses: []
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testComparing",
 smalltalk.method({
 selector: "testComparing",
 category: 'tests',
@@ -4074,7 +3914,6 @@ referencedClasses: []
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testPrintString",
 smalltalk.method({
 selector: "testPrintString",
 category: 'tests',
@@ -4109,7 +3948,6 @@ referencedClasses: ["Set"]
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testSize",
 smalltalk.method({
 selector: "testSize",
 category: 'tests',
@@ -4129,7 +3967,6 @@ referencedClasses: ["Set"]
 smalltalk.SetTest);
 
 smalltalk.addMethod(
-"_testUnicity",
 smalltalk.method({
 selector: "testUnicity",
 category: 'tests',
@@ -4158,7 +3995,6 @@ smalltalk.SetTest);
 
 smalltalk.addClass('StreamTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -4177,7 +4013,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_newCollection",
 smalltalk.method({
 selector: "newCollection",
 category: 'accessing',
@@ -4196,7 +4031,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_newStream",
 smalltalk.method({
 selector: "newStream",
 category: 'accessing',
@@ -4215,7 +4049,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testAtStartAtEnd",
 smalltalk.method({
 selector: "testAtStartAtEnd",
 category: 'tests',
@@ -4241,7 +4074,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testContents",
 smalltalk.method({
 selector: "testContents",
 category: 'tests',
@@ -4261,7 +4093,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testIsEmpty",
 smalltalk.method({
 selector: "testIsEmpty",
 category: 'tests',
@@ -4282,7 +4113,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testPosition",
 smalltalk.method({
 selector: "testPosition",
 category: 'tests',
@@ -4309,7 +4139,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testReading",
 smalltalk.method({
 selector: "testReading",
 category: 'tests',
@@ -4337,7 +4166,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testStreamContents",
 smalltalk.method({
 selector: "testStreamContents",
 category: 'tests',
@@ -4353,7 +4181,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testWrite",
 smalltalk.method({
 selector: "testWrite",
 category: 'tests',
@@ -4377,7 +4204,6 @@ referencedClasses: []
 smalltalk.StreamTest);
 
 smalltalk.addMethod(
-"_testWriting",
 smalltalk.method({
 selector: "testWriting",
 category: 'tests',
@@ -4405,7 +4231,6 @@ smalltalk.StreamTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -4422,7 +4247,6 @@ referencedClasses: []
 smalltalk.StreamTest.klass);
 
 smalltalk.addMethod(
-"_isAbstract",
 smalltalk.method({
 selector: "isAbstract",
 category: 'testing',
@@ -4443,7 +4267,6 @@ smalltalk.StreamTest.klass);
 
 smalltalk.addClass('ArrayStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_newCollection",
 smalltalk.method({
 selector: "newCollection",
 category: 'accessing',
@@ -4463,7 +4286,6 @@ smalltalk.ArrayStreamTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -4485,7 +4307,6 @@ smalltalk.ArrayStreamTest.klass);
 
 smalltalk.addClass('StringStreamTest', smalltalk.StreamTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_newCollection",
 smalltalk.method({
 selector: "newCollection",
 category: 'accessing',
@@ -4503,7 +4324,6 @@ smalltalk.StringStreamTest);
 
 
 smalltalk.addMethod(
-"_collectionClass",
 smalltalk.method({
 selector: "collectionClass",
 category: 'accessing',
@@ -4525,7 +4345,6 @@ smalltalk.StringStreamTest.klass);
 
 smalltalk.addClass('UndefinedTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
-"_testCopying",
 smalltalk.method({
 selector: "testCopying",
 category: 'tests',
@@ -4542,7 +4361,6 @@ referencedClasses: []
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-"_testDeepCopy",
 smalltalk.method({
 selector: "testDeepCopy",
 category: 'tests',
@@ -4559,14 +4377,13 @@ referencedClasses: []
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-"_testIfNil",
 smalltalk.method({
 selector: "testIfNil",
 category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$6,$7;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9;
 $1=self;
 if(($receiver = nil) == nil || $receiver == undefined){
 $2=true;
@@ -4589,13 +4406,14 @@ $7=true;
 $7=false;
 };
 _st($6)._assert_equals_($7,true);
-_st(self)._deny_(_st(_st(nil)._ifNotNil_ifNil_((function(){
-return smalltalk.withContext(function($ctx2) {
-return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__eq(true));
+$8=self;
+if(($receiver = nil) == nil || $receiver == undefined){
+$10=false;
+} else {
+$10=true;
+};
+$9=_st($10).__eq(true);
+_st($8)._deny_($9);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.UndefinedTest)})},
 args: [],
 source: "testIfNil\x0a\x09self assert: (nil ifNil: [true]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true]) = true.\x0a\x09self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true] ifNil: [false]) = true",
@@ -4605,7 +4423,6 @@ referencedClasses: []
 smalltalk.UndefinedTest);
 
 smalltalk.addMethod(
-"_testIsNil",
 smalltalk.method({
 selector: "testIsNil",
 category: 'tests',

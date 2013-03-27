@@ -2,7 +2,6 @@ smalltalk.addPackage('SUnit-Tests');
 smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
 smalltalk.ExampleSetTest.comment="ExampleSetTest is taken from Pharo 1.4.\x0a\x0aTHe purpose of this class is to demonstrate a simple use case of the test framework."
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -21,7 +20,6 @@ referencedClasses: ["Set"]
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testAdd",
 smalltalk.method({
 selector: "testAdd",
 category: 'tests',
@@ -39,7 +37,6 @@ referencedClasses: []
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testGrow",
 smalltalk.method({
 selector: "testGrow",
 category: 'tests',
@@ -57,7 +54,6 @@ referencedClasses: []
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testIllegal",
 smalltalk.method({
 selector: "testIllegal",
 category: 'tests',
@@ -82,7 +78,6 @@ referencedClasses: ["Error"]
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testIncludes",
 smalltalk.method({
 selector: "testIncludes",
 category: 'tests',
@@ -100,7 +95,6 @@ referencedClasses: []
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testOccurrences",
 smalltalk.method({
 selector: "testOccurrences",
 category: 'tests',
@@ -120,7 +114,6 @@ referencedClasses: []
 smalltalk.ExampleSetTest);
 
 smalltalk.addMethod(
-"_testRemove",
 smalltalk.method({
 selector: "testRemove",
 category: 'tests',
@@ -142,7 +135,6 @@ smalltalk.ExampleSetTest);
 
 smalltalk.addClass('SUnitAsyncTest', smalltalk.TestCase, ['flag'], 'SUnit-Tests');
 smalltalk.addMethod(
-"_fakeError",
 smalltalk.method({
 selector: "fakeError",
 category: 'helpers',
@@ -166,7 +158,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeErrorFailingInTearDown",
 smalltalk.method({
 selector: "fakeErrorFailingInTearDown",
 category: 'helpers',
@@ -188,7 +179,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeFailure",
 smalltalk.method({
 selector: "fakeFailure",
 category: 'helpers',
@@ -212,7 +202,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeMultipleTimeoutFailing",
 smalltalk.method({
 selector: "fakeMultipleTimeoutFailing",
 category: 'helpers',
@@ -237,7 +226,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeMultipleTimeoutPassing",
 smalltalk.method({
 selector: "fakeMultipleTimeoutPassing",
 category: 'helpers',
@@ -262,7 +250,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_fakeTimeout",
 smalltalk.method({
 selector: "fakeTimeout",
 category: 'helpers',
@@ -283,7 +270,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_selectorSetOf_",
 smalltalk.method({
 selector: "selectorSetOf:",
 category: 'private',
@@ -305,7 +291,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -322,7 +307,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 category: 'running',
@@ -339,7 +323,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testAsyncErrorsAndFailures",
 smalltalk.method({
 selector: "testAsyncErrorsAndFailures",
 category: 'tests',
@@ -381,7 +364,6 @@ referencedClasses: ["TestSuiteRunner", "ResultAnnouncement"]
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testAsyncNeedsTimeout",
 smalltalk.method({
 selector: "testAsyncNeedsTimeout",
 category: 'tests',
@@ -412,7 +394,6 @@ referencedClasses: ["Error"]
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testFinishedNeedsTimeout",
 smalltalk.method({
 selector: "testFinishedNeedsTimeout",
 category: 'tests',
@@ -438,7 +419,6 @@ referencedClasses: ["Error"]
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testIsAsyncReturnsCorrectValues",
 smalltalk.method({
 selector: "testIsAsyncReturnsCorrectValues",
 category: 'tests',
@@ -459,7 +439,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testPass",
 smalltalk.method({
 selector: "testPass",
 category: 'tests',
@@ -484,7 +463,6 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testTimeouts",
 smalltalk.method({
 selector: "testTimeouts",
 category: 'tests',
@@ -527,7 +505,6 @@ referencedClasses: ["TestSuiteRunner", "Set", "ResultAnnouncement"]
 smalltalk.SUnitAsyncTest);
 
 smalltalk.addMethod(
-"_testTwoAsyncPassesWithFinishedOnlyOneIsRun",
 smalltalk.method({
 selector: "testTwoAsyncPassesWithFinishedOnlyOneIsRun",
 category: 'tests',
