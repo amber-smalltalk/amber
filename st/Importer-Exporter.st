@@ -127,7 +127,7 @@ exportMetaDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'category: ''', aMethod category, ''',';lf;
@@ -310,7 +310,7 @@ exportDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;

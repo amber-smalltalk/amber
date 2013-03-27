@@ -133,7 +133,7 @@ selector: "basicAddCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
+smalltalk.addMethod(aMethod, self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 messageSends: []}),
 smalltalk.Behavior);
