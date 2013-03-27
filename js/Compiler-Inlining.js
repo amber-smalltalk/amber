@@ -2,7 +2,6 @@ smalltalk.addPackage('Compiler-Inlining');
 smalltalk.addClass('IRInlinedAssignment', smalltalk.IRAssignment, [], 'Compiler-Inlining');
 smalltalk.IRInlinedAssignment.comment="I represent an inlined assignment instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -21,7 +20,6 @@ referencedClasses: []
 smalltalk.IRInlinedAssignment);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -42,7 +40,6 @@ smalltalk.IRInlinedAssignment);
 smalltalk.addClass('IRInlinedClosure', smalltalk.IRClosure, [], 'Compiler-Inlining');
 smalltalk.IRInlinedClosure.comment="I represent an inlined closure instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -59,7 +56,6 @@ referencedClasses: []
 smalltalk.IRInlinedClosure);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -80,7 +76,6 @@ smalltalk.IRInlinedClosure);
 smalltalk.addClass('IRInlinedReturn', smalltalk.IRReturn, [], 'Compiler-Inlining');
 smalltalk.IRInlinedReturn.comment="I represent an inlined local return instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -99,7 +94,6 @@ referencedClasses: []
 smalltalk.IRInlinedReturn);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -120,7 +114,6 @@ smalltalk.IRInlinedReturn);
 smalltalk.addClass('IRInlinedSend', smalltalk.IRSend, [], 'Compiler-Inlining');
 smalltalk.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -137,7 +130,6 @@ referencedClasses: []
 smalltalk.IRInlinedSend);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -157,7 +149,6 @@ smalltalk.IRInlinedSend);
 
 smalltalk.addClass('IRInlinedIfFalse', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -177,7 +168,6 @@ smalltalk.IRInlinedIfFalse);
 
 smalltalk.addClass('IRInlinedIfNilIfNotNil', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -197,7 +187,6 @@ smalltalk.IRInlinedIfNilIfNotNil);
 
 smalltalk.addClass('IRInlinedIfTrue', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -217,7 +206,6 @@ smalltalk.IRInlinedIfTrue);
 
 smalltalk.addClass('IRInlinedIfTrueIfFalse', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -238,7 +226,6 @@ smalltalk.IRInlinedIfTrueIfFalse);
 smalltalk.addClass('IRInlinedSequence', smalltalk.IRBlockSequence, [], 'Compiler-Inlining');
 smalltalk.IRInlinedSequence.comment="I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`)."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -255,7 +242,6 @@ referencedClasses: []
 smalltalk.IRInlinedSequence);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -276,7 +262,6 @@ smalltalk.IRInlinedSequence);
 smalltalk.addClass('IRInliner', smalltalk.IRVisitor, [], 'Compiler-Inlining');
 smalltalk.IRInliner.comment="I visit an IR tree, inlining message sends and block closures.\x0a\x0aMessage selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`"
 smalltalk.addMethod(
-"_assignmentInliner",
 smalltalk.method({
 selector: "assignmentInliner",
 category: 'factory',
@@ -299,7 +284,6 @@ referencedClasses: ["IRAssignmentInliner"]
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_returnInliner",
 smalltalk.method({
 selector: "returnInliner",
 category: 'factory',
@@ -322,7 +306,6 @@ referencedClasses: ["IRReturnInliner"]
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_sendInliner",
 smalltalk.method({
 selector: "sendInliner",
 category: 'factory',
@@ -345,7 +328,6 @@ referencedClasses: ["IRSendInliner"]
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_shouldInlineAssignment_",
 smalltalk.method({
 selector: "shouldInlineAssignment:",
 category: 'testing',
@@ -370,7 +352,6 @@ referencedClasses: []
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_shouldInlineReturn_",
 smalltalk.method({
 selector: "shouldInlineReturn:",
 category: 'testing',
@@ -395,7 +376,6 @@ referencedClasses: []
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_shouldInlineSend_",
 smalltalk.method({
 selector: "shouldInlineSend:",
 category: 'testing',
@@ -418,7 +398,6 @@ referencedClasses: ["IRSendInliner"]
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_transformNonLocalReturn_",
 smalltalk.method({
 selector: "transformNonLocalReturn:",
 category: 'visiting',
@@ -455,7 +434,6 @@ referencedClasses: ["IRReturn"]
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_visitIRAssignment_",
 smalltalk.method({
 selector: "visitIRAssignment:",
 category: 'visiting',
@@ -479,7 +457,6 @@ referencedClasses: []
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_visitIRNonLocalReturn_",
 smalltalk.method({
 selector: "visitIRNonLocalReturn:",
 category: 'visiting',
@@ -498,7 +475,6 @@ referencedClasses: []
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_visitIRReturn_",
 smalltalk.method({
 selector: "visitIRReturn:",
 category: 'visiting',
@@ -522,7 +498,6 @@ referencedClasses: []
 smalltalk.IRInliner);
 
 smalltalk.addMethod(
-"_visitIRSend_",
 smalltalk.method({
 selector: "visitIRSend:",
 category: 'visiting',
@@ -550,7 +525,6 @@ smalltalk.IRInliner);
 smalltalk.addClass('IRInliningJSTranslator', smalltalk.IRJSTranslator, [], 'Compiler-Inlining');
 smalltalk.IRInliningJSTranslator.comment="I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance)."
 smalltalk.addMethod(
-"_visitIRInlinedAssignment_",
 smalltalk.method({
 selector: "visitIRInlinedAssignment:",
 category: 'visiting',
@@ -567,7 +541,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedClosure_",
 smalltalk.method({
 selector: "visitIRInlinedClosure:",
 category: 'visiting',
@@ -591,7 +564,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedIfFalse_",
 smalltalk.method({
 selector: "visitIRInlinedIfFalse:",
 category: 'visiting',
@@ -616,7 +588,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedIfNil_",
 smalltalk.method({
 selector: "visitIRInlinedIfNil:",
 category: 'visiting',
@@ -641,7 +612,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedIfNilIfNotNil_",
 smalltalk.method({
 selector: "visitIRInlinedIfNilIfNotNil:",
 category: 'visiting',
@@ -669,7 +639,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedIfTrue_",
 smalltalk.method({
 selector: "visitIRInlinedIfTrue:",
 category: 'visiting',
@@ -694,7 +663,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedIfTrueIfFalse_",
 smalltalk.method({
 selector: "visitIRInlinedIfTrueIfFalse:",
 category: 'visiting',
@@ -722,7 +690,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedNonLocalReturn_",
 smalltalk.method({
 selector: "visitIRInlinedNonLocalReturn:",
 category: 'visiting',
@@ -745,7 +712,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedReturn_",
 smalltalk.method({
 selector: "visitIRInlinedReturn:",
 category: 'visiting',
@@ -762,7 +728,6 @@ referencedClasses: []
 smalltalk.IRInliningJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRInlinedSequence_",
 smalltalk.method({
 selector: "visitIRInlinedSequence:",
 category: 'visiting',
@@ -789,7 +754,6 @@ smalltalk.IRInliningJSTranslator);
 smalltalk.addClass('IRSendInliner', smalltalk.Object, ['send', 'translator'], 'Compiler-Inlining');
 smalltalk.IRSendInliner.comment="I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods."
 smalltalk.addMethod(
-"_ifFalse_",
 smalltalk.method({
 selector: "ifFalse:",
 category: 'inlining',
@@ -809,7 +773,6 @@ referencedClasses: ["IRInlinedIfFalse"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifFalse_ifTrue_",
 smalltalk.method({
 selector: "ifFalse:ifTrue:",
 category: 'inlining',
@@ -828,7 +791,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifNil_",
 smalltalk.method({
 selector: "ifNil:",
 category: 'inlining',
@@ -857,7 +819,6 @@ referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifNil_ifNotNil_",
 smalltalk.method({
 selector: "ifNil:ifNotNil:",
 category: 'inlining',
@@ -877,7 +838,6 @@ referencedClasses: ["IRInlinedIfNilIfNotNil"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifNotNil_",
 smalltalk.method({
 selector: "ifNotNil:",
 category: 'inlining',
@@ -906,7 +866,6 @@ referencedClasses: ["IRInlinedIfNilIfNotNil", "IRClosure", "IRBlockSequence"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifNotNil_ifNil_",
 smalltalk.method({
 selector: "ifNotNil:ifNil:",
 category: 'inlining',
@@ -926,7 +885,6 @@ referencedClasses: ["IRInlinedIfNilIfNotNil"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifTrue_",
 smalltalk.method({
 selector: "ifTrue:",
 category: 'inlining',
@@ -946,7 +904,6 @@ referencedClasses: ["IRInlinedIfTrue"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_ifTrue_ifFalse_",
 smalltalk.method({
 selector: "ifTrue:ifFalse:",
 category: 'inlining',
@@ -966,7 +923,6 @@ referencedClasses: ["IRInlinedIfTrueIfFalse"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inlineClosure_",
 smalltalk.method({
 selector: "inlineClosure:",
 category: 'inlining',
@@ -1035,7 +991,6 @@ referencedClasses: ["IRTempDeclaration", "AliasVar", "IRVariable", "IRAssignment
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inlineSend_",
 smalltalk.method({
 selector: "inlineSend:",
 category: 'inlining',
@@ -1055,7 +1010,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inlinedClosure",
 smalltalk.method({
 selector: "inlinedClosure",
 category: 'factory',
@@ -1075,7 +1029,6 @@ referencedClasses: ["IRInlinedClosure"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inlinedSend_with_",
 smalltalk.method({
 selector: "inlinedSend:with:",
 category: 'inlining',
@@ -1108,7 +1061,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inlinedSend_with_with_",
 smalltalk.method({
 selector: "inlinedSend:with:with:",
 category: 'inlining',
@@ -1143,7 +1095,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inlinedSequence",
 smalltalk.method({
 selector: "inlinedSequence",
 category: 'factory',
@@ -1163,7 +1114,6 @@ referencedClasses: ["IRInlinedSequence"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_inliningError_",
 smalltalk.method({
 selector: "inliningError:",
 category: 'error handling',
@@ -1181,7 +1131,6 @@ referencedClasses: ["InliningError"]
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_send",
 smalltalk.method({
 selector: "send",
 category: 'accessing',
@@ -1200,7 +1149,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_send_",
 smalltalk.method({
 selector: "send:",
 category: 'accessing',
@@ -1217,7 +1165,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_translator",
 smalltalk.method({
 selector: "translator",
 category: 'accessing',
@@ -1236,7 +1183,6 @@ referencedClasses: []
 smalltalk.IRSendInliner);
 
 smalltalk.addMethod(
-"_translator_",
 smalltalk.method({
 selector: "translator:",
 category: 'accessing',
@@ -1254,7 +1200,6 @@ smalltalk.IRSendInliner);
 
 
 smalltalk.addMethod(
-"_inlinedSelectors",
 smalltalk.method({
 selector: "inlinedSelectors",
 category: 'accessing',
@@ -1273,7 +1218,6 @@ referencedClasses: []
 smalltalk.IRSendInliner.klass);
 
 smalltalk.addMethod(
-"_shouldInline_",
 smalltalk.method({
 selector: "shouldInline:",
 category: 'accessing',
@@ -1309,7 +1253,6 @@ smalltalk.IRSendInliner.klass);
 smalltalk.addClass('IRAssignmentInliner', smalltalk.IRSendInliner, ['assignment'], 'Compiler-Inlining');
 smalltalk.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if(smalltalk.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};"
 smalltalk.addMethod(
-"_assignment",
 smalltalk.method({
 selector: "assignment",
 category: 'accessing',
@@ -1328,7 +1271,6 @@ referencedClasses: []
 smalltalk.IRAssignmentInliner);
 
 smalltalk.addMethod(
-"_assignment_",
 smalltalk.method({
 selector: "assignment:",
 category: 'accessing',
@@ -1345,7 +1287,6 @@ referencedClasses: []
 smalltalk.IRAssignmentInliner);
 
 smalltalk.addMethod(
-"_inlineAssignment_",
 smalltalk.method({
 selector: "inlineAssignment:",
 category: 'inlining',
@@ -1374,7 +1315,6 @@ referencedClasses: ["IRInlinedAssignment"]
 smalltalk.IRAssignmentInliner);
 
 smalltalk.addMethod(
-"_inlineClosure_",
 smalltalk.method({
 selector: "inlineClosure:",
 category: 'inlining',
@@ -1412,7 +1352,6 @@ smalltalk.IRAssignmentInliner);
 smalltalk.addClass('IRReturnInliner', smalltalk.IRSendInliner, [], 'Compiler-Inlining');
 smalltalk.IRReturnInliner.comment="I inline message sends with inlined closure together with a return instruction."
 smalltalk.addMethod(
-"_inlineClosure_",
 smalltalk.method({
 selector: "inlineClosure:",
 category: 'inlining',
@@ -1445,7 +1384,6 @@ referencedClasses: ["IRReturn"]
 smalltalk.IRReturnInliner);
 
 smalltalk.addMethod(
-"_inlineReturn_",
 smalltalk.method({
 selector: "inlineReturn:",
 category: 'inlining',
@@ -1472,7 +1410,6 @@ referencedClasses: []
 smalltalk.IRReturnInliner);
 
 smalltalk.addMethod(
-"_inlinedReturn",
 smalltalk.method({
 selector: "inlinedReturn",
 category: 'factory',
@@ -1496,7 +1433,6 @@ smalltalk.IRReturnInliner);
 smalltalk.addClass('InliningCodeGenerator', smalltalk.CodeGenerator, [], 'Compiler-Inlining');
 smalltalk.InliningCodeGenerator.comment="I am a specialized code generator that uses inlining to produce more optimized JavaScript output"
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 category: 'compiling',
@@ -1522,7 +1458,6 @@ referencedClasses: []
 smalltalk.InliningCodeGenerator);
 
 smalltalk.addMethod(
-"_inliner",
 smalltalk.method({
 selector: "inliner",
 category: 'compiling',
@@ -1542,7 +1477,6 @@ referencedClasses: ["IRInliner"]
 smalltalk.InliningCodeGenerator);
 
 smalltalk.addMethod(
-"_irTranslator",
 smalltalk.method({
 selector: "irTranslator",
 category: 'compiling',

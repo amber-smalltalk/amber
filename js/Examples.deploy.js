@@ -1,7 +1,6 @@
 smalltalk.addPackage('Examples');
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
-"_decrease",
 smalltalk.method({
 selector: "decrease",
 fn: function (){
@@ -17,7 +16,6 @@ messageSends: ["-", "contents:", "with:", "asString"]}),
 smalltalk.Counter);
 
 smalltalk.addMethod(
-"_increase",
 smalltalk.method({
 selector: "increase",
 fn: function (){
@@ -33,7 +31,6 @@ messageSends: ["+", "contents:", "with:", "asString"]}),
 smalltalk.Counter);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -46,7 +43,6 @@ messageSends: ["initialize"]}),
 smalltalk.Counter);
 
 smalltalk.addMethod(
-"_renderOn_",
 smalltalk.method({
 selector: "renderOn:",
 fn: function (html){
@@ -75,7 +71,6 @@ smalltalk.Counter);
 
 
 smalltalk.addMethod(
-"_tryExample",
 smalltalk.method({
 selector: "tryExample",
 fn: function (){

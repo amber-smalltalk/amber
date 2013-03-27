@@ -2,7 +2,6 @@ smalltalk.addPackage('Compiler-Semantic');
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope."
 smalltalk.addMethod(
-"_addArg_",
 smalltalk.method({
 selector: "addArg:",
 category: 'adding',
@@ -21,7 +20,6 @@ referencedClasses: ["ArgVar"]
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_addTemp_",
 smalltalk.method({
 selector: "addTemp:",
 category: 'adding',
@@ -40,7 +38,6 @@ referencedClasses: ["TempVar"]
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 category: 'accessing',
@@ -59,7 +56,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_allVariableNames",
 smalltalk.method({
 selector: "allVariableNames",
 category: 'accessing',
@@ -78,7 +74,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_args",
 smalltalk.method({
 selector: "args",
 category: 'accessing',
@@ -104,7 +99,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_bindingFor_",
 smalltalk.method({
 selector: "bindingFor:",
 category: 'accessing',
@@ -132,7 +126,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_canInlineNonLocalReturns",
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
 category: 'testing',
@@ -154,7 +147,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_instruction",
 smalltalk.method({
 selector: "instruction",
 category: 'accessing',
@@ -173,7 +165,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_instruction_",
 smalltalk.method({
 selector: "instruction:",
 category: 'accessing',
@@ -190,7 +181,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_isBlockScope",
 smalltalk.method({
 selector: "isBlockScope",
 category: 'testing',
@@ -209,7 +199,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -231,7 +220,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_isMethodScope",
 smalltalk.method({
 selector: "isMethodScope",
 category: 'testing',
@@ -248,7 +236,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_lookupVariable_",
 smalltalk.method({
 selector: "lookupVariable:",
 category: 'accessing',
@@ -281,7 +268,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_methodScope",
 smalltalk.method({
 selector: "methodScope",
 category: 'accessing',
@@ -305,7 +291,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_node",
 smalltalk.method({
 selector: "node",
 category: 'accessing',
@@ -324,7 +309,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_node_",
 smalltalk.method({
 selector: "node:",
 category: 'accessing',
@@ -341,7 +325,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_outerScope",
 smalltalk.method({
 selector: "outerScope",
 category: 'accessing',
@@ -360,7 +343,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_outerScope_",
 smalltalk.method({
 selector: "outerScope:",
 category: 'accessing',
@@ -377,7 +359,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_pseudoVars",
 smalltalk.method({
 selector: "pseudoVars",
 category: 'accessing',
@@ -396,7 +377,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_scopeLevel",
 smalltalk.method({
 selector: "scopeLevel",
 category: 'accessing',
@@ -427,7 +407,6 @@ referencedClasses: []
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
-"_temps",
 smalltalk.method({
 selector: "temps",
 category: 'accessing',
@@ -457,7 +436,6 @@ smalltalk.LexicalScope);
 smalltalk.addClass('MethodLexicalScope', smalltalk.LexicalScope, ['iVars', 'pseudoVars', 'unknownVariables', 'localReturn', 'nonLocalReturns'], 'Compiler-Semantic');
 smalltalk.MethodLexicalScope.comment="I represent a method scope."
 smalltalk.addMethod(
-"_addIVar_",
 smalltalk.method({
 selector: "addIVar:",
 category: 'adding',
@@ -476,7 +454,6 @@ referencedClasses: ["InstanceVar"]
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_addNonLocalReturn_",
 smalltalk.method({
 selector: "addNonLocalReturn:",
 category: 'adding',
@@ -493,7 +470,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_allVariableNames",
 smalltalk.method({
 selector: "allVariableNames",
 category: 'accessing',
@@ -512,7 +488,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_bindingFor_",
 smalltalk.method({
 selector: "bindingFor:",
 category: 'accessing',
@@ -539,7 +514,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_canInlineNonLocalReturns",
 smalltalk.method({
 selector: "canInlineNonLocalReturns",
 category: 'testing',
@@ -556,7 +530,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_hasLocalReturn",
 smalltalk.method({
 selector: "hasLocalReturn",
 category: 'testing',
@@ -575,7 +548,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_hasNonLocalReturn",
 smalltalk.method({
 selector: "hasNonLocalReturn",
 category: 'testing',
@@ -594,7 +566,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_iVars",
 smalltalk.method({
 selector: "iVars",
 category: 'accessing',
@@ -620,7 +591,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_isMethodScope",
 smalltalk.method({
 selector: "isMethodScope",
 category: 'testing',
@@ -637,7 +607,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_localReturn",
 smalltalk.method({
 selector: "localReturn",
 category: 'accessing',
@@ -661,7 +630,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_localReturn_",
 smalltalk.method({
 selector: "localReturn:",
 category: 'accessing',
@@ -678,7 +646,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_methodScope",
 smalltalk.method({
 selector: "methodScope",
 category: 'accessing',
@@ -697,7 +664,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_nonLocalReturns",
 smalltalk.method({
 selector: "nonLocalReturns",
 category: 'accessing',
@@ -723,7 +689,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_pseudoVars",
 smalltalk.method({
 selector: "pseudoVars",
 category: 'accessing',
@@ -759,7 +724,6 @@ referencedClasses: ["Dictionary", "PseudoVar", "Smalltalk"]
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_removeNonLocalReturn_",
 smalltalk.method({
 selector: "removeNonLocalReturn:",
 category: 'adding',
@@ -778,7 +742,6 @@ referencedClasses: []
 smalltalk.MethodLexicalScope);
 
 smalltalk.addMethod(
-"_unknownVariables",
 smalltalk.method({
 selector: "unknownVariables",
 category: 'accessing',
@@ -808,7 +771,6 @@ smalltalk.MethodLexicalScope);
 smalltalk.addClass('ScopeVar', smalltalk.Object, ['scope', 'name'], 'Compiler-Semantic');
 smalltalk.ScopeVar.comment="I am an entry in a LexicalScope that gets associated with variable nodes of the same name.\x0aThere are 4 different subclasses of vars: temp vars, local vars, args, and unknown/global vars."
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 category: 'accessing',
@@ -827,7 +789,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isArgVar",
 smalltalk.method({
 selector: "isArgVar",
 category: 'testing',
@@ -844,7 +805,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isClassRefVar",
 smalltalk.method({
 selector: "isClassRefVar",
 category: 'testing',
@@ -861,7 +821,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isInstanceVar",
 smalltalk.method({
 selector: "isInstanceVar",
 category: 'testing',
@@ -878,7 +837,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isPseudoVar",
 smalltalk.method({
 selector: "isPseudoVar",
 category: 'testing',
@@ -895,7 +853,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isTempVar",
 smalltalk.method({
 selector: "isTempVar",
 category: 'testing',
@@ -912,7 +869,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_isUnknownVar",
 smalltalk.method({
 selector: "isUnknownVar",
 category: 'testing',
@@ -929,7 +885,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_name",
 smalltalk.method({
 selector: "name",
 category: 'accessing',
@@ -948,7 +903,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_name_",
 smalltalk.method({
 selector: "name:",
 category: 'accessing',
@@ -965,7 +919,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 category: 'accessing',
@@ -984,7 +937,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 category: 'accessing',
@@ -1001,7 +953,6 @@ referencedClasses: []
 smalltalk.ScopeVar);
 
 smalltalk.addMethod(
-"_validateAssignment",
 smalltalk.method({
 selector: "validateAssignment",
 category: 'testing',
@@ -1030,7 +981,6 @@ smalltalk.ScopeVar);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
@@ -1055,7 +1005,6 @@ smalltalk.ScopeVar.klass);
 smalltalk.addClass('AliasVar', smalltalk.ScopeVar, ['node'], 'Compiler-Semantic');
 smalltalk.AliasVar.comment="I am an internally defined variable by the compiler"
 smalltalk.addMethod(
-"_node",
 smalltalk.method({
 selector: "node",
 category: 'accessing',
@@ -1074,7 +1023,6 @@ referencedClasses: []
 smalltalk.AliasVar);
 
 smalltalk.addMethod(
-"_node_",
 smalltalk.method({
 selector: "node:",
 category: 'accessing',
@@ -1095,7 +1043,6 @@ smalltalk.AliasVar);
 smalltalk.addClass('ArgVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.ArgVar.comment="I am an argument of a method or block."
 smalltalk.addMethod(
-"_isArgVar",
 smalltalk.method({
 selector: "isArgVar",
 category: 'testing',
@@ -1116,7 +1063,6 @@ smalltalk.ArgVar);
 smalltalk.addClass('ClassRefVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.ClassRefVar.comment="I am an class reference variable"
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 category: 'accessing',
@@ -1135,7 +1081,6 @@ referencedClasses: []
 smalltalk.ClassRefVar);
 
 smalltalk.addMethod(
-"_isClassRefVar",
 smalltalk.method({
 selector: "isClassRefVar",
 category: 'testing',
@@ -1156,7 +1101,6 @@ smalltalk.ClassRefVar);
 smalltalk.addClass('InstanceVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.InstanceVar.comment="I am an instance variable of a method or block."
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 category: 'testing',
@@ -1175,7 +1119,6 @@ referencedClasses: []
 smalltalk.InstanceVar);
 
 smalltalk.addMethod(
-"_isInstanceVar",
 smalltalk.method({
 selector: "isInstanceVar",
 category: 'testing',
@@ -1196,7 +1139,6 @@ smalltalk.InstanceVar);
 smalltalk.addClass('PseudoVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.PseudoVar.comment="I am an pseudo variable.\x0a\x0aThe five Smalltalk pseudo variables are: 'self', 'super', 'nil', 'true' and 'false'"
 smalltalk.addMethod(
-"_alias",
 smalltalk.method({
 selector: "alias",
 category: 'accessing',
@@ -1215,7 +1157,6 @@ referencedClasses: []
 smalltalk.PseudoVar);
 
 smalltalk.addMethod(
-"_isPseudoVar",
 smalltalk.method({
 selector: "isPseudoVar",
 category: 'testing',
@@ -1236,7 +1177,6 @@ smalltalk.PseudoVar);
 smalltalk.addClass('TempVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.TempVar.comment="I am an temporary variable of a method or block."
 smalltalk.addMethod(
-"_isTempVar",
 smalltalk.method({
 selector: "isTempVar",
 category: 'testing',
@@ -1257,7 +1197,6 @@ smalltalk.TempVar);
 smalltalk.addClass('UnknownVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
 smalltalk.UnknownVar.comment="I am an unknown variable. Amber uses unknown variables as JavaScript globals"
 smalltalk.addMethod(
-"_isUnknownVar",
 smalltalk.method({
 selector: "isUnknownVar",
 category: 'testing',
@@ -1278,7 +1217,6 @@ smalltalk.UnknownVar);
 smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
 smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes."
 smalltalk.addMethod(
-"_classReferences",
 smalltalk.method({
 selector: "classReferences",
 category: 'accessing',
@@ -1304,7 +1242,6 @@ referencedClasses: ["Set"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_errorShadowingVariable_",
 smalltalk.method({
 selector: "errorShadowingVariable:",
 category: 'error handling',
@@ -1325,7 +1262,6 @@ referencedClasses: ["ShadowingVariableError"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_errorUnknownVariable_",
 smalltalk.method({
 selector: "errorUnknownVariable:",
 category: 'error handling',
@@ -1357,7 +1293,6 @@ referencedClasses: ["UnknownVariableError"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_isVariableGloballyUndefined_",
 smalltalk.method({
 selector: "isVariableGloballyUndefined:",
 category: 'testing',
@@ -1374,7 +1309,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_messageSends",
 smalltalk.method({
 selector: "messageSends",
 category: 'accessing',
@@ -1400,7 +1334,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_newBlockScope",
 smalltalk.method({
 selector: "newBlockScope",
 category: 'factory',
@@ -1420,7 +1353,6 @@ referencedClasses: ["LexicalScope"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_newMethodScope",
 smalltalk.method({
 selector: "newMethodScope",
 category: 'factory',
@@ -1440,7 +1372,6 @@ referencedClasses: ["MethodLexicalScope"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_newScopeOfClass_",
 smalltalk.method({
 selector: "newScopeOfClass:",
 category: 'factory',
@@ -1462,7 +1393,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_popScope",
 smalltalk.method({
 selector: "popScope",
 category: 'scope',
@@ -1486,7 +1416,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_pushScope_",
 smalltalk.method({
 selector: "pushScope:",
 category: 'scope',
@@ -1504,7 +1433,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_superSends",
 smalltalk.method({
 selector: "superSends",
 category: 'accessing',
@@ -1530,7 +1458,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -1549,7 +1476,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
@@ -1566,7 +1492,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_validateVariableScope_",
 smalltalk.method({
 selector: "validateVariableScope:",
 category: 'scope',
@@ -1589,7 +1514,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitAssignmentNode_",
 smalltalk.method({
 selector: "visitAssignmentNode:",
 category: 'visiting',
@@ -1607,7 +1531,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitBlockNode_",
 smalltalk.method({
 selector: "visitBlockNode:",
 category: 'visiting',
@@ -1633,7 +1556,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitCascadeNode_",
 smalltalk.method({
 selector: "visitCascadeNode:",
 category: 'visiting',
@@ -1662,7 +1584,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
 category: 'visiting',
@@ -1685,7 +1606,6 @@ referencedClasses: ["ClassRefVar"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitMethodNode_",
 smalltalk.method({
 selector: "visitMethodNode:",
 category: 'visiting',
@@ -1720,7 +1640,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitReturnNode_",
 smalltalk.method({
 selector: "visitReturnNode:",
 category: 'visiting',
@@ -1745,7 +1664,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitSendNode_",
 smalltalk.method({
 selector: "visitSendNode:",
 category: 'visiting',
@@ -1787,7 +1705,6 @@ referencedClasses: ["Set", "IRSendInliner"]
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitSequenceNode_",
 smalltalk.method({
 selector: "visitSequenceNode:",
 category: 'visiting',
@@ -1809,7 +1726,6 @@ referencedClasses: []
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
-"_visitVariableNode_",
 smalltalk.method({
 selector: "visitVariableNode:",
 category: 'visiting',
@@ -1840,7 +1756,6 @@ smalltalk.SemanticAnalyzer);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',

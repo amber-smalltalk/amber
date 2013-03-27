@@ -1,7 +1,6 @@
 smalltalk.addPackage('Compiler-Tests');
 smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_analyze_forClass_",
 smalltalk.method({
 selector: "analyze:forClass:",
 fn: function (aNode,aClass){
@@ -17,7 +16,6 @@ messageSends: ["visit:", "on:"]}),
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpret_",
 smalltalk.method({
 selector: "interpret:",
 fn: function (aString){
@@ -32,7 +30,6 @@ messageSends: ["interpret:withArguments:", "new"]}),
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpret_receiver_withArguments_",
 smalltalk.method({
 selector: "interpret:receiver:withArguments:",
 fn: function (aString,anObject,aDictionary){
@@ -58,7 +55,6 @@ messageSends: ["new", "receiver:", "keysAndValuesDo:", "localAt:put:", "context:
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpret_withArguments_",
 smalltalk.method({
 selector: "interpret:withArguments:",
 fn: function (aString,aDictionary){
@@ -73,7 +69,6 @@ messageSends: ["interpret:receiver:withArguments:", "new"]}),
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_interpreter",
 smalltalk.method({
 selector: "interpreter",
 fn: function (){
@@ -87,7 +82,6 @@ messageSends: ["subclassResponsibility"]}),
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_parse_",
 smalltalk.method({
 selector: "parse:",
 fn: function (aString){
@@ -102,7 +96,6 @@ messageSends: ["parse:", "current"]}),
 smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addMethod(
-"_parse_forClass_",
 smalltalk.method({
 selector: "parse:forClass:",
 fn: function (aString,aClass){
@@ -119,7 +112,6 @@ smalltalk.AbstractASTInterpreterTest);
 
 smalltalk.addClass('ASTInterpreterTest', smalltalk.AbstractASTInterpreterTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_interpreter",
 smalltalk.method({
 selector: "interpreter",
 fn: function (){
@@ -134,7 +126,6 @@ messageSends: ["new"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testBinarySend",
 smalltalk.method({
 selector: "testBinarySend",
 fn: function (){
@@ -146,7 +137,6 @@ messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testBlockLiteral",
 smalltalk.method({
 selector: "testBlockLiteral",
 fn: function (){
@@ -160,7 +150,6 @@ messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testCascade",
 smalltalk.method({
 selector: "testCascade",
 fn: function (){
@@ -173,7 +162,6 @@ messageSends: ["assert:equals:", "interpret:", "with:with:"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testDynamicArray",
 smalltalk.method({
 selector: "testDynamicArray",
 fn: function (){
@@ -185,7 +173,6 @@ messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testDynamicDictionary",
 smalltalk.method({
 selector: "testDynamicDictionary",
 fn: function (){
@@ -197,7 +184,6 @@ messageSends: ["assert:equals:", "interpret:", "->"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testInlinedJSStatement",
 smalltalk.method({
 selector: "testInlinedJSStatement",
 fn: function (){
@@ -210,7 +196,6 @@ messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"]
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testInstVarAccess",
 smalltalk.method({
 selector: "testInstVarAccess",
 fn: function (){
@@ -222,7 +207,6 @@ messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testInstVarAssignment",
 smalltalk.method({
 selector: "testInstVarAssignment",
 fn: function (){
@@ -235,7 +219,6 @@ messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new", "->
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testNonlocalReturn",
 smalltalk.method({
 selector: "testNonlocalReturn",
 fn: function (){
@@ -247,7 +230,6 @@ messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testReceiver",
 smalltalk.method({
 selector: "testReceiver",
 fn: function (){
@@ -259,7 +241,6 @@ messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testTempAssignment",
 smalltalk.method({
 selector: "testTempAssignment",
 fn: function (){
@@ -271,7 +252,6 @@ messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
-"_testThisContext",
 smalltalk.method({
 selector: "testThisContext",
 fn: function (){
@@ -288,7 +268,6 @@ smalltalk.ASTInterpreterTest);
 
 smalltalk.addClass('ASTSteppingInterpreterTest', smalltalk.AbstractASTInterpreterTest, ['interpreter'], 'Compiler-Tests');
 smalltalk.addMethod(
-"_interpreter",
 smalltalk.method({
 selector: "interpreter",
 fn: function (){
@@ -309,7 +288,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
-"_testAtEnd",
 smalltalk.method({
 selector: "testAtEnd",
 fn: function (){
@@ -330,7 +308,6 @@ messageSends: ["interpret:", "deny:", "atEnd", "interpreter", "step", "assert:"]
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
-"_testMessageSend",
 smalltalk.method({
 selector: "testMessageSend",
 fn: function (){
@@ -350,7 +327,6 @@ messageSends: ["interpret:", "step", "interpreter", "assert:equals:", "value", "
 smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addMethod(
-"_testSimpleStepping",
 smalltalk.method({
 selector: "testSimpleStepping",
 fn: function (){
@@ -369,7 +345,6 @@ smalltalk.ASTSteppingInterpreterTest);
 
 smalltalk.addClass('CodeGeneratorTest', smalltalk.TestCase, ['receiver'], 'Compiler-Tests');
 smalltalk.addMethod(
-"_codeGeneratorClass",
 smalltalk.method({
 selector: "codeGeneratorClass",
 fn: function (){
@@ -384,7 +359,6 @@ messageSends: []}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_compiler",
 smalltalk.method({
 selector: "compiler",
 fn: function (){
@@ -402,7 +376,6 @@ messageSends: ["codeGeneratorClass:", "codeGeneratorClass", "new", "yourself"]})
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -414,7 +387,6 @@ messageSends: ["new", "targetClass"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_should_return_",
 smalltalk.method({
 selector: "should:return:",
 fn: function (aString,anObject){
@@ -430,7 +402,6 @@ messageSends: ["install:forClass:category:", "targetClass", "compiler", "perform
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_targetClass",
 smalltalk.method({
 selector: "targetClass",
 fn: function (){
@@ -445,7 +416,6 @@ messageSends: []}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 fn: function (){
@@ -456,7 +426,6 @@ messageSends: []}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testAssignment",
 smalltalk.method({
 selector: "testAssignment",
 fn: function (){
@@ -470,7 +439,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testBackslashSelectors",
 smalltalk.method({
 selector: "testBackslashSelectors",
 fn: function (){
@@ -483,7 +451,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testBlockReturn",
 smalltalk.method({
 selector: "testBlockReturn",
 fn: function (){
@@ -497,7 +464,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testCascades",
 smalltalk.method({
 selector: "testCascades",
 fn: function (){
@@ -509,7 +475,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testDynamicArrayElementsOrdered",
 smalltalk.method({
 selector: "testDynamicArrayElementsOrdered",
 fn: function (){
@@ -521,7 +486,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testDynamicDictionaryElementsOrdered",
 smalltalk.method({
 selector: "testDynamicDictionaryElementsOrdered",
 fn: function (){
@@ -533,7 +497,6 @@ messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testInnerTemporalDependentElementsOrdered",
 smalltalk.method({
 selector: "testInnerTemporalDependentElementsOrdered",
 fn: function (){
@@ -549,7 +512,6 @@ messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testLiterals",
 smalltalk.method({
 selector: "testLiterals",
 fn: function (){
@@ -569,7 +531,6 @@ messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testLocalReturn",
 smalltalk.method({
 selector: "testLocalReturn",
 fn: function (){
@@ -585,7 +546,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testMessageSends",
 smalltalk.method({
 selector: "testMessageSends",
 fn: function (){
@@ -601,7 +561,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testMutableLiterals",
 smalltalk.method({
 selector: "testMutableLiterals",
 fn: function (){
@@ -613,7 +572,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testNestedIfTrue",
 smalltalk.method({
 selector: "testNestedIfTrue",
 fn: function (){
@@ -628,7 +586,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testNonLocalReturn",
 smalltalk.method({
 selector: "testNonLocalReturn",
 fn: function (){
@@ -643,7 +600,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testPascalCaseGlobal",
 smalltalk.method({
 selector: "testPascalCaseGlobal",
 fn: function (){
@@ -656,7 +612,6 @@ messageSends: ["should:return:", "at:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testSendReceiverAndArgumentsOrdered",
 smalltalk.method({
 selector: "testSendReceiverAndArgumentsOrdered",
 fn: function (){
@@ -670,7 +625,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifFalse",
 smalltalk.method({
 selector: "testifFalse",
 fn: function (){
@@ -685,7 +639,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifFalseIfTrue",
 smalltalk.method({
 selector: "testifFalseIfTrue",
 fn: function (){
@@ -700,7 +653,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNil",
 smalltalk.method({
 selector: "testifNil",
 fn: function (){
@@ -715,7 +667,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNilIfNotNil",
 smalltalk.method({
 selector: "testifNilIfNotNil",
 fn: function (){
@@ -730,7 +681,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNotNil",
 smalltalk.method({
 selector: "testifNotNil",
 fn: function (){
@@ -745,7 +695,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifNotNilWithArgument",
 smalltalk.method({
 selector: "testifNotNilWithArgument",
 fn: function (){
@@ -762,7 +711,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifTrue",
 smalltalk.method({
 selector: "testifTrue",
 fn: function (){
@@ -777,7 +725,6 @@ messageSends: ["should:return:"]}),
 smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
-"_testifTrueIfFalse",
 smalltalk.method({
 selector: "testifTrueIfFalse",
 fn: function (){
@@ -795,7 +742,6 @@ smalltalk.CodeGeneratorTest);
 
 smalltalk.addClass('InliningCodeGeneratorTest', smalltalk.CodeGeneratorTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_codeGeneratorClass",
 smalltalk.method({
 selector: "codeGeneratorClass",
 fn: function (){
@@ -813,7 +759,6 @@ smalltalk.InliningCodeGeneratorTest);
 
 smalltalk.addClass('ScopeVarTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
-"_testClassRefVar",
 smalltalk.method({
 selector: "testClassRefVar",
 fn: function (){
@@ -834,7 +779,6 @@ messageSends: ["value:", "new", "yourself", "visit:", "assert:", "isClassRefVar"
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testInstanceVar",
 smalltalk.method({
 selector: "testInstanceVar",
 fn: function (){
@@ -856,7 +800,6 @@ messageSends: ["value:", "new", "yourself", "addIVar:", "assert:", "isInstanceVa
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testPseudoVar",
 smalltalk.method({
 selector: "testPseudoVar",
 fn: function (){
@@ -881,7 +824,6 @@ messageSends: ["do:", "value:", "new", "yourself", "assert:", "isPseudoVar", "bi
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testTempVar",
 smalltalk.method({
 selector: "testTempVar",
 fn: function (){
@@ -903,7 +845,6 @@ messageSends: ["value:", "new", "yourself", "addTemp:", "assert:", "isTempVar", 
 smalltalk.ScopeVarTest);
 
 smalltalk.addMethod(
-"_testUnknownVar",
 smalltalk.method({
 selector: "testUnknownVar",
 fn: function (){
@@ -926,7 +867,6 @@ smalltalk.ScopeVarTest);
 
 smalltalk.addClass('SemanticAnalyzerTest', smalltalk.TestCase, ['analyzer'], 'Compiler-Tests');
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -940,7 +880,6 @@ messageSends: ["on:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testAssignment",
 smalltalk.method({
 selector: "testAssignment",
 fn: function (){
@@ -959,7 +898,6 @@ messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testNonLocalReturn",
 smalltalk.method({
 selector: "testNonLocalReturn",
 fn: function (){
@@ -975,7 +913,6 @@ messageSends: ["parse:", "visit:", "deny:", "hasNonLocalReturn", "scope"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testNonLocalReturn2",
 smalltalk.method({
 selector: "testNonLocalReturn2",
 fn: function (){
@@ -991,7 +928,6 @@ messageSends: ["parse:", "visit:", "assert:", "hasNonLocalReturn", "scope"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testScope",
 smalltalk.method({
 selector: "testScope",
 fn: function (){
@@ -1007,7 +943,6 @@ messageSends: ["parse:", "visit:", "deny:", "==", "scope", "last", "nodes", "fir
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testScope2",
 smalltalk.method({
 selector: "testScope2",
 fn: function (){
@@ -1023,7 +958,6 @@ messageSends: ["parse:", "visit:", "deny:", "==", "scope", "first", "nodes", "la
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testScopeLevel",
 smalltalk.method({
 selector: "testScopeLevel",
 fn: function (){
@@ -1040,7 +974,6 @@ messageSends: ["parse:", "visit:", "assert:equals:", "scopeLevel", "scope", "fir
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testUnknownVariables",
 smalltalk.method({
 selector: "testUnknownVariables",
 fn: function (){
@@ -1059,7 +992,6 @@ messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testUnknownVariablesWithScope",
 smalltalk.method({
 selector: "testUnknownVariablesWithScope",
 fn: function (){
@@ -1078,7 +1010,6 @@ messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing",
 smalltalk.method({
 selector: "testVariableShadowing",
 fn: function (){
@@ -1093,7 +1024,6 @@ messageSends: ["parse:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing2",
 smalltalk.method({
 selector: "testVariableShadowing2",
 fn: function (){
@@ -1112,7 +1042,6 @@ messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing3",
 smalltalk.method({
 selector: "testVariableShadowing3",
 fn: function (){
@@ -1127,7 +1056,6 @@ messageSends: ["parse:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing4",
 smalltalk.method({
 selector: "testVariableShadowing4",
 fn: function (){
@@ -1142,7 +1070,6 @@ messageSends: ["parse:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariableShadowing5",
 smalltalk.method({
 selector: "testVariableShadowing5",
 fn: function (){
@@ -1161,7 +1088,6 @@ messageSends: ["parse:", "should:raise:", "visit:"]}),
 smalltalk.SemanticAnalyzerTest);
 
 smalltalk.addMethod(
-"_testVariablesLookup",
 smalltalk.method({
 selector: "testVariablesLookup",
 fn: function (){

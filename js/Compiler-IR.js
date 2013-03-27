@@ -2,7 +2,6 @@ smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.\x0aI rely on a builder object, instance of IRBuilder."
 smalltalk.addMethod(
-"_alias_",
 smalltalk.method({
 selector: "alias:",
 category: 'visiting',
@@ -40,7 +39,6 @@ referencedClasses: ["AliasVar", "IRVariable", "IRAssignment"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_aliasTemporally_",
 smalltalk.method({
 selector: "aliasTemporally:",
 category: 'visiting',
@@ -82,7 +80,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 category: 'accessing',
@@ -101,7 +98,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_method_",
 smalltalk.method({
 selector: "method:",
 category: 'accessing',
@@ -118,7 +114,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_nextAlias",
 smalltalk.method({
 selector: "nextAlias",
 category: 'accessing',
@@ -145,7 +140,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_sequence",
 smalltalk.method({
 selector: "sequence",
 category: 'accessing',
@@ -164,7 +158,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_sequence_",
 smalltalk.method({
 selector: "sequence:",
 category: 'accessing',
@@ -181,7 +174,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'accessing',
@@ -200,7 +192,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
@@ -217,7 +208,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -236,7 +226,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
@@ -253,7 +242,6 @@ referencedClasses: []
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitAssignmentNode_",
 smalltalk.method({
 selector: "visitAssignmentNode:",
 category: 'visiting',
@@ -281,7 +269,6 @@ referencedClasses: ["IRAssignment"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitBlockNode_",
 smalltalk.method({
 selector: "visitBlockNode:",
 category: 'visiting',
@@ -320,7 +307,6 @@ referencedClasses: ["IRClosure", "IRTempDeclaration"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitBlockSequenceNode_",
 smalltalk.method({
 selector: "visitBlockSequenceNode:",
 category: 'visiting',
@@ -359,7 +345,6 @@ referencedClasses: ["IRBlockSequence", "IRBlockReturn"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitCascadeNode_",
 smalltalk.method({
 selector: "visitCascadeNode:",
 category: 'visiting',
@@ -393,7 +378,6 @@ referencedClasses: ["VariableNode"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitDynamicArrayNode_",
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
@@ -419,7 +403,6 @@ referencedClasses: ["IRDynamicArray"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitDynamicDictionaryNode_",
 smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 category: 'visiting',
@@ -445,7 +428,6 @@ referencedClasses: ["IRDynamicDictionary"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitJSStatementNode_",
 smalltalk.method({
 selector: "visitJSStatementNode:",
 category: 'visiting',
@@ -468,7 +450,6 @@ referencedClasses: ["IRVerbatim"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitMethodNode_",
 smalltalk.method({
 selector: "visitMethodNode:",
 category: 'visiting',
@@ -521,7 +502,6 @@ referencedClasses: ["IRMethod", "IRTempDeclaration", "IRVariable", "IRReturn"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitReturnNode_",
 smalltalk.method({
 selector: "visitReturnNode:",
 category: 'visiting',
@@ -554,7 +534,6 @@ referencedClasses: ["IRNonLocalReturn", "IRReturn"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitSendNode_",
 smalltalk.method({
 selector: "visitSendNode:",
 category: 'visiting',
@@ -591,7 +570,6 @@ referencedClasses: ["IRSend"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitSequenceNode_",
 smalltalk.method({
 selector: "visitSequenceNode:",
 category: 'visiting',
@@ -623,7 +601,6 @@ referencedClasses: ["IRSequence"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitValueNode_",
 smalltalk.method({
 selector: "visitValueNode:",
 category: 'visiting',
@@ -646,7 +623,6 @@ referencedClasses: ["IRValue"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_visitVariableNode_",
 smalltalk.method({
 selector: "visitVariableNode:",
 category: 'visiting',
@@ -669,7 +645,6 @@ referencedClasses: ["IRVariable"]
 smalltalk.IRASTTranslator);
 
 smalltalk.addMethod(
-"_withSequence_do_",
 smalltalk.method({
 selector: "withSequence:do:",
 category: 'accessing',
@@ -697,7 +672,6 @@ smalltalk.IRASTTranslator);
 smalltalk.addClass('IRInstruction', smalltalk.Object, ['parent', 'instructions'], 'Compiler-IR');
 smalltalk.IRInstruction.comment="I am the abstract root class of the IR (intermediate representation) instructions class hierarchy.\x0aThe IR graph is used to emit JavaScript code using a JSStream."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -716,7 +690,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_add_",
 smalltalk.method({
 selector: "add:",
 category: 'building',
@@ -736,7 +709,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_canBeAssigned",
 smalltalk.method({
 selector: "canBeAssigned",
 category: 'testing',
@@ -753,7 +725,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_instructions",
 smalltalk.method({
 selector: "instructions",
 category: 'accessing',
@@ -779,7 +750,6 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isClosure",
 smalltalk.method({
 selector: "isClosure",
 category: 'testing',
@@ -796,7 +766,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isInlined",
 smalltalk.method({
 selector: "isInlined",
 category: 'testing',
@@ -813,7 +782,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isLocalReturn",
 smalltalk.method({
 selector: "isLocalReturn",
 category: 'testing',
@@ -830,7 +798,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isMethod",
 smalltalk.method({
 selector: "isMethod",
 category: 'testing',
@@ -847,7 +814,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isReturn",
 smalltalk.method({
 selector: "isReturn",
 category: 'testing',
@@ -864,7 +830,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isSend",
 smalltalk.method({
 selector: "isSend",
 category: 'testing',
@@ -881,7 +846,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isSequence",
 smalltalk.method({
 selector: "isSequence",
 category: 'testing',
@@ -898,7 +862,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isTempDeclaration",
 smalltalk.method({
 selector: "isTempDeclaration",
 category: 'testing',
@@ -915,7 +878,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_isVariable",
 smalltalk.method({
 selector: "isVariable",
 category: 'testing',
@@ -932,7 +894,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 category: 'accessing',
@@ -951,7 +912,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_parent",
 smalltalk.method({
 selector: "parent",
 category: 'accessing',
@@ -970,7 +930,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_parent_",
 smalltalk.method({
 selector: "parent:",
 category: 'accessing',
@@ -987,7 +946,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_remove",
 smalltalk.method({
 selector: "remove",
 category: 'building',
@@ -1004,7 +962,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_remove_",
 smalltalk.method({
 selector: "remove:",
 category: 'building',
@@ -1021,7 +978,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_replace_with_",
 smalltalk.method({
 selector: "replace:with:",
 category: 'building',
@@ -1039,7 +995,6 @@ referencedClasses: []
 smalltalk.IRInstruction);
 
 smalltalk.addMethod(
-"_replaceWith_",
 smalltalk.method({
 selector: "replaceWith:",
 category: 'building',
@@ -1057,7 +1012,6 @@ smalltalk.IRInstruction);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
@@ -1081,7 +1035,6 @@ smalltalk.IRInstruction.klass);
 
 smalltalk.addClass('IRAssignment', smalltalk.IRInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1103,7 +1056,6 @@ smalltalk.IRAssignment);
 
 smalltalk.addClass('IRDynamicArray', smalltalk.IRInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1125,7 +1077,6 @@ smalltalk.IRDynamicArray);
 
 smalltalk.addClass('IRDynamicDictionary', smalltalk.IRInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1147,7 +1098,6 @@ smalltalk.IRDynamicDictionary);
 
 smalltalk.addClass('IRScopedInstruction', smalltalk.IRInstruction, ['scope'], 'Compiler-IR');
 smalltalk.addMethod(
-"_scope",
 smalltalk.method({
 selector: "scope",
 category: 'accessing',
@@ -1166,7 +1116,6 @@ referencedClasses: []
 smalltalk.IRScopedInstruction);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 category: 'accessing',
@@ -1186,7 +1135,6 @@ smalltalk.IRScopedInstruction);
 
 smalltalk.addClass('IRClosureInstruction', smalltalk.IRScopedInstruction, ['arguments'], 'Compiler-IR');
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 category: 'accessing',
@@ -1210,7 +1158,6 @@ referencedClasses: []
 smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
-"_arguments_",
 smalltalk.method({
 selector: "arguments:",
 category: 'accessing',
@@ -1227,7 +1174,6 @@ referencedClasses: []
 smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
-"_locals",
 smalltalk.method({
 selector: "locals",
 category: 'accessing',
@@ -1252,7 +1198,6 @@ referencedClasses: []
 smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
-"_scope_",
 smalltalk.method({
 selector: "scope:",
 category: 'accessing',
@@ -1270,7 +1215,6 @@ referencedClasses: []
 smalltalk.IRClosureInstruction);
 
 smalltalk.addMethod(
-"_tempDeclarations",
 smalltalk.method({
 selector: "tempDeclarations",
 category: 'accessing',
@@ -1295,7 +1239,6 @@ smalltalk.IRClosureInstruction);
 
 smalltalk.addClass('IRClosure', smalltalk.IRClosureInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1314,7 +1257,6 @@ referencedClasses: []
 smalltalk.IRClosure);
 
 smalltalk.addMethod(
-"_isClosure",
 smalltalk.method({
 selector: "isClosure",
 category: 'testing',
@@ -1331,7 +1273,6 @@ referencedClasses: []
 smalltalk.IRClosure);
 
 smalltalk.addMethod(
-"_sequence",
 smalltalk.method({
 selector: "sequence",
 category: 'accessing',
@@ -1354,7 +1295,6 @@ smalltalk.IRClosure);
 smalltalk.addClass('IRMethod', smalltalk.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'messageSends', 'superSends', 'internalVariables'], 'Compiler-IR');
 smalltalk.IRMethod.comment="I am a method instruction"
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1373,7 +1313,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_classReferences",
 smalltalk.method({
 selector: "classReferences",
 category: 'accessing',
@@ -1392,7 +1331,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_classReferences_",
 smalltalk.method({
 selector: "classReferences:",
 category: 'accessing',
@@ -1409,7 +1347,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_internalVariables",
 smalltalk.method({
 selector: "internalVariables",
 category: 'accessing',
@@ -1435,7 +1372,6 @@ referencedClasses: ["Set"]
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_isMethod",
 smalltalk.method({
 selector: "isMethod",
 category: 'accessing',
@@ -1452,7 +1388,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_messageSends",
 smalltalk.method({
 selector: "messageSends",
 category: 'accessing',
@@ -1471,7 +1406,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_messageSends_",
 smalltalk.method({
 selector: "messageSends:",
 category: 'accessing',
@@ -1488,7 +1422,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 category: 'accessing',
@@ -1507,7 +1440,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
@@ -1526,7 +1458,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
@@ -1543,7 +1474,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'accessing',
@@ -1562,7 +1492,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
@@ -1579,7 +1508,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_superSends",
 smalltalk.method({
 selector: "superSends",
 category: 'accessing',
@@ -1598,7 +1526,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_superSends_",
 smalltalk.method({
 selector: "superSends:",
 category: 'accessing',
@@ -1615,7 +1542,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -1634,7 +1560,6 @@ referencedClasses: []
 smalltalk.IRMethod);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
@@ -1655,7 +1580,6 @@ smalltalk.IRMethod);
 smalltalk.addClass('IRReturn', smalltalk.IRScopedInstruction, [], 'Compiler-IR');
 smalltalk.IRReturn.comment="I am a local return instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1674,7 +1598,6 @@ referencedClasses: []
 smalltalk.IRReturn);
 
 smalltalk.addMethod(
-"_canBeAssigned",
 smalltalk.method({
 selector: "canBeAssigned",
 category: 'testing',
@@ -1691,7 +1614,6 @@ referencedClasses: []
 smalltalk.IRReturn);
 
 smalltalk.addMethod(
-"_isBlockReturn",
 smalltalk.method({
 selector: "isBlockReturn",
 category: 'testing',
@@ -1708,7 +1630,6 @@ referencedClasses: []
 smalltalk.IRReturn);
 
 smalltalk.addMethod(
-"_isLocalReturn",
 smalltalk.method({
 selector: "isLocalReturn",
 category: 'testing',
@@ -1725,7 +1646,6 @@ referencedClasses: []
 smalltalk.IRReturn);
 
 smalltalk.addMethod(
-"_isNonLocalReturn",
 smalltalk.method({
 selector: "isNonLocalReturn",
 category: 'testing',
@@ -1744,7 +1664,6 @@ referencedClasses: []
 smalltalk.IRReturn);
 
 smalltalk.addMethod(
-"_isReturn",
 smalltalk.method({
 selector: "isReturn",
 category: 'testing',
@@ -1765,7 +1684,6 @@ smalltalk.IRReturn);
 smalltalk.addClass('IRBlockReturn', smalltalk.IRReturn, [], 'Compiler-IR');
 smalltalk.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1784,7 +1702,6 @@ referencedClasses: []
 smalltalk.IRBlockReturn);
 
 smalltalk.addMethod(
-"_isBlockReturn",
 smalltalk.method({
 selector: "isBlockReturn",
 category: 'testing',
@@ -1805,7 +1722,6 @@ smalltalk.IRBlockReturn);
 smalltalk.addClass('IRNonLocalReturn', smalltalk.IRReturn, [], 'Compiler-IR');
 smalltalk.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JS statement.\x0a\x0aSee IRNonLocalReturnHandling class"
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1824,7 +1740,6 @@ referencedClasses: []
 smalltalk.IRNonLocalReturn);
 
 smalltalk.addMethod(
-"_isLocalReturn",
 smalltalk.method({
 selector: "isLocalReturn",
 category: 'testing',
@@ -1844,7 +1759,6 @@ smalltalk.IRNonLocalReturn);
 
 smalltalk.addClass('IRTempDeclaration', smalltalk.IRScopedInstruction, ['name'], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1863,7 +1777,6 @@ referencedClasses: []
 smalltalk.IRTempDeclaration);
 
 smalltalk.addMethod(
-"_isTempDeclaration",
 smalltalk.method({
 selector: "isTempDeclaration",
 category: 'testing',
@@ -1880,7 +1793,6 @@ referencedClasses: []
 smalltalk.IRTempDeclaration);
 
 smalltalk.addMethod(
-"_name",
 smalltalk.method({
 selector: "name",
 category: 'accessing',
@@ -1899,7 +1811,6 @@ referencedClasses: []
 smalltalk.IRTempDeclaration);
 
 smalltalk.addMethod(
-"_name_",
 smalltalk.method({
 selector: "name:",
 category: 'accessing',
@@ -1920,7 +1831,6 @@ smalltalk.IRTempDeclaration);
 smalltalk.addClass('IRSend', smalltalk.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
 smalltalk.IRSend.comment="I am a message send instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -1939,7 +1849,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_classSend",
 smalltalk.method({
 selector: "classSend",
 category: 'accessing',
@@ -1958,7 +1867,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_classSend_",
 smalltalk.method({
 selector: "classSend:",
 category: 'accessing',
@@ -1975,7 +1883,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_index",
 smalltalk.method({
 selector: "index",
 category: 'accessing',
@@ -1994,7 +1901,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_index_",
 smalltalk.method({
 selector: "index:",
 category: 'accessing',
@@ -2011,7 +1917,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_isSend",
 smalltalk.method({
 selector: "isSend",
 category: 'testing',
@@ -2028,7 +1933,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
@@ -2047,7 +1951,6 @@ referencedClasses: []
 smalltalk.IRSend);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
@@ -2067,7 +1970,6 @@ smalltalk.IRSend);
 
 smalltalk.addClass('IRSequence', smalltalk.IRInstruction, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -2086,7 +1988,6 @@ referencedClasses: []
 smalltalk.IRSequence);
 
 smalltalk.addMethod(
-"_isSequence",
 smalltalk.method({
 selector: "isSequence",
 category: 'testing',
@@ -2106,7 +2007,6 @@ smalltalk.IRSequence);
 
 smalltalk.addClass('IRBlockSequence', smalltalk.IRSequence, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -2129,7 +2029,6 @@ smalltalk.IRBlockSequence);
 smalltalk.addClass('IRValue', smalltalk.IRInstruction, ['value'], 'Compiler-IR');
 smalltalk.IRValue.comment="I am the simplest possible instruction. I represent a value."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -2148,7 +2047,6 @@ referencedClasses: []
 smalltalk.IRValue);
 
 smalltalk.addMethod(
-"_value",
 smalltalk.method({
 selector: "value",
 category: 'accessing',
@@ -2167,7 +2065,6 @@ referencedClasses: []
 smalltalk.IRValue);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 category: 'accessing',
@@ -2188,7 +2085,6 @@ smalltalk.IRValue);
 smalltalk.addClass('IRVariable', smalltalk.IRInstruction, ['variable'], 'Compiler-IR');
 smalltalk.IRVariable.comment="I am a variable instruction."
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -2207,7 +2103,6 @@ referencedClasses: []
 smalltalk.IRVariable);
 
 smalltalk.addMethod(
-"_isVariable",
 smalltalk.method({
 selector: "isVariable",
 category: 'testing',
@@ -2224,7 +2119,6 @@ referencedClasses: []
 smalltalk.IRVariable);
 
 smalltalk.addMethod(
-"_variable",
 smalltalk.method({
 selector: "variable",
 category: 'accessing',
@@ -2243,7 +2137,6 @@ referencedClasses: []
 smalltalk.IRVariable);
 
 smalltalk.addMethod(
-"_variable_",
 smalltalk.method({
 selector: "variable:",
 category: 'accessing',
@@ -2263,7 +2156,6 @@ smalltalk.IRVariable);
 
 smalltalk.addClass('IRVerbatim', smalltalk.IRInstruction, ['source'], 'Compiler-IR');
 smalltalk.addMethod(
-"_accept_",
 smalltalk.method({
 selector: "accept:",
 category: 'visiting',
@@ -2282,7 +2174,6 @@ referencedClasses: []
 smalltalk.IRVerbatim);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'accessing',
@@ -2301,7 +2192,6 @@ referencedClasses: []
 smalltalk.IRVerbatim);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
@@ -2321,7 +2211,6 @@ smalltalk.IRVerbatim);
 
 smalltalk.addClass('IRVisitor', smalltalk.Object, [], 'Compiler-IR');
 smalltalk.addMethod(
-"_visit_",
 smalltalk.method({
 selector: "visit:",
 category: 'visiting',
@@ -2340,7 +2229,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRAssignment_",
 smalltalk.method({
 selector: "visitIRAssignment:",
 category: 'visiting',
@@ -2359,7 +2247,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRBlockReturn_",
 smalltalk.method({
 selector: "visitIRBlockReturn:",
 category: 'visiting',
@@ -2378,7 +2265,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRBlockSequence_",
 smalltalk.method({
 selector: "visitIRBlockSequence:",
 category: 'visiting',
@@ -2397,7 +2283,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRClosure_",
 smalltalk.method({
 selector: "visitIRClosure:",
 category: 'visiting',
@@ -2416,7 +2301,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRDynamicArray_",
 smalltalk.method({
 selector: "visitIRDynamicArray:",
 category: 'visiting',
@@ -2435,7 +2319,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRDynamicDictionary_",
 smalltalk.method({
 selector: "visitIRDynamicDictionary:",
 category: 'visiting',
@@ -2454,7 +2337,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRInlinedClosure_",
 smalltalk.method({
 selector: "visitIRInlinedClosure:",
 category: 'visiting',
@@ -2473,7 +2355,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRInlinedSequence_",
 smalltalk.method({
 selector: "visitIRInlinedSequence:",
 category: 'visiting',
@@ -2492,7 +2373,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRInstruction_",
 smalltalk.method({
 selector: "visitIRInstruction:",
 category: 'visiting',
@@ -2515,7 +2395,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRMethod_",
 smalltalk.method({
 selector: "visitIRMethod:",
 category: 'visiting',
@@ -2534,7 +2413,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRNonLocalReturn_",
 smalltalk.method({
 selector: "visitIRNonLocalReturn:",
 category: 'visiting',
@@ -2553,7 +2431,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRNonLocalReturnHandling_",
 smalltalk.method({
 selector: "visitIRNonLocalReturnHandling:",
 category: 'visiting',
@@ -2572,7 +2449,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRReturn_",
 smalltalk.method({
 selector: "visitIRReturn:",
 category: 'visiting',
@@ -2591,7 +2467,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRSend_",
 smalltalk.method({
 selector: "visitIRSend:",
 category: 'visiting',
@@ -2610,7 +2485,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRSequence_",
 smalltalk.method({
 selector: "visitIRSequence:",
 category: 'visiting',
@@ -2629,7 +2503,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRTempDeclaration_",
 smalltalk.method({
 selector: "visitIRTempDeclaration:",
 category: 'visiting',
@@ -2648,7 +2521,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRValue_",
 smalltalk.method({
 selector: "visitIRValue:",
 category: 'visiting',
@@ -2667,7 +2539,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRVariable_",
 smalltalk.method({
 selector: "visitIRVariable:",
 category: 'visiting',
@@ -2686,7 +2557,6 @@ referencedClasses: []
 smalltalk.IRVisitor);
 
 smalltalk.addMethod(
-"_visitIRVerbatim_",
 smalltalk.method({
 selector: "visitIRVerbatim:",
 category: 'visiting',
@@ -2708,7 +2578,6 @@ smalltalk.IRVisitor);
 
 smalltalk.addClass('IRJSTranslator', smalltalk.IRVisitor, ['stream'], 'Compiler-IR');
 smalltalk.addMethod(
-"_contents",
 smalltalk.method({
 selector: "contents",
 category: 'accessing',
@@ -2727,7 +2596,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -2746,7 +2614,6 @@ referencedClasses: ["JSStream"]
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_stream",
 smalltalk.method({
 selector: "stream",
 category: 'accessing',
@@ -2765,7 +2632,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_stream_",
 smalltalk.method({
 selector: "stream:",
 category: 'accessing',
@@ -2782,7 +2648,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRAssignment_",
 smalltalk.method({
 selector: "visitIRAssignment:",
 category: 'visiting',
@@ -2801,7 +2666,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRClosure_",
 smalltalk.method({
 selector: "visitIRClosure:",
 category: 'visiting',
@@ -2828,7 +2692,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRDynamicArray_",
 smalltalk.method({
 selector: "visitIRDynamicArray:",
 category: 'visiting',
@@ -2853,7 +2716,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRDynamicDictionary_",
 smalltalk.method({
 selector: "visitIRDynamicDictionary:",
 category: 'visiting',
@@ -2878,7 +2740,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRMethod_",
 smalltalk.method({
 selector: "visitIRMethod:",
 category: 'visiting',
@@ -2928,7 +2789,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRNonLocalReturn_",
 smalltalk.method({
 selector: "visitIRNonLocalReturn:",
 category: 'visiting',
@@ -2948,7 +2808,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRReturn_",
 smalltalk.method({
 selector: "visitIRReturn:",
 category: 'visiting',
@@ -2968,7 +2827,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRSend_",
 smalltalk.method({
 selector: "visitIRSend:",
 category: 'visiting',
@@ -3015,7 +2873,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRSequence_",
 smalltalk.method({
 selector: "visitIRSequence:",
 category: 'visiting',
@@ -3038,7 +2895,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRTempDeclaration_",
 smalltalk.method({
 selector: "visitIRTempDeclaration:",
 category: 'visiting',
@@ -3054,7 +2910,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRValue_",
 smalltalk.method({
 selector: "visitIRValue:",
 category: 'visiting',
@@ -3071,7 +2926,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRVariable_",
 smalltalk.method({
 selector: "visitIRVariable:",
 category: 'visiting',
@@ -3094,7 +2948,6 @@ referencedClasses: []
 smalltalk.IRJSTranslator);
 
 smalltalk.addMethod(
-"_visitIRVerbatim_",
 smalltalk.method({
 selector: "visitIRVerbatim:",
 category: 'visiting',
@@ -3117,7 +2970,6 @@ smalltalk.IRJSTranslator);
 
 smalltalk.addClass('JSStream', smalltalk.Object, ['stream'], 'Compiler-IR');
 smalltalk.addMethod(
-"_contents",
 smalltalk.method({
 selector: "contents",
 category: 'accessing',
@@ -3136,7 +2988,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -3154,7 +3005,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_lf",
 smalltalk.method({
 selector: "lf",
 category: 'streaming',
@@ -3171,7 +3021,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPut_",
 smalltalk.method({
 selector: "nextPut:",
 category: 'streaming',
@@ -3188,7 +3037,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutAll_",
 smalltalk.method({
 selector: "nextPutAll:",
 category: 'streaming',
@@ -3205,7 +3053,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutAssignment",
 smalltalk.method({
 selector: "nextPutAssignment",
 category: 'streaming',
@@ -3222,7 +3069,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutBlockContextFor_during_",
 smalltalk.method({
 selector: "nextPutBlockContextFor:during:",
 category: 'streaming',
@@ -3260,7 +3106,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutClassRefFunction_",
 smalltalk.method({
 selector: "nextPutClassRefFunction:",
 category: 'streaming',
@@ -3288,7 +3133,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutClosureWith_arguments_",
 smalltalk.method({
 selector: "nextPutClosureWith:arguments:",
 category: 'streaming',
@@ -3318,7 +3162,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutContextFor_during_",
 smalltalk.method({
 selector: "nextPutContextFor:during:",
 category: 'streaming',
@@ -3357,7 +3200,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutFunctionWith_arguments_",
 smalltalk.method({
 selector: "nextPutFunctionWith:arguments:",
 category: 'streaming',
@@ -3390,7 +3232,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutIf_with_",
 smalltalk.method({
 selector: "nextPutIf:with:",
 category: 'streaming',
@@ -3414,7 +3255,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutIfElse_with_with_",
 smalltalk.method({
 selector: "nextPutIfElse:with:with:",
 category: 'streaming',
@@ -3442,7 +3282,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutMethodDeclaration_with_",
 smalltalk.method({
 selector: "nextPutMethodDeclaration:with:",
 category: 'streaming',
@@ -3488,7 +3327,6 @@ referencedClasses: ["String"]
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutNonLocalReturnHandlingWith_",
 smalltalk.method({
 selector: "nextPutNonLocalReturnHandlingWith:",
 category: 'streaming',
@@ -3516,7 +3354,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutNonLocalReturnWith_",
 smalltalk.method({
 selector: "nextPutNonLocalReturnWith:",
 category: 'streaming',
@@ -3535,7 +3372,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutReturn",
 smalltalk.method({
 selector: "nextPutReturn",
 category: 'streaming',
@@ -3552,7 +3388,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutReturnWith_",
 smalltalk.method({
 selector: "nextPutReturnWith:",
 category: 'streaming',
@@ -3570,7 +3405,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutSequenceWith_",
 smalltalk.method({
 selector: "nextPutSequenceWith:",
 category: 'streaming',
@@ -3587,7 +3421,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutStatement_with_",
 smalltalk.method({
 selector: "nextPutStatement:with:",
 category: 'streaming',
@@ -3611,7 +3444,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutStatementWith_",
 smalltalk.method({
 selector: "nextPutStatementWith:",
 category: 'streaming',
@@ -3632,7 +3464,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 smalltalk.addMethod(
-"_nextPutVars_",
 smalltalk.method({
 selector: "nextPutVars:",
 category: 'streaming',
@@ -3671,7 +3502,6 @@ smalltalk.JSStream);
 
 
 smalltalk.addMethod(
-"_appendToInstruction_",
 smalltalk.method({
 selector: "appendToInstruction:",
 category: '*Compiler-IR',
@@ -3688,7 +3518,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_asVariableName",
 smalltalk.method({
 selector: "asVariableName",
 category: '*Compiler-IR',

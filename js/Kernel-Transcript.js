@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Transcript');
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
-"_clear",
 smalltalk.method({
 selector: "clear",
 category: 'printing',
@@ -17,7 +16,6 @@ referencedClasses: []
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 category: 'printing',
@@ -33,7 +31,6 @@ referencedClasses: []
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 category: 'actions',
@@ -49,7 +46,6 @@ referencedClasses: []
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-"_show_",
 smalltalk.method({
 selector: "show:",
 category: 'printing',
@@ -67,7 +63,6 @@ smalltalk.ConsoleTranscript);
 
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -89,7 +84,6 @@ smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcr
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_clear",
 smalltalk.method({
 selector: "clear",
 category: 'printing',
@@ -106,7 +100,6 @@ referencedClasses: []
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 category: 'printing',
@@ -124,7 +117,6 @@ referencedClasses: ["String"]
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 category: 'instance creation',
@@ -143,7 +135,6 @@ referencedClasses: []
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
@@ -160,7 +151,6 @@ referencedClasses: []
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 category: 'instance creation',
@@ -177,7 +167,6 @@ referencedClasses: []
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_register_",
 smalltalk.method({
 selector: "register:",
 category: 'instance creation',
@@ -194,7 +183,6 @@ referencedClasses: []
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_show_",
 smalltalk.method({
 selector: "show:",
 category: 'printing',

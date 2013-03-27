@@ -1,7 +1,6 @@
 smalltalk.addPackage('SUnit');
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.addMethod(
-"_result",
 smalltalk.method({
 selector: "result",
 category: 'accessing',
@@ -20,7 +19,6 @@ referencedClasses: []
 smalltalk.ResultAnnouncement);
 
 smalltalk.addMethod(
-"_result_",
 smalltalk.method({
 selector: "result:",
 category: 'accessing',
@@ -41,7 +39,6 @@ smalltalk.ResultAnnouncement);
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 smalltalk.TestCase.comment="A TestCase is an implementation of the command pattern to run a test.\x0a\x0a`TestCase` instances are created with the class method `#selector:`,\x0apassing the symbol that names the method to be executed when the test case runs.\x0a\x0aWhen you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.\x0aAs that method develops and more `#test...` methods are added, you will find yourself refactoring temps\x0ainto instance variables for the objects in the fixture and overriding `#setUp` to initialize these variables.\x0aAs required, override `#tearDown` to nil references, release objects and deallocate."
 smalltalk.addMethod(
-"_assert_",
 smalltalk.method({
 selector: "assert:",
 category: 'testing',
@@ -58,7 +55,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_assert_description_",
 smalltalk.method({
 selector: "assert:description:",
 category: 'testing',
@@ -79,7 +75,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_assert_equals_",
 smalltalk.method({
 selector: "assert:equals:",
 category: 'testing',
@@ -98,7 +93,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_async_",
 smalltalk.method({
 selector: "async:",
 category: 'async',
@@ -126,7 +120,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_context_",
 smalltalk.method({
 selector: "context:",
 category: 'accessing',
@@ -143,7 +136,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_deny_",
 smalltalk.method({
 selector: "deny:",
 category: 'testing',
@@ -160,7 +152,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_errorIfNotAsync_",
 smalltalk.method({
 selector: "errorIfNotAsync:",
 category: 'error handling',
@@ -181,7 +172,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_finished",
 smalltalk.method({
 selector: "finished",
 category: 'async',
@@ -199,7 +189,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_isAsync",
 smalltalk.method({
 selector: "isAsync",
 category: 'testing',
@@ -218,7 +207,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_performTest",
 smalltalk.method({
 selector: "performTest",
 category: 'running',
@@ -236,7 +224,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_runCase",
 smalltalk.method({
 selector: "runCase",
 category: 'running',
@@ -254,7 +241,6 @@ referencedClasses: ["TestContext"]
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
@@ -273,7 +259,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_setTestSelector_",
 smalltalk.method({
 selector: "setTestSelector:",
 category: 'accessing',
@@ -290,7 +275,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 category: 'running',
@@ -306,7 +290,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_should_",
 smalltalk.method({
 selector: "should:",
 category: 'testing',
@@ -323,7 +306,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_should_raise_",
 smalltalk.method({
 selector: "should:raise:",
 category: 'testing',
@@ -347,7 +329,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_shouldnt_raise_",
 smalltalk.method({
 selector: "shouldnt:raise:",
 category: 'testing',
@@ -371,7 +352,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_signalFailure_",
 smalltalk.method({
 selector: "signalFailure:",
 category: 'private',
@@ -392,7 +372,6 @@ referencedClasses: ["TestFailure"]
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 category: 'running',
@@ -408,7 +387,6 @@ referencedClasses: []
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_timeout_",
 smalltalk.method({
 selector: "timeout:",
 category: 'async',
@@ -437,7 +415,6 @@ smalltalk.TestCase);
 
 
 smalltalk.addMethod(
-"_allTestSelectors",
 smalltalk.method({
 selector: "allTestSelectors",
 category: 'accessing',
@@ -462,7 +439,6 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_buildSuite",
 smalltalk.method({
 selector: "buildSuite",
 category: 'accessing',
@@ -484,7 +460,6 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_isAbstract",
 smalltalk.method({
 selector: "isAbstract",
 category: 'testing',
@@ -503,7 +478,6 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_lookupHierarchyRoot",
 smalltalk.method({
 selector: "lookupHierarchyRoot",
 category: 'accessing',
@@ -523,7 +497,6 @@ referencedClasses: ["TestCase"]
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
@@ -545,7 +518,6 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_shouldInheritSelectors",
 smalltalk.method({
 selector: "shouldInheritSelectors",
 category: 'testing',
@@ -564,7 +536,6 @@ referencedClasses: []
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_testSelectors",
 smalltalk.method({
 selector: "testSelectors",
 category: 'accessing',
@@ -589,7 +560,6 @@ smalltalk.TestCase.klass);
 smalltalk.addClass('TestContext', smalltalk.Object, ['testCase'], 'SUnit');
 smalltalk.TestContext.comment="TestContext governs running a particular test case.\x0a\x0aIt's main added value is `#execute:` method which runs a block\x0aas a part of test case (restores context, nilling it afterwards,\x0acleaning/calling tearDown as appropriate for sync/async scenario)."
 smalltalk.addMethod(
-"_execute_",
 smalltalk.method({
 selector: "execute:",
 category: 'running',
@@ -630,7 +600,6 @@ referencedClasses: []
 smalltalk.TestContext);
 
 smalltalk.addMethod(
-"_start",
 smalltalk.method({
 selector: "start",
 category: 'running',
@@ -651,7 +620,6 @@ referencedClasses: []
 smalltalk.TestContext);
 
 smalltalk.addMethod(
-"_testCase_",
 smalltalk.method({
 selector: "testCase:",
 category: 'accessing',
@@ -669,7 +637,6 @@ smalltalk.TestContext);
 
 
 smalltalk.addMethod(
-"_testCase_",
 smalltalk.method({
 selector: "testCase:",
 category: 'instance creation',
@@ -694,7 +661,6 @@ smalltalk.TestContext.klass);
 smalltalk.addClass('ReportingTestContext', smalltalk.TestContext, ['finished', 'result'], 'SUnit');
 smalltalk.ReportingTestContext.comment="ReportingTestContext adds `TestResult` reporting\x0ato `TestContext`.\x0a\x0aErrors are caught and save into a `TestResult`,\x0aWhen test case is finished (which can be later for async tests),\x0aa callback block is executed; this is used by a `TestSuiteRunner`."
 smalltalk.addMethod(
-"_execute_",
 smalltalk.method({
 selector: "execute:",
 category: 'running',
@@ -725,7 +691,6 @@ referencedClasses: []
 smalltalk.ReportingTestContext);
 
 smalltalk.addMethod(
-"_finished_",
 smalltalk.method({
 selector: "finished:",
 category: 'accessing',
@@ -742,7 +707,6 @@ referencedClasses: []
 smalltalk.ReportingTestContext);
 
 smalltalk.addMethod(
-"_result_",
 smalltalk.method({
 selector: "result:",
 category: 'accessing',
@@ -759,7 +723,6 @@ referencedClasses: []
 smalltalk.ReportingTestContext);
 
 smalltalk.addMethod(
-"_withErrorReporting_",
 smalltalk.method({
 selector: "withErrorReporting:",
 category: 'private',
@@ -788,7 +751,6 @@ smalltalk.ReportingTestContext);
 
 
 smalltalk.addMethod(
-"_testCase_result_finished_",
 smalltalk.method({
 selector: "testCase:result:finished:",
 category: 'instance creation',
@@ -818,7 +780,6 @@ smalltalk.TestFailure.comment="The test framework distinguishes between failures
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 smalltalk.TestResult.comment="A TestResult implements the collecting parameter pattern for running a bunch of tests.\x0a\x0aA TestResult holds tests that have run, sorted into the result categories of passed, failures and errors.\x0a\x0aTestResult is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce"
 smalltalk.addMethod(
-"_addError_",
 smalltalk.method({
 selector: "addError:",
 category: 'accessing',
@@ -835,7 +796,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_addFailure_",
 smalltalk.method({
 selector: "addFailure:",
 category: 'accessing',
@@ -852,7 +812,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_errors",
 smalltalk.method({
 selector: "errors",
 category: 'accessing',
@@ -871,7 +830,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_failures",
 smalltalk.method({
 selector: "failures",
 category: 'accessing',
@@ -890,7 +848,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_increaseRuns",
 smalltalk.method({
 selector: "increaseRuns",
 category: 'accessing',
@@ -907,7 +864,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -931,7 +887,6 @@ referencedClasses: ["Date", "Array"]
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_nextRunDo_",
 smalltalk.method({
 selector: "nextRunDo:",
 category: 'running',
@@ -953,7 +908,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_runCase_",
 smalltalk.method({
 selector: "runCase:",
 category: 'running',
@@ -985,7 +939,6 @@ referencedClasses: ["Error", "TestFailure"]
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_runs",
 smalltalk.method({
 selector: "runs",
 category: 'accessing',
@@ -1004,7 +957,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_status",
 smalltalk.method({
 selector: "status",
 category: 'accessing',
@@ -1033,7 +985,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_timestamp",
 smalltalk.method({
 selector: "timestamp",
 category: 'accessing',
@@ -1052,7 +1003,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_total",
 smalltalk.method({
 selector: "total",
 category: 'accessing',
@@ -1071,7 +1021,6 @@ referencedClasses: []
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_total_",
 smalltalk.method({
 selector: "total:",
 category: 'accessing',
@@ -1091,7 +1040,6 @@ smalltalk.TestResult);
 
 smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
 smalltalk.addMethod(
-"_announcer",
 smalltalk.method({
 selector: "announcer",
 category: 'accessing',
@@ -1110,7 +1058,6 @@ referencedClasses: []
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_contextOf_",
 smalltalk.method({
 selector: "contextOf:",
 category: 'private',
@@ -1133,7 +1080,6 @@ referencedClasses: ["ReportingTestContext"]
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -1165,7 +1111,6 @@ referencedClasses: ["Announcer", "TestResult"]
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_result",
 smalltalk.method({
 selector: "result",
 category: 'accessing',
@@ -1184,7 +1129,6 @@ referencedClasses: []
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_resume",
 smalltalk.method({
 selector: "resume",
 category: 'actions',
@@ -1203,7 +1147,6 @@ referencedClasses: ["ResultAnnouncement"]
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_run",
 smalltalk.method({
 selector: "run",
 category: 'actions',
@@ -1221,7 +1164,6 @@ referencedClasses: []
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_suite_",
 smalltalk.method({
 selector: "suite:",
 category: 'accessing',
@@ -1239,7 +1181,6 @@ smalltalk.TestSuiteRunner);
 
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
@@ -1256,7 +1197,6 @@ referencedClasses: []
 smalltalk.TestSuiteRunner.klass);
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',

@@ -2,7 +2,6 @@ smalltalk.addPackage('Kernel-Exceptions');
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner."
 smalltalk.addMethod(
-"_context",
 smalltalk.method({
 selector: "context",
 category: 'accessing',
@@ -19,7 +18,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -36,7 +34,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_isSmalltalkError",
 smalltalk.method({
 selector: "isSmalltalkError",
 category: 'testing',
@@ -53,7 +50,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_jsStack",
 smalltalk.method({
 selector: "jsStack",
 category: 'accessing',
@@ -70,7 +66,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -89,7 +84,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_messageText_",
 smalltalk.method({
 selector: "messageText:",
 category: 'accessing',
@@ -106,7 +100,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_signal",
 smalltalk.method({
 selector: "signal",
 category: 'signaling',
@@ -123,7 +116,6 @@ referencedClasses: []
 smalltalk.Error);
 
 smalltalk.addMethod(
-"_signal_",
 smalltalk.method({
 selector: "signal:",
 category: 'signaling',
@@ -142,7 +134,6 @@ smalltalk.Error);
 
 
 smalltalk.addMethod(
-"_signal",
 smalltalk.method({
 selector: "signal",
 category: 'instance creation',
@@ -161,7 +152,6 @@ referencedClasses: []
 smalltalk.Error.klass);
 
 smalltalk.addMethod(
-"_signal_",
 smalltalk.method({
 selector: "signal:",
 category: 'instance creation',
@@ -183,7 +173,6 @@ smalltalk.Error.klass);
 smalltalk.addClass('JavaScriptException', smalltalk.Error, ['exception'], 'Kernel-Exceptions');
 smalltalk.JavaScriptException.comment="A JavaScriptException is thrown when a non-Smalltalk exception occurs while in the Smalltalk stack.\x0aSee `boot.js` `inContext()` and `BlockClosure >> on:do:`"
 smalltalk.addMethod(
-"_context_",
 smalltalk.method({
 selector: "context:",
 category: 'accessing',
@@ -200,7 +189,6 @@ referencedClasses: []
 smalltalk.JavaScriptException);
 
 smalltalk.addMethod(
-"_exception",
 smalltalk.method({
 selector: "exception",
 category: 'accessing',
@@ -219,7 +207,6 @@ referencedClasses: []
 smalltalk.JavaScriptException);
 
 smalltalk.addMethod(
-"_exception_",
 smalltalk.method({
 selector: "exception:",
 category: 'accessing',
@@ -236,7 +223,6 @@ referencedClasses: []
 smalltalk.JavaScriptException);
 
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -254,7 +240,6 @@ smalltalk.JavaScriptException);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'instance creation',
@@ -276,7 +261,6 @@ referencedClasses: []
 smalltalk.JavaScriptException.klass);
 
 smalltalk.addMethod(
-"_on_context_",
 smalltalk.method({
 selector: "on:context:",
 category: 'instance creation',
@@ -302,7 +286,6 @@ smalltalk.JavaScriptException.klass);
 smalltalk.addClass('MessageNotUnderstood', smalltalk.Error, ['message', 'receiver'], 'Kernel-Exceptions');
 smalltalk.MessageNotUnderstood.comment="This exception is provided to support `Object>>doesNotUnderstand:`."
 smalltalk.addMethod(
-"_message",
 smalltalk.method({
 selector: "message",
 category: 'accessing',
@@ -321,7 +304,6 @@ referencedClasses: []
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_message_",
 smalltalk.method({
 selector: "message:",
 category: 'accessing',
@@ -338,7 +320,6 @@ referencedClasses: []
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_messageText",
 smalltalk.method({
 selector: "messageText",
 category: 'accessing',
@@ -357,7 +338,6 @@ referencedClasses: []
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_receiver",
 smalltalk.method({
 selector: "receiver",
 category: 'accessing',
@@ -376,7 +356,6 @@ referencedClasses: []
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
-"_receiver_",
 smalltalk.method({
 selector: "receiver:",
 category: 'accessing',
@@ -397,7 +376,6 @@ smalltalk.MessageNotUnderstood);
 smalltalk.addClass('NonBooleanReceiver', smalltalk.Error, ['object'], 'Kernel-Exceptions');
 smalltalk.NonBooleanReceiver.comment="NonBooleanReceiver exceptions may be thrown when executing inlined methods such as `#ifTrue:` with a non boolean receiver."
 smalltalk.addMethod(
-"_object",
 smalltalk.method({
 selector: "object",
 category: 'accessing',
@@ -416,7 +394,6 @@ referencedClasses: []
 smalltalk.NonBooleanReceiver);
 
 smalltalk.addMethod(
-"_object_",
 smalltalk.method({
 selector: "object:",
 category: 'accessing',
@@ -437,7 +414,6 @@ smalltalk.NonBooleanReceiver);
 smalltalk.addClass('ErrorHandler', smalltalk.Object, [], 'Kernel-Exceptions');
 smalltalk.ErrorHandler.comment="ErrorHandler is used to manage Smalltalk errors.\x0aSee `boot.js` `handleError()` function.\x0a\x0aSubclasses of `ErrorHandler` can register themselves as the current handler with\x0a`ErrorHandler class >> register`.\x0a\x0aSubclasses may override `#handleError:` to perform an action on the thrown exception.\x0aThe default behavior is to log the error and the context stack to the JavaScript console."
 smalltalk.addMethod(
-"_handleError_",
 smalltalk.method({
 selector: "handleError:",
 category: 'error handling',
@@ -461,7 +437,6 @@ referencedClasses: []
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_log_",
 smalltalk.method({
 selector: "log:",
 category: 'private',
@@ -478,7 +453,6 @@ referencedClasses: []
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_logContext_",
 smalltalk.method({
 selector: "logContext:",
 category: 'private',
@@ -502,7 +476,6 @@ referencedClasses: []
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_logError_",
 smalltalk.method({
 selector: "logError:",
 category: 'private',
@@ -519,7 +492,6 @@ referencedClasses: []
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
-"_logErrorContext_",
 smalltalk.method({
 selector: "logErrorContext:",
 category: 'private',
@@ -549,7 +521,6 @@ smalltalk.ErrorHandler);
 
 smalltalk.ErrorHandler.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 category: 'accessing',
@@ -574,7 +545,6 @@ referencedClasses: []
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -591,7 +561,6 @@ referencedClasses: []
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-"_register",
 smalltalk.method({
 selector: "register",
 category: 'initialization',
@@ -609,7 +578,6 @@ referencedClasses: ["ErrorHandler"]
 smalltalk.ErrorHandler.klass);
 
 smalltalk.addMethod(
-"_setCurrent_",
 smalltalk.method({
 selector: "setCurrent:",
 category: 'accessing',

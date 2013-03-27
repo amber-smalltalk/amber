@@ -1,7 +1,6 @@
 smalltalk.addPackage('SUnit');
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.addMethod(
-"_result",
 smalltalk.method({
 selector: "result",
 fn: function (){
@@ -15,7 +14,6 @@ messageSends: []}),
 smalltalk.ResultAnnouncement);
 
 smalltalk.addMethod(
-"_result_",
 smalltalk.method({
 selector: "result:",
 fn: function (aTestResult){
@@ -30,7 +28,6 @@ smalltalk.ResultAnnouncement);
 
 smalltalk.addClass('TestCase', smalltalk.Object, ['testSelector', 'asyncTimeout', 'context'], 'SUnit');
 smalltalk.addMethod(
-"_assert_",
 smalltalk.method({
 selector: "assert:",
 fn: function (aBoolean){
@@ -42,7 +39,6 @@ messageSends: ["assert:description:"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_assert_description_",
 smalltalk.method({
 selector: "assert:description:",
 fn: function (aBoolean,aString){
@@ -58,7 +54,6 @@ messageSends: ["ifFalse:", "signalFailure:"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_assert_equals_",
 smalltalk.method({
 selector: "assert:equals:",
 fn: function (actual,expected){
@@ -72,7 +67,6 @@ messageSends: ["assert:description:", "=", ",", "asString"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_async_",
 smalltalk.method({
 selector: "async:",
 fn: function (aBlock){
@@ -95,7 +89,6 @@ messageSends: ["errorIfNotAsync:", "ifTrue:", "execute:", "isAsync"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_context_",
 smalltalk.method({
 selector: "context:",
 fn: function (aRunningTestContext){
@@ -107,7 +100,6 @@ messageSends: []}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_deny_",
 smalltalk.method({
 selector: "deny:",
 fn: function (aBoolean){
@@ -119,7 +111,6 @@ messageSends: ["assert:", "not"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_errorIfNotAsync_",
 smalltalk.method({
 selector: "errorIfNotAsync:",
 fn: function (aString){
@@ -135,7 +126,6 @@ messageSends: ["ifFalse:", "error:", ",", "isAsync"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_finished",
 smalltalk.method({
 selector: "finished",
 fn: function (){
@@ -148,7 +138,6 @@ messageSends: ["errorIfNotAsync:"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_isAsync",
 smalltalk.method({
 selector: "isAsync",
 fn: function (){
@@ -162,7 +151,6 @@ messageSends: ["notNil"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_performTest",
 smalltalk.method({
 selector: "performTest",
 fn: function (){
@@ -175,7 +163,6 @@ messageSends: ["perform:", "selector"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_runCase",
 smalltalk.method({
 selector: "runCase",
 fn: function (){
@@ -188,7 +175,6 @@ messageSends: ["start", "testCase:"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 fn: function (){
@@ -202,7 +188,6 @@ messageSends: []}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_setTestSelector_",
 smalltalk.method({
 selector: "setTestSelector:",
 fn: function (aSelector){
@@ -214,7 +199,6 @@ messageSends: []}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_setUp",
 smalltalk.method({
 selector: "setUp",
 fn: function (){
@@ -225,7 +209,6 @@ messageSends: []}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_should_",
 smalltalk.method({
 selector: "should:",
 fn: function (aBlock){
@@ -237,7 +220,6 @@ messageSends: ["assert:", "value"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_should_raise_",
 smalltalk.method({
 selector: "should:raise:",
 fn: function (aBlock,anExceptionClass){
@@ -256,7 +238,6 @@ messageSends: ["assert:", "on:do:", "value"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_shouldnt_raise_",
 smalltalk.method({
 selector: "shouldnt:raise:",
 fn: function (aBlock,anExceptionClass){
@@ -275,7 +256,6 @@ messageSends: ["assert:", "on:do:", "value"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_signalFailure_",
 smalltalk.method({
 selector: "signalFailure:",
 fn: function (aString){
@@ -291,7 +271,6 @@ messageSends: ["messageText:", "new", "signal"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_tearDown",
 smalltalk.method({
 selector: "tearDown",
 fn: function (){
@@ -302,7 +281,6 @@ messageSends: []}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
-"_timeout_",
 smalltalk.method({
 selector: "timeout:",
 fn: function (aNumber){
@@ -326,7 +304,6 @@ smalltalk.TestCase);
 
 
 smalltalk.addMethod(
-"_allTestSelectors",
 smalltalk.method({
 selector: "allTestSelectors",
 fn: function (){
@@ -346,7 +323,6 @@ messageSends: ["testSelectors", "ifTrue:", "addAll:", "allTestSelectors", "super
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_buildSuite",
 smalltalk.method({
 selector: "buildSuite",
 fn: function (){
@@ -363,7 +339,6 @@ messageSends: ["collect:", "selector:", "allTestSelectors"]}),
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_isAbstract",
 smalltalk.method({
 selector: "isAbstract",
 fn: function (){
@@ -377,7 +352,6 @@ messageSends: ["=", "name"]}),
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_lookupHierarchyRoot",
 smalltalk.method({
 selector: "lookupHierarchyRoot",
 fn: function (){
@@ -392,7 +366,6 @@ messageSends: []}),
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 fn: function (aSelector){
@@ -409,7 +382,6 @@ messageSends: ["setTestSelector:", "new", "yourself"]}),
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_shouldInheritSelectors",
 smalltalk.method({
 selector: "shouldInheritSelectors",
 fn: function (){
@@ -423,7 +395,6 @@ messageSends: ["~=", "lookupHierarchyRoot"]}),
 smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
-"_testSelectors",
 smalltalk.method({
 selector: "testSelectors",
 fn: function (){
@@ -442,7 +413,6 @@ smalltalk.TestCase.klass);
 
 smalltalk.addClass('TestContext', smalltalk.Object, ['testCase'], 'SUnit');
 smalltalk.addMethod(
-"_execute_",
 smalltalk.method({
 selector: "execute:",
 fn: function (aBlock){
@@ -478,7 +448,6 @@ messageSends: ["context:", "ensure:", "ifTrue:", "finished", "and:", "isAsync", 
 smalltalk.TestContext);
 
 smalltalk.addMethod(
-"_start",
 smalltalk.method({
 selector: "start",
 fn: function (){
@@ -494,7 +463,6 @@ messageSends: ["execute:", "setUp", "performTest"]}),
 smalltalk.TestContext);
 
 smalltalk.addMethod(
-"_testCase_",
 smalltalk.method({
 selector: "testCase:",
 fn: function (aTestCase){
@@ -507,7 +475,6 @@ smalltalk.TestContext);
 
 
 smalltalk.addMethod(
-"_testCase_",
 smalltalk.method({
 selector: "testCase:",
 fn: function (aTestCase){
@@ -526,7 +493,6 @@ smalltalk.TestContext.klass);
 
 smalltalk.addClass('ReportingTestContext', smalltalk.TestContext, ['finished', 'result'], 'SUnit');
 smalltalk.addMethod(
-"_execute_",
 smalltalk.method({
 selector: "execute:",
 fn: function (aBlock){
@@ -552,7 +518,6 @@ messageSends: ["ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "withE
 smalltalk.ReportingTestContext);
 
 smalltalk.addMethod(
-"_finished_",
 smalltalk.method({
 selector: "finished:",
 fn: function (aBlock){
@@ -564,7 +529,6 @@ messageSends: []}),
 smalltalk.ReportingTestContext);
 
 smalltalk.addMethod(
-"_result_",
 smalltalk.method({
 selector: "result:",
 fn: function (aTestResult){
@@ -576,7 +540,6 @@ messageSends: []}),
 smalltalk.ReportingTestContext);
 
 smalltalk.addMethod(
-"_withErrorReporting_",
 smalltalk.method({
 selector: "withErrorReporting:",
 fn: function (aBlock){
@@ -600,7 +563,6 @@ smalltalk.ReportingTestContext);
 
 
 smalltalk.addMethod(
-"_testCase_result_finished_",
 smalltalk.method({
 selector: "testCase:result:finished:",
 fn: function (aTestCase,aTestResult,aBlock){
@@ -623,7 +585,6 @@ smalltalk.addClass('TestFailure', smalltalk.Error, [], 'SUnit');
 
 smalltalk.addClass('TestResult', smalltalk.Object, ['timestamp', 'runs', 'errors', 'failures', 'total'], 'SUnit');
 smalltalk.addMethod(
-"_addError_",
 smalltalk.method({
 selector: "addError:",
 fn: function (anError){
@@ -635,7 +596,6 @@ messageSends: ["add:", "errors"]}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_addFailure_",
 smalltalk.method({
 selector: "addFailure:",
 fn: function (aFailure){
@@ -647,7 +607,6 @@ messageSends: ["add:", "failures"]}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_errors",
 smalltalk.method({
 selector: "errors",
 fn: function (){
@@ -661,7 +620,6 @@ messageSends: []}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_failures",
 smalltalk.method({
 selector: "failures",
 fn: function (){
@@ -675,7 +633,6 @@ messageSends: []}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_increaseRuns",
 smalltalk.method({
 selector: "increaseRuns",
 fn: function (){
@@ -687,7 +644,6 @@ messageSends: ["+"]}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -706,7 +662,6 @@ messageSends: ["initialize", "now", "new"]}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_nextRunDo_",
 smalltalk.method({
 selector: "nextRunDo:",
 fn: function (aBlock){
@@ -723,7 +678,6 @@ messageSends: ["ifFalse:", "value:", "+", "runs", "==", "total"]}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_runCase_",
 smalltalk.method({
 selector: "runCase:",
 fn: function (aTestCase){
@@ -750,7 +704,6 @@ messageSends: ["on:do:", "addError:", "addFailure:", "increaseRuns", "runCase"]}
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_runs",
 smalltalk.method({
 selector: "runs",
 fn: function (){
@@ -764,7 +717,6 @@ messageSends: []}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_status",
 smalltalk.method({
 selector: "status",
 fn: function (){
@@ -788,7 +740,6 @@ messageSends: ["ifTrue:ifFalse:", "isEmpty", "failures", "errors"]}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_timestamp",
 smalltalk.method({
 selector: "timestamp",
 fn: function (){
@@ -802,7 +753,6 @@ messageSends: []}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_total",
 smalltalk.method({
 selector: "total",
 fn: function (){
@@ -816,7 +766,6 @@ messageSends: []}),
 smalltalk.TestResult);
 
 smalltalk.addMethod(
-"_total_",
 smalltalk.method({
 selector: "total:",
 fn: function (aNumber){
@@ -831,7 +780,6 @@ smalltalk.TestResult);
 
 smalltalk.addClass('TestSuiteRunner', smalltalk.Object, ['suite', 'result', 'announcer', 'runNextTest'], 'SUnit');
 smalltalk.addMethod(
-"_announcer",
 smalltalk.method({
 selector: "announcer",
 fn: function (){
@@ -845,7 +793,6 @@ messageSends: []}),
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_contextOf_",
 smalltalk.method({
 selector: "contextOf:",
 fn: function (anInteger){
@@ -863,7 +810,6 @@ messageSends: ["testCase:result:finished:", "at:", "resume"]}),
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -890,7 +836,6 @@ messageSends: ["initialize", "new", "runs", "ifTrue:", "start", "contextOf:", "+
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_result",
 smalltalk.method({
 selector: "result",
 fn: function (){
@@ -904,7 +849,6 @@ messageSends: []}),
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_resume",
 smalltalk.method({
 selector: "resume",
 fn: function (){
@@ -918,7 +862,6 @@ messageSends: ["fork", "announce:", "result:", "new"]}),
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_run",
 smalltalk.method({
 selector: "run",
 fn: function (){
@@ -931,7 +874,6 @@ messageSends: ["total:", "size", "resume"]}),
 smalltalk.TestSuiteRunner);
 
 smalltalk.addMethod(
-"_suite_",
 smalltalk.method({
 selector: "suite:",
 fn: function (aCollection){
@@ -944,7 +886,6 @@ smalltalk.TestSuiteRunner);
 
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function (){
@@ -956,7 +897,6 @@ messageSends: ["shouldNotImplement"]}),
 smalltalk.TestSuiteRunner.klass);
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 fn: function (aCollection){

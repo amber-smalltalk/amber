@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Methods');
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
-"_applyTo_arguments_",
 smalltalk.method({
 selector: "applyTo:arguments:",
 fn: function (anObject,aCollection){
@@ -13,7 +12,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_asCompiledMethod_",
 smalltalk.method({
 selector: "asCompiledMethod:",
 fn: function (aString){
@@ -25,7 +23,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_compiledSource",
 smalltalk.method({
 selector: "compiledSource",
 fn: function (){
@@ -37,7 +34,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_currySelf",
 smalltalk.method({
 selector: "currySelf",
 fn: function (){
@@ -55,7 +51,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_ensure_",
 smalltalk.method({
 selector: "ensure:",
 fn: function (aBlock){
@@ -67,7 +62,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_fork",
 smalltalk.method({
 selector: "fork",
 fn: function (){
@@ -80,7 +74,6 @@ messageSends: ["fork:", "default"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function (){
@@ -92,7 +85,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_newValue_",
 smalltalk.method({
 selector: "newValue:",
 fn: function (anObject){
@@ -104,7 +96,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_newValue_value_",
 smalltalk.method({
 selector: "newValue:value:",
 fn: function (anObject,anObject2){
@@ -116,7 +107,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_newValue_value_value_",
 smalltalk.method({
 selector: "newValue:value:value:",
 fn: function (anObject,anObject2,anObject3){
@@ -128,7 +118,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_numArgs",
 smalltalk.method({
 selector: "numArgs",
 fn: function (){
@@ -140,7 +129,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_on_do_",
 smalltalk.method({
 selector: "on:do:",
 fn: function (anErrorClass,aBlock){
@@ -166,7 +154,6 @@ messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_timeToRun",
 smalltalk.method({
 selector: "timeToRun",
 fn: function (){
@@ -181,7 +168,6 @@ messageSends: ["millisecondsToRun:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value",
 smalltalk.method({
 selector: "value",
 fn: function (){
@@ -193,7 +179,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 fn: function (anArg){
@@ -205,7 +190,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value_value_",
 smalltalk.method({
 selector: "value:value:",
 fn: function (firstArg,secondArg){
@@ -217,7 +201,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value_value_value_",
 smalltalk.method({
 selector: "value:value:value:",
 fn: function (firstArg,secondArg,thirdArg){
@@ -229,7 +212,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_valueWithInterval_",
 smalltalk.method({
 selector: "valueWithInterval:",
 fn: function (aNumber){
@@ -244,7 +226,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_valueWithPossibleArguments_",
 smalltalk.method({
 selector: "valueWithPossibleArguments:",
 fn: function (aCollection){
@@ -256,7 +237,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_valueWithTimeout_",
 smalltalk.method({
 selector: "valueWithTimeout:",
 fn: function (aNumber){
@@ -271,7 +251,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileFalse",
 smalltalk.method({
 selector: "whileFalse",
 fn: function (){
@@ -285,7 +264,6 @@ messageSends: ["whileFalse:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileFalse_",
 smalltalk.method({
 selector: "whileFalse:",
 fn: function (aBlock){
@@ -297,7 +275,6 @@ messageSends: []}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileTrue",
 smalltalk.method({
 selector: "whileTrue",
 fn: function (){
@@ -311,7 +288,6 @@ messageSends: ["whileTrue:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileTrue_",
 smalltalk.method({
 selector: "whileTrue:",
 fn: function (aBlock){
@@ -326,7 +302,6 @@ smalltalk.BlockClosure);
 
 smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 fn: function (){
@@ -338,7 +313,6 @@ messageSends: []}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_category",
 smalltalk.method({
 selector: "category",
 fn: function (){
@@ -357,7 +331,6 @@ messageSends: ["ifNil:", "defaultCategory", "basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_category_",
 smalltalk.method({
 selector: "category:",
 fn: function (aString){
@@ -385,7 +358,6 @@ messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organiza
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_defaultCategory",
 smalltalk.method({
 selector: "defaultCategory",
 fn: function (){
@@ -397,7 +369,6 @@ messageSends: []}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_fn",
 smalltalk.method({
 selector: "fn",
 fn: function (){
@@ -411,7 +382,6 @@ messageSends: ["basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_fn_",
 smalltalk.method({
 selector: "fn:",
 fn: function (aBlock){
@@ -423,7 +393,6 @@ messageSends: ["basicAt:put:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_messageSends",
 smalltalk.method({
 selector: "messageSends",
 fn: function (){
@@ -437,7 +406,6 @@ messageSends: ["basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_methodClass",
 smalltalk.method({
 selector: "methodClass",
 fn: function (){
@@ -451,7 +419,6 @@ messageSends: ["basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_protocol",
 smalltalk.method({
 selector: "protocol",
 fn: function (){
@@ -465,7 +432,6 @@ messageSends: ["category"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_referencedClasses",
 smalltalk.method({
 selector: "referencedClasses",
 fn: function (){
@@ -479,7 +445,6 @@ messageSends: ["basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 fn: function (){
@@ -493,7 +458,6 @@ messageSends: ["basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 fn: function (aString){
@@ -505,7 +469,6 @@ messageSends: ["basicAt:put:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 fn: function (){
@@ -524,7 +487,6 @@ messageSends: ["ifNil:", "basicAt:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 fn: function (aString){
@@ -539,7 +501,6 @@ smalltalk.CompiledMethod);
 
 smalltalk.addClass('ForkPool', smalltalk.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
 smalltalk.addMethod(
-"_addWorker",
 smalltalk.method({
 selector: "addWorker",
 fn: function (){
@@ -552,7 +513,6 @@ messageSends: ["valueWithTimeout:", "+"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_defaultMaxPoolSize",
 smalltalk.method({
 selector: "defaultMaxPoolSize",
 fn: function (){
@@ -566,7 +526,6 @@ messageSends: ["defaultMaxPoolSize", "class"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_fork_",
 smalltalk.method({
 selector: "fork:",
 fn: function (aBlock){
@@ -583,7 +542,6 @@ messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "back:"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -599,7 +557,6 @@ messageSends: ["initialize", "new", "makeWorker"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_makeWorker",
 smalltalk.method({
 selector: "makeWorker",
 fn: function (){
@@ -636,7 +593,6 @@ messageSends: ["new", "-", "frontIfAbsent:", "ifFalse:", "ensure:", "addWorker",
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_maxPoolSize",
 smalltalk.method({
 selector: "maxPoolSize",
 fn: function (){
@@ -655,7 +611,6 @@ messageSends: ["ifNil:", "defaultMaxPoolSize"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_maxPoolSize_",
 smalltalk.method({
 selector: "maxPoolSize:",
 fn: function (anInteger){
@@ -669,7 +624,6 @@ smalltalk.ForkPool);
 
 smalltalk.ForkPool.klass.iVarNames = ['default'];
 smalltalk.addMethod(
-"_default",
 smalltalk.method({
 selector: "default",
 fn: function (){
@@ -689,7 +643,6 @@ messageSends: ["ifNil:", "new"]}),
 smalltalk.ForkPool.klass);
 
 smalltalk.addMethod(
-"_defaultMaxPoolSize",
 smalltalk.method({
 selector: "defaultMaxPoolSize",
 fn: function (){
@@ -703,7 +656,6 @@ messageSends: []}),
 smalltalk.ForkPool.klass);
 
 smalltalk.addMethod(
-"_resetDefault",
 smalltalk.method({
 selector: "resetDefault",
 fn: function (){
@@ -717,7 +669,6 @@ smalltalk.ForkPool.klass);
 
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 fn: function (){
@@ -731,7 +682,6 @@ messageSends: []}),
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_arguments_",
 smalltalk.method({
 selector: "arguments:",
 fn: function (anArray){
@@ -743,7 +693,6 @@ messageSends: []}),
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -760,7 +709,6 @@ messageSends: ["printOn:", "nextPutAll:", "selector"]}),
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 fn: function (){
@@ -774,7 +722,6 @@ messageSends: []}),
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 fn: function (aString){
@@ -786,7 +733,6 @@ messageSends: []}),
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_sendTo_",
 smalltalk.method({
 selector: "sendTo:",
 fn: function (anObject){
@@ -801,7 +747,6 @@ smalltalk.Message);
 
 
 smalltalk.addMethod(
-"_selector_arguments_",
 smalltalk.method({
 selector: "selector:arguments:",
 fn: function (aString,anArray){
@@ -821,7 +766,6 @@ smalltalk.Message.klass);
 
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
-"_asString",
 smalltalk.method({
 selector: "asString",
 fn: function (){
@@ -840,7 +784,6 @@ messageSends: ["ifTrue:ifFalse:", ",", "printString", "class", "receiver", "meth
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_home",
 smalltalk.method({
 selector: "home",
 fn: function (){
@@ -852,7 +795,6 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_isBlockContext",
 smalltalk.method({
 selector: "isBlockContext",
 fn: function (){
@@ -866,7 +808,6 @@ messageSends: ["isNil", "selector"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_locals",
 smalltalk.method({
 selector: "locals",
 fn: function (){
@@ -878,7 +819,6 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 fn: function (){
@@ -892,7 +832,6 @@ messageSends: ["lookupSelector:", "selector", "methodContext", "class", "receive
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_methodContext",
 smalltalk.method({
 selector: "methodContext",
 fn: function (){
@@ -911,7 +850,6 @@ messageSends: ["ifFalse:", "isBlockContext", "home"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_outerContext",
 smalltalk.method({
 selector: "outerContext",
 fn: function (){
@@ -923,7 +861,6 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_pc",
 smalltalk.method({
 selector: "pc",
 fn: function (){
@@ -935,7 +872,6 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 fn: function (aStream){
@@ -952,7 +888,6 @@ messageSends: ["printOn:", "nextPutAll:", "asString"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_receiver",
 smalltalk.method({
 selector: "receiver",
 fn: function (){
@@ -964,7 +899,6 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 fn: function (){
@@ -982,7 +916,6 @@ messageSends: []}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_temps",
 smalltalk.method({
 selector: "temps",
 fn: function (){
@@ -1001,7 +934,6 @@ smalltalk.MethodContext);
 smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
 
 smalltalk.addMethod(
-"_constructor_",
 smalltalk.method({
 selector: "constructor:",
 fn: function (aString){
@@ -1016,7 +948,6 @@ messageSends: []}),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_constructor_value_",
 smalltalk.method({
 selector: "constructor:value:",
 fn: function (aString,anObject){
@@ -1031,7 +962,6 @@ messageSends: []}),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_constructor_value_value_",
 smalltalk.method({
 selector: "constructor:value:value:",
 fn: function (aString,anObject,anObject2){
@@ -1046,7 +976,6 @@ messageSends: []}),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_constructor_value_value_value_",
 smalltalk.method({
 selector: "constructor:value:value:value:",
 fn: function (aString,anObject,anObject2,anObject3){
@@ -1061,7 +990,6 @@ messageSends: []}),
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_exists_",
 smalltalk.method({
 selector: "exists:",
 fn: function (aString){

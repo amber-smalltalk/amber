@@ -2,7 +2,6 @@ smalltalk.addPackage('Kernel-Methods');
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.BlockClosure.comment="A BlockClosure is a lexical closure.\x0aThe JavaScript representation is a function.\x0a\x0aA BlockClosure is evaluated with the `#value*` methods in the 'evaluating' protocol."
 smalltalk.addMethod(
-"_applyTo_arguments_",
 smalltalk.method({
 selector: "applyTo:arguments:",
 category: 'evaluating',
@@ -19,7 +18,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_asCompiledMethod_",
 smalltalk.method({
 selector: "asCompiledMethod:",
 category: 'converting',
@@ -36,7 +34,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_compiledSource",
 smalltalk.method({
 selector: "compiledSource",
 category: 'accessing',
@@ -53,7 +50,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_currySelf",
 smalltalk.method({
 selector: "currySelf",
 category: 'converting',
@@ -76,7 +72,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_ensure_",
 smalltalk.method({
 selector: "ensure:",
 category: 'evaluating',
@@ -93,7 +88,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_fork",
 smalltalk.method({
 selector: "fork",
 category: 'timeout/interval',
@@ -111,7 +105,6 @@ referencedClasses: ["ForkPool"]
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'evaluating',
@@ -128,7 +121,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_newValue_",
 smalltalk.method({
 selector: "newValue:",
 category: 'evaluating',
@@ -145,7 +137,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_newValue_value_",
 smalltalk.method({
 selector: "newValue:value:",
 category: 'evaluating',
@@ -162,7 +153,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_newValue_value_value_",
 smalltalk.method({
 selector: "newValue:value:value:",
 category: 'evaluating',
@@ -179,7 +169,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_numArgs",
 smalltalk.method({
 selector: "numArgs",
 category: 'accessing',
@@ -196,7 +185,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_on_do_",
 smalltalk.method({
 selector: "on:do:",
 category: 'error handling',
@@ -227,7 +215,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_timeToRun",
 smalltalk.method({
 selector: "timeToRun",
 category: 'evaluating',
@@ -247,7 +234,6 @@ referencedClasses: ["Date"]
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value",
 smalltalk.method({
 selector: "value",
 category: 'evaluating',
@@ -264,7 +250,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value_",
 smalltalk.method({
 selector: "value:",
 category: 'evaluating',
@@ -281,7 +266,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value_value_",
 smalltalk.method({
 selector: "value:value:",
 category: 'evaluating',
@@ -298,7 +282,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_value_value_value_",
 smalltalk.method({
 selector: "value:value:value:",
 category: 'evaluating',
@@ -315,7 +298,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_valueWithInterval_",
 smalltalk.method({
 selector: "valueWithInterval:",
 category: 'timeout/interval',
@@ -335,7 +317,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_valueWithPossibleArguments_",
 smalltalk.method({
 selector: "valueWithPossibleArguments:",
 category: 'evaluating',
@@ -352,7 +333,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_valueWithTimeout_",
 smalltalk.method({
 selector: "valueWithTimeout:",
 category: 'timeout/interval',
@@ -372,7 +352,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileFalse",
 smalltalk.method({
 selector: "whileFalse",
 category: 'controlling',
@@ -391,7 +370,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileFalse_",
 smalltalk.method({
 selector: "whileFalse:",
 category: 'controlling',
@@ -408,7 +386,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileTrue",
 smalltalk.method({
 selector: "whileTrue",
 category: 'controlling',
@@ -427,7 +404,6 @@ referencedClasses: []
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
-"_whileTrue_",
 smalltalk.method({
 selector: "whileTrue:",
 category: 'controlling',
@@ -448,7 +424,6 @@ smalltalk.BlockClosure);
 smalltalk.addClass('CompiledMethod', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.CompiledMethod.comment="CompiledMethod hold the source and compiled code of a class method.\x0a\x0aYou can get a CompiledMethod using `Behavior>>methodAt:`\x0a\x0a\x09String methodAt: 'lines'\x0a\x0aand read the source code\x0a\x0a\x09(String methodAt: 'lines') source\x0a\x0aSee referenced classes:\x0a\x0a\x09(String methodAt: 'lines') referencedClasses\x0a\x0aor messages sent from this method:\x0a\x09\x0a\x09(String methodAt: 'lines') messageSends"
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 category: 'accessing',
@@ -465,7 +440,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_category",
 smalltalk.method({
 selector: "category",
 category: 'accessing',
@@ -489,7 +463,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_category_",
 smalltalk.method({
 selector: "category:",
 category: 'accessing',
@@ -522,7 +495,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_defaultCategory",
 smalltalk.method({
 selector: "defaultCategory",
 category: 'defaults',
@@ -539,7 +511,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_fn",
 smalltalk.method({
 selector: "fn",
 category: 'accessing',
@@ -558,7 +529,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_fn_",
 smalltalk.method({
 selector: "fn:",
 category: 'accessing',
@@ -575,7 +545,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_messageSends",
 smalltalk.method({
 selector: "messageSends",
 category: 'accessing',
@@ -594,7 +563,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_methodClass",
 smalltalk.method({
 selector: "methodClass",
 category: 'accessing',
@@ -613,7 +581,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_protocol",
 smalltalk.method({
 selector: "protocol",
 category: 'accessing',
@@ -632,7 +599,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_referencedClasses",
 smalltalk.method({
 selector: "referencedClasses",
 category: 'accessing',
@@ -651,7 +617,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
@@ -670,7 +635,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
@@ -687,7 +651,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'accessing',
@@ -711,7 +674,6 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
@@ -732,7 +694,6 @@ smalltalk.CompiledMethod);
 smalltalk.addClass('ForkPool', smalltalk.Object, ['poolSize', 'maxPoolSize', 'queue', 'worker'], 'Kernel-Methods');
 smalltalk.ForkPool.comment="A ForkPool is responsible for handling forked blocks.\x0aThe pool size sets the maximum concurrent forked blocks.\x0a\x0aThe default instance is accessed with `ForkPool default`"
 smalltalk.addMethod(
-"_addWorker",
 smalltalk.method({
 selector: "addWorker",
 category: 'private',
@@ -750,7 +711,6 @@ referencedClasses: []
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_defaultMaxPoolSize",
 smalltalk.method({
 selector: "defaultMaxPoolSize",
 category: 'defaults',
@@ -769,7 +729,6 @@ referencedClasses: []
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_fork_",
 smalltalk.method({
 selector: "fork:",
 category: 'actions',
@@ -791,7 +750,6 @@ referencedClasses: []
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -812,7 +770,6 @@ referencedClasses: ["Queue"]
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_makeWorker",
 smalltalk.method({
 selector: "makeWorker",
 category: 'initialization',
@@ -854,7 +811,6 @@ referencedClasses: ["Object"]
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_maxPoolSize",
 smalltalk.method({
 selector: "maxPoolSize",
 category: 'accessing',
@@ -878,7 +834,6 @@ referencedClasses: []
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
-"_maxPoolSize_",
 smalltalk.method({
 selector: "maxPoolSize:",
 category: 'accessing',
@@ -897,7 +852,6 @@ smalltalk.ForkPool);
 
 smalltalk.ForkPool.klass.iVarNames = ['default'];
 smalltalk.addMethod(
-"_default",
 smalltalk.method({
 selector: "default",
 category: 'accessing',
@@ -922,7 +876,6 @@ referencedClasses: []
 smalltalk.ForkPool.klass);
 
 smalltalk.addMethod(
-"_defaultMaxPoolSize",
 smalltalk.method({
 selector: "defaultMaxPoolSize",
 category: 'accessing',
@@ -941,7 +894,6 @@ referencedClasses: []
 smalltalk.ForkPool.klass);
 
 smalltalk.addMethod(
-"_resetDefault",
 smalltalk.method({
 selector: "resetDefault",
 category: 'accessing',
@@ -961,7 +913,6 @@ smalltalk.ForkPool.klass);
 smalltalk.addClass('Message', smalltalk.Object, ['selector', 'arguments'], 'Kernel-Methods');
 smalltalk.Message.comment="Generally, the system does not use instances of Message for efficiency reasons.\x0aHowever, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission.\x0aThis instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.\x0a\x0aSee boot.js, `messageNotUnderstood` and its counterpart `Object>>doesNotUnderstand:`"
 smalltalk.addMethod(
-"_arguments",
 smalltalk.method({
 selector: "arguments",
 category: 'accessing',
@@ -980,7 +931,6 @@ referencedClasses: []
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_arguments_",
 smalltalk.method({
 selector: "arguments:",
 category: 'accessing',
@@ -997,7 +947,6 @@ referencedClasses: []
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -1019,7 +968,6 @@ referencedClasses: []
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
@@ -1038,7 +986,6 @@ referencedClasses: []
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_selector_",
 smalltalk.method({
 selector: "selector:",
 category: 'accessing',
@@ -1055,7 +1002,6 @@ referencedClasses: []
 smalltalk.Message);
 
 smalltalk.addMethod(
-"_sendTo_",
 smalltalk.method({
 selector: "sendTo:",
 category: 'actions',
@@ -1075,7 +1021,6 @@ smalltalk.Message);
 
 
 smalltalk.addMethod(
-"_selector_arguments_",
 smalltalk.method({
 selector: "selector:arguments:",
 category: 'instance creation',
@@ -1101,7 +1046,6 @@ smalltalk.Message.klass);
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.MethodContext.comment="MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.\x0a\x0aMethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js"
 smalltalk.addMethod(
-"_asString",
 smalltalk.method({
 selector: "asString",
 category: 'converting',
@@ -1125,7 +1069,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_home",
 smalltalk.method({
 selector: "home",
 category: 'accessing',
@@ -1142,7 +1085,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_isBlockContext",
 smalltalk.method({
 selector: "isBlockContext",
 category: 'testing',
@@ -1161,7 +1103,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_locals",
 smalltalk.method({
 selector: "locals",
 category: 'accessing',
@@ -1178,7 +1119,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 category: 'accessing',
@@ -1197,7 +1137,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_methodContext",
 smalltalk.method({
 selector: "methodContext",
 category: 'accessing',
@@ -1221,7 +1160,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_outerContext",
 smalltalk.method({
 selector: "outerContext",
 category: 'accessing',
@@ -1238,7 +1176,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_pc",
 smalltalk.method({
 selector: "pc",
 category: 'accessing',
@@ -1255,7 +1192,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_printOn_",
 smalltalk.method({
 selector: "printOn:",
 category: 'printing',
@@ -1277,7 +1213,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_receiver",
 smalltalk.method({
 selector: "receiver",
 category: 'accessing',
@@ -1294,7 +1229,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_selector",
 smalltalk.method({
 selector: "selector",
 category: 'accessing',
@@ -1317,7 +1251,6 @@ referencedClasses: []
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
-"_temps",
 smalltalk.method({
 selector: "temps",
 category: 'accessing',
@@ -1342,7 +1275,6 @@ smalltalk.addClass('NativeFunction', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.NativeFunction.comment="NativeFunction is a wrapper around native functions, such as `WebSocket`.\x0aFor 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.\x0a\x0aSee the class-side `instance creation` methods.\x0a\x0aCreated instances will most probably be instance of `JSObjectProxy`.\x0a\x0aUsage example:\x0a\x0a\x09| ws |\x0a\x09ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.\x0a\x09ws at: 'onopen' put: [ ws send: 'hey there from Amber' ]"
 
 smalltalk.addMethod(
-"_constructor_",
 smalltalk.method({
 selector: "constructor:",
 category: 'instance creation',
@@ -1362,7 +1294,6 @@ referencedClasses: []
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_constructor_value_",
 smalltalk.method({
 selector: "constructor:value:",
 category: 'instance creation',
@@ -1382,7 +1313,6 @@ referencedClasses: []
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_constructor_value_value_",
 smalltalk.method({
 selector: "constructor:value:value:",
 category: 'instance creation',
@@ -1402,7 +1332,6 @@ referencedClasses: []
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_constructor_value_value_value_",
 smalltalk.method({
 selector: "constructor:value:value:value:",
 category: 'instance creation',
@@ -1422,7 +1351,6 @@ referencedClasses: []
 smalltalk.NativeFunction.klass);
 
 smalltalk.addMethod(
-"_exists_",
 smalltalk.method({
 selector: "exists:",
 category: 'testing',

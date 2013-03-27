@@ -2,7 +2,6 @@ smalltalk.addPackage('Kernel-Announcements');
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.AnnouncementSubscription.comment="The subscription is a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible."
 smalltalk.addMethod(
-"_announcementClass",
 smalltalk.method({
 selector: "announcementClass",
 category: 'accessing',
@@ -21,7 +20,6 @@ referencedClasses: []
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_announcementClass_",
 smalltalk.method({
 selector: "announcementClass:",
 category: 'accessing',
@@ -38,7 +36,6 @@ referencedClasses: []
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_block",
 smalltalk.method({
 selector: "block",
 category: 'accessing',
@@ -57,7 +54,6 @@ referencedClasses: []
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_block_",
 smalltalk.method({
 selector: "block:",
 category: 'accessing',
@@ -74,7 +70,6 @@ referencedClasses: []
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_deliver_",
 smalltalk.method({
 selector: "deliver:",
 category: 'announcing',
@@ -95,7 +90,6 @@ referencedClasses: []
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
-"_handlesAnnouncement_",
 smalltalk.method({
 selector: "handlesAnnouncement:",
 category: 'announcing',
@@ -118,7 +112,6 @@ smalltalk.AnnouncementSubscription);
 smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
 smalltalk.Announcer.comment="The code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).\x0aThe Announcer holds annoncement subscriptions (`AnnouncementSubscription`) in a private registry.\x0a\x0aUse `#on:do:` to register subscriptions."
 smalltalk.addMethod(
-"_announce_",
 smalltalk.method({
 selector: "announce:",
 category: 'announcing',
@@ -138,7 +131,6 @@ referencedClasses: []
 smalltalk.Announcer);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -157,7 +149,6 @@ referencedClasses: ["Array"]
 smalltalk.Announcer);
 
 smalltalk.addMethod(
-"_on_do_",
 smalltalk.method({
 selector: "on:do:",
 category: 'subscribing',
@@ -186,7 +177,6 @@ smalltalk.SystemAnnouncer.comment="My unique instance #current is the global ann
 
 smalltalk.SystemAnnouncer.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 category: 'accessing',
@@ -211,7 +201,6 @@ referencedClasses: []
 smalltalk.SystemAnnouncer.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
@@ -231,7 +220,6 @@ smalltalk.SystemAnnouncer.klass);
 smalltalk.addClass('SystemAnnouncement', smalltalk.Object, ['theClass'], 'Kernel-Announcements');
 smalltalk.SystemAnnouncement.comment="I am the superclass of all system announcements"
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -250,7 +238,6 @@ referencedClasses: []
 smalltalk.SystemAnnouncement);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
@@ -270,7 +257,6 @@ smalltalk.SystemAnnouncement);
 
 smalltalk.addClass('ClassAnnouncement', smalltalk.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -289,7 +275,6 @@ referencedClasses: []
 smalltalk.ClassAnnouncement);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
@@ -329,7 +314,6 @@ smalltalk.ClassRenamed.comment="I am emitted when a class is renamed.\x0aSee Cla
 
 smalltalk.addClass('MethodAnnouncement', smalltalk.SystemAnnouncement, ['method'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_method",
 smalltalk.method({
 selector: "method",
 category: 'accessing',
@@ -348,7 +332,6 @@ referencedClasses: []
 smalltalk.MethodAnnouncement);
 
 smalltalk.addMethod(
-"_method_",
 smalltalk.method({
 selector: "method:",
 category: 'accessing',
@@ -371,7 +354,6 @@ smalltalk.addClass('MethodAdded', smalltalk.MethodAnnouncement, [], 'Kernel-Anno
 
 smalltalk.addClass('MethodModified', smalltalk.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_oldMethod",
 smalltalk.method({
 selector: "oldMethod",
 category: 'accessing',
@@ -390,7 +372,6 @@ referencedClasses: []
 smalltalk.MethodModified);
 
 smalltalk.addMethod(
-"_oldMethod_",
 smalltalk.method({
 selector: "oldMethod:",
 category: 'accessing',
@@ -413,7 +394,6 @@ smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-An
 
 smalltalk.addClass('PackageAnnouncement', smalltalk.SystemAnnouncement, ['package'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_package",
 smalltalk.method({
 selector: "package",
 category: 'accessing',
@@ -432,7 +412,6 @@ referencedClasses: []
 smalltalk.PackageAnnouncement);
 
 smalltalk.addMethod(
-"_package_",
 smalltalk.method({
 selector: "package:",
 category: 'accessing',
@@ -458,7 +437,6 @@ smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-
 
 smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
 smalltalk.addMethod(
-"_protocol",
 smalltalk.method({
 selector: "protocol",
 category: 'accessing',
@@ -477,7 +455,6 @@ referencedClasses: []
 smalltalk.ProtocolAnnouncement);
 
 smalltalk.addMethod(
-"_protocol_",
 smalltalk.method({
 selector: "protocol:",
 category: 'accessing',
@@ -494,7 +471,6 @@ referencedClasses: []
 smalltalk.ProtocolAnnouncement);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
@@ -513,7 +489,6 @@ referencedClasses: []
 smalltalk.ProtocolAnnouncement);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',

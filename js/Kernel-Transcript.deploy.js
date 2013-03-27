@@ -1,7 +1,6 @@
 smalltalk.addPackage('Kernel-Transcript');
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
-"_clear",
 smalltalk.method({
 selector: "clear",
 fn: function (){
@@ -12,7 +11,6 @@ messageSends: []}),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 fn: function (){
@@ -23,7 +21,6 @@ messageSends: []}),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 fn: function (){
@@ -34,7 +31,6 @@ messageSends: []}),
 smalltalk.ConsoleTranscript);
 
 smalltalk.addMethod(
-"_show_",
 smalltalk.method({
 selector: "show:",
 fn: function (anObject){
@@ -47,7 +43,6 @@ smalltalk.ConsoleTranscript);
 
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 fn: function (){
@@ -64,7 +59,6 @@ smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcr
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
-"_clear",
 smalltalk.method({
 selector: "clear",
 fn: function (){
@@ -76,7 +70,6 @@ messageSends: ["clear", "current"]}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_cr",
 smalltalk.method({
 selector: "cr",
 fn: function (){
@@ -89,7 +82,6 @@ messageSends: ["show:", "cr", "current"]}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_current",
 smalltalk.method({
 selector: "current",
 fn: function (){
@@ -103,7 +95,6 @@ messageSends: []}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 fn: function (){
@@ -115,7 +106,6 @@ messageSends: ["shouldNotImplement"]}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_open",
 smalltalk.method({
 selector: "open",
 fn: function (){
@@ -127,7 +117,6 @@ messageSends: ["open", "current"]}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_register_",
 smalltalk.method({
 selector: "register:",
 fn: function (aTranscript){
@@ -139,7 +128,6 @@ messageSends: []}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
-"_show_",
 smalltalk.method({
 selector: "show:",
 fn: function (anObject){

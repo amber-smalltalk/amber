@@ -2,7 +2,6 @@ smalltalk.addPackage('Compiler-Core');
 smalltalk.addClass('AbstractCodeGenerator', smalltalk.Object, ['currentClass', 'source'], 'Compiler-Core');
 smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API."
 smalltalk.addMethod(
-"_classNameFor_",
 smalltalk.method({
 selector: "classNameFor:",
 category: 'accessing',
@@ -31,7 +30,6 @@ referencedClasses: []
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 category: 'compiling',
@@ -48,7 +46,6 @@ referencedClasses: []
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_currentClass",
 smalltalk.method({
 selector: "currentClass",
 category: 'accessing',
@@ -67,7 +64,6 @@ referencedClasses: []
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_currentClass_",
 smalltalk.method({
 selector: "currentClass:",
 category: 'accessing',
@@ -84,7 +80,6 @@ referencedClasses: []
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_pseudoVariables",
 smalltalk.method({
 selector: "pseudoVariables",
 category: 'accessing',
@@ -103,7 +98,6 @@ referencedClasses: []
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_safeVariableNameFor_",
 smalltalk.method({
 selector: "safeVariableNameFor:",
 category: 'accessing',
@@ -128,7 +122,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'accessing',
@@ -152,7 +145,6 @@ referencedClasses: []
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
@@ -173,7 +165,6 @@ smalltalk.AbstractCodeGenerator);
 smalltalk.addClass('CodeGenerator', smalltalk.AbstractCodeGenerator, [], 'Compiler-Core');
 smalltalk.CodeGenerator.comment="I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.\x0aSee `InliningCodeGenerator` for an optimized JavaScript code generation."
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 category: 'compiling',
@@ -198,7 +189,6 @@ referencedClasses: []
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
-"_irTranslator",
 smalltalk.method({
 selector: "irTranslator",
 category: 'compiling',
@@ -218,7 +208,6 @@ referencedClasses: ["IRJSTranslator"]
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
-"_semanticAnalyzer",
 smalltalk.method({
 selector: "semanticAnalyzer",
 category: 'compiling',
@@ -238,7 +227,6 @@ referencedClasses: ["SemanticAnalyzer"]
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
-"_translator",
 smalltalk.method({
 selector: "translator",
 category: 'compiling',
@@ -266,7 +254,6 @@ smalltalk.CodeGenerator);
 smalltalk.addClass('Compiler', smalltalk.Object, ['currentClass', 'source', 'unknownVariables', 'codeGeneratorClass'], 'Compiler-Core');
 smalltalk.Compiler.comment="I provide the public interface for compiling Amber source code into JavaScript.\x0a\x0aThe code generator used to produce JavaScript can be plugged with `#codeGeneratorClass`.\x0aThe default code generator is an instance of `InlinedCodeGenerator`"
 smalltalk.addMethod(
-"_codeGeneratorClass",
 smalltalk.method({
 selector: "codeGeneratorClass",
 category: 'accessing',
@@ -291,7 +278,6 @@ referencedClasses: ["InliningCodeGenerator"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_codeGeneratorClass_",
 smalltalk.method({
 selector: "codeGeneratorClass:",
 category: 'accessing',
@@ -308,7 +294,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 category: 'compiling',
@@ -327,7 +312,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compile_forClass_",
 smalltalk.method({
 selector: "compile:forClass:",
 category: 'compiling',
@@ -348,7 +332,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compileExpression_",
 smalltalk.method({
 selector: "compileExpression:",
 category: 'compiling',
@@ -370,7 +353,6 @@ referencedClasses: ["DoIt"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compileExpression_on_",
 smalltalk.method({
 selector: "compileExpression:on:",
 category: 'compiling',
@@ -391,7 +373,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_compileNode_",
 smalltalk.method({
 selector: "compileNode:",
 category: 'compiling',
@@ -417,7 +398,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_currentClass",
 smalltalk.method({
 selector: "currentClass",
 category: 'accessing',
@@ -436,7 +416,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_currentClass_",
 smalltalk.method({
 selector: "currentClass:",
 category: 'accessing',
@@ -453,7 +432,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_eval_",
 smalltalk.method({
 selector: "eval:",
 category: 'compiling',
@@ -470,7 +448,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_evaluateExpression_",
 smalltalk.method({
 selector: "evaluateExpression:",
 category: 'compiling',
@@ -490,7 +467,6 @@ referencedClasses: ["DoIt"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_evaluateExpression_on_",
 smalltalk.method({
 selector: "evaluateExpression:on:",
 category: 'compiling',
@@ -515,7 +491,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_install_forClass_category_",
 smalltalk.method({
 selector: "install:forClass:category:",
 category: 'compiling',
@@ -535,7 +510,6 @@ referencedClasses: ["ClassBuilder"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_parse_",
 smalltalk.method({
 selector: "parse:",
 category: 'compiling',
@@ -555,7 +529,6 @@ referencedClasses: ["Smalltalk"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_parseExpression_",
 smalltalk.method({
 selector: "parseExpression:",
 category: 'compiling',
@@ -574,7 +547,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_recompile_",
 smalltalk.method({
 selector: "recompile:",
 category: 'compiling',
@@ -600,7 +572,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_recompileAll",
 smalltalk.method({
 selector: "recompileAll",
 category: 'compiling',
@@ -630,7 +601,6 @@ referencedClasses: ["Transcript", "Smalltalk"]
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_source",
 smalltalk.method({
 selector: "source",
 category: 'accessing',
@@ -654,7 +624,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_source_",
 smalltalk.method({
 selector: "source:",
 category: 'accessing',
@@ -671,7 +640,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_unknownVariables",
 smalltalk.method({
 selector: "unknownVariables",
 category: 'accessing',
@@ -690,7 +658,6 @@ referencedClasses: []
 smalltalk.Compiler);
 
 smalltalk.addMethod(
-"_unknownVariables_",
 smalltalk.method({
 selector: "unknownVariables:",
 category: 'accessing',
@@ -708,7 +675,6 @@ smalltalk.Compiler);
 
 
 smalltalk.addMethod(
-"_recompile_",
 smalltalk.method({
 selector: "recompile:",
 category: 'compiling',
@@ -725,7 +691,6 @@ referencedClasses: []
 smalltalk.Compiler.klass);
 
 smalltalk.addMethod(
-"_recompileAll",
 smalltalk.method({
 selector: "recompileAll",
 category: 'compiling',
@@ -753,7 +718,6 @@ smalltalk.DoIt.comment="`DoIt` is the class used to compile and evaluate express
 smalltalk.addClass('NodeVisitor', smalltalk.Object, [], 'Compiler-Core');
 smalltalk.NodeVisitor.comment="I am the abstract super class of all AST node visitors."
 smalltalk.addMethod(
-"_visit_",
 smalltalk.method({
 selector: "visit:",
 category: 'visiting',
@@ -772,7 +736,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitAll_",
 smalltalk.method({
 selector: "visitAll:",
 category: 'visiting',
@@ -794,7 +757,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitAssignmentNode_",
 smalltalk.method({
 selector: "visitAssignmentNode:",
 category: 'visiting',
@@ -813,7 +775,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitBlockNode_",
 smalltalk.method({
 selector: "visitBlockNode:",
 category: 'visiting',
@@ -832,7 +793,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitBlockSequenceNode_",
 smalltalk.method({
 selector: "visitBlockSequenceNode:",
 category: 'visiting',
@@ -851,7 +811,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitCascadeNode_",
 smalltalk.method({
 selector: "visitCascadeNode:",
 category: 'visiting',
@@ -870,7 +829,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitClassReferenceNode_",
 smalltalk.method({
 selector: "visitClassReferenceNode:",
 category: 'visiting',
@@ -889,7 +847,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitDynamicArrayNode_",
 smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
@@ -908,7 +865,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitDynamicDictionaryNode_",
 smalltalk.method({
 selector: "visitDynamicDictionaryNode:",
 category: 'visiting',
@@ -927,7 +883,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitJSStatementNode_",
 smalltalk.method({
 selector: "visitJSStatementNode:",
 category: 'visiting',
@@ -946,7 +901,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitMethodNode_",
 smalltalk.method({
 selector: "visitMethodNode:",
 category: 'visiting',
@@ -965,7 +919,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitNode_",
 smalltalk.method({
 selector: "visitNode:",
 category: 'visiting',
@@ -984,7 +937,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitReturnNode_",
 smalltalk.method({
 selector: "visitReturnNode:",
 category: 'visiting',
@@ -1003,7 +955,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitSendNode_",
 smalltalk.method({
 selector: "visitSendNode:",
 category: 'visiting',
@@ -1022,7 +973,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitSequenceNode_",
 smalltalk.method({
 selector: "visitSequenceNode:",
 category: 'visiting',
@@ -1041,7 +991,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitValueNode_",
 smalltalk.method({
 selector: "visitValueNode:",
 category: 'visiting',
@@ -1060,7 +1009,6 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
-"_visitVariableNode_",
 smalltalk.method({
 selector: "visitVariableNode:",
 category: 'visiting',

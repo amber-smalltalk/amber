@@ -2,7 +2,6 @@ smalltalk.addPackage('Benchfib');
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
-"_main",
 smalltalk.method({
 selector: "main",
 fn: function (){
@@ -17,7 +16,6 @@ smalltalk.Benchfib.klass);
 
 
 smalltalk.addMethod(
-"_benchFib",
 smalltalk.method({
 selector: "benchFib",
 fn: function (){
@@ -36,7 +34,6 @@ messageSends: ["ifTrue:ifFalse:", "+", "benchFib", "-", "<"]}),
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_benchmark",
 smalltalk.method({
 selector: "benchmark",
 fn: function (){
@@ -85,7 +82,6 @@ messageSends: ["to:do:", "new", "timesRepeat:", "add:", "ifTrue:", "+", "whileTr
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_jsbenchFib",
 smalltalk.method({
 selector: "jsbenchFib",
 fn: function (){
@@ -100,7 +96,6 @@ messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_jsbenchmark",
 smalltalk.method({
 selector: "jsbenchmark",
 fn: function (){
@@ -133,7 +128,6 @@ messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_jstinyBenchmarks",
 smalltalk.method({
 selector: "jstinyBenchmarks",
 fn: function (){
@@ -178,7 +172,6 @@ messageSends: ["whileTrue:", "*", "millisecondsToRun:", "jsbenchmark", "<", "+",
 smalltalk.Number);
 
 smalltalk.addMethod(
-"_tinyBenchmarks",
 smalltalk.method({
 selector: "tinyBenchmarks",
 fn: function (){

@@ -2,7 +2,6 @@ smalltalk.addPackage('Examples');
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just select the doit below and press the Do it button in the far right corner.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter new appendToJQuery: 'body' asJQuery"
 smalltalk.addMethod(
-"_decrease",
 smalltalk.method({
 selector: "decrease",
 category: 'actions',
@@ -23,7 +22,6 @@ referencedClasses: []
 smalltalk.Counter);
 
 smalltalk.addMethod(
-"_increase",
 smalltalk.method({
 selector: "increase",
 category: 'actions',
@@ -44,7 +42,6 @@ referencedClasses: []
 smalltalk.Counter);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
@@ -62,7 +59,6 @@ referencedClasses: []
 smalltalk.Counter);
 
 smalltalk.addMethod(
-"_renderOn_",
 smalltalk.method({
 selector: "renderOn:",
 category: 'rendering',
@@ -96,7 +92,6 @@ smalltalk.Counter);
 
 
 smalltalk.addMethod(
-"_tryExample",
 smalltalk.method({
 selector: "tryExample",
 category: 'example',
