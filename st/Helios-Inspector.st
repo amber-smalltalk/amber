@@ -355,15 +355,25 @@ selectItem: anObject
 !HLInspectorVariablesWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
-
 	html button
-			class: 'btn';
-			with: 'Refresh';
-			onClick: [self announcer announce: HLRefreshRequested new].
+		class: 'btn';
+		with: 'Refresh';
+		onClick: [ self announcer announce: HLRefreshRequested new ].
 
 	diveButton := html button 
-				class: 'btn';
-				with: 'Dive'; 
-				onClick: [self announcer announce: HLDiveRequested new]
+		class: 'btn';
+		with: 'Dive'; 
+		onClick: [ self announcer announce: HLDiveRequested new ]
+!
+
+renderContentOn: html
+	self renderHeadOn: html.
+	super renderContentOn: html
+!
+
+renderHeadOn: html
+	html div 
+		class: 'list-label';
+		with: self model inspectee asString
 ! !
 

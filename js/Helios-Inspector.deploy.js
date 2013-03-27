@@ -828,6 +828,32 @@ smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "renderContentOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._renderHeadOn_(html);
+smalltalk.HLNavigationListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
+messageSends: ["renderHeadOn:", "renderContentOn:"]}),
+smalltalk.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderHeadOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("list-label");
+$2=_st($1)._with_(_st(_st(_st(self)._model())._inspectee())._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
+messageSends: ["class:", "div", "with:", "asString", "inspectee", "model"]}),
+smalltalk.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "resetItems",
 fn: function (){
 var self=this;

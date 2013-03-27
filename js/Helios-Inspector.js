@@ -1100,9 +1100,45 @@ return _st(_st(self)._announcer())._announce_(_st($HLDiveRequested())._new());
 self["@diveButton"]=$4;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x0a\x09html button\x0a\x09\x09\x09class: 'btn';\x0a\x09\x09\x09with: 'Refresh';\x0a\x09\x09\x09onClick: [self announcer announce: HLRefreshRequested new].\x0a\x0a\x09diveButton := html button \x0a\x09\x09\x09\x09class: 'btn';\x0a\x09\x09\x09\x09with: 'Dive'; \x0a\x09\x09\x09\x09onClick: [self announcer announce: HLDiveRequested new]",
+source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Refresh';\x0a\x09\x09onClick: [ self announcer announce: HLRefreshRequested new ].\x0a\x0a\x09diveButton := html button \x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Dive'; \x0a\x09\x09onClick: [ self announcer announce: HLDiveRequested new ]",
 messageSends: ["class:", "button", "with:", "onClick:", "announce:", "new", "announcer"],
 referencedClasses: ["HLRefreshRequested", "HLDiveRequested"]
+}),
+smalltalk.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._renderHeadOn_(html);
+smalltalk.HLNavigationListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09super renderContentOn: html",
+messageSends: ["renderHeadOn:", "renderContentOn:"],
+referencedClasses: []
+}),
+smalltalk.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderHeadOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("list-label");
+$2=_st($1)._with_(_st(_st(_st(self)._model())._inspectee())._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
+args: ["html"],
+source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'list-label';\x0a\x09\x09with: self model inspectee asString",
+messageSends: ["class:", "div", "with:", "asString", "inspectee", "model"],
+referencedClasses: []
 }),
 smalltalk.HLInspectorVariablesWidget);
 
