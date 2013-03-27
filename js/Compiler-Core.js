@@ -713,31 +713,6 @@ smalltalk.Compiler.klass);
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler-Core');
 smalltalk.DoIt.comment="`DoIt` is the class used to compile and evaluate expressions. See `Compiler >> evaluateExpression:`."
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-category: 'xxxDoIt',
-fn: function (){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(each){
-return smalltalk.withContext(function($ctx3) {
-return _st(each)._commit();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.DoIt)})},
-args: [],
-source: "xxxDoIt ^[Smalltalk current packages do: [ :each |\x0a\x09each commit ]] value",
-messageSends: ["value", "do:", "commit", "packages", "current"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.DoIt);
-
 
 
 smalltalk.addClass('NodeVisitor', smalltalk.Object, [], 'Compiler-Core');
