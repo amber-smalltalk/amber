@@ -466,6 +466,7 @@ function Smalltalk() {
      * Add/remove a method to/from a class 
      */
 
+    /* This is a temporary version of addMethod() for backward compatibility */
 	st.addMethod = function(method_exJsSelector, klass_exMethod, exKlass) {
         if (typeof method_exJsSelector === "string") { //legacy
             if (method_exJsSelector !== st.selector(klass_exMethod.selector)) {
