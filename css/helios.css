@@ -225,7 +225,7 @@ i {
 }
 
 .tool_container .list-label .btn-group > .dropdown-menu {
-    padding: 0;
+    padding: 4px 0;
     font-size: 11px;
 }
 
