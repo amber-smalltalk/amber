@@ -1706,7 +1706,7 @@ $1=_st(self)._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments(
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
-messageSends: ["ifNotNil:ifNil:", "forwardMessage:withArguments:", "arguments", "doesNotUnderstand:", "lookupProperty:", "asJavaScriptSelector", "selector"]}),
+messageSends: ["ifNil:ifNotNil:", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments", "lookupProperty:", "asJavaScriptSelector", "selector"]}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(

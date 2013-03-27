@@ -472,8 +472,25 @@ function Smalltalk() {
      * Add/remove a method to/from a class 
      */
 
-	st.addMethod = function(jsSelector, method, klass) {
-		method.jsSelector = jsSelector;
+	st.addMethod = function(method_exJsSelector, klass_exMethod, exKlass) {
+        if (typeof method_exJsSelector === "string") { //legacy
+            if (method_exJsSelector !== st.selector(klass_exMethod.selector)) {
+                console.log("DISCREPANCY: arg, in_method");
+                console.log(method_exJsSelector);
+                console.log(st.selector(klass_exMethod.selector));
+                klass_exMethod.jsSelector = method_exJsSelector;
+            }
+            return new_addMethod(klass_exMethod, exKlass);
+        }
+
+        return new_addMethod(method_exJsSelector, klass_exMethod);
+    }
+
+    // later, st.addMethod can be this:
+    function new_addMethod(method, klass) {
+        if (!(method.jsSelector)) {
+            method.jsSelector = st.selector(method.selector);
+        }
 		installMethod(method, klass);
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;

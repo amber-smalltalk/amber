@@ -365,6 +365,25 @@ referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
 
+smalltalk.addMethod(
+"_testThisContext",
+smalltalk.method({
+selector: "testThisContext",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(_st(self)._interpret_("foo ^ thisContext"))._outerContext())._isNil());
+_st(self)._assert_(_st(_st(_st(self)._interpret_("foo ^ [ thisContext ] value"))._outerContext())._notNil());
+_st(self)._assert_(_st(self)._interpret_("foo ^ [ thisContext ] value outerContext == thisContext"));
+return self}, function($ctx1) {$ctx1.fill(self,"testThisContext",{},smalltalk.ASTInterpreterTest)})},
+args: [],
+source: "testThisContext\x0a\x09self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.\x0a\x09self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.\x0a\x09self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')",
+messageSends: ["assert:", "isNil", "outerContext", "interpret:", "notNil"],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreterTest);
+
 
 
 smalltalk.addClass('ASTSteppingInterpreterTest', smalltalk.AbstractASTInterpreterTest, ['interpreter'], 'Compiler-Tests');

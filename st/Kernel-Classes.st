@@ -267,7 +267,7 @@ new
 !Behavior methodsFor: 'private'!
 
 basicAddCompiledMethod: aMethod
-	<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>
+	<smalltalk.addMethod(aMethod, self)>
 !
 
 basicRemoveCompiledMethod: aMethod
