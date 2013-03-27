@@ -286,6 +286,10 @@ isClass
 	^false
 !
 
+isCompiledMethod
+	^ false
+!
+
 isImmutable
 	^ false
 !
@@ -310,6 +314,10 @@ isNil
 
 isNumber
 	^false
+!
+
+isPackage
+	^ false
 !
 
 isParseFailure
@@ -1193,6 +1201,12 @@ printOn: aStream
 		nextPutAll: ' (';
 		nextPutAll: self name;
 		nextPutAll: ')'
+! !
+
+!Package methodsFor: 'testing'!
+
+isPackage
+	^ true
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!

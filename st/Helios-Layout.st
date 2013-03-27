@@ -124,7 +124,7 @@ resize: anInteger
     position := anInteger - container offset top.
     
 	firstPane asJQuery height: ((position min: container height - 100) max: 100).
-    secondPane asJQuery height: (((container height - position) min: container height - 100) max: 100) - 6.
+    secondPane asJQuery height: (((container height - position) min: container height - 100) max: 100) - 1.
     
     super resize
 !
@@ -171,7 +171,7 @@ resize: anInteger
     position := anInteger - container offset left.
     
 	firstPane asJQuery width: ((position min: container width - 100) max: 100).
-    secondPane asJQuery width: (((container width - position) min: container width - 100) max: 100) - 6.
+    secondPane asJQuery width: (((container width - position) min: container width - 100) max: 100) - 1.
     
     super resize
 !

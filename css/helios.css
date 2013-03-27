@@ -1,5 +1,6 @@
 body {
-    font-size: 13px;
+    font-size: 11px;
+    background: #f1f1f1;
 }
 
 .clearfix:after {
@@ -27,22 +28,58 @@ a {
     cursor: pointer;
 }
 
+i {
+    opacity: 0.8;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    margin-top: 0;
+}
+
+.CodeMirror {
+    position: absolute;
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    background: #fff;
+}
+
+.CodeMirror-hints {
+    border-radius: 0;
+    font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+    font-size: 11px;
+    line-height: 1em;
+    padding: 0;
+    max-height: 120px;
+}
+
+.CodeMirror-hint {
+    border-radius: 0;
+    padding: 0 10px;
+}
+
 .CodeMirror pre {
-    line-height: 16px;
+    font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+    line-height: 15px;
 }
 
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
-    font-size: 13px;
     padding: 2px 8px;
 }
 
 .navbar .navbar-fixed-top {
-    font-size: 12px;
+    font-size: 11px;
     line-height: 16px;
 }
 
 .navbar-inner {
-    min-height: 26px;
+    min-height: 22px;
+    background-color: #dbdbdb;
+    border: 1px solid #666;
+    background-image: linear-gradient(top, #dbdbdb, #bababa);
+    background-image: -webkit-linear-gradient(top, #dbdbdb, #bababa);
+    background-image: -moz-linear-gradient(top, #dbdbdb, #bababa);
+    background-image: -owebkit-linear-gradient(top, #dbdbdb, #bababa);
 }
 
 
@@ -52,11 +89,25 @@ a {
 
 
 .navbar .nav > li > a {
-    padding: 5px 15px;
+    padding: 3px 8px;
+    font-size: 11px;
+    color: #111;
+    text-shadow: 0 1px 0 #ddd;
+}
+
+.navbar .nav > .active > a, 
+.navbar .nav > .active > a:hover, 
+.navbar .nav > .active > a:focus {
+    background-image: linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
+    background-image: -webkit-linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
+    background-image: -moz-linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
+    background-image: -o-linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
+    text-shadow: #ddd 0px 1px 0px; 
+    color: #222;
 }
 
 .navbar-fixed-top i {
-    opacity: 0.2;
+    opacity: 0.4;
     margin-right: 5px;
     height: 12px;
     margin-top: 0;
@@ -70,8 +121,11 @@ a {
     border-radius: 0;
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
-    padding: 3px;
+    padding: 2px 2px 1px 4px;
     margin: 0;
+    font-size: 11px;
+    font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+    color: #111;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -79,18 +133,38 @@ a {
 }
 
 .nav-pills > .active > a {
-    background: #ccc;
+    background-color: #ddd;
+    background-image: linear-gradient(top, #ddd, #bababa);
+    background-image: -moz-linear-gradient(top, #ddd, #bababa);
+    background-image: -webkit-linear-gradient(top, #ddd, #bababa);
+    background-image: -o-linear-gradient(top, #ddd, #bababa);
     color: #fff;
 }
 
-.focused .nav-pills > .active > a, .nav-pills > .active > a:hover {
-    background: #08C;
+.focused .nav-pills {
+    background-color: #e3e7eb;
+}
+
+.focused .nav-pills > .active > a, 
+.nav-pills > .active > a:hover,
+.dropdown-menu li > a:hover, 
+.dropdown-menu li > a:focus, 
+.dropdown-submenu:hover > a,
+.dropdown-menu .active > a, 
+.dropdown-menu .active > a:hover,
+.CodeMirror-hint-active {
+    background: #b1bdd5;
+    background-image: linear-gradient(top, #b1bdd5, #8999b8);
+    background-image: -webkit-linear-gradient(top, #b1bdd5, #8999b8);
+    background-image: -moz-linear-gradient(top, #b1bdd5, #8999b8);
+    background-image: -owebkit-linear-gradient(top, #b1bdd5, #8999b8);
+    color: #fff;
 }
 
 
 .tool_container {
     position: fixed;
-    top: 26px;
+    top: 23px;
     bottom: 0;
     left: 0;
     right: 0;
@@ -118,23 +192,67 @@ a {
 .tool_container .panes .pane .nav-pills {
     position: absolute;
     overflow-y: auto;
-    top: 0;
-    bottom: 37px;
+    top: 17px;
+    bottom: 17px;
     width: 100%;
     margin: 0;
 }
+
+.tool_container .list-label {
+    font-size: 11px;
+    border-radius: 0;
+    border-bottom: 1px solid #666;
+    background-color: #e9eaf5;
+    background-image: -webkit-linear-gradient(top, #e9eaf5, #bfc2d2);
+    color: #333;
+    font-weight: bold;
+    text-shadow: 0 0 0;
+    padding-left: 4px;
+    line-height: 16px;
+}
+
+.tool_container .list-label .btn-group.cog {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.tool_container .list-label .btn-group.open .dropdown-toggle {
+    box-shadow: 0 0 0;
+    border: 0;
+}
+
+.tool_container .list-label .btn-group > .dropdown-menu {
+    padding: 0;
+    font-size: 11px;
+}
+
+.tool_container .list-label .btn-group.cog i {
+    margin-top: 1px;
+}
+
+.tool_container .list-label .cog .btn.dropdown-toggle {
+    padding: 0;
+    margin: 0;
+    line-height: 12px;
+    border: 0;
+    background: transparent;
+}
+
 
 .tool_container .panes .pane .pane_actions {
     position: absolute;
     overflow: hidden;
     width: 100%;
-    height: 26px;
+    height: 16px;
     bottom: 0;
-    background: #E5E5E5;
-    border-top: 1px solid #bbb;
-    padding: 5px 0;
+    background: #dadada;
+    border-top: 1px solid #666;
+    padding: 0;
     margin: 0;
-    text-align: center;
+    background-image: -webkit-linear-gradient(top, #dadada, #bdbdbd);
 }
 
 .tool_container .panes .pane .pane_actions .info {
@@ -150,18 +268,35 @@ a {
     margin-left: 5px;
 }
 
-.tool_container .panes .pane .pane_actions .btn-group .btn {
-    margin: 0;
-}
-
-.tool_container .panes .pane .pane_actions .btn-group.switch .btn.active:first-child {
-    background: #5AD;
-    color: white;
-    text-shadow: 0 1px 0 #333;
-}
-
 .tool_container .panes .pane .pane_actions .btn {
-    margin-left: 5px;
+    background: transparent;
+    border: 0;
+    font-size: 11px;
+    line-height: 16px;
+    padding: 0 5px;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: 0 0 0;
+    vertical-align: top;
+    min-width: 50px;
+}
+
+.tool_container .panes .pane .pane_actions .btn:hover {
+    background-color: #bbb;
+}
+
+.tool_container .panes .pane .pane_actions .btn-group .btn:hover {
+    background-color: transparent;
+}
+
+.tool_container .panes .pane .pane_actions .btn-group .btn.active {
+    background: #999;
+    background-image: linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
+    background-image: -webkit-linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
+    background-image: -moz-linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
+    background-image: -o-linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
+    text-shadow: #ddd 0px 1px 0px; 
+    color: #222;
 }
 
 .tool_container .panes .pane .class_side .nav-pills {
@@ -184,26 +319,19 @@ a {
 
 .tool_container .splitter {
     z-index: 10;
-    background: #E6E6E6;
-    border: 1px solid #bbb;
+    background: #888;
 }
 
 .tool_container .splitter.vertical {
-    width: 4px;
+    width: 1px;
     height: 100%;
     float: left;
     cursor: e-resize;
-    background-image: url('/images/vsplitter.png');
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 .tool_container .splitter.horizontal {
-    height: 4px;
+    height: 1px;
     cursor: s-resize;
-    background-image: url('/images/hsplitter.png');
-    background-repeat: no-repeat;
-    background-position: center;
 }
 
 
@@ -211,9 +339,13 @@ a {
     z-index: 20;
     position: fixed;
     bottom: 0px;
-    background: #ddd;
+    background: #fff;
+    background-image: linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
+    background-image: -moz-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
+    background-image: -o-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
+    background-image: -webkit-linear-gradient(top, #fafafa, #f0f0f0 50%, #e1e1e1 51%);
     width: 100%;
-    border-top: 1px solid #AAA;
+    border-top: 1px solid #aaa;
     font-size: 11px;
     height: 22px;
 }
@@ -223,12 +355,12 @@ a {
 }
 
 .key_helper .label {
-    padding: 0 4px;
-    border-top: 1px solid white;
-    border-left: 1px solid white;
-    border-bottom: 1px solid #666;
-    border-right: 1px solid #666;
-    font-family: monospace;
+    padding: 1px 4px;
+    font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+    background: transparent;
+    color: #08C;
+    text-shadow: none;
+    border: 0 none;
 }
 
 .key_helper .action {
@@ -237,17 +369,23 @@ a {
 }
 
 .key_helper .selected {
-    background: rgb(7, 195, 221);
+    background-image: linear-gradient(top, #ccc, #aaa);
+    background-image: -moz-linear-gradient(top, #ccc, #aaa);
+    background-image: -o-linear-gradient(top, #ccc, #aaa);
+    background-image: -webkit-linear-gradient(top, #ccc, #aaa);
     height: 30px;
-    padding: 4px;
-    color: white;
+    padding: 0 8px;
+    color: #333;
     font-weight: bold;
-    text-shadow: 0 -1px 0 #666;
+    text-shadow: 0 1px 0 #fff;
+    display: inline-block;
+    border-right: 1px solid #aaa;
 }
 
 .key_helper .close {
     font-size: 14px;
-    line-height: 22px;
+    line-height: 26px;
+    opacity: 0.6;
 }
 
 .key_helper .close:hover {
@@ -256,10 +394,14 @@ a {
 
 .key_helper input {
     outline: none;
-    border: none;
-    font-size: 12px;
-    padding: 2px 4px;
-    background: #EEE;
+    font-size: 11px;
+    padding: 2px 8px;
+    background: #fff;
+    border: 1px solid #a1a1a1;
+    border-radius: 8px;
+    box-shadow: inset 0 0px 2px 0px #aaa;
+    margin: 2px 4px;
+    line-height: 1em;
 }
 
 .key_helper .error .help-inline,
@@ -274,24 +416,10 @@ a {
     bottom: 30px !important;
 }
 
-#keybinding-start-helper {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    background: rgba(0,0,0, 0.6);
-    color: #fff;
-    width: 300px;
-    margin-left: -150px;
-    text-align: center;
-    padding: 50px 0;
-    font-size: 16px;
-    border-radius: 20px;
-}
-
 #cog-helper {
     position: fixed;
-    bottom: 4px;
-    left: 4px;
+    bottom: 2px;
+    right: 2px;
     z-index: 1000;
     opacity: 0.6;
     transition: all .5s;
@@ -303,4 +431,22 @@ a {
 
 #cog-helper:hover {
     opacity: 1;
+}
+
+#helper {
+    z-index: 300;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    margin-left: -220px;
+    margin-top: -35px;
+    width: 400px;
+    text-align: center;
+    color: #ddd;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 0 -1px 0 #111;
+    padding: 20px;
+    background: rgba(0,0,0, 0.6);
+    border-radius: 40px;
 }

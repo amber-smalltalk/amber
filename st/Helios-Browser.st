@@ -67,7 +67,8 @@ classesListWidget
 
 methodsListWidget
 	^ methodsListWidget ifNil: [
-      	methodsListWidget := HLMethodsListWidget on: self model ]
+      	methodsListWidget := HLMethodsListWidget on: self model.
+		methodsListWidget next: self sourceWidget]
 !
 
 packagesListWidget
@@ -116,6 +117,18 @@ HLNavigationListWidget subclass: #HLBrowserListWidget
 
 !HLBrowserListWidget methodsFor: 'accessing'!
 
+label
+	^ 'List'
+!
+
+menuCommands
+	"Answer a collection of commands to be put in the cog menu"
+	
+	^ (HLBrowserCommand concreteClasses 
+		select: [ :each | each isValidFor: self selectedItem ])
+		collect: [ :each | each for: self model ]
+!
+
 model
 	^ model
 !
@@ -123,7 +136,16 @@ model
 model: aBrowserModel
 	model := aBrowserModel.
     
-    self observeModel
+    self 
+		observeSystem;
+		observeModel
+!
+
+selectedItem: anItem
+	"Selection changed, update the cog menu"
+	
+	super selectedItem: anItem.
+	self updateMenu
 ! !
 
 !HLBrowserListWidget methodsFor: 'actions'!
@@ -134,12 +156,50 @@ observeModel
 observeSystem
 ! !
 
-!HLBrowserListWidget methodsFor: 'initialization'!
+!HLBrowserListWidget methodsFor: 'rendering'!
 
-initialize
-	super initialize.
-    
-    self observeSystem
+renderContentOn: html
+	self renderHeadOn: html.	
+	super renderContentOn: html
+!
+
+renderHeadOn: html
+	html div 
+		class: 'list-label';
+		with: [
+			html with: self label.
+			self renderMenuOn: html ]
+!
+
+renderMenuOn: html
+	| commands |
+	
+	commands := self menuCommands.
+	commands isEmpty ifTrue: [ ^ self ].
+	
+	html div 
+		class: 'btn-group cog';
+		with: [
+			html a
+				class: 'btn dropdown-toggle';
+				at: 'data-toggle' put: 'dropdown';
+				with: [ (html tag: 'i') class: 'icon-cog' ].
+		html ul 
+			class: 'dropdown-menu pull-right';
+			with: [ 
+				self menuCommands do: [ :each | 
+					html li with: [ html a 
+						with: each menuLabel;
+						onClick: [ self execute: each ] ] ] ] ]
+! !
+
+!HLBrowserListWidget methodsFor: 'updating'!
+
+updateMenu
+	(self wrapper asJQuery find: '.cog') remove.
+	
+	[ :html | self renderMenuOn: html ] 
+		appendToJQuery: (self wrapper asJQuery find: '.list-label')
 ! !
 
 !HLBrowserListWidget class methodsFor: 'instance creation'!
@@ -171,6 +231,10 @@ iconForItem: aClass
       	ifTrue: [ 'icon-question-sign' ]
 !
 
+label
+	^ 'Classes'
+!
+
 showInstance
 	^ self model showInstance
 ! !
@@ -194,7 +258,7 @@ observeModel
 !
 
 observeSystem
-	SystemAnnouncer current
+	self model systemAnnouncer
     	on: ClassAdded
         do: [ :ann | self onClassAdded: ann theClass ];
         on: ClassRemoved
@@ -289,12 +353,7 @@ renderButtonsOn: html
                     self model showInstance ifFalse: [ 
                     	str nextPutAll: ' active'] ]);
   				with: 'Class';
-				onClick: [ self model showInstance: false ] ].
-                 
-  	html button 
-           	class: 'btn';
-            at: 'data-toggle' put: 'button';
-  			with: 'Comment'
+				onClick: [ self model showInstance: false ] ]
 !
 
 renderItem: aClass level: anInteger on: html
@@ -367,6 +426,10 @@ iconForItem: aSelector
 			ifFalse: [ 'icon-none' ] ]
 !
 
+label
+	^ 'Methods'
+!
+
 methodForSelector: aSelector
 	^ self model selectedClass
     	methodDictionary at: aSelector
@@ -420,7 +483,7 @@ observeModel
 !
 
 observeSystem
-	SystemAnnouncer current 
+	self model systemAnnouncer 
     	on: ProtocolAdded
         do: [ :ann | self onProtocolAdded: ann theClass ];
     	on: ProtocolRemoved
@@ -557,16 +620,19 @@ HLBrowserListWidget subclass: #HLPackagesListWidget
 
 !HLPackagesListWidget methodsFor: 'accessing'!
 
-initializeItems
-	^ items := self model packages sort:[:a :b|
-						a name < b name]
-!
-
 items
 	^ items ifNil: [self initializeItems]
+!
+
+label
+	^ 'Packages'
 ! !
 
 !HLPackagesListWidget methodsFor: 'actions'!
+
+commitPackage
+	self model commitPackage
+!
 
 focusClassesListWidget
 	self model announcer announce: HLClassesListFocus new
@@ -582,6 +648,13 @@ observeModel
 
 selectItem: aPackage
 	self model selectedPackage: aPackage
+! !
+
+!HLPackagesListWidget methodsFor: 'initialization'!
+
+initializeItems
+	^ items := self model packages 
+		sort: [ :a :b | a name < b name ]
 ! !
 
 !HLPackagesListWidget methodsFor: 'reactions'!
@@ -601,24 +674,17 @@ onPackagesFocusRequested
 !HLPackagesListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
-
-	html span class: 'info'; with: 'Auto commit'.
 	html div 
-        class: 'btn-group switch';
-		at: 'data-toggle' put: 'buttons-radio';
-		with: [ 
-           	html button 
-                class: (String streamContents: [ :str |
-                	str nextPutAll: 'btn' ]);
-  				with: 'On'.
-  			html button
-  				class: (String streamContents: [ :str |
-                	str nextPutAll: 'btn active' ]);
-  				with: 'Off' ].
-                
-    html a 
-         	class: 'btn';
-			with: 'Commit'.
+		class: 'buttons';
+		with: [
+			html button 
+				class: 'btn';
+				with: 'Commit';
+				onClick: [ self commitPackage ] ]
+!
+
+renderItemLabel: aPackage on: html
+	html with: aPackage name
 ! !
 
 HLBrowserListWidget subclass: #HLProtocolsListWidget
@@ -629,6 +695,10 @@ HLBrowserListWidget subclass: #HLProtocolsListWidget
 
 allProtocol
 	^ self model allProtocol
+!
+
+label
+	^ 'Protocols'
 !
 
 selectedItem
@@ -650,11 +720,11 @@ observeModel
 !
 
 observeSystem
-    SystemAnnouncer current
-    	on: ProtocolAdded 
-        do: [ :ann | self onProtocolAdded: ann protocol to: ann theClass ];
-        on: ProtocolRemoved
-        do: [ :ann | self onProtocolRemoved: ann protocol from: ann theClass ]
+	self model systemAnnouncer
+		on: ProtocolAdded 
+	    do: [ :ann | self onProtocolAdded: ann protocol to: ann theClass ];
+	    on: ProtocolRemoved
+	    do: [ :ann | self onProtocolRemoved: ann protocol from: ann theClass ]
 !
 
 selectItem: aString
@@ -851,6 +921,10 @@ showInstance: aBoolean
     	  	ifFalse: [ self selectedClass theMetaClass ]) ].
     
     self announcer announce: HLShowInstanceToggled new
+!
+
+systemAnnouncer
+	^ self environment systemAnnouncer
 ! !
 
 !HLBrowserModel methodsFor: 'actions'!
@@ -896,7 +970,9 @@ saveSourceCode
 !HLBrowserModel methodsFor: 'commands actions'!
 
 commitPackage
-	self environment commitPackage: self selectedPackage
+	self 
+		withHelperLabelled: 'Committing package ', self selectedPackage name, '...'
+		do: [ self environment commitPackage: self selectedPackage ]
 !
 
 moveMethodToClass: aClassName
@@ -1007,6 +1083,23 @@ compilationProtocol
 	^ currentProtocol = self allProtocol
 		ifTrue: [ self unclassifiedProtocol ]
 		ifFalse: [ currentProtocol ]
+!
+
+withHelperLabelled: aString do: aBlock
+	"TODO: doesn't belong here"
+
+	(window jQuery: '#helper') remove.
+
+	[ :html |
+		html div 
+			id: 'helper';
+			with: aString ] appendToJQuery: 'body' asJQuery.
+	
+	[
+		aBlock value.
+		(window jQuery: '#helper') remove
+	] 
+		valueWithTimeout: 10
 ! !
 
 !HLBrowserModel methodsFor: 'testing'!
@@ -1060,6 +1153,14 @@ model: aBrowserModel
 	model := aBrowserModel.
     
     self observeModel
+!
+
+previous
+	"for browser lists widget"
+!
+
+previous: aWidget
+	"for browser lists widget"
 ! !
 
 !HLBrowserSourceWidget methodsFor: 'actions'!

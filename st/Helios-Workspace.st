@@ -1,7 +1,7 @@
 Smalltalk current createPackage: 'Helios-Workspace'!
 Object subclass: #HLCodeModel
- instanceVariableNames: 'announcer environment receiver'
- package: 'Helios-Workspace'!
+	instanceVariableNames: 'announcer environment receiver'
+	package: 'Helios-Workspace'!
 
 !HLCodeModel methodsFor: 'accessing'!
 
@@ -52,8 +52,8 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLCodeWidget
- instanceVariableNames: 'model wrapper code editor'
- package: 'Helios-Workspace'!
+	instanceVariableNames: 'model wrapper code editor'
+	package: 'Helios-Workspace'!
 
 !HLCodeWidget methodsFor: 'accessing'!
 
@@ -204,8 +204,31 @@ setEditorOn: aTextarea
 				indentUnit: 4,
                 matchBrackets: true,
                 electricChars: false,
-				keyMap: 'Amber'
+				keyMap: 'Amber',
+				extraKeys: {"Shift-Space": "autocomplete"}
 	})>
+! !
+
+!HLCodeWidget methodsFor: 'hints'!
+
+messageHintFor: anEditor token: aToken
+	^ ((Smalltalk current at: 'allSelectors') value asSet asArray 
+		select: [ :each | each includesSubString: aToken string ])
+		reject: [ :each | each = aToken string ]
+!
+
+variableHintFor: anEditor token: aToken
+	| variables classNames pseudoVariables |
+	
+	variables := ((window jQuery: anEditor display wrapper) find: 'span.cm-variable') get
+		collect: [ :each | (window jQuery: each) html ].
+	
+	classNames := Smalltalk current classes collect: [ :each | each name ].
+	pseudoVariables := Smalltalk current pseudoVariableNames.
+	
+	^ ((variables, classNames, pseudoVariables) asSet asArray 
+		select: [ :each | each includesSubString: aToken string ])
+		reject: [ :each | each = aToken string ]
 ! !
 
 !HLCodeWidget methodsFor: 'reactions'!
@@ -282,7 +305,7 @@ macKeyMap
 		'Shift-Cmd-Alt-F'	-> 'replaceAll'.
 		'Shift-Cmd-G'		-> 'findPrev'. 
 		'Shift-Cmd-Z'		-> 'redo'. 
-    	'fallthrough' 	-> { 'basic' }
+    	'fallthrough' 	-> { 'basic'. 'emacsy' }
   }
 !
 
@@ -325,6 +348,37 @@ tabPriority
 	^ 10
 ! !
 
+!HLCodeWidget class methodsFor: 'hints'!
+
+hintFor: anEditor options: options
+	| cursor token completions |
+	
+	cursor := anEditor getCursor.
+	token := anEditor getTokenAt: cursor.
+	token at: 'state' put: ((CodeMirror basicAt: 'innerMode')
+		value: anEditor getMode value: (token at: 'state')) state.
+	
+	completions := token type = 'variable' 
+		ifTrue: [ HLCodeWidget variableHintFor: anEditor token: token ]
+		ifFalse: [ HLCodeWidget messageHintFor: anEditor token: token ].
+	
+	^ #{
+		'list' -> completions.
+		'from' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token end).
+		'to' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token start)
+	}
+!
+
+messageHintFor: anEditor token: aToken
+	^ (anEditor at: 'amberCodeWidget')
+		messageHintFor: anEditor token: aToken
+!
+
+variableHintFor: anEditor token: aToken
+	^ (anEditor at: 'amberCodeWidget')
+		variableHintFor: anEditor token: aToken
+! !
+
 !HLCodeWidget class methodsFor: 'initialization'!
 
 initialize
@@ -336,7 +390,12 @@ initialize
 !
 
 setupCodeMirror
-	< CodeMirror.keyMap.default.fallthrough = ["basic"] >
+	< 
+		CodeMirror.keyMap.default.fallthrough = ["basic"];
+		CodeMirror.commands.autocomplete = function(cm) {
+        	CodeMirror.showHint(cm, self._hintFor_options_);
+      	}
+	>
 !
 
 setupCommands
@@ -358,8 +417,8 @@ canBeOpenAsTab
 ! !
 
 HLCodeWidget subclass: #HLSourceCodeWidget
- instanceVariableNames: 'browserModel'
- package: 'Helios-Workspace'!
+	instanceVariableNames: 'browserModel'
+	package: 'Helios-Workspace'!
 
 !HLSourceCodeWidget methodsFor: 'accessing'!
 

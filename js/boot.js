@@ -163,6 +163,12 @@ function Smalltalk() {
 		}
 	};
 
+    /* Answer all method selectors based on dnu handlers */
+
+    st.allSelectors = function() {
+        return dnu.selectors;
+    };
+
 	/* Unique ID number generator */
 
 	var oid = 0;

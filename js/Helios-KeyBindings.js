@@ -1000,7 +1000,8 @@ selector: "renderOn:html:",
 category: 'rendering',
 fn: function (aBinder,html){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$4,$5,$6,$7,$3;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$5,$6,$7,$3;
 self["@binder"]=aBinder;
 $1=self["@wrapper"];
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -1012,7 +1013,8 @@ $1;
 $2=self["@wrapper"];
 _st($2)._class_(_st(self)._status());
 $3=_st($2)._with_((function(){
-return smalltalk.withContext(function($ctx2) {$4=_st(html)._input();
+return smalltalk.withContext(function($ctx2) {
+$4=_st(html)._input();
 _st($4)._placeholder_(_st(self)._ghostText());
 $5=_st($4)._yourself();
 self["@input"]=$5;
@@ -1025,11 +1027,14 @@ $7=_st($6)._yourself();
 self["@messageTag"]=$7;
 return self["@messageTag"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(self["@input"])._asJQuery())._focus();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self["@input"])._asJQuery())._focus();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
 args: ["aBinder", "html"],
-source: "renderOn: aBinder html: html\x0a\x09binder := aBinder.\x0a\x09wrapper ifNil: [ wrapper := html span ].\x0a\x09\x0a\x09wrapper \x0a\x09\x09class: self status;\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09placeholder: self ghostText;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input asJQuery \x0a\x09\x09\x09\x09typeahead: #{ 'source' -> self inputCompletion }.\x0a\x09\x09\x09messageTag := (html span\x0a\x09\x09\x09\x09class: 'help-inline';\x0a\x09\x09\x09\x09with: self message;\x0a\x09\x09\x09\x09yourself) ].\x0a\x09\x09\x09\x0a\x09input asJQuery focus\x0a",
-messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "ghostText", "input", "yourself", "typeahead:", "->", "inputCompletion", "asJQuery", "message", "focus"],
+source: "renderOn: aBinder html: html\x0a\x09binder := aBinder.\x0a\x09wrapper ifNil: [ wrapper := html span ].\x0a\x09\x0a\x09wrapper \x0a\x09\x09class: self status;\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09placeholder: self ghostText;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input asJQuery \x0a\x09\x09\x09\x09typeahead: #{ 'source' -> self inputCompletion }.\x0a\x09\x09\x09messageTag := (html span\x0a\x09\x09\x09\x09class: 'help-inline';\x0a\x09\x09\x09\x09with: self message;\x0a\x09\x09\x09\x09yourself) ].\x0a\x09\x0a\x09\x22Evaluate with a timeout to ensure focus.\x0a\x09Commands can be executed from a menu, clicking on the menu to\x0a\x09evaluate the command would give it the focus otherwise\x22\x0a\x09\x0a\x09[ input asJQuery focus ] valueWithTimeout: 10",
+messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "ghostText", "input", "yourself", "typeahead:", "->", "inputCompletion", "asJQuery", "message", "valueWithTimeout:", "focus"],
 referencedClasses: []
 }),
 smalltalk.HLBindingInput);
@@ -1116,7 +1121,8 @@ selector: "activationKeyLabel",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "ctrl + space";
+return smalltalk.withContext(function($ctx1) { 
+return "ctrl + space";
 }, function($ctx1) {$ctx1.fill(self,"activationKeyLabel",{},smalltalk.HLKeyBinder)})},
 args: [],
 source: "activationKeyLabel\x0a\x09^ 'ctrl + space'",
@@ -1318,7 +1324,8 @@ selector: "handleInactiveKeyDown:",
 category: 'events',
 fn: function (event){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 $1=_st(_st(event)._which()).__eq(_st(self)._activationKey());
 if(smalltalk.assert($1)){
 $2=_st(event)._ctrlKey();
@@ -1330,7 +1337,7 @@ return false;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleInactiveKeyDown:",{event:event},smalltalk.HLKeyBinder)})},
 args: ["event"],
-source: "handleInactiveKeyDown: event\x0a      event which = self activationKey ifTrue: [\x0a      \x09\x09event ctrlKey  ifTrue: [\x0a\x09\x09\x09\x09\x09self activate. \x0a               \x09\x09 event preventDefault. \x0a                \x09^ false ] ]",
+source: "handleInactiveKeyDown: event\x0a\x09event which = self activationKey ifTrue: [\x0a    \x09event ctrlKey ifTrue: [\x0a\x09\x09\x09self activate. \x0a            event preventDefault. \x0a            ^ false ] ]",
 messageSends: ["ifTrue:", "activate", "preventDefault", "ctrlKey", "=", "activationKey", "which"],
 referencedClasses: []
 }),
@@ -1748,19 +1755,22 @@ selector: "renderStart",
 category: 'rendering',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 _st((function(html){
-return smalltalk.withContext(function($ctx2) {$1=_st(html)._div();
-_st($1)._id_("keybinding-start-helper");
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._div();
+_st($1)._id_("helper");
 $2=_st($1)._with_(_st(_st("Press ").__comma(_st(_st(self)._keyBinder())._activationKeyLabel())).__comma(" to start"));
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st("body")._asJQuery());
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(window)._jQuery_("#keybinding-start-helper"))._fadeOut_((1000));
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(window)._jQuery_("#helper"))._fadeOut_((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((2000));
 return self}, function($ctx1) {$ctx1.fill(self,"renderStart",{},smalltalk.HLKeyBinderHelper)})},
 args: [],
-source: "renderStart\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'keybinding-start-helper';\x0a\x09\x09\x09with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[ (window jQuery: '#keybinding-start-helper') fadeOut: 1000 ] \x0a\x09\x09valueWithTimeout: 2000",
+source: "renderStart\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[ (window jQuery: '#helper') fadeOut: 1000 ] \x0a\x09\x09valueWithTimeout: 2000",
 messageSends: ["appendToJQuery:", "asJQuery", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "valueWithTimeout:", "fadeOut:", "jQuery:"],
 referencedClasses: []
 }),

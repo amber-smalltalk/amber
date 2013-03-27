@@ -549,6 +549,23 @@ referencedClasses: []
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isCompiledMethod",
+smalltalk.method({
+selector: "isCompiledMethod",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isCompiledMethod",{},smalltalk.Object)})},
+args: [],
+source: "isCompiledMethod\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
@@ -654,6 +671,23 @@ return false;
 }, function($ctx1) {$ctx1.fill(self,"isNumber",{},smalltalk.Object)});},
 args: [],
 source: "isNumber\x0a\x09^false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+"_isPackage",
+smalltalk.method({
+selector: "isPackage",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Object)})},
+args: [],
+source: "isPackage\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3608,6 +3642,23 @@ self["@commitPathSt"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)});},
 args: ["aString"],
 source: "commitPathSt: aString\x0a\x09commitPathSt := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+"_isPackage",
+smalltalk.method({
+selector: "isPackage",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Package)})},
+args: [],
+source: "isPackage\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),

@@ -164,6 +164,20 @@ return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod}
 messageSends: ["sublcassResponsibility"]}),
 smalltalk.HLEnvironment);
 
+smalltalk.addMethod(
+"_systemAnnouncer",
+smalltalk.method({
+selector: "systemAnnouncer",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._subclassResponsibility();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
 
 
 smalltalk.addClass('HLLocalEnvironment', smalltalk.HLEnvironment, [], 'Helios-Environments');
@@ -330,6 +344,21 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { _st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},smalltalk.HLLocalEnvironment)});},
 messageSends: ["forsakeMethod:", "methodClass"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_systemAnnouncer",
+smalltalk.method({
+selector: "systemAnnouncer",
+fn: function (){
+var self=this;
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($SystemAnnouncer())._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLLocalEnvironment)})},
+messageSends: ["current"]}),
 smalltalk.HLLocalEnvironment);
 
 

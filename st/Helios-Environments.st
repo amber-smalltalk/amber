@@ -25,6 +25,10 @@ classNamed: aString
 
 packages
 	^ self subclassResponsibility
+!
+
+systemAnnouncer
+	^ self subclassResponsibility
 ! !
 
 !HLEnvironment methodsFor: 'actions'!
@@ -104,6 +108,10 @@ classNamed: aString
 
 packages
 	^ Smalltalk current packages
+!
+
+systemAnnouncer
+	^ SystemAnnouncer current
 ! !
 
 !HLLocalEnvironment methodsFor: 'actions'!

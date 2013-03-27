@@ -403,6 +403,18 @@ messageSends: []}),
 smalltalk.Object);
 
 smalltalk.addMethod(
+"_isCompiledMethod",
+smalltalk.method({
+selector: "isCompiledMethod",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isCompiledMethod",{},smalltalk.Object)})},
+messageSends: []}),
+smalltalk.Object);
+
+smalltalk.addMethod(
 "_isImmutable",
 smalltalk.method({
 selector: "isImmutable",
@@ -480,6 +492,18 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return false;
 }, function($ctx1) {$ctx1.fill(self,"isNumber",{},smalltalk.Object)});},
+messageSends: []}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+"_isPackage",
+smalltalk.method({
+selector: "isPackage",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
 
@@ -2669,6 +2693,18 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@commitPathSt"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)});},
+messageSends: []}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+"_isPackage",
+smalltalk.method({
+selector: "isPackage",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Package)})},
 messageSends: []}),
 smalltalk.Package);
 

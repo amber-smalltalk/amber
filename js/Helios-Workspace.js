@@ -435,6 +435,32 @@ referencedClasses: ["HLInspector"]
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
+"_messageHintFor_token_",
+smalltalk.method({
+selector: "messageHintFor:token:",
+category: 'hints',
+fn: function (anEditor,aToken){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(_st(_st(_st($Smalltalk())._current())._at_("allSelectors"))._value())._asSet())._asArray())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._includesSubString_(_st(aToken)._string());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st(aToken)._string());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget)})},
+args: ["anEditor", "aToken"],
+source: "messageHintFor: anEditor token: aToken\x0a\x09^ ((Smalltalk current at: 'allSelectors') value asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
+messageSends: ["reject:", "=", "string", "select:", "includesSubString:", "asArray", "asSet", "value", "at:", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
 "_model",
 smalltalk.method({
 selector: "model",
@@ -747,7 +773,8 @@ selector: "setEditorOn:",
 category: 'actions',
 fn: function (aTextarea){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
+return smalltalk.withContext(function($ctx1) { 
+self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
 		theme: 'amber',
                 lineNumbers: true,
                 enterMode: 'flat',
@@ -755,13 +782,50 @@ return smalltalk.withContext(function($ctx1) { self['@editor'] = CodeMirror.fro
 				indentUnit: 4,
                 matchBrackets: true,
                 electricChars: false,
-				keyMap: 'Amber'
+				keyMap: 'Amber',
+				extraKeys: {"Shift-Space": "autocomplete"}
 	});
-return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea}, smalltalk.HLCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},smalltalk.HLCodeWidget)})},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                indentWithTabs: true,\x0a\x09\x09\x09\x09indentUnit: 4,\x0a                matchBrackets: true,\x0a                electricChars: false,\x0a\x09\x09\x09\x09keyMap: 'Amber'\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                indentWithTabs: true,\x0a\x09\x09\x09\x09indentUnit: 4,\x0a                matchBrackets: true,\x0a                electricChars: false,\x0a\x09\x09\x09\x09keyMap: 'Amber',\x0a\x09\x09\x09\x09extraKeys: {\x22Shift-Space\x22: \x22autocomplete\x22}\x0a\x09})>",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+"_variableHintFor_token_",
+smalltalk.method({
+selector: "variableHintFor:token:",
+category: 'hints',
+fn: function (anEditor,aToken){
+var self=this;
+var variables,classNames,pseudoVariables;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+variables=_st(_st(_st(_st(window)._jQuery_(_st(_st(anEditor)._display())._wrapper()))._find_("span.cm-variable"))._get())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(window)._jQuery_(each))._html();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+classNames=_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._name();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+pseudoVariables=_st(_st($Smalltalk())._current())._pseudoVariableNames();
+$1=_st(_st(_st(_st(_st(_st(variables).__comma(classNames)).__comma(pseudoVariables))._asSet())._asArray())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._includesSubString_(_st(aToken)._string());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st(aToken)._string());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
+args: ["anEditor", "aToken"],
+source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := ((window jQuery: anEditor display wrapper) find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | (window jQuery: each) html ].\x0a\x09\x0a\x09classNames := Smalltalk current classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk current pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
+messageSends: ["collect:", "html", "jQuery:", "get", "find:", "wrapper", "display", "name", "classes", "current", "pseudoVariableNames", "reject:", "=", "string", "select:", "includesSubString:", "asArray", "asSet", ","],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLCodeWidget);
 
@@ -779,6 +843,37 @@ args: [],
 source: "canBeOpenAsTab\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_hintFor_options_",
+smalltalk.method({
+selector: "hintFor:options:",
+category: 'hints',
+fn: function (anEditor,options){
+var self=this;
+var cursor,token,completions;
+function $CodeMirror(){return smalltalk.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
+function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+cursor=_st(anEditor)._getCursor();
+token=_st(anEditor)._getTokenAt_(cursor);
+_st(token)._at_put_("state",_st(_st(_st($CodeMirror())._basicAt_("innerMode"))._value_value_(_st(anEditor)._getMode(),_st(token)._at_("state")))._state());
+$1=_st(_st(token)._type()).__eq("variable");
+if(smalltalk.assert($1)){
+completions=_st($HLCodeWidget())._variableHintFor_token_(anEditor,token);
+} else {
+completions=_st($HLCodeWidget())._messageHintFor_token_(anEditor,token);
+};
+$2=smalltalk.HashedCollection._fromPairs_([_st("list").__minus_gt(completions),_st("from").__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._end())),_st("to").__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},smalltalk.HLCodeWidget.klass)})},
+args: ["anEditor", "options"],
+source: "hintFor: anEditor options: options\x0a\x09| cursor token completions |\x0a\x09\x0a\x09cursor := anEditor getCursor.\x0a\x09token := anEditor getTokenAt: cursor.\x0a\x09token at: 'state' put: ((CodeMirror basicAt: 'innerMode')\x0a\x09\x09value: anEditor getMode value: (token at: 'state')) state.\x0a\x09\x0a\x09completions := token type = 'variable' \x0a\x09\x09ifTrue: [ HLCodeWidget variableHintFor: anEditor token: token ]\x0a\x09\x09ifFalse: [ HLCodeWidget messageHintFor: anEditor token: token ].\x0a\x09\x0a\x09^ #{\x0a\x09\x09'list' -> completions.\x0a\x09\x09'from' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token end).\x0a\x09\x09'to' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token start)\x0a\x09}",
+messageSends: ["getCursor", "getTokenAt:", "at:put:", "state", "value:value:", "getMode", "at:", "basicAt:", "ifTrue:ifFalse:", "variableHintFor:token:", "messageHintFor:token:", "=", "type", "->", "line", "end", "start"],
+referencedClasses: ["CodeMirror", "HLCodeWidget"]
 }),
 smalltalk.HLCodeWidget.klass);
 
@@ -833,13 +928,33 @@ selector: "macKeyMap",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("Alt-Backspace").__minus_gt("delWordBefore"),_st("Alt-Delete").__minus_gt("delWordAfter"),_st("Alt-Left").__minus_gt("goWordBoundaryLeft"),_st("Alt-Right").__minus_gt("goWordBoundaryRight"),_st("Cmd-A").__minus_gt("selectAll"),_st("Cmd-Alt-F").__minus_gt("replace"),_st("Cmd-D").__minus_gt("doIt"),_st("Cmd-Down").__minus_gt("goDocEnd"),_st("Cmd-End").__minus_gt("goDocEnd"),_st("Cmd-F").__minus_gt("find"),_st("Cmd-G").__minus_gt("findNext"),_st("Cmd-I").__minus_gt("inspectIt"),_st("Cmd-Left").__minus_gt("goLineStart"),_st("Cmd-P").__minus_gt("printIt"),_st("Cmd-Right").__minus_gt("goLineEnd"),_st("Cmd-S").__minus_gt("saveIt"),_st("Cmd-Up").__minus_gt("goDocStart"),_st("Cmd-Y").__minus_gt("redo"),_st("Cmd-Z").__minus_gt("undo"),_st("Cmd-[").__minus_gt("indentLess"),_st("Cmd-]").__minus_gt("indentMore"),_st("Ctrl-Alt-Backspace").__minus_gt("delWordAfter"),_st("Shift-Cmd-Alt-F").__minus_gt("replaceAll"),_st("Shift-Cmd-G").__minus_gt("findPrev"),_st("Shift-Cmd-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic"])]);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=smalltalk.HashedCollection._fromPairs_([_st("Alt-Backspace").__minus_gt("delWordBefore"),_st("Alt-Delete").__minus_gt("delWordAfter"),_st("Alt-Left").__minus_gt("goWordBoundaryLeft"),_st("Alt-Right").__minus_gt("goWordBoundaryRight"),_st("Cmd-A").__minus_gt("selectAll"),_st("Cmd-Alt-F").__minus_gt("replace"),_st("Cmd-D").__minus_gt("doIt"),_st("Cmd-Down").__minus_gt("goDocEnd"),_st("Cmd-End").__minus_gt("goDocEnd"),_st("Cmd-F").__minus_gt("find"),_st("Cmd-G").__minus_gt("findNext"),_st("Cmd-I").__minus_gt("inspectIt"),_st("Cmd-Left").__minus_gt("goLineStart"),_st("Cmd-P").__minus_gt("printIt"),_st("Cmd-Right").__minus_gt("goLineEnd"),_st("Cmd-S").__minus_gt("saveIt"),_st("Cmd-Up").__minus_gt("goDocStart"),_st("Cmd-Y").__minus_gt("redo"),_st("Cmd-Z").__minus_gt("undo"),_st("Cmd-[").__minus_gt("indentLess"),_st("Cmd-]").__minus_gt("indentMore"),_st("Ctrl-Alt-Backspace").__minus_gt("delWordAfter"),_st("Shift-Cmd-Alt-F").__minus_gt("replaceAll"),_st("Shift-Cmd-G").__minus_gt("findPrev"),_st("Shift-Cmd-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic","emacsy"])]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"macKeyMap",{}, smalltalk.HLCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},smalltalk.HLCodeWidget.klass)})},
 args: [],
-source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09-> 'goWordBoundaryLeft'.\x0a\x09\x09'Alt-Right'\x09\x09-> 'goWordBoundaryRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09-> { 'basic' }\x0a  }",
+source: "macKeyMap\x0a\x09^ #{\x0a\x09\x09'Alt-Backspace'\x09\x09-> 'delWordBefore'.\x0a\x09\x09'Alt-Delete'\x09\x09-> 'delWordAfter'. \x0a\x09\x09'Alt-Left'\x09\x09-> 'goWordBoundaryLeft'.\x0a\x09\x09'Alt-Right'\x09\x09-> 'goWordBoundaryRight'. \x0a\x09\x09'Cmd-A'\x09\x09\x09-> 'selectAll'. \x0a\x09\x09'Cmd-Alt-F'\x09\x09-> 'replace'. \x0a\x09\x09'Cmd-D'\x09\x09\x09-> 'doIt'. \x0a\x09\x09'Cmd-Down'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-End'\x09\x09-> 'goDocEnd'. \x0a\x09\x09'Cmd-F'\x09\x09\x09-> 'find'.\x0a\x09\x09'Cmd-G'\x09\x09\x09-> 'findNext'. \x0a\x09\x09'Cmd-I'\x09\x09\x09-> 'inspectIt'. \x0a\x09\x09'Cmd-Left'\x09\x09-> 'goLineStart'. \x0a\x09\x09'Cmd-P'\x09\x09\x09-> 'printIt'. \x0a\x09\x09'Cmd-Right'\x09\x09-> 'goLineEnd'. \x0a\x09\x09'Cmd-S'\x09\x09\x09-> 'saveIt'. \x0a\x09\x09'Cmd-Up'\x09\x09-> 'goDocStart'. \x0a\x09\x09'Cmd-Y'\x09\x09\x09-> 'redo'.\x0a\x09\x09'Cmd-Z'\x09\x09\x09-> 'undo'. \x0a\x09\x09'Cmd-['\x09\x09\x09-> 'indentLess'. \x0a\x09\x09'Cmd-]'\x09\x09\x09-> 'indentMore'.\x0a\x09\x09'Ctrl-Alt-Backspace'\x09-> 'delWordAfter'. \x0a\x09\x09'Shift-Cmd-Alt-F'\x09-> 'replaceAll'.\x0a\x09\x09'Shift-Cmd-G'\x09\x09-> 'findPrev'. \x0a\x09\x09'Shift-Cmd-Z'\x09\x09-> 'redo'. \x0a    \x09'fallthrough' \x09-> { 'basic'. 'emacsy' }\x0a  }",
 messageSends: ["->"],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_messageHintFor_token_",
+smalltalk.method({
+selector: "messageHintFor:token:",
+category: 'hints',
+fn: function (anEditor,aToken){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(anEditor)._at_("amberCodeWidget"))._messageHintFor_token_(anEditor,aToken);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget.klass)})},
+args: ["anEditor", "aToken"],
+source: "messageHintFor: anEditor token: aToken\x0a\x09^ (anEditor at: 'amberCodeWidget')\x0a\x09\x09messageHintFor: anEditor token: aToken",
+messageSends: ["messageHintFor:token:", "at:"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget.klass);
@@ -869,10 +984,16 @@ selector: "setupCodeMirror",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) {  CodeMirror.keyMap.default.fallthrough = ["basic"] ;
-return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{}, smalltalk.HLCodeWidget.klass)})},
+return smalltalk.withContext(function($ctx1) { 
+ 
+		CodeMirror.keyMap.default.fallthrough = ["basic"];
+		CodeMirror.commands.autocomplete = function(cm) {
+        	CodeMirror.showHint(cm, self._hintFor_options_);
+      	}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.HLCodeWidget.klass)})},
 args: [],
-source: "setupCodeMirror\x0a\x09< CodeMirror.keyMap.default.fallthrough = [\x22basic\x22] >",
+source: "setupCodeMirror\x0a\x09< \x0a\x09\x09CodeMirror.keyMap.default.fallthrough = [\x22basic\x22];\x0a\x09\x09CodeMirror.commands.autocomplete = function(cm) {\x0a        \x09CodeMirror.showHint(cm, self._hintFor_options_);\x0a      \x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -951,6 +1072,25 @@ return smalltalk.withContext(function($ctx1) { return (10);
 args: [],
 source: "tabPriority\x0a\x09^ 10",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget.klass);
+
+smalltalk.addMethod(
+"_variableHintFor_token_",
+smalltalk.method({
+selector: "variableHintFor:token:",
+category: 'hints',
+fn: function (anEditor,aToken){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(anEditor)._at_("amberCodeWidget"))._variableHintFor_token_(anEditor,aToken);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget.klass)})},
+args: ["anEditor", "aToken"],
+source: "variableHintFor: anEditor token: aToken\x0a\x09^ (anEditor at: 'amberCodeWidget')\x0a\x09\x09variableHintFor: anEditor token: aToken",
+messageSends: ["variableHintFor:token:", "at:"],
 referencedClasses: []
 }),
 smalltalk.HLCodeWidget.klass);

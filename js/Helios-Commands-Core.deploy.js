@@ -194,6 +194,20 @@ messageSends: ["label", "class"]}),
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._class())._menuLabel();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLCommand)})},
+messageSends: ["menuLabel", "class"]}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
 "_registerOn_",
 smalltalk.method({
 selector: "registerOn:",
@@ -206,6 +220,31 @@ return $1;
 messageSends: ["add:", "asBinding"]}),
 smalltalk.HLCommand);
 
+
+smalltalk.addMethod(
+"_concreteClasses",
+smalltalk.method({
+selector: "concreteClasses",
+fn: function (){
+var self=this;
+var classes;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+classes=_st($OrderedCollection())._new();
+$1=_st(self)._isConcrete();
+if(smalltalk.assert($1)){
+_st(classes)._add_(self);
+};
+_st(_st(self)._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(classes)._addAll_(_st(each)._concreteClasses());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$2=classes;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"concreteClasses",{classes:classes},smalltalk.HLCommand.klass)})},
+messageSends: ["new", "ifTrue:", "add:", "isConcrete", "do:", "addAll:", "concreteClasses", "subclasses"]}),
+smalltalk.HLCommand.klass);
 
 smalltalk.addMethod(
 "_documentation",
@@ -232,6 +271,18 @@ messageSends: ["notNil", "key"]}),
 smalltalk.HLCommand.klass);
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (aModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -251,6 +302,20 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { return "";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCommand.klass)})},
 messageSends: []}),
+smalltalk.HLCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLCommand.klass)})},
+messageSends: ["label"]}),
 smalltalk.HLCommand.klass);
 
 smalltalk.addMethod(

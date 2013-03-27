@@ -31,6 +31,10 @@ key
 
 label
 	^ self class label
+!
+
+menuLabel
+	^ self class menuLabel
 ! !
 
 !HLCommand methodsFor: 'converting'!
@@ -96,9 +100,11 @@ key
 
 label
 	^ ''
-! !
+!
 
-!HLCommand class methodsFor: 'registration'!
+menuLabel
+	^ self label
+!
 
 registerConcreteClassesOn: aBinding
 	| newBinding |
@@ -108,6 +114,22 @@ registerConcreteClassesOn: aBinding
 		ifFalse: [ newBinding := aBinding ].
 		
 	self subclasses do: [ :each | each registerConcreteClassesOn: newBinding ]
+! !
+
+!HLCommand class methodsFor: 'registration'!
+
+concreteClasses
+	| classes |
+	
+	classes := OrderedCollection new.
+	
+	self isConcrete
+		ifTrue: [ classes add: self ].
+		
+	self subclasses do: [ :each | 
+		classes addAll: each concreteClasses ].
+		
+	^ classes
 !
 
 registerOn: aBinding
@@ -118,6 +140,10 @@ registerOn: aBinding
 
 isConcrete
 	^ self key notNil
+!
+
+isValidFor: aModel
+	^ false
 ! !
 
 HLCommand subclass: #HLCloseTabCommand

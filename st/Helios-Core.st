@@ -118,6 +118,12 @@ alert: aString
 
 confirm: aString
 	^ window confirm: aString
+!
+
+execute: aCommand
+	HLManager current keyBinder
+		activate;
+		applyBinding: aCommand asBinding
 ! !
 
 !HLWidget methodsFor: 'keybindings'!

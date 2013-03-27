@@ -264,12 +264,13 @@ selector: "resize:",
 fn: function (anInteger){
 var self=this;
 var container,position;
-return smalltalk.withContext(function($ctx1) { container=_st(_st(self["@firstPane"])._asJQuery())._parent();
+return smalltalk.withContext(function($ctx1) { 
+container=_st(_st(self["@firstPane"])._asJQuery())._parent();
 position=_st(anInteger).__minus(_st(_st(container)._offset())._top());
 _st(_st(self["@firstPane"])._asJQuery())._height_(_st(_st(position)._min_(_st(_st(container)._height()).__minus((100))))._max_((100)));
-_st(_st(self["@secondPane"])._asJQuery())._height_(_st(_st(_st(_st(_st(container)._height()).__minus(position))._min_(_st(_st(container)._height()).__minus((100))))._max_((100))).__minus((6)));
+_st(_st(self["@secondPane"])._asJQuery())._height_(_st(_st(_st(_st(_st(container)._height()).__minus(position))._min_(_st(_st(container)._height()).__minus((100))))._max_((100))).__minus((1)));
 smalltalk.HLSplitter.fn.prototype._resize.apply(_st(self), []);
-return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,position:position}, smalltalk.HLHorizontalSplitter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,position:position},smalltalk.HLHorizontalSplitter)})},
 messageSends: ["parent", "asJQuery", "-", "top", "offset", "height:", "max:", "min:", "height", "resize"]}),
 smalltalk.HLHorizontalSplitter);
 
@@ -346,12 +347,13 @@ selector: "resize:",
 fn: function (anInteger){
 var self=this;
 var container,position;
-return smalltalk.withContext(function($ctx1) { container=_st(_st(self["@firstPane"])._asJQuery())._parent();
+return smalltalk.withContext(function($ctx1) { 
+container=_st(_st(self["@firstPane"])._asJQuery())._parent();
 position=_st(anInteger).__minus(_st(_st(container)._offset())._left());
 _st(_st(self["@firstPane"])._asJQuery())._width_(_st(_st(position)._min_(_st(_st(container)._width()).__minus((100))))._max_((100)));
-_st(_st(self["@secondPane"])._asJQuery())._width_(_st(_st(_st(_st(_st(container)._width()).__minus(position))._min_(_st(_st(container)._width()).__minus((100))))._max_((100))).__minus((6)));
+_st(_st(self["@secondPane"])._asJQuery())._width_(_st(_st(_st(_st(_st(container)._width()).__minus(position))._min_(_st(_st(container)._width()).__minus((100))))._max_((100))).__minus((1)));
 smalltalk.HLSplitter.fn.prototype._resize.apply(_st(self), []);
-return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,position:position}, smalltalk.HLVerticalSplitter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,position:position},smalltalk.HLVerticalSplitter)})},
 messageSends: ["parent", "asJQuery", "-", "left", "offset", "width:", "max:", "min:", "width", "resize"]}),
 smalltalk.HLVerticalSplitter);
 

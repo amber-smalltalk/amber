@@ -387,6 +387,27 @@ referencedClasses: []
 smalltalk.HLWidget);
 
 smalltalk.addMethod(
+"_execute_",
+smalltalk.method({
+selector: "execute:",
+category: 'actions',
+fn: function (aCommand){
+var self=this;
+function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st($HLManager())._current())._keyBinder();
+_st($1)._activate();
+$2=_st($1)._applyBinding_(_st(aCommand)._asBinding());
+return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aCommand:aCommand},smalltalk.HLWidget)})},
+args: ["aCommand"],
+source: "execute: aCommand\x0a\x09HLManager current keyBinder\x0a\x09\x09activate;\x0a\x09\x09applyBinding: aCommand asBinding",
+messageSends: ["activate", "keyBinder", "current", "applyBinding:", "asBinding"],
+referencedClasses: ["HLManager"]
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
 "_manager",
 smalltalk.method({
 selector: "manager",

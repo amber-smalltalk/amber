@@ -287,6 +287,22 @@ messageSends: ["confirm:"]}),
 smalltalk.HLWidget);
 
 smalltalk.addMethod(
+"_execute_",
+smalltalk.method({
+selector: "execute:",
+fn: function (aCommand){
+var self=this;
+function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st($HLManager())._current())._keyBinder();
+_st($1)._activate();
+$2=_st($1)._applyBinding_(_st(aCommand)._asBinding());
+return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aCommand:aCommand},smalltalk.HLWidget)})},
+messageSends: ["activate", "keyBinder", "current", "applyBinding:", "asBinding"]}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
 "_manager",
 smalltalk.method({
 selector: "manager",

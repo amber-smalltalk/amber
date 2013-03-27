@@ -162,6 +162,12 @@ label
 	^ 'Commit package'
 ! !
 
+!HLCommitPackageCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isPackage
+! !
+
 HLBrowserCommand subclass: #HLFindCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -288,6 +294,16 @@ key
 
 label	
 	^ 'to class'
+!
+
+menuLabel	
+	^ 'Move to class...'
+! !
+
+!HLMoveMethodToClassCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isCompiledMethod
 ! !
 
 HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
@@ -328,6 +344,16 @@ key
 
 label
 	^ 'to protocol'
+!
+
+menuLabel
+	^ 'Move to protocol...'
+! !
+
+!HLMoveMethodToProtocolCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isCompiledMethod
 ! !
 
 HLBrowserCommand subclass: #HLRemoveCommand
@@ -362,12 +388,22 @@ isActive
 
 !HLRemoveMethodCommand class methodsFor: 'accessing'!
 
-key
-	^ 77
+isValidFor: anObject
+	^ anObject isCompiledMethod
 !
 
 label
 	^ 'Method'
+!
+
+menuLabel
+	^ 'Remove method'
+! !
+
+!HLRemoveMethodCommand class methodsFor: 'testing'!
+
+key
+	^ 77
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand

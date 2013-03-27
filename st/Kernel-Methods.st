@@ -249,6 +249,12 @@ defaultCategory
 	^ 'as yet unclassified'
 ! !
 
+!CompiledMethod methodsFor: 'testing'!
+
+isCompiledMethod
+	^ true
+! !
+
 Object subclass: #ForkPool
 	instanceVariableNames: 'poolSize maxPoolSize queue worker'
 	package: 'Kernel-Methods'!

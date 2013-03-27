@@ -311,8 +311,12 @@ renderOn: aBinder html: html
 				class: 'help-inline';
 				with: self message;
 				yourself) ].
-			
-	input asJQuery focus
+	
+	"Evaluate with a timeout to ensure focus.
+	Commands can be executed from a menu, clicking on the menu to
+	evaluate the command would give it the focus otherwise"
+	
+	[ input asJQuery focus ] valueWithTimeout: 10
 ! !
 
 !HLBindingInput methodsFor: 'testing'!
@@ -435,11 +439,11 @@ handleBindingFor: anEvent
 !
 
 handleInactiveKeyDown: event
-      event which = self activationKey ifTrue: [
-      		event ctrlKey  ifTrue: [
-					self activate. 
-               		 event preventDefault. 
-                	^ false ] ]
+	event which = self activationKey ifTrue: [
+    	event ctrlKey ifTrue: [
+			self activate. 
+            event preventDefault. 
+            ^ false ] ]
 !
 
 handleKeyDown: event
@@ -567,10 +571,10 @@ renderSelectionOn: html
 renderStart
 	[ :html |
 		html div 
-			id: 'keybinding-start-helper';
+			id: 'helper';
 			with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.
 	
-	[ (window jQuery: '#keybinding-start-helper') fadeOut: 1000 ] 
+	[ (window jQuery: '#helper') fadeOut: 1000 ] 
 		valueWithTimeout: 2000
 ! !
 

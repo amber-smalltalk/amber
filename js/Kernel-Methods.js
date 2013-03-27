@@ -575,6 +575,23 @@ referencedClasses: []
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
+"_isCompiledMethod",
+smalltalk.method({
+selector: "isCompiledMethod",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isCompiledMethod",{},smalltalk.CompiledMethod)})},
+args: [],
+source: "isCompiledMethod\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
 "_messageSends",
 smalltalk.method({
 selector: "messageSends",

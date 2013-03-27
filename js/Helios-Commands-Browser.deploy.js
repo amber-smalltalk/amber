@@ -248,6 +248,20 @@ smalltalk.HLCommitPackageCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isPackage();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLCommitPackageCommand.klass)})},
+messageSends: ["isPackage"]}),
+smalltalk.HLCommitPackageCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -500,6 +514,20 @@ smalltalk.HLMoveMethodToClassCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isCompiledMethod();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveMethodToClassCommand.klass)})},
+messageSends: ["isCompiledMethod"]}),
+smalltalk.HLMoveMethodToClassCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -518,6 +546,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return "to class";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLMoveMethodToClassCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Move to class...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToClassCommand.klass);
 
@@ -582,6 +622,20 @@ smalltalk.HLMoveMethodToProtocolCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isCompiledMethod();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+messageSends: ["isCompiledMethod"]}),
+smalltalk.HLMoveMethodToProtocolCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -600,6 +654,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return "to protocol";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+messageSends: []}),
+smalltalk.HLMoveMethodToProtocolCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Move to protocol...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand.klass);
 
@@ -656,6 +722,20 @@ smalltalk.HLRemoveMethodCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isCompiledMethod();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLRemoveMethodCommand.klass)})},
+messageSends: ["isCompiledMethod"]}),
+smalltalk.HLRemoveMethodCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -674,6 +754,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return "Method";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveMethodCommand.klass)})},
+messageSends: []}),
+smalltalk.HLRemoveMethodCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Remove method";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveMethodCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRemoveMethodCommand.klass);
 

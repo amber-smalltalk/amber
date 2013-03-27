@@ -235,6 +235,25 @@ referencedClasses: []
 }),
 smalltalk.HLEnvironment);
 
+smalltalk.addMethod(
+"_systemAnnouncer",
+smalltalk.method({
+selector: "systemAnnouncer",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._subclassResponsibility();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLEnvironment)})},
+args: [],
+source: "systemAnnouncer\x0a\x09^ self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
 
 
 smalltalk.addClass('HLLocalEnvironment', smalltalk.HLEnvironment, [], 'Helios-Environments');
@@ -450,6 +469,26 @@ args: ["aMethod"],
 source: "removeMethod: aMethod\x0a\x09aMethod methodClass forsakeMethod: aMethod",
 messageSends: ["forsakeMethod:", "methodClass"],
 referencedClasses: []
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+"_systemAnnouncer",
+smalltalk.method({
+selector: "systemAnnouncer",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($SystemAnnouncer())._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLLocalEnvironment)})},
+args: [],
+source: "systemAnnouncer\x0a\x09^ SystemAnnouncer current",
+messageSends: ["current"],
+referencedClasses: ["SystemAnnouncer"]
 }),
 smalltalk.HLLocalEnvironment);
 

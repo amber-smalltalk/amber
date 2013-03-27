@@ -348,6 +348,25 @@ smalltalk.HLCommitPackageCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+category: 'testing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isPackage();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLCommitPackageCommand.klass)})},
+args: ["anObject"],
+source: "isValidFor: anObject\x0a\x09^ anObject isPackage",
+messageSends: ["isPackage"],
+referencedClasses: []
+}),
+smalltalk.HLCommitPackageCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -705,6 +724,25 @@ smalltalk.HLMoveMethodToClassCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+category: 'testing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isCompiledMethod();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveMethodToClassCommand.klass)})},
+args: ["anObject"],
+source: "isValidFor: anObject\x0a\x09^ anObject isCompiledMethod",
+messageSends: ["isCompiledMethod"],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToClassCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -731,6 +769,23 @@ return smalltalk.withContext(function($ctx1) { return "to class";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
 args: [],
 source: "label\x09\x0a\x09^ 'to class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToClassCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Move to class...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
+args: [],
+source: "menuLabel\x09\x0a\x09^ 'Move to class...'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -822,6 +877,25 @@ smalltalk.HLMoveMethodToProtocolCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+category: 'testing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isCompiledMethod();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+args: ["anObject"],
+source: "isValidFor: anObject\x0a\x09^ anObject isCompiledMethod",
+messageSends: ["isCompiledMethod"],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToProtocolCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
@@ -848,6 +922,23 @@ return smalltalk.withContext(function($ctx1) { return "to protocol";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'to protocol'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToProtocolCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Move to protocol...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
+args: [],
+source: "menuLabel\x0a\x09^ 'Move to protocol...'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -926,10 +1017,29 @@ smalltalk.HLRemoveMethodCommand);
 
 
 smalltalk.addMethod(
+"_isValidFor_",
+smalltalk.method({
+selector: "isValidFor:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isCompiledMethod();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLRemoveMethodCommand.klass)})},
+args: ["anObject"],
+source: "isValidFor: anObject\x0a\x09^ anObject isCompiledMethod",
+messageSends: ["isCompiledMethod"],
+referencedClasses: []
+}),
+smalltalk.HLRemoveMethodCommand.klass);
+
+smalltalk.addMethod(
 "_key",
 smalltalk.method({
 selector: "key",
-category: 'accessing',
+category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { return (77);
@@ -952,6 +1062,23 @@ return smalltalk.withContext(function($ctx1) { return "Method";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveMethodCommand.klass)})},
 args: [],
 source: "label\x0a\x09^ 'Method'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveMethodCommand.klass);
+
+smalltalk.addMethod(
+"_menuLabel",
+smalltalk.method({
+selector: "menuLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Remove method";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveMethodCommand.klass)})},
+args: [],
+source: "menuLabel\x0a\x09^ 'Remove method'",
 messageSends: [],
 referencedClasses: []
 }),
