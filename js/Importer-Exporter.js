@@ -1,7 +1,6 @@
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
 smalltalk.addMethod(
-"_nextChunk",
 smalltalk.method({
 selector: "nextChunk",
 category: 'reading',
@@ -44,7 +43,6 @@ referencedClasses: []
 smalltalk.ChunkParser);
 
 smalltalk.addMethod(
-"_stream_",
 smalltalk.method({
 selector: "stream:",
 category: 'accessing',
@@ -62,7 +60,6 @@ smalltalk.ChunkParser);
 
 
 smalltalk.addMethod(
-"_on_",
 smalltalk.method({
 selector: "on:",
 category: 'not yet classified',
@@ -83,7 +80,6 @@ smalltalk.ChunkParser.klass);
 
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.addMethod(
-"_classNameFor_",
 smalltalk.method({
 selector: "classNameFor:",
 category: 'private',
@@ -112,7 +108,6 @@ referencedClasses: []
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportAll",
 smalltalk.method({
 selector: "exportAll",
 category: 'fileOut',
@@ -139,7 +134,6 @@ referencedClasses: ["Smalltalk", "String"]
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportClass_",
 smalltalk.method({
 selector: "exportClass:",
 category: 'fileOut',
@@ -165,7 +159,6 @@ referencedClasses: ["String"]
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportDefinitionOf_on_",
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
 category: 'private',
@@ -209,7 +202,6 @@ referencedClasses: []
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportMetaDefinitionOf_on_",
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
 category: 'private',
@@ -242,18 +234,15 @@ referencedClasses: ["String"]
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportMethod_of_on_",
 smalltalk.method({
 selector: "exportMethod:of:on:",
 category: 'private',
-fn: function (aMethod, aClass, aStream) {
+fn: function (aMethod,aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 $1=aStream;
 _st($1)._nextPutAll_("smalltalk.addMethod(");
-_st($1)._lf();
-_st($1)._nextPutAll_(_st(_st(_st(_st(aMethod)._selector())._asSelector())._asJavascript()).__comma(","));
 _st($1)._lf();
 _st($1)._nextPutAll_("smalltalk.method({");
 _st($1)._lf();
@@ -278,16 +267,15 @@ _st($3)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(aClass))
 _st($3)._nextPutAll_(");");
 _st($3)._lf();
 $4=_st($3)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.Exporter)});},
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
 args: ["aMethod", "aClass", "aStream"],
-source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'category: ''', aMethod category, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "asSelector", "selector", "category", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:"],
+source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'category: ''', aMethod category, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "category", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportMethodsOf_on_",
 smalltalk.method({
 selector: "exportMethodsOf:on:",
 category: 'private',
@@ -315,7 +303,6 @@ referencedClasses: []
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportPackage_",
 smalltalk.method({
 selector: "exportPackage:",
 category: 'fileOut',
@@ -347,7 +334,6 @@ referencedClasses: ["Smalltalk", "String"]
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportPackageDefinitionOf_on_",
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
 category: 'private',
@@ -368,7 +354,6 @@ referencedClasses: []
 smalltalk.Exporter);
 
 smalltalk.addMethod(
-"_exportPackageExtensionsOf_on_",
 smalltalk.method({
 selector: "exportPackageExtensionsOf:on:",
 category: 'private',
@@ -408,7 +393,6 @@ smalltalk.Exporter);
 
 smalltalk.addClass('ChunkExporter', smalltalk.Exporter, [], 'Importer-Exporter');
 smalltalk.addMethod(
-"_chunkEscape_",
 smalltalk.method({
 selector: "chunkEscape:",
 category: 'not yet classified',
@@ -427,7 +411,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_classNameFor_",
 smalltalk.method({
 selector: "classNameFor:",
 category: 'not yet classified',
@@ -456,7 +439,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportDefinitionOf_on_",
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
 category: 'not yet classified',
@@ -502,7 +484,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportMetaDefinitionOf_on_",
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
 category: 'not yet classified',
@@ -538,7 +519,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportMethod_of_on_",
 smalltalk.method({
 selector: "exportMethod:of:on:",
 category: 'not yet classified',
@@ -561,7 +541,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportMethods_category_of_on_",
 smalltalk.method({
 selector: "exportMethods:category:of:on:",
 category: 'not yet classified',
@@ -592,7 +571,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportMethodsOf_on_",
 smalltalk.method({
 selector: "exportMethodsOf:on:",
 category: 'not yet classified',
@@ -629,7 +607,6 @@ referencedClasses: ["Dictionary"]
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportPackageDefinitionOf_on_",
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
 category: 'not yet classified',
@@ -649,7 +626,6 @@ referencedClasses: []
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
-"_exportPackageExtensionsOf_on_",
 smalltalk.method({
 selector: "exportPackageExtensionsOf:on:",
 category: 'not yet classified',
@@ -699,7 +675,6 @@ smalltalk.ChunkExporter);
 
 smalltalk.addClass('StrippedExporter', smalltalk.Exporter, [], 'Importer-Exporter');
 smalltalk.addMethod(
-"_exportDefinitionOf_on_",
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
 category: 'private',
@@ -733,18 +708,15 @@ referencedClasses: []
 smalltalk.StrippedExporter);
 
 smalltalk.addMethod(
-"_exportMethod_of_on_",
 smalltalk.method({
 selector: "exportMethod:of:on:",
 category: 'private',
-fn: function (aMethod, aClass, aStream) {
+fn: function (aMethod,aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
 _st($1)._nextPutAll_("smalltalk.addMethod(");
-_st($1)._lf();
-_st($1)._nextPutAll_(_st(_st(_st(_st(aMethod)._selector())._asSelector())._asJavascript()).__comma(","));
 _st($1)._lf();
 _st($1)._nextPutAll_("smalltalk.method({");
 _st($1)._lf();
@@ -759,10 +731,10 @@ _st($1)._nextPutAll_(_st("smalltalk.").__comma(_st(self)._classNameFor_(aClass))
 _st($1)._nextPutAll_(");");
 _st($1)._lf();
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.StrippedExporter)});},
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.StrippedExporter)})},
 args: ["aMethod", "aClass", "aStream"],
-source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "asSelector", "selector", "compiledSource", "fn", "messageSends", "classNameFor:"],
+source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "compiledSource", "fn", "messageSends", "classNameFor:"],
 referencedClasses: []
 }),
 smalltalk.StrippedExporter);
@@ -771,7 +743,6 @@ smalltalk.StrippedExporter);
 
 smalltalk.addClass('Importer', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.addMethod(
-"_import_",
 smalltalk.method({
 selector: "import:",
 category: 'fileIn',
@@ -818,7 +789,6 @@ smalltalk.Importer);
 
 smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.addMethod(
-"_ajaxPutAt_data_",
 smalltalk.method({
 selector: "ajaxPutAt:data:",
 category: 'private',
@@ -838,7 +808,6 @@ referencedClasses: []
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
-"_commit_",
 smalltalk.method({
 selector: "commit:",
 category: 'committing',
@@ -864,7 +833,6 @@ referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
-"_loadPackage_prefix_",
 smalltalk.method({
 selector: "loadPackage:prefix:",
 category: 'loading',
@@ -893,7 +861,6 @@ referencedClasses: []
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
-"_loadPackages_prefix_",
 smalltalk.method({
 selector: "loadPackages:prefix:",
 category: 'loading',
@@ -913,7 +880,6 @@ referencedClasses: []
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
-"_setupPackageNamed_prefix_",
 smalltalk.method({
 selector: "setupPackageNamed:prefix:",
 category: 'private',
@@ -936,7 +902,6 @@ smalltalk.PackageHandler);
 
 
 smalltalk.addMethod(
-"_loadPackages_prefix_",
 smalltalk.method({
 selector: "loadPackages:prefix:",
 category: 'not yet classified',
@@ -956,7 +921,6 @@ smalltalk.PackageHandler.klass);
 
 
 smalltalk.addMethod(
-"_commit",
 smalltalk.method({
 selector: "commit",
 category: '*Importer-Exporter',
