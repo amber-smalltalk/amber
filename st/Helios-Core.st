@@ -47,8 +47,7 @@ widget: aWidget
 !HLTab methodsFor: 'actions'!
 
 hide
-	root ifNotNil: [
-		root asJQuery hide ]
+	root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]
 !
 
 registerBindings
@@ -62,7 +61,7 @@ remove
 show
 	root
 		ifNil: [ self appendToJQuery: 'body' asJQuery ]
-		ifNotNil: [ root asJQuery show ]
+		ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]
 ! !
 
 !HLTab methodsFor: 'rendering'!
@@ -186,7 +185,7 @@ HLWidget subclass: #HLDebugger
 	package: 'Helios-Core'!
 
 HLWidget subclass: #HLFocusableWidget
-	instanceVariableNames: 'hiddenInput'
+	instanceVariableNames: ''
 	package: 'Helios-Core'!
 
 !HLFocusableWidget methodsFor: 'accessing'!
@@ -198,15 +197,15 @@ focusClass
 !HLFocusableWidget methodsFor: 'events'!
 
 blur
-	hiddenInput asJQuery blur
+	self wrapper asJQuery blur
 !
 
 focus
-	hiddenInput asJQuery focus
+	self wrapper asJQuery focus
 !
 
 hasFocus
-	^ self wrapper notNil and: [ self wrapper asJQuery hasClass: self focusClass ]
+	^ self wrapper notNil and: [ self wrapper asJQuery is: ':focus' ]
 ! !
 
 !HLFocusableWidget methodsFor: 'rendering'!
@@ -214,22 +213,19 @@ hasFocus
 renderContentOn: html
 !
 
-renderHiddenInputOn: html
-	hiddenInput := html input
-    	style: 'position: absolute; left: -100000px;';
-    	onBlur: [ self wrapper asJQuery removeClass: self focusClass ];
-        onFocus: [ self wrapper asJQuery addClass: self focusClass ]
-!
-
 renderOn: html
 	self registerBindings.
-	self renderHiddenInputOn: html.
     
     wrapper := html div 
-    	class: 'hl_widget'; 
-        onClick: [ hiddenInput asJQuery focus ];
-        with: [
-			self renderContentOn: html ]
+    	class: 'hl_widget';
+		yourself.
+		
+       wrapper with: [ self renderContentOn: html ].
+	
+	wrapper
+		at: 'tabindex' put: '0';
+		onBlur: [ self wrapper asJQuery removeClass: self focusClass ];
+        onFocus: [ self wrapper asJQuery addClass: self focusClass ]
 ! !
 
 !HLFocusableWidget methodsFor: 'testing'!
@@ -344,9 +340,9 @@ setupKeyBindings
 	
 	active := false.
 	repeatInterval := 70.
-	hiddenInput asJQuery unbind: 'keydown'.
+	self wrapper asJQuery unbind: 'keydown'.
 
-	hiddenInput asJQuery keydown: [ :e |
+	self wrapper asJQuery keydown: [ :e |
 		
         (e which = 38 and: [ active = false ]) ifTrue: [ 
 			active := true.
@@ -364,7 +360,7 @@ setupKeyBindings
 					valueWithInterval: repeatInterval ]
 						valueWithTimeout: 300 ] ].
 	
-	hiddenInput asJQuery keyup: [ :e |
+	self wrapper asJQuery keyup: [ :e |
 		active ifTrue: [
 			active := false.
 			interval ifNotNil: [ interval clearInterval ].
@@ -468,7 +464,7 @@ previousFocus
 setupKeyBindings
 	super setupKeyBindings.
 
-	hiddenInput asJQuery keydown: [ :e |
+	self wrapper asJQuery keydown: [ :e |
         e which = 39 ifTrue: [ 
         	self nextFocus ].
 		e which = 37 ifTrue: [ 

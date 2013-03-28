@@ -116,7 +116,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsListWidget",{},smalltalk.HLBrowser)})},
 args: [],
-source: "methodsListWidget\x0a\x09^ methodsListWidget ifNil: [\x0a      \x09methodsListWidget := HLMethodsListWidget on: self model.\x0a\x09\x09methodsListWidget next: self sourceWidget]",
+source: "methodsListWidget\x0a\x09^ methodsListWidget ifNil: [\x0a      \x09methodsListWidget := HLMethodsListWidget on: self model.\x0a\x09\x09methodsListWidget next: self sourceWidget ]",
 messageSends: ["ifNil:", "on:", "model", "next:", "sourceWidget"],
 referencedClasses: ["HLMethodsListWidget"]
 }),
@@ -258,12 +258,15 @@ selector: "sourceWidget",
 category: 'widgets',
 fn: function (){
 var self=this;
-function $HLBrowserSourceWidget(){return smalltalk.HLBrowserSourceWidget||(typeof HLBrowserSourceWidget=="undefined"?nil:HLBrowserSourceWidget)}
+function $HLSourceCodeWidget(){return smalltalk.HLSourceCodeWidget||(typeof HLSourceCodeWidget=="undefined"?nil:HLSourceCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$3,$4,$1;
 $2=self["@sourceWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@sourceWidget"]=_st($HLBrowserSourceWidget())._on_(_st(self)._model());
+$3=_st($HLSourceCodeWidget())._new();
+_st($3)._browserModel_(_st(self)._model());
+$4=_st($3)._yourself();
+self["@sourceWidget"]=$4;
 $1=self["@sourceWidget"];
 } else {
 $1=$2;
@@ -271,9 +274,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceWidget",{},smalltalk.HLBrowser)})},
 args: [],
-source: "sourceWidget\x0a\x09^ sourceWidget ifNil: [\x0a      \x09sourceWidget := HLBrowserSourceWidget on: self model ]",
-messageSends: ["ifNil:", "on:", "model"],
-referencedClasses: ["HLBrowserSourceWidget"]
+source: "sourceWidget\x0a\x09^ sourceWidget ifNil: [\x0a      \x09sourceWidget := HLSourceCodeWidget new\x0a\x09\x09\x09browserModel: self model;\x0a\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "browserModel:", "model", "new", "yourself"],
+referencedClasses: ["HLSourceCodeWidget"]
 }),
 smalltalk.HLBrowser);
 
@@ -941,7 +944,7 @@ fn: function (html){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$8,$2;
+var $1,$3,$4,$5,$6,$7,$8,$9,$10,$11,$2;
 $1=_st(html)._div();
 _st($1)._class_("btn-group");
 _st($1)._at_put_("data-toggle","buttons-radio");
@@ -966,22 +969,37 @@ $6=_st(html)._button();
 _st($6)._class_(_st($String())._streamContents_((function(str){
 return smalltalk.withContext(function($ctx3) {
 _st(str)._nextPutAll_("btn");
-$7=_st(_st(self)._model())._showInstance();
-if(! smalltalk.assert($7)){
+$7=_st(self)._showClass();
+if(smalltalk.assert($7)){
 return _st(str)._nextPutAll_(" active");
 };
 }, function($ctx3) {$ctx3.fillBlock({str:str},$ctx1)})})));
 _st($6)._with_("Class");
 $8=_st($6)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st(self)._model())._showInstance_(false);
+return _st(self)._showInstance_(false);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return $8;
+$8;
+$9=_st(html)._button();
+_st($9)._class_(_st($String())._streamContents_((function(str){
+return smalltalk.withContext(function($ctx3) {
+_st(str)._nextPutAll_("btn");
+$10=_st(self)._showComment();
+if(smalltalk.assert($10)){
+return _st(str)._nextPutAll_(" active");
+};
+}, function($ctx3) {$ctx3.fillBlock({str:str},$ctx1)})})));
+_st($9)._with_("Doc");
+$11=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._showComment_(true);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return $11;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLClassesListWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html div \x0a        class: 'btn-group';\x0a\x09\x09at: 'data-toggle' put: 'buttons-radio';\x0a\x09\x09with: [ \x0a           \x09html button \x0a                class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self showInstance ifTrue: [ \x0a                    \x09str nextPutAll: ' active'] ]);\x0a  \x09\x09\x09\x09with: 'Instance';\x0a                onClick: [ self showInstance: true ].\x0a  \x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self model showInstance ifFalse: [ \x0a                    \x09str nextPutAll: ' active'] ]);\x0a  \x09\x09\x09\x09with: 'Class';\x0a\x09\x09\x09\x09onClick: [ self model showInstance: false ] ]",
-messageSends: ["class:", "div", "at:put:", "with:", "streamContents:", "nextPutAll:", "ifTrue:", "showInstance", "button", "onClick:", "showInstance:", "ifFalse:", "model"],
+source: "renderButtonsOn: html\x0a\x09html div \x0a        class: 'btn-group';\x0a\x09\x09at: 'data-toggle' put: 'buttons-radio';\x0a\x09\x09with: [ \x0a           \x09html button \x0a                class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self showInstance ifTrue: [ \x0a                    \x09str nextPutAll: ' active' ] ]);\x0a  \x09\x09\x09\x09with: 'Instance';\x0a                onClick: [ self showInstance: true ].\x0a  \x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self showClass ifTrue: [ \x0a                    \x09str nextPutAll: ' active' ] ]);\x0a  \x09\x09\x09\x09with: 'Class';\x0a\x09\x09\x09\x09onClick: [ self showInstance: false ].\x0a\x09\x09\x09html button\x0a  \x09\x09\x09\x09class: (String streamContents: [ :str |\x0a                \x09str nextPutAll: 'btn'.\x0a                    self showComment ifTrue: [ \x0a                    \x09str nextPutAll: ' active' ] ]);\x0a  \x09\x09\x09\x09with: 'Doc';\x0a\x09\x09\x09\x09onClick: [ self showComment: true ] ]",
+messageSends: ["class:", "div", "at:put:", "with:", "streamContents:", "nextPutAll:", "ifTrue:", "showInstance", "button", "onClick:", "showInstance:", "showClass", "showComment", "showComment:"],
 referencedClasses: ["String"]
 }),
 smalltalk.HLClassesListWidget);
@@ -1169,18 +1187,76 @@ smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "showClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(self)._model())._showInstance())._not())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._model())._showComment())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"showClass",{},smalltalk.HLClassesListWidget)})},
+args: [],
+source: "showClass\x0a\x09^ self model showInstance not and: [\x0a\x09\x09self model showComment not ]",
+messageSends: ["and:", "not", "showComment", "model", "showInstance"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "showComment",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._model())._showComment();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"showComment",{},smalltalk.HLClassesListWidget)})},
+args: [],
+source: "showComment\x0a\x09^ self model showComment",
+messageSends: ["showComment", "model"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "showComment:",
+category: 'actions',
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._showComment_(aBoolean);
+return self}, function($ctx1) {$ctx1.fill(self,"showComment:",{aBoolean:aBoolean},smalltalk.HLClassesListWidget)})},
+args: ["aBoolean"],
+source: "showComment: aBoolean\x0a\x09self model showComment: aBoolean",
+messageSends: ["showComment:", "model"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "showInstance",
 category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._showInstance();
+$1=_st(_st(_st(self)._model())._showInstance())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._model())._showComment())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showInstance",{},smalltalk.HLClassesListWidget)})},
 args: [],
-source: "showInstance\x0a\x09^ self model showInstance",
-messageSends: ["showInstance", "model"],
+source: "showInstance\x0a\x09^ self model showInstance and: [\x0a\x09\x09self model showComment not ]",
+messageSends: ["and:", "not", "showComment", "model", "showInstance"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -2469,6 +2545,42 @@ smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "availablePackageNames",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._availablePackageNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "availablePackageNames\x0a\x09^ self environment availablePackageNames",
+messageSends: ["availablePackageNames", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availablePackages",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._availablePackageNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availablePackages",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "availablePackages\x0a\x09^ self environment availablePackageNames",
+messageSends: ["availablePackageNames", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "availableProtocols",
 category: 'accessing',
 fn: function (){
@@ -2813,6 +2925,22 @@ smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "moveClassToPackage:",
+category: 'commands actions',
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._moveClass_toPackage_(_st(_st(self)._selectedClass())._theNonMetaClass(),aPackageName);
+return self}, function($ctx1) {$ctx1.fill(self,"moveClassToPackage:",{aPackageName:aPackageName},smalltalk.HLBrowserModel)})},
+args: ["aPackageName"],
+source: "moveClassToPackage: aPackageName\x0a\x09self environment \x0a\x09\x09moveClass: self selectedClass theNonMetaClass\x0a\x09\x09toPackage: aPackageName",
+messageSends: ["moveClass:toPackage:", "theNonMetaClass", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveMethodToClass:",
 category: 'commands actions',
 fn: function (aClassName){
@@ -2876,6 +3004,26 @@ return $1;
 args: [],
 source: "packages\x0a\x09^ self environment packages",
 messageSends: ["packages", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._manager())._confirm_(_st("Do you REALLY want to remove class ").__comma(_st(_st(self)._selectedClass())._name()));
+if(smalltalk.assert($1)){
+_st(_st(self)._environment())._removeClass_(_st(self)._selectedClass());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "removeClass\x0a\x09(self manager confirm: 'Do you REALLY want to remove class ', self selectedClass name)\x0a\x09\x09ifTrue: [ self environment removeClass: self selectedClass ]",
+messageSends: ["ifTrue:", "removeClass:", "selectedClass", "environment", "confirm:", ",", "name", "manager"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);
@@ -3205,7 +3353,7 @@ self["@showComment"]=aBoolean;
 _st(_st(self)._announcer())._announce_(_st($HLShowCommentToggled())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"showComment:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
 args: ["aBoolean"],
-source: "showComment: aBoolean\x0a\x09showComment := aBoolean.\x0a    \x0a    self announcer announce: HLShowCommentToggled new",
+source: "showComment: aBoolean\x0a\x09showComment := aBoolean.\x0a\x0a    self announcer announce: HLShowCommentToggled new",
 messageSends: ["announce:", "new", "announcer"],
 referencedClasses: ["HLShowCommentToggled"]
 }),
@@ -3244,6 +3392,7 @@ function $HLShowInstanceToggled(){return smalltalk.HLShowInstanceToggled||(typeo
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$3;
 self["@showInstance"]=aBoolean;
+self["@showComment"]=false;
 $1=_st(self)._selectedClass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -3260,7 +3409,7 @@ _st($2)._selectedClass_($3);
 _st(_st(self)._announcer())._announce_(_st($HLShowInstanceToggled())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"showInstance:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
 args: ["aBoolean"],
-source: "showInstance: aBoolean\x0a\x09showInstance := aBoolean.\x0a    \x0a    self selectedClass ifNotNil: [\x0a    \x09self selectedClass: (aBoolean\x0a    \x09\x09ifTrue: [self selectedClass theNonMetaClass ]\x0a    \x09  \x09ifFalse: [ self selectedClass theMetaClass ]) ].\x0a    \x0a    self announcer announce: HLShowInstanceToggled new",
+source: "showInstance: aBoolean\x0a\x09showInstance := aBoolean.\x0a\x09showComment := false.\x0a\x0a    self selectedClass ifNotNil: [\x0a    \x09self selectedClass: (aBoolean\x0a    \x09\x09ifTrue: [self selectedClass theNonMetaClass ]\x0a    \x09  \x09ifFalse: [ self selectedClass theMetaClass ]) ].\x0a    \x0a    self announcer announce: HLShowInstanceToggled new",
 messageSends: ["ifNotNil:", "selectedClass:", "ifTrue:ifFalse:", "theNonMetaClass", "selectedClass", "theMetaClass", "announce:", "new", "announcer"],
 referencedClasses: ["HLShowInstanceToggled"]
 }),
@@ -3384,487 +3533,6 @@ messageSends: ["environment:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel.klass);
-
-
-smalltalk.addClass('HLBrowserSourceWidget', smalltalk.HLWidget, ['model', 'methodContents', 'codeWidget'], 'Helios-Browser');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "codeWidget",
-category: 'accessing',
-fn: function (){
-var self=this;
-function $HLSourceCodeWidget(){return smalltalk.HLSourceCodeWidget||(typeof HLSourceCodeWidget=="undefined"?nil:HLSourceCodeWidget)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@codeWidget"]=_st($HLSourceCodeWidget())._on_(_st(self)._model());
-$1=self["@codeWidget"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "codeWidget\x0a\x09^ codeWidget ifNil: [ codeWidget := HLSourceCodeWidget on: self model ]",
-messageSends: ["ifNil:", "on:", "model"],
-referencedClasses: ["HLSourceCodeWidget"]
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "contents",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._codeWidget())._contents();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"contents",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "contents\x0a\x09^ self codeWidget contents",
-messageSends: ["contents", "codeWidget"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "contents:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._methodContents_(aString);
-_st(_st(self)._codeWidget())._contents_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLBrowserSourceWidget)})},
-args: ["aString"],
-source: "contents: aString\x0a\x09self methodContents: aString.\x0a\x09self codeWidget contents: aString",
-messageSends: ["methodContents:", "contents:", "codeWidget"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "focus",
-category: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._codeWidget())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "focus\x0a\x09self codeWidget focus",
-messageSends: ["focus", "codeWidget"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hasFocus",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._codeWidget())._hasFocus();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"hasFocus",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "hasFocus\x0a\x09^ self codeWidget hasFocus",
-messageSends: ["hasFocus", "codeWidget"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hasModification",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(self)._methodContents()).__eq(_st(self)._contents()))._not();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "hasModification\x0a\x09^ (self methodContents = self contents) not",
-messageSends: ["not", "=", "contents", "methodContents"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
-_st(self)._observeSystem();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a    \x0a    self observeSystem",
-messageSends: ["initialize", "observeSystem"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodContents",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@methodContents"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@methodContents"]="";
-$1=self["@methodContents"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "methodContents\x0a\x09^ methodContents ifNil: [ methodContents := '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodContents:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@methodContents"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"methodContents:",{aString:aString},smalltalk.HLBrowserSourceWidget)})},
-args: ["aString"],
-source: "methodContents: aString\x0a\x09methodContents := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "model",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@model"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "model\x0a\x09^ model",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "model:",
-category: 'accessing',
-fn: function (aBrowserModel){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@model"]=aBrowserModel;
-_st(self)._observeModel();
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aBrowserModel:aBrowserModel},smalltalk.HLBrowserSourceWidget)})},
-args: ["aBrowserModel"],
-source: "model: aBrowserModel\x0a\x09model := aBrowserModel.\x0a    \x0a    self observeModel",
-messageSends: ["observeModel"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "observeModel",
-category: 'actions',
-fn: function (){
-var self=this;
-function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
-function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
-function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
-function $HLSourceCodeFocusRequested(){return smalltalk.HLSourceCodeFocusRequested||(typeof HLSourceCodeFocusRequested=="undefined"?nil:HLSourceCodeFocusRequested)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(self)._model())._announcer();
-_st($1)._on_do_($HLMethodSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onMethodSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLClassSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onClassSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLProtocolSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onProtocolSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($HLSourceCodeFocusRequested(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onSourceCodeFocusRequested();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLMethodSelected \x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ];\x0a    \x09on: HLClassSelected \x0a\x09\x09do: [ :ann | self onClassSelected: ann item ];\x0a    \x09on: HLProtocolSelected \x0a\x09\x09do: [ :ann | self onProtocolSelected: ann item ];\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09do: [ :ann | self onSourceCodeFocusRequested ]",
-messageSends: ["on:do:", "onMethodSelected:", "item", "announcer", "model", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
-referencedClasses: ["HLMethodSelected", "HLClassSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "observeSystem",
-category: 'actions',
-fn: function (){
-var self=this;
-function $MethodModified(){return smalltalk.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
-function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($SystemAnnouncer())._current())._on_do_($MethodModified(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onMethodModified_(_st(ann)._method());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "observeSystem\x0a\x09SystemAnnouncer current\x0a    \x09on: MethodModified\x0a        do: [ :ann | self onMethodModified: ann method ]",
-messageSends: ["on:do:", "onMethodModified:", "method", "current"],
-referencedClasses: ["MethodModified", "SystemAnnouncer"]
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onClassSelected:",
-category: 'reactions',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aClass;
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
-return $2;
-} else {
-$1;
-};
-_st(self)._contents_(_st(aClass)._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass},smalltalk.HLBrowserSourceWidget)})},
-args: ["aClass"],
-source: "onClassSelected: aClass\x0a\x09aClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aClass definition",
-messageSends: ["ifNil:", "contents:", "definition"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onMethodModified:",
-category: 'reactions',
-fn: function (aMethod){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
-$1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(aMethod)._methodClass());
-if(! smalltalk.assert($1)){
-$2=self;
-return $2;
-};
-$3=_st(_st(self)._model())._selectedMethod();
-if(($receiver = $3) == nil || $receiver == undefined){
-$4=self;
-return $4;
-} else {
-$3;
-};
-$5=_st(_st(_st(_st(self)._model())._selectedMethod())._selector()).__eq(_st(aMethod)._selector());
-if(! smalltalk.assert($5)){
-$6=self;
-return $6;
-};
-_st(self)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{aMethod:aMethod},smalltalk.HLBrowserSourceWidget)})},
-args: ["aMethod"],
-source: "onMethodModified: aMethod\x0a\x0a\x09self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].\x0a\x09self model selectedMethod ifNil: [ ^ self ].\x0a    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].\x0a\x0a    self refresh",
-messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "model", "ifNil:", "selectedMethod", "selector", "refresh"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onMethodSelected:",
-category: 'reactions',
-fn: function (aCompiledMethod){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aCompiledMethod;
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
-return $2;
-} else {
-$1;
-};
-_st(self)._contents_(_st(aCompiledMethod)._source());
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aCompiledMethod:aCompiledMethod},smalltalk.HLBrowserSourceWidget)})},
-args: ["aCompiledMethod"],
-source: "onMethodSelected: aCompiledMethod\x0a\x09aCompiledMethod ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aCompiledMethod source",
-messageSends: ["ifNil:", "contents:", "source"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onProtocolSelected:",
-category: 'reactions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(self)._model())._selectedClass();
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
-return $2;
-} else {
-$1;
-};
-_st(self)._contents_(_st(_st(_st(self)._model())._selectedClass())._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString},smalltalk.HLBrowserSourceWidget)})},
-args: ["aString"],
-source: "onProtocolSelected: aString\x0a\x09self model selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: self model selectedClass definition",
-messageSends: ["ifNil:", "contents:", "selectedClass", "model", "definition"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onSourceCodeFocusRequested",
-category: 'reactions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "onSourceCodeFocusRequested\x0a\x09self focus",
-messageSends: ["focus"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "previous",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "previous\x0a\x09\x22for browser lists widget\x22",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "previous:",
-category: 'accessing',
-fn: function (aWidget){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLBrowserSourceWidget)})},
-args: ["aWidget"],
-source: "previous: aWidget\x0a\x09\x22for browser lists widget\x22",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "refresh",
-category: 'updating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st(self)._hasModification();
-if(smalltalk.assert($1)){
-$2=self;
-return $2;
-};
-$3=_st(self)._hasFocus();
-if(smalltalk.assert($3)){
-$4=self;
-return $4;
-};
-_st(self)._contents_(_st(_st(_st(self)._model())._selectedMethod())._source());
-return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLBrowserSourceWidget)})},
-args: [],
-source: "refresh\x0a\x09self hasModification ifTrue: [ ^ self ].\x0a    self hasFocus ifTrue: [ ^ self ].\x0a\x0a\x09self contents: self model selectedMethod source",
-messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "model"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderContentOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._codeWidget())._renderOn_(html);
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowserSourceWidget)})},
-args: ["html"],
-source: "renderContentOn: html\x0a\x09self codeWidget renderOn: html",
-messageSends: ["renderOn:", "codeWidget"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "on:",
-category: 'instance creation',
-fn: function (aBrowserModel){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(self)._new();
-_st($2)._model_(aBrowserModel);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLBrowserSourceWidget.klass)})},
-args: ["aBrowserModel"],
-source: "on: aBrowserModel\x0a\x09^ self new\x0a    \x09model: aBrowserModel;\x0a        yourself",
-messageSends: ["model:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.HLBrowserSourceWidget.klass);
 
 
 smalltalk.addClass('HLClassCache', smalltalk.Object, ['class', 'selectorsCache', 'overrideCache', 'overriddenCache'], 'Helios-Browser');

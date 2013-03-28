@@ -277,6 +277,10 @@ includesSelector: aString
 
 inheritsFrom: aClass
 	^aClass allSubclasses includes: self
+!
+
+isBehavior
+	^ true
 ! !
 
 Behavior subclass: #Class

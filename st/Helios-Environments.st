@@ -11,6 +11,10 @@ availableClassNames
 	self subclassResponsibility
 !
 
+availablePackageNames
+	self subclassResponsibility
+!
+
 availableProtocolsFor: aClass
 	self subclassResponsibility
 !
@@ -42,12 +46,20 @@ eval: someCode on: aReceiver
 	^ self subclassResponsibility
 !
 
+moveClass: aClass toPackage: aPackageName
+	self subclassResponsibility
+!
+
 moveMethod: aMethod toClass: aClassName
 	self subclassResponsibility
 !
 
 moveMethod: aMethod toProtocol: aProtocol
 	self subclassResponsibility
+!
+
+removeClass: aClass
+	self sublcassResponsibility
 !
 
 removeMethod: aMethod
@@ -86,6 +98,11 @@ HLEnvironment subclass: #HLLocalEnvironment
 
 availableClassNames
 	^ Smalltalk current classes 
+		collect: [ :each | each name ]
+!
+
+availablePackageNames
+	^ Smalltalk current packages 
 		collect: [ :each | each name ]
 !
 
@@ -128,6 +145,16 @@ eval: aString on: aReceiver
 	^ compiler evaluateExpression: aString on: aReceiver
 !
 
+moveClass: aClass toPackage: aPackageName
+	| package |
+	
+	package := Package named: aPackageName.
+	package ifNil: [ self error: 'Invalid package name' ].
+	package == aClass package ifTrue: [ ^ self ].
+	
+	package addClass: aClass
+!
+
 moveMethod: aMethod toClass: aClassName
 	| destinationClass |
 	
@@ -141,6 +168,10 @@ moveMethod: aMethod toClass: aClassName
 
 moveMethod: aMethod toProtocol: aProtocol
 	aMethod category: aProtocol
+!
+
+removeClass: aClass
+	Smalltalk current removeClass: aClass
 !
 
 removeMethod: aMethod

@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'Helios-Layout'!
-Widget subclass: #HLContainer
+HLWidget subclass: #HLContainer
 	instanceVariableNames: 'splitter'
 	package: 'Helios-Layout'!
 
@@ -18,9 +18,7 @@ splitter: aSplitter
 renderOn: html
 	html div 
     	class: 'tool_container'; 
-        with: self splitter.
-        
-   (window jQuery: window) bind: 'resize' do: [ self splitter resize ]
+        with: self splitter
 ! !
 
 !HLContainer class methodsFor: 'instance creation'!
@@ -69,14 +67,10 @@ renderOn: html
     	splitter := html div class: self cssClass.
     	secondPane := html div class: 'pane'; with: self secondWidget ].
         
-	self 
-    	setupSplitter;
-        resize
+	self setupSplitter
 !
 
 resize
-	self firstWidget isHeliosSplitter ifTrue: [ self firstWidget resize ].
-    self secondWidget isHeliosSplitter ifTrue: [ self secondWidget resize ]
 !
 
 setupSplitter
@@ -114,19 +108,23 @@ panesCssClass
 !HLHorizontalSplitter methodsFor: 'actions'!
 
 resize
-	self resize: splitter asJQuery offset top
+	self resize: (splitter asJQuery css: 'top')
 !
 
 resize: anInteger
-	| container position |
+	| container size offset percentage |
     
     container := firstPane asJQuery parent.
-    position := anInteger - container offset top.
-    
-	firstPane asJQuery height: ((position min: container height - 100) max: 100).
-    secondPane asJQuery height: (((container height - position) min: container height - 100) max: 100) - 1.
-    
-    super resize
+	offset := firstPane asJQuery offset top.
+    size := container height.
+	
+	percentage := (size - (anInteger - offset)) / size * 100.
+	percentage := 80 min: (percentage max: 20).
+	
+    firstPane asJQuery css: 'bottom' put: percentage asString, '%'.
+	
+	splitter asJQuery css: 'top' put: (100 - percentage) asString, '%'.
+	secondPane asJQuery css: 'top' put: (100 - percentage) asString, '%'
 !
 
 startResizing: aSplitter
@@ -161,19 +159,23 @@ panesCssClass
 !HLVerticalSplitter methodsFor: 'actions'!
 
 resize
-	self resize: splitter asJQuery offset left
+	self resize: (splitter asJQuery css: 'left')
 !
 
 resize: anInteger
-	| container position |
+	| container size offset percentage |
     
     container := firstPane asJQuery parent.
-    position := anInteger - container offset left.
-    
-	firstPane asJQuery width: ((position min: container width - 100) max: 100).
-    secondPane asJQuery width: (((container width - position) min: container width - 100) max: 100) - 1.
-    
-    super resize
+	offset := firstPane asJQuery offset left.
+    size := container width.
+	
+	percentage := (size - (anInteger - offset)) / size * 100.
+	percentage := 80 min: (percentage max: 20).
+	
+    firstPane asJQuery css: 'right' put: percentage asString, '%'.
+	
+	splitter asJQuery css: 'left' put: (100 - percentage) asString, '%'.
+	secondPane asJQuery css: 'left' put: (100 - percentage) asString, '%'
 !
 
 startResizing: aSplitter
@@ -188,7 +190,7 @@ setupSplitter
         'containment' -> splitter asJQuery parent.
         'helper' -> 'clone'.
         'start' -> [ :e :ui | self startResizing: ui helper ].
-        'drag' -> [ :e :ui | self resize: ui offset left ] }
+        'drag' -> [ :e :ui | self resize: (ui offset left) ] }
 ! !
 
 !Object methodsFor: '*Helios-Layout'!

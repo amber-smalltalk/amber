@@ -39,6 +39,22 @@ smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "availablePackageNames",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.HLEnvironment)})},
+args: [],
+source: "availablePackageNames\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "availableProtocolsFor:",
 category: 'accessing',
 fn: function (aClass){
@@ -172,6 +188,22 @@ smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "moveClass:toPackage:",
+category: 'actions',
+fn: function (aClass,aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName},smalltalk.HLEnvironment)})},
+args: ["aClass", "aPackageName"],
+source: "moveClass: aClass toPackage: aPackageName\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveMethod:toClass:",
 category: 'actions',
 fn: function (aMethod,aClassName){
@@ -216,6 +248,22 @@ return $1;
 args: [],
 source: "packages\x0a\x09^ self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass:",
+category: 'actions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._sublcassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.HLEnvironment)})},
+args: ["aClass"],
+source: "removeClass: aClass\x0a\x09self sublcassResponsibility",
+messageSends: ["sublcassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.HLEnvironment);
@@ -275,6 +323,28 @@ return $1;
 args: [],
 source: "availableClassNames\x0a\x09^ Smalltalk current classes \x0a\x09\x09collect: [ :each | each name ]",
 messageSends: ["collect:", "name", "classes", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availablePackageNames",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st($Smalltalk())._current())._packages())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._name();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.HLLocalEnvironment)})},
+args: [],
+source: "availablePackageNames\x0a\x09^ Smalltalk current packages \x0a\x09\x09collect: [ :each | each name ]",
+messageSends: ["collect:", "name", "packages", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLLocalEnvironment);
@@ -400,6 +470,37 @@ smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "moveClass:toPackage:",
+category: 'actions',
+fn: function (aClass,aPackageName){
+var self=this;
+var package_;
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+package_=_st($Package())._named_(aPackageName);
+$1=package_;
+if(($receiver = $1) == nil || $receiver == undefined){
+_st(self)._error_("Invalid package name");
+} else {
+$1;
+};
+$2=_st(package_).__eq_eq(_st(aClass)._package());
+if(smalltalk.assert($2)){
+$3=self;
+return $3;
+};
+_st(package_)._addClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},smalltalk.HLLocalEnvironment)})},
+args: ["aClass", "aPackageName"],
+source: "moveClass: aClass toPackage: aPackageName\x0a\x09| package |\x0a\x09\x0a\x09package := Package named: aPackageName.\x0a\x09package ifNil: [ self error: 'Invalid package name' ].\x0a\x09package == aClass package ifTrue: [ ^ self ].\x0a\x09\x0a\x09package addClass: aClass",
+messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "addClass:"],
+referencedClasses: ["Package"]
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveMethod:toClass:",
 category: 'actions',
 fn: function (aMethod,aClassName){
@@ -461,6 +562,23 @@ return $1;
 args: [],
 source: "packages\x0a\x09^ Smalltalk current packages",
 messageSends: ["packages", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass:",
+category: 'actions',
+fn: function (aClass){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Smalltalk())._current())._removeClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.HLLocalEnvironment)})},
+args: ["aClass"],
+source: "removeClass: aClass\x0a\x09Smalltalk current removeClass: aClass",
+messageSends: ["removeClass:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLLocalEnvironment);

@@ -312,6 +312,10 @@ announcer
 	^ announcer ifNil:[ announcer := Announcer new ]
 !
 
+label
+	^ self model inspectee class name
+!
+
 model
     ^ model
 !
@@ -374,6 +378,6 @@ renderContentOn: html
 renderHeadOn: html
 	html div 
 		class: 'list-label';
-		with: self model inspectee asString
+		with: self label
 ! !
 

@@ -417,7 +417,7 @@ canBeOpenAsTab
 ! !
 
 HLCodeWidget subclass: #HLSourceCodeWidget
-	instanceVariableNames: 'browserModel'
+	instanceVariableNames: 'browserModel methodContents'
 	package: 'Helios-Workspace'!
 
 !HLSourceCodeWidget methodsFor: 'accessing'!
@@ -428,7 +428,25 @@ browserModel
 
 browserModel: aBrowserModel
 	browserModel := aBrowserModel.
-	self observeBrowserModel
+	self 
+		observeSystem;
+		observeBrowserModel
+!
+
+methodContents
+	^ methodContents
+!
+
+methodContents: aString
+	methodContents := aString
+!
+
+previous
+	"for browser lists widget"
+!
+
+previous: aWidget
+	"for browser lists widget"
 ! !
 
 !HLSourceCodeWidget methodsFor: 'actions'!
@@ -444,7 +462,36 @@ observeBrowserModel
 		on: HLUnknownVariableErrorRaised
 		do: [ :ann | self onUnknownVariableError: ann error ];
 		on: HLInstVarAdded 
-		do: [ :ann | self onInstVarAdded ]
+		do: [ :ann | self onInstVarAdded ];
+		on: HLMethodSelected 
+		do: [ :ann | self onMethodSelected: ann item ];
+    	on: HLClassSelected 
+		do: [ :ann | self onClassSelected: ann item ];
+    	on: HLProtocolSelected 
+		do: [ :ann | self onProtocolSelected: ann item ];
+		on: HLSourceCodeFocusRequested 
+		do: [ :ann | self onSourceCodeFocusRequested ]
+!
+
+observeSystem
+	self browserModel systemAnnouncer
+    	on: MethodModified
+        do: [ :ann | self onMethodModified: ann method ];
+		on: HLMethodSelected 
+		do: [ :ann | self onMethodSelected: ann item ];
+    	on: HLClassSelected 
+		do: [ :ann | self onClassSelected: ann item ];
+    	on: HLProtocolSelected 
+		do: [ :ann | self onProtocolSelected: ann item ];
+		on: HLSourceCodeFocusRequested 
+		do: [ :ann | self onSourceCodeFocusRequested ]
+!
+
+refresh
+	self hasModification ifTrue: [ ^ self ].
+    self hasFocus ifTrue: [ ^ self ].
+
+	self contents: self model selectedMethod source
 !
 
 saveIt
@@ -453,12 +500,32 @@ saveIt
 
 !HLSourceCodeWidget methodsFor: 'reactions'!
 
+onClassSelected: aClass
+	aClass ifNil: [ ^ self contents: '' ].
+    
+    self contents: aClass definition
+!
+
 onCompileError: anError
 	self alert: anError messageText
 !
 
 onInstVarAdded
 	self  browserModel save: self contents
+!
+
+onMethodModified: aMethod
+	self browserModel selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+	self browserModel selectedMethod ifNil: [ ^ self ].
+    self browserModel selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
+
+    self refresh
+!
+
+onMethodSelected: aCompiledMethod
+	aCompiledMethod ifNil: [ ^ self contents: '' ].
+    
+    self contents: aCompiledMethod source
 !
 
 onParseError: anAnnouncement
@@ -481,8 +548,18 @@ onParseError: anAnnouncement
 			lineIndex := lineIndex + 1 ] ])
 !
 
+onProtocolSelected: aString
+	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
+    
+    self contents: self browserModel selectedClass definition
+!
+
 onSaveIt
-	self  browserModel save: self contents
+	self browserModel save: self contents
+!
+
+onSourceCodeFocusRequested
+	self focus
 !
 
 onUnknownVariableError: anError
@@ -497,6 +574,12 @@ onUnknownVariableError: anError
 	confirm ifFalse: [ ^ self ].
 	
 	self browserModel addInstVarNamed: anError variableName
+! !
+
+!HLSourceCodeWidget methodsFor: 'testing'!
+
+hasModification
+	^ (self methodContents = self contents) not
 ! !
 
 !HLSourceCodeWidget class methodsFor: 'instance creation'!

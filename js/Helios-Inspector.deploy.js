@@ -764,6 +764,19 @@ smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(self)._model())._inspectee())._class())._name();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLInspectorVariablesWidget)})},
+messageSends: ["name", "class", "inspectee", "model"]}),
+smalltalk.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "model",
 fn: function (){
 var self=this;
@@ -847,9 +860,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("list-label");
-$2=_st($1)._with_(_st(_st(_st(self)._model())._inspectee())._asString());
+$2=_st($1)._with_(_st(self)._label());
 return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
-messageSends: ["class:", "div", "with:", "asString", "inspectee", "model"]}),
+messageSends: ["class:", "div", "with:", "label"]}),
 smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(

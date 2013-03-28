@@ -28,6 +28,17 @@ smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "availablePackageNames",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "availableProtocolsFor:",
 fn: function (aClass){
 var self=this;
@@ -121,6 +132,17 @@ smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "moveClass:toPackage:",
+fn: function (aClass,aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName},smalltalk.HLEnvironment)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveMethod:toClass:",
 fn: function (aMethod,aClassName){
 var self=this;
@@ -152,6 +174,17 @@ $1=_st(self)._subclassResponsibility();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.HLEnvironment)})},
 messageSends: ["subclassResponsibility"]}),
+smalltalk.HLEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._sublcassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.HLEnvironment)})},
+messageSends: ["sublcassResponsibility"]}),
 smalltalk.HLEnvironment);
 
 smalltalk.addMethod(
@@ -196,6 +229,23 @@ return _st(each)._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.HLLocalEnvironment)})},
 messageSends: ["collect:", "name", "classes", "current"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availablePackageNames",
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st($Smalltalk())._current())._packages())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._name();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.HLLocalEnvironment)})},
+messageSends: ["collect:", "name", "packages", "current"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
@@ -294,6 +344,32 @@ smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "moveClass:toPackage:",
+fn: function (aClass,aPackageName){
+var self=this;
+var package_;
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+package_=_st($Package())._named_(aPackageName);
+$1=package_;
+if(($receiver = $1) == nil || $receiver == undefined){
+_st(self)._error_("Invalid package name");
+} else {
+$1;
+};
+$2=_st(package_).__eq_eq(_st(aClass)._package());
+if(smalltalk.assert($2)){
+$3=self;
+return $3;
+};
+_st(package_)._addClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},smalltalk.HLLocalEnvironment)})},
+messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "addClass:"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveMethod:toClass:",
 fn: function (aMethod,aClassName){
 var self=this;
@@ -342,6 +418,18 @@ $1=_st(_st($Smalltalk())._current())._packages();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.HLLocalEnvironment)})},
 messageSends: ["packages", "current"]}),
+smalltalk.HLLocalEnvironment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass:",
+fn: function (aClass){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Smalltalk())._current())._removeClass_(aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.HLLocalEnvironment)})},
+messageSends: ["removeClass:", "current"]}),
 smalltalk.HLLocalEnvironment);
 
 smalltalk.addMethod(

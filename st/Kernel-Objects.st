@@ -278,6 +278,10 @@ ifNotNil: aBlock ifNil: anotherBlock
 	^aBlock value: self
 !
 
+isBehavior
+	^ false
+!
+
 isBoolean
 	^ false
 !

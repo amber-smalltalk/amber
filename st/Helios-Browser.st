@@ -68,7 +68,7 @@ classesListWidget
 methodsListWidget
 	^ methodsListWidget ifNil: [
       	methodsListWidget := HLMethodsListWidget on: self model.
-		methodsListWidget next: self sourceWidget]
+		methodsListWidget next: self sourceWidget ]
 !
 
 packagesListWidget
@@ -85,7 +85,9 @@ protocolsListWidget
 
 sourceWidget
 	^ sourceWidget ifNil: [
-      	sourceWidget := HLBrowserSourceWidget on: self model ]
+      	sourceWidget := HLSourceCodeWidget new
+			browserModel: self model;
+			yourself ]
 ! !
 
 HLBrowser class instanceVariableNames: 'nextId'!
@@ -235,8 +237,18 @@ label
 	^ 'Classes'
 !
 
+showClass
+	^ self model showInstance not and: [
+		self model showComment not ]
+!
+
+showComment
+	^ self model showComment
+!
+
 showInstance
-	^ self model showInstance
+	^ self model showInstance and: [
+		self model showComment not ]
 ! !
 
 !HLClassesListWidget methodsFor: 'actions'!
@@ -267,6 +279,10 @@ observeSystem
 
 selectItem: aClass
     self model selectedClass: aClass
+!
+
+showComment: aBoolean
+	self model showComment: aBoolean
 !
 
 showInstance: aBoolean
@@ -344,16 +360,23 @@ renderButtonsOn: html
                 class: (String streamContents: [ :str |
                 	str nextPutAll: 'btn'.
                     self showInstance ifTrue: [ 
-                    	str nextPutAll: ' active'] ]);
+                    	str nextPutAll: ' active' ] ]);
   				with: 'Instance';
                 onClick: [ self showInstance: true ].
   			html button
   				class: (String streamContents: [ :str |
                 	str nextPutAll: 'btn'.
-                    self model showInstance ifFalse: [ 
-                    	str nextPutAll: ' active'] ]);
+                    self showClass ifTrue: [ 
+                    	str nextPutAll: ' active' ] ]);
   				with: 'Class';
-				onClick: [ self model showInstance: false ] ]
+				onClick: [ self showInstance: false ].
+			html button
+  				class: (String streamContents: [ :str |
+                	str nextPutAll: 'btn'.
+                    self showComment ifTrue: [ 
+                    	str nextPutAll: ' active' ] ]);
+  				with: 'Doc';
+				onClick: [ self showComment: true ] ]
 !
 
 renderItem: aClass level: anInteger on: html
@@ -797,6 +820,14 @@ availableClassNames
 	^ self environment availableClassNames
 !
 
+availablePackageNames
+	^ self environment availablePackageNames
+!
+
+availablePackages
+	^ self environment availablePackageNames
+!
+
 availableProtocols
 	^ self environment availableProtocolsFor: self selectedClass
 !
@@ -891,7 +922,7 @@ showComment
 
 showComment: aBoolean
 	showComment := aBoolean.
-    
+
     self announcer announce: HLShowCommentToggled new
 !
 
@@ -901,7 +932,8 @@ showInstance
 
 showInstance: aBoolean
 	showInstance := aBoolean.
-    
+	showComment := false.
+
     self selectedClass ifNotNil: [
     	self selectedClass: (aBoolean
     		ifTrue: [self selectedClass theNonMetaClass ]
@@ -962,6 +994,12 @@ commitPackage
 		do: [ self environment commitPackage: self selectedPackage ]
 !
 
+moveClassToPackage: aPackageName
+	self environment 
+		moveClass: self selectedClass theNonMetaClass
+		toPackage: aPackageName
+!
+
 moveMethodToClass: aClassName
 	self environment 
 		moveMethod: self selectedMethod 
@@ -978,6 +1016,11 @@ openClassNamed: aString
 	class := self environment classNamed: aString.
 	self selectedPackage: class package.
 	self selectedClass: class
+!
+
+removeClass
+	(self manager confirm: 'Do you REALLY want to remove class ', self selectedClass name)
+		ifTrue: [ self environment removeClass: self selectedClass ]
 !
 
 removeMethod
@@ -1102,149 +1145,6 @@ on: anEnvironment
 
 	^ self new
     	environment: anEnvironment;
-        yourself
-! !
-
-HLWidget subclass: #HLBrowserSourceWidget
-	instanceVariableNames: 'model methodContents codeWidget'
-	package: 'Helios-Browser'!
-
-!HLBrowserSourceWidget methodsFor: 'accessing'!
-
-codeWidget
-	^ codeWidget ifNil: [ codeWidget := HLSourceCodeWidget on: self model ]
-!
-
-contents
-	^ self codeWidget contents
-!
-
-contents: aString
-	self methodContents: aString.
-	self codeWidget contents: aString
-!
-
-methodContents
-	^ methodContents ifNil: [ methodContents := '' ]
-!
-
-methodContents: aString
-	methodContents := aString
-!
-
-model
-	^ model
-!
-
-model: aBrowserModel
-	model := aBrowserModel.
-    
-    self observeModel
-!
-
-previous
-	"for browser lists widget"
-!
-
-previous: aWidget
-	"for browser lists widget"
-! !
-
-!HLBrowserSourceWidget methodsFor: 'actions'!
-
-focus
-	self codeWidget focus
-!
-
-observeModel
-	self model announcer 
-		on: HLMethodSelected 
-		do: [ :ann | self onMethodSelected: ann item ];
-    	on: HLClassSelected 
-		do: [ :ann | self onClassSelected: ann item ];
-    	on: HLProtocolSelected 
-		do: [ :ann | self onProtocolSelected: ann item ];
-		on: HLSourceCodeFocusRequested 
-		do: [ :ann | self onSourceCodeFocusRequested ]
-!
-
-observeSystem
-	SystemAnnouncer current
-    	on: MethodModified
-        do: [ :ann | self onMethodModified: ann method ]
-! !
-
-!HLBrowserSourceWidget methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-    
-    self observeSystem
-! !
-
-!HLBrowserSourceWidget methodsFor: 'reactions'!
-
-onClassSelected: aClass
-	aClass ifNil: [ ^ self contents: '' ].
-    
-    self contents: aClass definition
-!
-
-onMethodModified: aMethod
-
-	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
-	self model selectedMethod ifNil: [ ^ self ].
-    self model selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
-
-    self refresh
-!
-
-onMethodSelected: aCompiledMethod
-	aCompiledMethod ifNil: [ ^ self contents: '' ].
-    
-    self contents: aCompiledMethod source
-!
-
-onProtocolSelected: aString
-	self model selectedClass ifNil: [ ^ self contents: '' ].
-    
-    self contents: self model selectedClass definition
-!
-
-onSourceCodeFocusRequested
-	self focus
-! !
-
-!HLBrowserSourceWidget methodsFor: 'rendering'!
-
-renderContentOn: html
-	self codeWidget renderOn: html
-! !
-
-!HLBrowserSourceWidget methodsFor: 'testing'!
-
-hasFocus
-	^ self codeWidget hasFocus
-!
-
-hasModification
-	^ (self methodContents = self contents) not
-! !
-
-!HLBrowserSourceWidget methodsFor: 'updating'!
-
-refresh
-	self hasModification ifTrue: [ ^ self ].
-    self hasFocus ifTrue: [ ^ self ].
-
-	self contents: self model selectedMethod source
-! !
-
-!HLBrowserSourceWidget class methodsFor: 'instance creation'!
-
-on: aBrowserModel
-	^ self new
-    	model: aBrowserModel;
         yourself
 ! !
 

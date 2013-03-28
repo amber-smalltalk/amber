@@ -1,6 +1,7 @@
 body {
     font-size: 11px;
-    background: #f1f1f1;
+    font-family: "Lucida Grande", helvetica, arial, sans;
+    background: #ddd;
 }
 
 .clearfix:after {
@@ -60,7 +61,7 @@ i {
 
 .CodeMirror pre {
     font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
-    line-height: 15px;
+    line-height: 16px;
 }
 
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
@@ -72,14 +73,15 @@ i {
     line-height: 16px;
 }
 
-.navbar-inner {
+.navbar-fixed-top .navbar-inner {
     min-height: 22px;
     background-color: #dbdbdb;
-    border: 1px solid #666;
+    border-bottom: 1px solid #666;
     background-image: linear-gradient(top, #dbdbdb, #bababa);
     background-image: -webkit-linear-gradient(top, #dbdbdb, #bababa);
     background-image: -moz-linear-gradient(top, #dbdbdb, #bababa);
     background-image: -owebkit-linear-gradient(top, #dbdbdb, #bababa);
+    box-shadow: 0 0 0;
 }
 
 
@@ -126,6 +128,7 @@ i {
     font-size: 11px;
     font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
     color: #111;
+    white-space: nowrap;
 }
 
 [class^="icon-"], [class*=" icon-"] {
@@ -163,7 +166,7 @@ i {
 
 
 .tool_container {
-    position: fixed;
+    position: absolute;
     top: 23px;
     bottom: 0;
     left: 0;
@@ -171,23 +174,89 @@ i {
 }
 
 .tool_container .panes {
+    position: relative;
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
 
 .tool_container .panes .pane {
+    position: absolute;
     overflow: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #f1f1f1;
 }
 
-.tool_container .panes .pane {
-    overflow: auto;
+.tool_container .multi_pane {
+    position: relative;
+    height: 100%;
+    width: auto;
+    overflow-x: auto;
+}
+
+.tool_container .multi_pane .pane {
+    height: 100%;
+    max-width: 300px;
+    border-right: 1px solid #888;
 }
 
 .tool_container .panes .pane > div {
     height: 100%;
     position: relative;
 }
+
+.tool_container .panes.horizontal > .pane {
+    min-height: 50px;
+}
+
+.tool_container .panes.horizontal > .pane {
+    top: 50%;
+}
+
+.tool_container .panes.horizontal > .pane:first-child {
+    top: 0;
+    bottom: 50%;
+}
+
+.tool_container .panes.vertical > .pane {
+    left: 50%;
+}
+
+.tool_container .panes.vertical > .pane:first-child {
+    left: 0;
+    right: 50%;
+}
+
+
+.tool_container .splitter {
+    position: absolute;
+    border-width: 0;
+    z-index: 10;
+}
+
+.tool_container .splitter.vertical {
+    width: 5px;
+    left: 50%;
+    margin-left: -1px;
+    border-left: 1px solid #888;
+    height: 100%;
+    float: left;
+    cursor: ew-resize;
+}
+
+.tool_container .splitter.horizontal {
+    top: 50%;
+    height: 5px;
+    margin-top: -1px;
+    width: 100%;
+    border-top: 1px solid #888;
+    cursor: ns-resize;
+}
+
+
 
 .tool_container .panes .pane .nav-pills {
     position: absolute;
@@ -204,11 +273,12 @@ i {
     border-bottom: 1px solid #666;
     background-color: #e9eaf5;
     background-image: -webkit-linear-gradient(top, #e9eaf5, #bfc2d2);
-    color: #333;
+    color: #222;
     font-weight: bold;
     text-shadow: 0 0 0;
     padding-left: 4px;
     line-height: 16px;
+    text-shadow: 0 1px 0 #eee;
 }
 
 .tool_container .list-label .btn-group.cog {
@@ -262,7 +332,6 @@ i {
     line-height: 20px;
 }
 
-
 .tool_container .panes .pane .pane_actions .btn-group {
     display: inline;
     margin-left: 5px;
@@ -278,7 +347,7 @@ i {
     border-radius: 0;
     box-shadow: 0 0 0;
     vertical-align: top;
-    min-width: 50px;
+    /* min-width: 50px; */
 }
 
 .tool_container .panes .pane .pane_actions .btn:hover {
@@ -290,50 +359,19 @@ i {
 }
 
 .tool_container .panes .pane .pane_actions .btn-group .btn.active {
-    background: #999;
-    background-image: linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
-    background-image: -webkit-linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
-    background-image: -moz-linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
-    background-image: -o-linear-gradient(left, #777 0%, #bababa 4%, #bababa 96%, #777 100%);
     text-shadow: #ddd 0px 1px 0px; 
     color: #222;
+    background: #bbb;
+    background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+    background-image: -webkit-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+    background-image: -moz-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+    background-image: -o-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
 }
 
 .tool_container .panes .pane .class_side .nav-pills {
     font-weight: bold;
     background: #ffd;
 }
-
-
-.tool_container .panes.horizontal > .pane {
-    height: 50%;
-    min-height: 50px;
-}
-
-.tool_container .panes.vertical > .pane {
-    width: 50%;
-    display: inline;
-    float: left;
-    height: 100%;
-}
-
-.tool_container .splitter {
-    z-index: 10;
-    background: #888;
-}
-
-.tool_container .splitter.vertical {
-    width: 1px;
-    height: 100%;
-    float: left;
-    cursor: e-resize;
-}
-
-.tool_container .splitter.horizontal {
-    height: 1px;
-    cursor: s-resize;
-}
-
 
 .key_helper {
     z-index: 20;
@@ -398,7 +436,7 @@ i {
     padding: 2px 8px;
     background: #fff;
     border: 1px solid #a1a1a1;
-    border-radius: 8px;
+    border-radius: 12px;
     box-shadow: inset 0 0px 2px 0px #aaa;
     margin: 2px 4px;
     line-height: 1em;

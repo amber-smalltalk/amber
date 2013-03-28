@@ -1,5 +1,5 @@
 smalltalk.addPackage('Helios-Layout');
-smalltalk.addClass('HLContainer', smalltalk.Widget, ['splitter'], 'Helios-Layout');
+smalltalk.addClass('HLContainer', smalltalk.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "renderOn:",
@@ -11,14 +11,10 @@ var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("tool_container");
 $2=_st($1)._with_(_st(self)._splitter());
-_st(_st(window)._jQuery_(window))._bind_do_("resize",(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._splitter())._resize();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLContainer)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09html div \x0a    \x09class: 'tool_container'; \x0a        with: self splitter.\x0a        \x0a   (window jQuery: window) bind: 'resize' do: [ self splitter resize ]",
-messageSends: ["class:", "div", "with:", "splitter", "bind:do:", "resize", "jQuery:"],
+source: "renderOn: html\x0a\x09html div \x0a    \x09class: 'tool_container'; \x0a        with: self splitter",
+messageSends: ["class:", "div", "with:", "splitter"],
 referencedClasses: []
 }),
 smalltalk.HLContainer);
@@ -170,7 +166,7 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2,$7,$8;
+var $1,$3,$4,$5,$6,$2;
 $1=_st(html)._div();
 _st($1)._class_(_st(self)._panesCssClass());
 $2=_st($1)._with_((function(){
@@ -188,13 +184,11 @@ $6=_st($5)._with_(_st(self)._secondWidget());
 self["@secondPane"]=$6;
 return self["@secondPane"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$7=self;
-_st($7)._setupSplitter();
-$8=_st($7)._resize();
+_st(self)._setupSplitter();
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLSplitter)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09html div class: self panesCssClass; with: [\x0a\x09\x09firstPane := html div class: 'pane'; with: self firstWidget.\x0a    \x09splitter := html div class: self cssClass.\x0a    \x09secondPane := html div class: 'pane'; with: self secondWidget ].\x0a        \x0a\x09self \x0a    \x09setupSplitter;\x0a        resize",
-messageSends: ["class:", "panesCssClass", "div", "with:", "firstWidget", "cssClass", "secondWidget", "setupSplitter", "resize"],
+source: "renderOn: html\x0a\x09html div class: self panesCssClass; with: [\x0a\x09\x09firstPane := html div class: 'pane'; with: self firstWidget.\x0a    \x09splitter := html div class: self cssClass.\x0a    \x09secondPane := html div class: 'pane'; with: self secondWidget ].\x0a        \x0a\x09self setupSplitter",
+messageSends: ["class:", "panesCssClass", "div", "with:", "firstWidget", "cssClass", "secondWidget", "setupSplitter"],
 referencedClasses: []
 }),
 smalltalk.HLSplitter);
@@ -206,19 +200,10 @@ category: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(self)._firstWidget())._isHeliosSplitter();
-if(smalltalk.assert($1)){
-_st(_st(self)._firstWidget())._resize();
-};
-$2=_st(_st(self)._secondWidget())._isHeliosSplitter();
-if(smalltalk.assert($2)){
-_st(_st(self)._secondWidget())._resize();
-};
 return self}, function($ctx1) {$ctx1.fill(self,"resize",{},smalltalk.HLSplitter)})},
 args: [],
-source: "resize\x0a\x09self firstWidget isHeliosSplitter ifTrue: [ self firstWidget resize ].\x0a    self secondWidget isHeliosSplitter ifTrue: [ self secondWidget resize ]",
-messageSends: ["ifTrue:", "resize", "firstWidget", "isHeliosSplitter", "secondWidget"],
+source: "resize",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLSplitter);
@@ -340,11 +325,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._resize_(_st(_st(_st(self["@splitter"])._asJQuery())._offset())._top());
+_st(self)._resize_(_st(_st(self["@splitter"])._asJQuery())._css_("top"));
 return self}, function($ctx1) {$ctx1.fill(self,"resize",{},smalltalk.HLHorizontalSplitter)})},
 args: [],
-source: "resize\x0a\x09self resize: splitter asJQuery offset top",
-messageSends: ["resize:", "top", "offset", "asJQuery"],
+source: "resize\x0a\x09self resize: (splitter asJQuery css: 'top')",
+messageSends: ["resize:", "css:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLHorizontalSplitter);
@@ -355,17 +340,20 @@ selector: "resize:",
 category: 'actions',
 fn: function (anInteger){
 var self=this;
-var container,position;
+var container,size,offset,percentage;
 return smalltalk.withContext(function($ctx1) { 
 container=_st(_st(self["@firstPane"])._asJQuery())._parent();
-position=_st(anInteger).__minus(_st(_st(container)._offset())._top());
-_st(_st(self["@firstPane"])._asJQuery())._height_(_st(_st(position)._min_(_st(_st(container)._height()).__minus((100))))._max_((100)));
-_st(_st(self["@secondPane"])._asJQuery())._height_(_st(_st(_st(_st(_st(container)._height()).__minus(position))._min_(_st(_st(container)._height()).__minus((100))))._max_((100))).__minus((1)));
-smalltalk.HLSplitter.fn.prototype._resize.apply(_st(self), []);
-return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,position:position},smalltalk.HLHorizontalSplitter)})},
+offset=_st(_st(_st(self["@firstPane"])._asJQuery())._offset())._top();
+size=_st(container)._height();
+percentage=_st(_st(_st(size).__minus(_st(anInteger).__minus(offset))).__slash(size)).__star((100));
+percentage=_st((80))._min_(_st(percentage)._max_((20)));
+_st(_st(self["@firstPane"])._asJQuery())._css_put_("bottom",_st(_st(percentage)._asString()).__comma("%"));
+_st(_st(self["@splitter"])._asJQuery())._css_put_("top",_st(_st(_st((100)).__minus(percentage))._asString()).__comma("%"));
+_st(_st(self["@secondPane"])._asJQuery())._css_put_("top",_st(_st(_st((100)).__minus(percentage))._asString()).__comma("%"));
+return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,size:size,offset:offset,percentage:percentage},smalltalk.HLHorizontalSplitter)})},
 args: ["anInteger"],
-source: "resize: anInteger\x0a\x09| container position |\x0a    \x0a    container := firstPane asJQuery parent.\x0a    position := anInteger - container offset top.\x0a    \x0a\x09firstPane asJQuery height: ((position min: container height - 100) max: 100).\x0a    secondPane asJQuery height: (((container height - position) min: container height - 100) max: 100) - 1.\x0a    \x0a    super resize",
-messageSends: ["parent", "asJQuery", "-", "top", "offset", "height:", "max:", "min:", "height", "resize"],
+source: "resize: anInteger\x0a\x09| container size offset percentage |\x0a    \x0a    container := firstPane asJQuery parent.\x0a\x09offset := firstPane asJQuery offset top.\x0a    size := container height.\x0a\x09\x0a\x09percentage := (size - (anInteger - offset)) / size * 100.\x0a\x09percentage := 80 min: (percentage max: 20).\x0a\x09\x0a    firstPane asJQuery css: 'bottom' put: percentage asString, '%'.\x0a\x09\x0a\x09splitter asJQuery css: 'top' put: (100 - percentage) asString, '%'.\x0a\x09secondPane asJQuery css: 'top' put: (100 - percentage) asString, '%'",
+messageSends: ["parent", "asJQuery", "top", "offset", "height", "*", "/", "-", "min:", "max:", "css:put:", ",", "asString"],
 referencedClasses: []
 }),
 smalltalk.HLHorizontalSplitter);
@@ -454,11 +442,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._resize_(_st(_st(_st(self["@splitter"])._asJQuery())._offset())._left());
+_st(self)._resize_(_st(_st(self["@splitter"])._asJQuery())._css_("left"));
 return self}, function($ctx1) {$ctx1.fill(self,"resize",{},smalltalk.HLVerticalSplitter)})},
 args: [],
-source: "resize\x0a\x09self resize: splitter asJQuery offset left",
-messageSends: ["resize:", "left", "offset", "asJQuery"],
+source: "resize\x0a\x09self resize: (splitter asJQuery css: 'left')",
+messageSends: ["resize:", "css:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLVerticalSplitter);
@@ -469,17 +457,20 @@ selector: "resize:",
 category: 'actions',
 fn: function (anInteger){
 var self=this;
-var container,position;
+var container,size,offset,percentage;
 return smalltalk.withContext(function($ctx1) { 
 container=_st(_st(self["@firstPane"])._asJQuery())._parent();
-position=_st(anInteger).__minus(_st(_st(container)._offset())._left());
-_st(_st(self["@firstPane"])._asJQuery())._width_(_st(_st(position)._min_(_st(_st(container)._width()).__minus((100))))._max_((100)));
-_st(_st(self["@secondPane"])._asJQuery())._width_(_st(_st(_st(_st(_st(container)._width()).__minus(position))._min_(_st(_st(container)._width()).__minus((100))))._max_((100))).__minus((1)));
-smalltalk.HLSplitter.fn.prototype._resize.apply(_st(self), []);
-return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,position:position},smalltalk.HLVerticalSplitter)})},
+offset=_st(_st(_st(self["@firstPane"])._asJQuery())._offset())._left();
+size=_st(container)._width();
+percentage=_st(_st(_st(size).__minus(_st(anInteger).__minus(offset))).__slash(size)).__star((100));
+percentage=_st((80))._min_(_st(percentage)._max_((20)));
+_st(_st(self["@firstPane"])._asJQuery())._css_put_("right",_st(_st(percentage)._asString()).__comma("%"));
+_st(_st(self["@splitter"])._asJQuery())._css_put_("left",_st(_st(_st((100)).__minus(percentage))._asString()).__comma("%"));
+_st(_st(self["@secondPane"])._asJQuery())._css_put_("left",_st(_st(_st((100)).__minus(percentage))._asString()).__comma("%"));
+return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,size:size,offset:offset,percentage:percentage},smalltalk.HLVerticalSplitter)})},
 args: ["anInteger"],
-source: "resize: anInteger\x0a\x09| container position |\x0a    \x0a    container := firstPane asJQuery parent.\x0a    position := anInteger - container offset left.\x0a    \x0a\x09firstPane asJQuery width: ((position min: container width - 100) max: 100).\x0a    secondPane asJQuery width: (((container width - position) min: container width - 100) max: 100) - 1.\x0a    \x0a    super resize",
-messageSends: ["parent", "asJQuery", "-", "left", "offset", "width:", "max:", "min:", "width", "resize"],
+source: "resize: anInteger\x0a\x09| container size offset percentage |\x0a    \x0a    container := firstPane asJQuery parent.\x0a\x09offset := firstPane asJQuery offset left.\x0a    size := container width.\x0a\x09\x0a\x09percentage := (size - (anInteger - offset)) / size * 100.\x0a\x09percentage := 80 min: (percentage max: 20).\x0a\x09\x0a    firstPane asJQuery css: 'right' put: percentage asString, '%'.\x0a\x09\x0a\x09splitter asJQuery css: 'left' put: (100 - percentage) asString, '%'.\x0a\x09secondPane asJQuery css: 'left' put: (100 - percentage) asString, '%'",
+messageSends: ["parent", "asJQuery", "left", "offset", "width", "*", "/", "-", "min:", "max:", "css:put:", ",", "asString"],
 referencedClasses: []
 }),
 smalltalk.HLVerticalSplitter);
@@ -500,7 +491,7 @@ return _st(self)._resize_(_st(_st(ui)._offset())._left());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.HLVerticalSplitter)})},
 args: [],
-source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: ui offset left ] }",
+source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: (ui offset left) ] }",
 messageSends: ["draggable:", "->", "parent", "asJQuery", "startResizing:", "helper", "resize:", "left", "offset"],
 referencedClasses: []
 }),

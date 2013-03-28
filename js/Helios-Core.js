@@ -87,12 +87,12 @@ $1=self["@root"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(_st(self["@root"])._asJQuery())._hide();
+_st(_st(self["@root"])._asJQuery())._css_put_("visibility","hidden");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"hide",{},smalltalk.HLTab)})},
 args: [],
-source: "hide\x0a\x09root ifNotNil: [\x0a\x09\x09root asJQuery hide ]",
-messageSends: ["ifNotNil:", "hide", "asJQuery"],
+source: "hide\x0a\x09root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]",
+messageSends: ["ifNotNil:", "css:put:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLTab);
@@ -270,12 +270,12 @@ $1=self["@root"];
 if(($receiver = $1) == nil || $receiver == undefined){
 _st(self)._appendToJQuery_(_st("body")._asJQuery());
 } else {
-_st(_st(self["@root"])._asJQuery())._show();
+_st(_st(self["@root"])._asJQuery())._css_put_("visibility","visible");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.HLTab)})},
 args: [],
-source: "show\x0a\x09root\x0a\x09\x09ifNil: [ self appendToJQuery: 'body' asJQuery ]\x0a\x09\x09ifNotNil: [ root asJQuery show ]\x09",
-messageSends: ["ifNil:ifNotNil:", "appendToJQuery:", "asJQuery", "show"],
+source: "show\x0a\x09root\x0a\x09\x09ifNil: [ self appendToJQuery: 'body' asJQuery ]\x0a\x09\x09ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]",
+messageSends: ["ifNil:ifNotNil:", "appendToJQuery:", "asJQuery", "css:put:"],
 referencedClasses: []
 }),
 smalltalk.HLTab);
@@ -619,7 +619,7 @@ smalltalk.HLWidget.klass);
 smalltalk.addClass('HLDebugger', smalltalk.HLWidget, [], 'Helios-Core');
 
 
-smalltalk.addClass('HLFocusableWidget', smalltalk.HLWidget, ['hiddenInput'], 'Helios-Core');
+smalltalk.addClass('HLFocusableWidget', smalltalk.HLWidget, [], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "blur",
@@ -627,11 +627,11 @@ category: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@hiddenInput"])._asJQuery())._blur();
+_st(_st(_st(self)._wrapper())._asJQuery())._blur();
 return self}, function($ctx1) {$ctx1.fill(self,"blur",{},smalltalk.HLFocusableWidget)})},
 args: [],
-source: "blur\x0a\x09hiddenInput asJQuery blur",
-messageSends: ["blur", "asJQuery"],
+source: "blur\x0a\x09self wrapper asJQuery blur",
+messageSends: ["blur", "asJQuery", "wrapper"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -659,11 +659,11 @@ category: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@hiddenInput"])._asJQuery())._focus();
+_st(_st(_st(self)._wrapper())._asJQuery())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLFocusableWidget)})},
 args: [],
-source: "focus\x0a\x09hiddenInput asJQuery focus",
-messageSends: ["focus", "asJQuery"],
+source: "focus\x0a\x09self wrapper asJQuery focus",
+messageSends: ["focus", "asJQuery", "wrapper"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -694,13 +694,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(_st(self)._wrapper())._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._wrapper())._asJQuery())._hasClass_(_st(self)._focusClass());
+return _st(_st(_st(self)._wrapper())._asJQuery())._is_(":focus");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"hasFocus",{},smalltalk.HLFocusableWidget)})},
 args: [],
-source: "hasFocus\x0a\x09^ self wrapper notNil and: [ self wrapper asJQuery hasClass: self focusClass ]",
-messageSends: ["and:", "hasClass:", "focusClass", "asJQuery", "wrapper", "notNil"],
+source: "hasFocus\x0a\x09^ self wrapper notNil and: [ self wrapper asJQuery is: ':focus' ]",
+messageSends: ["and:", "is:", "asJQuery", "wrapper", "notNil"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -722,56 +722,35 @@ smalltalk.HLFocusableWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderHiddenInputOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(html)._input();
-_st($1)._style_("position: absolute; left: -100000px;");
-_st($1)._onBlur_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._wrapper())._asJQuery())._removeClass_(_st(self)._focusClass());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=_st($1)._onFocus_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._wrapper())._asJQuery())._addClass_(_st(self)._focusClass());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-self["@hiddenInput"]=$2;
-return self}, function($ctx1) {$ctx1.fill(self,"renderHiddenInputOn:",{html:html},smalltalk.HLFocusableWidget)})},
-args: ["html"],
-source: "renderHiddenInputOn: html\x0a\x09hiddenInput := html input\x0a    \x09style: 'position: absolute; left: -100000px;';\x0a    \x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
-messageSends: ["style:", "input", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"],
-referencedClasses: []
-}),
-smalltalk.HLFocusableWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4;
 _st(self)._registerBindings();
-_st(self)._renderHiddenInputOn_(html);
 $1=_st(html)._div();
 _st($1)._class_("hl_widget");
-_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(self["@hiddenInput"])._asJQuery())._focus();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=_st($1)._with_((function(){
+$2=_st($1)._yourself();
+self["@wrapper"]=$2;
+_st(self["@wrapper"])._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._renderContentOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-self["@wrapper"]=$2;
+$3=self["@wrapper"];
+_st($3)._at_put_("tabindex","0");
+_st($3)._onBlur_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._wrapper())._asJQuery())._removeClass_(_st(self)._focusClass());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=_st($3)._onFocus_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._wrapper())._asJQuery())._addClass_(_st(self)._focusClass());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLFocusableWidget)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09self registerBindings.\x0a\x09self renderHiddenInputOn: html.\x0a    \x0a    wrapper := html div \x0a    \x09class: 'hl_widget'; \x0a        onClick: [ hiddenInput asJQuery focus ];\x0a        with: [\x0a\x09\x09\x09self renderContentOn: html ]",
-messageSends: ["registerBindings", "renderHiddenInputOn:", "class:", "div", "onClick:", "focus", "asJQuery", "with:", "renderContentOn:"],
+source: "renderOn: html\x0a\x09self registerBindings.\x0a    \x0a    wrapper := html div \x0a    \x09class: 'hl_widget';\x0a\x09\x09yourself.\x0a\x09\x09\x0a       wrapper with: [ self renderContentOn: html ].\x0a\x09\x0a\x09wrapper\x0a\x09\x09at: 'tabindex' put: '0';\x0a\x09\x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
+messageSends: ["registerBindings", "class:", "div", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -1246,8 +1225,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4,$5;
 active=false;
 repeatInterval=(70);
-_st(_st(self["@hiddenInput"])._asJQuery())._unbind_("keydown");
-_st(_st(self["@hiddenInput"])._asJQuery())._keydown_((function(e){
+_st(_st(_st(self)._wrapper())._asJQuery())._unbind_("keydown");
+_st(_st(_st(self)._wrapper())._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(_st(e)._which()).__eq((38)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -1286,7 +1265,7 @@ return interval;
 return delay;
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-_st(_st(self["@hiddenInput"])._asJQuery())._keyup_((function(e){
+_st(_st(_st(self)._wrapper())._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $3=active;
 if(smalltalk.assert($3)){
@@ -1308,8 +1287,8 @@ return _st(delay)._clearTimeout();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09hiddenInput asJQuery unbind: 'keydown'.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activateNextListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09hiddenInput asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
-messageSends: ["unbind:", "asJQuery", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "ifNotNil:", "clearInterval", "clearTimeout"],
+source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09self wrapper asJQuery unbind: 'keydown'.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activateNextListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09self wrapper asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
+messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "ifNotNil:", "clearInterval", "clearTimeout"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -1448,7 +1427,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 smalltalk.HLListWidget.fn.prototype._setupKeyBindings.apply(_st(self), []);
-_st(_st(self["@hiddenInput"])._asJQuery())._keydown_((function(e){
+_st(_st(_st(self)._wrapper())._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(e)._which()).__eq((39));
 if(smalltalk.assert($1)){
@@ -1461,8 +1440,8 @@ return _st(self)._previousFocus();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLNavigationListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09super setupKeyBindings.\x0a\x0a\x09hiddenInput asJQuery keydown: [ :e |\x0a        e which = 39 ifTrue: [ \x0a        \x09self nextFocus ].\x0a\x09\x09e which = 37 ifTrue: [ \x0a        \x09self previousFocus ] ]",
-messageSends: ["setupKeyBindings", "keydown:", "ifTrue:", "nextFocus", "=", "which", "previousFocus", "asJQuery"],
+source: "setupKeyBindings\x0a\x09super setupKeyBindings.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a        e which = 39 ifTrue: [ \x0a        \x09self nextFocus ].\x0a\x09\x09e which = 37 ifTrue: [ \x0a        \x09self previousFocus ] ]",
+messageSends: ["setupKeyBindings", "keydown:", "ifTrue:", "nextFocus", "=", "which", "previousFocus", "asJQuery", "wrapper"],
 referencedClasses: []
 }),
 smalltalk.HLNavigationListWidget);

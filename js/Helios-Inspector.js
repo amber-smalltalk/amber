@@ -1024,6 +1024,24 @@ smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(self)._model())._inspectee())._class())._name();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLInspectorVariablesWidget)})},
+args: [],
+source: "label\x0a\x09^ self model inspectee class name",
+messageSends: ["name", "class", "inspectee", "model"],
+referencedClasses: []
+}),
+smalltalk.HLInspectorVariablesWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "model",
 category: 'accessing',
 fn: function (){
@@ -1133,11 +1151,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("list-label");
-$2=_st($1)._with_(_st(_st(_st(self)._model())._inspectee())._asString());
+$2=_st($1)._with_(_st(self)._label());
 return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
 args: ["html"],
-source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'list-label';\x0a\x09\x09with: self model inspectee asString",
-messageSends: ["class:", "div", "with:", "asString", "inspectee", "model"],
+source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'list-label';\x0a\x09\x09with: self label",
+messageSends: ["class:", "div", "with:", "label"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorVariablesWidget);

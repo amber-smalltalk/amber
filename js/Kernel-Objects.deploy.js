@@ -353,6 +353,17 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isBehavior",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isBehavior",{},smalltalk.Object)})},
+messageSends: []}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isBoolean",
 fn: function (){
 var self=this;

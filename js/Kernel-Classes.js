@@ -431,6 +431,22 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isBehavior",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isBehavior",{},smalltalk.Behavior)})},
+args: [],
+source: "isBehavior\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lookupSelector:",
 category: 'accessing',
 fn: function (selector){

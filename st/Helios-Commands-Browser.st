@@ -236,6 +236,76 @@ label
 	^ 'Move'
 ! !
 
+HLMoveToCommand subclass: #HLMoveClassToCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLMoveClassToCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedClass notNil
+! !
+
+!HLMoveClassToCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label
+	^ 'Class'
+! !
+
+HLMoveClassToCommand subclass: #HLMoveClassCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLMoveClassCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'select a package'
+!
+
+inputCompletion
+	^ self model availablePackageNames
+!
+
+inputLabel
+	^ 'Move class to package:'
+! !
+
+!HLMoveClassCommand methodsFor: 'executing'!
+
+execute
+	self model moveClassToPackage: self input
+! !
+
+!HLMoveClassCommand methodsFor: 'testing'!
+
+isInputRequired
+	^ true
+! !
+
+!HLMoveClassCommand class methodsFor: 'accessing'!
+
+key
+	^ 80
+!
+
+label
+	^ 'to package'
+!
+
+menuLabel	
+	^ 'Move to package...'
+! !
+
+!HLMoveClassCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isBehavior
+! !
+
 HLMoveToCommand subclass: #HLMoveMethodToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -370,6 +440,42 @@ label
 	^ 'Remove'
 ! !
 
+HLRemoveCommand subclass: #HLRemoveClassCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRemoveClassCommand methodsFor: 'executing'!
+
+execute
+	self model removeClass
+! !
+
+!HLRemoveClassCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedClass notNil
+! !
+
+!HLRemoveClassCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label
+	^ 'Class'
+!
+
+menuLabel
+	^ 'Remove class'
+! !
+
+!HLRemoveClassCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isBehavior
+! !
+
 HLRemoveCommand subclass: #HLRemoveMethodCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -388,8 +494,8 @@ isActive
 
 !HLRemoveMethodCommand class methodsFor: 'accessing'!
 
-isValidFor: anObject
-	^ anObject isCompiledMethod
+key
+	^ 77
 !
 
 label
@@ -402,8 +508,8 @@ menuLabel
 
 !HLRemoveMethodCommand class methodsFor: 'testing'!
 
-key
-	^ 77
+isValidFor: anObject
+	^ anObject isCompiledMethod
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand
@@ -418,6 +524,28 @@ key
 
 label
 	^ 'Toggle'
+! !
+
+HLToggleCommand subclass: #HLToggleClassCommentCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLToggleClassCommentCommand methodsFor: 'executing'!
+
+execute
+	self model showComment: true
+! !
+
+!HLToggleClassCommentCommand class methodsFor: 'accessing'!
+
+key
+	"d"
+    
+	^ 68
+!
+
+label
+	^ 'Documentation'
 ! !
 
 HLToggleCommand subclass: #HLToggleClassSideCommand
