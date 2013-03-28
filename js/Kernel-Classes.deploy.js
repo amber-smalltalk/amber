@@ -736,9 +736,11 @@ selector: "package",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.pkg;
-return self}, function($ctx1) {$ctx1.fill(self,"package",{},smalltalk.Class)})},
-messageSends: []}),
+var $1;
+$1=_st(self)._basicAt_("pkg");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"package",{},smalltalk.Class)})},
+messageSends: ["basicAt:"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(
@@ -746,10 +748,17 @@ smalltalk.method({
 selector: "package:",
 fn: function (aPackage){
 var self=this;
+function $ClassMoved(){return smalltalk.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-self.pkg = aPackage;
+var $1,$2;
+_st(self)._basicAt_put_("pkg",aPackage);
+$1=_st($ClassMoved())._new();
+_st($1)._theClass_(self);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage},smalltalk.Class)})},
-messageSends: []}),
+messageSends: ["basicAt:put:", "announce:", "theClass:", "new", "yourself", "current"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(

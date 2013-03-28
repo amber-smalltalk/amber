@@ -317,11 +317,15 @@ definition
 !
 
 package
-	<return self.pkg>
+	^ self basicAt: 'pkg'
 !
 
 package: aPackage
-	<self.pkg = aPackage>
+	self basicAt: 'pkg' put: aPackage.
+	
+	SystemAnnouncer current announce: (ClassMoved new
+		theClass: self;
+		yourself)
 !
 
 rename: aString
