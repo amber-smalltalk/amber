@@ -304,6 +304,9 @@ smalltalk.addClass('ClassDefinitionChanged', smalltalk.ClassAnnouncement, [], 'K
 smalltalk.ClassDefinitionChanged.comment="I am emitted when the defintion of a class changes.\x0aSee ClassBuilder >> #class:instanceVariableNames:"
 
 
+smalltalk.addClass('ClassMoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
+
+
 smalltalk.addClass('ClassRemoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ClassRemoved.comment="I am emitted when a class is removed.\x0aSee Smalltalk >> #removeClass:"
 

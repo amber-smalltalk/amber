@@ -222,6 +222,9 @@ smalltalk.addClass('ClassCommentChanged', smalltalk.ClassAnnouncement, [], 'Kern
 smalltalk.addClass('ClassDefinitionChanged', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 
 
+smalltalk.addClass('ClassMoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
+
+
 smalltalk.addClass('ClassRemoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 
 

@@ -137,6 +137,10 @@ ClassAnnouncement subclass: #ClassDefinitionChanged
 I am emitted when the defintion of a class changes.
 See ClassBuilder >> #class:instanceVariableNames:!
 
+ClassAnnouncement subclass: #ClassMoved
+	instanceVariableNames: ''
+	package: 'Kernel-Announcements'!
+
 ClassAnnouncement subclass: #ClassRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
