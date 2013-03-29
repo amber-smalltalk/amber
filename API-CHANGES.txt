@@ -73,4 +73,3 @@
 - Package>>propertyAt:put:
 - Browser>>ajaxPutAt:data:
 - JSObjectProxy>>forwardMessage:
-- DoIt>>xxxDoIt
