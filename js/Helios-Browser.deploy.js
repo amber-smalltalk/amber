@@ -656,14 +656,17 @@ if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(aClass)._oldPackage()).__eq(_st(_st(self)._model())._selectedPackage());
+$3=_st(_st(_st(_st(self)._model())._selectedClass()).__eq_eq(aClass))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aPackage).__eq(_st(_st(self)._model())._selectedPackage());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($3)){
 _st(self)._selectItem_(nil);
 };
 _st(self)._setItemsForSelectedPackage();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:from:",{aClass:aClass,aPackage:aPackage},smalltalk.HLClassesListWidget)})},
-messageSends: ["ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "oldPackage", "setItemsForSelectedPackage", "refresh"]}),
+messageSends: ["ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "and:", "==", "selectedClass", "setItemsForSelectedPackage", "refresh"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(

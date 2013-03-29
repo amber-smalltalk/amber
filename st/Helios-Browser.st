@@ -318,9 +318,10 @@ onClassMoved: aClass from: aPackage
 	(aPackage = self model selectedPackage or: [
 		aClass package = self model selectedPackage ])
 			ifFalse: [ ^ self ].
-			
-	aClass oldPackage = self model selectedPackage ifTrue: [ 
-		self selectItem: nil ].
+	
+	(self model selectedClass == aClass and: [
+		aPackage = self model selectedPackage]) 
+			ifTrue: [ self selectItem: nil ].
     
     self setItemsForSelectedPackage.
     self refresh

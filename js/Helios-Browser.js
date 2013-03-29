@@ -847,7 +847,10 @@ if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(aClass)._oldPackage()).__eq(_st(_st(self)._model())._selectedPackage());
+$3=_st(_st(_st(_st(self)._model())._selectedClass()).__eq_eq(aClass))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aPackage).__eq(_st(_st(self)._model())._selectedPackage());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($3)){
 _st(self)._selectItem_(nil);
 };
@@ -855,8 +858,8 @@ _st(self)._setItemsForSelectedPackage();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:from:",{aClass:aClass,aPackage:aPackage},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "aPackage"],
-source: "onClassMoved: aClass from: aPackage\x0a\x09(aPackage = self model selectedPackage or: [\x0a\x09\x09aClass package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x09\x09\x0a\x09aClass oldPackage = self model selectedPackage ifTrue: [ \x0a\x09\x09self selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
-messageSends: ["ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "oldPackage", "setItemsForSelectedPackage", "refresh"],
+source: "onClassMoved: aClass from: aPackage\x0a\x09(aPackage = self model selectedPackage or: [\x0a\x09\x09aClass package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x0a\x09(self model selectedClass == aClass and: [\x0a\x09\x09aPackage = self model selectedPackage]) \x0a\x09\x09\x09ifTrue: [ self selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
+messageSends: ["ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "and:", "==", "selectedClass", "setItemsForSelectedPackage", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
