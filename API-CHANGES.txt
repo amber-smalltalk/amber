@@ -11,6 +11,8 @@
 * Queue>>frontIfAbsent: replaced by Queue>>nextIfAbsent:
 * Queue>>back: replaced by Queue>>nextPut:
 * smalltalk.addMethod() does not use explicit JS selector
+* JSObjectProxy>>canForwardMessage: replaced by use of JSObjectProxy>>lookupProperty: with asJavascriptSelector
+* JSObjectProxy>>forwardMessage: replaced by explicit JSObjectProxy>>forwardMessage:withArguments:
 
 + Object>>asString
 + Object>>putOn:
@@ -35,8 +37,6 @@
 + Parser: write #(#on:do: #Object) as #(on:do: Object)
 + Parser: Symbols for binarie selectores
 + Package>>commit
-+ JSObjectProxy>>lookupProperty:
-+ JSObjectProxy>>forwardMessage:withArguments:
 + String>>asJavaScriptSelector
 + AIContext>>initializeLocals
 + ASTInterpreter>>withBlockContext:
@@ -72,4 +72,3 @@
 - Package>>propertyAt:ifAbsent:
 - Package>>propertyAt:put:
 - Browser>>ajaxPutAt:data:
-- JSObjectProxy>>forwardMessage:
