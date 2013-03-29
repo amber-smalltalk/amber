@@ -100,10 +100,11 @@ i {
 .navbar .nav > .active > a, 
 .navbar .nav > .active > a:hover, 
 .navbar .nav > .active > a:focus {
-    background-image: linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
-    background-image: -webkit-linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
-    background-image: -moz-linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
-    background-image: -o-linear-gradient(left, #999 0%, #bababa 4%, #bababa 96%, #999 100%);
+    background-color: #bababa;
+    background-image: linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+    background-image: -webkit-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -webkit-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+    background-image: -moz-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -moz-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
+    background-image: -o-linear-gradient(left, #777 0%, #bababa 2px, transparent 2px), -o-linear-gradient(right, #777 0%, #bababa 2px, transparent 2px);
     text-shadow: #ddd 0px 1px 0px; 
     color: #222;
 }
@@ -169,6 +170,7 @@ i {
     background-image: -moz-linear-gradient(top, #b1bdd5, #8999b8);
     background-image: -owebkit-linear-gradient(top, #b1bdd5, #8999b8);
     color: #fff;
+    text-shadow: 0 0 0;
 }
 
 
@@ -302,7 +304,7 @@ i {
 }
 
 .tool_container .list-label .btn-group > .dropdown-menu {
-    padding: 4px 0;
+    padding: 0;
     font-size: 11px;
 }
 

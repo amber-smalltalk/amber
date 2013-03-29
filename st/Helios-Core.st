@@ -275,7 +275,7 @@ selectedItem: anObject
 !HLListWidget methodsFor: 'actions'!
 
 activateFirstListItem
-	self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))
+	self activateItem: self items first
 !
 
 activateItem: anObject
@@ -308,7 +308,11 @@ activateListItem: aListItem
 !
 
 activateNextListItem
-	self activateListItem: (window jQuery: '.focused .nav-pills .active') next
+	self activateListItem: (window jQuery: '.focused .nav-pills .active') next.
+	
+	"select the first item if none is selected"
+	(window jQuery: '.focused .nav-pills .active') get ifEmpty: [
+		self activateFirstListItem ]
 !
 
 activatePreviousListItem
@@ -553,7 +557,12 @@ removeTab: aTab
 !HLManager methodsFor: 'defaults'!
 
 defaultEnvironment
-	^ HLLocalEnvironment new
+	"If helios is loaded from within a frame, answer the parent window environment"
+	
+	window parent ifNil: [ ^ environment new ].
+	
+	^ ((window parent at: 'smalltalk')
+		at: #Environment) new
 ! !
 
 !HLManager methodsFor: 'initialization'!

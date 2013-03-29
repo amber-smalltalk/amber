@@ -765,11 +765,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li"))._get_((0))));
+_st(self)._activateItem_(_st(_st(self)._items())._first());
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))",
-messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"],
+source: "activateFirstListItem\x0a\x09self activateItem: self items first",
+messageSends: ["activateItem:", "first", "items"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -848,10 +848,14 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
+_st(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._get())._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._activateFirstListItem();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateNextListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') next",
-messageSends: ["activateListItem:", "next", "jQuery:"],
+source: "activateNextListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') next.\x0a\x09\x0a\x09\x22select the first item if none is selected\x22\x0a\x09(window jQuery: '.focused .nav-pills .active') get ifEmpty: [\x0a\x09\x09self activateFirstListItem ]",
+messageSends: ["activateListItem:", "next", "jQuery:", "ifEmpty:", "activateFirstListItem", "get"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -1530,16 +1534,22 @@ selector: "defaultEnvironment",
 category: 'defaults',
 fn: function (){
 var self=this;
-function $HLLocalEnvironment(){return smalltalk.HLLocalEnvironment||(typeof HLLocalEnvironment=="undefined"?nil:HLLocalEnvironment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($HLLocalEnvironment())._new();
-return $1;
+var $1,$2,$3;
+$1=_st(window)._parent();
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st(self["@environment"])._new();
+return $2;
+} else {
+$1;
+};
+$3=_st(_st(_st(_st(window)._parent())._at_("smalltalk"))._at_("Environment"))._new();
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{},smalltalk.HLManager)})},
 args: [],
-source: "defaultEnvironment\x0a\x09^ HLLocalEnvironment new",
-messageSends: ["new"],
-referencedClasses: ["HLLocalEnvironment"]
+source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09window parent ifNil: [ ^ environment new ].\x0a\x09\x0a\x09^ ((window parent at: 'smalltalk')\x0a\x09\x09at: #Environment) new",
+messageSends: ["ifNil:", "new", "parent", "at:"],
+referencedClasses: []
 }),
 smalltalk.HLManager);
 

@@ -276,7 +276,9 @@ observeSystem
         on: ClassRemoved
         do: [ :ann | self onClassRemoved: ann theClass ];
 		on: ClassMoved
-        do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ]
+        do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ];
+		on: ClassRenamed
+        do: [ :ann | self onClassRenamed: ann theClass ]
 !
 
 selectItem: aClass
@@ -319,9 +321,10 @@ onClassMoved: aClass from: aPackage
 		aClass package = self model selectedPackage ])
 			ifFalse: [ ^ self ].
 	
-	(self model selectedClass == aClass and: [
-		aPackage = self model selectedPackage]) 
-			ifTrue: [ self selectItem: nil ].
+	aPackage = self model selectedPackage ifTrue: [ 
+		self 
+			selectedItem: nil;
+			selectItem: nil ].
     
     self setItemsForSelectedPackage.
     self refresh
@@ -330,6 +333,13 @@ onClassMoved: aClass from: aPackage
 onClassRemoved: aClass
 	aClass package = self model selectedPackage ifFalse: [ ^ self ].
     aClass = self model selectedClass ifTrue: [ self selectItem: nil ].
+    
+    self setItemsForSelectedPackage.
+    self refresh
+!
+
+onClassRenamed: aClass
+	aClass package = self model selectedPackage ifFalse: [ ^ self ].
     
     self setItemsForSelectedPackage.
     self refresh
@@ -529,7 +539,9 @@ observeSystem
     	on: MethodAdded 
         do: [ :ann | self onMethodAdded: ann method ];
         on: MethodRemoved 
-        do: [ :ann | self onMethodRemoved: ann method ]
+        do: [ :ann | self onMethodRemoved: ann method ];
+		on: MethodMoved 
+        do: [ :ann | self onMethodMoved: ann method ]
 !
 
 selectItem: aSelector
@@ -559,15 +571,27 @@ onMethodAdded: aMethod
     self refresh
 !
 
+onMethodMoved: aMethod
+	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+    
+	self 
+		selectedItem: nil; 
+		selectItem: nil;
+		setItemsForSelectedProtocol;
+    	refresh
+!
+
 onMethodRemoved: aMethod
 	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
 
     self selectedItem ifNotNil: [
       	(aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem selector ])
-  			ifTrue: [ self selectItem: nil ] ].
-    self setItemsForSelectedProtocol.
+  			ifTrue: [ 
+				self selectedItem: nil; 
+				selectItem: nil ] ].
 
-self refresh
+    self setItemsForSelectedProtocol.
+	self refresh
 !
 
 onMethodSelected: aMethod
@@ -791,7 +815,10 @@ onProtocolRemoved: aString from: aClass
 	aClass = self model selectedClass ifFalse: [ ^ self ].
     
     self model selectedProtocol = aString 
-    	ifTrue: [ self selectItem: nil ].
+    	ifTrue: [ 
+			self 
+				selectedItem: nil;
+				selectItem: nil ].
         
     self setItemsForSelectedClass.
     self refresh
@@ -1009,6 +1036,12 @@ commitPackage
 		do: [ self environment commitPackage: self selectedPackage ]
 !
 
+copyClassTo: aClassName
+	self environment 
+		copyClass: self selectedClass theNonMetaClass
+		to: aClassName
+!
+
 moveClassToPackage: aPackageName
 	self environment 
 		moveClass: self selectedClass theNonMetaClass
@@ -1041,6 +1074,12 @@ removeClass
 removeMethod
 	(self manager confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector)
 		ifTrue: [ self environment removeMethod: self selectedMethod ]
+!
+
+renameClassTo: aClassName
+	self environment 
+		renameClass: self selectedClass theNonMetaClass
+		to: aClassName
 ! !
 
 !HLBrowserModel methodsFor: 'compiling'!
@@ -1056,11 +1095,15 @@ compileClassDefinition: aString
 !
 
 compileMethod: aString
+	| method |
+	
+	self withCompileErrorHandling: [ 
+		method := self environment 
+			compileMethod: aString 
+			for: self selectedClass
+			protocol: self compilationProtocol.
 
-	self withCompileErrorHandling: [ self environment 
-		compileMethod: aString 
-		for: self selectedClass
-		protocol: self compilationProtocol ]
+		self selectedMethod: method ]
 ! !
 
 !HLBrowserModel methodsFor: 'defaults'!
@@ -1338,26 +1381,5 @@ flush
 
 new
 	self shouldNotImplement
-! !
-
-!CompiledMethod methodsFor: '*Helios-Browser'!
-
-isOverridden
-	| selector |
-    
-    selector := self selector.
-    self methodClass allSubclassesDo: [ :each |
-	    (each includesSelector: selector)
-        	ifTrue: [ ^ true ] ].
-	^ false
-!
-
-isOverride
-	| superclass |
-    
-    superclass := self methodClass superclass.
-	superclass ifNil: [ ^ false ].
-	
-    ^ (self methodClass superclass lookupSelector: self selector) notNil
 ! !
 

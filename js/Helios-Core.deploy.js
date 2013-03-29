@@ -569,9 +569,9 @@ selector: "activateFirstListItem",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li"))._get_((0))));
+_st(self)._activateItem_(_st(_st(self)._items())._first());
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"]}),
+messageSends: ["activateItem:", "first", "items"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -637,8 +637,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
+_st(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._get())._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._activateFirstListItem();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateListItem:", "next", "jQuery:"]}),
+messageSends: ["activateListItem:", "next", "jQuery:", "ifEmpty:", "activateFirstListItem", "get"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -1164,13 +1168,19 @@ smalltalk.method({
 selector: "defaultEnvironment",
 fn: function (){
 var self=this;
-function $HLLocalEnvironment(){return smalltalk.HLLocalEnvironment||(typeof HLLocalEnvironment=="undefined"?nil:HLLocalEnvironment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($HLLocalEnvironment())._new();
-return $1;
+var $1,$2,$3;
+$1=_st(window)._parent();
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=_st(self["@environment"])._new();
+return $2;
+} else {
+$1;
+};
+$3=_st(_st(_st(_st(window)._parent())._at_("smalltalk"))._at_("Environment"))._new();
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{},smalltalk.HLManager)})},
-messageSends: ["new"]}),
+messageSends: ["ifNil:", "new", "parent", "at:"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(

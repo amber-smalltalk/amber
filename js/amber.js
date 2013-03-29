@@ -290,10 +290,37 @@ amber = (function() {
 		}
 	}
 
+	that.loadHelios = function() {
+        loadCSS('helios_frame.css');
+        var frame = jQuery('<div id="helios"><iframe frameborder=0 src="../helios.html"></iframe></div>');
+
+        jQuery('body').append(frame);
+        jQuery(frame).resizable({
+            handles: 'n',
+            start: onResizeStart,
+            stop: onResizeStop,
+            resize: onResize,
+            
+        });
+
+        function onResize() {
+            jQuery('#helios').css('top', '').css('bottom', '0px');
+        }
+
+        function onResizeStart() {
+            jQuery('#helios').append('<div class="overlay"></div>')
+        }
+
+        function onResizeStop() {
+            jQuery('#helios').find('.overlay').remove();
+        }
+    };
+
 	return that;
 })();
 
-window.loadAmber = amber.load;
+window.loadAmber  = amber.load;
+window.loadHelios = amber.loadHelios;
 
 // Backward compatibility
 function toggleAmberIDE () {

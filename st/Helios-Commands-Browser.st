@@ -168,6 +168,66 @@ isValidFor: anObject
 	^ anObject isPackage
 ! !
 
+HLBrowserCommand subclass: #HLCopyCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLCopyCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label
+	^ 'Copy'
+! !
+
+HLCopyCommand subclass: #HLCopyClassCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLCopyClassCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'New class name:'
+! !
+
+!HLCopyClassCommand methodsFor: 'executing'!
+
+execute
+	self model copyClassTo: self input
+! !
+
+!HLCopyClassCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedClass notNil
+!
+
+isInputRequired
+	^ true
+! !
+
+!HLCopyClassCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label
+	^ 'Class'
+!
+
+menuLabel
+	^ 'Copy class...'
+! !
+
+!HLCopyClassCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isBehavior
+! !
+
 HLBrowserCommand subclass: #HLFindCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -510,6 +570,66 @@ menuLabel
 
 isValidFor: anObject
 	^ anObject isCompiledMethod
+! !
+
+HLBrowserCommand subclass: #HLRenameCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRenameCommand class methodsFor: 'accessing'!
+
+key
+	^ 82
+!
+
+label
+	^ 'Rename'
+! !
+
+HLRenameCommand subclass: #HLRenameClassCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRenameClassCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'Rename class to:'
+! !
+
+!HLRenameClassCommand methodsFor: 'executing'!
+
+execute
+	self model renameClassTo: self input
+! !
+
+!HLRenameClassCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedClass notNil
+!
+
+isInputRequired
+	^ true
+! !
+
+!HLRenameClassCommand class methodsFor: 'accessing'!
+
+key
+	^ 67
+!
+
+label
+	^ 'Class'
+!
+
+menuLabel
+	^ 'Rename class...'
+! !
+
+!HLRenameClassCommand class methodsFor: 'testing'!
+
+isValidFor: anObject
+	^ anObject isBehavior
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand

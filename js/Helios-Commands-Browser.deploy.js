@@ -297,6 +297,130 @@ messageSends: []}),
 smalltalk.HLCommitPackageCommand.klass);
 
 
+smalltalk.addClass('HLCopyCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(67);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCopyCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Copy";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCopyCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCopyCommand.klass);
+
+
+smalltalk.addClass('HLCopyClassCommand', smalltalk.HLCopyCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "displayLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "New class name:";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLCopyClassCommand)})},
+messageSends: []}),
+smalltalk.HLCopyClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._copyClassTo_(_st(self)._input());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCopyClassCommand)})},
+messageSends: ["copyClassTo:", "input", "model"]}),
+smalltalk.HLCopyClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCopyClassCommand)})},
+messageSends: ["notNil", "selectedClass", "model"]}),
+smalltalk.HLCopyClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isInputRequired",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLCopyClassCommand)})},
+messageSends: []}),
+smalltalk.HLCopyClassCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isBehavior();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLCopyClassCommand.klass)})},
+messageSends: ["isBehavior"]}),
+smalltalk.HLCopyClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(67);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCopyClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Class";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCopyClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCopyClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Copy class...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLCopyClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLCopyClassCommand.klass);
+
+
 smalltalk.addClass('HLFindCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(
@@ -1014,6 +1138,130 @@ return "Remove method";
 }, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveMethodCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRemoveMethodCommand.klass);
+
+
+smalltalk.addClass('HLRenameCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(82);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameCommand.klass)})},
+messageSends: []}),
+smalltalk.HLRenameCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Rename";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRenameCommand.klass)})},
+messageSends: []}),
+smalltalk.HLRenameCommand.klass);
+
+
+smalltalk.addClass('HLRenameClassCommand', smalltalk.HLRenameCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "displayLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Rename class to:";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLRenameClassCommand)})},
+messageSends: []}),
+smalltalk.HLRenameClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._renameClassTo_(_st(self)._input());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameClassCommand)})},
+messageSends: ["renameClassTo:", "input", "model"]}),
+smalltalk.HLRenameClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameClassCommand)})},
+messageSends: ["notNil", "selectedClass", "model"]}),
+smalltalk.HLRenameClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isInputRequired",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLRenameClassCommand)})},
+messageSends: []}),
+smalltalk.HLRenameClassCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isValidFor:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(anObject)._isBehavior();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLRenameClassCommand.klass)})},
+messageSends: ["isBehavior"]}),
+smalltalk.HLRenameClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(67);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLRenameClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Class";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRenameClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLRenameClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "menuLabel",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Rename class...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRenameClassCommand.klass)})},
+messageSends: []}),
+smalltalk.HLRenameClassCommand.klass);
 
 
 smalltalk.addClass('HLToggleCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
