@@ -11,8 +11,9 @@
 * Queue>>frontIfAbsent: replaced by Queue>>nextIfAbsent:
 * Queue>>back: replaced by Queue>>nextPut:
 * smalltalk.addMethod() does not use explicit JS selector
-* JSObjectProxy>>canForwardMessage: replaced by use of JSObjectProxy>>lookupProperty: with asJavascriptSelector
+* JSObjectProxy>>canForwardMessage: replaced by use of JSObjectProxy>>lookupProperty: with asJavaScriptSelector
 * JSObjectProxy>>forwardMessage: replaced by explicit JSObjectProxy>>forwardMessage:withArguments:
+* String>>asJavaScriptSelector moved to Kernel-Objects package
 
 + Object>>asString
 + Object>>putOn:
@@ -37,7 +38,6 @@
 + Parser: write #(#on:do: #Object) as #(on:do: Object)
 + Parser: Symbols for binarie selectores
 + Package>>commit
-+ String>>asJavaScriptSelector
 + AIContext>>initializeLocals
 + ASTInterpreter>>withBlockContext:
 + smalltalk.allSelectors()
