@@ -58,7 +58,6 @@
 - Collection>>streamClass
 - Collection>>writeStream
 - Symbol class (replaced with String)
-- Number>>\\
 - IRInlinedNonLocalReturn class
 - IRInlinedSend>>nonLocalReturnInliner
 - IRNonLocalReturnInliner class
