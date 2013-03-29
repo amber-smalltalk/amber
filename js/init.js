@@ -1,9 +1,18 @@
-setTimeout(function () {
-    smalltalk.initialize();
+(function () {
+    var inBrowser = typeof amber !== "undefined" && typeof amber.load === "function";
+    function init() {
+        smalltalk.initialize();
 
-    /* Similar to jQuery(document).ready() */
+        /* Similar to jQuery(document).ready() */
 
-    if (this.amber && this.amber.smalltalkReady) {
-        this.amber.smalltalkReady();
+        if (inBrowser && amber.smalltalkReady) {
+            amber.smalltalkReady();
+        }
     }
-}, 0);
+
+    if (inBrowser) {
+        setTimeout(init, 0);
+    } else {
+        init();
+    }
+})();
