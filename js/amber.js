@@ -304,7 +304,10 @@ amber = (function() {
         });
 
         function onResize() {
-            jQuery('#helios').css('top', '').css('bottom', '0px');
+            jQuery('#helios')
+                .css('top', '')
+                .css('width', '100%')
+                .css('bottom', '0px');
         }
 
         function onResizeStart() {
