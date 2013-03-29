@@ -335,26 +335,33 @@ smalltalk.method({
 selector: "category:",
 fn: function (aString){
 var self=this;
-var oldCategory;
+var oldProtocol;
+function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
+function $SystemOrganizer(){return smalltalk.SystemOrganizer||(typeof SystemOrganizer=="undefined"?nil:SystemOrganizer)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-oldCategory=_st(self)._category();
+var $1,$2,$3;
+oldProtocol=_st(self)._protocol();
 _st(self)._basicAt_put_("category",aString);
-$1=_st(self)._methodClass();
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
+$1=_st($MethodMoved())._new();
+_st($1)._method_(self);
+_st($1)._oldProtocol_(oldProtocol);
+$2=_st($1)._yourself();
+_st(_st($SystemOrganizer())._current())._announce_($2);
+$3=_st(self)._methodClass();
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
 } else {
 _st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
 _st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._category()).__eq(oldCategory);
+return _st(_st(each)._protocol()).__eq(oldProtocol);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldCategory);
+return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldProtocol);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldCategory:oldCategory},smalltalk.CompiledMethod)})},
-messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldProtocol:oldProtocol},smalltalk.CompiledMethod)})},
+messageSends: ["protocol", "basicAt:put:", "announce:", "method:", "new", "oldProtocol:", "yourself", "current", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(

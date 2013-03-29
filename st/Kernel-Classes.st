@@ -195,11 +195,11 @@ addCompiledMethod: aMethod
 !
 
 compile: aString
-	self compile: aString category: ''
+	^ self compile: aString category: ''
 !
 
 compile: aString category: anotherString
-	Compiler new
+	^ Compiler new
 		install: aString
 		forClass: self
 		category: anotherString
@@ -569,6 +569,11 @@ copyClass: aClass named: aString
 		package: aClass package name.
 
 	self copyClass: aClass to: newClass.
+	
+	SystemAnnouncer current
+		announce: (ClassAdded new
+			theClass: newClass;
+			yourself).
 	
 	^newClass
 !

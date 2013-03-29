@@ -312,6 +312,33 @@ smalltalk.MethodModified);
 
 
 
+smalltalk.addClass('MethodMoved', smalltalk.MethodAnnouncement, ['oldProtocol'], 'Kernel-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "oldProtocol",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@oldProtocol"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"oldProtocol",{},smalltalk.MethodMoved)})},
+messageSends: []}),
+smalltalk.MethodMoved);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "oldProtocol:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@oldProtocol"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"oldProtocol:",{aString:aString},smalltalk.MethodMoved)})},
+messageSends: []}),
+smalltalk.MethodMoved);
+
+
+
 smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
 
 

@@ -468,29 +468,36 @@ selector: "category:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-var oldCategory;
+var oldProtocol;
+function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-oldCategory=_st(self)._category();
+var $1,$2,$3;
+oldProtocol=_st(self)._protocol();
 _st(self)._basicAt_put_("category",aString);
-$1=_st(self)._methodClass();
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
+$1=_st($MethodMoved())._new();
+_st($1)._method_(self);
+_st($1)._oldProtocol_(oldProtocol);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+$3=_st(self)._methodClass();
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
 } else {
 _st(_st(_st(self)._methodClass())._organization())._addElement_(aString);
 _st(_st(_st(_st(self)._methodClass())._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._category()).__eq(oldCategory);
+return _st(_st(each)._protocol()).__eq(oldProtocol);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldCategory);
+return _st(_st(_st(self)._methodClass())._organization())._removeElement_(oldProtocol);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldCategory:oldCategory},smalltalk.CompiledMethod)})},
+return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldProtocol:oldProtocol},smalltalk.CompiledMethod)})},
 args: ["aString"],
-source: "category: aString\x0a\x09| oldCategory |\x0a\x09oldCategory := self category.\x0a\x09self basicAt: 'category' put: aString.\x0a\x09\x0a\x09self methodClass ifNotNil: [\x0a\x09\x09self methodClass organization addElement: aString.\x0a\x09\x0a\x09\x09(self methodClass methods\x0a\x09\x09\x09select: [ :each | each category = oldCategory ])\x0a\x09\x09\x09ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]",
-messageSends: ["category", "basicAt:put:", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
-referencedClasses: []
+source: "category: aString\x0a\x09| oldProtocol |\x0a\x09oldProtocol := self protocol.\x0a\x09self basicAt: 'category' put: aString.\x0a\x0a\x09SystemAnnouncer current announce: (MethodMoved new\x0a\x09\x09method: self;\x0a\x09\x09oldProtocol: oldProtocol;\x0a\x09\x09yourself).\x0a\x0a\x09self methodClass ifNotNil: [\x0a\x09\x09self methodClass organization addElement: aString.\x0a\x09\x0a\x09\x09(self methodClass methods\x0a\x09\x09\x09select: [ :each | each protocol = oldProtocol ])\x0a\x09\x09\x09ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]",
+messageSends: ["protocol", "basicAt:put:", "announce:", "method:", "new", "oldProtocol:", "yourself", "current", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
+referencedClasses: ["MethodMoved", "SystemAnnouncer"]
 }),
 smalltalk.CompiledMethod);
 

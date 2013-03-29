@@ -335,10 +335,12 @@ category: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._compile_category_(aString,"");
-return self}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},smalltalk.Behavior)})},
+var $1;
+$1=_st(self)._compile_category_(aString,"");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},smalltalk.Behavior)})},
 args: ["aString"],
-source: "compile: aString\x0a\x09self compile: aString category: ''",
+source: "compile: aString\x0a\x09^ self compile: aString category: ''",
 messageSends: ["compile:category:"],
 referencedClasses: []
 }),
@@ -352,10 +354,12 @@ fn: function (aString,anotherString){
 var self=this;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($Compiler())._new())._install_forClass_category_(aString,self,anotherString);
-return self}, function($ctx1) {$ctx1.fill(self,"compile:category:",{aString:aString,anotherString:anotherString},smalltalk.Behavior)})},
+var $1;
+$1=_st(_st($Compiler())._new())._install_forClass_category_(aString,self,anotherString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compile:category:",{aString:aString,anotherString:anotherString},smalltalk.Behavior)})},
 args: ["aString", "anotherString"],
-source: "compile: aString category: anotherString\x0a\x09Compiler new\x0a\x09\x09install: aString\x0a\x09\x09forClass: self\x0a\x09\x09category: anotherString",
+source: "compile: aString category: anotherString\x0a\x09^ Compiler new\x0a\x09\x09install: aString\x0a\x09\x09forClass: self\x0a\x09\x09category: anotherString",
 messageSends: ["install:forClass:category:", "new"],
 referencedClasses: ["Compiler"]
 }),
@@ -1447,17 +1451,23 @@ category: 'copying',
 fn: function (aClass,aString){
 var self=this;
 var newClass;
+function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3;
 newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),aString,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
 _st(self)._copyClass_to_(aClass,newClass);
-$1=newClass;
-return $1;
+$1=_st($ClassAdded())._new();
+_st($1)._theClass_(newClass);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+$3=newClass;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"copyClass:named:",{aClass:aClass,aString:aString,newClass:newClass},smalltalk.ClassBuilder)})},
 args: ["aClass", "aString"],
-source: "copyClass: aClass named: aString\x0a\x09| newClass |\x0a\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aString\x0a\x09\x09instanceVariableNames: aClass instanceVariableNames\x0a\x09\x09package: aClass package name.\x0a\x0a\x09self copyClass: aClass to: newClass.\x0a\x09\x0a\x09^newClass",
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "copyClass:to:"],
-referencedClasses: []
+source: "copyClass: aClass named: aString\x0a\x09| newClass |\x0a\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aString\x0a\x09\x09instanceVariableNames: aClass instanceVariableNames\x0a\x09\x09package: aClass package name.\x0a\x0a\x09self copyClass: aClass to: newClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassAdded new\x0a\x09\x09\x09theClass: newClass;\x0a\x09\x09\x09yourself).\x0a\x09\x0a\x09^newClass",
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "copyClass:to:", "announce:", "theClass:", "new", "yourself", "current"],
+referencedClasses: ["ClassAdded", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
 

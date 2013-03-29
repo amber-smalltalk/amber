@@ -197,6 +197,20 @@ oldMethod: aMethod
 	oldMethod := aMethod
 ! !
 
+MethodAnnouncement subclass: #MethodMoved
+	instanceVariableNames: 'oldProtocol'
+	package: 'Kernel-Announcements'!
+
+!MethodMoved methodsFor: 'accessing'!
+
+oldProtocol
+	^ oldProtocol
+!
+
+oldProtocol: aString
+	oldProtocol := aString
+! !
+
 MethodAnnouncement subclass: #MethodRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!

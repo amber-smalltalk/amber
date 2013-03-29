@@ -191,16 +191,21 @@ category
 !
 
 category: aString
-	| oldCategory |
-	oldCategory := self category.
+	| oldProtocol |
+	oldProtocol := self protocol.
 	self basicAt: 'category' put: aString.
-	
+
+	SystemOrganizer current announce: (MethodMoved new
+		method: self;
+		oldProtocol: oldProtocol;
+		yourself).
+
 	self methodClass ifNotNil: [
 		self methodClass organization addElement: aString.
 	
 		(self methodClass methods
-			select: [ :each | each category = oldCategory ])
-			ifEmpty: [ self methodClass organization removeElement: oldCategory ] ]
+			select: [ :each | each protocol = oldProtocol ])
+			ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]
 !
 
 fn
