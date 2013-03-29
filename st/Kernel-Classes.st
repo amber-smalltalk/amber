@@ -321,10 +321,16 @@ package
 !
 
 package: aPackage
-	self basicAt: 'pkg' put: aPackage.
+	| oldPackage |
+	oldPackage := self package.
 	
+	self basicAt: 'pkg' put: aPackage.
+	oldPackage organization removeElement: self.
+	aPackage organization addElement: self.
+
 	SystemAnnouncer current announce: (ClassMoved new
 		theClass: self;
+		oldPackage: oldPackage;
 		yourself)
 !
 

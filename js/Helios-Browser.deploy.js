@@ -603,6 +603,7 @@ fn: function (){
 var self=this;
 function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 function $ClassRemoved(){return smalltalk.ClassRemoved||(typeof ClassRemoved=="undefined"?nil:ClassRemoved)}
+function $ClassMoved(){return smalltalk.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(_st(self)._model())._systemAnnouncer();
@@ -610,12 +611,16 @@ _st($1)._on_do_($ClassAdded(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onClassAdded_(_st(ann)._theClass());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($ClassRemoved(),(function(ann){
+_st($1)._on_do_($ClassRemoved(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onClassRemoved_(_st(ann)._theClass());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_($ClassMoved(),(function(ann){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._onClassMoved_from_(_st(ann)._theClass(),_st(ann)._oldPackage());
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLClassesListWidget)})},
-messageSends: ["on:do:", "onClassAdded:", "theClass", "systemAnnouncer", "model", "onClassRemoved:"]}),
+messageSends: ["on:do:", "onClassAdded:", "theClass", "systemAnnouncer", "model", "onClassRemoved:", "onClassMoved:from:", "oldPackage"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -634,6 +639,31 @@ _st(self)._setItemsForSelectedPackage();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
 messageSends: ["ifFalse:", "=", "selectedPackage", "model", "package", "setItemsForSelectedPackage", "refresh"]}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassMoved:from:",
+fn: function (aClass,aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(aPackage).__eq(_st(_st(self)._model())._selectedPackage()))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(aClass)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(_st(aClass)._oldPackage()).__eq(_st(_st(self)._model())._selectedPackage());
+if(smalltalk.assert($3)){
+_st(self)._selectItem_(nil);
+};
+_st(self)._setItemsForSelectedPackage();
+_st(self)._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:from:",{aClass:aClass,aPackage:aPackage},smalltalk.HLClassesListWidget)})},
+messageSends: ["ifFalse:", "or:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "oldPackage", "setItemsForSelectedPackage", "refresh"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(

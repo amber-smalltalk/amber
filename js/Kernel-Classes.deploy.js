@@ -748,17 +748,22 @@ smalltalk.method({
 selector: "package:",
 fn: function (aPackage){
 var self=this;
+var oldPackage;
 function $ClassMoved(){return smalltalk.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
+oldPackage=_st(self)._package();
 _st(self)._basicAt_put_("pkg",aPackage);
+_st(_st(oldPackage)._organization())._removeElement_(self);
+_st(_st(aPackage)._organization())._addElement_(self);
 $1=_st($ClassMoved())._new();
 _st($1)._theClass_(self);
+_st($1)._oldPackage_(oldPackage);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage},smalltalk.Class)})},
-messageSends: ["basicAt:put:", "announce:", "theClass:", "new", "yourself", "current"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage,oldPackage:oldPackage},smalltalk.Class)})},
+messageSends: ["package", "basicAt:put:", "removeElement:", "organization", "addElement:", "announce:", "theClass:", "new", "oldPackage:", "yourself", "current"]}),
 smalltalk.Class);
 
 smalltalk.addMethod(

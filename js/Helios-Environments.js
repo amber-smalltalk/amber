@@ -490,11 +490,11 @@ if(smalltalk.assert($2)){
 $3=self;
 return $3;
 };
-_st(package_)._addClass_(aClass);
+_st(aClass)._package_(package_);
 return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},smalltalk.HLLocalEnvironment)})},
 args: ["aClass", "aPackageName"],
-source: "moveClass: aClass toPackage: aPackageName\x0a\x09| package |\x0a\x09\x0a\x09package := Package named: aPackageName.\x0a\x09package ifNil: [ self error: 'Invalid package name' ].\x0a\x09package == aClass package ifTrue: [ ^ self ].\x0a\x09\x0a\x09package addClass: aClass",
-messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "addClass:"],
+source: "moveClass: aClass toPackage: aPackageName\x0a\x09| package |\x0a\x09\x0a\x09package := Package named: aPackageName.\x0a\x09package ifNil: [ self error: 'Invalid package name' ].\x0a\x09package == aClass package ifTrue: [ ^ self ].\x0a\x09\x0a\x09aClass package: package",
+messageSends: ["named:", "ifNil:", "error:", "ifTrue:", "==", "package", "package:"],
 referencedClasses: ["Package"]
 }),
 smalltalk.HLLocalEnvironment);

@@ -138,8 +138,18 @@ I am emitted when the defintion of a class changes.
 See ClassBuilder >> #class:instanceVariableNames:!
 
 ClassAnnouncement subclass: #ClassMoved
-	instanceVariableNames: ''
+	instanceVariableNames: 'oldPackage'
 	package: 'Kernel-Announcements'!
+
+!ClassMoved methodsFor: 'accessing'!
+
+oldPackage
+	^ oldPackage
+!
+
+oldPackage: aPackage
+	oldPackage := aPackage
+! !
 
 ClassAnnouncement subclass: #ClassRemoved
 	instanceVariableNames: ''

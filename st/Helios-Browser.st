@@ -274,7 +274,9 @@ observeSystem
     	on: ClassAdded
         do: [ :ann | self onClassAdded: ann theClass ];
         on: ClassRemoved
-        do: [ :ann | self onClassRemoved: ann theClass ]
+        do: [ :ann | self onClassRemoved: ann theClass ];
+		on: ClassMoved
+        do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ]
 !
 
 selectItem: aClass
@@ -307,6 +309,18 @@ setItemsForSelectedPackage
 
 onClassAdded: aClass
 	aClass package = self model selectedPackage ifFalse: [ ^ self ].
+    
+    self setItemsForSelectedPackage.
+    self refresh
+!
+
+onClassMoved: aClass from: aPackage
+	(aPackage = self model selectedPackage or: [
+		aClass package = self model selectedPackage ])
+			ifFalse: [ ^ self ].
+			
+	aClass oldPackage = self model selectedPackage ifTrue: [ 
+		self selectItem: nil ].
     
     self setItemsForSelectedPackage.
     self refresh

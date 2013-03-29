@@ -304,7 +304,41 @@ smalltalk.addClass('ClassDefinitionChanged', smalltalk.ClassAnnouncement, [], 'K
 smalltalk.ClassDefinitionChanged.comment="I am emitted when the defintion of a class changes.\x0aSee ClassBuilder >> #class:instanceVariableNames:"
 
 
-smalltalk.addClass('ClassMoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
+smalltalk.addClass('ClassMoved', smalltalk.ClassAnnouncement, ['oldPackage'], 'Kernel-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "oldPackage",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@oldPackage"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"oldPackage",{},smalltalk.ClassMoved)})},
+args: [],
+source: "oldPackage\x0a\x09^ oldPackage",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassMoved);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "oldPackage:",
+category: 'accessing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@oldPackage"]=aPackage;
+return self}, function($ctx1) {$ctx1.fill(self,"oldPackage:",{aPackage:aPackage},smalltalk.ClassMoved)})},
+args: ["aPackage"],
+source: "oldPackage: aPackage\x0a\x09oldPackage := aPackage",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ClassMoved);
+
 
 
 smalltalk.addClass('ClassRemoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
