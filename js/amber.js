@@ -146,7 +146,7 @@ amber = (function() {
 	}
 
 	function buildJSURL(name, prefix, urlHome) {
-		prefix = prefix || '';
+		prefix = prefix ? prefix + '/' : '';
 		urlHome = urlHome || home;
 
 		var parts = name.match(/^(.*\/)([^/]*)$/);
@@ -159,7 +159,7 @@ amber = (function() {
 			name = name + nocache;
 		}
 
-		return urlHome + prefix + '/' + name;
+		return urlHome + prefix + name;
 	}
 
 	function loadCSS(name, prefix) {
