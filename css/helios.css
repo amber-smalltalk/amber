@@ -135,6 +135,12 @@ i {
     margin-right: 2px;
 }
 
+.dropdown-menu {
+    border-radius: 0;
+    padding: 0;
+    margin: 3px;
+}
+
 .nav-pills > .active > a {
     background-color: #ddd;
     background-image: linear-gradient(top, #ddd, #bababa);
@@ -142,6 +148,7 @@ i {
     background-image: -webkit-linear-gradient(top, #ddd, #bababa);
     background-image: -o-linear-gradient(top, #ddd, #bababa);
     color: #fff;
+    text-shadow: 0 0 0;
 }
 
 .focused .nav-pills {
