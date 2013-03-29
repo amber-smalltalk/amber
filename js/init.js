@@ -1,7 +1,9 @@
-smalltalk.initialize();
+setTimeout(function () {
+    smalltalk.initialize();
 
-/* Similar to jQuery(document).ready() */
+    /* Similar to jQuery(document).ready() */
 
-if(this.amber && this.amber.smalltalkReady) {
-	this.amber.smalltalkReady();
-}
+    if (this.amber && this.amber.smalltalkReady) {
+        this.amber.smalltalkReady();
+    }
+}, 0);
