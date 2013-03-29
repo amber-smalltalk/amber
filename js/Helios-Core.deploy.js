@@ -569,9 +569,9 @@ selector: "activateFirstListItem",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateItem_(_st(_st(self)._items())._first());
+_st(self)._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li"))._get_((0))));
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateItem:", "first", "items"]}),
+messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
