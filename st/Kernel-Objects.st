@@ -659,6 +659,134 @@ today
 	^self new
 ! !
 
+Object subclass: #Environment
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!Environment commentStamp!
+Abstract class defining common behavior for local and remote environments!
+
+!Environment methodsFor: 'accessing'!
+
+availableClassNames
+	^ Smalltalk current classes 
+		collect: [ :each | each name ]
+!
+
+availablePackageNames
+	^ Smalltalk current packages 
+		collect: [ :each | each name ]
+!
+
+availableProtocolsFor: aClass
+	| protocols |
+	
+	protocols := aClass protocols.
+	aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].
+	^ protocols asSet asArray
+!
+
+classBuilder
+	^ ClassBuilder new
+!
+
+classNamed: aString
+	^ (Smalltalk current at: aString asSymbol)
+		ifNil: [ self error: 'Invalid class name' ]
+!
+
+packages
+	^ Smalltalk current packages
+!
+
+systemAnnouncer
+	^ SystemAnnouncer current
+! !
+
+!Environment methodsFor: 'actions'!
+
+commitPackage: aPackage
+	aPackage commit
+!
+
+copyClass: aClass to: aClassName
+	(Smalltalk current at: aClassName)
+		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
+		
+	ClassBuilder new copyClass: aClass named: aClassName
+!
+
+eval: aString on: aReceiver
+	| compiler  |
+	compiler := Compiler new.
+	[ compiler parseExpression: aString ] on: Error do: [ :ex |
+		^ window alert: ex messageText ].
+	^ compiler evaluateExpression: aString on: aReceiver
+!
+
+moveClass: aClass toPackage: aPackageName
+	| package |
+	
+	package := Package named: aPackageName.
+	package ifNil: [ self error: 'Invalid package name' ].
+	package == aClass package ifTrue: [ ^ self ].
+	
+	aClass package: package
+!
+
+moveMethod: aMethod toClass: aClassName
+	| destinationClass |
+	
+	destinationClass := Smalltalk current at: aClassName asSymbol.
+	destinationClass ifNil: [ self error: 'Invalid class name' ].
+	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
+	
+	destinationClass adoptMethod: aMethod.
+	aMethod methodClass forsakeMethod: aMethod.
+!
+
+moveMethod: aMethod toProtocol: aProtocol
+	aMethod category: aProtocol
+!
+
+removeClass: aClass
+	Smalltalk current removeClass: aClass
+!
+
+removeMethod: aMethod
+	aMethod methodClass forsakeMethod: aMethod
+!
+
+renameClass: aClass to: aClassName
+	(Smalltalk current at: aClassName)
+		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
+		
+	ClassBuilder new renameClass: aClass to: aClassName
+! !
+
+!Environment methodsFor: 'compiling'!
+
+addInstVarNamed: aString to: aClass
+	self classBuilder
+		addSubclassOf: aClass superclass 
+		named: aClass name 
+		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+		package: aClass package name
+!
+
+compileClassComment: aString for: aClass
+	aClass comment: aString
+!
+
+compileClassDefinition: aString
+	self eval: aString on: DoIt new
+!
+
+compileMethod: sourceCode for: class protocol: protocol
+	^ class
+		compile: sourceCode
+		category: protocol
+! !
+
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
 	package: 'Kernel-Objects'!

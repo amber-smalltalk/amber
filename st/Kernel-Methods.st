@@ -195,7 +195,7 @@ category: aString
 	oldProtocol := self protocol.
 	self basicAt: 'category' put: aString.
 
-	SystemOrganizer current announce: (MethodMoved new
+	SystemAnnouncer current announce: (MethodMoved new
 		method: self;
 		oldProtocol: oldProtocol;
 		yourself).
@@ -258,6 +258,25 @@ defaultCategory
 
 isCompiledMethod
 	^ true
+!
+
+isOverridden
+	| selector |
+    
+    selector := self selector.
+    self methodClass allSubclassesDo: [ :each |
+	    (each includesSelector: selector)
+        	ifTrue: [ ^ true ] ].
+	^ false
+!
+
+isOverride
+	| superclass |
+    
+    superclass := self methodClass superclass.
+	superclass ifNil: [ ^ false ].
+	
+    ^ (self methodClass superclass lookupSelector: self selector) notNil
 ! !
 
 Object subclass: #ForkPool

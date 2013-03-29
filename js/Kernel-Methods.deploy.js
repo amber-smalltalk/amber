@@ -337,7 +337,7 @@ fn: function (aString){
 var self=this;
 var oldProtocol;
 function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
-function $SystemOrganizer(){return smalltalk.SystemOrganizer||(typeof SystemOrganizer=="undefined"?nil:SystemOrganizer)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 oldProtocol=_st(self)._protocol();
@@ -346,7 +346,7 @@ $1=_st($MethodMoved())._new();
 _st($1)._method_(self);
 _st($1)._oldProtocol_(oldProtocol);
 $2=_st($1)._yourself();
-_st(_st($SystemOrganizer())._current())._announce_($2);
+_st(_st($SystemAnnouncer())._current())._announce_($2);
 $3=_st(self)._methodClass();
 if(($receiver = $3) == nil || $receiver == undefined){
 $3;
@@ -408,6 +408,52 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isCompiledMethod",{},smalltalk.CompiledMethod)})},
 messageSends: []}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isOverridden",
+fn: function (){
+var self=this;
+var selector;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+selector=_st(self)._selector();
+_st(_st(self)._methodClass())._allSubclassesDo_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(each)._includesSelector_(selector);
+if(smalltalk.assert($1)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},smalltalk.CompiledMethod)})},
+messageSends: ["selector", "allSubclassesDo:", "ifTrue:", "includesSelector:", "methodClass"]}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isOverride",
+fn: function (){
+var self=this;
+var superclass;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+superclass=_st(_st(self)._methodClass())._superclass();
+$1=superclass;
+if(($receiver = $1) == nil || $receiver == undefined){
+return false;
+} else {
+$1;
+};
+$2=_st(_st(_st(_st(self)._methodClass())._superclass())._lookupSelector_(_st(self)._selector()))._notNil();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},smalltalk.CompiledMethod)})},
+messageSends: ["superclass", "methodClass", "ifNil:", "notNil", "lookupSelector:", "selector"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(

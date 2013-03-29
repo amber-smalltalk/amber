@@ -569,6 +569,62 @@ smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isOverridden",
+category: 'testing',
+fn: function (){
+var self=this;
+var selector;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+selector=_st(self)._selector();
+_st(_st(self)._methodClass())._allSubclassesDo_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(each)._includesSelector_(selector);
+if(smalltalk.assert($1)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},smalltalk.CompiledMethod)})},
+args: [],
+source: "isOverridden\x0a\x09| selector |\x0a    \x0a    selector := self selector.\x0a    self methodClass allSubclassesDo: [ :each |\x0a\x09    (each includesSelector: selector)\x0a        \x09ifTrue: [ ^ true ] ].\x0a\x09^ false",
+messageSends: ["selector", "allSubclassesDo:", "ifTrue:", "includesSelector:", "methodClass"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isOverride",
+category: 'testing',
+fn: function (){
+var self=this;
+var superclass;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+superclass=_st(_st(self)._methodClass())._superclass();
+$1=superclass;
+if(($receiver = $1) == nil || $receiver == undefined){
+return false;
+} else {
+$1;
+};
+$2=_st(_st(_st(_st(self)._methodClass())._superclass())._lookupSelector_(_st(self)._selector()))._notNil();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},smalltalk.CompiledMethod)})},
+args: [],
+source: "isOverride\x0a\x09| superclass |\x0a    \x0a    superclass := self methodClass superclass.\x0a\x09superclass ifNil: [ ^ false ].\x0a\x09\x0a    ^ (self methodClass superclass lookupSelector: self selector) notNil",
+messageSends: ["superclass", "methodClass", "ifNil:", "notNil", "lookupSelector:", "selector"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "messageSends",
 category: 'accessing',
 fn: function (){
