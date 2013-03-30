@@ -164,12 +164,6 @@ label
 	^ 'Commit'
 ! !
 
-!HLCommitPackageCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isPackage
-! !
-
 HLBrowserCommand subclass: #HLCopyCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -226,12 +220,6 @@ label
 
 menuLabel
 	^ 'Copy class...'
-! !
-
-!HLCopyClassCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isBehavior
 ! !
 
 HLBrowserCommand subclass: #HLFindCommand
@@ -370,12 +358,6 @@ menuLabel
 	^ 'Move to package...'
 ! !
 
-!HLMoveClassToPackageCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isBehavior
-! !
-
 HLMoveToCommand subclass: #HLMoveMethodToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -446,12 +428,6 @@ menuLabel
 	^ 'Move to class...'
 ! !
 
-!HLMoveMethodToClassCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isCompiledMethod
-! !
-
 HLMoveMethodToCommand subclass: #HLMoveMethodToProtocolCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -494,12 +470,6 @@ label
 
 menuLabel
 	^ 'Move to protocol...'
-! !
-
-!HLMoveMethodToProtocolCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isCompiledMethod
 ! !
 
 HLBrowserCommand subclass: #HLRemoveCommand
@@ -552,12 +522,6 @@ menuLabel
 	^ 'Remove class'
 ! !
 
-!HLRemoveClassCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isBehavior
-! !
-
 HLRemoveCommand subclass: #HLRemoveMethodCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -592,12 +556,6 @@ label
 
 menuLabel
 	^ 'Remove method'
-! !
-
-!HLRemoveMethodCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isCompiledMethod
 ! !
 
 HLBrowserCommand subclass: #HLRenameCommand
@@ -656,12 +614,6 @@ label
 
 menuLabel
 	^ 'Rename class...'
-! !
-
-!HLRenameClassCommand class methodsFor: 'testing'!
-
-isValidFor: anObject
-	^ anObject isBehavior
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand

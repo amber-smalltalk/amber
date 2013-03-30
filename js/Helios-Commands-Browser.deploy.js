@@ -271,19 +271,6 @@ smalltalk.HLCommitPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isPackage();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLCommitPackageCommand.klass)})},
-messageSends: ["isPackage"]}),
-smalltalk.HLCommitPackageCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
@@ -388,19 +375,6 @@ return true;
 messageSends: []}),
 smalltalk.HLCopyClassCommand);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isBehavior();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLCopyClassCommand.klass)})},
-messageSends: ["isBehavior"]}),
-smalltalk.HLCopyClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -678,19 +652,6 @@ smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isBehavior();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveClassCommand.klass)})},
-messageSends: ["isBehavior"]}),
-smalltalk.HLMoveClassToPackageCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
@@ -833,19 +794,6 @@ smalltalk.HLMoveMethodToClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isCompiledMethod();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveMethodToClassCommand.klass)})},
-messageSends: ["isCompiledMethod"]}),
-smalltalk.HLMoveMethodToClassCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
@@ -936,19 +884,6 @@ return true;
 messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isCompiledMethod();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
-messageSends: ["isCompiledMethod"]}),
-smalltalk.HLMoveMethodToProtocolCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1048,19 +983,6 @@ smalltalk.HLRemoveClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isBehavior();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLRemoveClassCommand.klass)})},
-messageSends: ["isBehavior"]}),
-smalltalk.HLRemoveClassCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
@@ -1129,19 +1051,6 @@ return $1;
 messageSends: ["notNil", "selectedMethod", "model"]}),
 smalltalk.HLRemoveMethodCommand);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isCompiledMethod();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLRemoveMethodCommand.klass)})},
-messageSends: ["isCompiledMethod"]}),
-smalltalk.HLRemoveMethodCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1260,19 +1169,6 @@ return true;
 messageSends: []}),
 smalltalk.HLRenameClassCommand);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isValidFor:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anObject)._isBehavior();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLRenameClassCommand.klass)})},
-messageSends: ["isBehavior"]}),
-smalltalk.HLRenameClassCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
