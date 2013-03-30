@@ -572,13 +572,14 @@ onMethodAdded: aMethod
 !
 
 onMethodMoved: aMethod
-	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+	self model selectedMethod = aMethod ifFalse: [ ^ self ].
     
-	self 
-		selectedItem: nil; 
-		selectItem: nil;
-		setItemsForSelectedProtocol;
-    	refresh
+	self model selectedProtocol = self model allProtocol ifFalse: [
+		self 
+			selectedItem: nil; 
+			selectItem: nil;
+			setItemsForSelectedProtocol;
+    		refresh ]
 !
 
 onMethodRemoved: aMethod
@@ -595,13 +596,16 @@ onMethodRemoved: aMethod
 !
 
 onMethodSelected: aMethod
-	self selectedItem: aMethod.
-	aMethod ifNil: [ ^ self ].
+	| selector |
+	selector := aMethod isCompiledMethod 
+		ifTrue: [ aMethod selector ]
+		ifFalse: [ nil ].
+		
+	self selectedItem: selector.
+	
+	selector ifNil: [ ^ self ].
     
-	self hasFocus ifFalse: [
-		self 
-			activateItem: aMethod;
-			focus ]
+	self activateItem: selector
 !
 
 onMethodsFocusRequested

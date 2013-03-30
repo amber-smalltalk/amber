@@ -1264,19 +1264,23 @@ selector: "onMethodMoved:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(aMethod)._methodClass());
+var $1,$2,$3,$4,$5;
+$1=_st(_st(_st(self)._model())._selectedMethod()).__eq(aMethod);
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=self;
-_st($3)._selectedItem_(nil);
-_st($3)._selectItem_(nil);
-_st($3)._setItemsForSelectedProtocol();
-$4=_st($3)._refresh();
+$3=_st(_st(_st(self)._model())._selectedProtocol()).__eq(_st(_st(self)._model())._allProtocol());
+if(! smalltalk.assert($3)){
+$4=self;
+_st($4)._selectedItem_(nil);
+_st($4)._selectItem_(nil);
+_st($4)._setItemsForSelectedProtocol();
+$5=_st($4)._refresh();
+$5;
+};
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodMoved:",{aMethod:aMethod},smalltalk.HLMethodsListWidget)})},
-messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "model", "selectedItem:", "selectItem:", "setItemsForSelectedProtocol", "refresh"]}),
+messageSends: ["ifFalse:", "=", "selectedMethod", "model", "selectedItem:", "selectItem:", "setItemsForSelectedProtocol", "refresh", "allProtocol", "selectedProtocol"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
@@ -1324,25 +1328,26 @@ smalltalk.method({
 selector: "onMethodSelected:",
 fn: function (aMethod){
 var self=this;
+var selector;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
-_st(self)._selectedItem_(aMethod);
-$1=aMethod;
-if(($receiver = $1) == nil || $receiver == undefined){
-$2=self;
-return $2;
+var $1,$2,$3;
+$1=_st(aMethod)._isCompiledMethod();
+if(smalltalk.assert($1)){
+selector=_st(aMethod)._selector();
 } else {
-$1;
+selector=nil;
 };
-$3=_st(self)._hasFocus();
-if(! smalltalk.assert($3)){
-$4=self;
-_st($4)._activateItem_(aMethod);
-$5=_st($4)._focus();
-$5;
+_st(self)._selectedItem_(selector);
+$2=selector;
+if(($receiver = $2) == nil || $receiver == undefined){
+$3=self;
+return $3;
+} else {
+$2;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLMethodsListWidget)})},
-messageSends: ["selectedItem:", "ifNil:", "ifFalse:", "activateItem:", "focus", "hasFocus"]}),
+_st(self)._activateItem_(selector);
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod,selector:selector},smalltalk.HLMethodsListWidget)})},
+messageSends: ["ifTrue:ifFalse:", "selector", "isCompiledMethod", "selectedItem:", "ifNil:", "activateItem:"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
