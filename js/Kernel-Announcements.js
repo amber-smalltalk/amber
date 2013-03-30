@@ -13,7 +13,7 @@ $1=self["@announcementClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"announcementClass",{},smalltalk.AnnouncementSubscription)})},
 args: [],
-source: "announcementClass\x0a\x09^announcementClass",
+source: "announcementClass\x0a\x09^ announcementClass",
 messageSends: [],
 referencedClasses: []
 }),
@@ -95,15 +95,23 @@ selector: "handlesAnnouncement:",
 category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anAnnouncement)._isKindOf_(_st(self)._announcementClass());
+var $2,$1;
+$2=_st(_st($Smalltalk())._current())._at_(_st(_st(self)._announcementClass())._name());
+if(($receiver = $2) == nil || $receiver == undefined){
+return false;
+} else {
+var class_;
+class_=$receiver;
+$1=_st(class_)._includesBehavior_(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()));
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
-source: "handlesAnnouncement: anAnnouncement\x0a\x09^anAnnouncement isKindOf: self announcementClass",
-messageSends: ["isKindOf:", "announcementClass"],
-referencedClasses: []
+source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk current at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]",
+messageSends: ["ifNil:ifNotNil:", "includesBehavior:", "at:", "name", "theNonMetaClass", "class", "current", "announcementClass"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AnnouncementSubscription);
 

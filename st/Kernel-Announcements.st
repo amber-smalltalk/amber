@@ -9,7 +9,7 @@ Several subscriptions by the same object is possible.!
 !AnnouncementSubscription methodsFor: 'accessing'!
 
 announcementClass
-	^announcementClass
+	^ announcementClass
 !
 
 announcementClass: aClass
@@ -32,7 +32,12 @@ deliver: anAnnouncement
 !
 
 handlesAnnouncement: anAnnouncement
-	^anAnnouncement isKindOf: self announcementClass
+	"anAnnouncement might be announced from within another Amber environment"
+	
+	^ (Smalltalk current at: self announcementClass name)
+		ifNil: [ ^ false ]
+		ifNotNil: [ :class |
+		class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]
 ! !
 
 Object subclass: #Announcer

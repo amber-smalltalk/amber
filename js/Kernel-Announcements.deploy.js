@@ -68,12 +68,20 @@ smalltalk.method({
 selector: "handlesAnnouncement:",
 fn: function (anAnnouncement){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anAnnouncement)._isKindOf_(_st(self)._announcementClass());
+var $2,$1;
+$2=_st(_st($Smalltalk())._current())._at_(_st(_st(self)._announcementClass())._name());
+if(($receiver = $2) == nil || $receiver == undefined){
+return false;
+} else {
+var class_;
+class_=$receiver;
+$1=_st(class_)._includesBehavior_(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()));
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
-messageSends: ["isKindOf:", "announcementClass"]}),
+messageSends: ["ifNil:ifNotNil:", "includesBehavior:", "at:", "name", "theNonMetaClass", "class", "current", "announcementClass"]}),
 smalltalk.AnnouncementSubscription);
 
 
