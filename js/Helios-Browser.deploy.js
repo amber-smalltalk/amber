@@ -1325,7 +1325,7 @@ $2;
 } else {
 $3=_st(_st(_st(aMethod)._methodClass()).__eq(_st(_st(self)._model())._selectedClass()))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(aMethod)._selector()).__eq(_st(_st(self)._selectedItem())._selector());
+return _st(_st(aMethod)._selector()).__eq(_st(self)._selectedItem());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($3)){
 $4=self;

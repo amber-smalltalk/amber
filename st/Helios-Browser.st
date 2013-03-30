@@ -592,7 +592,7 @@ onMethodRemoved: aMethod
 	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
 
     self selectedItem ifNotNil: [
-      	(aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem selector ])
+      	(aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem ])
   			ifTrue: [ 
 				self selectedItem: nil; 
 				selectItem: nil ] ].
