@@ -338,14 +338,6 @@ pcKeyMap
 		'Shift-Ctrl-Z' -> 'redo'. 
 		'fallthrough' -> #('basic')
 }
-!
-
-tabLabel
-	^ 'Workspace'
-!
-
-tabPriority
-	^ 10
 ! !
 
 !HLCodeWidget class methodsFor: 'hints'!
@@ -408,12 +400,6 @@ setupCommands
 
 setupKeyMaps
 	<CodeMirror.keyMap['Amber'] = self._keyMap()>
-! !
-
-!HLCodeWidget class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ true
 ! !
 
 HLCodeWidget subclass: #HLSourceCodeWidget
@@ -594,5 +580,49 @@ on: aBrowserModel
 
 canBeOpenAsTab
 	^ false
+! !
+
+HLWidget subclass: #HLWorkspace
+	instanceVariableNames: 'codeWidget'
+	package: 'Helios-Workspace'!
+
+!HLWorkspace methodsFor: 'accessing'!
+
+codeWidget
+	^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]
+! !
+
+!HLWorkspace methodsFor: 'actions'!
+
+focus
+	^ self codeWidget focus
+! !
+
+!HLWorkspace methodsFor: 'rendering'!
+
+renderContentOn: html
+	html with: (HLContainer with: self codeWidget)
+! !
+
+!HLWorkspace methodsFor: 'testing'!
+
+canHaveFocus
+	^ true
+! !
+
+!HLWorkspace class methodsFor: 'accessing'!
+
+tabLabel
+	^ 'Workspace'
+!
+
+tabPriority
+	^ 10
+! !
+
+!HLWorkspace class methodsFor: 'testing'!
+
+canBeOpenAsTab
+	^ true
 ! !
 

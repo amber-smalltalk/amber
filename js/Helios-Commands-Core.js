@@ -808,16 +808,16 @@ selector: "execute",
 category: 'executing',
 fn: function (){
 var self=this;
-function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
+function $HLWorkspace(){return smalltalk.HLWorkspace||(typeof HLWorkspace=="undefined"?nil:HLWorkspace)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HLCodeWidget())._openAsTab();
+$1=_st($HLWorkspace())._openAsTab();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLOpenWorkspaceCommand)})},
 args: [],
-source: "execute\x0a\x09^ HLCodeWidget openAsTab",
+source: "execute\x0a\x09^ HLWorkspace openAsTab",
 messageSends: ["openAsTab"],
-referencedClasses: ["HLCodeWidget"]
+referencedClasses: ["HLWorkspace"]
 }),
 smalltalk.HLOpenWorkspaceCommand);
 

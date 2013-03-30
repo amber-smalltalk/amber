@@ -840,22 +840,6 @@ smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "canBeOpenAsTab",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLCodeWidget.klass)})},
-args: [],
-source: "canBeOpenAsTab\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "hintFor:options:",
 category: 'hints',
 fn: function (anEditor,options){
@@ -1049,40 +1033,6 @@ CodeMirror.keyMap['Amber'] = self._keyMap();
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyMaps",{},smalltalk.HLCodeWidget.klass)})},
 args: [],
 source: "setupKeyMaps\x0a\x09<CodeMirror.keyMap['Amber'] = self._keyMap()>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "tabLabel",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "Workspace";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLCodeWidget.klass)})},
-args: [],
-source: "tabLabel\x0a\x09^ 'Workspace'",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLCodeWidget.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "tabPriority",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(10);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLCodeWidget.klass)})},
-args: [],
-source: "tabPriority\x0a\x09^ 10",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1654,5 +1604,134 @@ messageSends: ["browserModel:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLSourceCodeWidget.klass);
+
+
+smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['codeWidget'], 'Helios-Workspace');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canHaveFocus",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"canHaveFocus",{},smalltalk.HLWorkspace)})},
+args: [],
+source: "canHaveFocus\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "codeWidget",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@codeWidget"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@codeWidget"]=_st($HLCodeWidget())._new();
+$1=self["@codeWidget"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLWorkspace)})},
+args: [],
+source: "codeWidget\x0a\x09^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["HLCodeWidget"]
+}),
+smalltalk.HLWorkspace);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "focus",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._codeWidget())._focus();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLWorkspace)})},
+args: [],
+source: "focus\x0a\x09^ self codeWidget focus",
+messageSends: ["focus", "codeWidget"],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
+return smalltalk.withContext(function($ctx1) { 
+_st(html)._with_(_st($HLContainer())._with_(_st(self)._codeWidget()));
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLWorkspace)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09html with: (HLContainer with: self codeWidget)",
+messageSends: ["with:", "codeWidget"],
+referencedClasses: ["HLContainer"]
+}),
+smalltalk.HLWorkspace);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canBeOpenAsTab",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLWorkspace.klass)})},
+args: [],
+source: "canBeOpenAsTab\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Workspace";
+}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLWorkspace.klass)})},
+args: [],
+source: "tabLabel\x0a\x09^ 'Workspace'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabPriority",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=(10);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLWorkspace.klass)})},
+args: [],
+source: "tabPriority\x0a\x09^ 10",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace.klass);
 
 

@@ -270,7 +270,7 @@ HLOpenCommand subclass: #HLOpenWorkspaceCommand
 !HLOpenWorkspaceCommand methodsFor: 'executing'!
 
 execute
-	^ HLCodeWidget openAsTab
+	^ HLWorkspace openAsTab
 ! !
 
 !HLOpenWorkspaceCommand class methodsFor: 'accessing'!
