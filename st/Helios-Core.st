@@ -275,7 +275,7 @@ selectedItem: anObject
 !HLListWidget methodsFor: 'actions'!
 
 activateFirstListItem
-	self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))
+	self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li.inactive') get: 0))
 !
 
 activateItem: anObject

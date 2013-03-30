@@ -765,10 +765,10 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li"))._get_((0))));
+_st(self)._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._get_((0))));
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li') get: 0))",
+source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li.inactive') get: 0))",
 messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"],
 referencedClasses: []
 }),
