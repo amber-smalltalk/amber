@@ -297,6 +297,22 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "includesBehavior:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self).__eq_eq(aClass))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._inheritsFrom_(aClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"includesBehavior:",{aClass:aClass},smalltalk.Behavior)})},
+messageSends: ["or:", "inheritsFrom:", "=="]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "includesSelector:",
 fn: function (aString){
 var self=this;

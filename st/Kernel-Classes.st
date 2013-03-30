@@ -271,6 +271,11 @@ canUnderstand: aSelector
 		self superclass notNil and: [self superclass canUnderstand: aSelector]]
 !
 
+includesBehavior: aClass
+	^ self == aClass or: [
+			self inheritsFrom: aClass ]
+!
+
 includesSelector: aString
 	^ self methodDictionary includesKey: aString
 !
