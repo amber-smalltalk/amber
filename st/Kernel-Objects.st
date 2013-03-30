@@ -740,8 +740,11 @@ moveMethod: aMethod toClass: aClassName
 	destinationClass ifNil: [ self error: 'Invalid class name' ].
 	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
 	
-	destinationClass adoptMethod: aMethod.
-	aMethod methodClass forsakeMethod: aMethod.
+	destinationClass 
+		compile: aMethod source
+		category: aMethod protocol.
+	aMethod methodClass 
+		removeCompiledMethod: aMethod
 !
 
 moveMethod: aMethod toProtocol: aProtocol

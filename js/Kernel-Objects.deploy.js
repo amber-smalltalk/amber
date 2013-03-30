@@ -1742,10 +1742,10 @@ if(smalltalk.assert($2)){
 $3=self;
 return $3;
 };
-_st(destinationClass)._adoptMethod_(aMethod);
-_st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
-return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.HLEnvironment)})},
-messageSends: ["at:", "asSymbol", "current", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "adoptMethod:", "forsakeMethod:"]}),
+_st(destinationClass)._compile_category_(_st(aMethod)._source(),_st(aMethod)._protocol());
+_st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.Environment)})},
+messageSends: ["at:", "asSymbol", "current", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "compile:category:", "source", "protocol", "removeCompiledMethod:"]}),
 smalltalk.Environment);
 
 smalltalk.addMethod(
