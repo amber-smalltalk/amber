@@ -347,11 +347,9 @@ selector: "tabLabel",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self)._label();
-return $1;
+return "Inspector";
 }, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLInspector)})},
-messageSends: ["label"]}),
+messageSends: []}),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(

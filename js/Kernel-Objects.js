@@ -2516,16 +2516,16 @@ selector: "systemAnnouncer",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($SystemAnnouncer())._current();
+$1=_st(_st(_st($Smalltalk())._current())._at_("SystemAnnouncer"))._current();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLEnvironment)})},
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.Environment)})},
 args: [],
-source: "systemAnnouncer\x0a\x09^ SystemAnnouncer current",
-messageSends: ["current"],
-referencedClasses: ["SystemAnnouncer"]
+source: "systemAnnouncer\x0a\x09^ (Smalltalk current at: #SystemAnnouncer) current",
+messageSends: ["current", "at:"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
 

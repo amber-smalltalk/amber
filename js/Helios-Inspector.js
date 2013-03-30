@@ -468,13 +468,11 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self)._label();
-return $1;
+return "Inspector";
 }, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLInspector)})},
 args: [],
-source: "tabLabel\x0a    ^ self label",
-messageSends: ["label"],
+source: "tabLabel\x0a    ^ 'Inspector'",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLInspector);

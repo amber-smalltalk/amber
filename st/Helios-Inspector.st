@@ -49,7 +49,7 @@ model: aModel
 !
 
 tabLabel
-    ^ self label
+    ^ 'Inspector'
 !
 
 variablesWidget

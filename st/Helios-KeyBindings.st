@@ -568,6 +568,8 @@ renderSelectionOn: html
 !
 
 renderStart
+	(window jQuery: '#helper') remove.
+
 	[ :html |
 		html div 
 			id: 'helper';
