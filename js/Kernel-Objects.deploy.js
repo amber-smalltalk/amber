@@ -1791,9 +1791,9 @@ selector: "removeMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(aMethod)._methodClass())._forsakeMethod_(aMethod);
-return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},smalltalk.HLEnvironment)})},
-messageSends: ["forsakeMethod:", "methodClass"]}),
+_st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod:",{aMethod:aMethod},smalltalk.Environment)})},
+messageSends: ["removeCompiledMethod:", "methodClass"]}),
 smalltalk.Environment);
 
 smalltalk.addMethod(

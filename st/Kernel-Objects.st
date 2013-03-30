@@ -756,7 +756,7 @@ removeClass: aClass
 !
 
 removeMethod: aMethod
-	aMethod methodClass forsakeMethod: aMethod
+	aMethod methodClass removeCompiledMethod: aMethod
 !
 
 renameClass: aClass to: aClassName
