@@ -32,12 +32,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(71);
-return $1;
+return "g";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLBrowserGoToCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 71",
+source: "key\x0a\x09^ 'g'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -85,12 +83,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToClassesCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22c\x22\x0a    \x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -138,12 +134,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToMethodsCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22m\x22\x0a    \x0a\x09^ 77",
+source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -191,12 +185,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(80);
-return $1;
+return "p";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToPackagesCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22p\x22\x0a    \x0a\x09^ 80",
+source: "key\x0a\x09^ 'p'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -244,12 +236,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToProtocolsCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22p\x22\x0a    \x0a\x09^ 84",
+source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -297,12 +287,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(83);
-return $1;
+return "s";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToSourceCodeCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22s\x22\x0a    \x0a\x09^ 83",
+source: "key\x0a\x09^ 's'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -384,12 +372,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(75);
-return $1;
+return "k";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommitPackageCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 75",
+source: "key\x0a\x09^ 'k'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -402,10 +388,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "Commit package";
+return "Commit";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommitPackageCommand.klass)})},
 args: [],
-source: "label\x0a\x09^ 'Commit package'",
+source: "label\x0a\x09^ 'Commit'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -421,12 +407,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -542,12 +526,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -595,12 +577,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(70);
-return $1;
+return "f";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 70",
+source: "key\x0a\x09^ 'f'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -714,12 +694,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -751,12 +729,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveToCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 77",
+source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -806,12 +782,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveClassToCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -834,7 +808,7 @@ referencedClasses: []
 smalltalk.HLMoveClassToCommand.klass);
 
 
-smalltalk.addClass('HLMoveClassCommand', smalltalk.HLMoveClassToCommand, [], 'Helios-Commands-Browser');
+smalltalk.addClass('HLMoveClassToPackageCommand', smalltalk.HLMoveClassToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -849,7 +823,7 @@ source: "displayLabel\x0a\x09^ 'select a package'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -865,7 +839,7 @@ source: "execute\x0a\x09self model moveClassToPackage: self input",
 messageSends: ["moveClassToPackage:", "input", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -883,7 +857,7 @@ source: "inputCompletion\x0a\x09^ self model availablePackageNames",
 messageSends: ["availablePackageNames", "model"],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -899,7 +873,7 @@ source: "inputLabel\x0a\x09^ 'Move class to package:'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -915,7 +889,7 @@ source: "isInputRequired\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 
 smalltalk.addMethod(
@@ -934,7 +908,7 @@ source: "isValidFor: anObject\x0a\x09^ anObject isBehavior",
 messageSends: ["isBehavior"],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -943,16 +917,14 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(80);
-return $1;
+return "p";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 80",
+source: "key\x0a\x09^ 'p'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -968,7 +940,7 @@ source: "label\x0a\x09^ 'to package'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -984,7 +956,7 @@ source: "menuLabel\x09\x0a\x09^ 'Move to package...'",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 
 smalltalk.addClass('HLMoveMethodToCommand', smalltalk.HLMoveToCommand, [], 'Helios-Commands-Browser');
@@ -1014,12 +986,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 77",
+source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1151,12 +1121,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1304,12 +1272,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 84",
+source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1357,12 +1323,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(88);
-return $1;
+return "x";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 88",
+source: "key\x0a\x09^ 'x'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1446,12 +1410,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1551,12 +1513,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveMethodCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 77",
+source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1604,12 +1564,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(82);
-return $1;
+return "r";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 82",
+source: "key\x0a\x09^ 'r'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1725,12 +1683,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 67",
+source: "key\x0a\x09^ 'm'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1778,12 +1734,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 84",
+source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1831,12 +1785,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(68);
-return $1;
+return "d";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleClassCommentCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22d\x22\x0a    \x0a\x09^ 68",
+source: "key\x0a\x09^ 'd'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1884,12 +1836,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleClassSideCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22c\x22\x0a    \x0a\x09^ 67",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1937,12 +1887,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(73);
-return $1;
+return "i";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleInstanceSideCommand.klass)})},
 args: [],
-source: "key\x0a\x09\x22i\x22\x0a    \x0a\x09^ 73",
+source: "key\x0a\x09^ 'i'",
 messageSends: [],
 referencedClasses: []
 }),

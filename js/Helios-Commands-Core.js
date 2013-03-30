@@ -9,15 +9,15 @@ var self=this;
 function $HLBindingAction(){return smalltalk.HLBindingAction||(typeof HLBindingAction=="undefined"?nil:HLBindingAction)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st($HLBindingAction())._on_labelled_(_st(self)._key(),_st(self)._label());
+$2=_st($HLBindingAction())._on_labelled_(_st(self)._keyCode(),_st(self)._label());
 _st($2)._command_(self);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asActionBinding",{},smalltalk.HLCommand)})},
 args: [],
-source: "asActionBinding\x0a\x09^ (HLBindingAction on: self key labelled: self label)\x0a    \x09command: self;\x0a\x09\x09yourself",
-messageSends: ["command:", "on:labelled:", "key", "label", "yourself"],
+source: "asActionBinding\x0a\x09^ (HLBindingAction on: self keyCode labelled: self label)\x0a    \x09command: self;\x0a\x09\x09yourself",
+messageSends: ["command:", "on:labelled:", "keyCode", "label", "yourself"],
 referencedClasses: ["HLBindingAction"]
 }),
 smalltalk.HLCommand);
@@ -54,12 +54,12 @@ var self=this;
 function $HLBindingGroup(){return smalltalk.HLBindingGroup||(typeof HLBindingGroup=="undefined"?nil:HLBindingGroup)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HLBindingGroup())._on_labelled_(_st(self)._key(),_st(self)._label());
+$1=_st($HLBindingGroup())._on_labelled_(_st(self)._keyCode(),_st(self)._label());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asGroupBinding",{},smalltalk.HLCommand)})},
 args: [],
-source: "asGroupBinding\x0a\x09^ HLBindingGroup \x0a\x09\x09on: self key \x0a\x09\x09labelled: self label",
-messageSends: ["on:labelled:", "key", "label"],
+source: "asGroupBinding\x0a\x09^ HLBindingGroup \x0a\x09\x09on: self keyCode\x0a\x09\x09labelled: self label",
+messageSends: ["on:labelled:", "keyCode", "label"],
 referencedClasses: ["HLBindingGroup"]
 }),
 smalltalk.HLCommand);
@@ -256,6 +256,24 @@ smalltalk.HLCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "keyCode",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._key())._asUppercase())._charCodeAt_((1));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"keyCode",{},smalltalk.HLCommand)})},
+args: [],
+source: "keyCode\x0a\x09^ self key asUppercase charCodeAt: 1",
+messageSends: ["charCodeAt:", "asUppercase", "key"],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "label",
 category: 'accessing',
 fn: function (){
@@ -398,7 +416,7 @@ return smalltalk.withContext(function($ctx1) {
 return nil;
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ nil",
+source: "key\x0a\x09\x22Answer a single character string or nil if no key\x22\x0a\x09\x0a\x09^ nil",
 messageSends: [],
 referencedClasses: []
 }),
@@ -512,12 +530,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(87);
-return $1;
+return "w";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCloseTabCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 87",
+source: "key\x0a\x09^ 'w'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -651,12 +667,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(79);
-return $1;
+return "o";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 79",
+source: "key\x0a\x09^ 'o'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -707,12 +721,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(66);
-return $1;
+return "b";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenBrowserCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 66",
+source: "key\x0a\x09^ 'b'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -763,12 +775,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenTranscriptCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 84",
+source: "key\x0a\x09^ 't'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -819,12 +829,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(87);
-return $1;
+return "w";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenWorkspaceCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 87",
+source: "key\x0a\x09^ 'w'",
 messageSends: [],
 referencedClasses: []
 }),

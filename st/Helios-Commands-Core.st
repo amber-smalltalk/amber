@@ -29,6 +29,10 @@ key
 	^ self class key
 !
 
+keyCode
+	^ self key asUppercase charCodeAt: 1
+!
+
 label
 	^ self class label
 !
@@ -40,7 +44,7 @@ menuLabel
 !HLCommand methodsFor: 'converting'!
 
 asActionBinding
-	^ (HLBindingAction on: self key labelled: self label)
+	^ (HLBindingAction on: self keyCode labelled: self label)
     	command: self;
 		yourself
 !
@@ -53,7 +57,7 @@ asBinding
 
 asGroupBinding
 	^ HLBindingGroup 
-		on: self key 
+		on: self keyCode
 		labelled: self label
 ! !
 
@@ -95,6 +99,8 @@ documentation
 !
 
 key
+	"Answer a single character string or nil if no key"
+	
 	^ nil
 !
 
@@ -159,7 +165,7 @@ execute
 !HLCloseTabCommand class methodsFor: 'accessing'!
 
 key
-	^ 87
+	^ 'w'
 !
 
 label
@@ -210,7 +216,7 @@ HLCommand subclass: #HLOpenCommand
 !HLOpenCommand class methodsFor: 'accessing'!
 
 key
-	^ 79
+	^ 'o'
 !
 
 label
@@ -230,7 +236,7 @@ execute
 !HLOpenBrowserCommand class methodsFor: 'accessing'!
 
 key
-	^ 66
+	^ 'b'
 !
 
 label
@@ -250,7 +256,7 @@ execute
 !HLOpenTranscriptCommand class methodsFor: 'accessing'!
 
 key
-	^ 84
+	^ 't'
 !
 
 label
@@ -270,7 +276,7 @@ execute
 !HLOpenWorkspaceCommand class methodsFor: 'accessing'!
 
 key
-	^ 87
+	^ 'w'
 !
 
 label

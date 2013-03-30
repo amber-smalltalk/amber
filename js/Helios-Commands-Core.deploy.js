@@ -8,13 +8,13 @@ var self=this;
 function $HLBindingAction(){return smalltalk.HLBindingAction||(typeof HLBindingAction=="undefined"?nil:HLBindingAction)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st($HLBindingAction())._on_labelled_(_st(self)._key(),_st(self)._label());
+$2=_st($HLBindingAction())._on_labelled_(_st(self)._keyCode(),_st(self)._label());
 _st($2)._command_(self);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asActionBinding",{},smalltalk.HLCommand)})},
-messageSends: ["command:", "on:labelled:", "key", "label", "yourself"]}),
+messageSends: ["command:", "on:labelled:", "keyCode", "label", "yourself"]}),
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
@@ -43,10 +43,10 @@ var self=this;
 function $HLBindingGroup(){return smalltalk.HLBindingGroup||(typeof HLBindingGroup=="undefined"?nil:HLBindingGroup)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HLBindingGroup())._on_labelled_(_st(self)._key(),_st(self)._label());
+$1=_st($HLBindingGroup())._on_labelled_(_st(self)._keyCode(),_st(self)._label());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asGroupBinding",{},smalltalk.HLCommand)})},
-messageSends: ["on:labelled:", "key", "label"]}),
+messageSends: ["on:labelled:", "keyCode", "label"]}),
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
@@ -182,6 +182,19 @@ $1=_st(_st(self)._class())._key();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommand)})},
 messageSends: ["key", "class"]}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "keyCode",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._key())._asUppercase())._charCodeAt_((1));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"keyCode",{},smalltalk.HLCommand)})},
+messageSends: ["charCodeAt:", "asUppercase", "key"]}),
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
@@ -376,9 +389,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(87);
-return $1;
+return "w";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCloseTabCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCloseTabCommand.klass);
@@ -480,9 +491,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(79);
-return $1;
+return "o";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenCommand.klass);
@@ -521,9 +530,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(66);
-return $1;
+return "b";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenBrowserCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenBrowserCommand.klass);
@@ -562,9 +569,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenTranscriptCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenTranscriptCommand.klass);
@@ -603,9 +608,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(87);
-return $1;
+return "w";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenWorkspaceCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenWorkspaceCommand.klass);

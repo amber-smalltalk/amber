@@ -26,9 +26,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(71);
-return $1;
+return "g";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLBrowserGoToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLBrowserGoToCommand.klass);
@@ -64,9 +62,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToClassesCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToClassesCommand.klass);
@@ -102,9 +98,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToMethodsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToMethodsCommand.klass);
@@ -140,9 +134,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(80);
-return $1;
+return "p";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToPackagesCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToPackagesCommand.klass);
@@ -178,9 +170,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToProtocolsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToProtocolsCommand.klass);
@@ -216,9 +206,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(83);
-return $1;
+return "s";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToSourceCodeCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToSourceCodeCommand.klass);
@@ -278,9 +266,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(75);
-return $1;
+return "k";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommitPackageCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCommitPackageCommand.klass);
@@ -291,7 +277,7 @@ selector: "label",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "Commit package";
+return "Commit";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommitPackageCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCommitPackageCommand.klass);
@@ -305,9 +291,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCopyCommand.klass);
@@ -391,9 +375,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCopyClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCopyClassCommand.klass);
@@ -429,9 +411,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(70);
-return $1;
+return "f";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindCommand.klass)})},
 messageSends: []}),
 smalltalk.HLFindCommand.klass);
@@ -513,9 +493,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLFindClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLFindClassCommand.klass);
@@ -540,9 +518,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveToCommand.klass);
@@ -580,9 +556,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveClassToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveClassToCommand.klass);
@@ -599,7 +573,7 @@ messageSends: []}),
 smalltalk.HLMoveClassToCommand.klass);
 
 
-smalltalk.addClass('HLMoveClassCommand', smalltalk.HLMoveClassToCommand, [], 'Helios-Commands-Browser');
+smalltalk.addClass('HLMoveClassToPackageCommand', smalltalk.HLMoveClassToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -609,7 +583,7 @@ return smalltalk.withContext(function($ctx1) {
 return "select a package";
 }, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLMoveClassCommand)})},
 messageSends: []}),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -620,7 +594,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self)._model())._moveClassToPackage_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveClassCommand)})},
 messageSends: ["moveClassToPackage:", "input", "model"]}),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -633,7 +607,7 @@ $1=_st(_st(self)._model())._availablePackageNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveClassCommand)})},
 messageSends: ["availablePackageNames", "model"]}),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -644,7 +618,7 @@ return smalltalk.withContext(function($ctx1) {
 return "Move class to package:";
 }, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLMoveClassCommand)})},
 messageSends: []}),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -655,7 +629,7 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLMoveClassCommand)})},
 messageSends: []}),
-smalltalk.HLMoveClassCommand);
+smalltalk.HLMoveClassToPackageCommand);
 
 
 smalltalk.addMethod(
@@ -669,7 +643,7 @@ $1=_st(anObject)._isBehavior();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isValidFor:",{anObject:anObject},smalltalk.HLMoveClassCommand.klass)})},
 messageSends: ["isBehavior"]}),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -677,12 +651,10 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(80);
-return $1;
+return "p";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveClassCommand.klass)})},
 messageSends: []}),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -693,7 +665,7 @@ return smalltalk.withContext(function($ctx1) {
 return "to package";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveClassCommand.klass)})},
 messageSends: []}),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -704,7 +676,7 @@ return smalltalk.withContext(function($ctx1) {
 return "Move to package...";
 }, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLMoveClassCommand.klass)})},
 messageSends: []}),
-smalltalk.HLMoveClassCommand.klass);
+smalltalk.HLMoveClassToPackageCommand.klass);
 
 
 smalltalk.addClass('HLMoveMethodToCommand', smalltalk.HLMoveToCommand, [], 'Helios-Commands-Browser');
@@ -728,9 +700,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToCommand.klass);
@@ -825,9 +795,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToClassCommand.klass);
@@ -933,9 +901,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand.klass);
@@ -971,9 +937,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(88);
-return $1;
+return "x";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRemoveCommand.klass);
@@ -1035,9 +999,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRemoveClassCommand.klass);
@@ -1110,9 +1072,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(77);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveMethodCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRemoveMethodCommand.klass);
@@ -1148,9 +1108,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(82);
-return $1;
+return "r";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRenameCommand.klass);
@@ -1234,9 +1192,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "m";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRenameClassCommand.klass);
@@ -1272,9 +1228,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(84);
-return $1;
+return "t";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleCommand.klass);
@@ -1310,9 +1264,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(68);
-return $1;
+return "d";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleClassCommentCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleClassCommentCommand.klass);
@@ -1348,9 +1300,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(67);
-return $1;
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleClassSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleClassSideCommand.klass);
@@ -1386,9 +1336,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(73);
-return $1;
+return "i";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleInstanceSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleInstanceSideCommand.klass);

@@ -18,7 +18,7 @@ HLBrowserCommand subclass: #HLBrowserGoToCommand
 !HLBrowserGoToCommand class methodsFor: 'accessing'!
 
 key
-	^ 71
+	^ 'g'
 !
 
 label
@@ -38,9 +38,7 @@ execute
 !HLGoToClassesCommand class methodsFor: 'accessing'!
 
 key
-	"c"
-    
-	^ 67
+	^ 'c'
 !
 
 label
@@ -60,9 +58,7 @@ execute
 !HLGoToMethodsCommand class methodsFor: 'accessing'!
 
 key
-	"m"
-    
-	^ 77
+	^ 'm'
 !
 
 label
@@ -82,9 +78,7 @@ execute
 !HLGoToPackagesCommand class methodsFor: 'accessing'!
 
 key
-	"p"
-    
-	^ 80
+	^ 'p'
 !
 
 label
@@ -104,9 +98,7 @@ execute
 !HLGoToProtocolsCommand class methodsFor: 'accessing'!
 
 key
-	"p"
-    
-	^ 84
+	^ 't'
 !
 
 label
@@ -126,9 +118,7 @@ execute
 !HLGoToSourceCodeCommand class methodsFor: 'accessing'!
 
 key
-	"s"
-    
-	^ 83
+	^ 's'
 !
 
 label
@@ -155,11 +145,11 @@ isActive
 !HLCommitPackageCommand class methodsFor: 'accessing'!
 
 key
-	^ 75
+	^ 'k'
 !
 
 label
-	^ 'Commit package'
+	^ 'Commit'
 ! !
 
 !HLCommitPackageCommand class methodsFor: 'testing'!
@@ -175,7 +165,7 @@ HLBrowserCommand subclass: #HLCopyCommand
 !HLCopyCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'c'
 !
 
 label
@@ -211,7 +201,7 @@ isInputRequired
 !HLCopyClassCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'c'
 !
 
 label
@@ -235,7 +225,7 @@ HLBrowserCommand subclass: #HLFindCommand
 !HLFindCommand class methodsFor: 'accessing'!
 
 key
-	^ 70
+	^ 'f'
 !
 
 label
@@ -275,7 +265,7 @@ isInputRequired
 !HLFindClassCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'c'
 !
 
 label
@@ -289,7 +279,7 @@ HLBrowserCommand subclass: #HLMoveToCommand
 !HLMoveToCommand class methodsFor: 'accessing'!
 
 key
-	^ 77
+	^ 'm'
 !
 
 label
@@ -309,18 +299,18 @@ isActive
 !HLMoveClassToCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'c'
 !
 
 label
 	^ 'Class'
 ! !
 
-HLMoveClassToCommand subclass: #HLMoveClassCommand
+HLMoveClassToCommand subclass: #HLMoveClassToPackageCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 
-!HLMoveClassCommand methodsFor: 'accessing'!
+!HLMoveClassToPackageCommand methodsFor: 'accessing'!
 
 displayLabel
 	^ 'select a package'
@@ -334,22 +324,22 @@ inputLabel
 	^ 'Move class to package:'
 ! !
 
-!HLMoveClassCommand methodsFor: 'executing'!
+!HLMoveClassToPackageCommand methodsFor: 'executing'!
 
 execute
 	self model moveClassToPackage: self input
 ! !
 
-!HLMoveClassCommand methodsFor: 'testing'!
+!HLMoveClassToPackageCommand methodsFor: 'testing'!
 
 isInputRequired
 	^ true
 ! !
 
-!HLMoveClassCommand class methodsFor: 'accessing'!
+!HLMoveClassToPackageCommand class methodsFor: 'accessing'!
 
 key
-	^ 80
+	^ 'p'
 !
 
 label
@@ -360,7 +350,7 @@ menuLabel
 	^ 'Move to package...'
 ! !
 
-!HLMoveClassCommand class methodsFor: 'testing'!
+!HLMoveClassToPackageCommand class methodsFor: 'testing'!
 
 isValidFor: anObject
 	^ anObject isBehavior
@@ -379,7 +369,7 @@ isActive
 !HLMoveMethodToCommand class methodsFor: 'accessing'!
 
 key
-	^ 77
+	^ 'm'
 !
 
 label
@@ -419,7 +409,7 @@ isInputRequired
 !HLMoveMethodToClassCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'c'
 !
 
 label	
@@ -469,7 +459,7 @@ isInputRequired
 !HLMoveMethodToProtocolCommand class methodsFor: 'accessing'!
 
 key
-	^ 84
+	^ 't'
 !
 
 label
@@ -493,7 +483,7 @@ HLBrowserCommand subclass: #HLRemoveCommand
 !HLRemoveCommand class methodsFor: 'accessing'!
 
 key
-	^ 88
+	^ 'x'
 !
 
 label
@@ -519,7 +509,7 @@ isActive
 !HLRemoveClassCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'c'
 !
 
 label
@@ -555,7 +545,7 @@ isActive
 !HLRemoveMethodCommand class methodsFor: 'accessing'!
 
 key
-	^ 77
+	^ 'm'
 !
 
 label
@@ -579,7 +569,7 @@ HLBrowserCommand subclass: #HLRenameCommand
 !HLRenameCommand class methodsFor: 'accessing'!
 
 key
-	^ 82
+	^ 'r'
 !
 
 label
@@ -615,7 +605,7 @@ isInputRequired
 !HLRenameClassCommand class methodsFor: 'accessing'!
 
 key
-	^ 67
+	^ 'm'
 !
 
 label
@@ -639,7 +629,7 @@ HLBrowserCommand subclass: #HLToggleCommand
 !HLToggleCommand class methodsFor: 'accessing'!
 
 key
-	^ 84
+	^ 't'
 !
 
 label
@@ -659,9 +649,7 @@ execute
 !HLToggleClassCommentCommand class methodsFor: 'accessing'!
 
 key
-	"d"
-    
-	^ 68
+	^ 'd'
 !
 
 label
@@ -681,9 +669,7 @@ execute
 !HLToggleClassSideCommand class methodsFor: 'accessing'!
 
 key
-	"c"
-    
-	^ 67
+	^ 'c'
 !
 
 label
@@ -703,9 +689,7 @@ execute
 !HLToggleInstanceSideCommand class methodsFor: 'accessing'!
 
 key
-	"i"
-    
-	^ 73
+	^ 'i'
 !
 
 label
