@@ -1202,11 +1202,12 @@ smalltalk.method({
 selector: "defaultEnvironment",
 fn: function (){
 var self=this;
+function $Environment(){return smalltalk.Environment||(typeof Environment=="undefined"?nil:Environment)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=_st(window)._parent();
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self["@environment"])._new();
+$2=_st($Environment())._new();
 return $2;
 } else {
 $1;

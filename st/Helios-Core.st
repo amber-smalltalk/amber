@@ -573,10 +573,10 @@ removeTab: aTab
 defaultEnvironment
 	"If helios is loaded from within a frame, answer the parent window environment"
 	
-	window parent ifNil: [ ^ environment new ].
+	window parent ifNil: [ ^ Environment new ].
 	
 	^ ((window parent at: 'smalltalk')
-		at: #Environment) new
+		at: 'Environment') new
 ! !
 
 !HLManager methodsFor: 'initialization'!
