@@ -285,22 +285,14 @@ activateItem: anObject
 !
 
 activateListItem: aListItem
-	| parent position item |
+	| item |
     
 	(aListItem get: 0) ifNil: [ ^self ].
-
-	position := self positionOf: aListItem.
-
-    parent := aListItem parent.
-	parent children removeClass: 'active'.
+	aListItem parent children removeClass: 'active'.
 	aListItem addClass: 'active'.
     
-    "Move the scrollbar to show the active element"
-    aListItem position top < 0 ifTrue: [
-		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].
-    aListItem position top + aListItem height > parent height ifTrue: [ 
-		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ].
-        
+	self ensureVisible: aListItem.
+    
    "Activate the corresponding item"
    item := (self items at: (aListItem attr: 'list-data') asNumber).
    self selectedItem == item ifFalse: [
@@ -319,10 +311,32 @@ activatePreviousListItem
 	self activateListItem: (window jQuery: '.focused .nav-pills .active') prev
 !
 
+ensureVisible: aListItem	
+	"Move the scrollbar to show the active element"
+	
+	| perent position |
+	
+	position := self positionOf: aListItem.
+	parent := aListItem parent.
+	
+    aListItem position top < 0 ifTrue: [
+		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].
+    aListItem position top + aListItem height > parent height ifTrue: [ 
+		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ]
+!
+
 focus
 	super focus.
     self items isEmpty ifFalse: [ 
 		self selectedItem ifNil: [ self activateFirstListItem ] ]
+!
+
+refresh
+	super refresh.
+	
+	self ensureVisible: (mapping 
+		at: self selectedItem
+		ifAbsent: [ ^ self ]) asJQuery
 !
 
 selectItem: anObject

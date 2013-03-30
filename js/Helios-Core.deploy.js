@@ -599,9 +599,9 @@ smalltalk.method({
 selector: "activateListItem:",
 fn: function (aListItem){
 var self=this;
-var parent,position,item;
+var item;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3;
 $1=_st(aListItem)._get_((0));
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=self;
@@ -609,25 +609,16 @@ return $2;
 } else {
 $1;
 };
-position=_st(self)._positionOf_(aListItem);
-parent=_st(aListItem)._parent();
-_st(_st(parent)._children())._removeClass_("active");
+_st(_st(_st(aListItem)._parent())._children())._removeClass_("active");
 _st(aListItem)._addClass_("active");
-$3=_st(_st(_st(aListItem)._position())._top()).__lt((0));
-if(smalltalk.assert($3)){
-_st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(_st(aListItem)._position())._top())).__minus((10)));
-};
-$4=_st(_st(_st(_st(aListItem)._position())._top()).__plus(_st(aListItem)._height())).__gt(_st(parent)._height());
-if(smalltalk.assert($4)){
-_st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(aListItem)._height())).__minus(_st(_st(parent)._height()).__minus(_st(_st(aListItem)._position())._top()))).__plus((10)));
-};
+_st(self)._ensureVisible_(aListItem);
 item=_st(_st(self)._items())._at_(_st(_st(aListItem)._attr_("list-data"))._asNumber());
-$5=_st(_st(self)._selectedItem()).__eq_eq(item);
-if(! smalltalk.assert($5)){
+$3=_st(_st(self)._selectedItem()).__eq_eq(item);
+if(! smalltalk.assert($3)){
 _st(self)._selectItem_(item);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,parent:parent,position:position,item:item},smalltalk.HLListWidget)})},
-messageSends: ["ifNil:", "get:", "positionOf:", "parent", "removeClass:", "children", "addClass:", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "<", "height", ">", "at:", "asNumber", "attr:", "items", "ifFalse:", "selectItem:", "==", "selectedItem"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,item:item},smalltalk.HLListWidget)})},
+messageSends: ["ifNil:", "get:", "removeClass:", "children", "parent", "addClass:", "ensureVisible:", "at:", "asNumber", "attr:", "items", "ifFalse:", "selectItem:", "==", "selectedItem"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -685,6 +676,28 @@ $1=[];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultItems",{},smalltalk.HLListWidget)})},
 messageSends: []}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ensureVisible:",
+fn: function (aListItem){
+var self=this;
+var perent,position;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+position=_st(self)._positionOf_(aListItem);
+parent=_st(aListItem)._parent();
+$1=_st(_st(_st(aListItem)._position())._top()).__lt((0));
+if(smalltalk.assert($1)){
+_st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(_st(aListItem)._position())._top())).__minus((10)));
+};
+$2=_st(_st(_st(_st(aListItem)._position())._top()).__plus(_st(aListItem)._height())).__gt(_st(parent)._height());
+if(smalltalk.assert($2)){
+_st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(aListItem)._height())).__minus(_st(_st(parent)._height()).__minus(_st(_st(aListItem)._position())._top()))).__plus((10)));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"ensureVisible:",{aListItem:aListItem,perent:perent,position:position},smalltalk.HLListWidget)})},
+messageSends: ["positionOf:", "parent", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "get:", "<", "height", ">"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -773,6 +786,27 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"positionOf:",{aListItem:aListItem},smalltalk.HLListWidget)})},
 messageSends: []}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "refresh",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+smalltalk.HLFocusableWidget.fn.prototype._refresh.apply(_st(self), []);
+_st(self)._ensureVisible_(_st(_st(self["@mapping"])._at_ifAbsent_(_st(self)._selectedItem(),(function(){
+return smalltalk.withContext(function($ctx2) {
+$1=self;
+throw $early=[$1];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._asJQuery());
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLListWidget)})},
+messageSends: ["refresh", "ensureVisible:", "asJQuery", "at:ifAbsent:", "selectedItem"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
