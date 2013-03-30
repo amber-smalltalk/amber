@@ -2619,6 +2619,17 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "charCodeAt:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return self.charCodeAt(anInteger - 1) ;
+return self}, function($ctx1) {$ctx1.fill(self,"charCodeAt:",{anInteger:anInteger},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copyFrom:to:",
 fn: function (anIndex,anotherIndex){
 var self=this;

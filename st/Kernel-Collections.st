@@ -1105,6 +1105,10 @@ at: anIndex ifAbsent: aBlock
 	<return String(self).charAt(anIndex - 1) || aBlock()>
 !
 
+charCodeAt: anInteger
+	< return self.charCodeAt(anInteger - 1) >
+!
+
 escaped
 	<return escape(self)>
 !

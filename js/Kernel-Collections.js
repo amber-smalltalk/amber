@@ -3523,6 +3523,22 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "charCodeAt:",
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return self.charCodeAt(anInteger - 1) ;
+return self}, function($ctx1) {$ctx1.fill(self,"charCodeAt:",{anInteger:anInteger},smalltalk.String)})},
+args: ["anInteger"],
+source: "charCodeAt: anInteger\x0a\x09< return self.charCodeAt(anInteger - 1) >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
 fn: function (anIndex,anotherIndex){
