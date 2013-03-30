@@ -119,6 +119,10 @@ HLNavigationListWidget subclass: #HLBrowserListWidget
 
 !HLBrowserListWidget methodsFor: 'accessing'!
 
+commandCategory
+	^ self label
+!
+
 label
 	^ 'List'
 !
@@ -127,8 +131,10 @@ menuCommands
 	"Answer a collection of commands to be put in the cog menu"
 	
 	^ (HLBrowserCommand concreteClasses 
-		select: [ :each | each isValidFor: self selectedItem ])
-		collect: [ :each | each for: self model ]
+		collect: [ :each | each for: self model ])
+		select: [ :each | 
+			each category = self commandCategory and: [ 
+				each isAction and: [ each isActive ] ] ]
 !
 
 model
@@ -601,11 +607,9 @@ onMethodSelected: aMethod
 		ifTrue: [ aMethod selector ]
 		ifFalse: [ nil ].
 		
-	self selectedItem: selector.
-	
-	selector ifNil: [ ^ self ].
-    
-	self activateItem: selector
+	self 
+		selectedItem: selector;
+		activateItem: selector
 !
 
 onMethodsFocusRequested

@@ -188,6 +188,24 @@ smalltalk.HLCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isAction",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._isBindingGroup())._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isAction",{},smalltalk.HLCommand)})},
+args: [],
+source: "isAction\x0a\x09^ self isBindingGroup not",
+messageSends: ["not", "isBindingGroup"],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isActive",
 category: 'testing',
 fn: function (){

@@ -3,6 +3,12 @@ HLModelCommand subclass: #HLBrowserCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 
+!HLBrowserCommand methodsFor: 'accessing'!
+
+category
+	^ nil
+! !
+
 !HLBrowserCommand class methodsFor: 'instance creation'!
 
 for: aBrowserModel
@@ -129,6 +135,12 @@ HLBrowserCommand subclass: #HLCommitPackageCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 
+!HLCommitPackageCommand methodsFor: 'accessing'!
+
+category
+	^ 'Packages'
+! !
+
 !HLCommitPackageCommand methodsFor: 'executing'!
 
 execute
@@ -177,6 +189,10 @@ HLCopyCommand subclass: #HLCopyClassCommand
 	package: 'Helios-Commands-Browser'!
 
 !HLCopyClassCommand methodsFor: 'accessing'!
+
+category
+	^ 'Classes'
+!
 
 displayLabel
 	^ 'New class name:'
@@ -312,6 +328,10 @@ HLMoveClassToCommand subclass: #HLMoveClassToPackageCommand
 
 !HLMoveClassToPackageCommand methodsFor: 'accessing'!
 
+category
+	^ 'Classes'
+!
+
 displayLabel
 	^ 'select a package'
 !
@@ -359,6 +379,12 @@ isValidFor: anObject
 HLMoveToCommand subclass: #HLMoveMethodToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
+
+!HLMoveMethodToCommand methodsFor: 'accessing'!
+
+category
+	^ 'Methods'
+! !
 
 !HLMoveMethodToCommand methodsFor: 'testing'!
 
@@ -494,6 +520,12 @@ HLRemoveCommand subclass: #HLRemoveClassCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
 
+!HLRemoveClassCommand methodsFor: 'accessing'!
+
+category
+	^ 'Classes'
+! !
+
 !HLRemoveClassCommand methodsFor: 'executing'!
 
 execute
@@ -529,6 +561,12 @@ isValidFor: anObject
 HLRemoveCommand subclass: #HLRemoveMethodCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
+
+!HLRemoveMethodCommand methodsFor: 'accessing'!
+
+category
+	^ 'Methods'
+! !
 
 !HLRemoveMethodCommand methodsFor: 'executing'!
 
@@ -581,6 +619,10 @@ HLRenameCommand subclass: #HLRenameClassCommand
 	package: 'Helios-Commands-Browser'!
 
 !HLRenameClassCommand methodsFor: 'accessing'!
+
+category
+	^ 'Classes'
+!
 
 displayLabel
 	^ 'Rename class to:'

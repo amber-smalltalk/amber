@@ -361,6 +361,24 @@ smalltalk.HLBrowser.klass);
 smalltalk.addClass('HLBrowserListWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "commandCategory",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commandCategory",{},smalltalk.HLBrowserListWidget)})},
+args: [],
+source: "commandCategory\x0a\x09^ self label",
+messageSends: ["label"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "label",
 category: 'accessing',
 fn: function (){
@@ -384,18 +402,24 @@ var self=this;
 function $HLBrowserCommand(){return smalltalk.HLBrowserCommand||(typeof HLBrowserCommand=="undefined"?nil:HLBrowserCommand)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st($HLBrowserCommand())._concreteClasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._isValidFor_(_st(self)._selectedItem());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+$1=_st(_st(_st($HLBrowserCommand())._concreteClasses())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._for_(_st(self)._model());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._category()).__eq(_st(self)._commandCategory()))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(each)._isAction())._and_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(each)._isActive();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"menuCommands",{},smalltalk.HLBrowserListWidget)})},
 args: [],
-source: "menuCommands\x0a\x09\x22Answer a collection of commands to be put in the cog menu\x22\x0a\x09\x0a\x09^ (HLBrowserCommand concreteClasses \x0a\x09\x09select: [ :each | each isValidFor: self selectedItem ])\x0a\x09\x09collect: [ :each | each for: self model ]",
-messageSends: ["collect:", "for:", "model", "select:", "isValidFor:", "selectedItem", "concreteClasses"],
+source: "menuCommands\x0a\x09\x22Answer a collection of commands to be put in the cog menu\x22\x0a\x09\x0a\x09^ (HLBrowserCommand concreteClasses \x0a\x09\x09collect: [ :each | each for: self model ])\x0a\x09\x09select: [ :each | \x0a\x09\x09\x09each category = self commandCategory and: [ \x0a\x09\x09\x09\x09each isAction and: [ each isActive ] ] ]",
+messageSends: ["select:", "and:", "isActive", "isAction", "=", "commandCategory", "category", "collect:", "for:", "model", "concreteClasses"],
 referencedClasses: ["HLBrowserCommand"]
 }),
 smalltalk.HLBrowserListWidget);
@@ -1693,19 +1717,13 @@ selector=_st(aMethod)._selector();
 } else {
 selector=nil;
 };
-_st(self)._selectedItem_(selector);
-$2=selector;
-if(($receiver = $2) == nil || $receiver == undefined){
-$3=self;
-return $3;
-} else {
-$2;
-};
-_st(self)._activateItem_(selector);
+$2=self;
+_st($2)._selectedItem_(selector);
+$3=_st($2)._activateItem_(selector);
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod,selector:selector},smalltalk.HLMethodsListWidget)})},
 args: ["aMethod"],
-source: "onMethodSelected: aMethod\x0a\x09| selector |\x0a\x09selector := aMethod isCompiledMethod \x0a\x09\x09ifTrue: [ aMethod selector ]\x0a\x09\x09ifFalse: [ nil ].\x0a\x09\x09\x0a\x09self selectedItem: selector.\x0a\x09\x0a\x09selector ifNil: [ ^ self ].\x0a    \x0a\x09self activateItem: selector",
-messageSends: ["ifTrue:ifFalse:", "selector", "isCompiledMethod", "selectedItem:", "ifNil:", "activateItem:"],
+source: "onMethodSelected: aMethod\x0a\x09| selector |\x0a\x09selector := aMethod isCompiledMethod \x0a\x09\x09ifTrue: [ aMethod selector ]\x0a\x09\x09ifFalse: [ nil ].\x0a\x09\x09\x0a\x09self \x0a\x09\x09selectedItem: selector;\x0a\x09\x09activateItem: selector",
+messageSends: ["ifTrue:ifFalse:", "selector", "isCompiledMethod", "selectedItem:", "activateItem:"],
 referencedClasses: []
 }),
 smalltalk.HLMethodsListWidget);

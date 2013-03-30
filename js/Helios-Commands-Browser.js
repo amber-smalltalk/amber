@@ -1,5 +1,21 @@
 smalltalk.addPackage('Helios-Commands-Browser');
 smalltalk.addClass('HLBrowserCommand', smalltalk.HLModelCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return nil;
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLBrowserCommand)})},
+args: [],
+source: "category\x0a\x09^ nil",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLBrowserCommand);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -316,6 +332,22 @@ smalltalk.HLGoToSourceCodeCommand.klass);
 smalltalk.addClass('HLCommitPackageCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Packages";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLCommitPackageCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Packages'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommitPackageCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "execute",
 category: 'executing',
 fn: function (){
@@ -434,6 +466,22 @@ smalltalk.HLCopyCommand.klass);
 
 
 smalltalk.addClass('HLCopyClassCommand', smalltalk.HLCopyCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Classes";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLCopyClassCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Classes'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCopyClassCommand);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -811,6 +859,22 @@ smalltalk.HLMoveClassToCommand.klass);
 smalltalk.addClass('HLMoveClassToPackageCommand', smalltalk.HLMoveClassToCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Classes";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLMoveClassToPackageCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Classes'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveClassToPackageCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "displayLabel",
 category: 'accessing',
 fn: function (){
@@ -960,6 +1024,22 @@ smalltalk.HLMoveClassToPackageCommand.klass);
 
 
 smalltalk.addClass('HLMoveMethodToCommand', smalltalk.HLMoveToCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Methods";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLMoveMethodToCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Methods'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMoveMethodToCommand);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isActive",
@@ -1352,6 +1432,22 @@ smalltalk.HLRemoveCommand.klass);
 smalltalk.addClass('HLRemoveClassCommand', smalltalk.HLRemoveCommand, [], 'Helios-Commands-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Classes";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRemoveClassCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Classes'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "execute",
 category: 'executing',
 fn: function (){
@@ -1453,6 +1549,22 @@ smalltalk.HLRemoveClassCommand.klass);
 
 
 smalltalk.addClass('HLRemoveMethodCommand', smalltalk.HLRemoveCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Methods";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRemoveMethodCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Methods'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveMethodCommand);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "execute",
@@ -1591,6 +1703,22 @@ smalltalk.HLRenameCommand.klass);
 
 
 smalltalk.addClass('HLRenameClassCommand', smalltalk.HLRenameCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Classes";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRenameClassCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Classes'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameClassCommand);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",

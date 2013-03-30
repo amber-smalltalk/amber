@@ -276,6 +276,19 @@ smalltalk.HLBrowser.klass);
 smalltalk.addClass('HLBrowserListWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "commandCategory",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commandCategory",{},smalltalk.HLBrowserListWidget)})},
+messageSends: ["label"]}),
+smalltalk.HLBrowserListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
@@ -293,16 +306,22 @@ var self=this;
 function $HLBrowserCommand(){return smalltalk.HLBrowserCommand||(typeof HLBrowserCommand=="undefined"?nil:HLBrowserCommand)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st($HLBrowserCommand())._concreteClasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._isValidFor_(_st(self)._selectedItem());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+$1=_st(_st(_st($HLBrowserCommand())._concreteClasses())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._for_(_st(self)._model());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._category()).__eq(_st(self)._commandCategory()))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(each)._isAction())._and_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(each)._isActive();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"menuCommands",{},smalltalk.HLBrowserListWidget)})},
-messageSends: ["collect:", "for:", "model", "select:", "isValidFor:", "selectedItem", "concreteClasses"]}),
+messageSends: ["select:", "and:", "isActive", "isAction", "=", "commandCategory", "category", "collect:", "for:", "model", "concreteClasses"]}),
 smalltalk.HLBrowserListWidget);
 
 smalltalk.addMethod(
@@ -1337,17 +1356,11 @@ selector=_st(aMethod)._selector();
 } else {
 selector=nil;
 };
-_st(self)._selectedItem_(selector);
-$2=selector;
-if(($receiver = $2) == nil || $receiver == undefined){
-$3=self;
-return $3;
-} else {
-$2;
-};
-_st(self)._activateItem_(selector);
+$2=self;
+_st($2)._selectedItem_(selector);
+$3=_st($2)._activateItem_(selector);
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod,selector:selector},smalltalk.HLMethodsListWidget)})},
-messageSends: ["ifTrue:ifFalse:", "selector", "isCompiledMethod", "selectedItem:", "ifNil:", "activateItem:"]}),
+messageSends: ["ifTrue:ifFalse:", "selector", "isCompiledMethod", "selectedItem:", "activateItem:"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(

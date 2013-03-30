@@ -80,6 +80,10 @@ registerOn: aBinding
 
 !HLCommand methodsFor: 'testing'!
 
+isAction
+	^ self isBindingGroup not
+!
+
 isActive
 	^ true
 !
