@@ -699,7 +699,7 @@ packages
 !
 
 systemAnnouncer
-	^ SystemAnnouncer current
+	^ (Smalltalk current at: #SystemAnnouncer) current
 ! !
 
 !Environment methodsFor: 'actions'!
