@@ -605,7 +605,7 @@ isInputRequired
 !HLRenameClassCommand class methodsFor: 'accessing'!
 
 key
-	^ 'm'
+	^ 'c'
 !
 
 label

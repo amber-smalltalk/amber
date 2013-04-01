@@ -1667,10 +1667,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "m";
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameClassCommand.klass)})},
 args: [],
-source: "key\x0a\x09^ 'm'",
+source: "key\x0a\x09^ 'c'",
 messageSends: [],
 referencedClasses: []
 }),

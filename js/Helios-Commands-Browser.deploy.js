@@ -1176,7 +1176,7 @@ selector: "key",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "m";
+return "c";
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRenameClassCommand.klass);
