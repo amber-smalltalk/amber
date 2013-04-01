@@ -1960,15 +1960,15 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._methodsInProtocol_(aString))._collect_((function(each){
+$1=_st(_st(_st(self)._methodsInProtocol_(aString))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._sorted();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorsInProtocol:",{aString:aString},smalltalk.HLMethodsListWidget)})},
 args: ["aString"],
-source: "selectorsInProtocol: aString\x0a\x09^ (self methodsInProtocol: aString)\x0a    \x09collect: [ :each | each selector ]",
-messageSends: ["collect:", "selector", "methodsInProtocol:"],
+source: "selectorsInProtocol: aString\x0a\x09^ ((self methodsInProtocol: aString)\x0a    \x09collect: [ :each | each selector ]) sorted",
+messageSends: ["sorted", "collect:", "selector", "methodsInProtocol:"],
 referencedClasses: []
 }),
 smalltalk.HLMethodsListWidget);
@@ -2155,6 +2155,49 @@ args: [],
 source: "observeModel\x0a    self model announcer \x0a\x09\x09on: HLPackageSelected \x0a\x09\x09do: [ :ann | self onPackageSelected: ann item ];\x0a\x09\x09on: HLPackagesFocusRequested \x0a\x09\x09do: [ :ann | self onPackagesFocusRequested ]",
 messageSends: ["on:do:", "onPackageSelected:", "item", "announcer", "model", "onPackagesFocusRequested"],
 referencedClasses: ["HLPackageSelected", "HLPackagesFocusRequested"]
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeSystem",
+category: 'actions',
+fn: function (){
+var self=this;
+function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(self)._model())._systemAnnouncer())._on_do_($ClassAdded(),(function(ann){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._onClassAdded_(_st(ann)._theClass());
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLPackagesListWidget)})},
+args: [],
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09do: [ :ann | self onClassAdded: ann theClass ]",
+messageSends: ["on:do:", "onClassAdded:", "theClass", "systemAnnouncer", "model"],
+referencedClasses: ["ClassAdded"]
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassAdded:",
+category: 'reactions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(self)._items())._includes_(_st(aClass)._package());
+if(! smalltalk.assert($1)){
+$2=self;
+_st($2)._initializeItems();
+$3=_st($2)._refresh();
+$3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{aClass:aClass},smalltalk.HLPackagesListWidget)})},
+args: ["aClass"],
+source: "onClassAdded: aClass\x0a\x09\x22Amber doesn't have yet a global organizer for packages\x22\x0a\x09\x0a\x09(self items includes: aClass package) ifFalse: [ \x0a\x09\x09self \x0a\x09\x09\x09initializeItems;\x0a\x09\x09\x09refresh ]",
+messageSends: ["ifFalse:", "initializeItems", "refresh", "includes:", "package", "items"],
+referencedClasses: []
 }),
 smalltalk.HLPackagesListWidget);
 

@@ -518,8 +518,8 @@ selectorsCache
 !
 
 selectorsInProtocol: aString
-	^ (self methodsInProtocol: aString)
-    	collect: [ :each | each selector ]
+	^ ((self methodsInProtocol: aString)
+    	collect: [ :each | each selector ]) sorted
 ! !
 
 !HLMethodsListWidget methodsFor: 'actions'!
@@ -703,6 +703,12 @@ observeModel
 		do: [ :ann | self onPackagesFocusRequested ]
 !
 
+observeSystem
+    self model systemAnnouncer 
+		on: ClassAdded 
+		do: [ :ann | self onClassAdded: ann theClass ]
+!
+
 selectItem: aPackage
 	self model selectedPackage: aPackage
 ! !
@@ -715,6 +721,15 @@ initializeItems
 ! !
 
 !HLPackagesListWidget methodsFor: 'reactions'!
+
+onClassAdded: aClass
+	"Amber doesn't have yet a global organizer for packages"
+	
+	(self items includes: aClass package) ifFalse: [ 
+		self 
+			initializeItems;
+			refresh ]
+!
 
 onPackageSelected: aPackage
 	self selectedItem: aPackage.
