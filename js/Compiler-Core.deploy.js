@@ -63,12 +63,13 @@ smalltalk.method({
 selector: "pseudoVariables",
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=["self", "super", "true", "false", "nil", "thisContext"];
+$1=_st(_st($Smalltalk())._current())._pseudoVariableNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
-messageSends: []}),
+messageSends: ["pseudoVariableNames", "current"]}),
 smalltalk.AbstractCodeGenerator);
 
 smalltalk.addMethod(

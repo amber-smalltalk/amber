@@ -25,7 +25,7 @@ currentClass: aClass
 !
 
 pseudoVariables
-	^#('self' 'super' 'true' 'false' 'nil' 'thisContext')
+	^ Smalltalk current pseudoVariableNames
 !
 
 safeVariableNameFor: aString

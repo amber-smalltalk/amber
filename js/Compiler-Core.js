@@ -85,15 +85,16 @@ selector: "pseudoVariables",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=["self", "super", "true", "false", "nil", "thisContext"];
+$1=_st(_st($Smalltalk())._current())._pseudoVariableNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVariables",{},smalltalk.AbstractCodeGenerator)})},
 args: [],
-source: "pseudoVariables\x0a\x09^#('self' 'super' 'true' 'false' 'nil' 'thisContext')",
-messageSends: [],
-referencedClasses: []
+source: "pseudoVariables\x0a\x09^ Smalltalk current pseudoVariableNames",
+messageSends: ["pseudoVariableNames", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AbstractCodeGenerator);
 
