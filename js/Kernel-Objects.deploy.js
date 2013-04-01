@@ -1601,6 +1601,20 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "classes",
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._current())._classes();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Environment)})},
+messageSends: ["classes", "current"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "commitPackage:",
 fn: function (aPackage){
 var self=this;

@@ -694,6 +694,10 @@ classNamed: aString
 		ifNil: [ self error: 'Invalid class name' ]
 !
 
+classes
+	^ Smalltalk current classes
+!
+
 packages
 	^ Smalltalk current packages
 !

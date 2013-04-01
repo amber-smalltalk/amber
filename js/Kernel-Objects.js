@@ -2230,6 +2230,25 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "classes",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._current())._classes();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Environment)})},
+args: [],
+source: "classes\x0a\x09^ Smalltalk current classes",
+messageSends: ["classes", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "commitPackage:",
 category: 'actions',
 fn: function (aPackage){
