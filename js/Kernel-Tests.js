@@ -2116,13 +2116,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._assert_equals_("hello","hello");
 _st(self)._deny_(_st("hello").__eq("world"));
+_st(self)._deny_(_st("hello").__eq(_st([])._at_ifAbsent_((1),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))));
 _st(self)._assert_equals_("hello",_st("hello")._yourself());
 _st(self)._assert_equals_(_st("hello")._yourself(),"hello");
 _st(self)._deny_(_st("").__eq((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.StringTest)})},
 args: [],
-source: "testEquality\x0a\x09self assert: 'hello' equals: 'hello'.\x0a\x09self deny: 'hello' = 'world'.\x0a\x0a\x09self assert: 'hello' equals: 'hello' yourself.\x0a\x09self assert: 'hello' yourself equals: 'hello'.\x0a\x0a\x09\x22test JS falsy value\x22\x0a\x09self deny: '' = 0",
-messageSends: ["assert:equals:", "deny:", "=", "yourself"],
+source: "testEquality\x0a\x09self assert: 'hello' equals: 'hello'.\x0a\x09self deny: 'hello' = 'world'.\x0a\x09\x0a\x09\x22Test for issue 459\x22\x0a\x09self deny: 'hello' = (#() at: 1 ifAbsent: [ ]).\x0a\x0a\x09self assert: 'hello' equals: 'hello' yourself.\x0a\x09self assert: 'hello' yourself equals: 'hello'.\x0a\x0a\x09\x22test JS falsy value\x22\x0a\x09self deny: '' = 0",
+messageSends: ["assert:equals:", "deny:", "=", "at:ifAbsent:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.StringTest);

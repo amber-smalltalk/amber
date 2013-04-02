@@ -808,6 +808,9 @@ testDetect
 testEquality
 	self assert: 'hello' equals: 'hello'.
 	self deny: 'hello' = 'world'.
+	
+	"Test for issue 459"
+	self deny: 'hello' = (#() at: 1 ifAbsent: [ ]).
 
 	self assert: 'hello' equals: 'hello' yourself.
 	self assert: 'hello' yourself equals: 'hello'.

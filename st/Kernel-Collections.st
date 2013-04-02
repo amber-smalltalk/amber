@@ -1133,7 +1133,8 @@ unescaped
 
 = aString
 	<
-		if(!! aString._isString || !! aString._isString()) {
+		if(typeof aString === 'undefined') { return false }
+		if(!!aString._isString || !! aString._isString()) {
 			return false;
 		}
 		return String(self) === String(aString)

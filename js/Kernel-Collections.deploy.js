@@ -2438,7 +2438,8 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if(! aString._isString || ! aString._isString()) {
+		if(typeof aString === 'undefined') { return false }
+		if(!aString._isString || ! aString._isString()) {
 			return false;
 		}
 		return String(self) === String(aString)

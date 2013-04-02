@@ -1700,11 +1700,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._assert_equals_("hello","hello");
 _st(self)._deny_(_st("hello").__eq("world"));
+_st(self)._deny_(_st("hello").__eq(_st([])._at_ifAbsent_((1),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))));
 _st(self)._assert_equals_("hello",_st("hello")._yourself());
 _st(self)._assert_equals_(_st("hello")._yourself(),"hello");
 _st(self)._deny_(_st("").__eq((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.StringTest)})},
-messageSends: ["assert:equals:", "deny:", "=", "yourself"]}),
+messageSends: ["assert:equals:", "deny:", "=", "at:ifAbsent:", "yourself"]}),
 smalltalk.StringTest);
 
 smalltalk.addMethod(
