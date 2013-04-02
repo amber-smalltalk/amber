@@ -196,6 +196,20 @@ HLAnnouncement subclass: #HLSaveSourceCode
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLSearchReferences
+	instanceVariableNames: 'searchString'
+	package: 'Helios-Announcements'!
+
+!HLSearchReferences methodsFor: 'accessing'!
+
+searchString
+	^ searchString
+!
+
+searchString: aString
+	searchString := aString
+! !
+
 HLAnnouncement subclass: #HLShowCommentToggled
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

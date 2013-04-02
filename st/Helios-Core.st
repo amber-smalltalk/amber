@@ -1,4 +1,30 @@
 Smalltalk current createPackage: 'Helios-Core'!
+Object subclass: #HLModel
+	instanceVariableNames: 'announcer environment'
+	package: 'Helios-Core'!
+
+!HLModel methodsFor: 'accessing'!
+
+announcer
+	^ announcer ifNil: [ announcer := Announcer new ]
+!
+
+environment
+	^ environment ifNil: [ self manager environment ]
+!
+
+environment: anEnvironment
+	environment := anEnvironment
+!
+
+manager
+	^ HLManager current
+!
+
+systemAnnouncer
+	^ self environment systemAnnouncer
+! !
+
 Widget subclass: #HLTab
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!

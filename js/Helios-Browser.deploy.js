@@ -2059,7 +2059,7 @@ smalltalk.HLProtocolsListWidget);
 
 
 
-smalltalk.addClass('HLBrowserModel', smalltalk.Object, ['announcer', 'environment', 'selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedSelector', 'showInstance', 'showComment'], 'Helios-Browser');
+smalltalk.addClass('HLBrowserModel', smalltalk.HLModel, ['selectedPackage', 'selectedClass', 'selectedProtocol', 'selectedSelector', 'showInstance', 'showComment'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addInstVarNamed:",
@@ -2091,22 +2091,15 @@ smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "announcer",
+selector: "allSelectors",
 fn: function (){
 var self=this;
-function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@announcer"]=_st($Announcer())._new();
-$1=self["@announcer"];
-} else {
-$1=$2;
-};
+var $1;
+$1=_st(_st(self)._environment())._allSelectors();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLBrowserModel)})},
-messageSends: ["ifNil:", "new"]}),
+}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},smalltalk.HLBrowserModel)})},
+messageSends: ["allSelectors", "environment"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -2261,36 +2254,6 @@ smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "environment",
-fn: function (){
-var self=this;
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(_st($HLManager())._current())._environment();
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"environment",{},smalltalk.HLBrowserModel)})},
-messageSends: ["ifNil:", "environment", "current"]}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "environment:",
-fn: function (anEnvironment){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@environment"]=anEnvironment;
-return self}, function($ctx1) {$ctx1.fill(self,"environment:",{anEnvironment:anEnvironment},smalltalk.HLBrowserModel)})},
-messageSends: []}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "focusOnClasses",
 fn: function (){
 var self=this;
@@ -2405,20 +2368,6 @@ $2=_st($1)._yourself();
 _st(_st(self)._announcer())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"handleUnkownVariableError:",{anError:anError},smalltalk.HLBrowserModel)})},
 messageSends: ["announce:", "error:", "new", "yourself", "announcer"]}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "manager",
-fn: function (){
-var self=this;
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($HLManager())._current();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"manager",{},smalltalk.HLBrowserModel)})},
-messageSends: ["current"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -2812,19 +2761,6 @@ _st($2)._selectedClass_($3);
 _st(_st(self)._announcer())._announce_(_st($HLShowInstanceToggled())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"showInstance:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
 messageSends: ["ifNotNil:", "selectedClass:", "ifTrue:ifFalse:", "theNonMetaClass", "selectedClass", "theMetaClass", "announce:", "new", "announcer"]}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "systemAnnouncer",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._environment())._systemAnnouncer();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLBrowserModel)})},
-messageSends: ["systemAnnouncer", "environment"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(

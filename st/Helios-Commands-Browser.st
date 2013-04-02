@@ -276,6 +276,48 @@ label
 	^ 'Class'
 ! !
 
+HLFindCommand subclass: #HLFindReferencesCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLFindReferencesCommand methodsFor: 'accessing'!
+
+displayLabel
+	^ 'find references'
+!
+
+inputCompletion
+	^ self model availableClassNames, self model allSelectors
+!
+
+inputLabel
+	^ 'Find references of'
+! !
+
+!HLFindReferencesCommand methodsFor: 'executing'!
+
+execute
+	HLReferences new 
+		open;
+		search: self input
+! !
+
+!HLFindReferencesCommand methodsFor: 'testing'!
+
+isInputRequired
+	^ true
+! !
+
+!HLFindReferencesCommand class methodsFor: 'accessing'!
+
+key
+	^ 'r'
+!
+
+label
+	^ 'References'
+! !
+
 HLBrowserCommand subclass: #HLMoveToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

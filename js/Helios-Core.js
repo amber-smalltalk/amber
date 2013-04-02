@@ -1,4 +1,108 @@
 smalltalk.addPackage('Helios-Core');
+smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "announcer",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@announcer"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@announcer"]=_st($Announcer())._new();
+$1=self["@announcer"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLModel)})},
+args: [],
+source: "announcer\x0a\x09^ announcer ifNil: [ announcer := Announcer new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["Announcer"]
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "environment",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@environment"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(_st(self)._manager())._environment();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"environment",{},smalltalk.HLModel)})},
+args: [],
+source: "environment\x0a\x09^ environment ifNil: [ self manager environment ]",
+messageSends: ["ifNil:", "environment", "manager"],
+referencedClasses: []
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "environment:",
+category: 'accessing',
+fn: function (anEnvironment){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@environment"]=anEnvironment;
+return self}, function($ctx1) {$ctx1.fill(self,"environment:",{anEnvironment:anEnvironment},smalltalk.HLModel)})},
+args: ["anEnvironment"],
+source: "environment: anEnvironment\x0a\x09environment := anEnvironment",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "manager",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($HLManager())._current();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"manager",{},smalltalk.HLModel)})},
+args: [],
+source: "manager\x0a\x09^ HLManager current",
+messageSends: ["current"],
+referencedClasses: ["HLManager"]
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "systemAnnouncer",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._systemAnnouncer();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.HLModel)})},
+args: [],
+source: "systemAnnouncer\x0a\x09^ self environment systemAnnouncer",
+messageSends: ["systemAnnouncer", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLModel);
+
+
+
 smalltalk.addClass('HLTab', smalltalk.Widget, ['widget', 'label', 'root'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({

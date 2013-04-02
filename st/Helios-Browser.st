@@ -871,14 +871,14 @@ renderContentOn: html
       	ifTrue: [ super renderContentOn: html ]
 ! !
 
-Object subclass: #HLBrowserModel
-	instanceVariableNames: 'announcer environment selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
+HLModel subclass: #HLBrowserModel
+	instanceVariableNames: 'selectedPackage selectedClass selectedProtocol selectedSelector showInstance showComment'
 	package: 'Helios-Browser'!
 
 !HLBrowserModel methodsFor: 'accessing'!
 
-announcer
-	^ announcer ifNil: [ announcer := Announcer new ]
+allSelectors
+	^ self environment allSelectors
 !
 
 availableClassNames
@@ -897,22 +897,10 @@ availableProtocols
 	^ self environment availableProtocolsFor: self selectedClass
 !
 
-environment
-	^ environment ifNil: [ HLManager current environment ]
-!
-
-environment: anEnvironment
-	environment := anEnvironment
-!
-
 handleUnkownVariableError: anError
 	self announcer announce: (HLUnknownVariableErrorRaised new
 		error: anError;
 		yourself)
-!
-
-manager
-	^ HLManager current
 !
 
 packages
@@ -1005,10 +993,6 @@ showInstance: aBoolean
     	  	ifFalse: [ self selectedClass theMetaClass ]) ].
     
     self announcer announce: HLShowInstanceToggled new
-!
-
-systemAnnouncer
-	^ self environment systemAnnouncer
 ! !
 
 !HLBrowserModel methodsFor: 'actions'!

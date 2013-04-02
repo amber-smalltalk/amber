@@ -301,6 +301,33 @@ smalltalk.addClass('HLRefreshRequested', smalltalk.HLAnnouncement, [], 'Helios-A
 smalltalk.addClass('HLSaveSourceCode', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLSearchReferences', smalltalk.HLAnnouncement, ['searchString'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "searchString",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@searchString"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"searchString",{},smalltalk.HLSearchReferences)})},
+messageSends: []}),
+smalltalk.HLSearchReferences);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "searchString:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@searchString"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"searchString:",{aString:aString},smalltalk.HLSearchReferences)})},
+messageSends: []}),
+smalltalk.HLSearchReferences);
+
+
+
 smalltalk.addClass('HLShowCommentToggled', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
