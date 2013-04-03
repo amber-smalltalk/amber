@@ -767,11 +767,23 @@ removeMethod: aMethod
 	aMethod methodClass removeCompiledMethod: aMethod
 !
 
+removeProtocol: aString from: aClass
+	(aClass methods
+		select: [ :each | each protocol = aString ])
+		do: [ :each | aClass removeCompiledMethod: each ]
+!
+
 renameClass: aClass to: aClassName
 	(Smalltalk current at: aClassName)
 		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
 		
 	ClassBuilder new renameClass: aClass to: aClassName
+!
+
+renameProtocol: aString to: anotherString in: aClass
+	(aClass methods
+		select: [ :each | each protocol = aString ])
+		do: [ :each | each protocol: anotherString ]
 ! !
 
 !Environment methodsFor: 'compiling'!

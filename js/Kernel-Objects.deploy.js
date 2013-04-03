@@ -1826,6 +1826,23 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeProtocol:from:",
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(aClass)._methods())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aClass)._removeCompiledMethod_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},smalltalk.Environment)})},
+messageSends: ["do:", "removeCompiledMethod:", "select:", "=", "protocol", "methods"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renameClass:to:",
 fn: function (aClass,aClassName){
 var self=this;
@@ -1842,6 +1859,23 @@ _st(self)._error_(_st(_st("A class named ").__comma(aClassName)).__comma(" alrea
 _st(_st($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
 return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},smalltalk.HLEnvironment)})},
 messageSends: ["ifNotNil:", "error:", ",", "at:", "current", "renameClass:to:", "new"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renameProtocol:to:in:",
+fn: function (aString,anotherString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(aClass)._methods())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._protocol_(anotherString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},smalltalk.Environment)})},
+messageSends: ["do:", "protocol:", "select:", "=", "protocol", "methods"]}),
 smalltalk.Environment);
 
 smalltalk.addMethod(

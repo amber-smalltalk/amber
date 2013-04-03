@@ -497,6 +497,17 @@ smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "protocol:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._category_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"protocol:",{aString:aString},smalltalk.CompiledMethod)})},
+messageSends: ["category:"]}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "referencedClasses",
 fn: function (){
 var self=this;

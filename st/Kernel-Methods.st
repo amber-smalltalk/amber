@@ -228,6 +228,10 @@ protocol
 	^ self category
 !
 
+protocol: aString
+	self category: aString
+!
+
 referencedClasses
 	^self basicAt: 'referencedClasses'
 !

@@ -2525,6 +2525,28 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeProtocol:from:",
+category: 'actions',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(aClass)._methods())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aClass)._removeCompiledMethod_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},smalltalk.Environment)})},
+args: ["aString", "aClass"],
+source: "removeProtocol: aString from: aClass\x0a\x09(aClass methods\x0a\x09\x09select: [ :each | each protocol = aString ])\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
+messageSends: ["do:", "removeCompiledMethod:", "select:", "=", "protocol", "methods"],
+referencedClasses: []
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renameClass:to:",
 category: 'actions',
 fn: function (aClass,aClassName){
@@ -2545,6 +2567,28 @@ args: ["aClass", "aClassName"],
 source: "renameClass: aClass to: aClassName\x0a\x09(Smalltalk current at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new renameClass: aClass to: aClassName\x09\x0a\x09",
 messageSends: ["ifNotNil:", "error:", ",", "at:", "current", "renameClass:to:", "new"],
 referencedClasses: ["Smalltalk", "ClassBuilder"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renameProtocol:to:in:",
+category: 'actions',
+fn: function (aString,anotherString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(aClass)._methods())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._protocol_(anotherString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},smalltalk.Environment)})},
+args: ["aString", "anotherString", "aClass"],
+source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methods\x0a\x09\x09select: [ :each | each protocol = aString ])\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
+messageSends: ["do:", "protocol:", "select:", "=", "protocol", "methods"],
+referencedClasses: []
 }),
 smalltalk.Environment);
 
