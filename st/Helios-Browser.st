@@ -1083,10 +1083,24 @@ removeMethod
 		ifTrue: [ self environment removeMethod: self selectedMethod ]
 !
 
+removeProtocol
+	(self manager confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol)
+		ifTrue: [ self environment 
+			removeProtocol: self selectedProtocol 
+			from: self selectedClass ]
+!
+
 renameClassTo: aClassName
 	self environment 
 		renameClass: self selectedClass theNonMetaClass
 		to: aClassName
+!
+
+renameProtocolTo: aString
+	self environment 
+		renameProtocol: self selectedProtocol
+		to: aString
+		in: self selectedClass
 ! !
 
 !HLBrowserModel methodsFor: 'compiling'!

@@ -3172,6 +3172,26 @@ smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeProtocol",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._manager())._confirm_(_st("Do you REALLY want to remove protocol ").__comma(_st(self)._selectedProtocol()));
+if(smalltalk.assert($1)){
+_st(_st(self)._environment())._removeProtocol_from_(_st(self)._selectedProtocol(),_st(self)._selectedClass());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol",{},smalltalk.HLBrowserModel)})},
+args: [],
+source: "removeProtocol\x0a\x09(self manager confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol)\x0a\x09\x09ifTrue: [ self environment \x0a\x09\x09\x09removeProtocol: self selectedProtocol \x0a\x09\x09\x09from: self selectedClass ]",
+messageSends: ["ifTrue:", "removeProtocol:from:", "selectedProtocol", "selectedClass", "environment", "confirm:", ",", "manager"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renameClassTo:",
 category: 'commands actions',
 fn: function (aClassName){
@@ -3182,6 +3202,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"renameClassTo:",{aClassName:aCla
 args: ["aClassName"],
 source: "renameClassTo: aClassName\x0a\x09self environment \x0a\x09\x09renameClass: self selectedClass theNonMetaClass\x0a\x09\x09to: aClassName",
 messageSends: ["renameClass:to:", "theNonMetaClass", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renameProtocolTo:",
+category: 'commands actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._renameProtocol_to_in_(_st(self)._selectedProtocol(),aString,_st(self)._selectedClass());
+return self}, function($ctx1) {$ctx1.fill(self,"renameProtocolTo:",{aString:aString},smalltalk.HLBrowserModel)})},
+args: ["aString"],
+source: "renameProtocolTo: aString\x0a\x09self environment \x0a\x09\x09renameProtocol: self selectedProtocol\x0a\x09\x09to: aString\x0a\x09\x09in: self selectedClass",
+messageSends: ["renameProtocol:to:in:", "selectedProtocol", "selectedClass", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserModel);

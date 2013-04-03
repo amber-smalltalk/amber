@@ -61,6 +61,12 @@ asGroupBinding
 		labelled: self label
 ! !
 
+!HLCommand methodsFor: 'defaults'!
+
+defaultInput
+	^ ''
+! !
+
 !HLCommand methodsFor: 'error handling'!
 
 commandError: aString

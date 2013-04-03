@@ -82,6 +82,22 @@ smalltalk.HLCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultInput",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "";
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLCommand)})},
+args: [],
+source: "defaultInput\x0a\x09^ ''",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "documentation",
 category: 'accessing',
 fn: function (){

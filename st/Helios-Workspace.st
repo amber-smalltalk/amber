@@ -402,8 +402,50 @@ setupKeyMaps
 	<CodeMirror.keyMap['Amber'] = self._keyMap()>
 ! !
 
-HLCodeWidget subclass: #HLSourceCodeWidget
-	instanceVariableNames: 'browserModel methodContents'
+HLCodeWidget subclass: #HLNavigationCodeWidget
+	instanceVariableNames: 'methodContents'
+	package: 'Helios-Workspace'!
+
+!HLNavigationCodeWidget methodsFor: 'accessing'!
+
+methodContents
+	^ methodContents
+!
+
+methodContents: aString
+	^ methodContents := aString
+!
+
+previous
+	"for browser lists widget"
+!
+
+previous: aWidget
+	"for browser lists widget"
+! !
+
+!HLNavigationCodeWidget methodsFor: 'testing'!
+
+hasModification
+	^ (self methodContents = self contents) not
+! !
+
+!HLNavigationCodeWidget class methodsFor: 'instance creation'!
+
+on: aBrowserModel
+	^ self new
+		browserModel: aBrowserModel;
+		yourself
+! !
+
+!HLNavigationCodeWidget class methodsFor: 'testing'!
+
+canBeOpenAsTab
+	^ false
+! !
+
+HLNavigationCodeWidget subclass: #HLSourceCodeWidget
+	instanceVariableNames: 'browserModel'
 	package: 'Helios-Workspace'!
 
 !HLSourceCodeWidget methodsFor: 'accessing'!
@@ -417,22 +459,6 @@ browserModel: aBrowserModel
 	self 
 		observeSystem;
 		observeBrowserModel
-!
-
-methodContents
-	^ methodContents
-!
-
-methodContents: aString
-	methodContents := aString
-!
-
-previous
-	"for browser lists widget"
-!
-
-previous: aWidget
-	"for browser lists widget"
 ! !
 
 !HLSourceCodeWidget methodsFor: 'actions'!
@@ -560,12 +586,6 @@ onUnknownVariableError: anError
 	confirm ifFalse: [ ^ self ].
 	
 	self browserModel addInstVarNamed: anError variableName
-! !
-
-!HLSourceCodeWidget methodsFor: 'testing'!
-
-hasModification
-	^ (self methodContents = self contents) not
 ! !
 
 !HLSourceCodeWidget class methodsFor: 'instance creation'!

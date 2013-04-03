@@ -326,6 +326,7 @@ var $2,$3,$4,$5,$1;
 $2=_st($HLBindingInput())._new();
 _st($2)._label_(_st(_st(self)._command())._inputLabel());
 _st($2)._ghostText_(_st(_st(self)._command())._displayLabel());
+_st($2)._defaultValue_(_st(_st(self)._command())._defaultInput());
 _st($2)._inputCompletion_(_st(_st(self)._command())._inputCompletion());
 _st($2)._callback_((function(val){
 return smalltalk.withContext(function($ctx2) {
@@ -339,8 +340,8 @@ $1=$5;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputBinding",{},smalltalk.HLBindingAction)})},
 args: [],
-source: "inputBinding\x0a\x09^ HLBindingInput new\x0a\x09\x09label: self command inputLabel;\x0a\x09\x09ghostText: self command displayLabel;\x0a\x09\x09inputCompletion: self command inputCompletion;\x0a\x09\x09callback: [ :val | \x0a\x09\x09\x09self command \x0a\x09\x09\x09\x09input: val;\x0a\x09\x09\x09\x09execute ];\x0a\x09\x09yourself",
-messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "inputCompletion:", "inputCompletion", "callback:", "input:", "execute", "yourself"],
+source: "inputBinding\x0a\x09^ HLBindingInput new\x0a\x09\x09label: self command inputLabel;\x0a\x09\x09ghostText: self command displayLabel;\x0a\x09\x09defaultValue: self command defaultInput;\x0a\x09\x09inputCompletion: self command inputCompletion;\x0a\x09\x09callback: [ :val | \x0a\x09\x09\x09self command \x0a\x09\x09\x09\x09input: val;\x0a\x09\x09\x09\x09execute ];\x0a\x09\x09yourself",
+messageSends: ["label:", "inputLabel", "command", "new", "ghostText:", "displayLabel", "defaultValue:", "defaultInput", "inputCompletion:", "inputCompletion", "callback:", "input:", "execute", "yourself"],
 referencedClasses: ["HLBindingInput"]
 }),
 smalltalk.HLBindingAction);
@@ -637,7 +638,7 @@ smalltalk.HLBindingGroup);
 
 
 
-smalltalk.addClass('HLBindingInput', smalltalk.HLBinding, ['input', 'callback', 'status', 'wrapper', 'binder', 'ghostText', 'isFinal', 'message', 'messageTag', 'inputCompletion'], 'Helios-KeyBindings');
+smalltalk.addClass('HLBindingInput', smalltalk.HLBinding, ['input', 'callback', 'status', 'wrapper', 'binder', 'ghostText', 'isFinal', 'message', 'messageTag', 'inputCompletion', 'defaultValue'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "applyOn:",
@@ -731,6 +732,45 @@ return self}, function($ctx1) {$ctx1.fill(self,"clearStatus",{},smalltalk.HLBind
 args: [],
 source: "clearStatus\x0a\x09self status: 'info'.\x0a\x09self message: ''.\x0a\x09self refresh",
 messageSends: ["status:", "message:", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLBindingInput);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultValue",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultValue"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultValue",{},smalltalk.HLBindingInput)})},
+args: [],
+source: "defaultValue\x0a\x09^ defaultValue ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.HLBindingInput);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultValue:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultValue"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultValue:",{aString:aString},smalltalk.HLBindingInput)})},
+args: ["aString"],
+source: "defaultValue: aString\x0a\x09defaultValue := aString",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLBindingInput);
@@ -1033,6 +1073,7 @@ $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $4=_st(html)._input();
 _st($4)._placeholder_(_st(self)._ghostText());
+_st($4)._value_(_st(self)._defaultValue());
 $5=_st($4)._yourself();
 self["@input"]=$5;
 self["@input"];
@@ -1050,8 +1091,8 @@ return _st(_st(self["@input"])._asJQuery())._focus();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBinder:aBinder,html:html},smalltalk.HLBindingInput)})},
 args: ["aBinder", "html"],
-source: "renderOn: aBinder html: html\x0a\x09binder := aBinder.\x0a\x09wrapper ifNil: [ wrapper := html span ].\x0a\x09\x0a\x09wrapper \x0a\x09\x09class: self status;\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09placeholder: self ghostText;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input asJQuery \x0a\x09\x09\x09\x09typeahead: #{ 'source' -> self inputCompletion }.\x0a\x09\x09\x09messageTag := (html span\x0a\x09\x09\x09\x09class: 'help-inline';\x0a\x09\x09\x09\x09with: self message;\x0a\x09\x09\x09\x09yourself) ].\x0a\x09\x0a\x09\x22Evaluate with a timeout to ensure focus.\x0a\x09Commands can be executed from a menu, clicking on the menu to\x0a\x09evaluate the command would give it the focus otherwise\x22\x0a\x09\x0a\x09[ input asJQuery focus ] valueWithTimeout: 10",
-messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "ghostText", "input", "yourself", "typeahead:", "->", "inputCompletion", "asJQuery", "message", "valueWithTimeout:", "focus"],
+source: "renderOn: aBinder html: html\x0a\x09binder := aBinder.\x0a\x09wrapper ifNil: [ wrapper := html span ].\x0a\x0a\x09wrapper \x0a\x09\x09class: self status;\x0a\x09\x09with: [\x0a\x09\x09\x09input := html input\x0a\x09\x09\x09\x09placeholder: self ghostText;\x0a\x09\x09\x09\x09value: self defaultValue;\x0a\x09\x09\x09\x09yourself.\x0a\x09\x09\x09input asJQuery \x0a\x09\x09\x09\x09typeahead: #{ 'source' -> self inputCompletion }.\x0a\x09\x09\x09messageTag := (html span\x0a\x09\x09\x09\x09class: 'help-inline';\x0a\x09\x09\x09\x09with: self message;\x0a\x09\x09\x09\x09yourself) ].\x0a\x09\x0a\x09\x22Evaluate with a timeout to ensure focus.\x0a\x09Commands can be executed from a menu, clicking on the menu to\x0a\x09evaluate the command would give it the focus otherwise\x22\x0a\x09\x0a\x09[ input asJQuery focus ] valueWithTimeout: 10",
+messageSends: ["ifNil:", "span", "class:", "status", "with:", "placeholder:", "ghostText", "input", "value:", "defaultValue", "yourself", "typeahead:", "->", "inputCompletion", "asJQuery", "message", "valueWithTimeout:", "focus"],
 referencedClasses: []
 }),
 smalltalk.HLBindingInput);

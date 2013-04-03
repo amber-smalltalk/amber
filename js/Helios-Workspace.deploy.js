@@ -792,7 +792,97 @@ messageSends: ["variableHintFor:token:", "at:"]}),
 smalltalk.HLCodeWidget.klass);
 
 
-smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLCodeWidget, ['browserModel', 'methodContents'], 'Helios-Workspace');
+smalltalk.addClass('HLNavigationCodeWidget', smalltalk.HLCodeWidget, ['methodContents'], 'Helios-Workspace');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "hasModification",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._methodContents()).__eq(_st(self)._contents()))._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLNavigationCodeWidget)})},
+messageSends: ["not", "=", "contents", "methodContents"]}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodContents",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@methodContents"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLNavigationCodeWidget)})},
+messageSends: []}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodContents:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self["@methodContents"]=aString;
+$1=self["@methodContents"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodContents:",{aString:aString},smalltalk.HLNavigationCodeWidget)})},
+messageSends: []}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "previous",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLNavigationCodeWidget)})},
+messageSends: []}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "previous:",
+fn: function (aWidget){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLNavigationCodeWidget)})},
+messageSends: []}),
+smalltalk.HLNavigationCodeWidget);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canBeOpenAsTab",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLNavigationCodeWidget.klass)})},
+messageSends: []}),
+smalltalk.HLNavigationCodeWidget.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+fn: function (aBrowserModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._browserModel_(aBrowserModel);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLNavigationCodeWidget.klass)})},
+messageSends: ["browserModel:", "new", "yourself"]}),
+smalltalk.HLNavigationCodeWidget.klass);
+
+
+smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browserModel",
@@ -819,43 +909,6 @@ _st($1)._observeSystem();
 $2=_st($1)._observeBrowserModel();
 return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aBrowserModel},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["observeSystem", "observeBrowserModel"]}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hasModification",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(self)._methodContents()).__eq(_st(self)._contents()))._not();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLSourceCodeWidget)})},
-messageSends: ["not", "=", "contents", "methodContents"]}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodContents",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@methodContents"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLSourceCodeWidget)})},
-messageSends: []}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodContents:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@methodContents"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"methodContents:",{aString:aString},smalltalk.HLSourceCodeWidget)})},
-messageSends: []}),
 smalltalk.HLSourceCodeWidget);
 
 smalltalk.addMethod(
@@ -1142,26 +1195,6 @@ return $4;
 _st(_st(self)._browserModel())._addInstVarNamed_(_st(anError)._variableName());
 return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anError:anError,confirm:confirm},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["confirm:", "streamContents:", "nextPutAll:", "messageText", "cr", "ifFalse:", "addInstVarNamed:", "variableName", "browserModel"]}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "previous",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLSourceCodeWidget)})},
-messageSends: []}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "previous:",
-fn: function (aWidget){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLSourceCodeWidget)})},
-messageSends: []}),
 smalltalk.HLSourceCodeWidget);
 
 smalltalk.addMethod(

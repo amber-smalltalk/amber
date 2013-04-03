@@ -192,6 +192,12 @@ displayLabel
 	^ 'New class name:'
 ! !
 
+!HLCopyClassCommand methodsFor: 'defaults'!
+
+defaultInput
+	^ self model selectedClass name
+! !
+
 !HLCopyClassCommand methodsFor: 'executing'!
 
 execute
@@ -292,6 +298,17 @@ inputCompletion
 
 inputLabel
 	^ 'Find references of'
+! !
+
+!HLFindReferencesCommand methodsFor: 'defaults'!
+
+defaultInput
+	^ self model selectedMethod 
+		ifNil: [
+			self model selectedClass
+				ifNil: [ '' ]
+				ifNotNil: [ :class | class name ] ]
+		ifNotNil: [ :method | method selector ]
 ! !
 
 !HLFindReferencesCommand methodsFor: 'executing'!
@@ -600,6 +617,42 @@ menuLabel
 	^ 'Remove method'
 ! !
 
+HLRemoveCommand subclass: #HLRemoveProtocolCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRemoveProtocolCommand methodsFor: 'accessing'!
+
+category
+	^ 'Protocols'
+! !
+
+!HLRemoveProtocolCommand methodsFor: 'executing'!
+
+execute
+	self model removeProtocol
+! !
+
+!HLRemoveProtocolCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedProtocol notNil
+! !
+
+!HLRemoveProtocolCommand class methodsFor: 'accessing'!
+
+key
+	^ 't'
+!
+
+label
+	^ 'Protocol'
+!
+
+menuLabel
+	^ 'Remove protocol'
+! !
+
 HLBrowserCommand subclass: #HLRenameCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!
@@ -626,6 +679,12 @@ category
 
 displayLabel
 	^ 'Rename class to:'
+! !
+
+!HLRenameClassCommand methodsFor: 'defaults'!
+
+defaultInput
+	^ self model selectedClass name
 ! !
 
 !HLRenameClassCommand methodsFor: 'executing'!
@@ -656,6 +715,56 @@ label
 
 menuLabel
 	^ 'Rename class...'
+! !
+
+HLRenameCommand subclass: #HLRenameProtocolCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLRenameProtocolCommand methodsFor: 'accessing'!
+
+category
+	^ 'Protocols'
+!
+
+displayLabel
+	^ 'Rename protocol to:'
+! !
+
+!HLRenameProtocolCommand methodsFor: 'defaults'!
+
+defaultInput
+	^ self model selectedProtocol
+! !
+
+!HLRenameProtocolCommand methodsFor: 'executing'!
+
+execute
+	self model renameProtocolTo: self input
+! !
+
+!HLRenameProtocolCommand methodsFor: 'testing'!
+
+isActive
+	^ self model selectedProtocol notNil
+!
+
+isInputRequired
+	^ true
+! !
+
+!HLRenameProtocolCommand class methodsFor: 'accessing'!
+
+key
+	^ 't'
+!
+
+label
+	^ 'Protocol'
+!
+
+menuLabel
+	^ 'Rename protocol...'
 ! !
 
 HLBrowserCommand subclass: #HLToggleCommand

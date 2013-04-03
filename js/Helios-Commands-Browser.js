@@ -466,6 +466,24 @@ smalltalk.HLCopyClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultInput",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._selectedClass())._name();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLCopyClassCommand)})},
+args: [],
+source: "defaultInput\x0a\x09^ self model selectedClass name",
+messageSends: ["name", "selectedClass", "model"],
+referencedClasses: []
+}),
+smalltalk.HLCopyClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "displayLabel",
 category: 'accessing',
 fn: function (){
@@ -733,6 +751,38 @@ smalltalk.HLFindClassCommand.klass);
 
 
 smalltalk.addClass('HLFindReferencesCommand', smalltalk.HLFindCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultInput",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(_st(self)._model())._selectedMethod();
+if(($receiver = $2) == nil || $receiver == undefined){
+$3=_st(_st(self)._model())._selectedClass();
+if(($receiver = $3) == nil || $receiver == undefined){
+$1="";
+} else {
+var class_;
+class_=$receiver;
+$1=_st(class_)._name();
+};
+} else {
+var method;
+method=$receiver;
+$1=_st(method)._selector();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLFindReferencesCommand)})},
+args: [],
+source: "defaultInput\x0a\x09^ self model selectedMethod \x0a\x09\x09ifNil: [\x0a\x09\x09\x09self model selectedClass\x0a\x09\x09\x09\x09ifNil: [ '' ]\x0a\x09\x09\x09\x09ifNotNil: [ :class | class name ] ]\x0a\x09\x09ifNotNil: [ :method | method selector ] ",
+messageSends: ["ifNil:ifNotNil:", "name", "selectedClass", "model", "selector", "selectedMethod"],
+referencedClasses: []
+}),
+smalltalk.HLFindReferencesCommand);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "displayLabel",
@@ -1662,6 +1712,107 @@ referencedClasses: []
 smalltalk.HLRemoveMethodCommand.klass);
 
 
+smalltalk.addClass('HLRemoveProtocolCommand', smalltalk.HLRemoveCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Protocols";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRemoveProtocolCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Protocols'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._removeProtocol();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveProtocolCommand)})},
+args: [],
+source: "execute\x0a\x09self model removeProtocol",
+messageSends: ["removeProtocol", "model"],
+referencedClasses: []
+}),
+smalltalk.HLRemoveProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isActive",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._selectedProtocol())._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveProtocolCommand)})},
+args: [],
+source: "isActive\x0a\x09^ self model selectedProtocol notNil",
+messageSends: ["notNil", "selectedProtocol", "model"],
+referencedClasses: []
+}),
+smalltalk.HLRemoveProtocolCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "t";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRemoveProtocolCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 't'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveProtocolCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Protocol";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRemoveProtocolCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Protocol'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveProtocolCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "menuLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Remove protocol";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRemoveProtocolCommand.klass)})},
+args: [],
+source: "menuLabel\x0a\x09^ 'Remove protocol'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRemoveProtocolCommand.klass);
+
+
 smalltalk.addClass('HLRenameCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(
@@ -1710,6 +1861,24 @@ return "Classes";
 args: [],
 source: "category\x0a\x09^ 'Classes'",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameClassCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultInput",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._selectedClass())._name();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameClassCommand)})},
+args: [],
+source: "defaultInput\x0a\x09^ self model selectedClass name",
+messageSends: ["name", "selectedClass", "model"],
 referencedClasses: []
 }),
 smalltalk.HLRenameClassCommand);
@@ -1828,6 +1997,157 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLRenameClassCommand.klass);
+
+
+smalltalk.addClass('HLRenameProtocolCommand', smalltalk.HLRenameCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "category",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Protocols";
+}, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.HLRenameProtocolCommand)})},
+args: [],
+source: "category\x0a\x09^ 'Protocols'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultInput",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._model())._selectedProtocol();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameProtocolCommand)})},
+args: [],
+source: "defaultInput\x0a\x09^ self model selectedProtocol",
+messageSends: ["selectedProtocol", "model"],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "displayLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Rename protocol to:";
+}, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLRenameProtocolCommand)})},
+args: [],
+source: "displayLabel\x0a\x09^ 'Rename protocol to:'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._renameProtocolTo_(_st(self)._input());
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameProtocolCommand)})},
+args: [],
+source: "execute\x0a\x09self model renameProtocolTo: self input",
+messageSends: ["renameProtocolTo:", "input", "model"],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isActive",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._selectedProtocol())._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameProtocolCommand)})},
+args: [],
+source: "isActive\x0a\x09^ self model selectedProtocol notNil",
+messageSends: ["notNil", "selectedProtocol", "model"],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isInputRequired",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isInputRequired",{},smalltalk.HLRenameProtocolCommand)})},
+args: [],
+source: "isInputRequired\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "t";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLRenameProtocolCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 't'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Protocol";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLRenameProtocolCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Protocol'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "menuLabel",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Rename protocol...";
+}, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRenameProtocolCommand.klass)})},
+args: [],
+source: "menuLabel\x0a\x09^ 'Rename protocol...'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRenameProtocolCommand.klass);
 
 
 smalltalk.addClass('HLToggleCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');

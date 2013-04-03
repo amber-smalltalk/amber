@@ -1057,7 +1057,132 @@ referencedClasses: []
 smalltalk.HLCodeWidget.klass);
 
 
-smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLCodeWidget, ['browserModel', 'methodContents'], 'Helios-Workspace');
+smalltalk.addClass('HLNavigationCodeWidget', smalltalk.HLCodeWidget, ['methodContents'], 'Helios-Workspace');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "hasModification",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._methodContents()).__eq(_st(self)._contents()))._not();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLNavigationCodeWidget)})},
+args: [],
+source: "hasModification\x0a\x09^ (self methodContents = self contents) not",
+messageSends: ["not", "=", "contents", "methodContents"],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodContents",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@methodContents"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLNavigationCodeWidget)})},
+args: [],
+source: "methodContents\x0a\x09^ methodContents",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodContents:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self["@methodContents"]=aString;
+$1=self["@methodContents"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodContents:",{aString:aString},smalltalk.HLNavigationCodeWidget)})},
+args: ["aString"],
+source: "methodContents: aString\x0a\x09^ methodContents := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "previous",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLNavigationCodeWidget)})},
+args: [],
+source: "previous\x0a\x09\x22for browser lists widget\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "previous:",
+category: 'accessing',
+fn: function (aWidget){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLNavigationCodeWidget)})},
+args: ["aWidget"],
+source: "previous: aWidget\x0a\x09\x22for browser lists widget\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canBeOpenAsTab",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLNavigationCodeWidget.klass)})},
+args: [],
+source: "canBeOpenAsTab\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (aBrowserModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._browserModel_(aBrowserModel);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLNavigationCodeWidget.klass)})},
+args: ["aBrowserModel"],
+source: "on: aBrowserModel\x0a\x09^ self new\x0a\x09\x09browserModel: aBrowserModel;\x0a\x09\x09yourself",
+messageSends: ["browserModel:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLNavigationCodeWidget.klass);
+
+
+smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browserModel",
@@ -1092,58 +1217,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aB
 args: ["aBrowserModel"],
 source: "browserModel: aBrowserModel\x0a\x09browserModel := aBrowserModel.\x0a\x09self \x0a\x09\x09observeSystem;\x0a\x09\x09observeBrowserModel",
 messageSends: ["observeSystem", "observeBrowserModel"],
-referencedClasses: []
-}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "hasModification",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(self)._methodContents()).__eq(_st(self)._contents()))._not();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLSourceCodeWidget)})},
-args: [],
-source: "hasModification\x0a\x09^ (self methodContents = self contents) not",
-messageSends: ["not", "=", "contents", "methodContents"],
-referencedClasses: []
-}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodContents",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@methodContents"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLSourceCodeWidget)})},
-args: [],
-source: "methodContents\x0a\x09^ methodContents",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "methodContents:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@methodContents"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"methodContents:",{aString:aString},smalltalk.HLSourceCodeWidget)})},
-args: ["aString"],
-source: "methodContents: aString\x0a\x09methodContents := aString",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLSourceCodeWidget);
@@ -1491,36 +1564,6 @@ args: ["anError"],
 source: "onUnknownVariableError: anError\x0a\x09| confirm |\x0a\x0a\x09confirm := self confirm: (String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: anError messageText;\x0a\x09\x09\x09nextPutAll: String cr;\x0a\x09\x09\x09nextPutAll: 'Would you like to define an instance variable?' ]).\x0a\x09\x09\x09\x0a\x09confirm ifFalse: [ ^ self ].\x0a\x09\x0a\x09self browserModel addInstVarNamed: anError variableName",
 messageSends: ["confirm:", "streamContents:", "nextPutAll:", "messageText", "cr", "ifFalse:", "addInstVarNamed:", "variableName", "browserModel"],
 referencedClasses: ["String"]
-}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "previous",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous",{},smalltalk.HLSourceCodeWidget)})},
-args: [],
-source: "previous\x0a\x09\x22for browser lists widget\x22",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLSourceCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "previous:",
-category: 'accessing',
-fn: function (aWidget){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"previous:",{aWidget:aWidget},smalltalk.HLSourceCodeWidget)})},
-args: ["aWidget"],
-source: "previous: aWidget\x0a\x09\x22for browser lists widget\x22",
-messageSends: [],
-referencedClasses: []
 }),
 smalltalk.HLSourceCodeWidget);
 

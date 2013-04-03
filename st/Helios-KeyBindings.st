@@ -96,6 +96,7 @@ inputBinding
 	^ HLBindingInput new
 		label: self command inputLabel;
 		ghostText: self command displayLabel;
+		defaultValue: self command defaultInput;
 		inputCompletion: self command inputCompletion;
 		callback: [ :val | 
 			self command 
@@ -195,7 +196,7 @@ isActive
 ! !
 
 HLBinding subclass: #HLBindingInput
-	instanceVariableNames: 'input callback status wrapper binder ghostText isFinal message messageTag inputCompletion'
+	instanceVariableNames: 'input callback status wrapper binder ghostText isFinal message messageTag inputCompletion defaultValue'
 	package: 'Helios-KeyBindings'!
 
 !HLBindingInput methodsFor: 'accessing'!
@@ -210,6 +211,14 @@ callback
 
 callback: aBlock
 	callback := aBlock
+!
+
+defaultValue
+	^ defaultValue ifNil: [ '' ]
+!
+
+defaultValue: aString
+	defaultValue := aString
 !
 
 ghostText
@@ -297,12 +306,13 @@ refresh
 renderOn: aBinder html: html
 	binder := aBinder.
 	wrapper ifNil: [ wrapper := html span ].
-	
+
 	wrapper 
 		class: self status;
 		with: [
 			input := html input
 				placeholder: self ghostText;
+				value: self defaultValue;
 				yourself.
 			input asJQuery 
 				typeahead: #{ 'source' -> self inputCompletion }.
