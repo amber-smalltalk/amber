@@ -11,7 +11,7 @@ amber = (function() {
 
 	var scripts = document.getElementsByTagName("script");
 	var src     = scripts[ scripts.length - 1 ].src;
-	var home    = resolveViaDOM(src+'/../..');
+	var home    = resolveViaDOM(src).replace(/[^\/]+\/[^\/]+$/, "");
 
 	var debug;
 	var deploy;
