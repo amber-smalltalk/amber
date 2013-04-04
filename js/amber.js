@@ -11,7 +11,7 @@ amber = (function() {
 
 	var scripts = document.getElementsByTagName("script");
 	var src     = scripts[ scripts.length - 1 ].src;
-	var home    = src.split("/").slice(0, -2).join("/") + "/";
+	var home    = resolveViaDOM(src+'/../..');
 
 	var debug;
 	var deploy;
@@ -20,6 +20,12 @@ amber = (function() {
 	var jsToLoad = [];
 	var loadJS;
 	var nocache = '';
+
+    function resolveViaDOM(url) {
+        var a = document.createElement("a");
+        a.href = url;
+        return a.href;
+    }
 
 	that.load = function(obj) {
 		spec = obj || {};
