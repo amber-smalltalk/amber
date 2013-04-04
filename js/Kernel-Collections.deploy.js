@@ -3001,6 +3001,17 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "split:",
+fn: function (aChar){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.split(aChar);
+return self}, function($ctx1) {$ctx1.fill(self,"split:",{aChar:aChar},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tokenize:",
 fn: function (aString){
 var self=this;

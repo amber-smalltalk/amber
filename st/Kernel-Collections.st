@@ -1363,6 +1363,11 @@ linesDo: aBlock
 
 	self lineIndicesDo: [:start :endWithoutDelimiters :end |
 		aBlock value: (self copyFrom: start to: endWithoutDelimiters)]
+!
+
+split: aChar
+
+<return self.split(aChar)>
 ! !
 
 !String methodsFor: 'testing'!

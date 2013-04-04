@@ -4025,6 +4025,22 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "split:",
+category: 'split join',
+fn: function (aChar){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.split(aChar);
+return self}, function($ctx1) {$ctx1.fill(self,"split:",{aChar:aChar},smalltalk.String)})},
+args: ["aChar"],
+source: "split: aChar\x0a\x0a<return self.split(aChar)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tokenize:",
 category: 'converting',
 fn: function (aString){
