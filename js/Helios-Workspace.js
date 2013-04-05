@@ -1182,7 +1182,7 @@ referencedClasses: []
 smalltalk.HLNavigationCodeWidget.klass);
 
 
-smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
+smalltalk.addClass('HLBrowserCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browserModel",
@@ -1199,7 +1199,7 @@ source: "browserModel\x0a\x09^ browserModel",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1219,7 +1219,7 @@ source: "browserModel: aBrowserModel\x0a\x09browserModel := aBrowserModel.\x0a\x
 messageSends: ["observeSystem", "observeBrowserModel"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1281,7 +1281,7 @@ source: "observeBrowserModel\x0a\x09self browserModel announcer\x0a\x09\x09on: H
 messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
 referencedClasses: ["HLSaveSourceCode", "HLParseErrorRaised", "HLCompileErrorRaised", "HLUnknownVariableErrorRaised", "HLInstVarAdded", "HLMethodSelected", "HLClassSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1323,7 +1323,7 @@ source: "observeSystem\x0a\x09self browserModel systemAnnouncer\x0a    \x09on: M
 messageSends: ["on:do:", "onMethodModified:", "method", "systemAnnouncer", "browserModel", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
 referencedClasses: ["MethodModified", "HLMethodSelected", "HLClassSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1347,7 +1347,7 @@ source: "onClassSelected: aClass\x0a\x09aClass ifNil: [ ^ self contents: '' ].\x
 messageSends: ["ifNil:", "contents:", "definition"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1363,7 +1363,7 @@ source: "onCompileError: anError\x0a\x09self alert: anError messageText",
 messageSends: ["alert:", "messageText"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1379,7 +1379,7 @@ source: "onInstVarAdded\x0a\x09self  browserModel save: self contents",
 messageSends: ["save:", "contents", "browserModel"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1413,7 +1413,7 @@ source: "onMethodModified: aMethod\x0a\x09self browserModel selectedClass = aMet
 messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "browserModel", "ifNil:", "selectedMethod", "selector", "refresh"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1437,7 +1437,7 @@ source: "onMethodSelected: aCompiledMethod\x0a\x09aCompiledMethod ifNil: [ ^ sel
 messageSends: ["ifNil:", "contents:", "source"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1477,7 +1477,7 @@ source: "onParseError: anAnnouncement\x0a\x09| lineIndex newContents |\x0a\x09\x
 messageSends: ["contents:", "streamContents:", "linesDo:", "ifTrue:ifFalse:", "nextPutAll:", "copyFrom:to:", "column", "message", "+", "size", "=", "line", "cr", "contents"],
 referencedClasses: ["String"]
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1501,7 +1501,7 @@ source: "onProtocolSelected: aString\x0a\x09self browserModel selectedClass ifNi
 messageSends: ["ifNil:", "contents:", "selectedClass", "browserModel", "definition"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1517,7 +1517,7 @@ source: "onSaveIt\x0a\x09self browserModel save: self contents",
 messageSends: ["save:", "contents", "browserModel"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1533,7 +1533,7 @@ source: "onSourceCodeFocusRequested\x0a\x09self focus",
 messageSends: ["focus"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1565,7 +1565,7 @@ source: "onUnknownVariableError: anError\x0a\x09| confirm |\x0a\x0a\x09confirm :
 messageSends: ["confirm:", "streamContents:", "nextPutAll:", "messageText", "cr", "ifFalse:", "addInstVarNamed:", "variableName", "browserModel"],
 referencedClasses: ["String"]
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1592,7 +1592,7 @@ source: "refresh\x0a\x09self hasModification ifTrue: [ ^ self ].\x0a    self has
 messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "model"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1608,7 +1608,7 @@ source: "saveIt\x0a\x09self browserModel saveSourceCode",
 messageSends: ["saveSourceCode", "browserModel"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 
 smalltalk.addMethod(
@@ -1625,7 +1625,7 @@ source: "canBeOpenAsTab\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget.klass);
+smalltalk.HLBrowserCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1646,7 +1646,7 @@ source: "on: aBrowserModel\x0a\x09^ self new\x0a\x09\x09browserModel: aBrowserMo
 messageSends: ["browserModel:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLSourceCodeWidget.klass);
+smalltalk.HLBrowserCodeWidget.klass);
 
 
 smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['codeWidget'], 'Helios-Workspace');

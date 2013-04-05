@@ -85,7 +85,7 @@ protocolsListWidget
 
 sourceWidget
 	^ sourceWidget ifNil: [
-      	sourceWidget := HLSourceCodeWidget new
+      	sourceWidget := HLBrowserCodeWidget new
 			browserModel: self model;
 			yourself ]
 ! !
@@ -1312,6 +1312,35 @@ on: aClass selectorsCache: aSelectorsCache
     	theClass: aClass;
         selectorsCache: aSelectorsCache;
         yourself
+! !
+
+HLFocusableWidget subclass: #HLDocumentationWidget
+	instanceVariableNames: 'documentation'
+	package: 'Helios-Browser'!
+
+!HLDocumentationWidget methodsFor: 'accessing'!
+
+documentation
+	^ documentation ifNil: [ self defaultDocumentation ]
+!
+
+documentation: aString
+	documentation := aString
+! !
+
+!HLDocumentationWidget methodsFor: 'defaults'!
+
+defaultDocumentation
+	^ '#No documentation available. 
+##That''s bad. Seriously.'
+! !
+
+!HLDocumentationWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	html div 
+		class: 'markdown';
+		with: (Showdown makeHtml: self documentation)
 ! !
 
 Object subclass: #HLSelectorsCache

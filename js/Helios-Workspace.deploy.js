@@ -882,7 +882,7 @@ messageSends: ["browserModel:", "new", "yourself"]}),
 smalltalk.HLNavigationCodeWidget.klass);
 
 
-smalltalk.addClass('HLSourceCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
+smalltalk.addClass('HLBrowserCodeWidget', smalltalk.HLNavigationCodeWidget, ['browserModel'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "browserModel",
@@ -894,7 +894,7 @@ $1=self["@browserModel"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"browserModel",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: []}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -909,7 +909,7 @@ _st($1)._observeSystem();
 $2=_st($1)._observeBrowserModel();
 return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aBrowserModel},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["observeSystem", "observeBrowserModel"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -966,7 +966,7 @@ return _st(self)._onSourceCodeFocusRequested();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1003,7 +1003,7 @@ return _st(self)._onSourceCodeFocusRequested();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["on:do:", "onMethodModified:", "method", "systemAnnouncer", "browserModel", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1022,7 +1022,7 @@ $1;
 _st(self)._contents_(_st(aClass)._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["ifNil:", "contents:", "definition"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1033,7 +1033,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self)._alert_(_st(anError)._messageText());
 return self}, function($ctx1) {$ctx1.fill(self,"onCompileError:",{anError:anError},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["alert:", "messageText"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1044,7 +1044,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self)._browserModel())._save_(_st(self)._contents());
 return self}, function($ctx1) {$ctx1.fill(self,"onInstVarAdded",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["save:", "contents", "browserModel"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1073,7 +1073,7 @@ return $6;
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{aMethod:aMethod},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "browserModel", "ifNil:", "selectedMethod", "selector", "refresh"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1092,7 +1092,7 @@ $1;
 _st(self)._contents_(_st(aCompiledMethod)._source());
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aCompiledMethod:aCompiledMethod},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["ifNil:", "contents:", "source"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1127,7 +1127,7 @@ return lineIndex;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"onParseError:",{anAnnouncement:anAnnouncement,lineIndex:lineIndex,newContents:newContents},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["contents:", "streamContents:", "linesDo:", "ifTrue:ifFalse:", "nextPutAll:", "copyFrom:to:", "column", "message", "+", "size", "=", "line", "cr", "contents"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1146,7 +1146,7 @@ $1;
 _st(self)._contents_(_st(_st(_st(self)._browserModel())._selectedClass())._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["ifNil:", "contents:", "selectedClass", "browserModel", "definition"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1157,7 +1157,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self)._browserModel())._save_(_st(self)._contents());
 return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["save:", "contents", "browserModel"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1168,7 +1168,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["focus"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1195,7 +1195,7 @@ return $4;
 _st(_st(self)._browserModel())._addInstVarNamed_(_st(anError)._variableName());
 return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anError:anError,confirm:confirm},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["confirm:", "streamContents:", "nextPutAll:", "messageText", "cr", "ifFalse:", "addInstVarNamed:", "variableName", "browserModel"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1217,7 +1217,7 @@ return $4;
 _st(self)._contents_(_st(_st(_st(self)._model())._selectedMethod())._source());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "model"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1228,7 +1228,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self)._browserModel())._saveSourceCode();
 return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},smalltalk.HLSourceCodeWidget)})},
 messageSends: ["saveSourceCode", "browserModel"]}),
-smalltalk.HLSourceCodeWidget);
+smalltalk.HLBrowserCodeWidget);
 
 
 smalltalk.addMethod(
@@ -1240,7 +1240,7 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLSourceCodeWidget.klass)})},
 messageSends: []}),
-smalltalk.HLSourceCodeWidget.klass);
+smalltalk.HLBrowserCodeWidget.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1256,7 +1256,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLSourceCodeWidget.klass)})},
 messageSends: ["browserModel:", "new", "yourself"]}),
-smalltalk.HLSourceCodeWidget.klass);
+smalltalk.HLBrowserCodeWidget.klass);
 
 
 smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['codeWidget'], 'Helios-Workspace');

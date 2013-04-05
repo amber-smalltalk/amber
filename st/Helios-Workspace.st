@@ -444,11 +444,11 @@ canBeOpenAsTab
 	^ false
 ! !
 
-HLNavigationCodeWidget subclass: #HLSourceCodeWidget
+HLNavigationCodeWidget subclass: #HLBrowserCodeWidget
 	instanceVariableNames: 'browserModel'
 	package: 'Helios-Workspace'!
 
-!HLSourceCodeWidget methodsFor: 'accessing'!
+!HLBrowserCodeWidget methodsFor: 'accessing'!
 
 browserModel
 	^ browserModel
@@ -461,7 +461,7 @@ browserModel: aBrowserModel
 		observeBrowserModel
 ! !
 
-!HLSourceCodeWidget methodsFor: 'actions'!
+!HLBrowserCodeWidget methodsFor: 'actions'!
 
 observeBrowserModel
 	self browserModel announcer
@@ -510,7 +510,7 @@ saveIt
 	self browserModel saveSourceCode
 ! !
 
-!HLSourceCodeWidget methodsFor: 'reactions'!
+!HLBrowserCodeWidget methodsFor: 'reactions'!
 
 onClassSelected: aClass
 	aClass ifNil: [ ^ self contents: '' ].
@@ -588,7 +588,7 @@ onUnknownVariableError: anError
 	self browserModel addInstVarNamed: anError variableName
 ! !
 
-!HLSourceCodeWidget class methodsFor: 'instance creation'!
+!HLBrowserCodeWidget class methodsFor: 'instance creation'!
 
 on: aBrowserModel
 	^ self new
@@ -596,7 +596,7 @@ on: aBrowserModel
 		yourself
 ! !
 
-!HLSourceCodeWidget class methodsFor: 'testing'!
+!HLBrowserCodeWidget class methodsFor: 'testing'!
 
 canBeOpenAsTab
 	^ false

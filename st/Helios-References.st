@@ -42,7 +42,7 @@ sendersListWidget
 
 sourceCodeWidget
 	^ sourceCodeWidget ifNil: [
-      	sourceCodeWidget := HLSourceCodeWidget on: self model ]
+      	sourceCodeWidget := HLNavigationCodeWidget new ]
 ! !
 
 !HLReferences methodsFor: 'actions'!

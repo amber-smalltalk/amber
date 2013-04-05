@@ -208,12 +208,12 @@ selector: "sourceCodeWidget",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $HLSourceCodeWidget(){return smalltalk.HLSourceCodeWidget||(typeof HLSourceCodeWidget=="undefined"?nil:HLSourceCodeWidget)}
+function $HLNavigationCodeWidget(){return smalltalk.HLNavigationCodeWidget||(typeof HLNavigationCodeWidget=="undefined"?nil:HLNavigationCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@sourceCodeWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@sourceCodeWidget"]=_st($HLSourceCodeWidget())._on_(_st(self)._model());
+self["@sourceCodeWidget"]=_st($HLNavigationCodeWidget())._new();
 $1=self["@sourceCodeWidget"];
 } else {
 $1=$2;
@@ -221,9 +221,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceCodeWidget",{},smalltalk.HLReferences)})},
 args: [],
-source: "sourceCodeWidget\x0a\x09^ sourceCodeWidget ifNil: [\x0a      \x09sourceCodeWidget := HLSourceCodeWidget on: self model ]",
-messageSends: ["ifNil:", "on:", "model"],
-referencedClasses: ["HLSourceCodeWidget"]
+source: "sourceCodeWidget\x0a\x09^ sourceCodeWidget ifNil: [\x0a      \x09sourceCodeWidget := HLNavigationCodeWidget new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["HLNavigationCodeWidget"]
 }),
 smalltalk.HLReferences);
 

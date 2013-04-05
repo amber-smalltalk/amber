@@ -258,12 +258,12 @@ selector: "sourceWidget",
 category: 'widgets',
 fn: function (){
 var self=this;
-function $HLSourceCodeWidget(){return smalltalk.HLSourceCodeWidget||(typeof HLSourceCodeWidget=="undefined"?nil:HLSourceCodeWidget)}
+function $HLBrowserCodeWidget(){return smalltalk.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@sourceWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st($HLSourceCodeWidget())._new();
+$3=_st($HLBrowserCodeWidget())._new();
 _st($3)._browserModel_(_st(self)._model());
 $4=_st($3)._yourself();
 self["@sourceWidget"]=$4;
@@ -274,9 +274,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceWidget",{},smalltalk.HLBrowser)})},
 args: [],
-source: "sourceWidget\x0a\x09^ sourceWidget ifNil: [\x0a      \x09sourceWidget := HLSourceCodeWidget new\x0a\x09\x09\x09browserModel: self model;\x0a\x09\x09\x09yourself ]",
+source: "sourceWidget\x0a\x09^ sourceWidget ifNil: [\x0a      \x09sourceWidget := HLBrowserCodeWidget new\x0a\x09\x09\x09browserModel: self model;\x0a\x09\x09\x09yourself ]",
 messageSends: ["ifNil:", "browserModel:", "model", "new", "yourself"],
-referencedClasses: ["HLSourceCodeWidget"]
+referencedClasses: ["HLBrowserCodeWidget"]
 }),
 smalltalk.HLBrowser);
 
@@ -3963,6 +3963,84 @@ messageSends: ["theClass:", "new", "selectorsCache:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLClassCache.klass);
+
+
+smalltalk.addClass('HLDocumentationWidget', smalltalk.HLFocusableWidget, ['documentation'], 'Helios-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultDocumentation",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "#No documentation available. \x0a##That's bad. Seriously.";
+}, function($ctx1) {$ctx1.fill(self,"defaultDocumentation",{},smalltalk.HLDocumentationWidget)})},
+args: [],
+source: "defaultDocumentation\x0a\x09^ '#No documentation available. \x0a##That''s bad. Seriously.'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "documentation",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@documentation"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(self)._defaultDocumentation();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"documentation",{},smalltalk.HLDocumentationWidget)})},
+args: [],
+source: "documentation\x0a\x09^ documentation ifNil: [ self defaultDocumentation ]",
+messageSends: ["ifNil:", "defaultDocumentation"],
+referencedClasses: []
+}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "documentation:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@documentation"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"documentation:",{aString:aString},smalltalk.HLDocumentationWidget)})},
+args: ["aString"],
+source: "documentation: aString\x0a\x09documentation := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+function $Showdown(){return smalltalk.Showdown||(typeof Showdown=="undefined"?nil:Showdown)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("markdown");
+$2=_st($1)._with_(_st($Showdown())._makeHtml_(_st(self)._documentation()));
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLDocumentationWidget)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09html div \x0a\x09\x09class: 'markdown';\x0a\x09\x09with: (Showdown makeHtml: self documentation)",
+messageSends: ["class:", "div", "with:", "makeHtml:", "documentation"],
+referencedClasses: ["Showdown"]
+}),
+smalltalk.HLDocumentationWidget);
+
 
 
 smalltalk.addClass('HLSelectorsCache', smalltalk.Object, ['classesCache'], 'Helios-Browser');

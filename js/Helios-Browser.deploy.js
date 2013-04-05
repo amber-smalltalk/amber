@@ -197,12 +197,12 @@ smalltalk.method({
 selector: "sourceWidget",
 fn: function (){
 var self=this;
-function $HLSourceCodeWidget(){return smalltalk.HLSourceCodeWidget||(typeof HLSourceCodeWidget=="undefined"?nil:HLSourceCodeWidget)}
+function $HLBrowserCodeWidget(){return smalltalk.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@sourceWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st($HLSourceCodeWidget())._new();
+$3=_st($HLBrowserCodeWidget())._new();
 _st($3)._browserModel_(_st(self)._model());
 $4=_st($3)._yourself();
 self["@sourceWidget"]=$4;
@@ -3078,6 +3078,64 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:selectorsCache:",{aClass:aClass,aSelectorsCache:aSelectorsCache},smalltalk.HLClassCache.klass)})},
 messageSends: ["theClass:", "new", "selectorsCache:", "yourself"]}),
 smalltalk.HLClassCache.klass);
+
+
+smalltalk.addClass('HLDocumentationWidget', smalltalk.HLFocusableWidget, ['documentation'], 'Helios-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultDocumentation",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "#No documentation available. \x0a##That's bad. Seriously.";
+}, function($ctx1) {$ctx1.fill(self,"defaultDocumentation",{},smalltalk.HLDocumentationWidget)})},
+messageSends: []}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "documentation",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@documentation"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(self)._defaultDocumentation();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"documentation",{},smalltalk.HLDocumentationWidget)})},
+messageSends: ["ifNil:", "defaultDocumentation"]}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "documentation:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@documentation"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"documentation:",{aString:aString},smalltalk.HLDocumentationWidget)})},
+messageSends: []}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+fn: function (html){
+var self=this;
+function $Showdown(){return smalltalk.Showdown||(typeof Showdown=="undefined"?nil:Showdown)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("markdown");
+$2=_st($1)._with_(_st($Showdown())._makeHtml_(_st(self)._documentation()));
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLDocumentationWidget)})},
+messageSends: ["class:", "div", "with:", "makeHtml:", "documentation"]}),
+smalltalk.HLDocumentationWidget);
+
 
 
 smalltalk.addClass('HLSelectorsCache', smalltalk.Object, ['classesCache'], 'Helios-Browser');

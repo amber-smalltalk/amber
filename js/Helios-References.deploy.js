@@ -162,19 +162,19 @@ smalltalk.method({
 selector: "sourceCodeWidget",
 fn: function (){
 var self=this;
-function $HLSourceCodeWidget(){return smalltalk.HLSourceCodeWidget||(typeof HLSourceCodeWidget=="undefined"?nil:HLSourceCodeWidget)}
+function $HLNavigationCodeWidget(){return smalltalk.HLNavigationCodeWidget||(typeof HLNavigationCodeWidget=="undefined"?nil:HLNavigationCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@sourceCodeWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@sourceCodeWidget"]=_st($HLSourceCodeWidget())._on_(_st(self)._model());
+self["@sourceCodeWidget"]=_st($HLNavigationCodeWidget())._new();
 $1=self["@sourceCodeWidget"];
 } else {
 $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceCodeWidget",{},smalltalk.HLReferences)})},
-messageSends: ["ifNil:", "on:", "model"]}),
+messageSends: ["ifNil:", "new"]}),
 smalltalk.HLReferences);
 
 
