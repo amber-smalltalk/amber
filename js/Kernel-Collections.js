@@ -3593,6 +3593,57 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "diff:",
+category: 'comparing',
+fn: function (aString){
+var self=this;
+var minSize,iter;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+var $early={};
+try {
+$1=_st(_st(aString)._size()).__gt(_st(self)._size());
+if(smalltalk.assert($1)){
+minSize=_st(self)._size();
+minSize;
+} else {
+minSize=_st(aString)._size();
+minSize;
+};
+iter=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(iter).__lt_eq(minSize);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(_st(self)._at_(iter)).__eq_eq(_st(aString)._at_(iter));
+if(! smalltalk.assert($2)){
+$3=iter;
+throw $early=[$3];
+};
+iter=_st(iter).__plus((1));
+return iter;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=_st(_st(aString)._size()).__eq_eq(_st(self)._size());
+if(smalltalk.assert($4)){
+$5=(0);
+return $5;
+} else {
+$6=_st(minSize).__plus((1));
+return $6;
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"diff:",{aString:aString,minSize:minSize,iter:iter},smalltalk.String)})},
+args: ["aString"],
+source: "diff: aString\x0a\x0a\x22returns the first position that the strings differ or 0\x22\x0a\x0a|minSize iter|\x0a\x0a(aString size > self size) \x0aifTrue:[\x0a\x09minSize := self size.\x0a]\x0aifFalse:[\x0a\x09minSize := aString size.\x0a].\x0a\x09\x09\x0aiter:= 1.\x0a[iter<=minSize] whileTrue:[\x0a\x09((self at: iter) == (aString at: iter)) ifFalse:[^iter ].\x0a\x09iter:= iter + 1.\x0a].\x0a\x0a(aString size == self size) \x0aifTrue:[ ^0]\x0aifFalse:[^ (minSize +1)]",
+messageSends: ["ifTrue:ifFalse:", "size", ">", "whileTrue:", "ifFalse:", "==", "at:", "+", "<="],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "do:",
 category: 'enumerating',
 fn: function (aBlock){

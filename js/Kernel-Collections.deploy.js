@@ -2669,6 +2669,52 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "diff:",
+fn: function (aString){
+var self=this;
+var minSize,iter;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+var $early={};
+try {
+$1=_st(_st(aString)._size()).__gt(_st(self)._size());
+if(smalltalk.assert($1)){
+minSize=_st(self)._size();
+minSize;
+} else {
+minSize=_st(aString)._size();
+minSize;
+};
+iter=(1);
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(iter).__lt_eq(minSize);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(_st(self)._at_(iter)).__eq_eq(_st(aString)._at_(iter));
+if(! smalltalk.assert($2)){
+$3=iter;
+throw $early=[$3];
+};
+iter=_st(iter).__plus((1));
+return iter;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=_st(_st(aString)._size()).__eq_eq(_st(self)._size());
+if(smalltalk.assert($4)){
+$5=(0);
+return $5;
+} else {
+$6=_st(minSize).__plus((1));
+return $6;
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"diff:",{aString:aString,minSize:minSize,iter:iter},smalltalk.String)})},
+messageSends: ["ifTrue:ifFalse:", "size", ">", "whileTrue:", "ifFalse:", "==", "at:", "+", "<="]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "do:",
 fn: function (aBlock){
 var self=this;

@@ -1151,6 +1151,31 @@ unescaped
 
 >= aString
 	<return String(self) >>= aString._asString()>
+!
+
+diff: aString
+
+"returns the first position that the strings differ or 0"
+
+|minSize iter|
+
+(aString size > self size) 
+ifTrue:[
+	minSize := self size.
+]
+ifFalse:[
+	minSize := aString size.
+].
+		
+iter:= 1.
+[iter<=minSize] whileTrue:[
+	((self at: iter) == (aString at: iter)) ifFalse:[^iter ].
+	iter:= iter + 1.
+].
+
+(aString size == self size) 
+ifTrue:[ ^0]
+ifFalse:[^ (minSize +1)]
 ! !
 
 !String methodsFor: 'converting'!
