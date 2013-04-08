@@ -4157,7 +4157,6 @@ var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(console)._log_(_st(_st(_st("Added child to:").__comma(self["@string"])).__comma(" with string:")).__comma(_st(aTrieNode)._string()));
 $1=self["@children"];
 if(($receiver = $1) == nil || $receiver == undefined){
 self["@children"]=_st($Array())._new();
@@ -4167,7 +4166,7 @@ $1;
 };
 _st(self["@children"])._add_(aTrieNode);
 return self}, function($ctx1) {$ctx1.fill(self,"addChild:",{aTrieNode:aTrieNode},smalltalk.Trie)})},
-messageSends: ["log:", ",", "string", "ifNil:", "new", "add:"]}),
+messageSends: ["ifNil:", "new", "add:"]}),
 smalltalk.Trie);
 
 smalltalk.addMethod(
@@ -4178,7 +4177,6 @@ var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(console)._log_(_st("Adding object to node:").__comma(self["@string"]));
 $1=self["@objects"];
 if(($receiver = $1) == nil || $receiver == undefined){
 self["@objects"]=_st($Array())._new();
@@ -4188,7 +4186,7 @@ $1;
 };
 _st(self["@objects"])._add_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"addObject:",{anObject:anObject},smalltalk.Trie)})},
-messageSends: ["log:", ",", "ifNil:", "new", "add:"]}),
+messageSends: ["ifNil:", "new", "add:"]}),
 smalltalk.Trie);
 
 smalltalk.addMethod(

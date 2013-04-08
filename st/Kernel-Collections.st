@@ -2001,14 +2001,12 @@ self withIndexDo: aBlock prefix: ''.
 
 addChild: aTrieNode
 
-console log: ('Added child to:',string,' with string:',(aTrieNode string)).
 children ifNil: [ children := Array new ].
 children add: aTrieNode.
 !
 
 addObject: anObject
 
-console log: ('Adding object to node:',string).
 objects ifNil:[ objects := Array new ].
 objects add: anObject.
 !
