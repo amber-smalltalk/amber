@@ -1239,6 +1239,10 @@ tokenize: aString
 	<return self + aString>
 !
 
+copyFrom: anIndex
+	<return self.substring(anIndex - 1)>
+!
+
 copyFrom: anIndex to: anotherIndex
 	<return self.substring(anIndex - 1, anotherIndex)>
 !
@@ -1847,5 +1851,275 @@ space
 
 tab
 	^self nextPutAll: String tab
+! !
+
+Object subclass: #Trie
+	instanceVariableNames: 'string children objects'
+	package: 'Kernel-Collections'!
+
+!Trie methodsFor: 'Search'!
+
+maxCommonPrefixOf: aString
+
+|diff|
+diff := string diff: aString.
+
+( diff == 0 ) 
+ifTrue:[
+	^ self.
+]
+ifFalse:[
+	( diff > (string size) ) ifTrue: [ |substring maxNode|
+	"a node with zero string size"
+		maxNode := Trie string: ''.
+		substring := aString copyFrom: (string size +1).
+		children do:[ :each ||result| 
+			result := each maxCommonPrefixOf: substring.
+			result ifNotNil:[
+				(result string size > maxNode string size) ifTrue:[
+					maxNode := result.	
+		]	]	].
+		(maxNode string size == 0) 
+		ifTrue:[ ^ self ]
+		ifFalse:[ ^ maxNode ].
+	]
+	ifFalse:[
+		^ nil.
+]	].
+! !
+
+!Trie methodsFor: 'accessing'!
+
+at: aString
+
+|diff|
+diff := string diff: aString.
+
+( diff == 0 ) 
+ifTrue:[
+	^ self.
+]
+ifFalse:[
+	( diff > (string size) ) ifTrue: [ |substring|
+		substring := aString copyFrom: (string size +1).
+		children do:[ :each ||result| 
+			result := each at: substring.
+			result ifNotNil:[ ^ result ].
+		].
+		^ nil.
+	]
+	ifFalse:[
+		^ nil.
+]	].
+!
+
+objects
+
+^objects
+!
+
+string
+
+^ string
+! !
+
+!Trie methodsFor: 'adding/removing'!
+
+at: aString put: anObject
+
+|diff|
+diff := string diff: aString.
+
+( diff == 0 ) 
+ifTrue:[
+	self addObject: anObject.
+	^ diff.
+]
+ifFalse:[
+	( diff > (string size) ) ifTrue: [ |substring|
+		substring := aString copyFrom: diff.
+		children ifNotNil: [
+			children do:[ :each | |result| 
+				result := each at: substring put: anObject.
+				(result > 1) 
+				ifTrue:[ |substringChild substringNewChild|
+				substringChild := (each string) copyFrom: result.
+				each string: substringChild.
+				substringNewChild := substring copyFrom:1 to: (result -1). 
+				((result-1) <  (substring size)) 
+				ifTrue:[
+					substringChild := substring copyFrom: result.
+					self addChild: ((Trie string: substringNewChild) addChild:each; addChild: ((Trie string: substringChild) addObject: anObject) ;yourself).
+				]
+				ifFalse:[
+					self addChild: ((Trie string: substringNewChild) addObject:anObject; addChild:each; yourself).
+				].
+				children remove: each ifAbsent:[].
+				
+				^ 0.
+				]
+				ifFalse:[ 
+					(result == 0) 
+					ifTrue: [ ^ 0 ]
+		]	]	].					
+		self addChild: ((Trie string: substring) addObject: anObject).
+		^ 0.
+	]
+	ifFalse:[
+		^ diff.
+]	]
+!
+
+at: aString remove: anObject
+
+self at: aString remove: anObject parent: self.
+!
+
+remove: aString
+
+self remove: aString parent: self.
+! !
+
+!Trie methodsFor: 'enumerating'!
+
+do: aBlock
+
+objects ifNotNil:[
+	objects do: aBlock.
+].
+children ifNotNil:[
+	children do: [ :each | each do: aBlock ].
+]
+!
+
+withIndexDo: aBlock
+
+objects ifNotNil:[
+	objects do:[ :each|  aBlock value: each value: string].
+].
+children ifNotNil:[
+	children do: [ :each | each withIndexDo: aBlock ].
+]
+! !
+
+!Trie methodsFor: 'private'!
+
+addChild: aTrieNode
+
+console log: ('Added child to:',string,' with string:',(aTrieNode string)).
+children ifNil: [ children := Array new ].
+children add: aTrieNode.
+!
+
+addObject: anObject
+
+console log: ('Adding object to node:',string).
+objects ifNil:[ objects := Array new ].
+objects add: anObject.
+!
+
+at: aString remove: anObject parent: parent
+
+|diff|
+
+diff := string diff: aString.
+( diff == 0 ) 
+ifTrue:[ |result|
+	result := self removeObject: anObject.
+	(objects == nil) ifTrue:[
+		(children == nil) ifFalse:[
+			(children size == 1) 
+			ifTrue:[
+				parent removeChild: self.
+				(children at: 1) string: (self string,(children at: 1) string).
+				parent addChild: (children at: 1).
+				^ result.
+		]	]
+		ifTrue:[
+			parent removeChild: self.
+	]	].
+	^ result.
+]
+ifFalse:[
+	( diff > (string size) ) ifTrue: [ |substring|
+		substring := aString copyFrom: (string size +1).
+		children do:[ :each ||result| 
+			result := each at: substring remove: anObject parent: self.
+			result ifTrue:[ ^ true ]
+		].
+		^ false.
+	]
+	ifFalse:[
+		^ false.
+]	].
+!
+
+remove: aString parent: parent
+
+|diff|
+
+diff := string diff: aString.
+( diff == 0 ) 
+ifTrue:[
+	self removeObjects.
+	(children == nil) ifFalse:[
+		(children size == 1) 
+		ifTrue:[
+			parent removeChild: self.	
+			(children at: 1) string: (self string,(children at: 1) string).
+			parent addChild: (children at: 1).
+			^ true.
+	]	]
+	ifTrue:[
+		parent removeChild: self.
+	].
+	^ true.
+]
+ifFalse:[
+	( diff > (string size) ) ifTrue: [ |substring|
+		substring := aString copyFrom: (string size +1).
+		children do:[ :each ||result| 
+			result := each remove: substring parent: self.
+			result ifTrue:[ ^ true ]
+		].
+		^ false.
+	]
+	ifFalse:[
+		^ false.
+]	].
+!
+
+removeChild: aTrieNode
+
+children remove: aTrieNode.
+!
+
+removeObject: anObject
+
+objects remove: anObject ifAbsent:[ ^ false ].
+(objects size == 0) ifTrue: [objects := nil].
+^ true.
+!
+
+removeObjects
+
+objects := nil
+!
+
+string: aString
+
+string := aString.
+! !
+
+!Trie class methodsFor: 'instance creation'!
+
+root
+
+^ self string: ''.
+!
+
+string: aString
+
+^ self new string: aString; yourself.
 ! !
 

@@ -2631,6 +2631,17 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "copyFrom:",
+fn: function (anIndex){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.substring(anIndex - 1);
+return self}, function($ctx1) {$ctx1.fill(self,"copyFrom:",{anIndex:anIndex},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copyFrom:to:",
 fn: function (anIndex,anotherIndex){
 var self=this;
@@ -4135,5 +4146,538 @@ return $1;
 messageSends: ["nextPutAll:", "tab"]}),
 smalltalk.StringStream);
 
+
+
+smalltalk.addClass('Trie', smalltalk.Object, ['string', 'children', 'objects'], 'Kernel-Collections');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addChild:",
+fn: function (aTrieNode){
+var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(console)._log_(_st(_st(_st("Added child to:").__comma(self["@string"])).__comma(" with string:")).__comma(_st(aTrieNode)._string()));
+$1=self["@children"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@children"]=_st($Array())._new();
+self["@children"];
+} else {
+$1;
+};
+_st(self["@children"])._add_(aTrieNode);
+return self}, function($ctx1) {$ctx1.fill(self,"addChild:",{aTrieNode:aTrieNode},smalltalk.Trie)})},
+messageSends: ["log:", ",", "string", "ifNil:", "new", "add:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addObject:",
+fn: function (anObject){
+var self=this;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(console)._log_(_st("Adding object to node:").__comma(self["@string"]));
+$1=self["@objects"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@objects"]=_st($Array())._new();
+self["@objects"];
+} else {
+$1;
+};
+_st(self["@objects"])._add_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"addObject:",{anObject:anObject},smalltalk.Trie)})},
+messageSends: ["log:", ",", "ifNil:", "new", "add:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:",
+fn: function (aString){
+var self=this;
+var diff;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+var $early={};
+try {
+diff=_st(self["@string"])._diff_(aString);
+$1=_st(diff).__eq_eq((0));
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+} else {
+$3=_st(diff).__gt(_st(self["@string"])._size());
+if(smalltalk.assert($3)){
+var substring;
+substring=_st(aString)._copyFrom_(_st(_st(self["@string"])._size()).__plus((1)));
+substring;
+_st(self["@children"])._do_((function(each){
+var result;
+return smalltalk.withContext(function($ctx2) {
+result=_st(each)._at_(substring);
+result;
+$4=result;
+if(($receiver = $4) == nil || $receiver == undefined){
+return $4;
+} else {
+$5=result;
+throw $early=[$5];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each,result:result},$ctx1)})}));
+return nil;
+} else {
+return nil;
+};
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString,diff:diff},smalltalk.Trie)})},
+messageSends: ["diff:", "ifTrue:ifFalse:", "copyFrom:", "+", "size", "do:", "at:", "ifNotNil:", ">", "=="]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:put:",
+fn: function (aString,anObject){
+var self=this;
+var diff;
+function $Trie(){return smalltalk.Trie||(typeof Trie=="undefined"?nil:Trie)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15;
+var $early={};
+try {
+diff=_st(self["@string"])._diff_(aString);
+$1=_st(diff).__eq_eq((0));
+if(smalltalk.assert($1)){
+_st(self)._addObject_(anObject);
+$2=diff;
+return $2;
+} else {
+$3=_st(diff).__gt(_st(self["@string"])._size());
+if(smalltalk.assert($3)){
+var substring;
+substring=_st(aString)._copyFrom_(diff);
+substring;
+$4=self["@children"];
+if(($receiver = $4) == nil || $receiver == undefined){
+$4;
+} else {
+_st(self["@children"])._do_((function(each){
+var result;
+return smalltalk.withContext(function($ctx2) {
+result=_st(each)._at_put_(substring,anObject);
+result;
+$5=_st(result).__gt((1));
+if(smalltalk.assert($5)){
+var substringChild,substringNewChild;
+substringChild=_st(_st(each)._string())._copyFrom_(result);
+substringChild;
+_st(each)._string_(substringChild);
+substringNewChild=_st(substring)._copyFrom_to_((1),_st(result).__minus((1)));
+substringNewChild;
+$6=_st(_st(result).__minus((1))).__lt(_st(substring)._size());
+if(smalltalk.assert($6)){
+substringChild=_st(substring)._copyFrom_(result);
+substringChild;
+$7=_st($Trie())._string_(substringNewChild);
+_st($7)._addChild_(each);
+_st($7)._addChild_(_st(_st($Trie())._string_(substringChild))._addObject_(anObject));
+$8=_st($7)._yourself();
+_st(self)._addChild_($8);
+} else {
+$9=_st($Trie())._string_(substringNewChild);
+_st($9)._addObject_(anObject);
+_st($9)._addChild_(each);
+$10=_st($9)._yourself();
+_st(self)._addChild_($10);
+};
+_st(self["@children"])._remove_ifAbsent_(each,(function(){
+return smalltalk.withContext(function($ctx3) {
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+$11=(0);
+throw $early=[$11];
+} else {
+$12=_st(result).__eq_eq((0));
+if(smalltalk.assert($12)){
+$13=(0);
+throw $early=[$13];
+};
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each,result:result},$ctx1)})}));
+};
+_st(self)._addChild_(_st(_st($Trie())._string_(substring))._addObject_(anObject));
+$14=(0);
+return $14;
+} else {
+$15=diff;
+return $15;
+};
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject,diff:diff},smalltalk.Trie)})},
+messageSends: ["diff:", "ifTrue:ifFalse:", "addObject:", "copyFrom:", "ifNotNil:", "do:", "at:put:", "string", "string:", "copyFrom:to:", "-", "addChild:", "yourself", "<", "size", "remove:ifAbsent:", "ifTrue:", "==", ">"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:remove:",
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._at_remove_parent_(aString,anObject,self);
+return self}, function($ctx1) {$ctx1.fill(self,"at:remove:",{aString:aString,anObject:anObject},smalltalk.Trie)})},
+messageSends: ["at:remove:parent:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:remove:parent:",
+fn: function (aString,anObject,parent){
+var self=this;
+var diff;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
+var $early={};
+try {
+diff=_st(self["@string"])._diff_(aString);
+$1=_st(diff).__eq_eq((0));
+if(smalltalk.assert($1)){
+var result;
+result=_st(self)._removeObject_(anObject);
+result;
+$2=_st(self["@objects"]).__eq_eq(nil);
+if(smalltalk.assert($2)){
+$3=_st(self["@children"]).__eq_eq(nil);
+if(smalltalk.assert($3)){
+_st(parent)._removeChild_(self);
+} else {
+$4=_st(_st(self["@children"])._size()).__eq_eq((1));
+if(smalltalk.assert($4)){
+_st(parent)._removeChild_(self);
+_st(_st(self["@children"])._at_((1)))._string_(_st(_st(self)._string()).__comma(_st(_st(self["@children"])._at_((1)))._string()));
+_st(parent)._addChild_(_st(self["@children"])._at_((1)));
+$5=result;
+return $5;
+};
+};
+};
+$6=result;
+return $6;
+} else {
+$7=_st(diff).__gt(_st(self["@string"])._size());
+if(smalltalk.assert($7)){
+var substring;
+substring=_st(aString)._copyFrom_(_st(_st(self["@string"])._size()).__plus((1)));
+substring;
+_st(self["@children"])._do_((function(each){
+var result;
+return smalltalk.withContext(function($ctx2) {
+result=_st(each)._at_remove_parent_(substring,anObject,self);
+result;
+$8=result;
+if(smalltalk.assert($8)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each,result:result},$ctx1)})}));
+return false;
+} else {
+return false;
+};
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"at:remove:parent:",{aString:aString,anObject:anObject,parent:parent,diff:diff},smalltalk.Trie)})},
+messageSends: ["diff:", "ifTrue:ifFalse:", "removeObject:", "ifTrue:", "ifFalse:ifTrue:", "removeChild:", "string:", ",", "string", "at:", "addChild:", "==", "size", "copyFrom:", "+", "do:", "at:remove:parent:", ">"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@objects"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(self["@objects"])._do_(aBlock);
+};
+$2=self["@children"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+_st(self["@children"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._do_(aBlock);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Trie)})},
+messageSends: ["ifNotNil:", "do:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "maxCommonPrefixOf:",
+fn: function (aString){
+var self=this;
+var diff;
+function $Trie(){return smalltalk.Trie||(typeof Trie=="undefined"?nil:Trie)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8;
+diff=_st(self["@string"])._diff_(aString);
+$1=_st(diff).__eq_eq((0));
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+} else {
+$3=_st(diff).__gt(_st(self["@string"])._size());
+if(smalltalk.assert($3)){
+var substring,maxNode;
+maxNode=_st($Trie())._string_("");
+maxNode;
+substring=_st(aString)._copyFrom_(_st(_st(self["@string"])._size()).__plus((1)));
+substring;
+_st(self["@children"])._do_((function(each){
+var result;
+return smalltalk.withContext(function($ctx2) {
+result=_st(each)._maxCommonPrefixOf_(substring);
+result;
+$4=result;
+if(($receiver = $4) == nil || $receiver == undefined){
+return $4;
+} else {
+$5=_st(_st(_st(result)._string())._size()).__gt(_st(_st(maxNode)._string())._size());
+if(smalltalk.assert($5)){
+maxNode=result;
+return maxNode;
+};
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each,result:result},$ctx1)})}));
+$6=_st(_st(_st(maxNode)._string())._size()).__eq_eq((0));
+if(smalltalk.assert($6)){
+$7=self;
+return $7;
+} else {
+$8=maxNode;
+return $8;
+};
+} else {
+return nil;
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"maxCommonPrefixOf:",{aString:aString,diff:diff},smalltalk.Trie)})},
+messageSends: ["diff:", "ifTrue:ifFalse:", "string:", "copyFrom:", "+", "size", "do:", "maxCommonPrefixOf:", "ifNotNil:", "ifTrue:", ">", "string", "=="]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "objects",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@objects"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"objects",{},smalltalk.Trie)})},
+messageSends: []}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._remove_parent_(aString,self);
+return self}, function($ctx1) {$ctx1.fill(self,"remove:",{aString:aString},smalltalk.Trie)})},
+messageSends: ["remove:parent:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove:parent:",
+fn: function (aString,parent){
+var self=this;
+var diff;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+var $early={};
+try {
+diff=_st(self["@string"])._diff_(aString);
+$1=_st(diff).__eq_eq((0));
+if(smalltalk.assert($1)){
+_st(self)._removeObjects();
+$2=_st(self["@children"]).__eq_eq(nil);
+if(smalltalk.assert($2)){
+_st(parent)._removeChild_(self);
+} else {
+$3=_st(_st(self["@children"])._size()).__eq_eq((1));
+if(smalltalk.assert($3)){
+_st(parent)._removeChild_(self);
+_st(_st(self["@children"])._at_((1)))._string_(_st(_st(self)._string()).__comma(_st(_st(self["@children"])._at_((1)))._string()));
+_st(parent)._addChild_(_st(self["@children"])._at_((1)));
+return true;
+};
+};
+return true;
+} else {
+$4=_st(diff).__gt(_st(self["@string"])._size());
+if(smalltalk.assert($4)){
+var substring;
+substring=_st(aString)._copyFrom_(_st(_st(self["@string"])._size()).__plus((1)));
+substring;
+_st(self["@children"])._do_((function(each){
+var result;
+return smalltalk.withContext(function($ctx2) {
+result=_st(each)._remove_parent_(substring,self);
+result;
+$5=result;
+if(smalltalk.assert($5)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each,result:result},$ctx1)})}));
+return false;
+} else {
+return false;
+};
+};
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"remove:parent:",{aString:aString,parent:parent,diff:diff},smalltalk.Trie)})},
+messageSends: ["diff:", "ifTrue:ifFalse:", "removeObjects", "ifFalse:ifTrue:", "ifTrue:", "removeChild:", "string:", ",", "string", "at:", "addChild:", "==", "size", "copyFrom:", "+", "do:", "remove:parent:", ">"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeChild:",
+fn: function (aTrieNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@children"])._remove_(aTrieNode);
+return self}, function($ctx1) {$ctx1.fill(self,"removeChild:",{aTrieNode:aTrieNode},smalltalk.Trie)})},
+messageSends: ["remove:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeObject:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+_st(self["@objects"])._remove_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {
+throw $early=[false];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=_st(_st(self["@objects"])._size()).__eq_eq((0));
+if(smalltalk.assert($1)){
+self["@objects"]=nil;
+self["@objects"];
+};
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"removeObject:",{anObject:anObject},smalltalk.Trie)})},
+messageSends: ["remove:ifAbsent:", "ifTrue:", "==", "size"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeObjects",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@objects"]=nil;
+return self}, function($ctx1) {$ctx1.fill(self,"removeObjects",{},smalltalk.Trie)})},
+messageSends: []}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "string",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@string"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"string",{},smalltalk.Trie)})},
+messageSends: []}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "string:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@string"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"string:",{aString:aString},smalltalk.Trie)})},
+messageSends: []}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withIndexDo:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@objects"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(self["@objects"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aBlock)._value_value_(each,self["@string"]);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+};
+$2=self["@children"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+_st(self["@children"])._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._withIndexDo_(aBlock);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.Trie)})},
+messageSends: ["ifNotNil:", "do:", "value:value:", "withIndexDo:"]}),
+smalltalk.Trie);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "root",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._string_("");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"root",{},smalltalk.Trie.klass)})},
+messageSends: ["string:"]}),
+smalltalk.Trie.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "string:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._string_(aString);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"string:",{aString:aString},smalltalk.Trie.klass)})},
+messageSends: ["string:", "new", "yourself"]}),
+smalltalk.Trie.klass);
 
 
