@@ -4627,6 +4627,17 @@ selector: "withIndexDo:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+_st(self)._withIndexDo_prefix_(aBlock,"");
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.Trie)})},
+messageSends: ["withIndexDo:prefix:"]}),
+smalltalk.Trie);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withIndexDo:prefix:",
+fn: function (aBlock,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@objects"];
 if(($receiver = $1) == nil || $receiver == undefined){
@@ -4634,7 +4645,7 @@ $1;
 } else {
 _st(self["@objects"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(aBlock)._value_value_(each,self["@string"]);
+return _st(aBlock)._value_value_(each,_st(aString).__comma(self["@string"]));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 };
 $2=self["@children"];
@@ -4643,11 +4654,11 @@ $2;
 } else {
 _st(self["@children"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(each)._withIndexDo_(aBlock);
+return _st(each)._withIndexDo_prefix_(aBlock,_st(aString).__comma(self["@string"]));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.Trie)})},
-messageSends: ["ifNotNil:", "do:", "value:value:", "withIndexDo:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:prefix:",{aBlock:aBlock,aString:aString},smalltalk.Trie)})},
+messageSends: ["ifNotNil:", "do:", "value:value:", ",", "withIndexDo:prefix:"]}),
 smalltalk.Trie);
 
 

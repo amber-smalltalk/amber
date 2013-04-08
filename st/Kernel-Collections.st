@@ -1994,12 +1994,7 @@ children ifNotNil:[
 
 withIndexDo: aBlock
 
-objects ifNotNil:[
-	objects do:[ :each|  aBlock value: each value: string].
-].
-children ifNotNil:[
-	children do: [ :each | each withIndexDo: aBlock ].
-]
+self withIndexDo: aBlock prefix: ''.
 ! !
 
 !Trie methodsFor: 'private'!
@@ -2109,6 +2104,16 @@ objects := nil
 string: aString
 
 string := aString.
+!
+
+withIndexDo: aBlock prefix: aString
+
+objects ifNotNil:[
+	objects do:[ :each|  aBlock value: each value: (aString,string)].
+].
+children ifNotNil:[
+	children do: [ :each | each withIndexDo: aBlock prefix: (aString,string) ].
+]
 ! !
 
 !Trie class methodsFor: 'instance creation'!
