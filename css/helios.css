@@ -64,6 +64,18 @@ i {
     line-height: 16px;
 }
 
+.state {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    width: 16px;
+    height: 16px;
+}
+
+.state.modified {
+    background: transparent url('/images/modified.png') 50% 50% no-repeat;
+}
+
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
     padding: 2px 8px;
 }
