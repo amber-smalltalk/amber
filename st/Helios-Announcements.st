@@ -218,3 +218,7 @@ HLAnnouncement subclass: #HLShowInstanceToggled
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLSourceCodeSaved
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+

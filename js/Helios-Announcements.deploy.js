@@ -334,3 +334,6 @@ smalltalk.addClass('HLShowCommentToggled', smalltalk.HLAnnouncement, [], 'Helios
 smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+
+
