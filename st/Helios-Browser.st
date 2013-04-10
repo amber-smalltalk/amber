@@ -1,13 +1,9 @@
 Smalltalk current createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
-	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget'
+	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget bottomDiv'
 	package: 'Helios-Browser'!
 
 !HLBrowser methodsFor: 'accessing'!
-
-announcer
-	^ self model announcer
-!
 
 environment
 	^ self model environment
@@ -157,6 +153,10 @@ selectedItem: anItem
 ! !
 
 !HLBrowserListWidget methodsFor: 'actions'!
+
+activateListItem: anItem
+	self model withChangesDo: [ super activateListItem: anItem ]
+!
 
 observeModel
 !
@@ -316,7 +316,8 @@ setItemsForSelectedPackage
 !HLClassesListWidget methodsFor: 'reactions'!
 
 onClassAdded: aClass
-	aClass package = self model selectedPackage ifFalse: [ ^ self ].
+	(aClass package = self model selectedPackage or: [
+		self items includes: aClass ]) ifFalse: [ ^ self ].
     
     self setItemsForSelectedPackage.
     self refresh
@@ -385,7 +386,6 @@ onShowInstanceToggled
 renderButtonsOn: html
 	html div 
         class: 'btn-group';
-		at: 'data-toggle' put: 'buttons-radio';
 		with: [ 
            	html button 
                 class: (String streamContents: [ :str |
@@ -912,18 +912,20 @@ selectedClass
 !
 
 selectedClass: aClass
-	selectedClass = aClass ifTrue: [ 
-		aClass ifNil: [ ^ self ].
-		self selectedProtocol: nil ].
+	aClass ifNil: [ ^ self ].
+	
+	self withChangesDo: [
+		selectedClass = aClass ifTrue: [ 
+			self selectedProtocol: nil ].
     
-	aClass 
-   		ifNil: [ selectedClass := nil ]
-    	ifNotNil: [
-			self showInstance 
-   				ifTrue: [ selectedClass := aClass theNonMetaClass ]
-     			ifFalse: [ selectedClass := aClass theMetaClass ] ].
-	self selectedProtocol: nil.
-	self announcer announce: (HLClassSelected on: self selectedClass)
+		aClass 
+   			ifNil: [ selectedClass := nil ]
+    		ifNotNil: [
+				self showInstance 
+   					ifTrue: [ selectedClass := aClass theNonMetaClass ]
+     				ifFalse: [ selectedClass := aClass theMetaClass ] ].
+		self selectedProtocol: nil.
+		self announcer announce: (HLClassSelected on: self selectedClass) ]
 !
 
 selectedMethod
@@ -936,13 +938,13 @@ selectedMethod
 selectedMethod: aCompiledMethod
 	selectedSelector = aCompiledMethod ifTrue: [ ^ self ].
     
-    aCompiledMethod
-    	ifNil: [ selectedSelector := nil ]
-      	ifNotNil: [
-			selectedSelector = aCompiledMethod selector ifTrue: [ ^ self ].
-			selectedSelector := aCompiledMethod selector ].
+    self withChangesDo: [
+		aCompiledMethod
+    		ifNil: [ selectedSelector := nil ]
+      		ifNotNil: [
+				selectedSelector := aCompiledMethod selector ].
 
-    self announcer announce: (HLMethodSelected on: aCompiledMethod)
+		self announcer announce: (HLMethodSelected on: aCompiledMethod) ]
 !
 
 selectedPackage
@@ -952,9 +954,10 @@ selectedPackage
 selectedPackage: aPackage
 	selectedPackage = aPackage ifTrue: [ ^ self ].
     
-	selectedPackage := aPackage.
-	self selectedClass: nil.
-    self announcer announce: (HLPackageSelected on: aPackage)
+	self withChangesDo: [
+		selectedPackage := aPackage.
+		self selectedClass: nil.
+		self announcer announce: (HLPackageSelected on: aPackage) ]
 !
 
 selectedProtocol
@@ -963,10 +966,11 @@ selectedProtocol
 
 selectedProtocol: aString
 	selectedProtocol = aString ifTrue: [ ^ self ].
-    
-	selectedProtocol := aString.
-    self selectedMethod: nil.
-    self announcer announce: (HLProtocolSelected on: aString)
+
+	self withChangesDo: [
+		selectedProtocol := aString.
+		self selectedMethod: nil.
+		self announcer announce: (HLProtocolSelected on: aString) ]
 !
 
 showComment
@@ -974,9 +978,9 @@ showComment
 !
 
 showComment: aBoolean
-	showComment := aBoolean.
-
-    self announcer announce: HLShowCommentToggled new
+	self withChangesDo: [
+		showComment := aBoolean.
+		self announcer announce: HLShowCommentToggled new ]
 !
 
 showInstance
@@ -984,15 +988,17 @@ showInstance
 !
 
 showInstance: aBoolean
-	showInstance := aBoolean.
-	showComment := false.
 
-    self selectedClass ifNotNil: [
-    	self selectedClass: (aBoolean
-    		ifTrue: [self selectedClass theNonMetaClass ]
-    	  	ifFalse: [ self selectedClass theMetaClass ]) ].
+	self withChangesDo: [
+		showInstance := aBoolean.
+		showComment := false.
+
+    	self selectedClass ifNotNil: [
+    		self selectedClass: (aBoolean
+    			ifTrue: [self selectedClass theNonMetaClass ]
+	    	  	ifFalse: [ self selectedClass theMetaClass ]) ].
     
-    self announcer announce: HLShowInstanceToggled new
+		self announcer announce: HLShowInstanceToggled new ]
 ! !
 
 !HLBrowserModel methodsFor: 'actions'!
@@ -1026,6 +1032,8 @@ focusOnSourceCode
 !
 
 save: aString
+	self announcer announce: HLSourceCodeSaved new.
+	
 	(self shouldCompileClassDefinition: aString)
 		ifTrue: [ self compileClassDefinition: aString ]
 		ifFalse: [ self compileMethod: aString ]
@@ -1044,63 +1052,75 @@ commitPackage
 !
 
 copyClassTo: aClassName
-	self environment 
-		copyClass: self selectedClass theNonMetaClass
-		to: aClassName
+	self withChangesDo: [ 
+		self environment 
+			copyClass: self selectedClass theNonMetaClass
+			to: aClassName ]
 !
 
 moveClassToPackage: aPackageName
-	self environment 
-		moveClass: self selectedClass theNonMetaClass
-		toPackage: aPackageName
+	self withChangesDo: [
+		self environment 
+			moveClass: self selectedClass theNonMetaClass
+			toPackage: aPackageName ]
 !
 
 moveMethodToClass: aClassName
-	self environment 
-		moveMethod: self selectedMethod 
-		toClass: aClassName
+	self withChangesDo: [
+		self environment 
+			moveMethod: self selectedMethod 
+			toClass: aClassName ]
 !
 
 moveMethodToProtocol: aProtocol
-	self environment moveMethod: self selectedMethod toProtocol: aProtocol
+	self withChangesDo: [
+		self environment 
+			moveMethod: self selectedMethod 
+			toProtocol: aProtocol ]
 !
 
 openClassNamed: aString
 	| class |
 	
-	class := self environment classNamed: aString.
-	self selectedPackage: class package.
-	self selectedClass: class
+	self withChangesDo: [
+		class := self environment classNamed: aString.
+		self selectedPackage: class package.
+		self selectedClass: class ]
 !
 
 removeClass
-	(self manager confirm: 'Do you REALLY want to remove class ', self selectedClass name)
-		ifTrue: [ self environment removeClass: self selectedClass ]
+	self withChangesDo: [
+		(self manager confirm: 'Do you REALLY want to remove class ', self selectedClass name)
+			ifTrue: [ self environment removeClass: self selectedClass ] ]
 !
 
 removeMethod
-	(self manager confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector)
-		ifTrue: [ self environment removeMethod: self selectedMethod ]
+	self withChangesDo: [
+		(self manager confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector)
+			ifTrue: [ self environment removeMethod: self selectedMethod ] ]
 !
 
 removeProtocol
-	(self manager confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol)
-		ifTrue: [ self environment 
-			removeProtocol: self selectedProtocol 
-			from: self selectedClass ]
+	self withChangesDo: [
+		(self manager confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol)
+			ifTrue: [ self environment 
+				removeProtocol: self selectedProtocol 
+				from: self selectedClass ] ]
 !
 
 renameClassTo: aClassName
-	self environment 
-		renameClass: self selectedClass theNonMetaClass
-		to: aClassName
+	self withChangesDo: [
+		self environment 
+			renameClass: self selectedClass theNonMetaClass
+			to: aClassName ]
 !
 
 renameProtocolTo: aString
-	self environment 
-		renameProtocol: self selectedProtocol
-		to: aString
-		in: self selectedClass
+	self withChangesDo: [
+		self environment 
+			renameProtocol: self selectedProtocol
+			to: aString
+			in: self selectedClass ]
 ! !
 
 !HLBrowserModel methodsFor: 'compiling'!
@@ -1164,6 +1184,15 @@ handleParseError: anError
 		message: messageToInsert;
 		error: anError;
 		yourself)
+!
+
+withChangesDo: aBlock
+	[ 
+		self announcer announce: HLAboutToChange new.
+		aBlock value
+	]
+		on: HLChangeForbidden 
+		do: [ :ex | ]
 !
 
 withCompileErrorHandling: aBlock
