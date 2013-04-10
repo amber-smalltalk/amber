@@ -1,4 +1,7 @@
 smalltalk.addPackage('Helios-Announcements');
+smalltalk.addClass('HLAboutToChange', smalltalk.Object, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLAnnouncement', smalltalk.Object, [], 'Helios-Announcements');
 
 

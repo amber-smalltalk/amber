@@ -1,4 +1,8 @@
 Smalltalk current createPackage: 'Helios-Announcements'!
+Object subclass: #HLAboutToChange
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 Object subclass: #HLAnnouncement
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
