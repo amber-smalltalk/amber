@@ -27,13 +27,9 @@ receiver: anObject
 
 !HLCodeModel methodsFor: 'actions'!
 
-doIt: someCode
+doIt: aString
 
-	^ self environment eval: someCode on: self receiver
-!
-
-subscribe: aWidget
-	aWidget subscribeTo: self announcer
+	^ self environment eval: aString on: self receiver
 ! !
 
 !HLCodeModel methodsFor: 'defaults'!
@@ -52,7 +48,7 @@ on: anEnvironment
 ! !
 
 HLWidget subclass: #HLCodeWidget
-	instanceVariableNames: 'model wrapper code editor'
+	instanceVariableNames: 'model wrapper code editor state'
 	package: 'Helios-Workspace'!
 
 !HLCodeWidget methodsFor: 'accessing'!
@@ -66,7 +62,8 @@ contents
 !
 
 contents: aString
-	editor setValue: aString
+	editor setValue: aString.
+	state ifNotNil: [ self updateState ]
 !
 
 currentLine
@@ -118,27 +115,26 @@ selectionStart: anInteger
 !HLCodeWidget methodsFor: 'actions'!
 
 clear
-      self contents: ''
+	self contents: ''
 !
 
 configureEditor
-	self editor at: 'amberCodeWidget' put: self
+	self editor at: 'amberCodeWidget' put: self.
+	self editor on: 'change' do: [ self onChange ]
 !
 
 doIt
 	| result |
 
-	self announcer announce: (HLDoItRequested on: model).
-
-	result:=  model doIt: self currentLineOrSelection.
-
-	self announcer announce: (HLDoItExecuted on: model).
+	self model announcer announce: (HLDoItRequested on: model).
+	result := model doIt: self currentLineOrSelection.
+	self model announcer announce: (HLDoItExecuted on: model).
 
 	^ result
 !
 
 editor
-	^editor
+	^ editor
 !
 
 focus
@@ -148,7 +144,7 @@ focus
 inspectIt
 	| newInspector |
        
-	self announcer announce: (HLInspectItRequested on: model).
+	self model announcer announce: (HLInspectItRequested on: model).
 	newInspector := self makeInspectorOn: self doIt.
 	newInspector open
 !
@@ -183,11 +179,10 @@ print: aString
 printIt
 	| result |
 
-	result:=  self doIt.
-       
-	self announcer announce: (HLPrintItRequested on: model).
-
+	result:=  self doIt.       
+	self model announcer announce: (HLPrintItRequested on: model).
     self print: result printString.
+	
 	self focus.
 !
 
@@ -203,7 +198,7 @@ setEditorOn: aTextarea
                 indentWithTabs: true,
 				indentUnit: 4,
                 matchBrackets: true,
-                electricChars: false,
+                electricChars: true,
 				keyMap: 'Amber',
 				extraKeys: {"Shift-Space": "autocomplete"}
 	})>
@@ -233,6 +228,10 @@ variableHintFor: anEditor token: aToken
 
 !HLCodeWidget methodsFor: 'reactions'!
 
+onChange
+	self updateState
+!
+
 onDoIt
 	
     self doIt
@@ -255,9 +254,12 @@ onSaveIt
 !HLCodeWidget methodsFor: 'rendering'!
 
 renderContentOn: html
-    code := html textarea.
-    self setEditorOn: code element.
-    self configureEditor
+	code := html textarea.
+	state := html div class: 'state'.
+	self 
+		setEditorOn: code element;
+		configureEditor;
+		updateState
 ! !
 
 !HLCodeWidget methodsFor: 'testing'!
@@ -268,6 +270,18 @@ canHaveFocus
 
 hasFocus
 	^ code asJQuery is: ':active'
+!
+
+hasModification
+	^ false
+! !
+
+!HLCodeWidget methodsFor: 'updating'!
+
+updateState
+	self hasModification 
+		ifTrue: [ state asJQuery addClass: 'modified' ]
+		ifFalse: [ state asJQuery removeClass: 'modified' ]
 ! !
 
 !HLCodeWidget class methodsFor: 'accessing'!
@@ -408,8 +422,13 @@ HLCodeWidget subclass: #HLNavigationCodeWidget
 
 !HLNavigationCodeWidget methodsFor: 'accessing'!
 
+contents: aString
+	self methodContents: aString.
+	super contents: aString
+!
+
 methodContents
-	^ methodContents
+	^ methodContents ifNil: [ '' ]
 !
 
 methodContents: aString
@@ -467,6 +486,10 @@ observeBrowserModel
 	self browserModel announcer
 		on: HLSaveSourceCode
 		do: [ :ann | self onSaveIt ];
+		on: HLSourceCodeSaved
+		do: [ :ann | self onSourceCodeSaved ];
+		on: HLAboutToChange
+		do: [ :ann | self onBrowserAboutToChange ];
 		on: HLParseErrorRaised
 		do: [ :ann | self onParseError: ann ];
 		on: HLCompileErrorRaised
@@ -503,7 +526,7 @@ refresh
 	self hasModification ifTrue: [ ^ self ].
     self hasFocus ifTrue: [ ^ self ].
 
-	self contents: self model selectedMethod source
+	self contents: self browserModel selectedMethod source
 !
 
 saveIt
@@ -511,6 +534,16 @@ saveIt
 ! !
 
 !HLBrowserCodeWidget methodsFor: 'reactions'!
+
+onBrowserAboutToChange
+	self hasModification
+		ifTrue: [ 
+			(window confirm: 'Do you want to cancel changes?') ifFalse: [ 
+				HLChangeForbidden signal ].
+			
+			"Don't ask twice"
+			self methodContents: self contents ]
+!
 
 onClassSelected: aClass
 	aClass ifNil: [ ^ self contents: '' ].
@@ -523,7 +556,7 @@ onCompileError: anError
 !
 
 onInstVarAdded
-	self  browserModel save: self contents
+	self browserModel save: self contents
 !
 
 onMethodModified: aMethod
@@ -531,7 +564,7 @@ onMethodModified: aMethod
 	self browserModel selectedMethod ifNil: [ ^ self ].
     self browserModel selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
 
-    self refresh
+	self refresh
 !
 
 onMethodSelected: aCompiledMethod
@@ -572,6 +605,11 @@ onSaveIt
 
 onSourceCodeFocusRequested
 	self focus
+!
+
+onSourceCodeSaved
+	self methodContents: self contents.
+	self updateState
 !
 
 onUnknownVariableError: anError
