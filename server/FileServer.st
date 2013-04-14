@@ -227,6 +227,7 @@ respondOKTo: aResponse
 !FileServer methodsFor: 'starting'!
 
 start
+	self checkDirectoryLayout.
 	(http createServer: [:request :response |
 	      self handleRequest: request respondTo: response])
 	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
@@ -709,7 +710,6 @@ main
 
 	fileServer := FileServer createServerWithArguments: args.
 
-	fileServer checkDirectoryLayout.
 	^fileServer start
 ! !
 
