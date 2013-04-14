@@ -688,6 +688,13 @@ mimeTypes
 selectorForCommandLineSwitch: aSwitch
 	"Remove the trailing '--' and at an ending ':' to aSwitch."
 	^(aSwitch copyFrom: 3 to: aSwitch size), ':'.
+!
+
+printHelp
+	console log: 'Available commandline options are:'.
+	console log: '--help'.
+	self commandLineSwitches do: [ :each |
+		console log: each, ' <parameter>']
 ! !
 
 !FileServer class methodsFor: 'initialization'!
@@ -742,7 +749,9 @@ main
 	"Remove the first args which contain the path to the node executable and the script file."
 	args removeFrom: 1 to: 3.
 
-	fileServer := FileServer createServerWithArguments: args.
-	^fileServer start
+	args detect: [ :each |
+		(each = '--help') ifTrue: [FileServer printHelp]]
+	ifNone: [
+		fileServer := FileServer createServerWithArguments: args.
+		^fileServer start]
 ! !
-

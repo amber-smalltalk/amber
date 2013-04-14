@@ -17555,16 +17555,30 @@ var self=this;
 var fileServer,args;
 function $FileServer(){return smalltalk.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
+var $early={};
+try {
 args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(3));
+_st(args)._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(each).__eq("--help");
+if(smalltalk.assert($1)){
+return _st($FileServer())._printHelp();
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
 fileServer=_st($FileServer())._createServerWithArguments_(args);
-$1=_st(fileServer)._start();
-return $1;
+fileServer;
+$2=_st(fileServer)._start();
+throw $early=[$2];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"main",{fileServer:fileServer,args:args},smalltalk.FileServer.klass)})},
 args: [],
-source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09 Creates and starts a FileServer instance.\x22\x0a\x09| fileServer args |\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 3.\x0a\x0a\x09fileServer := FileServer createServerWithArguments: args.\x0a\x09^fileServer start",
-messageSends: ["argv", "removeFrom:to:", "createServerWithArguments:", "start"],
+source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09 Creates and starts a FileServer instance.\x22\x0a\x09| fileServer args |\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 3.\x0a\x0a\x09args detect: [ :each |\x0a\x09\x09(each = '--help') ifTrue: [FileServer printHelp]]\x0a\x09ifNone: [\x0a\x09\x09fileServer := FileServer createServerWithArguments: args.\x0a\x09\x09^fileServer start]",
+messageSends: ["argv", "removeFrom:to:", "detect:ifNone:", "ifTrue:", "printHelp", "=", "createServerWithArguments:", "start"],
 referencedClasses: ["FileServer"]
 }),
 smalltalk.FileServer.klass);
@@ -17610,6 +17624,27 @@ return $1;
 args: [],
 source: "mimeTypes\x0a\x09^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]",
 messageSends: ["ifNil:", "defaultMimeTypes"],
+referencedClasses: []
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printHelp",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(console)._log_("Available commandline options are:");
+_st(console)._log_("--help");
+_st(_st(self)._commandLineSwitches())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(console)._log_(_st(each).__comma(" <parameter>"));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"printHelp",{},smalltalk.FileServer.klass)})},
+args: [],
+source: "printHelp\x0a\x09console log: 'Available commandline options are:'.\x0a\x09console log: '--help'.\x0a\x09self commandLineSwitches do: [ :each |\x0a\x09\x09console log: each, ' <parameter>']",
+messageSends: ["log:", "do:", ",", "commandLineSwitches"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
