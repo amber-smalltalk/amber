@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'FileServer'!
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url port basePath util username password fallbackPage'
+	instanceVariableNames: 'path http fs url host port basePath util username password fallbackPage'
 	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
@@ -19,6 +19,14 @@ fallbackPage
 
 fallbackPage: aString
 	fallbackPage := aString
+!
+
+host
+	^host
+!
+
+host: hostname
+	host := hostname
 !
 
 password: aPassword
@@ -60,6 +68,7 @@ initialize
 	fs := self require: 'fs'.
 	util := self require: 'util'.
 	url := self require: 'url'.
+	host := self class defaultHost.
 	port := self class defaultPort.
 	username := nil.
 	password := nil.
@@ -233,8 +242,8 @@ start
 	(http createServer: [:request :response |
 	      self handleRequest: request respondTo: response])
 	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
-	      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];
-	      listen: self port.
+	      on: 'listening' do: [console log: 'Starting file server on ', self host, ':', self port asString];
+	      listen: self port host: self host.
 !
 
 startOn: aPort
@@ -671,6 +680,10 @@ defaultMimeTypes
 		'zmt' -> 'chemical/x-mopac-input'.
 		'~' -> 'application/x-trash'
 	}
+!
+
+defaultHost
+	^'127.0.0.1'
 !
 
 defaultPort

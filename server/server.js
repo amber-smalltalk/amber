@@ -16763,7 +16763,7 @@ smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kerne
 
 
 smalltalk.addPackage('FileServer');
-smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'FileServer');
+smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'FileServer');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "base64Decode:",
@@ -17003,6 +17003,40 @@ smalltalk.FileServer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "host",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@host"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"host",{},smalltalk.FileServer)})},
+args: [],
+source: "host\x0a\x09^host",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "host:",
+category: 'accessing',
+fn: function (hostname){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@host"]=hostname;
+return self}, function($ctx1) {$ctx1.fill(self,"host:",{hostname:hostname},smalltalk.FileServer)})},
+args: ["hostname"],
+source: "host: hostname\x0a\x09host := hostname",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
@@ -17014,14 +17048,15 @@ self["@http"]=_st(self)._require_("http");
 self["@fs"]=_st(self)._require_("fs");
 self["@util"]=_st(self)._require_("util");
 self["@url"]=_st(self)._require_("url");
+self["@host"]=_st(_st(self)._class())._defaultHost();
 self["@port"]=_st(_st(self)._class())._defaultPort();
 self["@username"]=nil;
 self["@password"]=nil;
 self["@fallbackPage"]=nil;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.FileServer)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.\x0a\x09fallbackPage := nil.",
-messageSends: ["initialize", "require:", "defaultPort", "class"],
+source: "initialize\x0a\x09super initialize.\x0a\x09path := self require: 'path'.\x0a\x09http := self require: 'http'.\x0a\x09fs := self require: 'fs'.\x0a\x09util := self require: 'util'.\x0a\x09url := self require: 'url'.\x0a\x09host := self class defaultHost.\x0a\x09port := self class defaultPort.\x0a\x09username := nil.\x0a\x09password := nil.\x0a\x09fallbackPage := nil.",
+messageSends: ["initialize", "require:", "defaultHost", "class", "defaultPort"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -17335,13 +17370,13 @@ return _st(console)._log_(_st("Error starting server: ").__comma(error));
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 _st($1)._on_do_("listening",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_(_st("Starting file server on port ").__comma(_st(_st(self)._port())._asString()));
+return _st(console)._log_(_st(_st(_st("Starting file server on ").__comma(_st(self)._host())).__comma(":")).__comma(_st(_st(self)._port())._asString()));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=_st($1)._listen_(_st(self)._port());
+$2=_st($1)._listen_host_(_st(self)._port(),_st(self)._host());
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.FileServer)})},
 args: [],
-source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];\x0a\x09      listen: self port.",
-messageSends: ["checkDirectoryLayout", "on:do:", "log:", ",", "createServer:", "handleRequest:respondTo:", "asString", "port", "listen:"],
+source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on ', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
+messageSends: ["checkDirectoryLayout", "on:do:", "log:", ",", "createServer:", "handleRequest:respondTo:", "asString", "port", "host", "listen:host:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -17507,6 +17542,22 @@ args: ["options"],
 source: "createServerWithArguments: options\x0a\x09\x22If options are empty return a default FileServer instance.\x0a\x09 If options are given loop through them and set the passed in values\x0a\x09 on the FileServer instance.\x0a\x09 \x0a\x09 Commanline options map directly to methods in the 'accessing' protocol\x0a\x09 taking one parameter.\x0a\x09 Adding a method to this protocol makes it directly settable through\x0a\x09 command line options.\x0a\x09 \x22\x0a\x09| server popFront front optionName optionValue switches |\x0a\x0a\x09switches := self commandLineSwitches.\x0a\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x0a\x09(options size even) ifFalse: [\x0a\x09\x09console log: 'Using default parameters.'.\x0a\x09\x09console log: 'Wrong commandline options or not enough arguments for: ' , options.\x0a\x09\x09console log: 'Use any of the following ones: ', switches.\x0a\x09\x09^server].\x0a\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x0a\x09\x09(switches includes: optionName) ifTrue: [\x0a\x09\x09\x09optionName := self selectorForCommandLineSwitch: optionName.\x0a\x09\x09\x09server perform: optionName withArguments: (Array with: optionValue)]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09console log: optionName, ' is not a valid commandline option'.\x0a\x09\x09\x09\x09console log: 'Use any of the following ones: ', switches ]].\x0a\x09^server.",
 messageSends: ["commandLineSwitches", "new", "ifEmpty:", "ifFalse:", "log:", ",", "even", "size", "first", "remove:", "whileTrue:", "value:", "ifTrue:ifFalse:", "selectorForCommandLineSwitch:", "perform:withArguments:", "with:", "includes:", "notEmpty"],
 referencedClasses: ["Array"]
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultHost",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "127.0.0.1";
+}, function($ctx1) {$ctx1.fill(self,"defaultHost",{},smalltalk.FileServer.klass)})},
+args: [],
+source: "defaultHost\x0a\x09^'127.0.0.1'",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
