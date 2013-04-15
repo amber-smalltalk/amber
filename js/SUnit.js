@@ -82,12 +82,12 @@ fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._assert_description_(_st(actual).__eq(expected),_st(_st(_st("Expected: ").__comma(_st(expected)._asString())).__comma(" but was: ")).__comma(_st(actual)._asString()));
+$1=_st(self)._assert_description_(_st(actual).__eq(expected),_st(_st(_st("Expected: ").__comma(_st(expected)._printString())).__comma(" but was: ")).__comma(_st(actual)._printString()));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected},smalltalk.TestCase)})},
 args: ["actual", "expected"],
-source: "assert: actual equals: expected\x0a\x09^ self assert: (actual = expected) description: 'Expected: ', expected asString, ' but was: ', actual asString",
-messageSends: ["assert:description:", "=", ",", "asString"],
+source: "assert: actual equals: expected\x0a\x09^ self assert: (actual = expected) description: 'Expected: ', expected printString, ' but was: ', actual printString",
+messageSends: ["assert:description:", "=", ",", "printString"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
