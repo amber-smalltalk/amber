@@ -60,10 +60,10 @@ fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._assert_description_(_st(actual).__eq(expected),_st(_st(_st("Expected: ").__comma(_st(expected)._asString())).__comma(" but was: ")).__comma(_st(actual)._asString()));
+$1=_st(self)._assert_description_(_st(actual).__eq(expected),_st(_st(_st("Expected: ").__comma(_st(expected)._printString())).__comma(" but was: ")).__comma(_st(actual)._printString()));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"assert:equals:",{actual:actual,expected:expected},smalltalk.TestCase)})},
-messageSends: ["assert:description:", "=", ",", "asString"]}),
+messageSends: ["assert:description:", "=", ",", "printString"]}),
 smalltalk.TestCase);
 
 smalltalk.addMethod(
