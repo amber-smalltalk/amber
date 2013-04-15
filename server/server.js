@@ -17468,14 +17468,14 @@ return _st(each)._match_("^[^:]*:$");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 switches=_st(switches)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st("--").__comma(_st(each)._allButLast());
+return _st(_st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase())._replace_with_("^([a-z])","--$1");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=switches;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},smalltalk.FileServer.klass)})},
 args: [],
-source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'accessing' protocol\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name\x0a\x09 and add a '--' at the beginning.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches := switches collect: [ :each | '--', (each allButLast)].\x0a\x09^switches",
-messageSends: ["collect:", "selector", "methodsInProtocol:", "select:", "match:", ",", "allButLast"],
+source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'accessing' protocol\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name\x0a\x09 and add a '--' at the beginning.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].\x0a\x09^switches",
+messageSends: ["collect:", "selector", "methodsInProtocol:", "select:", "match:", "replace:with:", "asLowercase", "allButLast"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);
@@ -17708,12 +17708,15 @@ fn: function (aSwitch){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(aSwitch)._copyFrom_to_((3),_st(aSwitch)._size())).__comma(":");
+$1=_st(_st(_st(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._second())._asUppercase();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}))).__comma(":");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},smalltalk.FileServer.klass)})},
 args: ["aSwitch"],
-source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Remove the trailing '--' and at an ending ':' to aSwitch.\x22\x0a\x09^(aSwitch copyFrom: 3 to: aSwitch size), ':'.",
-messageSends: [",", "copyFrom:to:", "size"],
+source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Remove the trailing '--', add ':' at the end\x0a\x09 and replace all occurences of a lowercase letter preceded by a '-' with\x0a\x09 the Uppercase letter.\x0a\x09 Example: --fallback-page becomes fallbackPage:\x22\x0a\x09^((aSwitch replace: '^--' with: '')\x0a\x09\x09replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'",
+messageSends: [",", "replace:with:", "asUppercase", "second"],
 referencedClasses: []
 }),
 smalltalk.FileServer.klass);

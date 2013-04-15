@@ -260,11 +260,14 @@ commandLineSwitches
 	 and select the ones with only one parameter.
 	 Then remove the ':' at the end of the name
 	 and add a '--' at the beginning.
+	 Additionally all uppercase letters are made lowercase and preceded by a '-'.
+	 Example: fallbackPage: becomes --fallback-page.
 	 Return the Array containing the commandline switches."
 	| switches |
 	switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).
 	switches := switches select: [ :each | each match: '^[^:]*:$'].
-	switches := switches collect: [ :each | '--', (each allButLast)].
+	switches :=switches collect: [ :each |
+		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
 	^switches
 !
 
@@ -699,8 +702,12 @@ mimeTypes
 !
 
 selectorForCommandLineSwitch: aSwitch
-	"Remove the trailing '--' and at an ending ':' to aSwitch."
-	^(aSwitch copyFrom: 3 to: aSwitch size), ':'.
+	"Remove the trailing '--', add ':' at the end
+	 and replace all occurences of a lowercase letter preceded by a '-' with
+	 the Uppercase letter.
+	 Example: --fallback-page becomes fallbackPage:"
+	^((aSwitch replace: '^--' with: '')
+		replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'
 !
 
 printHelp
