@@ -179,7 +179,7 @@ respondFileNamed: aFilename to: aResponse
 
 	filename := aFilename.
 	(fs statSync: aFilename) isDirectory ifTrue: [
-        	filename := filename, 'index.html'].
+		filename := filename, 'index.html'].
 
 	fs readFile: filename do: [:ex :file |
 		ex notNil 
@@ -227,6 +227,9 @@ respondOKTo: aResponse
 !FileServer methodsFor: 'starting'!
 
 start
+	"Checks if required directory layout is present (issue warning if not).
+	 Afterwards start the server."
+	self checkDirectoryLayout.
 	(http createServer: [:request :response |
 	      self handleRequest: request respondTo: response])
 	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
@@ -243,13 +246,17 @@ FileServer class instanceVariableNames: 'mimeTypes'!
 
 !FileServer class methodsFor: 'accessing'!
 
-commandLineActions
-	^#{
-		'-p' -> [:fileServer :value | fileServer port: value].
-		'--username' -> [:fileServer :value | fileServer username: value].
-		'--password' -> [:fileServer :value | fileServer password: value].
-		'--fallback-page' -> [:fileServer :value | fileServer fallbackPage: value]
-	}
+commandLineSwitches
+	"Collect all methodnames from the 'accessing' protocol
+	 and select the ones with only one parameter.
+	 Then remove the ':' at the end of the name
+	 and add a '--' at the beginning.
+	 Return the Array containing the commandline switches."
+	| switches |
+	switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).
+	switches := switches select: [ :each | each match: '^[^:]*:$'].
+	switches := switches collect: [ :each | '--', (each allButLast)].
+	^switches
 !
 
 defaultMimeTypes
@@ -676,40 +683,75 @@ mimeTypeFor: aString
 
 mimeTypes
 	^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]
+!
+
+selectorForCommandLineSwitch: aSwitch
+	"Remove the trailing '--' and at an ending ':' to aSwitch."
+	^(aSwitch copyFrom: 3 to: aSwitch size), ':'.
+!
+
+printHelp
+	console log: 'Available commandline options are:'.
+	console log: '--help'.
+	self commandLineSwitches do: [ :each |
+		console log: each, ' <parameter>']
 ! !
 
 !FileServer class methodsFor: 'initialization'!
 
 createServerWithArguments: options
-	| server actions popFront front optionName optionValue |
-	actions := FileServer commandLineActions.
+	"If options are empty return a default FileServer instance.
+	 If options are given loop through them and set the passed in values
+	 on the FileServer instance.
+	 
+	 Commanline options map directly to methods in the 'accessing' protocol
+	 taking one parameter.
+	 Adding a method to this protocol makes it directly settable through
+	 command line options.
+	 "
+	| server popFront front optionName optionValue switches |
+
+	switches := self commandLineSwitches.
+
+	server := self new.
+
+	options ifEmpty: [^server].
+
+	(options size even) ifFalse: [
+		console log: 'Using default parameters.'.
+		console log: 'Wrong commandline options or not enough arguments for: ' , options.
+		console log: 'Use any of the following ones: ', switches.
+		^server].
 
 	popFront := [:args |
 		front := args first.
 		args remove: front.
 		front].
-	server := self new.
-
-	options ifEmpty: [^server].
-	(options size even) ifFalse: [console log: 'Using default parameters. Not enough arguments: ' , options. ^server].
 
 	[options notEmpty] whileTrue: [
 		optionName  := popFront value: options.
 		optionValue := popFront value: options.
-		(actions at: optionName ifAbsent: []) value: server value: optionValue.
-	].
 
+		(switches includes: optionName) ifTrue: [
+			optionName := self selectorForCommandLineSwitch: optionName.
+			server perform: optionName withArguments: (Array with: optionValue)]
+			ifFalse: [
+				console log: optionName, ' is not a valid commandline option'.
+				console log: 'Use any of the following ones: ', switches ]].
 	^server.
 !
 
 main
+	"Main entry point for Amber applications.
+	 Creates and starts a FileServer instance."
 	| fileServer args |
 	args := process argv.
+	"Remove the first args which contain the path to the node executable and the script file."
 	args removeFrom: 1 to: 3.
 
-	fileServer := FileServer createServerWithArguments: args.
-
-	fileServer checkDirectoryLayout.
-	^fileServer start
+	args detect: [ :each |
+		(each = '--help') ifTrue: [FileServer printHelp]]
+	ifNone: [
+		fileServer := FileServer createServerWithArguments: args.
+		^fileServer start]
 ! !
-

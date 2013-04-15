@@ -45,6 +45,12 @@
 + Object>>isPackage
 + Object>>isBehavior
 + ClassMoved Announcemen class
++ Behavior>>includesBehavior:
++ Environment>>classes
++ Environment>>allSelectors
++ Environment>>removeProtocol:
++ Environment>>renameProtocol:to:in:
++ CompiledMethod>>protocol:
 
 
 - Object>>storeOn:
