@@ -185,11 +185,11 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-1.8.2.min.js'));
+			addJSToLoad('js/lib/jQuery/jquery-1.8.2.min.js');
 		}
 
-		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {
+			addJSToLoad('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js');
 		}
 	}
 
