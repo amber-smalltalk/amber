@@ -113,7 +113,7 @@ assert: aBoolean description: aString
 !
 
 assert: actual equals: expected
-	^ self assert: (actual = expected) description: 'Expected: ', expected asString, ' but was: ', actual asString
+	^ self assert: (actual = expected) description: 'Expected: ', expected printString, ' but was: ', actual printString
 !
 
 deny: aBoolean
