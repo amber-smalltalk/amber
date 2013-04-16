@@ -247,7 +247,7 @@ amber = (function() {
 			dataType: "script",
 			url: url,
 			cache: deploy,
-			success: callback
+            success: function () { setTimeout(callback, 5); }
 		});
 	}
 
