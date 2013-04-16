@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'FileServer'!
 Object subclass: #FileServer
-	instanceVariableNames: 'path http fs url port basePath util username password fallbackPage'
+	instanceVariableNames: 'path http fs url host port basePath util username password fallbackPage'
 	package: 'FileServer'!
 
 !FileServer methodsFor: 'accessing'!
@@ -19,6 +19,14 @@ fallbackPage
 
 fallbackPage: aString
 	fallbackPage := aString
+!
+
+host
+	^host
+!
+
+host: hostname
+	host := hostname
 !
 
 password: aPassword
@@ -60,6 +68,7 @@ initialize
 	fs := self require: 'fs'.
 	util := self require: 'util'.
 	url := self require: 'url'.
+	host := self class defaultHost.
 	port := self class defaultPort.
 	username := nil.
 	password := nil.
@@ -233,8 +242,8 @@ start
 	(http createServer: [:request :response |
 	      self handleRequest: request respondTo: response])
 	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
-	      on: 'listening' do: [console log: 'Starting file server on port ', self port asString];
-	      listen: self port.
+	      on: 'listening' do: [console log: 'Starting file server on ', self host, ':', self port asString];
+	      listen: self port host: self host.
 !
 
 startOn: aPort
@@ -251,11 +260,14 @@ commandLineSwitches
 	 and select the ones with only one parameter.
 	 Then remove the ':' at the end of the name
 	 and add a '--' at the beginning.
+	 Additionally all uppercase letters are made lowercase and preceded by a '-'.
+	 Example: fallbackPage: becomes --fallback-page.
 	 Return the Array containing the commandline switches."
 	| switches |
 	switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).
 	switches := switches select: [ :each | each match: '^[^:]*:$'].
-	switches := switches collect: [ :each | '--', (each allButLast)].
+	switches :=switches collect: [ :each |
+		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
 	^switches
 !
 
@@ -673,6 +685,10 @@ defaultMimeTypes
 	}
 !
 
+defaultHost
+	^'127.0.0.1'
+!
+
 defaultPort
 	^4000
 !
@@ -686,8 +702,12 @@ mimeTypes
 !
 
 selectorForCommandLineSwitch: aSwitch
-	"Remove the trailing '--' and at an ending ':' to aSwitch."
-	^(aSwitch copyFrom: 3 to: aSwitch size), ':'.
+	"Remove the trailing '--', add ':' at the end
+	 and replace all occurences of a lowercase letter preceded by a '-' with
+	 the Uppercase letter.
+	 Example: --fallback-page becomes fallbackPage:"
+	^((aSwitch replace: '^--' with: '')
+		replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'
 !
 
 printHelp
