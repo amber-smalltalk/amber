@@ -199,6 +199,7 @@ amber = (function() {
 		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
 		addJSToLoad('js/lib/CodeMirror/addon/hint/show-hint.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
+		loadCSS('lib/CodeMirror/theme/ambiance.css', 'js');
 		loadCSS('lib/CodeMirror/addon/hint/show-hint.css', 'js');
 		loadCSS('lib/CodeMirror/amber.css', 'js');
 	}
