@@ -141,8 +141,8 @@ alert: aString
 	window alert: aString
 !
 
-confirm: aString
-	^ window confirm: aString
+confirm: aString ifTrue: aBlock
+	self manager confirm: aString ifTrue: aBlock
 !
 
 execute: aCommand
@@ -204,6 +204,88 @@ tabPriority
 
 canBeOpenAsTab
 	^ false
+! !
+
+HLWidget subclass: #HLConfirmation
+	instanceVariableNames: 'confirmationString actionBlock cancelBlock'
+	package: 'Helios-Core'!
+
+!HLConfirmation methodsFor: 'accessing'!
+
+actionBlock
+	^ actionBlock ifNil: [ [] ]
+!
+
+actionBlock: aBlock
+	actionBlock := aBlock
+!
+
+cancelBlock
+	^ cancelBlock ifNil: [ [] ]
+!
+
+cancelBlock: aBlock
+	cancelBlock := aBlock
+!
+
+confirmationString
+	^ confirmationString ifNil: [ 'Confirm' ]
+!
+
+confirmationString: aString
+	confirmationString := aString
+! !
+
+!HLConfirmation methodsFor: 'actions'!
+
+cancel
+	self cancelBlock value.
+	self remove
+!
+
+confirm
+	self actionBlock value.
+	self remove
+!
+
+remove
+	(window jQuery: '.confirmation') removeClass: 'active'.
+	[ 
+		(window jQuery: '#overlay') remove.
+		(window jQuery: '.confirmation') remove
+	] valueWithTimeout: 300
+! !
+
+!HLConfirmation methodsFor: 'rendering'!
+
+renderContentOn: html
+	| confirmButton |
+	
+	html div id: 'overlay'.
+	html div 
+		class: 'confirmation';
+		with: [
+			html span with: self confirmationString.
+			html div 
+				class: 'buttons';
+				with: [
+					html button
+						class: 'button';
+						with: 'Cancel';
+						onClick: [ self cancel ].
+					confirmButton := html button
+						class: 'button default';
+						with: 'Confirm';
+						onClick: [ self confirm ] ] ].
+
+	confirmButton asJQuery focus.
+	(window jQuery: '.confirmation') addClass: 'active'.
+	self setupKeyBindings
+!
+
+setupKeyBindings
+	(window jQuery: '.confirmation') keyup: [ :e |
+		e keyCode = 27 ifTrue: [ self cancel ] ]
 ! !
 
 HLWidget subclass: #HLDebugger
@@ -572,6 +654,22 @@ addTab: aTab
 addToHistory: aTab
 	self removeFromHistory: aTab.
 	self history add: aTab
+!
+
+confirm: aString ifFalse: aBlock
+	(HLConfirmation new
+		confirmationString: aString;
+		cancelBlock: aBlock;
+		yourself)
+			appendToJQuery: 'body' asJQuery
+!
+
+confirm: aString ifTrue: aBlock
+	(HLConfirmation new
+		confirmationString: aString;
+		actionBlock: aBlock;
+		yourself)
+			appendToJQuery: 'body' asJQuery
 !
 
 removeActiveTab

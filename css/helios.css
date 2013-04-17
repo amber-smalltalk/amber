@@ -513,3 +513,89 @@ i {
     background: rgba(0,0,0, 0.6);
     border-radius: 40px;
 }
+
+#overlay {
+    z-index: 2000;
+    background: transparent;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.confirmation {
+    z-index: 2001;
+    background: rgba(243,243,243,0.9);
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
+    background-image: -moz-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
+    background-image: -o-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
+    background-image: linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
+    padding: 20px;
+    width: 250px;
+    position: fixed;
+    top: -500px;
+    left: 50%;
+    margin-left: -135px;
+    box-shadow: 0 0 6px #333;
+    transition: top .5s;
+    -webkit-transition: top .5s;
+    -moz-transition: top .5s;
+    -o-transition: top .5s;
+}
+
+.confirmation span {
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.confirmation .buttons {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.confirmation.active {
+    top: 0;
+}
+
+.button {
+    border-radius: 3px !important;
+    background: #ccc;
+    border: 1px solid #9B9B9B;
+    height: 20px;
+    border-radius: 5px;
+    min-width: 68px;
+    padding: 0 10px;
+    text-align: center;
+    margin: 0;
+    margin-left: 10px;
+    background: -webkit-linear-gradient(bottom, rgba(0,0,0,.09) 0%, rgba(0,0,0, 0.02) 50%, rgba(0,0,0,.04) 50.5%, rgba(0,0,0,.04) 100%) #fff;
+    font: 13px "Lucida Grande", Lucida, Verdana, sans-serif;
+}
+
+.button.default { 
+    border-top: 1px solid #535273;
+    border: 1px solid #4F4D67;
+    border-bottom: 1px solid #4B4B58;    
+    background: -webkit-linear-gradient(bottom, rgba(255,255,255,.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255,255,255,.3) 50.5%, rgba(255,255,255,.45) 95%, rgba(255,255,255,.8) 100%) #b1bdd5;
+    background: -moz-linear-gradient(bottom, rgba(255,255,255,.5) 0%, rgba(255, 255, 255, 0.1) 50%, rgba(255,255,255,.3) 50.5%, rgba(255,255,255,.45) 95%, rgba(255,255,255,.8) 100%) #b1bdd5;
+    -moz-box-shadow: 0 0 3px rgba(69, 113, 184, 0.8);
+    -webkit-box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+    box-shadow: 0 0 5px rgba(69, 113, 184, 0.44);
+}
+
+
+.button:hover {
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,.6);
+}
+
+.button:active {
+    -webkit-box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+    -moz-box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+    box-shadow: inset 0 0 5px rgba(0,0,0,.5);
+}
+
+.button:focus {
+    outline: 0;
+}

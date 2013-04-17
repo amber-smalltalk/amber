@@ -486,6 +486,8 @@ observeBrowserModel
 	self browserModel announcer
 		on: HLSaveSourceCode
 		do: [ :ann | self onSaveIt ];
+		on: HLShowInstanceToggled
+		do: [ :ann | self onShowInstanceToggled ];
 		on: HLSourceCodeSaved
 		do: [ :ann | self onSourceCodeSaved ];
 		on: HLAboutToChange
@@ -538,8 +540,9 @@ saveIt
 onBrowserAboutToChange
 	self hasModification
 		ifTrue: [ 
-			(window confirm: 'Do you want to cancel changes?') ifFalse: [ 
-				HLChangeForbidden signal ].
+			self 
+				confirm: 'Do you want to cancel changes?' 
+				ifFalse: [ HLChangeForbidden signal ].
 			
 			"Don't ask twice"
 			self methodContents: self contents ]
@@ -603,6 +606,12 @@ onSaveIt
 	self browserModel save: self contents
 !
 
+onShowInstanceToggled
+	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
+    
+    self contents: self browserModel selectedClass definition
+!
+
 onSourceCodeFocusRequested
 	self focus
 !
@@ -613,17 +622,14 @@ onSourceCodeSaved
 !
 
 onUnknownVariableError: anError
-	| confirm |
-
-	confirm := self confirm: (String streamContents: [ :stream |
-		stream 
-			nextPutAll: anError messageText;
-			nextPutAll: String cr;
-			nextPutAll: 'Would you like to define an instance variable?' ]).
-			
-	confirm ifFalse: [ ^ self ].
-	
-	self browserModel addInstVarNamed: anError variableName
+	self 
+		confirm: (String streamContents: [ :stream |
+			stream 
+				nextPutAll: anError messageText;
+				nextPutAll: String cr;
+				nextPutAll: 'Would you like to define an instance variable?' ])
+		ifTrue: [
+			self browserModel addInstVarNamed: anError variableName ]
 ! !
 
 !HLBrowserCodeWidget class methodsFor: 'instance creation'!

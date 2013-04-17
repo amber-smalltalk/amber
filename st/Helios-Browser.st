@@ -81,8 +81,8 @@ protocolsListWidget
 
 sourceWidget
 	^ sourceWidget ifNil: [
-      	sourceWidget := HLBrowserCodeWidget new
-			browserModel: self model;
+      	sourceWidget := HLBrowserBottomWidget new
+			model: self model;
 			yourself ]
 ! !
 
@@ -106,6 +106,86 @@ tabPriority
 !HLBrowser class methodsFor: 'testing'!
 
 canBeOpenAsTab
+	^ true
+! !
+
+HLWidget subclass: #HLBrowserBottomWidget
+	instanceVariableNames: 'model codeWidget documentationWidget selectedWidget'
+	package: 'Helios-Browser'!
+
+!HLBrowserBottomWidget methodsFor: 'accessing'!
+
+codeWidget
+	^ codeWidget ifNil: [ codeWidget := HLBrowserCodeWidget new
+		browserModel: self model;
+		yourself ]
+!
+
+documentationWidget
+	^ documentationWidget ifNil: [ documentationWidget := HLDocumentationWidget new
+		model: self model;
+		yourself ]
+!
+
+model
+	^ model
+!
+
+model: aModel
+	model := aModel.
+	self observeModel
+!
+
+previous
+	"For navigation"
+!
+
+previous: aWidget
+	"For navigation"
+!
+
+selectedWidget
+	^ selectedWidget ifNil: [ selectedWidget := self codeWidget ]
+! !
+
+!HLBrowserBottomWidget methodsFor: 'actions'!
+
+focus
+	self selectedWidget focus
+!
+
+observeModel
+	self model announcer 
+		on: HLShowInstanceToggled
+		do: [ self onShowInstanceToggled ];
+		on: HLShowCommentToggled
+		do: [ self onShowCommentToggled ]
+!
+
+selectWidget: aWidget
+	selectedWidget := aWidget.
+	self refresh
+! !
+
+!HLBrowserBottomWidget methodsFor: 'reactions'!
+
+onShowCommentToggled
+	self selectWidget: self documentationWidget
+!
+
+onShowInstanceToggled
+	self selectWidget: self codeWidget
+! !
+
+!HLBrowserBottomWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	html with: self selectedWidget
+! !
+
+!HLBrowserBottomWidget methodsFor: 'testing'!
+
+canHaveFocus
 	^ true
 ! !
 
@@ -271,6 +351,7 @@ observeModel
 	self model announcer 
     	on: HLPackageSelected do: [ :ann | self onPackageSelected: ann item ];
     	on: HLShowInstanceToggled do: [ :ann | self onShowInstanceToggled ];
+		on: HLShowCommentToggled do: [ :ann | self onShowCommentToggled ];
 		on: HLClassSelected do: [ :ann | self onClassSelected: ann item ];
 		on: HLClassesFocusRequested do: [ :ann | self onClassesFocusRequested ]
 !
@@ -375,6 +456,10 @@ onPackageSelected: aPackage
     
     self setItemsForSelectedPackage.
     self refresh
+!
+
+onShowCommentToggled
+	self refresh
 !
 
 onShowInstanceToggled
@@ -912,7 +997,8 @@ selectedClass
 !
 
 selectedClass: aClass
-	aClass ifNil: [ ^ self ].
+	(self selectedClass = aClass and: [ aClass isNil ]) 
+		ifTrue: [ ^ self ].
 	
 	self withChangesDo: [
 		selectedClass = aClass ifTrue: [ 
@@ -1090,19 +1176,22 @@ openClassNamed: aString
 
 removeClass
 	self withChangesDo: [
-		(self manager confirm: 'Do you REALLY want to remove class ', self selectedClass name)
+		self manager 
+			confirm: 'Do you REALLY want to remove class ', self selectedClass name
 			ifTrue: [ self environment removeClass: self selectedClass ] ]
 !
 
 removeMethod
 	self withChangesDo: [
-		(self manager confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector)
+		self manager 
+			confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector
 			ifTrue: [ self environment removeMethod: self selectedMethod ] ]
 !
 
 removeProtocol
 	self withChangesDo: [
-		(self manager confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol)
+		self manager 
+			confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol
 			ifTrue: [ self environment 
 				removeProtocol: self selectedProtocol 
 				from: self selectedClass ] ]
@@ -1344,17 +1433,21 @@ on: aClass selectorsCache: aSelectorsCache
 ! !
 
 HLFocusableWidget subclass: #HLDocumentationWidget
-	instanceVariableNames: 'documentation'
+	instanceVariableNames: 'model'
 	package: 'Helios-Browser'!
 
 !HLDocumentationWidget methodsFor: 'accessing'!
 
 documentation
-	^ documentation ifNil: [ self defaultDocumentation ]
+	^ self model selectedClass theNonMetaClass comment ifNil: [ self defaultDocumentation ]
 !
 
-documentation: aString
-	documentation := aString
+model
+	^ model
+!
+
+model: aModel
+	model := aModel
 ! !
 
 !HLDocumentationWidget methodsFor: 'defaults'!
@@ -1367,9 +1460,9 @@ defaultDocumentation
 !HLDocumentationWidget methodsFor: 'rendering'!
 
 renderContentOn: html
-	html div 
+	(html div 
 		class: 'markdown';
-		with: (Showdown makeHtml: self documentation)
+		asJQuery) html: ((Showdown at: 'converter') new makeHtml: self documentation)
 ! !
 
 Object subclass: #HLSelectorsCache
