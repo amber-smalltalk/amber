@@ -4025,8 +4025,26 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "subStrings:",
+category: 'split join',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._tokenize_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"subStrings:",{aString:aString},smalltalk.String)})},
+args: ["aString"],
+source: "subStrings: aString\x0a\x09^ self tokenize: aString",
+messageSends: ["tokenize:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tokenize:",
-category: 'converting',
+category: 'split join',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

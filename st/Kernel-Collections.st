@@ -1202,10 +1202,6 @@ crlfSanitized
 
 reversed
 	<return self.split("").reverse().join("")>
-!
-
-tokenize: aString
-	<return self.split(aString)>
 ! !
 
 !String methodsFor: 'copying'!
@@ -1363,6 +1359,14 @@ linesDo: aBlock
 
 	self lineIndicesDo: [:start :endWithoutDelimiters :end |
 		aBlock value: (self copyFrom: start to: endWithoutDelimiters)]
+!
+
+subStrings: aString
+	^ self tokenize: aString
+!
+
+tokenize: aString
+	<return self.split(aString)>
 ! !
 
 !String methodsFor: 'testing'!
