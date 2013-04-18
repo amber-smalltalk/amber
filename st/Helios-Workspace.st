@@ -491,7 +491,7 @@ observeBrowserModel
 		on: HLSourceCodeSaved
 		do: [ :ann | self onSourceCodeSaved ];
 		on: HLAboutToChange
-		do: [ :ann | self onBrowserAboutToChange ];
+		do: [ :ann | self onBrowserAboutToChange: ann actionBlock ];
 		on: HLParseErrorRaised
 		do: [ :ann | self onParseError: ann ];
 		on: HLCompileErrorRaised
@@ -546,6 +546,20 @@ onBrowserAboutToChange
 			
 			"Don't ask twice"
 			self methodContents: self contents ]
+!
+
+onBrowserAboutToChange: aBlock
+	self hasModification
+		ifTrue: [
+			self 
+				confirm: 'Do you want to cancel changes?' 
+				ifTrue: [
+					"Don't ask twice"
+					self methodContents: self contents.
+					aBlock value ].
+			
+			
+			HLChangeForbidden signal ]
 !
 
 onClassSelected: aClass

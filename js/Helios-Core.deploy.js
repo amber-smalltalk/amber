@@ -902,12 +902,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
-_st(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._get())._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._activateFirstListItem();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateListItem:", "next", "jQuery:", "ifEmpty:", "activateFirstListItem", "get"]}),
+messageSends: ["activateListItem:", "next", "jQuery:"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -1228,7 +1224,7 @@ fn: function (){
 var self=this;
 var active,interval,delay,repeatInterval;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
 active=false;
 repeatInterval=(70);
 _st(_st(_st(self)._wrapper())._asJQuery())._unbind_("keydown");
@@ -1246,17 +1242,35 @@ delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
 interval=_st((function(){
 return smalltalk.withContext(function($ctx4) {
+$2=_st(_st(_st(self)._wrapper())._asJQuery())._hasClass_(_st(self)._focusClass());
+if(smalltalk.assert($2)){
 return _st(self)._activatePreviousListItem();
+} else {
+active=false;
+active;
+$3=interval;
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
+} else {
+_st(interval)._clearInterval();
+};
+$4=delay;
+if(($receiver = $4) == nil || $receiver == undefined){
+return $4;
+} else {
+return _st(delay)._clearTimeout();
+};
+};
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
 delay;
 };
-$2=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
+$5=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(active).__eq(false);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($2)){
+if(smalltalk.assert($5)){
 active=true;
 active;
 _st(self)._activateNextListItem();
@@ -1264,7 +1278,25 @@ delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
 interval=_st((function(){
 return smalltalk.withContext(function($ctx4) {
+$6=_st(_st(_st(self)._wrapper())._asJQuery())._hasClass_(_st(self)._focusClass());
+if(smalltalk.assert($6)){
 return _st(self)._activateNextListItem();
+} else {
+active=false;
+active;
+$7=interval;
+if(($receiver = $7) == nil || $receiver == undefined){
+$7;
+} else {
+_st(interval)._clearInterval();
+};
+$8=delay;
+if(($receiver = $8) == nil || $receiver == undefined){
+return $8;
+} else {
+return _st(delay)._clearTimeout();
+};
+};
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
@@ -1273,26 +1305,26 @@ return delay;
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(_st(_st(self)._wrapper())._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
-$3=active;
-if(smalltalk.assert($3)){
+$9=active;
+if(smalltalk.assert($9)){
 active=false;
 active;
-$4=interval;
-if(($receiver = $4) == nil || $receiver == undefined){
-$4;
+$10=interval;
+if(($receiver = $10) == nil || $receiver == undefined){
+$10;
 } else {
 _st(interval)._clearInterval();
 };
-$5=delay;
-if(($receiver = $5) == nil || $receiver == undefined){
-return $5;
+$11=delay;
+if(($receiver = $11) == nil || $receiver == undefined){
+return $11;
 } else {
 return _st(delay)._clearTimeout();
 };
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
-messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "ifNotNil:", "clearInterval", "clearTimeout"]}),
+messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"]}),
 smalltalk.HLListWidget);
 
 

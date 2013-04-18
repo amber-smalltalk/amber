@@ -1005,7 +1005,7 @@ return _st(self)._onSourceCodeSaved();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 _st($1)._on_do_($HLAboutToChange(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._onBrowserAboutToChange();
+return _st(self)._onBrowserAboutToChange_(_st(ann)._actionBlock());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 _st($1)._on_do_($HLParseErrorRaised(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
@@ -1040,7 +1040,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(self)._onSourceCodeFocusRequested();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLBrowserCodeWidget)})},
-messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onShowInstanceToggled", "onSourceCodeSaved", "onBrowserAboutToChange", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"]}),
+messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onShowInstanceToggled", "onSourceCodeSaved", "onBrowserAboutToChange:", "actionBlock", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"]}),
 smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(
@@ -1098,6 +1098,27 @@ _st(self)._methodContents_(_st(self)._contents());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["ifTrue:", "confirm:ifFalse:", "signal", "methodContents:", "contents", "hasModification"]}),
+smalltalk.HLBrowserCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onBrowserAboutToChange:",
+fn: function (aBlock){
+var self=this;
+function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._hasModification();
+if(smalltalk.assert($1)){
+_st(self)._confirm_ifTrue_("Do you want to cancel changes?",(function(){
+return smalltalk.withContext(function($ctx2) {
+_st(self)._methodContents_(_st(self)._contents());
+return _st(aBlock)._value();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st($HLChangeForbidden())._signal();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{aBlock:aBlock},smalltalk.HLBrowserCodeWidget)})},
+messageSends: ["ifTrue:", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal", "hasModification"]}),
 smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(

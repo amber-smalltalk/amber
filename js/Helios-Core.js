@@ -1193,14 +1193,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
-_st(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._get())._ifEmpty_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._activateFirstListItem();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateNextListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') next.\x0a\x09\x0a\x09\x22select the first item if none is selected\x22\x0a\x09(window jQuery: '.focused .nav-pills .active') get ifEmpty: [\x0a\x09\x09self activateFirstListItem ]",
-messageSends: ["activateListItem:", "next", "jQuery:", "ifEmpty:", "activateFirstListItem", "get"],
+source: "activateNextListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') next",
+messageSends: ["activateListItem:", "next", "jQuery:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -1624,7 +1620,7 @@ fn: function (){
 var self=this;
 var active,interval,delay,repeatInterval;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
 active=false;
 repeatInterval=(70);
 _st(_st(_st(self)._wrapper())._asJQuery())._unbind_("keydown");
@@ -1642,17 +1638,35 @@ delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
 interval=_st((function(){
 return smalltalk.withContext(function($ctx4) {
+$2=_st(_st(_st(self)._wrapper())._asJQuery())._hasClass_(_st(self)._focusClass());
+if(smalltalk.assert($2)){
 return _st(self)._activatePreviousListItem();
+} else {
+active=false;
+active;
+$3=interval;
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
+} else {
+_st(interval)._clearInterval();
+};
+$4=delay;
+if(($receiver = $4) == nil || $receiver == undefined){
+return $4;
+} else {
+return _st(delay)._clearTimeout();
+};
+};
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
 delay;
 };
-$2=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
+$5=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(active).__eq(false);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($2)){
+if(smalltalk.assert($5)){
 active=true;
 active;
 _st(self)._activateNextListItem();
@@ -1660,7 +1674,25 @@ delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
 interval=_st((function(){
 return smalltalk.withContext(function($ctx4) {
+$6=_st(_st(_st(self)._wrapper())._asJQuery())._hasClass_(_st(self)._focusClass());
+if(smalltalk.assert($6)){
 return _st(self)._activateNextListItem();
+} else {
+active=false;
+active;
+$7=interval;
+if(($receiver = $7) == nil || $receiver == undefined){
+$7;
+} else {
+_st(interval)._clearInterval();
+};
+$8=delay;
+if(($receiver = $8) == nil || $receiver == undefined){
+return $8;
+} else {
+return _st(delay)._clearTimeout();
+};
+};
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}))._valueWithInterval_(repeatInterval);
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
@@ -1669,19 +1701,19 @@ return delay;
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(_st(_st(self)._wrapper())._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
-$3=active;
-if(smalltalk.assert($3)){
+$9=active;
+if(smalltalk.assert($9)){
 active=false;
 active;
-$4=interval;
-if(($receiver = $4) == nil || $receiver == undefined){
-$4;
+$10=interval;
+if(($receiver = $10) == nil || $receiver == undefined){
+$10;
 } else {
 _st(interval)._clearInterval();
 };
-$5=delay;
-if(($receiver = $5) == nil || $receiver == undefined){
-return $5;
+$11=delay;
+if(($receiver = $11) == nil || $receiver == undefined){
+return $11;
 } else {
 return _st(delay)._clearTimeout();
 };
@@ -1689,8 +1721,8 @@ return _st(delay)._clearTimeout();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09self wrapper asJQuery unbind: 'keydown'.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ self activateNextListItem ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09self wrapper asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
-messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "and:", "=", "which", "activateNextListItem", "keyup:", "ifNotNil:", "clearInterval", "clearTimeout"],
+source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09self wrapper asJQuery unbind: 'keydown'.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [\x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ \x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activateNextListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09self wrapper asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
+messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

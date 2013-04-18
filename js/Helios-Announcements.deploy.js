@@ -1,5 +1,29 @@
 smalltalk.addPackage('Helios-Announcements');
-smalltalk.addClass('HLAboutToChange', smalltalk.Object, [], 'Helios-Announcements');
+smalltalk.addClass('HLAboutToChange', smalltalk.Object, ['actionBlock'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "actionBlock",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@actionBlock"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"actionBlock",{},smalltalk.HLAboutToChange)})},
+messageSends: []}),
+smalltalk.HLAboutToChange);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "actionBlock:",
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@actionBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"actionBlock:",{aBlock:aBlock},smalltalk.HLAboutToChange)})},
+messageSends: []}),
+smalltalk.HLAboutToChange);
+
 
 
 smalltalk.addClass('HLAnnouncement', smalltalk.Object, [], 'Helios-Announcements');

@@ -408,11 +408,7 @@ activateListItem: aListItem
 !
 
 activateNextListItem
-	self activateListItem: (window jQuery: '.focused .nav-pills .active') next.
-	
-	"select the first item if none is selected"
-	(window jQuery: '.focused .nav-pills .active') get ifEmpty: [
-		self activateFirstListItem ]
+	self activateListItem: (window jQuery: '.focused .nav-pills .active') next
 !
 
 activatePreviousListItem
@@ -474,7 +470,14 @@ setupKeyBindings
 			active := true.
 			self activatePreviousListItem.
         	delay := [
-				interval := [ self activatePreviousListItem ]
+				interval := [
+					(self wrapper asJQuery hasClass: self focusClass)
+						ifTrue: [
+							self activatePreviousListItem ]
+						ifFalse: [
+							active := false.
+							interval ifNotNil: [ interval clearInterval ].
+							delay ifNotNil: [ delay clearTimeout] ] ]
 					valueWithInterval: repeatInterval ]
 						valueWithTimeout: 300 ].
 			
@@ -482,7 +485,14 @@ setupKeyBindings
             active := true.
 			self activateNextListItem.
         	delay := [
-				interval := [ self activateNextListItem ]
+				interval := [ 
+					(self wrapper asJQuery hasClass: self focusClass)
+						ifTrue: [
+							self activateNextListItem ]
+						ifFalse: [
+							active := false.
+							interval ifNotNil: [ interval clearInterval ].
+							delay ifNotNil: [ delay clearTimeout] ] ]
 					valueWithInterval: repeatInterval ]
 						valueWithTimeout: 300 ] ].
 	

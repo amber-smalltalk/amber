@@ -1331,7 +1331,7 @@ return _st(self)._onSourceCodeSaved();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 _st($1)._on_do_($HLAboutToChange(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._onBrowserAboutToChange();
+return _st(self)._onBrowserAboutToChange_(_st(ann)._actionBlock());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 _st($1)._on_do_($HLParseErrorRaised(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
@@ -1367,8 +1367,8 @@ return _st(self)._onSourceCodeFocusRequested();
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLBrowserCodeWidget)})},
 args: [],
-source: "observeBrowserModel\x0a\x09self browserModel announcer\x0a\x09\x09on: HLSaveSourceCode\x0a\x09\x09do: [ :ann | self onSaveIt ];\x0a\x09\x09on: HLShowInstanceToggled\x0a\x09\x09do: [ :ann | self onShowInstanceToggled ];\x0a\x09\x09on: HLSourceCodeSaved\x0a\x09\x09do: [ :ann | self onSourceCodeSaved ];\x0a\x09\x09on: HLAboutToChange\x0a\x09\x09do: [ :ann | self onBrowserAboutToChange ];\x0a\x09\x09on: HLParseErrorRaised\x0a\x09\x09do: [ :ann | self onParseError: ann ];\x0a\x09\x09on: HLCompileErrorRaised\x0a\x09\x09do: [ :ann | self onCompileError: ann error ];\x0a\x09\x09on: HLUnknownVariableErrorRaised\x0a\x09\x09do: [ :ann | self onUnknownVariableError: ann error ];\x0a\x09\x09on: HLInstVarAdded \x0a\x09\x09do: [ :ann | self onInstVarAdded ];\x0a\x09\x09on: HLMethodSelected \x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ];\x0a    \x09on: HLClassSelected \x0a\x09\x09do: [ :ann | self onClassSelected: ann item ];\x0a    \x09on: HLProtocolSelected \x0a\x09\x09do: [ :ann | self onProtocolSelected: ann item ];\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09do: [ :ann | self onSourceCodeFocusRequested ]",
-messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onShowInstanceToggled", "onSourceCodeSaved", "onBrowserAboutToChange", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
+source: "observeBrowserModel\x0a\x09self browserModel announcer\x0a\x09\x09on: HLSaveSourceCode\x0a\x09\x09do: [ :ann | self onSaveIt ];\x0a\x09\x09on: HLShowInstanceToggled\x0a\x09\x09do: [ :ann | self onShowInstanceToggled ];\x0a\x09\x09on: HLSourceCodeSaved\x0a\x09\x09do: [ :ann | self onSourceCodeSaved ];\x0a\x09\x09on: HLAboutToChange\x0a\x09\x09do: [ :ann | self onBrowserAboutToChange: ann actionBlock ];\x0a\x09\x09on: HLParseErrorRaised\x0a\x09\x09do: [ :ann | self onParseError: ann ];\x0a\x09\x09on: HLCompileErrorRaised\x0a\x09\x09do: [ :ann | self onCompileError: ann error ];\x0a\x09\x09on: HLUnknownVariableErrorRaised\x0a\x09\x09do: [ :ann | self onUnknownVariableError: ann error ];\x0a\x09\x09on: HLInstVarAdded \x0a\x09\x09do: [ :ann | self onInstVarAdded ];\x0a\x09\x09on: HLMethodSelected \x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ];\x0a    \x09on: HLClassSelected \x0a\x09\x09do: [ :ann | self onClassSelected: ann item ];\x0a    \x09on: HLProtocolSelected \x0a\x09\x09do: [ :ann | self onProtocolSelected: ann item ];\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09do: [ :ann | self onSourceCodeFocusRequested ]",
+messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onShowInstanceToggled", "onSourceCodeSaved", "onBrowserAboutToChange:", "actionBlock", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
 referencedClasses: ["HLSaveSourceCode", "HLShowInstanceToggled", "HLSourceCodeSaved", "HLAboutToChange", "HLParseErrorRaised", "HLCompileErrorRaised", "HLUnknownVariableErrorRaised", "HLInstVarAdded", "HLMethodSelected", "HLClassSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1436,6 +1436,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange",{},small
 args: [],
 source: "onBrowserAboutToChange\x0a\x09self hasModification\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Do you want to cancel changes?' \x0a\x09\x09\x09\x09ifFalse: [ HLChangeForbidden signal ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09self methodContents: self contents ]",
 messageSends: ["ifTrue:", "confirm:ifFalse:", "signal", "methodContents:", "contents", "hasModification"],
+referencedClasses: ["HLChangeForbidden"]
+}),
+smalltalk.HLBrowserCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onBrowserAboutToChange:",
+category: 'reactions',
+fn: function (aBlock){
+var self=this;
+function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._hasModification();
+if(smalltalk.assert($1)){
+_st(self)._confirm_ifTrue_("Do you want to cancel changes?",(function(){
+return smalltalk.withContext(function($ctx2) {
+_st(self)._methodContents_(_st(self)._contents());
+return _st(aBlock)._value();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st($HLChangeForbidden())._signal();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{aBlock:aBlock},smalltalk.HLBrowserCodeWidget)})},
+args: ["aBlock"],
+source: "onBrowserAboutToChange: aBlock\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Do you want to cancel changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09aBlock value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
+messageSends: ["ifTrue:", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal", "hasModification"],
 referencedClasses: ["HLChangeForbidden"]
 }),
 smalltalk.HLBrowserCodeWidget);

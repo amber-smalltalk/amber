@@ -1277,8 +1277,9 @@ handleParseError: anError
 
 withChangesDo: aBlock
 	[ 
-		self announcer announce: HLAboutToChange new.
-		aBlock value
+		self announcer announce: (HLAboutToChange new
+			actionBlock: aBlock).
+		aBlock value.
 	]
 		on: HLChangeForbidden 
 		do: [ :ex | ]

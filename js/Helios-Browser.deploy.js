@@ -3080,13 +3080,13 @@ function $HLAboutToChange(){return smalltalk.HLAboutToChange||(typeof HLAboutToC
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(self)._announcer())._announce_(_st($HLAboutToChange())._new());
+_st(_st(self)._announcer())._announce_(_st(_st($HLAboutToChange())._new())._actionBlock_(aBlock));
 return _st(aBlock)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($HLChangeForbidden(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withChangesDo:",{aBlock:aBlock},smalltalk.HLBrowserModel)})},
-messageSends: ["on:do:", "announce:", "new", "announcer", "value"]}),
+messageSends: ["on:do:", "announce:", "actionBlock:", "new", "announcer", "value"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(

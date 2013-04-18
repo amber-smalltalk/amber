@@ -1,7 +1,17 @@
 Smalltalk current createPackage: 'Helios-Announcements'!
 Object subclass: #HLAboutToChange
-	instanceVariableNames: ''
+	instanceVariableNames: 'actionBlock'
 	package: 'Helios-Announcements'!
+
+!HLAboutToChange methodsFor: 'accessing'!
+
+actionBlock
+	^ actionBlock
+!
+
+actionBlock: aBlock
+	actionBlock := aBlock
+! !
 
 Object subclass: #HLAnnouncement
 	instanceVariableNames: ''
