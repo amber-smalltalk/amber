@@ -244,11 +244,17 @@ amber = (function() {
 	}
 
 	function loadJSViaJQuery(url, callback) {
+		// The order of loading is as specified, but order of execution may get wrong
+		// (observed when loading amber in testing environment using zombiejs).
+		// jQuery's getScript/get/ajax does not give any guarantee as to the order of execution.
+		// The callback is called after the file is fully load, but it may not have been executed.
+		// When given a small timeout between ending previous loading and start of next loading,
+		// it is very probable that the time window is used to actually start executing the script.
 		$.ajax({
 			dataType: "script",
 			url: url,
 			cache: deploy,
-			success: callback
+			success: function () { setTimeout(callback, 5); }
 		});
 	}
 
