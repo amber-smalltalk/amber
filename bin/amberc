@@ -77,7 +77,7 @@ function handle_options(optionsArray, amber_dir) {
 			case '-h':
 			case '--help':
 			case '?':
-				this.usage();
+				print_usage();
 				break;
 			default:
 				var fileSuffix = path.extname(currentItem);
