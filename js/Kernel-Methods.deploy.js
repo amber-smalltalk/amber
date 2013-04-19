@@ -155,6 +155,17 @@ smalltalk.BlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "receiver",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return nil;
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.BlockClosure)})},
+messageSends: []}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "timeToRun",
 fn: function (){
 var self=this;

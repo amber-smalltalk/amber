@@ -16,6 +16,10 @@ compiledSource
 
 numArgs
 	<return self.length>
+!
+
+receiver
+	^ nil
 ! !
 
 !BlockClosure methodsFor: 'controlling'!
