@@ -159,7 +159,7 @@ isConcrete
 !
 
 isValidFor: aModel
-	^ false
+	^ true
 ! !
 
 HLCommand subclass: #HLCloseTabCommand
@@ -207,7 +207,7 @@ for: aModel
 registerConcreteClassesOn: aBinding for: aModel
 	| newBinding |
 	
-	self isConcrete
+	(self isConcrete and: [ self isValidFor: aModel ])
 		ifTrue: [ newBinding := self registerOn: aBinding for: aModel ]
 		ifFalse: [ newBinding := aBinding ].
 		

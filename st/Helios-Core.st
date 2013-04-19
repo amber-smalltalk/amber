@@ -37,6 +37,358 @@ withChangesDo: aBlock
 		do: [ :ex | ]
 ! !
 
+!HLModel methodsFor: 'testing'!
+
+isBrowserModel
+	^ false
+!
+
+isReferencesModel
+	^ false
+!
+
+isToolModel
+	^ false
+! !
+
+HLModel subclass: #HLToolModel
+	instanceVariableNames: 'selectedClass selectedPackage selectedProtocol selectedSelector'
+	package: 'Helios-Core'!
+
+!HLToolModel methodsFor: 'accessing'!
+
+allSelectors
+	^ self environment allSelectors
+!
+
+availableClassNames
+	^ self environment availableClassNames
+!
+
+availablePackageNames
+	^ self environment availablePackageNames
+!
+
+availablePackages
+	^ self environment availablePackageNames
+!
+
+availableProtocols
+	^ self environment availableProtocolsFor: self selectedClass
+!
+
+packages
+	^ self environment packages
+!
+
+selectedClass
+	^ selectedClass
+!
+
+selectedClass: aClass
+	(self selectedClass = aClass and: [ aClass isNil ]) 
+		ifTrue: [ ^ self ].
+	
+	self withChangesDo: [
+		selectedClass = aClass ifTrue: [ 
+			self selectedProtocol: nil ].
+    
+		aClass 
+   			ifNil: [ selectedClass := nil ]
+    		ifNotNil: [
+				self selectedPackage: aClass theNonMetaClass package.
+				self showInstance 
+   					ifTrue: [ selectedClass := aClass theNonMetaClass ]
+     				ifFalse: [ selectedClass := aClass theMetaClass ] ].
+		self selectedProtocol: nil.
+		self announcer announce: (HLClassSelected on: self selectedClass) ]
+!
+
+selectedMethod
+	^ self selectedClass ifNotNil: [ 
+			self selectedClass methodDictionary 
+				at: selectedSelector 
+				ifAbsent: [ nil ] ]
+!
+
+selectedMethod: aCompiledMethod
+	selectedSelector = aCompiledMethod ifTrue: [ ^ self ].
+    
+    self withChangesDo: [
+		aCompiledMethod
+    		ifNil: [ selectedSelector := nil ]
+      		ifNotNil: [
+				selectedClass := aCompiledMethod methodClass.
+				selectedSelector := aCompiledMethod selector ].
+
+		self announcer announce: (HLMethodSelected on: aCompiledMethod) ]
+!
+
+selectedPackage
+	^ selectedPackage
+!
+
+selectedPackage: aPackage
+	selectedPackage = aPackage ifTrue: [ ^ self ].
+    
+	self withChangesDo: [
+		selectedPackage := aPackage.
+		self selectedClass: nil.
+		self announcer announce: (HLPackageSelected on: aPackage) ]
+!
+
+selectedProtocol
+	^ selectedProtocol
+!
+
+selectedProtocol: aString
+	selectedProtocol = aString ifTrue: [ ^ self ].
+
+	self withChangesDo: [
+		selectedProtocol := aString.
+		self selectedMethod: nil.
+		self announcer announce: (HLProtocolSelected on: aString) ]
+! !
+
+!HLToolModel methodsFor: 'actions'!
+
+addInstVarNamed: aString
+	self environment addInstVarNamed: aString to: self selectedClass.
+	self announcer announce: (HLInstVarAdded new
+		theClass: self selectedClass;
+		variableName: aString;
+		yourself)
+!
+
+save: aString
+	self announcer announce: HLSourceCodeSaved new.
+	
+	(self shouldCompileClassDefinition: aString)
+		ifTrue: [ self compileClassDefinition: aString ]
+		ifFalse: [ self compileMethod: aString ]
+!
+
+saveSourceCode
+	self announcer announce: HLSaveSourceCode new
+! !
+
+!HLToolModel methodsFor: 'commands actions'!
+
+commitPackage
+	self 
+		withHelperLabelled: 'Committing package ', self selectedPackage name, '...'
+		do: [ self environment commitPackage: self selectedPackage ]
+!
+
+copyClassTo: aClassName
+	self withChangesDo: [ 
+		self environment 
+			copyClass: self selectedClass theNonMetaClass
+			to: aClassName ]
+!
+
+moveClassToPackage: aPackageName
+	self withChangesDo: [
+		self environment 
+			moveClass: self selectedClass theNonMetaClass
+			toPackage: aPackageName ]
+!
+
+moveMethodToClass: aClassName
+	self withChangesDo: [
+		self environment 
+			moveMethod: self selectedMethod 
+			toClass: aClassName ]
+!
+
+moveMethodToProtocol: aProtocol
+	self withChangesDo: [
+		self environment 
+			moveMethod: self selectedMethod 
+			toProtocol: aProtocol ]
+!
+
+openClassNamed: aString
+	| class |
+	
+	self withChangesDo: [
+		class := self environment classNamed: aString.
+		self selectedPackage: class package.
+		self selectedClass: class ]
+!
+
+removeClass
+	self withChangesDo: [
+		self manager 
+			confirm: 'Do you REALLY want to remove class ', self selectedClass name
+			ifTrue: [ self environment removeClass: self selectedClass ] ]
+!
+
+removeMethod
+	self withChangesDo: [
+		self manager 
+			confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector
+			ifTrue: [ self environment removeMethod: self selectedMethod ] ]
+!
+
+removeProtocol
+	self withChangesDo: [
+		self manager 
+			confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol
+			ifTrue: [ self environment 
+				removeProtocol: self selectedProtocol 
+				from: self selectedClass ] ]
+!
+
+renameClassTo: aClassName
+	self withChangesDo: [
+		self environment 
+			renameClass: self selectedClass theNonMetaClass
+			to: aClassName ]
+!
+
+renameProtocolTo: aString
+	self withChangesDo: [
+		self environment 
+			renameProtocol: self selectedProtocol
+			to: aString
+			in: self selectedClass ]
+! !
+
+!HLToolModel methodsFor: 'compiling'!
+
+compileClassComment: aString
+	self environment 
+		compileClassComment: aString 
+		for: self selectedClass
+!
+
+compileClassDefinition: aString
+	self environment compileClassDefinition: aString
+!
+
+compileMethod: aString
+	| method |
+	
+	self withCompileErrorHandling: [ 
+		method := self environment 
+			compileMethod: aString 
+			for: self selectedClass
+			protocol: self compilationProtocol.
+
+		self selectedMethod: method ]
+! !
+
+!HLToolModel methodsFor: 'defaults'!
+
+allProtocol
+	^ '-- all --'
+!
+
+unclassifiedProtocol
+	^ 'as yet unclassified'
+! !
+
+!HLToolModel methodsFor: 'error handling'!
+
+handleCompileError: anError
+	self announcer announce: (HLCompileErrorRaised new
+		error: anError;
+		yourself)
+!
+
+handleParseError: anError
+	| split line column messageToInsert |
+	
+	split := anError messageText tokenize: ' : '.
+	messageToInsert := split second.
+
+	"21 = 'Parse error on line ' size + 1"
+	split := split first copyFrom: 21 to: split first size.
+	
+	split := split tokenize: ' column '.
+	line := split first.
+	column := split second.
+	
+	self announcer announce: (HLParseErrorRaised new
+		line: line asNumber;
+		column: column asNumber;
+		message: messageToInsert;
+		error: anError;
+		yourself)
+!
+
+handleUnkownVariableError: anError
+	self announcer announce: (HLUnknownVariableErrorRaised new
+		error: anError;
+		yourself)
+!
+
+withCompileErrorHandling: aBlock
+	[
+		[
+			aBlock 
+				on: ParseError
+				do: [:ex | self handleParseError: ex ]
+		]
+			on: UnknownVariableError
+			do: [ :ex | self handleUnkownVariableError: ex ]
+	]
+		on: CompilerError
+		do: [ :ex | self handleCompileError: ex ]
+! !
+
+!HLToolModel methodsFor: 'private'!
+
+compilationProtocol
+	| currentProtocol |
+	
+	currentProtocol := self selectedProtocol.
+	currentProtocol ifNil: [ currentProtocol := self unclassifiedProtocol ].
+	self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].
+
+	^ currentProtocol = self allProtocol
+		ifTrue: [ self unclassifiedProtocol ]
+		ifFalse: [ currentProtocol ]
+!
+
+withHelperLabelled: aString do: aBlock
+	"TODO: doesn't belong here"
+
+	(window jQuery: '#helper') remove.
+
+	[ :html |
+		html div 
+			id: 'helper';
+			with: aString ] appendToJQuery: 'body' asJQuery.
+	
+	[
+		aBlock value.
+		(window jQuery: '#helper') remove
+	] 
+		valueWithTimeout: 10
+! !
+
+!HLToolModel methodsFor: 'testing'!
+
+isToolModel
+	^ true
+!
+
+shouldCompileClassDefinition: aString
+	^ self selectedClass isNil or: [
+		aString first asUppercase = aString first ]
+! !
+
+!HLToolModel class methodsFor: 'actions'!
+
+on: anEnvironment
+
+	^ self new
+    	environment: anEnvironment;
+        yourself
+! !
+
 Widget subclass: #HLTab
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!
@@ -621,6 +973,124 @@ setupKeyBindings
         	self nextFocus ].
 		e which = 37 ifTrue: [ 
         	self previousFocus ] ]
+! !
+
+HLNavigationListWidget subclass: #HLToolListWidget
+	instanceVariableNames: 'model'
+	package: 'Helios-Core'!
+
+!HLToolListWidget methodsFor: 'accessing'!
+
+commandCategory
+	^ self label
+!
+
+label
+	^ 'List'
+!
+
+menuCommands
+	"Answer a collection of commands to be put in the cog menu"
+	
+	^ ((HLBrowserCommand concreteClasses
+		select: [ :each | each isValidFor: self model ])
+			collect: [ :each | each for: self model ])
+			select: [ :each | 
+				each category = self commandCategory and: [ 
+					each isAction and: [ each isActive ] ] ]
+!
+
+model
+	^ model
+!
+
+model: aBrowserModel
+	model := aBrowserModel.
+    
+    self 
+		observeSystem;
+		observeModel
+!
+
+selectedItem: anItem
+	"Selection changed, update the cog menu"
+	
+	super selectedItem: anItem.
+	self updateMenu
+! !
+
+!HLToolListWidget methodsFor: 'actions'!
+
+activateListItem: anItem
+	self model withChangesDo: [ super activateListItem: anItem ]
+!
+
+activateNextListItem
+	self model withChangesDo: [ super activateNextListItem ]
+!
+
+activatePreviousListItem
+	self model withChangesDo: [ super activatePreviousListItem ]
+!
+
+observeModel
+!
+
+observeSystem
+! !
+
+!HLToolListWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	self renderHeadOn: html.	
+	super renderContentOn: html
+!
+
+renderHeadOn: html
+	html div 
+		class: 'list-label';
+		with: [
+			html with: self label.
+			self renderMenuOn: html ]
+!
+
+renderMenuOn: html
+	| commands |
+	
+	commands := self menuCommands.
+	commands isEmpty ifTrue: [ ^ self ].
+	
+	html div 
+		class: 'btn-group cog';
+		with: [
+			html a
+				class: 'btn dropdown-toggle';
+				at: 'data-toggle' put: 'dropdown';
+				with: [ (html tag: 'i') class: 'icon-cog' ].
+		html ul 
+			class: 'dropdown-menu pull-right';
+			with: [ 
+				self menuCommands do: [ :each | 
+					html li with: [ html a 
+						with: each menuLabel;
+						onClick: [ self execute: each ] ] ] ] ]
+! !
+
+!HLToolListWidget methodsFor: 'updating'!
+
+updateMenu
+	(self wrapper asJQuery find: '.cog') remove.
+	
+	[ :html | self renderMenuOn: html ] 
+		appendToJQuery: (self wrapper asJQuery find: '.list-label')
+! !
+
+!HLToolListWidget class methodsFor: 'instance creation'!
+
+on: aModel
+	^ self new 
+    	model: aModel;
+        yourself
 ! !
 
 HLWidget subclass: #HLManager

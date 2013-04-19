@@ -66,6 +66,54 @@ smalltalk.HLModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isBrowserModel",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isBrowserModel",{},smalltalk.HLModel)})},
+args: [],
+source: "isBrowserModel\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isReferencesModel",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isReferencesModel",{},smalltalk.HLModel)})},
+args: [],
+source: "isReferencesModel\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isToolModel",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"isToolModel",{},smalltalk.HLModel)})},
+args: [],
+source: "isToolModel\x0a\x09^ false",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "manager",
 category: 'accessing',
 fn: function (){
@@ -125,6 +173,945 @@ referencedClasses: ["HLChangeForbidden", "HLAboutToChange"]
 }),
 smalltalk.HLModel);
 
+
+
+smalltalk.addClass('HLToolModel', smalltalk.HLModel, ['selectedClass', 'selectedPackage', 'selectedProtocol', 'selectedSelector'], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addInstVarNamed:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+function $HLInstVarAdded(){return smalltalk.HLInstVarAdded||(typeof HLInstVarAdded=="undefined"?nil:HLInstVarAdded)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(_st(self)._environment())._addInstVarNamed_to_(aString,_st(self)._selectedClass());
+$1=_st($HLInstVarAdded())._new();
+_st($1)._theClass_(_st(self)._selectedClass());
+_st($1)._variableName_(aString);
+$2=_st($1)._yourself();
+_st(_st(self)._announcer())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "addInstVarNamed: aString\x0a\x09self environment addInstVarNamed: aString to: self selectedClass.\x0a\x09self announcer announce: (HLInstVarAdded new\x0a\x09\x09theClass: self selectedClass;\x0a\x09\x09variableName: aString;\x0a\x09\x09yourself)",
+messageSends: ["addInstVarNamed:to:", "selectedClass", "environment", "announce:", "theClass:", "new", "variableName:", "yourself", "announcer"],
+referencedClasses: ["HLInstVarAdded"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "allProtocol",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "-- all --";
+}, function($ctx1) {$ctx1.fill(self,"allProtocol",{},smalltalk.HLToolModel)})},
+args: [],
+source: "allProtocol\x0a\x09^ '-- all --'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "allSelectors",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._allSelectors();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"allSelectors",{},smalltalk.HLToolModel)})},
+args: [],
+source: "allSelectors\x0a\x09^ self environment allSelectors",
+messageSends: ["allSelectors", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availableClassNames",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._availableClassNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.HLToolModel)})},
+args: [],
+source: "availableClassNames\x0a\x09^ self environment availableClassNames",
+messageSends: ["availableClassNames", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availablePackageNames",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._availablePackageNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.HLToolModel)})},
+args: [],
+source: "availablePackageNames\x0a\x09^ self environment availablePackageNames",
+messageSends: ["availablePackageNames", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availablePackages",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._availablePackageNames();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availablePackages",{},smalltalk.HLToolModel)})},
+args: [],
+source: "availablePackages\x0a\x09^ self environment availablePackageNames",
+messageSends: ["availablePackageNames", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "availableProtocols",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._availableProtocolsFor_(_st(self)._selectedClass());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"availableProtocols",{},smalltalk.HLToolModel)})},
+args: [],
+source: "availableProtocols\x0a\x09^ self environment availableProtocolsFor: self selectedClass",
+messageSends: ["availableProtocolsFor:", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPackage",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withHelperLabelled_do_(_st(_st("Committing package ").__comma(_st(_st(self)._selectedPackage())._name())).__comma("..."),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._commitPackage_(_st(self)._selectedPackage());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},smalltalk.HLToolModel)})},
+args: [],
+source: "commitPackage\x0a\x09self \x0a\x09\x09withHelperLabelled: 'Committing package ', self selectedPackage name, '...'\x0a\x09\x09do: [ self environment commitPackage: self selectedPackage ]",
+messageSends: ["withHelperLabelled:do:", ",", "name", "selectedPackage", "commitPackage:", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compilationProtocol",
+category: 'private',
+fn: function (){
+var self=this;
+var currentProtocol;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3;
+currentProtocol=_st(self)._selectedProtocol();
+$1=currentProtocol;
+if(($receiver = $1) == nil || $receiver == undefined){
+currentProtocol=_st(self)._unclassifiedProtocol();
+currentProtocol;
+} else {
+$1;
+};
+$2=_st(self)._selectedMethod();
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+currentProtocol=_st(_st(self)._selectedMethod())._protocol();
+currentProtocol;
+};
+$4=_st(currentProtocol).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($4)){
+$3=_st(self)._unclassifiedProtocol();
+} else {
+$3=currentProtocol;
+};
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"compilationProtocol",{currentProtocol:currentProtocol},smalltalk.HLToolModel)})},
+args: [],
+source: "compilationProtocol\x0a\x09| currentProtocol |\x0a\x09\x0a\x09currentProtocol := self selectedProtocol.\x0a\x09currentProtocol ifNil: [ currentProtocol := self unclassifiedProtocol ].\x0a\x09self selectedMethod ifNotNil: [ currentProtocol := self selectedMethod protocol ].\x0a\x0a\x09^ currentProtocol = self allProtocol\x0a\x09\x09ifTrue: [ self unclassifiedProtocol ]\x0a\x09\x09ifFalse: [ currentProtocol ]",
+messageSends: ["selectedProtocol", "ifNil:", "unclassifiedProtocol", "ifNotNil:", "protocol", "selectedMethod", "ifTrue:ifFalse:", "=", "allProtocol"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileClassComment:",
+category: 'compiling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._compileClassComment_for_(aString,_st(self)._selectedClass());
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassComment:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "compileClassComment: aString\x0a\x09self environment \x0a\x09\x09compileClassComment: aString \x0a\x09\x09for: self selectedClass",
+messageSends: ["compileClassComment:for:", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileClassDefinition:",
+category: 'compiling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._compileClassDefinition_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"compileClassDefinition:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "compileClassDefinition: aString\x0a\x09self environment compileClassDefinition: aString",
+messageSends: ["compileClassDefinition:", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compileMethod:",
+category: 'compiling',
+fn: function (aString){
+var self=this;
+var method;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withCompileErrorHandling_((function(){
+return smalltalk.withContext(function($ctx2) {
+method=_st(_st(self)._environment())._compileMethod_for_protocol_(aString,_st(self)._selectedClass(),_st(self)._compilationProtocol());
+method;
+return _st(self)._selectedMethod_(method);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"compileMethod:",{aString:aString,method:method},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "compileMethod: aString\x0a\x09| method |\x0a\x09\x0a\x09self withCompileErrorHandling: [ \x0a\x09\x09method := self environment \x0a\x09\x09\x09compileMethod: aString \x0a\x09\x09\x09for: self selectedClass\x0a\x09\x09\x09protocol: self compilationProtocol.\x0a\x0a\x09\x09self selectedMethod: method ]",
+messageSends: ["withCompileErrorHandling:", "compileMethod:for:protocol:", "selectedClass", "compilationProtocol", "environment", "selectedMethod:"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "copyClassTo:",
+category: 'commands actions',
+fn: function (aClassName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._copyClass_to_(_st(_st(self)._selectedClass())._theNonMetaClass(),aClassName);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"copyClassTo:",{aClassName:aClassName},smalltalk.HLToolModel)})},
+args: ["aClassName"],
+source: "copyClassTo: aClassName\x0a\x09self withChangesDo: [ \x0a\x09\x09self environment \x0a\x09\x09\x09copyClass: self selectedClass theNonMetaClass\x0a\x09\x09\x09to: aClassName ]",
+messageSends: ["withChangesDo:", "copyClass:to:", "theNonMetaClass", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleCompileError:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+function $HLCompileErrorRaised(){return smalltalk.HLCompileErrorRaised||(typeof HLCompileErrorRaised=="undefined"?nil:HLCompileErrorRaised)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLCompileErrorRaised())._new();
+_st($1)._error_(anError);
+$2=_st($1)._yourself();
+_st(_st(self)._announcer())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"handleCompileError:",{anError:anError},smalltalk.HLToolModel)})},
+args: ["anError"],
+source: "handleCompileError: anError\x0a\x09self announcer announce: (HLCompileErrorRaised new\x0a\x09\x09error: anError;\x0a\x09\x09yourself)",
+messageSends: ["announce:", "error:", "new", "yourself", "announcer"],
+referencedClasses: ["HLCompileErrorRaised"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleParseError:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+var split,line,column,messageToInsert;
+function $HLParseErrorRaised(){return smalltalk.HLParseErrorRaised||(typeof HLParseErrorRaised=="undefined"?nil:HLParseErrorRaised)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+split=_st(_st(anError)._messageText())._tokenize_(" : ");
+messageToInsert=_st(split)._second();
+split=_st(_st(split)._first())._copyFrom_to_((21),_st(_st(split)._first())._size());
+split=_st(split)._tokenize_(" column ");
+line=_st(split)._first();
+column=_st(split)._second();
+$1=_st($HLParseErrorRaised())._new();
+_st($1)._line_(_st(line)._asNumber());
+_st($1)._column_(_st(column)._asNumber());
+_st($1)._message_(messageToInsert);
+_st($1)._error_(anError);
+$2=_st($1)._yourself();
+_st(_st(self)._announcer())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"handleParseError:",{anError:anError,split:split,line:line,column:column,messageToInsert:messageToInsert},smalltalk.HLToolModel)})},
+args: ["anError"],
+source: "handleParseError: anError\x0a\x09| split line column messageToInsert |\x0a\x09\x0a\x09split := anError messageText tokenize: ' : '.\x0a\x09messageToInsert := split second.\x0a\x0a\x09\x2221 = 'Parse error on line ' size + 1\x22\x0a\x09split := split first copyFrom: 21 to: split first size.\x0a\x09\x0a\x09split := split tokenize: ' column '.\x0a\x09line := split first.\x0a\x09column := split second.\x0a\x09\x0a\x09self announcer announce: (HLParseErrorRaised new\x0a\x09\x09line: line asNumber;\x0a\x09\x09column: column asNumber;\x0a\x09\x09message: messageToInsert;\x0a\x09\x09error: anError;\x0a\x09\x09yourself)",
+messageSends: ["tokenize:", "messageText", "second", "copyFrom:to:", "size", "first", "announce:", "line:", "asNumber", "new", "column:", "message:", "error:", "yourself", "announcer"],
+referencedClasses: ["HLParseErrorRaised"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleUnkownVariableError:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+function $HLUnknownVariableErrorRaised(){return smalltalk.HLUnknownVariableErrorRaised||(typeof HLUnknownVariableErrorRaised=="undefined"?nil:HLUnknownVariableErrorRaised)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLUnknownVariableErrorRaised())._new();
+_st($1)._error_(anError);
+$2=_st($1)._yourself();
+_st(_st(self)._announcer())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"handleUnkownVariableError:",{anError:anError},smalltalk.HLToolModel)})},
+args: ["anError"],
+source: "handleUnkownVariableError: anError\x0a\x09self announcer announce: (HLUnknownVariableErrorRaised new\x0a\x09\x09error: anError;\x0a\x09\x09yourself)",
+messageSends: ["announce:", "error:", "new", "yourself", "announcer"],
+referencedClasses: ["HLUnknownVariableErrorRaised"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isToolModel",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isToolModel",{},smalltalk.HLToolModel)})},
+args: [],
+source: "isToolModel\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveClassToPackage:",
+category: 'commands actions',
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._moveClass_toPackage_(_st(_st(self)._selectedClass())._theNonMetaClass(),aPackageName);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"moveClassToPackage:",{aPackageName:aPackageName},smalltalk.HLToolModel)})},
+args: ["aPackageName"],
+source: "moveClassToPackage: aPackageName\x0a\x09self withChangesDo: [\x0a\x09\x09self environment \x0a\x09\x09\x09moveClass: self selectedClass theNonMetaClass\x0a\x09\x09\x09toPackage: aPackageName ]",
+messageSends: ["withChangesDo:", "moveClass:toPackage:", "theNonMetaClass", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveMethodToClass:",
+category: 'commands actions',
+fn: function (aClassName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._moveMethod_toClass_(_st(self)._selectedMethod(),aClassName);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToClass:",{aClassName:aClassName},smalltalk.HLToolModel)})},
+args: ["aClassName"],
+source: "moveMethodToClass: aClassName\x0a\x09self withChangesDo: [\x0a\x09\x09self environment \x0a\x09\x09\x09moveMethod: self selectedMethod \x0a\x09\x09\x09toClass: aClassName ]",
+messageSends: ["withChangesDo:", "moveMethod:toClass:", "selectedMethod", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "moveMethodToProtocol:",
+category: 'commands actions',
+fn: function (aProtocol){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._moveMethod_toProtocol_(_st(self)._selectedMethod(),aProtocol);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"moveMethodToProtocol:",{aProtocol:aProtocol},smalltalk.HLToolModel)})},
+args: ["aProtocol"],
+source: "moveMethodToProtocol: aProtocol\x0a\x09self withChangesDo: [\x0a\x09\x09self environment \x0a\x09\x09\x09moveMethod: self selectedMethod \x0a\x09\x09\x09toProtocol: aProtocol ]",
+messageSends: ["withChangesDo:", "moveMethod:toProtocol:", "selectedMethod", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "openClassNamed:",
+category: 'commands actions',
+fn: function (aString){
+var self=this;
+var class_;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+class_=_st(_st(self)._environment())._classNamed_(aString);
+class_;
+_st(self)._selectedPackage_(_st(class_)._package());
+return _st(self)._selectedClass_(class_);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"openClassNamed:",{aString:aString,class_:class_},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "openClassNamed: aString\x0a\x09| class |\x0a\x09\x0a\x09self withChangesDo: [\x0a\x09\x09class := self environment classNamed: aString.\x0a\x09\x09self selectedPackage: class package.\x0a\x09\x09self selectedClass: class ]",
+messageSends: ["withChangesDo:", "classNamed:", "environment", "selectedPackage:", "package", "selectedClass:"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "packages",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._environment())._packages();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.HLToolModel)})},
+args: [],
+source: "packages\x0a\x09^ self environment packages",
+messageSends: ["packages", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeClass",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._manager())._confirm_ifTrue_(_st("Do you REALLY want to remove class ").__comma(_st(_st(self)._selectedClass())._name()),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(self)._environment())._removeClass_(_st(self)._selectedClass());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},smalltalk.HLToolModel)})},
+args: [],
+source: "removeClass\x0a\x09self withChangesDo: [\x0a\x09\x09self manager \x0a\x09\x09\x09confirm: 'Do you REALLY want to remove class ', self selectedClass name\x0a\x09\x09\x09ifTrue: [ self environment removeClass: self selectedClass ] ]",
+messageSends: ["withChangesDo:", "confirm:ifTrue:", ",", "name", "selectedClass", "removeClass:", "environment", "manager"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeMethod",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._manager())._confirm_ifTrue_(_st(_st(_st("Do you REALLY want to remove method ").__comma(_st(_st(_st(self)._selectedMethod())._methodClass())._name())).__comma(" >> #")).__comma(_st(_st(self)._selectedMethod())._selector()),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(self)._environment())._removeMethod_(_st(self)._selectedMethod());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeMethod",{},smalltalk.HLToolModel)})},
+args: [],
+source: "removeMethod\x0a\x09self withChangesDo: [\x0a\x09\x09self manager \x0a\x09\x09\x09confirm: 'Do you REALLY want to remove method ', self selectedMethod methodClass name,' >> #', self selectedMethod selector\x0a\x09\x09\x09ifTrue: [ self environment removeMethod: self selectedMethod ] ]",
+messageSends: ["withChangesDo:", "confirm:ifTrue:", ",", "selector", "selectedMethod", "name", "methodClass", "removeMethod:", "environment", "manager"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeProtocol",
+category: 'commands actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._manager())._confirm_ifTrue_(_st("Do you REALLY want to remove protocol ").__comma(_st(self)._selectedProtocol()),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(self)._environment())._removeProtocol_from_(_st(self)._selectedProtocol(),_st(self)._selectedClass());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol",{},smalltalk.HLToolModel)})},
+args: [],
+source: "removeProtocol\x0a\x09self withChangesDo: [\x0a\x09\x09self manager \x0a\x09\x09\x09confirm: 'Do you REALLY want to remove protocol ', self selectedProtocol\x0a\x09\x09\x09ifTrue: [ self environment \x0a\x09\x09\x09\x09removeProtocol: self selectedProtocol \x0a\x09\x09\x09\x09from: self selectedClass ] ]",
+messageSends: ["withChangesDo:", "confirm:ifTrue:", ",", "selectedProtocol", "removeProtocol:from:", "selectedClass", "environment", "manager"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renameClassTo:",
+category: 'commands actions',
+fn: function (aClassName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._renameClass_to_(_st(_st(self)._selectedClass())._theNonMetaClass(),aClassName);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renameClassTo:",{aClassName:aClassName},smalltalk.HLToolModel)})},
+args: ["aClassName"],
+source: "renameClassTo: aClassName\x0a\x09self withChangesDo: [\x0a\x09\x09self environment \x0a\x09\x09\x09renameClass: self selectedClass theNonMetaClass\x0a\x09\x09\x09to: aClassName ]",
+messageSends: ["withChangesDo:", "renameClass:to:", "theNonMetaClass", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renameProtocolTo:",
+category: 'commands actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._environment())._renameProtocol_to_in_(_st(self)._selectedProtocol(),aString,_st(self)._selectedClass());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renameProtocolTo:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "renameProtocolTo: aString\x0a\x09self withChangesDo: [\x0a\x09\x09self environment \x0a\x09\x09\x09renameProtocol: self selectedProtocol\x0a\x09\x09\x09to: aString\x0a\x09\x09\x09in: self selectedClass ]",
+messageSends: ["withChangesDo:", "renameProtocol:to:in:", "selectedProtocol", "selectedClass", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "save:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+function $HLSourceCodeSaved(){return smalltalk.HLSourceCodeSaved||(typeof HLSourceCodeSaved=="undefined"?nil:HLSourceCodeSaved)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(_st(self)._announcer())._announce_(_st($HLSourceCodeSaved())._new());
+$1=_st(self)._shouldCompileClassDefinition_(aString);
+if(smalltalk.assert($1)){
+_st(self)._compileClassDefinition_(aString);
+} else {
+_st(self)._compileMethod_(aString);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"save:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "save: aString\x0a\x09self announcer announce: HLSourceCodeSaved new.\x0a\x09\x0a\x09(self shouldCompileClassDefinition: aString)\x0a\x09\x09ifTrue: [ self compileClassDefinition: aString ]\x0a\x09\x09ifFalse: [ self compileMethod: aString ]",
+messageSends: ["announce:", "new", "announcer", "ifTrue:ifFalse:", "compileClassDefinition:", "compileMethod:", "shouldCompileClassDefinition:"],
+referencedClasses: ["HLSourceCodeSaved"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "saveSourceCode",
+category: 'actions',
+fn: function (){
+var self=this;
+function $HLSaveSourceCode(){return smalltalk.HLSaveSourceCode||(typeof HLSaveSourceCode=="undefined"?nil:HLSaveSourceCode)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._announcer())._announce_(_st($HLSaveSourceCode())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"saveSourceCode",{},smalltalk.HLToolModel)})},
+args: [],
+source: "saveSourceCode\x0a\x09self announcer announce: HLSaveSourceCode new",
+messageSends: ["announce:", "new", "announcer"],
+referencedClasses: ["HLSaveSourceCode"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@selectedClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedClass",{},smalltalk.HLToolModel)})},
+args: [],
+source: "selectedClass\x0a\x09^ selectedClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+$1=_st(_st(_st(self)._selectedClass()).__eq(aClass))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aClass)._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(self["@selectedClass"]).__eq(aClass);
+if(smalltalk.assert($3)){
+_st(self)._selectedProtocol_(nil);
+};
+$4=aClass;
+if(($receiver = $4) == nil || $receiver == undefined){
+self["@selectedClass"]=nil;
+self["@selectedClass"];
+} else {
+_st(self)._selectedPackage_(_st(_st(aClass)._theNonMetaClass())._package());
+$5=_st(self)._showInstance();
+if(smalltalk.assert($5)){
+self["@selectedClass"]=_st(aClass)._theNonMetaClass();
+self["@selectedClass"];
+} else {
+self["@selectedClass"]=_st(aClass)._theMetaClass();
+self["@selectedClass"];
+};
+};
+_st(self)._selectedProtocol_(nil);
+return _st(_st(self)._announcer())._announce_(_st($HLClassSelected())._on_(_st(self)._selectedClass()));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"selectedClass:",{aClass:aClass},smalltalk.HLToolModel)})},
+args: ["aClass"],
+source: "selectedClass: aClass\x0a\x09(self selectedClass = aClass and: [ aClass isNil ]) \x0a\x09\x09ifTrue: [ ^ self ].\x0a\x09\x0a\x09self withChangesDo: [\x0a\x09\x09selectedClass = aClass ifTrue: [ \x0a\x09\x09\x09self selectedProtocol: nil ].\x0a    \x0a\x09\x09aClass \x0a   \x09\x09\x09ifNil: [ selectedClass := nil ]\x0a    \x09\x09ifNotNil: [\x0a\x09\x09\x09\x09self selectedPackage: aClass theNonMetaClass package.\x0a\x09\x09\x09\x09self showInstance \x0a   \x09\x09\x09\x09\x09ifTrue: [ selectedClass := aClass theNonMetaClass ]\x0a     \x09\x09\x09\x09ifFalse: [ selectedClass := aClass theMetaClass ] ].\x0a\x09\x09self selectedProtocol: nil.\x0a\x09\x09self announcer announce: (HLClassSelected on: self selectedClass) ]",
+messageSends: ["ifTrue:", "and:", "isNil", "=", "selectedClass", "withChangesDo:", "selectedProtocol:", "ifNil:ifNotNil:", "selectedPackage:", "package", "theNonMetaClass", "ifTrue:ifFalse:", "theMetaClass", "showInstance", "announce:", "on:", "announcer"],
+referencedClasses: ["HLClassSelected"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedMethod",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self)._selectedClass();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=$2;
+} else {
+$1=_st(_st(_st(self)._selectedClass())._methodDictionary())._at_ifAbsent_(self["@selectedSelector"],(function(){
+return smalltalk.withContext(function($ctx2) {
+return nil;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedMethod",{},smalltalk.HLToolModel)})},
+args: [],
+source: "selectedMethod\x0a\x09^ self selectedClass ifNotNil: [ \x0a\x09\x09\x09self selectedClass methodDictionary \x0a\x09\x09\x09\x09at: selectedSelector \x0a\x09\x09\x09\x09ifAbsent: [ nil ] ]",
+messageSends: ["ifNotNil:", "at:ifAbsent:", "methodDictionary", "selectedClass"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedMethod:",
+category: 'accessing',
+fn: function (aCompiledMethod){
+var self=this;
+function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self["@selectedSelector"]).__eq(aCompiledMethod);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=aCompiledMethod;
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@selectedSelector"]=nil;
+self["@selectedSelector"];
+} else {
+self["@selectedClass"]=_st(aCompiledMethod)._methodClass();
+self["@selectedClass"];
+self["@selectedSelector"]=_st(aCompiledMethod)._selector();
+self["@selectedSelector"];
+};
+return _st(_st(self)._announcer())._announce_(_st($HLMethodSelected())._on_(aCompiledMethod));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"selectedMethod:",{aCompiledMethod:aCompiledMethod},smalltalk.HLToolModel)})},
+args: ["aCompiledMethod"],
+source: "selectedMethod: aCompiledMethod\x0a\x09selectedSelector = aCompiledMethod ifTrue: [ ^ self ].\x0a    \x0a    self withChangesDo: [\x0a\x09\x09aCompiledMethod\x0a    \x09\x09ifNil: [ selectedSelector := nil ]\x0a      \x09\x09ifNotNil: [\x0a\x09\x09\x09\x09selectedClass := aCompiledMethod methodClass.\x0a\x09\x09\x09\x09selectedSelector := aCompiledMethod selector ].\x0a\x0a\x09\x09self announcer announce: (HLMethodSelected on: aCompiledMethod) ]",
+messageSends: ["ifTrue:", "=", "withChangesDo:", "ifNil:ifNotNil:", "methodClass", "selector", "announce:", "on:", "announcer"],
+referencedClasses: ["HLMethodSelected"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedPackage",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@selectedPackage"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedPackage",{},smalltalk.HLToolModel)})},
+args: [],
+source: "selectedPackage\x0a\x09^ selectedPackage",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedPackage:",
+category: 'accessing',
+fn: function (aPackage){
+var self=this;
+function $HLPackageSelected(){return smalltalk.HLPackageSelected||(typeof HLPackageSelected=="undefined"?nil:HLPackageSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self["@selectedPackage"]).__eq(aPackage);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@selectedPackage"]=aPackage;
+self["@selectedPackage"];
+_st(self)._selectedClass_(nil);
+return _st(_st(self)._announcer())._announce_(_st($HLPackageSelected())._on_(aPackage));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"selectedPackage:",{aPackage:aPackage},smalltalk.HLToolModel)})},
+args: ["aPackage"],
+source: "selectedPackage: aPackage\x0a\x09selectedPackage = aPackage ifTrue: [ ^ self ].\x0a    \x0a\x09self withChangesDo: [\x0a\x09\x09selectedPackage := aPackage.\x0a\x09\x09self selectedClass: nil.\x0a\x09\x09self announcer announce: (HLPackageSelected on: aPackage) ]",
+messageSends: ["ifTrue:", "=", "withChangesDo:", "selectedClass:", "announce:", "on:", "announcer"],
+referencedClasses: ["HLPackageSelected"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedProtocol",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@selectedProtocol"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedProtocol",{},smalltalk.HLToolModel)})},
+args: [],
+source: "selectedProtocol\x0a\x09^ selectedProtocol",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedProtocol:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self["@selectedProtocol"]).__eq(aString);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@selectedProtocol"]=aString;
+self["@selectedProtocol"];
+_st(self)._selectedMethod_(nil);
+return _st(_st(self)._announcer())._announce_(_st($HLProtocolSelected())._on_(aString));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"selectedProtocol:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "selectedProtocol: aString\x0a\x09selectedProtocol = aString ifTrue: [ ^ self ].\x0a\x0a\x09self withChangesDo: [\x0a\x09\x09selectedProtocol := aString.\x0a\x09\x09self selectedMethod: nil.\x0a\x09\x09self announcer announce: (HLProtocolSelected on: aString) ]",
+messageSends: ["ifTrue:", "=", "withChangesDo:", "selectedMethod:", "announce:", "on:", "announcer"],
+referencedClasses: ["HLProtocolSelected"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldCompileClassDefinition:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._selectedClass())._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(aString)._first())._asUppercase()).__eq(_st(aString)._first());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition:",{aString:aString},smalltalk.HLToolModel)})},
+args: ["aString"],
+source: "shouldCompileClassDefinition: aString\x0a\x09^ self selectedClass isNil or: [\x0a\x09\x09aString first asUppercase = aString first ]",
+messageSends: ["or:", "=", "first", "asUppercase", "isNil", "selectedClass"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unclassifiedProtocol",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "as yet unclassified";
+}, function($ctx1) {$ctx1.fill(self,"unclassifiedProtocol",{},smalltalk.HLToolModel)})},
+args: [],
+source: "unclassifiedProtocol\x0a\x09^ 'as yet unclassified'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withCompileErrorHandling:",
+category: 'error handling',
+fn: function (aBlock){
+var self=this;
+function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
+function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $ParseError(){return smalltalk.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(aBlock)._on_do_($ParseError(),(function(ex){
+return smalltalk.withContext(function($ctx4) {
+return _st(self)._handleParseError_(ex);
+}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_($UnknownVariableError(),(function(ex){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._handleUnkownVariableError_(ex);
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($CompilerError(),(function(ex){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._handleCompileError_(ex);
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"withCompileErrorHandling:",{aBlock:aBlock},smalltalk.HLToolModel)})},
+args: ["aBlock"],
+source: "withCompileErrorHandling: aBlock\x0a\x09[\x0a\x09\x09[\x0a\x09\x09\x09aBlock \x0a\x09\x09\x09\x09on: ParseError\x0a\x09\x09\x09\x09do: [:ex | self handleParseError: ex ]\x0a\x09\x09]\x0a\x09\x09\x09on: UnknownVariableError\x0a\x09\x09\x09do: [ :ex | self handleUnkownVariableError: ex ]\x0a\x09]\x0a\x09\x09on: CompilerError\x0a\x09\x09do: [ :ex | self handleCompileError: ex ]",
+messageSends: ["on:do:", "handleCompileError:", "handleUnkownVariableError:", "handleParseError:"],
+referencedClasses: ["CompilerError", "UnknownVariableError", "ParseError"]
+}),
+smalltalk.HLToolModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withHelperLabelled:do:",
+category: 'private',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(_st(window)._jQuery_("#helper"))._remove();
+_st((function(html){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(html)._div();
+_st($1)._id_("helper");
+$2=_st($1)._with_(aString);
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st("body")._asJQuery());
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(aBlock)._value();
+return _st(_st(window)._jQuery_("#helper"))._remove();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((10));
+return self}, function($ctx1) {$ctx1.fill(self,"withHelperLabelled:do:",{aString:aString,aBlock:aBlock},smalltalk.HLToolModel)})},
+args: ["aString", "aBlock"],
+source: "withHelperLabelled: aString do: aBlock\x0a\x09\x22TODO: doesn't belong here\x22\x0a\x0a\x09(window jQuery: '#helper') remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: aString ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[\x0a\x09\x09aBlock value.\x0a\x09\x09(window jQuery: '#helper') remove\x0a\x09] \x0a\x09\x09valueWithTimeout: 10",
+messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery", "id:", "div", "with:", "valueWithTimeout:", "value"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'actions',
+fn: function (anEnvironment){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._environment_(anEnvironment);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anEnvironment:anEnvironment},smalltalk.HLToolModel.klass)})},
+args: ["anEnvironment"],
+source: "on: anEnvironment\x0a\x0a\x09^ self new\x0a    \x09environment: anEnvironment;\x0a        yourself",
+messageSends: ["environment:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLToolModel.klass);
 
 
 smalltalk.addClass('HLTab', smalltalk.Widget, ['widget', 'label', 'root'], 'Helios-Core');
@@ -1908,6 +2895,355 @@ referencedClasses: []
 }),
 smalltalk.HLNavigationListWidget);
 
+
+
+smalltalk.addClass('HLToolListWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activateListItem:",
+category: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.HLNavigationListWidget.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{anItem:anItem},smalltalk.HLToolListWidget)})},
+args: ["anItem"],
+source: "activateListItem: anItem\x0a\x09self model withChangesDo: [ super activateListItem: anItem ]",
+messageSends: ["withChangesDo:", "activateListItem:", "model"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activateNextListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.HLNavigationListWidget.fn.prototype._activateNextListItem.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "activateNextListItem\x0a\x09self model withChangesDo: [ super activateNextListItem ]",
+messageSends: ["withChangesDo:", "activateNextListItem", "model"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activatePreviousListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.HLNavigationListWidget.fn.prototype._activatePreviousListItem.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "activatePreviousListItem\x0a\x09self model withChangesDo: [ super activatePreviousListItem ]",
+messageSends: ["withChangesDo:", "activatePreviousListItem", "model"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commandCategory",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._label();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commandCategory",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "commandCategory\x0a\x09^ self label",
+messageSends: ["label"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "List";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "label\x0a\x09^ 'List'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "menuCommands",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $HLBrowserCommand(){return smalltalk.HLBrowserCommand||(typeof HLBrowserCommand=="undefined"?nil:HLBrowserCommand)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st($HLBrowserCommand())._concreteClasses())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._isValidFor_(_st(self)._model());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._for_(_st(self)._model());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._category()).__eq(_st(self)._commandCategory()))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(each)._isAction())._and_((function(){
+return smalltalk.withContext(function($ctx4) {
+return _st(each)._isActive();
+}, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"menuCommands",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "menuCommands\x0a\x09\x22Answer a collection of commands to be put in the cog menu\x22\x0a\x09\x0a\x09^ ((HLBrowserCommand concreteClasses\x0a\x09\x09select: [ :each | each isValidFor: self model ])\x0a\x09\x09\x09collect: [ :each | each for: self model ])\x0a\x09\x09\x09select: [ :each | \x0a\x09\x09\x09\x09each category = self commandCategory and: [ \x0a\x09\x09\x09\x09\x09each isAction and: [ each isActive ] ] ]",
+messageSends: ["select:", "and:", "isActive", "isAction", "=", "commandCategory", "category", "collect:", "for:", "model", "isValidFor:", "concreteClasses"],
+referencedClasses: ["HLBrowserCommand"]
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@model"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "model\x0a\x09^ model",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "model:",
+category: 'accessing',
+fn: function (aBrowserModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@model"]=aBrowserModel;
+$1=self;
+_st($1)._observeSystem();
+$2=_st($1)._observeModel();
+return self}, function($ctx1) {$ctx1.fill(self,"model:",{aBrowserModel:aBrowserModel},smalltalk.HLToolListWidget)})},
+args: ["aBrowserModel"],
+source: "model: aBrowserModel\x0a\x09model := aBrowserModel.\x0a    \x0a    self \x0a\x09\x09observeSystem;\x0a\x09\x09observeModel",
+messageSends: ["observeSystem", "observeModel"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeModel",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "observeModel",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeSystem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "observeSystem",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._renderHeadOn_(html);
+smalltalk.HLNavigationListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLToolListWidget)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x09\x0a\x09super renderContentOn: html",
+messageSends: ["renderHeadOn:", "renderContentOn:"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderHeadOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._div();
+_st($1)._class_("list-label");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(html)._with_(_st(self)._label());
+return _st(self)._renderMenuOn_(html);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLToolListWidget)})},
+args: ["html"],
+source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'list-label';\x0a\x09\x09with: [\x0a\x09\x09\x09html with: self label.\x0a\x09\x09\x09self renderMenuOn: html ]",
+messageSends: ["class:", "div", "with:", "label", "renderMenuOn:"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMenuOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+var commands;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$5,$6,$7,$9,$10,$8,$4;
+commands=_st(self)._menuCommands();
+$1=_st(commands)._isEmpty();
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(html)._div();
+_st($3)._class_("btn-group cog");
+$4=_st($3)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$5=_st(html)._a();
+_st($5)._class_("btn dropdown-toggle");
+_st($5)._at_put_("data-toggle","dropdown");
+$6=_st($5)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(html)._tag_("i"))._class_("icon-cog");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+$6;
+$7=_st(html)._ul();
+_st($7)._class_("dropdown-menu pull-right");
+$8=_st($7)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(self)._menuCommands())._do_((function(each){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(html)._li())._with_((function(){
+return smalltalk.withContext(function($ctx5) {
+$9=_st(html)._a();
+_st($9)._with_(_st(each)._menuLabel());
+$10=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx6) {
+return _st(self)._execute_(each);
+}, function($ctx6) {$ctx6.fillBlock({},$ctx1)})}));
+return $10;
+}, function($ctx5) {$ctx5.fillBlock({},$ctx1)})}));
+}, function($ctx4) {$ctx4.fillBlock({each:each},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return $8;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderMenuOn:",{html:html,commands:commands},smalltalk.HLToolListWidget)})},
+args: ["html"],
+source: "renderMenuOn: html\x0a\x09| commands |\x0a\x09\x0a\x09commands := self menuCommands.\x0a\x09commands isEmpty ifTrue: [ ^ self ].\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'btn-group cog';\x0a\x09\x09with: [\x0a\x09\x09\x09html a\x0a\x09\x09\x09\x09class: 'btn dropdown-toggle';\x0a\x09\x09\x09\x09at: 'data-toggle' put: 'dropdown';\x0a\x09\x09\x09\x09with: [ (html tag: 'i') class: 'icon-cog' ].\x0a\x09\x09html ul \x0a\x09\x09\x09class: 'dropdown-menu pull-right';\x0a\x09\x09\x09with: [ \x0a\x09\x09\x09\x09self menuCommands do: [ :each | \x0a\x09\x09\x09\x09\x09html li with: [ html a \x0a\x09\x09\x09\x09\x09\x09with: each menuLabel;\x0a\x09\x09\x09\x09\x09\x09onClick: [ self execute: each ] ] ] ] ]",
+messageSends: ["menuCommands", "ifTrue:", "isEmpty", "class:", "div", "with:", "a", "at:put:", "tag:", "ul", "do:", "menuLabel", "onClick:", "execute:", "li"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedItem:",
+category: 'accessing',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLNavigationListWidget.fn.prototype._selectedItem_.apply(_st(self), [anItem]);
+_st(self)._updateMenu();
+return self}, function($ctx1) {$ctx1.fill(self,"selectedItem:",{anItem:anItem},smalltalk.HLToolListWidget)})},
+args: ["anItem"],
+source: "selectedItem: anItem\x0a\x09\x22Selection changed, update the cog menu\x22\x0a\x09\x0a\x09super selectedItem: anItem.\x0a\x09self updateMenu",
+messageSends: ["selectedItem:", "updateMenu"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateMenu",
+category: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(".cog"))._remove();
+_st((function(html){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._renderMenuOn_(html);
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st(_st(_st(self)._wrapper())._asJQuery())._find_(".list-label"));
+return self}, function($ctx1) {$ctx1.fill(self,"updateMenu",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "updateMenu\x0a\x09(self wrapper asJQuery find: '.cog') remove.\x0a\x09\x0a\x09[ :html | self renderMenuOn: html ] \x0a\x09\x09appendToJQuery: (self wrapper asJQuery find: '.list-label')",
+messageSends: ["remove", "find:", "asJQuery", "wrapper", "appendToJQuery:", "renderMenuOn:"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (aModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._model_(aModel);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aModel:aModel},smalltalk.HLToolListWidget.klass)})},
+args: ["aModel"],
+source: "on: aModel\x0a\x09^ self new \x0a    \x09model: aModel;\x0a        yourself",
+messageSends: ["model:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget.klass);
 
 
 smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'keyBinder', 'environment', 'history'], 'Helios-Core');

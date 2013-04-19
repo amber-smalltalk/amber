@@ -431,10 +431,10 @@ category: 'testing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return false;
+return true;
 }, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLCommand.klass)})},
 args: ["aModel"],
-source: "isValidFor: aModel\x0a\x09^ false",
+source: "isValidFor: aModel\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -653,7 +653,10 @@ var self=this;
 var newBinding;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._isConcrete();
+$1=_st(_st(self)._isConcrete())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._isValidFor_(aModel);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 newBinding=_st(self)._registerOn_for_(aBinding,aModel);
 newBinding;
@@ -667,8 +670,8 @@ return _st(each)._registerConcreteClassesOn_for_(newBinding,aModel);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:for:",{aBinding:aBinding,aModel:aModel,newBinding:newBinding},smalltalk.HLModelCommand.klass)})},
 args: ["aBinding", "aModel"],
-source: "registerConcreteClassesOn: aBinding for: aModel\x0a\x09| newBinding |\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ newBinding := self registerOn: aBinding for: aModel ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each |\x0a\x09\x09each registerConcreteClassesOn: newBinding for: aModel ]",
-messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"],
+source: "registerConcreteClassesOn: aBinding for: aModel\x0a\x09| newBinding |\x0a\x09\x0a\x09(self isConcrete and: [ self isValidFor: aModel ])\x0a\x09\x09ifTrue: [ newBinding := self registerOn: aBinding for: aModel ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each |\x0a\x09\x09each registerConcreteClassesOn: newBinding for: aModel ]",
+messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "and:", "isValidFor:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"],
 referencedClasses: []
 }),
 smalltalk.HLModelCommand.klass);

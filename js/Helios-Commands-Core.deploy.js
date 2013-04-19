@@ -315,7 +315,7 @@ selector: "isValidFor:",
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return false;
+return true;
 }, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCommand.klass);
@@ -477,7 +477,10 @@ var self=this;
 var newBinding;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._isConcrete();
+$1=_st(_st(self)._isConcrete())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._isValidFor_(aModel);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
 newBinding=_st(self)._registerOn_for_(aBinding,aModel);
 newBinding;
@@ -490,7 +493,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_for_(newBinding,aModel);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:for:",{aBinding:aBinding,aModel:aModel,newBinding:newBinding},smalltalk.HLModelCommand.klass)})},
-messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"]}),
+messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "and:", "isValidFor:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"]}),
 smalltalk.HLModelCommand.klass);
 
 smalltalk.addMethod(
