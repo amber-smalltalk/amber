@@ -634,6 +634,44 @@ smalltalk.HLBrowserListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "activateNextListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.HLNavigationListWidget.fn.prototype._activateNextListItem.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLBrowserListWidget)})},
+args: [],
+source: "activateNextListItem\x0a\x09self model withChangesDo: [ super activateNextListItem ]",
+messageSends: ["withChangesDo:", "activateNextListItem", "model"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activatePreviousListItem",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.HLNavigationListWidget.fn.prototype._activatePreviousListItem.apply(_st(self), []);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},smalltalk.HLBrowserListWidget)})},
+args: [],
+source: "activatePreviousListItem\x0a\x09self model withChangesDo: [ super activatePreviousListItem ]",
+messageSends: ["withChangesDo:", "activatePreviousListItem", "model"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "commandCategory",
 category: 'accessing',
 fn: function (){
@@ -3947,30 +3985,6 @@ args: [],
 source: "unclassifiedProtocol\x0a\x09^ 'as yet unclassified'",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.HLBrowserModel);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "withChangesDo:",
-category: 'error handling',
-fn: function (aBlock){
-var self=this;
-function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
-function $HLAboutToChange(){return smalltalk.HLAboutToChange||(typeof HLAboutToChange=="undefined"?nil:HLAboutToChange)}
-return smalltalk.withContext(function($ctx1) { 
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-_st(_st(self)._announcer())._announce_(_st(_st($HLAboutToChange())._new())._actionBlock_(aBlock));
-return _st(aBlock)._value();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($HLChangeForbidden(),(function(ex){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"withChangesDo:",{aBlock:aBlock},smalltalk.HLBrowserModel)})},
-args: ["aBlock"],
-source: "withChangesDo: aBlock\x0a\x09[ \x0a\x09\x09self announcer announce: (HLAboutToChange new\x0a\x09\x09\x09actionBlock: aBlock).\x0a\x09\x09aBlock value.\x0a\x09]\x0a\x09\x09on: HLChangeForbidden \x0a\x09\x09do: [ :ex | ]",
-messageSends: ["on:do:", "announce:", "actionBlock:", "new", "announcer", "value"],
-referencedClasses: ["HLChangeForbidden", "HLAboutToChange"]
 }),
 smalltalk.HLBrowserModel);
 

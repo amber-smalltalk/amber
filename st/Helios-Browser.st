@@ -238,6 +238,14 @@ activateListItem: anItem
 	self model withChangesDo: [ super activateListItem: anItem ]
 !
 
+activateNextListItem
+	self model withChangesDo: [ super activateNextListItem ]
+!
+
+activatePreviousListItem
+	self model withChangesDo: [ super activatePreviousListItem ]
+!
+
 observeModel
 !
 
@@ -1273,16 +1281,6 @@ handleParseError: anError
 		message: messageToInsert;
 		error: anError;
 		yourself)
-!
-
-withChangesDo: aBlock
-	[ 
-		self announcer announce: (HLAboutToChange new
-			actionBlock: aBlock).
-		aBlock value.
-	]
-		on: HLChangeForbidden 
-		do: [ :ex | ]
 !
 
 withCompileErrorHandling: aBlock

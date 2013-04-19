@@ -42,7 +42,9 @@ sendersListWidget
 
 sourceCodeWidget
 	^ sourceCodeWidget ifNil: [
-      	sourceCodeWidget := HLNavigationCodeWidget new ]
+      	sourceCodeWidget := HLBrowserCodeWidget new
+			browserModel: self model;
+			yourself ]
 ! !
 
 !HLReferences methodsFor: 'actions'!
@@ -87,53 +89,54 @@ canBeOpenAsTab
 	^ false
 ! !
 
-HLNavigationListWidget subclass: #HLReferencesListWidget
+HLBrowserListWidget subclass: #HLReferencesListWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-References'!
 
 !HLReferencesListWidget methodsFor: 'accessing'!
 
+commandCategory
+	^ 'Methods'
+!
+
 label
 	^ 'List'
-!
-
-model
-	^ model
-!
-
-model: aModel
-	model := aModel.
-	
-	self observeModel
 ! !
 
 !HLReferencesListWidget methodsFor: 'actions'!
 
+activateListItem: anItem
+	self model withChangesDo: [ super activateListItem: anItem ]
+!
+
 observeModel
 	self model announcer
 		on: HLSearchReferences
-		do: [ :ann | self onSearchReferences: ann searchString ]
+		do: [ :ann | self onSearchReferences: ann searchString ];
+		on: HLMethodSelected
+		do: [ :ann | self onMethodSelected: ann item ]
+!
+
+selectItem: aMethod
+	self model selectedMethod: aMethod
 ! !
 
 !HLReferencesListWidget methodsFor: 'reactions'!
+
+onMethodSelected: aMethod
+	aMethod ifNil: [ ^ self ].
+	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
+	
+	self 
+		selectedItem: aMethod selector;
+		activateItem: aMethod selector
+!
 
 onSearchReferences: aString
 	self subclassResponsibility
 ! !
 
 !HLReferencesListWidget methodsFor: 'rendering'!
-
-renderContentOn: html
-	self renderHeadOn: html.	
-	super renderContentOn: html
-!
-
-renderHeadOn: html
-	html div 
-		class: 'list-label';
-		with: [
-			html with: self label ]
-!
 
 renderItemLabel: aMethod on: html
 	html with: aMethod methodClass name, ' >> #', aMethod selector
@@ -220,7 +223,7 @@ onSearchReferences: aString
 ! !
 
 HLModel subclass: #HLReferencesModel
-	instanceVariableNames: 'methodsCache classesAndMetaclassesCache'
+	instanceVariableNames: 'methodsCache classesAndMetaclassesCache selectedMethod'
 	package: 'Helios-References'!
 
 !HLReferencesModel methodsFor: 'accessing'!
@@ -262,6 +265,24 @@ implementorsOf: aString
 regexpReferencesOf: aString
 	^ self allMethods select: [ :each |
 		each source match: aString ]
+!
+
+selectedClass
+	^ self selectedMethod ifNotNil: [ :method |
+		method methodClass ]
+!
+
+selectedMethod
+	^ selectedMethod
+!
+
+selectedMethod: aMethod
+	self withChangesDo: [ 
+		selectedMethod := aMethod.
+		
+		self announcer announce: (HLMethodSelected new
+			item: aMethod;
+			yourself) ]
 !
 
 sendersOf: aString

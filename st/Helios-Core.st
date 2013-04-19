@@ -25,6 +25,18 @@ systemAnnouncer
 	^ self environment systemAnnouncer
 ! !
 
+!HLModel methodsFor: 'error handling'!
+
+withChangesDo: aBlock
+	[ 
+		self announcer announce: (HLAboutToChange new
+			actionBlock: aBlock).
+		aBlock value.
+	]
+		on: HLChangeForbidden 
+		do: [ :ex | ]
+! !
+
 Widget subclass: #HLTab
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!
@@ -408,7 +420,11 @@ activateListItem: aListItem
 !
 
 activateNextListItem
-	self activateListItem: (window jQuery: '.focused .nav-pills .active') next
+	self activateListItem: (window jQuery: '.focused .nav-pills .active') next.
+	
+	"select the first item if none is selected"
+	(window jQuery: '.focused .nav-pills .active') get ifEmpty: [
+		self activateFirstListItem ]
 !
 
 activatePreviousListItem

@@ -208,12 +208,15 @@ selector: "sourceCodeWidget",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $HLNavigationCodeWidget(){return smalltalk.HLNavigationCodeWidget||(typeof HLNavigationCodeWidget=="undefined"?nil:HLNavigationCodeWidget)}
+function $HLBrowserCodeWidget(){return smalltalk.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$3,$4,$1;
 $2=self["@sourceCodeWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@sourceCodeWidget"]=_st($HLNavigationCodeWidget())._new();
+$3=_st($HLBrowserCodeWidget())._new();
+_st($3)._browserModel_(_st(self)._model());
+$4=_st($3)._yourself();
+self["@sourceCodeWidget"]=$4;
 $1=self["@sourceCodeWidget"];
 } else {
 $1=$2;
@@ -221,9 +224,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceCodeWidget",{},smalltalk.HLReferences)})},
 args: [],
-source: "sourceCodeWidget\x0a\x09^ sourceCodeWidget ifNil: [\x0a      \x09sourceCodeWidget := HLNavigationCodeWidget new ]",
-messageSends: ["ifNil:", "new"],
-referencedClasses: ["HLNavigationCodeWidget"]
+source: "sourceCodeWidget\x0a\x09^ sourceCodeWidget ifNil: [\x0a      \x09sourceCodeWidget := HLBrowserCodeWidget new\x0a\x09\x09\x09browserModel: self model;\x0a\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "browserModel:", "model", "new", "yourself"],
+referencedClasses: ["HLBrowserCodeWidget"]
 }),
 smalltalk.HLReferences);
 
@@ -279,7 +282,42 @@ referencedClasses: []
 smalltalk.HLReferences.klass);
 
 
-smalltalk.addClass('HLReferencesListWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-References');
+smalltalk.addClass('HLReferencesListWidget', smalltalk.HLBrowserListWidget, ['model'], 'Helios-References');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activateListItem:",
+category: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.HLBrowserListWidget.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{anItem:anItem},smalltalk.HLReferencesListWidget)})},
+args: ["anItem"],
+source: "activateListItem: anItem\x0a\x09self model withChangesDo: [ super activateListItem: anItem ]",
+messageSends: ["withChangesDo:", "activateListItem:", "model"],
+referencedClasses: []
+}),
+smalltalk.HLReferencesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commandCategory",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Methods";
+}, function($ctx1) {$ctx1.fill(self,"commandCategory",{},smalltalk.HLReferencesListWidget)})},
+args: [],
+source: "commandCategory\x0a\x09^ 'Methods'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLReferencesListWidget);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "label",
@@ -298,56 +336,66 @@ smalltalk.HLReferencesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "model",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@model"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLReferencesListWidget)})},
-args: [],
-source: "model\x0a\x09^ model",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLReferencesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "model:",
-category: 'accessing',
-fn: function (aModel){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@model"]=aModel;
-_st(self)._observeModel();
-return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLReferencesListWidget)})},
-args: ["aModel"],
-source: "model: aModel\x0a\x09model := aModel.\x0a\x09\x0a\x09self observeModel",
-messageSends: ["observeModel"],
-referencedClasses: []
-}),
-smalltalk.HLReferencesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "observeModel",
 category: 'actions',
 fn: function (){
 var self=this;
 function $HLSearchReferences(){return smalltalk.HLSearchReferences||(typeof HLSearchReferences=="undefined"?nil:HLSearchReferences)}
+function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._on_do_($HLSearchReferences(),(function(ann){
+var $1,$2;
+$1=_st(_st(self)._model())._announcer();
+_st($1)._on_do_($HLSearchReferences(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onSearchReferences_(_st(ann)._searchString());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_($HLMethodSelected(),(function(ann){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._onMethodSelected_(_st(ann)._item());
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLReferencesListWidget)})},
 args: [],
-source: "observeModel\x0a\x09self model announcer\x0a\x09\x09on: HLSearchReferences\x0a\x09\x09do: [ :ann | self onSearchReferences: ann searchString ]",
-messageSends: ["on:do:", "onSearchReferences:", "searchString", "announcer", "model"],
-referencedClasses: ["HLSearchReferences"]
+source: "observeModel\x0a\x09self model announcer\x0a\x09\x09on: HLSearchReferences\x0a\x09\x09do: [ :ann | self onSearchReferences: ann searchString ];\x0a\x09\x09on: HLMethodSelected\x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ]",
+messageSends: ["on:do:", "onSearchReferences:", "searchString", "announcer", "model", "onMethodSelected:", "item"],
+referencedClasses: ["HLSearchReferences", "HLMethodSelected"]
+}),
+smalltalk.HLReferencesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMethodSelected:",
+category: 'reactions',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+var $early={};
+try {
+$1=aMethod;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=self;
+return $2;
+} else {
+$1;
+};
+_st(_st(self)._items())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st(aMethod)._selector());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+$3=self;
+throw $early=[$3];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$4=self;
+_st($4)._selectedItem_(_st(aMethod)._selector());
+$5=_st($4)._activateItem_(_st(aMethod)._selector());
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
+args: ["aMethod"],
+source: "onMethodSelected: aMethod\x0a\x09aMethod ifNil: [ ^ self ].\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a\x09\x0a\x09self \x0a\x09\x09selectedItem: aMethod selector;\x0a\x09\x09activateItem: aMethod selector\x09",
+messageSends: ["ifNil:", "detect:ifNone:", "=", "selector", "items", "selectedItem:", "activateItem:"],
+referencedClasses: []
 }),
 smalltalk.HLReferencesListWidget);
 
@@ -369,45 +417,6 @@ smalltalk.HLReferencesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderContentOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._renderHeadOn_(html);
-smalltalk.HLNavigationListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLReferencesListWidget)})},
-args: ["html"],
-source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x09\x0a\x09super renderContentOn: html",
-messageSends: ["renderHeadOn:", "renderContentOn:"],
-referencedClasses: []
-}),
-smalltalk.HLReferencesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderHeadOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(html)._div();
-_st($1)._class_("list-label");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(html)._with_(_st(self)._label());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLReferencesListWidget)})},
-args: ["html"],
-source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'list-label';\x0a\x09\x09with: [\x0a\x09\x09\x09html with: self label ]",
-messageSends: ["class:", "div", "with:", "label"],
-referencedClasses: []
-}),
-smalltalk.HLReferencesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderItemLabel:on:",
 category: 'rendering',
 fn: function (aMethod,html){
@@ -418,6 +427,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aMethod:aM
 args: ["aMethod", "html"],
 source: "renderItemLabel: aMethod on: html\x0a\x09html with: aMethod methodClass name, ' >> #', aMethod selector",
 messageSends: ["with:", ",", "selector", "name", "methodClass"],
+referencedClasses: []
+}),
+smalltalk.HLReferencesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectItem:",
+category: 'actions',
+fn: function (aMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._selectedMethod_(aMethod);
+return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
+args: ["aMethod"],
+source: "selectItem: aMethod\x0a\x09self model selectedMethod: aMethod",
+messageSends: ["selectedMethod:", "model"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesListWidget);
@@ -593,7 +618,7 @@ smalltalk.HLSendersListWidget);
 
 
 
-smalltalk.addClass('HLReferencesModel', smalltalk.HLModel, ['methodsCache', 'classesAndMetaclassesCache'], 'Helios-References');
+smalltalk.addClass('HLReferencesModel', smalltalk.HLModel, ['methodsCache', 'classesAndMetaclassesCache', 'selectedMethod'], 'Helios-References');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allMethods",
@@ -791,6 +816,75 @@ args: ["aString"],
 source: "search: aString\x0a\x09self updateCaches.\x0a\x09\x0a\x09self announcer announce: (HLSearchReferences new\x0a\x09\x09searchString: aString;\x0a\x09\x09yourself)",
 messageSends: ["updateCaches", "announce:", "searchString:", "new", "yourself", "announcer"],
 referencedClasses: ["HLSearchReferences"]
+}),
+smalltalk.HLReferencesModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self)._selectedMethod();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=$2;
+} else {
+var method;
+method=$receiver;
+$1=_st(method)._methodClass();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedClass",{},smalltalk.HLReferencesModel)})},
+args: [],
+source: "selectedClass\x0a\x09^ self selectedMethod ifNotNil: [ :method |\x0a\x09\x09method methodClass ]",
+messageSends: ["ifNotNil:", "methodClass", "selectedMethod"],
+referencedClasses: []
+}),
+smalltalk.HLReferencesModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedMethod",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@selectedMethod"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selectedMethod",{},smalltalk.HLReferencesModel)})},
+args: [],
+source: "selectedMethod\x0a\x09^ selectedMethod",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLReferencesModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedMethod:",
+category: 'accessing',
+fn: function (aMethod){
+var self=this;
+function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@selectedMethod"]=aMethod;
+self["@selectedMethod"];
+$1=_st($HLMethodSelected())._new();
+_st($1)._item_(aMethod);
+$2=_st($1)._yourself();
+return _st(_st(self)._announcer())._announce_($2);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"selectedMethod:",{aMethod:aMethod},smalltalk.HLReferencesModel)})},
+args: ["aMethod"],
+source: "selectedMethod: aMethod\x0a\x09self withChangesDo: [ \x0a\x09\x09selectedMethod := aMethod.\x0a\x09\x09\x0a\x09\x09self announcer announce: (HLMethodSelected new\x0a\x09\x09\x09item: aMethod;\x0a\x09\x09\x09yourself) ]\x0a\x09",
+messageSends: ["withChangesDo:", "announce:", "item:", "new", "yourself", "announcer"],
+referencedClasses: ["HLMethodSelected"]
 }),
 smalltalk.HLReferencesModel);
 
