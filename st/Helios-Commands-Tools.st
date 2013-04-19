@@ -1,15 +1,15 @@
 Smalltalk current createPackage: 'Helios-Commands-Tools'!
-HLModelCommand subclass: #HLBrowserCommand
+HLModelCommand subclass: #HLToolCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
-!HLBrowserCommand methodsFor: 'accessing'!
+!HLToolCommand methodsFor: 'accessing'!
 
 category
 	^ nil
 ! !
 
-!HLBrowserCommand class methodsFor: 'instance creation'!
+!HLToolCommand class methodsFor: 'instance creation'!
 
 for: aToolModel
 	^ self new
@@ -17,133 +17,13 @@ for: aToolModel
         yourself
 ! !
 
-!HLBrowserCommand class methodsFor: 'testing'!
+!HLToolCommand class methodsFor: 'testing'!
 
 isValidFor: aModel
 	^ aModel isToolModel
 ! !
 
-HLBrowserCommand subclass: #HLBrowserGoToCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLBrowserGoToCommand class methodsFor: 'accessing'!
-
-key
-	^ 'g'
-!
-
-label
-	^ 'Go to'
-! !
-
-!HLBrowserGoToCommand class methodsFor: 'testing'!
-
-isValidFor: aModel
-	^ aModel isBrowserModel
-! !
-
-HLBrowserGoToCommand subclass: #HLGoToClassesCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLGoToClassesCommand methodsFor: 'executing'!
-
-execute
-	self model focusOnClasses
-! !
-
-!HLGoToClassesCommand class methodsFor: 'accessing'!
-
-key
-	^ 'c'
-!
-
-label
-	^ 'Classes'
-! !
-
-HLBrowserGoToCommand subclass: #HLGoToMethodsCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLGoToMethodsCommand methodsFor: 'executing'!
-
-execute
-	self model focusOnMethods
-! !
-
-!HLGoToMethodsCommand class methodsFor: 'accessing'!
-
-key
-	^ 'm'
-!
-
-label
-	^ 'Methods'
-! !
-
-HLBrowserGoToCommand subclass: #HLGoToPackagesCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLGoToPackagesCommand methodsFor: 'executing'!
-
-execute
-	self model focusOnPackages
-! !
-
-!HLGoToPackagesCommand class methodsFor: 'accessing'!
-
-key
-	^ 'p'
-!
-
-label
-	^ 'Packages'
-! !
-
-HLBrowserGoToCommand subclass: #HLGoToProtocolsCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLGoToProtocolsCommand methodsFor: 'executing'!
-
-execute
-	self model focusOnProtocols
-! !
-
-!HLGoToProtocolsCommand class methodsFor: 'accessing'!
-
-key
-	^ 't'
-!
-
-label
-	^ 'Protocols'
-! !
-
-HLBrowserGoToCommand subclass: #HLGoToSourceCodeCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLGoToSourceCodeCommand methodsFor: 'executing'!
-
-execute
-	self model focusOnSourceCode
-! !
-
-!HLGoToSourceCodeCommand class methodsFor: 'accessing'!
-
-key
-	^ 's'
-!
-
-label
-	^ 'Source code'
-! !
-
-HLBrowserCommand subclass: #HLCommitPackageCommand
+HLToolCommand subclass: #HLCommitPackageCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
@@ -176,7 +56,7 @@ label
 	^ 'Commit'
 ! !
 
-HLBrowserCommand subclass: #HLCopyCommand
+HLToolCommand subclass: #HLCopyCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
@@ -240,7 +120,7 @@ menuLabel
 	^ 'Copy class...'
 ! !
 
-HLBrowserCommand subclass: #HLFindCommand
+HLToolCommand subclass: #HLFindCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
@@ -347,7 +227,7 @@ label
 	^ 'References'
 ! !
 
-HLBrowserCommand subclass: #HLMoveToCommand
+HLToolCommand subclass: #HLMoveToCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
@@ -543,7 +423,7 @@ menuLabel
 	^ 'Move to protocol...'
 ! !
 
-HLBrowserCommand subclass: #HLRemoveCommand
+HLToolCommand subclass: #HLRemoveCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
@@ -665,7 +545,7 @@ menuLabel
 	^ 'Remove protocol'
 ! !
 
-HLBrowserCommand subclass: #HLRenameCommand
+HLToolCommand subclass: #HLRenameCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!
 
@@ -777,79 +657,5 @@ label
 
 menuLabel
 	^ 'Rename protocol...'
-! !
-
-HLBrowserCommand subclass: #HLToggleCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLToggleCommand class methodsFor: 'accessing'!
-
-key
-	^ 't'
-!
-
-label
-	^ 'Toggle'
-! !
-
-HLToggleCommand subclass: #HLToggleClassCommentCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLToggleClassCommentCommand methodsFor: 'executing'!
-
-execute
-	self model showComment: true
-! !
-
-!HLToggleClassCommentCommand class methodsFor: 'accessing'!
-
-key
-	^ 'd'
-!
-
-label
-	^ 'Documentation'
-! !
-
-HLToggleCommand subclass: #HLToggleClassSideCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLToggleClassSideCommand methodsFor: 'executing'!
-
-execute
-	self model showInstance: false
-! !
-
-!HLToggleClassSideCommand class methodsFor: 'accessing'!
-
-key
-	^ 'c'
-!
-
-label
-	^ 'Class side'
-! !
-
-HLToggleCommand subclass: #HLToggleInstanceSideCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Tools'!
-
-!HLToggleInstanceSideCommand methodsFor: 'executing'!
-
-execute
-	self model showInstance: true
-! !
-
-!HLToggleInstanceSideCommand class methodsFor: 'accessing'!
-
-key
-	^ 'i'
-!
-
-label
-	^ 'Instance side'
 ! !
 

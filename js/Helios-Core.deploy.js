@@ -2304,10 +2304,10 @@ smalltalk.method({
 selector: "menuCommands",
 fn: function (){
 var self=this;
-function $HLBrowserCommand(){return smalltalk.HLBrowserCommand||(typeof HLBrowserCommand=="undefined"?nil:HLBrowserCommand)}
+function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st($HLBrowserCommand())._concreteClasses())._select_((function(each){
+$1=_st(_st(_st(_st($HLToolCommand())._concreteClasses())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._isValidFor_(_st(self)._model());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){

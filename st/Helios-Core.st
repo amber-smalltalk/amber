@@ -106,9 +106,9 @@ selectedClass: aClass
 
 selectedMethod
 	^ self selectedClass ifNotNil: [ 
-			self selectedClass methodDictionary 
-				at: selectedSelector 
-				ifAbsent: [ nil ] ]
+		self selectedClass methodDictionary 
+			at: selectedSelector 
+			ifAbsent: [ nil ] ]
 !
 
 selectedMethod: aCompiledMethod
@@ -992,7 +992,7 @@ label
 menuCommands
 	"Answer a collection of commands to be put in the cog menu"
 	
-	^ ((HLBrowserCommand concreteClasses
+	^ ((HLToolCommand concreteClasses
 		select: [ :each | each isValidFor: self model ])
 			collect: [ :each | each for: self model ])
 			select: [ :each | 

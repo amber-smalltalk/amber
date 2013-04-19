@@ -855,7 +855,7 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedMethod",{},smalltalk.HLToolModel)})},
 args: [],
-source: "selectedMethod\x0a\x09^ self selectedClass ifNotNil: [ \x0a\x09\x09\x09self selectedClass methodDictionary \x0a\x09\x09\x09\x09at: selectedSelector \x0a\x09\x09\x09\x09ifAbsent: [ nil ] ]",
+source: "selectedMethod\x0a\x09^ self selectedClass ifNotNil: [ \x0a\x09\x09self selectedClass methodDictionary \x0a\x09\x09\x09at: selectedSelector \x0a\x09\x09\x09ifAbsent: [ nil ] ]",
 messageSends: ["ifNotNil:", "at:ifAbsent:", "methodDictionary", "selectedClass"],
 referencedClasses: []
 }),
@@ -2995,10 +2995,10 @@ selector: "menuCommands",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $HLBrowserCommand(){return smalltalk.HLBrowserCommand||(typeof HLBrowserCommand=="undefined"?nil:HLBrowserCommand)}
+function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st($HLBrowserCommand())._concreteClasses())._select_((function(each){
+$1=_st(_st(_st(_st($HLToolCommand())._concreteClasses())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._isValidFor_(_st(self)._model());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
@@ -3017,9 +3017,9 @@ return _st(each)._isActive();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"menuCommands",{},smalltalk.HLToolListWidget)})},
 args: [],
-source: "menuCommands\x0a\x09\x22Answer a collection of commands to be put in the cog menu\x22\x0a\x09\x0a\x09^ ((HLBrowserCommand concreteClasses\x0a\x09\x09select: [ :each | each isValidFor: self model ])\x0a\x09\x09\x09collect: [ :each | each for: self model ])\x0a\x09\x09\x09select: [ :each | \x0a\x09\x09\x09\x09each category = self commandCategory and: [ \x0a\x09\x09\x09\x09\x09each isAction and: [ each isActive ] ] ]",
+source: "menuCommands\x0a\x09\x22Answer a collection of commands to be put in the cog menu\x22\x0a\x09\x0a\x09^ ((HLToolCommand concreteClasses\x0a\x09\x09select: [ :each | each isValidFor: self model ])\x0a\x09\x09\x09collect: [ :each | each for: self model ])\x0a\x09\x09\x09select: [ :each | \x0a\x09\x09\x09\x09each category = self commandCategory and: [ \x0a\x09\x09\x09\x09\x09each isAction and: [ each isActive ] ] ]",
 messageSends: ["select:", "and:", "isActive", "isAction", "=", "commandCategory", "category", "collect:", "for:", "model", "isValidFor:", "concreteClasses"],
-referencedClasses: ["HLBrowserCommand"]
+referencedClasses: ["HLToolCommand"]
 }),
 smalltalk.HLToolListWidget);
 

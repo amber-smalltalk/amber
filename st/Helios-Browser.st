@@ -26,7 +26,7 @@ focus
 !HLBrowser methodsFor: 'keybindings'!
 
 registerBindingsOn: aBindingGroup
-	HLBrowserCommand 
+	HLToolCommand 
 		registerConcreteClassesOn: aBindingGroup 
 		for: self model
 ! !

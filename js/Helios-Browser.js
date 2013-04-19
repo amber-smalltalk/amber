@@ -203,14 +203,14 @@ selector: "registerBindingsOn:",
 category: 'keybindings',
 fn: function (aBindingGroup){
 var self=this;
-function $HLBrowserCommand(){return smalltalk.HLBrowserCommand||(typeof HLBrowserCommand=="undefined"?nil:HLBrowserCommand)}
+function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
 return smalltalk.withContext(function($ctx1) { 
-_st($HLBrowserCommand())._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
+_st($HLToolCommand())._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
 return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup},smalltalk.HLBrowser)})},
 args: ["aBindingGroup"],
-source: "registerBindingsOn: aBindingGroup\x0a\x09HLBrowserCommand \x0a\x09\x09registerConcreteClassesOn: aBindingGroup \x0a\x09\x09for: self model",
+source: "registerBindingsOn: aBindingGroup\x0a\x09HLToolCommand \x0a\x09\x09registerConcreteClassesOn: aBindingGroup \x0a\x09\x09for: self model",
 messageSends: ["registerConcreteClassesOn:for:", "model"],
-referencedClasses: ["HLBrowserCommand"]
+referencedClasses: ["HLToolCommand"]
 }),
 smalltalk.HLBrowser);
 
