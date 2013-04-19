@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Kernel-Announcements'!
 Object subclass: #AnnouncementSubscription
-	instanceVariableNames: 'block announcementClass'
+	instanceVariableNames: 'valuable announcementClass'
 	package: 'Kernel-Announcements'!
 !AnnouncementSubscription commentStamp!
 The subscription is a single entry in a subscription registry of an `Announcer`.
@@ -17,18 +17,36 @@ announcementClass: aClass
 !
 
 block
-	^block
+	"Use #valuable instead"
+	
+	self deprecatedAPI.
+	^ self valuable
 !
 
-block: aBlock
-	block := aBlock
+block: aValuable
+	"Use #valuable instead"
+	
+	self deprecatedAPI.
+	self valuable: aValuable
+!
+
+receiver
+	^ self valuable receiver
+!
+
+valuable
+	^ valuable
+!
+
+valuable: aValuable
+	valuable := aValuable
 ! !
 
 !AnnouncementSubscription methodsFor: 'announcing'!
 
 deliver: anAnnouncement
 	(self handlesAnnouncement: anAnnouncement)
-		ifTrue: [self block value: anAnnouncement]
+		ifTrue: [self valuable value: anAnnouncement]
 !
 
 handlesAnnouncement: anAnnouncement
@@ -52,8 +70,8 @@ Use `#on:do:` to register subscriptions.!
 !Announcer methodsFor: 'announcing'!
 
 announce: anAnnouncement
-	subscriptions do: [:each |
-		each deliver: anAnnouncement]
+	subscriptions do: [ :each |
+		each deliver: anAnnouncement ]
 ! !
 
 !Announcer methodsFor: 'initialization'!
@@ -67,7 +85,7 @@ initialize
 
 on: aClass do: aBlock
 	subscriptions add: (AnnouncementSubscription new
-		block: aBlock;
+		valuable: aBlock;
 		announcementClass: aClass;
 		yourself)
 ! !

@@ -1,5 +1,5 @@
 smalltalk.addPackage('Kernel-Announcements');
-smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
+smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcementClass",
@@ -31,21 +31,23 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self["@block"];
+_st(self)._deprecatedAPI();
+$1=_st(self)._valuable();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"block",{},smalltalk.AnnouncementSubscription)})},
-messageSends: []}),
+messageSends: ["deprecatedAPI", "valuable"]}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "block:",
-fn: function (aBlock){
+fn: function (aValuable){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@block"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"block:",{aBlock:aBlock},smalltalk.AnnouncementSubscription)})},
-messageSends: []}),
+_st(self)._deprecatedAPI();
+_st(self)._valuable_(aValuable);
+return self}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},smalltalk.AnnouncementSubscription)})},
+messageSends: ["deprecatedAPI", "valuable:"]}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
@@ -57,10 +59,10 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self)._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
-_st(_st(self)._block())._value_(anAnnouncement);
+_st(_st(self)._valuable())._value_(anAnnouncement);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
-messageSends: ["ifTrue:", "value:", "block", "handlesAnnouncement:"]}),
+messageSends: ["ifTrue:", "value:", "valuable", "handlesAnnouncement:"]}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
@@ -82,6 +84,43 @@ $1=_st(class_)._includesBehavior_(_st(_st($Smalltalk())._current())._at_(_st(_st
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 messageSends: ["ifNil:ifNotNil:", "includesBehavior:", "at:", "name", "theNonMetaClass", "class", "current", "announcementClass"]}),
+smalltalk.AnnouncementSubscription);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "receiver",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._valuable())._receiver();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.AnnouncementSubscription)})},
+messageSends: ["receiver", "valuable"]}),
+smalltalk.AnnouncementSubscription);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valuable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@valuable"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"valuable",{},smalltalk.AnnouncementSubscription)})},
+messageSends: []}),
+smalltalk.AnnouncementSubscription);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valuable:",
+fn: function (aValuable){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@valuable"]=aValuable;
+return self}, function($ctx1) {$ctx1.fill(self,"valuable:",{aValuable:aValuable},smalltalk.AnnouncementSubscription)})},
+messageSends: []}),
 smalltalk.AnnouncementSubscription);
 
 
@@ -123,12 +162,12 @@ function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st($AnnouncementSubscription())._new();
-_st($1)._block_(aBlock);
+_st($1)._valuable_(aBlock);
 _st($1)._announcementClass_(aClass);
 $2=_st($1)._yourself();
 _st(self["@subscriptions"])._add_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{aClass:aClass,aBlock:aBlock},smalltalk.Announcer)})},
-messageSends: ["add:", "block:", "new", "announcementClass:", "yourself"]}),
+messageSends: ["add:", "valuable:", "new", "announcementClass:", "yourself"]}),
 smalltalk.Announcer);
 
 

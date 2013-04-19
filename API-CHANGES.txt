@@ -1,5 +1,6 @@
 0.11.0:
 
+* AnnouncementSubscription use #valuable: instead of #block: (deprecated)
 * AbstractCodeGenerator inherits from Object, not NodeVisitor
 * Object>>printString
 * replace >>printString with >>printOn:

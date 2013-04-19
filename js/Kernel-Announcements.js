@@ -1,5 +1,5 @@
 smalltalk.addPackage('Kernel-Announcements');
-smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['block', 'announcementClass'], 'Kernel-Announcements');
+smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.AnnouncementSubscription.comment="The subscription is a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible."
 smalltalk.addMethod(
 smalltalk.method({
@@ -43,12 +43,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self["@block"];
+_st(self)._deprecatedAPI();
+$1=_st(self)._valuable();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"block",{},smalltalk.AnnouncementSubscription)})},
 args: [],
-source: "block\x0a\x09^block",
-messageSends: [],
+source: "block\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09^ self valuable",
+messageSends: ["deprecatedAPI", "valuable"],
 referencedClasses: []
 }),
 smalltalk.AnnouncementSubscription);
@@ -57,14 +58,15 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "block:",
 category: 'accessing',
-fn: function (aBlock){
+fn: function (aValuable){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@block"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"block:",{aBlock:aBlock},smalltalk.AnnouncementSubscription)})},
-args: ["aBlock"],
-source: "block: aBlock\x0a\x09block := aBlock",
-messageSends: [],
+_st(self)._deprecatedAPI();
+_st(self)._valuable_(aValuable);
+return self}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},smalltalk.AnnouncementSubscription)})},
+args: ["aValuable"],
+source: "block: aValuable\x0a\x09\x22Use #valuable instead\x22\x0a\x09\x0a\x09self deprecatedAPI.\x0a\x09self valuable: aValuable",
+messageSends: ["deprecatedAPI", "valuable:"],
 referencedClasses: []
 }),
 smalltalk.AnnouncementSubscription);
@@ -79,12 +81,12 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self)._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
-_st(_st(self)._block())._value_(anAnnouncement);
+_st(_st(self)._valuable())._value_(anAnnouncement);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
-source: "deliver: anAnnouncement\x0a\x09(self handlesAnnouncement: anAnnouncement)\x0a\x09\x09ifTrue: [self block value: anAnnouncement]",
-messageSends: ["ifTrue:", "value:", "block", "handlesAnnouncement:"],
+source: "deliver: anAnnouncement\x0a\x09(self handlesAnnouncement: anAnnouncement)\x0a\x09\x09ifTrue: [self valuable value: anAnnouncement]",
+messageSends: ["ifTrue:", "value:", "valuable", "handlesAnnouncement:"],
 referencedClasses: []
 }),
 smalltalk.AnnouncementSubscription);
@@ -115,6 +117,58 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AnnouncementSubscription);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "receiver",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._valuable())._receiver();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.AnnouncementSubscription)})},
+args: [],
+source: "receiver\x0a\x09^ self valuable receiver",
+messageSends: ["receiver", "valuable"],
+referencedClasses: []
+}),
+smalltalk.AnnouncementSubscription);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valuable",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@valuable"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"valuable",{},smalltalk.AnnouncementSubscription)})},
+args: [],
+source: "valuable\x0a\x09^ valuable",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AnnouncementSubscription);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valuable:",
+category: 'accessing',
+fn: function (aValuable){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@valuable"]=aValuable;
+return self}, function($ctx1) {$ctx1.fill(self,"valuable:",{aValuable:aValuable},smalltalk.AnnouncementSubscription)})},
+args: ["aValuable"],
+source: "valuable: aValuable\x0a\x09valuable := aValuable",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AnnouncementSubscription);
+
 
 
 smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
@@ -132,7 +186,7 @@ return _st(each)._deliver_(anAnnouncement);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncement:anAnnouncement},smalltalk.Announcer)})},
 args: ["anAnnouncement"],
-source: "announce: anAnnouncement\x0a\x09subscriptions do: [:each |\x0a\x09\x09each deliver: anAnnouncement]",
+source: "announce: anAnnouncement\x0a\x09subscriptions do: [ :each |\x0a\x09\x09each deliver: anAnnouncement ]",
 messageSends: ["do:", "deliver:"],
 referencedClasses: []
 }),
@@ -166,14 +220,14 @@ function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st($AnnouncementSubscription())._new();
-_st($1)._block_(aBlock);
+_st($1)._valuable_(aBlock);
 _st($1)._announcementClass_(aClass);
 $2=_st($1)._yourself();
 _st(self["@subscriptions"])._add_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{aClass:aClass,aBlock:aBlock},smalltalk.Announcer)})},
 args: ["aClass", "aBlock"],
-source: "on: aClass do: aBlock\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09block: aBlock;\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
-messageSends: ["add:", "block:", "new", "announcementClass:", "yourself"],
+source: "on: aClass do: aBlock\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: aBlock;\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
+messageSends: ["add:", "valuable:", "new", "announcementClass:", "yourself"],
 referencedClasses: ["AnnouncementSubscription"]
 }),
 smalltalk.Announcer);
