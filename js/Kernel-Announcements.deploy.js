@@ -145,10 +145,10 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
-function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@subscriptions"]=_st($Array())._new();
+self["@subscriptions"]=_st($OrderedCollection())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Announcer)})},
 messageSends: ["initialize", "new"]}),
 smalltalk.Announcer);
@@ -168,6 +168,42 @@ $2=_st($1)._yourself();
 _st(self["@subscriptions"])._add_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"on:do:",{aClass:aClass,aBlock:aBlock},smalltalk.Announcer)})},
 messageSends: ["add:", "valuable:", "new", "announcementClass:", "yourself"]}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:send:to:",
+fn: function (aClass,aSelector,anObject){
+var self=this;
+function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=_st($AnnouncementSubscription())._new();
+$2=_st($MessageSend())._new();
+_st($2)._receiver_(anObject);
+_st($2)._selector_(aString);
+$3=_st($2)._yourself();
+_st($1)._valuable_($3);
+_st($1)._announcementClass_(aClass);
+$4=_st($1)._yourself();
+_st(self["@subscriptions"])._add_($4);
+return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},smalltalk.Announcer)})},
+messageSends: ["add:", "valuable:", "receiver:", "new", "selector:", "yourself", "announcementClass:"]}),
+smalltalk.Announcer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unsubscribe:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@subscriptions"]=_st(self["@subscriptions"])._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._receiver()).__eq(anObject);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"unsubscribe:",{anObject:anObject},smalltalk.Announcer)})},
+messageSends: ["reject:", "=", "receiver"]}),
 smalltalk.Announcer);
 
 

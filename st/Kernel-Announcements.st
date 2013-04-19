@@ -78,7 +78,7 @@ announce: anAnnouncement
 
 initialize
 	super initialize.
-	subscriptions := Array new
+	subscriptions := OrderedCollection new
 ! !
 
 !Announcer methodsFor: 'subscribing'!
@@ -88,6 +88,21 @@ on: aClass do: aBlock
 		valuable: aBlock;
 		announcementClass: aClass;
 		yourself)
+!
+
+on: aClass send: aSelector to: anObject
+	subscriptions add: (AnnouncementSubscription new
+		valuable: (MessageSend new
+			receiver: anObject;
+			selector: aString;
+			yourself);
+		announcementClass: aClass;
+		yourself)
+!
+
+unsubscribe: anObject
+	subscriptions := subscriptions reject: [ :each |
+		each receiver = anObject ]
 ! !
 
 Announcer subclass: #SystemAnnouncer
