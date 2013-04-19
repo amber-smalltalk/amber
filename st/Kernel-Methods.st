@@ -415,6 +415,88 @@ selector: aString arguments: anArray
 		yourself
 ! !
 
+Object subclass: #MessageSend
+	instanceVariableNames: 'receiver message'
+	package: 'Kernel-Methods'!
+!MessageSend commentStamp!
+I encapsulate message sends to objects. Arguments can be either predefined or supplied when the message send is performed. 
+
+Use `#value` to perform a message send with its predefined arguments and `#value:*` if additonal arguments have to supplied.!
+
+!MessageSend methodsFor: 'accessing'!
+
+arguments
+	^ message arguments
+!
+
+arguments: aCollection
+	message arguments: aCollection
+!
+
+receiver
+	^ receiver
+!
+
+receiver: anObject
+	receiver := anObject
+!
+
+selector
+	^ message selector
+!
+
+selector: aString
+	message selector: aString
+! !
+
+!MessageSend methodsFor: 'evaluating'!
+
+value
+	^ message sendTo: self receiver
+!
+
+value: anObject
+	^ message 
+		arguments: { anObject };
+		sendTo: self receiver
+!
+
+value: firstArgument value: secondArgument
+	^ message 
+		arguments: { firstArgument. secondArgument };
+		sendTo: self receiver
+!
+
+value: firstArgument value: secondArgument value: thirdArgument
+	^ message 
+		arguments: { firstArgument. secondArgument. thirdArgument };
+		sendTo: self receiver
+!
+
+valueWithPossibleArguments: aCollection
+	self arguments: aCollection.
+	^ self value
+! !
+
+!MessageSend methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	message := Message new
+! !
+
+!MessageSend methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	aStream
+		nextPutAll: '(';
+		nextPutAll: self receiver;
+		nextPutAll: ' >> ';
+		nextPutAll: self selector;
+		nextPutAll: ')'
+! !
+
 Object subclass: #MethodContext
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!

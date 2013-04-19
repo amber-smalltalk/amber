@@ -850,6 +850,187 @@ messageSends: ["selector:", "new", "arguments:", "yourself"]}),
 smalltalk.Message.klass);
 
 
+smalltalk.addClass('MessageSend', smalltalk.Object, ['receiver', 'message'], 'Kernel-Methods');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "arguments",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@message"])._arguments();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.MessageSend)})},
+messageSends: ["arguments"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "arguments:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@message"])._arguments_(aCollection);
+return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},smalltalk.MessageSend)})},
+messageSends: ["arguments:"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+function $Message(){return smalltalk.Message||(typeof Message=="undefined"?nil:Message)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@message"]=_st($Message())._new();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.MessageSend)})},
+messageSends: ["initialize", "new"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printOn:",
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+$1=aStream;
+_st($1)._nextPutAll_("(");
+_st($1)._nextPutAll_(_st(self)._receiver());
+_st($1)._nextPutAll_(" >> ");
+_st($1)._nextPutAll_(_st(self)._selector());
+$2=_st($1)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.MessageSend)})},
+messageSends: ["printOn:", "nextPutAll:", "receiver", "selector"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "receiver",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@receiver"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.MessageSend)})},
+messageSends: []}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "receiver:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@receiver"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},smalltalk.MessageSend)})},
+messageSends: []}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selector",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@message"])._selector();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.MessageSend)})},
+messageSends: ["selector"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selector:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@message"])._selector_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.MessageSend)})},
+messageSends: ["selector:"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@message"])._sendTo_(_st(self)._receiver());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.MessageSend)})},
+messageSends: ["sendTo:", "receiver"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self["@message"];
+_st($2)._arguments_([anObject]);
+$3=_st($2)._sendTo_(_st(self)._receiver());
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{anObject:anObject},smalltalk.MessageSend)})},
+messageSends: ["arguments:", "sendTo:", "receiver"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:value:",
+fn: function (firstArgument,secondArgument){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self["@message"];
+_st($2)._arguments_([firstArgument,secondArgument]);
+$3=_st($2)._sendTo_(_st(self)._receiver());
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},smalltalk.MessageSend)})},
+messageSends: ["arguments:", "sendTo:", "receiver"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:value:value:",
+fn: function (firstArgument,secondArgument,thirdArgument){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self["@message"];
+_st($2)._arguments_([firstArgument,secondArgument,thirdArgument]);
+$3=_st($2)._sendTo_(_st(self)._receiver());
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},smalltalk.MessageSend)})},
+messageSends: ["arguments:", "sendTo:", "receiver"]}),
+smalltalk.MessageSend);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valueWithPossibleArguments:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self)._arguments_(aCollection);
+$1=_st(self)._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},smalltalk.MessageSend)})},
+messageSends: ["arguments:", "value"]}),
+smalltalk.MessageSend);
+
+
+
 smalltalk.addClass('MethodContext', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
 smalltalk.method({

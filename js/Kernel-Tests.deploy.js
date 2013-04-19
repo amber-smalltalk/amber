@@ -2104,6 +2104,49 @@ smalltalk.JavaScriptExceptionTest);
 
 
 
+smalltalk.addClass('MessageSendTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testValue",
+fn: function (){
+var self=this;
+var messageSend;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($MessageSend())._new();
+_st($1)._receiver_(_st($Object())._new());
+_st($1)._selector_("asString");
+$2=_st($1)._yourself();
+messageSend=$2;
+_st(self)._assert_equals_(_st(messageSend)._value(),"an Object");
+return self}, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},smalltalk.MessageSendTest)})},
+messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value"]}),
+smalltalk.MessageSendTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testValueWithArguments",
+fn: function (){
+var self=this;
+var messageSend;
+function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($MessageSend())._new();
+_st($1)._receiver_((2));
+_st($1)._selector_("+");
+$2=_st($1)._yourself();
+messageSend=$2;
+_st(self)._assert_equals_(_st(messageSend)._value_((3)),(5));
+_st(self)._assert_equals_(_st(messageSend)._valueWithPossibleArguments_([(4)]),(6));
+return self}, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},smalltalk.MessageSendTest)})},
+messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value:", "valueWithPossibleArguments:"]}),
+smalltalk.MessageSendTest);
+
+
+
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({

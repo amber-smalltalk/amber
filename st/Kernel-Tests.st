@@ -992,6 +992,36 @@ testRaisingException
 	self should: [ self throwException ] raise: JavaScriptException
 ! !
 
+TestCase subclass: #MessageSendTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!MessageSendTest methodsFor: 'tests'!
+
+testValue
+	| messageSend |
+	
+	messageSend := MessageSend new
+		receiver: Object new;
+		selector: #asString;
+		yourself.
+		
+	self assert: messageSend value equals: 'an Object'
+!
+
+testValueWithArguments
+	| messageSend |
+	
+	messageSend := MessageSend new
+		receiver: 2;
+		selector: '+';
+		yourself.
+		
+	self assert: (messageSend value: 3) equals: 5.
+	
+	self assert: (messageSend valueWithPossibleArguments: #(4)) equals: 6
+! !
+
 TestCase subclass: #NumberTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
