@@ -142,6 +142,20 @@ ClassAnnouncement subclass: #ClassDefinitionChanged
 I am emitted when the defintion of a class changes.
 See ClassBuilder >> #class:instanceVariableNames:!
 
+ClassAnnouncement subclass: #ClassMigrated
+	instanceVariableNames: 'oldClass'
+	package: 'Kernel-Announcements'!
+
+!ClassMigrated methodsFor: 'accessing'!
+
+oldClass
+	^ oldClass
+!
+
+oldClass: aClass
+	oldClass := aClass
+! !
+
 ClassAnnouncement subclass: #ClassMoved
 	instanceVariableNames: 'oldPackage'
 	package: 'Kernel-Announcements'!

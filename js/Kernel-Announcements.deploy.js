@@ -230,6 +230,33 @@ smalltalk.addClass('ClassCommentChanged', smalltalk.ClassAnnouncement, [], 'Kern
 smalltalk.addClass('ClassDefinitionChanged', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
 
 
+smalltalk.addClass('ClassMigrated', smalltalk.ClassAnnouncement, ['oldClass'], 'Kernel-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "oldClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@oldClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"oldClass",{},smalltalk.ClassMigrated)})},
+messageSends: []}),
+smalltalk.ClassMigrated);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "oldClass:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@oldClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"oldClass:",{aClass:aClass},smalltalk.ClassMigrated)})},
+messageSends: []}),
+smalltalk.ClassMigrated);
+
+
+
 smalltalk.addClass('ClassMoved', smalltalk.ClassAnnouncement, ['oldPackage'], 'Kernel-Announcements');
 smalltalk.addMethod(
 smalltalk.method({

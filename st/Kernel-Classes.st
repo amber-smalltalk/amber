@@ -550,6 +550,12 @@ migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection
 		self migrateClass: each superclass: newClass ].
 
 	self basicRemoveClass: oldClass.
+	
+	SystemAnnouncer current announce: (ClassMigrated new
+		theClass: newClass;
+		oldClass: oldClass;
+		yourself).
+	
 	^newClass
 !
 
