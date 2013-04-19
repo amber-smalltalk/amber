@@ -414,7 +414,9 @@ observeSystem
 		on: ClassMoved
         do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ];
 		on: ClassRenamed
-        do: [ :ann | self onClassRenamed: ann theClass ]
+        do: [ :ann | self onClassRenamed: ann theClass ];
+		on: ClassMigrated
+		do: [ :ann | self onClassMigrated: ann theClass from: ann oldClass ]
 !
 
 selectItem: aClass
@@ -448,6 +450,16 @@ setItemsForSelectedPackage
 onClassAdded: aClass
 	(aClass package = self model selectedPackage or: [
 		self items includes: aClass ]) ifFalse: [ ^ self ].
+    
+    self setItemsForSelectedPackage.
+    self refresh
+!
+
+onClassMigrated: aClass from: oldClass
+	(self items includes: oldClass) ifFalse: [ ^ self ].
+
+	self model selectedClass = oldClass ifTrue: [
+		self model selectedClass: aClass ].
     
     self setItemsForSelectedPackage.
     self refresh

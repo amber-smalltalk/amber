@@ -1285,6 +1285,7 @@ function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefin
 function $ClassRemoved(){return smalltalk.ClassRemoved||(typeof ClassRemoved=="undefined"?nil:ClassRemoved)}
 function $ClassMoved(){return smalltalk.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
 function $ClassRenamed(){return smalltalk.ClassRenamed||(typeof ClassRenamed=="undefined"?nil:ClassRenamed)}
+function $ClassMigrated(){return smalltalk.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(_st(self)._model())._systemAnnouncer();
@@ -1300,15 +1301,19 @@ _st($1)._on_do_($ClassMoved(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onClassMoved_from_(_st(ann)._theClass(),_st(ann)._oldPackage());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($ClassRenamed(),(function(ann){
+_st($1)._on_do_($ClassRenamed(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onClassRenamed_(_st(ann)._theClass());
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+$2=_st($1)._on_do_($ClassMigrated(),(function(ann){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._onClassMigrated_from_(_st(ann)._theClass(),_st(ann)._oldClass());
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLClassesListWidget)})},
 args: [],
-source: "observeSystem\x0a\x09self model systemAnnouncer\x0a    \x09on: ClassAdded\x0a        do: [ :ann | self onClassAdded: ann theClass ];\x0a        on: ClassRemoved\x0a        do: [ :ann | self onClassRemoved: ann theClass ];\x0a\x09\x09on: ClassMoved\x0a        do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ];\x0a\x09\x09on: ClassRenamed\x0a        do: [ :ann | self onClassRenamed: ann theClass ]",
-messageSends: ["on:do:", "onClassAdded:", "theClass", "systemAnnouncer", "model", "onClassRemoved:", "onClassMoved:from:", "oldPackage", "onClassRenamed:"],
-referencedClasses: ["ClassAdded", "ClassRemoved", "ClassMoved", "ClassRenamed"]
+source: "observeSystem\x0a\x09self model systemAnnouncer\x0a    \x09on: ClassAdded\x0a        do: [ :ann | self onClassAdded: ann theClass ];\x0a        on: ClassRemoved\x0a        do: [ :ann | self onClassRemoved: ann theClass ];\x0a\x09\x09on: ClassMoved\x0a        do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ];\x0a\x09\x09on: ClassRenamed\x0a        do: [ :ann | self onClassRenamed: ann theClass ];\x0a\x09\x09on: ClassMigrated\x0a\x09\x09do: [ :ann | self onClassMigrated: ann theClass from: ann oldClass ]",
+messageSends: ["on:do:", "onClassAdded:", "theClass", "systemAnnouncer", "model", "onClassRemoved:", "onClassMoved:from:", "oldPackage", "onClassRenamed:", "onClassMigrated:from:", "oldClass"],
+referencedClasses: ["ClassAdded", "ClassRemoved", "ClassMoved", "ClassRenamed", "ClassMigrated"]
 }),
 smalltalk.HLClassesListWidget);
 
@@ -1334,6 +1339,33 @@ return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{aClass:aClass},s
 args: ["aClass"],
 source: "onClassAdded: aClass\x0a\x09(aClass package = self model selectedPackage or: [\x0a\x09\x09self items includes: aClass ]) ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
 messageSends: ["ifFalse:", "or:", "includes:", "items", "=", "selectedPackage", "model", "package", "setItemsForSelectedPackage", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassMigrated:from:",
+category: 'reactions',
+fn: function (aClass,oldClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(self)._items())._includes_(oldClass);
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$3=_st(_st(_st(self)._model())._selectedClass()).__eq(oldClass);
+if(smalltalk.assert($3)){
+_st(_st(self)._model())._selectedClass_(aClass);
+};
+_st(self)._setItemsForSelectedPackage();
+_st(self)._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassMigrated:from:",{aClass:aClass,oldClass:oldClass},smalltalk.HLClassesListWidget)})},
+args: ["aClass", "oldClass"],
+source: "onClassMigrated: aClass from: oldClass\x0a\x09(self items includes: oldClass) ifFalse: [ ^ self ].\x0a\x0a\x09self model selectedClass = oldClass ifTrue: [\x0a\x09\x09self model selectedClass: aClass ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
+messageSends: ["ifFalse:", "includes:", "items", "ifTrue:", "selectedClass:", "model", "=", "selectedClass", "setItemsForSelectedPackage", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
