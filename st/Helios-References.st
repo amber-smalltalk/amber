@@ -53,6 +53,12 @@ open
 	HLManager current addTab: (HLTab on: self labelled: self class tabLabel)
 !
 
+registerBindingsOn: aBindingGroup
+	HLToolCommand 
+		registerConcreteClassesOn: aBindingGroup 
+		for: self model
+!
+
 search: aString
 	self model search: aString
 ! !
@@ -89,8 +95,8 @@ canBeOpenAsTab
 	^ false
 ! !
 
-HLBrowserListWidget subclass: #HLReferencesListWidget
-	instanceVariableNames: 'model'
+HLToolListWidget subclass: #HLReferencesListWidget
+	instanceVariableNames: ''
 	package: 'Helios-References'!
 
 !HLReferencesListWidget methodsFor: 'accessing'!
@@ -222,8 +228,8 @@ onSearchReferences: aString
 	self refresh
 ! !
 
-HLModel subclass: #HLReferencesModel
-	instanceVariableNames: 'methodsCache classesAndMetaclassesCache selectedMethod'
+HLToolModel subclass: #HLReferencesModel
+	instanceVariableNames: 'methodsCache classesAndMetaclassesCache'
 	package: 'Helios-References'!
 
 !HLReferencesModel methodsFor: 'accessing'!
@@ -265,24 +271,6 @@ implementorsOf: aString
 regexpReferencesOf: aString
 	^ self allMethods select: [ :each |
 		each source match: aString ]
-!
-
-selectedClass
-	^ self selectedMethod ifNotNil: [ :method |
-		method methodClass ]
-!
-
-selectedMethod
-	^ selectedMethod
-!
-
-selectedMethod: aMethod
-	self withChangesDo: [ 
-		selectedMethod := aMethod.
-		
-		self announcer announce: (HLMethodSelected new
-			item: aMethod;
-			yourself) ]
 !
 
 sendersOf: aString
@@ -335,5 +323,11 @@ updateMethodsCache
 		inject: OrderedCollection new
 		into: [ :acc :each |
 			acc, each methods ]
+! !
+
+!HLReferencesModel methodsFor: 'testing'!
+
+isReferencesModel
+	^ true
 ! !
 
