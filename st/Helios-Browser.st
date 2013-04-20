@@ -661,7 +661,15 @@ HLFocusableWidget subclass: #HLDocumentationWidget
 !HLDocumentationWidget methodsFor: 'accessing'!
 
 documentation
-	^ self model selectedClass theNonMetaClass comment ifNil: [ self defaultDocumentation ]
+	^ self selectedItem 
+		ifNil: [ '' ]
+		ifNotNil: [ :item | item comment ifEmpty: [ self defaultDocumentation ] ]
+!
+
+head
+	^ self selectedItem 
+		ifNil: [ self defaultHead ]
+		ifNotNil: [ :item | item name ]
 !
 
 model
@@ -669,22 +677,86 @@ model
 !
 
 model: aModel
-	model := aModel
+	model := aModel.
+	self observeModel
+!
+
+selectedItem
+	^ self model selectedClass ifNotNil: [ :class | class theNonMetaClass ]
+! !
+
+!HLDocumentationWidget methodsFor: 'actions'!
+
+observeModel
+	self model announcer 
+		on: HLClassSelected
+		send: #onClassSelected:
+		to: self
+!
+
+selectClass: aClass
+	self model selectedClass: aClass
+!
+
+unregister
+	super unregister.
+	self model announcer unregister: self
 ! !
 
 !HLDocumentationWidget methodsFor: 'defaults'!
 
 defaultDocumentation
-	^ '#No documentation available. 
-##That''s bad. Seriously.'
+	^ 'No documentation available. 
+**That''s bad. Seriously.**'
+!
+
+defaultHead
+	^ 'No class selected'
+! !
+
+!HLDocumentationWidget methodsFor: 'reactions'!
+
+onClassSelected: anAnnouncement
+	self refresh
 ! !
 
 !HLDocumentationWidget methodsFor: 'rendering'!
 
 renderContentOn: html
-	(html div 
-		class: 'markdown';
-		asJQuery) html: ((Showdown at: 'converter') new makeHtml: self documentation)
+	html div 
+		class: 'doc';
+		with: [
+			self 
+				renderHeadOn: html;
+				renderDocOn: html ]
+!
+
+renderDocOn: html
+	self selectedItem ifNotNil: [
+		self renderInheritanceOn: html.
+		html h1 with: 'Overview'.
+		(html div 
+			class: 'markdown';
+			asJQuery) html: ((Showdown at: 'converter') new makeHtml: self documentation) ]
+!
+
+renderHeadOn: html
+	html div 
+		class: 'head';
+		with: self head
+!
+
+renderInheritanceOn: html
+	html div 	
+		class: 'inheritance';
+		with: [
+			html with: 'Subclass of '.
+			self selectedItem superclass 
+				ifNil: [ html em with: 'nil' ]
+				ifNotNil: [
+					html a 
+						with: self selectedItem superclass name;
+						onClick: [ self selectClass: self selectedItem superclass ] ] ]
 ! !
 
 HLToolListWidget subclass: #HLMethodsListWidget
@@ -766,6 +838,10 @@ observeModel
 		
 		on: HLShowInstanceToggled 
 		send: #onShowInstanceToggled
+		to: self;
+		
+		on: HLShowCommentToggled 
+		send: #onShowCommentToggled
 		to: self;
 		
 		on: HLMethodSelected 
@@ -894,6 +970,10 @@ onProtocolSelected: anAnnouncement
     
 	self setItemsForSelectedProtocol.
     self refresh
+!
+
+onShowCommentToggled
+	self onProtocolSelected: nil
 !
 
 onShowInstanceToggled
@@ -1034,6 +1114,10 @@ HLToolListWidget subclass: #HLProtocolsListWidget
 
 !HLProtocolsListWidget methodsFor: 'accessing'!
 
+allProtocol
+	^ self model allProtocol
+!
+
 label
 	^ 'Protocols'
 !
@@ -1052,6 +1136,10 @@ observeModel
 		
     	on: HLShowInstanceToggled 
 		send: #onClassSelected:
+		to: self;
+		
+		on: HLShowCommentToggled 
+		send: #onShowCommentToggled
 		to: self;
 		
     	on: HLProtocolSelected
@@ -1078,15 +1166,12 @@ selectItem: aString
     self model selectedProtocol: aString
 ! !
 
-!HLProtocolsListWidget methodsFor: 'foo'!
-
-allProtocol
-	^ self model allProtocol
-! !
-
 !HLProtocolsListWidget methodsFor: 'private'!
 
 setItemsForClass: aClass
+	self model showComment ifTrue: [
+		^ self items: #() ].
+		
 	self items: (aClass
     	ifNil: [ Array with: self allProtocol ]
       	ifNotNil: [ 
@@ -1153,6 +1238,13 @@ onProtocolSelected: anAnnouncement
 
 onProtocolsFocusRequested
 	self focus
+!
+
+onShowCommentToggled
+	self 
+		selectItem: nil;
+		setItemsForSelectedClass;
+    	refresh
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!

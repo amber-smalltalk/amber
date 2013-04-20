@@ -1,4 +1,50 @@
 Smalltalk current createPackage: 'Helios-References'!
+Object subclass: #HLMethodReference
+	instanceVariableNames: 'selector methodClass'
+	package: 'Helios-References'!
+
+!HLMethodReference methodsFor: 'accessing'!
+
+method
+	^ self methodClass methodAt: self selector
+!
+
+methodClass
+	^ methodClass
+!
+
+methodClass: aClass
+	methodClass := aClass
+!
+
+selector
+	^ selector
+!
+
+selector: aString
+	selector := aString
+!
+
+source
+	^ self method source
+! !
+
+!HLMethodReference methodsFor: 'initialization'!
+
+initializeFromMethod: aCompiledMethod
+	self
+		selector: aCompiledMethod selector;
+		methodClass: aCompiledMethod methodClass
+! !
+
+!HLMethodReference class methodsFor: 'instance creation'!
+
+on: aCompiledMethod
+	^ self new
+		initializeFromMethod: aCompiledMethod;
+		yourself
+! !
+
 HLWidget subclass: #HLReferences
 	instanceVariableNames: 'model sendersListWidget implementorsListWidget classReferencesListWidget regexpListWidget sourceCodeWidget'
 	package: 'Helios-References'!
@@ -264,18 +310,25 @@ classesAndMetaclasses
 !
 
 implementorsOf: aString
-	^ self allMethods select: [ :each |
-		each selector = aString ]
+	^ (self allMethods select: [ :each |
+		each selector = aString ])
+			collect: [ :each | self methodReferenceOn: each ]
+!
+
+methodReferenceOn: aCompiledMethod
+	^ HLMethodReference on: aCompiledMethod
 !
 
 regexpReferencesOf: aString
-	^ self allMethods select: [ :each |
-		each source match: aString ]
+	^ (self allMethods select: [ :each |
+		each source match: aString ])
+			collect: [ :each | self methodReferenceOn: each ]
 !
 
 sendersOf: aString
-	^ self allMethods select: [ :each |
-		each messageSends includes: aString ]
+	^ (self allMethods select: [ :each |
+		each messageSends includes: aString ])
+			collect: [ :each | self methodReferenceOn: each ]
 ! !
 
 !HLReferencesModel methodsFor: 'actions'!

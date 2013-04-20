@@ -1,4 +1,151 @@
 smalltalk.addPackage('Helios-References');
+smalltalk.addClass('HLMethodReference', smalltalk.Object, ['selector', 'methodClass'], 'Helios-References');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeFromMethod:",
+category: 'initialization',
+fn: function (aCompiledMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self;
+_st($1)._selector_(_st(aCompiledMethod)._selector());
+$2=_st($1)._methodClass_(_st(aCompiledMethod)._methodClass());
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethod:",{aCompiledMethod:aCompiledMethod},smalltalk.HLMethodReference)})},
+args: ["aCompiledMethod"],
+source: "initializeFromMethod: aCompiledMethod\x0a\x09self\x0a\x09\x09selector: aCompiledMethod selector;\x0a\x09\x09methodClass: aCompiledMethod methodClass",
+messageSends: ["selector:", "selector", "methodClass:", "methodClass"],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "method",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._methodClass())._methodAt_(_st(self)._selector());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.HLMethodReference)})},
+args: [],
+source: "method\x0a\x09^ self methodClass methodAt: self selector",
+messageSends: ["methodAt:", "selector", "methodClass"],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@methodClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodClass",{},smalltalk.HLMethodReference)})},
+args: [],
+source: "methodClass\x0a\x09^ methodClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@methodClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"methodClass:",{aClass:aClass},smalltalk.HLMethodReference)})},
+args: ["aClass"],
+source: "methodClass: aClass\x0a\x09methodClass := aClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selector",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@selector"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.HLMethodReference)})},
+args: [],
+source: "selector\x0a\x09^ selector",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selector:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@selector"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.HLMethodReference)})},
+args: ["aString"],
+source: "selector: aString\x0a\x09selector := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "source",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._method())._source();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.HLMethodReference)})},
+args: [],
+source: "source\x0a\x09^ self method source",
+messageSends: ["source", "method"],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (aCompiledMethod){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self)._new();
+_st($2)._initializeFromMethod_(aCompiledMethod);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aCompiledMethod:aCompiledMethod},smalltalk.HLMethodReference.klass)})},
+args: ["aCompiledMethod"],
+source: "on: aCompiledMethod\x0a\x09^ self new\x0a\x09\x09initializeFromMethod: aCompiledMethod;\x0a\x09\x09yourself",
+messageSends: ["initializeFromMethod:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLMethodReference.klass);
+
+
 smalltalk.addClass('HLReferences', smalltalk.HLWidget, ['model', 'sendersListWidget', 'implementorsListWidget', 'classReferencesListWidget', 'regexpListWidget', 'sourceCodeWidget'], 'Helios-References');
 smalltalk.addMethod(
 smalltalk.method({
@@ -756,15 +903,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._allMethods())._select_((function(each){
+$1=_st(_st(_st(self)._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._selector()).__eq(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._methodReferenceOn_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"implementorsOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
-source: "implementorsOf: aString\x0a\x09^ self allMethods select: [ :each |\x0a\x09\x09each selector = aString ]",
-messageSends: ["select:", "=", "selector", "allMethods"],
+source: "implementorsOf: aString\x0a\x09^ (self allMethods select: [ :each |\x0a\x09\x09each selector = aString ])\x0a\x09\x09\x09collect: [ :each | self methodReferenceOn: each ]",
+messageSends: ["collect:", "methodReferenceOn:", "select:", "=", "selector", "allMethods"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
@@ -782,6 +932,25 @@ args: [],
 source: "isReferencesModel\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.HLReferencesModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodReferenceOn:",
+category: 'accessing',
+fn: function (aCompiledMethod){
+var self=this;
+function $HLMethodReference(){return smalltalk.HLMethodReference||(typeof HLMethodReference=="undefined"?nil:HLMethodReference)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($HLMethodReference())._on_(aCompiledMethod);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodReferenceOn:",{aCompiledMethod:aCompiledMethod},smalltalk.HLReferencesModel)})},
+args: ["aCompiledMethod"],
+source: "methodReferenceOn: aCompiledMethod\x0a\x09^ HLMethodReference on: aCompiledMethod",
+messageSends: ["on:"],
+referencedClasses: ["HLMethodReference"]
 }),
 smalltalk.HLReferencesModel);
 
@@ -817,15 +986,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._allMethods())._select_((function(each){
+$1=_st(_st(_st(self)._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._source())._match_(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._methodReferenceOn_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"regexpReferencesOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
-source: "regexpReferencesOf: aString\x0a\x09^ self allMethods select: [ :each |\x0a\x09\x09each source match: aString ]",
-messageSends: ["select:", "match:", "source", "allMethods"],
+source: "regexpReferencesOf: aString\x0a\x09^ (self allMethods select: [ :each |\x0a\x09\x09each source match: aString ])\x0a\x09\x09\x09collect: [ :each | self methodReferenceOn: each ]",
+messageSends: ["collect:", "methodReferenceOn:", "select:", "match:", "source", "allMethods"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
@@ -860,15 +1032,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._allMethods())._select_((function(each){
+$1=_st(_st(_st(self)._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._messageSends())._includes_(aString);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._methodReferenceOn_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendersOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
-source: "sendersOf: aString\x0a\x09^ self allMethods select: [ :each |\x0a\x09\x09each messageSends includes: aString ]",
-messageSends: ["select:", "includes:", "messageSends", "allMethods"],
+source: "sendersOf: aString\x0a\x09^ (self allMethods select: [ :each |\x0a\x09\x09each messageSends includes: aString ])\x0a\x09\x09\x09collect: [ :each | self methodReferenceOn: each ]",
+messageSends: ["collect:", "methodReferenceOn:", "select:", "includes:", "messageSends", "allMethods"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);

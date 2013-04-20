@@ -599,3 +599,38 @@ i {
 .button:focus {
     outline: 0;
 }
+
+.doc {
+    background: white;
+}
+
+.doc code, .doc pre {
+    font-size: 11px;
+}
+
+.doc code {
+    padding: 1px 4px;
+}
+
+.doc .head {
+    background: #08C;
+    padding: 10px;
+    font-size: 22px;
+    color: white;
+    border-top: 1px solid #eee;
+}
+
+.doc .markdown,
+.doc .inheritance {
+    padding: 10px;
+}
+
+.doc h1 {
+    font-size: 22px;
+    margin: 0 10px;
+    border-bottom: 1px solid #666;
+}
+
+.doc h2 {
+    font-size: 16px;
+}
