@@ -245,7 +245,7 @@ var $1,$2,$3,$4;
 $1=_st($AnnouncementSubscription())._new();
 $2=_st($MessageSend())._new();
 _st($2)._receiver_(anObject);
-_st($2)._selector_(aString);
+_st($2)._selector_(aSelector);
 $3=_st($2)._yourself();
 _st($1)._valuable_($3);
 _st($1)._announcementClass_(aClass);
@@ -253,7 +253,7 @@ $4=_st($1)._yourself();
 _st(self["@subscriptions"])._add_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},smalltalk.Announcer)})},
 args: ["aClass", "aSelector", "anObject"],
-source: "on: aClass send: aSelector to: anObject\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (MessageSend new\x0a\x09\x09\x09receiver: anObject;\x0a\x09\x09\x09selector: aString;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
+source: "on: aClass send: aSelector to: anObject\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (MessageSend new\x0a\x09\x09\x09receiver: anObject;\x0a\x09\x09\x09selector: aSelector;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
 messageSends: ["add:", "valuable:", "receiver:", "new", "selector:", "yourself", "announcementClass:"],
 referencedClasses: ["MessageSend", "AnnouncementSubscription"]
 }),

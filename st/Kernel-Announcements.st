@@ -94,7 +94,7 @@ on: aClass send: aSelector to: anObject
 	subscriptions add: (AnnouncementSubscription new
 		valuable: (MessageSend new
 			receiver: anObject;
-			selector: aString;
+			selector: aSelector;
 			yourself);
 		announcementClass: aClass;
 		yourself)
