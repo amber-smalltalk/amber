@@ -1317,58 +1317,22 @@ function $HLSourceCodeFocusRequested(){return smalltalk.HLSourceCodeFocusRequest
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(_st(self)._browserModel())._announcer();
-_st($1)._on_do_($HLSaveSourceCode(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onSaveIt();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLShowInstanceToggled(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onShowInstanceToggled();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLSourceCodeSaved(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onSourceCodeSaved();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLAboutToChange(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onBrowserAboutToChange_(_st(ann)._actionBlock());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLParseErrorRaised(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onParseError_(ann);
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLCompileErrorRaised(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onCompileError_(_st(ann)._error());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLUnknownVariableErrorRaised(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onUnknownVariableError_(_st(ann)._error());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLInstVarAdded(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onInstVarAdded();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLMethodSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onMethodSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLClassSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onClassSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLProtocolSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onProtocolSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($HLSourceCodeFocusRequested(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onSourceCodeFocusRequested();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+_st($1)._on_send_to_($HLSaveSourceCode(),"onSaveIt",self);
+_st($1)._on_send_to_($HLShowInstanceToggled(),"onShowInstanceToggled",self);
+_st($1)._on_send_to_($HLSourceCodeSaved(),"onSourceCodeSaved",self);
+_st($1)._on_send_to_($HLAboutToChange(),"onBrowserAboutToChange:",self);
+_st($1)._on_send_to_($HLParseErrorRaised(),"onParseError:",self);
+_st($1)._on_send_to_($HLCompileErrorRaised(),"onCompileError:",self);
+_st($1)._on_send_to_($HLUnknownVariableErrorRaised(),"onUnknownVariableError:",self);
+_st($1)._on_send_to_($HLInstVarAdded(),"onInstVarAdded",self);
+_st($1)._on_send_to_($HLMethodSelected(),"onMethodSelected:",self);
+_st($1)._on_send_to_($HLClassSelected(),"onClassSelected:",self);
+_st($1)._on_send_to_($HLProtocolSelected(),"onProtocolSelected:",self);
+$2=_st($1)._on_send_to_($HLSourceCodeFocusRequested(),"onSourceCodeFocusRequested",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLBrowserCodeWidget)})},
 args: [],
-source: "observeBrowserModel\x0a\x09self browserModel announcer\x0a\x09\x09on: HLSaveSourceCode\x0a\x09\x09do: [ :ann | self onSaveIt ];\x0a\x09\x09on: HLShowInstanceToggled\x0a\x09\x09do: [ :ann | self onShowInstanceToggled ];\x0a\x09\x09on: HLSourceCodeSaved\x0a\x09\x09do: [ :ann | self onSourceCodeSaved ];\x0a\x09\x09on: HLAboutToChange\x0a\x09\x09do: [ :ann | self onBrowserAboutToChange: ann actionBlock ];\x0a\x09\x09on: HLParseErrorRaised\x0a\x09\x09do: [ :ann | self onParseError: ann ];\x0a\x09\x09on: HLCompileErrorRaised\x0a\x09\x09do: [ :ann | self onCompileError: ann error ];\x0a\x09\x09on: HLUnknownVariableErrorRaised\x0a\x09\x09do: [ :ann | self onUnknownVariableError: ann error ];\x0a\x09\x09on: HLInstVarAdded \x0a\x09\x09do: [ :ann | self onInstVarAdded ];\x0a\x09\x09on: HLMethodSelected \x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ];\x0a    \x09on: HLClassSelected \x0a\x09\x09do: [ :ann | self onClassSelected: ann item ];\x0a    \x09on: HLProtocolSelected \x0a\x09\x09do: [ :ann | self onProtocolSelected: ann item ];\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09do: [ :ann | self onSourceCodeFocusRequested ]",
-messageSends: ["on:do:", "onSaveIt", "announcer", "browserModel", "onShowInstanceToggled", "onSourceCodeSaved", "onBrowserAboutToChange:", "actionBlock", "onParseError:", "onCompileError:", "error", "onUnknownVariableError:", "onInstVarAdded", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
+source: "observeBrowserModel\x0a\x09self browserModel announcer\x0a\x09\x09on: HLSaveSourceCode\x0a\x09\x09send: #onSaveIt\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLShowInstanceToggled\x0a\x09\x09send: #onShowInstanceToggled\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLSourceCodeSaved\x0a\x09\x09send: #onSourceCodeSaved\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLAboutToChange\x0a\x09\x09send: #onBrowserAboutToChange:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLParseErrorRaised\x0a\x09\x09send: #onParseError:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLCompileErrorRaised\x0a\x09\x09send: #onCompileError:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLUnknownVariableErrorRaised\x0a\x09\x09send: #onUnknownVariableError:\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLInstVarAdded \x0a\x09\x09send: #onInstVarAdded\x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLMethodSelected \x0a\x09\x09send: #onMethodSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a    \x09on: HLClassSelected \x0a\x09\x09send: #onClassSelected:\x0a\x09\x09to: self;\x0a\x09\x09\x0a    \x09on: HLProtocolSelected \x0a\x09\x09send: #onProtocolSelected: \x0a\x09\x09to: self;\x0a\x09\x09\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09send: #onSourceCodeFocusRequested\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "announcer", "browserModel"],
 referencedClasses: ["HLSaveSourceCode", "HLShowInstanceToggled", "HLSourceCodeSaved", "HLAboutToChange", "HLParseErrorRaised", "HLCompileErrorRaised", "HLUnknownVariableErrorRaised", "HLInstVarAdded", "HLMethodSelected", "HLClassSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1380,63 +1344,13 @@ category: 'actions',
 fn: function (){
 var self=this;
 function $MethodModified(){return smalltalk.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
-function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
-function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
-function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
-function $HLSourceCodeFocusRequested(){return smalltalk.HLSourceCodeFocusRequested||(typeof HLSourceCodeFocusRequested=="undefined"?nil:HLSourceCodeFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(self)._browserModel())._systemAnnouncer();
-_st($1)._on_do_($MethodModified(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onMethodModified_(_st(ann)._method());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLMethodSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onMethodSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLClassSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onClassSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-_st($1)._on_do_($HLProtocolSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onProtocolSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($HLSourceCodeFocusRequested(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onSourceCodeFocusRequested();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLSourceCodeWidget)})},
+_st(_st(_st(self)._browserModel())._systemAnnouncer())._on_send_to_($MethodModified(),"onMethodModified:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLBrowserCodeWidget)})},
 args: [],
-source: "observeSystem\x0a\x09self browserModel systemAnnouncer\x0a    \x09on: MethodModified\x0a        do: [ :ann | self onMethodModified: ann method ];\x0a\x09\x09on: HLMethodSelected \x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ];\x0a    \x09on: HLClassSelected \x0a\x09\x09do: [ :ann | self onClassSelected: ann item ];\x0a    \x09on: HLProtocolSelected \x0a\x09\x09do: [ :ann | self onProtocolSelected: ann item ];\x0a\x09\x09on: HLSourceCodeFocusRequested \x0a\x09\x09do: [ :ann | self onSourceCodeFocusRequested ]",
-messageSends: ["on:do:", "onMethodModified:", "method", "systemAnnouncer", "browserModel", "onMethodSelected:", "item", "onClassSelected:", "onProtocolSelected:", "onSourceCodeFocusRequested"],
-referencedClasses: ["MethodModified", "HLMethodSelected", "HLClassSelected", "HLProtocolSelected", "HLSourceCodeFocusRequested"]
-}),
-smalltalk.HLBrowserCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onBrowserAboutToChange",
-category: 'reactions',
-fn: function (){
-var self=this;
-function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self)._hasModification();
-if(smalltalk.assert($1)){
-_st(self)._confirm_ifFalse_("Do you want to cancel changes?",(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st($HLChangeForbidden())._signal();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(self)._methodContents_(_st(self)._contents());
-};
-return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange",{},smalltalk.HLBrowserCodeWidget)})},
-args: [],
-source: "onBrowserAboutToChange\x0a\x09self hasModification\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Do you want to cancel changes?' \x0a\x09\x09\x09\x09ifFalse: [ HLChangeForbidden signal ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09self methodContents: self contents ]",
-messageSends: ["ifTrue:", "confirm:ifFalse:", "signal", "methodContents:", "contents", "hasModification"],
-referencedClasses: ["HLChangeForbidden"]
+source: "observeSystem\x0a\x09self browserModel systemAnnouncer\x0a    \x09on: MethodModified\x0a        send: #onMethodModified:\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "systemAnnouncer", "browserModel"],
+referencedClasses: ["MethodModified"]
 }),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1444,24 +1358,26 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onBrowserAboutToChange:",
 category: 'reactions',
-fn: function (aBlock){
+fn: function (anAnnouncement){
 var self=this;
+var block;
 function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+block=_st(anAnnouncement)._actionBlock();
 $1=_st(self)._hasModification();
 if(smalltalk.assert($1)){
 _st(self)._confirm_ifTrue_("Do you want to cancel changes?",(function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self)._methodContents_(_st(self)._contents());
-return _st(aBlock)._value();
+return _st(block)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st($HLChangeForbidden())._signal();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{aBlock:aBlock},smalltalk.HLBrowserCodeWidget)})},
-args: ["aBlock"],
-source: "onBrowserAboutToChange: aBlock\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Do you want to cancel changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09aBlock value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
-messageSends: ["ifTrue:", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal", "hasModification"],
+return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{anAnnouncement:anAnnouncement,block:block},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onBrowserAboutToChange: anAnnouncement\x0a\x09| block |\x0a\x09\x0a\x09block := anAnnouncement actionBlock.\x0a\x09\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Do you want to cancel changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09block value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
+messageSends: ["actionBlock", "ifTrue:", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal", "hasModification"],
 referencedClasses: ["HLChangeForbidden"]
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1470,22 +1386,24 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onClassSelected:",
 category: 'reactions',
-fn: function (aClass){
+fn: function (anAnnouncement){
 var self=this;
+var class_;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=aClass;
+class_=_st(anAnnouncement)._item();
+$1=class_;
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=_st(self)._contents_("");
 return $2;
 } else {
 $1;
 };
-_st(self)._contents_(_st(aClass)._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{aClass:aClass},smalltalk.HLSourceCodeWidget)})},
-args: ["aClass"],
-source: "onClassSelected: aClass\x0a\x09aClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aClass definition",
-messageSends: ["ifNil:", "contents:", "definition"],
+_st(self)._contents_(_st(class_)._definition());
+return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onClassSelected: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class:= anAnnouncement item.\x0a\x09\x0a\x09class ifNil: [ ^ self contents: '' ].\x0a    self contents: class definition",
+messageSends: ["item", "ifNil:", "contents:", "definition"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1494,14 +1412,14 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onCompileError:",
 category: 'reactions',
-fn: function (anError){
+fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._alert_(_st(anError)._messageText());
-return self}, function($ctx1) {$ctx1.fill(self,"onCompileError:",{anError:anError},smalltalk.HLSourceCodeWidget)})},
-args: ["anError"],
-source: "onCompileError: anError\x0a\x09self alert: anError messageText",
-messageSends: ["alert:", "messageText"],
+_st(self)._alert_(_st(_st(anAnnouncement)._error())._messageText());
+return self}, function($ctx1) {$ctx1.fill(self,"onCompileError:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onCompileError: anAnnouncement\x0a\x09self alert: anAnnouncement error messageText",
+messageSends: ["alert:", "messageText", "error"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1526,11 +1444,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onMethodModified:",
 category: 'reactions',
-fn: function (aMethod){
+fn: function (anAnnouncement){
 var self=this;
+var method;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
-$1=_st(_st(_st(self)._browserModel())._selectedClass()).__eq(_st(aMethod)._methodClass());
+method=_st(anAnnouncement)._method();
+$1=_st(_st(_st(self)._browserModel())._selectedClass()).__eq(_st(method)._methodClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
@@ -1542,16 +1462,16 @@ return $4;
 } else {
 $3;
 };
-$5=_st(_st(_st(_st(self)._browserModel())._selectedMethod())._selector()).__eq(_st(aMethod)._selector());
+$5=_st(_st(_st(_st(self)._browserModel())._selectedMethod())._selector()).__eq(_st(method)._selector());
 if(! smalltalk.assert($5)){
 $6=self;
 return $6;
 };
 _st(self)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{aMethod:aMethod},smalltalk.HLBrowserCodeWidget)})},
-args: ["aMethod"],
-source: "onMethodModified: aMethod\x0a\x09self browserModel selectedClass = aMethod methodClass ifFalse: [ ^ self ].\x0a\x09self browserModel selectedMethod ifNil: [ ^ self ].\x0a    self browserModel selectedMethod selector = aMethod selector ifFalse: [ ^ self ].\x0a\x0a\x09self refresh",
-messageSends: ["ifFalse:", "=", "methodClass", "selectedClass", "browserModel", "ifNil:", "selectedMethod", "selector", "refresh"],
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onMethodModified: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].\x0a\x09self browserModel selectedMethod ifNil: [ ^ self ].\x0a    self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].\x0a\x0a\x09self refresh",
+messageSends: ["method", "ifFalse:", "=", "methodClass", "selectedClass", "browserModel", "ifNil:", "selectedMethod", "selector", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1560,22 +1480,24 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onMethodSelected:",
 category: 'reactions',
-fn: function (aCompiledMethod){
+fn: function (anAnnouncement){
 var self=this;
+var method;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=aCompiledMethod;
+method=_st(anAnnouncement)._item();
+$1=method;
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=_st(self)._contents_("");
 return $2;
 } else {
 $1;
 };
-_st(self)._contents_(_st(aCompiledMethod)._source());
-return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aCompiledMethod:aCompiledMethod},smalltalk.HLSourceCodeWidget)})},
-args: ["aCompiledMethod"],
-source: "onMethodSelected: aCompiledMethod\x0a\x09aCompiledMethod ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: aCompiledMethod source",
-messageSends: ["ifNil:", "contents:", "source"],
+_st(self)._contents_(_st(method)._source());
+return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onMethodSelected: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement item.\x0a\x09\x0a\x09method ifNil: [ ^ self contents: '' ].\x0a    self contents: method source",
+messageSends: ["item", "ifNil:", "contents:", "source"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1624,7 +1546,7 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onProtocolSelected:",
 category: 'reactions',
-fn: function (aString){
+fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
@@ -1636,9 +1558,9 @@ return $2;
 $1;
 };
 _st(self)._contents_(_st(_st(_st(self)._browserModel())._selectedClass())._definition());
-return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{aString:aString},smalltalk.HLSourceCodeWidget)})},
-args: ["aString"],
-source: "onProtocolSelected: aString\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: self browserModel selectedClass definition",
+return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onProtocolSelected: anAnnouncement\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    self contents: self browserModel selectedClass definition",
 messageSends: ["ifNil:", "contents:", "selectedClass", "browserModel", "definition"],
 referencedClasses: []
 }),
@@ -1721,26 +1643,28 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "onUnknownVariableError:",
 category: 'reactions',
-fn: function (anError){
+fn: function (anAnnouncement){
 var self=this;
+var error;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
+error=_st(anAnnouncement)._error();
 _st(self)._confirm_ifTrue_(_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
 $1=stream;
-_st($1)._nextPutAll_(_st(anError)._messageText());
+_st($1)._nextPutAll_(_st(error)._messageText());
 _st($1)._nextPutAll_(_st($String())._cr());
 $2=_st($1)._nextPutAll_("Would you like to define an instance variable?");
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})})),(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._browserModel())._addInstVarNamed_(_st(anError)._variableName());
+return _st(_st(self)._browserModel())._addInstVarNamed_(_st(error)._variableName());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anError:anError},smalltalk.HLBrowserCodeWidget)})},
-args: ["anError"],
-source: "onUnknownVariableError: anError\x0a\x09self \x0a\x09\x09confirm: (String streamContents: [ :stream |\x0a\x09\x09\x09stream \x0a\x09\x09\x09\x09nextPutAll: anError messageText;\x0a\x09\x09\x09\x09nextPutAll: String cr;\x0a\x09\x09\x09\x09nextPutAll: 'Would you like to define an instance variable?' ])\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self browserModel addInstVarNamed: anError variableName ]",
-messageSends: ["confirm:ifTrue:", "streamContents:", "nextPutAll:", "messageText", "cr", "addInstVarNamed:", "variableName", "browserModel"],
+return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anAnnouncement:anAnnouncement,error:error},smalltalk.HLBrowserCodeWidget)})},
+args: ["anAnnouncement"],
+source: "onUnknownVariableError: anAnnouncement\x0a\x09| error |\x0a\x09\x0a\x09error := anAnnouncement error.\x0a\x09\x0a\x09self \x0a\x09\x09confirm: (String streamContents: [ :stream |\x0a\x09\x09\x09stream \x0a\x09\x09\x09\x09nextPutAll: error messageText;\x0a\x09\x09\x09\x09nextPutAll: String cr;\x0a\x09\x09\x09\x09nextPutAll: 'Would you like to define an instance variable?' ])\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self browserModel addInstVarNamed: error variableName ]",
+messageSends: ["error", "confirm:ifTrue:", "streamContents:", "nextPutAll:", "messageText", "cr", "addInstVarNamed:", "variableName", "browserModel"],
 referencedClasses: ["String"]
 }),
 smalltalk.HLBrowserCodeWidget);
@@ -1784,6 +1708,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},smalltalk.HLSourceCod
 args: [],
 source: "saveIt\x0a\x09self browserModel saveSourceCode",
 messageSends: ["saveSourceCode", "browserModel"],
+referencedClasses: []
+}),
+smalltalk.HLBrowserCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLNavigationCodeWidget.fn.prototype._unregsiter.apply(_st(self), []);
+_st(_st(_st(self)._browserModel())._announcer())._unsubscribe_(self);
+_st(_st(_st(self)._browserModel())._systemAnnouncer())._unsubscribe_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLBrowserCodeWidget)})},
+args: [],
+source: "unregister\x0a\x09super unregsiter.\x0a\x09\x0a\x09self browserModel announcer unsubscribe: self.\x0a\x09self browserModel systemAnnouncer unsubscribe: self",
+messageSends: ["unregsiter", "unsubscribe:", "announcer", "browserModel", "systemAnnouncer"],
 referencedClasses: []
 }),
 smalltalk.HLBrowserCodeWidget);

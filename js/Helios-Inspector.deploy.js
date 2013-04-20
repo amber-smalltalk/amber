@@ -163,12 +163,9 @@ fn: function (){
 var self=this;
 function $HLInstanceVariableSelected(){return smalltalk.HLInstanceVariableSelected||(typeof HLInstanceVariableSelected=="undefined"?nil:HLInstanceVariableSelected)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._on_do_($HLInstanceVariableSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onInstanceVariableSelected();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+_st(_st(_st(self)._model())._announcer())._on_send_to_($HLInstanceVariableSelected(),"onInstanceVariableSelected",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLInspector)})},
-messageSends: ["on:do:", "onInstanceVariableSelected", "announcer", "model"]}),
+messageSends: ["on:send:to:", "announcer", "model"]}),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(

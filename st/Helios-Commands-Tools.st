@@ -174,6 +174,12 @@ label
 	^ 'Class'
 ! !
 
+!HLFindClassCommand class methodsFor: 'testing'!
+
+isValidFor: aModel
+	^ aModel isBrowserModel
+! !
+
 HLFindCommand subclass: #HLFindReferencesCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Tools'!

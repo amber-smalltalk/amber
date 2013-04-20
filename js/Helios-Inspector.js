@@ -209,14 +209,11 @@ fn: function (){
 var self=this;
 function $HLInstanceVariableSelected(){return smalltalk.HLInstanceVariableSelected||(typeof HLInstanceVariableSelected=="undefined"?nil:HLInstanceVariableSelected)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._on_do_($HLInstanceVariableSelected(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onInstanceVariableSelected();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+_st(_st(_st(self)._model())._announcer())._on_send_to_($HLInstanceVariableSelected(),"onInstanceVariableSelected",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLInspector)})},
 args: [],
-source: "observeModel\x0a\x09self model announcer\x0a        on: HLInstanceVariableSelected do: [ :ann | self onInstanceVariableSelected ]",
-messageSends: ["on:do:", "onInstanceVariableSelected", "announcer", "model"],
+source: "observeModel\x0a\x09self model announcer\x0a        on: HLInstanceVariableSelected\x0a\x09\x09send: #onInstanceVariableSelected\x0a\x09\x09to: self",
+messageSends: ["on:send:to:", "announcer", "model"],
 referencedClasses: ["HLInstanceVariableSelected"]
 }),
 smalltalk.HLInspector);

@@ -445,6 +445,7 @@ registerBindings
 !
 
 remove
+	self widget unregister.
 	root ifNotNil: [ root asJQuery remove ]
 !
 
@@ -513,6 +514,11 @@ execute: aCommand
 	HLManager current keyBinder
 		activate;
 		applyBinding: aCommand asBinding
+!
+
+unregister
+	"This method is called whenever the receiver is closed (as a tab).
+	Widgets subscribing to announcements should unregister there"
 ! !
 
 !HLWidget methodsFor: 'keybindings'!
@@ -1037,6 +1043,13 @@ observeModel
 !
 
 observeSystem
+!
+
+unregister
+	super unregister.
+	
+	self model announcer unsubscribe: self.
+	self model systemAnnouncer unsubscribe: self
 ! !
 
 !HLToolListWidget methodsFor: 'rendering'!

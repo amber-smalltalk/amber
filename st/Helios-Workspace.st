@@ -485,43 +485,59 @@ browserModel: aBrowserModel
 observeBrowserModel
 	self browserModel announcer
 		on: HLSaveSourceCode
-		do: [ :ann | self onSaveIt ];
+		send: #onSaveIt
+		to: self;
+		
 		on: HLShowInstanceToggled
-		do: [ :ann | self onShowInstanceToggled ];
+		send: #onShowInstanceToggled
+		to: self;
+		
 		on: HLSourceCodeSaved
-		do: [ :ann | self onSourceCodeSaved ];
+		send: #onSourceCodeSaved
+		to: self;
+		
 		on: HLAboutToChange
-		do: [ :ann | self onBrowserAboutToChange: ann actionBlock ];
+		send: #onBrowserAboutToChange:
+		to: self;
+		
 		on: HLParseErrorRaised
-		do: [ :ann | self onParseError: ann ];
+		send: #onParseError:
+		to: self;
+		
 		on: HLCompileErrorRaised
-		do: [ :ann | self onCompileError: ann error ];
+		send: #onCompileError:
+		to: self;
+		
 		on: HLUnknownVariableErrorRaised
-		do: [ :ann | self onUnknownVariableError: ann error ];
+		send: #onUnknownVariableError:
+		to: self;
+		
 		on: HLInstVarAdded 
-		do: [ :ann | self onInstVarAdded ];
+		send: #onInstVarAdded
+		to: self;
+		
 		on: HLMethodSelected 
-		do: [ :ann | self onMethodSelected: ann item ];
+		send: #onMethodSelected:
+		to: self;
+		
     	on: HLClassSelected 
-		do: [ :ann | self onClassSelected: ann item ];
+		send: #onClassSelected:
+		to: self;
+		
     	on: HLProtocolSelected 
-		do: [ :ann | self onProtocolSelected: ann item ];
+		send: #onProtocolSelected: 
+		to: self;
+		
 		on: HLSourceCodeFocusRequested 
-		do: [ :ann | self onSourceCodeFocusRequested ]
+		send: #onSourceCodeFocusRequested
+		to: self
 !
 
 observeSystem
 	self browserModel systemAnnouncer
     	on: MethodModified
-        do: [ :ann | self onMethodModified: ann method ];
-		on: HLMethodSelected 
-		do: [ :ann | self onMethodSelected: ann item ];
-    	on: HLClassSelected 
-		do: [ :ann | self onClassSelected: ann item ];
-    	on: HLProtocolSelected 
-		do: [ :ann | self onProtocolSelected: ann item ];
-		on: HLSourceCodeFocusRequested 
-		do: [ :ann | self onSourceCodeFocusRequested ]
+        send: #onMethodModified:
+		to: self
 !
 
 refresh
@@ -533,22 +549,22 @@ refresh
 
 saveIt
 	self browserModel saveSourceCode
+!
+
+unregister
+	super unregsiter.
+	
+	self browserModel announcer unsubscribe: self.
+	self browserModel systemAnnouncer unsubscribe: self
 ! !
 
 !HLBrowserCodeWidget methodsFor: 'reactions'!
 
-onBrowserAboutToChange
-	self hasModification
-		ifTrue: [ 
-			self 
-				confirm: 'Do you want to cancel changes?' 
-				ifFalse: [ HLChangeForbidden signal ].
-			
-			"Don't ask twice"
-			self methodContents: self contents ]
-!
-
-onBrowserAboutToChange: aBlock
+onBrowserAboutToChange: anAnnouncement
+	| block |
+	
+	block := anAnnouncement actionBlock.
+	
 	self hasModification
 		ifTrue: [
 			self 
@@ -556,38 +572,48 @@ onBrowserAboutToChange: aBlock
 				ifTrue: [
 					"Don't ask twice"
 					self methodContents: self contents.
-					aBlock value ].
+					block value ].
 			
 			
 			HLChangeForbidden signal ]
 !
 
-onClassSelected: aClass
-	aClass ifNil: [ ^ self contents: '' ].
-    
-    self contents: aClass definition
+onClassSelected: anAnnouncement
+	| class |
+	
+	class:= anAnnouncement item.
+	
+	class ifNil: [ ^ self contents: '' ].
+    self contents: class definition
 !
 
-onCompileError: anError
-	self alert: anError messageText
+onCompileError: anAnnouncement
+	self alert: anAnnouncement error messageText
 !
 
 onInstVarAdded
 	self browserModel save: self contents
 !
 
-onMethodModified: aMethod
-	self browserModel selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+onMethodModified: anAnnouncement
+	| method |
+	
+	method := anAnnouncement method.
+	
+	self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].
 	self browserModel selectedMethod ifNil: [ ^ self ].
-    self browserModel selectedMethod selector = aMethod selector ifFalse: [ ^ self ].
+    self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].
 
 	self refresh
 !
 
-onMethodSelected: aCompiledMethod
-	aCompiledMethod ifNil: [ ^ self contents: '' ].
-    
-    self contents: aCompiledMethod source
+onMethodSelected: anAnnouncement
+	| method |
+	
+	method := anAnnouncement item.
+	
+	method ifNil: [ ^ self contents: '' ].
+    self contents: method source
 !
 
 onParseError: anAnnouncement
@@ -610,9 +636,8 @@ onParseError: anAnnouncement
 			lineIndex := lineIndex + 1 ] ])
 !
 
-onProtocolSelected: aString
+onProtocolSelected: anAnnouncement
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
-    
     self contents: self browserModel selectedClass definition
 !
 
@@ -635,15 +660,19 @@ onSourceCodeSaved
 	self updateState
 !
 
-onUnknownVariableError: anError
+onUnknownVariableError: anAnnouncement
+	| error |
+	
+	error := anAnnouncement error.
+	
 	self 
 		confirm: (String streamContents: [ :stream |
 			stream 
-				nextPutAll: anError messageText;
+				nextPutAll: error messageText;
 				nextPutAll: String cr;
 				nextPutAll: 'Would you like to define an instance variable?' ])
 		ifTrue: [
-			self browserModel addInstVarNamed: anError variableName ]
+			self browserModel addInstVarNamed: error variableName ]
 ! !
 
 !HLBrowserCodeWidget class methodsFor: 'instance creation'!

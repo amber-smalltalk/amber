@@ -1006,6 +1006,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+_st(_st(self)._widget())._unregister();
 $1=self["@root"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -1013,7 +1014,7 @@ $1;
 _st(_st(self["@root"])._asJQuery())._remove();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLTab)})},
-messageSends: ["ifNotNil:", "remove", "asJQuery"]}),
+messageSends: ["unregister", "widget", "ifNotNil:", "remove", "asJQuery"]}),
 smalltalk.HLTab);
 
 smalltalk.addMethod(
@@ -1243,6 +1244,16 @@ return _st(self)._renderContentOn_(renderer);
 }, function($ctx2) {$ctx2.fillBlock({renderer:renderer},$ctx1)})}))._appendToJQuery_(_st(self["@wrapper"])._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLWidget)})},
 messageSends: ["div", "appendToJQuery:", "asJQuery", "renderContentOn:"]}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWidget)})},
+messageSends: []}),
 smalltalk.HLWidget);
 
 smalltalk.addMethod(
@@ -2466,6 +2477,19 @@ smalltalk.HLNavigationListWidget.fn.prototype._selectedItem_.apply(_st(self), [a
 _st(self)._updateMenu();
 return self}, function($ctx1) {$ctx1.fill(self,"selectedItem:",{anItem:anItem},smalltalk.HLToolListWidget)})},
 messageSends: ["selectedItem:", "updateMenu"]}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLNavigationListWidget.fn.prototype._unregister.apply(_st(self), []);
+_st(_st(_st(self)._model())._announcer())._unsubscribe_(self);
+_st(_st(_st(self)._model())._systemAnnouncer())._unsubscribe_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLToolListWidget)})},
+messageSends: ["unregister", "unsubscribe:", "announcer", "model", "systemAnnouncer"]}),
 smalltalk.HLToolListWidget);
 
 smalltalk.addMethod(

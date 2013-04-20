@@ -77,7 +77,9 @@ observeCodeWidget
 
 observeModel
 	self model announcer
-        on: HLInstanceVariableSelected do: [ :ann | self onInstanceVariableSelected ]
+        on: HLInstanceVariableSelected
+		send: #onInstanceVariableSelected
+		to: self
 !
 
 observeVariablesWidget

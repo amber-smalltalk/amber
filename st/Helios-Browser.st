@@ -21,6 +21,19 @@ model: aModel
 
 focus
 	^ self packagesListWidget focus
+!
+
+unregister
+	super unregister.
+
+	{ 
+		self packagesListWidget.
+		self classesListWidget.
+		self protocolsListWidget.
+		self methodsListWidget.
+		self sourceWidget
+	} 
+		do: [ :each | each unregister ]
 ! !
 
 !HLBrowser methodsFor: 'keybindings'!
@@ -157,9 +170,11 @@ focus
 observeModel
 	self model announcer 
 		on: HLShowInstanceToggled
-		do: [ self onShowInstanceToggled ];
+		send: #onShowInstanceToggled
+		to: self;
 		on: HLShowCommentToggled
-		do: [ self onShowCommentToggled ]
+		send: #onShowCommentToggled
+		to: self
 !
 
 selectWidget: aWidget
@@ -398,25 +413,48 @@ focusProtocolsListWidget
 
 observeModel
 	self model announcer 
-    	on: HLPackageSelected do: [ :ann | self onPackageSelected: ann item ];
-    	on: HLShowInstanceToggled do: [ :ann | self onShowInstanceToggled ];
-		on: HLShowCommentToggled do: [ :ann | self onShowCommentToggled ];
-		on: HLClassSelected do: [ :ann | self onClassSelected: ann item ];
-		on: HLClassesFocusRequested do: [ :ann | self onClassesFocusRequested ]
+    	on: HLPackageSelected
+		send: #onPackageSelected:
+		to: self;
+		
+    	on: HLShowInstanceToggled 
+		send: #onShowInstanceToggled
+		to: self;
+		
+		on: HLShowCommentToggled
+		send: #onShowCommentToggled
+		to: self;
+		
+		on: HLClassSelected
+		send: #onClassSelected:
+		to: self;
+		
+		on: HLClassesFocusRequested
+		send: #onClassesFocusRequested
+		to: self
 !
 
 observeSystem
 	self model systemAnnouncer
     	on: ClassAdded
-        do: [ :ann | self onClassAdded: ann theClass ];
+		send: #onClassAdded:
+		to: self;
+		
         on: ClassRemoved
-        do: [ :ann | self onClassRemoved: ann theClass ];
+        send: #onClassRemoved:
+		to: self;
+		
 		on: ClassMoved
-        do: [ :ann | self onClassMoved: ann theClass from: ann oldPackage ];
+		send: #onClassMoved:
+		to: self;
+		
 		on: ClassRenamed
-        do: [ :ann | self onClassRenamed: ann theClass ];
+		send: #onClassRenamed:
+		to: self;
+		
 		on: ClassMigrated
-		do: [ :ann | self onClassMigrated: ann theClass from: ann oldClass ]
+		send: #onClassMigrated:
+		to: self
 !
 
 selectItem: aClass
@@ -447,30 +485,44 @@ setItemsForSelectedPackage
 
 !HLClassesListWidget methodsFor: 'reactions'!
 
-onClassAdded: aClass
-	(aClass package = self model selectedPackage or: [
-		self items includes: aClass ]) ifFalse: [ ^ self ].
+onClassAdded: anAnnouncement
+	| class |
+	
+	class := anAnnouncement theClass.
+	
+	(class package = self model selectedPackage or: [
+		self items includes: class ]) ifFalse: [ ^ self ].
     
     self setItemsForSelectedPackage.
     self refresh
 !
 
-onClassMigrated: aClass from: oldClass
+onClassMigrated: anAnnouncement
+	| class oldClass |
+	
+	class := anAnnouncement theClass.
+	oldClass := anAnnouncement oldClass.
+
 	(self items includes: oldClass) ifFalse: [ ^ self ].
 
 	self model selectedClass = oldClass ifTrue: [
-		self model selectedClass: aClass ].
+		self model selectedClass: class ].
     
     self setItemsForSelectedPackage.
     self refresh
 !
 
-onClassMoved: aClass from: aPackage
-	(aPackage = self model selectedPackage or: [
-		aClass package = self model selectedPackage ])
+onClassMoved: anAnnouncement
+	| class oldPackage |
+	
+	class := anAnnouncement theClass.
+	oldPackage := anAnnouncement oldPackage.
+	
+	(oldPackage = self model selectedPackage or: [
+		class package = self model selectedPackage ])
 			ifFalse: [ ^ self ].
 	
-	aPackage = self model selectedPackage ifTrue: [ 
+	oldPackage = self model selectedPackage ifTrue: [ 
 		self 
 			selectedItem: nil;
 			selectItem: nil ].
@@ -479,27 +531,30 @@ onClassMoved: aClass from: aPackage
     self refresh
 !
 
-onClassRemoved: aClass
-	aClass package = self model selectedPackage ifFalse: [ ^ self ].
-    aClass = self model selectedClass ifTrue: [ self selectItem: nil ].
+onClassRemoved: anAnnouncement
+	| class |
+	class := anAnnouncement theClass.
+
+	class package = self model selectedPackage ifFalse: [ ^ self ].
+    class = self model selectedClass ifTrue: [ self selectItem: nil ].
     
     self setItemsForSelectedPackage.
     self refresh
 !
 
-onClassRenamed: aClass
-	aClass package = self model selectedPackage ifFalse: [ ^ self ].
+onClassRenamed: anAnnouncement
+	anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].
     
     self setItemsForSelectedPackage.
     self refresh
 !
 
-onClassSelected: aClass
+onClassSelected: anAnnouncement
 	| selectedClass |
 	
-	aClass ifNil: [ ^ self ].
+	anAnnouncement item ifNil: [ ^ self ].
 	
-	selectedClass := aClass theNonMetaClass.
+	selectedClass := anAnnouncement item theNonMetaClass.
 	self selectedItem: selectedClass.
 
 	self hasFocus ifFalse: [
@@ -512,7 +567,7 @@ onClassesFocusRequested
 	self focus
 !
 
-onPackageSelected: aPackage
+onPackageSelected: anAnnouncement
     self selectedItem: nil.
     
     self setItemsForSelectedPackage.
@@ -706,27 +761,43 @@ selectorsInProtocol: aString
 observeModel
 	self model announcer 
 		on: HLProtocolSelected 
-		do: [ :ann | self onProtocolSelected: ann item ];
+		send: #onProtocolSelected: 
+		to: self;
+		
 		on: HLShowInstanceToggled 
-		do: [ :ann | self onProtocolSelected: nil ];
+		send: #onShowInstanceToggled
+		to: self;
+		
 		on: HLMethodSelected 
-		do: [ :ann | self onMethodSelected: ann item ];
+		send: #onMethodSelected:
+		to: self;
+		
 		on: HLMethodsFocusRequested 
-		do: [ :ann | self onMethodsFocusRequested ]
+		send: #onMethodsFocusRequested
+		to: self
 !
 
 observeSystem
 	self model systemAnnouncer 
     	on: ProtocolAdded
-        do: [ :ann | self onProtocolAdded: ann theClass ];
-    	on: ProtocolRemoved
-        do: [ :ann | self onProtocolRemoved: ann theClass ];
+        send: #onProtocolAdded:
+		to: self;
+    	
+		on: ProtocolRemoved
+        send: #onProtocolRemoved:
+		to: self;
+		
     	on: MethodAdded 
-        do: [ :ann | self onMethodAdded: ann method ];
+        send: #onMethodAdded:
+		to: self;
+		
         on: MethodRemoved 
-        do: [ :ann | self onMethodRemoved: ann method ];
+        send: #onMethodRemoved:
+		to: self;
+		
 		on: MethodMoved 
-        do: [ :ann | self onMethodMoved: ann method ]
+        send: #onMethodMoved:
+		to: self
 !
 
 selectItem: aSelector
@@ -749,15 +820,15 @@ setItemsForSelectedProtocol
 
 !HLMethodsListWidget methodsFor: 'reactions'!
 
-onMethodAdded: aMethod
-	self model selectedClass = aMethod methodClass ifFalse: [ ^ self ].
+onMethodAdded: anAnnouncement
+	self model selectedClass = anAnnouncement method methodClass ifFalse: [ ^ self ].
     
     self setItemsForSelectedProtocol.
     self refresh
 !
 
-onMethodMoved: aMethod
-	self model selectedMethod = aMethod ifFalse: [ ^ self ].
+onMethodMoved: anAnnouncement
+	self model selectedMethod = anAnnouncement method ifFalse: [ ^ self ].
     
 	self model selectedProtocol = self model allProtocol ifFalse: [
 		self 
@@ -767,11 +838,15 @@ onMethodMoved: aMethod
     		refresh ]
 !
 
-onMethodRemoved: aMethod
-	self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].
+onMethodRemoved: anAnnouncement
+	| method |
+	
+	method := anAnnouncement method.
+	
+	self items detect: [ :each | each = method selector ] ifNone: [ ^ self ].
 
     self selectedItem ifNotNil: [
-      	(aMethod methodClass = self model selectedClass and: [ aMethod selector = self selectedItem ])
+      	(method methodClass = self model selectedClass and: [ method selector = self selectedItem ])
   			ifTrue: [ 
 				self selectedItem: nil; 
 				selectItem: nil ] ].
@@ -780,10 +855,13 @@ onMethodRemoved: aMethod
 	self refresh
 !
 
-onMethodSelected: aMethod
-	| selector |
-	selector := aMethod isCompiledMethod 
-		ifTrue: [ aMethod selector ]
+onMethodSelected: anAnnouncement
+	| selector method |
+	
+	method := anAnnouncement item.
+	
+	selector := method isCompiledMethod 
+		ifTrue: [ method selector ]
 		ifFalse: [ nil ].
 		
 	self 
@@ -795,27 +873,31 @@ onMethodsFocusRequested
 	self focus
 !
 
-onProtocolAdded: aClass
-	self model selectedClass = aClass ifFalse: [ ^ self ].
+onProtocolAdded: anAnnouncement
+	self model selectedClass = anAnnouncement theClass ifFalse: [ ^ self ].
 	
 	self setItemsForSelectedProtocol.
     self refresh.
 	self focus
 !
 
-onProtocolRemoved: aClass
-	self model selectedClass = aClass ifFalse: [ ^ self ].
+onProtocolRemoved: anAnnouncement
+	self model selectedClass = anAnnouncement theClass ifFalse: [ ^ self ].
 	
 	self setItemsForSelectedProtocol.
     self refresh.
 	self focus
 !
 
-onProtocolSelected: aString
+onProtocolSelected: anAnnouncement
     self selectedItem: nil.
     
 	self setItemsForSelectedProtocol.
     self refresh
+!
+
+onShowInstanceToggled
+	self onProtocolSelected: nil
 ! !
 
 !HLMethodsListWidget methodsFor: 'rendering'!
@@ -876,16 +958,20 @@ focusClassesListWidget
 
 observeModel
     self model announcer 
-		on: HLPackageSelected 
-		do: [ :ann | self onPackageSelected: ann item ];
+		on: HLPackageSelected
+		send: #onPackageSelected:
+		to: self;
+		
 		on: HLPackagesFocusRequested 
-		do: [ :ann | self onPackagesFocusRequested ]
+		send: #onPackagesFocusRequested
+		to: self
 !
 
 observeSystem
     self model systemAnnouncer 
 		on: ClassAdded 
-		do: [ :ann | self onClassAdded: ann theClass ]
+		send: #onClassAdded:
+		to: self
 !
 
 selectItem: aPackage
@@ -901,20 +987,24 @@ initializeItems
 
 !HLPackagesListWidget methodsFor: 'reactions'!
 
-onClassAdded: aClass
+onClassAdded: anAnnouncement
 	"Amber doesn't have yet a global organizer for packages"
 	
-	(self items includes: aClass package) ifFalse: [ 
+	(self items includes: anAnnouncement theClass package) ifFalse: [ 
 		self 
 			initializeItems;
 			refresh ]
 !
 
-onPackageSelected: aPackage
-	self selectedItem: aPackage.
+onPackageSelected: anAnnouncement
+	| package |
+	
+	package := anAnnouncement item.
+	
+	self selectedItem: package.
 	self hasFocus ifFalse: [
 		self
-			activateItem: aPackage;
+			activateItem: package;
 			focus ]
 !
 
@@ -944,10 +1034,6 @@ HLToolListWidget subclass: #HLProtocolsListWidget
 
 !HLProtocolsListWidget methodsFor: 'accessing'!
 
-allProtocol
-	^ self model allProtocol
-!
-
 label
 	^ 'Protocols'
 !
@@ -960,26 +1046,42 @@ selectedItem
 
 observeModel
     self model announcer 
-		on: HLClassSelected 
-		do: [ :ann | self onClassSelected: ann item ];
+		on: HLClassSelected
+		send: #onClassSelected:
+		to: self;
+		
     	on: HLShowInstanceToggled 
-		do: [ :ann | self onClassSelected: self model selectedClass ];
+		send: #onClassSelected:
+		to: self;
+		
     	on: HLProtocolSelected
-		do: [ :ann | self onProtocolSelected: ann item ];
+		send: #onProtocolSelected:
+		to: self;
+		
 		on: HLProtocolsFocusRequested 
-		do: [ :ann | self onProtocolsFocusRequested ]
+		send: #onProtocolsFocusRequested
+		to: self
 !
 
 observeSystem
 	self model systemAnnouncer
 		on: ProtocolAdded 
-	    do: [ :ann | self onProtocolAdded: ann protocol to: ann theClass ];
-	    on: ProtocolRemoved
-	    do: [ :ann | self onProtocolRemoved: ann protocol from: ann theClass ]
+		send: #onProtocolAdded:
+		to: self;
+		
+		on: ProtocolRemoved
+		send: #onProtocolRemoved:
+		to: self
 !
 
 selectItem: aString
     self model selectedProtocol: aString
+! !
+
+!HLProtocolsListWidget methodsFor: 'foo'!
+
+allProtocol
+	^ self model allProtocol
 ! !
 
 !HLProtocolsListWidget methodsFor: 'private'!
@@ -999,24 +1101,33 @@ setItemsForSelectedClass
 
 !HLProtocolsListWidget methodsFor: 'reactions'!
 
-onClassSelected: aClass
+onClassSelected: anAnnouncement
     self selectedItem: nil.
     
     self setItemsForSelectedClass.
     self refresh
 !
 
-onProtocolAdded: aString to: aClass
-	aClass = self model selectedClass ifFalse: [ ^ self ].
+onProtocolAdded: anAnnouncement
+	| class |
+	
+	class := anAnnouncement theClass.
+	
+	class = self model selectedClass ifFalse: [ ^ self ].
     
     self setItemsForSelectedClass.
     self refresh
 !
 
-onProtocolRemoved: aString from: aClass
-	aClass = self model selectedClass ifFalse: [ ^ self ].
+onProtocolRemoved: anAnnouncement
+	| class protocol |
+	
+	class := anAnnouncement theClass.
+	protocol := anAnnouncement protocol.
+	
+	class = self model selectedClass ifFalse: [ ^ self ].
     
-    self model selectedProtocol = aString 
+    self model selectedProtocol = protocol 
     	ifTrue: [ 
 			self 
 				selectedItem: nil;
@@ -1026,13 +1137,17 @@ onProtocolRemoved: aString from: aClass
     self refresh
 !
 
-onProtocolSelected: aString
-	self selectedItem: aString.
-	aString ifNil: [ ^ self ].
+onProtocolSelected: anAnnouncement
+	| protocol |
+	
+	protocol := anAnnouncement item.
+	
+	self selectedItem: protocol.
+	protocol ifNil: [ ^ self ].
     
 	self hasFocus ifFalse: [
 		self 
-			activateItem: aString;
+			activateItem: protocol;
 			focus ]
 !
 
@@ -1073,9 +1188,12 @@ classesCache
 observeSystem
 	SystemAnnouncer current
 		on: MethodAdded
-        do: [ :ann | self onMethodAdded: ann method ];
-        on: MethodRemoved
-        do: [ :ann | self onMethodRemoved: ann method ]
+		send: #onMethodAdded:
+		to: self;
+		
+		on: MethodRemoved
+        send: #onMethodRemoved:
+		to: self
 ! !
 
 !HLSelectorsCache methodsFor: 'factory'!
@@ -1102,12 +1220,12 @@ invalidateCacheFor: aMethod
 
 !HLSelectorsCache methodsFor: 'reactions'!
 
-onMethodAdded: aMethod
-	self invalidateCacheFor: aMethod
+onMethodAdded: anAnnouncement
+	self invalidateCacheFor: anAnnouncement method
 !
 
-onMethodRemoved: aMethod
-	self invalidateCacheFor: aMethod
+onMethodRemoved: anAnnouncement
+	self invalidateCacheFor: anAnnouncement method
 ! !
 
 !HLSelectorsCache methodsFor: 'testing'!

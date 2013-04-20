@@ -317,6 +317,19 @@ smalltalk.HLFindClassCommand);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "isValidFor:",
+fn: function (aModel){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aModel)._isBrowserModel();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isValidFor:",{aModel:aModel},smalltalk.HLFindClassCommand.klass)})},
+messageSends: ["isBrowserModel"]}),
+smalltalk.HLFindClassCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;

@@ -1312,6 +1312,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+_st(_st(self)._widget())._unregister();
 $1=self["@root"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -1320,8 +1321,8 @@ _st(_st(self["@root"])._asJQuery())._remove();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLTab)})},
 args: [],
-source: "remove\x0a\x09root ifNotNil: [ root asJQuery remove ]",
-messageSends: ["ifNotNil:", "remove", "asJQuery"],
+source: "remove\x0a\x09self widget unregister.\x0a\x09root ifNotNil: [ root asJQuery remove ]",
+messageSends: ["unregister", "widget", "ifNotNil:", "remove", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLTab);
@@ -1631,6 +1632,21 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk
 args: ["html"],
 source: "renderOn: html\x0a\x09wrapper := html div.\x0a    [ :renderer | self renderContentOn: renderer ] appendToJQuery: wrapper asJQuery",
 messageSends: ["div", "appendToJQuery:", "asJQuery", "renderContentOn:"],
+referencedClasses: []
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWidget)})},
+args: [],
+source: "unregister\x0a\x09\x22This method is called whenever the receiver is closed (as a tab).\x0a\x09Widgets subscribing to announcements should unregister there\x22",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLWidget);
@@ -3199,6 +3215,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"selectedItem:",{anItem:anItem},s
 args: ["anItem"],
 source: "selectedItem: anItem\x0a\x09\x22Selection changed, update the cog menu\x22\x0a\x09\x0a\x09super selectedItem: anItem.\x0a\x09self updateMenu",
 messageSends: ["selectedItem:", "updateMenu"],
+referencedClasses: []
+}),
+smalltalk.HLToolListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLNavigationListWidget.fn.prototype._unregister.apply(_st(self), []);
+_st(_st(_st(self)._model())._announcer())._unsubscribe_(self);
+_st(_st(_st(self)._model())._systemAnnouncer())._unsubscribe_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLToolListWidget)})},
+args: [],
+source: "unregister\x0a\x09super unregister.\x0a\x09\x0a\x09self model announcer unsubscribe: self.\x0a\x09self model systemAnnouncer unsubscribe: self",
+messageSends: ["unregister", "unsubscribe:", "announcer", "model", "systemAnnouncer"],
 referencedClasses: []
 }),
 smalltalk.HLToolListWidget);
