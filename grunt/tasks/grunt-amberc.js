@@ -23,6 +23,7 @@ module.exports = function(grunt) {
          deploy: true,                         // optional
          output_suffix: 'mySuffix',            // optional
          library_suffix: '-0.9',               // optional
+         verbose: true                         // optional
        },
      },
 
