@@ -74,6 +74,9 @@ function handle_options(optionsArray, amber_dir) {
 				defaults.loadsuffix = optionsArray.shift();
 				defaults.suffix_used = defaults.suffix;
 				break;
+			case '-v':
+				defaults.verbose = true;
+				break;
 			case '-h':
 			case '--help':
 			case '?':
