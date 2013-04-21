@@ -119,6 +119,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'compiled_categories': [],
 		'compiled': [],
 		'program': undefined,
+		'verbose': false,
 		'finished_callback': finished_callback
 	};
 };
@@ -131,6 +132,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
 	if (undefined !== finished_callback) {
 		configuration.finished_callback = finished_callback;
+	}
+
+	console.ambercLog = console.log;
+	if (false === configuration.verbose) {
+		console.log = function() {};
 	}
 
 	if (this.check_configuration_ok(configuration)) {
@@ -443,7 +449,7 @@ AmberC.prototype.compile = function() {
 	this.defaults.compile.forEach(function(stFile) {
 		var callback = imports.add();
 		if (/\.st/.test(stFile)) {
-			console.log('Importing: ' + stFile);
+			console.ambercLog('Importing: ' + stFile);
 			fs.readFile(stFile, 'utf8', function(err, data) {
 				if (!err)
 					callback(data);
@@ -532,12 +538,12 @@ AmberC.prototype.compose_js_files = function() {
 		program_files.push(defaults.init);
 	}
 
-	console.log('Writing program file: %s.js', defaults.program);
+	console.ambercLog('Writing program file: %s.js', defaults.program);
 
 	var fileStream = fs.createWriteStream(defaults.program + defaults.suffix_used + '.js');
 	fileStream.on('error', function(error) {
 		fileStream.end();
-		console.log(error);
+		console.ambercLog(error);
 	});
 
 	fileStream.on('close', function(){
@@ -576,6 +582,7 @@ AmberC.prototype.optimize = function() {
 	var defaults = this.defaults;
 	var self = this;
 	var optimization_done = new Combo(function() {
+		console.log = console.ambercLog;
 		console.timeEnd('Compile Time');
 		if (undefined !== defaults.finished_callback) {
 			defaults.finished_callback();
