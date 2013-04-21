@@ -97,17 +97,11 @@ module.exports = function(grunt) {
               'Kernel-Tests.js', 'Compiler-Tests.js', 'SUnit-Tests.js'],
         output_name: 'amber_dev'
       },
-      server: {
-        working_dir: 'server',
-        src: ['FileServer.st'],
-        main_class: 'FileServer',
-        output_name: 'server'
-      },
-      repl: {
-        working_dir: 'repl',
-        src: ['REPL.st'],
-        main_class: 'Repl',
-        output_name: 'amber'
+      amber_cli: {
+        working_dir: 'cli/js',
+        src: ['../st/AmberCli.st'],
+        main_class: 'AmberCli',
+        output_name: 'amber-cli'
       }
     },
 
