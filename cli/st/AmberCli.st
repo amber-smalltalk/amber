@@ -68,6 +68,34 @@ main
 Object subclass: #FileServer
 	instanceVariableNames: 'path http fs url host port basePath util username password fallbackPage'
 	package: 'AmberCli'!
+!FileServer commentStamp!
+I am the Amber Smalltalk FileServer.
+My runtime requirement is a functional Node.js executable.
+
+To start a FileServer instance on port `4000` use the following code:
+
+    FileServer new start
+
+A parameterized instance can be created with the following code:
+
+    FileServer createServerWithArguments: options
+
+Here, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.
+A list of all available parameters can be printed to the commandline by passing `--help` as parameter.
+See the `Options` section for further details on how options are mapped to instance methods.
+
+After startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.
+
+
+## Options
+
+Each option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.
+The trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.
+Afterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.
+
+## Adding new commandline parameters
+
+Adding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.!
 
 !FileServer methodsFor: 'accessing'!
 
