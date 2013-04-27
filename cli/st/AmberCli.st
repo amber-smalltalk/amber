@@ -46,7 +46,7 @@ repl: args
 	^Repl new createInterface
 !
 
-server: args
+serve: args
 	^(FileServer createServerWithArguments: args) start
 ! !
 

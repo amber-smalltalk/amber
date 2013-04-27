@@ -23,7 +23,7 @@ return _st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowe
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=switches;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},smalltalk.AmberCLI.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},smalltalk.AmberCli.klass)})},
 messageSends: ["collect:", "selector", "methodsInProtocol:", "class", "select:", "match:", "asLowercase", "replace:with:", "allButLast"]}),
 smalltalk.AmberCli.klass);
 
@@ -38,7 +38,7 @@ return smalltalk.withContext(function($ctx1) {
 command=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
 _st(args)._remove_(_st(args)._first());
 _st(self)._perform_withArguments_(command,_st($Array())._with_(args));
-return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,command:command},smalltalk.AmberCLI.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,command:command},smalltalk.AmberCli.klass)})},
 messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:withArguments:", "with:"]}),
 smalltalk.AmberCli.klass);
 
@@ -53,7 +53,7 @@ _st(_st(self)._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(console)._log_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"help:",{args:args},smalltalk.AmberCLI.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"help:",{args:args},smalltalk.AmberCli.klass)})},
 messageSends: ["log:", "do:", "commandLineSwitches"]}),
 smalltalk.AmberCli.klass);
 
@@ -74,7 +74,7 @@ _st(self)._help_(nil);
 $2=_st(self)._handleArguments_(args);
 return $2;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args},smalltalk.AmberCLI.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args},smalltalk.AmberCli.klass)})},
 messageSends: ["argv", "removeFrom:to:", "ifTrue:ifFalse:", "help:", "handleArguments:", "isEmpty"]}),
 smalltalk.AmberCli.klass);
 
@@ -88,7 +88,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($Repl())._new())._createInterface();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},smalltalk.AmberCLI.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},smalltalk.AmberCli.klass)})},
 messageSends: ["createInterface", "new"]}),
 smalltalk.AmberCli.klass);
 
@@ -104,13 +104,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._second())._asUppercase();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}))).__comma(":");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},smalltalk.AmberCLI.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},smalltalk.AmberCli.klass)})},
 messageSends: [",", "replace:with:", "asUppercase", "second"]}),
 smalltalk.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "server:",
+selector: "serve:",
 fn: function (args){
 var self=this;
 function $FileServer(){return smalltalk.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
@@ -118,7 +118,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($FileServer())._createServerWithArguments_(args))._start();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"server:",{args:args},smalltalk.AmberCLI.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},smalltalk.AmberCli.klass)})},
 messageSends: ["start", "createServerWithArguments:"]}),
 smalltalk.AmberCli.klass);
 

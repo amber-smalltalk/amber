@@ -140,7 +140,7 @@ smalltalk.AmberCli.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "server:",
+selector: "serve:",
 category: 'commands',
 fn: function (args){
 var self=this;
@@ -149,9 +149,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st($FileServer())._createServerWithArguments_(args))._start();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"server:",{args:args},smalltalk.AmberCli.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},smalltalk.AmberCli.klass)})},
 args: ["args"],
-source: "server: args\x0a\x09^(FileServer createServerWithArguments: args) start",
+source: "serve: args\x0a\x09^(FileServer createServerWithArguments: args) start",
 messageSends: ["start", "createServerWithArguments:"],
 referencedClasses: ["FileServer"]
 }),
