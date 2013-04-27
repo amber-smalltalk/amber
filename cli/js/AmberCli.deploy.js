@@ -636,18 +636,6 @@ smalltalk.FileServer);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "username:password:",
-fn: function (aUsername,aPassword){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@username"]=aUsername;
-self["@password"]=aPassword;
-return self}, function($ctx1) {$ctx1.fill(self,"username:password:",{aUsername:aUsername,aPassword:aPassword},smalltalk.FileServer)})},
-messageSends: []}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "writeData:toFileNamed:",
 fn: function (data,aFilename){
 var self=this;

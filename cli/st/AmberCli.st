@@ -137,11 +137,6 @@ port: aNumber
 
 username: aUsername
 	username := aUsername.
-!
-
-username: aUsername password: aPassword
-	username := aUsername.
-	password := aPassword.
 ! !
 
 !FileServer methodsFor: 'initialization'!
