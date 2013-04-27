@@ -1118,6 +1118,7 @@ smalltalk.FileServer.klass);
 
 
 smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util'], 'AmberCli');
+smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",

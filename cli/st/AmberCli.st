@@ -845,6 +845,12 @@ main
 Object subclass: #Repl
 	instanceVariableNames: 'readline interface util'
 	package: 'AmberCli'!
+!Repl commentStamp!
+I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.
+On the prompt you can type Amber statements which will be evaluated after pressing <Enter>.
+The evaluation is comparable with executing a 'DoIt' in a workspace.
+
+My runtime requirement is a functional Node.js executable with working Readline support.!
 
 !Repl methodsFor: 'accessing'!
 
