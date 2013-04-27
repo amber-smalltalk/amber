@@ -1,6 +1,6 @@
 smalltalk.addPackage('AmberCli');
 smalltalk.addClass('AmberCli', smalltalk.Object, [], 'AmberCli');
-smalltalk.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a unary class side method in the `commands` protocol.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa."
+smalltalk.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa."
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -39,15 +39,15 @@ selector: "handleArguments:",
 category: 'commandline',
 fn: function (args){
 var self=this;
-var command;
+var selector;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-command=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
+selector=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
 _st(args)._remove_(_st(args)._first());
-_st(self)._perform_withArguments_(command,_st($Array())._with_(args));
-return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,command:command},smalltalk.AmberCli.klass)})},
+_st(self)._perform_withArguments_(selector,_st($Array())._with_(args));
+return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},smalltalk.AmberCli.klass)})},
 args: ["args"],
-source: "handleArguments: args\x0a\x09| command |\x0a\x09command := self selectorForCommandLineSwitch: (args first).\x0a\x09args remove: args first.\x0a\x09self perform: command  withArguments: (Array with: args).",
+source: "handleArguments: args\x0a\x09| selector |\x0a\x0a\x09selector := self selectorForCommandLineSwitch: (args first).\x0a\x09args remove: args first.\x0a\x09self perform: selector  withArguments: (Array with: args)",
 messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:withArguments:", "with:"],
 referencedClasses: ["Array"]
 }),
@@ -124,17 +124,26 @@ selector: "selectorForCommandLineSwitch:",
 category: 'commandline',
 fn: function (aSwitch){
 var self=this;
+var command,selector;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
+var $1,$2;
+$1=_st(_st(self)._commandLineSwitches())._includes_(aSwitch);
+if(smalltalk.assert($1)){
+selector=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._second())._asUppercase();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}))).__comma(":");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},smalltalk.AmberCli.klass)})},
+selector;
+} else {
+selector="help:";
+selector;
+};
+$2=selector;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},smalltalk.AmberCli.klass)})},
 args: ["aSwitch"],
-source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Add ':' at the end\x0a\x09 and replace all occurences of a lowercase letter preceded by a '-' with\x0a\x09 the Uppercase letter.\x0a\x09 Example: fallback-page becomes fallbackPage:\x22\x0a\x09^(aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'",
-messageSends: [",", "replace:with:", "asUppercase", "second"],
+source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Add ':' at the end and replace all occurences of a lowercase letter preceded by a '-' with the Uppercase letter.\x0a\x09 Example: fallback-page becomes fallbackPage:.\x0a\x09 If no correct selector is found return 'help:'\x22\x0a\x09 | command selector |\x0a\x0a\x09 (self commandLineSwitches includes: aSwitch)\x0a\x09 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']\x0a\x09 ifFalse: [ selector := 'help:' ].\x0a\x09^selector",
+messageSends: ["ifTrue:ifFalse:", ",", "replace:with:", "asUppercase", "second", "includes:", "commandLineSwitches"],
 referencedClasses: []
 }),
 smalltalk.AmberCli.klass);

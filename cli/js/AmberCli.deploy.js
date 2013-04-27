@@ -32,13 +32,13 @@ smalltalk.method({
 selector: "handleArguments:",
 fn: function (args){
 var self=this;
-var command;
+var selector;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-command=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
+selector=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
 _st(args)._remove_(_st(args)._first());
-_st(self)._perform_withArguments_(command,_st($Array())._with_(args));
-return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,command:command},smalltalk.AmberCli.klass)})},
+_st(self)._perform_withArguments_(selector,_st($Array())._with_(args));
+return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},smalltalk.AmberCli.klass)})},
 messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:withArguments:", "with:"]}),
 smalltalk.AmberCli.klass);
 
@@ -97,15 +97,24 @@ smalltalk.method({
 selector: "selectorForCommandLineSwitch:",
 fn: function (aSwitch){
 var self=this;
+var command,selector;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
+var $1,$2;
+$1=_st(_st(self)._commandLineSwitches())._includes_(aSwitch);
+if(smalltalk.assert($1)){
+selector=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._second())._asUppercase();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}))).__comma(":");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},smalltalk.AmberCli.klass)})},
-messageSends: [",", "replace:with:", "asUppercase", "second"]}),
+selector;
+} else {
+selector="help:";
+selector;
+};
+$2=selector;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},smalltalk.AmberCli.klass)})},
+messageSends: ["ifTrue:ifFalse:", ",", "replace:with:", "asUppercase", "second", "includes:", "commandLineSwitches"]}),
 smalltalk.AmberCli.klass);
 
 smalltalk.addMethod(

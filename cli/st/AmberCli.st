@@ -12,7 +12,8 @@ Any further commandline parameters are passed to the specific program.
 
 ## Commands
 
-New commands can be added by creating a unary class side method in the `commands` protocol.
+New commands can be added by creating a class side method in the `commands` protocol which takes one parameter.
+This parameter is an array of all commandline options + values passed on to the program.
 Any `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.!
 
 !AmberCli class methodsFor: 'commandline'!
@@ -33,18 +34,23 @@ commandLineSwitches
 !
 
 handleArguments: args
-	| command |
-	command := self selectorForCommandLineSwitch: (args first).
+	| selector |
+
+	selector := self selectorForCommandLineSwitch: (args first).
 	args remove: args first.
-	self perform: command  withArguments: (Array with: args).
+	self perform: selector  withArguments: (Array with: args)
 !
 
 selectorForCommandLineSwitch: aSwitch
-	"Add ':' at the end
-	 and replace all occurences of a lowercase letter preceded by a '-' with
-	 the Uppercase letter.
-	 Example: fallback-page becomes fallbackPage:"
-	^(aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'
+	"Add ':' at the end and replace all occurences of a lowercase letter preceded by a '-' with the Uppercase letter.
+	 Example: fallback-page becomes fallbackPage:.
+	 If no correct selector is found return 'help:'"
+	 | command selector |
+
+	 (self commandLineSwitches includes: aSwitch)
+	 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']
+	 ifFalse: [ selector := 'help:' ].
+	^selector
 ! !
 
 !AmberCli class methodsFor: 'commands'!
