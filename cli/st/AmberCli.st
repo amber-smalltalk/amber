@@ -1,7 +1,119 @@
-Smalltalk current createPackage: 'FileServer'!
+Smalltalk current createPackage: 'AmberCli'!
+Object subclass: #AmberCli
+	instanceVariableNames: ''
+	package: 'AmberCli'!
+!AmberCli commentStamp!
+I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.
+
+My responsibility is to start different Amber programs like the FileServer or the Repl.
+Which program to start is determined by the first commandline parameters passed to the AmberCli executable.
+Use `help` to get a list of all available options.
+Any further commandline parameters are passed to the specific program.
+
+## Commands
+
+New commands can be added by creating a class side method in the `commands` protocol which takes one parameter.
+This parameter is an array of all commandline options + values passed on to the program.
+Any `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.!
+
+!AmberCli class methodsFor: 'commandline'!
+
+commandLineSwitches
+	"Collect all methodnames from the 'commands' protocol of the class
+	 and select the ones with only one parameter.
+	 Then remove the ':' at the end of the name.
+	 Additionally all uppercase letters are made lowercase and preceded by a '-'.
+	 Example: fallbackPage: becomes --fallback-page.
+	 Return the Array containing the commandline switches."
+	| switches |
+	switches := ((self class methodsInProtocol: 'commands') collect: [ :each | each selector]).
+	switches := switches select: [ :each | each match: '^[^:]*:$'].
+	switches :=switches collect: [ :each |
+		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase].
+	^switches
+!
+
+handleArguments: args
+	| selector |
+
+	selector := self selectorForCommandLineSwitch: (args first).
+	args remove: args first.
+	self perform: selector  withArguments: (Array with: args)
+!
+
+selectorForCommandLineSwitch: aSwitch
+	"Add ':' at the end and replace all occurences of a lowercase letter preceded by a '-' with the Uppercase letter.
+	 Example: fallback-page becomes fallbackPage:.
+	 If no correct selector is found return 'help:'"
+	 | command selector |
+
+	 (self commandLineSwitches includes: aSwitch)
+	 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']
+	 ifFalse: [ selector := 'help:' ].
+	^selector
+! !
+
+!AmberCli class methodsFor: 'commands'!
+
+help: args
+	console log: 'Available Commands:'.
+	self commandLineSwitches do: [ :each | console log: each ]
+!
+
+repl: args
+	^Repl new createInterface
+!
+
+serve: args
+	^(FileServer createServerWithArguments: args) start
+! !
+
+!AmberCli class methodsFor: 'startup'!
+
+main
+	"Main entry point for Amber applications.
+	Parses commandline arguments and starts the according subprogram."
+	| args |
+	args := process argv.
+	"Remove the first args which contain the path to the node executable and the script file."
+	args removeFrom: 1 to: 3.
+	
+	(args isEmpty)
+		ifTrue: [self help: nil]
+		ifFalse: [^self handleArguments: args]
+! !
+
 Object subclass: #FileServer
 	instanceVariableNames: 'path http fs url host port basePath util username password fallbackPage'
-	package: 'FileServer'!
+	package: 'AmberCli'!
+!FileServer commentStamp!
+I am the Amber Smalltalk FileServer.
+My runtime requirement is a functional Node.js executable.
+
+To start a FileServer instance on port `4000` use the following code:
+
+    FileServer new start
+
+A parameterized instance can be created with the following code:
+
+    FileServer createServerWithArguments: options
+
+Here, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.
+A list of all available parameters can be printed to the commandline by passing `--help` as parameter.
+See the `Options` section for further details on how options are mapped to instance methods.
+
+After startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.
+
+
+## Options
+
+Each option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.
+The trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.
+Afterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.
+
+## Adding new commandline parameters
+
+Adding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol.!
 
 !FileServer methodsFor: 'accessing'!
 
@@ -43,11 +155,6 @@ port: aNumber
 
 username: aUsername
 	username := aUsername.
-!
-
-username: aUsername password: aPassword
-	username := aUsername.
-	password := aPassword.
 ! !
 
 !FileServer methodsFor: 'initialization'!
@@ -269,6 +376,10 @@ commandLineSwitches
 	switches :=switches collect: [ :each |
 		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
 	^switches
+!
+
+defaultHost
+	^'127.0.0.1'
 !
 
 defaultMimeTypes
@@ -685,10 +796,6 @@ defaultMimeTypes
 	}
 !
 
-defaultHost
-	^'127.0.0.1'
-!
-
 defaultPort
 	^4000
 !
@@ -701,6 +808,13 @@ mimeTypes
 	^mimeTypes ifNil: [mimeTypes := self defaultMimeTypes]
 !
 
+printHelp
+	console log: 'Available commandline options are:'.
+	console log: '--help'.
+	self commandLineSwitches do: [ :each |
+		console log: each, ' <parameter>']
+!
+
 selectorForCommandLineSwitch: aSwitch
 	"Remove the trailing '--', add ':' at the end
 	 and replace all occurences of a lowercase letter preceded by a '-' with
@@ -708,13 +822,6 @@ selectorForCommandLineSwitch: aSwitch
 	 Example: --fallback-page becomes fallbackPage:"
 	^((aSwitch replace: '^--' with: '')
 		replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':'
-!
-
-printHelp
-	console log: 'Available commandline options are:'.
-	console log: '--help'.
-	self commandLineSwitches do: [ :each |
-		console log: each, ' <parameter>']
 ! !
 
 !FileServer class methodsFor: 'initialization'!
@@ -775,3 +882,66 @@ main
 		fileServer := FileServer createServerWithArguments: args.
 		^fileServer start]
 ! !
+
+Object subclass: #Repl
+	instanceVariableNames: 'readline interface util'
+	package: 'AmberCli'!
+!Repl commentStamp!
+I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.
+On the prompt you can type Amber statements which will be evaluated after pressing <Enter>.
+The evaluation is comparable with executing a 'DoIt' in a workspace.
+
+My runtime requirement is a functional Node.js executable with working Readline support.!
+
+!Repl methodsFor: 'accessing'!
+
+prompt
+	^'amber >> '
+! !
+
+!Repl methodsFor: 'actions'!
+
+close
+	process stdin destroy
+!
+
+createInterface
+	"No completion for now"
+	interface := readline createInterface: process stdin stdout: process stdout.
+	interface on: 'line' do: [:buffer  | self eval: buffer].
+	interface on: 'close' do: [self close].
+	self setPrompt.
+	interface prompt
+!
+
+eval: buffer
+	| result |
+	buffer isEmpty ifFalse: [
+		self try: [
+			result := Compiler new evaluateExpression: buffer.
+			Transcript show: result]
+		catch: [:e |
+			e isSmalltalkError
+			    ifTrue: [ErrorHandler new handleError: e]
+			    ifFalse: [process stdout write: e jsStack]]].
+	interface prompt
+!
+
+setPrompt
+	interface setPrompt: self prompt
+! !
+
+!Repl methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	readline := require value: 'readline'.
+	util := require value: 'util'
+! !
+
+!Repl class methodsFor: 'not yet classified'!
+
+main
+	self new createInterface
+! !
+

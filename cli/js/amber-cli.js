@@ -13889,8 +13889,26 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "subStrings:",
+category: 'split join',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._tokenize_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"subStrings:",{aString:aString},smalltalk.String)})},
+args: ["aString"],
+source: "subStrings: aString\x0a\x09^ self tokenize: aString",
+messageSends: ["tokenize:"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tokenize:",
-category: 'converting',
+category: 'split join',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -16762,8 +16780,178 @@ smalltalk.addClass('ProtocolAdded', smalltalk.ProtocolAnnouncement, [], 'Kernel-
 smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
 
 
-smalltalk.addPackage('FileServer');
-smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'FileServer');
+smalltalk.addPackage('AmberCli');
+smalltalk.addClass('AmberCli', smalltalk.Object, [], 'AmberCli');
+smalltalk.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa."
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commandLineSwitches",
+category: 'commandline',
+fn: function (){
+var self=this;
+var switches;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+switches=_st(_st(_st(self)._class())._methodsInProtocol_("commands"))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._selector();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+switches=_st(switches)._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._match_("^[^:]*:$");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+switches=_st(switches)._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=switches;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},smalltalk.AmberCli.klass)})},
+args: [],
+source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'commands' protocol of the class\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self class methodsInProtocol: 'commands') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase].\x0a\x09^switches",
+messageSends: ["collect:", "selector", "methodsInProtocol:", "class", "select:", "match:", "asLowercase", "replace:with:", "allButLast"],
+referencedClasses: []
+}),
+smalltalk.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleArguments:",
+category: 'commandline',
+fn: function (args){
+var self=this;
+var selector;
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+selector=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
+_st(args)._remove_(_st(args)._first());
+_st(self)._perform_withArguments_(selector,_st($Array())._with_(args));
+return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},smalltalk.AmberCli.klass)})},
+args: ["args"],
+source: "handleArguments: args\x0a\x09| selector |\x0a\x0a\x09selector := self selectorForCommandLineSwitch: (args first).\x0a\x09args remove: args first.\x0a\x09self perform: selector  withArguments: (Array with: args)",
+messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:withArguments:", "with:"],
+referencedClasses: ["Array"]
+}),
+smalltalk.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "help:",
+category: 'commands',
+fn: function (args){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(console)._log_("Available Commands:");
+_st(_st(self)._commandLineSwitches())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(console)._log_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"help:",{args:args},smalltalk.AmberCli.klass)})},
+args: ["args"],
+source: "help: args\x0a\x09console log: 'Available Commands:'.\x0a\x09self commandLineSwitches do: [ :each | console log: each ]",
+messageSends: ["log:", "do:", "commandLineSwitches"],
+referencedClasses: []
+}),
+smalltalk.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "main",
+category: 'startup',
+fn: function (){
+var self=this;
+var args;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+args=_st(process)._argv();
+_st(args)._removeFrom_to_((1),(3));
+$1=_st(args)._isEmpty();
+if(smalltalk.assert($1)){
+_st(self)._help_(nil);
+} else {
+$2=_st(self)._handleArguments_(args);
+return $2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args},smalltalk.AmberCli.klass)})},
+args: [],
+source: "main\x0a\x09\x22Main entry point for Amber applications.\x0a\x09Parses commandline arguments and starts the according subprogram.\x22\x0a\x09| args |\x0a\x09args := process argv.\x0a\x09\x22Remove the first args which contain the path to the node executable and the script file.\x22\x0a\x09args removeFrom: 1 to: 3.\x0a\x09\x0a\x09(args isEmpty)\x0a\x09\x09ifTrue: [self help: nil]\x0a\x09\x09ifFalse: [^self handleArguments: args]",
+messageSends: ["argv", "removeFrom:to:", "ifTrue:ifFalse:", "help:", "handleArguments:", "isEmpty"],
+referencedClasses: []
+}),
+smalltalk.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "repl:",
+category: 'commands',
+fn: function (args){
+var self=this;
+function $Repl(){return smalltalk.Repl||(typeof Repl=="undefined"?nil:Repl)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Repl())._new())._createInterface();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"repl:",{args:args},smalltalk.AmberCli.klass)})},
+args: ["args"],
+source: "repl: args\x0a\x09^Repl new createInterface",
+messageSends: ["createInterface", "new"],
+referencedClasses: ["Repl"]
+}),
+smalltalk.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectorForCommandLineSwitch:",
+category: 'commandline',
+fn: function (aSwitch){
+var self=this;
+var command,selector;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(self)._commandLineSwitches())._includes_(aSwitch);
+if(smalltalk.assert($1)){
+selector=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._second())._asUppercase();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}))).__comma(":");
+selector;
+} else {
+selector="help:";
+selector;
+};
+$2=selector;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch,command:command,selector:selector},smalltalk.AmberCli.klass)})},
+args: ["aSwitch"],
+source: "selectorForCommandLineSwitch: aSwitch\x0a\x09\x22Add ':' at the end and replace all occurences of a lowercase letter preceded by a '-' with the Uppercase letter.\x0a\x09 Example: fallback-page becomes fallbackPage:.\x0a\x09 If no correct selector is found return 'help:'\x22\x0a\x09 | command selector |\x0a\x0a\x09 (self commandLineSwitches includes: aSwitch)\x0a\x09 ifTrue: [ selector := (aSwitch replace: '-[a-z]' with: [ :each | each second asUppercase ]), ':']\x0a\x09 ifFalse: [ selector := 'help:' ].\x0a\x09^selector",
+messageSends: ["ifTrue:ifFalse:", ",", "replace:with:", "asUppercase", "second", "includes:", "commandLineSwitches"],
+referencedClasses: []
+}),
+smalltalk.AmberCli.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "serve:",
+category: 'commands',
+fn: function (args){
+var self=this;
+function $FileServer(){return smalltalk.FileServer||(typeof FileServer=="undefined"?nil:FileServer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($FileServer())._createServerWithArguments_(args))._start();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"serve:",{args:args},smalltalk.AmberCli.klass)})},
+args: ["args"],
+source: "serve: args\x0a\x09^(FileServer createServerWithArguments: args) start",
+messageSends: ["start", "createServerWithArguments:"],
+referencedClasses: ["FileServer"]
+}),
+smalltalk.AmberCli.klass);
+
+
+smalltalk.addClass('FileServer', smalltalk.Object, ['path', 'http', 'fs', 'url', 'host', 'port', 'basePath', 'util', 'username', 'password', 'fallbackPage'], 'AmberCli');
+smalltalk.FileServer.comment="I am the Amber Smalltalk FileServer.\x0aMy runtime requirement is a functional Node.js executable.\x0a\x0aTo start a FileServer instance on port `4000` use the following code:\x0a\x0a    FileServer new start\x0a\x0aA parameterized instance can be created with the following code:\x0a\x0a    FileServer createServerWithArguments: options\x0a\x0aHere, `options` is an array of commandline style strings each followed by a value e.g. `#('--port', '6000', '--host', '0.0.0.0')`.\x0aA list of all available parameters can be printed to the commandline by passing `--help` as parameter.\x0aSee the `Options` section for further details on how options are mapped to instance methods.\x0a\x0aAfter startup FileServer checks if the directory layout required by Amber is present and logs a warning on absence.\x0a\x0a\x0a## Options\x0a\x0aEach option is of the form `--some-option-string` which is transformed into a selector of the format `someOptionString:`.\x0aThe trailing `--` gets removed, each `-[a-z]` gets transformed into the according uppercase letter, and a `:` is appended to create a selector which takes a single argument.\x0aAfterwards, the selector gets executed on the `FileServer` instance with the value following in the options array as parameter.\x0a\x0a## Adding new commandline parameters\x0a\x0aAdding new commandline parameters to `FileServer` is as easy as adding a new single parameter method to the `accessing` protocol."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "base64Decode:",
@@ -17416,23 +17604,6 @@ smalltalk.FileServer);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "username:password:",
-category: 'accessing',
-fn: function (aUsername,aPassword){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@username"]=aUsername;
-self["@password"]=aPassword;
-return self}, function($ctx1) {$ctx1.fill(self,"username:password:",{aUsername:aUsername,aPassword:aPassword},smalltalk.FileServer)})},
-args: ["aUsername", "aPassword"],
-source: "username: aUsername password: aPassword\x0a\x09username := aUsername.\x0a\x09password := aPassword.",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.FileServer);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "writeData:toFileNamed:",
 category: 'private',
 fn: function (data,aFilename){
@@ -17722,6 +17893,156 @@ referencedClasses: []
 smalltalk.FileServer.klass);
 
 
+smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util'], 'AmberCli');
+smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "close",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(process)._stdin())._destroy();
+return self}, function($ctx1) {$ctx1.fill(self,"close",{},smalltalk.Repl)})},
+args: [],
+source: "close\x0a\x09process stdin destroy",
+messageSends: ["destroy", "stdin"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createInterface",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
+_st(self["@interface"])._on_do_("line",(function(buffer){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._eval_(buffer);
+}, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1)})}));
+_st(self["@interface"])._on_do_("close",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._close();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(self)._setPrompt();
+_st(self["@interface"])._prompt();
+return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
+args: [],
+source: "createInterface\x0a\x09\x22No completion for now\x22\x0a\x09interface := readline createInterface: process stdin stdout: process stdout.\x0a\x09interface on: 'line' do: [:buffer  | self eval: buffer].\x0a\x09interface on: 'close' do: [self close].\x0a\x09self setPrompt.\x0a\x09interface prompt",
+messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "eval:", "close", "setPrompt", "prompt"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "eval:",
+category: 'actions',
+fn: function (buffer){
+var self=this;
+var result;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(buffer)._isEmpty();
+if(! smalltalk.assert($1)){
+_st(self)._try_catch_((function(){
+return smalltalk.withContext(function($ctx2) {
+result=_st(_st($Compiler())._new())._evaluateExpression_(buffer);
+result;
+return _st($Transcript())._show_(result);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(e){
+return smalltalk.withContext(function($ctx2) {
+$2=_st(e)._isSmalltalkError();
+if(smalltalk.assert($2)){
+return _st(_st($ErrorHandler())._new())._handleError_(e);
+} else {
+return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
+};
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+};
+_st(self["@interface"])._prompt();
+return self}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer,result:result},smalltalk.Repl)})},
+args: ["buffer"],
+source: "eval: buffer\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer.\x0a\x09\x09\x09Transcript show: result]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ErrorHandler new handleError: e]\x0a\x09\x09\x09    ifFalse: [process stdout write: e jsStack]]].\x0a\x09interface prompt",
+messageSends: ["ifFalse:", "try:catch:", "evaluateExpression:", "new", "show:", "ifTrue:ifFalse:", "handleError:", "write:", "jsStack", "stdout", "isSmalltalkError", "isEmpty", "prompt"],
+referencedClasses: ["Compiler", "Transcript", "ErrorHandler"]
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@readline"]=_st(require)._value_("readline");
+self["@util"]=_st(require)._value_("util");
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'",
+messageSends: ["initialize", "value:"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "amber >> ";
+}, function($ctx1) {$ctx1.fill(self,"prompt",{},smalltalk.Repl)})},
+args: [],
+source: "prompt\x0a\x09^'amber >> '",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setPrompt",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@interface"])._setPrompt_(_st(self)._prompt());
+return self}, function($ctx1) {$ctx1.fill(self,"setPrompt",{},smalltalk.Repl)})},
+args: [],
+source: "setPrompt\x0a\x09interface setPrompt: self prompt",
+messageSends: ["setPrompt:", "prompt"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "main",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._new())._createInterface();
+return self}, function($ctx1) {$ctx1.fill(self,"main",{},smalltalk.Repl.klass)})},
+args: [],
+source: "main\x0a\x09self new createInterface",
+messageSends: ["createInterface", "new"],
+referencedClasses: []
+}),
+smalltalk.Repl.klass);
+
+
 (function () {
     var inBrowser = typeof amber !== "undefined" && typeof amber.load === "function";
     function init() {
@@ -17747,4 +18068,4 @@ smalltalk.FileServer.klass);
         // immediately after init, so it must happens synchronously.
         init();
     }
-})();smalltalk.FileServer._main()
+})();smalltalk.AmberCli._main()
