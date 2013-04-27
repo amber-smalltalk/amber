@@ -2,6 +2,18 @@ Smalltalk current createPackage: 'AmberCli'!
 Object subclass: #AmberCli
 	instanceVariableNames: ''
 	package: 'AmberCli'!
+!AmberCli commentStamp!
+I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.
+
+My responsibility is to start different Amber programs like the FileServer or the Repl.
+Which program to start is determined by the first commandline parameters passed to the AmberCli executable.
+Use `help` to get a list of all available options.
+Any further commandline parameters are passed to the specific program.
+
+## Commands
+
+New commands can be added by creating a unary class side method in the `commands` protocol.
+Any `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.!
 
 !AmberCli class methodsFor: 'commandline'!
 

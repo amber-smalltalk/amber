@@ -1,5 +1,6 @@
 smalltalk.addPackage('AmberCli');
 smalltalk.addClass('AmberCli', smalltalk.Object, [], 'AmberCli');
+smalltalk.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a unary class side method in the `commands` protocol.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa."
 
 smalltalk.addMethod(
 smalltalk.method({
