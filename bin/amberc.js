@@ -116,7 +116,6 @@ var createDefaults = function(amber_dir, finished_callback){
 		'deploy': false,
 		'libraries': [],
 		'compile': [],
-		'compiled_categories': [],
 		'compiled': [],
 		'program': undefined,
 		'verbose': false,
@@ -271,7 +270,6 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 			var stFile = data[0];
 			var stCategory = data[1];
 			defaults.compile.push(stFile);
-			defaults.compiled_categories.push(stCategory);
 			defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
 		});
 		callback();
@@ -286,6 +284,7 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 			if (exists) {
 				_callback(stFile, category);
 			} else {
+				console.log('Checking: ' + amberStFile);
 				fs.exists(amberStFile, function(exists) {
 					if (exists) {
 						_callback(amberStFile, category);
@@ -473,7 +472,8 @@ AmberC.prototype.category_export = function() {
 	var defaults = this.defaults;
 	var self = this;
 	// export categories as .js
-	async_map(defaults.compiled_categories, function(category, callback) {
+	async_map(defaults.compile, function(stFile, callback) {
+		var category = path.basename(stFile, '.st');
 		var jsFile = category + defaults.suffix_used + '.js';
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
