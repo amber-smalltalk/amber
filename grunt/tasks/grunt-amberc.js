@@ -122,6 +122,9 @@ module.exports = function(grunt) {
     if (undefined !== outputName) {
       configuration.program = outputName;
     }
+    if (true === data.verbose) {
+    	configuration.verbose = true;
+    }
     return configuration;
   }
 
