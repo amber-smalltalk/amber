@@ -556,8 +556,14 @@ AmberC.prototype.compose_js_files = function() {
 	}
 
 	if (0 !== defaults.compiled.length) {
-		console.log('Collecting compiled files: ' + defaults.compiled);
-		program_files.push.apply(program_files, defaults.compiled);
+		var compiledFiles = defaults.compiled.slice(0);
+		if (true === defaults.deploy) {
+			compiledFiles = compiledFiles.map(function(file) {
+				return file.replace(/\.js$/g, '.deploy.js');
+			});
+		}
+		console.log('Collecting compiled files: ' + compiledFiles);
+		program_files.push.apply(program_files, compiledFiles);
 	}
 
 	if (undefined !== defaults.init) {
