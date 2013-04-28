@@ -509,7 +509,16 @@ AmberC.prototype.category_export = function() {
 AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
 	var self = this;
-	async_map(this.defaults.compile,
+	// copy array
+	var compiledFiles = this.defaults.compiled.slice(0);
+	// append deploy files if necessary
+	if (true === this.defaults.deploy) {
+		this.defaults.compiled.forEach(function(file) {
+			compiledFiles.push(file.replace(/\.js/g, '.deploy.js'));
+		});
+	}
+
+	async_map(compiledFiles,
 		function(file, callback) {
 			fs.exists(file, function(exists) {
 				if (exists)
