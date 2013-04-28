@@ -127,6 +127,9 @@ var createDefaults = function(amber_dir, finished_callback){
 
 /**
  * Main function for executing the compiler.
+ * If check_configuration_ok() returns successfully the configuration is set on the current compiler
+ * instance and check_for_closure_compiler() gets called.
+ * The last step is to call collect_files().
  */
 AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
@@ -182,7 +185,7 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 		exec('which java', function(error, stdout, stderr) {
 			// stdout contains path to java executable
 			if (null !== error) {
-				console.warn('java is not installed but is needed for -O, -A or -o (Closure compiler).');
+				console.warn('java is not installed but is needed for running the Closure compiler (-O, -A or -o flags).');
 				defaults.closure = false;
 				defaults.closure_parts = false;
 				defaults.closure_full = false;
