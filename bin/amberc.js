@@ -545,11 +545,11 @@ AmberC.prototype.compose_js_files = function() {
 		self.optimize();
 		return;
 	}
-	var program_files = [];
 	if (undefined !== defaults.output_dir) {
 		programFile = path.join(defaults.output_dir, programFile);
 	}
 
+	var program_files = [];
 	if (0 !== defaults.libraries.length) {
 		console.log('Collecting libraries: ' + defaults.libraries);
 		program_files.push.apply(program_files, defaults.libraries);
@@ -626,8 +626,12 @@ AmberC.prototype.optimize = function() {
 		});
 	}
 	if (defaults.closure_full && (undefined !== defaults.program)) {
-		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
-		self.closure_compile(defaults.program + '.js', defaults.program + '.min.js', optimization_done.add());
+		var programFile = defaults.program;
+		if (undefined !== defaults.output_dir) {
+			programFile = path.join(defaults.output_dir, programFile);
+		}
+		console.log('Compiling ' + programFile + '.js file using Google closure compiler.');
+		self.closure_compile(programFile + '.js', programFile + '.min.js', optimization_done.add());
 	}
 
 	always_resolve(optimization_done.add());
