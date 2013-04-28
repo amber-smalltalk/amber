@@ -12,8 +12,7 @@ module.exports = function(grunt) {
          closure_jar: ''               // optional
        },
        helloWorld: {
-         src: ['HelloWorld.st'],                // REQUIRED
-         working_dir: 'projects/HelloWorld/st', // optional
+         src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
          target_dir: 'projects/HelloWorld/js',  // optional
          main_class: 'HelloWorld',              // optional
          output_name: 'helloWorld',            // optional
@@ -33,13 +32,6 @@ module.exports = function(grunt) {
     this.requiresConfig('amberc._config.amber_dir');
     this.requiresConfig(['amberc', this.target, 'src']);
 
-    // change working directory if the working_dir property is set on the target
-    var current_dir = process.cwd();
-    var working_dir = this.data.working_dir;
-    if (undefined !== working_dir) {
-      grunt.file.setBase(working_dir);
-    }
-
     // mark task as async task
     var done = this.async();
 
@@ -53,18 +45,6 @@ module.exports = function(grunt) {
     // change back to the old working directory and call the async callback once finished
     var self = this;
     compiler.main(configuration, function(){
-      if (undefined !== self.data.target_dir) {
-        var absolute_target_dir = path.join(current_dir, self.data.target_dir);
-        replaceFileSuffix_moveToTargetDir(self.data.src, absolute_target_dir);
-        // if deploy is set also copy the deploy files
-        if (self.data.deploy) {
-          var suffix = self.data.output_suffix || 'deploy';
-          suffix = '.' + suffix + '.js';
-          replaceFileSuffix_moveToTargetDir(self.data.src, absolute_target_dir, suffix);
-        }
-      }
-      // reset working directory
-      grunt.file.setBase(current_dir);
       // signal that task has finished
       done();
     });
@@ -122,28 +102,12 @@ module.exports = function(grunt) {
     if (undefined !== outputName) {
       configuration.program = outputName;
     }
+    if (undefined !== data.target_dir) {
+    	configuration.output_dir = data.target_dir;
+    }
     if (true === data.verbose) {
     	configuration.verbose = true;
     }
     return configuration;
-  }
-
-
-  /**
-   * Replace '.st' suffix of \p files with '.js' or with \p replace_suffix if this parameter is given.
-   * Afterwards move the files with replaced suffix to \p target_dir if the files exist.
-   */
-  function replaceFileSuffix_moveToTargetDir(files, target_dir, replace_suffix) {
-    var suffix = replace_suffix || '.js';
-    var compiledFiles = files.map(function(item) {
-      return item.replace(/.st$/g, suffix);
-    });
-
-    compiledFiles.forEach(function(file) {
-      if (fs.existsSync(file)) {
-        console.log('Move: ' + file + ' -> ' + path.join(target_dir, file));
-        fs.renameSync(file, path.join(target_dir, file));
-      }
-    });
   }
 };
