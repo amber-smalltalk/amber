@@ -473,8 +473,11 @@ AmberC.prototype.category_export = function() {
 	// export categories as .js
 	async_map(defaults.compile, function(stFile, callback) {
 		var category = path.basename(stFile, '.st');
+		var stFilePath = path.dirname(stFile);
 		var jsFile = category + defaults.suffix_used + '.js';
+		jsFile = path.join(stFilePath, jsFile);
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
+		jsFileDeploy = path.join(stFilePath, jsFileDeploy);
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
 			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
