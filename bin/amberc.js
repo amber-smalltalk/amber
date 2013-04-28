@@ -118,6 +118,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'compile': [],
 		'compiled': [],
 		'program': undefined,
+		'output_dir': undefined,
 		'verbose': false,
 		'finished_callback': finished_callback
 	};
@@ -471,12 +472,15 @@ AmberC.prototype.category_export = function() {
 	// export categories as .js
 	async_map(defaults.compile, function(stFile, callback) {
 		var category = path.basename(stFile, '.st');
-		var stFilePath = path.dirname(stFile);
+		var jsFilePath = defaults.output_dir;
+		if (undefined === jsFilePath) {
+			jsFilePath = path.dirname(stFile);
+		}
 		var jsFile = category + defaults.suffix_used + '.js';
-		jsFile = path.join(stFilePath, jsFile);
+		jsFile = path.join(jsFilePath, jsFile);
 		defaults.compiled.push(jsFile);
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
-		jsFileDeploy = path.join(stFilePath, jsFileDeploy);
+		jsFileDeploy = path.join(jsFilePath, jsFileDeploy);
 
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
@@ -523,11 +527,15 @@ AmberC.prototype.verify = function() {
 AmberC.prototype.compose_js_files = function() {
 	var defaults = this.defaults;
 	var self = this;
-	if (undefined === defaults.program) {
+	var programFile = defaults.program;
+	if (undefined === programFile) {
 		self.optimize();
 		return;
 	}
 	var program_files = [];
+	if (undefined !== defaults.output_dir) {
+		programFile = path.join(defaults.output_dir, programFile);
+	}
 
 	if (0 !== defaults.libraries.length) {
 		console.log('Collecting libraries: ' + defaults.libraries);
@@ -544,9 +552,9 @@ AmberC.prototype.compose_js_files = function() {
 		program_files.push(defaults.init);
 	}
 
-	console.ambercLog('Writing program file: %s.js', defaults.program);
+	console.ambercLog('Writing program file: %s.js', programFile);
 
-	var fileStream = fs.createWriteStream(defaults.program + defaults.suffix_used + '.js');
+	var fileStream = fs.createWriteStream(programFile + defaults.suffix_used + '.js');
 	fileStream.on('error', function(error) {
 		fileStream.end();
 		console.ambercLog(error);
