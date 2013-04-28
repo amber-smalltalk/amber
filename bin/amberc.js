@@ -269,8 +269,6 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			var stFile = data[0];
 			defaults.compile.push(stFile);
-			var stCategory = path.basename(stFile, '.st');
-			defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
 		});
 		callback();
 	});
@@ -476,8 +474,10 @@ AmberC.prototype.category_export = function() {
 		var stFilePath = path.dirname(stFile);
 		var jsFile = category + defaults.suffix_used + '.js';
 		jsFile = path.join(stFilePath, jsFile);
+		defaults.compiled.push(jsFile);
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
 		jsFileDeploy = path.join(stFilePath, jsFileDeploy);
+
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
 			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
@@ -501,7 +501,8 @@ AmberC.prototype.category_export = function() {
 AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
 	var self = this;
-	async_map(this.defaults.compiled, function(file, callback) {
+	async_map(this.defaults.compile,
+		function(file, callback) {
 			fs.exists(file, function(exists) {
 				if (exists)
 					callback(null, null);
