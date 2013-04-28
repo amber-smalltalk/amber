@@ -268,8 +268,8 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 	var collected_st_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			var stFile = data[0];
-			var stCategory = data[1];
 			defaults.compile.push(stFile);
+			var stCategory = path.basename(stFile, '.st');
 			defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
 		});
 		callback();
@@ -278,16 +278,15 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 	stFiles.forEach(function(stFile) {
 		var _callback = collected_st_files.add();
 		console.log('Checking: ' + stFile);
-		var category = path.basename(stFile, '.st');
 		var amberStFile = path.join(self.amber_dir, 'st', stFile);
 		fs.exists(stFile, function(exists) {
 			if (exists) {
-				_callback(stFile, category);
+				_callback(stFile);
 			} else {
 				console.log('Checking: ' + amberStFile);
 				fs.exists(amberStFile, function(exists) {
 					if (exists) {
-						_callback(amberStFile, category);
+						_callback(amberStFile);
 					} else {
 						throw(new Error('Smalltalk file not found: ' + amberStFile));
 					}
