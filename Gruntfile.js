@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         closure_jar: ''
       },
       all: {
-        target_dir : 'js',
+        output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
               'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
               'st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
@@ -44,32 +44,32 @@ module.exports = function(grunt) {
         deploy: true
       },
       amber_kernel: {
-        target_dir : 'js',
+        output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
               'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st'],
         deploy: true
       },
       amber_compiler: {
-        target_dir : 'js',
+        output_dir : 'js',
         src: ['st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
               'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st'],
         output_name: 'Compiler',
         deploy: true
       },
       amber_canvas: {
-        target_dir : 'js',
+        output_dir : 'js',
         src: ['st/Canvas.st', 'st/SUnit.st'],
         deploy: true,
         verbose: true
       },
       amber_IDE: {
-        target_dir : 'js',
+        output_dir : 'js',
         src: ['st/IDE.st'],
         libraries: ['Canvas'],
         deploy: true
       },
       amber_tests: {
-        target_dir : 'js',
+        output_dir : 'js',
         src: ['st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st'],
         libraries: ['SUnit']
       },
@@ -91,7 +91,7 @@ module.exports = function(grunt) {
         output_name: 'js/amber_dev'
       },
       amber_cli: {
-        target_dir: 'cli/js',
+        output_dir: 'cli/js',
         src: ['cli/st/AmberCli.st'],
         main_class: 'AmberCli',
         output_name: 'amber-cli'

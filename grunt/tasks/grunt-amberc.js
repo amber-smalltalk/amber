@@ -13,7 +13,7 @@ module.exports = function(grunt) {
        },
        helloWorld: {
          src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
-         target_dir: 'projects/HelloWorld/js',  // optional
+         output_dir: 'projects/HelloWorld/js',  // optional
          main_class: 'HelloWorld',              // optional
          output_name: 'helloWorld',            // optional
          libraries: 'Canvas',                  // optional
@@ -102,8 +102,8 @@ module.exports = function(grunt) {
     if (undefined !== outputName) {
       configuration.program = outputName;
     }
-    if (undefined !== data.target_dir) {
-    	configuration.output_dir = data.target_dir;
+    if (undefined !== data.output_dir) {
+    	configuration.output_dir = data.output_dir;
     }
     if (true === data.verbose) {
     	configuration.verbose = true;
