@@ -610,9 +610,10 @@ AmberC.prototype.optimize = function() {
 	if (defaults.closure_parts) {
 		console.log('Compiling all js files using Google closure compiler.');
 		defaults.compiled.forEach(function(file) {
-			console.log('Compiling ' + file + ' file using Google closure compiler.');
-			var minifiedName = path.basename(file, '.js') + '.min.js';
-			self.closure_compile(file, minifiedName, optimization_done.add());
+			var deployFile = file.replace(/\.js$/g, '.deploy.js');
+			console.log('Compiling ' + deployFile + ' file using Google closure compiler.');
+			var minifiedName = deployFile.replace(/\.js$/g, '.min.js');
+			self.closure_compile(deployFile, minifiedName, optimization_done.add());
 		});
 	}
 	if (defaults.closure_full && (undefined !== defaults.program)) {
