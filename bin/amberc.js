@@ -137,6 +137,10 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		configuration.finished_callback = finished_callback;
 	}
 
+	if (configuration.closure || configuration.closure_parts || configuration.closure_full) {
+		configuration.deploy = true;
+	}
+
 	console.ambercLog = console.log;
 	if (false === configuration.verbose) {
 		console.log = function() {};
