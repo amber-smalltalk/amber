@@ -214,8 +214,9 @@ showComment
 !
 
 showComment: aBoolean
-	showComment := aBoolean.
-	self announcer announce: HLShowCommentToggled new
+	self withChangesDo: [
+		showComment := aBoolean.
+		self announcer announce: HLShowCommentToggled new ]
 !
 
 showInstance
@@ -846,10 +847,6 @@ observeModel
 		send: #onShowInstanceToggled
 		to: self;
 		
-		on: HLShowCommentToggled 
-		send: #onShowCommentToggled
-		to: self;
-		
 		on: HLMethodSelected 
 		send: #onMethodSelected:
 		to: self;
@@ -976,10 +973,6 @@ onProtocolSelected: anAnnouncement
     
 	self setItemsForSelectedProtocol.
     self refresh
-!
-
-onShowCommentToggled
-	self onProtocolSelected: nil
 !
 
 onShowInstanceToggled

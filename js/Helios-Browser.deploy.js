@@ -555,10 +555,14 @@ fn: function (aBoolean){
 var self=this;
 function $HLShowCommentToggled(){return smalltalk.HLShowCommentToggled||(typeof HLShowCommentToggled=="undefined"?nil:HLShowCommentToggled)}
 return smalltalk.withContext(function($ctx1) { 
+_st(self)._withChangesDo_((function(){
+return smalltalk.withContext(function($ctx2) {
 self["@showComment"]=aBoolean;
-_st(_st(self)._announcer())._announce_(_st($HLShowCommentToggled())._new());
+self["@showComment"];
+return _st(_st(self)._announcer())._announce_(_st($HLShowCommentToggled())._new());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"showComment:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
-messageSends: ["announce:", "new", "announcer"]}),
+messageSends: ["withChangesDo:", "announce:", "new", "announcer"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -1816,7 +1820,6 @@ fn: function (){
 var self=this;
 function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
 function $HLShowInstanceToggled(){return smalltalk.HLShowInstanceToggled||(typeof HLShowInstanceToggled=="undefined"?nil:HLShowInstanceToggled)}
-function $HLShowCommentToggled(){return smalltalk.HLShowCommentToggled||(typeof HLShowCommentToggled=="undefined"?nil:HLShowCommentToggled)}
 function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethodSelected=="undefined"?nil:HLMethodSelected)}
 function $HLMethodsFocusRequested(){return smalltalk.HLMethodsFocusRequested||(typeof HLMethodsFocusRequested=="undefined"?nil:HLMethodsFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
@@ -1824,7 +1827,6 @@ var $1,$2;
 $1=_st(_st(self)._model())._announcer();
 _st($1)._on_send_to_($HLProtocolSelected(),"onProtocolSelected:",self);
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onShowInstanceToggled",self);
-_st($1)._on_send_to_($HLShowCommentToggled(),"onShowCommentToggled",self);
 _st($1)._on_send_to_($HLMethodSelected(),"onMethodSelected:",self);
 $2=_st($1)._on_send_to_($HLMethodsFocusRequested(),"onMethodsFocusRequested",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLMethodsListWidget)})},
@@ -2020,17 +2022,6 @@ _st(self)._setItemsForSelectedProtocol();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLMethodsListWidget)})},
 messageSends: ["selectedItem:", "setItemsForSelectedProtocol", "refresh"]}),
-smalltalk.HLMethodsListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onShowCommentToggled",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._onProtocolSelected_(nil);
-return self}, function($ctx1) {$ctx1.fill(self,"onShowCommentToggled",{},smalltalk.HLMethodsListWidget)})},
-messageSends: ["onProtocolSelected:"]}),
 smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
