@@ -66,6 +66,9 @@ function handle_options(optionsArray, amber_dir) {
 			case '-d':
 				defaults.deploy = true;
 				break;
+			case '-D':
+				defaults.output_dir = optionsArray.shift();
+				break;
 			case '-s':
 				defaults.suffix = optionsArray.shift();
 				defaults.suffix_used = defaults.suffix;
