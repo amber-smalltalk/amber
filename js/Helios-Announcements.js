@@ -422,9 +422,6 @@ smalltalk.addClass('HLPackageSelected', smalltalk.HLItemSelected, [], 'Helios-An
 smalltalk.addClass('HLProtocolSelected', smalltalk.HLItemSelected, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLRefreshRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
-
-
 smalltalk.addClass('HLSaveSourceCode', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 

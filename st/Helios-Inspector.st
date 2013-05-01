@@ -89,7 +89,6 @@ observeModel
 
 observeVariablesWidget
 	self variablesWidget announcer 
-    	on: HLRefreshRequested do: [ :ann | self onRefresh ];
         on: HLDiveRequested do:[ self onDive ]
 !
 
@@ -138,11 +137,6 @@ onInstanceVariableSelected
 !
 
 onPrintIt
-!
-
-onRefresh
-
-	self refresh
 ! !
 
 !HLInspector methodsFor: 'registration'!
@@ -405,11 +399,6 @@ selectItem: anObject
 !HLInspectorVariablesWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
-	html button
-		class: 'btn';
-		with: 'Refresh';
-		onClick: [ self announcer announce: HLRefreshRequested new ].
-
 	diveButton := html button 
 		class: 'btn';
 		with: 'Dive'; 

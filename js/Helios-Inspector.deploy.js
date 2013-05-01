@@ -185,21 +185,14 @@ smalltalk.method({
 selector: "observeVariablesWidget",
 fn: function (){
 var self=this;
-function $HLRefreshRequested(){return smalltalk.HLRefreshRequested||(typeof HLRefreshRequested=="undefined"?nil:HLRefreshRequested)}
 function $HLDiveRequested(){return smalltalk.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(self)._variablesWidget())._announcer();
-_st($1)._on_do_($HLRefreshRequested(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onRefresh();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($HLDiveRequested(),(function(){
+_st(_st(_st(self)._variablesWidget())._announcer())._on_do_($HLDiveRequested(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onDive();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeVariablesWidget",{},smalltalk.HLInspector)})},
-messageSends: ["on:do:", "onRefresh", "announcer", "variablesWidget", "onDive"]}),
+messageSends: ["on:do:", "onDive", "announcer", "variablesWidget"]}),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
@@ -254,17 +247,6 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{},smalltalk.HLInspector)})},
 messageSends: []}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onRefresh",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onRefresh",{},smalltalk.HLInspector)})},
-messageSends: ["refresh"]}),
 smalltalk.HLInspector);
 
 smalltalk.addMethod(
@@ -918,25 +900,17 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
-function $HLRefreshRequested(){return smalltalk.HLRefreshRequested||(typeof HLRefreshRequested=="undefined"?nil:HLRefreshRequested)}
 function $HLDiveRequested(){return smalltalk.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 $1=_st(html)._button();
 _st($1)._class_("btn");
-_st($1)._with_("Refresh");
+_st($1)._with_("Dive");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._announcer())._announce_(_st($HLRefreshRequested())._new());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$3=_st(html)._button();
-_st($3)._class_("btn");
-_st($3)._with_("Dive");
-$4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self)._announcer())._announce_(_st($HLDiveRequested())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-self["@diveButton"]=$4;
+self["@diveButton"]=$2;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
 messageSends: ["class:", "button", "with:", "onClick:", "announce:", "new", "announcer"]}),
 smalltalk.HLInspectorVariablesWidget);

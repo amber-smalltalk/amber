@@ -202,10 +202,6 @@ HLItemSelected subclass: #HLProtocolSelected
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
-HLAnnouncement subclass: #HLRefreshRequested
-	instanceVariableNames: ''
-	package: 'Helios-Announcements'!
-
 HLAnnouncement subclass: #HLSaveSourceCode
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

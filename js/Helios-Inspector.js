@@ -241,24 +241,17 @@ selector: "observeVariablesWidget",
 category: 'actions',
 fn: function (){
 var self=this;
-function $HLRefreshRequested(){return smalltalk.HLRefreshRequested||(typeof HLRefreshRequested=="undefined"?nil:HLRefreshRequested)}
 function $HLDiveRequested(){return smalltalk.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(self)._variablesWidget())._announcer();
-_st($1)._on_do_($HLRefreshRequested(),(function(ann){
-return smalltalk.withContext(function($ctx2) {
-return _st(self)._onRefresh();
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
-$2=_st($1)._on_do_($HLDiveRequested(),(function(){
+_st(_st(_st(self)._variablesWidget())._announcer())._on_do_($HLDiveRequested(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._onDive();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeVariablesWidget",{},smalltalk.HLInspector)})},
 args: [],
-source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a    \x09on: HLRefreshRequested do: [ :ann | self onRefresh ];\x0a        on: HLDiveRequested do:[ self onDive ]\x0a        ",
-messageSends: ["on:do:", "onRefresh", "announcer", "variablesWidget", "onDive"],
-referencedClasses: ["HLRefreshRequested", "HLDiveRequested"]
+source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a        on: HLDiveRequested do:[ self onDive ]\x0a        ",
+messageSends: ["on:do:", "onDive", "announcer", "variablesWidget"],
+referencedClasses: ["HLDiveRequested"]
 }),
 smalltalk.HLInspector);
 
@@ -337,22 +330,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{},smalltalk.HLInspec
 args: [],
 source: "onPrintIt",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLInspector);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onRefresh",
-category: 'reactions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onRefresh",{},smalltalk.HLInspector)})},
-args: [],
-source: "onRefresh\x0a\x0a\x09self refresh",
-messageSends: ["refresh"],
 referencedClasses: []
 }),
 smalltalk.HLInspector);
@@ -1239,30 +1216,22 @@ selector: "renderButtonsOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-function $HLRefreshRequested(){return smalltalk.HLRefreshRequested||(typeof HLRefreshRequested=="undefined"?nil:HLRefreshRequested)}
 function $HLDiveRequested(){return smalltalk.HLDiveRequested||(typeof HLDiveRequested=="undefined"?nil:HLDiveRequested)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 $1=_st(html)._button();
 _st($1)._class_("btn");
-_st($1)._with_("Refresh");
+_st($1)._with_("Dive");
 $2=_st($1)._onClick_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._announcer())._announce_(_st($HLRefreshRequested())._new());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$3=_st(html)._button();
-_st($3)._class_("btn");
-_st($3)._with_("Dive");
-$4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self)._announcer())._announce_(_st($HLDiveRequested())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-self["@diveButton"]=$4;
+self["@diveButton"]=$2;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html button\x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Refresh';\x0a\x09\x09onClick: [ self announcer announce: HLRefreshRequested new ].\x0a\x0a\x09diveButton := html button \x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Dive'; \x0a\x09\x09onClick: [ self announcer announce: HLDiveRequested new ]",
+source: "renderButtonsOn: html\x0a\x09diveButton := html button \x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Dive'; \x0a\x09\x09onClick: [ self announcer announce: HLDiveRequested new ]",
 messageSends: ["class:", "button", "with:", "onClick:", "announce:", "new", "announcer"],
-referencedClasses: ["HLRefreshRequested", "HLDiveRequested"]
+referencedClasses: ["HLDiveRequested"]
 }),
 smalltalk.HLInspectorVariablesWidget);
 
