@@ -362,6 +362,24 @@ i {
     margin-left: 5px;
 }
 
+.tool_container .panes .pane .pane_actions label {
+    display: inline-block;
+    padding-left: 30px;
+    font-size: 11px;
+    line-height: 16px;
+    vertical-align: top;
+    text-shadow: #ddd 0px 1px 0px; 
+    color: #222;
+
+}
+
+.tool_container .panes .pane .pane_actions label input {
+    float: none;
+    vertical-align: top;
+    margin-top: 2px;
+    margin-right: 5px;
+}
+
 .tool_container .panes .pane .pane_actions .btn {
     background: transparent;
     border: 0;
@@ -611,7 +629,6 @@ i {
 .doc code {
     padding: 1px 4px;
 }
-
 .doc .head {
     background: #08C;
     padding: 10px;

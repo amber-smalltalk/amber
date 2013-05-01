@@ -49,6 +49,18 @@ smalltalk.HLInspector);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._register();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLInspector)})},
+messageSends: ["initialize", "register"]}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "inspect:",
 fn: function (anObject){
 var self=this;
@@ -303,6 +315,17 @@ smalltalk.HLInspector);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "register",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._class())._register_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.HLInspector)})},
+messageSends: ["register:", "class"]}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
@@ -351,6 +374,18 @@ smalltalk.HLInspector);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "unregister",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
+_st(_st(self)._class())._unregister_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLInspector)})},
+messageSends: ["unregister", "unregister:", "class"]}),
+smalltalk.HLInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "variablesWidget",
 fn: function (){
 var self=this;
@@ -373,6 +408,7 @@ messageSends: ["ifNil:", "model:", "model", "new", "yourself"]}),
 smalltalk.HLInspector);
 
 
+smalltalk.HLInspector.klass.iVarNames = ['inspectors'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canBeOpenAsTab",
@@ -382,6 +418,49 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLInspector.klass)})},
 messageSends: []}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._watchChanges();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLInspector.klass)})},
+messageSends: ["initialize", "watchChanges"]}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectors",
+fn: function (){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@inspectors"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@inspectors"]=_st($OrderedCollection())._new();
+$1=self["@inspectors"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inspectors",{},smalltalk.HLInspector.klass)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register:",
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._inspectors())._add_(anInspector);
+return self}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.HLInspector.klass)})},
+messageSends: ["add:", "inspectors"]}),
 smalltalk.HLInspector.klass);
 
 smalltalk.addMethod(
@@ -406,6 +485,34 @@ $1=(10);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLInspector.klass)})},
 messageSends: []}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister:",
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._inspectors())._remove_(anInspector);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{anInspector:anInspector},smalltalk.HLInspector.klass)})},
+messageSends: ["remove:", "inspectors"]}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "watchChanges",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._inspectors())._do_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(each)._refresh();
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithInterval_((500));
+return self}, function($ctx1) {$ctx1.fill(self,"watchChanges",{},smalltalk.HLInspector.klass)})},
+messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"]}),
 smalltalk.HLInspector.klass);
 
 

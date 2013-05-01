@@ -123,7 +123,7 @@ canBeOpenAsTab
 ! !
 
 HLWidget subclass: #HLBrowserBottomWidget
-	instanceVariableNames: 'model codeWidget documentationWidget selectedWidget'
+	instanceVariableNames: 'model codeWidget documentationWidget'
 	package: 'Helios-Browser'!
 
 !HLBrowserBottomWidget methodsFor: 'accessing'!
@@ -155,16 +155,12 @@ previous
 
 previous: aWidget
 	"For navigation"
-!
-
-selectedWidget
-	^ selectedWidget ifNil: [ selectedWidget := self codeWidget ]
 ! !
 
 !HLBrowserBottomWidget methodsFor: 'actions'!
 
 focus
-	self selectedWidget focus
+	self codeWidget focus
 !
 
 observeModel
@@ -175,27 +171,30 @@ observeModel
 		on: HLShowCommentToggled
 		send: #onShowCommentToggled
 		to: self
-!
-
-selectWidget: aWidget
-	selectedWidget := aWidget.
-	self refresh
 ! !
 
 !HLBrowserBottomWidget methodsFor: 'reactions'!
 
 onShowCommentToggled
-	self selectWidget: self documentationWidget
+	self refresh
 !
 
 onShowInstanceToggled
-	self selectWidget: self codeWidget
+	self refresh
 ! !
 
 !HLBrowserBottomWidget methodsFor: 'rendering'!
 
 renderContentOn: html
-	html with: self selectedWidget
+	self model showComment 
+		ifTrue: [ self renderPanesOn: html ]
+		ifFalse: [ html with: self codeWidget ]
+!
+
+renderPanesOn: html
+	html with: (HLVerticalSplitter
+		with: self codeWidget
+		with: self documentationWidget)
 ! !
 
 !HLBrowserBottomWidget methodsFor: 'testing'!
@@ -215,9 +214,8 @@ showComment
 !
 
 showComment: aBoolean
-	self withChangesDo: [
-		showComment := aBoolean.
-		self announcer announce: HLShowCommentToggled new ]
+	showComment := aBoolean.
+	self announcer announce: HLShowCommentToggled new
 !
 
 showInstance
@@ -228,7 +226,6 @@ showInstance: aBoolean
 
 	self withChangesDo: [
 		showInstance := aBoolean.
-		showComment := false.
 
     	self selectedClass ifNotNil: [
     		self selectedClass: (aBoolean
@@ -385,20 +382,6 @@ iconForItem: aClass
 
 label
 	^ 'Classes'
-!
-
-showClass
-	^ self model showInstance not and: [
-		self model showComment not ]
-!
-
-showComment
-	^ self model showComment
-!
-
-showInstance
-	^ self model showInstance and: [
-		self model showComment not ]
 ! !
 
 !HLClassesListWidget methodsFor: 'actions'!
@@ -467,6 +450,10 @@ showComment: aBoolean
 
 showInstance: aBoolean
 	self model showInstance: aBoolean
+!
+
+toggleShowComment
+	self model showComment: self showComment not
 ! !
 
 !HLClassesListWidget methodsFor: 'private'!
@@ -585,6 +572,8 @@ onShowInstanceToggled
 !HLClassesListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
+	| checkbox |
+	
 	html div 
         class: 'btn-group';
 		with: [ 
@@ -601,14 +590,17 @@ renderButtonsOn: html
                     self showClass ifTrue: [ 
                     	str nextPutAll: ' active' ] ]);
   				with: 'Class';
-				onClick: [ self showInstance: false ].
-			html button
-  				class: (String streamContents: [ :str |
-                	str nextPutAll: 'btn'.
-                    self showComment ifTrue: [ 
-                    	str nextPutAll: ' active' ] ]);
-  				with: 'Doc';
-				onClick: [ self showComment: true ] ]
+				onClick: [ self showInstance: false ] ].
+		html label 
+			class: 'checkbox';
+			with: [
+				checkbox := html input
+					type: 'checkbox';
+					onClick: [ self toggleShowComment ].
+				html with: 'Doc' ].
+				
+		self showComment ifTrue: [
+			checkbox at: 'checked' put: 'checked' ]
 !
 
 renderItem: aClass level: anInteger on: html
@@ -652,6 +644,20 @@ renderItemLabel: aClass on: html
 renderListOn: html
 	(self getRootClassesOf: self items)
     	do: [ :each | self renderItem: each on: html ]
+! !
+
+!HLClassesListWidget methodsFor: 'testing'!
+
+showClass
+	^ self model showInstance not
+!
+
+showComment
+	^ self model showComment
+!
+
+showInstance
+	^ self model showInstance
 ! !
 
 HLFocusableWidget subclass: #HLDocumentationWidget
@@ -1138,10 +1144,6 @@ observeModel
 		send: #onClassSelected:
 		to: self;
 		
-		on: HLShowCommentToggled 
-		send: #onShowCommentToggled
-		to: self;
-		
     	on: HLProtocolSelected
 		send: #onProtocolSelected:
 		to: self;
@@ -1169,9 +1171,6 @@ selectItem: aString
 !HLProtocolsListWidget methodsFor: 'private'!
 
 setItemsForClass: aClass
-	self model showComment ifTrue: [
-		^ self items: #() ].
-		
 	self items: (aClass
     	ifNil: [ Array with: self allProtocol ]
       	ifNotNil: [ 
@@ -1238,13 +1237,6 @@ onProtocolSelected: anAnnouncement
 
 onProtocolsFocusRequested
 	self focus
-!
-
-onShowCommentToggled
-	self 
-		selectItem: nil;
-		setItemsForSelectedClass;
-    	refresh
 ! !
 
 !HLProtocolsListWidget methodsFor: 'rendering'!

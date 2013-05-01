@@ -20,6 +20,11 @@ displayWidget
         	yourself ]
 !
 
+initialize
+	super initialize.
+	self register
+!
+
 inspectee
 	^ self model inspectee
 !
@@ -140,6 +145,17 @@ onRefresh
 	self refresh
 ! !
 
+!HLInspector methodsFor: 'registration'!
+
+register
+	self class register: self
+!
+
+unregister
+	super unregister.
+	self class unregister: self
+! !
+
 !HLInspector methodsFor: 'rendering'!
 
 renderContentOn: html
@@ -152,7 +168,13 @@ renderContentOn: html
 	self variablesWidget focus
 ! !
 
+HLInspector class instanceVariableNames: 'inspectors'!
+
 !HLInspector class methodsFor: 'accessing'!
+
+inspectors
+	^ inspectors ifNil: [ inspectors := OrderedCollection new ]
+!
 
 tabLabel
 	^ 'Inspector'
@@ -160,6 +182,28 @@ tabLabel
 
 tabPriority
 	^ 10
+! !
+
+!HLInspector class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self watchChanges
+!
+
+watchChanges
+	[ self inspectors do: [ :each | each refresh ] ]
+		valueWithInterval: 500
+! !
+
+!HLInspector class methodsFor: 'registration'!
+
+register: anInspector
+	self inspectors add: anInspector
+!
+
+unregister: anInspector
+	self inspectors remove: anInspector
 ! !
 
 !HLInspector class methodsFor: 'testing'!

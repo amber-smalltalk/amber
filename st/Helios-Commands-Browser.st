@@ -150,7 +150,7 @@ HLToggleCommand subclass: #HLToggleClassCommentCommand
 !HLToggleClassCommentCommand methodsFor: 'executing'!
 
 execute
-	self model showComment: true
+	self model showComment: self model showComment not
 ! !
 
 !HLToggleClassCommentCommand class methodsFor: 'accessing'!

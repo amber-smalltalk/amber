@@ -275,7 +275,7 @@ messageSends: []}),
 smalltalk.HLBrowser.klass);
 
 
-smalltalk.addClass('HLBrowserBottomWidget', smalltalk.HLWidget, ['model', 'codeWidget', 'documentationWidget', 'selectedWidget'], 'Helios-Browser');
+smalltalk.addClass('HLBrowserBottomWidget', smalltalk.HLWidget, ['model', 'codeWidget', 'documentationWidget'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
@@ -339,9 +339,9 @@ selector: "focus",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._selectedWidget())._focus();
+_st(_st(self)._codeWidget())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLBrowserBottomWidget)})},
-messageSends: ["focus", "selectedWidget"]}),
+messageSends: ["focus", "codeWidget"]}),
 smalltalk.HLBrowserBottomWidget);
 
 smalltalk.addMethod(
@@ -391,9 +391,9 @@ selector: "onShowCommentToggled",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._selectWidget_(_st(self)._documentationWidget());
+_st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onShowCommentToggled",{},smalltalk.HLBrowserBottomWidget)})},
-messageSends: ["selectWidget:", "documentationWidget"]}),
+messageSends: ["refresh"]}),
 smalltalk.HLBrowserBottomWidget);
 
 smalltalk.addMethod(
@@ -402,9 +402,9 @@ selector: "onShowInstanceToggled",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._selectWidget_(_st(self)._codeWidget());
+_st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLBrowserBottomWidget)})},
-messageSends: ["selectWidget:", "codeWidget"]}),
+messageSends: ["refresh"]}),
 smalltalk.HLBrowserBottomWidget);
 
 smalltalk.addMethod(
@@ -433,40 +433,27 @@ selector: "renderContentOn:",
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st(self)._selectedWidget());
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowserBottomWidget)})},
-messageSends: ["with:", "selectedWidget"]}),
-smalltalk.HLBrowserBottomWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectWidget:",
-fn: function (aWidget){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@selectedWidget"]=aWidget;
-_st(self)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"selectWidget:",{aWidget:aWidget},smalltalk.HLBrowserBottomWidget)})},
-messageSends: ["refresh"]}),
-smalltalk.HLBrowserBottomWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "selectedWidget",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@selectedWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@selectedWidget"]=_st(self)._codeWidget();
-$1=self["@selectedWidget"];
+var $1;
+$1=_st(_st(self)._model())._showComment();
+if(smalltalk.assert($1)){
+_st(self)._renderPanesOn_(html);
 } else {
-$1=$2;
+_st(html)._with_(_st(self)._codeWidget());
 };
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"selectedWidget",{},smalltalk.HLBrowserBottomWidget)})},
-messageSends: ["ifNil:", "codeWidget"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowserBottomWidget)})},
+messageSends: ["ifTrue:ifFalse:", "renderPanesOn:", "with:", "codeWidget", "showComment", "model"]}),
+smalltalk.HLBrowserBottomWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderPanesOn:",
+fn: function (html){
+var self=this;
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
+return smalltalk.withContext(function($ctx1) { 
+_st(html)._with_(_st($HLVerticalSplitter())._with_with_(_st(self)._codeWidget(),_st(self)._documentationWidget()));
+return self}, function($ctx1) {$ctx1.fill(self,"renderPanesOn:",{html:html},smalltalk.HLBrowserBottomWidget)})},
+messageSends: ["with:", "with:with:", "codeWidget", "documentationWidget"]}),
 smalltalk.HLBrowserBottomWidget);
 
 
@@ -568,14 +555,10 @@ fn: function (aBoolean){
 var self=this;
 function $HLShowCommentToggled(){return smalltalk.HLShowCommentToggled||(typeof HLShowCommentToggled=="undefined"?nil:HLShowCommentToggled)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._withChangesDo_((function(){
-return smalltalk.withContext(function($ctx2) {
 self["@showComment"]=aBoolean;
-self["@showComment"];
-return _st(_st(self)._announcer())._announce_(_st($HLShowCommentToggled())._new());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(self)._announcer())._announce_(_st($HLShowCommentToggled())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"showComment:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
-messageSends: ["withChangesDo:", "announce:", "new", "announcer"]}),
+messageSends: ["announce:", "new", "announcer"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -608,8 +591,6 @@ _st(self)._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@showInstance"]=aBoolean;
 self["@showInstance"];
-self["@showComment"]=false;
-self["@showComment"];
 $1=_st(self)._selectedClass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -1186,9 +1167,10 @@ smalltalk.method({
 selector: "renderButtonsOn:",
 fn: function (html){
 var self=this;
+var checkbox;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$8,$9,$10,$11,$2;
+var $1,$3,$4,$5,$6,$7,$8,$2,$9,$11,$12,$10,$13;
 $1=_st(html)._div();
 _st($1)._class_("btn-group");
 $2=_st($1)._with_((function(){
@@ -1222,25 +1204,28 @@ $8=_st($6)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self)._showInstance_(false);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-$8;
-$9=_st(html)._button();
-_st($9)._class_(_st($String())._streamContents_((function(str){
-return smalltalk.withContext(function($ctx3) {
-_st(str)._nextPutAll_("btn");
-$10=_st(self)._showComment();
-if(smalltalk.assert($10)){
-return _st(str)._nextPutAll_(" active");
-};
-}, function($ctx3) {$ctx3.fillBlock({str:str},$ctx1)})})));
-_st($9)._with_("Doc");
-$11=_st($9)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self)._showComment_(true);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return $11;
+return $8;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLClassesListWidget)})},
-messageSends: ["class:", "div", "with:", "streamContents:", "nextPutAll:", "ifTrue:", "showInstance", "button", "onClick:", "showInstance:", "showClass", "showComment", "showComment:"]}),
+$9=_st(html)._label();
+_st($9)._class_("checkbox");
+$10=_st($9)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$11=_st(html)._input();
+_st($11)._type_("checkbox");
+$12=_st($11)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._toggleShowComment();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+checkbox=$12;
+checkbox;
+return _st(html)._with_("Doc");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$13=_st(self)._showComment();
+if(smalltalk.assert($13)){
+_st(checkbox)._at_put_("checked","checked");
+};
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,checkbox:checkbox},smalltalk.HLClassesListWidget)})},
+messageSends: ["class:", "div", "with:", "streamContents:", "nextPutAll:", "ifTrue:", "showInstance", "button", "onClick:", "showInstance:", "showClass", "label", "type:", "input", "toggleShowComment", "at:put:", "showComment"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1391,13 +1376,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(self)._model())._showInstance())._not())._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._model())._showComment())._not();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=_st(_st(_st(self)._model())._showInstance())._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showClass",{},smalltalk.HLClassesListWidget)})},
-messageSends: ["and:", "not", "showComment", "model", "showInstance"]}),
+messageSends: ["not", "showInstance", "model"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1431,13 +1413,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._showInstance())._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._model())._showComment())._not();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=_st(_st(self)._model())._showInstance();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showInstance",{},smalltalk.HLClassesListWidget)})},
-messageSends: ["and:", "not", "showComment", "model", "showInstance"]}),
+messageSends: ["showInstance", "model"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1449,6 +1428,17 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self)._model())._showInstance_(aBoolean);
 return self}, function($ctx1) {$ctx1.fill(self,"showInstance:",{aBoolean:aBoolean},smalltalk.HLClassesListWidget)})},
 messageSends: ["showInstance:", "model"]}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "toggleShowComment",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._showComment_(_st(_st(self)._showComment())._not());
+return self}, function($ctx1) {$ctx1.fill(self,"toggleShowComment",{},smalltalk.HLClassesListWidget)})},
+messageSends: ["showComment:", "not", "showComment", "model"]}),
 smalltalk.HLClassesListWidget);
 
 
@@ -2458,7 +2448,6 @@ fn: function (){
 var self=this;
 function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
 function $HLShowInstanceToggled(){return smalltalk.HLShowInstanceToggled||(typeof HLShowInstanceToggled=="undefined"?nil:HLShowInstanceToggled)}
-function $HLShowCommentToggled(){return smalltalk.HLShowCommentToggled||(typeof HLShowCommentToggled=="undefined"?nil:HLShowCommentToggled)}
 function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLProtocolSelected=="undefined"?nil:HLProtocolSelected)}
 function $HLProtocolsFocusRequested(){return smalltalk.HLProtocolsFocusRequested||(typeof HLProtocolsFocusRequested=="undefined"?nil:HLProtocolsFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
@@ -2466,7 +2455,6 @@ var $1,$2;
 $1=_st(_st(self)._model())._announcer();
 _st($1)._on_send_to_($HLClassSelected(),"onClassSelected:",self);
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onClassSelected:",self);
-_st($1)._on_send_to_($HLShowCommentToggled(),"onShowCommentToggled",self);
 _st($1)._on_send_to_($HLProtocolSelected(),"onProtocolSelected:",self);
 $2=_st($1)._on_send_to_($HLProtocolsFocusRequested(),"onProtocolsFocusRequested",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLProtocolsListWidget)})},
@@ -2591,21 +2579,6 @@ smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onShowCommentToggled",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self;
-_st($1)._selectItem_(nil);
-_st($1)._setItemsForSelectedClass();
-$2=_st($1)._refresh();
-return self}, function($ctx1) {$ctx1.fill(self,"onShowCommentToggled",{},smalltalk.HLProtocolsListWidget)})},
-messageSends: ["selectItem:", "setItemsForSelectedClass", "refresh"]}),
-smalltalk.HLProtocolsListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
@@ -2658,25 +2631,20 @@ fn: function (aClass){
 var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$6,$7,$4;
-$1=_st(_st(self)._model())._showComment();
-if(smalltalk.assert($1)){
-$2=_st(self)._items_([]);
-return $2;
-};
-$3=self;
-$5=aClass;
-if(($receiver = $5) == nil || $receiver == undefined){
-$4=_st($Array())._with_(_st(self)._allProtocol());
+var $1,$3,$4,$5,$2;
+$1=self;
+$3=aClass;
+if(($receiver = $3) == nil || $receiver == undefined){
+$2=_st($Array())._with_(_st(self)._allProtocol());
 } else {
-$6=_st($Array())._with_(_st(self)._allProtocol());
-_st($6)._addAll_(_st(aClass)._protocols());
-$7=_st($6)._yourself();
-$4=$7;
+$4=_st($Array())._with_(_st(self)._allProtocol());
+_st($4)._addAll_(_st(aClass)._protocols());
+$5=_st($4)._yourself();
+$2=$5;
 };
-_st($3)._items_($4);
+_st($1)._items_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setItemsForClass:",{aClass:aClass},smalltalk.HLProtocolsListWidget)})},
-messageSends: ["ifTrue:", "items:", "showComment", "model", "ifNil:ifNotNil:", "with:", "allProtocol", "addAll:", "protocols", "yourself"]}),
+messageSends: ["items:", "ifNil:ifNotNil:", "with:", "allProtocol", "addAll:", "protocols", "yourself"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(

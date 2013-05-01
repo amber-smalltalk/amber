@@ -265,9 +265,9 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showComment_(true);
+_st(_st(self)._model())._showComment_(_st(_st(_st(self)._model())._showComment())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
-messageSends: ["showComment:", "model"]}),
+messageSends: ["showComment:", "not", "showComment", "model"]}),
 smalltalk.HLToggleClassCommentCommand);
 
 
