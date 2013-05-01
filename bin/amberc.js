@@ -116,9 +116,9 @@ var createDefaults = function(amber_dir, finished_callback){
 		'deploy': false,
 		'libraries': [],
 		'compile': [],
-		'compiled_categories': [],
 		'compiled': [],
 		'program': undefined,
+		'output_dir': undefined,
 		'verbose': false,
 		'finished_callback': finished_callback
 	};
@@ -127,11 +127,18 @@ var createDefaults = function(amber_dir, finished_callback){
 
 /**
  * Main function for executing the compiler.
+ * If check_configuration_ok() returns successfully the configuration is set on the current compiler
+ * instance and check_for_closure_compiler() gets called.
+ * The last step is to call collect_files().
  */
 AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
 	if (undefined !== finished_callback) {
 		configuration.finished_callback = finished_callback;
+	}
+
+	if (configuration.closure || configuration.closure_parts || configuration.closure_full) {
+		configuration.deploy = true;
 	}
 
 	console.ambercLog = console.log;
@@ -182,7 +189,7 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 		exec('which java', function(error, stdout, stderr) {
 			// stdout contains path to java executable
 			if (null !== error) {
-				console.warn('java is not installed but is needed for -O, -A or -o (Closure compiler).');
+				console.warn('java is not installed but is needed for running the Closure compiler (-O, -A or -o flags).');
 				defaults.closure = false;
 				defaults.closure_parts = false;
 				defaults.closure_full = false;
@@ -266,10 +273,7 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 	var collected_st_files = new Combo(function() {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			var stFile = data[0];
-			var stCategory = data[1];
 			defaults.compile.push(stFile);
-			defaults.compiled_categories.push(stCategory);
-			defaults.compiled.push(stCategory + defaults.suffix_used + '.js');
 		});
 		callback();
 	});
@@ -277,15 +281,15 @@ AmberC.prototype.collect_st_files = function(stFiles, callback) {
 	stFiles.forEach(function(stFile) {
 		var _callback = collected_st_files.add();
 		console.log('Checking: ' + stFile);
-		var category = path.basename(stFile, '.st');
 		var amberStFile = path.join(self.amber_dir, 'st', stFile);
 		fs.exists(stFile, function(exists) {
 			if (exists) {
-				_callback(stFile, category);
+				_callback(stFile);
 			} else {
+				console.log('Checking: ' + amberStFile);
 				fs.exists(amberStFile, function(exists) {
 					if (exists) {
-						_callback(amberStFile, category);
+						_callback(amberStFile);
 					} else {
 						throw(new Error('Smalltalk file not found: ' + amberStFile));
 					}
@@ -470,9 +474,18 @@ AmberC.prototype.category_export = function() {
 	var defaults = this.defaults;
 	var self = this;
 	// export categories as .js
-	async_map(defaults.compiled_categories, function(category, callback) {
+	async_map(defaults.compile, function(stFile, callback) {
+		var category = path.basename(stFile, '.st');
+		var jsFilePath = defaults.output_dir;
+		if (undefined === jsFilePath) {
+			jsFilePath = path.dirname(stFile);
+		}
 		var jsFile = category + defaults.suffix_used + '.js';
+		jsFile = path.join(jsFilePath, jsFile);
+		defaults.compiled.push(jsFile);
 		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
+		jsFileDeploy = path.join(jsFilePath, jsFileDeploy);
+
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
 			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
@@ -496,7 +509,17 @@ AmberC.prototype.category_export = function() {
 AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
 	var self = this;
-	async_map(this.defaults.compiled, function(file, callback) {
+	// copy array
+	var compiledFiles = this.defaults.compiled.slice(0);
+	// append deploy files if necessary
+	if (true === this.defaults.deploy) {
+		this.defaults.compiled.forEach(function(file) {
+			compiledFiles.push(file.replace(/\.js/g, '.deploy.js'));
+		});
+	}
+
+	async_map(compiledFiles,
+		function(file, callback) {
 			fs.exists(file, function(exists) {
 				if (exists)
 					callback(null, null);
@@ -517,20 +540,30 @@ AmberC.prototype.verify = function() {
 AmberC.prototype.compose_js_files = function() {
 	var defaults = this.defaults;
 	var self = this;
-	if (undefined === defaults.program) {
+	var programFile = defaults.program;
+	if (undefined === programFile) {
 		self.optimize();
 		return;
 	}
-	var program_files = [];
+	if (undefined !== defaults.output_dir) {
+		programFile = path.join(defaults.output_dir, programFile);
+	}
 
+	var program_files = [];
 	if (0 !== defaults.libraries.length) {
 		console.log('Collecting libraries: ' + defaults.libraries);
 		program_files.push.apply(program_files, defaults.libraries);
 	}
 
 	if (0 !== defaults.compiled.length) {
-		console.log('Collecting compiled files: ' + defaults.compiled);
-		program_files.push.apply(program_files, defaults.compiled);
+		var compiledFiles = defaults.compiled.slice(0);
+		if (true === defaults.deploy) {
+			compiledFiles = compiledFiles.map(function(file) {
+				return file.replace(/\.js$/g, '.deploy.js');
+			});
+		}
+		console.log('Collecting compiled files: ' + compiledFiles);
+		program_files.push.apply(program_files, compiledFiles);
 	}
 
 	if (undefined !== defaults.init) {
@@ -538,9 +571,9 @@ AmberC.prototype.compose_js_files = function() {
 		program_files.push(defaults.init);
 	}
 
-	console.ambercLog('Writing program file: %s.js', defaults.program);
+	console.ambercLog('Writing program file: %s.js', programFile);
 
-	var fileStream = fs.createWriteStream(defaults.program + defaults.suffix_used + '.js');
+	var fileStream = fs.createWriteStream(programFile + defaults.suffix_used + '.js');
 	fileStream.on('error', function(error) {
 		fileStream.end();
 		console.ambercLog(error);
@@ -592,14 +625,19 @@ AmberC.prototype.optimize = function() {
 	if (defaults.closure_parts) {
 		console.log('Compiling all js files using Google closure compiler.');
 		defaults.compiled.forEach(function(file) {
-			console.log('Compiling ' + file + ' file using Google closure compiler.');
-			var minifiedName = path.basename(file, '.js') + '.min.js';
-			self.closure_compile(file, minifiedName, optimization_done.add());
+			var deployFile = file.replace(/\.js$/g, '.deploy.js');
+			console.log('Compiling ' + deployFile + ' file using Google closure compiler.');
+			var minifiedName = deployFile.replace(/\.js$/g, '.min.js');
+			self.closure_compile(deployFile, minifiedName, optimization_done.add());
 		});
 	}
 	if (defaults.closure_full && (undefined !== defaults.program)) {
-		console.log('Compiling ' + defaults.program + '.js file using Google closure compiler.');
-		self.closure_compile(defaults.program + '.js', defaults.program + '.min.js', optimization_done.add());
+		var programFile = defaults.program;
+		if (undefined !== defaults.output_dir) {
+			programFile = path.join(defaults.output_dir, programFile);
+		}
+		console.log('Compiling ' + programFile + '.js file using Google closure compiler.');
+		self.closure_compile(programFile + '.js', programFile + '.min.js', optimization_done.add());
 	}
 
 	always_resolve(optimization_done.add());

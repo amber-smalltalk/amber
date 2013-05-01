@@ -33,73 +33,66 @@ module.exports = function(grunt) {
         closure_jar: ''
       },
       all: {
-        working_dir: 'st',
-        target_dir : 'js',
-        src: ['Kernel-Objects.st', 'Kernel-Classes.st', 'Kernel-Methods.st', 'Kernel-Collections.st',
-              'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st',
-              'Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
-              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st',
-              'Canvas.st', 'SUnit.st', 'IDE.st',
-              'Kernel-Tests.st', 'Compiler-Tests.st', 'SUnit-Tests.st'
+        output_dir : 'js',
+        src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
+              'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
+              'st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
+              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st',
+              'st/Canvas.st', 'st/SUnit.st', 'st/IDE.st',
+              'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st'
               ],
         deploy: true
       },
       amber_kernel: {
-        working_dir: 'st',
-        target_dir : 'js',
-        src: ['Kernel-Objects.st', 'Kernel-Classes.st', 'Kernel-Methods.st', 'Kernel-Collections.st',
-              'Kernel-Exceptions.st', 'Kernel-Transcript.st', 'Kernel-Announcements.st'],
+        output_dir : 'js',
+        src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
+              'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st'],
         deploy: true
       },
       amber_compiler: {
-        working_dir: 'st',
-        target_dir : 'js',
-        src: ['Importer-Exporter.st', 'Compiler-Exceptions.st', 'Compiler-Core.st', 'Compiler-AST.st',
-              'Compiler-IR.st', 'Compiler-Inlining.st', 'Compiler-Semantic.st'],
+        output_dir : 'js',
+        src: ['st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
+              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st'],
         output_name: 'Compiler',
         deploy: true
       },
       amber_canvas: {
-        working_dir: 'st',
-        target_dir : 'js',
-        src: ['Canvas.st', 'SUnit.st'],
-        deploy: true
+        output_dir : 'js',
+        src: ['st/Canvas.st', 'st/SUnit.st'],
+        deploy: true,
+        verbose: true
       },
       amber_IDE: {
-        working_dir: 'st',
-        target_dir : 'js',
-        src: ['IDE.st'],
+        output_dir : 'js',
+        src: ['st/IDE.st'],
         libraries: ['Canvas'],
         deploy: true
       },
       amber_tests: {
-        working_dir: 'st',
-        target_dir : 'js',
-        src: ['Kernel-Tests.st', 'Compiler-Tests.st', 'SUnit-Tests.st'],
+        output_dir : 'js',
+        src: ['st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st'],
         libraries: ['SUnit']
       },
       amber_test_runner: {
-        working_dir: 'test',
-        src: ['Test.st'],
+        src: ['test/Test.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
         'SUnit',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
-        output_name: 'amber_test_runner'
+        output_name: 'test/amber_test_runner'
       },
       amber_dev: {
-        working_dir: 'js',
         src: [
               'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
               'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
               'Canvas.js', 'IDE.js', 'SUnit.js',
               'Kernel-Tests.js', 'Compiler-Tests.js', 'SUnit-Tests.js'],
-        output_name: 'amber_dev'
+        output_name: 'js/amber_dev'
       },
       amber_cli: {
-        working_dir: 'cli/js',
-        src: ['../st/AmberCli.st'],
+        output_dir: 'cli/js',
+        src: ['cli/st/AmberCli.st'],
         main_class: 'AmberCli',
         output_name: 'amber-cli'
       }
