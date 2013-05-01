@@ -2252,17 +2252,6 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "IsImmutable",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return true;
-}, function($ctx1) {$ctx1.fill(self,"IsImmutable",{},smalltalk.Number)})},
-messageSends: []}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "\x5c\x5c",
 fn: function (aNumber){
 var self=this;
@@ -2398,6 +2387,17 @@ $1=_st(_st(self)._asString()).__comma("n");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.Number)})},
 messageSends: [",", "asString"]}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isImmutable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Number)})},
+messageSends: []}),
 smalltalk.Number);
 
 smalltalk.addMethod(

@@ -1193,12 +1193,12 @@ printShowingDecimalPlaces: placesDesired
 
 !Number methodsFor: 'testing'!
 
-IsImmutable
-	^ true
-!
-
 even
 	^ 0 = (self \\ 2)
+!
+
+isImmutable
+	^ true
 !
 
 isNumber

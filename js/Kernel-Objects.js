@@ -3108,22 +3108,6 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "IsImmutable",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return true;
-}, function($ctx1) {$ctx1.fill(self,"IsImmutable",{},smalltalk.Number)})},
-args: [],
-source: "IsImmutable\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Number);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "\x5c\x5c",
 category: 'arithmetic',
 fn: function (aNumber){
@@ -3312,6 +3296,22 @@ return $1;
 args: [],
 source: "identityHash\x0a\x09^self asString, 'n'",
 messageSends: [",", "asString"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isImmutable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.Number)})},
+args: [],
+source: "isImmutable\x0a\x09^ true",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
