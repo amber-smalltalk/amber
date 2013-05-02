@@ -709,9 +709,9 @@ selector: "at:ifPresent:ifAbsent:",
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._subclassReponsibility();
+_st(self)._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.IndexableCollection)})},
-messageSends: ["subclassReponsibility"]}),
+messageSends: ["subclassResponsibility"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(
@@ -2007,6 +2007,17 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+fn: function (anIndex,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return anIndex < 1 || self.length < anIndex ? anotherBlock._value() : aBlock._value_(self[anIndex - 1]);;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Array)})},
+messageSends: []}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:put:",
 fn: function (anIndex,anObject){
 var self=this;
@@ -2615,6 +2626,20 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return String(self).charAt(anIndex - 1) || aBlock();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.String)})},
+messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+fn: function (anIndex,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var result = String(self).charAt(anIndex - 1);
+		return result ? aBlock._value_(result) : anotherBlock._value();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);
 
