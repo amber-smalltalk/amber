@@ -136,7 +136,7 @@ smalltalk.Association.klass);
 
 
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
-smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collectiohn hierarchy such as enumerating and converting methods."
+smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods."
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -872,7 +872,7 @@ smalltalk.Collection.klass);
 
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
-smalltalk.IndexableCollection.comment="I am a key-value store, that is,\x0ait stores values under indexes.\x0a\x0aAs a rule of thumb, if a collection has at: and at:put:,\x0ait is an IndexableCollection."
+smalltalk.IndexableCollection.comment="I am a key-value store collection, that is,\x0aI store values under indexes.\x0a\x0aAs a rule of thumb, if a collection has `#at:` and `#at:put:`,\x0ait is an IndexableCollection."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
@@ -1038,7 +1038,7 @@ smalltalk.IndexableCollection);
 
 
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
-smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, it can only have strings as keys."
+smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys."
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -2615,7 +2615,7 @@ smalltalk.SequenceableCollection.klass);
 
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0aIn Amber, OrderedCollection is an alias for Array."
+smalltalk.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0a\x0aI am directly mapped to JavaScript Number.\x0a\x0a*Note* In Amber, `OrderedCollection` is an alias for `Array`."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",

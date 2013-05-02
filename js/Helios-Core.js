@@ -1,5 +1,6 @@
 smalltalk.addPackage('Helios-Core');
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
+smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).\x0a\x0a"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
@@ -176,6 +177,7 @@ smalltalk.HLModel);
 
 
 smalltalk.addClass('HLToolModel', smalltalk.HLModel, ['selectedClass', 'selectedPackage', 'selectedProtocol', 'selectedSelector'], 'Helios-Core');
+smalltalk.HLToolModel.comment="I am a model specific to package and class manipulation. All browsers should either use me or a subclass as their model.\x0a\x0aI provide methods for package, class, protocol and method manipulation and access, forwarding to my environment.\x0a\x0aI also handle compilation of classes and methods as well as compilation and parsing errors."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addInstVarNamed:",
@@ -1115,6 +1117,7 @@ smalltalk.HLToolModel.klass);
 
 
 smalltalk.addClass('HLTab', smalltalk.Widget, ['widget', 'label', 'root'], 'Helios-Core');
+smalltalk.HLTab.comment="I am a widget specialized into building another widget as an Helios tab.\x0a\x0aI should not be used directly, `HLWidget class >> #openAsTab` should be used instead.\x0a\x0a## Example\x0a\x0a    HLWorkspace openAsTab"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate",
@@ -1455,6 +1458,7 @@ smalltalk.HLTab.klass);
 
 
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
+smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\x0a\x0aI provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alert:",

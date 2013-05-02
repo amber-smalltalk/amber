@@ -1,6 +1,6 @@
 smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
-smalltalk.Behavior.comment="Behavior is the superclass of all class objects.\x0a\x0aIt defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0aInstances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aBehavior also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy."
+smalltalk.Behavior.comment="I am the superclass of all class objects.\x0a\x0aI define the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0a\x0aMy instances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aI also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addCompiledMethod:",
@@ -883,7 +883,7 @@ smalltalk.Behavior);
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
-smalltalk.Class.comment="Class is __the__ class object.\x0a\x0aInstances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder`"
+smalltalk.Class.comment="I am __the__ class object.\x0a\x0aMy instances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder` instance."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
@@ -1138,7 +1138,7 @@ smalltalk.Class);
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
-smalltalk.Metaclass.comment="Metaclass is the root of the class hierarchy.\x0a\x0aMetaclass instances are metaclasses, one for each real class.\x0aMetaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of."
+smalltalk.Metaclass.comment="I am the root of the class hierarchy.\x0a\x0aMy instances are metaclasses, one for each real class, and have a single instance, which they hold onto: the class that they are the metaclass of."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asJavascript",
@@ -1297,7 +1297,7 @@ smalltalk.Metaclass);
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
-smalltalk.ClassBuilder.comment="ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`."
+smalltalk.ClassBuilder.comment="I am responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using me directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
@@ -1744,7 +1744,7 @@ smalltalk.ClassBuilder);
 
 
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category'], 'Kernel-Classes');
-smalltalk.ClassCategoryReader.comment="ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file."
+smalltalk.ClassCategoryReader.comment="I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "class:category:",
@@ -1825,7 +1825,7 @@ smalltalk.ClassCategoryReader);
 
 
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class'], 'Kernel-Classes');
-smalltalk.ClassCommentReader.comment="ClassCommentReader represents a mechanism for retrieving class comments stored on a file.\x0aSee `ClassCategoryReader` too."
+smalltalk.ClassCommentReader.comment="I provide a mechanism for retrieving class comments stored on a file.\x0a\x0aSee also `ClassCategoryReader`."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "class:",
@@ -1899,6 +1899,7 @@ smalltalk.ClassCommentReader);
 
 
 smalltalk.addClass('ClassSorterNode', smalltalk.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
+smalltalk.ClassSorterNode.comment="I provide an algorithm for sorting classes alphabetically.\x0a\x0aSee [Issue #143](https://github.com/amber-smalltalk/amber/issues/143) on GitHub."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "getNodesFrom:",

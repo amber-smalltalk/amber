@@ -3,11 +3,11 @@ nil subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Object commentStamp!
-*Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.
+**I am the root of the Smalltalk class system**. All classes in the system are subclasses of me.
 
-Object provides default behavior common to all normal objects, such as:
+I provide default behavior common to all normal objects, such as:
 
-- access
+- accessing
 - copying
 - comparison
 - error handling
@@ -16,11 +16,11 @@ Object provides default behavior common to all normal objects, such as:
 
 Also utility messages that all objects should respond to are defined here.
 
-Object has no instance variable.
+I have no instance variable.
 
 ##Access
 
-Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.
+Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `#instanceVariableNames` answers a collection of all instance variable names.
 Accessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
 
 ##Copying
@@ -30,7 +30,7 @@ The hook method `#postCopy` can be overriden in subclasses to copy fields as nec
 
 ##Comparison
 
-Objects understand equality `#=` and identity `#==` comparison.
+I understand equality `#=` and identity `#==` comparison.
 
 ##Error handling
 
@@ -354,10 +354,15 @@ Object subclass: #Boolean
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Boolean commentStamp!
-Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.
+I define the protocol for logic testing operations and conditional control structures for the logical values (see the `controlling` protocol).
 
-Boolean defines the protocol for logic testing operations and conditional control structures for the logical values.
-Boolean instances are weither `true` or `false`.!
+I have two instances, `true` and `false`.
+
+I am directly mapped to JavaScript Boolean. The `true` and `false` objects are the JavaScript boolean objects.
+
+## Usage Example:
+
+    aBoolean not ifTrue: [ ... ] ifFalse: [ ... ]!
 
 !Boolean methodsFor: 'comparing'!
 
@@ -478,10 +483,18 @@ Object subclass: #Date
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Date commentStamp!
-The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
+I am used to work with both dates and times. Therefore `Date today` and `Date now` are both valid in
 Amber and answer the same date object.
 
-Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
+Date directly maps to the `Date()` JavaScript constructor, and Amber date objects are JavaScript date objects.
+
+## API
+
+The class-side `instance creation` protocol contains some convenience methods for creating date/time objects such as `#fromSeconds:`.
+
+Arithmetic and comparison is supported (see the `comparing` and `arithmetic` protocols).
+
+The `converting` protocol provides convenience methods for various convertions (to numbers, strings, etc.).!
 
 !Date methodsFor: 'accessing'!
 
@@ -663,7 +676,9 @@ Object subclass: #Environment
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Environment commentStamp!
-Abstract class defining common behavior for local and remote environments!
+I provide an unified entry point to manipulate Amber packages, classes and methods.
+
+Typical use cases include IDEs, remote access and restricting browsing.!
 
 !Environment methodsFor: 'accessing'!
 
@@ -818,10 +833,12 @@ Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
 	package: 'Kernel-Objects'!
 !JSObjectProxy commentStamp!
-JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
-JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
+I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.
+My instances make intensive use of `#doesNotUnderstand:`.
 
-## Examples
+My instances are automatically created by Amber whenever a message is sent to a JavaScript object.
+
+## Usage examples
 
 JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
 
@@ -829,7 +846,7 @@ JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent
 	window inspect.
 	(window jQuery: 'body') append: 'hello world'
 
-Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.
+Amber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.
 
 ## Message conversion rules
 
@@ -962,13 +979,14 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Number commentStamp!
-Number holds the most general methods for dealing with numbers.
-Number is directly mapped to JavaScript Number.
+I am the Amber representation for all numbers.
+I am directly mapped to JavaScript Number.
 
-Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript.
+## API
 
-##Enumerating
-A Number can be used to evaluate a Block a fixed number of times:
+I provide all necessary methods for arithmetic operations, comparison, conversion and so on with numbers.
+
+My instances can also be used to evaluate a block a fixed number of times:
 
 	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
 	
@@ -1238,6 +1256,12 @@ pi
 Object subclass: #Organizer
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!Organizer commentStamp!
+I represent categorization information. 
+
+## API
+
+Use `#addElement:` and `#removeElement:` to manipulate instances.!
 
 !Organizer methodsFor: 'accessing'!
 
@@ -1256,6 +1280,8 @@ removeElement: anObject
 Organizer subclass: #ClassOrganizer
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!ClassOrganizer commentStamp!
+I am an organizer specific to classes. I hold method categorization information for classes.!
 
 !ClassOrganizer methodsFor: 'accessing'!
 
@@ -1284,29 +1310,29 @@ theClass
 Organizer subclass: #PackageOrganizer
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!PackageOrganizer commentStamp!
+I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
 	instanceVariableNames: 'commitPathJs commitPathSt'
 	package: 'Kernel-Objects'!
 !Package commentStamp!
-A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
+I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
 
-A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
-Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
+Each package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
 
-	Smalltalk current packageAt: 'Kernel'
+## API
 
-...but you can also use:
+Packages are manipulated through "Smalltalk current", like for example finding one based on a name or with `Package class >> #name` directly:
 
-	Package named: 'Kernel'
+    Smalltalk current packageAt: 'Kernel'
+    Package named: 'Kernel'
 
-A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
-can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
-String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.
+A package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports "class extensions" so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.
 
 You can fetch a package from the server:
 
-	Package fetch: 'Additional-Examples'!
+	Package load: 'Additional-Examples'!
 
 !Package methodsFor: 'accessing'!
 
@@ -1463,8 +1489,11 @@ Object subclass: #Point
 	instanceVariableNames: 'x y'
 	package: 'Kernel-Objects'!
 !Point commentStamp!
-A `Point` represents an x-y pair of numbers usually designating a geometric coordinate.
-Points are traditionally created using the binary `#@` message to a number:
+I represent an x-y pair of numbers usually designating a geometric coordinate.
+
+## API
+
+Instances are traditionally created using the binary `#@` message to a number:
 
 	100@120
 
@@ -1476,11 +1505,9 @@ Points can then be arithmetically manipulated:
 
 	(100@100) * 2
 
-**NOTE:** Creating a Point with a negative y-value will need a space after `@` in order to avoid a parsing error:
+**NOTE:** Creating a point with a negative y-value will need a space after `@` in order to avoid a parsing error:
 
-	100@ -100 "but 100@-100 would not parse"
-
-Amber does not have much behavior in this class out-of-the-box.!
+	100@ -100 "but 100@-100 would not parse"!
 
 !Point methodsFor: 'accessing'!
 
@@ -1564,7 +1591,11 @@ Object subclass: #Random
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Random commentStamp!
-`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
+I an used to generate a random number and I am implemented as a trivial wrapper around javascript `Math.random()`.
+
+## API
+
+The typical use case it to use the `#next` method like the following:
 
 	Random new next
 
@@ -1572,11 +1603,11 @@ This will return a float x where x < 1 and x > 0. If you want a random integer f
 
 	10 atRandom
 
-...and if you want a random number in a specific interval this also works:
+A random number in a specific interval can be obtained with the following:
 
 	(3 to: 7) atRandom
 
-...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
+Be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
 
 	5 atRandom + 2
 
@@ -1584,7 +1615,7 @@ Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an
 
 	#('a' 'b' 'c') atRandom
 
-...or perhaps a letter from a `String`:
+As well as letter from a `String`:
 
 	'abc' atRandom
 
@@ -1604,8 +1635,11 @@ Object subclass: #Smalltalk
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Smalltalk commentStamp!
-Smalltalk has only one instance, accessed with `Smalltalk current`.
-It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+
+## API
+
+I have only one instance, accessed with class-side method `#current`.
 
 The `smalltalk` object holds all class and packages defined in the system.
 
@@ -1627,7 +1661,7 @@ __note:__ classes and packages are accessed using strings, not symbols
 
 ## Parsing
 
-The `#parse:` method is used to parse Smalltalk source code.
+The `#parse:` method is used to parse Amber source code.
 It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
 
 !Smalltalk methodsFor: 'accessing'!
@@ -1783,7 +1817,9 @@ Object subclass: #Timeout
 	instanceVariableNames: 'rawTimeout'
 	package: 'Kernel-Objects'!
 !Timeout commentStamp!
-I am wrapping the returns from set{Timeout,Interval}.
+I am wrapping the returns from `set{Timeout,Interval}`.
+
+## Motivation
 
 Number suffices in browsers, but node.js returns an object.!
 
@@ -1819,9 +1855,11 @@ Object subclass: #UndefinedObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !UndefinedObject commentStamp!
-UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
+I describe the behavior of my sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
 
-`nil` is the Smalltalk representation of the `undefined` JavaScript object.!
+`nil` is the Smalltalk equivalent of the `undefined` JavaScript object.
+
+__note:__ When sending messages to the `undefined` JavaScript object, it will be replaced by `nil`.!
 
 !UndefinedObject methodsFor: 'class creation'!
 

@@ -56,7 +56,7 @@ Object subclass: #Collection
 !Collection commentStamp!
 I am the abstract superclass of all classes that represent a group of elements.
 
-I provide a set of useful methods to the Collectiohn hierarchy such as enumerating and converting methods.!
+I provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods.!
 
 !Collection methodsFor: 'accessing'!
 
@@ -278,10 +278,10 @@ Collection subclass: #IndexableCollection
 	instanceVariableNames: ''
 	package: 'Kernel-Collections'!
 !IndexableCollection commentStamp!
-I am a key-value store, that is,
-it stores values under indexes.
+I am a key-value store collection, that is,
+I store values under indexes.
 
-As a rule of thumb, if a collection has at: and at:put:,
+As a rule of thumb, if a collection has `#at:` and `#at:put:`,
 it is an IndexableCollection.!
 
 !IndexableCollection methodsFor: 'accessing'!
@@ -361,7 +361,7 @@ IndexableCollection subclass: #HashedCollection
 !HashedCollection commentStamp!
 I am a traditional JavaScript object, or a Smalltalk `Dictionary`.
 
-Unlike a `Dictionary`, it can only have strings as keys.!
+Unlike a `Dictionary`, I can only have strings as keys.!
 
 !HashedCollection methodsFor: 'accessing'!
 
@@ -886,7 +886,10 @@ SequenceableCollection subclass: #Array
 	package: 'Kernel-Collections'!
 !Array commentStamp!
 I represent a collection of objects ordered by the collector. The size of arrays is dynamic.
-In Amber, OrderedCollection is an alias for Array.!
+
+I am directly mapped to JavaScript Number.
+
+*Note* In Amber, `OrderedCollection` is an alias for `Array`.!
 
 !Array methodsFor: 'accessing'!
 

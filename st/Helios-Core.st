@@ -2,6 +2,15 @@ Smalltalk current createPackage: 'Helios-Core'!
 Object subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
+!HLModel commentStamp!
+I am the abstract superclass of all models of Helios.
+I am the "Model" part of the MVC pattern implementation in Helios.
+
+I provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.
+
+The `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.
+
+Modifications of the system should be done via commands (see `HLCommand` and subclasses).!
 
 !HLModel methodsFor: 'accessing'!
 
@@ -54,6 +63,12 @@ isToolModel
 HLModel subclass: #HLToolModel
 	instanceVariableNames: 'selectedClass selectedPackage selectedProtocol selectedSelector'
 	package: 'Helios-Core'!
+!HLToolModel commentStamp!
+I am a model specific to package and class manipulation. All browsers should either use me or a subclass as their model.
+
+I provide methods for package, class, protocol and method manipulation and access, forwarding to my environment.
+
+I also handle compilation of classes and methods as well as compilation and parsing errors.!
 
 !HLToolModel methodsFor: 'accessing'!
 
@@ -392,6 +407,14 @@ on: anEnvironment
 Widget subclass: #HLTab
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!
+!HLTab commentStamp!
+I am a widget specialized into building another widget as an Helios tab.
+
+I should not be used directly, `HLWidget class >> #openAsTab` should be used instead.
+
+## Example
+
+    HLWorkspace openAsTab!
 
 !HLTab methodsFor: 'accessing'!
 
@@ -489,6 +512,10 @@ on: aWidget labelled: aString
 Widget subclass: #HLWidget
 	instanceVariableNames: 'wrapper'
 	package: 'Helios-Core'!
+!HLWidget commentStamp!
+I am the abstract superclass of all Helios widgets.
+
+I provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.!
 
 !HLWidget methodsFor: 'accessing'!
 

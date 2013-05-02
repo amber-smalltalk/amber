@@ -4,7 +4,7 @@ Widget subclass: #Counter
 	package: 'Examples'!
 !Counter commentStamp!
 This is a trivial Widget example mimicking the classic Counter example in Seaside.
-In order to play with it, just select the doit below and press the Do it button in the far right corner.
+In order to play with it, just evaluate the doit below in a workspace.
 Then take a look in the HTML document above the IDE.
 
 		Counter new appendToJQuery: 'body' asJQuery!

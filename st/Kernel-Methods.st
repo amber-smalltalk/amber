@@ -3,10 +3,28 @@ Object subclass: #BlockClosure
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
 !BlockClosure commentStamp!
-A BlockClosure is a lexical closure.
-The JavaScript representation is a function.
+I represent a lexical closure.
+I am is directly mapped to JavaScript Function.
 
-A BlockClosure is evaluated with the `#value*` methods in the 'evaluating' protocol.!
+## API
+
+1. Evaluation
+
+    My instances get evaluated with the `#value*` methods in the 'evaluating' protocol.
+
+    Example: ` [ :x | x + 1 ] value: 3 "Answers 4" `
+
+2. Control structures
+
+    Blocks are used (together with `Boolean`) for control structures (methods in the `controlling` protocol).
+
+    Example: `aBlock whileTrue: [ ... ]`
+
+3. Error handling
+
+    I provide the `#on:do:` method for handling exceptions.
+
+    Example: ` aBlock on: MessageNotUnderstood do: [ :ex | ... ] `!
 
 !BlockClosure methodsFor: 'accessing'!
 
@@ -166,21 +184,22 @@ Object subclass: #CompiledMethod
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
 !CompiledMethod commentStamp!
-CompiledMethod hold the source and compiled code of a class method.
+I represent a class method of the system. I hold the source and compiled code of a class method.
 
-You can get a CompiledMethod using `Behavior>>methodAt:`
+## API
+My instances can be accessed using `Behavior >> #methodAt:`
 
-	String methodAt: 'lines'
+    Object methodAt: 'asString'
 
-and read the source code
+Source code access:
 
 	(String methodAt: 'lines') source
 
-See referenced classes:
+Referenced classes:
 
 	(String methodAt: 'lines') referencedClasses
 
-or messages sent from this method:
+Messages sent from an instance:
 	
 	(String methodAt: 'lines') messageSends!
 
@@ -291,10 +310,15 @@ Object subclass: #ForkPool
 	instanceVariableNames: 'poolSize maxPoolSize queue worker'
 	package: 'Kernel-Methods'!
 !ForkPool commentStamp!
-A ForkPool is responsible for handling forked blocks.
+I am responsible for handling forked blocks.
 The pool size sets the maximum concurrent forked blocks.
 
-The default instance is accessed with `ForkPool default`!
+## API
+
+The default instance is accessed with `#default`.
+The maximum concurrent forked blocks can be set with `#maxPoolSize:`.
+
+Forking is done via `BlockClosure >> #fork`!
 
 !ForkPool methodsFor: 'accessing'!
 
@@ -366,11 +390,15 @@ Object subclass: #Message
 	instanceVariableNames: 'selector arguments'
 	package: 'Kernel-Methods'!
 !Message commentStamp!
-Generally, the system does not use instances of Message for efficiency reasons.
+In general, the system does not use instances of me for efficiency reasons.
 However, when a message is not understood by its receiver, the interpreter will make up an instance of it in order to capture the information involved in an actual message transmission.
-This instance is sent it as an argument with the message `doesNotUnderstand:` to the receiver.
+This instance is sent it as an argument with the message `#doesNotUnderstand:` to the receiver.
 
-See boot.js, `messageNotUnderstood` and its counterpart `Object>>doesNotUnderstand:`!
+See boot.js, `messageNotUnderstood` and its counterpart `Object >> #doesNotUnderstand:`
+
+## API
+
+Besides accessing methods, `#sendTo:` provides a convenient way to send a message to an object.!
 
 !Message methodsFor: 'accessing'!
 
@@ -420,6 +448,8 @@ Object subclass: #MessageSend
 	package: 'Kernel-Methods'!
 !MessageSend commentStamp!
 I encapsulate message sends to objects. Arguments can be either predefined or supplied when the message send is performed. 
+
+## API
 
 Use `#value` to perform a message send with its predefined arguments and `#value:*` if additonal arguments have to supplied.!
 
@@ -501,9 +531,9 @@ Object subclass: #MethodContext
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
 !MethodContext commentStamp!
-MethodContext holds all the dynamic state associated with the execution of either a method activation resulting from a message send. That is used to build the call stack while debugging.
+I hold all the dynamic state associated with the execution of either a method activation resulting from a message send. I am used to build the call stack while debugging.
 
-MethodContext instances are JavaScript `SmalltalkMethodContext` objects defined in boot.js!
+My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js`.!
 
 !MethodContext methodsFor: 'accessing'!
 
@@ -583,14 +613,16 @@ Object subclass: #NativeFunction
 	instanceVariableNames: ''
 	package: 'Kernel-Methods'!
 !NativeFunction commentStamp!
-NativeFunction is a wrapper around native functions, such as `WebSocket`.
+I am a wrapper around native functions, such as `WebSocket`.
 For 'normal' functions (whose constructor is the JavaScript `Function` object), use `BlockClosure`.
 
-See the class-side `instance creation` methods.
+## API
+
+See the class-side `instance creation` methods for instance creation.
 
 Created instances will most probably be instance of `JSObjectProxy`.
 
-Usage example:
+## Usage example:
 
 	| ws |
 	ws := NativeFunction constructor: 'WebSocket' value: 'ws://localhost'.

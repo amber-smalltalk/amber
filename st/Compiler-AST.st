@@ -5,7 +5,7 @@ Object subclass: #Node
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.
 
-position: holds a point containing lline- and column number of the symbol location in the original source file!
+position: holds a point containing line and column number of the symbol location in the original source file.!
 
 !Node methodsFor: 'accessing'!
 

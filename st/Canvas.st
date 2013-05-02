@@ -2,6 +2,18 @@ Smalltalk current createPackage: 'Canvas'!
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Canvas'!
+!HTMLCanvas commentStamp!
+I am a canvas for building HTML.
+
+I provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.
+
+Instances are used as the argument of the `#renderContentOn:` method of `Widget` objects.
+
+## Usage example:
+
+    aCanvas a 
+        with: [ aCanvas span with: 'click me' ];
+        onClick: [ window alert: 'clicked!!' ]!
 
 !HTMLCanvas methodsFor: 'accessing'!
 
@@ -650,6 +662,40 @@ new
 Object subclass: #TagBrush
 	instanceVariableNames: 'canvas element'
 	package: 'Canvas'!
+!TagBrush commentStamp!
+I am a brush for building a single DOM element (which I hold onto).
+
+All tags but `<style>` are instances of me (see the `StyleBrush` class).
+
+## API
+
+1. Nesting
+
+    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance of block closure as parameter.
+
+    Example: `aTag with: aString with: aCanvas div`
+
+2. Events
+
+    The `events` protocol contains all methods related to events (delegating event handling to jQuery).
+
+    Example: `aTag onClick: [ window alert: 'clicked' ]`
+
+3. Attributes
+
+    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).
+
+    Example: `aTag at: 'value' put: 'hello world'`
+
+4. Raw access and jQuery
+
+    The `#element` method can be used to access to JavaScript DOM element object.
+
+    Example: `aTag element cssStyle`
+
+    Use `#asJQuery` to access to the receiver converted into a jQuery object.
+
+    Example: `aTag asJQuery css: 'color' value: 'red'`!
 
 !TagBrush methodsFor: 'accessing'!
 
@@ -966,9 +1012,9 @@ TagBrush subclass: #StyleTag
 	instanceVariableNames: 'canvas element'
 	package: 'Canvas'!
 !StyleTag commentStamp!
-I'm a <style> tag use to inline CSS or load a stylesheet.
+I'm a `<style>` tag use to inline CSS or load a stylesheet.
 
-For inlining handle IE compatibility problems.!
+The need for a specific class comes from IE compatibility problems.!
 
 !StyleTag methodsFor: 'adding'!
 
@@ -989,6 +1035,12 @@ canvas: aCanvas
 Object subclass: #Widget
 	instanceVariableNames: ''
 	package: 'Canvas'!
+!Widget commentStamp!
+I am a presenter building HTML. Subclasses are typically reusable components.
+
+## API
+
+Use `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).!
 
 !Widget methodsFor: 'adding'!
 

@@ -3,13 +3,14 @@ Object subclass: #Behavior
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!
 !Behavior commentStamp!
-Behavior is the superclass of all class objects.
+I am the superclass of all class objects.
 
-It defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).
-Instances know about the subclass/superclass relationships between classes, contain the description that instances are created from,
+I define the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).
+
+My instances know about the subclass/superclass relationships between classes, contain the description that instances are created from,
 and hold the method dictionary that's associated with each class.
 
-Behavior also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy.!
+I also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy.!
 
 !Behavior methodsFor: 'accessing'!
 
@@ -292,10 +293,10 @@ Behavior subclass: #Class
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!
 !Class commentStamp!
-Class is __the__ class object.
+I am __the__ class object.
 
-Instances are the classes of the system.
-Class creation is done throught a `ClassBuilder`!
+My instances are the classes of the system.
+Class creation is done throught a `ClassBuilder` instance.!
 
 !Class methodsFor: 'accessing'!
 
@@ -388,10 +389,9 @@ Behavior subclass: #Metaclass
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!
 !Metaclass commentStamp!
-Metaclass is the root of the class hierarchy.
+I am the root of the class hierarchy.
 
-Metaclass instances are metaclasses, one for each real class.
-Metaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of.!
+My instances are metaclasses, one for each real class, and have a single instance, which they hold onto: the class that they are the metaclass of.!
 
 !Metaclass methodsFor: 'accessing'!
 
@@ -447,9 +447,9 @@ Object subclass: #ClassBuilder
 	instanceVariableNames: ''
 	package: 'Kernel-Classes'!
 !ClassBuilder commentStamp!
-ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.
+I am responsible for compiling new classes or modifying existing classes in the system.
 
-Rather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
+Rather than using me directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.!
 
 !ClassBuilder methodsFor: 'accessing'!
 
@@ -668,7 +668,7 @@ Object subclass: #ClassCategoryReader
 	instanceVariableNames: 'class category'
 	package: 'Kernel-Classes'!
 !ClassCategoryReader commentStamp!
-ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file.!
+I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.!
 
 !ClassCategoryReader methodsFor: 'accessing'!
 
@@ -703,8 +703,9 @@ Object subclass: #ClassCommentReader
 	instanceVariableNames: 'class'
 	package: 'Kernel-Classes'!
 !ClassCommentReader commentStamp!
-ClassCommentReader represents a mechanism for retrieving class comments stored on a file.
-See `ClassCategoryReader` too.!
+I provide a mechanism for retrieving class comments stored on a file.
+
+See also `ClassCategoryReader`.!
 
 !ClassCommentReader methodsFor: 'accessing'!
 
@@ -736,6 +737,10 @@ setComment: aString
 Object subclass: #ClassSorterNode
 	instanceVariableNames: 'theClass level nodes'
 	package: 'Kernel-Classes'!
+!ClassSorterNode commentStamp!
+I provide an algorithm for sorting classes alphabetically.
+
+See [Issue #143](https://github.com/amber-smalltalk/amber/issues/143) on GitHub.!
 
 !ClassSorterNode methodsFor: 'accessing'!
 

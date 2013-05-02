@@ -1,5 +1,6 @@
 smalltalk.addPackage('Canvas');
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
+smalltalk.HTMLCanvas.comment="I am a canvas for building HTML.\x0a\x0aI provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.\x0a\x0aInstances are used as the argument of the `#renderContentOn:` method of `Widget` objects.\x0a\x0a## Usage example:\x0a\x0a    aCanvas a \x0a        with: [ aCanvas span with: 'click me' ];\x0a        onClick: [ window alert: 'clicked!' ]"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "a",
@@ -2440,6 +2441,7 @@ smalltalk.HTMLSnippet.klass);
 
 
 smalltalk.addClass('TagBrush', smalltalk.Object, ['canvas', 'element'], 'Canvas');
+smalltalk.TagBrush.comment="I am a brush for building a single DOM element (which I hold onto).\x0a\x0aAll tags but `<style>` are instances of me (see the `StyleBrush` class).\x0a\x0a## API\x0a\x0a1. Nesting\x0a\x0a    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance of block closure as parameter.\x0a\x0a    Example: `aTag with: aString with: aCanvas div`\x0a\x0a2. Events\x0a\x0a    The `events` protocol contains all methods related to events (delegating event handling to jQuery).\x0a\x0a    Example: `aTag onClick: [ window alert: 'clicked' ]`\x0a\x0a3. Attributes\x0a\x0a    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).\x0a\x0a    Example: `aTag at: 'value' put: 'hello world'`\x0a\x0a4. Raw access and jQuery\x0a\x0a    The `#element` method can be used to access to JavaScript DOM element object.\x0a\x0a    Example: `aTag element cssStyle`\x0a\x0a    Use `#asJQuery` to access to the receiver converted into a jQuery object.\x0a\x0a    Example: `aTag asJQuery css: 'color' value: 'red'`"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accesskey:",
@@ -3578,7 +3580,7 @@ smalltalk.TagBrush.klass);
 
 
 smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
-smalltalk.StyleTag.comment="I'm a <style> tag use to inline CSS or load a stylesheet.\x0a\x0aFor inlining handle IE compatibility problems."
+smalltalk.StyleTag.comment="I'm a `<style>` tag use to inline CSS or load a stylesheet.\x0a\x0aThe need for a specific class comes from IE compatibility problems."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "with:",
@@ -3626,6 +3628,7 @@ smalltalk.StyleTag.klass);
 
 
 smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
+smalltalk.Widget.comment="I am a presenter building HTML. Subclasses are typically reusable components.\x0a\x0a## API\x0a\x0aUse `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML)."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",

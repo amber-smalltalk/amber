@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-AST');
 smalltalk.addClass('Node', smalltalk.Object, ['position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
-smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aposition: holds a point containing lline- and column number of the symbol location in the original source file"
+smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aposition: holds a point containing line and column number of the symbol location in the original source file."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",

@@ -3,7 +3,7 @@ Object subclass: #AnnouncementSubscription
 	instanceVariableNames: 'valuable announcementClass'
 	package: 'Kernel-Announcements'!
 !AnnouncementSubscription commentStamp!
-The subscription is a single entry in a subscription registry of an `Announcer`.
+I am a single entry in a subscription registry of an `Announcer`.
 Several subscriptions by the same object is possible.!
 
 !AnnouncementSubscription methodsFor: 'accessing'!
@@ -62,10 +62,24 @@ Object subclass: #Announcer
 	instanceVariableNames: 'registry subscriptions'
 	package: 'Kernel-Announcements'!
 !Announcer commentStamp!
-The code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).
-The Announcer holds annoncement subscriptions (`AnnouncementSubscription`) in a private registry.
+I hold annoncement subscriptions (instances of `AnnouncementSubscription`) in a private registry.
+I announce (trigger) announces, which are then dispatched to all subscriptions.
 
-Use `#on:do:` to register subscriptions.!
+The code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).
+
+## API
+
+Use `#announce:` to trigger an announcement.
+
+Use `#on:do:` or `#on:send:to:` to register subscriptions.
+
+When using `#on:send:to:`, unregistration can be done with `#unregister:`.
+
+## Usage example:
+
+    SystemAnnouncer current
+        on: ClassAdded
+        do: [ :ann | window alert: ann theClass name, ' added' ].!
 
 !Announcer methodsFor: 'announcing'!
 
@@ -109,7 +123,11 @@ Announcer subclass: #SystemAnnouncer
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
 !SystemAnnouncer commentStamp!
-My unique instance #current is the global announcer handling all Amber system-related announces!
+My unique instance is the global announcer handling all Amber system-related announces.
+
+## API
+
+Access to the unique instance is done via `#current`!
 
 SystemAnnouncer class instanceVariableNames: 'current'!
 
@@ -144,6 +162,8 @@ theClass: aClass
 SystemAnnouncement subclass: #ClassAnnouncement
 	instanceVariableNames: 'theClass'
 	package: 'Kernel-Announcements'!
+!ClassAnnouncement commentStamp!
+I am the abstract superclass of class-related announcements.!
 
 !ClassAnnouncement methodsFor: 'accessing'!
 
@@ -172,12 +192,14 @@ ClassAnnouncement subclass: #ClassDefinitionChanged
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
 !ClassDefinitionChanged commentStamp!
-I am emitted when the defintion of a class changes.
+I am emitted when the definition of a class changes.
 See ClassBuilder >> #class:instanceVariableNames:!
 
 ClassAnnouncement subclass: #ClassMigrated
 	instanceVariableNames: 'oldClass'
 	package: 'Kernel-Announcements'!
+!ClassMigrated commentStamp!
+I am emitted when a class is migrated.!
 
 !ClassMigrated methodsFor: 'accessing'!
 
@@ -192,6 +214,8 @@ oldClass: aClass
 ClassAnnouncement subclass: #ClassMoved
 	instanceVariableNames: 'oldPackage'
 	package: 'Kernel-Announcements'!
+!ClassMoved commentStamp!
+I am emitted when a class is moved from one package to another.!
 
 !ClassMoved methodsFor: 'accessing'!
 
@@ -220,6 +244,8 @@ See ClassBuilder >> #renameClass:to:!
 SystemAnnouncement subclass: #MethodAnnouncement
 	instanceVariableNames: 'method'
 	package: 'Kernel-Announcements'!
+!MethodAnnouncement commentStamp!
+I am the abstract superclass of method-related announcements.!
 
 !MethodAnnouncement methodsFor: 'accessing'!
 
