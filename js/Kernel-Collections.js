@@ -938,11 +938,11 @@ category: 'accessing',
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._subclassReponsibility();
+_st(self)._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.IndexableCollection)})},
 args: ["anIndex", "aBlock", "anotherBlock"],
-source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given index in the receiver.\x0a\x09If it is present, answer the value of evaluating aBlock with the value stored at anIndex.\x0a\x09Otherwise, answer the value of anotherBlock.\x22\x0a\x0a\x09self subclassReponsibility",
-messageSends: ["subclassReponsibility"],
+source: "at: anIndex ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given index in the receiver.\x0a\x09If it is present, answer the value of evaluating aBlock with the value stored at anIndex.\x0a\x09Otherwise, answer the value of anotherBlock.\x22\x0a\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.IndexableCollection);

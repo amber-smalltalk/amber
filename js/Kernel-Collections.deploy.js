@@ -709,9 +709,9 @@ selector: "at:ifPresent:ifAbsent:",
 fn: function (anIndex,aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._subclassReponsibility();
+_st(self)._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{anIndex:anIndex,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.IndexableCollection)})},
-messageSends: ["subclassReponsibility"]}),
+messageSends: ["subclassResponsibility"]}),
 smalltalk.IndexableCollection);
 
 smalltalk.addMethod(

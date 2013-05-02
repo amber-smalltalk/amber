@@ -315,7 +315,7 @@ at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
 	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
 	Otherwise, answer the value of anotherBlock."
 
-	self subclassReponsibility
+	self subclassResponsibility
 !
 
 at: anIndex put: anObject
