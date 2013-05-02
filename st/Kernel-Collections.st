@@ -897,6 +897,10 @@ at: anIndex ifAbsent: aBlock
 	>
 !
 
+at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
+	<return anIndex < 1 || self.length < anIndex ? anotherBlock._value() : aBlock._value_(self[anIndex - 1]);>
+!
+
 at: anIndex put: anObject
 	<return self[anIndex - 1] = anObject>
 !
@@ -1103,6 +1107,13 @@ asciiValue
 
 at: anIndex ifAbsent: aBlock
 	<return String(self).charAt(anIndex - 1) || aBlock()>
+!
+
+at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
+	<
+		var result = String(self).charAt(anIndex - 1);
+		return result ? aBlock._value_(result) : anotherBlock._value();
+	>
 !
 
 charCodeAt: anInteger
