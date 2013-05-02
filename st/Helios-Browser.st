@@ -256,6 +256,18 @@ focusOnProtocols
 
 focusOnSourceCode
 	self announcer announce: HLSourceCodeFocusRequested new
+!
+
+setClassComment: aString
+	self environment
+		setClassCommentOf: self selectedClass theNonMetaClass
+		to: aString
+! !
+
+!HLBrowserModel methodsFor: 'commands actions'!
+
+editComment
+	self announcer announce: HLEditComment new
 ! !
 
 !HLBrowserModel methodsFor: 'testing'!
@@ -438,6 +450,10 @@ observeSystem
 		
 		on: ClassMigrated
 		send: #onClassMigrated:
+		to: self;
+		
+		on: ClassCommentChanged
+        send: #onClassCommentChanged:
 		to: self
 !
 
@@ -485,6 +501,15 @@ onClassAdded: anAnnouncement
     self refresh
 !
 
+onClassCommentChanged: anAnnouncement
+	| class |
+	class := anAnnouncement theClass.
+
+	class package = self model selectedPackage ifFalse: [ ^ self ].
+    
+    self refresh
+!
+
 onClassMigrated: anAnnouncement
 	| class oldClass |
 	
@@ -524,7 +549,6 @@ onClassRemoved: anAnnouncement
 	class := anAnnouncement theClass.
 
 	class package = self model selectedPackage ifFalse: [ ^ self ].
-    class = self model selectedClass ifTrue: [ self selectItem: nil ].
     
     self setItemsForSelectedPackage.
     self refresh
@@ -685,7 +709,9 @@ model
 
 model: aModel
 	model := aModel.
-	self observeModel
+	self 
+		observeSystem;
+		observeModel
 !
 
 selectedItem
@@ -694,10 +720,25 @@ selectedItem
 
 !HLDocumentationWidget methodsFor: 'actions'!
 
+editDocumentation
+	self model editComment
+!
+
 observeModel
 	self model announcer 
 		on: HLClassSelected
 		send: #onClassSelected:
+		to: self;
+		
+		on: HLEditComment
+		send: #onEditDocumentation
+		to: self
+!
+
+observeSystem
+	self model systemAnnouncer 
+		on: ClassCommentChanged
+		send: #onClassCommentChanged:
 		to: self
 !
 
@@ -723,8 +764,24 @@ defaultHead
 
 !HLDocumentationWidget methodsFor: 'reactions'!
 
+onClassCommentChanged: anAnnouncement
+	anAnnouncement theClass = self model selectedClass theNonMetaClass
+		ifTrue: [ self refresh ]
+!
+
 onClassSelected: anAnnouncement
 	self refresh
+!
+
+onEditDocumentation
+	self 
+		request: self model selectedClass theNonMetaClass name, ' comment'
+		value: self model selectedClass theNonMetaClass comment
+		do: [ :comment | self setClassComment: comment ]
+!
+
+setClassComment: aString
+	self model setClassComment: aString
 ! !
 
 !HLDocumentationWidget methodsFor: 'rendering'!
@@ -741,7 +798,13 @@ renderContentOn: html
 renderDocOn: html
 	self selectedItem ifNotNil: [
 		self renderInheritanceOn: html.
-		html h1 with: 'Overview'.
+		html h1 
+			with: 'Overview';
+			with: [ 
+				html button
+					class: 'button default';
+					with: 'Edit';
+					onClick: [ self editDocumentation ] ].
 		(html div 
 			class: 'markdown';
 			asJQuery) html: ((Showdown at: 'converter') new makeHtml: self documentation) ]

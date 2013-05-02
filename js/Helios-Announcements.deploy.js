@@ -87,6 +87,9 @@ smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-An
 smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLEditComment', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLErrorRaised', smalltalk.HLAnnouncement, ['error'], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({

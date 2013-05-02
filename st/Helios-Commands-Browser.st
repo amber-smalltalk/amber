@@ -129,6 +129,32 @@ label
 	^ 'Source code'
 ! !
 
+HLBrowserCommand subclass: #HLEditCommentCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Browser'!
+
+!HLEditCommentCommand methodsFor: 'executing'!
+
+execute
+	self model editComment
+! !
+
+!HLEditCommentCommand methodsFor: 'testing'!
+
+isActive
+	^ self model showComment and: [ self model selectedClass notNil ]
+! !
+
+!HLEditCommentCommand class methodsFor: 'accessing'!
+
+key
+	^ 'd'
+!
+
+label
+	^ 'Edit documentation'
+! !
+
 HLBrowserCommand subclass: #HLToggleCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Browser'!

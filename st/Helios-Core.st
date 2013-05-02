@@ -516,6 +516,17 @@ execute: aCommand
 		applyBinding: aCommand asBinding
 !
 
+request: aString do: aBlock
+	self manager request: aString do: aBlock
+!
+
+request: aString value: valueString do: aBlock
+	self manager 
+		request: aString 
+		value: valueString
+		do: aBlock
+!
+
 unregister
 	"This method is called whenever the receiver is closed (as a tab).
 	Widgets subscribing to announcements should unregister there"
@@ -604,6 +615,10 @@ confirmationString
 
 confirmationString: aString
 	confirmationString := aString
+!
+
+cssClass
+	^ ''
 ! !
 
 !HLConfirmation methodsFor: 'actions'!
@@ -619,43 +634,88 @@ confirm
 !
 
 remove
-	(window jQuery: '.confirmation') removeClass: 'active'.
+	(window jQuery: '.dialog') removeClass: 'active'.
 	[ 
 		(window jQuery: '#overlay') remove.
-		(window jQuery: '.confirmation') remove
+		(window jQuery: '.dialog') remove
 	] valueWithTimeout: 300
 ! !
 
 !HLConfirmation methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	| confirmButton |
+	
+	html div 
+		class: 'buttons';
+		with: [
+			html button
+				class: 'button';
+				with: 'Cancel';
+				onClick: [ self cancel ].
+			confirmButton := html button
+				class: 'button default';
+				with: 'Confirm';
+				onClick: [ self confirm ] ].
+
+	confirmButton asJQuery focus
+!
 
 renderContentOn: html
 	| confirmButton |
 	
 	html div id: 'overlay'.
 	html div 
-		class: 'confirmation';
+		class: 'dialog ', self cssClass;
 		with: [
-			html span with: self confirmationString.
-			html div 
-				class: 'buttons';
-				with: [
-					html button
-						class: 'button';
-						with: 'Cancel';
-						onClick: [ self cancel ].
-					confirmButton := html button
-						class: 'button default';
-						with: 'Confirm';
-						onClick: [ self confirm ] ] ].
+			self
+				renderMainOn: html;
+				renderButtonsOn: html ].
 
-	confirmButton asJQuery focus.
-	(window jQuery: '.confirmation') addClass: 'active'.
+	(window jQuery: '.dialog') addClass: 'active'.
 	self setupKeyBindings
 !
 
+renderMainOn: html
+	html span with: self confirmationString
+!
+
 setupKeyBindings
-	(window jQuery: '.confirmation') keyup: [ :e |
+	(window jQuery: '.dialog') keyup: [ :e |
 		e keyCode = 27 ifTrue: [ self cancel ] ]
+! !
+
+HLConfirmation subclass: #HLRequest
+	instanceVariableNames: 'input value'
+	package: 'Helios-Core'!
+
+!HLRequest methodsFor: 'accessing'!
+
+cssClass
+	^ 'large'
+!
+
+value
+	^ value ifNil: [ '' ]
+!
+
+value: aString
+	value := aString
+! !
+
+!HLRequest methodsFor: 'actions'!
+
+confirm
+	self actionBlock value: input asJQuery val.
+	self remove
+! !
+
+!HLRequest methodsFor: 'rendering'!
+
+renderMainOn: html
+	super renderMainOn: html.
+	input := html textarea.
+	input asJQuery val: self value
 ! !
 
 HLWidget subclass: #HLDebugger
@@ -1199,6 +1259,22 @@ removeTab: aTab
 	self refresh.
 	self history ifNotEmpty: [
 		self history last activate ]
+!
+
+request: aString do: aBlock
+	self 
+		request: aString
+		value: ''
+		do: aBlock
+!
+
+request: aString value: valueString do: aBlock
+	(HLRequest new
+		confirmationString: aString;
+		actionBlock: aBlock;
+		value: valueString;
+		yourself)
+			appendToJQuery: 'body' asJQuery
 ! !
 
 !HLManager methodsFor: 'defaults'!

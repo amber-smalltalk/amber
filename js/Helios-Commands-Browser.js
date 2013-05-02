@@ -328,6 +328,78 @@ referencedClasses: []
 smalltalk.HLGoToSourceCodeCommand.klass);
 
 
+smalltalk.addClass('HLEditCommentCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._editComment();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLEditCommentCommand)})},
+args: [],
+source: "execute\x0a\x09self model editComment",
+messageSends: ["editComment", "model"],
+referencedClasses: []
+}),
+smalltalk.HLEditCommentCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isActive",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._showComment())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._model())._selectedClass())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
+args: [],
+source: "isActive\x0a\x09^ self model showComment and: [ self model selectedClass notNil ]",
+messageSends: ["and:", "notNil", "selectedClass", "model", "showComment"],
+referencedClasses: []
+}),
+smalltalk.HLEditCommentCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "d";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLEditCommentCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 'd'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLEditCommentCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Edit documentation";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLEditCommentCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Edit documentation'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLEditCommentCommand.klass);
+
+
 smalltalk.addClass('HLToggleCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(

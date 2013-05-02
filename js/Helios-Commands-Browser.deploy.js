@@ -233,6 +233,58 @@ messageSends: []}),
 smalltalk.HLGoToSourceCodeCommand.klass);
 
 
+smalltalk.addClass('HLEditCommentCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._editComment();
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLEditCommentCommand)})},
+messageSends: ["editComment", "model"]}),
+smalltalk.HLEditCommentCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isActive",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self)._model())._showComment())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(self)._model())._selectedClass())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
+messageSends: ["and:", "notNil", "selectedClass", "model", "showComment"]}),
+smalltalk.HLEditCommentCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "d";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLEditCommentCommand.klass)})},
+messageSends: []}),
+smalltalk.HLEditCommentCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Edit documentation";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLEditCommentCommand.klass)})},
+messageSends: []}),
+smalltalk.HLEditCommentCommand.klass);
+
+
 smalltalk.addClass('HLToggleCommand', smalltalk.HLBrowserCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(

@@ -461,6 +461,18 @@ smalltalk.HLBrowserBottomWidget);
 smalltalk.addClass('HLBrowserModel', smalltalk.HLToolModel, ['showInstance', 'showComment'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "editComment",
+fn: function (){
+var self=this;
+function $HLEditComment(){return smalltalk.HLEditComment||(typeof HLEditComment=="undefined"?nil:HLEditComment)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._announcer())._announce_(_st($HLEditComment())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"editComment",{},smalltalk.HLBrowserModel)})},
+messageSends: ["announce:", "new", "announcer"]}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focusOnClasses",
 fn: function (){
 var self=this;
@@ -528,6 +540,17 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isBrowserModel",{},smalltalk.HLBrowserModel)})},
 messageSends: []}),
+smalltalk.HLBrowserModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setClassComment:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._setClassCommentOf_to_(_st(_st(self)._selectedClass())._theNonMetaClass(),aString);
+return self}, function($ctx1) {$ctx1.fill(self,"setClassComment:",{aString:aString},smalltalk.HLBrowserModel)})},
+messageSends: ["setClassCommentOf:to:", "theNonMetaClass", "selectedClass", "environment"]}),
 smalltalk.HLBrowserModel);
 
 smalltalk.addMethod(
@@ -959,6 +982,7 @@ function $ClassRemoved(){return smalltalk.ClassRemoved||(typeof ClassRemoved=="u
 function $ClassMoved(){return smalltalk.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
 function $ClassRenamed(){return smalltalk.ClassRenamed||(typeof ClassRenamed=="undefined"?nil:ClassRenamed)}
 function $ClassMigrated(){return smalltalk.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
+function $ClassCommentChanged(){return smalltalk.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(_st(self)._model())._systemAnnouncer();
@@ -966,7 +990,8 @@ _st($1)._on_send_to_($ClassAdded(),"onClassAdded:",self);
 _st($1)._on_send_to_($ClassRemoved(),"onClassRemoved:",self);
 _st($1)._on_send_to_($ClassMoved(),"onClassMoved:",self);
 _st($1)._on_send_to_($ClassRenamed(),"onClassRenamed:",self);
-$2=_st($1)._on_send_to_($ClassMigrated(),"onClassMigrated:",self);
+_st($1)._on_send_to_($ClassMigrated(),"onClassMigrated:",self);
+$2=_st($1)._on_send_to_($ClassCommentChanged(),"onClassCommentChanged:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLClassesListWidget)})},
 messageSends: ["on:send:to:", "systemAnnouncer", "model"]}),
 smalltalk.HLClassesListWidget);
@@ -992,6 +1017,25 @@ _st(self)._setItemsForSelectedPackage();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLClassesListWidget)})},
 messageSends: ["theClass", "ifFalse:", "or:", "includes:", "items", "=", "selectedPackage", "model", "package", "setItemsForSelectedPackage", "refresh"]}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassCommentChanged:",
+fn: function (anAnnouncement){
+var self=this;
+var class_;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+class_=_st(anAnnouncement)._theClass();
+$1=_st(_st(class_)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+_st(self)._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLClassesListWidget)})},
+messageSends: ["theClass", "ifFalse:", "=", "selectedPackage", "model", "package", "refresh"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1057,21 +1101,17 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 class_=_st(anAnnouncement)._theClass();
 $1=_st(_st(class_)._package()).__eq(_st(_st(self)._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(class_).__eq(_st(_st(self)._model())._selectedClass());
-if(smalltalk.assert($3)){
-_st(self)._selectItem_(nil);
-};
 _st(self)._setItemsForSelectedPackage();
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRemoved:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLClassesListWidget)})},
-messageSends: ["theClass", "ifFalse:", "=", "selectedPackage", "model", "package", "ifTrue:", "selectItem:", "selectedClass", "setItemsForSelectedPackage", "refresh"]}),
+messageSends: ["theClass", "ifFalse:", "=", "selectedPackage", "model", "package", "setItemsForSelectedPackage", "refresh"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1495,6 +1535,17 @@ smalltalk.HLDocumentationWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "editDocumentation",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._editComment();
+return self}, function($ctx1) {$ctx1.fill(self,"editDocumentation",{},smalltalk.HLDocumentationWidget)})},
+messageSends: ["editComment", "model"]}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "head",
 fn: function (){
 var self=this;
@@ -1532,10 +1583,13 @@ selector: "model:",
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 self["@model"]=aModel;
-_st(self)._observeModel();
+$1=self;
+_st($1)._observeSystem();
+$2=_st($1)._observeModel();
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLDocumentationWidget)})},
-messageSends: ["observeModel"]}),
+messageSends: ["observeSystem", "observeModel"]}),
 smalltalk.HLDocumentationWidget);
 
 smalltalk.addMethod(
@@ -1544,10 +1598,41 @@ selector: "observeModel",
 fn: function (){
 var self=this;
 function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSelected=="undefined"?nil:HLClassSelected)}
+function $HLEditComment(){return smalltalk.HLEditComment||(typeof HLEditComment=="undefined"?nil:HLEditComment)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._on_send_to_($HLClassSelected(),"onClassSelected:",self);
+var $1,$2;
+$1=_st(_st(self)._model())._announcer();
+_st($1)._on_send_to_($HLClassSelected(),"onClassSelected:",self);
+$2=_st($1)._on_send_to_($HLEditComment(),"onEditDocumentation",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLDocumentationWidget)})},
 messageSends: ["on:send:to:", "announcer", "model"]}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeSystem",
+fn: function (){
+var self=this;
+function $ClassCommentChanged(){return smalltalk.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(self)._model())._systemAnnouncer())._on_send_to_($ClassCommentChanged(),"onClassCommentChanged:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLDocumentationWidget)})},
+messageSends: ["on:send:to:", "systemAnnouncer", "model"]}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClassCommentChanged:",
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(anAnnouncement)._theClass()).__eq(_st(_st(_st(self)._model())._selectedClass())._theNonMetaClass());
+if(smalltalk.assert($1)){
+_st(self)._refresh();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement},smalltalk.HLDocumentationWidget)})},
+messageSends: ["ifTrue:", "refresh", "=", "theNonMetaClass", "selectedClass", "model", "theClass"]}),
 smalltalk.HLDocumentationWidget);
 
 smalltalk.addMethod(
@@ -1559,6 +1644,20 @@ return smalltalk.withContext(function($ctx1) {
 _st(self)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLDocumentationWidget)})},
 messageSends: ["refresh"]}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onEditDocumentation",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._request_value_do_(_st(_st(_st(_st(_st(self)._model())._selectedClass())._theNonMetaClass())._name()).__comma(" comment"),_st(_st(_st(_st(self)._model())._selectedClass())._theNonMetaClass())._comment(),(function(comment){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._setClassComment_(comment);
+}, function($ctx2) {$ctx2.fillBlock({comment:comment},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"onEditDocumentation",{},smalltalk.HLDocumentationWidget)})},
+messageSends: ["request:value:do:", ",", "name", "theNonMetaClass", "selectedClass", "model", "comment", "setClassComment:"]}),
 smalltalk.HLDocumentationWidget);
 
 smalltalk.addMethod(
@@ -1588,20 +1687,33 @@ fn: function (html){
 var self=this;
 function $Showdown(){return smalltalk.Showdown||(typeof Showdown=="undefined"?nil:Showdown)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$4,$5,$3,$6,$7;
 $1=_st(self)._selectedItem();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
 _st(self)._renderInheritanceOn_(html);
-_st(_st(html)._h1())._with_("Overview");
-$2=_st(html)._div();
-_st($2)._class_("markdown");
-$3=_st($2)._asJQuery();
-_st($3)._html_(_st(_st(_st($Showdown())._at_("converter"))._new())._makeHtml_(_st(self)._documentation()));
+$2=_st(html)._h1();
+_st($2)._with_("Overview");
+$3=_st($2)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(html)._button();
+_st($4)._class_("button default");
+_st($4)._with_("Edit");
+$5=_st($4)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._editDocumentation();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return $5;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3;
+$6=_st(html)._div();
+_st($6)._class_("markdown");
+$7=_st($6)._asJQuery();
+_st($7)._html_(_st(_st(_st($Showdown())._at_("converter"))._new())._makeHtml_(_st(self)._documentation()));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renderDocOn:",{html:html},smalltalk.HLDocumentationWidget)})},
-messageSends: ["ifNotNil:", "renderInheritanceOn:", "with:", "h1", "html:", "makeHtml:", "documentation", "new", "at:", "class:", "div", "asJQuery", "selectedItem"]}),
+messageSends: ["ifNotNil:", "renderInheritanceOn:", "with:", "h1", "class:", "button", "onClick:", "editDocumentation", "html:", "makeHtml:", "documentation", "new", "at:", "div", "asJQuery", "selectedItem"]}),
 smalltalk.HLDocumentationWidget);
 
 smalltalk.addMethod(
@@ -1676,6 +1788,17 @@ $1=_st(class_)._theNonMetaClass();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedItem",{},smalltalk.HLDocumentationWidget)})},
 messageSends: ["ifNotNil:", "theNonMetaClass", "selectedClass", "model"]}),
+smalltalk.HLDocumentationWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setClassComment:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._setClassComment_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"setClassComment:",{aString:aString},smalltalk.HLDocumentationWidget)})},
+messageSends: ["setClassComment:", "model"]}),
 smalltalk.HLDocumentationWidget);
 
 smalltalk.addMethod(

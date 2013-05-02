@@ -422,6 +422,11 @@ HLCodeWidget subclass: #HLNavigationCodeWidget
 
 !HLNavigationCodeWidget methodsFor: 'accessing'!
 
+configureEditor
+	super configureEditor.
+	self contents: self methodContents
+!
+
 contents: aString
 	self methodContents: aString.
 	super contents: aString

@@ -838,6 +838,18 @@ smalltalk.HLCodeWidget.klass);
 smalltalk.addClass('HLNavigationCodeWidget', smalltalk.HLCodeWidget, ['methodContents'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "configureEditor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLCodeWidget.fn.prototype._configureEditor.apply(_st(self), []);
+_st(self)._contents_(_st(self)._methodContents());
+return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},smalltalk.HLNavigationCodeWidget)})},
+messageSends: ["configureEditor", "contents:", "methodContents"]}),
+smalltalk.HLNavigationCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "contents:",
 fn: function (aString){
 var self=this;

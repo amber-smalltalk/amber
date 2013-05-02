@@ -542,7 +542,7 @@ i {
     bottom: 0;
 }
 
-.confirmation {
+.confirmation, .dialog {
     z-index: 2001;
     background: rgba(243,243,243,0.9);
     background-image: -webkit-linear-gradient(top, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0) 5px, transparent 6px);
@@ -562,17 +562,39 @@ i {
     -o-transition: top .5s;
 }
 
-.confirmation span {
+.confirmation.large,
+.dialog.large {
+    width: 400px;
+    margin-left: -220px;
+}
+
+.confirmation textarea,
+.dialog textarea {
+    display: block;
+    width: 235px;
+}
+
+.confirmation.large textarea,
+.dialog.large textarea {
+    width: 385px;
+    height: 200px;
+}
+
+
+.confirmation span,
+.dialog span {
     font-size: 13px;
     font-weight: bold;
 }
 
-.confirmation .buttons {
+.confirmation .buttons,
+.dialog .buttons {
     text-align: right;
     margin-top: 20px;
 }
 
-.confirmation.active {
+.confirmation.active,
+.dialog.active {
     top: 0;
 }
 
@@ -634,9 +656,11 @@ i {
     padding: 10px;
     font-size: 22px;
     color: white;
-    border-top: 1px solid #eee;
 }
 
+.doc .button {
+    float: right;
+}
 .doc .markdown,
 .doc .inheritance {
     padding: 10px;

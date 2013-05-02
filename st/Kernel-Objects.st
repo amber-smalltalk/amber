@@ -784,6 +784,10 @@ renameProtocol: aString to: anotherString in: aClass
 	(aClass methods
 		select: [ :each | each protocol = aString ])
 		do: [ :each | each protocol: anotherString ]
+!
+
+setClassCommentOf: aClass to: aString
+	aClass comment: aString
 ! !
 
 !Environment methodsFor: 'compiling'!

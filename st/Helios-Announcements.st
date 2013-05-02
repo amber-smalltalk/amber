@@ -62,6 +62,10 @@ HLAnnouncement subclass: #HLDiveRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLEditComment
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLAnnouncement subclass: #HLErrorRaised
 	instanceVariableNames: 'error'
 	package: 'Helios-Announcements'!

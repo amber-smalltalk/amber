@@ -2594,6 +2594,22 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "setClassCommentOf:to:",
+category: 'actions',
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aClass)._comment_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"setClassCommentOf:to:",{aClass:aClass,aString:aString},smalltalk.Environment)})},
+args: ["aClass", "aString"],
+source: "setClassCommentOf: aClass to: aString\x0a\x09aClass comment: aString",
+messageSends: ["comment:"],
+referencedClasses: []
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "systemAnnouncer",
 category: 'accessing',
 fn: function (){
