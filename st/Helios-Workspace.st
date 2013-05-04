@@ -253,9 +253,29 @@ onSaveIt
 
 !HLCodeWidget methodsFor: 'rendering'!
 
+renderButtonsOn: html
+	html button 
+		class: 'button';
+		with: 'DoIt';
+		onClick: [ self doIt ].
+	html button 
+		class: 'button';
+		with: 'PintIt';
+		onClick: [ self printIt ].
+	html button 
+		class: 'button';
+		with: 'InspectIt';
+		onClick: [ self inspectIt ]
+!
+
 renderContentOn: html
 	code := html textarea.
 	state := html div class: 'state'.
+	
+	html div 
+		class: 'buttons_bar';
+		with: [ self renderButtonsOn: html ].
+	
 	self 
 		setEditorOn: code element;
 		configureEditor;
@@ -550,6 +570,14 @@ refresh
     self hasFocus ifTrue: [ ^ self ].
 
 	self contents: self browserModel selectedMethod source
+!
+
+renderButtonsOn: html
+	html button 
+		class: 'button';
+		with: 'SaveIt';
+		onClick: [ self saveIt ].
+	super renderButtonsOn: html
 !
 
 saveIt

@@ -511,19 +511,57 @@ smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "renderButtonsOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+$1=_st(html)._button();
+_st($1)._class_("button");
+_st($1)._with_("DoIt");
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._doIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3=_st(html)._button();
+_st($3)._class_("button");
+_st($3)._with_("PintIt");
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._printIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$5=_st(html)._button();
+_st($5)._class_("button");
+_st($5)._with_("InspectIt");
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._inspectIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLCodeWidget)})},
+messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt"]}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4;
 self["@code"]=_st(html)._textarea();
 self["@state"]=_st(_st(html)._div())._class_("state");
-$1=self;
-_st($1)._setEditorOn_(_st(self["@code"])._element());
-_st($1)._configureEditor();
-$2=_st($1)._updateState();
+$1=_st(html)._div();
+_st($1)._class_("buttons_bar");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._renderButtonsOn_(html);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3=self;
+_st($3)._setEditorOn_(_st(self["@code"])._element());
+_st($3)._configureEditor();
+$4=_st($3)._updateState();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLCodeWidget)})},
-messageSends: ["textarea", "class:", "div", "setEditorOn:", "element", "configureEditor", "updateState"]}),
+messageSends: ["textarea", "class:", "div", "with:", "renderButtonsOn:", "setEditorOn:", "element", "configureEditor", "updateState"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
@@ -1301,6 +1339,25 @@ return $4;
 _st(self)._contents_(_st(_st(_st(self)._browserModel())._selectedMethod())._source());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "browserModel"]}),
+smalltalk.HLBrowserCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._button();
+_st($1)._class_("button");
+_st($1)._with_("SaveIt");
+$2=_st($1)._onClick_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._saveIt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+smalltalk.HLNavigationCodeWidget.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLBrowserCodeWidget)})},
+messageSends: ["class:", "button", "with:", "onClick:", "saveIt", "renderButtonsOn:"]}),
 smalltalk.HLBrowserCodeWidget);
 
 smalltalk.addMethod(

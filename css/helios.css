@@ -76,6 +76,14 @@ i {
     background: transparent url('/images/modified.png') 50% 50% no-repeat;
 }
 
+.buttons_bar {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+    z-index: 2;
+    transition: 0.4s all;
+}
+
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
     padding: 2px 8px;
 }
@@ -644,7 +652,7 @@ i {
     background: white;
 }
 
-.doc code, .doc pre {
+.doc code .doc pre {
     font-size: 11px;
 }
 
