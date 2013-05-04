@@ -73,7 +73,7 @@ i {
 }
 
 .state.modified {
-    background: transparent url('/images/modified.png') 50% 50% no-repeat;
+    background: transparent url('../images/modified.png') 50% 50% no-repeat;
 }
 
 .buttons_bar {
