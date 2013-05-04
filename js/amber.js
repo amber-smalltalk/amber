@@ -305,7 +305,7 @@ amber = (function() {
 
 	that.loadHelios = function() {
         loadCSS('helios_frame.css');
-        var frame = jQuery('<div id="helios"><iframe frameborder=0 src="../helios.html"></iframe></div>');
+        var frame = jQuery('<div id="helios"><iframe frameborder=0 src="' + home + 'helios.html"></iframe></div>');
 
         jQuery('body').append(frame);
         jQuery(frame).resizable({
