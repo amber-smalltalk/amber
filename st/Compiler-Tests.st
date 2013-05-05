@@ -131,6 +131,15 @@ testReceiver
 		equals: 2@3
 !
 
+testSuper
+	self 
+		assert: (self 
+			interpret: 'foo ^ super isBoolean' 
+			receiver: true 
+			withArguments: Dictionary new) 
+		equals: false
+!
+
 testTempAssignment
 	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
 !

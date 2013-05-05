@@ -1075,14 +1075,14 @@ return smalltalk.withContext(function($ctx3) {
 return _st(self)._messageFromSendNode_arguments_do_(aNode,args,(function(message){
 return smalltalk.withContext(function($ctx4) {
 _st(_st(self)._context())._pc_(_st(_st(_st(self)._context())._pc()).__plus((1)));
-return _st(self)._continue_value_(aBlock,_st(message)._sendTo_(receiver));
+return _st(self)._continue_value_(aBlock,_st(self)._sendMessage_to_superSend_(message,receiver,_st(aNode)._superSend()));
 }, function($ctx4) {$ctx4.fillBlock({message:message},$ctx1)})}));
 }, function($ctx3) {$ctx3.fillBlock({args:args},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({receiver:receiver},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretSendNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 args: ["aNode", "aBlock"],
-source: "interpretSendNode: aNode continue: aBlock\x0a\x09\x22TODO: Handle super sends\x22\x0a\x09\x0a\x09self interpret: aNode receiver continue: [ :receiver |\x0a\x09\x09self interpretAll: aNode arguments continue: [ :args |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09messageFromSendNode: aNode\x0a\x09\x09\x09\x09arguments: args\x0a\x09\x09\x09\x09do: [ :message |\x0a\x09\x09\x09\x09\x09self context pc: self context pc + 1.\x0a\x09\x09\x09\x09\x09self\x0a\x09\x09\x09\x09\x09\x09continue: aBlock\x0a\x09\x09\x09\x09\x09\x09value: (message sendTo: receiver) ] ] ]",
-messageSends: ["interpret:continue:", "receiver", "interpretAll:continue:", "arguments", "messageFromSendNode:arguments:do:", "pc:", "+", "pc", "context", "continue:value:", "sendTo:"],
+source: "interpretSendNode: aNode continue: aBlock\x0a\x09self interpret: aNode receiver continue: [ :receiver |\x0a\x09\x09self interpretAll: aNode arguments continue: [ :args |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09messageFromSendNode: aNode\x0a\x09\x09\x09\x09arguments: args\x0a\x09\x09\x09\x09do: [ :message |\x0a\x09\x09\x09\x09\x09self context pc: self context pc + 1.\x0a\x09\x09\x09\x09\x09self\x0a\x09\x09\x09\x09\x09\x09continue: aBlock\x0a\x09\x09\x09\x09\x09\x09value: (self sendMessage: message to: receiver superSend: aNode superSend) ] ] ]",
+messageSends: ["interpret:continue:", "receiver", "interpretAll:continue:", "arguments", "messageFromSendNode:arguments:do:", "pc:", "+", "pc", "context", "continue:value:", "sendMessage:to:superSend:", "superSend"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);
@@ -1183,6 +1183,46 @@ return $1;
 args: [],
 source: "result\x0a\x09^ result",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sendMessage:to:superSend:",
+category: 'private',
+fn: function (aMessage,anObject,aBoolean){
+var self=this;
+var method;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+var $early={};
+try {
+$1=aBoolean;
+if(! smalltalk.assert($1)){
+$2=_st(aMessage)._sendTo_(anObject);
+return $2;
+};
+$3=_st(_st(anObject)._class())._superclass();
+if(($receiver = $3) == nil || $receiver == undefined){
+$4=_st(self)._messageNotUnderstood_receiver_(aMessage,anObject);
+return $4;
+} else {
+$3;
+};
+method=_st(_st(_st(_st(anObject)._class())._superclass())._methodDictionary())._at_ifAbsent_(_st(aMessage)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {
+$5=_st(self)._messageNotUnderstood_receiver_(aMessage,anObject);
+throw $early=[$5];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$6=_st(_st(method)._fn())._applyTo_arguments_(anObject,_st(aMessage)._arguments());
+return $6;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},smalltalk.ASTInterpreter)})},
+args: ["aMessage", "anObject", "aBoolean"],
+source: "sendMessage: aMessage to: anObject superSend: aBoolean\x0a\x09| method |\x0a\x09\x0a\x09aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].\x0a\x09anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x0a\x09method := anObject class superclass methodDictionary\x0a\x09\x09at: aMessage selector\x0a\x09\x09ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x09\x0a\x09^ method fn applyTo: anObject arguments: aMessage arguments\x0a\x09\x09\x0a\x09\x0a\x09",
+messageSends: ["ifFalse:", "sendTo:", "ifNil:", "messageNotUnderstood:receiver:", "superclass", "class", "at:ifAbsent:", "selector", "methodDictionary", "applyTo:arguments:", "arguments", "fn"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);

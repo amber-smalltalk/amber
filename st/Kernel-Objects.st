@@ -739,7 +739,7 @@ copyClass: aClass to: aClassName
 !
 
 eval: aString on: aReceiver
-	| compiler  |
+	| compiler |
 	compiler := Compiler new.
 	[ compiler parseExpression: aString ] on: Error do: [ :ex |
 		^ window alert: ex messageText ].

@@ -811,12 +811,12 @@ return smalltalk.withContext(function($ctx3) {
 return _st(self)._messageFromSendNode_arguments_do_(aNode,args,(function(message){
 return smalltalk.withContext(function($ctx4) {
 _st(_st(self)._context())._pc_(_st(_st(_st(self)._context())._pc()).__plus((1)));
-return _st(self)._continue_value_(aBlock,_st(message)._sendTo_(receiver));
+return _st(self)._continue_value_(aBlock,_st(self)._sendMessage_to_superSend_(message,receiver,_st(aNode)._superSend()));
 }, function($ctx4) {$ctx4.fillBlock({message:message},$ctx1)})}));
 }, function($ctx3) {$ctx3.fillBlock({args:args},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({receiver:receiver},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretSendNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
-messageSends: ["interpret:continue:", "receiver", "interpretAll:continue:", "arguments", "messageFromSendNode:arguments:do:", "pc:", "+", "pc", "context", "continue:value:", "sendTo:"]}),
+messageSends: ["interpret:continue:", "receiver", "interpretAll:continue:", "arguments", "messageFromSendNode:arguments:do:", "pc:", "+", "pc", "context", "continue:value:", "sendMessage:to:superSend:", "superSend"]}),
 smalltalk.ASTInterpreter);
 
 smalltalk.addMethod(
@@ -892,6 +892,41 @@ $1=self["@result"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.ASTInterpreter)})},
 messageSends: []}),
+smalltalk.ASTInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sendMessage:to:superSend:",
+fn: function (aMessage,anObject,aBoolean){
+var self=this;
+var method;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+var $early={};
+try {
+$1=aBoolean;
+if(! smalltalk.assert($1)){
+$2=_st(aMessage)._sendTo_(anObject);
+return $2;
+};
+$3=_st(_st(anObject)._class())._superclass();
+if(($receiver = $3) == nil || $receiver == undefined){
+$4=_st(self)._messageNotUnderstood_receiver_(aMessage,anObject);
+return $4;
+} else {
+$3;
+};
+method=_st(_st(_st(_st(anObject)._class())._superclass())._methodDictionary())._at_ifAbsent_(_st(aMessage)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {
+$5=_st(self)._messageNotUnderstood_receiver_(aMessage,anObject);
+throw $early=[$5];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$6=_st(_st(method)._fn())._applyTo_arguments_(anObject,_st(aMessage)._arguments());
+return $6;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},smalltalk.ASTInterpreter)})},
+messageSends: ["ifFalse:", "sendTo:", "ifNil:", "messageNotUnderstood:receiver:", "superclass", "class", "at:ifAbsent:", "selector", "methodDictionary", "applyTo:arguments:", "arguments", "fn"]}),
 smalltalk.ASTInterpreter);
 
 smalltalk.addMethod(

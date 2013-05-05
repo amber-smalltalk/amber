@@ -328,8 +328,6 @@ interpretReturnNode: aNode continue: aBlock
 !
 
 interpretSendNode: aNode continue: aBlock
-	"TODO: Handle super sends"
-	
 	self interpret: aNode receiver continue: [ :receiver |
 		self interpretAll: aNode arguments continue: [ :args |
 			self
@@ -339,7 +337,7 @@ interpretSendNode: aNode continue: aBlock
 					self context pc: self context pc + 1.
 					self
 						continue: aBlock
-						value: (message sendTo: receiver) ] ] ]
+						value: (self sendMessage: message to: receiver superSend: aNode superSend) ] ] ]
 !
 
 interpretSequenceNode: aNode continue: aBlock
@@ -418,6 +416,19 @@ messageFromSendNode: aSendNode arguments: aCollection do: aBlock
 			selector: aSendNode selector;
 			arguments: aCollection;
 			yourself)
+!
+
+sendMessage: aMessage to: anObject superSend: aBoolean
+	| method |
+	
+	aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].
+	anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
+	
+	method := anObject class superclass methodDictionary
+		at: aMessage selector
+		ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
+		
+	^ method fn applyTo: anObject arguments: aMessage arguments
 !
 
 withBlockContext: aBlock

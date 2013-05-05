@@ -332,6 +332,23 @@ smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testSuper",
+category: 'tests',
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_equals_(_st(self)._interpret_receiver_withArguments_("foo ^ super isBoolean",true,_st($Dictionary())._new()),false);
+return self}, function($ctx1) {$ctx1.fill(self,"testSuper",{},smalltalk.ASTInterpreterTest)})},
+args: [],
+source: "testSuper\x0a\x09self \x0a\x09\x09assert: (self \x0a\x09\x09\x09interpret: 'foo ^ super isBoolean' \x0a\x09\x09\x09receiver: true \x0a\x09\x09\x09withArguments: Dictionary new) \x0a\x09\x09equals: false",
+messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testTempAssignment",
 category: 'tests',
 fn: function (){
