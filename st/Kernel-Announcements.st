@@ -260,10 +260,14 @@ method: aCompiledMethod
 MethodAnnouncement subclass: #MethodAdded
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!MethodAdded commentStamp!
+I am emitted when a `CompiledMethod` is added to a class.!
 
 MethodAnnouncement subclass: #MethodModified
 	instanceVariableNames: 'oldMethod'
 	package: 'Kernel-Announcements'!
+!MethodModified commentStamp!
+I am emitted when a `CompiledMethod` is modified (a new method is installed). I hold a reference to the old method being replaced.!
 
 !MethodModified methodsFor: 'accessing'!
 
@@ -278,6 +282,8 @@ oldMethod: aMethod
 MethodAnnouncement subclass: #MethodMoved
 	instanceVariableNames: 'oldProtocol'
 	package: 'Kernel-Announcements'!
+!MethodMoved commentStamp!
+I am emitted when a `CompiledMethod` is moved to another protocol. I hold a refernce to the old protocol of the method.!
 
 !MethodMoved methodsFor: 'accessing'!
 
@@ -292,10 +298,14 @@ oldProtocol: aString
 MethodAnnouncement subclass: #MethodRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!MethodRemoved commentStamp!
+I am emitted when a `CompiledMethod` is removed from a class.!
 
 SystemAnnouncement subclass: #PackageAnnouncement
 	instanceVariableNames: 'package'
 	package: 'Kernel-Announcements'!
+!PackageAnnouncement commentStamp!
+I am the abstract superclass of package-related announcements.!
 
 !PackageAnnouncement methodsFor: 'accessing'!
 
@@ -310,14 +320,20 @@ package: aPackage
 PackageAnnouncement subclass: #PackageAdded
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!PackageAdded commentStamp!
+I am emitted when a `Package` is added to the system.!
 
 PackageAnnouncement subclass: #PackageRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!PackageRemoved commentStamp!
+I am emitted when a `Package` is removed from the system.!
 
 SystemAnnouncement subclass: #ProtocolAnnouncement
 	instanceVariableNames: 'theClass protocol'
 	package: 'Kernel-Announcements'!
+!ProtocolAnnouncement commentStamp!
+I am the abstract superclass of protocol-related announcements.!
 
 !ProtocolAnnouncement methodsFor: 'accessing'!
 
@@ -340,8 +356,12 @@ theClass: aClass
 ProtocolAnnouncement subclass: #ProtocolAdded
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ProtocolAdded commentStamp!
+I am emitted when a protocol is added to a class.!
 
 ProtocolAnnouncement subclass: #ProtocolRemoved
 	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
+!ProtocolRemoved commentStamp!
+I am emitted when a protocol is removed from a class.!
 

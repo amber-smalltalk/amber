@@ -148,6 +148,7 @@ smalltalk.IRInlinedSend);
 
 
 smalltalk.addClass('IRInlinedIfFalse', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
+smalltalk.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message send instruction."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -167,6 +168,7 @@ smalltalk.IRInlinedIfFalse);
 
 
 smalltalk.addClass('IRInlinedIfNilIfNotNil', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
+smalltalk.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNil:` message send instruction."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -186,6 +188,7 @@ smalltalk.IRInlinedIfNilIfNotNil);
 
 
 smalltalk.addClass('IRInlinedIfTrue', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
+smalltalk.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message send instruction."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -205,6 +208,7 @@ smalltalk.IRInlinedIfTrue);
 
 
 smalltalk.addClass('IRInlinedIfTrueIfFalse', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
+smalltalk.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFalse:` message send instruction."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",

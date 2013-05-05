@@ -2,6 +2,10 @@ Smalltalk current createPackage: 'Kernel-Transcript'!
 Object subclass: #ConsoleTranscript
 	instanceVariableNames: 'textarea'
 	package: 'Kernel-Transcript'!
+!ConsoleTranscript commentStamp!
+I am a specific transcript emitting to the JavaScript console.
+
+If no other transcript is registered, I am the default.!
 
 !ConsoleTranscript methodsFor: 'actions'!
 
@@ -29,8 +33,19 @@ initialize
 ! !
 
 Object subclass: #Transcript
-	instanceVariableNames: 'textarea'
+	instanceVariableNames: ''
 	package: 'Kernel-Transcript'!
+!Transcript commentStamp!
+I am a facade for Transcript actions.
+
+I delegate actions to the currently registered transcript.
+
+## API
+
+    Transcript 
+        show: 'hello world';
+        cr;
+        show: anObject.!
 
 Transcript class instanceVariableNames: 'current'!
 

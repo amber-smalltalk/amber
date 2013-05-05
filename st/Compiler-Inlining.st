@@ -74,6 +74,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfFalse
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfFalse commentStamp!
+I represent an inlined `#ifFalse:` message send instruction.!
 
 !IRInlinedIfFalse methodsFor: 'visiting'!
 
@@ -84,6 +86,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfNilIfNotNil
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfNilIfNotNil commentStamp!
+I represent an inlined `#ifNil:ifNotNil:` message send instruction.!
 
 !IRInlinedIfNilIfNotNil methodsFor: 'visiting'!
 
@@ -94,6 +98,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfTrue
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfTrue commentStamp!
+I represent an inlined `#ifTrue:` message send instruction.!
 
 !IRInlinedIfTrue methodsFor: 'visiting'!
 
@@ -104,6 +110,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfTrueIfFalse
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfTrueIfFalse commentStamp!
+I represent an inlined `#ifTrue:ifFalse:` message send instruction.!
 
 !IRInlinedIfTrueIfFalse methodsFor: 'visiting'!
 

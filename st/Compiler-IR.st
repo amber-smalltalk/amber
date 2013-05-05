@@ -3,8 +3,7 @@ NodeVisitor subclass: #IRASTTranslator
 	instanceVariableNames: 'source theClass method sequence nextAlias'
 	package: 'Compiler-IR'!
 !IRASTTranslator commentStamp!
-I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.
-I rely on a builder object, instance of IRBuilder.!
+I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.!
 
 !IRASTTranslator methodsFor: 'accessing'!
 

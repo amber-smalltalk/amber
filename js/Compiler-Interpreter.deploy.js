@@ -224,6 +224,19 @@ smalltalk.AIContext.klass);
 smalltalk.addClass('ASTDebugger', smalltalk.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "atEnd",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._interpreter())._atEnd();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"atEnd",{},smalltalk.ASTDebugger)})},
+messageSends: ["atEnd", "interpreter"]}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "buildAST",
 fn: function (){
 var self=this;
@@ -344,6 +357,17 @@ $1=_st(_st(self)._context())._method();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.ASTDebugger)})},
 messageSends: ["method", "context"]}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "proceed",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._shouldBeImplemented();
+return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},smalltalk.ASTDebugger)})},
+messageSends: ["shouldBeImplemented"]}),
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(

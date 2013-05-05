@@ -1,5 +1,6 @@
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
+smalltalk.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "nextChunk",
@@ -79,6 +80,7 @@ smalltalk.ChunkParser.klass);
 
 
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).\x0a\x0a## API\x0a\x0aUse `#exportAll`, `#exportClass:` or `#exportPackage:` methods."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
@@ -392,10 +394,11 @@ smalltalk.Exporter);
 
 
 smalltalk.addClass('ChunkExporter', smalltalk.Exporter, [], 'Importer-Exporter');
+smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "chunkEscape:",
-category: 'not yet classified',
+category: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -413,7 +416,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
-category: 'not yet classified',
+category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -441,7 +444,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -486,7 +489,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -521,7 +524,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethod:of:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (aMethod,aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -543,7 +546,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethods:category:of:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (methods,category,aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -573,7 +576,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethodsOf:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (aClass,aStream){
 var self=this;
 var map;
@@ -609,7 +612,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (package_,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -628,7 +631,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageExtensionsOf:on:",
-category: 'not yet classified',
+category: 'private',
 fn: function (package_,aStream){
 var self=this;
 var name,map;
@@ -674,6 +677,7 @@ smalltalk.ChunkExporter);
 
 
 smalltalk.addClass('StrippedExporter', smalltalk.Exporter, [], 'Importer-Exporter');
+smalltalk.StrippedExporter.comment="I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
@@ -742,6 +746,7 @@ smalltalk.StrippedExporter);
 
 
 smalltalk.addClass('Importer', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.Importer.comment="I can import Amber code from a string in the chunk format.\x0a\x0a## API\x0a\x0a    Importer new import: aString"
 smalltalk.addMethod(
 smalltalk.method({
 selector: "import:",
@@ -788,6 +793,7 @@ smalltalk.Importer);
 
 
 smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ajaxPutAt:data:",
@@ -904,7 +910,7 @@ smalltalk.PackageHandler);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "loadPackages:prefix:",
-category: 'not yet classified',
+category: 'loading',
 fn: function (aCollection,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

@@ -55,7 +55,7 @@ messageSends: ["register:", "new"]}),
 smalltalk.ConsoleTranscript.klass);
 
 
-smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
+smalltalk.addClass('Transcript', smalltalk.Object, [], 'Kernel-Transcript');
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(

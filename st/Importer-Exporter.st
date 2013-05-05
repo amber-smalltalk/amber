@@ -2,6 +2,14 @@ Smalltalk current createPackage: 'Importer-Exporter'!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
 	package: 'Importer-Exporter'!
+!ChunkParser commentStamp!
+I am responsible for parsing aStream contents in the chunk format.
+
+## API
+
+    ChunkParser new
+        stream: aStream;
+        nextChunk!
 
 !ChunkParser methodsFor: 'accessing'!
 
@@ -43,6 +51,18 @@ on: aStream
 Object subclass: #Exporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!Exporter commentStamp!
+I am responsible for outputting Amber code into a JavaScript string.
+
+The generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.
+
+## Use case
+
+I am typically used to save code outside of the Amber runtime (committing to disk, etc.).
+
+## API
+
+Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
 
 !Exporter methodsFor: 'fileOut'!
 
@@ -174,8 +194,12 @@ exportPackageExtensionsOf: package on: aStream
 Exporter subclass: #ChunkExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!ChunkExporter commentStamp!
+I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.
 
-!ChunkExporter methodsFor: 'not yet classified'!
+I do not output any compiled code.!
+
+!ChunkExporter methodsFor: 'private'!
 
 chunkEscape: aString
 	"Replace all occurrences of !! with !!!! and trim at both ends."
@@ -288,6 +312,8 @@ exportPackageExtensionsOf: package on: aStream
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!StrippedExporter commentStamp!
+I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
 
 !StrippedExporter methodsFor: 'private'!
 
@@ -323,6 +349,12 @@ exportMethod: aMethod of: aClass on: aStream
 Object subclass: #Importer
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!Importer commentStamp!
+I can import Amber code from a string in the chunk format.
+
+## API
+
+    Importer new import: aString!
 
 !Importer methodsFor: 'fileIn'!
 
@@ -345,6 +377,10 @@ import: aStream
 Object subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!PackageHandler commentStamp!
+I am responsible for handling package loading and committing.
+
+I should not be used directly. Instead, use the corresponding `Package` methods.!
 
 !PackageHandler methodsFor: 'committing'!
 
@@ -401,7 +437,7 @@ setupPackageNamed: packageName prefix: aString
 		commitPathSt: '/', aString, '/st'
 ! !
 
-!PackageHandler class methodsFor: 'not yet classified'!
+!PackageHandler class methodsFor: 'loading'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString

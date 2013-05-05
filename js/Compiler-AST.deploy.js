@@ -233,6 +233,17 @@ smalltalk.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "stopOnStepping",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"stopOnStepping",{},smalltalk.Node)})},
+messageSends: []}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "subtreeNeedsAliasing",
 fn: function (){
 var self=this;
@@ -982,6 +993,17 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@selector"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"selector:",{aString:aString},smalltalk.SendNode)})},
+messageSends: []}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stopOnStepping",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"stopOnStepping",{},smalltalk.SendNode)})},
 messageSends: []}),
 smalltalk.SendNode);
 

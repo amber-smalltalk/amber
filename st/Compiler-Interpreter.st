@@ -3,10 +3,10 @@ NodeVisitor subclass: #AIContext
 	instanceVariableNames: 'outerContext pc locals method'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
-AIContext is like a `MethodContext`, used by the `ASTInterpreter`.
-Unlike a `MethodContext`, it is not read-only.
+I am like a `MethodContext`, used by the `ASTInterpreter`.
+Unlike a `MethodContext`, my instances are not read-only.
 
-When debugging, `AIContext` instances are created by copying the current `MethodContext` (thisContext)!
+When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
 
@@ -90,13 +90,15 @@ Object subclass: #ASTDebugger
 	instanceVariableNames: 'interpreter context'
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
-ASTDebugger is a debugger to Amber.
-It uses an AST interpreter to step through the code.
+I am a stepping debugger interface for Amber code.
+I internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.
 
-ASTDebugger instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
+My instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
 They hold an `AIContext` instance internally, recursive copy of the `MethodContext`.
 
-Use the methods of the 'stepping' protocol to do stepping.!
+## API
+
+Use the methods of the `'stepping'` protocol to do stepping.!
 
 !ASTDebugger methodsFor: 'accessing'!
 
@@ -155,6 +157,10 @@ initializeWithContext: aMethodContext
 
 !ASTDebugger methodsFor: 'stepping'!
 
+proceed
+	self shouldBeImplemented
+!
+
 restart
 	self shouldBeImplemented
 !
@@ -184,6 +190,12 @@ stepOver
 	self step
 ! !
 
+!ASTDebugger methodsFor: 'testing'!
+
+atEnd
+	^ self interpreter atEnd
+! !
+
 !ASTDebugger class methodsFor: 'instance creation'!
 
 context: aMethodContext
@@ -196,10 +208,10 @@ Object subclass: #ASTInterpreter
 	instanceVariableNames: 'currentNode context shouldReturn result'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
-ASTIntepreter is like a `NodeVisitor`, interpreting nodes one after each other.
-It is built using Continuation Passing Style for stepping purposes.
+I am like a `NodeVisitor`, interpreting nodes one after each other.
+I am built using Continuation Passing Style for stepping purposes.
 
-Usage example:
+## Usage example:
 
 	| ast interpreter |
 	ast := Smalltalk current parse: 'foo 1+2+4'.
@@ -459,10 +471,14 @@ ASTInterpreter subclass: #ASTSteppingInterpreter
 	instanceVariableNames: 'continuation nextNode'
 	package: 'Compiler-Interpreter'!
 !ASTSteppingInterpreter commentStamp!
-ASTSteppingInterpreter is an interpreter with stepping capabilities.
-Use `#step` to actually interpret the next node.
+I am an interpreter with stepping capabilities. The higher level `ASTDebugger` class should be used as a debugger model, as it provides convenience methods for debugging.
 
-Usage example:
+## API
+
+Use `#step` to actually interpret the next node. Interpretation stops at each node evaluation, weither it's a message node or not.
+
+
+## Usage example:
 
 	| ast interpreter |
 	ast := Smalltalk current parse: 'foo 1+2+4'.
@@ -472,13 +488,13 @@ Usage example:
 		interpret: ast nodes first;
 		yourself.
 		
-	debugger step; step.
-	debugger step; step.
-	debugger result."Answers 1"
-	debugger step.
-	debugger result. "Answers 3"
-	debugger step.
-	debugger result. "Answers 7"!
+	interpreter step; step.
+	interpreter step; step.
+	interpreter result."Answers 1"
+	interpreter step.
+	interpreter result. "Answers 3"
+	interpreter step.
+	interpreter result. "Answers 7"!
 
 !ASTSteppingInterpreter methodsFor: 'accessing'!
 

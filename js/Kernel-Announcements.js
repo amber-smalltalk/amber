@@ -536,9 +536,11 @@ smalltalk.MethodAnnouncement);
 
 
 smalltalk.addClass('MethodAdded', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
+smalltalk.MethodAdded.comment="I am emitted when a `CompiledMethod` is added to a class."
 
 
 smalltalk.addClass('MethodModified', smalltalk.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
+smalltalk.MethodModified.comment="I am emitted when a `CompiledMethod` is modified (a new method is installed). I hold a reference to the old method being replaced."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "oldMethod",
@@ -576,6 +578,7 @@ smalltalk.MethodModified);
 
 
 smalltalk.addClass('MethodMoved', smalltalk.MethodAnnouncement, ['oldProtocol'], 'Kernel-Announcements');
+smalltalk.MethodMoved.comment="I am emitted when a `CompiledMethod` is moved to another protocol. I hold a refernce to the old protocol of the method."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "oldProtocol",
@@ -613,9 +616,11 @@ smalltalk.MethodMoved);
 
 
 smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
+smalltalk.MethodRemoved.comment="I am emitted when a `CompiledMethod` is removed from a class."
 
 
 smalltalk.addClass('PackageAnnouncement', smalltalk.SystemAnnouncement, ['package'], 'Kernel-Announcements');
+smalltalk.PackageAnnouncement.comment="I am the abstract superclass of package-related announcements."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "package",
@@ -653,12 +658,15 @@ smalltalk.PackageAnnouncement);
 
 
 smalltalk.addClass('PackageAdded', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
+smalltalk.PackageAdded.comment="I am emitted when a `Package` is added to the system."
 
 
 smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
+smalltalk.PackageRemoved.comment="I am emitted when a `Package` is removed from the system."
 
 
 smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
+smalltalk.ProtocolAnnouncement.comment="I am the abstract superclass of protocol-related announcements."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "protocol",
@@ -730,8 +738,10 @@ smalltalk.ProtocolAnnouncement);
 
 
 smalltalk.addClass('ProtocolAdded', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
+smalltalk.ProtocolAdded.comment="I am emitted when a protocol is added to a class."
 
 
 smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
+smalltalk.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class."
 
 

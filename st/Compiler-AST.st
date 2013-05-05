@@ -5,7 +5,9 @@ Object subclass: #Node
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.
 
-position: holds a point containing line and column number of the symbol location in the original source file.!
+Concrete classes should implement `#accept:` to allow visiting.
+
+`position` holds a point containing line and column number of the symbol location in the original source file.!
 
 !Node methodsFor: 'accessing'!
 
@@ -81,6 +83,10 @@ isValueNode
 	^false
 !
 
+stopOnStepping
+	^ false
+!
+
 subtreeNeedsAliasing
 	^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
 		(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
@@ -95,6 +101,8 @@ accept: aVisitor
 Node subclass: #AssignmentNode
 	instanceVariableNames: 'left right'
 	package: 'Compiler-AST'!
+!AssignmentNode commentStamp!
+I represent an assignment node.!
 
 !AssignmentNode methodsFor: 'accessing'!
 
@@ -133,6 +141,8 @@ accept: aVisitor
 Node subclass: #BlockNode
 	instanceVariableNames: 'parameters scope'
 	package: 'Compiler-AST'!
+!BlockNode commentStamp!
+I represent an block closure node.!
 
 !BlockNode methodsFor: 'accessing'!
 
@@ -171,6 +181,8 @@ accept: aVisitor
 Node subclass: #CascadeNode
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-AST'!
+!CascadeNode commentStamp!
+I represent an cascade node.!
 
 !CascadeNode methodsFor: 'accessing'!
 
@@ -191,6 +203,8 @@ accept: aVisitor
 Node subclass: #DynamicArrayNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
+!DynamicArrayNode commentStamp!
+I represent an dynamic array node.!
 
 !DynamicArrayNode methodsFor: 'visiting'!
 
@@ -201,6 +215,8 @@ accept: aVisitor
 Node subclass: #DynamicDictionaryNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
+!DynamicDictionaryNode commentStamp!
+I represent an dynamic dictionary node.!
 
 !DynamicDictionaryNode methodsFor: 'visiting'!
 
@@ -211,6 +227,8 @@ accept: aVisitor
 Node subclass: #JSStatementNode
 	instanceVariableNames: 'source'
 	package: 'Compiler-AST'!
+!JSStatementNode commentStamp!
+I represent an JavaScript statement node.!
 
 !JSStatementNode methodsFor: 'accessing'!
 
@@ -231,6 +249,10 @@ accept: aVisitor
 Node subclass: #MethodNode
 	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
 	package: 'Compiler-AST'!
+!MethodNode commentStamp!
+I represent an method node.
+
+A method node must be the root and only method node of a valid AST.!
 
 !MethodNode methodsFor: 'accessing'!
 
@@ -299,6 +321,8 @@ accept: aVisitor
 Node subclass: #ReturnNode
 	instanceVariableNames: 'scope'
 	package: 'Compiler-AST'!
+!ReturnNode commentStamp!
+I represent an return node. At the AST level, there is not difference between a local return or non-local return.!
 
 !ReturnNode methodsFor: 'accessing'!
 
@@ -329,6 +353,8 @@ accept: aVisitor
 Node subclass: #SendNode
 	instanceVariableNames: 'selector arguments receiver superSend index'
 	package: 'Compiler-AST'!
+!SendNode commentStamp!
+I represent an message send node.!
 
 !SendNode methodsFor: 'accessing'!
 
@@ -404,6 +430,10 @@ valueForReceiver: anObject
 
 isSendNode
 	^ true
+!
+
+stopOnStepping
+	^ true
 ! !
 
 !SendNode methodsFor: 'visiting'!
@@ -415,6 +445,8 @@ accept: aVisitor
 Node subclass: #SequenceNode
 	instanceVariableNames: 'temps scope'
 	package: 'Compiler-AST'!
+!SequenceNode commentStamp!
+I represent an sequence node. A sequence represent a set of instructions inside the same scope (the method scope or a block scope).!
 
 !SequenceNode methodsFor: 'accessing'!
 
@@ -452,6 +484,8 @@ accept: aVisitor
 SequenceNode subclass: #BlockSequenceNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
+!BlockSequenceNode commentStamp!
+I represent an special sequence node for block scopes.!
 
 !BlockSequenceNode methodsFor: 'testing'!
 
@@ -468,6 +502,8 @@ accept: aVisitor
 Node subclass: #ValueNode
 	instanceVariableNames: 'value'
 	package: 'Compiler-AST'!
+!ValueNode commentStamp!
+I represent a value node.!
 
 !ValueNode methodsFor: 'accessing'!
 
@@ -498,6 +534,8 @@ accept: aVisitor
 ValueNode subclass: #VariableNode
 	instanceVariableNames: 'assigned binding'
 	package: 'Compiler-AST'!
+!VariableNode commentStamp!
+I represent an variable node.!
 
 !VariableNode methodsFor: 'accessing'!
 
@@ -541,6 +579,8 @@ accept: aVisitor
 VariableNode subclass: #ClassReferenceNode
 	instanceVariableNames: ''
 	package: 'Compiler-AST'!
+!ClassReferenceNode commentStamp!
+I represent an class reference node.!
 
 !ClassReferenceNode methodsFor: 'visiting'!
 

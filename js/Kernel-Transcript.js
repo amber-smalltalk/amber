@@ -1,5 +1,6 @@
 smalltalk.addPackage('Kernel-Transcript');
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
+smalltalk.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
@@ -80,7 +81,8 @@ referencedClasses: ["Transcript"]
 smalltalk.ConsoleTranscript.klass);
 
 
-smalltalk.addClass('Transcript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
+smalltalk.addClass('Transcript', smalltalk.Object, [], 'Kernel-Transcript');
+smalltalk.Transcript.comment="I am a facade for Transcript actions.\x0a\x0aI delegate actions to the currently registered transcript.\x0a\x0a## API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject."
 
 smalltalk.Transcript.klass.iVarNames = ['current'];
 smalltalk.addMethod(
