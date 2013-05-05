@@ -100,7 +100,7 @@ clear
 !
 
 register: aTranscript
-	^ self transcripts add: aTranscript
+	self transcripts add: aTranscript
 !
 
 show: aString
@@ -109,6 +109,6 @@ show: aString
 !
 
 unregister: aTranscript
-	^ self transcripts remove: aTranscript
+	self transcripts remove: aTranscript
 ! !
 

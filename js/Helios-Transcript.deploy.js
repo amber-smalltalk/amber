@@ -147,10 +147,8 @@ selector: "register:",
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._transcripts())._add_(aTranscript);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"register:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
+_st(_st(self)._transcripts())._add_(aTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"register:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 messageSends: ["add:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
 
@@ -194,10 +192,8 @@ selector: "unregister:",
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._transcripts())._remove_(aTranscript);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
+_st(_st(self)._transcripts())._remove_(aTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 messageSends: ["remove:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
 

@@ -205,12 +205,10 @@ category: 'registration',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._transcripts())._add_(aTranscript);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"register:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
+_st(_st(self)._transcripts())._add_(aTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"register:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 args: ["aTranscript"],
-source: "register: aTranscript\x0a\x09^ self transcripts add: aTranscript",
+source: "register: aTranscript\x0a\x09self transcripts add: aTranscript",
 messageSends: ["add:", "transcripts"],
 referencedClasses: []
 }),
@@ -267,12 +265,10 @@ category: 'registration',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self)._transcripts())._remove_(aTranscript);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
+_st(_st(self)._transcripts())._remove_(aTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 args: ["aTranscript"],
-source: "unregister: aTranscript\x0a\x09^ self transcripts remove: aTranscript",
+source: "unregister: aTranscript\x0a\x09self transcripts remove: aTranscript",
 messageSends: ["remove:", "transcripts"],
 referencedClasses: []
 }),
