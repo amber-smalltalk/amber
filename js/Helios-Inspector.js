@@ -553,13 +553,34 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st($InspectorHandler())._register_(self);
 _st(self)._watchChanges();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLInspector.klass)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self watchChanges",
-messageSends: ["initialize", "watchChanges"],
+source: "initialize\x0a\x09super initialize.\x0a\x09InspectorHandler register: self.\x0a\x09self watchChanges",
+messageSends: ["initialize", "register:", "watchChanges"],
+referencedClasses: ["InspectorHandler"]
+}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+category: 'actions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self)._new();
+_st($1)._inspect_(anObject);
+$2=_st($1)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLInspector.klass)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open",
+messageSends: ["inspect:", "new", "open"],
 referencedClasses: []
 }),
 smalltalk.HLInspector.klass);

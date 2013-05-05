@@ -1424,23 +1424,3 @@ canBeOpenAsTab
 	^ true
 ! !
 
-HLWidget subclass: #HLTranscript
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
-!HLTranscript class methodsFor: 'accessing'!
-
-tabLabel
-	^ 'Transcript'
-!
-
-tabPriority
-	^ 600
-! !
-
-!HLTranscript class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ true
-! !
-

@@ -407,11 +407,27 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+_st($InspectorHandler())._register_(self);
 _st(self)._watchChanges();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLInspector.klass)})},
-messageSends: ["initialize", "watchChanges"]}),
+messageSends: ["initialize", "register:", "watchChanges"]}),
+smalltalk.HLInspector.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self)._new();
+_st($1)._inspect_(anObject);
+$2=_st($1)._open();
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLInspector.klass)})},
+messageSends: ["inspect:", "new", "open"]}),
 smalltalk.HLInspector.klass);
 
 smalltalk.addMethod(

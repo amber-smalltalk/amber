@@ -457,6 +457,50 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inspect",
+category: 'inspecting',
+fn: function (){
+var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($InspectorHandler())._inspect_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.Object)})},
+args: [],
+source: "inspect\x0a\x09InspectorHandler inspect: self",
+messageSends: ["inspect:"],
+referencedClasses: ["InspectorHandler"]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: 'inspecting',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+_st(_st(_st(self)._class())._allInstanceVariableNames())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(each,_st(self)._instVarAt_(each));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=anInspector;
+_st($1)._setLabel_(_st(self)._printString());
+$2=_st($1)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Object)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09self class allInstanceVariableNames do: [:each |\x0a\x09\x09variables at: each put: (self instVarAt: each)].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "do:", "instVarAt:", "allInstanceVariableNames", "class", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.Object);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "instVarAt:",
 category: 'accessing',
 fn: function (aString){
@@ -2384,9 +2428,9 @@ $2=_st(compiler)._evaluateExpression_on_(aString,aReceiver);
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler},smalltalk.HLEnvironment)})},
+}, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler},smalltalk.Environment)})},
 args: ["aString", "aReceiver"],
-source: "eval: aString on: aReceiver\x0a\x09| compiler  |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ window alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: aReceiver",
+source: "eval: aString on: aReceiver\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ window alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: aReceiver",
 messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:"],
 referencedClasses: ["Compiler", "Error"]
 }),
@@ -2627,6 +2671,73 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
 
+
+
+smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript."
+
+smalltalk.InspectorHandler.klass.iVarNames = ['inspector'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+category: 'registration',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._inspector())._inspect_(anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.InspectorHandler.klass)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09^ self inspector inspect: anObject",
+messageSends: ["inspect:", "inspector"],
+referencedClasses: []
+}),
+smalltalk.InspectorHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspector",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@inspector"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@inspector"]=$Transcript();
+$1=self["@inspector"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"inspector",{},smalltalk.InspectorHandler.klass)})},
+args: [],
+source: "inspector\x0a\x09^ inspector ifNil: [ inspector := Transcript ]",
+messageSends: ["ifNil:"],
+referencedClasses: ["Transcript"]
+}),
+smalltalk.InspectorHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register:",
+category: 'registration',
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self["@inspector"]=anInspector;
+$1=self["@inspector"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.InspectorHandler.klass)})},
+args: ["anInspector"],
+source: "register: anInspector\x0a\x09^ inspector := anInspector",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.InspectorHandler.klass);
 
 
 smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Objects');

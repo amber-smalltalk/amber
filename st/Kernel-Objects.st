@@ -215,6 +215,23 @@ try: aBlock catch: anotherBlock
 initialize
 ! !
 
+!Object methodsFor: 'inspecting'!
+
+inspect
+	InspectorHandler inspect: self
+!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	self class allInstanceVariableNames do: [:each |
+		variables at: each put: (self instVarAt: each)].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
 !Object methodsFor: 'message handling'!
 
 basicPerform: aString
@@ -827,6 +844,34 @@ compileMethod: sourceCode for: class protocol: protocol
 	^ class
 		compile: sourceCode
 		category: protocol
+! !
+
+Object subclass: #InspectorHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!InspectorHandler commentStamp!
+I am responsible for inspecting object.
+
+My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
+
+The default inspector object is the transcript.!
+
+InspectorHandler class instanceVariableNames: 'inspector'!
+
+!InspectorHandler class methodsFor: 'accessing'!
+
+inspector
+	^ inspector ifNil: [ inspector := Transcript ]
+! !
+
+!InspectorHandler class methodsFor: 'registration'!
+
+inspect: anObject
+	^ self inspector inspect: anObject
+!
+
+register: anInspector
+	^ inspector := anInspector
 ! !
 
 Object subclass: #JSObjectProxy

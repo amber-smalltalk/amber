@@ -136,6 +136,22 @@ smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inspect:",
+category: 'printing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._show_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Transcript.klass)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09self show: anObject",
+messageSends: ["show:"],
+referencedClasses: []
+}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "new",
 category: 'instance creation',
 fn: function (){

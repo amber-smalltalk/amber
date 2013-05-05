@@ -178,10 +178,19 @@ tabPriority
 	^ 10
 ! !
 
+!HLInspector class methodsFor: 'actions'!
+
+inspect: anObject
+	self new
+		inspect: anObject;
+		open
+! !
+
 !HLInspector class methodsFor: 'initialization'!
 
 initialize
 	super initialize.
+	InspectorHandler register: self.
 	self watchChanges
 !
 

@@ -96,6 +96,17 @@ smalltalk.Transcript.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inspect:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._show_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Transcript.klass)})},
+messageSends: ["show:"]}),
+smalltalk.Transcript.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "new",
 fn: function (){
 var self=this;

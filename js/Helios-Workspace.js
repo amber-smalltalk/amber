@@ -420,35 +420,12 @@ var newInspector;
 function $HLInspectItRequested(){return smalltalk.HLInspectItRequested||(typeof HLInspectItRequested=="undefined"?nil:HLInspectItRequested)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(_st(self)._model())._announcer())._announce_(_st($HLInspectItRequested())._on_(self["@model"]));
-newInspector=_st(self)._makeInspectorOn_(_st(self)._doIt());
-_st(newInspector)._open();
+_st(_st(self)._doIt())._inspect();
 return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector},smalltalk.HLCodeWidget)})},
 args: [],
-source: "inspectIt\x0a\x09| newInspector |\x0a       \x0a\x09self model announcer announce: (HLInspectItRequested on: model).\x0a\x09newInspector := self makeInspectorOn: self doIt.\x0a\x09newInspector open",
-messageSends: ["announce:", "on:", "announcer", "model", "makeInspectorOn:", "doIt", "open"],
+source: "inspectIt\x0a\x09| newInspector |\x0a       \x0a\x09self model announcer announce: (HLInspectItRequested on: model).\x0a\x09self doIt inspect",
+messageSends: ["announce:", "on:", "announcer", "model", "inspect", "doIt"],
 referencedClasses: ["HLInspectItRequested"]
-}),
-smalltalk.HLCodeWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "makeInspectorOn:",
-category: 'actions',
-fn: function (anObject){
-var self=this;
-function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($HLInspector())._new();
-_st($2)._inspect_(anObject);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"makeInspectorOn:",{anObject:anObject},smalltalk.HLCodeWidget)})},
-args: ["anObject"],
-source: "makeInspectorOn: anObject\x0a\x0a\x09^ HLInspector new \x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
-messageSends: ["inspect:", "new", "yourself"],
-referencedClasses: ["HLInspector"]
 }),
 smalltalk.HLCodeWidget);
 

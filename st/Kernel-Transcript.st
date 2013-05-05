@@ -62,6 +62,10 @@ cr
 	self current show: String cr
 !
 
+inspect: anObject
+	self show: anObject
+!
+
 show: anObject
 	self current show: anObject
 ! !

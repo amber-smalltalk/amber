@@ -1726,6 +1726,12 @@ updateVariablesList
 
 !Inspector class methodsFor: 'instance creation'!
 
+inspect: anObject
+	^self new
+		inspect: anObject;
+		yourself
+!
+
 on: anObject
 	^self new
 		inspect: anObject;
@@ -2286,25 +2292,6 @@ renderButtonsOn: html
 	html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
-! !
-
-!Object methodsFor: '*IDE'!
-
-inspect
-	Inspector new
-		inspect: self;
-		open
-!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	self class allInstanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
 ! !
 
 !Collection methodsFor: '*IDE'!

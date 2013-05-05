@@ -145,15 +145,7 @@ inspectIt
 	| newInspector |
        
 	self model announcer announce: (HLInspectItRequested on: model).
-	newInspector := self makeInspectorOn: self doIt.
-	newInspector open
-!
-
-makeInspectorOn: anObject
-
-	^ HLInspector new 
-		inspect: anObject;
-		yourself
+	self doIt inspect
 !
 
 print: aString
