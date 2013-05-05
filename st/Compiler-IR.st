@@ -584,9 +584,9 @@ IRReturn subclass: #IRNonLocalReturn
 	package: 'Compiler-IR'!
 !IRNonLocalReturn commentStamp!
 I am a non local return instruction.
-Non local returns are handled using a try/catch JS statement.
+Non local returns are handled using a try/catch JavaScript statement.
 
-See IRNonLocalReturnHandling class!
+See `IRNonLocalReturnHandling` class.!
 
 !IRNonLocalReturn methodsFor: 'testing'!
 
