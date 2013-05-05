@@ -253,26 +253,6 @@ label
 	^ 'Browser'
 ! !
 
-HLOpenCommand subclass: #HLOpenTranscriptCommand
-	instanceVariableNames: ''
-	package: 'Helios-Commands-Core'!
-
-!HLOpenTranscriptCommand methodsFor: 'executing'!
-
-execute
-	^ HLTranscript openAsTab
-! !
-
-!HLOpenTranscriptCommand class methodsFor: 'accessing'!
-
-key
-	^ 't'
-!
-
-label
-	^ 'Transcript'
-! !
-
 HLOpenCommand subclass: #HLOpenWorkspaceCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Core'!

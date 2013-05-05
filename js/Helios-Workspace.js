@@ -1830,7 +1830,7 @@ referencedClasses: []
 smalltalk.HLBrowserCodeWidget.klass);
 
 
-smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['codeWidget'], 'Helios-Workspace');
+smalltalk.addClass('HLWorkspace', smalltalk.HLWidget, ['codeWidget', 'transcript'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
@@ -1896,14 +1896,86 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
+function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLContainer())._with_(_st(self)._codeWidget()));
+_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st(self)._codeWidget(),(function(canvas){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._renderTranscriptOn_(canvas);
+}, function($ctx2) {$ctx2.fillBlock({canvas:canvas},$ctx1)})}))));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLWorkspace)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: (HLContainer with: self codeWidget)",
-messageSends: ["with:", "codeWidget"],
-referencedClasses: ["HLContainer"]
+source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter\x0a\x09\x09with: self codeWidget\x0a\x09\x09with: [ :canvas | self renderTranscriptOn: canvas ]))",
+messageSends: ["with:", "with:with:", "codeWidget", "renderTranscriptOn:"],
+referencedClasses: ["HLHorizontalSplitter", "HLContainer"]
+}),
+smalltalk.HLWorkspace);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderTranscriptOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+$1=_st(html)._div();
+_st($1)._class_("transcript-container");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._div();
+_st($3)._class_("list-label");
+$4=_st($3)._with_("Transcript");
+$4;
+return _st(_st(self)._transcript())._renderOn_(html);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderTranscriptOn:",{html:html},smalltalk.HLWorkspace)})},
+args: ["html"],
+source: "renderTranscriptOn: html\x0a\x09html div \x0a\x09\x09class: 'transcript-container';\x0a\x09\x09with: [\x0a\x09\x09\x09html div\x0a\x09\x09\x09\x09class: 'list-label';\x0a\x09\x09\x09\x09with: 'Transcript'.\x0a\x09\x09\x09self transcript renderOn: html ]",
+messageSends: ["class:", "div", "with:", "renderOn:", "transcript"],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transcript",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $HLTranscript(){return smalltalk.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@transcript"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@transcript"]=_st($HLTranscript())._new();
+$1=self["@transcript"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transcript",{},smalltalk.HLWorkspace)})},
+args: [],
+source: "transcript\x0a\x09^ transcript ifNil: [ transcript := HLTranscript new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["HLTranscript"]
+}),
+smalltalk.HLWorkspace);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
+_st(_st(self)._transcript())._unregister();
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWorkspace)})},
+args: [],
+source: "unregister\x0a\x09super unregister.\x0a\x09self transcript unregister",
+messageSends: ["unregister", "transcript"],
+referencedClasses: []
 }),
 smalltalk.HLWorkspace);
 

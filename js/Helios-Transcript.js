@@ -81,11 +81,11 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@textarea"])._asJQuery())._append_(aString);
+_st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscript)})},
 args: ["aString"],
-source: "show: aString\x0a\x09textarea asJQuery append: aString",
-messageSends: ["append:", "asJQuery"],
+source: "show: aString\x0a\x09textarea asJQuery append: aString asString",
+messageSends: ["append:", "asString", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLTranscript);
@@ -108,54 +108,6 @@ referencedClasses: ["HLTranscriptHandler"]
 }),
 smalltalk.HLTranscript);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "canBeOpenAsTab",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return true;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLTranscript.klass)})},
-args: [],
-source: "canBeOpenAsTab\x0a\x09^ true",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLTranscript.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "tabLabel",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "Transcript";
-}, function($ctx1) {$ctx1.fill(self,"tabLabel",{},smalltalk.HLTranscript.klass)})},
-args: [],
-source: "tabLabel\x0a\x09^ 'Transcript'",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLTranscript.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "tabPriority",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return (1);
-}, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLTranscript.klass)})},
-args: [],
-source: "tabPriority\x0a\x09^ 1",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLTranscript.klass);
 
 
 smalltalk.addClass('HLTranscriptHandler', smalltalk.Object, [], 'Helios-Transcript');

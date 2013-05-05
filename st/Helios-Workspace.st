@@ -715,25 +715,46 @@ canBeOpenAsTab
 ! !
 
 HLWidget subclass: #HLWorkspace
-	instanceVariableNames: 'codeWidget'
+	instanceVariableNames: 'codeWidget transcript'
 	package: 'Helios-Workspace'!
 
 !HLWorkspace methodsFor: 'accessing'!
 
 codeWidget
 	^ codeWidget ifNil: [ codeWidget := HLCodeWidget new ]
+!
+
+transcript
+	^ transcript ifNil: [ transcript := HLTranscript new ]
 ! !
 
 !HLWorkspace methodsFor: 'actions'!
 
 focus
 	^ self codeWidget focus
+!
+
+unregister
+	super unregister.
+	self transcript unregister
 ! !
 
 !HLWorkspace methodsFor: 'rendering'!
 
 renderContentOn: html
-	html with: (HLContainer with: self codeWidget)
+	html with: (HLContainer with: (HLHorizontalSplitter
+		with: self codeWidget
+		with: [ :canvas | self renderTranscriptOn: canvas ]))
+!
+
+renderTranscriptOn: html
+	html div 
+		class: 'transcript-container';
+		with: [
+			html div
+				class: 'list-label';
+				with: 'Transcript'.
+			self transcript renderOn: html ]
 ! !
 
 !HLWorkspace methodsFor: 'testing'!

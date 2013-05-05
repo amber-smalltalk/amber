@@ -574,45 +574,6 @@ messageSends: []}),
 smalltalk.HLOpenBrowserCommand.klass);
 
 
-smalltalk.addClass('HLOpenTranscriptCommand', smalltalk.HLOpenCommand, [], 'Helios-Commands-Core');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "execute",
-fn: function (){
-var self=this;
-function $HLTranscript(){return smalltalk.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($HLTranscript())._openAsTab();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLOpenTranscriptCommand)})},
-messageSends: ["openAsTab"]}),
-smalltalk.HLOpenTranscriptCommand);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "key",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "t";
-}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenTranscriptCommand.klass)})},
-messageSends: []}),
-smalltalk.HLOpenTranscriptCommand.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "label",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "Transcript";
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLOpenTranscriptCommand.klass)})},
-messageSends: []}),
-smalltalk.HLOpenTranscriptCommand.klass);
-
-
 smalltalk.addClass('HLOpenWorkspaceCommand', smalltalk.HLOpenCommand, [], 'Helios-Commands-Core');
 smalltalk.addMethod(
 smalltalk.method({

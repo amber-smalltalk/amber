@@ -81,7 +81,6 @@ i {
     bottom: 8px;
     right: 20px;
     z-index: 2;
-    transition: 0.4s all;
 }
 
 .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
@@ -198,7 +197,7 @@ i {
 }
 
 
-.tool_container, .transcript {
+.tool_container {
     position: absolute;
     top: 23px;
     bottom: 0;
@@ -690,4 +689,28 @@ i {
 
 .doc h2 {
     font-size: 16px;
+}
+
+.transcript_container .list-label {
+    height: 16px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.transcript {
+    position: absolute;
+    top: 17px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.transcript textarea {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }

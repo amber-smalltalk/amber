@@ -23,7 +23,7 @@ clear
 !
 
 show: aString
-	textarea asJQuery append: aString
+	textarea asJQuery append: aString asString
 ! !
 
 !HLTranscript methodsFor: 'initialization'!
@@ -50,22 +50,6 @@ renderOn: html
 	html div
 		class: 'transcript';
 		with: [ textarea := html textarea ]
-! !
-
-!HLTranscript class methodsFor: 'accessing'!
-
-tabLabel
-	^ 'Transcript'
-!
-
-tabPriority
-	^ 1
-! !
-
-!HLTranscript class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ true
 ! !
 
 Object subclass: #HLTranscriptHandler
