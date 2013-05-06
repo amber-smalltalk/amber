@@ -514,6 +514,23 @@ messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"]}),
 smalltalk.HLInspector.klass);
 
 
+smalltalk.addClass('HLInspectorWidget', smalltalk.HLInspector, [], 'Helios-Inspector');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+fn: function (html){
+var self=this;
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
+function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+return smalltalk.withContext(function($ctx1) { 
+_st(html)._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(_st(self)._variablesWidget(),_st(self)._displayWidget()),_st(self)._codeWidget()));
+_st(_st(self)._variablesWidget())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorWidget)})},
+messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget", "focus"]}),
+smalltalk.HLInspectorWidget);
+
+
+
 smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({
@@ -791,12 +808,18 @@ smalltalk.method({
 selector: "variables",
 fn: function (){
 var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@variables"];
+var $2,$1;
+$2=self["@variables"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st($Dictionary())._new();
+} else {
+$1=$2;
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variables",{},smalltalk.HLInspectorModel)})},
-messageSends: []}),
+messageSends: ["ifNil:", "new"]}),
 smalltalk.HLInspectorModel);
 
 smalltalk.addMethod(

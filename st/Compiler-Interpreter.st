@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
 NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'outerContext pc locals method'
+	instanceVariableNames: 'methodContext outerContext pc locals method'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -9,6 +9,12 @@ Unlike a `MethodContext`, my instances are not read-only.
 When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+home
+	^ self isBlockContext 
+		ifTrue: [ self outerContext methodContext ]
+		ifFalse: [ self ]
+!
 
 localAt: aString
 	^ self locals at: aString ifAbsent: [ nil ]
@@ -61,9 +67,17 @@ selector
 		ifNotNil: [ self method selector ]
 ! !
 
+!AIContext methodsFor: 'converting'!
+
+asString
+	^ methodContext asString
+! !
+
 !AIContext methodsFor: 'initialization'!
 
 initializeFromMethodContext: aMethodContext
+	methodContext := aMethodContext.
+	
 	self pc: aMethodContext pc.
 	self receiver: aMethodContext receiver.
 	self method: aMethodContext method.
@@ -76,6 +90,12 @@ initializeFromMethodContext: aMethodContext
 initializeLocals
 	locals := Dictionary new.
 	locals at: 'thisContext' put: self.
+! !
+
+!AIContext methodsFor: 'testing'!
+
+isBlockContext
+	^ methodContext isBlockContext
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
@@ -162,10 +182,6 @@ proceed
 !
 
 restart
-	self shouldBeImplemented
-!
-
-resume
 	self shouldBeImplemented
 !
 

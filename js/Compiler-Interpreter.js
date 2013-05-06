@@ -1,6 +1,47 @@
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
+smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
 smalltalk.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)"
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asString",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@methodContext"])._asString();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.AIContext)})},
+args: [],
+source: "asString\x0a\x09^ methodContext asString",
+messageSends: ["asString"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "home",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self)._isBlockContext();
+if(smalltalk.assert($2)){
+$1=_st(_st(self)._outerContext())._methodContext();
+} else {
+$1=self;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"home",{},smalltalk.AIContext)})},
+args: [],
+source: "home\x0a\x09^ self isBlockContext \x0a\x09\x09ifTrue: [ self outerContext methodContext ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "methodContext", "outerContext", "isBlockContext"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromMethodContext:",
@@ -9,6 +50,7 @@ fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self["@methodContext"]=aMethodContext;
 _st(self)._pc_(_st(aMethodContext)._pc());
 _st(self)._receiver_(_st(aMethodContext)._receiver());
 _st(self)._method_(_st(aMethodContext)._method());
@@ -24,7 +66,7 @@ return _st(_st(self)._locals())._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext)})},
 args: ["aMethodContext"],
-source: "initializeFromMethodContext: aMethodContext\x0a\x09self pc: aMethodContext pc.\x0a\x09self receiver: aMethodContext receiver.\x0a\x09self method: aMethodContext method.\x0a\x09aMethodContext outerContext ifNotNil: [\x0a\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09self locals at: key put: value ]",
+source: "initializeFromMethodContext: aMethodContext\x0a\x09methodContext := aMethodContext.\x0a\x09\x0a\x09self pc: aMethodContext pc.\x0a\x09self receiver: aMethodContext receiver.\x0a\x09self method: aMethodContext method.\x0a\x09aMethodContext outerContext ifNotNil: [\x0a\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09self locals at: key put: value ]",
 messageSends: ["pc:", "pc", "receiver:", "receiver", "method:", "method", "ifNotNil:", "outerContext:", "fromMethodContext:", "outerContext", "class", "keysAndValuesDo:", "at:put:", "locals"],
 referencedClasses: []
 }),
@@ -45,6 +87,24 @@ args: [],
 source: "initializeLocals\x0a\x09locals := Dictionary new.\x0a\x09locals at: 'thisContext' put: self.",
 messageSends: ["new", "at:put:"],
 referencedClasses: ["Dictionary"]
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isBlockContext",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@methodContext"])._isBlockContext();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.AIContext)})},
+args: [],
+source: "isBlockContext\x0a\x09^ methodContext isBlockContext",
+messageSends: ["isBlockContext"],
+referencedClasses: []
 }),
 smalltalk.AIContext);
 
@@ -513,22 +573,6 @@ _st(self)._shouldBeImplemented();
 return self}, function($ctx1) {$ctx1.fill(self,"restart",{},smalltalk.ASTDebugger)})},
 args: [],
 source: "restart\x0a\x09self shouldBeImplemented",
-messageSends: ["shouldBeImplemented"],
-referencedClasses: []
-}),
-smalltalk.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resume",
-category: 'stepping',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._shouldBeImplemented();
-return self}, function($ctx1) {$ctx1.fill(self,"resume",{},smalltalk.ASTDebugger)})},
-args: [],
-source: "resume\x0a\x09self shouldBeImplemented",
 messageSends: ["shouldBeImplemented"],
 referencedClasses: []
 }),

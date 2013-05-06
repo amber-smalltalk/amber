@@ -58,6 +58,20 @@ HLCodeHandled subclass: #HLPrintItRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLAnnouncement subclass: #HLDebuggerContextSelected
+	instanceVariableNames: 'context'
+	package: 'Helios-Announcements'!
+
+!HLDebuggerContextSelected methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: aContext
+	context := aContext
+! !
+
 HLAnnouncement subclass: #HLDiveRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

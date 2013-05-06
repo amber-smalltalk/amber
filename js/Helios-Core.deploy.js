@@ -1648,9 +1648,6 @@ smalltalk.HLRequest);
 
 
 
-smalltalk.addClass('HLDebugger', smalltalk.HLWidget, [], 'Helios-Core');
-
-
 smalltalk.addClass('HLFocusableWidget', smalltalk.HLWidget, [], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({

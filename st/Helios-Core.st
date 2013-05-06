@@ -745,10 +745,6 @@ renderMainOn: html
 	input asJQuery val: self value
 ! !
 
-HLWidget subclass: #HLDebugger
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
 HLWidget subclass: #HLFocusableWidget
 	instanceVariableNames: ''
 	package: 'Helios-Core'!

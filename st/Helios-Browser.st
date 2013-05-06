@@ -1081,7 +1081,7 @@ HLToolListWidget subclass: #HLPackagesListWidget
 !HLPackagesListWidget methodsFor: 'accessing'!
 
 items
-	^ items ifNil: [self initializeItems]
+	^ items ifNil: [ self initializeItems ]
 !
 
 label

@@ -215,6 +215,22 @@ canBeOpenAsTab
 	^ false
 ! !
 
+HLInspector subclass: #HLInspectorWidget
+	instanceVariableNames: ''
+	package: 'Helios-Inspector'!
+
+!HLInspectorWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+   	html with: (HLHorizontalSplitter
+    	with: (HLVerticalSplitter 
+            		with: self variablesWidget
+            	    with: self displayWidget)
+        with: self codeWidget).
+	
+	self variablesWidget focus
+! !
+
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-Inspector'!
@@ -292,7 +308,7 @@ selection: anObject
 !
 
 variables
-	^ variables
+	^ variables ifNil: [ Dictionary new ]
 !
 
 variables: aCollection

@@ -1,5 +1,36 @@
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
+smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asString",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@methodContext"])._asString();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.AIContext)})},
+messageSends: ["asString"]}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "home",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self)._isBlockContext();
+if(smalltalk.assert($2)){
+$1=_st(_st(self)._outerContext())._methodContext();
+} else {
+$1=self;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"home",{},smalltalk.AIContext)})},
+messageSends: ["ifTrue:ifFalse:", "methodContext", "outerContext", "isBlockContext"]}),
+smalltalk.AIContext);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeFromMethodContext:",
@@ -7,6 +38,7 @@ fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self["@methodContext"]=aMethodContext;
 _st(self)._pc_(_st(aMethodContext)._pc());
 _st(self)._receiver_(_st(aMethodContext)._receiver());
 _st(self)._method_(_st(aMethodContext)._method());
@@ -35,6 +67,19 @@ self["@locals"]=_st($Dictionary())._new();
 _st(self["@locals"])._at_put_("thisContext",self);
 return self}, function($ctx1) {$ctx1.fill(self,"initializeLocals",{},smalltalk.AIContext)})},
 messageSends: ["new", "at:put:"]}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isBlockContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@methodContext"])._isBlockContext();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.AIContext)})},
+messageSends: ["isBlockContext"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -378,17 +423,6 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._shouldBeImplemented();
 return self}, function($ctx1) {$ctx1.fill(self,"restart",{},smalltalk.ASTDebugger)})},
-messageSends: ["shouldBeImplemented"]}),
-smalltalk.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resume",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self)._shouldBeImplemented();
-return self}, function($ctx1) {$ctx1.fill(self,"resume",{},smalltalk.ASTDebugger)})},
 messageSends: ["shouldBeImplemented"]}),
 smalltalk.ASTDebugger);
 

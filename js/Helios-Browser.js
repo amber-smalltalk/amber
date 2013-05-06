@@ -3097,7 +3097,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"items",{},smalltalk.HLPackagesListWidget)})},
 args: [],
-source: "items\x0a\x09^ items ifNil: [self initializeItems]",
+source: "items\x0a\x09^ items ifNil: [ self initializeItems ]",
 messageSends: ["ifNil:", "initializeItems"],
 referencedClasses: []
 }),
