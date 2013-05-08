@@ -1,5 +1,97 @@
 Smalltalk current createPackage: 'Compiler-Tests'!
-TestCase subclass: #AbstractASTInterpreterTest
+TestCase subclass: #ASTVisitorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTVisitorTest methodsFor: 'convenience'!
+
+analyze: aNode forClass: aClass
+	(SemanticAnalyzer on: aClass) visit: aNode.
+	^ aNode
+! !
+
+!ASTVisitorTest methodsFor: 'parsing'!
+
+parse: aString
+	^ Smalltalk current parse: aString
+!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
+! !
+
+ASTVisitorTest subclass: #ASTPCNodeVisitorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTPCNodeVisitorTest methodsFor: 'factory'!
+
+astPCNodeVisitor
+	^ self astPCNodeVisitorForPC: 0
+!
+
+astPCNodeVisitorForPC: anInteger
+	^ ASTPCNodeVisitor new
+		pc: 0;
+		context: (AIContext new 
+			pc: anInteger; 
+			yourself);
+		yourself
+! !
+
+!ASTPCNodeVisitorTest methodsFor: 'tests'!
+
+testJSStatementNode
+	| ast visitor |
+	
+	ast := self parse: 'foo <consolee.log(1)>' forClass: Object.
+	self assert: (self astPCNodeVisitor
+		visit: ast;
+		currentNode) isJSStatementNode
+!
+
+testMessageSend
+	| ast |
+	
+	ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForPC: 2)
+		visit: ast;
+		currentNode) selector equals: 'yourself'
+!
+
+testMessageSendWithInlining
+	| ast |
+	
+	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForPC: 2)
+		visit: ast;
+		currentNode) selector equals: 'yourself'.
+		
+	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForPC: 3)
+		visit: ast;
+		currentNode) selector equals: 'asBoolean'
+!
+
+testNoMessageSend
+	| ast |
+	
+	ast := self parse: 'foo ^ self' forClass: Object.
+	self assert: (self astPCNodeVisitor
+		visit: ast;
+		currentNode) isNil
+!
+
+testPC
+	| ast visitor |
+	
+	ast := self parse: 'foo <console.log(1)>' forClass: Object.
+	self assert: (self astPCNodeVisitor
+		visit: ast;
+		currentNode) isJSStatementNode
+! !
+
+ASTVisitorTest subclass: #AbstractASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
@@ -10,11 +102,6 @@ interpreter
 ! !
 
 !AbstractASTInterpreterTest methodsFor: 'interpreting'!
-
-analyze: aNode forClass: aClass
-	(SemanticAnalyzer on: aClass) visit: aNode.
-	^ aNode
-!
 
 interpret: aString
 	^ self
@@ -44,16 +131,6 @@ interpret: aString withArguments: aDictionary
 		interpret: aString
 		receiver: Object new
 		withArguments: aDictionary
-! !
-
-!AbstractASTInterpreterTest methodsFor: 'parsing'!
-
-parse: aString
-	^ Smalltalk current parse: aString
-!
-
-parse: aString forClass: aClass
-	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTInterpreterTest

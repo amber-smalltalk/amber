@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-AST'!
 Object subclass: #Node
-	instanceVariableNames: 'position nodes shouldBeInlined shouldBeAliased'
+	instanceVariableNames: 'parent position nodes shouldBeInlined shouldBeAliased'
 	package: 'Compiler-AST'!
 !Node commentStamp!
 I am the abstract root class of the abstract syntax tree.
@@ -12,15 +12,48 @@ Concrete classes should implement `#accept:` to allow visiting.
 !Node methodsFor: 'accessing'!
 
 addNode: aNode
-	self nodes add: aNode
+	self nodes add: aNode.
+	aNode parent: self
+!
+
+extent
+	"Answer the line and column of the end position of the receiver in the source code"
+	
+	^ self nextNode 
+		ifNil: [ self parent ifNotNil: [ :node | node extent ] ]
+		ifNotNil: [ :node | node position ]
+!
+
+nextNode
+	^ self parent ifNotNil: [ :node |
+		node nextNode: self ]
+!
+
+nextNode: aNode
+	"Answer the next node after aNode"
+	
+	^ self nodes 
+		at: (self nodes indexOf: aNode) + 1
+		ifAbsent: [ nil ]
 !
 
 nodes
 	^nodes ifNil: [nodes := Array new]
 !
 
+parent
+	^ parent
+!
+
+parent: aNode
+	parent := aNode
+!
+
 position
-	^position ifNil: [position := 0@0]
+	"answer the line and column of the receiver in the source code"
+	
+	^ position ifNil: [ 
+		self parent ifNotNil: [ :node | node position ] ]
 !
 
 shouldBeAliased
@@ -42,7 +75,8 @@ shouldBeInlined: aBoolean
 !Node methodsFor: 'building'!
 
 nodes: aCollection
-	nodes := aCollection
+	nodes := aCollection.
+	aCollection do: [ :each | each parent: self ]
 !
 
 position: aPosition
@@ -65,6 +99,10 @@ isBlockSequenceNode
 
 isImmutable
 	^false
+!
+
+isJSStatementNode
+	^ false
 !
 
 isNode
@@ -240,6 +278,12 @@ source: aString
 	source := aString
 ! !
 
+!JSStatementNode methodsFor: 'testing'!
+
+isJSStatementNode
+	^ true
+! !
+
 !JSStatementNode methodsFor: 'visiting'!
 
 accept: aVisitor
@@ -270,6 +314,10 @@ classReferences
 
 classReferences: aCollection
 	classReferences := aCollection
+!
+
+extent
+	^ self source lines size @ (self source lines last size + 1)
 !
 
 messageSends
@@ -363,7 +411,8 @@ arguments
 !
 
 arguments: aCollection
-	arguments := aCollection
+	arguments := aCollection.
+	aCollection do: [ :each | each parent: self ]
 !
 
 cascadeNodeWithMessages: aCollection
@@ -397,7 +446,9 @@ receiver
 !
 
 receiver: aNode
-	receiver := aNode
+	receiver := aNode.
+	aNode isNode ifTrue: [
+		aNode parent: self ]
 !
 
 selector
@@ -418,6 +469,7 @@ superSend: aBoolean
 
 valueForReceiver: anObject
 	^SendNode new
+		position: self position;
 		receiver: (self receiver
 		ifNil: [anObject]
 		ifNotNil: [self receiver valueForReceiver: anObject]);
@@ -470,6 +522,7 @@ temps: aCollection
 
 asBlockSequenceNode
 	^BlockSequenceNode new
+		position: self position;
 		nodes: self nodes;
 		temps: self temps;
 		yourself

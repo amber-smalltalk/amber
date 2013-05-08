@@ -1,9 +1,9 @@
 smalltalk.addPackage('Compiler-Tests');
-smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.TestCase, [], 'Compiler-Tests');
+smalltalk.addClass('ASTVisitorTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "analyze:forClass:",
-category: 'interpreting',
+category: 'convenience',
 fn: function (aNode,aClass){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
@@ -12,14 +12,222 @@ var $1;
 _st(_st($SemanticAnalyzer())._on_(aClass))._visit_(aNode);
 $1=aNode;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},smalltalk.AbstractASTInterpreterTest)})},
+}, function($ctx1) {$ctx1.fill(self,"analyze:forClass:",{aNode:aNode,aClass:aClass},smalltalk.ASTVisitorTest)})},
 args: ["aNode", "aClass"],
 source: "analyze: aNode forClass: aClass\x0a\x09(SemanticAnalyzer on: aClass) visit: aNode.\x0a\x09^ aNode",
 messageSends: ["visit:", "on:"],
 referencedClasses: ["SemanticAnalyzer"]
 }),
-smalltalk.AbstractASTInterpreterTest);
+smalltalk.ASTVisitorTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "parse:",
+category: 'parsing',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._current())._parse_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},smalltalk.ASTVisitorTest)})},
+args: ["aString"],
+source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
+messageSends: ["parse:", "current"],
+referencedClasses: ["Smalltalk"]
+}),
+smalltalk.ASTVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "parse:forClass:",
+category: 'parsing',
+fn: function (aString,aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},smalltalk.ASTVisitorTest)})},
+args: ["aString", "aClass"],
+source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
+messageSends: ["analyze:forClass:", "parse:"],
+referencedClasses: []
+}),
+smalltalk.ASTVisitorTest);
+
+
+
+smalltalk.addClass('ASTPCNodeVisitorTest', smalltalk.ASTVisitorTest, [], 'Compiler-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "astPCNodeVisitor",
+category: 'factory',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._astPCNodeVisitorForPC_((0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},smalltalk.ASTPCNodeVisitorTest)})},
+args: [],
+source: "astPCNodeVisitor\x0a\x09^ self astPCNodeVisitorForPC: 0",
+messageSends: ["astPCNodeVisitorForPC:"],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "astPCNodeVisitorForPC:",
+category: 'factory',
+fn: function (anInteger){
+var self=this;
+function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
+function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$4,$5,$1;
+$2=_st($ASTPCNodeVisitor())._new();
+_st($2)._pc_((0));
+$3=_st($AIContext())._new();
+_st($3)._pc_(anInteger);
+$4=_st($3)._yourself();
+_st($2)._context_($4);
+$5=_st($2)._yourself();
+$1=$5;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForPC:",{anInteger:anInteger},smalltalk.ASTPCNodeVisitorTest)})},
+args: ["anInteger"],
+source: "astPCNodeVisitorForPC: anInteger\x0a\x09^ ASTPCNodeVisitor new\x0a\x09\x09pc: 0;\x0a\x09\x09context: (AIContext new \x0a\x09\x09\x09pc: anInteger; \x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
+messageSends: ["pc:", "new", "context:", "yourself"],
+referencedClasses: ["ASTPCNodeVisitor", "AIContext"]
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testJSStatementNode",
+category: 'tests',
+fn: function (){
+var self=this;
+var ast,visitor;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+ast=_st(self)._parse_forClass_("foo <consolee.log(1)>",$Object());
+$1=_st(self)._astPCNodeVisitor();
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+_st(self)._assert_(_st($2)._isJSStatementNode());
+return self}, function($ctx1) {$ctx1.fill(self,"testJSStatementNode",{ast:ast,visitor:visitor},smalltalk.ASTPCNodeVisitorTest)})},
+args: [],
+source: "testJSStatementNode\x0a\x09| ast visitor |\x0a\x09\x0a\x09ast := self parse: 'foo <consolee.log(1)>' forClass: Object.\x0a\x09self assert: (self astPCNodeVisitor\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) isJSStatementNode",
+messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"],
+referencedClasses: ["Object"]
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMessageSend",
+category: 'tests',
+fn: function (){
+var self=this;
+var ast;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+ast=_st(self)._parse_forClass_("foo self asString yourself. ^ self asBoolean",$Object());
+$1=_st(self)._astPCNodeVisitorForPC_((2));
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+_st(self)._assert_equals_(_st($2)._selector(),"yourself");
+return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},smalltalk.ASTPCNodeVisitorTest)})},
+args: [],
+source: "testMessageSend\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForPC: 2)\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'",
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForPC:", "currentNode"],
+referencedClasses: ["Object"]
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMessageSendWithInlining",
+category: 'tests',
+fn: function (){
+var self=this;
+var ast;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+ast=_st(self)._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
+$1=_st(self)._astPCNodeVisitorForPC_((2));
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+_st(self)._assert_equals_(_st($2)._selector(),"yourself");
+ast=_st(self)._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
+$3=_st(self)._astPCNodeVisitorForPC_((3));
+_st($3)._visit_(ast);
+$4=_st($3)._currentNode();
+_st(self)._assert_equals_(_st($4)._selector(),"asBoolean");
+return self}, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},smalltalk.ASTPCNodeVisitorTest)})},
+args: [],
+source: "testMessageSendWithInlining\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForPC: 2)\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'.\x0a\x09\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForPC: 3)\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'asBoolean'",
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForPC:", "currentNode"],
+referencedClasses: ["Object"]
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNoMessageSend",
+category: 'tests',
+fn: function (){
+var self=this;
+var ast;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+ast=_st(self)._parse_forClass_("foo ^ self",$Object());
+$1=_st(self)._astPCNodeVisitor();
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+_st(self)._assert_(_st($2)._isNil());
+return self}, function($ctx1) {$ctx1.fill(self,"testNoMessageSend",{ast:ast},smalltalk.ASTPCNodeVisitorTest)})},
+args: [],
+source: "testNoMessageSend\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo ^ self' forClass: Object.\x0a\x09self assert: (self astPCNodeVisitor\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) isNil",
+messageSends: ["parse:forClass:", "assert:", "isNil", "visit:", "astPCNodeVisitor", "currentNode"],
+referencedClasses: ["Object"]
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testPC",
+category: 'tests',
+fn: function (){
+var self=this;
+var ast,visitor;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+ast=_st(self)._parse_forClass_("foo <console.log(1)>",$Object());
+$1=_st(self)._astPCNodeVisitor();
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+_st(self)._assert_(_st($2)._isJSStatementNode());
+return self}, function($ctx1) {$ctx1.fill(self,"testPC",{ast:ast,visitor:visitor},smalltalk.ASTPCNodeVisitorTest)})},
+args: [],
+source: "testPC\x0a\x09| ast visitor |\x0a\x09\x0a\x09ast := self parse: 'foo <console.log(1)>' forClass: Object.\x0a\x09self assert: (self astPCNodeVisitor\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) isJSStatementNode",
+messageSends: ["parse:forClass:", "assert:", "isJSStatementNode", "visit:", "astPCNodeVisitor", "currentNode"],
+referencedClasses: ["Object"]
+}),
+smalltalk.ASTPCNodeVisitorTest);
+
+
+
+smalltalk.addClass('AbstractASTInterpreterTest', smalltalk.ASTVisitorTest, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpret:",
@@ -102,43 +310,6 @@ return $1;
 args: [],
 source: "interpreter\x0a\x09^ self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
-referencedClasses: []
-}),
-smalltalk.AbstractASTInterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "parse:",
-category: 'parsing',
-fn: function (aString){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st($Smalltalk())._current())._parse_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},smalltalk.AbstractASTInterpreterTest)})},
-args: ["aString"],
-source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
-messageSends: ["parse:", "current"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.AbstractASTInterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "parse:forClass:",
-category: 'parsing',
-fn: function (aString,aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self)._analyze_forClass_(_st(self)._parse_(aString),aClass);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"parse:forClass:",{aString:aString,aClass:aClass},smalltalk.AbstractASTInterpreterTest)})},
-args: ["aString", "aClass"],
-source: "parse: aString forClass: aClass\x0a\x09^ self analyze: (self parse: aString) forClass: aClass",
-messageSends: ["analyze:forClass:", "parse:"],
 referencedClasses: []
 }),
 smalltalk.AbstractASTInterpreterTest);

@@ -127,7 +127,7 @@ context
 !
 
 context: aContext
-	context := AIContext new.
+	context := aContext
 !
 
 interpreter
@@ -140,6 +140,10 @@ interpreter: anInterpreter
 
 method
 	^ self context method
+!
+
+nextNode
+	^ self interpreter nextNode
 ! !
 
 !ASTDebugger methodsFor: 'defaults'!
@@ -165,13 +169,19 @@ buildAST
 !
 
 initializeInterpreter
-	self interpreter interpret: self buildAST nodes first
+	| ast next |
+	ast := self buildAST.
+	next := ASTPCNodeVisitor new
+		context: self context;
+		visit: ast;
+		currentNode.
+	self interpreter interpret: next
 !
 
-initializeWithContext: aMethodContext
+initializeWithContext: aContext
 	"TODO: do we need to handle block contexts?"
 	
-	self context: (AIContext fromMethodContext: aMethodContext).
+	self context: aContext.
 	self initializeInterpreter
 ! !
 
@@ -214,9 +224,9 @@ atEnd
 
 !ASTDebugger class methodsFor: 'instance creation'!
 
-context: aMethodContext
+context: aContext
 	^ self new
-		initializeWithContext: aMethodContext;
+		initializeWithContext: aContext;
 		yourself
 ! !
 
@@ -543,6 +553,63 @@ step
 
 atEnd
 	^ self shouldReturn or: [ self nextNode == self currentNode ]
+! !
+
+NodeVisitor subclass: #ASTPCNodeVisitor
+	instanceVariableNames: 'useInlinings pc context currentNode'
+	package: 'Compiler-Interpreter'!
+!ASTPCNodeVisitor commentStamp!
+I visit an AST until I get to the current pc node and answer it.
+
+## API
+
+My instances must be filled with a context object using `#context:`.
+
+After visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`!
+
+!ASTPCNodeVisitor methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: aContext
+	context := aContext
+!
+
+currentNode
+	^ currentNode
+!
+
+pc
+	^ pc ifNil: [ 0 ]
+!
+
+pc: anInteger
+	pc := anInteger
+!
+
+useInlinings
+	^ useInlinings ifNil: [ true ]
+!
+
+useInlinings: aBoolean
+	useInlinings := aBoolean
+! !
+
+!ASTPCNodeVisitor methodsFor: 'visiting'!
+
+visitJSStatementNode: aNode
+	currentNode := aNode
+!
+
+visitSendNode: aNode
+	super visitSendNode: aNode.
+	
+	self pc = self context pc ifFalse: [
+		aNode shouldBeInlined ifFalse: [ 
+			self pc: self pc + 1.
+			currentNode := aNode ] ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!

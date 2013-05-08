@@ -316,11 +316,10 @@ smalltalk.method({
 selector: "context:",
 fn: function (aContext){
 var self=this;
-function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-self["@context"]=_st($AIContext())._new();
+self["@context"]=aContext;
 return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTDebugger)})},
-messageSends: ["new"]}),
+messageSends: []}),
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
@@ -342,23 +341,31 @@ smalltalk.method({
 selector: "initializeInterpreter",
 fn: function (){
 var self=this;
+var ast,next;
+function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._interpreter())._interpret_(_st(_st(_st(self)._buildAST())._nodes())._first());
-return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},smalltalk.ASTDebugger)})},
-messageSends: ["interpret:", "first", "nodes", "buildAST", "interpreter"]}),
+var $1,$2;
+ast=_st(self)._buildAST();
+$1=_st($ASTPCNodeVisitor())._new();
+_st($1)._context_(_st(self)._context());
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+next=$2;
+_st(_st(self)._interpreter())._interpret_(next);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{ast:ast,next:next},smalltalk.ASTDebugger)})},
+messageSends: ["buildAST", "context:", "context", "new", "visit:", "currentNode", "interpret:", "interpreter"]}),
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeWithContext:",
-fn: function (aMethodContext){
+fn: function (aContext){
 var self=this;
-function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._context_(_st($AIContext())._fromMethodContext_(aMethodContext));
+_st(self)._context_(aContext);
 _st(self)._initializeInterpreter();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aMethodContext:aMethodContext},smalltalk.ASTDebugger)})},
-messageSends: ["context:", "fromMethodContext:", "initializeInterpreter"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aContext:aContext},smalltalk.ASTDebugger)})},
+messageSends: ["context:", "initializeInterpreter"]}),
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
@@ -402,6 +409,19 @@ $1=_st(_st(self)._context())._method();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.ASTDebugger)})},
 messageSends: ["method", "context"]}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextNode",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._interpreter())._nextNode();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextNode",{},smalltalk.ASTDebugger)})},
+messageSends: ["nextNode", "interpreter"]}),
 smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
@@ -476,16 +496,16 @@ smalltalk.ASTDebugger);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
-fn: function (aMethodContext){
+fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st(self)._new();
-_st($2)._initializeWithContext_(aMethodContext);
+_st($2)._initializeWithContext_(aContext);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},smalltalk.ASTDebugger.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTDebugger.klass)})},
 messageSends: ["initializeWithContext:", "new", "yourself"]}),
 smalltalk.ASTDebugger.klass);
 
@@ -1097,6 +1117,136 @@ _st(self["@continuation"])._value();
 return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.ASTSteppingInterpreter)})},
 messageSends: ["value"]}),
 smalltalk.ASTSteppingInterpreter);
+
+
+
+smalltalk.addClass('ASTPCNodeVisitor', smalltalk.NodeVisitor, ['useInlinings', 'pc', 'context', 'currentNode'], 'Compiler-Interpreter');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@context"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.ASTPCNodeVisitor)})},
+messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context:",
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@context"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTPCNodeVisitor)})},
+messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "currentNode",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@currentNode"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"currentNode",{},smalltalk.ASTPCNodeVisitor)})},
+messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "pc",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@pc"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=(0);
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"pc",{},smalltalk.ASTPCNodeGetter)})},
+messageSends: ["ifNil:"]}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "pc:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@pc"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"pc:",{anInteger:anInteger},smalltalk.ASTPCNodeGetter)})},
+messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "useInlinings",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@useInlinings"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=true;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"useInlinings",{},smalltalk.ASTPCNodeGetter)})},
+messageSends: ["ifNil:"]}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "useInlinings:",
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@useInlinings"]=aBoolean;
+return self}, function($ctx1) {$ctx1.fill(self,"useInlinings:",{aBoolean:aBoolean},smalltalk.ASTPCNodeGetter)})},
+messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "visitJSStatementNode:",
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@currentNode"]=aNode;
+return self}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
+messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "visitSendNode:",
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+$1=_st(_st(self)._pc()).__eq(_st(_st(self)._context())._pc());
+if(! smalltalk.assert($1)){
+$2=_st(aNode)._shouldBeInlined();
+if(! smalltalk.assert($2)){
+_st(self)._pc_(_st(_st(self)._pc()).__plus((1)));
+self["@currentNode"]=aNode;
+self["@currentNode"];
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
+messageSends: ["visitSendNode:", "ifFalse:", "pc:", "+", "pc", "shouldBeInlined", "=", "context"]}),
+smalltalk.ASTPCNodeVisitor);
 
 
 

@@ -424,14 +424,13 @@ selector: "context:",
 category: 'accessing',
 fn: function (aContext){
 var self=this;
-function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-self["@context"]=_st($AIContext())._new();
+self["@context"]=aContext;
 return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTDebugger)})},
 args: ["aContext"],
-source: "context: aContext\x0a\x09context := AIContext new.",
-messageSends: ["new"],
-referencedClasses: ["AIContext"]
+source: "context: aContext\x0a\x09context := aContext",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.ASTDebugger);
 
@@ -460,13 +459,22 @@ selector: "initializeInterpreter",
 category: 'initialization',
 fn: function (){
 var self=this;
+var ast,next;
+function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._interpreter())._interpret_(_st(_st(_st(self)._buildAST())._nodes())._first());
-return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},smalltalk.ASTDebugger)})},
+var $1,$2;
+ast=_st(self)._buildAST();
+$1=_st($ASTPCNodeVisitor())._new();
+_st($1)._context_(_st(self)._context());
+_st($1)._visit_(ast);
+$2=_st($1)._currentNode();
+next=$2;
+_st(_st(self)._interpreter())._interpret_(next);
+return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{ast:ast,next:next},smalltalk.ASTDebugger)})},
 args: [],
-source: "initializeInterpreter\x0a\x09self interpreter interpret: self buildAST nodes first",
-messageSends: ["interpret:", "first", "nodes", "buildAST", "interpreter"],
-referencedClasses: []
+source: "initializeInterpreter\x0a\x09| ast next |\x0a\x09ast := self buildAST.\x0a\x09next := ASTPCNodeVisitor new\x0a\x09\x09context: self context;\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode.\x0a\x09self interpreter interpret: next",
+messageSends: ["buildAST", "context:", "context", "new", "visit:", "currentNode", "interpret:", "interpreter"],
+referencedClasses: ["ASTPCNodeVisitor"]
 }),
 smalltalk.ASTDebugger);
 
@@ -474,17 +482,16 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "initializeWithContext:",
 category: 'initialization',
-fn: function (aMethodContext){
+fn: function (aContext){
 var self=this;
-function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._context_(_st($AIContext())._fromMethodContext_(aMethodContext));
+_st(self)._context_(aContext);
 _st(self)._initializeInterpreter();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aMethodContext:aMethodContext},smalltalk.ASTDebugger)})},
-args: ["aMethodContext"],
-source: "initializeWithContext: aMethodContext\x0a\x09\x22TODO: do we need to handle block contexts?\x22\x0a\x09\x0a\x09self context: (AIContext fromMethodContext: aMethodContext).\x0a\x09self initializeInterpreter",
-messageSends: ["context:", "fromMethodContext:", "initializeInterpreter"],
-referencedClasses: ["AIContext"]
+return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:",{aContext:aContext},smalltalk.ASTDebugger)})},
+args: ["aContext"],
+source: "initializeWithContext: aContext\x0a\x09\x22TODO: do we need to handle block contexts?\x22\x0a\x09\x0a\x09self context: aContext.\x0a\x09self initializeInterpreter",
+messageSends: ["context:", "initializeInterpreter"],
+referencedClasses: []
 }),
 smalltalk.ASTDebugger);
 
@@ -542,6 +549,24 @@ return $1;
 args: [],
 source: "method\x0a\x09^ self context method",
 messageSends: ["method", "context"],
+referencedClasses: []
+}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextNode",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._interpreter())._nextNode();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextNode",{},smalltalk.ASTDebugger)})},
+args: [],
+source: "nextNode\x0a\x09^ self interpreter nextNode",
+messageSends: ["nextNode", "interpreter"],
 referencedClasses: []
 }),
 smalltalk.ASTDebugger);
@@ -644,18 +669,18 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "context:",
 category: 'instance creation',
-fn: function (aMethodContext){
+fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st(self)._new();
-_st($2)._initializeWithContext_(aMethodContext);
+_st($2)._initializeWithContext_(aContext);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"context:",{aMethodContext:aMethodContext},smalltalk.ASTDebugger.klass)})},
-args: ["aMethodContext"],
-source: "context: aMethodContext\x0a\x09^ self new\x0a\x09\x09initializeWithContext: aMethodContext;\x0a\x09\x09yourself",
+}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTDebugger.klass)})},
+args: ["aContext"],
+source: "context: aContext\x0a\x09^ self new\x0a\x09\x09initializeWithContext: aContext;\x0a\x09\x09yourself",
 messageSends: ["initializeWithContext:", "new", "yourself"],
 referencedClasses: []
 }),
@@ -1451,6 +1476,182 @@ messageSends: ["value"],
 referencedClasses: []
 }),
 smalltalk.ASTSteppingInterpreter);
+
+
+
+smalltalk.addClass('ASTPCNodeVisitor', smalltalk.NodeVisitor, ['useInlinings', 'pc', 'context', 'currentNode'], 'Compiler-Interpreter');
+smalltalk.ASTPCNodeVisitor.comment="I visit an AST until I get to the current pc node and answer it.\x0a\x0a## API\x0a\x0aMy instances must be filled with a context object using `#context:`.\x0a\x0aAfter visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`"
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@context"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.ASTPCNodeVisitor)})},
+args: [],
+source: "context\x0a\x09^ context",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context:",
+category: 'accessing',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@context"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.ASTPCNodeVisitor)})},
+args: ["aContext"],
+source: "context: aContext\x0a\x09context := aContext",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "currentNode",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@currentNode"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"currentNode",{},smalltalk.ASTPCNodeVisitor)})},
+args: [],
+source: "currentNode\x0a\x09^ currentNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "pc",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@pc"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=(0);
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"pc",{},smalltalk.ASTPCNodeGetter)})},
+args: [],
+source: "pc\x0a\x09^ pc ifNil: [ 0 ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "pc:",
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@pc"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"pc:",{anInteger:anInteger},smalltalk.ASTPCNodeGetter)})},
+args: ["anInteger"],
+source: "pc: anInteger\x0a\x09pc := anInteger",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "useInlinings",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@useInlinings"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=true;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"useInlinings",{},smalltalk.ASTPCNodeGetter)})},
+args: [],
+source: "useInlinings\x0a\x09^ useInlinings ifNil: [ true ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "useInlinings:",
+category: 'accessing',
+fn: function (aBoolean){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@useInlinings"]=aBoolean;
+return self}, function($ctx1) {$ctx1.fill(self,"useInlinings:",{aBoolean:aBoolean},smalltalk.ASTPCNodeGetter)})},
+args: ["aBoolean"],
+source: "useInlinings: aBoolean\x0a\x09useInlinings := aBoolean",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "visitJSStatementNode:",
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@currentNode"]=aNode;
+return self}, function($ctx1) {$ctx1.fill(self,"visitJSStatementNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
+args: ["aNode"],
+source: "visitJSStatementNode: aNode\x0a\x09currentNode := aNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "visitSendNode:",
+category: 'visiting',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+$1=_st(_st(self)._pc()).__eq(_st(_st(self)._context())._pc());
+if(! smalltalk.assert($1)){
+$2=_st(aNode)._shouldBeInlined();
+if(! smalltalk.assert($2)){
+_st(self)._pc_(_st(_st(self)._pc()).__plus((1)));
+self["@currentNode"]=aNode;
+self["@currentNode"];
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
+args: ["aNode"],
+source: "visitSendNode: aNode\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self pc = self context pc ifFalse: [\x0a\x09\x09aNode shouldBeInlined ifFalse: [ \x0a\x09\x09\x09self pc: self pc + 1.\x0a\x09\x09\x09currentNode := aNode ] ]",
+messageSends: ["visitSendNode:", "ifFalse:", "pc:", "+", "pc", "shouldBeInlined", "=", "context"],
+referencedClasses: []
+}),
+smalltalk.ASTPCNodeVisitor);
 
 
 
