@@ -827,6 +827,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                              return smalltalk.ValueNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._value_(val.join("").replace(/\"/ig, '"'))
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
@@ -918,6 +919,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                               return smalltalk.ValueNode._new()
+        		      	     ._position_((line).__at(column))
                                      ._value_(val)
                           })(pos0.offset, pos0.line, pos0.column, result0);
         }
@@ -954,6 +956,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, n) {
                              return smalltalk.ValueNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._value_(n)
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
@@ -1451,6 +1454,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, lits) {
                              return smalltalk.ValueNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._value_(lits)
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
@@ -1544,6 +1548,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, expressions) {
                              return smalltalk.DynamicArrayNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._nodes_(expressions)
                          })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
@@ -1622,6 +1627,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, expressions) {
                                 return smalltalk.DynamicDictionaryNode._new()
+        			       ._position_((line).__at(column))
                                        ._nodes_(expressions)
                             })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
@@ -1703,6 +1709,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                                return smalltalk.ValueNode._new()
+        		       	      ._position_((line).__at(column))
                                       ._value_(val)
                            })(pos0.offset, pos0.line, pos0.column, result0);
         }
@@ -1811,6 +1818,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, identifier) {
                              return smalltalk.VariableNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._value_(identifier)
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
@@ -1841,6 +1849,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, className) {
                              return smalltalk.ClassReferenceNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._value_(className)
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
@@ -2377,6 +2386,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, variable, expression) {
                              return smalltalk.AssignmentNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._left_(variable)
                                     ._right_(expression)
                          })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
@@ -2456,6 +2466,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, expression) {
                              return smalltalk.ReturnNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._nodes_([expression])
                          })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
@@ -3076,6 +3087,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, temps, statements) {
                              return smalltalk.SequenceNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._temps_(temps || [])
                                     ._nodes_(statements || [])
                          })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
@@ -3168,6 +3180,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, params, sequence) {
                              return smalltalk.BlockNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._parameters_(params || [])
                                     ._nodes_([sequence._asBlockSequenceNode()])
                          })(pos0.offset, pos0.line, pos0.column, result0[2], result0[4]);
@@ -3260,6 +3273,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, selector) {
                              return smalltalk.SendNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._selector_(selector)
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
@@ -3432,6 +3446,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, selector, arg) {
                              return smalltalk.SendNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._selector_(selector)
                                     ._arguments_([arg])
                          })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
@@ -3627,6 +3642,7 @@ smalltalk.parser = (function(){
                                   args.push(pairs[i].arg);
                               }
                               return smalltalk.SendNode._new()
+        		      	     ._position_((line).__at(column))
                                      ._selector_(selector.join(""))
                                      ._arguments_(args)
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
@@ -3853,6 +3869,7 @@ smalltalk.parser = (function(){
                                  cascade.push(messages[i]);
                              }
                              return smalltalk.CascadeNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._receiver_(send._receiver())
                                     ._nodes_(cascade)
                          })(pos0.offset, pos0.line, pos0.column, result0[1], result0[2]);
@@ -3976,6 +3993,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                              return smalltalk.JSStatementNode._new()
+        		     	    ._position_((line).__at(column))
                                     ._source_(val.join(""))
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
@@ -4044,6 +4062,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, pattern, sequence) {
                               return smalltalk.MethodNode._new()
+        		      	     ._position_((line).__at(column))
                                      ._selector_(pattern[0])
                                      ._arguments_(pattern[1])
                                      ._nodes_([sequence])

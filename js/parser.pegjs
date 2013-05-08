@@ -10,6 +10,7 @@ selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("")}
 string         = ['] val:(("''" {return "'"} / [^'])*) ['] {
                      return smalltalk.ValueNode._new()
+		     	    ._position_((line).__at(column))
                             ._value_(val.join("").replace(/\"/ig, '"'))
                  }
 
@@ -17,10 +18,12 @@ symbol         = "#" rest:bareSymbol {return rest}
 bareSymbol         = val:(selector / binarySelector / node:string {return node._value()})
                   {
                       return smalltalk.ValueNode._new()
+		      	     ._position_((line).__at(column))
                              ._value_(val)
                   }
 number         = n:(hex / float / integer) {
                      return smalltalk.ValueNode._new()
+		     	    ._position_((line).__at(column))
                             ._value_(n)
                  }
 hex            = neg:[-]? "16r" num:[0-9a-fA-F]+ {return parseInt((neg + num.join("")), 16)}
@@ -30,14 +33,17 @@ literalArray   = "#(" rest:literalArrayRest {return rest}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest}
 literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value()})* ws ")" {
                      return smalltalk.ValueNode._new()
+		     	    ._position_((line).__at(column))
                             ._value_(lits)
                  }
 dynamicArray   = "{" ws expressions:expressions? ws "."? "}" {
                      return smalltalk.DynamicArrayNode._new()
+		     	    ._position_((line).__at(column))
                             ._nodes_(expressions)
                  }
 dynamicDictionary = "#{" ws expressions: expressions? ws "}" {
                         return smalltalk.DynamicDictionaryNode._new()
+			       ._position_((line).__at(column))
                                ._nodes_(expressions)
                     }
 pseudoVariable = val:(
@@ -45,6 +51,7 @@ pseudoVariable = val:(
                  / 'false' {return false}
                  / 'nil' {return nil}) {
                        return smalltalk.ValueNode._new()
+		       	      ._position_((line).__at(column))
                               ._value_(val)
                    }
 parseTimeLiteral        = pseudoVariable / number / literalArray / string / symbol
@@ -54,10 +61,12 @@ literal        = runtimeLiteral / parseTimeLiteral
 
 variable       = identifier:varIdentifier {
                      return smalltalk.VariableNode._new()
+		     	    ._position_((line).__at(column))
                             ._value_(identifier)
                  }
 classReference = className:className {
                      return smalltalk.ClassReferenceNode._new()
+		     	    ._position_((line).__at(column))
                             ._value_(className)
                  }
 
@@ -95,12 +104,14 @@ expressions    = first:expression others:expressionList* {
 
 assignment     = variable:variable ws ':=' ws expression:expression {
                      return smalltalk.AssignmentNode._new()
+		     	    ._position_((line).__at(column))
                             ._left_(variable)
                             ._right_(expression)
                  }
 
 ret            = '^' ws expression:expression ws '.'? {
                      return smalltalk.ReturnNode._new()
+		     	    ._position_((line).__at(column))
                             ._nodes_([expression])
                  }
   
@@ -124,6 +135,7 @@ sequence       = jsSequence / stSequence
 
 stSequence     = temps:temps? ws statements:statements? ws {
                      return smalltalk.SequenceNode._new()
+		     	    ._position_((line).__at(column))
                             ._temps_(temps || [])
                             ._nodes_(statements || [])
                  }
@@ -132,6 +144,7 @@ jsSequence     = jsStatement
 
 block          = '[' ws params:blockParamList? ws sequence:sequence? ws ']' {
                      return smalltalk.BlockNode._new()
+		     	    ._position_((line).__at(column))
                             ._parameters_(params || [])
                             ._nodes_([sequence._asBlockSequenceNode()])
                  }
@@ -142,6 +155,7 @@ operand        = literal / reference / subexpression
 
 unaryMessage   = ws selector:unarySelector ![:] {
                      return smalltalk.SendNode._new()
+		     	    ._position_((line).__at(column))
                             ._selector_(selector)
                  }
 
@@ -165,6 +179,7 @@ unarySend      = receiver:operand ws tail:unaryTail? {
 
 binaryMessage  = ws selector:binarySelector ws arg:(unarySend / operand) {
                      return smalltalk.SendNode._new()
+		     	    ._position_((line).__at(column))
                             ._selector_(selector)
                             ._arguments_([arg])
                  }
@@ -196,6 +211,7 @@ keywordMessage = ws pairs:(pair:keywordPair ws {return pair})+ {
                           args.push(pairs[i].arg);
                       }
                       return smalltalk.SendNode._new()
+		      	     ._position_((line).__at(column))
                              ._selector_(selector.join(""))
                              ._arguments_(args)
                  }
@@ -213,18 +229,21 @@ cascade        = ws send:(keywordSend / binarySend) messages:(ws ";" ws mess:mes
                          cascade.push(messages[i]);
                      }
                      return smalltalk.CascadeNode._new()
+		     	    ._position_((line).__at(column))
                             ._receiver_(send._receiver())
                             ._nodes_(cascade)
                  }
 
 jsStatement    = "<" val:((">>" {return ">"} / [^>])*) ">" {
                      return smalltalk.JSStatementNode._new()
+		     	    ._position_((line).__at(column))
                             ._source_(val.join(""))
                  }
 
 
 method         = ws pattern:(keywordPattern / binaryPattern / unaryPattern) ws sequence:sequence? ws {
                       return smalltalk.MethodNode._new()
+		      	     ._position_((line).__at(column))
                              ._selector_(pattern[0])
                              ._arguments_(pattern[1])
                              ._nodes_([sequence])
