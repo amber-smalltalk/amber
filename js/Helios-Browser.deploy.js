@@ -252,6 +252,17 @@ smalltalk.HLBrowser.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "tabClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "browser";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLBrowser.klass)})},
+messageSends: []}),
+smalltalk.HLBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tabLabel",
 fn: function (){
 var self=this;
@@ -867,6 +878,23 @@ smalltalk.HLClassCache.klass);
 smalltalk.addClass('HLClassesListWidget', smalltalk.HLToolListWidget, [], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClassForItem:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(_st(aClass)._theNonMetaClass())._comment())._isEmpty();
+if(smalltalk.assert($1)){
+return "uncommented";
+};
+$2=_st(_st(aClass)._theNonMetaClass())._heliosClass();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
+messageSends: ["ifTrue:", "isEmpty", "comment", "theNonMetaClass", "heliosClass"]}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focusMethodsListWidget",
 fn: function (){
 var self=this;
@@ -919,24 +947,6 @@ return _st(_st(aCollection)._includes_(_st(each)._superclass()))._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"getRootClassesOf:",{aCollection:aCollection},smalltalk.HLClassesListWidget)})},
 messageSends: ["select:", "not", "includes:", "superclass"]}),
-smalltalk.HLClassesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "iconForItem:",
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(_st(aClass)._theNonMetaClass())._comment())._isEmpty();
-if(smalltalk.assert($2)){
-$1="icon-question-sign";
-} else {
-$1="icon-none";
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"iconForItem:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
-messageSends: ["ifFalse:ifTrue:", "isEmpty", "comment", "theNonMetaClass"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1284,13 +1294,13 @@ li=_st(html)._li();
 _st(self)._registerMappingFrom_to_(aClass,li);
 $1=li;
 _st($1)._at_put_("list-data",_st(_st(self)._items())._indexOf_(aClass));
-_st($1)._class_(_st(self)._cssClassForItem_(aClass));
+_st($1)._class_(_st(self)._listCssClassForItem_(aClass));
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._a();
 _st($3)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
-_st(_st(html)._tag_("i"))._class_(_st(self)._iconForItem_(aClass));
+_st(_st(html)._tag_("i"))._class_(_st(self)._cssClassForItem_(aClass));
 return _st(self)._renderItemLabel_level_on_(aClass,anInteger,html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4=_st($3)._onClick_((function(){
@@ -1304,7 +1314,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(self)._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},smalltalk.HLClassesListWidget)})},
-messageSends: ["li", "registerMappingFrom:to:", "at:put:", "indexOf:", "items", "class:", "cssClassForItem:", "with:", "iconForItem:", "tag:", "renderItemLabel:level:on:", "a", "onClick:", "activateListItem:", "asJQuery", "do:", "renderItem:level:on:", "+", "getChildrenOf:"]}),
+messageSends: ["li", "registerMappingFrom:to:", "at:put:", "indexOf:", "items", "class:", "listCssClassForItem:", "with:", "cssClassForItem:", "tag:", "renderItemLabel:level:on:", "a", "onClick:", "activateListItem:", "asJQuery", "do:", "renderItem:level:on:", "+", "getChildrenOf:"]}),
 smalltalk.HLClassesListWidget);
 
 smalltalk.addMethod(
@@ -1831,7 +1841,7 @@ smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "iconForItem:",
+selector: "cssClassForItem:",
 fn: function (aSelector){
 var self=this;
 var override,overriden,method;
@@ -1844,20 +1854,20 @@ $2=override;
 if(smalltalk.assert($2)){
 $3=overriden;
 if(smalltalk.assert($3)){
-$1="icon-resize-vertical";
+$1="override-overridden";
 } else {
-$1="icon-arrow-up";
+$1="override";
 };
 } else {
 $4=overriden;
 if(smalltalk.assert($4)){
-$1="icon-arrow-down";
+$1="overridden";
 } else {
-$1="icon-none";
+$1="";
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"iconForItem:",{aSelector:aSelector,override:override,overriden:overriden,method:method},smalltalk.HLMethodsListWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{aSelector:aSelector,override:override,overriden:overriden,method:method},smalltalk.HLMethodsListWidget)})},
 messageSends: ["methodForSelector:", "isOverride:", "isOverridden:", "ifTrue:ifFalse:"]}),
 smalltalk.HLMethodsListWidget);
 
@@ -2348,6 +2358,17 @@ smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClassForItem:",
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "package";
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLPackagesListWidget)})},
+messageSends: []}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focusClassesListWidget",
 fn: function (){
 var self=this;
@@ -2542,6 +2563,30 @@ $1=_st(_st(self)._model())._allProtocol();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allProtocol",{},smalltalk.HLProtocolsListWidget)})},
 messageSends: ["allProtocol", "model"]}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cssClassForItem:",
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(anItem).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($1)){
+return "";
+};
+$2=_st(anItem).__eq("private");
+if(smalltalk.assert($2)){
+return "private";
+};
+$3=_st(anItem).__eq("initialization");
+if(smalltalk.assert($3)){
+return "default";
+};
+return "public";
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLProtocolsListWidget)})},
+messageSends: ["ifTrue:", "=", "allProtocol"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(

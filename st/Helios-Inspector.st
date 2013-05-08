@@ -1,236 +1,4 @@
 Smalltalk current createPackage: 'Helios-Inspector'!
-HLWidget subclass: #HLInspector
-	instanceVariableNames: 'model variablesWidget displayWidget codeWidget label'
-	package: 'Helios-Inspector'!
-
-!HLInspector methodsFor: 'accessing'!
-
-codeWidget
-	^ codeWidget ifNil: [
-		codeWidget := HLCodeWidget new
-    		model: model code;
-        	receiver: model inspectee;
-        	yourself ]
-!
-
-displayWidget
-	^ displayWidget ifNil: [
-		displayWidget := HLInspectorDisplayWidget new
-    		model: self model;
-        	yourself ]
-!
-
-initialize
-	super initialize.
-	self register
-!
-
-inspectee
-	^ self model inspectee
-!
-
-inspectee: anObject
-	self model inspectee: anObject
-!
-
-label
-    ^ label ifNil: [ model inspectee printString ]
-!
-
-model
-	^ model ifNil: [ 
-    	self model: HLInspectorModel new.
-		model ]
-!
-
-model: aModel
-	model := aModel. 
-    self codeWidget model: aModel code.
-    
-    self 
-        observeCodeWidget;
-    	observeVariablesWidget;
-        observeModel
-!
-
-tabLabel
-    ^ 'Inspector'
-!
-
-variablesWidget
-	^ variablesWidget ifNil: [
-		variablesWidget := HLInspectorVariablesWidget new
-    		model: self model;
-        	yourself ]
-! !
-
-!HLInspector methodsFor: 'actions'!
-
-inspect: anObject
-	self model inspect: anObject on: self.
-    
-	self 
-    	refreshVariablesWidget;
-		refreshDisplayWidget
-!
-
-observeCodeWidget
-	self codeWidget announcer 
-    	on: HLDoItExecuted 
-        do: [ self onDoneIt ]
-!
-
-observeModel
-	self model announcer
-        on: HLInstanceVariableSelected
-		send: #onInstanceVariableSelected
-		to: self
-!
-
-observeVariablesWidget
-	self variablesWidget announcer 
-        on: HLDiveRequested do:[ self onDive ]
-!
-
-open
-	HLManager current addTab: (HLTab on: self labelled: self tabLabel)
-!
-
-refresh
-	self inspect: self inspectee
-!
-
-refreshDisplayWidget
-	self displayWidget refresh
-!
-
-refreshVariablesWidget
-	self variablesWidget refresh
-!
-
-setLabel: aString
-	label := aString
-!
-
-setVariables: aDictionary
-	self model variables: aDictionary
-! !
-
-!HLInspector methodsFor: 'reactions'!
-
-onDive
-
-	self inspect: self model selectedInstVarObject
-!
-
-onDoneIt
-
-	self refresh
-!
-
-onInspectIt
-!
-
-onInstanceVariableSelected
-	self codeWidget receiver: self model selectedInstVarObject.
-	self refreshDisplayWidget
-!
-
-onPrintIt
-! !
-
-!HLInspector methodsFor: 'registration'!
-
-register
-	self class register: self
-!
-
-unregister
-	super unregister.
-	self class unregister: self
-! !
-
-!HLInspector methodsFor: 'rendering'!
-
-renderContentOn: html
-   	html with: (HLContainer with: (HLHorizontalSplitter
-    	with: (HLVerticalSplitter 
-            		with: self variablesWidget
-            	    with: self displayWidget)
-        with: self codeWidget)).
-	
-	self variablesWidget focus
-! !
-
-HLInspector class instanceVariableNames: 'inspectors'!
-
-!HLInspector class methodsFor: 'accessing'!
-
-inspectors
-	^ inspectors ifNil: [ inspectors := OrderedCollection new ]
-!
-
-tabLabel
-	^ 'Inspector'
-!
-
-tabPriority
-	^ 10
-! !
-
-!HLInspector class methodsFor: 'actions'!
-
-inspect: anObject
-	self new
-		inspect: anObject;
-		open
-! !
-
-!HLInspector class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	InspectorHandler register: self.
-	self watchChanges
-!
-
-watchChanges
-	[ self inspectors do: [ :each | each refresh ] ]
-		valueWithInterval: 500
-! !
-
-!HLInspector class methodsFor: 'registration'!
-
-register: anInspector
-	self inspectors add: anInspector
-!
-
-unregister: anInspector
-	self inspectors remove: anInspector
-! !
-
-!HLInspector class methodsFor: 'testing'!
-
-canBeOpenAsTab
-	^ false
-! !
-
-HLInspector subclass: #HLInspectorWidget
-	instanceVariableNames: ''
-	package: 'Helios-Inspector'!
-
-!HLInspectorWidget methodsFor: 'rendering'!
-
-renderContentOn: html
-   	html with: (HLHorizontalSplitter
-    	with: (HLVerticalSplitter 
-            		with: self variablesWidget
-            	    with: self displayWidget)
-        with: self codeWidget).
-	
-	self variablesWidget focus
-! !
-
 HLNavigationListWidget subclass: #HLInspectorDisplayWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-Inspector'!
@@ -263,7 +31,7 @@ selectionDisplayString
 ! !
 
 Object subclass: #HLInspectorModel
-	instanceVariableNames: 'announcer environment inspectee code variables selection'
+	instanceVariableNames: 'announcer environment inspectee code variables label selection'
 	package: 'Helios-Inspector'!
 
 !HLInspectorModel methodsFor: 'accessing'!
@@ -291,6 +59,14 @@ inspectee
 
 inspectee: anObject 
 	inspectee := anObject
+!
+
+label
+    ^ label ifNil: [ self inspectee printString ]
+!
+
+label: aString
+    label := aString
 !
 
 selectedInstVarObject
@@ -378,7 +154,7 @@ announcer
 !
 
 label
-	^ self model inspectee class name
+	^ self model label
 !
 
 model
@@ -439,5 +215,240 @@ renderHeadOn: html
 	html div 
 		class: 'list-label';
 		with: self label
+! !
+
+HLWidget subclass: #HLInspectorWidget
+	instanceVariableNames: 'model variablesWidget displayWidget codeWidget'
+	package: 'Helios-Inspector'!
+
+!HLInspectorWidget methodsFor: 'accessing'!
+
+codeWidget
+	^ codeWidget ifNil: [
+		codeWidget := HLCodeWidget new
+    		model: model code;
+        	receiver: model inspectee;
+        	yourself ]
+!
+
+displayWidget
+	^ displayWidget ifNil: [
+		displayWidget := HLInspectorDisplayWidget new
+    		model: self model;
+        	yourself ]
+!
+
+initialize
+	super initialize.
+	self register
+!
+
+inspectee
+	^ self model inspectee
+!
+
+inspectee: anObject
+	self model inspectee: anObject
+!
+
+label
+    ^ self model label
+!
+
+model
+	^ model ifNil: [ 
+    	self model: HLInspectorModel new.
+		model ]
+!
+
+model: aModel
+	model := aModel. 
+    self codeWidget model: aModel code.
+    
+    self 
+        observeCodeWidget;
+    	observeVariablesWidget;
+        observeModel
+!
+
+tabLabel
+    ^ 'Inspector'
+!
+
+variablesWidget
+	^ variablesWidget ifNil: [
+		variablesWidget := HLInspectorVariablesWidget new
+    		model: self model;
+        	yourself ]
+! !
+
+!HLInspectorWidget methodsFor: 'actions'!
+
+inspect: anObject
+	self model inspect: anObject on: self.
+    
+	self 
+    	refreshVariablesWidget;
+		refreshDisplayWidget
+!
+
+observeCodeWidget
+	self codeWidget announcer 
+    	on: HLDoItExecuted 
+        do: [ self onDoneIt ]
+!
+
+observeModel
+	self model announcer
+        on: HLInstanceVariableSelected
+		send: #onInstanceVariableSelected
+		to: self
+!
+
+observeVariablesWidget
+	self variablesWidget announcer 
+        on: HLDiveRequested do:[ self onDive ]
+!
+
+open
+	HLManager current addTab: (HLTab on: self labelled: self tabLabel)
+!
+
+refresh
+	self inspect: self inspectee
+!
+
+refreshDisplayWidget
+	self displayWidget refresh
+!
+
+refreshVariablesWidget
+	self variablesWidget refresh
+!
+
+setLabel: aString
+	self model label: aString
+!
+
+setVariables: aDictionary
+	self model variables: aDictionary
+! !
+
+!HLInspectorWidget methodsFor: 'reactions'!
+
+onDive
+
+	HLInspector new 
+		inspect: self model selectedInstVarObject;
+		open
+!
+
+onDoneIt
+
+	self refresh
+!
+
+onInspectIt
+!
+
+onInstanceVariableSelected
+	self codeWidget receiver: self model selectedInstVarObject.
+	self refreshDisplayWidget
+!
+
+onPrintIt
+! !
+
+!HLInspectorWidget methodsFor: 'registration'!
+
+register
+	HLInspector register: self
+!
+
+unregister
+	super unregister.
+	HLInspector unregister: self
+! !
+
+!HLInspectorWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+   	html with: (HLHorizontalSplitter
+    	with: (HLVerticalSplitter 
+            with: self variablesWidget
+            with: self displayWidget)
+        with: self codeWidget)
+! !
+
+HLInspectorWidget subclass: #HLInspector
+	instanceVariableNames: ''
+	package: 'Helios-Inspector'!
+
+!HLInspector methodsFor: 'rendering'!
+
+renderContentOn: html
+   	html with: (HLContainer with: (HLHorizontalSplitter
+    	with: (HLVerticalSplitter 
+            with: self variablesWidget
+            with: self displayWidget)
+        with: self codeWidget)).
+	
+	self variablesWidget focus
+! !
+
+HLInspector class instanceVariableNames: 'inspectors'!
+
+!HLInspector class methodsFor: 'accessing'!
+
+inspectors
+	^ inspectors ifNil: [ inspectors := OrderedCollection new ]
+!
+
+tabClass
+	^ 'inspector'
+!
+
+tabLabel
+	^ 'Inspector'
+!
+
+tabPriority
+	^ 10
+! !
+
+!HLInspector class methodsFor: 'actions'!
+
+inspect: anObject
+	self new
+		inspect: anObject;
+		open
+! !
+
+!HLInspector class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self watchChanges
+!
+
+watchChanges
+	[ self inspectors do: [ :each | each refresh ] ]
+		valueWithInterval: 500
+! !
+
+!HLInspector class methodsFor: 'registration'!
+
+register: anInspector
+	self inspectors add: anInspector
+!
+
+unregister: anInspector
+	self inspectors remove: anInspector
+! !
+
+!HLInspector class methodsFor: 'testing'!
+
+canBeOpenAsTab
+	^ false
 ! !
 

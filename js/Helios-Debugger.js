@@ -43,26 +43,34 @@ var self=this;
 var variables,inspectedContext;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 variables=_st($Dictionary())._new();
 inspectedContext=_st(self)._context();
 _st(variables)._addAll_(_st(inspectedContext)._locals());
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
+return _st(_st(inspectedContext)._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
 return _st(inspectedContext)._isBlockContext();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
 inspectedContext=_st(inspectedContext)._outerContext();
 inspectedContext;
+$1=inspectedContext;
+if(($receiver = $1) == nil || $receiver == undefined){
+return $1;
+} else {
 return _st(variables)._addAll_(_st(inspectedContext)._locals());
+};
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=anInspector;
-_st($1)._setLabel_("Context");
-$2=_st($1)._setVariables_(variables);
+$2=anInspector;
+_st($2)._setLabel_("Context");
+$3=_st($2)._setVariables_(variables);
 return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables,inspectedContext:inspectedContext},smalltalk.HLContextInspectorDecorator)})},
 args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables inspectedContext |\x0a\x09\x0a\x09variables := Dictionary new.\x0a\x09inspectedContext := self context.\x0a\x09\x0a\x09variables addAll: inspectedContext locals.\x0a\x09\x0a\x09[ inspectedContext isBlockContext ] whileTrue: [\x0a\x09\x09inspectedContext := inspectedContext outerContext.\x0a\x09\x09variables addAll: inspectedContext locals ].\x0a\x09\x0a\x09anInspector\x0a\x09\x09setLabel: 'Context';\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "context", "addAll:", "locals", "whileTrue:", "outerContext", "isBlockContext", "setLabel:", "setVariables:"],
+source: "inspectOn: anInspector\x0a\x09| variables inspectedContext |\x0a\x09\x0a\x09variables := Dictionary new.\x0a\x09inspectedContext := self context.\x0a\x09\x0a\x09variables addAll: inspectedContext locals.\x0a\x09\x0a\x09[ inspectedContext notNil and: [ inspectedContext isBlockContext ] ] whileTrue: [\x0a\x09\x09inspectedContext := inspectedContext outerContext.\x0a\x09\x09inspectedContext ifNotNil: [\x0a\x09\x09\x09variables addAll: inspectedContext locals ] ].\x0a\x09\x0a\x09anInspector\x0a\x09\x09setLabel: 'Context';\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "context", "addAll:", "locals", "whileTrue:", "outerContext", "ifNotNil:", "and:", "isBlockContext", "notNil", "setLabel:", "setVariables:"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.HLContextInspectorDecorator);
@@ -98,12 +106,12 @@ selector: "codeWidget",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $HLBrowserCodeWidget(){return smalltalk.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
+function $HLDebuggerCodeWidget(){return smalltalk.HLDebuggerCodeWidget||(typeof HLDebuggerCodeWidget=="undefined"?nil:HLDebuggerCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@codeWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st($HLBrowserCodeWidget())._new();
+$3=_st($HLDebuggerCodeWidget())._new();
 _st($3)._browserModel_(_st(self)._model());
 $4=_st($3)._yourself();
 self["@codeWidget"]=$4;
@@ -114,9 +122,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLDebugger)})},
 args: [],
-source: "codeWidget\x0a\x09^ codeWidget ifNil: [ codeWidget := HLBrowserCodeWidget new\x0a\x09\x09browserModel: self model;\x0a\x09\x09yourself ]",
+source: "codeWidget\x0a\x09^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new\x0a\x09\x09browserModel: self model;\x0a\x09\x09yourself ]",
 messageSends: ["ifNil:", "browserModel:", "model", "new", "yourself"],
-referencedClasses: ["HLBrowserCodeWidget"]
+referencedClasses: ["HLDebuggerCodeWidget"]
 }),
 smalltalk.HLDebugger);
 
@@ -327,6 +335,22 @@ smalltalk.HLDebugger.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "tabClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "debugger";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLDebugger.klass)})},
+args: [],
+source: "tabClass\x0a\x09^ 'debugger'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDebugger.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tabLabel",
 category: 'accessing',
 fn: function (){
@@ -342,7 +366,222 @@ referencedClasses: []
 smalltalk.HLDebugger.klass);
 
 
-smalltalk.addClass('HLDebuggerModel', smalltalk.HLToolModel, ['rootContext', 'currentContext', 'contexts'], 'Helios-Debugger');
+smalltalk.addClass('HLDebuggerCodeWidget', smalltalk.HLBrowserCodeWidget, ['highlightedNode'], 'Helios-Debugger');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addStopAt:",
+category: 'actions',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@editor"])._setGutterMarker_gutter_value_(anInteger,"stops",_st(_st(_st("<div class=\x22stop\x22></stop>")._asJQuery())._toArray())._first());
+return self}, function($ctx1) {$ctx1.fill(self,"addStopAt:",{anInteger:anInteger},smalltalk.HLDebuggerCodeWidget)})},
+args: ["anInteger"],
+source: "addStopAt: anInteger\x0a\x09editor\x0a\x09\x09setGutterMarker: anInteger\x0a\x09\x09gutter: 'stops'\x0a\x09\x09value: '<div class=\x22stop\x22></stop>' asJQuery toArray first",
+messageSends: ["setGutterMarker:gutter:value:", "first", "toArray", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "clearHighlight",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self["@editor"])._clearGutter_("stops");
+$1=_st(self)._highlightedNode();
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+var node;
+node=$receiver;
+_st(self["@editor"])._removeLineClass_where_class_(_st(_st(_st(node)._position())._x()).__minus((1)),"background","highlighted");
+};
+return self}, function($ctx1) {$ctx1.fill(self,"clearHighlight",{},smalltalk.HLDebuggerCodeWidget)})},
+args: [],
+source: "clearHighlight\x0a\x09editor clearGutter: 'stops'.\x0a\x09self highlightedNode ifNotNil: [ :node |\x0a\x09\x09editor \x0a\x09\x09\x09removeLineClass: node position x - 1\x0a\x09\x09\x09where: 'background'\x0a\x09\x09\x09class: 'highlighted' ]",
+messageSends: ["clearGutter:", "ifNotNil:", "removeLineClass:where:class:", "-", "x", "position", "highlightedNode"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "contents:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._clearHighlight();
+smalltalk.HLBrowserCodeWidget.fn.prototype._contents_.apply(_st(self), [aString]);
+return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLDebuggerCodeWidget)})},
+args: ["aString"],
+source: "contents: aString\x0a\x09self clearHighlight.\x0a\x09super contents: aString",
+messageSends: ["clearHighlight", "contents:"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "editorOptions",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=smalltalk.HLBrowserCodeWidget.fn.prototype._editorOptions.apply(_st(self), []);
+_st($2)._at_put_("gutters",["CodeMirror-linenumbers", "stops"]);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLDebuggerCodeWidget)})},
+args: [],
+source: "editorOptions\x0a\x09^ super editorOptions\x0a\x09\x09at: 'gutters' put: #('CodeMirror-linenumbers' 'stops');\x0a\x09\x09yourself",
+messageSends: ["at:put:", "editorOptions", "yourself"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "highlight",
+category: 'actions',
+fn: function (){
+var self=this;
+var anchor,head,selection;
+return smalltalk.withContext(function($ctx1) { 
+head=smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._position())._x()).__minus((1))),_st("ch").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._position())._y()).__minus((1)))]);
+anchor=smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._extent())._x()).__minus((1))),_st("ch").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._extent())._y()).__minus((1)))]);
+_st(self["@editor"])._setSelection_to_(head,anchor);
+return self}, function($ctx1) {$ctx1.fill(self,"highlight",{anchor:anchor,head:head,selection:selection},smalltalk.HLDebuggerCodeWidget)})},
+args: [],
+source: "highlight\x0a\x09| anchor head selection |\x0a\x09\x0a\x09head := #{\x0a\x09\x09'line' -> (self highlightedNode position x - 1).\x0a\x09\x09'ch' -> (self highlightedNode position y - 1)\x0a\x09}.\x0a\x09\x0a\x09anchor := #{\x0a\x09\x09'line' -> (self highlightedNode extent x - 1).\x0a\x09\x09'ch' -> (self highlightedNode extent y - 1)\x0a\x09}.\x0a\x09\x0a\x09editor setSelection: head to: anchor",
+messageSends: ["->", "-", "x", "position", "highlightedNode", "y", "extent", "setSelection:to:"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "highlightLine:",
+category: 'actions',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@editor"])._addLineClass_where_class_(anInteger,"background","highlighted");
+return self}, function($ctx1) {$ctx1.fill(self,"highlightLine:",{anInteger:anInteger},smalltalk.HLDebuggerCodeWidget)})},
+args: ["anInteger"],
+source: "highlightLine: anInteger\x0a\x09editor \x0a\x09\x09addLineClass: anInteger\x0a\x09\x09where: 'background'\x0a\x09\x09class: 'highlighted'",
+messageSends: ["addLineClass:where:class:"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "highlightNode:",
+category: 'actions',
+fn: function (aNode){
+var self=this;
+var line;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=aNode;
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+line=_st(_st(_st(aNode)._position())._x()).__minus((1));
+line;
+$2=self;
+_st($2)._clearHighlight();
+_st($2)._addStopAt_(line);
+_st($2)._highlightLine_(line);
+$3=_st($2)._highlightedNode_(aNode);
+$3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"highlightNode:",{aNode:aNode,line:line},smalltalk.HLDebuggerCodeWidget)})},
+args: ["aNode"],
+source: "highlightNode: aNode\x0a\x09| line |\x0a\x09aNode ifNotNil: [\x0a\x09\x09line := aNode position x - 1.\x0a\x09\x09self \x0a\x09\x09\x09clearHighlight; \x0a\x09\x09\x09addStopAt: line;\x0a\x09\x09\x09highlightLine: line;\x0a\x09\x09\x09highlightedNode: aNode\x0a\x09\x09]",
+messageSends: ["ifNotNil:", "-", "x", "position", "clearHighlight", "addStopAt:", "highlightLine:", "highlightedNode:"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "highlightedNode",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@highlightedNode"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"highlightedNode",{},smalltalk.HLDebuggerCodeWidget)})},
+args: [],
+source: "highlightedNode\x0a\x09^ highlightedNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "highlightedNode:",
+category: 'accessing',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@highlightedNode"]=aNode;
+return self}, function($ctx1) {$ctx1.fill(self,"highlightedNode:",{aNode:aNode},smalltalk.HLDebuggerCodeWidget)})},
+args: ["aNode"],
+source: "highlightedNode: aNode\x0a\x09highlightedNode := aNode",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeBrowserModel",
+category: 'actions',
+fn: function (){
+var self=this;
+function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLBrowserCodeWidget.fn.prototype._observeBrowserModel.apply(_st(self), []);
+_st(_st(_st(self)._browserModel())._announcer())._on_send_to_($HLDebuggerContextSelected(),"onContextSelected",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLDebuggerCodeWidget)})},
+args: [],
+source: "observeBrowserModel\x0a\x09super observeBrowserModel.\x0a\x09\x0a\x09self browserModel announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected\x0a\x09\x09to: self",
+messageSends: ["observeBrowserModel", "on:send:to:", "announcer", "browserModel"],
+referencedClasses: ["HLDebuggerContextSelected"]
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onContextSelected",
+category: 'reactions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._highlightNode_(_st(_st(self)._browserModel())._nextNode());
+return self}, function($ctx1) {$ctx1.fill(self,"onContextSelected",{},smalltalk.HLDebuggerCodeWidget)})},
+args: [],
+source: "onContextSelected\x0a\x09self highlightNode: self browserModel nextNode",
+messageSends: ["highlightNode:", "nextNode", "browserModel"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerCodeWidget);
+
+
+
+smalltalk.addClass('HLDebuggerModel', smalltalk.HLToolModel, ['rootContext', 'currentContext', 'contexts', 'interpreter'], 'Helios-Debugger');
 smalltalk.HLDebuggerModel.comment="I am a model for Helios debugging.\x0a\x0aMy instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack."
 smalltalk.addMethod(
 smalltalk.method({
@@ -392,24 +631,27 @@ selector: "currentContext:",
 category: 'accessing',
 fn: function (aContext){
 var self=this;
+function $ASTDebugger(){return smalltalk.ASTDebugger||(typeof ASTDebugger=="undefined"?nil:ASTDebugger)}
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 _st(self)._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
+_st(self)._selectedMethod_(_st(aContext)._method());
 self["@currentContext"]=aContext;
 self["@currentContext"];
+self["@interpreter"]=_st($ASTDebugger())._context_(aContext);
+self["@interpreter"];
 $1=_st($HLDebuggerContextSelected())._new();
 _st($1)._context_(aContext);
 $2=_st($1)._yourself();
-_st(_st(self)._announcer())._announce_($2);
-return _st(self)._selectedMethod_(_st(aContext)._method());
+return _st(_st(self)._announcer())._announce_($2);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"currentContext:",{aContext:aContext},smalltalk.HLDebuggerModel)})},
 args: ["aContext"],
-source: "currentContext: aContext\x0a\x09self withChangesDo: [ \x0a\x09\x09currentContext := aContext.\x0a\x09\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09\x09context: aContext;\x0a\x09\x09\x09yourself).\x0a\x09\x09self selectedMethod: aContext method ]",
-messageSends: ["withChangesDo:", "announce:", "context:", "new", "yourself", "announcer", "selectedMethod:", "method"],
-referencedClasses: ["HLDebuggerContextSelected"]
+source: "currentContext: aContext\x0a\x09self withChangesDo: [ \x0a\x09\x09self selectedMethod: aContext method.\x0a\x09\x09currentContext := aContext.\x0a\x09\x09interpreter := ASTDebugger context: aContext.\x0a\x09\x09self announcer announce: (HLDebuggerContextSelected new\x0a\x09\x09\x09context: aContext;\x0a\x09\x09\x09yourself) ]",
+messageSends: ["withChangesDo:", "selectedMethod:", "method", "context:", "announce:", "new", "yourself", "announcer"],
+referencedClasses: ["ASTDebugger", "HLDebuggerContextSelected"]
 }),
 smalltalk.HLDebuggerModel);
 
@@ -461,6 +703,42 @@ smalltalk.HLDebuggerModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "interpreter",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@interpreter"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.HLDebuggerModel)})},
+args: [],
+source: "interpreter\x0a\x09^ interpreter",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextNode",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._interpreter())._nextNode();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextNode",{},smalltalk.HLDebuggerModel)})},
+args: [],
+source: "nextNode\x0a\x09^ self interpreter nextNode",
+messageSends: ["nextNode", "interpreter"],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "rootContext",
 category: 'accessing',
 fn: function (){
@@ -500,6 +778,34 @@ referencedClasses: []
 smalltalk.HLDebuggerModel.klass);
 
 
+smalltalk.addClass('HLErrorHandler', smalltalk.ErrorHandler, [], 'Helios-Debugger');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleError:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefined"?nil:HLDebugger)}
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($HLDebugger())._on_(_st(anError)._context()))._open();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(error){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($ErrorHandler())._new())._handleError_(error);
+}, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler)})},
+args: ["anError"],
+source: "handleError: anError\x0a\x09[ (HLDebugger on: anError context)\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ErrorHandler new handleError: error ]",
+messageSends: ["on:do:", "handleError:", "new", "open", "on:", "context"],
+referencedClasses: ["Error", "ErrorHandler", "HLDebugger"]
+}),
+smalltalk.HLErrorHandler);
+
+
+
 smalltalk.addClass('HLStackListWidget', smalltalk.HLToolListWidget, [], 'Helios-Debugger');
 smalltalk.addMethod(
 smalltalk.method({
@@ -532,10 +838,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "Stack";
+return "Call stack";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLStackListWidget)})},
 args: [],
-source: "label\x0a\x09^ 'Stack'",
+source: "label\x0a\x09^ 'Call stack'",
 messageSends: [],
 referencedClasses: []
 }),

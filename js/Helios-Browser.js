@@ -327,6 +327,22 @@ smalltalk.HLBrowser.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "tabClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "browser";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLBrowser.klass)})},
+args: [],
+source: "tabClass\x0a\x09^ 'browser'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLBrowser.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tabLabel",
 category: 'accessing',
 fn: function (){
@@ -1147,6 +1163,28 @@ smalltalk.HLClassCache.klass);
 smalltalk.addClass('HLClassesListWidget', smalltalk.HLToolListWidget, [], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClassForItem:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(_st(aClass)._theNonMetaClass())._comment())._isEmpty();
+if(smalltalk.assert($1)){
+return "uncommented";
+};
+$2=_st(_st(aClass)._theNonMetaClass())._heliosClass();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
+args: ["aClass"],
+source: "cssClassForItem: aClass\x0a\x09aClass theNonMetaClass comment isEmpty \x0a\x09\x09ifTrue: [ ^ 'uncommented' ].\x0a\x09^ aClass theNonMetaClass heliosClass",
+messageSends: ["ifTrue:", "isEmpty", "comment", "theNonMetaClass", "heliosClass"],
+referencedClasses: []
+}),
+smalltalk.HLClassesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focusMethodsListWidget",
 category: 'actions',
 fn: function (){
@@ -1217,29 +1255,6 @@ return $1;
 args: ["aCollection"],
 source: "getRootClassesOf: aCollection\x0a\x09^ aCollection select: [ :each |\x0a    \x09\x09(aCollection includes: each superclass) not ]",
 messageSends: ["select:", "not", "includes:", "superclass"],
-referencedClasses: []
-}),
-smalltalk.HLClassesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "iconForItem:",
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(_st(aClass)._theNonMetaClass())._comment())._isEmpty();
-if(smalltalk.assert($2)){
-$1="icon-question-sign";
-} else {
-$1="icon-none";
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"iconForItem:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
-args: ["aClass"],
-source: "iconForItem: aClass\x0a\x09^ aClass theNonMetaClass comment isEmpty\x0a    \x09ifFalse: [ 'icon-none' ]\x0a      \x09ifTrue: [ 'icon-question-sign' ]",
-messageSends: ["ifFalse:ifTrue:", "isEmpty", "comment", "theNonMetaClass"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -1665,13 +1680,13 @@ li=_st(html)._li();
 _st(self)._registerMappingFrom_to_(aClass,li);
 $1=li;
 _st($1)._at_put_("list-data",_st(_st(self)._items())._indexOf_(aClass));
-_st($1)._class_(_st(self)._cssClassForItem_(aClass));
+_st($1)._class_(_st(self)._listCssClassForItem_(aClass));
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._a();
 _st($3)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
-_st(_st(html)._tag_("i"))._class_(_st(self)._iconForItem_(aClass));
+_st(_st(html)._tag_("i"))._class_(_st(self)._cssClassForItem_(aClass));
 return _st(self)._renderItemLabel_level_on_(aClass,anInteger,html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4=_st($3)._onClick_((function(){
@@ -1686,8 +1701,8 @@ return _st(self)._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "anInteger", "html"],
-source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: aClass to: li.\x0a\x09\x0a    li\x0a    \x09at: 'list-data' put: (self items indexOf: aClass);\x0a    \x09class: (self cssClassForItem: aClass);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
-messageSends: ["li", "registerMappingFrom:to:", "at:put:", "indexOf:", "items", "class:", "cssClassForItem:", "with:", "iconForItem:", "tag:", "renderItemLabel:level:on:", "a", "onClick:", "activateListItem:", "asJQuery", "do:", "renderItem:level:on:", "+", "getChildrenOf:"],
+source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: aClass to: li.\x0a\x09\x0a    li\x0a    \x09at: 'list-data' put: (self items indexOf: aClass);\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
+messageSends: ["li", "registerMappingFrom:to:", "at:put:", "indexOf:", "items", "class:", "listCssClassForItem:", "with:", "cssClassForItem:", "tag:", "renderItemLabel:level:on:", "a", "onClick:", "activateListItem:", "asJQuery", "do:", "renderItem:level:on:", "+", "getChildrenOf:"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);
@@ -2386,7 +2401,7 @@ smalltalk.HLMethodsListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "iconForItem:",
+selector: "cssClassForItem:",
 category: 'accessing',
 fn: function (aSelector){
 var self=this;
@@ -2400,22 +2415,22 @@ $2=override;
 if(smalltalk.assert($2)){
 $3=overriden;
 if(smalltalk.assert($3)){
-$1="icon-resize-vertical";
+$1="override-overridden";
 } else {
-$1="icon-arrow-up";
+$1="override";
 };
 } else {
 $4=overriden;
 if(smalltalk.assert($4)){
-$1="icon-arrow-down";
+$1="overridden";
 } else {
-$1="icon-none";
+$1="";
 };
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"iconForItem:",{aSelector:aSelector,override:override,overriden:overriden,method:method},smalltalk.HLMethodsListWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{aSelector:aSelector,override:override,overriden:overriden,method:method},smalltalk.HLMethodsListWidget)})},
 args: ["aSelector"],
-source: "iconForItem: aSelector\x0a\x09| override overriden method |\x0a    \x0a    method := self methodForSelector: aSelector.\x0a    override := self isOverride: method.\x0a    overriden := self isOverridden: method.\x0a    \x0a\x09^ override\x0a    \x09ifTrue: [ overriden\x0a\x09\x09\x09ifTrue: [ 'icon-resize-vertical' ]\x0a\x09\x09\x09ifFalse: [ 'icon-arrow-up' ] ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09overriden\x0a\x09\x09\x09ifTrue: [ 'icon-arrow-down' ]\x0a\x09\x09\x09ifFalse: [ 'icon-none' ] ]",
+source: "cssClassForItem: aSelector\x0a\x09| override overriden method |\x0a    \x0a    method := self methodForSelector: aSelector.\x0a    override := self isOverride: method.\x0a    overriden := self isOverridden: method.\x0a    \x0a\x09^ override\x0a    \x09ifTrue: [ overriden\x0a\x09\x09\x09ifTrue: [ 'override-overridden' ]\x0a\x09\x09\x09ifFalse: [ 'override' ] ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09overriden\x0a\x09\x09\x09ifTrue: [ 'overridden' ]\x0a\x09\x09\x09ifFalse: [ '' ] ]",
 messageSends: ["methodForSelector:", "isOverride:", "isOverridden:", "ifTrue:ifFalse:"],
 referencedClasses: []
 }),
@@ -3043,6 +3058,22 @@ smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClassForItem:",
+category: 'accessing',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "package";
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLPackagesListWidget)})},
+args: ["anItem"],
+source: "cssClassForItem: anItem\x09\x0a\x09^ 'package'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focusClassesListWidget",
 category: 'actions',
 fn: function (){
@@ -3300,6 +3331,35 @@ return $1;
 args: [],
 source: "allProtocol\x0a\x09^ self model allProtocol",
 messageSends: ["allProtocol", "model"],
+referencedClasses: []
+}),
+smalltalk.HLProtocolsListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cssClassForItem:",
+category: 'accessing',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(anItem).__eq(_st(self)._allProtocol());
+if(smalltalk.assert($1)){
+return "";
+};
+$2=_st(anItem).__eq("private");
+if(smalltalk.assert($2)){
+return "private";
+};
+$3=_st(anItem).__eq("initialization");
+if(smalltalk.assert($3)){
+return "default";
+};
+return "public";
+}, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLProtocolsListWidget)})},
+args: ["anItem"],
+source: "cssClassForItem: anItem\x0a\x09anItem = self allProtocol ifTrue: [ ^ '' ].\x0a\x09anItem = 'private' ifTrue: [ ^ 'private' ].\x0a\x09anItem = 'initialization' ifTrue: [ ^ 'default' ].\x0a\x09^ 'public'",
+messageSends: ["ifTrue:", "=", "allProtocol"],
 referencedClasses: []
 }),
 smalltalk.HLProtocolsListWidget);

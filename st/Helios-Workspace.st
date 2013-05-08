@@ -76,6 +76,20 @@ currentLineOrSelection
 		ifTrue: [ self selection ]
 !
 
+editorOptions
+	^ #{
+		'theme' -> 'amber'.
+        'lineNumbers' -> true.
+        'enterMode' -> 'flat'.
+        'indentWithTabs' -> true.
+		'indentUnit' -> 4.
+        'matchBrackets' -> true.
+        'electricChars' -> false.
+		'keyMap' -> 'Amber'.
+		'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}
+	}
+!
+
 model
 	^ model ifNil: [ model := HLCodeModel new ]
 !
@@ -183,17 +197,7 @@ saveIt
 !
 
 setEditorOn: aTextarea
-	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'amber',
-                lineNumbers: true,
-                enterMode: 'flat',
-                indentWithTabs: true,
-				indentUnit: 4,
-                matchBrackets: true,
-                electricChars: true,
-				keyMap: 'Amber',
-				extraKeys: {"Shift-Space": "autocomplete"}
-	})>
+	<self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions())>
 ! !
 
 !HLCodeWidget methodsFor: 'hints'!
@@ -764,6 +768,10 @@ canHaveFocus
 ! !
 
 !HLWorkspace class methodsFor: 'accessing'!
+
+tabClass
+	^ 'workspace'
+!
 
 tabLabel
 	^ 'Workspace'

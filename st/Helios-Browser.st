@@ -108,6 +108,10 @@ nextId
     ^ 'browser_', (nextId + 1) asString
 !
 
+tabClass
+	^ 'browser'
+!
+
 tabLabel
 	^ 'Browser'
 !
@@ -378,6 +382,12 @@ HLToolListWidget subclass: #HLClassesListWidget
 
 !HLClassesListWidget methodsFor: 'accessing'!
 
+cssClassForItem: aClass
+	aClass theNonMetaClass comment isEmpty 
+		ifTrue: [ ^ 'uncommented' ].
+	^ aClass theNonMetaClass heliosClass
+!
+
 getChildrenOf: aClass
 	^ self items select: [ :each | each superclass = aClass ]
 !
@@ -385,12 +395,6 @@ getChildrenOf: aClass
 getRootClassesOf: aCollection
 	^ aCollection select: [ :each |
     		(aCollection includes: each superclass) not ]
-!
-
-iconForItem: aClass
-	^ aClass theNonMetaClass comment isEmpty
-    	ifFalse: [ 'icon-none' ]
-      	ifTrue: [ 'icon-question-sign' ]
 !
 
 label
@@ -636,11 +640,11 @@ renderItem: aClass level: anInteger on: html
 	
     li
     	at: 'list-data' put: (self items indexOf: aClass);
-    	class: (self cssClassForItem: aClass);
-        with: [ 
+		class: (self listCssClassForItem: aClass);
+		with: [ 
         	html a
             	with: [ 
-            		(html tag: 'i') class: (self iconForItem: aClass).
+            		(html tag: 'i') class: (self cssClassForItem: aClass).
   					self renderItemLabel: aClass level: anInteger on: html ];
 				onClick: [
                   	self activateListItem: li asJQuery ] ].
@@ -839,7 +843,7 @@ allProtocol
 	^ self model allProtocol
 !
 
-iconForItem: aSelector
+cssClassForItem: aSelector
 	| override overriden method |
     
     method := self methodForSelector: aSelector.
@@ -848,12 +852,12 @@ iconForItem: aSelector
     
 	^ override
     	ifTrue: [ overriden
-			ifTrue: [ 'icon-resize-vertical' ]
-			ifFalse: [ 'icon-arrow-up' ] ]
+			ifTrue: [ 'override-overridden' ]
+			ifFalse: [ 'override' ] ]
 		ifFalse: [
 			overriden
-			ifTrue: [ 'icon-arrow-down' ]
-			ifFalse: [ 'icon-none' ] ]
+			ifTrue: [ 'overridden' ]
+			ifFalse: [ '' ] ]
 !
 
 label
@@ -1080,6 +1084,10 @@ HLToolListWidget subclass: #HLPackagesListWidget
 
 !HLPackagesListWidget methodsFor: 'accessing'!
 
+cssClassForItem: anItem	
+	^ 'package'
+!
+
 items
 	^ items ifNil: [ self initializeItems ]
 !
@@ -1178,6 +1186,13 @@ HLToolListWidget subclass: #HLProtocolsListWidget
 
 allProtocol
 	^ self model allProtocol
+!
+
+cssClassForItem: anItem
+	anItem = self allProtocol ifTrue: [ ^ '' ].
+	anItem = 'private' ifTrue: [ ^ 'private' ].
+	anItem = 'initialization' ifTrue: [ ^ 'default' ].
+	^ 'public'
 !
 
 label

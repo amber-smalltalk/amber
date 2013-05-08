@@ -313,6 +313,17 @@ smalltalk.HLReferences.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "tabClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "references";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLReferences.klass)})},
+messageSends: []}),
+smalltalk.HLReferences.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "tabLabel",
 fn: function (){
 var self=this;

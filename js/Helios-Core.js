@@ -1152,6 +1152,24 @@ smalltalk.HLTab);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._widget())._tabClass();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLTab)})},
+args: [],
+source: "cssClass\x0a\x09^ self widget tabClass",
+messageSends: ["tabClass", "widget"],
+referencedClasses: []
+}),
+smalltalk.HLTab);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "displayLabel",
 category: 'accessing',
 fn: function (){
@@ -1674,6 +1692,24 @@ smalltalk.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "tabClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._class())._tabClass();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLWidget)})},
+args: [],
+source: "tabClass\x0a\x09^ self class tabClass",
+messageSends: ["tabClass", "class"],
+referencedClasses: []
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "unregister",
 category: 'actions',
 fn: function (){
@@ -1743,6 +1779,22 @@ args: [],
 source: "openAsTab\x0a\x09self canBeOpenAsTab ifFalse: [ ^ self ].\x0a\x09HLManager current addTab: (HLTab on: self new labelled: self tabLabel)",
 messageSends: ["ifFalse:", "canBeOpenAsTab", "addTab:", "on:labelled:", "new", "tabLabel", "current"],
 referencedClasses: ["HLTab", "HLManager"]
+}),
+smalltalk.HLWidget.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLWidget.klass)})},
+args: [],
+source: "tabClass\x0a\x09^ ''",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.HLWidget.klass);
 
@@ -2432,18 +2484,11 @@ category: 'accessing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(self)._selectedItem()).__eq(anObject);
-if(smalltalk.assert($2)){
-$1="active";
-} else {
-$1="inactive";
-};
-return $1;
+return "";
 }, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anObject:anObject},smalltalk.HLListWidget)})},
 args: ["anObject"],
-source: "cssClassForItem: anObject\x0a\x09^ self selectedItem = anObject\x0a\x09\x09\x09ifTrue: [ 'active' ]\x0a\x09\x09\x09ifFalse: [ 'inactive' ]",
-messageSends: ["ifTrue:ifFalse:", "=", "selectedItem"],
+source: "cssClassForItem: anObject\x0a\x09^ ''",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2521,22 +2566,6 @@ smalltalk.HLListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "iconForItem:",
-category: 'accessing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "";
-}, function($ctx1) {$ctx1.fill(self,"iconForItem:",{anObject:anObject},smalltalk.HLListWidget)})},
-args: ["anObject"],
-source: "iconForItem: anObject\x0a\x09^ ''",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
@@ -2589,6 +2618,29 @@ return self}, function($ctx1) {$ctx1.fill(self,"items:",{aCollection:aCollection
 args: ["aCollection"],
 source: "items: aCollection\x0a\x09items := aCollection",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "listCssClassForItem:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(_st(self)._selectedItem()).__eq(anObject);
+if(smalltalk.assert($2)){
+$1="active";
+} else {
+$1="inactive";
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"listCssClassForItem:",{anObject:anObject},smalltalk.HLListWidget)})},
+args: ["anObject"],
+source: "listCssClassForItem: anObject\x0a\x09^ self selectedItem = anObject\x0a\x09\x09ifTrue: [ 'active' ]\x0a\x09\x09ifFalse: [ 'inactive' ]",
+messageSends: ["ifTrue:ifFalse:", "=", "selectedItem"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2709,14 +2761,14 @@ var $1,$3,$4,$2;
 li=_st(html)._li();
 _st(self)._registerMappingFrom_to_(anObject,li);
 $1=li;
-_st($1)._class_(_st(self)._cssClassForItem_(anObject));
 _st($1)._at_put_("list-data",_st(_st(_st(self)._items())._indexOf_(anObject))._asString());
+_st($1)._class_(_st(self)._listCssClassForItem_(anObject));
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._a();
 _st($3)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
-_st(_st(html)._tag_("i"))._class_(_st(self)._iconForItem_(anObject));
+_st(_st(html)._tag_("i"))._class_(_st(self)._cssClassForItem_(anObject));
 return _st(self)._renderItemLabel_on_(anObject,html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
 $4=_st($3)._onClick_((function(){
@@ -2727,8 +2779,8 @@ return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li},smalltalk.HLListWidget)})},
 args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: anObject to: li.\x0a\x09\x0a    li\x0a    \x09class: (self cssClassForItem: anObject);\x0a        at: 'list-data' put: (self items indexOf: anObject) asString;\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self iconForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
-messageSends: ["li", "registerMappingFrom:to:", "class:", "cssClassForItem:", "at:put:", "asString", "indexOf:", "items", "with:", "iconForItem:", "tag:", "renderItemLabel:on:", "a", "onClick:", "activateListItem:", "asJQuery"],
+source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: anObject to: li.\x0a\x09\x0a    li\x0a        at: 'list-data' put: (self items indexOf: anObject) asString;\x0a\x09\x09class: (self listCssClassForItem: anObject);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
+messageSends: ["li", "registerMappingFrom:to:", "at:put:", "asString", "indexOf:", "items", "class:", "listCssClassForItem:", "with:", "cssClassForItem:", "tag:", "renderItemLabel:on:", "a", "onClick:", "activateListItem:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -3690,14 +3742,18 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
+function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+_st(self)._registerInspector_($HLInspector());
+_st(self)._registerErrorHandler_($HLErrorHandler());
 _st(_st(self)._keyBinder())._setupEvents();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a    self keyBinder setupEvents",
-messageSends: ["initialize", "setupEvents", "keyBinder"],
-referencedClasses: []
+source: "initialize\x0a\x09super initialize.\x0a\x09self registerInspector: HLInspector.\x0a\x09self registerErrorHandler: HLErrorHandler.\x0a    self keyBinder setupEvents",
+messageSends: ["initialize", "registerInspector:", "registerErrorHandler:", "setupEvents", "keyBinder"],
+referencedClasses: ["HLInspector", "HLErrorHandler"]
 }),
 smalltalk.HLManager);
 
@@ -3739,6 +3795,38 @@ return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLManager)
 args: [],
 source: "refresh\x0a\x09(window jQuery: '.navbar') remove.\x0a\x09self appendToJQuery: 'body' asJQuery",
 messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerErrorHandler:",
+category: 'actions',
+fn: function (anErrorHandler){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._registerErrorHandler_(anErrorHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},smalltalk.HLManager)})},
+args: ["anErrorHandler"],
+source: "registerErrorHandler: anErrorHandler\x0a\x09self environment registerErrorHandler: anErrorHandler",
+messageSends: ["registerErrorHandler:", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerInspector:",
+category: 'actions',
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._registerInspector_(anInspector);
+return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},smalltalk.HLManager)})},
+args: ["anInspector"],
+source: "registerInspector: anInspector\x0a\x09self environment registerInspector: anInspector",
+messageSends: ["registerInspector:", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLManager);
@@ -3899,7 +3987,7 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$6,$5,$8,$9,$7,$2;
+var $1,$3,$4,$6,$5,$8,$9,$10,$11,$7,$2;
 $1=_st(html)._ul();
 _st($1)._class_("nav");
 $2=_st($1)._with_((function(){
@@ -3920,17 +4008,20 @@ return smalltalk.withContext(function($ctx4) {
 $8=_st(html)._a();
 _st($8)._with_((function(){
 return smalltalk.withContext(function($ctx5) {
-_st(_st(_st(html)._tag_("i"))._class_("icon-remove"))._onClick_((function(){
+_st(_st(_st(html)._tag_("i"))._class_("close"))._onClick_((function(){
 return smalltalk.withContext(function($ctx6) {
 return _st(self)._removeTab_(each);
 }, function($ctx6) {$ctx6.fillBlock({},$ctx1)})}));
-return _st(html)._with_(_st(each)._displayLabel());
+$9=_st(html)._span();
+_st($9)._class_(_st(each)._cssClass());
+$10=_st($9)._with_(_st(each)._displayLabel());
+return $10;
 }, function($ctx5) {$ctx5.fillBlock({},$ctx1)})}));
-$9=_st($8)._onClick_((function(){
+$11=_st($8)._onClick_((function(){
 return smalltalk.withContext(function($ctx5) {
 return _st(each)._activate();
 }, function($ctx5) {$ctx5.fillBlock({},$ctx1)})}));
-return $9;
+return $11;
 }, function($ctx4) {$ctx4.fillBlock({},$ctx1)})}));
 return $7;
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
@@ -3938,8 +4029,8 @@ return _st(self)._renderAddOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderTabsOn:",{html:html},smalltalk.HLManager)})},
 args: ["html"],
-source: "renderTabsOn: html\x0a\x09html ul \x0a\x09\x09class: 'nav';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09html li \x0a\x09\x09\x09\x09\x09class: (each isActive ifTrue: [ 'active' ] ifFalse: [ 'inactive' ]);\x0a\x09\x09\x09\x09\x09with: [\x0a\x09\x09\x09\x09\x09\x09html a\x0a\x09\x09\x09\x09\x09\x09\x09with: [\x0a      \x09\x09\x09\x09\x09\x09\x09((html tag: 'i') class: 'icon-remove')\x0a  \x09\x09\x09\x09\x09\x09\x09\x09\x09onClick: [ self removeTab: each ].\x0a                              \x09html with: each displayLabel ];\x0a\x09\x09\x09\x09\x09\x09\x09onClick: [ each activate ] ] ].\x0a\x09\x09\x09self renderAddOn: html ]",
-messageSends: ["class:", "ul", "with:", "do:", "ifTrue:ifFalse:", "isActive", "li", "onClick:", "removeTab:", "tag:", "displayLabel", "a", "activate", "tabs", "renderAddOn:"],
+source: "renderTabsOn: html\x0a\x09html ul \x0a\x09\x09class: 'nav';\x0a\x09\x09with: [ \x0a        \x09self tabs do: [ :each |\x0a\x09\x09\x09\x09html li \x0a\x09\x09\x09\x09\x09class: (each isActive ifTrue: [ 'active' ] ifFalse: [ 'inactive' ]);\x0a\x09\x09\x09\x09\x09with: [\x0a\x09\x09\x09\x09\x09\x09html a\x0a\x09\x09\x09\x09\x09\x09\x09with: [\x0a      \x09\x09\x09\x09\x09\x09\x09((html tag: 'i') class: 'close')\x0a  \x09\x09\x09\x09\x09\x09\x09\x09\x09onClick: [ self removeTab: each ].\x0a                              \x09html span \x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09class: each cssClass;\x0a\x09\x09\x09\x09\x09\x09\x09\x09\x09with: each displayLabel ];\x0a\x09\x09\x09\x09\x09\x09\x09onClick: [ each activate ] ] ].\x0a\x09\x09\x09self renderAddOn: html ]",
+messageSends: ["class:", "ul", "with:", "do:", "ifTrue:ifFalse:", "isActive", "li", "onClick:", "removeTab:", "tag:", "cssClass", "span", "displayLabel", "a", "activate", "tabs", "renderAddOn:"],
 referencedClasses: []
 }),
 smalltalk.HLManager);

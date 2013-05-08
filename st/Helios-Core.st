@@ -426,6 +426,10 @@ add
 	self manager addTab: self
 !
 
+cssClass
+	^ self widget tabClass
+!
+
 displayLabel
 	^ self label size > 20 
 		ifTrue: [ (self label first: 20), '...' ]
@@ -523,6 +527,10 @@ manager
 	^ HLManager current
 !
 
+tabClass
+	^ self class tabClass
+!
+
 wrapper
 	^ wrapper
 ! !
@@ -598,6 +606,10 @@ refresh
 openAsTab
 	self canBeOpenAsTab ifFalse: [ ^ self ].
 	HLManager current addTab: (HLTab on: self new labelled: self tabLabel)
+!
+
+tabClass
+	^ ''
 !
 
 tabLabel
@@ -802,12 +814,6 @@ HLFocusableWidget subclass: #HLListWidget
 !HLListWidget methodsFor: 'accessing'!
 
 cssClassForItem: anObject
-	^ self selectedItem = anObject
-			ifTrue: [ 'active' ]
-			ifFalse: [ 'inactive' ]
-!
-
-iconForItem: anObject
 	^ ''
 !
 
@@ -817,6 +823,12 @@ items
 
 items: aCollection
 	items := aCollection
+!
+
+listCssClassForItem: anObject
+	^ self selectedItem = anObject
+		ifTrue: [ 'active' ]
+		ifFalse: [ 'inactive' ]
 !
 
 positionOf: aListItem
@@ -996,12 +1008,12 @@ renderItem: anObject on: html
 	self registerMappingFrom: anObject to: li.
 	
     li
-    	class: (self cssClassForItem: anObject);
         at: 'list-data' put: (self items indexOf: anObject) asString;
+		class: (self listCssClassForItem: anObject);
         with: [ 
         	html a
             	with: [ 
-            		(html tag: 'i') class: (self iconForItem: anObject).
+            		(html tag: 'i') class: (self cssClassForItem: anObject).
   					self renderItemLabel: anObject on: html ];
 				onClick: [
                   	self activateListItem: li asJQuery ] ]
@@ -1264,6 +1276,14 @@ confirm: aString ifTrue: aBlock
 			appendToJQuery: 'body' asJQuery
 !
 
+registerErrorHandler: anErrorHandler
+	self environment registerErrorHandler: anErrorHandler
+!
+
+registerInspector: anInspector
+	self environment registerInspector: anInspector
+!
+
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -1315,6 +1335,8 @@ defaultEnvironment
 
 initialize
 	super initialize.
+	self registerInspector: HLInspector.
+	self registerErrorHandler: HLErrorHandler.
     self keyBinder setupEvents
 ! !
 
@@ -1366,9 +1388,11 @@ renderTabsOn: html
 					with: [
 						html a
 							with: [
-      							((html tag: 'i') class: 'icon-remove')
+      							((html tag: 'i') class: 'close')
   									onClick: [ self removeTab: each ].
-                              	html with: each displayLabel ];
+                              	html span 
+									class: each cssClass;
+									with: each displayLabel ];
 							onClick: [ each activate ] ] ].
 			self renderAddOn: html ]
 !

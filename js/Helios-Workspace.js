@@ -362,6 +362,24 @@ smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "editorOptions",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=smalltalk.HashedCollection._fromPairs_([_st("theme").__minus_gt("amber"),_st("lineNumbers").__minus_gt(true),_st("enterMode").__minus_gt("flat"),_st("indentWithTabs").__minus_gt(true),_st("indentUnit").__minus_gt((4)),_st("matchBrackets").__minus_gt(true),_st("electricChars").__minus_gt(false),_st("keyMap").__minus_gt("Amber"),_st("extraKeys").__minus_gt(smalltalk.HashedCollection._fromPairs_([_st("Shift-Space").__minus_gt("autocomplete")]))]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
+args: [],
+source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> 'amber'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}\x0a\x09}",
+messageSends: ["->"],
+referencedClasses: []
+}),
+smalltalk.HLCodeWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "focus",
 category: 'actions',
 fn: function (){
@@ -834,20 +852,10 @@ category: 'actions',
 fn: function (aTextarea){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self['@editor'] = CodeMirror.fromTextArea(aTextarea, {
-		theme: 'amber',
-                lineNumbers: true,
-                enterMode: 'flat',
-                indentWithTabs: true,
-				indentUnit: 4,
-                matchBrackets: true,
-                electricChars: true,
-				keyMap: 'Amber',
-				extraKeys: {"Shift-Space": "autocomplete"}
-	});
+self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions());
 return self}, function($ctx1) {$ctx1.fill(self,"setEditorOn:",{aTextarea:aTextarea},smalltalk.HLCodeWidget)})},
 args: ["aTextarea"],
-source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, {\x0a\x09\x09theme: 'amber',\x0a                lineNumbers: true,\x0a                enterMode: 'flat',\x0a                indentWithTabs: true,\x0a\x09\x09\x09\x09indentUnit: 4,\x0a                matchBrackets: true,\x0a                electricChars: true,\x0a\x09\x09\x09\x09keyMap: 'Amber',\x0a\x09\x09\x09\x09extraKeys: {\x22Shift-Space\x22: \x22autocomplete\x22}\x0a\x09})>",
+source: "setEditorOn: aTextarea\x0a\x09<self['@editor'] = CodeMirror.fromTextArea(aTextarea, self._editorOptions())>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1991,6 +1999,22 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLWorkspace.klass)})},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLWorkspace.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "workspace";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLWorkspace.klass)})},
+args: [],
+source: "tabClass\x0a\x09^ 'workspace'",
 messageSends: [],
 referencedClasses: []
 }),

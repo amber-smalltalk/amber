@@ -127,6 +127,10 @@ renderContentOn: html
 
 !HLReferences class methodsFor: 'accessing'!
 
+tabClass
+	^ 'references'
+!
+
 tabLabel
 	^ 'References'
 !

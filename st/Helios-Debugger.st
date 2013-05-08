@@ -25,9 +25,10 @@ inspectOn: anInspector
 	
 	variables addAll: inspectedContext locals.
 	
-	[ inspectedContext isBlockContext ] whileTrue: [
+	[ inspectedContext notNil and: [ inspectedContext isBlockContext ] ] whileTrue: [
 		inspectedContext := inspectedContext outerContext.
-		variables addAll: inspectedContext locals ].
+		inspectedContext ifNotNil: [
+			variables addAll: inspectedContext locals ] ].
 	
 	anInspector
 		setLabel: 'Context';
@@ -51,7 +52,7 @@ I am the main widget for the Helios debugger.!
 !HLDebugger methodsFor: 'accessing'!
 
 codeWidget
-	^ codeWidget ifNil: [ codeWidget := HLBrowserCodeWidget new
+	^ codeWidget ifNil: [ codeWidget := HLDebuggerCodeWidget new
 		browserModel: self model;
 		yourself ]
 !
@@ -112,6 +113,10 @@ renderContentOn: html
 
 !HLDebugger class methodsFor: 'accessing'!
 
+tabClass
+	^ 'debugger'
+!
+
 tabLabel
 	^ 'Debugger'
 ! !
@@ -124,8 +129,101 @@ on: aMethodContext
 		yourself
 ! !
 
+HLBrowserCodeWidget subclass: #HLDebuggerCodeWidget
+	instanceVariableNames: 'highlightedNode'
+	package: 'Helios-Debugger'!
+
+!HLDebuggerCodeWidget methodsFor: 'accessing'!
+
+contents: aString
+	self clearHighlight.
+	super contents: aString
+!
+
+editorOptions
+	^ super editorOptions
+		at: 'gutters' put: #('CodeMirror-linenumbers' 'stops');
+		yourself
+!
+
+highlightedNode
+	^ highlightedNode
+!
+
+highlightedNode: aNode
+	highlightedNode := aNode
+! !
+
+!HLDebuggerCodeWidget methodsFor: 'actions'!
+
+addStopAt: anInteger
+	editor
+		setGutterMarker: anInteger
+		gutter: 'stops'
+		value: '<div class="stop"></stop>' asJQuery toArray first
+!
+
+clearHighlight
+	editor clearGutter: 'stops'.
+	self highlightedNode ifNotNil: [ :node |
+		editor 
+			removeLineClass: node position x - 1
+			where: 'background'
+			class: 'highlighted' ]
+!
+
+highlight
+	| anchor head selection |
+	
+	head := #{
+		'line' -> (self highlightedNode position x - 1).
+		'ch' -> (self highlightedNode position y - 1)
+	}.
+	
+	anchor := #{
+		'line' -> (self highlightedNode extent x - 1).
+		'ch' -> (self highlightedNode extent y - 1)
+	}.
+	
+	editor setSelection: head to: anchor
+!
+
+highlightLine: anInteger
+	editor 
+		addLineClass: anInteger
+		where: 'background'
+		class: 'highlighted'
+!
+
+highlightNode: aNode
+	| line |
+	aNode ifNotNil: [
+		line := aNode position x - 1.
+		self 
+			clearHighlight; 
+			addStopAt: line;
+			highlightLine: line;
+			highlightedNode: aNode
+		]
+!
+
+observeBrowserModel
+	super observeBrowserModel.
+	
+	self browserModel announcer 
+		on: HLDebuggerContextSelected
+		send: #onContextSelected
+		to: self
+! !
+
+!HLDebuggerCodeWidget methodsFor: 'reactions'!
+
+onContextSelected
+	self highlightNode: self browserModel nextNode
+! !
+
 HLToolModel subclass: #HLDebuggerModel
-	instanceVariableNames: 'rootContext currentContext contexts'
+	instanceVariableNames: 'rootContext currentContext contexts interpreter'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
 I am a model for Helios debugging.
@@ -145,11 +243,20 @@ currentContext
 
 currentContext: aContext
 	self withChangesDo: [ 
+		self selectedMethod: aContext method.
 		currentContext := aContext.
+		interpreter := ASTDebugger context: aContext.
 		self announcer announce: (HLDebuggerContextSelected new
 			context: aContext;
-			yourself).
-		self selectedMethod: aContext method ]
+			yourself) ]
+!
+
+interpreter
+	^ interpreter
+!
+
+nextNode
+	^ self interpreter nextNode
 !
 
 rootContext
@@ -184,6 +291,18 @@ on: aMethodContext
 		yourself
 ! !
 
+ErrorHandler subclass: #HLErrorHandler
+	instanceVariableNames: ''
+	package: 'Helios-Debugger'!
+
+!HLErrorHandler methodsFor: 'error handling'!
+
+handleError: anError
+	[ (HLDebugger on: anError context)
+		open ] on: Error do: [ :error |
+			ErrorHandler new handleError: error ]
+! !
+
 HLToolListWidget subclass: #HLStackListWidget
 	instanceVariableNames: ''
 	package: 'Helios-Debugger'!
@@ -195,7 +314,7 @@ items
 !
 
 label
-	^ 'Stack'
+	^ 'Call stack'
 ! !
 
 !HLStackListWidget methodsFor: 'actions'!
