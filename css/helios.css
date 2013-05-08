@@ -64,6 +64,25 @@ i {
     line-height: 16px;
 }
 
+.CodeMirror-gutter.stops {
+    width: 20px;
+}
+
+.CodeMirror .CodeMirror-gutter-elt {
+    line-height: 1.5em;
+}
+
+.CodeMirror .highlighted.CodeMirror-linebackground {
+    background-color: #ffffaa;
+}
+
+.CodeMirror .CodeMirror-gutter-elt .stop {
+    width: 16px;
+    height: 16px;
+    background: url('../images/step.gif');
+    margin-left: 2px;
+}
+
 .state {
     position: absolute;
     right: 15px;
@@ -92,6 +111,42 @@ i {
     line-height: 16px;
 }
 
+.navbar-fixed-top a span {
+    padding-left: 18px;
+    background-position: center left;
+    background-repeat: no-repeat;
+}
+
+.navbar-fixed-top i.close {
+    width: 14px;
+    height: 16px;
+    margin-left: 4px;
+    background-image: url('../images/close.gif');
+    margin-right: 0;
+    background-position: center left;
+    margin-top: 2px;
+}
+
+.navbar-fixed-top a span.browser {
+    background-image: url('../images/browser.gif')
+}
+
+.navbar-fixed-top a span.references {
+    background-image: url('../images/references.gif')
+}
+
+.navbar-fixed-top a span.workspace {
+    background-image: url('../images/workspace.gif')
+}
+
+.navbar-fixed-top a span.debugger {
+    background-image: url('../images/debugger.gif')
+}
+.navbar-fixed-top a span.inspector {
+    background-image: url('../images/inspector.gif')
+}
+
+
 .navbar-fixed-top .navbar-inner {
     min-height: 22px;
     background-color: #dbdbdb;
@@ -110,7 +165,8 @@ i {
 
 
 .navbar .nav > li > a {
-    padding: 3px 8px;
+    line-height: 22px;
+    padding: 0px 8px;
     font-size: 11px;
     color: #111;
     text-shadow: 0 1px 0 #ddd;
@@ -227,7 +283,7 @@ i {
     left: 0;
     right: 0;
     bottom: 0;
-    background: #f1f1f1;
+    background: #fefefe;
 }
 
 .tool_container .multi_pane {
@@ -306,6 +362,65 @@ i {
     width: 100%;
     margin: 0;
 }
+
+.tool_container .pane .nav-pills i {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    background-image: none;
+    background-position: top left;
+    line-height: 14px;
+    vertical-align: text-top;
+}
+
+.tool_container .pane .nav-pills i.class {
+    background-image: url('../images/class.gif');
+}
+.tool_container .pane .nav-pills i.collection {
+    background-image: url('../images/collection.gif');
+}
+.tool_container .pane .nav-pills i.test {
+    background-image: url('../images/test.gif');
+}
+.tool_container .pane .nav-pills i.exception {
+    background-image: url('../images/exception.gif');
+}
+.tool_container .pane .nav-pills i.widget {
+    background-image: url('../images/widget.gif');
+}
+.tool_container .pane .nav-pills i.package {
+    background-image: url('../images/package.gif');
+}
+.tool_container .pane .nav-pills i.public {
+    background-image: url('../images/public.gif');
+}
+.tool_container .pane .nav-pills i.private {
+    background-image: url('../images/private.gif');
+}
+.tool_container .pane .nav-pills i.default {
+    background-image: url('../images/default.gif');
+}
+.tool_container .pane .nav-pills i.package {
+    background-image: url('../images/package.gif');
+}
+.tool_container .pane .nav-pills i.override {
+    background-image: url('../images/override.gif');
+}
+.tool_container .pane .nav-pills i.overridden {
+    background-image: url('../images/overridden.gif');
+}
+.tool_container .pane .nav-pills i.override-overridden {
+    background-image: url('../images/override-overridden.gif');
+}
+.tool_container .pane .nav-pills i.warning {
+    background-image: url('../images/warning.gif');
+}
+.tool_container .pane .nav-pills i.uncommented {
+    background-image: url('../images/uncommented.gif');
+}
+
+
 
 .tool_container .list-label {
     font-size: 11px;
