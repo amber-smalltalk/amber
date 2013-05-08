@@ -3678,6 +3678,22 @@ referencedClasses: []
 smalltalk.Widget);
 
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "widget";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Widget.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'widget'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Widget.klass);
+
 
 smalltalk.addMethod(
 smalltalk.method({

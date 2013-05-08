@@ -1107,6 +1107,22 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "class";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Object.klass)})},
+args: [],
+source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
@@ -2531,6 +2547,40 @@ args: [],
 source: "packages\x0a\x09^ Smalltalk current packages",
 messageSends: ["packages", "current"],
 referencedClasses: ["Smalltalk"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerErrorHandler:",
+category: 'actions',
+fn: function (anErrorHandler){
+var self=this;
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ErrorHandler())._setCurrent_(anErrorHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},smalltalk.Environment)})},
+args: ["anErrorHandler"],
+source: "registerErrorHandler: anErrorHandler\x0a\x09ErrorHandler setCurrent: anErrorHandler",
+messageSends: ["setCurrent:"],
+referencedClasses: ["ErrorHandler"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerInspector:",
+category: 'actions',
+fn: function (anInspector){
+var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($InspectorHandler())._register_(anInspector);
+return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},smalltalk.Environment)})},
+args: ["anInspector"],
+source: "registerInspector: anInspector\x0a\x09InspectorHandler register: anInspector",
+messageSends: ["register:"],
+referencedClasses: ["InspectorHandler"]
 }),
 smalltalk.Environment);
 
@@ -5030,7 +5080,7 @@ fn: function (aString){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$3,$1;
 _st(self)._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
 result=_st(self)._basicParse_(aString);
@@ -5039,12 +5089,15 @@ return result;
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self)._parseError_parsing_(ex,aString))._signal();
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$1=result;
+$2=result;
+_st($2)._source_(aString);
+$3=_st($2)._yourself();
+$1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "parse: aString\x0a\x09| result |\x0a\x09self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].\x0a\x09^result",
-messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:"],
+source: "parse: aString\x0a\x09| result |\x0a\x09\x0a\x09self \x0a\x09\x09try: [result := self basicParse: aString] \x0a\x09\x09catch: [:ex | (self parseError: ex parsing: aString) signal].\x0a\x09\x09\x0a\x09^ result\x0a\x09\x09source: aString;\x0a\x09\x09yourself",
+messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:", "source:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

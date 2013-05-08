@@ -51,6 +51,12 @@ isSmalltalkError
 	<return self.smalltalkError === true>
 ! !
 
+!Error class methodsFor: 'helios'!
+
+heliosClass
+	^ 'exception'
+! !
+
 !Error class methodsFor: 'instance creation'!
 
 signal

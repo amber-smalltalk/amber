@@ -2643,6 +2643,17 @@ messageSends: []}),
 smalltalk.Widget);
 
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "widget";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Widget.klass)})},
+messageSends: []}),
+smalltalk.Widget.klass);
+
 
 smalltalk.addMethod(
 smalltalk.method({

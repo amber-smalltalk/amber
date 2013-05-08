@@ -461,6 +461,22 @@ smalltalk.TestCase.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "test";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.TestCase.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'test'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TestCase.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isAbstract",
 category: 'testing',
 fn: function (){

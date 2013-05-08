@@ -168,6 +168,12 @@ testSelectors
 	^self methodDictionary keys select: [:each | each match: '^test']
 ! !
 
+!TestCase class methodsFor: 'helios'!
+
+heliosClass
+	^ 'test'
+! !
+
 !TestCase class methodsFor: 'testing'!
 
 isAbstract

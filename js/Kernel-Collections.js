@@ -767,6 +767,22 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "collection";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Collection.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'collection'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Collection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "new:",
 category: 'instance creation',
 fn: function (anInteger){

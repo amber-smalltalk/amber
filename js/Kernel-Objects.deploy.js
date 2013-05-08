@@ -796,6 +796,17 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "class";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Object.klass)})},
+messageSends: []}),
+smalltalk.Object.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
@@ -1833,6 +1844,30 @@ $1=_st(_st($Smalltalk())._current())._packages();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.HLEnvironment)})},
 messageSends: ["packages", "current"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerErrorHandler:",
+fn: function (anErrorHandler){
+var self=this;
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ErrorHandler())._setCurrent_(anErrorHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"registerErrorHandler:",{anErrorHandler:anErrorHandler},smalltalk.Environment)})},
+messageSends: ["setCurrent:"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerInspector:",
+fn: function (anInspector){
+var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($InspectorHandler())._register_(anInspector);
+return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector:anInspector},smalltalk.Environment)})},
+messageSends: ["register:"]}),
 smalltalk.Environment);
 
 smalltalk.addMethod(
@@ -3685,7 +3720,7 @@ fn: function (aString){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$3,$1;
 _st(self)._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
 result=_st(self)._basicParse_(aString);
@@ -3694,10 +3729,13 @@ return result;
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self)._parseError_parsing_(ex,aString))._signal();
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
-$1=result;
+$2=result;
+_st($2)._source_(aString);
+$3=_st($2)._yourself();
+$1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString,result:result},smalltalk.Smalltalk)})},
-messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:"]}),
+messageSends: ["try:catch:", "basicParse:", "signal", "parseError:parsing:", "source:", "yourself"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(

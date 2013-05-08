@@ -135,6 +135,22 @@ smalltalk.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "exception";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Error.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'exception'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "signal",
 category: 'instance creation',
 fn: function (){

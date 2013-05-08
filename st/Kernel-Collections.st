@@ -241,6 +241,12 @@ notEmpty
 	^self isEmpty not
 ! !
 
+!Collection class methodsFor: 'helios'!
+
+heliosClass
+	^ 'collection'
+! !
+
 !Collection class methodsFor: 'instance creation'!
 
 new: anInteger

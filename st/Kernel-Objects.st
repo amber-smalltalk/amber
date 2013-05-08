@@ -361,6 +361,15 @@ respondsTo: aSelector
 	^self class canUnderstand: aSelector
 ! !
 
+!Object class methodsFor: 'helios'!
+
+heliosClass
+	"Should be an Helios extension. Unfortunately, since helios can browse remote
+	environments, we can't extend base classes"
+	
+	^ 'class'
+! !
+
 !Object class methodsFor: 'initialization'!
 
 initialize
@@ -789,6 +798,14 @@ moveMethod: aMethod toClass: aClassName
 
 moveMethod: aMethod toProtocol: aProtocol
 	aMethod category: aProtocol
+!
+
+registerErrorHandler: anErrorHandler
+	ErrorHandler setCurrent: anErrorHandler
+!
+
+registerInspector: anInspector
+	InspectorHandler register: anInspector
 !
 
 removeClass: aClass
@@ -1717,8 +1734,14 @@ at: aString
 
 parse: aString
 	| result |
-	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
-	^result
+	
+	self 
+		try: [result := self basicParse: aString] 
+		catch: [:ex | (self parseError: ex parsing: aString) signal].
+		
+	^ result
+		source: aString;
+		yourself
 !
 
 readJSObject: anObject

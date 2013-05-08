@@ -580,6 +580,17 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "collection";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Collection.klass)})},
+messageSends: []}),
+smalltalk.Collection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "new:",
 fn: function (anInteger){
 var self=this;

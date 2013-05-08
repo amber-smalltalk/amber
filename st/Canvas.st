@@ -1058,6 +1058,12 @@ renderOn: html
 	self
 ! !
 
+!Widget class methodsFor: 'helios'!
+
+heliosClass
+	^ 'widget'
+! !
+
 !Object methodsFor: '*Canvas'!
 
 appendToBrush: aTagBrush
