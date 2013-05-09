@@ -859,7 +859,7 @@ activateItem: anObject
 
 activateListItem: aListItem
 	| item |
-    
+	
 	(aListItem get: 0) ifNil: [ ^self ].
 	aListItem parent children removeClass: 'active'.
 	aListItem addClass: 'active'.
@@ -873,15 +873,15 @@ activateListItem: aListItem
 !
 
 activateNextListItem
-	self activateListItem: (window jQuery: '.focused .nav-pills .active') next.
+	self activateListItem: (self wrapper asJQuery find: ' .active') next.
 	
 	"select the first item if none is selected"
-	(window jQuery: '.focused .nav-pills .active') get ifEmpty: [
+	(self wrapper asJQuery find: ' .active') get ifEmpty: [
 		self activateFirstListItem ]
 !
 
 activatePreviousListItem
-	self activateListItem: (window jQuery: '.focused .nav-pills .active') prev
+	self activateListItem: (self wrapper asJQuery find: ' .active') prev
 !
 
 ensureVisible: aListItem	

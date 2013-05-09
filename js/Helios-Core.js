@@ -2435,7 +2435,7 @@ _st(self)._selectItem_(item);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,item:item},smalltalk.HLListWidget)})},
 args: ["aListItem"],
-source: "activateListItem: aListItem\x0a\x09| item |\x0a    \x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x09aListItem parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a\x09self ensureVisible: aListItem.\x0a    \x0a   \x22Activate the corresponding item\x22\x0a   item := (self items at: (aListItem attr: 'list-data') asNumber).\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
+source: "activateListItem: aListItem\x0a\x09| item |\x0a\x09\x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x09aListItem parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a\x09self ensureVisible: aListItem.\x0a    \x0a   \x22Activate the corresponding item\x22\x0a   item := (self items at: (aListItem attr: 'list-data') asNumber).\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
 messageSends: ["ifNil:", "get:", "removeClass:", "children", "parent", "addClass:", "ensureVisible:", "at:", "asNumber", "attr:", "items", "ifFalse:", "selectItem:", "==", "selectedItem"],
 referencedClasses: []
 }),
@@ -2448,15 +2448,15 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
-_st(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._get())._ifEmpty_((function(){
+_st(self)._activateListItem_(_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(" .active"))._next());
+_st(_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(" .active"))._get())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._activateFirstListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateNextListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') next.\x0a\x09\x0a\x09\x22select the first item if none is selected\x22\x0a\x09(window jQuery: '.focused .nav-pills .active') get ifEmpty: [\x0a\x09\x09self activateFirstListItem ]",
-messageSends: ["activateListItem:", "next", "jQuery:", "ifEmpty:", "activateFirstListItem", "get"],
+source: "activateNextListItem\x0a\x09self activateListItem: (self wrapper asJQuery find: ' .active') next.\x0a\x09\x0a\x09\x22select the first item if none is selected\x22\x0a\x09(self wrapper asJQuery find: ' .active') get ifEmpty: [\x0a\x09\x09self activateFirstListItem ]",
+messageSends: ["activateListItem:", "next", "find:", "asJQuery", "wrapper", "ifEmpty:", "activateFirstListItem", "get"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2468,11 +2468,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._prev());
+_st(self)._activateListItem_(_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(" .active"))._prev());
 return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activatePreviousListItem\x0a\x09self activateListItem: (window jQuery: '.focused .nav-pills .active') prev",
-messageSends: ["activateListItem:", "prev", "jQuery:"],
+source: "activatePreviousListItem\x0a\x09self activateListItem: (self wrapper asJQuery find: ' .active') prev",
+messageSends: ["activateListItem:", "prev", "find:", "asJQuery", "wrapper"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);

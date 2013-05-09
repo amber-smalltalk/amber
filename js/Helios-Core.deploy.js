@@ -1853,13 +1853,13 @@ selector: "activateNextListItem",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._next());
-_st(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._get())._ifEmpty_((function(){
+_st(self)._activateListItem_(_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(" .active"))._next());
+_st(_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(" .active"))._get())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._activateFirstListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateListItem:", "next", "jQuery:", "ifEmpty:", "activateFirstListItem", "get"]}),
+messageSends: ["activateListItem:", "next", "find:", "asJQuery", "wrapper", "ifEmpty:", "activateFirstListItem", "get"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -1868,9 +1868,9 @@ selector: "activatePreviousListItem",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._activateListItem_(_st(_st(window)._jQuery_(".focused .nav-pills .active"))._prev());
+_st(self)._activateListItem_(_st(_st(_st(_st(self)._wrapper())._asJQuery())._find_(" .active"))._prev());
 return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateListItem:", "prev", "jQuery:"]}),
+messageSends: ["activateListItem:", "prev", "find:", "asJQuery", "wrapper"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
