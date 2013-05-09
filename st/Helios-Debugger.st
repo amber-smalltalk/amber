@@ -303,6 +303,12 @@ handleError: anError
 			ErrorHandler new handleError: error ]
 ! !
 
+!HLErrorHandler class methodsFor: 'error handling'!
+
+handleError: anError
+	^ self new handleError: anError
+! !
+
 HLToolListWidget subclass: #HLStackListWidget
 	instanceVariableNames: ''
 	package: 'Helios-Debugger'!

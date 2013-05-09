@@ -805,6 +805,24 @@ referencedClasses: ["Error", "ErrorHandler", "HLDebugger"]
 smalltalk.HLErrorHandler);
 
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleError:",
+category: 'error handling',
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._new())._handleError_(anError);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler.klass)})},
+args: ["anError"],
+source: "handleError: anError\x0a\x09^ self new handleError: anError",
+messageSends: ["handleError:", "new"],
+referencedClasses: []
+}),
+smalltalk.HLErrorHandler.klass);
+
 
 smalltalk.addClass('HLStackListWidget', smalltalk.HLToolListWidget, [], 'Helios-Debugger');
 smalltalk.addMethod(

@@ -613,6 +613,19 @@ messageSends: ["on:do:", "handleError:", "new", "open", "on:", "context"]}),
 smalltalk.HLErrorHandler);
 
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleError:",
+fn: function (anError){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._new())._handleError_(anError);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler.klass)})},
+messageSends: ["handleError:", "new"]}),
+smalltalk.HLErrorHandler.klass);
+
 
 smalltalk.addClass('HLStackListWidget', smalltalk.HLToolListWidget, [], 'Helios-Debugger');
 smalltalk.addMethod(
