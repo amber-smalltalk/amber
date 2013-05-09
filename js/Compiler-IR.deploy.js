@@ -2321,9 +2321,9 @@ return _st(self)._nextPutAll_(",");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $7=self;
 _st($7)._nextPutAll_("},");
-$8=_st($7)._nextPutAll_(_st(_st(_st(_st(anIRClosure)._method())._scope())._alias()).__comma(")})"));
+$8=_st($7)._nextPutAll_(_st(_st(_st(_st(anIRClosure)._scope())._outerScope())._alias()).__comma(")})"));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutBlockContextFor:during:",{anIRClosure:anIRClosure,aBlock:aBlock},smalltalk.JSStream)})},
-messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "do:separatedBy:", "asVariableName", "locals", "method"]}),
+messageSends: ["nextPutAll:", ",", "alias", "scope", "lf", "value", "do:separatedBy:", "asVariableName", "locals", "outerScope"]}),
 smalltalk.JSStream);
 
 smalltalk.addMethod(

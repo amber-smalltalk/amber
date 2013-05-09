@@ -1041,13 +1041,13 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=_st(self)._isBlockContext();
 if(smalltalk.assert($2)){
-$1=_st(_st("a block (in ").__comma(_st(_st(_st(_st(self)._methodContext())._receiver())._class())._printString())).__comma(")");
+$1=_st(_st("a block (in ").__comma(_st(_st(self)._methodContext())._asString())).__comma(")");
 } else {
-$1=_st(_st(_st(_st(_st(self)._receiver())._class())._printString()).__comma(" >> ")).__comma(_st(self)._selector());
+$1=_st(_st(_st(_st(_st(self)._receiver())._class())._name()).__comma(" >> ")).__comma(_st(self)._selector());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.MethodContext)})},
-messageSends: ["ifTrue:ifFalse:", ",", "printString", "class", "receiver", "methodContext", "selector", "isBlockContext"]}),
+messageSends: ["ifTrue:ifFalse:", ",", "asString", "methodContext", "selector", "name", "class", "receiver", "isBlockContext"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
@@ -1056,7 +1056,7 @@ selector: "home",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.methodContext || self.homeContext;
+return self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"home",{},smalltalk.MethodContext)})},
 messageSends: []}),
 smalltalk.MethodContext);
@@ -1080,7 +1080,7 @@ selector: "locals",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.locals;
+return self.locals || {};
 return self}, function($ctx1) {$ctx1.fill(self,"locals",{},smalltalk.MethodContext)})},
 messageSends: []}),
 smalltalk.MethodContext);
@@ -1091,11 +1091,16 @@ selector: "method",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
+$2=_st(self)._methodContext();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=$2;
+} else {
 $1=_st(_st(_st(_st(self)._methodContext())._receiver())._class())._lookupSelector_(_st(_st(self)._methodContext())._selector());
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},
-messageSends: ["lookupSelector:", "selector", "methodContext", "class", "receiver"]}),
+messageSends: ["ifNotNil:", "lookupSelector:", "selector", "methodContext", "class", "receiver"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
@@ -1104,16 +1109,23 @@ selector: "methodContext",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$4,$3;
 $1=_st(self)._isBlockContext();
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(self)._home();
+$4=_st(self)._home();
+if(($receiver = $4) == nil || $receiver == undefined){
+$3=$4;
+} else {
+var home;
+home=$receiver;
+$3=_st(home)._methodContext();
+};
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.MethodContext)})},
-messageSends: ["ifFalse:", "isBlockContext", "home"]}),
+messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "methodContext", "home"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
@@ -1122,7 +1134,7 @@ selector: "outerContext",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.homeContext;
+return self.outerContext || self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"outerContext",{},smalltalk.MethodContext)})},
 messageSends: []}),
 smalltalk.MethodContext);

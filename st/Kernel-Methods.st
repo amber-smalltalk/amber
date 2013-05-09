@@ -538,25 +538,27 @@ My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js
 !MethodContext methodsFor: 'accessing'!
 
 home
-	<return self.methodContext || self.homeContext>
+	<return self.homeContext>
 !
 
 locals
-	<return self.locals>
+	<return self.locals || {}>
 !
 
 method
-	^self methodContext receiver class lookupSelector: self methodContext selector
+	^ self methodContext ifNotNil: [
+		self methodContext receiver class lookupSelector: self methodContext selector ]
 !
 
 methodContext
 	self isBlockContext ifFalse: [ ^ self ].
 	
-	^ self home
+	^ self home ifNotNil: [ :home |
+		home methodContext ]
 !
 
 outerContext
-	<return self.homeContext>
+	<return self.outerContext || self.homeContext>
 !
 
 pc
@@ -587,8 +589,8 @@ temps
 
 asString
 	^self isBlockContext
-		ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]
-		ifFalse: [ self receiver class printString, ' >> ', self selector ]
+		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
+		ifFalse: [ self receiver class name, ' >> ', self selector ]
 ! !
 
 !MethodContext methodsFor: 'printing'!

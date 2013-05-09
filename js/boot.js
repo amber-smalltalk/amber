@@ -771,7 +771,7 @@ SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, loo
 
 SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
     this.locals        = locals || {};
-    this.methodContext = ctx;
+    this.outerContext  = ctx;
 };
 
 SmalltalkMethodContext.prototype.init = function() {

@@ -1413,15 +1413,15 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=_st(self)._isBlockContext();
 if(smalltalk.assert($2)){
-$1=_st(_st("a block (in ").__comma(_st(_st(_st(_st(self)._methodContext())._receiver())._class())._printString())).__comma(")");
+$1=_st(_st("a block (in ").__comma(_st(_st(self)._methodContext())._asString())).__comma(")");
 } else {
-$1=_st(_st(_st(_st(_st(self)._receiver())._class())._printString()).__comma(" >> ")).__comma(_st(self)._selector());
+$1=_st(_st(_st(_st(_st(self)._receiver())._class())._name()).__comma(" >> ")).__comma(_st(self)._selector());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.MethodContext)})},
 args: [],
-source: "asString\x0a\x09^self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext receiver class printString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class printString, ' >> ', self selector ]",
-messageSends: ["ifTrue:ifFalse:", ",", "printString", "class", "receiver", "methodContext", "selector", "isBlockContext"],
+source: "asString\x0a\x09^self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
+messageSends: ["ifTrue:ifFalse:", ",", "asString", "methodContext", "selector", "name", "class", "receiver", "isBlockContext"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1433,10 +1433,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.methodContext || self.homeContext;
+return self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"home",{},smalltalk.MethodContext)})},
 args: [],
-source: "home\x0a\x09<return self.methodContext || self.homeContext>",
+source: "home\x0a\x09<return self.homeContext>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1467,10 +1467,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.locals;
+return self.locals || {};
 return self}, function($ctx1) {$ctx1.fill(self,"locals",{},smalltalk.MethodContext)})},
 args: [],
-source: "locals\x0a\x09<return self.locals>",
+source: "locals\x0a\x09<return self.locals || {}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1483,13 +1483,18 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
+$2=_st(self)._methodContext();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=$2;
+} else {
 $1=_st(_st(_st(_st(self)._methodContext())._receiver())._class())._lookupSelector_(_st(_st(self)._methodContext())._selector());
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},
 args: [],
-source: "method\x0a\x09^self methodContext receiver class lookupSelector: self methodContext selector",
-messageSends: ["lookupSelector:", "selector", "methodContext", "class", "receiver"],
+source: "method\x0a\x09^ self methodContext ifNotNil: [\x0a\x09\x09self methodContext receiver class lookupSelector: self methodContext selector ]",
+messageSends: ["ifNotNil:", "lookupSelector:", "selector", "methodContext", "class", "receiver"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1501,18 +1506,25 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$4,$3;
 $1=_st(self)._isBlockContext();
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(self)._home();
+$4=_st(self)._home();
+if(($receiver = $4) == nil || $receiver == undefined){
+$3=$4;
+} else {
+var home;
+home=$receiver;
+$3=_st(home)._methodContext();
+};
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.MethodContext)})},
 args: [],
-source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a\x09\x0a\x09^ self home",
-messageSends: ["ifFalse:", "isBlockContext", "home"],
+source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a\x09\x0a\x09^ self home ifNotNil: [ :home |\x0a\x09\x09home methodContext ]",
+messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "methodContext", "home"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1524,10 +1536,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.homeContext;
+return self.outerContext || self.homeContext;
 return self}, function($ctx1) {$ctx1.fill(self,"outerContext",{},smalltalk.MethodContext)})},
 args: [],
-source: "outerContext\x0a\x09<return self.homeContext>",
+source: "outerContext\x0a\x09<return self.outerContext || self.homeContext>",
 messageSends: [],
 referencedClasses: []
 }),

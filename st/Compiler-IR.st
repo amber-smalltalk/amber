@@ -1049,7 +1049,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll: anIRClosure method scope alias, ')})'
+		nextPutAll: anIRClosure scope outerScope alias, ')})'
 !
 
 nextPutClassRefFunction: aString
