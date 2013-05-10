@@ -678,7 +678,7 @@ self["@selectedSelector"];
 } else {
 self["@selectedClass"]=_st(aCompiledMethod)._methodClass();
 self["@selectedClass"];
-self["@selectedPackage"]=_st(self["@selectedClass"])._package();
+self["@selectedPackage"]=_st(_st(self["@selectedClass"])._theNonMetaClass())._package();
 self["@selectedPackage"];
 self["@selectedSelector"]=_st(aCompiledMethod)._selector();
 self["@selectedSelector"];
@@ -686,7 +686,7 @@ self["@selectedSelector"];
 return _st(_st(self)._announcer())._announce_(_st($HLMethodSelected())._on_(aCompiledMethod));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"selectedMethod:",{aCompiledMethod:aCompiledMethod},smalltalk.HLToolModel)})},
-messageSends: ["ifTrue:", "=", "withChangesDo:", "ifNil:ifNotNil:", "methodClass", "package", "selector", "announce:", "on:", "announcer"]}),
+messageSends: ["ifTrue:", "=", "withChangesDo:", "ifNil:ifNotNil:", "methodClass", "package", "theNonMetaClass", "selector", "announce:", "on:", "announcer"]}),
 smalltalk.HLToolModel);
 
 smalltalk.addMethod(

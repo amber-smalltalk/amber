@@ -134,7 +134,7 @@ selectedMethod: aCompiledMethod
     		ifNil: [ selectedSelector := nil ]
       		ifNotNil: [
 				selectedClass := aCompiledMethod methodClass.
-				selectedPackage := selectedClass package.
+				selectedPackage := selectedClass theNonMetaClass package.
 				selectedSelector := aCompiledMethod selector ].
 
 		self announcer announce: (HLMethodSelected on: aCompiledMethod) ]
