@@ -1788,7 +1788,7 @@ asSmalltalkException: anObject
 	"A JavaScript exception may be thrown.
 	We then need to convert it back to a Smalltalk object"
 	
-	^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])
+	^ (self isSmalltalkObject: anObject)
 		ifTrue: [ anObject ]
 		ifFalse: [ JavaScriptException on: anObject ]
 !

@@ -3565,13 +3565,9 @@ selector: "asSmalltalkException:",
 fn: function (anObject){
 var self=this;
 function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
-function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(_st(self)._isSmalltalkObject_(anObject))._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(anObject)._isKindOf_($Error());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=_st(self)._isSmalltalkObject_(anObject);
 if(smalltalk.assert($2)){
 $1=anObject;
 } else {
@@ -3579,7 +3575,7 @@ $1=_st($JavaScriptException())._on_(anObject);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},smalltalk.Smalltalk)})},
-messageSends: ["ifTrue:ifFalse:", "on:", "and:", "isKindOf:", "isSmalltalkObject:"]}),
+messageSends: ["ifTrue:ifFalse:", "on:", "isSmalltalkObject:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
