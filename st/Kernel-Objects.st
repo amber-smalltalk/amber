@@ -863,6 +863,17 @@ compileMethod: sourceCode for: class protocol: protocol
 		category: protocol
 ! !
 
+!Environment methodsFor: 'error handling'!
+
+evaluate: aBlock on: anErrorClass do: exceptionBlock
+	"Evaluate a block and catch exceptions happening on the environment stack"
+	
+	self try: aBlock catch: [ :exception | 
+		(exception isKindOf: (self classNamed: anErrorClass name))
+			ifTrue: [ exceptionBlock value: exception ]
+ 			ifFalse: [ exception signal ] ]
+! !
+
 Object subclass: #InspectorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!

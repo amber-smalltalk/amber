@@ -2454,6 +2454,31 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluate:on:do:",
+category: 'error handling',
+fn: function (aBlock,anErrorClass,exceptionBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self)._try_catch_(aBlock,(function(exception){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(exception)._isKindOf_(_st(self)._classNamed_(_st(anErrorClass)._name()));
+if(smalltalk.assert($1)){
+return _st(exceptionBlock)._value_(exception);
+} else {
+return _st(exception)._signal();
+};
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},smalltalk.Environment)})},
+args: ["aBlock", "anErrorClass", "exceptionBlock"],
+source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09self try: aBlock catch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
+messageSends: ["try:catch:", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:", "classNamed:", "name"],
+referencedClasses: []
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveClass:toPackage:",
 category: 'actions',
 fn: function (aClass,aPackageName){

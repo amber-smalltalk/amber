@@ -1770,6 +1770,26 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "evaluate:on:do:",
+fn: function (aBlock,anErrorClass,exceptionBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self)._try_catch_(aBlock,(function(exception){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(exception)._isKindOf_(_st(self)._classNamed_(_st(anErrorClass)._name()));
+if(smalltalk.assert($1)){
+return _st(exceptionBlock)._value_(exception);
+} else {
+return _st(exception)._signal();
+};
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},smalltalk.Environment)})},
+messageSends: ["try:catch:", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:", "classNamed:", "name"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveClass:toPackage:",
 fn: function (aClass,aPackageName){
 var self=this;

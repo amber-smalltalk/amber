@@ -1036,31 +1036,31 @@ selector: "withCompileErrorHandling:",
 category: 'error handling',
 fn: function (aBlock){
 var self=this;
-function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
-function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 function $ParseError(){return smalltalk.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
+function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
 return smalltalk.withContext(function($ctx1) { 
-_st((function(){
+_st(_st(self)._environment())._evaluate_on_do_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st((function(){
+return _st(_st(self)._environment())._evaluate_on_do_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(aBlock)._on_do_($ParseError(),(function(ex){
+return _st(_st(self)._environment())._evaluate_on_do_(aBlock,$ParseError(),(function(ex){
 return smalltalk.withContext(function($ctx4) {
 return _st(self)._handleParseError_(ex);
-}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_($UnknownVariableError(),(function(ex){
+}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),$UnknownVariableError(),(function(ex){
 return smalltalk.withContext(function($ctx3) {
 return _st(self)._handleUnkownVariableError_(ex);
-}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($CompilerError(),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$CompilerError(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._handleCompileError_(ex);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withCompileErrorHandling:",{aBlock:aBlock},smalltalk.HLToolModel)})},
 args: ["aBlock"],
-source: "withCompileErrorHandling: aBlock\x0a\x09[\x0a\x09\x09[\x0a\x09\x09\x09aBlock \x0a\x09\x09\x09\x09on: ParseError\x0a\x09\x09\x09\x09do: [:ex | self handleParseError: ex ]\x0a\x09\x09]\x0a\x09\x09\x09on: UnknownVariableError\x0a\x09\x09\x09do: [ :ex | self handleUnkownVariableError: ex ]\x0a\x09]\x0a\x09\x09on: CompilerError\x0a\x09\x09do: [ :ex | self handleCompileError: ex ]",
-messageSends: ["on:do:", "handleCompileError:", "handleUnkownVariableError:", "handleParseError:"],
-referencedClasses: ["CompilerError", "UnknownVariableError", "ParseError"]
+source: "withCompileErrorHandling: aBlock\x0a\x09self environment\x0a\x09\x09evaluate: [\x0a\x09\x09\x09self environment\x0a\x09\x09\x09\x09evaluate: [\x0a\x09\x09\x09\x09\x09self environment\x0a\x09\x09\x09\x09\x09\x09evaluate: aBlock \x0a\x09\x09\x09\x09\x09\x09on: ParseError\x0a\x09\x09\x09\x09\x09\x09do: [:ex | self handleParseError: ex ] ]\x0a\x09\x09\x09\x09on: UnknownVariableError\x0a\x09\x09\x09\x09do: [ :ex | self handleUnkownVariableError: ex ] ]\x0a\x09\x09on: CompilerError\x0a\x09\x09do: [ :ex | self handleCompileError: ex ]",
+messageSends: ["evaluate:on:do:", "handleParseError:", "environment", "handleUnkownVariableError:", "handleCompileError:"],
+referencedClasses: ["ParseError", "UnknownVariableError", "CompilerError"]
 }),
 smalltalk.HLToolModel);
 

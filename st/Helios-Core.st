@@ -340,15 +340,16 @@ handleUnkownVariableError: anError
 !
 
 withCompileErrorHandling: aBlock
-	[
-		[
-			aBlock 
-				on: ParseError
-				do: [:ex | self handleParseError: ex ]
-		]
-			on: UnknownVariableError
-			do: [ :ex | self handleUnkownVariableError: ex ]
-	]
+	self environment
+		evaluate: [
+			self environment
+				evaluate: [
+					self environment
+						evaluate: aBlock 
+						on: ParseError
+						do: [:ex | self handleParseError: ex ] ]
+				on: UnknownVariableError
+				do: [ :ex | self handleUnkownVariableError: ex ] ]
 		on: CompilerError
 		do: [ :ex | self handleCompileError: ex ]
 ! !
