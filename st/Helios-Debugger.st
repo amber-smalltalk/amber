@@ -91,6 +91,14 @@ observeModel
 		to: self
 ! !
 
+!HLDebugger methodsFor: 'keybindings'!
+
+registerBindingsOn: aBindingGroup
+	HLToolCommand 
+		registerConcreteClassesOn: aBindingGroup 
+		for: self model
+! !
+
 !HLDebugger methodsFor: 'reactions'!
 
 onContextSelected: anAnnouncement

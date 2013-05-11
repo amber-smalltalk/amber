@@ -128,7 +128,7 @@ i {
 }
 
 .navbar-fixed-top a span.browser {
-    background-image: url('../images/browser.gif')
+    background-image: url('../images/browser.png')
 }
 
 .navbar-fixed-top a span.references {
@@ -136,19 +136,19 @@ i {
 }
 
 .navbar-fixed-top a span.workspace {
-    background-image: url('../images/workspace.gif')
+    background-image: url('../images/workspace.png')
 }
 
 .navbar-fixed-top a span.debugger {
-    background-image: url('../images/debugger.gif')
+    background-image: url('../images/debugger.png')
 }
 .navbar-fixed-top a span.inspector {
-    background-image: url('../images/inspector.gif')
+    background-image: url('../images/inspector.png')
 }
 
 
 .navbar-fixed-top .navbar-inner {
-    min-height: 22px;
+    min-height: 20px;
     background-color: #dbdbdb;
     border-bottom: 1px solid #666;
     background-image: linear-gradient(top, #dbdbdb, #bababa);
@@ -375,26 +375,26 @@ i {
 }
 
 .tool_container .pane .nav-pills i.class {
-    background-image: url('../images/class.gif');
+    background-image: url('../images/class.png');
 }
 .tool_container .pane .nav-pills i.collection {
-    background-image: url('../images/collection.gif');
+    background-image: url('../images/collection.png');
 }
 .tool_container .pane .nav-pills i.test {
-    background-image: url('../images/test.gif');
+    background-image: url('../images/test.png');
 }
 .tool_container .pane .nav-pills i.exception {
-    background-image: url('../images/exception.gif');
+    background-image: url('../images/exception.png');
 }
 .tool_container .pane .nav-pills i.widget {
-    background-image: url('../images/widget.gif');
+    background-image: url('../images/widget.png');
 }
 .tool_container .pane .nav-pills i.package {
-    background-image: url('../images/package.gif');
+    background-image: url('../images/package.png');
 }
-.tool_container .pane .nav-pills i.public {
-    background-image: url('../images/public.gif');
-}
+/* .tool_container .pane .nav-pills i.public { */
+/*     background-image: url('../images/public.gif'); */
+/* } */
 .tool_container .pane .nav-pills i.private {
     background-image: url('../images/private.gif');
 }
@@ -402,7 +402,7 @@ i {
     background-image: url('../images/default.gif');
 }
 .tool_container .pane .nav-pills i.package {
-    background-image: url('../images/package.gif');
+    background-image: url('../images/package.png');
 }
 .tool_container .pane .nav-pills i.override {
     background-image: url('../images/override.gif');

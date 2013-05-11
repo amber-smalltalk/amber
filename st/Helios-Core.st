@@ -111,7 +111,7 @@ selectedClass: aClass
 		aClass 
    			ifNil: [ selectedClass := nil ]
     		ifNotNil: [
-				self selectedPackage: aClass theNonMetaClass package.
+				selectedPackage := aClass theNonMetaClass package.
 				self showInstance 
    					ifTrue: [ selectedClass := aClass theNonMetaClass ]
      				ifFalse: [ selectedClass := aClass theMetaClass ] ].
@@ -789,8 +789,6 @@ renderContentOn: html
 !
 
 renderOn: html
-	self registerBindings.
-    
     wrapper := html div 
     	class: 'hl_widget';
 		yourself.
