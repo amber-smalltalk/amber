@@ -282,7 +282,10 @@ includesSelector: aString
 !
 
 inheritsFrom: aClass
-	^aClass allSubclasses includes: self
+	self superclass ifNil: [ ^ false ].
+
+	^ aClass == self superclass or: [ 
+		self superclass inheritsFrom: aClass ]
 !
 
 isBehavior

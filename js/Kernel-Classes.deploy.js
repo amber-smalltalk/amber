@@ -330,11 +330,20 @@ selector: "inheritsFrom:",
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(aClass)._allSubclasses())._includes_(self);
-return $1;
+var $1,$2;
+$1=_st(self)._superclass();
+if(($receiver = $1) == nil || $receiver == undefined){
+return false;
+} else {
+$1;
+};
+$2=_st(_st(aClass).__eq_eq(_st(self)._superclass()))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self)._superclass())._inheritsFrom_(aClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"inheritsFrom:",{aClass:aClass},smalltalk.Behavior)})},
-messageSends: ["includes:", "allSubclasses"]}),
+messageSends: ["ifNil:", "superclass", "or:", "inheritsFrom:", "=="]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
