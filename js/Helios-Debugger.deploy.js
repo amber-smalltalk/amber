@@ -205,6 +205,18 @@ smalltalk.HLDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "registerBindingsOn:",
+fn: function (aBindingGroup){
+var self=this;
+function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
+return smalltalk.withContext(function($ctx1) { 
+_st($HLToolCommand())._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
+return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup},smalltalk.HLDebugger)})},
+messageSends: ["registerConcreteClassesOn:for:", "model"]}),
+smalltalk.HLDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
