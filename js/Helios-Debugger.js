@@ -328,6 +328,23 @@ referencedClasses: ["HLStackListWidget"]
 }),
 smalltalk.HLDebugger);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLFocusableWidget.fn.prototype._unregister.apply(_st(self), []);
+_st(_st(self)._inspectorWidget())._unregister();
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLDebugger)})},
+args: [],
+source: "unregister\x0a\x09super unregister.\x0a\x09self inspectorWidget unregister",
+messageSends: ["unregister", "inspectorWidget"],
+referencedClasses: []
+}),
+smalltalk.HLDebugger);
+
 
 smalltalk.addMethod(
 smalltalk.method({

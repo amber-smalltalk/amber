@@ -497,12 +497,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._variables())._keys();
+$1=_st(self)._variables();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultItems",{},smalltalk.HLInspectorVariablesWidget)})},
 args: [],
-source: "defaultItems\x0a\x09^ self model variables keys",
-messageSends: ["keys", "variables", "model"],
+source: "defaultItems\x0a\x09^ self variables",
+messageSends: ["variables"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorVariablesWidget);
@@ -566,12 +566,16 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._variables()).__eq(_st(self)._items());
+if(! smalltalk.assert($1)){
 _st(self)._resetItems();
 smalltalk.HLNavigationListWidget.fn.prototype._refresh.apply(_st(self), []);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorVariablesWidget)})},
 args: [],
-source: "refresh\x0a\x09self resetItems.\x0a    super refresh\x0a    ",
-messageSends: ["resetItems", "refresh"],
+source: "refresh\x0a\x09self variables = self items ifFalse: [\x0a\x09\x09self resetItems.\x0a    \x09super refresh ]",
+messageSends: ["ifFalse:", "resetItems", "refresh", "=", "items", "variables"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorVariablesWidget);
@@ -696,12 +700,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@model"])._variables();
+$1=_st(_st(_st(self)._model())._variables())._keys();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variables",{},smalltalk.HLInspectorVariablesWidget)})},
 args: [],
-source: "variables\x0a\x09^ model variables",
-messageSends: ["variables"],
+source: "variables\x0a\x09^ self model variables keys",
+messageSends: ["keys", "variables", "model"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorVariablesWidget);
@@ -1067,11 +1071,14 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._inspect_(_st(self)._inspectee());
+var $1,$2;
+$1=self;
+_st($1)._refreshVariablesWidget();
+$2=_st($1)._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorWidget)})},
 args: [],
-source: "refresh\x0a\x09self inspect: self inspectee",
-messageSends: ["inspect:", "inspectee"],
+source: "refresh\x0a\x09self \x0a\x09\x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
+messageSends: ["refreshVariablesWidget", "refreshDisplayWidget"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorWidget);

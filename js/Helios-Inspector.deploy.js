@@ -376,10 +376,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._variables())._keys();
+$1=_st(self)._variables();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultItems",{},smalltalk.HLInspectorVariablesWidget)})},
-messageSends: ["keys", "variables", "model"]}),
+messageSends: ["variables"]}),
 smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
@@ -425,10 +425,14 @@ selector: "refresh",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self)._variables()).__eq(_st(self)._items());
+if(! smalltalk.assert($1)){
 _st(self)._resetItems();
 smalltalk.HLNavigationListWidget.fn.prototype._refresh.apply(_st(self), []);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorVariablesWidget)})},
-messageSends: ["resetItems", "refresh"]}),
+messageSends: ["ifFalse:", "resetItems", "refresh", "=", "items", "variables"]}),
 smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
@@ -520,10 +524,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@model"])._variables();
+$1=_st(_st(_st(self)._model())._variables())._keys();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variables",{},smalltalk.HLInspectorVariablesWidget)})},
-messageSends: ["variables"]}),
+messageSends: ["keys", "variables", "model"]}),
 smalltalk.HLInspectorVariablesWidget);
 
 
@@ -796,9 +800,12 @@ selector: "refresh",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._inspect_(_st(self)._inspectee());
+var $1,$2;
+$1=self;
+_st($1)._refreshVariablesWidget();
+$2=_st($1)._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["inspect:", "inspectee"]}),
+messageSends: ["refreshVariablesWidget", "refreshDisplayWidget"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(

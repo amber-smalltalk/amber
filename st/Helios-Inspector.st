@@ -170,14 +170,15 @@ selection
 !
 
 variables
-	^ model variables
+	^ self model variables keys
 ! !
 
 !HLInspectorVariablesWidget methodsFor: 'actions'!
 
 refresh
-	self resetItems.
-    super refresh
+	self variables = self items ifFalse: [
+		self resetItems.
+    	super refresh ]
 !
 
 resetItems
@@ -187,7 +188,7 @@ resetItems
 !HLInspectorVariablesWidget methodsFor: 'defaults'!
 
 defaultItems
-	^ self model variables keys
+	^ self variables
 ! !
 
 !HLInspectorVariablesWidget methodsFor: 'reactions'!
@@ -315,7 +316,9 @@ open
 !
 
 refresh
-	self inspect: self inspectee
+	self 
+		refreshVariablesWidget;
+		refreshDisplayWidget
 !
 
 refreshDisplayWidget

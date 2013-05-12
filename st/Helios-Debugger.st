@@ -89,6 +89,11 @@ observeModel
 		on: HLDebuggerContextSelected
 		send: #onContextSelected:
 		to: self
+!
+
+unregister
+	super unregister.
+	self inspectorWidget unregister
 ! !
 
 !HLDebugger methodsFor: 'keybindings'!

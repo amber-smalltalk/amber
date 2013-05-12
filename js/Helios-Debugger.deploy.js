@@ -252,6 +252,18 @@ return $1;
 messageSends: ["ifNil:", "next:", "codeWidget", "on:", "model", "yourself"]}),
 smalltalk.HLDebugger);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "unregister",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLFocusableWidget.fn.prototype._unregister.apply(_st(self), []);
+_st(_st(self)._inspectorWidget())._unregister();
+return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLDebugger)})},
+messageSends: ["unregister", "inspectorWidget"]}),
+smalltalk.HLDebugger);
+
 
 smalltalk.addMethod(
 smalltalk.method({
