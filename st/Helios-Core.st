@@ -1430,6 +1430,10 @@ HLWidget subclass: #HLSUnit
 
 !HLSUnit class methodsFor: 'accessing'!
 
+tabClass
+	^ 'sunit'
+!
+
 tabLabel
 	^ 'SUnit'
 !

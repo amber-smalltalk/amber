@@ -1192,7 +1192,8 @@ cssClassForItem: anItem
 	anItem = self allProtocol ifTrue: [ ^ '' ].
 	anItem = 'private' ifTrue: [ ^ 'private' ].
 	anItem = 'initialization' ifTrue: [ ^ 'default' ].
-	^ 'public'
+	(anItem match: '^\*') ifTrue: [ ^ 'extension' ].
+	^ ''
 !
 
 label

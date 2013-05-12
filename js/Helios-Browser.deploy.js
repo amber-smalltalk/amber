@@ -2571,7 +2571,7 @@ selector: "cssClassForItem:",
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4;
 $1=_st(anItem).__eq(_st(self)._allProtocol());
 if(smalltalk.assert($1)){
 return "";
@@ -2584,9 +2584,13 @@ $3=_st(anItem).__eq("initialization");
 if(smalltalk.assert($3)){
 return "default";
 };
-return "public";
+$4=_st(anItem)._match_("^\x5c*");
+if(smalltalk.assert($4)){
+return "extension";
+};
+return "";
 }, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLProtocolsListWidget)})},
-messageSends: ["ifTrue:", "=", "allProtocol"]}),
+messageSends: ["ifTrue:", "=", "allProtocol", "match:"]}),
 smalltalk.HLProtocolsListWidget);
 
 smalltalk.addMethod(

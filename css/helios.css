@@ -106,15 +106,17 @@ i {
     padding: 2px 8px;
 }
 
-.navbar .navbar-fixed-top {
+.navbar-fixed-top {
     font-size: 11px;
     line-height: 16px;
+    box-shadow: 0 0 1px #333;
 }
 
 .navbar-fixed-top a span {
     padding-left: 18px;
     background-position: center left;
     background-repeat: no-repeat;
+    background-position: 0px -1px;
 }
 
 .navbar-fixed-top i.close {
@@ -127,12 +129,16 @@ i {
     margin-top: 2px;
 }
 
+.navbar-fixed-top a span.references {
+    background-image: url('../images/references.png')
+}
+
 .navbar-fixed-top a span.browser {
     background-image: url('../images/browser.png')
 }
 
-.navbar-fixed-top a span.references {
-    background-image: url('../images/references.gif')
+.navbar-fixed-top a span.sunit {
+    background-image: url('../images/sunit.png')
 }
 
 .navbar-fixed-top a span.workspace {
@@ -206,7 +212,6 @@ i {
     padding: 2px 2px 1px 4px;
     margin: 0;
     font-size: 11px;
-    font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
     color: #111;
     white-space: nowrap;
 }
@@ -398,6 +403,9 @@ i {
 .tool_container .pane .nav-pills i.private {
     background-image: url('../images/private.gif');
 }
+.tool_container .pane .nav-pills i.extension {
+    background-image: url('../images/extension.png');
+}
 .tool_container .pane .nav-pills i.default {
     background-image: url('../images/default.gif');
 }
@@ -417,7 +425,7 @@ i {
     background-image: url('../images/warning.gif');
 }
 .tool_container .pane .nav-pills i.uncommented {
-    background-image: url('../images/uncommented.gif');
+    background-image: url('../images/uncommented.png');
 }
 
 
