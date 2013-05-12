@@ -111,7 +111,7 @@ selectedClass: aClass
 		aClass 
    			ifNil: [ selectedClass := nil ]
     		ifNotNil: [
-				selectedPackage := aClass theNonMetaClass package.
+				self selectedPackage: aClass theNonMetaClass package.
 				self showInstance 
    					ifTrue: [ selectedClass := aClass theNonMetaClass ]
      				ifFalse: [ selectedClass := aClass theMetaClass ] ].
@@ -134,7 +134,6 @@ selectedMethod: aCompiledMethod
     		ifNil: [ selectedSelector := nil ]
       		ifNotNil: [
 				selectedClass := aCompiledMethod methodClass.
-				selectedPackage := selectedClass theNonMetaClass package.
 				selectedSelector := aCompiledMethod selector ].
 
 		self announcer announce: (HLMethodSelected on: aCompiledMethod) ]
@@ -341,16 +340,15 @@ handleUnkownVariableError: anError
 !
 
 withCompileErrorHandling: aBlock
-	self environment
-		evaluate: [
-			self environment
-				evaluate: [
-					self environment
-						evaluate: aBlock 
-						on: ParseError
-						do: [:ex | self handleParseError: ex ] ]
-				on: UnknownVariableError
-				do: [ :ex | self handleUnkownVariableError: ex ] ]
+	[
+		[
+			aBlock 
+				on: ParseError
+				do: [:ex | self handleParseError: ex ]
+		]
+			on: UnknownVariableError
+			do: [ :ex | self handleUnkownVariableError: ex ]
+	]
 		on: CompilerError
 		do: [ :ex | self handleCompileError: ex ]
 ! !
@@ -789,6 +787,8 @@ renderContentOn: html
 !
 
 renderOn: html
+	self registerBindings.
+    
     wrapper := html div 
     	class: 'hl_widget';
 		yourself.
@@ -873,7 +873,7 @@ activateListItem: aListItem
 !
 
 activateNextListItem
-	self activateListItem: (self wrapper asJQuery find: ' .active') next.
+	self activateListItem: (self wrapper asJQuery find: 'li.active') next.
 	
 	"select the first item if none is selected"
 	(self wrapper asJQuery find: ' .active') get ifEmpty: [
@@ -881,7 +881,7 @@ activateNextListItem
 !
 
 activatePreviousListItem
-	self activateListItem: (self wrapper asJQuery find: ' .active') prev
+	self activateListItem: (self wrapper asJQuery find: 'li.active') prev
 !
 
 ensureVisible: aListItem	
@@ -1429,10 +1429,6 @@ HLWidget subclass: #HLSUnit
 	package: 'Helios-Core'!
 
 !HLSUnit class methodsFor: 'accessing'!
-
-tabClass
-	^ 'sunit'
-!
 
 tabLabel
 	^ 'SUnit'
