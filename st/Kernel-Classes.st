@@ -331,6 +331,9 @@ package
 
 package: aPackage
 	| oldPackage |
+	
+	self package = aPackage ifTrue: [ ^ self ].
+	
 	oldPackage := self package.
 	
 	self basicAt: 'pkg' put: aPackage.
@@ -462,28 +465,29 @@ instanceVariableNamesFor: aString
 
 !ClassBuilder methodsFor: 'class definition'!
 
-addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName
+addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName
 	| theClass |
 	
-	theClass := Smalltalk current at: aString.
+	theClass := Smalltalk current at: className.
 	
 	theClass ifNotNil: [
+		theClass package: (self createPackageNamed: packageName).
 		theClass superclass == aClass ifFalse: [
 			^ self
-				migrateClassNamed: aString
+				migrateClassNamed: className
 				superclass: aClass
 				instanceVariableNames: aCollection
 				package: packageName ] ].
-
-	^ self
-		basicAddSubclassOf: aClass
-		named: aString
-		instanceVariableNames: aCollection
-		package: packageName
+		
+		^ self
+			basicAddSubclassOf: aClass
+			named: className
+			instanceVariableNames: aCollection
+			package: packageName
 !
 
-class: aClass instanceVariableNames: aString
-	self basicClass: aClass instanceVariableNames: aString.
+class: aClass instanceVariableNames: ivarNames
+	self basicClass: aClass instanceVariableNames: ivarNames.
 	self setupClass: aClass.
 	
 	SystemAnnouncer current
@@ -492,16 +496,16 @@ class: aClass instanceVariableNames: aString
 			yourself)
 !
 
-superclass: aClass subclass: aString
-	^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil
+superclass: aClass subclass: className
+	^self superclass: aClass subclass: className instanceVariableNames: '' package: nil
 !
 
-superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3
+superclass: aClass subclass: className instanceVariableNames: ivarNames package: packageName
 	| newClass |
 	
 	newClass := self addSubclassOf: aClass
-		named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)
-		package: (aString3 ifNil: ['unclassified']).
+		named: className instanceVariableNames: (self instanceVariableNamesFor: ivarNames)
+		package: (packageName ifNil: ['unclassified']).
 	self setupClass: newClass.
 	
 	SystemAnnouncer current
@@ -515,19 +519,18 @@ superclass: aClass subclass: aString instanceVariableNames: aString2 package: aS
 !ClassBuilder methodsFor: 'class migration'!
 
 migrateClass: aClass superclass: anotherClass
-	console log: aClass name.
-	self
+	^ self
 		migrateClassNamed: aClass name
 		superclass: anotherClass
 		instanceVariableNames: aClass instanceVariableNames
 		package: aClass package name
 !
 
-migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName
+migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName
 	| oldClass newClass tmp |
 	
-	tmp := 'new*', aString.
-	oldClass := Smalltalk current at: aString.
+	tmp := 'new*', className.
+	oldClass := Smalltalk current at: className.
 	
 	newClass := self
 		addSubclassOf: aClass
@@ -547,7 +550,7 @@ migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection
 
 	self
 		rawRenameClass: oldClass to: tmp;
-		rawRenameClass: newClass to: aString.
+		rawRenameClass: newClass to: className.
 
 	oldClass subclasses do: [ :each |
 		self migrateClass: each superclass: newClass ].
@@ -562,8 +565,8 @@ migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection
 	^newClass
 !
 
-renameClass: aClass to: aString
-	self basicRenameClass: aClass to: aString.
+renameClass: aClass to: className
+	self basicRenameClass: aClass to: className.
 	
 	SystemAnnouncer current
 		announce: (ClassRenamed new
@@ -573,12 +576,12 @@ renameClass: aClass to: aString
 
 !ClassBuilder methodsFor: 'copying'!
 
-copyClass: aClass named: aString
+copyClass: aClass named: className
 	| newClass |
 
 	newClass := self
 		addSubclassOf: aClass superclass
-		named: aString
+		named: className
 		instanceVariableNames: aClass instanceVariableNames
 		package: aClass package name.
 
@@ -653,6 +656,11 @@ basicSwapClassNames: aClass with: anotherClass
 		aClass.className = anotherClass.className;
 		anotherClass.className = tmp;
 	>
+!
+
+createPackageNamed: aString
+	^ Package named: aString ifAbsent: [
+		Smalltalk current createPackage: aString ]
 !
 
 rawRenameClass: aClass to: aString
