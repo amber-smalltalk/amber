@@ -14,6 +14,10 @@ I also provides methods for compiling methods, examining the method dictionary, 
 
 !Behavior methodsFor: 'accessing'!
 
+>> aString
+	^ self methodAt: aString
+!
+
 allInstanceVariableNames
 	| result |
 	result := self instanceVariableNames copy.

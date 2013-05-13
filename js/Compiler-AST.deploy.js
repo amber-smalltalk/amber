@@ -1518,3 +1518,21 @@ return false;
 messageSends: []}),
 smalltalk.Object);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ast",
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(_st(self)._source())._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._error_("Method source is empty");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=_st(_st($Smalltalk())._current())._parse_(_st(self)._source());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ast",{},smalltalk.CompiledMethod)})},
+messageSends: ["ifEmpty:", "error:", "source", "parse:", "current"]}),
+smalltalk.CompiledMethod);
+

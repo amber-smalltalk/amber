@@ -647,3 +647,11 @@ isNode
 	^ false
 ! !
 
+!CompiledMethod methodsFor: '*Compiler-AST'!
+
+ast
+	self source ifEmpty: [ self error: 'Method source is empty' ].
+	
+	^ Smalltalk current parse: self source
+! !
+
