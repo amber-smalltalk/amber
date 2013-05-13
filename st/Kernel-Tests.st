@@ -343,13 +343,6 @@ isCollectionReadOnly
 
 !CollectionTest methodsFor: 'tests'!
 
-testAnySatisfy
-	| newCollection |
-	newCollection := #(1 2 3 4).
-	self assert: (newCollection anySatisfy: [ :each | each = 3 ]).
-	self deny: (newCollection anySatisfy: [ :each | each isString ]).
-!
-
 testAsArray
 	self
 		assertSameContents: self collection
@@ -443,6 +436,14 @@ testAtIfAbsent
 	self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) equals: 'none'
 !
 
+testContains
+	| collection |
+	collection := self collection.
+	
+	self assert: (self collection contains: [ :each | each = self collection first ]).
+	self deny: (self collection contains: [ :each | each = Object new ])
+!
+
 testIndexOf
 	self assert: (self collection indexOf: 2) equals: 2.
 	self should: [ self collection indexOf: 999 ] raise: Error.
@@ -476,6 +477,14 @@ collectionWithDuplicates
 testAt
 	self assert: (self collection at: 'a') equals: 2.
 	self should: [ self collection at: 5 ] raise: Error
+!
+
+testContains
+	| collection |
+	collection := self collection.
+	
+	self assert: (self collection contains: [ :each | each = self collection values first ]).
+	self deny: (self collection contains: [ :each | each = Object new ])
 !
 
 testIndexOf

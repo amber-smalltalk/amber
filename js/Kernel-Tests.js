@@ -946,31 +946,6 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "testAnySatisfy",
-category: 'tests',
-fn: function (){
-var self=this;
-var newCollection;
-return smalltalk.withContext(function($ctx1) { 
-newCollection=[(1), (2), (3), (4)];
-_st(self)._assert_(_st(newCollection)._anySatisfy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each).__eq((3));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
-_st(self)._deny_(_st(newCollection)._anySatisfy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._isString();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{newCollection:newCollection},smalltalk.CollectionTest)})},
-args: [],
-source: "testAnySatisfy\x0a\x09| newCollection |\x0a\x09newCollection := #(1 2 3 4).\x0a\x09self assert: (newCollection anySatisfy: [ :each | each = 3 ]).\x0a\x09self deny: (newCollection anySatisfy: [ :each | each isString ]).",
-messageSends: ["assert:", "anySatisfy:", "=", "deny:", "isString"],
-referencedClasses: []
-}),
-smalltalk.CollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "testAsArray",
 category: 'tests',
 fn: function (){
@@ -1229,6 +1204,32 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testContains",
+category: 'tests',
+fn: function (){
+var self=this;
+var collection;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+collection=_st(self)._collection();
+_st(self)._assert_(_st(_st(self)._collection())._contains_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st(_st(self)._collection())._first());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+_st(self)._deny_(_st(_st(self)._collection())._contains_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st($Object())._new());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testContains",{collection:collection},smalltalk.IndexableCollectionTest)})},
+args: [],
+source: "testContains\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self assert: (self collection contains: [ :each | each = self collection first ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
+messageSends: ["collection", "assert:", "contains:", "=", "first", "deny:", "new"],
+referencedClasses: ["Object"]
+}),
+smalltalk.IndexableCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testIndexOf",
 category: 'tests',
 fn: function (){
@@ -1330,6 +1331,32 @@ args: [],
 source: "testAt\x0a\x09self assert: (self collection at: 'a') equals: 2.\x0a\x09self should: [ self collection at: 5 ] raise: Error",
 messageSends: ["assert:equals:", "at:", "collection", "should:raise:"],
 referencedClasses: ["Error"]
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testContains",
+category: 'tests',
+fn: function (){
+var self=this;
+var collection;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+collection=_st(self)._collection();
+_st(self)._assert_(_st(_st(self)._collection())._contains_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st(_st(_st(self)._collection())._values())._first());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+_st(self)._deny_(_st(_st(self)._collection())._contains_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st($Object())._new());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testContains",{collection:collection},smalltalk.HashedCollectionTest)})},
+args: [],
+source: "testContains\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self assert: (self collection contains: [ :each | each = self collection values first ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
+messageSends: ["collection", "assert:", "contains:", "=", "first", "values", "deny:", "new"],
+referencedClasses: ["Object"]
 }),
 smalltalk.HashedCollectionTest);
 

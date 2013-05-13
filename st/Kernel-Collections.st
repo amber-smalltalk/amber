@@ -136,25 +136,12 @@ copyWithoutAll: aCollection
 
 !Collection methodsFor: 'enumerating'!
 
-anySatisfy: aBlock
-	"Evaluate aBlock with the elements of the receiver.
-	If aBlock returns true for any element return true.
-	Otherwise return false."
-
-	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
-	^ false
-!
-
 collect: aBlock
 	| stream |
 	stream := self class new writeStream.
 	self do: [ :each |
 		stream nextPut: (aBlock value: each) ].
 	^stream contents
-!
-
-contains: aBlock
-	^ self anySatisfy: aBlock
 !
 
 detect: aBlock
@@ -227,6 +214,15 @@ putOn: aStream
 ! !
 
 !Collection methodsFor: 'testing'!
+
+contains: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns true for any element return true.
+	Otherwise return false."
+
+	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
+	^ false
+!
 
 ifEmpty: aBlock
 	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs:
