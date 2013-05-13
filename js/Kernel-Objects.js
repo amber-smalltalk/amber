@@ -1224,6 +1224,29 @@ smalltalk.Boolean);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asBit",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self;
+if(smalltalk.assert($2)){
+$1=(1);
+} else {
+$1=(0);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asBit",{},smalltalk.Boolean)})},
+args: [],
+source: "asBit\x0a\x09^ self ifTrue: [ 1 ] ifFalse: [ 0 ]",
+messageSends: ["ifTrue:ifFalse:"],
+referencedClasses: []
+}),
+smalltalk.Boolean);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asJSON",
 category: 'converting',
 fn: function (){
