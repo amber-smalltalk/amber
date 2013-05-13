@@ -4679,6 +4679,22 @@ smalltalk.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "remove:ifAbsent:",
+category: 'adding/removing',
+fn: function (anObject,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@elements"])._remove_ifAbsent_(anObject,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Set)})},
+args: ["anObject", "aBlock"],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09elements remove: anObject ifAbsent: aBlock",
+messageSends: ["remove:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "select:",
 category: 'enumerating',
 fn: function (aBlock){

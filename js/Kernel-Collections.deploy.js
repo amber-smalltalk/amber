@@ -3479,6 +3479,17 @@ smalltalk.Set);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "remove:ifAbsent:",
+fn: function (anObject,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@elements"])._remove_ifAbsent_(anObject,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Set)})},
+messageSends: ["remove:ifAbsent:"]}),
+smalltalk.Set);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "select:",
 fn: function (aBlock){
 var self=this;

@@ -1501,6 +1501,10 @@ add: anObject
 
 remove: anObject
 	elements remove: anObject
+!
+
+remove: anObject ifAbsent: aBlock
+	elements remove: anObject ifAbsent: aBlock
 ! !
 
 !Set methodsFor: 'comparing'!
