@@ -946,6 +946,31 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAnySatisfy",
+category: 'tests',
+fn: function (){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+newCollection=[(1), (2), (3), (4)];
+_st(self)._assert_(_st(newCollection)._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq((3));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+_st(self)._deny_(_st(newCollection)._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._isString();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{newCollection:newCollection},smalltalk.CollectionTest)})},
+args: [],
+source: "testAnySatisfy\x0a\x09| newCollection |\x0a\x09newCollection := #(1 2 3 4).\x0a\x09self assert: (newCollection anySatisfy: [ :each | each = 3 ]).\x0a\x09self deny: (newCollection anySatisfy: [ :each | each isString ]).",
+messageSends: ["assert:", "anySatisfy:", "=", "deny:", "isString"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAsArray",
 category: 'tests',
 fn: function (){
