@@ -343,6 +343,13 @@ isCollectionReadOnly
 
 !CollectionTest methodsFor: 'tests'!
 
+testAnySatisfy
+	| newCollection |
+	newCollection := #(1 2 3 4).
+	self assert: (newCollection anySatisfy: [ :each | each = 3 ]).
+	self deny: (newCollection anySatisfy: [ :each | each isString ]).
+!
+
 testAsArray
 	self
 		assertSameContents: self collection
