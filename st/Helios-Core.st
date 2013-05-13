@@ -392,7 +392,7 @@ isToolModel
 
 shouldCompileClassDefinition: aString
 	^ self selectedClass isNil or: [
-		aString first asUppercase = aString first ]
+		aString match: '^[A-Z]' ]
 ! !
 
 !HLToolModel class methodsFor: 'actions'!

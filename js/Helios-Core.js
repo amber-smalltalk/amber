@@ -1003,13 +1003,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(_st(self)._selectedClass())._isNil())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(aString)._first())._asUppercase()).__eq(_st(aString)._first());
+return _st(aString)._match_("^[A-Z]");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition:",{aString:aString},smalltalk.HLToolModel)})},
 args: ["aString"],
-source: "shouldCompileClassDefinition: aString\x0a\x09^ self selectedClass isNil or: [\x0a\x09\x09aString first asUppercase = aString first ]",
-messageSends: ["or:", "=", "first", "asUppercase", "isNil", "selectedClass"],
+source: "shouldCompileClassDefinition: aString\x0a\x09^ self selectedClass isNil or: [\x0a\x09\x09aString match: '^[A-Z]' ]",
+messageSends: ["or:", "match:", "isNil", "selectedClass"],
 referencedClasses: []
 }),
 smalltalk.HLToolModel);

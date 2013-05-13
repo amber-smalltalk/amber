@@ -770,11 +770,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(_st(self)._selectedClass())._isNil())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(aString)._first())._asUppercase()).__eq(_st(aString)._first());
+return _st(aString)._match_("^[A-Z]");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldCompileClassDefinition:",{aString:aString},smalltalk.HLToolModel)})},
-messageSends: ["or:", "=", "first", "asUppercase", "isNil", "selectedClass"]}),
+messageSends: ["or:", "match:", "isNil", "selectedClass"]}),
 smalltalk.HLToolModel);
 
 smalltalk.addMethod(
