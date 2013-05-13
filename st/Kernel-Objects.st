@@ -471,6 +471,10 @@ or: aBlock
 
 !Boolean methodsFor: 'converting'!
 
+asBit
+	^ self ifTrue: [ 1 ] ifFalse: [ 0 ]
+!
+
 asJSON
 	^self
 !
