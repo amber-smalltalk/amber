@@ -136,12 +136,25 @@ copyWithoutAll: aCollection
 
 !Collection methodsFor: 'enumerating'!
 
+anySatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns true for any element return true.
+	Otherwise return false."
+
+	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
+	^ false
+!
+
 collect: aBlock
 	| stream |
 	stream := self class new writeStream.
 	self do: [ :each |
 		stream nextPut: (aBlock value: each) ].
 	^stream contents
+!
+
+contains: aBlock
+	^ self anySatisfy: aBlock
 !
 
 detect: aBlock
