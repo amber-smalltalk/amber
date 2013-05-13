@@ -390,6 +390,17 @@ function Smalltalk() {
 		return subclasses;
 	};
 
+    st.allSubclasses = function(klass) {
+        var result, subclasses;
+        result = subclasses = st.subclasses(klass);
+        subclasses.forEach(function(subclass) {
+            result.push.apply(result, st.allSubclasses(subclass));
+        });
+
+        return result;
+    };
+
+
 	/* Create a new class wrapping a JavaScript constructor, and add it to the
 	   global smalltalk object. Package is lazily created if it does not exist with given name. */
 
@@ -499,6 +510,16 @@ function Smalltalk() {
         // During the bootstrap, #addCompiledMethod is not used.
         // Therefore we populate the organizer here too
         klass.organization.elements.addElement(method.category);
+
+        // If already initialized (else it will be done later anyway),
+        // re-initialize all subclasses to ensure the new method
+        // propagation (for wrapped classes, not using the prototype
+        // chain.
+        if(initialized) {
+            st.allSubclasses(klass).forEach(function(subclass) {
+                st.initClass(subclass);
+            });
+        }
 
         for(var i=0; i<method.messageSends.length; i++) {
             var dnuHandler = dnu.get(method.messageSends[i]);
