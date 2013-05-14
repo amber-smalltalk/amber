@@ -1164,16 +1164,6 @@ onPackagesFocusRequested
 
 !HLPackagesListWidget methodsFor: 'rendering'!
 
-renderButtonsOn: html
-	html div 
-		class: 'buttons';
-		with: [
-			html button 
-				class: 'btn';
-				with: 'Commit';
-				onClick: [ self commitPackage ] ]
-!
-
 renderItemLabel: aPackage on: html
 	html with: aPackage name
 ! !

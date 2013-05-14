@@ -3255,35 +3255,6 @@ smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderButtonsOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-$1=_st(html)._div();
-_st($1)._class_("buttons");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._button();
-_st($3)._class_("btn");
-_st($3)._with_("Commit");
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self)._commitPackage();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return $4;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLPackagesListWidget)})},
-args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn';\x0a\x09\x09\x09\x09with: 'Commit';\x0a\x09\x09\x09\x09onClick: [ self commitPackage ] ]",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "commitPackage"],
-referencedClasses: []
-}),
-smalltalk.HLPackagesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderItemLabel:on:",
 category: 'rendering',
 fn: function (aPackage,html){

@@ -2505,30 +2505,6 @@ smalltalk.HLPackagesListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderButtonsOn:",
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-$1=_st(html)._div();
-_st($1)._class_("buttons");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._button();
-_st($3)._class_("btn");
-_st($3)._with_("Commit");
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self)._commitPackage();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-return $4;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLPackagesListWidget)})},
-messageSends: ["class:", "div", "with:", "button", "onClick:", "commitPackage"]}),
-smalltalk.HLPackagesListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderItemLabel:on:",
 fn: function (aPackage,html){
 var self=this;
