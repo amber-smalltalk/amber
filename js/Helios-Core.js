@@ -3635,22 +3635,29 @@ selector: "defaultEnvironment",
 category: 'defaults',
 fn: function (){
 var self=this;
+var parent;
 function $Environment(){return smalltalk.Environment||(typeof Environment=="undefined"?nil:Environment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(window)._parent();
+var $1,$2,$3,$4;
+$1=_st(window)._opener();
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st($Environment())._new();
-return $2;
+parent=_st(window)._parent();
 } else {
-$1;
+parent=$1;
 };
-$3=_st(_st(_st(_st(window)._parent())._at_("smalltalk"))._at_("Environment"))._new();
+$2=parent;
+if(($receiver = $2) == nil || $receiver == undefined){
+$3=_st($Environment())._new();
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{},smalltalk.HLManager)})},
+} else {
+$2;
+};
+$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
 args: [],
-source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09window parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((window parent at: 'smalltalk')\x0a\x09\x09at: 'Environment') new",
-messageSends: ["ifNil:", "new", "parent", "at:"],
+source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'smalltalk')\x0a\x09\x09at: 'Environment') new",
+messageSends: ["ifNil:", "parent", "opener", "new", "at:"],
 referencedClasses: ["Environment"]
 }),
 smalltalk.HLManager);

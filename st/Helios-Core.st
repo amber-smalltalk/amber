@@ -1325,9 +1325,12 @@ request: aString value: valueString do: aBlock
 defaultEnvironment
 	"If helios is loaded from within a frame, answer the parent window environment"
 	
-	window parent ifNil: [ ^ Environment new ].
+	| parent |
 	
-	^ ((window parent at: 'smalltalk')
+	parent := window opener ifNil: [ window parent ].
+	parent ifNil: [ ^ Environment new ].
+	
+	^ ((parent at: 'smalltalk')
 		at: 'Environment') new
 ! !
 

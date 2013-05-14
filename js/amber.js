@@ -332,11 +332,16 @@ amber = (function() {
         }
     };
 
+	that.popupHelios = function() {
+        window.open(home + 'helios.html', "Helios", "menubar=no, status=no, scrollbars=no, menubar=no, width=1000, height=600");
+    };
+
 	return that;
 })();
 
 window.loadAmber  = amber.load;
 window.loadHelios = amber.loadHelios;
+window.popupHelios = amber.popupHelios;
 
 // Backward compatibility
 function toggleAmberIDE () {

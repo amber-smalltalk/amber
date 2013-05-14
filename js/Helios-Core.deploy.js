@@ -2780,20 +2780,27 @@ smalltalk.method({
 selector: "defaultEnvironment",
 fn: function (){
 var self=this;
+var parent;
 function $Environment(){return smalltalk.Environment||(typeof Environment=="undefined"?nil:Environment)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(window)._parent();
+var $1,$2,$3,$4;
+$1=_st(window)._opener();
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st($Environment())._new();
-return $2;
+parent=_st(window)._parent();
 } else {
-$1;
+parent=$1;
 };
-$3=_st(_st(_st(_st(window)._parent())._at_("smalltalk"))._at_("Environment"))._new();
+$2=parent;
+if(($receiver = $2) == nil || $receiver == undefined){
+$3=_st($Environment())._new();
 return $3;
-}, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{},smalltalk.HLManager)})},
-messageSends: ["ifNil:", "new", "parent", "at:"]}),
+} else {
+$2;
+};
+$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+return $4;
+}, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
+messageSends: ["ifNil:", "parent", "opener", "new", "at:"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
