@@ -81,10 +81,12 @@ initializeFromMethodContext: aMethodContext
 	self pc: aMethodContext pc.
 	self receiver: aMethodContext receiver.
 	self method: aMethodContext method.
-	aMethodContext outerContext ifNotNil: [
-		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
-	aMethodContext locals keysAndValuesDo: [ :key :value |
-		self locals at: key put: value ]
+	aMethodContext outerContext ifNotNil: [ :outer |
+		"If the method context is nil, the block was defined in JS, so ignore it"
+		outer methodContext ifNotNil: [
+			self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
+			aMethodContext locals keysAndValuesDo: [ :key :value |
+				self locals at: key put: value ] ]
 !
 
 initializeLocals

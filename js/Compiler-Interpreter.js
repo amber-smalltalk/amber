@@ -49,7 +49,7 @@ category: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 self["@methodContext"]=aMethodContext;
 _st(self)._pc_(_st(aMethodContext)._pc());
 _st(self)._receiver_(_st(aMethodContext)._receiver());
@@ -58,16 +58,23 @@ $1=_st(aMethodContext)._outerContext();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
+var outer;
+outer=$receiver;
+$2=_st(outer)._methodContext();
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
 _st(self)._outerContext_(_st(_st(self)._class())._fromMethodContext_(_st(aMethodContext)._outerContext()));
 };
 _st(_st(aMethodContext)._locals())._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self)._locals())._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+};
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext)})},
 args: ["aMethodContext"],
-source: "initializeFromMethodContext: aMethodContext\x0a\x09methodContext := aMethodContext.\x0a\x09\x0a\x09self pc: aMethodContext pc.\x0a\x09self receiver: aMethodContext receiver.\x0a\x09self method: aMethodContext method.\x0a\x09aMethodContext outerContext ifNotNil: [\x0a\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09self locals at: key put: value ]",
-messageSends: ["pc:", "pc", "receiver:", "receiver", "method:", "method", "ifNotNil:", "outerContext:", "fromMethodContext:", "outerContext", "class", "keysAndValuesDo:", "at:put:", "locals"],
+source: "initializeFromMethodContext: aMethodContext\x0a\x09methodContext := aMethodContext.\x0a\x09\x0a\x09self pc: aMethodContext pc.\x0a\x09self receiver: aMethodContext receiver.\x0a\x09self method: aMethodContext method.\x0a\x09aMethodContext outerContext ifNotNil: [ :outer |\x0a\x09\x09\x22If the method context is nil, the block was defined in JS, so ignore it\x22\x0a\x09\x09outer methodContext ifNotNil: [\x0a\x09\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09\x09\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09self locals at: key put: value ] ]",
+messageSends: ["pc:", "pc", "receiver:", "receiver", "method:", "method", "ifNotNil:", "outerContext:", "fromMethodContext:", "outerContext", "class", "methodContext", "keysAndValuesDo:", "at:put:", "locals"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
