@@ -975,9 +975,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(4000);
-return $1;
+return (4000);
 }, function($ctx1) {$ctx1.fill(self,"defaultPort",{},smalltalk.FileServer.klass)})},
 args: [],
 source: "defaultPort\x0a\x09^4000",
