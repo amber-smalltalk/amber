@@ -482,11 +482,11 @@ $1;
 } else {
 _st(self)._logContext_(_st(aContext)._home());
 };
-_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(_st(aContext)._selector())._asString()));
+_st(self)._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
-source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext receiver asString, '>>', aContext selector asString",
-messageSends: ["ifNotNil:", "logContext:", "home", "log:", ",", "asString", "selector", "receiver"],
+source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext asString",
+messageSends: ["ifNotNil:", "logContext:", "home", "log:", "asString"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);

@@ -346,9 +346,9 @@ $1;
 } else {
 _st(self)._logContext_(_st(aContext)._home());
 };
-_st(self)._log_(_st(_st(_st(_st(aContext)._receiver())._asString()).__comma(">>")).__comma(_st(_st(aContext)._selector())._asString()));
+_st(self)._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
-messageSends: ["ifNotNil:", "logContext:", "home", "log:", ",", "asString", "selector", "receiver"]}),
+messageSends: ["ifNotNil:", "logContext:", "home", "log:", "asString"]}),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
