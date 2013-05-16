@@ -61,41 +61,41 @@ TestCase subclass: #SUnitAsyncTest
 
 fakeError
 	flag := 'bad'.
-	self timeout: 10.
-	flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 5
+	self timeout: 30.
+	flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 20
 !
 
 fakeErrorFailingInTearDown
 	flag := 'bad'.
-	self timeout: 10.
-	flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 5
+	self timeout: 30.
+	flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 20
 !
 
 fakeFailure
 	flag := 'bad'.
-	self timeout: 10.
-	flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5
+	self timeout: 30.
+	flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 20
 !
 
 fakeMultipleTimeoutFailing
 	self timeout: 100.
 	(self async: [
-		self timeout: 5.
-		(self async: [ self finished ]) valueWithTimeout: 10
-	]) valueWithTimeout: 5
+		self timeout: 20.
+		(self async: [ self finished ]) valueWithTimeout: 30
+	]) valueWithTimeout: 20
 !
 
 fakeMultipleTimeoutPassing
-	self timeout: 10.
+	self timeout: 20.
 	(self async: [
-		self timeout: 20.
-		(self async: [ self finished ]) valueWithTimeout: 10
-	]) valueWithTimeout: 5
+		self timeout: 40.
+		(self async: [ self finished ]) valueWithTimeout: 20
+	]) valueWithTimeout: 10
 !
 
 fakeTimeout
-	self timeout: 4.
-	(self async: [ self finished ]) valueWithTimeout: 5
+	self timeout: 10.
+	(self async: [ self finished ]) valueWithTimeout: 20
 ! !
 
 !SUnitAsyncTest methodsFor: 'private'!

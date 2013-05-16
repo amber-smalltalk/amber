@@ -142,16 +142,16 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@flag"]="bad";
-_st(self)._timeout_((10));
+_st(self)._timeout_((30));
 self["@flag"]=_st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@flag"]="ok";
 self["@flag"];
 return _st(self)._error_("Intentional");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((20));
 return self}, function($ctx1) {$ctx1.fill(self,"fakeError",{},smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "fakeError\x0a\x09flag := 'bad'.\x0a\x09self timeout: 10.\x0a\x09flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 5",
+source: "fakeError\x0a\x09flag := 'bad'.\x0a\x09self timeout: 30.\x0a\x09flag := (self async: [ flag := 'ok'. self error: 'Intentional' ]) valueWithTimeout: 20",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"],
 referencedClasses: []
 }),
@@ -165,14 +165,14 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@flag"]="bad";
-_st(self)._timeout_((10));
+_st(self)._timeout_((30));
 self["@flag"]=_st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._error_("Intentional");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((20));
 return self}, function($ctx1) {$ctx1.fill(self,"fakeErrorFailingInTearDown",{},smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "fakeErrorFailingInTearDown\x0a\x09flag := 'bad'.\x0a\x09self timeout: 10.\x0a\x09flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 5",
+source: "fakeErrorFailingInTearDown\x0a\x09flag := 'bad'.\x0a\x09self timeout: 30.\x0a\x09flag := (self async: [ self error: 'Intentional' ]) valueWithTimeout: 20",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "error:"],
 referencedClasses: []
 }),
@@ -186,16 +186,16 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@flag"]="bad";
-_st(self)._timeout_((10));
+_st(self)._timeout_((30));
 self["@flag"]=_st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@flag"]="ok";
 self["@flag"];
 return _st(self)._assert_(false);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((20));
 return self}, function($ctx1) {$ctx1.fill(self,"fakeFailure",{},smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "fakeFailure\x0a\x09flag := 'bad'.\x0a\x09self timeout: 10.\x0a\x09flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 5",
+source: "fakeFailure\x0a\x09flag := 'bad'.\x0a\x09self timeout: 30.\x0a\x09flag := (self async: [ flag := 'ok'. self assert: false ]) valueWithTimeout: 20",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "assert:"],
 referencedClasses: []
 }),
@@ -211,15 +211,15 @@ return smalltalk.withContext(function($ctx1) {
 _st(self)._timeout_((100));
 _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(self)._timeout_((5));
+_st(self)._timeout_((20));
 return _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self)._finished();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})})))._valueWithTimeout_((10));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})})))._valueWithTimeout_((30));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((20));
 return self}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutFailing",{},smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "fakeMultipleTimeoutFailing\x0a\x09self timeout: 100.\x0a\x09(self async: [\x0a\x09\x09self timeout: 5.\x0a\x09\x09(self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5",
+source: "fakeMultipleTimeoutFailing\x0a\x09self timeout: 100.\x0a\x09(self async: [\x0a\x09\x09self timeout: 20.\x0a\x09\x09(self async: [ self finished ]) valueWithTimeout: 30\x0a\x09]) valueWithTimeout: 20",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
 referencedClasses: []
 }),
@@ -232,18 +232,18 @@ category: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._timeout_((10));
+_st(self)._timeout_((20));
 _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(self)._timeout_((20));
+_st(self)._timeout_((40));
 return _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self)._finished();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})})))._valueWithTimeout_((10));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})})))._valueWithTimeout_((20));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"fakeMultipleTimeoutPassing",{},smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "fakeMultipleTimeoutPassing\x0a\x09self timeout: 10.\x0a\x09(self async: [\x0a\x09\x09self timeout: 20.\x0a\x09\x09(self async: [ self finished ]) valueWithTimeout: 10\x0a\x09]) valueWithTimeout: 5",
+source: "fakeMultipleTimeoutPassing\x0a\x09self timeout: 20.\x0a\x09(self async: [\x0a\x09\x09self timeout: 40.\x0a\x09\x09(self async: [ self finished ]) valueWithTimeout: 20\x0a\x09]) valueWithTimeout: 10",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
 referencedClasses: []
 }),
@@ -256,14 +256,14 @@ category: 'helpers',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._timeout_((4));
+_st(self)._timeout_((10));
 _st(_st(self)._async_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._finished();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((5));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_((20));
 return self}, function($ctx1) {$ctx1.fill(self,"fakeTimeout",{},smalltalk.SUnitAsyncTest)})},
 args: [],
-source: "fakeTimeout\x0a\x09self timeout: 4.\x0a\x09(self async: [ self finished ]) valueWithTimeout: 5",
+source: "fakeTimeout\x0a\x09self timeout: 10.\x0a\x09(self async: [ self finished ]) valueWithTimeout: 20",
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished"],
 referencedClasses: []
 }),
