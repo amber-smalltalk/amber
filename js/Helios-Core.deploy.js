@@ -1763,7 +1763,6 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-_st(self)._registerBindings();
 $1=_st(html)._div();
 _st($1)._class_("hl_widget");
 $2=_st($1)._yourself();
@@ -1783,7 +1782,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st(self)._wrapper())._asJQuery())._addClass_(_st(self)._focusClass());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLFocusableWidget)})},
-messageSends: ["registerBindings", "class:", "div", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"]}),
+messageSends: ["class:", "div", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"]}),
 smalltalk.HLFocusableWidget);
 
 
@@ -3229,6 +3228,17 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLSUnit.klass)})},
+messageSends: []}),
+smalltalk.HLSUnit.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "sunit";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLSUnit.klass)})},
 messageSends: []}),
 smalltalk.HLSUnit.klass);
 

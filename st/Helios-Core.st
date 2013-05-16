@@ -519,7 +519,33 @@ Widget subclass: #HLWidget
 !HLWidget commentStamp!
 I am the abstract superclass of all Helios widgets.
 
-I provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.!
+I provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.
+
+## API
+
+1. Rendering
+
+    Instead of overriding `#renderOn:` as with other Widget subclasses, my subclasses should override `#renderContentOn:`.
+
+2. Refreshing
+
+    To re-render a widget, use `#refresh`.
+
+3. Key bindings registration and tabs
+
+    When displayed as a tab, the widget has a chance to register keybindings with the `#registerBindingsOn:` hook method.
+    
+4. Unregistration
+
+    When a widget has subscribed to announcements or other actions that need to be cleared when closing the tab, the hook method `#unregister` will be called by helios.
+
+5. Tabs
+
+   To enable a widget class to be open as a tab, override the class-side `#canBeOpenAsTab` method to answer `true`. `#tabClass` and `#tabPriority` can be overridden too to respectively change the css class of the tab and the order of tabs in the main menu.
+
+6. Command execution
+
+    An helios command (instance of `HLCommand` or one of its subclass) can be executed with `#execute:`.!
 
 !HLWidget methodsFor: 'accessing'!
 
@@ -629,6 +655,10 @@ canBeOpenAsTab
 HLWidget subclass: #HLConfirmation
 	instanceVariableNames: 'confirmationString actionBlock cancelBlock'
 	package: 'Helios-Core'!
+!HLConfirmation commentStamp!
+I display confirmation messages. 
+
+Instead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.!
 
 !HLConfirmation methodsFor: 'accessing'!
 
@@ -727,6 +757,10 @@ setupKeyBindings
 HLConfirmation subclass: #HLRequest
 	instanceVariableNames: 'input value'
 	package: 'Helios-Core'!
+!HLRequest commentStamp!
+I display a modal window requesting user input.
+
+Instead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.!
 
 !HLRequest methodsFor: 'accessing'!
 
@@ -760,6 +794,14 @@ renderMainOn: html
 HLWidget subclass: #HLFocusableWidget
 	instanceVariableNames: ''
 	package: 'Helios-Core'!
+!HLFocusableWidget commentStamp!
+I am a widget that can be focused.
+
+## API 
+
+Instead of overriding `#renderOn:` as with other `Widget` subclasses, my subclasses should override `#renderContentOn:`.
+
+To bring the focus to the widget, use the `#focus` method.!
 
 !HLFocusableWidget methodsFor: 'accessing'!
 
@@ -787,8 +829,6 @@ renderContentOn: html
 !
 
 renderOn: html
-	self registerBindings.
-    
     wrapper := html div 
     	class: 'hl_widget';
 		yourself.
@@ -1432,6 +1472,10 @@ HLWidget subclass: #HLSUnit
 	package: 'Helios-Core'!
 
 !HLSUnit class methodsFor: 'accessing'!
+
+tabClass
+	^ 'sunit'
+!
 
 tabLabel
 	^ 'SUnit'

@@ -2103,6 +2103,22 @@ smalltalk.Date.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "magnitude";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Date.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'magnitude'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "millisecondsToRun:",
 category: 'instance creation',
 fn: function (aBlock){
@@ -3983,6 +3999,22 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "magnitude";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Number.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'magnitude'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "pi",
 category: 'instance creation',
 fn: function (){
@@ -4839,6 +4871,22 @@ referencedClasses: []
 }),
 smalltalk.Point);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "magnitude";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Point.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'magnitude'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Point.klass);
 
 smalltalk.addMethod(
 smalltalk.method({

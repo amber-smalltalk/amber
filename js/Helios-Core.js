@@ -1476,7 +1476,7 @@ smalltalk.HLTab.klass);
 
 
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
-smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\x0a\x0aI provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation."
+smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\x0a\x0aI provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.\x0a\x0a## API\x0a\x0a1. Rendering\x0a\x0a    Instead of overriding `#renderOn:` as with other Widget subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0a2. Refreshing\x0a\x0a    To re-render a widget, use `#refresh`.\x0a\x0a3. Key bindings registration and tabs\x0a\x0a    When displayed as a tab, the widget has a chance to register keybindings with the `#registerBindingsOn:` hook method.\x0a    \x0a4. Unregistration\x0a\x0a    When a widget has subscribed to announcements or other actions that need to be cleared when closing the tab, the hook method `#unregister` will be called by helios.\x0a\x0a5. Tabs\x0a\x0a   To enable a widget class to be open as a tab, override the class-side `#canBeOpenAsTab` method to answer `true`. `#tabClass` and `#tabPriority` can be overridden too to respectively change the css class of the tab and the order of tabs in the main menu.\x0a\x0a6. Command execution\x0a\x0a    An helios command (instance of `HLCommand` or one of its subclass) can be executed with `#execute:`."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alert:",
@@ -1834,6 +1834,7 @@ smalltalk.HLWidget.klass);
 
 
 smalltalk.addClass('HLConfirmation', smalltalk.HLWidget, ['confirmationString', 'actionBlock', 'cancelBlock'], 'Helios-Core');
+smalltalk.HLConfirmation.comment="I display confirmation messages. \x0a\x0aInstead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
@@ -2137,6 +2138,7 @@ smalltalk.HLConfirmation);
 
 
 smalltalk.addClass('HLRequest', smalltalk.HLConfirmation, ['input', 'value'], 'Helios-Core');
+smalltalk.HLRequest.comment="I display a modal window requesting user input.\x0a\x0aInstead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
@@ -2230,6 +2232,7 @@ smalltalk.HLRequest);
 
 
 smalltalk.addClass('HLFocusableWidget', smalltalk.HLWidget, [], 'Helios-Core');
+smalltalk.HLFocusableWidget.comment="I am a widget that can be focused.\x0a\x0a## API \x0a\x0aInstead of overriding `#renderOn:` as with other `Widget` subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0aTo bring the focus to the widget, use the `#focus` method."
 smalltalk.addMethod(
 smalltalk.method({
 selector: "blur",
@@ -2338,7 +2341,6 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-_st(self)._registerBindings();
 $1=_st(html)._div();
 _st($1)._class_("hl_widget");
 $2=_st($1)._yourself();
@@ -2359,8 +2361,8 @@ return _st(_st(_st(self)._wrapper())._asJQuery())._addClass_(_st(self)._focusCla
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLFocusableWidget)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09self registerBindings.\x0a    \x0a    wrapper := html div \x0a    \x09class: 'hl_widget';\x0a\x09\x09yourself.\x0a\x09\x09\x0a       wrapper with: [ self renderContentOn: html ].\x0a\x09\x0a\x09wrapper\x0a\x09\x09at: 'tabindex' put: '0';\x0a\x09\x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
-messageSends: ["registerBindings", "class:", "div", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"],
+source: "renderOn: html\x0a    wrapper := html div \x0a    \x09class: 'hl_widget';\x0a\x09\x09yourself.\x0a\x09\x09\x0a       wrapper with: [ self renderContentOn: html ].\x0a\x09\x0a\x09wrapper\x0a\x09\x09at: 'tabindex' put: '0';\x0a\x09\x09onBlur: [ self wrapper asJQuery removeClass: self focusClass ];\x0a        onFocus: [ self wrapper asJQuery addClass: self focusClass ]",
+messageSends: ["class:", "div", "yourself", "with:", "renderContentOn:", "at:put:", "onBlur:", "removeClass:", "focusClass", "asJQuery", "wrapper", "onFocus:", "addClass:"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -4201,6 +4203,22 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLSUnit.klass)})},
 args: [],
 source: "canBeOpenAsTab\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLSUnit.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "sunit";
+}, function($ctx1) {$ctx1.fill(self,"tabClass",{},smalltalk.HLSUnit.klass)})},
+args: [],
+source: "tabClass\x0a\x09^ 'sunit'",
 messageSends: [],
 referencedClasses: []
 }),

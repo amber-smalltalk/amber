@@ -668,6 +668,12 @@ printOn: aStream
 	aStream nextPutAll: self asString
 ! !
 
+!Date class methodsFor: 'helios'!
+
+heliosClass
+	^ 'magnitude'
+! !
+
 !Date class methodsFor: 'instance creation'!
 
 fromMilliseconds: aNumber
@@ -1324,6 +1330,12 @@ positive
 	^ self >= 0
 ! !
 
+!Number class methodsFor: 'helios'!
+
+heliosClass
+	^ 'magnitude'
+! !
+
 !Number class methodsFor: 'instance creation'!
 
 pi
@@ -1653,6 +1665,12 @@ printOn: aStream
 translateBy: delta
 	"Answer a Point translated by delta (an instance of Point)."
 	^(delta x + x) @ (delta y + y)
+! !
+
+!Point class methodsFor: 'helios'!
+
+heliosClass
+	^ 'magnitude'
 ! !
 
 !Point class methodsFor: 'instance creation'!

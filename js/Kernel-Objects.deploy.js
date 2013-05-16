@@ -1505,6 +1505,17 @@ smalltalk.Date.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "magnitude";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Date.klass)})},
+messageSends: []}),
+smalltalk.Date.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "millisecondsToRun:",
 fn: function (aBlock){
 var self=this;
@@ -2911,6 +2922,17 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "magnitude";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Number.klass)})},
+messageSends: []}),
+smalltalk.Number.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "pi",
 fn: function (){
 var self=this;
@@ -3547,6 +3569,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"y:",{aNumber:aNumber},smalltalk.
 messageSends: []}),
 smalltalk.Point);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "magnitude";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Point.klass)})},
+messageSends: []}),
+smalltalk.Point.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
