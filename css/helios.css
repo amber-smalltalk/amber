@@ -394,6 +394,9 @@ i {
 .tool_container .pane .nav-pills i.widget {
     background-image: url('../images/widget.png');
 }
+.tool_container .pane .nav-pills i.magnitude {
+    background-image: url('../images/magnitude.png');
+}
 .tool_container .pane .nav-pills i.package {
     background-image: url('../images/package.png');
 }
