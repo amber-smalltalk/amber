@@ -1743,21 +1743,19 @@ The `smalltalk` object holds all class and packages defined in the system.
 Classes can be accessed using the following methods:
 
 - `#classes` answers the full list of Smalltalk classes in the system
-- `#at:` answers a specific class of `nil`
+- `#at:` answers a specific class or `nil`
 
 ## Packages
 
 Packages can be accessed using the following methods:
 
 - `#packages` answers the full list of packages
-- `#packageAt:` answers a specific class of `nil`
-
-__note:__ classes and packages are accessed using strings, not symbols
+- `#packageAt:` answers a specific package or `nil`
 
 ## Parsing
 
 The `#parse:` method is used to parse Amber source code.
-It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
+It requires the `Compiler` package and the `js/parser.js` parser file in order to work.!
 
 !Smalltalk methodsFor: 'accessing'!
 
