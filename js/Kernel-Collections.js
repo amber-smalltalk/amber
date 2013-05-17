@@ -2248,6 +2248,23 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "do:displayingProgress:",
+category: 'enumerating',
+fn: function (aBlock,aString){
+var self=this;
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($ProgressHandler())._current())._do_on_displaying_(aBlock,self,aString);
+return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},smalltalk.SequenceableCollection)})},
+args: ["aBlock", "aString"],
+source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler current\x0a\x09\x09do: aBlock on: self displaying: aString",
+messageSends: ["do:on:displaying:", "current"],
+referencedClasses: ["ProgressHandler"]
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "first",
 category: 'accessing',
 fn: function (){

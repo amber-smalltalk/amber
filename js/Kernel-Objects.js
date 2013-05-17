@@ -4911,6 +4911,100 @@ referencedClasses: []
 smalltalk.Point.klass);
 
 
+smalltalk.addClass('ProgressHandler', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.ProgressHandler.comment="I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.\x0a\x0aSubclasses of can register themselves as the current handler with\x0a`ProgressHandler class >> register`.\x0a\x0aThe default behavior is to simply iterate over the collection."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:on:displaying:",
+category: 'progress handling',
+fn: function (aBlock,aCollection,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aCollection)._do_(aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.ProgressHandler)})},
+args: ["aBlock", "aCollection", "aString"],
+source: "do: aBlock on: aCollection displaying: aString\x0a\x09aCollection do: aBlock",
+messageSends: ["do:"],
+referencedClasses: []
+}),
+smalltalk.ProgressHandler);
+
+
+smalltalk.ProgressHandler.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "current",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@current"]=_st(self)._new();
+$1=self["@current"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ProgressHandler.klass)})},
+args: [],
+source: "current\x0a\x09^current ifNil: [ current := self new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+smalltalk.ProgressHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._register();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProgressHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09self register",
+messageSends: ["register"],
+referencedClasses: []
+}),
+smalltalk.ProgressHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register",
+category: 'initialization',
+fn: function (){
+var self=this;
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ErrorHandler())._setCurrent_(_st(self)._new());
+return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.ProgressHandler.klass)})},
+args: [],
+source: "register\x0a\x09ErrorHandler setCurrent: self new",
+messageSends: ["setCurrent:", "new"],
+referencedClasses: ["ErrorHandler"]
+}),
+smalltalk.ProgressHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setCurrent:",
+category: 'accessing',
+fn: function (anHandler){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@current"]=anHandler;
+return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandler},smalltalk.ProgressHandler.klass)})},
+args: ["anHandler"],
+source: "setCurrent: anHandler\x0a\x09current := anHandler",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProgressHandler.klass);
+
+
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Random.comment="I an used to generate a random number and I am implemented as a trivial wrapper around javascript `Math.random()`.\x0a\x0a## API\x0a\x0aThe typical use case it to use the `#next` method like the following:\x0a\x0a\x09Random new next\x0a\x0aThis will return a float x where x < 1 and x > 0. If you want a random integer from 1 to 10 you can use `#atRandom`\x0a\x0a\x0910 atRandom\x0a\x0aA random number in a specific interval can be obtained with the following:\x0a\x0a\x09(3 to: 7) atRandom\x0a\x0aBe aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:\x0a\x0a\x095 atRandom + 2\x0a\x0aSince `#atRandom` is implemented in `SequencableCollection` you can easy pick an element at random:\x0a\x0a\x09#('a' 'b' 'c') atRandom\x0a\x0aAs well as letter from a `String`:\x0a\x0a\x09'abc' atRandom\x0a\x0aSince Amber does not have Characters this will return a `String` of length 1 like for example `'b'`."
 smalltalk.addMethod(

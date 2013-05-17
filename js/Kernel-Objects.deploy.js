@@ -3599,6 +3599,74 @@ messageSends: ["x:", "new", "y:", "yourself"]}),
 smalltalk.Point.klass);
 
 
+smalltalk.addClass('ProgressHandler', smalltalk.Object, [], 'Kernel-Objects');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:on:displaying:",
+fn: function (aBlock,aCollection,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aCollection)._do_(aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.ProgressHandler)})},
+messageSends: ["do:"]}),
+smalltalk.ProgressHandler);
+
+
+smalltalk.ProgressHandler.klass.iVarNames = ['current'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "current",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@current"]=_st(self)._new();
+$1=self["@current"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ProgressHandler.klass)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.ProgressHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._register();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProgressHandler.klass)})},
+messageSends: ["register"]}),
+smalltalk.ProgressHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register",
+fn: function (){
+var self=this;
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ErrorHandler())._setCurrent_(_st(self)._new());
+return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.ProgressHandler.klass)})},
+messageSends: ["setCurrent:", "new"]}),
+smalltalk.ProgressHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setCurrent:",
+fn: function (anHandler){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@current"]=anHandler;
+return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandler},smalltalk.ProgressHandler.klass)})},
+messageSends: []}),
+smalltalk.ProgressHandler.klass);
+
+
 smalltalk.addClass('Random', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({

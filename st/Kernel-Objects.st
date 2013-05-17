@@ -1682,6 +1682,45 @@ x: aNumber y: anotherNumber
 		yourself
 ! !
 
+Object subclass: #ProgressHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!ProgressHandler commentStamp!
+I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.
+
+Subclasses of can register themselves as the current handler with
+`ProgressHandler class >> register`.
+
+The default behavior is to simply iterate over the collection.!
+
+!ProgressHandler methodsFor: 'progress handling'!
+
+do: aBlock on: aCollection displaying: aString
+	aCollection do: aBlock
+! !
+
+ProgressHandler class instanceVariableNames: 'current'!
+
+!ProgressHandler class methodsFor: 'accessing'!
+
+current
+	^current ifNil: [ current := self new ]
+!
+
+setCurrent: anHandler
+	current := anHandler
+! !
+
+!ProgressHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
+!
+
+register
+	ErrorHandler setCurrent: self new
+! !
+
 Object subclass: #Random
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!

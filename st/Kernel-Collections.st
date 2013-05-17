@@ -841,6 +841,11 @@ do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
 !
 
+do: aBlock displayingProgress: aString
+	ProgressHandler current
+		do: aBlock on: self displaying: aString
+!
+
 with: anotherCollection do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock(self[i], anotherCollection[i]);}>
 !

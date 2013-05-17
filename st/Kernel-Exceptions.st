@@ -159,10 +159,10 @@ Object subclass: #ErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Exceptions'!
 !ErrorHandler commentStamp!
-ErrorHandler is used to manage Smalltalk errors.
+I am used to manage Smalltalk errors.
 See `boot.js` `handleError()` function.
 
-Subclasses of `ErrorHandler` can register themselves as the current handler with
+Subclasses can register themselves as the current handler with
 `ErrorHandler class >> register`.
 
 Subclasses may override `#handleError:` to perform an action on the thrown exception.
