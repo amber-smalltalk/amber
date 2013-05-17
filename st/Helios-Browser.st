@@ -1181,7 +1181,7 @@ allProtocol
 cssClassForItem: anItem
 	anItem = self allProtocol ifTrue: [ ^ '' ].
 	anItem = 'private' ifTrue: [ ^ 'private' ].
-	anItem = 'initialization' ifTrue: [ ^ 'default' ].
+	anItem = 'initialization' ifTrue: [ ^ 'initialization' ].
 	(anItem match: '^\*') ifTrue: [ ^ 'extension' ].
 	^ ''
 !

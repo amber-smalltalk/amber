@@ -2558,7 +2558,7 @@ return "private";
 };
 $3=_st(anItem).__eq("initialization");
 if(smalltalk.assert($3)){
-return "default";
+return "initialization";
 };
 $4=_st(anItem)._match_("^\x5c*");
 if(smalltalk.assert($4)){

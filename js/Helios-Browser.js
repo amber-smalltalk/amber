@@ -3324,7 +3324,7 @@ return "private";
 };
 $3=_st(anItem).__eq("initialization");
 if(smalltalk.assert($3)){
-return "default";
+return "initialization";
 };
 $4=_st(anItem)._match_("^\x5c*");
 if(smalltalk.assert($4)){
@@ -3333,7 +3333,7 @@ return "extension";
 return "";
 }, function($ctx1) {$ctx1.fill(self,"cssClassForItem:",{anItem:anItem},smalltalk.HLProtocolsListWidget)})},
 args: ["anItem"],
-source: "cssClassForItem: anItem\x0a\x09anItem = self allProtocol ifTrue: [ ^ '' ].\x0a\x09anItem = 'private' ifTrue: [ ^ 'private' ].\x0a\x09anItem = 'initialization' ifTrue: [ ^ 'default' ].\x0a\x09(anItem match: '^\x5c*') ifTrue: [ ^ 'extension' ].\x0a\x09^ ''",
+source: "cssClassForItem: anItem\x0a\x09anItem = self allProtocol ifTrue: [ ^ '' ].\x0a\x09anItem = 'private' ifTrue: [ ^ 'private' ].\x0a\x09anItem = 'initialization' ifTrue: [ ^ 'initialization' ].\x0a\x09(anItem match: '^\x5c*') ifTrue: [ ^ 'extension' ].\x0a\x09^ ''",
 messageSends: ["ifTrue:", "=", "allProtocol", "match:"],
 referencedClasses: []
 }),

@@ -79,7 +79,7 @@ i {
 .CodeMirror .CodeMirror-gutter-elt .stop {
     width: 16px;
     height: 16px;
-    background: url('../images/step.gif');
+    background: url('../images/arrowRight.png');
     margin-left: 2px;
 }
 
@@ -400,29 +400,26 @@ i {
 .tool_container .pane .nav-pills i.package {
     background-image: url('../images/package.png');
 }
-/* .tool_container .pane .nav-pills i.public { */
-/*     background-image: url('../images/public.gif'); */
-/* } */
 .tool_container .pane .nav-pills i.private {
-    background-image: url('../images/private.gif');
+    background-image: url('../images/private.png');
 }
 .tool_container .pane .nav-pills i.extension {
     background-image: url('../images/extension.png');
 }
-.tool_container .pane .nav-pills i.default {
-    background-image: url('../images/default.gif');
+.tool_container .pane .nav-pills i.initialization {
+    background-image: url('../images/initialization.png');
 }
 .tool_container .pane .nav-pills i.package {
     background-image: url('../images/package.png');
 }
 .tool_container .pane .nav-pills i.override {
-    background-image: url('../images/override.gif');
+    background-image: url('../images/override.png ');
 }
 .tool_container .pane .nav-pills i.overridden {
-    background-image: url('../images/overridden.gif');
+    background-image: url('../images/overridden.png');
 }
 .tool_container .pane .nav-pills i.override-overridden {
-    background-image: url('../images/override-overridden.gif');
+    background-image: url('../images/override-overridden.png');
 }
 .tool_container .pane .nav-pills i.warning {
     background-image: url('../images/warning.gif');
