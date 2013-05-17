@@ -818,6 +818,10 @@ registerInspector: anInspector
 	InspectorHandler register: anInspector
 !
 
+registerProgressHandler: aProgressHandler
+	ProgressHandler setCurrent: aProgressHandler
+!
+
 removeClass: aClass
 	Smalltalk current removeClass: aClass
 !
@@ -1718,7 +1722,7 @@ initialize
 !
 
 register
-	ErrorHandler setCurrent: self new
+	ProgressHandler setCurrent: self new
 ! !
 
 Object subclass: #Random

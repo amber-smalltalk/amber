@@ -1921,6 +1921,18 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "registerProgressHandler:",
+fn: function (aProgressHandler){
+var self=this;
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($ProgressHandler())._setCurrent_(aProgressHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},smalltalk.Environment)})},
+messageSends: ["setCurrent:"]}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeClass:",
 fn: function (aClass){
 var self=this;
@@ -3648,9 +3660,9 @@ smalltalk.method({
 selector: "register",
 fn: function (){
 var self=this;
-function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st($ErrorHandler())._setCurrent_(_st(self)._new());
+_st($ProgressHandler())._setCurrent_(_st(self)._new());
 return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.ProgressHandler.klass)})},
 messageSends: ["setCurrent:", "new"]}),
 smalltalk.ProgressHandler.klass);

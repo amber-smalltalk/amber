@@ -314,14 +314,11 @@ category: 'commands actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._withHelperLabelled_do_(_st(_st("Committing package ").__comma(_st(_st(self)._selectedPackage())._name())).__comma("..."),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._environment())._commitPackage_(_st(self)._selectedPackage());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(self)._environment())._commitPackage_(_st(self)._selectedPackage());
 return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},smalltalk.HLToolModel)})},
 args: [],
-source: "commitPackage\x0a\x09self \x0a\x09\x09withHelperLabelled: 'Committing package ', self selectedPackage name, '...'\x0a\x09\x09do: [ self environment commitPackage: self selectedPackage ]",
-messageSends: ["withHelperLabelled:do:", ",", "name", "selectedPackage", "commitPackage:", "environment"],
+source: "commitPackage\x0a\x09\x22self \x0a\x09\x09withHelperLabelled: 'Committing package ', self selectedPackage name, '...'\x0a\x09\x09do: [ \x22self environment commitPackage: self selectedPackage\x22 ]\x22",
+messageSends: ["commitPackage:", "selectedPackage", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLToolModel);
@@ -1116,6 +1113,33 @@ referencedClasses: []
 smalltalk.HLToolModel.klass);
 
 
+smalltalk.addClass('HLProgressHandler', smalltalk.ProgressHandler, [], 'Helios-Core');
+smalltalk.HLProgressHandler.comment="I am a specific progress handler for Helios, displaying progresses in a modal window."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:on:displaying:",
+category: 'progress handling',
+fn: function (aBlock,aCollection,aString){
+var self=this;
+function $HLProgress(){return smalltalk.HLProgress||(typeof HLProgress=="undefined"?nil:HLProgress)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLProgress())._new();
+_st($1)._label_(aString);
+_st($1)._workBlock_(aBlock);
+_st($1)._collection_(aCollection);
+_st($1)._appendToJQuery_(_st("body")._asJQuery());
+$2=_st($1)._start();
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.HLProgressHandler)})},
+args: ["aBlock", "aCollection", "aString"],
+source: "do: aBlock on: aCollection displaying: aString\x0a\x09HLProgress new\x0a\x09\x09label: aString;\x0a\x09\x09workBlock: aBlock;\x0a\x09\x09collection: aCollection;\x0a\x09\x09appendToJQuery: 'body' asJQuery;\x0a\x09\x09start",
+messageSends: ["label:", "new", "workBlock:", "collection:", "appendToJQuery:", "asJQuery", "start"],
+referencedClasses: ["HLProgress"]
+}),
+smalltalk.HLProgressHandler);
+
+
+
 smalltalk.addClass('HLTab', smalltalk.Widget, ['widget', 'label', 'root'], 'Helios-Core');
 smalltalk.HLTab.comment="I am a widget specialized into building another widget as an Helios tab.\x0a\x0aI should not be used directly, `HLWidget class >> #openAsTab` should be used instead.\x0a\x0a## Example\x0a\x0a    HLWorkspace openAsTab"
 smalltalk.addMethod(
@@ -1831,404 +1855,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLWidget.klass);
-
-
-smalltalk.addClass('HLConfirmation', smalltalk.HLWidget, ['confirmationString', 'actionBlock', 'cancelBlock'], 'Helios-Core');
-smalltalk.HLConfirmation.comment="I display confirmation messages. \x0a\x0aInstead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`."
-smalltalk.addMethod(
-smalltalk.method({
-selector: "actionBlock",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@actionBlock"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"actionBlock",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "actionBlock\x0a\x09^ actionBlock ifNil: [ [] ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "actionBlock:",
-category: 'accessing',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@actionBlock"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"actionBlock:",{aBlock:aBlock},smalltalk.HLConfirmation)})},
-args: ["aBlock"],
-source: "actionBlock: aBlock\x0a\x09actionBlock := aBlock",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancel",
-category: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._cancelBlock())._value();
-_st(self)._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"cancel",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "cancel\x0a\x09self cancelBlock value.\x0a\x09self remove",
-messageSends: ["value", "cancelBlock", "remove"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancelBlock",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@cancelBlock"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=(function(){
-return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"cancelBlock",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "cancelBlock\x0a\x09^ cancelBlock ifNil: [ [] ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cancelBlock:",
-category: 'accessing',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@cancelBlock"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"cancelBlock:",{aBlock:aBlock},smalltalk.HLConfirmation)})},
-args: ["aBlock"],
-source: "cancelBlock: aBlock\x0a\x09cancelBlock := aBlock",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirm",
-category: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._actionBlock())._value();
-_st(self)._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "confirm\x0a\x09self actionBlock value.\x0a\x09self remove",
-messageSends: ["value", "actionBlock", "remove"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirmationString",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@confirmationString"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="Confirm";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirmationString",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "confirmationString\x0a\x09^ confirmationString ifNil: [ 'Confirm' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirmationString:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@confirmationString"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"confirmationString:",{aString:aString},smalltalk.HLConfirmation)})},
-args: ["aString"],
-source: "confirmationString: aString\x0a\x09confirmationString := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cssClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "";
-}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "cssClass\x0a\x09^ ''",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "remove",
-category: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
-return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderButtonsOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-var confirmButton;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
-$1=_st(html)._div();
-_st($1)._class_("buttons");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._button();
-_st($3)._class_("button");
-_st($3)._with_("Cancel");
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self)._cancel();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-$4;
-$5=_st(html)._button();
-_st($5)._class_("button default");
-_st($5)._with_("Confirm");
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(self)._confirm();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
-confirmButton=$6;
-return confirmButton;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(confirmButton)._asJQuery())._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},smalltalk.HLConfirmation)})},
-args: ["html"],
-source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: 'Cancel';\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: 'Confirm';\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09confirmButton asJQuery focus",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "cancel", "confirm", "focus", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderContentOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-var confirmButton;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-_st(_st(html)._div())._id_("overlay");
-$1=_st(html)._div();
-_st($1)._class_(_st("dialog ").__comma(_st(self)._cssClass()));
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=self;
-_st($3)._renderMainOn_(html);
-$4=_st($3)._renderButtonsOn_(html);
-return $4;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(window)._jQuery_(".dialog"))._addClass_("active");
-_st(self)._setupKeyBindings();
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,confirmButton:confirmButton},smalltalk.HLConfirmation)})},
-args: ["html"],
-source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09renderMainOn: html;\x0a\x09\x09\x09\x09renderButtonsOn: html ].\x0a\x0a\x09(window jQuery: '.dialog') addClass: 'active'.\x0a\x09self setupKeyBindings",
-messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "jQuery:", "setupKeyBindings"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderMainOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(html)._span())._with_(_st(self)._confirmationString());
-return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLConfirmation)})},
-args: ["html"],
-source: "renderMainOn: html\x0a\x09html span with: self confirmationString",
-messageSends: ["with:", "confirmationString", "span"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setupKeyBindings",
-category: 'rendering',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-_st(_st(window)._jQuery_(".dialog"))._keyup_((function(e){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(e)._keyCode()).__eq((27));
-if(smalltalk.assert($1)){
-return _st(self)._cancel();
-};
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLConfirmation)})},
-args: [],
-source: "setupKeyBindings\x0a\x09(window jQuery: '.dialog') keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
-messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "jQuery:"],
-referencedClasses: []
-}),
-smalltalk.HLConfirmation);
-
-
-
-smalltalk.addClass('HLRequest', smalltalk.HLConfirmation, ['input', 'value'], 'Helios-Core');
-smalltalk.HLRequest.comment="I display a modal window requesting user input.\x0a\x0aInstead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`."
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirm",
-category: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._actionBlock())._value_(_st(_st(self["@input"])._asJQuery())._val());
-_st(self)._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},smalltalk.HLRequest)})},
-args: [],
-source: "confirm\x0a\x09self actionBlock value: input asJQuery val.\x0a\x09self remove",
-messageSends: ["value:", "val", "asJQuery", "actionBlock", "remove"],
-referencedClasses: []
-}),
-smalltalk.HLRequest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "cssClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return "large";
-}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLRequest)})},
-args: [],
-source: "cssClass\x0a\x09^ 'large'",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLRequest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderMainOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLConfirmation.fn.prototype._renderMainOn_.apply(_st(self), [html]);
-self["@input"]=_st(html)._textarea();
-_st(_st(self["@input"])._asJQuery())._val_(_st(self)._value());
-return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLRequest)})},
-args: ["html"],
-source: "renderMainOn: html\x0a\x09super renderMainOn: html.\x0a\x09input := html textarea.\x0a\x09input asJQuery val: self value",
-messageSends: ["renderMainOn:", "textarea", "val:", "value", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.HLRequest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "value",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@value"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.HLRequest)})},
-args: [],
-source: "value\x0a\x09^ value ifNil: [ '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.HLRequest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "value:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@value"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},smalltalk.HLRequest)})},
-args: ["aString"],
-source: "value: aString\x0a\x09value := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLRequest);
-
 
 
 smalltalk.addClass('HLFocusableWidget', smalltalk.HLWidget, [], 'Helios-Core');
@@ -3752,17 +3378,19 @@ category: 'initialization',
 fn: function (){
 var self=this;
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
-function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
 _st(self)._registerInspector_($HLInspector());
-_st(self)._registerErrorHandler_($HLErrorHandler());
+_st(self)._registerErrorHandler_(_st($ErrorHandler())._current());
+_st(self)._registerProgressHandler_(_st($ProgressHandler())._current());
 _st(_st(self)._keyBinder())._setupEvents();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self registerInspector: HLInspector.\x0a\x09self registerErrorHandler: HLErrorHandler.\x0a    self keyBinder setupEvents",
-messageSends: ["initialize", "registerInspector:", "registerErrorHandler:", "setupEvents", "keyBinder"],
-referencedClasses: ["HLInspector", "HLErrorHandler"]
+source: "initialize\x0a\x09super initialize.\x0a\x09self registerInspector: HLInspector.\x0a\x09self registerErrorHandler: ErrorHandler current.\x0a\x09self registerProgressHandler: ProgressHandler current.\x0a    self keyBinder setupEvents",
+messageSends: ["initialize", "registerInspector:", "registerErrorHandler:", "current", "registerProgressHandler:", "setupEvents", "keyBinder"],
+referencedClasses: ["HLInspector", "ErrorHandler", "ProgressHandler"]
 }),
 smalltalk.HLManager);
 
@@ -3836,6 +3464,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"registerInspector:",{anInspector
 args: ["anInspector"],
 source: "registerInspector: anInspector\x0a\x09self environment registerInspector: anInspector",
 messageSends: ["registerInspector:", "environment"],
+referencedClasses: []
+}),
+smalltalk.HLManager);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerProgressHandler:",
+category: 'actions',
+fn: function (aProgressHandler){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._registerProgressHandler_(aProgressHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"registerProgressHandler:",{aProgressHandler:aProgressHandler},smalltalk.HLManager)})},
+args: ["aProgressHandler"],
+source: "registerProgressHandler: aProgressHandler\x0a\x09self environment registerProgressHandler: aProgressHandler",
+messageSends: ["registerProgressHandler:", "environment"],
 referencedClasses: []
 }),
 smalltalk.HLManager);
@@ -4188,6 +3832,685 @@ messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.HLManager.klass);
+
+
+smalltalk.addClass('HLModal', smalltalk.HLWidget, [], 'Helios-Core');
+smalltalk.HLModal.comment="I implement an abstract modal widget."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancel",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"cancel",{},smalltalk.HLModal)})},
+args: [],
+source: "cancel\x0a\x09self remove",
+messageSends: ["remove"],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cssClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "";
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLModal)})},
+args: [],
+source: "cssClass\x0a\x09^ ''",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(_st(window)._jQuery_("#overlay"))._remove();
+return _st(_st(window)._jQuery_(".dialog"))._remove();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLModal)})},
+args: [],
+source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
+messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLModal)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+var confirmButton;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+_st(_st(html)._div())._id_("overlay");
+$1=_st(html)._div();
+_st($1)._class_(_st("dialog ").__comma(_st(self)._cssClass()));
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=self;
+_st($3)._renderMainOn_(html);
+$4=_st($3)._renderButtonsOn_(html);
+return $4;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(window)._jQuery_(".dialog"))._addClass_("active");
+_st(self)._setupKeyBindings();
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,confirmButton:confirmButton},smalltalk.HLModal)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09renderMainOn: html;\x0a\x09\x09\x09\x09renderButtonsOn: html ].\x0a\x0a\x09(window jQuery: '.dialog') addClass: 'active'.\x0a\x09self setupKeyBindings",
+messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "jQuery:", "setupKeyBindings"],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLModal)})},
+args: ["html"],
+source: "renderMainOn: html",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupKeyBindings",
+category: 'rendering',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(_st(window)._jQuery_(".dialog"))._keyup_((function(e){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(e)._keyCode()).__eq((27));
+if(smalltalk.assert($1)){
+return _st(self)._cancel();
+};
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLModal)})},
+args: [],
+source: "setupKeyBindings\x0a\x09(window jQuery: '.dialog') keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
+messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "jQuery:"],
+referencedClasses: []
+}),
+smalltalk.HLModal);
+
+
+
+smalltalk.addClass('HLConfirmation', smalltalk.HLModal, ['confirmationString', 'actionBlock', 'cancelBlock'], 'Helios-Core');
+smalltalk.HLConfirmation.comment="I display confirmation messages. \x0a\x0aInstead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "actionBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@actionBlock"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"actionBlock",{},smalltalk.HLConfirmation)})},
+args: [],
+source: "actionBlock\x0a\x09^ actionBlock ifNil: [ [] ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "actionBlock:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@actionBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"actionBlock:",{aBlock:aBlock},smalltalk.HLConfirmation)})},
+args: ["aBlock"],
+source: "actionBlock: aBlock\x0a\x09actionBlock := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancel",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._cancelBlock())._value();
+_st(self)._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"cancel",{},smalltalk.HLConfirmation)})},
+args: [],
+source: "cancel\x0a\x09self cancelBlock value.\x0a\x09self remove",
+messageSends: ["value", "cancelBlock", "remove"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancelBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@cancelBlock"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cancelBlock",{},smalltalk.HLConfirmation)})},
+args: [],
+source: "cancelBlock\x0a\x09^ cancelBlock ifNil: [ [] ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cancelBlock:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@cancelBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"cancelBlock:",{aBlock:aBlock},smalltalk.HLConfirmation)})},
+args: ["aBlock"],
+source: "cancelBlock: aBlock\x0a\x09cancelBlock := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirm",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._actionBlock())._value();
+_st(self)._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},smalltalk.HLConfirmation)})},
+args: [],
+source: "confirm\x0a\x09self actionBlock value.\x0a\x09self remove",
+messageSends: ["value", "actionBlock", "remove"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirmationString",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@confirmationString"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1="Confirm";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"confirmationString",{},smalltalk.HLConfirmation)})},
+args: [],
+source: "confirmationString\x0a\x09^ confirmationString ifNil: [ 'Confirm' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirmationString:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@confirmationString"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"confirmationString:",{aString:aString},smalltalk.HLConfirmation)})},
+args: ["aString"],
+source: "confirmationString: aString\x0a\x09confirmationString := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(_st(window)._jQuery_("#overlay"))._remove();
+return _st(_st(window)._jQuery_(".dialog"))._remove();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLConfirmation)})},
+args: [],
+source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
+messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+var confirmButton;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$5,$6,$2;
+$1=_st(html)._div();
+_st($1)._class_("buttons");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._button();
+_st($3)._class_("button");
+_st($3)._with_("Cancel");
+$4=_st($3)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._cancel();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+$4;
+$5=_st(html)._button();
+_st($5)._class_("button default");
+_st($5)._with_("Confirm");
+$6=_st($5)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self)._confirm();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+confirmButton=$6;
+return confirmButton;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(confirmButton)._asJQuery())._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html,confirmButton:confirmButton},smalltalk.HLConfirmation)})},
+args: ["html"],
+source: "renderButtonsOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div \x0a\x09\x09class: 'buttons';\x0a\x09\x09with: [\x0a\x09\x09\x09html button\x0a\x09\x09\x09\x09class: 'button';\x0a\x09\x09\x09\x09with: 'Cancel';\x0a\x09\x09\x09\x09onClick: [ self cancel ].\x0a\x09\x09\x09confirmButton := html button\x0a\x09\x09\x09\x09class: 'button default';\x0a\x09\x09\x09\x09with: 'Confirm';\x0a\x09\x09\x09\x09onClick: [ self confirm ] ].\x0a\x0a\x09confirmButton asJQuery focus",
+messageSends: ["class:", "div", "with:", "button", "onClick:", "cancel", "confirm", "focus", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(html)._span())._with_(_st(self)._confirmationString());
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLConfirmation)})},
+args: ["html"],
+source: "renderMainOn: html\x0a\x09html span with: self confirmationString",
+messageSends: ["with:", "confirmationString", "span"],
+referencedClasses: []
+}),
+smalltalk.HLConfirmation);
+
+
+
+smalltalk.addClass('HLRequest', smalltalk.HLConfirmation, ['input', 'value'], 'Helios-Core');
+smalltalk.HLRequest.comment="I display a modal window requesting user input.\x0a\x0aInstead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirm",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._actionBlock())._value_(_st(_st(self["@input"])._asJQuery())._val());
+_st(self)._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"confirm",{},smalltalk.HLRequest)})},
+args: [],
+source: "confirm\x0a\x09self actionBlock value: input asJQuery val.\x0a\x09self remove",
+messageSends: ["value:", "val", "asJQuery", "actionBlock", "remove"],
+referencedClasses: []
+}),
+smalltalk.HLRequest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "cssClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "large";
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLRequest)})},
+args: [],
+source: "cssClass\x0a\x09^ 'large'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRequest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.HLConfirmation.fn.prototype._renderMainOn_.apply(_st(self), [html]);
+self["@input"]=_st(html)._textarea();
+_st(_st(self["@input"])._asJQuery())._val_(_st(self)._value());
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLRequest)})},
+args: ["html"],
+source: "renderMainOn: html\x0a\x09super renderMainOn: html.\x0a\x09input := html textarea.\x0a\x09input asJQuery val: self value",
+messageSends: ["renderMainOn:", "textarea", "val:", "value", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLRequest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@value"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.HLRequest)})},
+args: [],
+source: "value\x0a\x09^ value ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.HLRequest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@value"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"value:",{aString:aString},smalltalk.HLRequest)})},
+args: ["aString"],
+source: "value: aString\x0a\x09value := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLRequest);
+
+
+
+smalltalk.addClass('HLProgress', smalltalk.HLModal, ['label', 'workBlock', 'collection', 'progressBar'], 'Helios-Core');
+smalltalk.HLProgress.comment="I am a widget used to display progress modal dialogs.\x0a\x0aSee `HLProgressHandler`"
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collection",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@collection"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.HLProgress)})},
+args: [],
+source: "collection\x0a\x09^ collection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collection:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@collection"]=aCollection;
+return self}, function($ctx1) {$ctx1.fill(self,"collection:",{aCollection:aCollection},smalltalk.HLProgress)})},
+args: ["aCollection"],
+source: "collection: aCollection\x0a\x09collection := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluateAt:",
+category: 'actions',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self)._updateProgress_(_st(_st(anInteger).__slash(_st(_st(self)._collection())._size())).__star((100)));
+$1=_st(_st(_st(self)._collection())._size()).__gt(anInteger);
+if(smalltalk.assert($1)){
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(_st(self)._workBlock())._value_(_st(_st(self)._collection())._at_(anInteger));
+return _st(self)._evaluateAt_(_st(anInteger).__plus((1)));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((10));
+} else {
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._remove();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((500));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"evaluateAt:",{anInteger:anInteger},smalltalk.HLProgress)})},
+args: ["anInteger"],
+source: "evaluateAt: anInteger\x0a\x09self updateProgress: (anInteger / self collection size) * 100.\x0a\x09self collection size > anInteger \x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09[ \x0a\x09\x09\x09\x09self workBlock value: (self collection at: anInteger).\x0a\x09\x09\x09\x09self evaluateAt: anInteger + 1 ] valueWithTimeout: 10 ]\x0a\x09\x09ifFalse: [ [ self remove ] valueWithTimeout: 500 ]",
+messageSends: ["updateProgress:", "*", "/", "size", "collection", "ifTrue:ifFalse:", "valueWithTimeout:", "value:", "at:", "workBlock", "evaluateAt:", "+", "remove", ">"],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@label"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLProgress)})},
+args: [],
+source: "label\x0a\x09^ label",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@label"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.HLProgress)})},
+args: ["aString"],
+source: "label: aString\x0a\x09label := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLProgress)})},
+args: ["html"],
+source: "renderButtonsOn: html",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$4,$2;
+_st(_st(html)._span())._with_(_st(self)._label());
+$1=_st(html)._div();
+_st($1)._class_("progress");
+$2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(html)._div();
+_st($3)._class_("bar");
+$4=_st($3)._style_("width: 0%");
+self["@progressBar"]=$4;
+return self["@progressBar"];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLProgress)})},
+args: ["html"],
+source: "renderMainOn: html\x0a\x09html span with: self label.\x0a\x09html div \x0a\x09\x09class: 'progress';\x0a\x09\x09with: [\x0a\x09\x09\x09progressBar := html div \x0a\x09\x09\x09\x09class: 'bar';\x0a\x09\x09\x09\x09style: 'width: 0%' ]",
+messageSends: ["with:", "label", "span", "class:", "div", "style:"],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "start",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._evaluateAt_((1));
+return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.HLProgress)})},
+args: [],
+source: "start\x0a\x09\x22Make sure the UI has some time to update itself between each iteration\x22\x0a\x09\x0a\x09self evaluateAt: 1",
+messageSends: ["evaluateAt:"],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "updateProgress:",
+category: 'actions',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self["@progressBar"])._asJQuery())._css_put_("width",_st(_st(anInteger)._asString()).__comma("%"));
+return self}, function($ctx1) {$ctx1.fill(self,"updateProgress:",{anInteger:anInteger},smalltalk.HLProgress)})},
+args: ["anInteger"],
+source: "updateProgress: anInteger\x0a\x09progressBar asJQuery css: 'width' put: anInteger asString, '%'",
+messageSends: ["css:put:", ",", "asString", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "workBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@workBlock"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"workBlock",{},smalltalk.HLProgress)})},
+args: [],
+source: "workBlock\x0a\x09^ workBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "workBlock:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@workBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"workBlock:",{aBlock:aBlock},smalltalk.HLProgress)})},
+args: ["aBlock"],
+source: "workBlock: aBlock\x0a\x09workBlock := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLProgress);
+
 
 
 smalltalk.addClass('HLSUnit', smalltalk.HLWidget, [], 'Helios-Core');

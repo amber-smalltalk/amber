@@ -823,17 +823,17 @@ function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?ni
 function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
-_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_((function(commitStrategy){
+_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_displayingProgress_((function(commitStrategy){
 var fileContents;
 return smalltalk.withContext(function($ctx2) {
 fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(_st(aPackage)._name());
 fileContents;
 return _st(self)._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
-}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}),_st("Committing package ").__comma(_st(aPackage)._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
 args: ["aPackage"],
-source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: aPackage name).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]",
-messageSends: ["do:", "exportPackage:", "name", "new", "key", "ajaxPutAt:data:", "value", "->", ",", "commitPathJs", "commitPathSt"],
+source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: aPackage name).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
+messageSends: ["do:displayingProgress:", "exportPackage:", "name", "new", "key", "ajaxPutAt:data:", "value", ",", "->", "commitPathJs", "commitPathSt"],
 referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 }),
 smalltalk.PackageHandler);

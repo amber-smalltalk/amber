@@ -436,6 +436,9 @@ i {
     border-bottom: 1px solid #666;
     background-color: #e9eaf5;
     background-image: -webkit-linear-gradient(top, #e9eaf5, #bfc2d2);
+    background-image: -moz-linear-gradient(top, #e9eaf5, #bfc2d2);
+    background-image: -o-linear-gradient(top, #e9eaf5, #bfc2d2);
+    background-image: linear-gradient(top, #e9eaf5, #bfc2d2);
     color: #222;
     font-weight: bold;
     text-shadow: 0 0 0;
@@ -718,6 +721,14 @@ i {
     height: 200px;
 }
 
+.dialog .progress .bar {
+    background-color: #e9eaf5;
+    background-image: -webkit-linear-gradient(top, #B1BDD5, #8999b8);
+    background-image: -moz-linear-gradient(top, #B1BDD5, #8999b8);
+    background-image: -o-linear-gradient(top, #B1BDD5, #8999b8);
+    background-image: linear-gradient(top, #B1BDD5, #8999b8);
+ 
+}
 
 .confirmation span,
 .dialog span {

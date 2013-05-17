@@ -404,6 +404,23 @@ on: anEnvironment
         yourself
 ! !
 
+ProgressHandler subclass: #HLProgressHandler
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLProgressHandler commentStamp!
+I am a specific progress handler for Helios, displaying progresses in a modal window.!
+
+!HLProgressHandler methodsFor: 'progress handling'!
+
+do: aBlock on: aCollection displaying: aString
+	HLProgress new
+		label: aString;
+		workBlock: aBlock;
+		collection: aCollection;
+		appendToJQuery: 'body' asJQuery;
+		start
+! !
+
 Widget subclass: #HLTab
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!
@@ -650,145 +667,6 @@ tabPriority
 
 canBeOpenAsTab
 	^ false
-! !
-
-HLWidget subclass: #HLConfirmation
-	instanceVariableNames: 'confirmationString actionBlock cancelBlock'
-	package: 'Helios-Core'!
-!HLConfirmation commentStamp!
-I display confirmation messages. 
-
-Instead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.!
-
-!HLConfirmation methodsFor: 'accessing'!
-
-actionBlock
-	^ actionBlock ifNil: [ [] ]
-!
-
-actionBlock: aBlock
-	actionBlock := aBlock
-!
-
-cancelBlock
-	^ cancelBlock ifNil: [ [] ]
-!
-
-cancelBlock: aBlock
-	cancelBlock := aBlock
-!
-
-confirmationString
-	^ confirmationString ifNil: [ 'Confirm' ]
-!
-
-confirmationString: aString
-	confirmationString := aString
-!
-
-cssClass
-	^ ''
-! !
-
-!HLConfirmation methodsFor: 'actions'!
-
-cancel
-	self cancelBlock value.
-	self remove
-!
-
-confirm
-	self actionBlock value.
-	self remove
-!
-
-remove
-	(window jQuery: '.dialog') removeClass: 'active'.
-	[ 
-		(window jQuery: '#overlay') remove.
-		(window jQuery: '.dialog') remove
-	] valueWithTimeout: 300
-! !
-
-!HLConfirmation methodsFor: 'rendering'!
-
-renderButtonsOn: html
-	| confirmButton |
-	
-	html div 
-		class: 'buttons';
-		with: [
-			html button
-				class: 'button';
-				with: 'Cancel';
-				onClick: [ self cancel ].
-			confirmButton := html button
-				class: 'button default';
-				with: 'Confirm';
-				onClick: [ self confirm ] ].
-
-	confirmButton asJQuery focus
-!
-
-renderContentOn: html
-	| confirmButton |
-	
-	html div id: 'overlay'.
-	html div 
-		class: 'dialog ', self cssClass;
-		with: [
-			self
-				renderMainOn: html;
-				renderButtonsOn: html ].
-
-	(window jQuery: '.dialog') addClass: 'active'.
-	self setupKeyBindings
-!
-
-renderMainOn: html
-	html span with: self confirmationString
-!
-
-setupKeyBindings
-	(window jQuery: '.dialog') keyup: [ :e |
-		e keyCode = 27 ifTrue: [ self cancel ] ]
-! !
-
-HLConfirmation subclass: #HLRequest
-	instanceVariableNames: 'input value'
-	package: 'Helios-Core'!
-!HLRequest commentStamp!
-I display a modal window requesting user input.
-
-Instead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.!
-
-!HLRequest methodsFor: 'accessing'!
-
-cssClass
-	^ 'large'
-!
-
-value
-	^ value ifNil: [ '' ]
-!
-
-value: aString
-	value := aString
-! !
-
-!HLRequest methodsFor: 'actions'!
-
-confirm
-	self actionBlock value: input asJQuery val.
-	self remove
-! !
-
-!HLRequest methodsFor: 'rendering'!
-
-renderMainOn: html
-	super renderMainOn: html.
-	input := html textarea.
-	input asJQuery val: self value
 ! !
 
 HLWidget subclass: #HLFocusableWidget
@@ -1324,6 +1202,10 @@ registerInspector: anInspector
 	self environment registerInspector: anInspector
 !
 
+registerProgressHandler: aProgressHandler
+	self environment registerProgressHandler: aProgressHandler
+!
+
 removeActiveTab
 	self removeTab: self activeTab
 !
@@ -1379,7 +1261,8 @@ defaultEnvironment
 initialize
 	super initialize.
 	self registerInspector: HLInspector.
-	self registerErrorHandler: HLErrorHandler.
+	self registerErrorHandler: ErrorHandler current.
+	self registerProgressHandler: ProgressHandler current.
     self keyBinder setupEvents
 ! !
 
@@ -1465,6 +1348,245 @@ new
 	"Use current instead"
 
 	self shouldNotImplement
+! !
+
+HLWidget subclass: #HLModal
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLModal commentStamp!
+I implement an abstract modal widget.!
+
+!HLModal methodsFor: 'accessing'!
+
+cssClass
+	^ ''
+! !
+
+!HLModal methodsFor: 'actions'!
+
+cancel
+	self remove
+!
+
+remove
+	(window jQuery: '.dialog') removeClass: 'active'.
+	[ 
+		(window jQuery: '#overlay') remove.
+		(window jQuery: '.dialog') remove
+	] valueWithTimeout: 300
+! !
+
+!HLModal methodsFor: 'rendering'!
+
+renderButtonsOn: html
+!
+
+renderContentOn: html
+	| confirmButton |
+	
+	html div id: 'overlay'.
+	html div 
+		class: 'dialog ', self cssClass;
+		with: [
+			self
+				renderMainOn: html;
+				renderButtonsOn: html ].
+
+	(window jQuery: '.dialog') addClass: 'active'.
+	self setupKeyBindings
+!
+
+renderMainOn: html
+!
+
+setupKeyBindings
+	(window jQuery: '.dialog') keyup: [ :e |
+		e keyCode = 27 ifTrue: [ self cancel ] ]
+! !
+
+HLModal subclass: #HLConfirmation
+	instanceVariableNames: 'confirmationString actionBlock cancelBlock'
+	package: 'Helios-Core'!
+!HLConfirmation commentStamp!
+I display confirmation messages. 
+
+Instead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.!
+
+!HLConfirmation methodsFor: 'accessing'!
+
+actionBlock
+	^ actionBlock ifNil: [ [] ]
+!
+
+actionBlock: aBlock
+	actionBlock := aBlock
+!
+
+cancelBlock
+	^ cancelBlock ifNil: [ [] ]
+!
+
+cancelBlock: aBlock
+	cancelBlock := aBlock
+!
+
+confirmationString
+	^ confirmationString ifNil: [ 'Confirm' ]
+!
+
+confirmationString: aString
+	confirmationString := aString
+! !
+
+!HLConfirmation methodsFor: 'actions'!
+
+cancel
+	self cancelBlock value.
+	self remove
+!
+
+confirm
+	self actionBlock value.
+	self remove
+!
+
+remove
+	(window jQuery: '.dialog') removeClass: 'active'.
+	[ 
+		(window jQuery: '#overlay') remove.
+		(window jQuery: '.dialog') remove
+	] valueWithTimeout: 300
+! !
+
+!HLConfirmation methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	| confirmButton |
+	
+	html div 
+		class: 'buttons';
+		with: [
+			html button
+				class: 'button';
+				with: 'Cancel';
+				onClick: [ self cancel ].
+			confirmButton := html button
+				class: 'button default';
+				with: 'Confirm';
+				onClick: [ self confirm ] ].
+
+	confirmButton asJQuery focus
+!
+
+renderMainOn: html
+	html span with: self confirmationString
+! !
+
+HLConfirmation subclass: #HLRequest
+	instanceVariableNames: 'input value'
+	package: 'Helios-Core'!
+!HLRequest commentStamp!
+I display a modal window requesting user input.
+
+Instead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.!
+
+!HLRequest methodsFor: 'accessing'!
+
+cssClass
+	^ 'large'
+!
+
+value
+	^ value ifNil: [ '' ]
+!
+
+value: aString
+	value := aString
+! !
+
+!HLRequest methodsFor: 'actions'!
+
+confirm
+	self actionBlock value: input asJQuery val.
+	self remove
+! !
+
+!HLRequest methodsFor: 'rendering'!
+
+renderMainOn: html
+	super renderMainOn: html.
+	input := html textarea.
+	input asJQuery val: self value
+! !
+
+HLModal subclass: #HLProgress
+	instanceVariableNames: 'label workBlock collection progressBar'
+	package: 'Helios-Core'!
+!HLProgress commentStamp!
+I am a widget used to display progress modal dialogs.
+
+See `HLProgressHandler`!
+
+!HLProgress methodsFor: 'accessing'!
+
+collection
+	^ collection
+!
+
+collection: aCollection
+	collection := aCollection
+!
+
+label
+	^ label
+!
+
+label: aString
+	label := aString
+!
+
+workBlock
+	^ workBlock
+!
+
+workBlock: aBlock
+	workBlock := aBlock
+! !
+
+!HLProgress methodsFor: 'actions'!
+
+evaluateAt: anInteger
+	self updateProgress: (anInteger / self collection size) * 100.
+	self collection size > anInteger 
+		ifTrue: [ 
+			self workBlock value: (self collection at: anInteger).
+			[ self evaluateAt: anInteger + 1 ] valueWithTimeout: 1 ]
+		ifFalse: [ [ self remove ] valueWithTimeout: 500 ]
+!
+
+start
+	"Make sure the UI has some time to update itself between each iteration"
+	
+	self evaluateAt: 1
+!
+
+updateProgress: anInteger
+	progressBar asJQuery css: 'width' put: anInteger asString, '%'
+! !
+
+!HLProgress methodsFor: 'rendering'!
+
+renderButtonsOn: html
+!
+
+renderMainOn: html
+	html span with: self label.
+	html div 
+		class: 'progress progress-stripped progress-info active';
+		with: [
+			progressBar := html div 
+				class: 'bar';
+				style: 'width: 0%' ]
 ! !
 
 HLWidget subclass: #HLSUnit

@@ -555,19 +555,18 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(aClass)._methodDictionary())._do_((function(each){
+_st(_st(_st(aClass)._methodDictionary())._values())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
-_st(console)._log_(_st(_st(_st(aClass)._name()).__comma(" >> ")).__comma(_st(each)._selector()));
 return _st(self)._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),_st("Recompiling ").__comma(_st(aClass)._name()));
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 _st(self)._recompile_(_st(aClass)._class());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},smalltalk.Compiler)})},
 args: ["aClass"],
-source: "recompile: aClass\x0a\x09aClass methodDictionary do: [:each |\x0a\x09\x09console log: aClass name, ' >> ', each selector.\x0a\x09\x09self install: each source forClass: aClass category: each category].\x0a\x09\x22self setupClass: aClass.\x22\x0a\x09aClass isMetaclass ifFalse: [self recompile: aClass class]",
-messageSends: ["do:", "log:", ",", "selector", "name", "install:forClass:category:", "source", "category", "methodDictionary", "ifFalse:", "recompile:", "class", "isMetaclass"],
+source: "recompile: aClass\x0a\x09aClass methodDictionary values\x0a\x09\x09do: [ :each | self install: each source forClass: aClass category: each category ]\x0a\x09\x09displayingProgress: 'Recompiling ', aClass name.\x0a\x09\x22self setupClass: aClass.\x22\x0a\x09aClass isMetaclass ifFalse: [ self recompile: aClass class ]",
+messageSends: ["do:displayingProgress:", "install:forClass:category:", "source", "category", ",", "name", "values", "methodDictionary", "ifFalse:", "recompile:", "class", "isMetaclass"],
 referencedClasses: []
 }),
 smalltalk.Compiler);

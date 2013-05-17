@@ -195,11 +195,11 @@ parseExpression: aString
 !
 
 recompile: aClass
-	aClass methodDictionary do: [:each |
-		console log: aClass name, ' >> ', each selector.
-		self install: each source forClass: aClass category: each category].
+	aClass methodDictionary values
+		do: [ :each | self install: each source forClass: aClass category: each category ]
+		displayingProgress: 'Recompiling ', aClass name.
 	"self setupClass: aClass."
-	aClass isMetaclass ifFalse: [self recompile: aClass class]
+	aClass isMetaclass ifFalse: [ self recompile: aClass class ]
 !
 
 recompileAll
