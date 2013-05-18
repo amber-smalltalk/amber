@@ -721,6 +721,10 @@ i {
     height: 200px;
 }
 
+.dialog .progress {
+    height: 5px;
+}
+
 .dialog .progress .bar {
     background-color: #e9eaf5;
     background-image: -webkit-linear-gradient(top, #B1BDD5, #8999b8);

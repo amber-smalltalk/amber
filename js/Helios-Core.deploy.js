@@ -864,15 +864,9 @@ fn: function (aBlock,aCollection,aString){
 var self=this;
 function $HLProgress(){return smalltalk.HLProgress||(typeof HLProgress=="undefined"?nil:HLProgress)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st($HLProgress())._new();
-_st($1)._label_(aString);
-_st($1)._workBlock_(aBlock);
-_st($1)._collection_(aCollection);
-_st($1)._appendToJQuery_(_st("body")._asJQuery());
-$2=_st($1)._start();
+_st(_st($HLProgress())._default())._do_on_displaying_(aBlock,aCollection,aString);
 return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString},smalltalk.HLProgressHandler)})},
-messageSends: ["label:", "new", "workBlock:", "collection:", "appendToJQuery:", "asJQuery", "start"]}),
+messageSends: ["do:on:displaying:", "default"]}),
 smalltalk.HLProgressHandler);
 
 
@@ -3299,7 +3293,179 @@ smalltalk.HLRequest);
 
 
 
-smalltalk.addClass('HLProgress', smalltalk.HLModal, ['label', 'workBlock', 'collection', 'progressBar'], 'Helios-Core');
+smalltalk.addClass('HLProgress', smalltalk.HLModal, ['progressBars', 'visible'], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addProgressBar:",
+fn: function (aProgressBar){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._show();
+_st(_st(self)._progressBars())._add_(aProgressBar);
+_st(aProgressBar)._appendToJQuery_(_st(_st(_st(self)._wrapper())._asJQuery())._find_(".dialog"));
+return self}, function($ctx1) {$ctx1.fill(self,"addProgressBar:",{aProgressBar:aProgressBar},smalltalk.HLProgress)})},
+messageSends: ["show", "add:", "progressBars", "appendToJQuery:", "find:", "asJQuery", "wrapper"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:on:displaying:",
+fn: function (aBlock,aCollection,aString){
+var self=this;
+var progressBar;
+function $HLProgressBar(){return smalltalk.HLProgressBar||(typeof HLProgressBar=="undefined"?nil:HLProgressBar)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLProgressBar())._new();
+_st($1)._parent_(self);
+_st($1)._label_(aString);
+_st($1)._workBlock_(aBlock);
+_st($1)._collection_(aCollection);
+$2=_st($1)._yourself();
+progressBar=$2;
+_st(self)._addProgressBar_(progressBar);
+_st(progressBar)._start();
+return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString,progressBar:progressBar},smalltalk.HLProgress)})},
+messageSends: ["parent:", "new", "label:", "workBlock:", "collection:", "yourself", "addProgressBar:", "start"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isVisible",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@visible"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=false;
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isVisible",{},smalltalk.HLProgress)})},
+messageSends: ["ifNil:"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "progressBars",
+fn: function (){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@progressBars"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@progressBars"]=_st($OrderedCollection())._new();
+$1=self["@progressBars"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"progressBars",{},smalltalk.HLProgress)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._isVisible();
+if(smalltalk.assert($1)){
+self["@visible"]=false;
+self["@visible"];
+smalltalk.HLModal.fn.prototype._remove.apply(_st(self), []);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLProgress)})},
+messageSends: ["ifTrue:", "remove", "isVisible"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeProgressBar:",
+fn: function (aProgressBar){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._progressBars())._remove_ifAbsent_(aProgressBar,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(_st(aProgressBar)._wrapper())._asJQuery())._remove();
+_st(_st(self)._progressBars())._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._remove();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"removeProgressBar:",{aProgressBar:aProgressBar},smalltalk.HLProgress)})},
+messageSends: ["remove:ifAbsent:", "progressBars", "remove", "asJQuery", "wrapper", "ifEmpty:"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderButtonsOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLProgress)})},
+messageSends: []}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._progressBars())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(html)._with_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLProgress)})},
+messageSends: ["do:", "with:", "progressBars"]}),
+smalltalk.HLProgress);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "show",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self)._isVisible();
+if(! smalltalk.assert($1)){
+self["@visible"]=true;
+self["@visible"];
+_st(self)._appendToJQuery_(_st("body")._asJQuery());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.HLProgress)})},
+messageSends: ["ifFalse:", "appendToJQuery:", "asJQuery", "isVisible"]}),
+smalltalk.HLProgress);
+
+
+smalltalk.HLProgress.klass.iVarNames = ['default'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "default",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@default"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@default"]=_st(self)._new();
+$1=self["@default"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.HLProgress.klass)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLProgress.klass);
+
+
+smalltalk.addClass('HLProgressBar', smalltalk.HLWidget, ['label', 'parent', 'workBlock', 'collection', 'bar'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
@@ -3309,9 +3475,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self["@collection"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.HLProgress)})},
+}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3320,9 +3486,9 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@collection"]=aCollection;
-return self}, function($ctx1) {$ctx1.fill(self,"collection:",{aCollection:aCollection},smalltalk.HLProgress)})},
+return self}, function($ctx1) {$ctx1.fill(self,"collection:",{aCollection:aCollection},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3345,9 +3511,9 @@ return smalltalk.withContext(function($ctx2) {
 return _st(self)._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((500));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"evaluateAt:",{anInteger:anInteger},smalltalk.HLProgress)})},
+return self}, function($ctx1) {$ctx1.fill(self,"evaluateAt:",{anInteger:anInteger},smalltalk.HLProgressBar)})},
 messageSends: ["updateProgress:", "*", "/", "size", "collection", "ifTrue:ifFalse:", "valueWithTimeout:", "value:", "at:", "workBlock", "evaluateAt:", "+", "remove", ">"]}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3358,9 +3524,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self["@label"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLProgress)})},
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3369,23 +3535,48 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@label"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.HLProgress)})},
+return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderButtonsOn:",
-fn: function (html){
+selector: "parent",
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLProgress)})},
+var $1;
+$1=self["@parent"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parent",{},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderMainOn:",
+selector: "parent:",
+fn: function (aProgress){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@parent"]=aProgress;
+return self}, function($ctx1) {$ctx1.fill(self,"parent:",{aProgress:aProgress},smalltalk.HLProgressBar)})},
+messageSends: []}),
+smalltalk.HLProgressBar);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._parent())._removeProgressBar_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLProgressBar)})},
+messageSends: ["removeProgressBar:", "parent"]}),
+smalltalk.HLProgressBar);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3398,12 +3589,12 @@ return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._div();
 _st($3)._class_("bar");
 $4=_st($3)._style_("width: 0%");
-self["@progressBar"]=$4;
-return self["@progressBar"];
+self["@bar"]=$4;
+return self["@bar"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLProgress)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLProgressBar)})},
 messageSends: ["with:", "label", "span", "class:", "div", "style:"]}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3412,9 +3603,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self)._evaluateAt_((1));
-return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.HLProgress)})},
+return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.HLProgressBar)})},
 messageSends: ["evaluateAt:"]}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3422,10 +3613,10 @@ selector: "updateProgress:",
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@progressBar"])._asJQuery())._css_put_("width",_st(_st(anInteger)._asString()).__comma("%"));
-return self}, function($ctx1) {$ctx1.fill(self,"updateProgress:",{anInteger:anInteger},smalltalk.HLProgress)})},
+_st(_st(self["@bar"])._asJQuery())._css_put_("width",_st(_st(anInteger)._asString()).__comma("%"));
+return self}, function($ctx1) {$ctx1.fill(self,"updateProgress:",{anInteger:anInteger},smalltalk.HLProgressBar)})},
 messageSends: ["css:put:", ",", "asString", "asJQuery"]}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3436,9 +3627,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self["@workBlock"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"workBlock",{},smalltalk.HLProgress)})},
+}, function($ctx1) {$ctx1.fill(self,"workBlock",{},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -3447,10 +3638,30 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@workBlock"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"workBlock:",{aBlock:aBlock},smalltalk.HLProgress)})},
+return self}, function($ctx1) {$ctx1.fill(self,"workBlock:",{aBlock:aBlock},smalltalk.HLProgressBar)})},
 messageSends: []}),
-smalltalk.HLProgress);
+smalltalk.HLProgressBar);
 
+
+smalltalk.HLProgressBar.klass.iVarNames = ['default'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "default",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@default"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@default"]=_st(self)._new();
+$1=self["@default"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.HLProgressBar.klass)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLProgressBar.klass);
 
 
 smalltalk.addClass('HLSUnit', smalltalk.HLWidget, [], 'Helios-Core');

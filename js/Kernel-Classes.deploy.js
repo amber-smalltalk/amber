@@ -1276,10 +1276,10 @@ return _st(exception)._signal();
 $3=self;
 _st($3)._rawRenameClass_to_(oldClass,tmp);
 $4=_st($3)._rawRenameClass_to_(newClass,className);
-_st(_st(oldClass)._subclasses())._do_((function(each){
+_st(_st(oldClass)._subclasses())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._migrateClass_superclass_(each,newClass);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),_st(_st("Recompiling ").__comma(_st(newClass)._name())).__comma("..."));
 _st(self)._basicRemoveClass_(oldClass);
 $5=_st($ClassMigrated())._new();
 _st($5)._theClass_(newClass);
@@ -1289,7 +1289,7 @@ _st(_st($SystemAnnouncer())._current())._announce_($6);
 $7=newClass;
 return $7;
 }, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{className:className,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp},smalltalk.ClassBuilder)})},
-messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:", "rawRenameClass:to:", "do:", "migrateClass:superclass:", "subclasses", "announce:", "theClass:", "new", "oldClass:", "yourself"]}),
+messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:", "rawRenameClass:to:", "do:displayingProgress:", "migrateClass:superclass:", "name", "subclasses", "announce:", "theClass:", "new", "oldClass:", "yourself"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(

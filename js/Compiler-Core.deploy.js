@@ -433,23 +433,14 @@ smalltalk.method({
 selector: "recompileAll",
 fn: function (){
 var self=this;
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-_st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
+_st(_st(_st($Smalltalk())._current())._classes())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$1=$Transcript();
-_st($1)._show_(each);
-$2=_st($1)._cr();
-$2;
-return _st((function(){
-return smalltalk.withContext(function($ctx3) {
 return _st(self)._recompile_(each);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._valueWithTimeout_((100));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),"Compiling all classes...");
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler)})},
-messageSends: ["do:", "show:", "cr", "valueWithTimeout:", "recompile:", "classes", "current"]}),
+messageSends: ["do:displayingProgress:", "recompile:", "classes", "current"]}),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
@@ -534,6 +525,23 @@ smalltalk.Compiler.klass);
 
 
 smalltalk.addClass('DoIt', smalltalk.Object, [], 'Compiler-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "xxxDoIt",
+fn: function (){
+var self=this;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($Compiler())._new())._recompileAll();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.DoIt)})},
+messageSends: ["value", "recompileAll", "new"]}),
+smalltalk.DoIt);
+
 
 
 smalltalk.addClass('NodeVisitor', smalltalk.Object, [], 'Compiler-Core');
