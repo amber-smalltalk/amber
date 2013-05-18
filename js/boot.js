@@ -576,7 +576,8 @@ function Smalltalk() {
 				st.thisContext = undefined;
                 // Throw the exception anyway, as we want to stop
                 // the execution to avoid infinite loops
-				throw error;
+                // Update: do not throw the exception. It's really annoying.
+				// throw error;
 			}
 		}
 	};
