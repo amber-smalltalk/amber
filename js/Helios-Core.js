@@ -1033,31 +1033,31 @@ selector: "withCompileErrorHandling:",
 category: 'error handling',
 fn: function (aBlock){
 var self=this;
-function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
-function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 function $ParseError(){return smalltalk.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
+function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
 return smalltalk.withContext(function($ctx1) { 
-_st((function(){
+_st(_st(self)._environment())._evaluate_on_do_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st((function(){
+return _st(_st(self)._environment())._evaluate_on_do_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(aBlock)._on_do_($ParseError(),(function(ex){
+return _st(_st(self)._environment())._evaluate_on_do_(aBlock,$ParseError(),(function(ex){
 return smalltalk.withContext(function($ctx4) {
 return _st(self)._handleParseError_(ex);
-}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_($UnknownVariableError(),(function(ex){
+}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),$UnknownVariableError(),(function(ex){
 return smalltalk.withContext(function($ctx3) {
 return _st(self)._handleUnkownVariableError_(ex);
-}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($CompilerError(),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$CompilerError(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._handleCompileError_(ex);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withCompileErrorHandling:",{aBlock:aBlock},smalltalk.HLToolModel)})},
 args: ["aBlock"],
-source: "withCompileErrorHandling: aBlock\x0a\x09[\x0a\x09\x09[\x0a\x09\x09\x09aBlock \x0a\x09\x09\x09\x09on: ParseError\x0a\x09\x09\x09\x09do: [:ex | self handleParseError: ex ]\x0a\x09\x09]\x0a\x09\x09\x09on: UnknownVariableError\x0a\x09\x09\x09do: [ :ex | self handleUnkownVariableError: ex ]\x0a\x09]\x0a\x09\x09on: CompilerError\x0a\x09\x09do: [ :ex | self handleCompileError: ex ]",
-messageSends: ["on:do:", "handleCompileError:", "handleUnkownVariableError:", "handleParseError:"],
-referencedClasses: ["CompilerError", "UnknownVariableError", "ParseError"]
+source: "withCompileErrorHandling: aBlock\x0a\x09self environment\x0a\x09\x09evaluate: [\x0a\x09\x09\x09self environment \x0a\x09\x09\x09evaluate: [\x0a\x09\x09\x09\x09self environment \x0a\x09\x09\x09\x09\x09evaluate: aBlock\x0a\x09\x09\x09\x09\x09on: ParseError\x0a\x09\x09\x09\x09\x09do: [:ex | self handleParseError: ex ] ]\x0a\x09\x09\x09on: UnknownVariableError\x0a\x09\x09\x09do: [ :ex | self handleUnkownVariableError: ex ] ]\x0a\x09\x09on: CompilerError\x0a\x09\x09do: [ :ex | self handleCompileError: ex ]",
+messageSends: ["evaluate:on:do:", "handleParseError:", "environment", "handleUnkownVariableError:", "handleCompileError:"],
+referencedClasses: ["ParseError", "UnknownVariableError", "CompilerError"]
 }),
 smalltalk.HLToolModel);
 
@@ -3371,20 +3371,24 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
+function $HLProgressHandler(){return smalltalk.HLProgressHandler||(typeof HLProgressHandler=="undefined"?nil:HLProgressHandler)}
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+_st($HLErrorHandler())._register();
+_st($HLProgressHandler())._register();
 _st(self)._registerInspector_($HLInspector());
 _st(self)._registerErrorHandler_(_st($ErrorHandler())._current());
 _st(self)._registerProgressHandler_(_st($ProgressHandler())._current());
 _st(_st(self)._keyBinder())._setupEvents();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self registerInspector: HLInspector.\x0a\x09self registerErrorHandler: ErrorHandler current.\x0a\x09self registerProgressHandler: ProgressHandler current.\x0a    self keyBinder setupEvents",
-messageSends: ["initialize", "registerInspector:", "registerErrorHandler:", "current", "registerProgressHandler:", "setupEvents", "keyBinder"],
-referencedClasses: ["HLInspector", "ErrorHandler", "ProgressHandler"]
+source: "initialize\x0a\x09super initialize.\x0a\x09\x0a\x09HLErrorHandler register.\x0a\x09HLProgressHandler register.\x0a\x09\x0a\x09self registerInspector: HLInspector.\x0a\x09self registerErrorHandler: ErrorHandler current.\x0a\x09self registerProgressHandler: ProgressHandler current.\x0a    self keyBinder setupEvents",
+messageSends: ["initialize", "register", "registerInspector:", "registerErrorHandler:", "current", "registerProgressHandler:", "setupEvents", "keyBinder"],
+referencedClasses: ["HLErrorHandler", "HLProgressHandler", "HLInspector", "ErrorHandler", "ProgressHandler"]
 }),
 smalltalk.HLManager);
 
@@ -4565,7 +4569,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(self)._updateProgress_(_st(_st(anInteger).__slash(_st(_st(self)._collection())._size())).__star((100)));
-$1=_st(_st(_st(self)._collection())._size()).__gt(anInteger);
+$1=_st(anInteger).__lt_eq(_st(_st(self)._collection())._size());
 if(smalltalk.assert($1)){
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -4580,8 +4584,8 @@ return _st(self)._remove();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"evaluateAt:",{anInteger:anInteger},smalltalk.HLProgressBar)})},
 args: ["anInteger"],
-source: "evaluateAt: anInteger\x0a\x09self updateProgress: (anInteger / self collection size) * 100.\x0a\x09self collection size > anInteger \x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09[ \x0a\x09\x09\x09\x09self workBlock value: (self collection at: anInteger).\x0a\x09\x09\x09\x09self evaluateAt: anInteger + 1 ] valueWithTimeout: 10 ]\x0a\x09\x09ifFalse: [ [ self remove ] valueWithTimeout: 500 ]",
-messageSends: ["updateProgress:", "*", "/", "size", "collection", "ifTrue:ifFalse:", "valueWithTimeout:", "value:", "at:", "workBlock", "evaluateAt:", "+", "remove", ">"],
+source: "evaluateAt: anInteger\x0a\x09self updateProgress: (anInteger / self collection size) * 100.\x0a\x09anInteger <= self collection size\x0a\x09\x09ifTrue: [ \x0a\x09\x09\x09[ \x0a\x09\x09\x09\x09self workBlock value: (self collection at: anInteger).\x0a\x09\x09\x09\x09self evaluateAt: anInteger + 1 ] valueWithTimeout: 10 ]\x0a\x09\x09ifFalse: [ [ self remove ] valueWithTimeout: 500 ]",
+messageSends: ["updateProgress:", "*", "/", "size", "collection", "ifTrue:ifFalse:", "valueWithTimeout:", "value:", "at:", "workBlock", "evaluateAt:", "+", "remove", "<="],
 referencedClasses: []
 }),
 smalltalk.HLProgressBar);

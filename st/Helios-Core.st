@@ -190,9 +190,9 @@ saveSourceCode
 !HLToolModel methodsFor: 'commands actions'!
 
 commitPackage
-	self 
+	"self 
 		withHelperLabelled: 'Committing package ', self selectedPackage name, '...'
-		do: [ self environment commitPackage: self selectedPackage ]
+		do: [ "self environment commitPackage: self selectedPackage" ]"
 !
 
 copyClassTo: aClassName
@@ -340,15 +340,16 @@ handleUnkownVariableError: anError
 !
 
 withCompileErrorHandling: aBlock
-	[
-		[
-			aBlock 
-				on: ParseError
-				do: [:ex | self handleParseError: ex ]
-		]
+	self environment
+		evaluate: [
+			self environment 
+			evaluate: [
+				self environment 
+					evaluate: aBlock
+					on: ParseError
+					do: [:ex | self handleParseError: ex ] ]
 			on: UnknownVariableError
-			do: [ :ex | self handleUnkownVariableError: ex ]
-	]
+			do: [ :ex | self handleUnkownVariableError: ex ] ]
 		on: CompilerError
 		do: [ :ex | self handleCompileError: ex ]
 ! !
@@ -413,12 +414,10 @@ I am a specific progress handler for Helios, displaying progresses in a modal wi
 !HLProgressHandler methodsFor: 'progress handling'!
 
 do: aBlock on: aCollection displaying: aString
-	HLProgress new
-		label: aString;
-		workBlock: aBlock;
-		collection: aCollection;
-		appendToJQuery: 'body' asJQuery;
-		start
+	HLProgress default
+		do: aBlock 
+		on: aCollection 
+		displaying: aString
 ! !
 
 Widget subclass: #HLTab
@@ -1260,6 +1259,10 @@ defaultEnvironment
 
 initialize
 	super initialize.
+	
+	HLErrorHandler register.
+	HLProgressHandler register.
+	
 	self registerInspector: HLInspector.
 	self registerErrorHandler: ErrorHandler current.
 	self registerProgressHandler: ProgressHandler current.
@@ -1520,14 +1523,93 @@ renderMainOn: html
 ! !
 
 HLModal subclass: #HLProgress
-	instanceVariableNames: 'label workBlock collection progressBar'
+	instanceVariableNames: 'progressBars visible'
 	package: 'Helios-Core'!
 !HLProgress commentStamp!
 I am a widget used to display progress modal dialogs.
 
-See `HLProgressHandler`!
+My default instance is accessed with `HLProgress >> #default`.
+
+See `HLProgressHandler`.!
 
 !HLProgress methodsFor: 'accessing'!
+
+progressBars
+	^ progressBars ifNil: [ progressBars := OrderedCollection new ]
+! !
+
+!HLProgress methodsFor: 'actions'!
+
+addProgressBar: aProgressBar
+	self show.
+	self progressBars add: aProgressBar.
+	aProgressBar appendToJQuery: (self wrapper asJQuery find: '.dialog')
+!
+
+do: aBlock on: aCollection displaying: aString
+	| progressBar |
+	
+	progressBar := HLProgressBar new
+		parent: self;
+		label: aString;
+		workBlock: aBlock;
+		collection: aCollection;
+		yourself.
+	
+	self addProgressBar: progressBar.
+	progressBar start
+!
+
+remove
+	self isVisible ifTrue: [
+		visible := false.
+		super remove ]
+!
+
+removeProgressBar: aProgressBar
+	self progressBars remove: aProgressBar ifAbsent: [].
+	aProgressBar wrapper asJQuery remove.
+	
+	self progressBars ifEmpty: [ self remove ]
+!
+
+show
+	self isVisible ifFalse: [
+		visible := true.
+		self appendToJQuery: 'body' asJQuery ]
+! !
+
+!HLProgress methodsFor: 'rendering'!
+
+renderButtonsOn: html
+!
+
+renderMainOn: html
+	self progressBars do: [ :each |
+		html with: each ]
+! !
+
+!HLProgress methodsFor: 'testing'!
+
+isVisible
+	^ visible ifNil: [ false ]
+! !
+
+HLProgress class instanceVariableNames: 'default'!
+
+!HLProgress class methodsFor: 'accessing'!
+
+default
+	^ default ifNil: [ default := self new ]
+! !
+
+HLWidget subclass: #HLProgressBar
+	instanceVariableNames: 'label parent workBlock collection bar'
+	package: 'Helios-Core'!
+!HLProgressBar commentStamp!
+I am a widget used to display a progress bar while iterating over a collection.!
+
+!HLProgressBar methodsFor: 'accessing'!
 
 collection
 	^ collection
@@ -1545,6 +1627,14 @@ label: aString
 	label := aString
 !
 
+parent
+	^ parent
+!
+
+parent: aProgress
+	parent := aProgress
+!
+
 workBlock
 	^ workBlock
 !
@@ -1553,15 +1643,20 @@ workBlock: aBlock
 	workBlock := aBlock
 ! !
 
-!HLProgress methodsFor: 'actions'!
+!HLProgressBar methodsFor: 'actions'!
 
 evaluateAt: anInteger
 	self updateProgress: (anInteger / self collection size) * 100.
-	self collection size > anInteger 
+	anInteger <= self collection size
 		ifTrue: [ 
-			self workBlock value: (self collection at: anInteger).
-			[ self evaluateAt: anInteger + 1 ] valueWithTimeout: 1 ]
+			[ 
+				self workBlock value: (self collection at: anInteger).
+				self evaluateAt: anInteger + 1 ] valueWithTimeout: 10 ]
 		ifFalse: [ [ self remove ] valueWithTimeout: 500 ]
+!
+
+remove
+	self parent removeProgressBar: self
 !
 
 start
@@ -1571,22 +1666,27 @@ start
 !
 
 updateProgress: anInteger
-	progressBar asJQuery css: 'width' put: anInteger asString, '%'
+	bar asJQuery css: 'width' put: anInteger asString, '%'
 ! !
 
-!HLProgress methodsFor: 'rendering'!
+!HLProgressBar methodsFor: 'rendering'!
 
-renderButtonsOn: html
-!
-
-renderMainOn: html
+renderContentOn: html
 	html span with: self label.
 	html div 
-		class: 'progress progress-stripped progress-info active';
+		class: 'progress';
 		with: [
-			progressBar := html div 
+			bar := html div 
 				class: 'bar';
 				style: 'width: 0%' ]
+! !
+
+HLProgressBar class instanceVariableNames: 'default'!
+
+!HLProgressBar class methodsFor: 'accessing'!
+
+default
+	^ default ifNil: [ default := self new ]
 ! !
 
 HLWidget subclass: #HLSUnit

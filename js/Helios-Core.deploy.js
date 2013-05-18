@@ -790,28 +790,28 @@ smalltalk.method({
 selector: "withCompileErrorHandling:",
 fn: function (aBlock){
 var self=this;
-function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
-function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 function $ParseError(){return smalltalk.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
+function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $CompilerError(){return smalltalk.CompilerError||(typeof CompilerError=="undefined"?nil:CompilerError)}
 return smalltalk.withContext(function($ctx1) { 
-_st((function(){
+_st(_st(self)._environment())._evaluate_on_do_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st((function(){
+return _st(_st(self)._environment())._evaluate_on_do_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(aBlock)._on_do_($ParseError(),(function(ex){
+return _st(_st(self)._environment())._evaluate_on_do_(aBlock,$ParseError(),(function(ex){
 return smalltalk.withContext(function($ctx4) {
 return _st(self)._handleParseError_(ex);
-}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))._on_do_($UnknownVariableError(),(function(ex){
+}, function($ctx4) {$ctx4.fillBlock({ex:ex},$ctx3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}),$UnknownVariableError(),(function(ex){
 return smalltalk.withContext(function($ctx3) {
 return _st(self)._handleUnkownVariableError_(ex);
-}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx1)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($CompilerError(),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$CompilerError(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._handleCompileError_(ex);
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withCompileErrorHandling:",{aBlock:aBlock},smalltalk.HLToolModel)})},
-messageSends: ["on:do:", "handleCompileError:", "handleUnkownVariableError:", "handleParseError:"]}),
+messageSends: ["evaluate:on:do:", "handleParseError:", "environment", "handleUnkownVariableError:", "handleCompileError:"]}),
 smalltalk.HLToolModel);
 
 smalltalk.addMethod(
@@ -2579,17 +2579,21 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $HLErrorHandler(){return smalltalk.HLErrorHandler||(typeof HLErrorHandler=="undefined"?nil:HLErrorHandler)}
+function $HLProgressHandler(){return smalltalk.HLProgressHandler||(typeof HLProgressHandler=="undefined"?nil:HLProgressHandler)}
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+_st($HLErrorHandler())._register();
+_st($HLProgressHandler())._register();
 _st(self)._registerInspector_($HLInspector());
 _st(self)._registerErrorHandler_(_st($ErrorHandler())._current());
 _st(self)._registerProgressHandler_(_st($ProgressHandler())._current());
 _st(_st(self)._keyBinder())._setupEvents();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager)})},
-messageSends: ["initialize", "registerInspector:", "registerErrorHandler:", "current", "registerProgressHandler:", "setupEvents", "keyBinder"]}),
+messageSends: ["initialize", "register", "registerInspector:", "registerErrorHandler:", "current", "registerProgressHandler:", "setupEvents", "keyBinder"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -3498,7 +3502,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(self)._updateProgress_(_st(_st(anInteger).__slash(_st(_st(self)._collection())._size())).__star((100)));
-$1=_st(_st(_st(self)._collection())._size()).__gt(anInteger);
+$1=_st(anInteger).__lt_eq(_st(_st(self)._collection())._size());
 if(smalltalk.assert($1)){
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -3512,7 +3516,7 @@ return _st(self)._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((500));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"evaluateAt:",{anInteger:anInteger},smalltalk.HLProgressBar)})},
-messageSends: ["updateProgress:", "*", "/", "size", "collection", "ifTrue:ifFalse:", "valueWithTimeout:", "value:", "at:", "workBlock", "evaluateAt:", "+", "remove", ">"]}),
+messageSends: ["updateProgress:", "*", "/", "size", "collection", "ifTrue:ifFalse:", "valueWithTimeout:", "value:", "at:", "workBlock", "evaluateAt:", "+", "remove", "<="]}),
 smalltalk.HLProgressBar);
 
 smalltalk.addMethod(
