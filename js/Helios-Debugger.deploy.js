@@ -612,6 +612,7 @@ function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefined"?nil:HLDebugger)}
 return smalltalk.withContext(function($ctx1) { 
+_st(self)._onErrorHandled();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($HLDebugger())._on_(_st(anError)._context()))._openAsTab();
@@ -620,7 +621,22 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st($ErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler)})},
-messageSends: ["on:do:", "handleError:", "new", "openAsTab", "on:", "context"]}),
+messageSends: ["onErrorHandled", "on:do:", "handleError:", "new", "openAsTab", "on:", "context"]}),
+smalltalk.HLErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onErrorHandled",
+fn: function (){
+var self=this;
+function $HLProgressWidget(){return smalltalk.HLProgressWidget||(typeof HLProgressWidget=="undefined"?nil:HLProgressWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLProgressWidget())._default();
+_st($1)._flush();
+$2=_st($1)._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"onErrorHandled",{},smalltalk.HLErrorHandler)})},
+messageSends: ["flush", "default", "remove"]}),
 smalltalk.HLErrorHandler);
 
 

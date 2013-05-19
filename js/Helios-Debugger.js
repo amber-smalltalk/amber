@@ -805,6 +805,7 @@ function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefined"?nil:HLDebugger)}
 return smalltalk.withContext(function($ctx1) { 
+_st(self)._onErrorHandled();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($HLDebugger())._on_(_st(anError)._context()))._openAsTab();
@@ -814,9 +815,29 @@ return _st(_st($ErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09[ \x0a\x09\x09(HLDebugger on: anError context) openAsTab \x0a\x09] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ErrorHandler new handleError: error ]",
-messageSends: ["on:do:", "handleError:", "new", "openAsTab", "on:", "context"],
+source: "handleError: anError\x0a\x09self onErrorHandled.\x0a\x0a\x09[ \x0a\x09\x09(HLDebugger on: anError context) openAsTab \x0a\x09] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ErrorHandler new handleError: error ]",
+messageSends: ["onErrorHandled", "on:do:", "handleError:", "new", "openAsTab", "on:", "context"],
 referencedClasses: ["Error", "ErrorHandler", "HLDebugger"]
+}),
+smalltalk.HLErrorHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onErrorHandled",
+category: 'error handling',
+fn: function (){
+var self=this;
+function $HLProgressWidget(){return smalltalk.HLProgressWidget||(typeof HLProgressWidget=="undefined"?nil:HLProgressWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($HLProgressWidget())._default();
+_st($1)._flush();
+$2=_st($1)._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"onErrorHandled",{},smalltalk.HLErrorHandler)})},
+args: [],
+source: "onErrorHandled\x0a\x09\x22when an error is handled, we need to make sure that\x0a\x09any progress bar widget gets removed. Because HLProgressBarWidget is asynchronous,\x0a\x09it has to be done here.\x22\x0a\x09\x0a\x09HLProgressWidget default \x0a\x09\x09flush; \x0a\x09\x09remove",
+messageSends: ["flush", "default", "remove"],
+referencedClasses: ["HLProgressWidget"]
 }),
 smalltalk.HLErrorHandler);
 

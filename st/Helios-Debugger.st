@@ -307,11 +307,23 @@ ErrorHandler subclass: #HLErrorHandler
 !HLErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
+	self onErrorHandled.
+
 	[ 
 		(HLDebugger on: anError context) openAsTab 
 	] 
 		on: Error 
 		do: [ :error | ErrorHandler new handleError: error ]
+!
+
+onErrorHandled
+	"when an error is handled, we need to make sure that
+	any progress bar widget gets removed. Because HLProgressBarWidget is asynchronous,
+	it has to be done here."
+	
+	HLProgressWidget default 
+		flush; 
+		remove
 ! !
 
 !HLErrorHandler class methodsFor: 'error handling'!
