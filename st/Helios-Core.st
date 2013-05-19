@@ -858,6 +858,7 @@ setupKeyBindings
 		
         (e which = 38 and: [ active = false ]) ifTrue: [ 
 			active := true.
+			e preventDefault.
 			self activatePreviousListItem.
         	delay := [
 				interval := [
@@ -869,10 +870,12 @@ setupKeyBindings
 							interval ifNotNil: [ interval clearInterval ].
 							delay ifNotNil: [ delay clearTimeout] ] ]
 					valueWithInterval: repeatInterval ]
-						valueWithTimeout: 300 ].
+						valueWithTimeout: 300.
+					false ].
 			
       	(e which = 40 and: [ active = false ]) ifTrue: [
             active := true.
+			e preventDefault.
 			self activateNextListItem.
         	delay := [
 				interval := [ 
@@ -884,7 +887,8 @@ setupKeyBindings
 							interval ifNotNil: [ interval clearInterval ].
 							delay ifNotNil: [ delay clearTimeout] ] ]
 					valueWithInterval: repeatInterval ]
-						valueWithTimeout: 300 ] ].
+						valueWithTimeout: 300 ].
+					false ].
 	
 	self wrapper asJQuery keyup: [ :e |
 		active ifTrue: [
