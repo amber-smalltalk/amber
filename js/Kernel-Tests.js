@@ -2344,6 +2344,36 @@ referencedClasses: ["String"]
 smalltalk.StringTest.klass);
 
 
+smalltalk.addClass('ConsoleTranscriptTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.ConsoleTranscriptTest.comment="I will try to ensure that you can print to a browser's console."
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testShow",
+category: 'tests',
+fn: function (){
+var self=this;
+var originalTranscript;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ConsoleTranscript(){return smalltalk.ConsoleTranscript||(typeof ConsoleTranscript=="undefined"?nil:ConsoleTranscript)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+originalTranscript=_st($Transcript())._current();
+_st($Transcript())._register_(_st($ConsoleTranscript())._new());
+_st(self)._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st($Transcript())._show_("Hello console!");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
+_st($Transcript())._register_(originalTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},smalltalk.ConsoleTranscriptTest)})},
+args: [],
+source: "testShow\x0a| originalTranscript |\x0aoriginalTranscript := Transcript current.\x0aTranscript register: ConsoleTranscript new.\x0aself shouldnt: [ Transcript show: 'Hello console!' ] raise: Error.\x0aTranscript register: originalTranscript.",
+messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"],
+referencedClasses: ["Transcript", "ConsoleTranscript", "Error"]
+}),
+smalltalk.ConsoleTranscriptTest);
+
+
+
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({

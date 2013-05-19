@@ -23,7 +23,7 @@ cr
 !
 
 show: anObject
-	<console.log(String(string._asString()))>
+	<console.log(String(anObject._asString()))>
 ! !
 
 !ConsoleTranscript class methodsFor: 'initialization'!

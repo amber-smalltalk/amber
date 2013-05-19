@@ -53,10 +53,10 @@ category: 'printing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-console.log(String(string._asString()));
+console.log(String(anObject._asString()));
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},smalltalk.ConsoleTranscript)})},
 args: ["anObject"],
-source: "show: anObject\x0a\x09<console.log(String(string._asString()))>",
+source: "show: anObject\x0a\x09<console.log(String(anObject._asString()))>",
 messageSends: [],
 referencedClasses: []
 }),
