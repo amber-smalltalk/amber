@@ -248,24 +248,6 @@ smalltalk.HLDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "open",
-category: 'rendering',
-fn: function (){
-var self=this;
-function $HLTab(){return smalltalk.HLTab||(typeof HLTab=="undefined"?nil:HLTab)}
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($HLManager())._current())._addTab_(_st($HLTab())._on_labelled_(self,_st(_st(self)._class())._tabLabel()));
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.HLDebugger)})},
-args: [],
-source: "open\x0a\x09HLManager current addTab: (HLTab on: self labelled: self class tabLabel)",
-messageSends: ["addTab:", "on:labelled:", "tabLabel", "class", "current"],
-referencedClasses: ["HLTab", "HLManager"]
-}),
-smalltalk.HLDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "registerBindingsOn:",
 category: 'keybindings',
 fn: function (aBindingGroup){
@@ -825,15 +807,15 @@ function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefin
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($HLDebugger())._on_(_st(anError)._context()))._open();
+return _st(_st($HLDebugger())._on_(_st(anError)._context()))._openAsTab();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($ErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09[ (HLDebugger on: anError context)\x0a\x09\x09open ] on: Error do: [ :error |\x0a\x09\x09\x09ErrorHandler new handleError: error ]",
-messageSends: ["on:do:", "handleError:", "new", "open", "on:", "context"],
+source: "handleError: anError\x0a\x09[ \x0a\x09\x09(HLDebugger on: anError context) openAsTab \x0a\x09] \x0a\x09\x09on: Error \x0a\x09\x09do: [ :error | ErrorHandler new handleError: error ]",
+messageSends: ["on:do:", "handleError:", "new", "openAsTab", "on:", "context"],
 referencedClasses: ["Error", "ErrorHandler", "HLDebugger"]
 }),
 smalltalk.HLErrorHandler);

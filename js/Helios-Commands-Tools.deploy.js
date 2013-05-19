@@ -399,10 +399,10 @@ function $HLReferences(){return smalltalk.HLReferences||(typeof HLReferences=="u
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st($HLReferences())._new();
-_st($1)._open();
+_st($1)._openAsTab();
 $2=_st($1)._search_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindReferencesCommand)})},
-messageSends: ["open", "new", "search:", "input"]}),
+messageSends: ["openAsTab", "new", "search:", "input"]}),
 smalltalk.HLFindReferencesCommand);
 
 smalltalk.addMethod(

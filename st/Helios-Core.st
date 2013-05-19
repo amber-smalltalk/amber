@@ -134,6 +134,7 @@ selectedMethod: aCompiledMethod
     		ifNil: [ selectedSelector := nil ]
       		ifNotNil: [
 				selectedClass := aCompiledMethod methodClass.
+				selectedPackage := selectedClass theNonMetaClass package.
 				selectedSelector := aCompiledMethod selector ].
 
 		self announcer announce: (HLMethodSelected on: aCompiledMethod) ]
@@ -414,16 +415,16 @@ I am a specific progress handler for Helios, displaying progresses in a modal wi
 !HLProgressHandler methodsFor: 'progress handling'!
 
 do: aBlock on: aCollection displaying: aString
-	HLProgress default
+	HLProgressWidget default
 		do: aBlock 
 		on: aCollection 
 		displaying: aString
 ! !
 
-Widget subclass: #HLTab
+Widget subclass: #HLTabWidget
 	instanceVariableNames: 'widget label root'
 	package: 'Helios-Core'!
-!HLTab commentStamp!
+!HLTabWidget commentStamp!
 I am a widget specialized into building another widget as an Helios tab.
 
 I should not be used directly, `HLWidget class >> #openAsTab` should be used instead.
@@ -432,7 +433,7 @@ I should not be used directly, `HLWidget class >> #openAsTab` should be used ins
 
     HLWorkspace openAsTab!
 
-!HLTab methodsFor: 'accessing'!
+!HLTabWidget methodsFor: 'accessing'!
 
 activate
 	self manager activate: self
@@ -477,7 +478,7 @@ widget: aWidget
 	widget := aWidget
 ! !
 
-!HLTab methodsFor: 'actions'!
+!HLTabWidget methodsFor: 'actions'!
 
 hide
 	root ifNotNil: [ root asJQuery css: 'visibility' put: 'hidden' ]
@@ -498,7 +499,7 @@ show
 		ifNotNil: [ root asJQuery css: 'visibility' put: 'visible' ]
 ! !
 
-!HLTab methodsFor: 'rendering'!
+!HLTabWidget methodsFor: 'rendering'!
 
 renderOn: html
 	root := html div
@@ -514,13 +515,13 @@ renderTab
 			with: [ self widget renderOn: html ] ]
 ! !
 
-!HLTab methodsFor: 'testing'!
+!HLTabWidget methodsFor: 'testing'!
 
 isActive
 	^ self manager activeTab = self
 ! !
 
-!HLTab class methodsFor: 'instance creation'!
+!HLTabWidget class methodsFor: 'instance creation'!
 
 on: aWidget labelled: aString
 	^ self new
@@ -593,6 +594,10 @@ execute: aCommand
 		applyBinding: aCommand asBinding
 !
 
+openAsTab
+	HLManager current addTab: (HLTabWidget on: self labelled: self class tabLabel)
+!
+
 request: aString do: aBlock
 	self manager request: aString do: aBlock
 !
@@ -646,8 +651,7 @@ refresh
 !HLWidget class methodsFor: 'accessing'!
 
 openAsTab
-	self canBeOpenAsTab ifFalse: [ ^ self ].
-	HLManager current addTab: (HLTab on: self new labelled: self tabLabel)
+	HLManager current addTab: (HLTabWidget on: self new labelled: self tabLabel)
 !
 
 tabClass
@@ -1178,7 +1182,7 @@ addToHistory: aTab
 !
 
 confirm: aString ifFalse: aBlock
-	(HLConfirmation new
+	(HLConfirmationWidget new
 		confirmationString: aString;
 		cancelBlock: aBlock;
 		yourself)
@@ -1186,7 +1190,7 @@ confirm: aString ifFalse: aBlock
 !
 
 confirm: aString ifTrue: aBlock
-	(HLConfirmation new
+	(HLConfirmationWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
 		yourself)
@@ -1233,7 +1237,7 @@ request: aString do: aBlock
 !
 
 request: aString value: valueString do: aBlock
-	(HLRequest new
+	(HLRequestWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
 		value: valueString;
@@ -1353,19 +1357,19 @@ new
 	self shouldNotImplement
 ! !
 
-HLWidget subclass: #HLModal
+HLWidget subclass: #HLModalWidget
 	instanceVariableNames: ''
 	package: 'Helios-Core'!
-!HLModal commentStamp!
+!HLModalWidget commentStamp!
 I implement an abstract modal widget.!
 
-!HLModal methodsFor: 'accessing'!
+!HLModalWidget methodsFor: 'accessing'!
 
 cssClass
 	^ ''
 ! !
 
-!HLModal methodsFor: 'actions'!
+!HLModalWidget methodsFor: 'actions'!
 
 cancel
 	self remove
@@ -1379,7 +1383,7 @@ remove
 	] valueWithTimeout: 300
 ! !
 
-!HLModal methodsFor: 'rendering'!
+!HLModalWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
 !
@@ -1407,15 +1411,15 @@ setupKeyBindings
 		e keyCode = 27 ifTrue: [ self cancel ] ]
 ! !
 
-HLModal subclass: #HLConfirmation
+HLModalWidget subclass: #HLConfirmationWidget
 	instanceVariableNames: 'confirmationString actionBlock cancelBlock'
 	package: 'Helios-Core'!
-!HLConfirmation commentStamp!
+!HLConfirmationWidget commentStamp!
 I display confirmation messages. 
 
 Instead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.!
 
-!HLConfirmation methodsFor: 'accessing'!
+!HLConfirmationWidget methodsFor: 'accessing'!
 
 actionBlock
 	^ actionBlock ifNil: [ [] ]
@@ -1441,7 +1445,7 @@ confirmationString: aString
 	confirmationString := aString
 ! !
 
-!HLConfirmation methodsFor: 'actions'!
+!HLConfirmationWidget methodsFor: 'actions'!
 
 cancel
 	self cancelBlock value.
@@ -1461,7 +1465,7 @@ remove
 	] valueWithTimeout: 300
 ! !
 
-!HLConfirmation methodsFor: 'rendering'!
+!HLConfirmationWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
 	| confirmButton |
@@ -1485,15 +1489,15 @@ renderMainOn: html
 	html span with: self confirmationString
 ! !
 
-HLConfirmation subclass: #HLRequest
+HLConfirmationWidget subclass: #HLRequestWidget
 	instanceVariableNames: 'input value'
 	package: 'Helios-Core'!
-!HLRequest commentStamp!
+!HLRequestWidget commentStamp!
 I display a modal window requesting user input.
 
 Instead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.!
 
-!HLRequest methodsFor: 'accessing'!
+!HLRequestWidget methodsFor: 'accessing'!
 
 cssClass
 	^ 'large'
@@ -1507,14 +1511,14 @@ value: aString
 	value := aString
 ! !
 
-!HLRequest methodsFor: 'actions'!
+!HLRequestWidget methodsFor: 'actions'!
 
 confirm
 	self actionBlock value: input asJQuery val.
 	self remove
 ! !
 
-!HLRequest methodsFor: 'rendering'!
+!HLRequestWidget methodsFor: 'rendering'!
 
 renderMainOn: html
 	super renderMainOn: html.
@@ -1522,23 +1526,23 @@ renderMainOn: html
 	input asJQuery val: self value
 ! !
 
-HLModal subclass: #HLProgress
+HLModalWidget subclass: #HLProgressWidget
 	instanceVariableNames: 'progressBars visible'
 	package: 'Helios-Core'!
-!HLProgress commentStamp!
+!HLProgressWidget commentStamp!
 I am a widget used to display progress modal dialogs.
 
-My default instance is accessed with `HLProgress >> #default`.
+My default instance is accessed with `HLProgressWidget class >> #default`.
 
-See `HLProgressHandler`.!
+See `HLProgressHandler` for usage.!
 
-!HLProgress methodsFor: 'accessing'!
+!HLProgressWidget methodsFor: 'accessing'!
 
 progressBars
 	^ progressBars ifNil: [ progressBars := OrderedCollection new ]
 ! !
 
-!HLProgress methodsFor: 'actions'!
+!HLProgressWidget methodsFor: 'actions'!
 
 addProgressBar: aProgressBar
 	self show.
@@ -1549,7 +1553,7 @@ addProgressBar: aProgressBar
 do: aBlock on: aCollection displaying: aString
 	| progressBar |
 	
-	progressBar := HLProgressBar new
+	progressBar := HLProgressBarWidget new
 		parent: self;
 		label: aString;
 		workBlock: aBlock;
@@ -1579,7 +1583,7 @@ show
 		self appendToJQuery: 'body' asJQuery ]
 ! !
 
-!HLProgress methodsFor: 'rendering'!
+!HLProgressWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
 !
@@ -1589,27 +1593,27 @@ renderMainOn: html
 		html with: each ]
 ! !
 
-!HLProgress methodsFor: 'testing'!
+!HLProgressWidget methodsFor: 'testing'!
 
 isVisible
 	^ visible ifNil: [ false ]
 ! !
 
-HLProgress class instanceVariableNames: 'default'!
+HLProgressWidget class instanceVariableNames: 'default'!
 
-!HLProgress class methodsFor: 'accessing'!
+!HLProgressWidget class methodsFor: 'accessing'!
 
 default
 	^ default ifNil: [ default := self new ]
 ! !
 
-HLWidget subclass: #HLProgressBar
+HLWidget subclass: #HLProgressBarWidget
 	instanceVariableNames: 'label parent workBlock collection bar'
 	package: 'Helios-Core'!
-!HLProgressBar commentStamp!
+!HLProgressBarWidget commentStamp!
 I am a widget used to display a progress bar while iterating over a collection.!
 
-!HLProgressBar methodsFor: 'accessing'!
+!HLProgressBarWidget methodsFor: 'accessing'!
 
 collection
 	^ collection
@@ -1643,7 +1647,7 @@ workBlock: aBlock
 	workBlock := aBlock
 ! !
 
-!HLProgressBar methodsFor: 'actions'!
+!HLProgressBarWidget methodsFor: 'actions'!
 
 evaluateAt: anInteger
 	self updateProgress: (anInteger / self collection size) * 100.
@@ -1669,7 +1673,7 @@ updateProgress: anInteger
 	bar asJQuery css: 'width' put: anInteger asString, '%'
 ! !
 
-!HLProgressBar methodsFor: 'rendering'!
+!HLProgressBarWidget methodsFor: 'rendering'!
 
 renderContentOn: html
 	html span with: self label.
@@ -1681,9 +1685,9 @@ renderContentOn: html
 				style: 'width: 0%' ]
 ! !
 
-HLProgressBar class instanceVariableNames: 'default'!
+HLProgressBarWidget class instanceVariableNames: 'default'!
 
-!HLProgressBar class methodsFor: 'accessing'!
+!HLProgressBarWidget class methodsFor: 'accessing'!
 
 default
 	^ default ifNil: [ default := self new ]

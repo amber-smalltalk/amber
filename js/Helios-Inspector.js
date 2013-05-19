@@ -974,11 +974,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st($HLInspector())._new();
 _st($1)._inspect_(_st(_st(self)._model())._selectedInstVarObject());
-$2=_st($1)._open();
+$2=_st($1)._openAsTab();
 return self}, function($ctx1) {$ctx1.fill(self,"onDive",{},smalltalk.HLInspectorWidget)})},
 args: [],
-source: "onDive\x0a\x0a\x09HLInspector new \x0a\x09\x09inspect: self model selectedInstVarObject;\x0a\x09\x09open",
-messageSends: ["inspect:", "selectedInstVarObject", "model", "new", "open"],
+source: "onDive\x0a\x0a\x09HLInspector new \x0a\x09\x09inspect: self model selectedInstVarObject;\x0a\x09\x09openAsTab",
+messageSends: ["inspect:", "selectedInstVarObject", "model", "new", "openAsTab"],
 referencedClasses: ["HLInspector"]
 }),
 smalltalk.HLInspectorWidget);
@@ -1043,24 +1043,6 @@ args: [],
 source: "onPrintIt",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.HLInspectorWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "open",
-category: 'actions',
-fn: function (){
-var self=this;
-function $HLTab(){return smalltalk.HLTab||(typeof HLTab=="undefined"?nil:HLTab)}
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($HLManager())._current())._addTab_(_st($HLTab())._on_labelled_(self,_st(self)._tabLabel()));
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.HLInspectorWidget)})},
-args: [],
-source: "open\x0a\x09HLManager current addTab: (HLTab on: self labelled: self tabLabel)",
-messageSends: ["addTab:", "on:labelled:", "tabLabel", "current"],
-referencedClasses: ["HLTab", "HLManager"]
 }),
 smalltalk.HLInspectorWidget);
 
@@ -1312,11 +1294,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st(self)._new();
 _st($1)._inspect_(anObject);
-$2=_st($1)._open();
+$2=_st($1)._openAsTab();
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLInspector.klass)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open",
-messageSends: ["inspect:", "new", "open"],
+source: "inspect: anObject\x0a\x09self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09openAsTab",
+messageSends: ["inspect:", "new", "openAsTab"],
 referencedClasses: []
 }),
 smalltalk.HLInspector.klass);

@@ -213,7 +213,7 @@ defaultInput
 
 execute
 	HLReferences new 
-		open;
+		openAsTab;
 		search: self input
 ! !
 

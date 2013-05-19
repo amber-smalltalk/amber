@@ -95,10 +95,6 @@ sourceCodeWidget
 
 !HLReferences methodsFor: 'actions'!
 
-open
-	HLManager current addTab: (HLTab on: self labelled: self class tabLabel)
-!
-
 registerBindingsOn: aBindingGroup
 	HLToolCommand 
 		registerConcreteClassesOn: aBindingGroup 

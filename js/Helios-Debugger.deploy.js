@@ -192,19 +192,6 @@ smalltalk.HLDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "open",
-fn: function (){
-var self=this;
-function $HLTab(){return smalltalk.HLTab||(typeof HLTab=="undefined"?nil:HLTab)}
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($HLManager())._current())._addTab_(_st($HLTab())._on_labelled_(self,_st(_st(self)._class())._tabLabel()));
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.HLDebugger)})},
-messageSends: ["addTab:", "on:labelled:", "tabLabel", "class", "current"]}),
-smalltalk.HLDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "registerBindingsOn:",
 fn: function (aBindingGroup){
 var self=this;
@@ -627,13 +614,13 @@ function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefin
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($HLDebugger())._on_(_st(anError)._context()))._open();
+return _st(_st($HLDebugger())._on_(_st(anError)._context()))._openAsTab();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(error){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($ErrorHandler())._new())._handleError_(error);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler)})},
-messageSends: ["on:do:", "handleError:", "new", "open", "on:", "context"]}),
+messageSends: ["on:do:", "handleError:", "new", "openAsTab", "on:", "context"]}),
 smalltalk.HLErrorHandler);
 
 

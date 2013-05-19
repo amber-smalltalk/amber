@@ -555,12 +555,12 @@ function $HLReferences(){return smalltalk.HLReferences||(typeof HLReferences=="u
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st($HLReferences())._new();
-_st($1)._open();
+_st($1)._openAsTab();
 $2=_st($1)._search_(_st(self)._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
-source: "execute\x0a\x09HLReferences new \x0a\x09\x09open;\x0a\x09\x09search: self input",
-messageSends: ["open", "new", "search:", "input"],
+source: "execute\x0a\x09HLReferences new \x0a\x09\x09openAsTab;\x0a\x09\x09search: self input",
+messageSends: ["openAsTab", "new", "search:", "input"],
 referencedClasses: ["HLReferences"]
 }),
 smalltalk.HLFindReferencesCommand);

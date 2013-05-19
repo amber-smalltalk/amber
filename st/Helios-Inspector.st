@@ -311,10 +311,6 @@ observeVariablesWidget
         on: HLDiveRequested do:[ self onDive ]
 !
 
-open
-	HLManager current addTab: (HLTab on: self labelled: self tabLabel)
-!
-
 refresh
 	self 
 		refreshVariablesWidget;
@@ -343,7 +339,7 @@ onDive
 
 	HLInspector new 
 		inspect: self model selectedInstVarObject;
-		open
+		openAsTab
 !
 
 onDoneIt
@@ -424,7 +420,7 @@ tabPriority
 inspect: anObject
 	self new
 		inspect: anObject;
-		open
+		openAsTab
 ! !
 
 !HLInspector class methodsFor: 'initialization'!

@@ -185,19 +185,6 @@ smalltalk.HLReferences);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "open",
-fn: function (){
-var self=this;
-function $HLTab(){return smalltalk.HLTab||(typeof HLTab=="undefined"?nil:HLTab)}
-function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($HLManager())._current())._addTab_(_st($HLTab())._on_labelled_(self,_st(_st(self)._class())._tabLabel()));
-return self}, function($ctx1) {$ctx1.fill(self,"open",{},smalltalk.HLReferences)})},
-messageSends: ["addTab:", "on:labelled:", "tabLabel", "class", "current"]}),
-smalltalk.HLReferences);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "regexpListWidget",
 fn: function (){
 var self=this;

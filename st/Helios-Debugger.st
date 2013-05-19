@@ -112,10 +112,6 @@ onContextSelected: anAnnouncement
 
 !HLDebugger methodsFor: 'rendering'!
 
-open
-	HLManager current addTab: (HLTab on: self labelled: self class tabLabel)
-!
-
 renderContentOn: html
 	html with: (HLContainer with: (HLHorizontalSplitter
 		with: self stackListWidget
@@ -311,9 +307,11 @@ ErrorHandler subclass: #HLErrorHandler
 !HLErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
-	[ (HLDebugger on: anError context)
-		open ] on: Error do: [ :error |
-			ErrorHandler new handleError: error ]
+	[ 
+		(HLDebugger on: anError context) openAsTab 
+	] 
+		on: Error 
+		do: [ :error | ErrorHandler new handleError: error ]
 ! !
 
 !HLErrorHandler class methodsFor: 'error handling'!
