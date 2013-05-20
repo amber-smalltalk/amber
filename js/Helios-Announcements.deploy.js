@@ -28,6 +28,17 @@ smalltalk.HLAboutToChange);
 
 smalltalk.addClass('HLAnnouncement', smalltalk.Object, [], 'Helios-Announcements');
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "announcement";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.HLAnnouncement.klass)})},
+messageSends: []}),
+smalltalk.HLAnnouncement.klass);
+
 
 smalltalk.addClass('HLCodeHandled', smalltalk.HLAnnouncement, ['code'], 'Helios-Announcements');
 smalltalk.addMethod(

@@ -159,6 +159,12 @@ theClass: aClass
 	theClass := aClass
 ! !
 
+!SystemAnnouncement class methodsFor: 'helios'!
+
+heliosClass
+	^ 'announcement'
+! !
+
 SystemAnnouncement subclass: #ClassAnnouncement
 	instanceVariableNames: 'theClass'
 	package: 'Kernel-Announcements'!

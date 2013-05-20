@@ -362,6 +362,22 @@ referencedClasses: []
 smalltalk.SystemAnnouncement);
 
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "announcement";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.SystemAnnouncement.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'announcement'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.SystemAnnouncement.klass);
+
 
 smalltalk.addClass('ClassAnnouncement', smalltalk.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
 smalltalk.ClassAnnouncement.comment="I am the abstract superclass of class-related announcements."
