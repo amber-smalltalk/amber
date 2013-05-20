@@ -268,6 +268,17 @@ messageSends: []}),
 smalltalk.SystemAnnouncement);
 
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "announcement";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.SystemAnnouncement.klass)})},
+messageSends: []}),
+smalltalk.SystemAnnouncement.klass);
+
 
 smalltalk.addClass('ClassAnnouncement', smalltalk.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
