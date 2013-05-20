@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-Semantic');
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
-smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope."
+smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addArg:",
@@ -434,7 +434,7 @@ smalltalk.LexicalScope);
 
 
 smalltalk.addClass('MethodLexicalScope', smalltalk.LexicalScope, ['iVars', 'pseudoVars', 'unknownVariables', 'localReturn', 'nonLocalReturns'], 'Compiler-Semantic');
-smalltalk.MethodLexicalScope.comment="I represent a method scope."
+smalltalk.MethodLexicalScope.comment="I represent a method scope.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addIVar:",
@@ -769,7 +769,7 @@ smalltalk.MethodLexicalScope);
 
 
 smalltalk.addClass('ScopeVar', smalltalk.Object, ['scope', 'name'], 'Compiler-Semantic');
-smalltalk.ScopeVar.comment="I am an entry in a LexicalScope that gets associated with variable nodes of the same name.\x0aThere are 4 different subclasses of vars: temp vars, local vars, args, and unknown/global vars."
+smalltalk.ScopeVar.comment="I am an entry in a LexicalScope that gets associated with variable nodes of the same name.\x0aThere are 4 different subclasses of vars: temp vars, local vars, args, and unknown/global vars.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
@@ -1003,7 +1003,7 @@ smalltalk.ScopeVar.klass);
 
 
 smalltalk.addClass('AliasVar', smalltalk.ScopeVar, ['node'], 'Compiler-Semantic');
-smalltalk.AliasVar.comment="I am an internally defined variable by the compiler"
+smalltalk.AliasVar.comment="I am an internally defined variable by the compiler";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "node",
@@ -1041,7 +1041,7 @@ smalltalk.AliasVar);
 
 
 smalltalk.addClass('ArgVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
-smalltalk.ArgVar.comment="I am an argument of a method or block."
+smalltalk.ArgVar.comment="I am an argument of a method or block.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isArgVar",
@@ -1061,7 +1061,7 @@ smalltalk.ArgVar);
 
 
 smalltalk.addClass('ClassRefVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
-smalltalk.ClassRefVar.comment="I am an class reference variable"
+smalltalk.ClassRefVar.comment="I am an class reference variable";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
@@ -1099,7 +1099,7 @@ smalltalk.ClassRefVar);
 
 
 smalltalk.addClass('InstanceVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
-smalltalk.InstanceVar.comment="I am an instance variable of a method or block."
+smalltalk.InstanceVar.comment="I am an instance variable of a method or block.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
@@ -1137,7 +1137,7 @@ smalltalk.InstanceVar);
 
 
 smalltalk.addClass('PseudoVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
-smalltalk.PseudoVar.comment="I am an pseudo variable.\x0a\x0aThe five Smalltalk pseudo variables are: 'self', 'super', 'nil', 'true' and 'false'"
+smalltalk.PseudoVar.comment="I am an pseudo variable.\x0a\x0aThe five Smalltalk pseudo variables are: 'self', 'super', 'nil', 'true' and 'false'";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias",
@@ -1175,7 +1175,7 @@ smalltalk.PseudoVar);
 
 
 smalltalk.addClass('TempVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
-smalltalk.TempVar.comment="I am an temporary variable of a method or block."
+smalltalk.TempVar.comment="I am an temporary variable of a method or block.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isTempVar",
@@ -1195,7 +1195,7 @@ smalltalk.TempVar);
 
 
 smalltalk.addClass('UnknownVar', smalltalk.ScopeVar, [], 'Compiler-Semantic');
-smalltalk.UnknownVar.comment="I am an unknown variable. Amber uses unknown variables as JavaScript globals"
+smalltalk.UnknownVar.comment="I am an unknown variable. Amber uses unknown variables as JavaScript globals";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isUnknownVar",
@@ -1215,7 +1215,7 @@ smalltalk.UnknownVar);
 
 
 smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
-smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes."
+smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferences",

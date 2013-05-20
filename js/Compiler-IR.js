@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
-smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph."
+smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alias:",
@@ -670,7 +670,7 @@ smalltalk.IRASTTranslator);
 
 
 smalltalk.addClass('IRInstruction', smalltalk.Object, ['parent', 'instructions'], 'Compiler-IR');
-smalltalk.IRInstruction.comment="I am the abstract root class of the IR (intermediate representation) instructions class hierarchy.\x0aThe IR graph is used to emit JavaScript code using a JSStream."
+smalltalk.IRInstruction.comment="I am the abstract root class of the IR (intermediate representation) instructions class hierarchy.\x0aThe IR graph is used to emit JavaScript code using a JSStream.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1293,7 +1293,7 @@ smalltalk.IRClosure);
 
 
 smalltalk.addClass('IRMethod', smalltalk.IRClosureInstruction, ['theClass', 'source', 'selector', 'classReferences', 'messageSends', 'superSends', 'internalVariables'], 'Compiler-IR');
-smalltalk.IRMethod.comment="I am a method instruction"
+smalltalk.IRMethod.comment="I am a method instruction";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1578,7 +1578,7 @@ smalltalk.IRMethod);
 
 
 smalltalk.addClass('IRReturn', smalltalk.IRScopedInstruction, [], 'Compiler-IR');
-smalltalk.IRReturn.comment="I am a local return instruction."
+smalltalk.IRReturn.comment="I am a local return instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1682,7 +1682,7 @@ smalltalk.IRReturn);
 
 
 smalltalk.addClass('IRBlockReturn', smalltalk.IRReturn, [], 'Compiler-IR');
-smalltalk.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction."
+smalltalk.IRBlockReturn.comment="Smalltalk blocks return their last statement. I am a implicit block return instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1720,7 +1720,7 @@ smalltalk.IRBlockReturn);
 
 
 smalltalk.addClass('IRNonLocalReturn', smalltalk.IRReturn, [], 'Compiler-IR');
-smalltalk.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JavaScript statement.\x0a\x0aSee `IRNonLocalReturnHandling` class."
+smalltalk.IRNonLocalReturn.comment="I am a non local return instruction.\x0aNon local returns are handled using a try/catch JavaScript statement.\x0a\x0aSee `IRNonLocalReturnHandling` class.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1829,7 +1829,7 @@ smalltalk.IRTempDeclaration);
 
 
 smalltalk.addClass('IRSend', smalltalk.IRInstruction, ['selector', 'classSend', 'index'], 'Compiler-IR');
-smalltalk.IRSend.comment="I am a message send instruction."
+smalltalk.IRSend.comment="I am a message send instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -2027,7 +2027,7 @@ smalltalk.IRBlockSequence);
 
 
 smalltalk.addClass('IRValue', smalltalk.IRInstruction, ['value'], 'Compiler-IR');
-smalltalk.IRValue.comment="I am the simplest possible instruction. I represent a value."
+smalltalk.IRValue.comment="I am the simplest possible instruction. I represent a value.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -2083,7 +2083,7 @@ smalltalk.IRValue);
 
 
 smalltalk.addClass('IRVariable', smalltalk.IRInstruction, ['variable'], 'Compiler-IR');
-smalltalk.IRVariable.comment="I am a variable instruction."
+smalltalk.IRVariable.comment="I am a variable instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",

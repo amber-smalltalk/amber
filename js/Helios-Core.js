@@ -1,6 +1,6 @@
 smalltalk.addPackage('Helios-Core');
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
-smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).\x0a\x0a"
+smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).\x0a\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
@@ -177,7 +177,7 @@ smalltalk.HLModel);
 
 
 smalltalk.addClass('HLToolModel', smalltalk.HLModel, ['selectedClass', 'selectedPackage', 'selectedProtocol', 'selectedSelector'], 'Helios-Core');
-smalltalk.HLToolModel.comment="I am a model specific to package and class manipulation. All browsers should either use me or a subclass as their model.\x0a\x0aI provide methods for package, class, protocol and method manipulation and access, forwarding to my environment.\x0a\x0aI also handle compilation of classes and methods as well as compilation and parsing errors."
+smalltalk.HLToolModel.comment="I am a model specific to package and class manipulation. All browsers should either use me or a subclass as their model.\x0a\x0aI provide methods for package, class, protocol and method manipulation and access, forwarding to my environment.\x0a\x0aI also handle compilation of classes and methods as well as compilation and parsing errors.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addInstVarNamed:",
@@ -1116,7 +1116,7 @@ smalltalk.HLToolModel.klass);
 
 
 smalltalk.addClass('HLProgressHandler', smalltalk.ProgressHandler, [], 'Helios-Core');
-smalltalk.HLProgressHandler.comment="I am a specific progress handler for Helios, displaying progresses in a modal window."
+smalltalk.HLProgressHandler.comment="I am a specific progress handler for Helios, displaying progresses in a modal window.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "do:on:displaying:",
@@ -1137,7 +1137,7 @@ smalltalk.HLProgressHandler);
 
 
 smalltalk.addClass('HLTabWidget', smalltalk.Widget, ['widget', 'label', 'root'], 'Helios-Core');
-smalltalk.HLTabWidget.comment="I am a widget specialized into building another widget as an Helios tab.\x0a\x0aI should not be used directly, `HLWidget class >> #openAsTab` should be used instead.\x0a\x0a## Example\x0a\x0a    HLWorkspace openAsTab"
+smalltalk.HLTabWidget.comment="I am a widget specialized into building another widget as an Helios tab.\x0a\x0aI should not be used directly, `HLWidget class >> #openAsTab` should be used instead.\x0a\x0a## Example\x0a\x0a    HLWorkspace openAsTab";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate",
@@ -1496,7 +1496,7 @@ smalltalk.HLTabWidget.klass);
 
 
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
-smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\x0a\x0aI provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.\x0a\x0a## API\x0a\x0a1. Rendering\x0a\x0a    Instead of overriding `#renderOn:` as with other Widget subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0a2. Refreshing\x0a\x0a    To re-render a widget, use `#refresh`.\x0a\x0a3. Key bindings registration and tabs\x0a\x0a    When displayed as a tab, the widget has a chance to register keybindings with the `#registerBindingsOn:` hook method.\x0a    \x0a4. Unregistration\x0a\x0a    When a widget has subscribed to announcements or other actions that need to be cleared when closing the tab, the hook method `#unregister` will be called by helios.\x0a\x0a5. Tabs\x0a\x0a   To enable a widget class to be open as a tab, override the class-side `#canBeOpenAsTab` method to answer `true`. `#tabClass` and `#tabPriority` can be overridden too to respectively change the css class of the tab and the order of tabs in the main menu.\x0a\x0a6. Command execution\x0a\x0a    An helios command (instance of `HLCommand` or one of its subclass) can be executed with `#execute:`."
+smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\x0a\x0aI provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.\x0a\x0a## API\x0a\x0a1. Rendering\x0a\x0a    Instead of overriding `#renderOn:` as with other Widget subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0a2. Refreshing\x0a\x0a    To re-render a widget, use `#refresh`.\x0a\x0a3. Key bindings registration and tabs\x0a\x0a    When displayed as a tab, the widget has a chance to register keybindings with the `#registerBindingsOn:` hook method.\x0a    \x0a4. Unregistration\x0a\x0a    When a widget has subscribed to announcements or other actions that need to be cleared when closing the tab, the hook method `#unregister` will be called by helios.\x0a\x0a5. Tabs\x0a\x0a   To enable a widget class to be open as a tab, override the class-side `#canBeOpenAsTab` method to answer `true`. `#tabClass` and `#tabPriority` can be overridden too to respectively change the css class of the tab and the order of tabs in the main menu.\x0a\x0a6. Command execution\x0a\x0a    An helios command (instance of `HLCommand` or one of its subclass) can be executed with `#execute:`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alert:",
@@ -1864,7 +1864,7 @@ smalltalk.HLWidget.klass);
 
 
 smalltalk.addClass('HLFocusableWidget', smalltalk.HLWidget, [], 'Helios-Core');
-smalltalk.HLFocusableWidget.comment="I am a widget that can be focused.\x0a\x0a## API \x0a\x0aInstead of overriding `#renderOn:` as with other `Widget` subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0aTo bring the focus to the widget, use the `#focus` method."
+smalltalk.HLFocusableWidget.comment="I am a widget that can be focused.\x0a\x0a## API \x0a\x0aInstead of overriding `#renderOn:` as with other `Widget` subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0aTo bring the focus to the widget, use the `#focus` method.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "blur",
@@ -3845,7 +3845,7 @@ smalltalk.HLManager.klass);
 
 
 smalltalk.addClass('HLModalWidget', smalltalk.HLWidget, [], 'Helios-Core');
-smalltalk.HLModalWidget.comment="I implement an abstract modal widget."
+smalltalk.HLModalWidget.comment="I implement an abstract modal widget.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cancel",
@@ -3984,7 +3984,7 @@ smalltalk.HLModalWidget);
 
 
 smalltalk.addClass('HLConfirmationWidget', smalltalk.HLModalWidget, ['confirmationString', 'actionBlock', 'cancelBlock'], 'Helios-Core');
-smalltalk.HLConfirmationWidget.comment="I display confirmation messages. \x0a\x0aInstead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`."
+smalltalk.HLConfirmationWidget.comment="I display confirmation messages. \x0a\x0aInstead of creating an instance directly, use `HLWidget >> #confirm:ifTrue:`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "actionBlock",
@@ -4220,7 +4220,7 @@ smalltalk.HLConfirmationWidget);
 
 
 smalltalk.addClass('HLRequestWidget', smalltalk.HLConfirmationWidget, ['input', 'value'], 'Helios-Core');
-smalltalk.HLRequestWidget.comment="I display a modal window requesting user input.\x0a\x0aInstead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`."
+smalltalk.HLRequestWidget.comment="I display a modal window requesting user input.\x0a\x0aInstead of creating instances manually, use `HLWidget >> #request:do:` and `#request:value:do:`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "confirm",
@@ -4314,7 +4314,7 @@ smalltalk.HLRequestWidget);
 
 
 smalltalk.addClass('HLProgressWidget', smalltalk.HLModalWidget, ['progressBars', 'visible'], 'Helios-Core');
-smalltalk.HLProgressWidget.comment="I am a widget used to display progress modal dialogs.\x0a\x0aMy default instance is accessed with `HLProgressWidget class >> #default`.\x0a\x0aSee `HLProgressHandler` for usage."
+smalltalk.HLProgressWidget.comment="I am a widget used to display progress modal dialogs.\x0a\x0aMy default instance is accessed with `HLProgressWidget class >> #default`.\x0a\x0aSee `HLProgressHandler` for usage.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addProgressBar:",
@@ -4556,7 +4556,7 @@ smalltalk.HLProgressWidget.klass);
 
 
 smalltalk.addClass('HLProgressBarWidget', smalltalk.HLWidget, ['label', 'parent', 'workBlock', 'collection', 'bar'], 'Helios-Core');
-smalltalk.HLProgressBarWidget.comment="I am a widget used to display a progress bar while iterating over a collection."
+smalltalk.HLProgressBarWidget.comment="I am a widget used to display a progress bar while iterating over a collection.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",

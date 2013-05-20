@@ -37,7 +37,7 @@ smalltalk.HLAboutToChange);
 
 
 smalltalk.addClass('HLAnnouncement', smalltalk.Object, [], 'Helios-Announcements');
-smalltalk.HLAnnouncement.comment="I am the root of the announcement class hierarchy used in the Helios UI."
+smalltalk.HLAnnouncement.comment="I am the root of the announcement class hierarchy used in the Helios UI.";
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -57,7 +57,7 @@ smalltalk.HLAnnouncement.klass);
 
 
 smalltalk.addClass('HLCodeHandled', smalltalk.HLAnnouncement, ['code'], 'Helios-Announcements');
-smalltalk.HLCodeHandled.comment="I am the root class of announcements emitted by `HLCodeWidget`s"
+smalltalk.HLCodeHandled.comment="I am the root class of announcements emitted by `HLCodeWidget`s";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "code",
@@ -116,19 +116,19 @@ smalltalk.HLCodeHandled.klass);
 
 
 smalltalk.addClass('HLDoItExecuted', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLDoItExecuted.comment="I am emitted by a `HLCodeWidget` after a DoIt has been executed."
+smalltalk.HLDoItExecuted.comment="I am emitted by a `HLCodeWidget` after a DoIt has been executed.";
 
 
 smalltalk.addClass('HLDoItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLDoItRequested.comment="I am emitted by a `HLCodeWidget` before a DoIt is executed."
+smalltalk.HLDoItRequested.comment="I am emitted by a `HLCodeWidget` before a DoIt is executed.";
 
 
 smalltalk.addClass('HLInspectItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLInspectItRequested.comment="I am emitted by a `HLCodeWidget` before an object is inspected."
+smalltalk.HLInspectItRequested.comment="I am emitted by a `HLCodeWidget` before an object is inspected.";
 
 
 smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
-smalltalk.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an object is printed."
+smalltalk.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an object is printed.";
 
 
 smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLAnnouncement, ['context'], 'Helios-Announcements');
