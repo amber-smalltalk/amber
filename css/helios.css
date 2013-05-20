@@ -1,7 +1,7 @@
 body {
     font-size: 11px;
     font-family: "Lucida Grande", helvetica, arial, sans;
-    background: #ddd;
+    background: #eee;
 }
 
 .clearfix:after {
@@ -226,7 +226,7 @@ i {
 }
 
 .nav-pills > .active > a {
-    background-color: #ccc;
+    background-color: #ddd;
     color: #fff;
     text-shadow: 0 0 0;
 }
@@ -243,7 +243,7 @@ i {
 .dropdown-menu .active > a, 
 .dropdown-menu .active > a:hover,
 .CodeMirror-hint-active {
-    background: #5fa0e4;
+    background: rgba(95, 159, 228, 0.62);
     color: #fff;
     text-shadow: 0 0 0;
 }
