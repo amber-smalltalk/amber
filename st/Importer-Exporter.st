@@ -129,7 +129,8 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: 'smalltalk.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
-		nextPutAll: aClass comment asJavascript].
+		nextPutAll: aClass comment asJavascript;
+		nextPutAll: ';'].
 	aStream lf
 !
 
@@ -393,6 +394,7 @@ commit: aPackage
 		do: [ :commitStrategy|| fileContents |
 			fileContents := (commitStrategy key new exportPackage: aPackage name).
 			self ajaxPutAt: commitStrategy value data: fileContents ]
+		displayingProgress: 'Committing package ', aPackage name
 ! !
 
 !PackageHandler methodsFor: 'loading'!
