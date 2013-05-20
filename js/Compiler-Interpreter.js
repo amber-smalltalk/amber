@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-Interpreter');
 smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
-smalltalk.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)"
+smalltalk.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asString",
@@ -365,7 +365,7 @@ smalltalk.AIContext.klass);
 
 
 smalltalk.addClass('ASTDebugger', smalltalk.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
-smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from a `MethodContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping."
+smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from a `MethodContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
@@ -695,7 +695,7 @@ smalltalk.ASTDebugger.klass);
 
 
 smalltalk.addClass('ASTInterpreter', smalltalk.Object, ['currentNode', 'context', 'shouldReturn', 'result'], 'Compiler-Interpreter');
-smalltalk.ASTInterpreter.comment="I am like a `NodeVisitor`, interpreting nodes one after each other.\x0aI am built using Continuation Passing Style for stepping purposes.\x0a\x0a## Usage example:\x0a\x0a\x09| ast interpreter |\x0a\x09ast := Smalltalk current parse: 'foo 1+2+4'.\x0a\x09(SemanticAnalyzer on: Object) visit: ast.\x0a\x0a\x09ASTInterpreter new\x0a\x09\x09interpret: ast nodes first;\x0a\x09\x09result \x22Answers 7\x22"
+smalltalk.ASTInterpreter.comment="I am like a `NodeVisitor`, interpreting nodes one after each other.\x0aI am built using Continuation Passing Style for stepping purposes.\x0a\x0a## Usage example:\x0a\x0a\x09| ast interpreter |\x0a\x09ast := Smalltalk current parse: 'foo 1+2+4'.\x0a\x09(SemanticAnalyzer on: Object) visit: ast.\x0a\x0a\x09ASTInterpreter new\x0a\x09\x09interpret: ast nodes first;\x0a\x09\x09result \x22Answers 7\x22";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assign:to:",
@@ -1389,7 +1389,7 @@ smalltalk.ASTInterpreter);
 
 
 smalltalk.addClass('ASTSteppingInterpreter', smalltalk.ASTInterpreter, ['continuation', 'nextNode'], 'Compiler-Interpreter');
-smalltalk.ASTSteppingInterpreter.comment="I am an interpreter with stepping capabilities. The higher level `ASTDebugger` class should be used as a debugger model, as it provides convenience methods for debugging.\x0a\x0a## API\x0a\x0aUse `#step` to actually interpret the next node. Interpretation stops at each node evaluation, weither it's a message node or not.\x0a\x0a\x0a## Usage example:\x0a\x0a\x09| ast interpreter |\x0a\x09ast := Smalltalk current parse: 'foo 1+2+4'.\x0a\x09(SemanticAnalyzer on: Object) visit: ast.\x0a\x0a\x09interpreter := ASTSteppingInterpreter new\x0a\x09\x09interpret: ast nodes first;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09interpreter step; step.\x0a\x09interpreter step; step.\x0a\x09interpreter result.\x22Answers 1\x22\x0a\x09interpreter step.\x0a\x09interpreter result. \x22Answers 3\x22\x0a\x09interpreter step.\x0a\x09interpreter result. \x22Answers 7\x22"
+smalltalk.ASTSteppingInterpreter.comment="I am an interpreter with stepping capabilities. The higher level `ASTDebugger` class should be used as a debugger model, as it provides convenience methods for debugging.\x0a\x0a## API\x0a\x0aUse `#step` to actually interpret the next node. Interpretation stops at each node evaluation, weither it's a message node or not.\x0a\x0a\x0a## Usage example:\x0a\x0a\x09| ast interpreter |\x0a\x09ast := Smalltalk current parse: 'foo 1+2+4'.\x0a\x09(SemanticAnalyzer on: Object) visit: ast.\x0a\x0a\x09interpreter := ASTSteppingInterpreter new\x0a\x09\x09interpret: ast nodes first;\x0a\x09\x09yourself.\x0a\x09\x09\x0a\x09interpreter step; step.\x0a\x09interpreter step; step.\x0a\x09interpreter result.\x22Answers 1\x22\x0a\x09interpreter step.\x0a\x09interpreter result. \x22Answers 3\x22\x0a\x09interpreter step.\x0a\x09interpreter result. \x22Answers 7\x22";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
@@ -1487,7 +1487,7 @@ smalltalk.ASTSteppingInterpreter);
 
 
 smalltalk.addClass('ASTPCNodeVisitor', smalltalk.NodeVisitor, ['useInlinings', 'pc', 'context', 'currentNode'], 'Compiler-Interpreter');
-smalltalk.ASTPCNodeVisitor.comment="I visit an AST until I get to the current pc node and answer it.\x0a\x0a## API\x0a\x0aMy instances must be filled with a context object using `#context:`.\x0a\x0aAfter visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`"
+smalltalk.ASTPCNodeVisitor.comment="I visit an AST until I get to the current pc node and answer it.\x0a\x0a## API\x0a\x0aMy instances must be filled with a context object using `#context:`.\x0a\x0aAfter visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",

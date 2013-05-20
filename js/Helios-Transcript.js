@@ -1,6 +1,6 @@
 smalltalk.addPackage('Helios-Transcript');
 smalltalk.addClass('HLTranscript', smalltalk.HLWidget, ['textarea'], 'Helios-Transcript');
-smalltalk.HLTranscript.comment="I am a widget responsible for displaying transcript contents.\x0a\x0a## Transcript API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.\x0a\x0a    Transcript clear.\x0a\x0aSee the `Transcript` class."
+smalltalk.HLTranscript.comment="I am a widget responsible for displaying transcript contents.\x0a\x0a## Transcript API\x0a\x0a    Transcript \x0a        show: 'hello world';\x0a        cr;\x0a        show: anObject.\x0a\x0a    Transcript clear.\x0a\x0aSee the `Transcript` class.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clear",
@@ -111,7 +111,7 @@ smalltalk.HLTranscript);
 
 
 smalltalk.addClass('HLTranscriptHandler', smalltalk.Object, [], 'Helios-Transcript');
-smalltalk.HLTranscriptHandler.comment="I handle transcript events, dispatching them to all instances of `HLTranscript`.\x0a\x0a## API\x0a\x0aOn class initialization I am automatically registered as the current transcript."
+smalltalk.HLTranscriptHandler.comment="I handle transcript events, dispatching them to all instances of `HLTranscript`.\x0a\x0a## API\x0a\x0aOn class initialization I am automatically registered as the current transcript.";
 
 smalltalk.HLTranscriptHandler.klass.iVarNames = ['transcripts'];
 smalltalk.addMethod(

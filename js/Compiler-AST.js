@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-AST');
 smalltalk.addClass('Node', smalltalk.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
-smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file."
+smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -510,7 +510,7 @@ smalltalk.Node);
 
 
 smalltalk.addClass('AssignmentNode', smalltalk.Node, ['left', 'right'], 'Compiler-AST');
-smalltalk.AssignmentNode.comment="I represent an assignment node."
+smalltalk.AssignmentNode.comment="I represent an assignment node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -635,7 +635,7 @@ smalltalk.AssignmentNode);
 
 
 smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope'], 'Compiler-AST');
-smalltalk.BlockNode.comment="I represent an block closure node."
+smalltalk.BlockNode.comment="I represent an block closure node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -769,7 +769,7 @@ smalltalk.BlockNode);
 
 
 smalltalk.addClass('CascadeNode', smalltalk.Node, ['receiver'], 'Compiler-AST');
-smalltalk.CascadeNode.comment="I represent an cascade node."
+smalltalk.CascadeNode.comment="I represent an cascade node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -825,7 +825,7 @@ smalltalk.CascadeNode);
 
 
 smalltalk.addClass('DynamicArrayNode', smalltalk.Node, [], 'Compiler-AST');
-smalltalk.DynamicArrayNode.comment="I represent an dynamic array node."
+smalltalk.DynamicArrayNode.comment="I represent an dynamic array node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -847,7 +847,7 @@ smalltalk.DynamicArrayNode);
 
 
 smalltalk.addClass('DynamicDictionaryNode', smalltalk.Node, [], 'Compiler-AST');
-smalltalk.DynamicDictionaryNode.comment="I represent an dynamic dictionary node."
+smalltalk.DynamicDictionaryNode.comment="I represent an dynamic dictionary node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -869,7 +869,7 @@ smalltalk.DynamicDictionaryNode);
 
 
 smalltalk.addClass('JSStatementNode', smalltalk.Node, ['source'], 'Compiler-AST');
-smalltalk.JSStatementNode.comment="I represent an JavaScript statement node."
+smalltalk.JSStatementNode.comment="I represent an JavaScript statement node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -946,7 +946,7 @@ smalltalk.JSStatementNode);
 
 
 smalltalk.addClass('MethodNode', smalltalk.Node, ['selector', 'arguments', 'source', 'scope', 'classReferences', 'messageSends', 'superSends'], 'Compiler-AST');
-smalltalk.MethodNode.comment="I represent an method node.\x0a\x0aA method node must be the root and only method node of a valid AST."
+smalltalk.MethodNode.comment="I represent an method node.\x0a\x0aA method node must be the root and only method node of a valid AST.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1229,7 +1229,7 @@ smalltalk.MethodNode);
 
 
 smalltalk.addClass('ReturnNode', smalltalk.Node, ['scope'], 'Compiler-AST');
-smalltalk.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return."
+smalltalk.ReturnNode.comment="I represent an return node. At the AST level, there is not difference between a local return or non-local return.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1319,7 +1319,7 @@ smalltalk.ReturnNode);
 
 
 smalltalk.addClass('SendNode', smalltalk.Node, ['selector', 'arguments', 'receiver', 'superSend', 'index'], 'Compiler-AST');
-smalltalk.SendNode.comment="I represent an message send node."
+smalltalk.SendNode.comment="I represent an message send node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1648,7 +1648,7 @@ smalltalk.SendNode);
 
 
 smalltalk.addClass('SequenceNode', smalltalk.Node, ['temps', 'scope'], 'Compiler-AST');
-smalltalk.SequenceNode.comment="I represent an sequence node. A sequence represent a set of instructions inside the same scope (the method scope or a block scope)."
+smalltalk.SequenceNode.comment="I represent an sequence node. A sequence represent a set of instructions inside the same scope (the method scope or a block scope).";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1767,7 +1767,7 @@ smalltalk.SequenceNode);
 
 
 smalltalk.addClass('BlockSequenceNode', smalltalk.SequenceNode, [], 'Compiler-AST');
-smalltalk.BlockSequenceNode.comment="I represent an special sequence node for block scopes."
+smalltalk.BlockSequenceNode.comment="I represent an special sequence node for block scopes.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1805,7 +1805,7 @@ smalltalk.BlockSequenceNode);
 
 
 smalltalk.addClass('ValueNode', smalltalk.Node, ['value'], 'Compiler-AST');
-smalltalk.ValueNode.comment="I represent a value node."
+smalltalk.ValueNode.comment="I represent a value node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -1895,7 +1895,7 @@ smalltalk.ValueNode);
 
 
 smalltalk.addClass('VariableNode', smalltalk.ValueNode, ['assigned', 'binding'], 'Compiler-AST');
-smalltalk.VariableNode.comment="I represent an variable node."
+smalltalk.VariableNode.comment="I represent an variable node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -2041,7 +2041,7 @@ smalltalk.VariableNode);
 
 
 smalltalk.addClass('ClassReferenceNode', smalltalk.VariableNode, [], 'Compiler-AST');
-smalltalk.ClassReferenceNode.comment="I represent an class reference node."
+smalltalk.ClassReferenceNode.comment="I represent an class reference node.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",

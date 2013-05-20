@@ -1,6 +1,6 @@
 smalltalk.addPackage('Compiler-Inlining');
 smalltalk.addClass('IRInlinedAssignment', smalltalk.IRAssignment, [], 'Compiler-Inlining');
-smalltalk.IRInlinedAssignment.comment="I represent an inlined assignment instruction."
+smalltalk.IRInlinedAssignment.comment="I represent an inlined assignment instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -38,7 +38,7 @@ smalltalk.IRInlinedAssignment);
 
 
 smalltalk.addClass('IRInlinedClosure', smalltalk.IRClosure, [], 'Compiler-Inlining');
-smalltalk.IRInlinedClosure.comment="I represent an inlined closure instruction."
+smalltalk.IRInlinedClosure.comment="I represent an inlined closure instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -74,7 +74,7 @@ smalltalk.IRInlinedClosure);
 
 
 smalltalk.addClass('IRInlinedReturn', smalltalk.IRReturn, [], 'Compiler-Inlining');
-smalltalk.IRInlinedReturn.comment="I represent an inlined local return instruction."
+smalltalk.IRInlinedReturn.comment="I represent an inlined local return instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -112,7 +112,7 @@ smalltalk.IRInlinedReturn);
 
 
 smalltalk.addClass('IRInlinedSend', smalltalk.IRSend, [], 'Compiler-Inlining');
-smalltalk.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions."
+smalltalk.IRInlinedSend.comment="I am the abstract super class of inlined message send instructions.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -148,7 +148,7 @@ smalltalk.IRInlinedSend);
 
 
 smalltalk.addClass('IRInlinedIfFalse', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
-smalltalk.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message send instruction."
+smalltalk.IRInlinedIfFalse.comment="I represent an inlined `#ifFalse:` message send instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -168,7 +168,7 @@ smalltalk.IRInlinedIfFalse);
 
 
 smalltalk.addClass('IRInlinedIfNilIfNotNil', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
-smalltalk.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNil:` message send instruction."
+smalltalk.IRInlinedIfNilIfNotNil.comment="I represent an inlined `#ifNil:ifNotNil:` message send instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -188,7 +188,7 @@ smalltalk.IRInlinedIfNilIfNotNil);
 
 
 smalltalk.addClass('IRInlinedIfTrue', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
-smalltalk.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message send instruction."
+smalltalk.IRInlinedIfTrue.comment="I represent an inlined `#ifTrue:` message send instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -208,7 +208,7 @@ smalltalk.IRInlinedIfTrue);
 
 
 smalltalk.addClass('IRInlinedIfTrueIfFalse', smalltalk.IRInlinedSend, [], 'Compiler-Inlining');
-smalltalk.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFalse:` message send instruction."
+smalltalk.IRInlinedIfTrueIfFalse.comment="I represent an inlined `#ifTrue:ifFalse:` message send instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -228,7 +228,7 @@ smalltalk.IRInlinedIfTrueIfFalse);
 
 
 smalltalk.addClass('IRInlinedSequence', smalltalk.IRBlockSequence, [], 'Compiler-Inlining');
-smalltalk.IRInlinedSequence.comment="I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`)."
+smalltalk.IRInlinedSequence.comment="I represent a (block) sequence inside an inlined closure instruction (instance of `IRInlinedClosure`).";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "accept:",
@@ -264,7 +264,7 @@ smalltalk.IRInlinedSequence);
 
 
 smalltalk.addClass('IRInliner', smalltalk.IRVisitor, [], 'Compiler-Inlining');
-smalltalk.IRInliner.comment="I visit an IR tree, inlining message sends and block closures.\x0a\x0aMessage selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`"
+smalltalk.IRInliner.comment="I visit an IR tree, inlining message sends and block closures.\x0a\x0aMessage selectors that can be inlined are answered by `IRSendInliner >> #inlinedSelectors`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assignmentInliner",
@@ -527,7 +527,7 @@ smalltalk.IRInliner);
 
 
 smalltalk.addClass('IRInliningJSTranslator', smalltalk.IRJSTranslator, [], 'Compiler-Inlining');
-smalltalk.IRInliningJSTranslator.comment="I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance)."
+smalltalk.IRInliningJSTranslator.comment="I am a specialized JavaScript translator able to write inlined IR instructions to JavaScript stream (`JSStream` instance).";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "visitIRInlinedAssignment:",
@@ -756,7 +756,7 @@ smalltalk.IRInliningJSTranslator);
 
 
 smalltalk.addClass('IRSendInliner', smalltalk.Object, ['send', 'translator'], 'Compiler-Inlining');
-smalltalk.IRSendInliner.comment="I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods."
+smalltalk.IRSendInliner.comment="I inline some message sends and block closure arguments. I heavily rely on #perform: to dispatch inlining methods.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ifFalse:",
@@ -1255,7 +1255,7 @@ smalltalk.IRSendInliner.klass);
 
 
 smalltalk.addClass('IRAssignmentInliner', smalltalk.IRSendInliner, ['assignment'], 'Compiler-Inlining');
-smalltalk.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if(smalltalk.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};"
+smalltalk.IRAssignmentInliner.comment="I inline message sends together with assignments by moving them around into the inline closure instructions.\x0a\x0a##Example\x0a\x0a\x09foo\x0a\x09\x09| a |\x0a\x09\x09a := true ifTrue: [ 1 ]\x0a\x0aWill produce:\x0a\x0a\x09if(smalltalk.assert(true) {\x0a\x09\x09a = 1;\x0a\x09};";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assignment",
@@ -1354,7 +1354,7 @@ smalltalk.IRAssignmentInliner);
 
 
 smalltalk.addClass('IRReturnInliner', smalltalk.IRSendInliner, [], 'Compiler-Inlining');
-smalltalk.IRReturnInliner.comment="I inline message sends with inlined closure together with a return instruction."
+smalltalk.IRReturnInliner.comment="I inline message sends with inlined closure together with a return instruction.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inlineClosure:",
@@ -1435,7 +1435,7 @@ smalltalk.IRReturnInliner);
 
 
 smalltalk.addClass('InliningCodeGenerator', smalltalk.CodeGenerator, [], 'Compiler-Inlining');
-smalltalk.InliningCodeGenerator.comment="I am a specialized code generator that uses inlining to produce more optimized JavaScript output"
+smalltalk.InliningCodeGenerator.comment="I am a specialized code generator that uses inlining to produce more optimized JavaScript output";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compileNode:",

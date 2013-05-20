@@ -3306,7 +3306,7 @@ smalltalk.NumberTest);
 
 
 smalltalk.addClass('ObjectMock', smalltalk.Object, ['foo', 'bar'], 'Kernel-Tests');
-smalltalk.ObjectMock.comment="ObjectMock is there only to perform tests on classes."
+smalltalk.ObjectMock.comment="ObjectMock is there only to perform tests on classes.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "foo",
