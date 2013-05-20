@@ -1,6 +1,6 @@
 smalltalk.addPackage('Kernel-Collections');
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
-smalltalk.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`"
+smalltalk.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -136,7 +136,7 @@ smalltalk.Association.klass);
 
 
 smalltalk.addClass('Collection', smalltalk.Object, [], 'Kernel-Collections');
-smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods."
+smalltalk.Collection.comment="I am the abstract superclass of all classes that represent a group of elements.\x0a\x0aI provide a set of useful methods to the Collection hierarchy such as enumerating and converting methods.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -916,7 +916,7 @@ smalltalk.Collection.klass);
 
 
 smalltalk.addClass('IndexableCollection', smalltalk.Collection, [], 'Kernel-Collections');
-smalltalk.IndexableCollection.comment="I am a key-value store collection, that is,\x0aI store values under indexes.\x0a\x0aAs a rule of thumb, if a collection has `#at:` and `#at:put:`,\x0ait is an IndexableCollection."
+smalltalk.IndexableCollection.comment="I am a key-value store collection, that is,\x0aI store values under indexes.\x0a\x0aAs a rule of thumb, if a collection has `#at:` and `#at:put:`,\x0ait is an IndexableCollection.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "at:",
@@ -1082,7 +1082,7 @@ smalltalk.IndexableCollection);
 
 
 smalltalk.addClass('HashedCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
-smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys."
+smalltalk.HashedCollection.comment="I am a traditional JavaScript object, or a Smalltalk `Dictionary`.\x0a\x0aUnlike a `Dictionary`, I can only have strings as keys.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -1766,7 +1766,7 @@ smalltalk.HashedCollection.klass);
 
 
 smalltalk.addClass('Dictionary', smalltalk.HashedCollection, ['keys', 'values'], 'Kernel-Collections');
-smalltalk.Dictionary.comment="I represent a set of elements that can be viewed from one of two perspectives: a set of associations,\x0aor a container of values that are externally named where the name can be any object that responds to `=`.\x0a\x0aThe external name is referred to as the key."
+smalltalk.Dictionary.comment="I represent a set of elements that can be viewed from one of two perspectives: a set of associations,\x0aor a container of values that are externally named where the name can be any object that responds to `=`.\x0a\x0aThe external name is referred to as the key.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "asHashedCollection",
@@ -2054,7 +2054,7 @@ smalltalk.Dictionary);
 
 
 smalltalk.addClass('SequenceableCollection', smalltalk.IndexableCollection, [], 'Kernel-Collections');
-smalltalk.SequenceableCollection.comment="I am an IndexableCollection\x0awith numeric indexes starting with 1."
+smalltalk.SequenceableCollection.comment="I am an IndexableCollection\x0awith numeric indexes starting with 1.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -2676,7 +2676,7 @@ smalltalk.SequenceableCollection.klass);
 
 
 smalltalk.addClass('Array', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0a\x0aI am directly mapped to JavaScript Number.\x0a\x0a*Note* In Amber, `OrderedCollection` is an alias for `Array`."
+smalltalk.Array.comment="I represent a collection of objects ordered by the collector. The size of arrays is dynamic.\x0a\x0aI am directly mapped to JavaScript Number.\x0a\x0a*Note* In Amber, `OrderedCollection` is an alias for `Array`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
@@ -3064,7 +3064,7 @@ smalltalk.Array.klass);
 
 
 smalltalk.addClass('CharacterArray', smalltalk.SequenceableCollection, [], 'Kernel-Collections');
-smalltalk.CharacterArray.comment="I am the abstract superclass of string-like collections."
+smalltalk.CharacterArray.comment="I am the abstract superclass of string-like collections.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -3288,7 +3288,7 @@ smalltalk.CharacterArray.klass);
 
 
 smalltalk.addClass('String', smalltalk.CharacterArray, [], 'Kernel-Collections');
-smalltalk.String.comment="I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.\x0a\x0aString inherits many useful methods from its hierarchy, such as\x0a\x09`Collection >> #,`"
+smalltalk.String.comment="I am an indexed collection of Characters. Unlike most Smalltalk dialects, Amber doesn't provide the Character class. Instead, elements of a String are single character strings.\x0a\x0aString inherits many useful methods from its hierarchy, such as\x0a\x09`Collection >> #,`";
 smalltalk.addMethod(
 smalltalk.method({
 selector: ",",
@@ -4486,7 +4486,7 @@ smalltalk.String.klass);
 
 
 smalltalk.addClass('Set', smalltalk.Collection, ['elements'], 'Kernel-Collections');
-smalltalk.Set.comment="I represent an unordered set of objects without duplicates."
+smalltalk.Set.comment="I represent an unordered set of objects without duplicates.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "=",
@@ -4758,7 +4758,7 @@ smalltalk.Set);
 
 
 smalltalk.addClass('Queue', smalltalk.Object, ['read', 'readIndex', 'write'], 'Kernel-Collections');
-smalltalk.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to."
+smalltalk.Queue.comment="I am a one-sided queue.\x0a\x0a## Usage\x0a\x0aUse `#nextPut:` to add items to the queue.\x0aUse `#next` or `#nextIfAbsent:` to get (and remove) the next item in the queue.\x0a\x0a## Implementation notes\x0a\x0aA Queue uses two OrderedCollections inside,\x0a`read` is at the front, is not modified and only read using `readIndex`.\x0a`write` is at the back and is appended new items.\x0aWhen `read` is exhausted, `write` is promoted to `read` and new `write` is created.\x0a\x0aAs a consequence, no data moving is done by me, write appending may do data moving\x0awhen growing `write`, but this is left to engine to implement as good as it chooses to.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "initialize",
@@ -4867,7 +4867,7 @@ smalltalk.Queue);
 
 
 smalltalk.addClass('RegularExpression', smalltalk.Object, [], 'Kernel-Collections');
-smalltalk.RegularExpression.comment="I represent a regular expression object. My instances are JavaScript `RegExp` object."
+smalltalk.RegularExpression.comment="I represent a regular expression object. My instances are JavaScript `RegExp` object.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "compile:",
@@ -4953,7 +4953,7 @@ smalltalk.RegularExpression.klass);
 
 
 smalltalk.addClass('Stream', smalltalk.Object, ['collection', 'position', 'streamSize'], 'Kernel-Collections');
-smalltalk.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection."
+smalltalk.Stream.comment="I represent an accessor for a sequence of objects. This sequence is referred to as my \x22contents\x22.\x0aMy instances are read/write streams to the contents sequence collection.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "<<",
@@ -5451,7 +5451,7 @@ smalltalk.Stream.klass);
 
 
 smalltalk.addClass('StringStream', smalltalk.Stream, [], 'Kernel-Collections');
-smalltalk.StringStream.comment="I am a Stream specific to `String` objects."
+smalltalk.StringStream.comment="I am a Stream specific to `String` objects.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cr",

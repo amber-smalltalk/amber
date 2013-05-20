@@ -99,7 +99,7 @@ smalltalk.HLContextInspectorDecorator.klass);
 
 
 smalltalk.addClass('HLDebugger', smalltalk.HLFocusableWidget, ['model', 'stackListWidget', 'codeWidget', 'inspectorWidget'], 'Helios-Debugger');
-smalltalk.HLDebugger.comment="I am the main widget for the Helios debugger."
+smalltalk.HLDebugger.comment="I am the main widget for the Helios debugger.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "codeWidget",
@@ -598,7 +598,7 @@ smalltalk.HLDebuggerCodeWidget);
 
 
 smalltalk.addClass('HLDebuggerModel', smalltalk.HLToolModel, ['rootContext', 'currentContext', 'contexts', 'interpreter'], 'Helios-Debugger');
-smalltalk.HLDebuggerModel.comment="I am a model for Helios debugging.\x0a\x0aMy instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack."
+smalltalk.HLDebuggerModel.comment="I am a model for Helios debugging.\x0a\x0aMy instances hold a reference to an `AIContext` instance, built from a `MethodContext`. The context should be the root of the context stack.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "contexts",

@@ -1,6 +1,6 @@
 smalltalk.addPackage('Kernel-Announcements');
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
-smalltalk.AnnouncementSubscription.comment="I am a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible."
+smalltalk.AnnouncementSubscription.comment="I am a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcementClass",
@@ -172,7 +172,7 @@ smalltalk.AnnouncementSubscription);
 
 
 smalltalk.addClass('Announcer', smalltalk.Object, ['registry', 'subscriptions'], 'Kernel-Announcements');
-smalltalk.Announcer.comment="I hold annoncement subscriptions (instances of `AnnouncementSubscription`) in a private registry.\x0aI announce (trigger) announces, which are then dispatched to all subscriptions.\x0a\x0aThe code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).\x0a\x0a## API\x0a\x0aUse `#announce:` to trigger an announcement.\x0a\x0aUse `#on:do:` or `#on:send:to:` to register subscriptions.\x0a\x0aWhen using `#on:send:to:`, unregistration can be done with `#unregister:`.\x0a\x0a## Usage example:\x0a\x0a    SystemAnnouncer current\x0a        on: ClassAdded\x0a        do: [ :ann | window alert: ann theClass name, ' added' ].\x0a"
+smalltalk.Announcer.comment="I hold annoncement subscriptions (instances of `AnnouncementSubscription`) in a private registry.\x0aI announce (trigger) announces, which are then dispatched to all subscriptions.\x0a\x0aThe code is based on the announcements as [described by Vassili Bykov](http://www.cincomsmalltalk.com/userblogs/vbykov/blogView?searchCategory=Announcements%20Framework).\x0a\x0a## API\x0a\x0aUse `#announce:` to trigger an announcement.\x0a\x0aUse `#on:do:` or `#on:send:to:` to register subscriptions.\x0a\x0aWhen using `#on:send:to:`, unregistration can be done with `#unregister:`.\x0a\x0a## Usage example:\x0a\x0a    SystemAnnouncer current\x0a        on: ClassAdded\x0a        do: [ :ann | window alert: ann theClass name, ' added' ].\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announce:",
@@ -281,7 +281,7 @@ smalltalk.Announcer);
 
 
 smalltalk.addClass('SystemAnnouncer', smalltalk.Announcer, [], 'Kernel-Announcements');
-smalltalk.SystemAnnouncer.comment="My unique instance is the global announcer handling all Amber system-related announces.\x0a\x0a## API\x0a\x0aAccess to the unique instance is done via `#current`"
+smalltalk.SystemAnnouncer.comment="My unique instance is the global announcer handling all Amber system-related announces.\x0a\x0a## API\x0a\x0aAccess to the unique instance is done via `#current`";
 
 smalltalk.SystemAnnouncer.klass.iVarNames = ['current'];
 smalltalk.addMethod(
@@ -326,7 +326,7 @@ smalltalk.SystemAnnouncer.klass);
 
 
 smalltalk.addClass('SystemAnnouncement', smalltalk.Object, ['theClass'], 'Kernel-Announcements');
-smalltalk.SystemAnnouncement.comment="I am the superclass of all system announcements"
+smalltalk.SystemAnnouncement.comment="I am the superclass of all system announcements";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
@@ -380,7 +380,7 @@ smalltalk.SystemAnnouncement.klass);
 
 
 smalltalk.addClass('ClassAnnouncement', smalltalk.SystemAnnouncement, ['theClass'], 'Kernel-Announcements');
-smalltalk.ClassAnnouncement.comment="I am the abstract superclass of class-related announcements."
+smalltalk.ClassAnnouncement.comment="I am the abstract superclass of class-related announcements.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "theClass",
@@ -418,19 +418,19 @@ smalltalk.ClassAnnouncement);
 
 
 smalltalk.addClass('ClassAdded', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ClassAdded.comment="I am emitted when a class is added to the system.\x0aSee ClassBuilder >> #addSubclassOf:... methods"
+smalltalk.ClassAdded.comment="I am emitted when a class is added to the system.\x0aSee ClassBuilder >> #addSubclassOf:... methods";
 
 
 smalltalk.addClass('ClassCommentChanged', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ClassCommentChanged.comment="I am emitted when the comment of a class changes. (Behavior >> #comment)"
+smalltalk.ClassCommentChanged.comment="I am emitted when the comment of a class changes. (Behavior >> #comment)";
 
 
 smalltalk.addClass('ClassDefinitionChanged', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ClassDefinitionChanged.comment="I am emitted when the definition of a class changes.\x0aSee ClassBuilder >> #class:instanceVariableNames:"
+smalltalk.ClassDefinitionChanged.comment="I am emitted when the definition of a class changes.\x0aSee ClassBuilder >> #class:instanceVariableNames:";
 
 
 smalltalk.addClass('ClassMigrated', smalltalk.ClassAnnouncement, ['oldClass'], 'Kernel-Announcements');
-smalltalk.ClassMigrated.comment="I am emitted when a class is migrated."
+smalltalk.ClassMigrated.comment="I am emitted when a class is migrated.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "oldClass",
@@ -468,7 +468,7 @@ smalltalk.ClassMigrated);
 
 
 smalltalk.addClass('ClassMoved', smalltalk.ClassAnnouncement, ['oldPackage'], 'Kernel-Announcements');
-smalltalk.ClassMoved.comment="I am emitted when a class is moved from one package to another."
+smalltalk.ClassMoved.comment="I am emitted when a class is moved from one package to another.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "oldPackage",
@@ -506,15 +506,15 @@ smalltalk.ClassMoved);
 
 
 smalltalk.addClass('ClassRemoved', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ClassRemoved.comment="I am emitted when a class is removed.\x0aSee Smalltalk >> #removeClass:"
+smalltalk.ClassRemoved.comment="I am emitted when a class is removed.\x0aSee Smalltalk >> #removeClass:";
 
 
 smalltalk.addClass('ClassRenamed', smalltalk.ClassAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ClassRenamed.comment="I am emitted when a class is renamed.\x0aSee ClassBuilder >> #renameClass:to:"
+smalltalk.ClassRenamed.comment="I am emitted when a class is renamed.\x0aSee ClassBuilder >> #renameClass:to:";
 
 
 smalltalk.addClass('MethodAnnouncement', smalltalk.SystemAnnouncement, ['method'], 'Kernel-Announcements');
-smalltalk.MethodAnnouncement.comment="I am the abstract superclass of method-related announcements."
+smalltalk.MethodAnnouncement.comment="I am the abstract superclass of method-related announcements.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "method",
@@ -552,11 +552,11 @@ smalltalk.MethodAnnouncement);
 
 
 smalltalk.addClass('MethodAdded', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
-smalltalk.MethodAdded.comment="I am emitted when a `CompiledMethod` is added to a class."
+smalltalk.MethodAdded.comment="I am emitted when a `CompiledMethod` is added to a class.";
 
 
 smalltalk.addClass('MethodModified', smalltalk.MethodAnnouncement, ['oldMethod'], 'Kernel-Announcements');
-smalltalk.MethodModified.comment="I am emitted when a `CompiledMethod` is modified (a new method is installed). I hold a reference to the old method being replaced."
+smalltalk.MethodModified.comment="I am emitted when a `CompiledMethod` is modified (a new method is installed). I hold a reference to the old method being replaced.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "oldMethod",
@@ -594,7 +594,7 @@ smalltalk.MethodModified);
 
 
 smalltalk.addClass('MethodMoved', smalltalk.MethodAnnouncement, ['oldProtocol'], 'Kernel-Announcements');
-smalltalk.MethodMoved.comment="I am emitted when a `CompiledMethod` is moved to another protocol. I hold a refernce to the old protocol of the method."
+smalltalk.MethodMoved.comment="I am emitted when a `CompiledMethod` is moved to another protocol. I hold a refernce to the old protocol of the method.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "oldProtocol",
@@ -632,11 +632,11 @@ smalltalk.MethodMoved);
 
 
 smalltalk.addClass('MethodRemoved', smalltalk.MethodAnnouncement, [], 'Kernel-Announcements');
-smalltalk.MethodRemoved.comment="I am emitted when a `CompiledMethod` is removed from a class."
+smalltalk.MethodRemoved.comment="I am emitted when a `CompiledMethod` is removed from a class.";
 
 
 smalltalk.addClass('PackageAnnouncement', smalltalk.SystemAnnouncement, ['package'], 'Kernel-Announcements');
-smalltalk.PackageAnnouncement.comment="I am the abstract superclass of package-related announcements."
+smalltalk.PackageAnnouncement.comment="I am the abstract superclass of package-related announcements.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "package",
@@ -674,15 +674,15 @@ smalltalk.PackageAnnouncement);
 
 
 smalltalk.addClass('PackageAdded', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
-smalltalk.PackageAdded.comment="I am emitted when a `Package` is added to the system."
+smalltalk.PackageAdded.comment="I am emitted when a `Package` is added to the system.";
 
 
 smalltalk.addClass('PackageRemoved', smalltalk.PackageAnnouncement, [], 'Kernel-Announcements');
-smalltalk.PackageRemoved.comment="I am emitted when a `Package` is removed from the system."
+smalltalk.PackageRemoved.comment="I am emitted when a `Package` is removed from the system.";
 
 
 smalltalk.addClass('ProtocolAnnouncement', smalltalk.SystemAnnouncement, ['theClass', 'protocol'], 'Kernel-Announcements');
-smalltalk.ProtocolAnnouncement.comment="I am the abstract superclass of protocol-related announcements."
+smalltalk.ProtocolAnnouncement.comment="I am the abstract superclass of protocol-related announcements.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "protocol",
@@ -754,10 +754,10 @@ smalltalk.ProtocolAnnouncement);
 
 
 smalltalk.addClass('ProtocolAdded', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ProtocolAdded.comment="I am emitted when a protocol is added to a class."
+smalltalk.ProtocolAdded.comment="I am emitted when a protocol is added to a class.";
 
 
 smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
-smalltalk.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class."
+smalltalk.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class.";
 
 
