@@ -597,7 +597,7 @@ onBrowserAboutToChange: anAnnouncement
 	self hasModification
 		ifTrue: [
 			self 
-				confirm: 'Do you want to cancel changes?' 
+				confirm: 'Changes have not been saved. Is it OK to discard these changes?' 
 				ifTrue: [
 					"Don't ask twice"
 					self methodContents: self contents.
