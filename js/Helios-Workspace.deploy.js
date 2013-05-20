@@ -1066,7 +1066,7 @@ var $1;
 block=_st(anAnnouncement)._actionBlock();
 $1=_st(self)._hasModification();
 if(smalltalk.assert($1)){
-_st(self)._confirm_ifTrue_("Changes have not been saved. Is it OK to discard these changes?",(function(){
+_st(self)._confirm_ifTrue_("Changes have not been saved. Do you want to discard these changes?",(function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self)._methodContents_(_st(self)._contents());
 return _st(block)._value();

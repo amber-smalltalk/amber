@@ -1412,7 +1412,7 @@ var $1;
 block=_st(anAnnouncement)._actionBlock();
 $1=_st(self)._hasModification();
 if(smalltalk.assert($1)){
-_st(self)._confirm_ifTrue_("Changes have not been saved. Is it OK to discard these changes?",(function(){
+_st(self)._confirm_ifTrue_("Changes have not been saved. Do you want to discard these changes?",(function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self)._methodContents_(_st(self)._contents());
 return _st(block)._value();
@@ -1421,7 +1421,7 @@ _st($HLChangeForbidden())._signal();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onBrowserAboutToChange:",{anAnnouncement:anAnnouncement,block:block},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onBrowserAboutToChange: anAnnouncement\x0a\x09| block |\x0a\x09\x0a\x09block := anAnnouncement actionBlock.\x0a\x09\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Changes have not been saved. Is it OK to discard these changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09block value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
+source: "onBrowserAboutToChange: anAnnouncement\x0a\x09| block |\x0a\x09\x0a\x09block := anAnnouncement actionBlock.\x0a\x09\x0a\x09self hasModification\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self \x0a\x09\x09\x09\x09confirm: 'Changes have not been saved. Do you want to discard these changes?' \x0a\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x22Don't ask twice\x22\x0a\x09\x09\x09\x09\x09self methodContents: self contents.\x0a\x09\x09\x09\x09\x09block value ].\x0a\x09\x09\x09\x0a\x09\x09\x09\x0a\x09\x09\x09HLChangeForbidden signal ]",
 messageSends: ["actionBlock", "ifTrue:", "confirm:ifTrue:", "methodContents:", "contents", "value", "signal", "hasModification"],
 referencedClasses: ["HLChangeForbidden"]
 }),
