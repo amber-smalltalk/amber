@@ -902,7 +902,7 @@ originalTranscript := Transcript current.
 Transcript register: ConsoleTranscript new.
 
 self shouldnt: [ Transcript show: 'Hello console!!' ] raise: Error.
-self shouldnt: [ Transcript show: window ] raise: Error.
+self shouldnt: [ Transcript show: console ] raise: Error.
 
 Transcript register: originalTranscript.
 ! !
