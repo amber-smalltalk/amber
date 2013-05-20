@@ -36,7 +36,7 @@ selector: "show:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-console.log(String(string._asString()));
+console.log(String(_st(anObject)._asString()));
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},smalltalk.ConsoleTranscript)})},
 messageSends: []}),
 smalltalk.ConsoleTranscript);
