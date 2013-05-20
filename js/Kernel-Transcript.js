@@ -53,10 +53,10 @@ category: 'printing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-console.log(String(anObject._asString()));
+console.log(String(_st(anObject)._asString()));
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},smalltalk.ConsoleTranscript)})},
 args: ["anObject"],
-source: "show: anObject\x0a\x09<console.log(String(anObject._asString()))>",
+source: "show: anObject\x0a\x22Smalltalk objects should have no trouble displaying themselves on the Transcript; Javascript objects don't know how, so must be wrapped in a JSObectProxy.\x22\x0a<console.log(String(_st(anObject)._asString()))>",
 messageSends: [],
 referencedClasses: []
 }),

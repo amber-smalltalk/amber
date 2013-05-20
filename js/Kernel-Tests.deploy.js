@@ -1891,6 +1891,10 @@ _st(self)._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st($Transcript())._show_("Hello console!");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
+_st(self)._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st($Transcript())._show_(window);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
 _st($Transcript())._register_(originalTranscript);
 return self}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},smalltalk.ConsoleTranscriptTest)})},
 messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"]}),

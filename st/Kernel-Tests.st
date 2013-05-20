@@ -893,8 +893,6 @@ collectionClass
 TestCase subclass: #ConsoleTranscriptTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
-!ConsoleTranscriptTest commentStamp!
-I will try to ensure that you can print to a browser's console.!
 
 !ConsoleTranscriptTest methodsFor: 'tests'!
 
@@ -902,7 +900,10 @@ testShow
 | originalTranscript |
 originalTranscript := Transcript current.
 Transcript register: ConsoleTranscript new.
+
 self shouldnt: [ Transcript show: 'Hello console!!' ] raise: Error.
+self shouldnt: [ Transcript show: window ] raise: Error.
+
 Transcript register: originalTranscript.
 ! !
 
