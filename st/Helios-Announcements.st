@@ -16,10 +16,20 @@ actionBlock: aBlock
 Object subclass: #HLAnnouncement
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+!HLAnnouncement commentStamp!
+I am the root of the announcement class hierarchy used in the Helios UI.!
+
+!HLAnnouncement class methodsFor: 'helios'!
+
+heliosClass
+	^ 'announcement'
+! !
 
 HLAnnouncement subclass: #HLCodeHandled
 	instanceVariableNames: 'code'
 	package: 'Helios-Announcements'!
+!HLCodeHandled commentStamp!
+I am the root class of announcements emitted by `HLCodeWidget`s!
 
 !HLCodeHandled methodsFor: 'accessing'!
 
@@ -45,18 +55,26 @@ on: aCodeModel
 HLCodeHandled subclass: #HLDoItExecuted
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+!HLDoItExecuted commentStamp!
+I am emitted by a `HLCodeWidget` after a DoIt has been executed.!
 
 HLCodeHandled subclass: #HLDoItRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+!HLDoItRequested commentStamp!
+I am emitted by a `HLCodeWidget` before a DoIt is executed.!
 
 HLCodeHandled subclass: #HLInspectItRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+!HLInspectItRequested commentStamp!
+I am emitted by a `HLCodeWidget` before an object is inspected.!
 
 HLCodeHandled subclass: #HLPrintItRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
+!HLPrintItRequested commentStamp!
+I am emitted by a `HLCodeWidget` before an object is printed.!
 
 HLAnnouncement subclass: #HLDebuggerContextSelected
 	instanceVariableNames: 'context'

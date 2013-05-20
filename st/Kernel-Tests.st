@@ -890,6 +890,23 @@ collectionClass
 	^ String
 ! !
 
+TestCase subclass: #ConsoleTranscriptTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!ConsoleTranscriptTest methodsFor: 'tests'!
+
+testShow
+| originalTranscript |
+originalTranscript := Transcript current.
+Transcript register: ConsoleTranscript new.
+
+self shouldnt: [ Transcript show: 'Hello console!!' ] raise: Error.
+self shouldnt: [ Transcript show: console ] raise: Error.
+
+Transcript register: originalTranscript.
+! !
+
 TestCase subclass: #JSObjectProxyTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!

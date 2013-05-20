@@ -1874,6 +1874,34 @@ messageSends: []}),
 smalltalk.StringTest.klass);
 
 
+smalltalk.addClass('ConsoleTranscriptTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testShow",
+fn: function (){
+var self=this;
+var originalTranscript;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $ConsoleTranscript(){return smalltalk.ConsoleTranscript||(typeof ConsoleTranscript=="undefined"?nil:ConsoleTranscript)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+originalTranscript=_st($Transcript())._current();
+_st($Transcript())._register_(_st($ConsoleTranscript())._new());
+_st(self)._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st($Transcript())._show_("Hello console!");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
+_st(self)._shouldnt_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st($Transcript())._show_(console);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$Error());
+_st($Transcript())._register_(originalTranscript);
+return self}, function($ctx1) {$ctx1.fill(self,"testShow",{originalTranscript:originalTranscript},smalltalk.ConsoleTranscriptTest)})},
+messageSends: ["current", "register:", "new", "shouldnt:raise:", "show:"]}),
+smalltalk.ConsoleTranscriptTest);
+
+
+
 smalltalk.addClass('JSObjectProxyTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({

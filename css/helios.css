@@ -370,6 +370,9 @@ i {
     vertical-align: text-top;
 }
 
+.tool_container .pane .nav-pills i.announcement {
+    background-image: url('../images/announcement.png');
+}
 .tool_container .pane .nav-pills i.class {
     background-image: url('../images/class.png');
 }
