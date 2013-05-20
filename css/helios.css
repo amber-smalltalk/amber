@@ -109,7 +109,6 @@ i {
 .navbar-fixed-top {
     font-size: 11px;
     line-height: 16px;
-    box-shadow: 0 0 1px #333;
 }
 
 .navbar-fixed-top a span {
@@ -157,10 +156,10 @@ i {
     min-height: 20px;
     background-color: #dbdbdb;
     border-bottom: 1px solid #666;
-    background-image: linear-gradient(top, #dbdbdb, #bababa);
-    background-image: -webkit-linear-gradient(top, #dbdbdb, #bababa);
-    background-image: -moz-linear-gradient(top, #dbdbdb, #bababa);
-    background-image: -owebkit-linear-gradient(top, #dbdbdb, #bababa);
+    background-image: linear-gradient(top, #dfdfdf, #d0d0d0);
+    background-image: -webkit-linear-gradient(top, #dfdfdf, #d0d0d0);
+    background-image: -moz-linear-gradient(top, #dfdfdf, #d0d0d0);
+    background-image: -owebkit-linear-gradient(top, #dfdfdf, #d0d0d0);
     box-shadow: 0 0 0;
 }
 
@@ -174,7 +173,7 @@ i {
     line-height: 22px;
     padding: 0px 8px;
     font-size: 11px;
-    color: #111;
+    color: #444;
     text-shadow: 0 1px 0 #ddd;
 }
 
@@ -227,17 +226,13 @@ i {
 }
 
 .nav-pills > .active > a {
-    background-color: #ddd;
-    background-image: linear-gradient(top, #ddd, #bababa);
-    background-image: -moz-linear-gradient(top, #ddd, #bababa);
-    background-image: -webkit-linear-gradient(top, #ddd, #bababa);
-    background-image: -o-linear-gradient(top, #ddd, #bababa);
+    background-color: #ccc;
     color: #fff;
     text-shadow: 0 0 0;
 }
 
 .focused .nav-pills {
-    background-color: #e3e7eb;
+    background-color: #f3f7fb;
 }
 
 .focused .nav-pills > .active > a, 
@@ -248,11 +243,7 @@ i {
 .dropdown-menu .active > a, 
 .dropdown-menu .active > a:hover,
 .CodeMirror-hint-active {
-    background: #b1bdd5;
-    background-image: linear-gradient(top, #b1bdd5, #8999b8);
-    background-image: -webkit-linear-gradient(top, #b1bdd5, #8999b8);
-    background-image: -moz-linear-gradient(top, #b1bdd5, #8999b8);
-    background-image: -owebkit-linear-gradient(top, #b1bdd5, #8999b8);
+    background: #5fa0e4;
     color: #fff;
     text-shadow: 0 0 0;
 }
@@ -434,16 +425,18 @@ i {
     font-size: 11px;
     border-radius: 0;
     border-bottom: 1px solid #666;
-    background-color: #e9eaf5;
-    background-image: -webkit-linear-gradient(top, #e9eaf5, #bfc2d2);
-    background-image: -moz-linear-gradient(top, #e9eaf5, #bfc2d2);
-    background-image: -o-linear-gradient(top, #e9eaf5, #bfc2d2);
-    background-image: linear-gradient(top, #e9eaf5, #bfc2d2);
-    color: #222;
+    border-top: 1px solid #e1ebf5;
+    background-color: #d2dae6;
+    background-image: -webkit-linear-gradient(top, #d2dae6, #cad3de);
+    background-image: -moz-linear-gradient(top, #d2dae6, #cad3de);
+    background-image: -o-linear-gradient(top, #d2dae6, #cad3de);
+    background-image: linear-gradient(top, #d2dae6, #cad3de);
+    color: #444;
     font-weight: bold;
     text-shadow: 0 0 0;
     padding-left: 4px;
-    line-height: 16px;
+    line-height: 14px;
+    height: 15px;
     text-shadow: 0 1px 0 #eee;
 }
 
@@ -554,7 +547,7 @@ i {
 
 .tool_container .panes .pane .class_side .nav-pills {
     font-weight: bold;
-    background: #ffd;
+    background: #ffd
 }
 
 .key_helper {
