@@ -146,16 +146,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-function theTestPrototype() {
-	this.name = "theTestPrototype";
-}
+function theTestPrototype() {this.name = "theTestPrototype";}
 function theTestConstructor(arg1, arg2, arg3) {}
 theTestConstructor.prototype = new theTestPrototype;
 
 var theWrappedConstructor = _st(theTestConstructor);
 var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);
+self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');
 
-self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');;
+"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
+function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}
+self._should_raise_(_st(constructionShouldFail), smalltalk.Error);;
 return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},smalltalk.BlockClosureTest)})},
 messageSends: []}),
 smalltalk.BlockClosureTest);

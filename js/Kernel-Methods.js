@@ -182,14 +182,14 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-var duck = function() {};
-duck.prototype = self.prototype;
-var duckInstance = new duck;
-var result = self.apply(duckInstance, aCollection);
-return typeof result === "object" ? result : duckInstance;;
+var blankObject = function() {};
+blankObject.prototype = self.prototype;
+var newObject = new blankObject;
+var result = self.apply(newObject, aCollection);
+return typeof result === "object" ? result : newObject;;
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},smalltalk.BlockClosure)})},
 args: ["aCollection"],
-source: "newWithValues: aCollection\x0a\x22I'll apply a variable number of arguments to a function, and return the object created.\x0a\x0aNote: This is apparently just what Coffeescript does; I know because I was 'inspired' by http://stackoverflow.com/a/6069331.\x0a\x0aHere's a general breakdown of what's going on:\x0a1) Create a new, blank function object.\x0a2) Set it's prototype to 'my' prototype. Remember, we are in a BlockClosure, and presumably this BlockClosure is wrapping a JS function, and also presumably this function is used as a constructor.\x0a3) Instantiate a new version of the function object we just created. This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. This has to be done, as we have no access to the [[prototype]] property externally.\x0a4) Apply 'myself' to the object I just instantiated.\x22\x0a<\x0avar duck = function() {};\x0aduck.prototype = self.prototype;\x0avar duckInstance = new duck;\x0avar result = self.apply(duckInstance, aCollection);\x0areturn typeof result === \x22object\x22 ? result : duckInstance;\x0a>",
+source: "newWithValues: aCollection\x0a\x22Answer an object that's been created in JS via `new` and had `self` applied to it.\x0aThis algorithm was inspired by http://stackoverflow.com/a/6069331.\x0a\x0aHere's a general breakdown of what's going on:\x0a1) Create a new, blank function object.\x0a2) Set it's prototype to `self`'s prototype. Remember, we're in a BlockClosure, and presumably this BlockClosure is wrapping a JS function, and also presumably this function is used as a constructor.\x0a3) Instantiate a new version of the function object just created. This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. This has to be done, as we have no access to the [[prototype]] property externally.\x0a4) Apply `self` to the object I just instantiated.\x22\x0a<\x0avar blankObject = function() {};\x0ablankObject.prototype = self.prototype;\x0avar newObject = new blankObject;\x0avar result = self.apply(newObject, aCollection);\x0areturn typeof result === \x22object\x22 ? result : newObject;\x0a>",
 messageSends: [],
 referencedClasses: []
 }),

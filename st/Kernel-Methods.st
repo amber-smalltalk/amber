@@ -125,21 +125,20 @@ newValue: anObject value: anObject2 value: anObject3
 !
 
 newWithValues: aCollection
-"I'll apply a variable number of arguments to a function, and return the object created.
-
-Note: This is apparently just what Coffeescript does; I know because I was 'inspired' by http://stackoverflow.com/a/6069331.
+"Answer an object that's been created in JS via `new` and had `self` applied to it.
+This algorithm was inspired by http://stackoverflow.com/a/6069331.
 
 Here's a general breakdown of what's going on:
 1) Create a new, blank function object.
-2) Set it's prototype to 'my' prototype. Remember, we are in a BlockClosure, and presumably this BlockClosure is wrapping a JS function, and also presumably this function is used as a constructor.
-3) Instantiate a new version of the function object we just created. This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. This has to be done, as we have no access to the [[prototype]] property externally.
-4) Apply 'myself' to the object I just instantiated."
+2) Set it's prototype to `self`'s prototype. Remember, we're in a BlockClosure, and presumably this BlockClosure is wrapping a JS function, and also presumably this function is used as a constructor.
+3) Instantiate a new version of the function object just created. This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. This has to be done, as we have no access to the [[prototype]] property externally.
+4) Apply `self` to the object I just instantiated."
 <
-var duck = function() {};
-duck.prototype = self.prototype;
-var duckInstance = new duck;
-var result = self.apply(duckInstance, aCollection);
-return typeof result === "object" ? result : duckInstance;
+var blankObject = function() {};
+blankObject.prototype = self.prototype;
+var newObject = new blankObject;
+var result = self.apply(newObject, aCollection);
+return typeof result === "object" ? result : newObject;
 >
 !
 
