@@ -1,3 +1,3 @@
 @cd "%~dp0\.." 
-@node server\server.js %*
+@node .\cli\js\amber-cli.js serve %*
 
