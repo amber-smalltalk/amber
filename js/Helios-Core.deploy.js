@@ -1910,7 +1910,6 @@ return _st(active).__eq(false);
 if(smalltalk.assert($1)){
 active=true;
 active;
-_st(e)._preventDefault();
 _st(self)._activatePreviousListItem();
 delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -1939,7 +1938,6 @@ return _st(delay)._clearTimeout();
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
 delay;
-false;
 };
 $5=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -1948,7 +1946,6 @@ return _st(active).__eq(false);
 if(smalltalk.assert($5)){
 active=true;
 active;
-_st(e)._preventDefault();
 _st(self)._activateNextListItem();
 delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -1976,9 +1973,8 @@ return _st(delay)._clearTimeout();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}))._valueWithInterval_(repeatInterval);
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
-delay;
+return delay;
 };
-return false;
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(_st(_st(self)._wrapper())._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
@@ -2001,7 +1997,7 @@ return _st(delay)._clearTimeout();
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
-messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "preventDefault", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"]}),
+messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"]}),
 smalltalk.HLListWidget);
 
 
@@ -3342,6 +3338,20 @@ _st(self)._addProgressBar_(progressBar);
 _st(progressBar)._start();
 return self}, function($ctx1) {$ctx1.fill(self,"do:on:displaying:",{aBlock:aBlock,aCollection:aCollection,aString:aString,progressBar:progressBar},smalltalk.HLProgressWidget)})},
 messageSends: ["parent:", "new", "label:", "workBlock:", "collection:", "yourself", "addProgressBar:", "start"]}),
+smalltalk.HLProgressWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "flush",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._progressBars())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._removeProgressBar_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"flush",{},smalltalk.HLProgressWidget)})},
+messageSends: ["do:", "removeProgressBar:", "progressBars"]}),
 smalltalk.HLProgressWidget);
 
 smalltalk.addMethod(

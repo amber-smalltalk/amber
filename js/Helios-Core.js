@@ -2527,7 +2527,6 @@ return _st(active).__eq(false);
 if(smalltalk.assert($1)){
 active=true;
 active;
-_st(e)._preventDefault();
 _st(self)._activatePreviousListItem();
 delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -2556,7 +2555,6 @@ return _st(delay)._clearTimeout();
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
 delay;
-false;
 };
 $5=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -2565,7 +2563,6 @@ return _st(active).__eq(false);
 if(smalltalk.assert($5)){
 active=true;
 active;
-_st(e)._preventDefault();
 _st(self)._activateNextListItem();
 delay=_st((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -2593,9 +2590,8 @@ return _st(delay)._clearTimeout();
 }, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}))._valueWithInterval_(repeatInterval);
 return interval;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
-delay;
+return delay;
 };
-return false;
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 _st(_st(_st(self)._wrapper())._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
@@ -2619,8 +2615,8 @@ return _st(delay)._clearTimeout();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09self wrapper asJQuery unbind: 'keydown'.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09e preventDefault.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [\x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300.\x0a\x09\x09\x09\x09\x09false ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09e preventDefault.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ \x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activateNextListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x09\x09false ].\x0a\x09\x0a\x09self wrapper asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
-messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "preventDefault", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"],
+source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09self wrapper asJQuery unbind: 'keydown'.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [\x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ \x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activateNextListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09self wrapper asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
+messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -4361,6 +4357,25 @@ args: ["aBlock", "aCollection", "aString"],
 source: "do: aBlock on: aCollection displaying: aString\x0a\x09| progressBar |\x0a\x09\x0a\x09progressBar := HLProgressBarWidget new\x0a\x09\x09parent: self;\x0a\x09\x09label: aString;\x0a\x09\x09workBlock: aBlock;\x0a\x09\x09collection: aCollection;\x0a\x09\x09yourself.\x0a\x09\x0a\x09self addProgressBar: progressBar.\x0a\x09progressBar start",
 messageSends: ["parent:", "new", "label:", "workBlock:", "collection:", "yourself", "addProgressBar:", "start"],
 referencedClasses: ["HLProgressBarWidget"]
+}),
+smalltalk.HLProgressWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "flush",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._progressBars())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._removeProgressBar_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"flush",{},smalltalk.HLProgressWidget)})},
+args: [],
+source: "flush\x0a\x09self progressBars do: [ :each |\x0a\x09\x09self removeProgressBar: each ]",
+messageSends: ["do:", "removeProgressBar:", "progressBars"],
+referencedClasses: []
 }),
 smalltalk.HLProgressWidget);
 
