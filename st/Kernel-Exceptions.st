@@ -36,6 +36,12 @@ initialize
 
 !Error methodsFor: 'signaling'!
 
+resignal
+	"Resignal the receiver without changing its exception context"
+	
+	<throw(self)>
+!
+
 signal
 	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
 !

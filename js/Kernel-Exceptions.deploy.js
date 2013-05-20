@@ -70,6 +70,17 @@ smalltalk.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "resignal",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+throw(self);
+return self}, function($ctx1) {$ctx1.fill(self,"resignal",{},smalltalk.Error)})},
+messageSends: []}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "signal",
 fn: function (){
 var self=this;

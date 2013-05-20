@@ -101,6 +101,22 @@ smalltalk.Error);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "resignal",
+category: 'signaling',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+throw(self);
+return self}, function($ctx1) {$ctx1.fill(self,"resignal",{},smalltalk.Error)})},
+args: [],
+source: "resignal\x0a\x09\x22Resignal the receiver without changing its exception context\x22\x0a\x09\x0a\x09<throw(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Error);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "signal",
 category: 'signaling',
 fn: function (){
