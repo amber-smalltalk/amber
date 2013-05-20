@@ -141,6 +141,27 @@ smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testNewWithValues",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+function theTestPrototype() {
+	this.name = "theTestPrototype";
+}
+function theTestConstructor(arg1, arg2, arg3) {}
+theTestConstructor.prototype = new theTestPrototype;
+
+var theWrappedConstructor = _st(theTestConstructor);
+var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);
+
+self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');;
+return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},smalltalk.BlockClosureTest)})},
+messageSends: []}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testNumArgs",
 fn: function (){
 var self=this;

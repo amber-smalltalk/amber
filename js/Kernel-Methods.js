@@ -127,11 +127,13 @@ category: 'evaluating',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return new self(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
+var $1;
+$1=_st(self)._newWithValues_([anObject]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
 args: ["anObject"],
-source: "newValue: anObject\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject)>",
-messageSends: [],
+source: "newValue: anObject\x0a^ self newWithValues: { anObject }",
+messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
@@ -143,11 +145,13 @@ category: 'evaluating',
 fn: function (anObject,anObject2){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return new self(anObject, anObject2);
-return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
+var $1;
+$1=_st(self)._newWithValues_([anObject,anObject2]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2"],
-source: "newValue: anObject value: anObject2\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2)>",
-messageSends: [],
+source: "newValue: anObject value: anObject2\x0a^ self newWithValues: { anObject. anObject2 }.",
+messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
 smalltalk.BlockClosure);
@@ -159,10 +163,33 @@ category: 'evaluating',
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return new self(anObject, anObject2,anObject3);
-return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
+var $1;
+$1=_st(self)._newWithValues_([anObject,anObject2,anObject3]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
-source: "newValue: anObject value: anObject2 value: anObject3\x0a\x09\x22Use the receiver as a JS constructor.\x0a\x09*Do not* use this method to instanciate Smalltalk objects!\x22\x0a\x09<return new self(anObject, anObject2,anObject3)>",
+source: "newValue: anObject value: anObject2 value: anObject3\x0a^ self newWithValues: { anObject. anObject2. anObject3 }.",
+messageSends: ["newWithValues:"],
+referencedClasses: []
+}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newWithValues:",
+category: 'evaluating',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+var duck = function() {};
+duck.prototype = self.prototype;
+var duckInstance = new duck;
+var result = self.apply(duckInstance, aCollection);
+return typeof result === "object" ? result : duckInstance;;
+return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},smalltalk.BlockClosure)})},
+args: ["aCollection"],
+source: "newWithValues: aCollection\x0a\x22I'll apply a variable number of arguments to a function, and return the object created.\x0a\x0aNote: This is apparently just what Coffeescript does; I know because I was 'inspired' by http://stackoverflow.com/a/6069331.\x0a\x0aHere's a general breakdown of what's going on:\x0a1) Create a new, blank function object.\x0a2) Set it's prototype to 'my' prototype. Remember, we are in a BlockClosure, and presumably this BlockClosure is wrapping a JS function, and also presumably this function is used as a constructor.\x0a3) Instantiate a new version of the function object we just created. This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. This has to be done, as we have no access to the [[prototype]] property externally.\x0a4) Apply 'myself' to the object I just instantiated.\x22\x0a<\x0avar duck = function() {};\x0aduck.prototype = self.prototype;\x0avar duckInstance = new duck;\x0avar result = self.apply(duckInstance, aCollection);\x0areturn typeof result === \x22object\x22 ? result : duckInstance;\x0a>",
 messageSends: [],
 referencedClasses: []
 }),

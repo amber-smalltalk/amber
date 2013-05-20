@@ -176,6 +176,32 @@ smalltalk.BlockClosureTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testNewWithValues",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+function theTestPrototype() {
+	this.name = "theTestPrototype";
+}
+function theTestConstructor(arg1, arg2, arg3) {}
+theTestConstructor.prototype = new theTestPrototype;
+
+var theWrappedConstructor = _st(theTestConstructor);
+var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);
+
+self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');;
+return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},smalltalk.BlockClosureTest)})},
+args: [],
+source: "testNewWithValues\x0a<\x0afunction theTestPrototype() {\x0a\x09this.name = \x22theTestPrototype\x22;\x0a}\x0afunction theTestConstructor(arg1, arg2, arg3) {}\x0atheTestConstructor.prototype = new theTestPrototype;\x0a\x0avar theWrappedConstructor = _st(theTestConstructor);\x0avar theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);\x0a\x0aself._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockClosureTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testNumArgs",
 category: 'tests',
 fn: function (){
