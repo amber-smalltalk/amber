@@ -145,12 +145,12 @@ $2=_st(smalltalkError)._isKindOf_(anErrorClass);
 if(smalltalk.assert($2)){
 return _st(aBlock)._value_(smalltalkError);
 } else {
-return _st(smalltalkError)._signal();
+return _st(smalltalkError)._resignal();
 };
 }, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},smalltalk.BlockClosure)})},
-messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:"]}),
+messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "value:", "resignal", "isKindOf:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
