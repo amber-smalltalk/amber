@@ -30,6 +30,10 @@ receiver: anObject
 doIt: aString
 
 	^ self environment eval: aString on: self receiver
+!
+
+inspect: anObject
+	self environment inspect: anObject
 ! !
 
 !HLCodeModel methodsFor: 'defaults'!
@@ -159,7 +163,7 @@ inspectIt
 	| newInspector |
        
 	self model announcer announce: (HLInspectItRequested on: model).
-	self doIt inspect
+	self model inspect: self doIt
 !
 
 print: aString

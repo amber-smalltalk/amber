@@ -176,6 +176,10 @@ addInstVarNamed: aString
 		yourself)
 !
 
+inspect: anObject
+	self environment inspect: anObject
+!
+
 save: aString
 	self announcer announce: HLSourceCodeSaved new.
 	

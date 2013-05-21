@@ -2518,6 +2518,23 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inspect:",
+category: 'actions',
+fn: function (anObject){
+var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($InspectorHandler())._inspector())._inspect_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Environment)})},
+args: ["anObject"],
+source: "inspect: anObject\x0a\x09InspectorHandler inspector inspect: anObject",
+messageSends: ["inspect:", "inspector"],
+referencedClasses: ["InspectorHandler"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "moveClass:toPackage:",
 category: 'actions',
 fn: function (aClass,aPackageName){
@@ -2858,14 +2875,12 @@ category: 'registration',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+_st(console)._log_(_st(anInspector)._name());
 self["@inspector"]=anInspector;
-$1=self["@inspector"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.InspectorHandler.klass)})},
+return self}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.InspectorHandler.klass)})},
 args: ["anInspector"],
-source: "register: anInspector\x0a\x09^ inspector := anInspector",
-messageSends: [],
+source: "register: anInspector\x0a\x09console log: anInspector name.\x0a\x09inspector := anInspector",
+messageSends: ["log:", "name"],
 referencedClasses: []
 }),
 smalltalk.InspectorHandler.klass);

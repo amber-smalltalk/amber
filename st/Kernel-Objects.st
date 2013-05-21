@@ -782,6 +782,10 @@ eval: aString on: aReceiver
 	^ compiler evaluateExpression: aString on: aReceiver
 !
 
+inspect: anObject
+	InspectorHandler inspector inspect: anObject
+!
+
 moveClass: aClass toPackage: aPackageName
 	| package |
 	
@@ -913,7 +917,8 @@ inspect: anObject
 !
 
 register: anInspector
-	^ inspector := anInspector
+	console log: anInspector name.
+	inspector := anInspector
 ! !
 
 Object subclass: #JSObjectProxy

@@ -79,6 +79,17 @@ smalltalk.HLCodeModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "inspect:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._environment())._inspect_(anObject);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLCodeModel)})},
+messageSends: ["inspect:", "environment"]}),
+smalltalk.HLCodeModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "receiver",
 fn: function (){
 var self=this;
@@ -327,9 +338,9 @@ var newInspector;
 function $HLInspectItRequested(){return smalltalk.HLInspectItRequested||(typeof HLInspectItRequested=="undefined"?nil:HLInspectItRequested)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(_st(self)._model())._announcer())._announce_(_st($HLInspectItRequested())._on_(self["@model"]));
-_st(_st(self)._doIt())._inspect();
+_st(_st(self)._model())._inspect_(_st(self)._doIt());
 return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector},smalltalk.HLCodeWidget)})},
-messageSends: ["announce:", "on:", "announcer", "model", "inspect", "doIt"]}),
+messageSends: ["announce:", "on:", "announcer", "model", "inspect:", "doIt"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(
