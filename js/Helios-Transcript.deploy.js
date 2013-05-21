@@ -59,9 +59,15 @@ selector: "show:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@textarea"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
 _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
+};
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscript)})},
-messageSends: ["append:", "asString", "asJQuery"]}),
+messageSends: ["ifNotNil:", "append:", "asString", "asJQuery"]}),
 smalltalk.HLTranscript);
 
 smalltalk.addMethod(

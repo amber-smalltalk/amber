@@ -81,11 +81,17 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@textarea"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
 _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
+};
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscript)})},
 args: ["aString"],
-source: "show: aString\x0a\x09textarea asJQuery append: aString asString",
-messageSends: ["append:", "asString", "asJQuery"],
+source: "show: aString\x0a\x09textarea ifNotNil: [\x0a \x09\x09textarea asJQuery append: aString asString ]",
+messageSends: ["ifNotNil:", "append:", "asString", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLTranscript);
