@@ -917,7 +917,6 @@ inspect: anObject
 !
 
 register: anInspector
-	console log: anInspector name.
 	inspector := anInspector
 ! !
 

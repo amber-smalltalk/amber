@@ -2089,10 +2089,9 @@ selector: "register:",
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_(_st(anInspector)._name());
 self["@inspector"]=anInspector;
 return self}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.InspectorHandler.klass)})},
-messageSends: ["log:", "name"]}),
+messageSends: []}),
 smalltalk.InspectorHandler.klass);
 
 

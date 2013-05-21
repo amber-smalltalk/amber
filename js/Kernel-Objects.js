@@ -2875,12 +2875,11 @@ category: 'registration',
 fn: function (anInspector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_(_st(anInspector)._name());
 self["@inspector"]=anInspector;
 return self}, function($ctx1) {$ctx1.fill(self,"register:",{anInspector:anInspector},smalltalk.InspectorHandler.klass)})},
 args: ["anInspector"],
-source: "register: anInspector\x0a\x09console log: anInspector name.\x0a\x09inspector := anInspector",
-messageSends: ["log:", "name"],
+source: "register: anInspector\x0a\x09inspector := anInspector",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.InspectorHandler.klass);
