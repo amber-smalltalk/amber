@@ -3805,6 +3805,32 @@ smalltalk.HLManager);
 smalltalk.HLManager.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
+selector: "clearKeydownEvent",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(_st(window)._jQuery_("body"))._keydown_((function(e){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(_st(e)._keyCode()).__gt_eq((37)))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(e)._keyCode()).__lt_eq((40));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($1)){
+return false;
+};
+}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"clearKeydownEvent",{},smalltalk.HLManager.klass)})},
+args: [],
+source: "clearKeydownEvent\x0a\x09\x22Prevent default keydown event with arrow key from scrolling the parent page\x0a\x09when helios is run inside a frame.\x22\x0a\x09\x0a\x09(window jQuery: 'body') keydown: [ :e | \x0a\x09\x09(e keyCode >= 37 and: [ e keyCode <= 40 ])\x0a\x09\x09\x09ifTrue: [ false ] ]",
+messageSends: ["keydown:", "ifTrue:", "and:", "<=", "keyCode", ">=", "jQuery:"],
+referencedClasses: []
+}),
+smalltalk.HLManager.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "current",
 category: 'accessing',
 fn: function (){
@@ -3835,10 +3861,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(self)._current())._appendToJQuery_(_st("body")._asJQuery());
+_st(self)._clearKeydownEvent();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLManager.klass)})},
 args: [],
-source: "initialize\x0a\x09self current appendToJQuery: 'body' asJQuery",
-messageSends: ["appendToJQuery:", "asJQuery", "current"],
+source: "initialize\x0a\x09self current appendToJQuery: 'body' asJQuery.\x0a\x09self clearKeydownEvent",
+messageSends: ["appendToJQuery:", "asJQuery", "current", "clearKeydownEvent"],
 referencedClasses: []
 }),
 smalltalk.HLManager.klass);
