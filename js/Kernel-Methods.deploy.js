@@ -130,11 +130,11 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-var blankObject = function() {};
-blankObject.prototype = self.prototype;
-var newObject = new blankObject;
-var result = self.apply(newObject, aCollection);
-return typeof result === "object" ? result : newObject;;
+	var constructor = function() {};
+	constructor.prototype = self.prototype;
+	var object = new constructor;
+	var result = self.apply(object, aCollection);
+	return typeof result === "object" ? result : object;;
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
