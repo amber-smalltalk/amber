@@ -256,7 +256,7 @@ renderButtonsOn: html
 		onClick: [ self doIt ].
 	html button 
 		class: 'button';
-		with: 'PintIt';
+		with: 'PrintIt';
 		onClick: [ self printIt ].
 	html button 
 		class: 'button';

@@ -520,7 +520,7 @@ return _st(self)._doIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3=_st(html)._button();
 _st($3)._class_("button");
-_st($3)._with_("PintIt");
+_st($3)._with_("PrintIt");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._printIt();
