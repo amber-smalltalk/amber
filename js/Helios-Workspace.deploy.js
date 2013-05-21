@@ -553,21 +553,27 @@ selector: "renderContentOn:",
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-self["@code"]=_st(html)._textarea();
-self["@state"]=_st(_st(html)._div())._class_("state");
+var $1,$2,$3,$4,$5,$6;
 $1=_st(html)._div();
-_st($1)._class_("buttons_bar");
+_st($1)._class_("editor");
 $2=_st($1)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@code"]=_st(html)._textarea();
+return self["@code"];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+self["@state"]=_st(_st(html)._div())._class_("state");
+$3=_st(html)._div();
+_st($3)._class_("buttons_bar");
+$4=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self)._renderButtonsOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$3=self;
-_st($3)._setEditorOn_(_st(self["@code"])._element());
-_st($3)._configureEditor();
-$4=_st($3)._updateState();
+$5=self;
+_st($5)._setEditorOn_(_st(self["@code"])._element());
+_st($5)._configureEditor();
+$6=_st($5)._updateState();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLCodeWidget)})},
-messageSends: ["textarea", "class:", "div", "with:", "renderButtonsOn:", "setEditorOn:", "element", "configureEditor", "updateState"]}),
+messageSends: ["class:", "div", "with:", "textarea", "renderButtonsOn:", "setEditorOn:", "element", "configureEditor", "updateState"]}),
 smalltalk.HLCodeWidget);
 
 smalltalk.addMethod(

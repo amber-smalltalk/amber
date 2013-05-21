@@ -97,11 +97,31 @@ html[xmlns] .clearfix {
 	background: transparent url('../images/modified.png') 50% 50% no-repeat;
     }
 
+    .editor {
+	position: absolute;
+	top: 0;
+	bottom: 23px;
+	left: 0;
+	right: 0;
+    }
+
     .buttons_bar {
 	position: absolute;
-	bottom: 8px;
-	right: 20px;
+	bottom: 0;
+	right: 0;
+	left: 0;
 	z-index: 2;
+	padding: 0px 25px;
+	height: 21px;
+	line-height: 18px;
+	border-top: 1px solid #999;
+	text-align: right;
+
+	.button {
+	    height: 17px;
+	    font-size: 12px;
+	    min-width: 0;
+	}
     }
 
     .btn, .btn-group > .btn, .btn-group > .dropdown-menu {
@@ -482,11 +502,17 @@ html[xmlns] .clearfix {
 	width: 100%;
 	height: 16px;
 	bottom: 0;
-	background: #dadada;
-	border-top: 1px solid #666;
 	padding: 0;
 	margin: 0;
+    }
+
+    .tool_container .pane_actions, .tool_container .buttons_bar {
+	background: #dadada;
+	border-top: 1px solid #666;
 	background-image: -webkit-linear-gradient(top, #dadada, #bdbdbd);
+	background-image: -moz-linear-gradient(top, #dadada, #bdbdbd);
+	background-image: -o-linear-gradient(top, #dadada, #bdbdbd);
+	background-image: linear-gradient(top, #dadada, #bdbdbd);
     }
 
     .tool_container .panes .pane .pane_actions .info {

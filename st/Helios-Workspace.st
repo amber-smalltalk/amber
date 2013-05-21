@@ -269,7 +269,8 @@ renderButtonsOn: html
 !
 
 renderContentOn: html
-	code := html textarea.
+	html div class: 'editor'; with: [
+		code := html textarea ].
 	state := html div class: 'state'.
 	
 	html div 
