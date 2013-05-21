@@ -383,17 +383,6 @@ smalltalk.HLToolModel);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "inspect:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._environment())._inspect_(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLToolModel)})},
-messageSends: ["inspect:", "environment"]}),
-smalltalk.HLToolModel);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "isToolModel",
 fn: function (){
 var self=this;
