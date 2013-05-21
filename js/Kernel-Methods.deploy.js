@@ -90,9 +90,11 @@ selector: "newValue:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return new self(anObject);
-return self}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
-messageSends: []}),
+var $1;
+$1=_st(self)._newWithValues_([anObject]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
+messageSends: ["newWithValues:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
@@ -101,9 +103,11 @@ selector: "newValue:value:",
 fn: function (anObject,anObject2){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return new self(anObject, anObject2);
-return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
-messageSends: []}),
+var $1;
+$1=_st(self)._newWithValues_([anObject,anObject2]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
+messageSends: ["newWithValues:"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
@@ -112,8 +116,26 @@ selector: "newValue:value:value:",
 fn: function (anObject,anObject2,anObject3){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return new self(anObject, anObject2,anObject3);
-return self}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
+var $1;
+$1=_st(self)._newWithValues_([anObject,anObject2,anObject3]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
+messageSends: ["newWithValues:"]}),
+smalltalk.BlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newWithValues:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+var blankObject = function() {};
+blankObject.prototype = self.prototype;
+var newObject = new blankObject;
+var result = self.apply(newObject, aCollection);
+return typeof result === "object" ? result : newObject;;
+return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
 
