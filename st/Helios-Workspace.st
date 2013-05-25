@@ -345,7 +345,7 @@ macKeyMap
 !
 
 pcKeyMap
-	^ {
+	^ #{
 		'Alt-Left' -> 'goLineStart'. 
 		'Alt-Right' -> 'goLineEnd'.
 		'Alt-Up' -> 'goDocStart'. 
