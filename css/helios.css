@@ -112,6 +112,7 @@ html[xmlns] .clearfix {
   line-height: 16px;
 }
 #helios .navbar-fixed-top a span {
+  padding: 1px;
   padding-left: 18px;
   background-position: center left;
   background-repeat: no-repeat;
