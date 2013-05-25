@@ -74,13 +74,13 @@ $3=_st(html)._button();
 _st($3)._with_("++");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._increase();
+return self._increase();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._decrease();
+return self._decrease();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.Counter)})},
 args: ["html"],
@@ -98,7 +98,7 @@ category: 'example',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._new())._appendToJQuery_(_st("body")._asJQuery());
+_st(self._new())._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},smalltalk.Counter.klass)})},
 args: [],
 source: "tryExample\x0a\x09\x22In order to play with the Counter, just select the\x0a\x09doit below and press the Do it button. Then take a\x0a\x09look in the HTML document above the IDE.\x22\x0a\x0a\x09\x22Counter tryExample\x22\x0a\x09\x09self new appendToJQuery: 'body' asJQuery",

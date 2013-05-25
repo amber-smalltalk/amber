@@ -101,7 +101,7 @@ fn: function (aCodeModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._code_(aCodeModel);
 $3=_st($2)._yourself();
 $1=$3;
@@ -455,7 +455,7 @@ fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._item_(anItem);
 $3=_st($2)._yourself();
 $1=$3;

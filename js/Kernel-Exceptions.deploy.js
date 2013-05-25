@@ -17,7 +17,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._messageText_(_st("Errorclass: ").__comma(_st(_st(self)._class())._name()));
+self._messageText_("Errorclass: ".__comma(_st(self._class())._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Error)})},
 messageSends: ["messageText:", ",", "name", "class"]}),
 smalltalk.Error);
@@ -96,8 +96,8 @@ selector: "signal:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._messageText_(aString);
-_st(self)._signal();
+self._messageText_(aString);
+self._signal();
 return self}, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},smalltalk.Error)})},
 messageSends: ["messageText:", "signal"]}),
 smalltalk.Error);
@@ -121,7 +121,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._new())._signal();
+$1=_st(self._new())._signal();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"signal",{},smalltalk.Error.klass)})},
 messageSends: ["signal", "new"]}),
@@ -134,7 +134,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._new())._signal_(aString);
+$1=_st(self._new())._signal_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},smalltalk.Error.klass)})},
 messageSends: ["signal:", "new"]}),
@@ -196,7 +196,7 @@ fn: function (anException){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._exception_(anException);
 $3=_st($2)._yourself();
 $1=$3;
@@ -212,7 +212,7 @@ fn: function (anException,aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._exception_(anException);
 _st($2)._context_(aMethodContext);
 $3=_st($2)._yourself();
@@ -255,7 +255,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(self)._receiver())._asString()).__comma(" does not understand #")).__comma(_st(_st(self)._message())._selector());
+$1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
 messageSends: [",", "selector", "message", "asString", "receiver"]}),
@@ -326,9 +326,9 @@ $1=_st(anError)._context();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(self)._logErrorContext_(_st(anError)._context());
+self._logErrorContext_(_st(anError)._context());
 };
-_st(self)._logError_(anError);
+self._logError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler)})},
 messageSends: ["ifNotNil:", "logErrorContext:", "context", "logError:"]}),
 smalltalk.ErrorHandler);
@@ -355,9 +355,9 @@ $1=_st(aContext)._home();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(self)._logContext_(_st(aContext)._home());
+self._logContext_(_st(aContext)._home());
 };
-_st(self)._log_(_st(aContext)._asString());
+self._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 messageSends: ["ifNotNil:", "logContext:", "home", "log:", "asString"]}),
 smalltalk.ErrorHandler);
@@ -368,7 +368,7 @@ selector: "logError:",
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._log_(_st(anError)._messageText());
+self._log_(_st(anError)._messageText());
 return self}, function($ctx1) {$ctx1.fill(self,"logError:",{anError:anError},smalltalk.ErrorHandler)})},
 messageSends: ["log:", "messageText"]}),
 smalltalk.ErrorHandler);
@@ -388,7 +388,7 @@ $2=_st(aContext)._home();
 if(($receiver = $2) == nil || $receiver == undefined){
 $2;
 } else {
-_st(self)._logContext_(_st(aContext)._home());
+self._logContext_(_st(aContext)._home());
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
@@ -406,7 +406,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@current"]=_st(self)._new();
+self["@current"]=self._new();
 $1=self["@current"];
 } else {
 $1=$2;
@@ -422,7 +422,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._register();
+self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ErrorHandler.klass)})},
 messageSends: ["register"]}),
 smalltalk.ErrorHandler.klass);
@@ -434,7 +434,7 @@ fn: function (){
 var self=this;
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-_st($ErrorHandler())._setCurrent_(_st(self)._new());
+_st($ErrorHandler())._setCurrent_(self._new());
 return self}, function($ctx1) {$ctx1.fill(self,"register",{},smalltalk.ErrorHandler.klass)})},
 messageSends: ["setCurrent:", "new"]}),
 smalltalk.ErrorHandler.klass);

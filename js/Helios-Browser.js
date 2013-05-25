@@ -27,9 +27,9 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@classesListWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@classesListWidget"]=_st($HLClassesListWidget())._on_(_st(self)._model());
+self["@classesListWidget"]=_st($HLClassesListWidget())._on_(self._model());
 self["@classesListWidget"];
-$1=_st(self["@classesListWidget"])._next_(_st(self)._protocolsListWidget());
+$1=_st(self["@classesListWidget"])._next_(self._protocolsListWidget());
 } else {
 $1=$2;
 };
@@ -50,7 +50,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._environment();
+$1=_st(self._model())._environment();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"environment",{},smalltalk.HLBrowser)})},
 args: [],
@@ -68,7 +68,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._packagesListWidget())._focus();
+$1=_st(self._packagesListWidget())._focus();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLBrowser)})},
 args: [],
@@ -89,9 +89,9 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@methodsListWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@methodsListWidget"]=_st($HLMethodsListWidget())._on_(_st(self)._model());
+self["@methodsListWidget"]=_st($HLMethodsListWidget())._on_(self._model());
 self["@methodsListWidget"];
-$1=_st(self["@methodsListWidget"])._next_(_st(self)._sourceWidget());
+$1=_st(self["@methodsListWidget"])._next_(self._sourceWidget());
 } else {
 $1=$2;
 };
@@ -156,9 +156,9 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@packagesListWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@packagesListWidget"]=_st($HLPackagesListWidget())._on_(_st(self)._model());
+self["@packagesListWidget"]=_st($HLPackagesListWidget())._on_(self._model());
 self["@packagesListWidget"];
-$1=_st(self["@packagesListWidget"])._next_(_st(self)._classesListWidget());
+$1=_st(self["@packagesListWidget"])._next_(self._classesListWidget());
 } else {
 $1=$2;
 };
@@ -182,9 +182,9 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@protocolsListWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@protocolsListWidget"]=_st($HLProtocolsListWidget())._on_(_st(self)._model());
+self["@protocolsListWidget"]=_st($HLProtocolsListWidget())._on_(self._model());
 self["@protocolsListWidget"];
-$1=_st(self["@protocolsListWidget"])._next_(_st(self)._methodsListWidget());
+$1=_st(self["@protocolsListWidget"])._next_(self._methodsListWidget());
 } else {
 $1=$2;
 };
@@ -205,7 +205,7 @@ fn: function (aBindingGroup){
 var self=this;
 function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
 return smalltalk.withContext(function($ctx1) { 
-_st($HLToolCommand())._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
+_st($HLToolCommand())._registerConcreteClassesOn_for_(aBindingGroup,self._model());
 return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup},smalltalk.HLBrowser)})},
 args: ["aBindingGroup"],
 source: "registerBindingsOn: aBindingGroup\x0a\x09HLToolCommand \x0a\x09\x09registerConcreteClassesOn: aBindingGroup \x0a\x09\x09for: self model",
@@ -224,8 +224,8 @@ function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVe
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(_st(self)._packagesListWidget(),_st(self)._classesListWidget()),_st($HLVerticalSplitter())._with_with_(_st(self)._protocolsListWidget(),_st(self)._methodsListWidget())),_st(self)._sourceWidget())));
-_st(_st(self)._packagesListWidget())._focus();
+_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._packagesListWidget(),self._classesListWidget()),_st($HLVerticalSplitter())._with_with_(self._protocolsListWidget(),self._methodsListWidget())),self._sourceWidget())));
+_st(self._packagesListWidget())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowser)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self packagesListWidget\x0a                with: self classesListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self protocolsListWidget\x0a                with: self methodsListWidget)) \x0a        with: self sourceWidget)).\x0a\x09\x0a\x09self packagesListWidget focus",
@@ -246,7 +246,7 @@ var $2,$3,$4,$1;
 $2=self["@sourceWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $3=_st($HLBrowserBottomWidget())._new();
-_st($3)._model_(_st(self)._model());
+_st($3)._model_(self._model());
 $4=_st($3)._yourself();
 self["@sourceWidget"]=$4;
 $1=self["@sourceWidget"];
@@ -270,7 +270,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
-_st([_st(self)._packagesListWidget(),_st(self)._classesListWidget(),_st(self)._protocolsListWidget(),_st(self)._methodsListWidget(),_st(self)._sourceWidget()])._do_((function(each){
+_st([self._packagesListWidget(),self._classesListWidget(),self._protocolsListWidget(),self._methodsListWidget(),self._sourceWidget()])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._unregister();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -315,7 +315,7 @@ self["@nextId"];
 } else {
 $1;
 };
-$2=_st("browser_").__comma(_st(_st(self["@nextId"]).__plus((1)))._asString());
+$2="browser_".__comma(_st(_st(self["@nextId"]).__plus((1)))._asString());
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"nextId",{},smalltalk.HLBrowser.klass)})},
 args: [],
@@ -364,9 +364,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(0);
-return $1;
+return (0);
 }, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLBrowser.klass)})},
 args: [],
 source: "tabPriority\x0a\x09^ 0",
@@ -405,7 +403,7 @@ var $2,$3,$4,$1;
 $2=self["@codeWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $3=_st($HLBrowserCodeWidget())._new();
-_st($3)._browserModel_(_st(self)._model());
+_st($3)._browserModel_(self._model());
 $4=_st($3)._yourself();
 self["@codeWidget"]=$4;
 $1=self["@codeWidget"];
@@ -433,7 +431,7 @@ var $2,$3,$4,$1;
 $2=self["@documentationWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $3=_st($HLDocumentationWidget())._new();
-_st($3)._model_(_st(self)._model());
+_st($3)._model_(self._model());
 $4=_st($3)._yourself();
 self["@documentationWidget"]=$4;
 $1=self["@documentationWidget"];
@@ -456,7 +454,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._codeWidget())._focus();
+_st(self._codeWidget())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLBrowserBottomWidget)})},
 args: [],
 source: "focus\x0a\x09self codeWidget focus",
@@ -491,7 +489,7 @@ fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@model"]=aModel;
-_st(self)._observeModel();
+self._observeModel();
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLBrowserBottomWidget)})},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel.\x0a\x09self observeModel",
@@ -510,7 +508,7 @@ function $HLShowInstanceToggled(){return smalltalk.HLShowInstanceToggled||(typeo
 function $HLShowCommentToggled(){return smalltalk.HLShowCommentToggled||(typeof HLShowCommentToggled=="undefined"?nil:HLShowCommentToggled)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onShowInstanceToggled",self);
 $2=_st($1)._on_send_to_($HLShowCommentToggled(),"onShowCommentToggled",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLBrowserBottomWidget)})},
@@ -528,7 +526,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onShowCommentToggled",{},smalltalk.HLBrowserBottomWidget)})},
 args: [],
 source: "onShowCommentToggled\x0a\x09self refresh",
@@ -544,7 +542,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLBrowserBottomWidget)})},
 args: [],
 source: "onShowInstanceToggled\x0a\x09self refresh",
@@ -591,11 +589,11 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._showComment();
+$1=_st(self._model())._showComment();
 if(smalltalk.assert($1)){
-_st(self)._renderPanesOn_(html);
+self._renderPanesOn_(html);
 } else {
-_st(html)._with_(_st(self)._codeWidget());
+_st(html)._with_(self._codeWidget());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLBrowserBottomWidget)})},
 args: ["html"],
@@ -613,7 +611,7 @@ fn: function (html){
 var self=this;
 function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLVerticalSplitter())._with_with_(_st(self)._codeWidget(),_st(self)._documentationWidget()));
+_st(html)._with_(_st($HLVerticalSplitter())._with_with_(self._codeWidget(),self._documentationWidget()));
 return self}, function($ctx1) {$ctx1.fill(self,"renderPanesOn:",{html:html},smalltalk.HLBrowserBottomWidget)})},
 args: ["html"],
 source: "renderPanesOn: html\x0a\x09html with: (HLVerticalSplitter\x0a\x09\x09with: self codeWidget\x0a\x09\x09with: self documentationWidget)",
@@ -633,7 +631,7 @@ fn: function (){
 var self=this;
 function $HLEditComment(){return smalltalk.HLEditComment||(typeof HLEditComment=="undefined"?nil:HLEditComment)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._announcer())._announce_(_st($HLEditComment())._new());
+_st(self._announcer())._announce_(_st($HLEditComment())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"editComment",{},smalltalk.HLBrowserModel)})},
 args: [],
 source: "editComment\x0a\x09self announcer announce: HLEditComment new",
@@ -650,7 +648,7 @@ fn: function (){
 var self=this;
 function $HLClassesFocusRequested(){return smalltalk.HLClassesFocusRequested||(typeof HLClassesFocusRequested=="undefined"?nil:HLClassesFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._announcer())._announce_(_st($HLClassesFocusRequested())._new());
+_st(self._announcer())._announce_(_st($HLClassesFocusRequested())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusOnClasses",{},smalltalk.HLBrowserModel)})},
 args: [],
 source: "focusOnClasses\x0a\x09self announcer announce: HLClassesFocusRequested new",
@@ -667,7 +665,7 @@ fn: function (){
 var self=this;
 function $HLMethodsFocusRequested(){return smalltalk.HLMethodsFocusRequested||(typeof HLMethodsFocusRequested=="undefined"?nil:HLMethodsFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._announcer())._announce_(_st($HLMethodsFocusRequested())._new());
+_st(self._announcer())._announce_(_st($HLMethodsFocusRequested())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusOnMethods",{},smalltalk.HLBrowserModel)})},
 args: [],
 source: "focusOnMethods\x0a\x09self announcer announce: HLMethodsFocusRequested new",
@@ -684,7 +682,7 @@ fn: function (){
 var self=this;
 function $HLPackagesFocusRequested(){return smalltalk.HLPackagesFocusRequested||(typeof HLPackagesFocusRequested=="undefined"?nil:HLPackagesFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._announcer())._announce_(_st($HLPackagesFocusRequested())._new());
+_st(self._announcer())._announce_(_st($HLPackagesFocusRequested())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusOnPackages",{},smalltalk.HLBrowserModel)})},
 args: [],
 source: "focusOnPackages\x0a\x09self announcer announce: HLPackagesFocusRequested new",
@@ -701,7 +699,7 @@ fn: function (){
 var self=this;
 function $HLProtocolsFocusRequested(){return smalltalk.HLProtocolsFocusRequested||(typeof HLProtocolsFocusRequested=="undefined"?nil:HLProtocolsFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._announcer())._announce_(_st($HLProtocolsFocusRequested())._new());
+_st(self._announcer())._announce_(_st($HLProtocolsFocusRequested())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusOnProtocols",{},smalltalk.HLBrowserModel)})},
 args: [],
 source: "focusOnProtocols\x0a\x09self announcer announce: HLProtocolsFocusRequested new",
@@ -718,7 +716,7 @@ fn: function (){
 var self=this;
 function $HLSourceCodeFocusRequested(){return smalltalk.HLSourceCodeFocusRequested||(typeof HLSourceCodeFocusRequested=="undefined"?nil:HLSourceCodeFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._announcer())._announce_(_st($HLSourceCodeFocusRequested())._new());
+_st(self._announcer())._announce_(_st($HLSourceCodeFocusRequested())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusOnSourceCode",{},smalltalk.HLBrowserModel)})},
 args: [],
 source: "focusOnSourceCode\x0a\x09self announcer announce: HLSourceCodeFocusRequested new",
@@ -750,7 +748,7 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._environment())._setClassCommentOf_to_(_st(_st(self)._selectedClass())._theNonMetaClass(),aString);
+_st(self._environment())._setClassCommentOf_to_(_st(self._selectedClass())._theNonMetaClass(),aString);
 return self}, function($ctx1) {$ctx1.fill(self,"setClassComment:",{aString:aString},smalltalk.HLBrowserModel)})},
 args: ["aString"],
 source: "setClassComment: aString\x0a\x09self environment\x0a\x09\x09setClassCommentOf: self selectedClass theNonMetaClass\x0a\x09\x09to: aString",
@@ -790,11 +788,11 @@ fn: function (aBoolean){
 var self=this;
 function $HLShowCommentToggled(){return smalltalk.HLShowCommentToggled||(typeof HLShowCommentToggled=="undefined"?nil:HLShowCommentToggled)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._withChangesDo_((function(){
+self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@showComment"]=aBoolean;
 self["@showComment"];
-return _st(_st(self)._announcer())._announce_(_st($HLShowCommentToggled())._new());
+return _st(self._announcer())._announce_(_st($HLShowCommentToggled())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"showComment:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
 args: ["aBoolean"],
@@ -836,24 +834,24 @@ var self=this;
 function $HLShowInstanceToggled(){return smalltalk.HLShowInstanceToggled||(typeof HLShowInstanceToggled=="undefined"?nil:HLShowInstanceToggled)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$3;
-_st(self)._withChangesDo_((function(){
+self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@showInstance"]=aBoolean;
 self["@showInstance"];
-$1=_st(self)._selectedClass();
+$1=self._selectedClass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
 $2=self;
 $4=aBoolean;
 if(smalltalk.assert($4)){
-$3=_st(_st(self)._selectedClass())._theNonMetaClass();
+$3=_st(self._selectedClass())._theNonMetaClass();
 } else {
-$3=_st(_st(self)._selectedClass())._theMetaClass();
+$3=_st(self._selectedClass())._theMetaClass();
 };
 _st($2)._selectedClass_($3);
 };
-return _st(_st(self)._announcer())._announce_(_st($HLShowInstanceToggled())._new());
+return _st(self._announcer())._announce_(_st($HLShowInstanceToggled())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"showInstance:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
 args: ["aBoolean"],
@@ -872,7 +870,7 @@ fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._environment_(anEnvironment);
 $3=_st($2)._yourself();
 $1=$3;
@@ -895,9 +893,9 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(_st(_st(self)._theClass())._subclasses())._do_((function(each){
+_st(_st(self._theClass())._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(self)._selectorsCache())._cacheFor_(each);
+$1=_st(self._selectorsCache())._cacheFor_(each);
 _st($1)._removeSelector_(aSelector);
 $2=_st($1)._invalidateChildrenSelector_(aSelector);
 return $2;
@@ -918,11 +916,11 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(_st(self)._theClass())._superclass();
+$1=_st(self._theClass())._superclass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-$2=_st(_st(self)._selectorsCache())._cacheFor_(_st(_st(self)._theClass())._superclass());
+$2=_st(self._selectorsCache())._cacheFor_(_st(self._theClass())._superclass());
 _st($2)._removeSelector_(aSelector);
 $3=_st($2)._invalidateParentSelector_(aSelector);
 $3;
@@ -963,7 +961,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._overriddenCache())._at_ifAbsentPut_(_st(aMethod)._selector(),(function(){
+$1=_st(self._overriddenCache())._at_ifAbsentPut_(_st(aMethod)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aMethod)._isOverridden();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -984,7 +982,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._overrideCache())._at_ifAbsentPut_(_st(aMethod)._selector(),(function(){
+$1=_st(self._overrideCache())._at_ifAbsentPut_(_st(aMethod)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aMethod)._isOverride();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -1054,10 +1052,10 @@ category: 'private',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._overriddenCache())._removeKey_ifAbsent_(aSelector,(function(){
+_st(self._overriddenCache())._removeKey_ifAbsent_(aSelector,(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(self)._overrideCache())._removeKey_ifAbsent_(aSelector,(function(){
+_st(self._overrideCache())._removeKey_ifAbsent_(aSelector,(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeSelector:",{aSelector:aSelector},smalltalk.HLClassCache)})},
@@ -1145,7 +1143,7 @@ fn: function (aClass,aSelectorsCache){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._theClass_(aClass);
 _st($2)._selectorsCache_(aSelectorsCache);
 $3=_st($2)._yourself();
@@ -1191,7 +1189,7 @@ fn: function (){
 var self=this;
 function $HLMethodsListFocus(){return smalltalk.HLMethodsListFocus||(typeof HLMethodsListFocus=="undefined"?nil:HLMethodsListFocus)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLMethodsListFocus())._new());
+_st(_st(self._model())._announcer())._announce_(_st($HLMethodsListFocus())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusMethodsListWidget",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "focusMethodsListWidget\x0a\x09self model announcer announce: HLMethodsListFocus new",
@@ -1208,7 +1206,7 @@ fn: function (){
 var self=this;
 function $HLProtocolsListFocus(){return smalltalk.HLProtocolsListFocus||(typeof HLProtocolsListFocus=="undefined"?nil:HLProtocolsListFocus)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLProtocolsListFocus())._new());
+_st(_st(self._model())._announcer())._announce_(_st($HLProtocolsListFocus())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusProtocolsListWidget",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "focusProtocolsListWidget\x0a\x09self model announcer announce: HLProtocolsListFocus new",
@@ -1225,7 +1223,7 @@ fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._items())._select_((function(each){
+$1=_st(self._items())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._superclass()).__eq(aClass);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -1288,7 +1286,7 @@ function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSel
 function $HLClassesFocusRequested(){return smalltalk.HLClassesFocusRequested||(typeof HLClassesFocusRequested=="undefined"?nil:HLClassesFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLPackageSelected(),"onPackageSelected:",self);
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onShowInstanceToggled",self);
 _st($1)._on_send_to_($HLShowCommentToggled(),"onShowCommentToggled",self);
@@ -1316,7 +1314,7 @@ function $ClassMigrated(){return smalltalk.ClassMigrated||(typeof ClassMigrated=
 function $ClassCommentChanged(){return smalltalk.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._systemAnnouncer();
+$1=_st(self._model())._systemAnnouncer();
 _st($1)._on_send_to_($ClassAdded(),"onClassAdded:",self);
 _st($1)._on_send_to_($ClassRemoved(),"onClassRemoved:",self);
 _st($1)._on_send_to_($ClassMoved(),"onClassMoved:",self);
@@ -1341,16 +1339,16 @@ var class_;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 class_=_st(anAnnouncement)._theClass();
-$1=_st(_st(_st(class_)._package()).__eq(_st(_st(self)._model())._selectedPackage()))._or_((function(){
+$1=_st(_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage()))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._items())._includes_(class_);
+return _st(self._items())._includes_(class_);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedPackage();
-_st(self)._refresh();
+self._setItemsForSelectedPackage();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassAdded: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09\x0a\x09(class package = self model selectedPackage or: [\x0a\x09\x09self items includes: class ]) ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
@@ -1369,12 +1367,12 @@ var class_;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 class_=_st(anAnnouncement)._theClass();
-$1=_st(_st(class_)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+$1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassCommentChanged: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self refresh",
@@ -1394,17 +1392,17 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 class_=_st(anAnnouncement)._theClass();
 oldClass=_st(anAnnouncement)._oldClass();
-$1=_st(_st(self)._items())._includes_(oldClass);
+$1=_st(self._items())._includes_(oldClass);
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(_st(self)._model())._selectedClass()).__eq(oldClass);
+$3=_st(_st(self._model())._selectedClass()).__eq(oldClass);
 if(smalltalk.assert($3)){
-_st(_st(self)._model())._selectedClass_(class_);
+_st(self._model())._selectedClass_(class_);
 };
-_st(self)._setItemsForSelectedPackage();
-_st(self)._refresh();
+self._setItemsForSelectedPackage();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassMigrated:",{anAnnouncement:anAnnouncement,class_:class_,oldClass:oldClass},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassMigrated: anAnnouncement\x0a\x09| class oldClass |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldClass := anAnnouncement oldClass.\x0a\x0a\x09(self items includes: oldClass) ifFalse: [ ^ self ].\x0a\x0a\x09self model selectedClass = oldClass ifTrue: [\x0a\x09\x09self model selectedClass: class ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
@@ -1424,23 +1422,23 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4,$5;
 class_=_st(anAnnouncement)._theClass();
 oldPackage=_st(anAnnouncement)._oldPackage();
-$1=_st(_st(oldPackage).__eq(_st(_st(self)._model())._selectedPackage()))._or_((function(){
+$1=_st(_st(oldPackage).__eq(_st(self._model())._selectedPackage()))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(class_)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+return _st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(oldPackage).__eq(_st(_st(self)._model())._selectedPackage());
+$3=_st(oldPackage).__eq(_st(self._model())._selectedPackage());
 if(smalltalk.assert($3)){
 $4=self;
 _st($4)._selectedItem_(nil);
 $5=_st($4)._selectItem_(nil);
 $5;
 };
-_st(self)._setItemsForSelectedPackage();
-_st(self)._refresh();
+self._setItemsForSelectedPackage();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassMoved:",{anAnnouncement:anAnnouncement,class_:class_,oldPackage:oldPackage},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassMoved: anAnnouncement\x0a\x09| class oldPackage |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09oldPackage := anAnnouncement oldPackage.\x0a\x09\x0a\x09(oldPackage = self model selectedPackage or: [\x0a\x09\x09class package = self model selectedPackage ])\x0a\x09\x09\x09ifFalse: [ ^ self ].\x0a\x09\x0a\x09oldPackage = self model selectedPackage ifTrue: [ \x0a\x09\x09self \x0a\x09\x09\x09selectedItem: nil;\x0a\x09\x09\x09selectItem: nil ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
@@ -1459,13 +1457,13 @@ var class_;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 class_=_st(anAnnouncement)._theClass();
-$1=_st(_st(class_)._package()).__eq(_st(_st(self)._model())._selectedPackage());
+$1=_st(_st(class_)._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedPackage();
-_st(self)._refresh();
+self._setItemsForSelectedPackage();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRemoved:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassRemoved: anAnnouncement\x0a\x09| class |\x0a\x09class := anAnnouncement theClass.\x0a\x0a\x09class package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
@@ -1482,13 +1480,13 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(anAnnouncement)._theClass())._package()).__eq(_st(_st(self)._model())._selectedPackage());
+$1=_st(_st(_st(anAnnouncement)._theClass())._package()).__eq(_st(self._model())._selectedPackage());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedPackage();
-_st(self)._refresh();
+self._setItemsForSelectedPackage();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassRenamed:",{anAnnouncement:anAnnouncement},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassRenamed: anAnnouncement\x0a\x09anAnnouncement theClass package = self model selectedPackage ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
@@ -1514,8 +1512,8 @@ return $2;
 $1;
 };
 selectedClass=_st(_st(anAnnouncement)._item())._theNonMetaClass();
-_st(self)._selectedItem_(selectedClass);
-$3=_st(self)._hasFocus();
+self._selectedItem_(selectedClass);
+$3=self._hasFocus();
 if(! smalltalk.assert($3)){
 $4=self;
 _st($4)._activateItem_(selectedClass);
@@ -1537,7 +1535,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._focus();
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassesFocusRequested",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "onClassesFocusRequested\x0a\x09self focus",
@@ -1553,9 +1551,9 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._selectedItem_(nil);
-_st(self)._setItemsForSelectedPackage();
-_st(self)._refresh();
+self._selectedItem_(nil);
+self._setItemsForSelectedPackage();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLClassesListWidget)})},
 args: ["anAnnouncement"],
 source: "onPackageSelected: anAnnouncement\x0a    self selectedItem: nil.\x0a    \x0a    self setItemsForSelectedPackage.\x0a    self refresh",
@@ -1571,7 +1569,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onShowCommentToggled",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "onShowCommentToggled\x0a\x09self refresh",
@@ -1587,7 +1585,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "onShowInstanceToggled\x0a\x09self refresh",
@@ -1614,31 +1612,31 @@ $3=_st(html)._button();
 _st($3)._class_(_st($String())._streamContents_((function(str){
 return smalltalk.withContext(function($ctx3) {
 _st(str)._nextPutAll_("btn");
-$4=_st(self)._showInstance();
+$4=self._showInstance();
 if(smalltalk.assert($4)){
 return _st(str)._nextPutAll_(" active");
 };
-}, function($ctx3) {$ctx3.fillBlock({str:str},$ctx1)})})));
+}, function($ctx3) {$ctx3.fillBlock({str:str},$ctx2)})})));
 _st($3)._with_("Instance");
 $5=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self)._showInstance_(true);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return self._showInstance_(true);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 $5;
 $6=_st(html)._button();
 _st($6)._class_(_st($String())._streamContents_((function(str){
 return smalltalk.withContext(function($ctx3) {
 _st(str)._nextPutAll_("btn");
-$7=_st(self)._showClass();
+$7=self._showClass();
 if(smalltalk.assert($7)){
 return _st(str)._nextPutAll_(" active");
 };
-}, function($ctx3) {$ctx3.fillBlock({str:str},$ctx1)})})));
+}, function($ctx3) {$ctx3.fillBlock({str:str},$ctx2)})})));
 _st($6)._with_("Class");
 $8=_st($6)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self)._showInstance_(false);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return self._showInstance_(false);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 return $8;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $9=_st(html)._label();
@@ -1649,13 +1647,13 @@ $11=_st(html)._input();
 _st($11)._type_("checkbox");
 $12=_st($11)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self)._toggleShowComment();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return self._toggleShowComment();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 checkbox=$12;
 checkbox;
 return _st(html)._with_("Doc");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$13=_st(self)._showComment();
+$13=self._showComment();
 if(smalltalk.assert($13)){
 _st(checkbox)._at_put_("checked","checked");
 };
@@ -1677,27 +1675,27 @@ var li;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$4,$2;
 li=_st(html)._li();
-_st(self)._registerMappingFrom_to_(aClass,li);
+self._registerMappingFrom_to_(aClass,li);
 $1=li;
-_st($1)._at_put_("list-data",_st(_st(self)._items())._indexOf_(aClass));
-_st($1)._class_(_st(self)._listCssClassForItem_(aClass));
+_st($1)._at_put_("list-data",_st(self._items())._indexOf_(aClass));
+_st($1)._class_(self._listCssClassForItem_(aClass));
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._a();
 _st($3)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
-_st(_st(html)._tag_("i"))._class_(_st(self)._cssClassForItem_(aClass));
-return _st(self)._renderItemLabel_level_on_(aClass,anInteger,html);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+_st(_st(html)._tag_("i"))._class_(self._cssClassForItem_(aClass));
+return self._renderItemLabel_level_on_(aClass,anInteger,html);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self)._activateListItem_(_st(li)._asJQuery());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return self._activateListItem_(_st(li)._asJQuery());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(self)._getChildrenOf_(aClass))._do_((function(each){
+_st(self._getChildrenOf_(aClass))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
+return self._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "anInteger", "html"],
@@ -1715,9 +1713,9 @@ fn: function (aClass,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLToolListWidget.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]);
-_st(_st(self)._getChildrenOf_(aClass))._do_((function(each){
+_st(self._getChildrenOf_(aClass))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._renderItem_level_on_(each,(1),html);
+return self._renderItem_level_on_(each,(1),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{aClass:aClass,html:html},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "html"],
@@ -1740,7 +1738,7 @@ return smalltalk.withContext(function($ctx2) {
 _st(anInteger)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(str)._nextPutAll_("&nbsp;&nbsp;&nbsp;&nbsp;");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 return _st(str)._nextPutAll_(_st(aClass)._name());
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:level:on:",{aClass:aClass,anInteger:anInteger,html:html},smalltalk.HLClassesListWidget)})},
@@ -1758,7 +1756,7 @@ category: 'rendering',
 fn: function (aClass,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._renderItemLabel_level_on_(aClass,(0),html);
+self._renderItemLabel_level_on_(aClass,(0),html);
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aClass:aClass,html:html},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "html"],
 source: "renderItemLabel: aClass on: html\x0a\x09self renderItemLabel: aClass level: 0 on: html",
@@ -1774,9 +1772,9 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._getRootClassesOf_(_st(self)._items()))._do_((function(each){
+_st(self._getRootClassesOf_(self._items()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._renderItem_on_(each,html);
+return self._renderItem_on_(each,html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderListOn:",{html:html},smalltalk.HLClassesListWidget)})},
 args: ["html"],
@@ -1793,7 +1791,7 @@ category: 'actions',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._selectedClass_(aClass);
+_st(self._model())._selectedClass_(aClass);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aClass:aClass},smalltalk.HLClassesListWidget)})},
 args: ["aClass"],
 source: "selectItem: aClass\x0a    self model selectedClass: aClass",
@@ -1839,7 +1837,7 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._setItemsForPackage_(_st(_st(self)._model())._selectedPackage());
+self._setItemsForPackage_(_st(self._model())._selectedPackage());
 return self}, function($ctx1) {$ctx1.fill(self,"setItemsForSelectedPackage",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "setItemsForSelectedPackage\x0a\x09self setItemsForPackage: self model selectedPackage",
@@ -1856,7 +1854,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._showInstance())._not();
+$1=_st(_st(self._model())._showInstance())._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showClass",{},smalltalk.HLClassesListWidget)})},
 args: [],
@@ -1874,7 +1872,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._showComment();
+$1=_st(self._model())._showComment();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showComment",{},smalltalk.HLClassesListWidget)})},
 args: [],
@@ -1891,7 +1889,7 @@ category: 'actions',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showComment_(aBoolean);
+_st(self._model())._showComment_(aBoolean);
 return self}, function($ctx1) {$ctx1.fill(self,"showComment:",{aBoolean:aBoolean},smalltalk.HLClassesListWidget)})},
 args: ["aBoolean"],
 source: "showComment: aBoolean\x0a\x09self model showComment: aBoolean",
@@ -1908,7 +1906,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._showInstance();
+$1=_st(self._model())._showInstance();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"showInstance",{},smalltalk.HLClassesListWidget)})},
 args: [],
@@ -1925,7 +1923,7 @@ category: 'actions',
 fn: function (aBoolean){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showInstance_(aBoolean);
+_st(self._model())._showInstance_(aBoolean);
 return self}, function($ctx1) {$ctx1.fill(self,"showInstance:",{aBoolean:aBoolean},smalltalk.HLClassesListWidget)})},
 args: ["aBoolean"],
 source: "showInstance: aBoolean\x0a\x09self model showInstance: aBoolean",
@@ -1941,7 +1939,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showComment_(_st(_st(self)._showComment())._not());
+_st(self._model())._showComment_(_st(self._showComment())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"toggleShowComment",{},smalltalk.HLClassesListWidget)})},
 args: [],
 source: "toggleShowComment\x0a\x09self model showComment: self showComment not",
@@ -1993,7 +1991,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(self)._selectedItem();
+$2=self._selectedItem();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="";
 } else {
@@ -2001,7 +1999,7 @@ var item;
 item=$receiver;
 $1=_st(_st(item)._comment())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._defaultDocumentation();
+return self._defaultDocumentation();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
 return $1;
@@ -2020,7 +2018,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._editComment();
+_st(self._model())._editComment();
 return self}, function($ctx1) {$ctx1.fill(self,"editDocumentation",{},smalltalk.HLDocumentationWidget)})},
 args: [],
 source: "editDocumentation\x0a\x09self model editComment",
@@ -2037,9 +2035,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(self)._selectedItem();
+$2=self._selectedItem();
 if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(self)._defaultHead();
+$1=self._defaultHead();
 } else {
 var item;
 item=$receiver;
@@ -2102,7 +2100,7 @@ function $HLClassSelected(){return smalltalk.HLClassSelected||(typeof HLClassSel
 function $HLEditComment(){return smalltalk.HLEditComment||(typeof HLEditComment=="undefined"?nil:HLEditComment)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLClassSelected(),"onClassSelected:",self);
 $2=_st($1)._on_send_to_($HLEditComment(),"onEditDocumentation",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLDocumentationWidget)})},
@@ -2121,7 +2119,7 @@ fn: function (){
 var self=this;
 function $ClassCommentChanged(){return smalltalk.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._systemAnnouncer())._on_send_to_($ClassCommentChanged(),"onClassCommentChanged:",self);
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassCommentChanged(),"onClassCommentChanged:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLDocumentationWidget)})},
 args: [],
 source: "observeSystem\x0a\x09self model systemAnnouncer \x0a\x09\x09on: ClassCommentChanged\x0a\x09\x09send: #onClassCommentChanged:\x0a\x09\x09to: self",
@@ -2138,9 +2136,9 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(anAnnouncement)._theClass()).__eq(_st(_st(_st(self)._model())._selectedClass())._theNonMetaClass());
+$1=_st(_st(anAnnouncement)._theClass()).__eq(_st(_st(self._model())._selectedClass())._theNonMetaClass());
 if(smalltalk.assert($1)){
-_st(self)._refresh();
+self._refresh();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onClassCommentChanged:",{anAnnouncement:anAnnouncement},smalltalk.HLDocumentationWidget)})},
 args: ["anAnnouncement"],
@@ -2157,7 +2155,7 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLDocumentationWidget)})},
 args: ["anAnnouncement"],
 source: "onClassSelected: anAnnouncement\x0a\x09self refresh",
@@ -2173,9 +2171,9 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._request_value_do_(_st(_st(_st(_st(_st(self)._model())._selectedClass())._theNonMetaClass())._name()).__comma(" comment"),_st(_st(_st(_st(self)._model())._selectedClass())._theNonMetaClass())._comment(),(function(comment){
+self._request_value_do_(_st(_st(_st(_st(self._model())._selectedClass())._theNonMetaClass())._name()).__comma(" comment"),_st(_st(_st(self._model())._selectedClass())._theNonMetaClass())._comment(),(function(comment){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._setClassComment_(comment);
+return self._setClassComment_(comment);
 }, function($ctx2) {$ctx2.fillBlock({comment:comment},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"onEditDocumentation",{},smalltalk.HLDocumentationWidget)})},
 args: [],
@@ -2219,11 +2217,11 @@ var self=this;
 function $Showdown(){return smalltalk.Showdown||(typeof Showdown=="undefined"?nil:Showdown)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$5,$3,$6,$7;
-$1=_st(self)._selectedItem();
+$1=self._selectedItem();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(self)._renderInheritanceOn_(html);
+self._renderInheritanceOn_(html);
 $2=_st(html)._h1();
 _st($2)._with_("Overview");
 $3=_st($2)._with_((function(){
@@ -2233,15 +2231,15 @@ _st($4)._class_("button default");
 _st($4)._with_("Edit");
 $5=_st($4)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self)._editDocumentation();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return self._editDocumentation();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 return $5;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3;
 $6=_st(html)._div();
 _st($6)._class_("markdown");
 $7=_st($6)._asJQuery();
-_st($7)._html_(_st(_st(_st($Showdown())._at_("converter"))._new())._makeHtml_(_st(self)._documentation()));
+_st($7)._html_(_st(_st(_st($Showdown())._at_("converter"))._new())._makeHtml_(self._documentation()));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renderDocOn:",{html:html},smalltalk.HLDocumentationWidget)})},
 args: ["html"],
@@ -2261,7 +2259,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st(html)._div();
 _st($1)._class_("head");
-$2=_st($1)._with_(_st(self)._head());
+$2=_st($1)._with_(self._head());
 return self}, function($ctx1) {$ctx1.fill(self,"renderHeadOn:",{html:html},smalltalk.HLDocumentationWidget)})},
 args: ["html"],
 source: "renderHeadOn: html\x0a\x09html div \x0a\x09\x09class: 'head';\x0a\x09\x09with: self head",
@@ -2283,16 +2281,16 @@ _st($1)._class_("inheritance");
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(html)._with_("Subclass of ");
-$3=_st(_st(self)._selectedItem())._superclass();
+$3=_st(self._selectedItem())._superclass();
 if(($receiver = $3) == nil || $receiver == undefined){
 return _st(_st(html)._em())._with_("nil");
 } else {
 $4=_st(html)._a();
-_st($4)._with_(_st(_st(_st(self)._selectedItem())._superclass())._name());
+_st($4)._with_(_st(_st(self._selectedItem())._superclass())._name());
 $5=_st($4)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return _st(self)._selectClass_(_st(_st(self)._selectedItem())._superclass());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return self._selectClass_(_st(self._selectedItem())._superclass());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 return $5;
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -2311,7 +2309,7 @@ category: 'actions',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._selectedClass_(aClass);
+_st(self._model())._selectedClass_(aClass);
 return self}, function($ctx1) {$ctx1.fill(self,"selectClass:",{aClass:aClass},smalltalk.HLDocumentationWidget)})},
 args: ["aClass"],
 source: "selectClass: aClass\x0a\x09self model selectedClass: aClass",
@@ -2328,7 +2326,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(_st(self)._model())._selectedClass();
+$2=_st(self._model())._selectedClass();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=$2;
 } else {
@@ -2352,7 +2350,7 @@ category: 'reactions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._setClassComment_(aString);
+_st(self._model())._setClassComment_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"setClassComment:",{aString:aString},smalltalk.HLDocumentationWidget)})},
 args: ["aString"],
 source: "setClassComment: aString\x0a\x09self model setClassComment: aString",
@@ -2369,7 +2367,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLFocusableWidget.fn.prototype._unregister.apply(_st(self), []);
-_st(_st(_st(self)._model())._announcer())._unregister_(self);
+_st(_st(self._model())._announcer())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLDocumentationWidget)})},
 args: [],
 source: "unregister\x0a\x09super unregister.\x0a\x09self model announcer unregister: self",
@@ -2389,7 +2387,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._allProtocol();
+$1=_st(self._model())._allProtocol();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allProtocol",{},smalltalk.HLMethodsListWidget)})},
 args: [],
@@ -2408,9 +2406,9 @@ var self=this;
 var override,overriden,method;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
-method=_st(self)._methodForSelector_(aSelector);
-override=_st(self)._isOverride_(method);
-overriden=_st(self)._isOverridden_(method);
+method=self._methodForSelector_(aSelector);
+override=self._isOverride_(method);
+overriden=self._isOverridden_(method);
 $2=override;
 if(smalltalk.assert($2)){
 $3=overriden;
@@ -2444,7 +2442,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._selectorsCache())._isOverridden_(aMethod);
+$1=_st(self._selectorsCache())._isOverridden_(aMethod);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isOverridden:",{aMethod:aMethod},smalltalk.HLMethodsListWidget)})},
 args: ["aMethod"],
@@ -2462,7 +2460,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._selectorsCache())._isOverride_(aMethod);
+$1=_st(self._selectorsCache())._isOverride_(aMethod);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isOverride:",{aMethod:aMethod},smalltalk.HLMethodsListWidget)})},
 args: ["aMethod"],
@@ -2496,7 +2494,7 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(self)._model())._selectedClass())._methodDictionary())._at_(aSelector);
+$1=_st(_st(_st(self._model())._selectedClass())._methodDictionary())._at_(aSelector);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodForSelector:",{aSelector:aSelector},smalltalk.HLMethodsListWidget)})},
 args: ["aSelector"],
@@ -2514,18 +2512,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$3;
-$1=_st(_st(self)._model())._selectedClass();
+$1=_st(self._model())._selectedClass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=[];
 return $2;
 } else {
 $1;
 };
-$4=_st(aString).__eq(_st(self)._allProtocol());
+$4=_st(aString).__eq(self._allProtocol());
 if(smalltalk.assert($4)){
-$3=_st(_st(_st(self)._model())._selectedClass())._methods();
+$3=_st(_st(self._model())._selectedClass())._methods();
 } else {
-$3=_st(_st(_st(self)._model())._selectedClass())._methodsInProtocol_(aString);
+$3=_st(_st(self._model())._selectedClass())._methodsInProtocol_(aString);
 };
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:",{aString:aString},smalltalk.HLMethodsListWidget)})},
@@ -2548,7 +2546,7 @@ function $HLMethodSelected(){return smalltalk.HLMethodSelected||(typeof HLMethod
 function $HLMethodsFocusRequested(){return smalltalk.HLMethodsFocusRequested||(typeof HLMethodsFocusRequested=="undefined"?nil:HLMethodsFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLProtocolSelected(),"onProtocolSelected:",self);
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onShowInstanceToggled",self);
 _st($1)._on_send_to_($HLMethodSelected(),"onMethodSelected:",self);
@@ -2574,7 +2572,7 @@ function $MethodRemoved(){return smalltalk.MethodRemoved||(typeof MethodRemoved=
 function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._systemAnnouncer();
+$1=_st(self._model())._systemAnnouncer();
 _st($1)._on_send_to_($ProtocolAdded(),"onProtocolAdded:",self);
 _st($1)._on_send_to_($ProtocolRemoved(),"onProtocolRemoved:",self);
 _st($1)._on_send_to_($MethodAdded(),"onMethodAdded:",self);
@@ -2596,13 +2594,13 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(_st(anAnnouncement)._method())._methodClass());
+$1=_st(_st(self._model())._selectedClass()).__eq(_st(_st(anAnnouncement)._method())._methodClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedProtocol();
-_st(self)._refresh();
+self._setItemsForSelectedProtocol();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodAdded:",{anAnnouncement:anAnnouncement},smalltalk.HLMethodsListWidget)})},
 args: ["anAnnouncement"],
 source: "onMethodAdded: anAnnouncement\x0a\x09self model selectedClass = anAnnouncement method methodClass ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedProtocol.\x0a    self refresh",
@@ -2619,12 +2617,12 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5;
-$1=_st(_st(_st(self)._model())._selectedMethod()).__eq(_st(anAnnouncement)._method());
+$1=_st(_st(self._model())._selectedMethod()).__eq(_st(anAnnouncement)._method());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(_st(self)._model())._selectedProtocol()).__eq(_st(_st(self)._model())._allProtocol());
+$3=_st(_st(self._model())._selectedProtocol()).__eq(_st(self._model())._allProtocol());
 if(! smalltalk.assert($3)){
 $4=self;
 _st($4)._selectedItem_(nil);
@@ -2653,7 +2651,7 @@ var $1,$2,$3,$4,$5;
 var $early={};
 try {
 method=_st(anAnnouncement)._method();
-_st(_st(self)._items())._detect_ifNone_((function(each){
+_st(self._items())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st(method)._selector());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
@@ -2661,13 +2659,13 @@ return smalltalk.withContext(function($ctx2) {
 $1=self;
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=_st(self)._selectedItem();
+$2=self._selectedItem();
 if(($receiver = $2) == nil || $receiver == undefined){
 $2;
 } else {
-$3=_st(_st(_st(method)._methodClass()).__eq(_st(_st(self)._model())._selectedClass()))._and_((function(){
+$3=_st(_st(_st(method)._methodClass()).__eq(_st(self._model())._selectedClass()))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(method)._selector()).__eq(_st(self)._selectedItem());
+return _st(_st(method)._selector()).__eq(self._selectedItem());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($3)){
 $4=self;
@@ -2676,8 +2674,8 @@ $5=_st($4)._selectItem_(nil);
 $5;
 };
 };
-_st(self)._setItemsForSelectedProtocol();
-_st(self)._refresh();
+self._setItemsForSelectedProtocol();
+self._refresh();
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLMethodsListWidget)})},
@@ -2722,7 +2720,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._focus();
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodsFocusRequested",{},smalltalk.HLMethodsListWidget)})},
 args: [],
 source: "onMethodsFocusRequested\x0a\x09self focus",
@@ -2739,14 +2737,14 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(anAnnouncement)._theClass());
+$1=_st(_st(self._model())._selectedClass()).__eq(_st(anAnnouncement)._theClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedProtocol();
-_st(self)._refresh();
-_st(self)._focus();
+self._setItemsForSelectedProtocol();
+self._refresh();
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolAdded:",{anAnnouncement:anAnnouncement},smalltalk.HLMethodsListWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolAdded: anAnnouncement\x0a\x09self model selectedClass = anAnnouncement theClass ifFalse: [ ^ self ].\x0a\x09\x0a\x09self setItemsForSelectedProtocol.\x0a    self refresh.\x0a\x09self focus",
@@ -2763,14 +2761,14 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(self)._model())._selectedClass()).__eq(_st(anAnnouncement)._theClass());
+$1=_st(_st(self._model())._selectedClass()).__eq(_st(anAnnouncement)._theClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedProtocol();
-_st(self)._refresh();
-_st(self)._focus();
+self._setItemsForSelectedProtocol();
+self._refresh();
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolRemoved:",{anAnnouncement:anAnnouncement},smalltalk.HLMethodsListWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolRemoved: anAnnouncement\x0a\x09self model selectedClass = anAnnouncement theClass ifFalse: [ ^ self ].\x0a\x09\x0a\x09self setItemsForSelectedProtocol.\x0a    self refresh.\x0a\x09self focus",
@@ -2786,9 +2784,9 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._selectedItem_(nil);
-_st(self)._setItemsForSelectedProtocol();
-_st(self)._refresh();
+self._selectedItem_(nil);
+self._setItemsForSelectedProtocol();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLMethodsListWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolSelected: anAnnouncement\x0a    self selectedItem: nil.\x0a    \x0a\x09self setItemsForSelectedProtocol.\x0a    self refresh",
@@ -2804,7 +2802,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._onProtocolSelected_(nil);
+self._onProtocolSelected_(nil);
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLMethodsListWidget)})},
 args: [],
 source: "onShowInstanceToggled\x0a\x09self onProtocolSelected: nil",
@@ -2822,15 +2820,15 @@ var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$1=_st(_st(self)._selectorsCache())._at_ifAbsentPut_("override",(function(){
+$1=_st(self._selectorsCache())._at_ifAbsentPut_("override",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(self)._model())._selectedClass())._allSuperclasses())._inject_into_(_st($Set())._new(),(function(acc,each){
+return _st(_st(_st(self._model())._selectedClass())._allSuperclasses())._inject_into_(_st($Set())._new(),(function(acc,each){
 return smalltalk.withContext(function($ctx3) {
 $2=acc;
 _st($2)._addAll_(_st(each)._selectors());
 $3=_st($2)._yourself();
 return $3;
-}, function($ctx3) {$ctx3.fillBlock({acc:acc,each:each},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({acc:acc,each:each},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"overrideSelectors",{},smalltalk.HLMethodsListWidget)})},
@@ -2850,15 +2848,15 @@ var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$1=_st(_st(self)._selectorsCache())._at_ifAbsentPut_("overriden",(function(){
+$1=_st(self._selectorsCache())._at_ifAbsentPut_("overriden",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(self)._model())._selectedClass())._allSubclasses())._inject_into_(_st($Set())._new(),(function(acc,each){
+return _st(_st(_st(self._model())._selectedClass())._allSubclasses())._inject_into_(_st($Set())._new(),(function(acc,each){
 return smalltalk.withContext(function($ctx3) {
 $2=acc;
 _st($2)._addAll_(_st(each)._selectors());
 $3=_st($2)._yourself();
 return $3;
-}, function($ctx3) {$ctx3.fillBlock({acc:acc,each:each},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({acc:acc,each:each},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"overridenSelectors",{},smalltalk.HLMethodsListWidget)})},
@@ -2877,7 +2875,7 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(_st(self)._model())._showInstance();
+$1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
 smalltalk.HLToolListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 } else {
@@ -2923,12 +2921,12 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=aSelector;
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(_st(self)._model())._selectedMethod_(nil);
+$2=_st(self._model())._selectedMethod_(nil);
 return $2;
 } else {
 $1;
 };
-_st(_st(self)._model())._selectedMethod_(_st(self)._methodForSelector_(aSelector));
+_st(self._model())._selectedMethod_(self._methodForSelector_(aSelector));
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aSelector:aSelector},smalltalk.HLMethodsListWidget)})},
 args: ["aSelector"],
 source: "selectItem: aSelector\x0a\x09aSelector ifNil: [ ^ self model selectedMethod: nil ].\x0a\x0a   \x09self model selectedMethod: (self methodForSelector: aSelector)\x0a    ",
@@ -2945,7 +2943,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._class())._selectorsCache();
+$1=_st(self._class())._selectorsCache();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorsCache",{},smalltalk.HLMethodsListWidget)})},
 args: [],
@@ -2963,7 +2961,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._methodsInProtocol_(aString))._collect_((function(each){
+$1=_st(_st(self._methodsInProtocol_(aString))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._sorted();
@@ -2989,7 +2987,7 @@ $4=aString;
 if(($receiver = $4) == nil || $receiver == undefined){
 $3=[];
 } else {
-$3=_st(self)._selectorsInProtocol_(aString);
+$3=self._selectorsInProtocol_(aString);
 };
 $1=_st($2)._items_($3);
 return $1;
@@ -3008,7 +3006,7 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._setItemsForProtocol_(_st(_st(self)._model())._selectedProtocol());
+self._setItemsForProtocol_(_st(self._model())._selectedProtocol());
 return self}, function($ctx1) {$ctx1.fill(self,"setItemsForSelectedProtocol",{},smalltalk.HLMethodsListWidget)})},
 args: [],
 source: "setItemsForSelectedProtocol\x0a\x09self setItemsForProtocol: self model selectedProtocol",
@@ -3047,7 +3045,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._commitPackage();
+_st(self._model())._commitPackage();
 return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},smalltalk.HLPackagesListWidget)})},
 args: [],
 source: "commitPackage\x0a\x09self model commitPackage",
@@ -3080,7 +3078,7 @@ fn: function (){
 var self=this;
 function $HLClassesListFocus(){return smalltalk.HLClassesListFocus||(typeof HLClassesListFocus=="undefined"?nil:HLClassesListFocus)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLClassesListFocus())._new());
+_st(_st(self._model())._announcer())._announce_(_st($HLClassesListFocus())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"focusClassesListWidget",{},smalltalk.HLPackagesListWidget)})},
 args: [],
 source: "focusClassesListWidget\x0a\x09self model announcer announce: HLClassesListFocus new",
@@ -3097,7 +3095,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-self["@items"]=_st(_st(_st(self)._model())._packages())._sort_((function(a,b){
+self["@items"]=_st(_st(self._model())._packages())._sort_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(a)._name()).__lt(_st(b)._name());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
@@ -3121,7 +3119,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@items"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(self)._initializeItems();
+$1=self._initializeItems();
 } else {
 $1=$2;
 };
@@ -3160,7 +3158,7 @@ function $HLPackageSelected(){return smalltalk.HLPackageSelected||(typeof HLPack
 function $HLPackagesFocusRequested(){return smalltalk.HLPackagesFocusRequested||(typeof HLPackagesFocusRequested=="undefined"?nil:HLPackagesFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLPackageSelected(),"onPackageSelected:",self);
 $2=_st($1)._on_send_to_($HLPackagesFocusRequested(),"onPackagesFocusRequested",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLPackagesListWidget)})},
@@ -3179,7 +3177,7 @@ fn: function (){
 var self=this;
 function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
+_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLPackagesListWidget)})},
 args: [],
 source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self",
@@ -3196,7 +3194,7 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(_st(self)._items())._includes_(_st(_st(anAnnouncement)._theClass())._package());
+$1=_st(self._items())._includes_(_st(_st(anAnnouncement)._theClass())._package());
 if(! smalltalk.assert($1)){
 $2=self;
 _st($2)._initializeItems();
@@ -3221,8 +3219,8 @@ var package_;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 package_=_st(anAnnouncement)._item();
-_st(self)._selectedItem_(package_);
-$1=_st(self)._hasFocus();
+self._selectedItem_(package_);
+$1=self._hasFocus();
 if(! smalltalk.assert($1)){
 $2=self;
 _st($2)._activateItem_(package_);
@@ -3244,7 +3242,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._focus();
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onPackagesFocusRequested",{},smalltalk.HLPackagesListWidget)})},
 args: [],
 source: "onPackagesFocusRequested\x0a\x09self focus",
@@ -3276,7 +3274,7 @@ category: 'actions',
 fn: function (aPackage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._selectedPackage_(aPackage);
+_st(self._model())._selectedPackage_(aPackage);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aPackage:aPackage},smalltalk.HLPackagesListWidget)})},
 args: ["aPackage"],
 source: "selectItem: aPackage\x0a\x09self model selectedPackage: aPackage",
@@ -3296,7 +3294,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._allProtocol();
+$1=_st(self._model())._allProtocol();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allProtocol",{},smalltalk.HLProtocolsListWidget)})},
 args: [],
@@ -3314,7 +3312,7 @@ fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-$1=_st(anItem).__eq(_st(self)._allProtocol());
+$1=_st(anItem).__eq(self._allProtocol());
 if(smalltalk.assert($1)){
 return "";
 };
@@ -3367,7 +3365,7 @@ function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLPr
 function $HLProtocolsFocusRequested(){return smalltalk.HLProtocolsFocusRequested||(typeof HLProtocolsFocusRequested=="undefined"?nil:HLProtocolsFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 _st($1)._on_send_to_($HLClassSelected(),"onClassSelected:",self);
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onClassSelected:",self);
 _st($1)._on_send_to_($HLProtocolSelected(),"onProtocolSelected:",self);
@@ -3390,7 +3388,7 @@ function $ProtocolAdded(){return smalltalk.ProtocolAdded||(typeof ProtocolAdded=
 function $ProtocolRemoved(){return smalltalk.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._model())._systemAnnouncer();
+$1=_st(self._model())._systemAnnouncer();
 _st($1)._on_send_to_($ProtocolAdded(),"onProtocolAdded:",self);
 $2=_st($1)._on_send_to_($ProtocolRemoved(),"onProtocolRemoved:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLProtocolsListWidget)})},
@@ -3408,9 +3406,9 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._selectedItem_(nil);
-_st(self)._setItemsForSelectedClass();
-_st(self)._refresh();
+self._selectedItem_(nil);
+self._setItemsForSelectedClass();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLProtocolsListWidget)})},
 args: ["anAnnouncement"],
 source: "onClassSelected: anAnnouncement\x0a    self selectedItem: nil.\x0a    \x0a    self setItemsForSelectedClass.\x0a    self refresh",
@@ -3429,13 +3427,13 @@ var class_;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 class_=_st(anAnnouncement)._theClass();
-$1=_st(class_).__eq(_st(_st(self)._model())._selectedClass());
+$1=_st(class_).__eq(_st(self._model())._selectedClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-_st(self)._setItemsForSelectedClass();
-_st(self)._refresh();
+self._setItemsForSelectedClass();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolAdded:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLProtocolsListWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolAdded: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09\x0a\x09class = self model selectedClass ifFalse: [ ^ self ].\x0a    \x0a    self setItemsForSelectedClass.\x0a    self refresh",
@@ -3455,20 +3453,20 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4,$5;
 class_=_st(anAnnouncement)._theClass();
 protocol=_st(anAnnouncement)._protocol();
-$1=_st(class_).__eq(_st(_st(self)._model())._selectedClass());
+$1=_st(class_).__eq(_st(self._model())._selectedClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(_st(self)._model())._selectedProtocol()).__eq(protocol);
+$3=_st(_st(self._model())._selectedProtocol()).__eq(protocol);
 if(smalltalk.assert($3)){
 $4=self;
 _st($4)._selectedItem_(nil);
 $5=_st($4)._selectItem_(nil);
 $5;
 };
-_st(self)._setItemsForSelectedClass();
-_st(self)._refresh();
+self._setItemsForSelectedClass();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolRemoved:",{anAnnouncement:anAnnouncement,class_:class_,protocol:protocol},smalltalk.HLProtocolsListWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolRemoved: anAnnouncement\x0a\x09| class protocol |\x0a\x09\x0a\x09class := anAnnouncement theClass.\x0a\x09protocol := anAnnouncement protocol.\x0a\x09\x0a\x09class = self model selectedClass ifFalse: [ ^ self ].\x0a    \x0a    self model selectedProtocol = protocol \x0a    \x09ifTrue: [ \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09selectedItem: nil;\x0a\x09\x09\x09\x09selectItem: nil ].\x0a        \x0a    self setItemsForSelectedClass.\x0a    self refresh",
@@ -3487,7 +3485,7 @@ var protocol;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5;
 protocol=_st(anAnnouncement)._item();
-_st(self)._selectedItem_(protocol);
+self._selectedItem_(protocol);
 $1=protocol;
 if(($receiver = $1) == nil || $receiver == undefined){
 $2=self;
@@ -3495,7 +3493,7 @@ return $2;
 } else {
 $1;
 };
-$3=_st(self)._hasFocus();
+$3=self._hasFocus();
 if(! smalltalk.assert($3)){
 $4=self;
 _st($4)._activateItem_(protocol);
@@ -3517,7 +3515,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._focus();
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolsFocusRequested",{},smalltalk.HLProtocolsListWidget)})},
 args: [],
 source: "onProtocolsFocusRequested\x0a\x09self focus",
@@ -3534,7 +3532,7 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(_st(self)._model())._showInstance();
+$1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
 smalltalk.HLToolListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 } else {
@@ -3561,7 +3559,7 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._selectedProtocol_(aString);
+_st(self._model())._selectedProtocol_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aString:aString},smalltalk.HLProtocolsListWidget)})},
 args: ["aString"],
 source: "selectItem: aString\x0a    self model selectedProtocol: aString",
@@ -3600,9 +3598,9 @@ var $1,$3,$4,$5,$2;
 $1=self;
 $3=aClass;
 if(($receiver = $3) == nil || $receiver == undefined){
-$2=_st($Array())._with_(_st(self)._allProtocol());
+$2=_st($Array())._with_(self._allProtocol());
 } else {
-$4=_st($Array())._with_(_st(self)._allProtocol());
+$4=_st($Array())._with_(self._allProtocol());
 _st($4)._addAll_(_st(aClass)._protocols());
 $5=_st($4)._yourself();
 $2=$5;
@@ -3623,7 +3621,7 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._setItemsForClass_(_st(_st(self)._model())._selectedClass());
+self._setItemsForClass_(_st(self._model())._selectedClass());
 return self}, function($ctx1) {$ctx1.fill(self,"setItemsForSelectedClass",{},smalltalk.HLProtocolsListWidget)})},
 args: [],
 source: "setItemsForSelectedClass\x0a\x09self setItemsForClass: self model selectedClass",
@@ -3649,9 +3647,9 @@ return nil;
 } else {
 $1;
 };
-$2=_st(_st(self)._classesCache())._at_ifAbsentPut_(_st(aClass)._name(),(function(){
+$2=_st(self._classesCache())._at_ifAbsentPut_(_st(aClass)._name(),(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._newCacheFor_(aClass);
+return self._newCacheFor_(aClass);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"cacheFor:",{aClass:aClass},smalltalk.HLSelectorsCache)})},
@@ -3695,7 +3693,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-_st(self)._observeSystem();
+self._observeSystem();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLSelectorsCache)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a    self observeSystem",
@@ -3711,7 +3709,7 @@ category: 'private',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._cacheFor_(_st(aMethod)._methodClass()))._invalidateSelector_(_st(aMethod)._selector());
+_st(self._cacheFor_(_st(aMethod)._methodClass()))._invalidateSelector_(_st(aMethod)._selector());
 return self}, function($ctx1) {$ctx1.fill(self,"invalidateCacheFor:",{aMethod:aMethod},smalltalk.HLSelectorsCache)})},
 args: ["aMethod"],
 source: "invalidateCacheFor: aMethod\x0a\x09(self cacheFor: aMethod methodClass)\x0a    \x09invalidateSelector: aMethod selector",
@@ -3728,7 +3726,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._cacheFor_(_st(aMethod)._methodClass()))._isOverridden_(aMethod);
+$1=_st(self._cacheFor_(_st(aMethod)._methodClass()))._isOverridden_(aMethod);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isOverridden:",{aMethod:aMethod},smalltalk.HLSelectorsCache)})},
 args: ["aMethod"],
@@ -3746,7 +3744,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._cacheFor_(_st(aMethod)._methodClass()))._isOverride_(aMethod);
+$1=_st(self._cacheFor_(_st(aMethod)._methodClass()))._isOverride_(aMethod);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isOverride:",{aMethod:aMethod},smalltalk.HLSelectorsCache)})},
 args: ["aMethod"],
@@ -3804,7 +3802,7 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._invalidateCacheFor_(_st(anAnnouncement)._method());
+self._invalidateCacheFor_(_st(anAnnouncement)._method());
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodAdded:",{anAnnouncement:anAnnouncement},smalltalk.HLSelectorsCache)})},
 args: ["anAnnouncement"],
 source: "onMethodAdded: anAnnouncement\x0a\x09self invalidateCacheFor: anAnnouncement method",
@@ -3820,7 +3818,7 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._invalidateCacheFor_(_st(anAnnouncement)._method());
+self._invalidateCacheFor_(_st(anAnnouncement)._method());
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodRemoved:",{anAnnouncement:anAnnouncement},smalltalk.HLSelectorsCache)})},
 args: ["anAnnouncement"],
 source: "onMethodRemoved: anAnnouncement\x0a\x09self invalidateCacheFor: anAnnouncement method",
@@ -3878,7 +3876,7 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._shouldNotImplement();
+self._shouldNotImplement();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.HLSelectorsCache.klass)})},
 args: [],
 source: "new\x0a\x09self shouldNotImplement",

@@ -25,7 +25,7 @@ fn: function (aToolModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._model_(aToolModel);
 $3=_st($2)._yourself();
 $1=$3;
@@ -81,7 +81,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._commitPackage();
+_st(self._model())._commitPackage();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommitPackageCommand)})},
 args: [],
 source: "execute\x0a\x09self model commitPackage",
@@ -200,7 +200,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._name();
+$1=_st(_st(self._model())._selectedClass())._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLCopyClassCommand)})},
 args: [],
@@ -233,7 +233,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._copyClassTo_(_st(self)._input());
+_st(self._model())._copyClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCopyClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model copyClassTo: self input",
@@ -250,7 +250,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCopyClassCommand)})},
 args: [],
@@ -385,7 +385,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._openClassNamed_(_st(self)._input());
+_st(self._model())._openClassNamed_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model openClassNamed: self input",
@@ -402,7 +402,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availableClassNames();
+$1=_st(self._model())._availableClassNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindClassCommand)})},
 args: [],
@@ -505,9 +505,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(_st(self)._model())._selectedMethod();
+$2=_st(self._model())._selectedMethod();
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st(_st(self)._model())._selectedClass();
+$3=_st(self._model())._selectedClass();
 if(($receiver = $3) == nil || $receiver == undefined){
 $1="";
 } else {
@@ -556,7 +556,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st($HLReferences())._new();
 _st($1)._openAsTab();
-$2=_st($1)._search_(_st(self)._input());
+$2=_st($1)._search_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
 source: "execute\x0a\x09HLReferences new \x0a\x09\x09openAsTab;\x0a\x09\x09search: self input",
@@ -573,7 +573,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._availableClassNames()).__comma(_st(_st(self)._model())._allSelectors());
+$1=_st(_st(self._model())._availableClassNames()).__comma(_st(self._model())._allSelectors());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
@@ -693,7 +693,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLMoveClassToCommand)})},
 args: [],
@@ -777,7 +777,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._moveClassToPackage_(_st(self)._input());
+_st(self._model())._moveClassToPackage_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveClassToPackageCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveClassToPackage: self input",
@@ -794,7 +794,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availablePackageNames();
+$1=_st(self._model())._availablePackageNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveClassToPackageCommand)})},
 args: [],
@@ -911,7 +911,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedMethod())._notNil();
+$1=_st(_st(self._model())._selectedMethod())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLMoveMethodToCommand)})},
 args: [],
@@ -979,7 +979,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._moveMethodToClass_(_st(self)._input());
+_st(self._model())._moveMethodToClass_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToClass: self input",
@@ -996,7 +996,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availableClassNames();
+$1=_st(self._model())._availableClassNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToClassCommand)})},
 args: [],
@@ -1112,7 +1112,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._moveMethodToProtocol_(_st(self)._input());
+_st(self._model())._moveMethodToProtocol_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToProtocol: self input",
@@ -1129,7 +1129,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availableProtocols();
+$1=_st(self._model())._availableProtocols();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 args: [],
@@ -1280,7 +1280,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._removeClass();
+_st(self._model())._removeClass();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model removeClass",
@@ -1297,7 +1297,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveClassCommand)})},
 args: [],
@@ -1381,7 +1381,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._removeMethod();
+_st(self._model())._removeMethod();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveMethodCommand)})},
 args: [],
 source: "execute\x0a\x09self model removeMethod",
@@ -1398,7 +1398,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedMethod())._notNil();
+$1=_st(_st(self._model())._selectedMethod())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveMethodCommand)})},
 args: [],
@@ -1482,7 +1482,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._removeProtocol();
+_st(self._model())._removeProtocol();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model removeProtocol",
@@ -1499,7 +1499,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedProtocol())._notNil();
+$1=_st(_st(self._model())._selectedProtocol())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveProtocolCommand)})},
 args: [],
@@ -1619,7 +1619,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._name();
+$1=_st(_st(self._model())._selectedClass())._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameClassCommand)})},
 args: [],
@@ -1652,7 +1652,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._renameClassTo_(_st(self)._input());
+_st(self._model())._renameClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameClassTo: self input",
@@ -1669,7 +1669,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameClassCommand)})},
 args: [],
@@ -1770,7 +1770,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._selectedProtocol();
+$1=_st(self._model())._selectedProtocol();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameProtocolCommand)})},
 args: [],
@@ -1803,7 +1803,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._renameProtocolTo_(_st(self)._input());
+_st(self._model())._renameProtocolTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameProtocolTo: self input",
@@ -1820,7 +1820,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedProtocol())._notNil();
+$1=_st(_st(self._model())._selectedProtocol())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameProtocolCommand)})},
 args: [],

@@ -31,8 +31,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(self)._deprecatedAPI();
-$1=_st(self)._valuable();
+self._deprecatedAPI();
+$1=self._valuable();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"block",{},smalltalk.AnnouncementSubscription)})},
 messageSends: ["deprecatedAPI", "valuable"]}),
@@ -44,8 +44,8 @@ selector: "block:",
 fn: function (aValuable){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._deprecatedAPI();
-_st(self)._valuable_(aValuable);
+self._deprecatedAPI();
+self._valuable_(aValuable);
 return self}, function($ctx1) {$ctx1.fill(self,"block:",{aValuable:aValuable},smalltalk.AnnouncementSubscription)})},
 messageSends: ["deprecatedAPI", "valuable:"]}),
 smalltalk.AnnouncementSubscription);
@@ -57,9 +57,9 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._handlesAnnouncement_(anAnnouncement);
+$1=self._handlesAnnouncement_(anAnnouncement);
 if(smalltalk.assert($1)){
-_st(_st(self)._valuable())._value_(anAnnouncement);
+_st(self._valuable())._value_(anAnnouncement);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 messageSends: ["ifTrue:", "value:", "valuable", "handlesAnnouncement:"]}),
@@ -73,7 +73,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(_st($Smalltalk())._current())._at_(_st(_st(self)._announcementClass())._name());
+$2=_st(_st($Smalltalk())._current())._at_(_st(self._announcementClass())._name());
 if(($receiver = $2) == nil || $receiver == undefined){
 return false;
 } else {
@@ -93,7 +93,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._valuable())._receiver();
+$1=_st(self._valuable())._receiver();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.AnnouncementSubscription)})},
 messageSends: ["receiver", "valuable"]}),
@@ -236,7 +236,7 @@ selector: "new",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._shouldNotImplement();
+self._shouldNotImplement();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.SystemAnnouncer.klass)})},
 messageSends: ["shouldNotImplement"]}),
 smalltalk.SystemAnnouncer.klass);

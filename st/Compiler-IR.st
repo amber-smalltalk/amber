@@ -341,6 +341,10 @@ isTempDeclaration
 
 isVariable
 	^ false
+!
+
+needsBoxingAsReceiver
+	^ true
 ! !
 
 !IRInstruction methodsFor: 'visiting'!
@@ -712,6 +716,12 @@ value: aString
 	value := aString
 ! !
 
+!IRValue methodsFor: 'testing'!
+
+needsBoxingAsReceiver
+	^ false
+! !
+
 !IRValue methodsFor: 'visiting'!
 
 accept: aVisitor
@@ -738,6 +748,10 @@ variable: aScopeVariable
 
 isVariable
 	^ true
+!
+
+needsBoxingAsReceiver
+	^ self variable isPseudoVar not
 ! !
 
 !IRVariable methodsFor: 'visiting'!
@@ -946,25 +960,8 @@ visitIRReturn: anIRReturn
 
 visitIRSend: anIRSend
 	anIRSend classSend
-		ifNil: [
-			self stream nextPutAll: '_st('.
-			self visit: anIRSend instructions first.
-			self stream nextPutAll: ').', anIRSend selector asSelector, '('.
-			anIRSend instructions allButFirst
-				do: [ :each | self visit: each ]
-				separatedBy: [ self stream nextPutAll: ',' ].
-			self stream nextPutAll: ')' ]
-		ifNotNil: [
-			self stream
-				nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
-				nextPutAll: anIRSend selector asSelector, '.apply(';
-				nextPutAll: '_st('.
-			self visit: anIRSend instructions first.
-			self stream nextPutAll: '), ['.
-			anIRSend instructions allButFirst
-				do: [ :each | self visit: each ]
-				separatedBy: [ self stream nextPutAll: ',' ].
-			self stream nextPutAll: '])' ]
+		ifNil: [ self visitSend: anIRSend ]
+		ifNotNil: [ self visitSuperSend: anIRSend ]
 !
 
 visitIRSequence: anIRSequence
@@ -992,6 +989,36 @@ visitIRVariable: anIRVariable
 visitIRVerbatim: anIRVerbatim
 	self stream nextPutStatementWith: [
 		self stream nextPutAll: anIRVerbatim source ]
+!
+
+visitReceiver: anIRInstruction
+	anIRInstruction needsBoxingAsReceiver ifFalse: [ ^ self visit: anIRInstruction ].
+	
+	self stream nextPutAll: '_st('.
+	self visit: anIRInstruction.
+	self stream nextPutAll: ')'
+!
+
+visitSend: anIRSend
+	self visitReceiver: anIRSend instructions first.
+	self stream nextPutAll: '.', anIRSend selector asSelector, '('.
+	anIRSend instructions allButFirst
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	self stream nextPutAll: ')'
+!
+
+visitSuperSend: anIRSend
+	self stream
+		nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
+		nextPutAll: anIRSend selector asSelector, '.apply(';
+		nextPutAll: '_st('.
+	self visit: anIRSend instructions first.
+	self stream nextPutAll: '), ['.
+	anIRSend instructions allButFirst
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	self stream nextPutAll: '])'
 ! !
 
 Object subclass: #JSStream

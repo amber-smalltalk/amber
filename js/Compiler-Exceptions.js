@@ -25,7 +25,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(" Invalid assignment to variable: ").__comma(_st(self)._variableName());
+$1=" Invalid assignment to variable: ".__comma(self._variableName());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.InvalidAssignmentError)})},
 args: [],
@@ -81,7 +81,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st("Variable shadowing error: ").__comma(_st(self)._variableName())).__comma(" is already defined");
+$1=_st("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.ShadowingVariableError)})},
 args: [],
@@ -137,7 +137,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st("Unknown Variable error: ").__comma(_st(self)._variableName())).__comma(" is not defined");
+$1=_st("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.UnknownVariableError)})},
 args: [],
@@ -209,7 +209,7 @@ fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.ErrorHandler.fn.prototype._handleError_.apply(_st(self), [anError]);
-_st(self)._basicSignal_(anError);
+self._basicSignal_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.RethrowErrorHandler)})},
 args: ["anError"],
 source: "handleError: anError\x0a\x09super handleError: anError.\x0a\x09self basicSignal: anError",

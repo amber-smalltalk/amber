@@ -19,7 +19,7 @@ fn: function (aToolModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._model_(aToolModel);
 $3=_st($2)._yourself();
 $1=$3;
@@ -60,7 +60,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._commitPackage();
+_st(self._model())._commitPackage();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommitPackageCommand)})},
 messageSends: ["commitPackage", "model"]}),
 smalltalk.HLCommitPackageCommand);
@@ -144,7 +144,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._name();
+$1=_st(_st(self._model())._selectedClass())._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLCopyClassCommand)})},
 messageSends: ["name", "selectedClass", "model"]}),
@@ -167,7 +167,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._copyClassTo_(_st(self)._input());
+_st(self._model())._copyClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCopyClassCommand)})},
 messageSends: ["copyClassTo:", "input", "model"]}),
 smalltalk.HLCopyClassCommand);
@@ -179,7 +179,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLCopyClassCommand)})},
 messageSends: ["notNil", "selectedClass", "model"]}),
@@ -274,7 +274,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._openClassNamed_(_st(self)._input());
+_st(self._model())._openClassNamed_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindClassCommand)})},
 messageSends: ["openClassNamed:", "input", "model"]}),
 smalltalk.HLFindClassCommand);
@@ -286,7 +286,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availableClassNames();
+$1=_st(self._model())._availableClassNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindClassCommand)})},
 messageSends: ["availableClassNames", "model"]}),
@@ -359,9 +359,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(_st(self)._model())._selectedMethod();
+$2=_st(self._model())._selectedMethod();
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st(_st(self)._model())._selectedClass();
+$3=_st(self._model())._selectedClass();
 if(($receiver = $3) == nil || $receiver == undefined){
 $1="";
 } else {
@@ -400,7 +400,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st($HLReferences())._new();
 _st($1)._openAsTab();
-$2=_st($1)._search_(_st(self)._input());
+$2=_st($1)._search_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindReferencesCommand)})},
 messageSends: ["openAsTab", "new", "search:", "input"]}),
 smalltalk.HLFindReferencesCommand);
@@ -412,7 +412,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._availableClassNames()).__comma(_st(_st(self)._model())._allSelectors());
+$1=_st(_st(self._model())._availableClassNames()).__comma(_st(self._model())._allSelectors());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindReferencesCommand)})},
 messageSends: [",", "allSelectors", "model", "availableClassNames"]}),
@@ -497,7 +497,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLMoveClassToCommand)})},
 messageSends: ["notNil", "selectedClass", "model"]}),
@@ -556,7 +556,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._moveClassToPackage_(_st(self)._input());
+_st(self._model())._moveClassToPackage_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveClassToPackageCommand)})},
 messageSends: ["moveClassToPackage:", "input", "model"]}),
 smalltalk.HLMoveClassToPackageCommand);
@@ -568,7 +568,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availablePackageNames();
+$1=_st(self._model())._availablePackageNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveClassToPackageCommand)})},
 messageSends: ["availablePackageNames", "model"]}),
@@ -650,7 +650,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedMethod())._notNil();
+$1=_st(_st(self._model())._selectedMethod())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLMoveMethodToCommand)})},
 messageSends: ["notNil", "selectedMethod", "model"]}),
@@ -698,7 +698,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._moveMethodToClass_(_st(self)._input());
+_st(self._model())._moveMethodToClass_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 messageSends: ["moveMethodToClass:", "input", "model"]}),
 smalltalk.HLMoveMethodToClassCommand);
@@ -710,7 +710,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availableClassNames();
+$1=_st(self._model())._availableClassNames();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToClassCommand)})},
 messageSends: ["availableClassNames", "model"]}),
@@ -791,7 +791,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._moveMethodToProtocol_(_st(self)._input());
+_st(self._model())._moveMethodToProtocol_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 messageSends: ["moveMethodToProtocol:", "input", "model"]}),
 smalltalk.HLMoveMethodToProtocolCommand);
@@ -803,7 +803,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._availableProtocols();
+$1=_st(self._model())._availableProtocols();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 messageSends: ["availableProtocols", "model"]}),
@@ -909,7 +909,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._removeClass();
+_st(self._model())._removeClass();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveClassCommand)})},
 messageSends: ["removeClass", "model"]}),
 smalltalk.HLRemoveClassCommand);
@@ -921,7 +921,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveClassCommand)})},
 messageSends: ["notNil", "selectedClass", "model"]}),
@@ -980,7 +980,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._removeMethod();
+_st(self._model())._removeMethod();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveMethodCommand)})},
 messageSends: ["removeMethod", "model"]}),
 smalltalk.HLRemoveMethodCommand);
@@ -992,7 +992,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedMethod())._notNil();
+$1=_st(_st(self._model())._selectedMethod())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveMethodCommand)})},
 messageSends: ["notNil", "selectedMethod", "model"]}),
@@ -1051,7 +1051,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._removeProtocol();
+_st(self._model())._removeProtocol();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRemoveProtocolCommand)})},
 messageSends: ["removeProtocol", "model"]}),
 smalltalk.HLRemoveProtocolCommand);
@@ -1063,7 +1063,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedProtocol())._notNil();
+$1=_st(_st(self._model())._selectedProtocol())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRemoveProtocolCommand)})},
 messageSends: ["notNil", "selectedProtocol", "model"]}),
@@ -1148,7 +1148,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._name();
+$1=_st(_st(self._model())._selectedClass())._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameClassCommand)})},
 messageSends: ["name", "selectedClass", "model"]}),
@@ -1171,7 +1171,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._renameClassTo_(_st(self)._input());
+_st(self._model())._renameClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameClassCommand)})},
 messageSends: ["renameClassTo:", "input", "model"]}),
 smalltalk.HLRenameClassCommand);
@@ -1183,7 +1183,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedClass())._notNil();
+$1=_st(_st(self._model())._selectedClass())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameClassCommand)})},
 messageSends: ["notNil", "selectedClass", "model"]}),
@@ -1254,7 +1254,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._selectedProtocol();
+$1=_st(self._model())._selectedProtocol();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameProtocolCommand)})},
 messageSends: ["selectedProtocol", "model"]}),
@@ -1277,7 +1277,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._renameProtocolTo_(_st(self)._input());
+_st(self._model())._renameProtocolTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameProtocolCommand)})},
 messageSends: ["renameProtocolTo:", "input", "model"]}),
 smalltalk.HLRenameProtocolCommand);
@@ -1289,7 +1289,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._selectedProtocol())._notNil();
+$1=_st(_st(self._model())._selectedProtocol())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLRenameProtocolCommand)})},
 messageSends: ["notNil", "selectedProtocol", "model"]}),

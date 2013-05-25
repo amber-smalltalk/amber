@@ -45,14 +45,14 @@ function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefin
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 variables=_st($Dictionary())._new();
-inspectedContext=_st(self)._context();
+inspectedContext=self._context();
 _st(variables)._addAll_(_st(inspectedContext)._locals());
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(inspectedContext)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(inspectedContext)._isBlockContext();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
 inspectedContext=_st(inspectedContext)._outerContext();
@@ -84,7 +84,7 @@ fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._initializeFromContext_(aContext);
 $3=_st($2)._yourself();
 $1=$3;
@@ -112,7 +112,7 @@ var $2,$3,$4,$1;
 $2=self["@codeWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $3=_st($HLDebuggerCodeWidget())._new();
-_st($3)._browserModel_(_st(self)._model());
+_st($3)._browserModel_(self._model());
 $4=_st($3)._yourself();
 self["@codeWidget"]=$4;
 $1=self["@codeWidget"];
@@ -135,7 +135,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._stackListWidget())._focus();
+_st(self._stackListWidget())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLDebugger)})},
 args: [],
 source: "focus\x0a\x09self stackListWidget focus",
@@ -153,7 +153,7 @@ var self=this;
 function $HLDebuggerModel(){return smalltalk.HLDebuggerModel||(typeof HLDebuggerModel=="undefined"?nil:HLDebuggerModel)}
 return smalltalk.withContext(function($ctx1) { 
 self["@model"]=_st($HLDebuggerModel())._on_(aMethodContext);
-_st(self)._observeModel();
+self._observeModel();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.HLDebugger)})},
 args: ["aMethodContext"],
 source: "initializeFromMethodContext: aMethodContext\x0a\x09model := HLDebuggerModel on: aMethodContext.\x0a\x09self observeModel",
@@ -220,7 +220,7 @@ fn: function (){
 var self=this;
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._on_send_to_($HLDebuggerContextSelected(),"onContextSelected:",self);
+_st(_st(self._model())._announcer())._on_send_to_($HLDebuggerContextSelected(),"onContextSelected:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLDebugger)})},
 args: [],
 source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self",
@@ -237,7 +237,7 @@ fn: function (anAnnouncement){
 var self=this;
 function $HLContextInspectorDecorator(){return smalltalk.HLContextInspectorDecorator||(typeof HLContextInspectorDecorator=="undefined"?nil:HLContextInspectorDecorator)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._inspectorWidget())._inspect_(_st($HLContextInspectorDecorator())._on_(_st(anAnnouncement)._context()));
+_st(self._inspectorWidget())._inspect_(_st($HLContextInspectorDecorator())._on_(_st(anAnnouncement)._context()));
 return self}, function($ctx1) {$ctx1.fill(self,"onContextSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLDebugger)})},
 args: ["anAnnouncement"],
 source: "onContextSelected: anAnnouncement\x0a\x09self inspectorWidget inspect: (HLContextInspectorDecorator on: anAnnouncement context)",
@@ -254,7 +254,7 @@ fn: function (aBindingGroup){
 var self=this;
 function $HLToolCommand(){return smalltalk.HLToolCommand||(typeof HLToolCommand=="undefined"?nil:HLToolCommand)}
 return smalltalk.withContext(function($ctx1) { 
-_st($HLToolCommand())._registerConcreteClassesOn_for_(aBindingGroup,_st(self)._model());
+_st($HLToolCommand())._registerConcreteClassesOn_for_(aBindingGroup,self._model());
 return self}, function($ctx1) {$ctx1.fill(self,"registerBindingsOn:",{aBindingGroup:aBindingGroup},smalltalk.HLDebugger)})},
 args: ["aBindingGroup"],
 source: "registerBindingsOn: aBindingGroup\x0a\x09HLToolCommand \x0a\x09\x09registerConcreteClassesOn: aBindingGroup \x0a\x09\x09for: self model",
@@ -273,7 +273,7 @@ function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVe
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st(self)._stackListWidget(),_st($HLVerticalSplitter())._with_with_(_st(self)._codeWidget(),_st(self)._inspectorWidget()))));
+_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(self._stackListWidget(),_st($HLVerticalSplitter())._with_with_(self._codeWidget(),self._inspectorWidget()))));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLDebugger)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter\x0a\x09\x09with: self stackListWidget\x0a\x09\x09with: (HLVerticalSplitter\x0a\x09\x09\x09with: self codeWidget\x0a\x09\x09\x09with: self inspectorWidget)))",
@@ -293,8 +293,8 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$4,$1;
 $2=self["@stackListWidget"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st($HLStackListWidget())._on_(_st(self)._model());
-_st($3)._next_(_st(self)._codeWidget());
+$3=_st($HLStackListWidget())._on_(self._model());
+_st($3)._next_(self._codeWidget());
 $4=_st($3)._yourself();
 self["@stackListWidget"]=$4;
 $1=self["@stackListWidget"];
@@ -318,7 +318,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLFocusableWidget.fn.prototype._unregister.apply(_st(self), []);
-_st(_st(self)._inspectorWidget())._unregister();
+_st(self._inspectorWidget())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLDebugger)})},
 args: [],
 source: "unregister\x0a\x09super unregister.\x0a\x09self inspectorWidget unregister",
@@ -336,7 +336,7 @@ fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._initializeFromMethodContext_(aMethodContext);
 $3=_st($2)._yourself();
 $1=$3;
@@ -390,7 +390,7 @@ category: 'actions',
 fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@editor"])._setGutterMarker_gutter_value_(anInteger,"stops",_st(_st(_st("<div class=\x22stop\x22></stop>")._asJQuery())._toArray())._first());
+_st(self["@editor"])._setGutterMarker_gutter_value_(anInteger,"stops",_st(_st("<div class=\x22stop\x22></stop>"._asJQuery())._toArray())._first());
 return self}, function($ctx1) {$ctx1.fill(self,"addStopAt:",{anInteger:anInteger},smalltalk.HLDebuggerCodeWidget)})},
 args: ["anInteger"],
 source: "addStopAt: anInteger\x0a\x09editor\x0a\x09\x09setGutterMarker: anInteger\x0a\x09\x09gutter: 'stops'\x0a\x09\x09value: '<div class=\x22stop\x22></stop>' asJQuery toArray first",
@@ -408,7 +408,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 _st(self["@editor"])._clearGutter_("stops");
-$1=_st(self)._highlightedNode();
+$1=self._highlightedNode();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
@@ -431,7 +431,7 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._clearHighlight();
+self._clearHighlight();
 smalltalk.HLBrowserCodeWidget.fn.prototype._contents_.apply(_st(self), [aString]);
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLDebuggerCodeWidget)})},
 args: ["aString"],
@@ -470,8 +470,8 @@ fn: function (){
 var self=this;
 var anchor,head,selection;
 return smalltalk.withContext(function($ctx1) { 
-head=smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._position())._x()).__minus((1))),_st("ch").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._position())._y()).__minus((1)))]);
-anchor=smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._extent())._x()).__minus((1))),_st("ch").__minus_gt(_st(_st(_st(_st(self)._highlightedNode())._extent())._y()).__minus((1)))]);
+head=smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(_st(_st(_st(self._highlightedNode())._position())._x()).__minus((1))),"ch".__minus_gt(_st(_st(_st(self._highlightedNode())._position())._y()).__minus((1)))]);
+anchor=smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(_st(_st(_st(self._highlightedNode())._extent())._x()).__minus((1))),"ch".__minus_gt(_st(_st(_st(self._highlightedNode())._extent())._y()).__minus((1)))]);
 _st(self["@editor"])._setSelection_to_(head,anchor);
 return self}, function($ctx1) {$ctx1.fill(self,"highlight",{anchor:anchor,head:head,selection:selection},smalltalk.HLDebuggerCodeWidget)})},
 args: [],
@@ -570,7 +570,7 @@ var self=this;
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLBrowserCodeWidget.fn.prototype._observeBrowserModel.apply(_st(self), []);
-_st(_st(_st(self)._browserModel())._announcer())._on_send_to_($HLDebuggerContextSelected(),"onContextSelected",self);
+_st(_st(self._browserModel())._announcer())._on_send_to_($HLDebuggerContextSelected(),"onContextSelected",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLDebuggerCodeWidget)})},
 args: [],
 source: "observeBrowserModel\x0a\x09super observeBrowserModel.\x0a\x09\x0a\x09self browserModel announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected\x0a\x09\x09to: self",
@@ -586,7 +586,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._highlightNode_(_st(_st(self)._browserModel())._nextNode());
+self._highlightNode_(_st(self._browserModel())._nextNode());
 return self}, function($ctx1) {$ctx1.fill(self,"onContextSelected",{},smalltalk.HLDebuggerCodeWidget)})},
 args: [],
 source: "onContextSelected\x0a\x09self highlightNode: self browserModel nextNode",
@@ -627,7 +627,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=self["@currentContext"];
 if(($receiver = $1) == nil || $receiver == undefined){
-_st(self)._currentContext_(_st(self)._rootContext());
+self._currentContext_(self._rootContext());
 } else {
 $1;
 };
@@ -651,9 +651,9 @@ function $ASTDebugger(){return smalltalk.ASTDebugger||(typeof ASTDebugger=="unde
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(self)._withChangesDo_((function(){
+self._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(self)._selectedMethod_(_st(aContext)._method());
+self._selectedMethod_(_st(aContext)._method());
 self["@currentContext"]=aContext;
 self["@currentContext"];
 self["@interpreter"]=_st($ASTDebugger())._context_(aContext);
@@ -661,7 +661,7 @@ self["@interpreter"];
 $1=_st($HLDebuggerContextSelected())._new();
 _st($1)._context_(aContext);
 $2=_st($1)._yourself();
-return _st(_st(self)._announcer())._announce_($2);
+return _st(self._announcer())._announce_($2);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"currentContext:",{aContext:aContext},smalltalk.HLDebuggerModel)})},
 args: ["aContext"],
@@ -681,7 +681,7 @@ var context;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 self["@contexts"]=_st($OrderedCollection())._new();
-context=_st(self)._rootContext();
+context=self._rootContext();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(context)._notNil();
@@ -708,7 +708,7 @@ var self=this;
 function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
 self["@rootContext"]=_st($AIContext())._fromMethodContext_(aMethodContext);
-_st(self)._initializeContexts();
+self._initializeContexts();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromContext:",{aMethodContext:aMethodContext},smalltalk.HLDebuggerModel)})},
 args: ["aMethodContext"],
 source: "initializeFromContext: aMethodContext\x0a\x09rootContext := AIContext fromMethodContext: aMethodContext.\x0a\x09self initializeContexts",
@@ -743,7 +743,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._interpreter())._nextNode();
+$1=_st(self._interpreter())._nextNode();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextNode",{},smalltalk.HLDebuggerModel)})},
 args: [],
@@ -780,7 +780,7 @@ fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._initializeFromContext_(aMethodContext);
 $3=_st($2)._yourself();
 $1=$3;
@@ -805,7 +805,7 @@ function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $HLDebugger(){return smalltalk.HLDebugger||(typeof HLDebugger=="undefined"?nil:HLDebugger)}
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._onErrorHandled();
+self._onErrorHandled();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($HLDebugger())._on_(_st(anError)._context()))._openAsTab();
@@ -850,7 +850,7 @@ fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._new())._handleError_(anError);
+$1=_st(self._new())._handleError_(anError);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.HLErrorHandler.klass)})},
 args: ["anError"],
@@ -872,7 +872,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@items"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@items"]=_st(_st(self)._model())._contexts();
+self["@items"]=_st(self._model())._contexts();
 $1=self["@items"];
 } else {
 $1=$2;
@@ -909,7 +909,7 @@ category: 'actions',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._currentContext_(aContext);
+_st(self._model())._currentContext_(aContext);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext},smalltalk.HLStackListWidget)})},
 args: ["aContext"],
 source: "selectItem: aContext\x0a   \x09self model currentContext: aContext",

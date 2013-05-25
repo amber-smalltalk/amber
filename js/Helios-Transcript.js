@@ -25,7 +25,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
-_st(self)._register();
+self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLTranscript)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self register",
@@ -127,7 +127,7 @@ category: 'registration',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._transcripts())._do_((function(each){
+_st(self._transcripts())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._clear();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -163,7 +163,7 @@ category: 'registration',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._transcripts())._add_(aTranscript);
+_st(self._transcripts())._add_(aTranscript);
 return self}, function($ctx1) {$ctx1.fill(self,"register:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 args: ["aTranscript"],
 source: "register: aTranscript\x0a\x09self transcripts add: aTranscript",
@@ -179,7 +179,7 @@ category: 'registration',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._transcripts())._do_((function(each){
+_st(self._transcripts())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._show_(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -223,7 +223,7 @@ category: 'registration',
 fn: function (aTranscript){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._transcripts())._remove_(aTranscript);
+_st(self._transcripts())._remove_(aTranscript);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 args: ["aTranscript"],
 source: "unregister: aTranscript\x0a\x09self transcripts remove: aTranscript",

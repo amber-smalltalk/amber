@@ -60,7 +60,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnClasses();
+_st(self._model())._focusOnClasses();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToClassesCommand)})},
 messageSends: ["focusOnClasses", "model"]}),
 smalltalk.HLGoToClassesCommand);
@@ -96,7 +96,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnMethods();
+_st(self._model())._focusOnMethods();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToMethodsCommand)})},
 messageSends: ["focusOnMethods", "model"]}),
 smalltalk.HLGoToMethodsCommand);
@@ -132,7 +132,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnPackages();
+_st(self._model())._focusOnPackages();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToPackagesCommand)})},
 messageSends: ["focusOnPackages", "model"]}),
 smalltalk.HLGoToPackagesCommand);
@@ -168,7 +168,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnProtocols();
+_st(self._model())._focusOnProtocols();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToProtocolsCommand)})},
 messageSends: ["focusOnProtocols", "model"]}),
 smalltalk.HLGoToProtocolsCommand);
@@ -204,7 +204,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnSourceCode();
+_st(self._model())._focusOnSourceCode();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToSourceCodeCommand)})},
 messageSends: ["focusOnSourceCode", "model"]}),
 smalltalk.HLGoToSourceCodeCommand);
@@ -240,7 +240,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._editComment();
+_st(self._model())._editComment();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLEditCommentCommand)})},
 messageSends: ["editComment", "model"]}),
 smalltalk.HLEditCommentCommand);
@@ -252,9 +252,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._showComment())._and_((function(){
+$1=_st(_st(self._model())._showComment())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._model())._selectedClass())._notNil();
+return _st(_st(self._model())._selectedClass())._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
@@ -317,7 +317,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showComment_(_st(_st(_st(self)._model())._showComment())._not());
+_st(self._model())._showComment_(_st(_st(self._model())._showComment())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
 messageSends: ["showComment:", "not", "showComment", "model"]}),
 smalltalk.HLToggleClassCommentCommand);
@@ -353,7 +353,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showInstance_(false);
+_st(self._model())._showInstance_(false);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassSideCommand)})},
 messageSends: ["showInstance:", "model"]}),
 smalltalk.HLToggleClassSideCommand);
@@ -389,7 +389,7 @@ selector: "execute",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showInstance_(true);
+_st(self._model())._showInstance_(true);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleInstanceSideCommand)})},
 messageSends: ["showInstance:", "model"]}),
 smalltalk.HLToggleInstanceSideCommand);

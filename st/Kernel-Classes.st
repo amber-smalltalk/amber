@@ -556,8 +556,9 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 		rawRenameClass: oldClass to: tmp;
 		rawRenameClass: newClass to: className.
 
-	oldClass subclasses do: [ :each |
-		self migrateClass: each superclass: newClass ].
+	oldClass subclasses 
+		do: [ :each | self migrateClass: each superclass: newClass ]
+		displayingProgress: 'Recompiling ', newClass name, '...'.
 
 	self basicRemoveClass: oldClass.
 	

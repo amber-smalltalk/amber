@@ -8,7 +8,7 @@ var self=this;
 function $HLBindingAction(){return smalltalk.HLBindingAction||(typeof HLBindingAction=="undefined"?nil:HLBindingAction)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st($HLBindingAction())._on_labelled_(_st(self)._keyCode(),_st(self)._label());
+$2=_st($HLBindingAction())._on_labelled_(self._keyCode(),self._label());
 _st($2)._command_(self);
 $3=_st($2)._yourself();
 $1=$3;
@@ -24,11 +24,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(self)._isBindingGroup();
+$2=self._isBindingGroup();
 if(smalltalk.assert($2)){
-$1=_st(self)._asGroupBinding();
+$1=self._asGroupBinding();
 } else {
-$1=_st(self)._asActionBinding();
+$1=self._asActionBinding();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBinding",{},smalltalk.HLCommand)})},
@@ -43,7 +43,7 @@ var self=this;
 function $HLBindingGroup(){return smalltalk.HLBindingGroup||(typeof HLBindingGroup=="undefined"?nil:HLBindingGroup)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HLBindingGroup())._on_labelled_(_st(self)._keyCode(),_st(self)._label());
+$1=_st($HLBindingGroup())._on_labelled_(self._keyCode(),self._label());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asGroupBinding",{},smalltalk.HLCommand)})},
 messageSends: ["on:labelled:", "keyCode", "label"]}),
@@ -55,7 +55,7 @@ selector: "commandError:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._error_(aString);
+self._error_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"commandError:",{aString:aString},smalltalk.HLCommand)})},
 messageSends: ["error:"]}),
 smalltalk.HLCommand);
@@ -78,7 +78,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._class())._documentation();
+$1=_st(self._class())._documentation();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"documentation",{},smalltalk.HLCommand)})},
 messageSends: ["documentation", "class"]}),
@@ -141,7 +141,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._label();
+$1=self._label();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputLabel",{},smalltalk.HLCommand)})},
 messageSends: ["label"]}),
@@ -154,7 +154,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._isBindingGroup())._not();
+$1=_st(self._isBindingGroup())._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAction",{},smalltalk.HLCommand)})},
 messageSends: ["not", "isBindingGroup"]}),
@@ -178,7 +178,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(self)._class())._methodDictionary())._includesKey_("execute"))._not();
+$1=_st(_st(_st(self._class())._methodDictionary())._includesKey_("execute"))._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBindingGroup",{},smalltalk.HLCommand)})},
 messageSends: ["not", "includesKey:", "methodDictionary", "class"]}),
@@ -202,7 +202,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._class())._key();
+$1=_st(self._class())._key();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCommand)})},
 messageSends: ["key", "class"]}),
@@ -215,7 +215,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._key())._asUppercase())._charCodeAt_((1));
+$1=_st(_st(self._key())._asUppercase())._charCodeAt_((1));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keyCode",{},smalltalk.HLCommand)})},
 messageSends: ["charCodeAt:", "asUppercase", "key"]}),
@@ -228,7 +228,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._class())._label();
+$1=_st(self._class())._label();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLCommand)})},
 messageSends: ["label", "class"]}),
@@ -241,7 +241,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._class())._menuLabel();
+$1=_st(self._class())._menuLabel();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLCommand)})},
 messageSends: ["menuLabel", "class"]}),
@@ -254,7 +254,7 @@ fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(aBinding)._add_(_st(self)._asBinding());
+$1=_st(aBinding)._add_(self._asBinding());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"registerOn:",{aBinding:aBinding},smalltalk.HLCommand)})},
 messageSends: ["add:", "asBinding"]}),
@@ -271,11 +271,11 @@ function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof Ordere
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 classes=_st($OrderedCollection())._new();
-$1=_st(self)._isConcrete();
+$1=self._isConcrete();
 if(smalltalk.assert($1)){
 _st(classes)._add_(self);
 };
-_st(_st(self)._subclasses())._do_((function(each){
+_st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(classes)._addAll_(_st(each)._concreteClasses());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -303,7 +303,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._key())._notNil();
+$1=_st(self._key())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isConcrete",{},smalltalk.HLCommand.klass)})},
 messageSends: ["notNil", "key"]}),
@@ -349,7 +349,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._label();
+$1=self._label();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLCommand.klass)})},
 messageSends: ["label"]}),
@@ -363,15 +363,15 @@ var self=this;
 var newBinding;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._isConcrete();
+$1=self._isConcrete();
 if(smalltalk.assert($1)){
-newBinding=_st(self)._registerOn_(aBinding);
+newBinding=self._registerOn_(aBinding);
 newBinding;
 } else {
 newBinding=aBinding;
 newBinding;
 };
-_st(_st(self)._subclasses())._do_((function(each){
+_st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_(newBinding);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -386,7 +386,7 @@ fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._new())._registerOn_(aBinding);
+$1=_st(self._new())._registerOn_(aBinding);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"registerOn:",{aBinding:aBinding},smalltalk.HLCommand.klass)})},
 messageSends: ["registerOn:", "new"]}),
@@ -463,7 +463,7 @@ fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._new();
+$1=self._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"for:",{aModel:aModel},smalltalk.HLModelCommand.klass)})},
 messageSends: ["new"]}),
@@ -477,18 +477,18 @@ var self=this;
 var newBinding;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._isConcrete())._and_((function(){
+$1=_st(self._isConcrete())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._isValidFor_(aModel);
+return self._isValidFor_(aModel);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-newBinding=_st(self)._registerOn_for_(aBinding,aModel);
+newBinding=self._registerOn_for_(aBinding,aModel);
 newBinding;
 } else {
 newBinding=aBinding;
 newBinding;
 };
-_st(_st(self)._subclasses())._do_((function(each){
+_st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_for_(newBinding,aModel);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -503,7 +503,7 @@ fn: function (aBinding,aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._for_(aModel))._registerOn_(aBinding);
+$1=_st(self._for_(aModel))._registerOn_(aBinding);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"registerOn:for:",{aBinding:aBinding,aModel:aModel},smalltalk.HLModelCommand.klass)})},
 messageSends: ["registerOn:", "for:"]}),

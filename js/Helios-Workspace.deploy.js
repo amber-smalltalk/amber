@@ -41,7 +41,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._environment())._eval_on_(aString,_st(self)._receiver());
+$1=_st(self._environment())._eval_on_(aString,self._receiver());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt:",{aString:aString},smalltalk.HLCodeModel)})},
 messageSends: ["eval:on:", "receiver", "environment"]}),
@@ -83,7 +83,7 @@ selector: "inspect:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._environment())._inspect_(anObject);
+_st(self._environment())._inspect_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLCodeModel)})},
 messageSends: ["inspect:", "environment"]}),
 smalltalk.HLCodeModel);
@@ -97,7 +97,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@receiver"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@receiver"]=_st(self)._defaultReceiver();
+self["@receiver"]=self._defaultReceiver();
 $1=self["@receiver"];
 } else {
 $1=$2;
@@ -126,7 +126,7 @@ fn: function (anEnvironment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._environment_(anEnvironment);
 $3=_st($2)._yourself();
 $1=$3;
@@ -144,7 +144,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._announcer();
+$1=_st(self._model())._announcer();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLCodeWidget)})},
 messageSends: ["announcer", "model"]}),
@@ -167,7 +167,7 @@ selector: "clear",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._contents_("");
+self._contents_("");
 return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.HLCodeWidget)})},
 messageSends: ["contents:"]}),
 smalltalk.HLCodeWidget);
@@ -178,10 +178,10 @@ selector: "configureEditor",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._editor())._at_put_("amberCodeWidget",self);
-_st(_st(self)._editor())._on_do_("change",(function(){
+_st(self._editor())._at_put_("amberCodeWidget",self);
+_st(self._editor())._on_do_("change",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._onChange();
+return self._onChange();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},smalltalk.HLCodeWidget)})},
 messageSends: ["at:put:", "editor", "on:do:", "onChange"]}),
@@ -212,7 +212,7 @@ $1=self["@state"];
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(self)._updateState();
+self._updateState();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLCodeWidget)})},
 messageSends: ["setValue:", "ifNotNil:", "updateState"]}),
@@ -240,9 +240,9 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=_st(self["@editor"])._somethingSelected();
 if(smalltalk.assert($2)){
-$1=_st(self)._selection();
+$1=self._selection();
 } else {
-$1=_st(self)._currentLine();
+$1=self._currentLine();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentLineOrSelection",{},smalltalk.HLCodeWidget)})},
@@ -259,9 +259,9 @@ function $HLDoItRequested(){return smalltalk.HLDoItRequested||(typeof HLDoItRequ
 function $HLDoItExecuted(){return smalltalk.HLDoItExecuted||(typeof HLDoItExecuted=="undefined"?nil:HLDoItExecuted)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLDoItRequested())._on_(self["@model"]));
-result=_st(self["@model"])._doIt_(_st(self)._currentLineOrSelection());
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLDoItExecuted())._on_(self["@model"]));
+_st(_st(self._model())._announcer())._announce_(_st($HLDoItRequested())._on_(self["@model"]));
+result=_st(self["@model"])._doIt_(self._currentLineOrSelection());
+_st(_st(self._model())._announcer())._announce_(_st($HLDoItExecuted())._on_(self["@model"]));
 $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},smalltalk.HLCodeWidget)})},
@@ -288,7 +288,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("theme").__minus_gt("amber"),_st("lineNumbers").__minus_gt(true),_st("enterMode").__minus_gt("flat"),_st("indentWithTabs").__minus_gt(true),_st("indentUnit").__minus_gt((4)),_st("matchBrackets").__minus_gt(true),_st("electricChars").__minus_gt(false),_st("keyMap").__minus_gt("Amber"),_st("extraKeys").__minus_gt(smalltalk.HashedCollection._fromPairs_([_st("Shift-Space").__minus_gt("autocomplete")]))]);
+$1=smalltalk.HashedCollection._fromPairs_(["theme".__minus_gt("amber"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._fromPairs_(["Shift-Space".__minus_gt("autocomplete")]))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
 messageSends: ["->"]}),
@@ -337,8 +337,8 @@ var self=this;
 var newInspector;
 function $HLInspectItRequested(){return smalltalk.HLInspectItRequested||(typeof HLInspectItRequested=="undefined"?nil:HLInspectItRequested)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLInspectItRequested())._on_(self["@model"]));
-_st(_st(self)._model())._inspect_(_st(self)._doIt());
+_st(_st(self._model())._announcer())._announce_(_st($HLInspectItRequested())._on_(self["@model"]));
+_st(self._model())._inspect_(self._doIt());
 return self}, function($ctx1) {$ctx1.fill(self,"inspectIt",{newInspector:newInspector},smalltalk.HLCodeWidget)})},
 messageSends: ["announce:", "on:", "announcer", "model", "inspect:", "doIt"]}),
 smalltalk.HLCodeWidget);
@@ -400,7 +400,7 @@ selector: "onChange",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._updateState();
+self._updateState();
 return self}, function($ctx1) {$ctx1.fill(self,"onChange",{},smalltalk.HLCodeWidget)})},
 messageSends: ["updateState"]}),
 smalltalk.HLCodeWidget);
@@ -411,7 +411,7 @@ selector: "onDoIt",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._doIt();
+self._doIt();
 return self}, function($ctx1) {$ctx1.fill(self,"onDoIt",{},smalltalk.HLCodeWidget)})},
 messageSends: ["doIt"]}),
 smalltalk.HLCodeWidget);
@@ -422,7 +422,7 @@ selector: "onInspectIt",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._inspectIt();
+self._inspectIt();
 return self}, function($ctx1) {$ctx1.fill(self,"onInspectIt",{},smalltalk.HLCodeWidget)})},
 messageSends: ["inspectIt"]}),
 smalltalk.HLCodeWidget);
@@ -433,7 +433,7 @@ selector: "onPrintIt",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._printIt();
+self._printIt();
 return self}, function($ctx1) {$ctx1.fill(self,"onPrintIt",{},smalltalk.HLCodeWidget)})},
 messageSends: ["printIt"]}),
 smalltalk.HLCodeWidget);
@@ -463,7 +463,7 @@ _st(start)._at_put_("ch",_st(_st(self["@editor"])._getCursor_(false))._ch());
 _st(_st(self["@editor"])._getSelection())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
-return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_([_st("line").__minus_gt(currentLine),_st("ch").__minus_gt((0))]),start);
+return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(currentLine),"ch".__minus_gt((0))]),start);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 stop=_st($HashedCollection())._new();
 _st(stop)._at_put_("line",currentLine);
@@ -483,10 +483,10 @@ var self=this;
 var result;
 function $HLPrintItRequested(){return smalltalk.HLPrintItRequested||(typeof HLPrintItRequested=="undefined"?nil:HLPrintItRequested)}
 return smalltalk.withContext(function($ctx1) { 
-result=_st(self)._doIt();
-_st(_st(_st(self)._model())._announcer())._announce_(_st($HLPrintItRequested())._on_(self["@model"]));
-_st(self)._print_(_st(result)._printString());
-_st(self)._focus();
+result=self._doIt();
+_st(_st(self._model())._announcer())._announce_(_st($HLPrintItRequested())._on_(self["@model"]));
+self._print_(_st(result)._printString());
+self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{result:result},smalltalk.HLCodeWidget)})},
 messageSends: ["doIt", "announce:", "on:", "announcer", "model", "print:", "printString", "focus"]}),
 smalltalk.HLCodeWidget);
@@ -498,7 +498,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._model())._receiver();
+$1=_st(self._model())._receiver();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.HLCodeWidget)})},
 messageSends: ["receiver", "model"]}),
@@ -510,7 +510,7 @@ selector: "receiver:",
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._receiver_(anObject);
+_st(self._model())._receiver_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{anObject:anObject},smalltalk.HLCodeWidget)})},
 messageSends: ["receiver:", "model"]}),
 smalltalk.HLCodeWidget);
@@ -527,21 +527,21 @@ _st($1)._class_("button");
 _st($1)._with_("DoIt");
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._doIt();
+return self._doIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3=_st(html)._button();
 _st($3)._class_("button");
 _st($3)._with_("PrintIt");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._printIt();
+return self._printIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=_st(html)._button();
 _st($5)._class_("button");
 _st($5)._with_("InspectIt");
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._inspectIt();
+return self._inspectIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLCodeWidget)})},
 messageSends: ["class:", "button", "with:", "onClick:", "doIt", "printIt", "inspectIt"]}),
@@ -566,7 +566,7 @@ $3=_st(html)._div();
 _st($3)._class_("buttons_bar");
 $4=_st($3)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._renderButtonsOn_(html);
+return self._renderButtonsOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=self;
 _st($5)._setEditorOn_(_st(self["@code"])._element());
@@ -665,7 +665,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self)._hasModification();
+$1=self._hasModification();
 if(smalltalk.assert($1)){
 _st(_st(self["@state"])._asJQuery())._addClass_("modified");
 } else {
@@ -725,7 +725,7 @@ completions=_st($HLCodeWidget())._variableHintFor_token_(anEditor,token);
 } else {
 completions=_st($HLCodeWidget())._messageHintFor_token_(anEditor,token);
 };
-$2=smalltalk.HashedCollection._fromPairs_([_st("list").__minus_gt(completions),_st("from").__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._end())),_st("to").__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
+$2=smalltalk.HashedCollection._fromPairs_(["list".__minus_gt(completions),"from".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._end())),"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},smalltalk.HLCodeWidget.klass)})},
 messageSends: ["getCursor", "getTokenAt:", "at:put:", "state", "value:value:", "getMode", "at:", "basicAt:", "ifTrue:ifFalse:", "variableHintFor:token:", "messageHintFor:token:", "=", "type", "->", "line", "end", "start"]}),
@@ -757,9 +757,9 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=_st(_st(_st($HLManager())._current())._keyBinder())._systemIsMac();
 if(smalltalk.assert($2)){
-$1=_st(self)._macKeyMap();
+$1=self._macKeyMap();
 } else {
-$1=_st(self)._pcKeyMap();
+$1=self._pcKeyMap();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keyMap",{},smalltalk.HLCodeWidget.klass)})},
@@ -773,7 +773,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("Alt-Backspace").__minus_gt("delWordBefore"),_st("Alt-Delete").__minus_gt("delWordAfter"),_st("Alt-Left").__minus_gt("goWordBoundaryLeft"),_st("Alt-Right").__minus_gt("goWordBoundaryRight"),_st("Cmd-A").__minus_gt("selectAll"),_st("Cmd-Alt-F").__minus_gt("replace"),_st("Cmd-D").__minus_gt("doIt"),_st("Cmd-Down").__minus_gt("goDocEnd"),_st("Cmd-End").__minus_gt("goDocEnd"),_st("Cmd-F").__minus_gt("find"),_st("Cmd-G").__minus_gt("findNext"),_st("Cmd-I").__minus_gt("inspectIt"),_st("Cmd-Left").__minus_gt("goLineStart"),_st("Cmd-P").__minus_gt("printIt"),_st("Cmd-Right").__minus_gt("goLineEnd"),_st("Cmd-S").__minus_gt("saveIt"),_st("Cmd-Up").__minus_gt("goDocStart"),_st("Cmd-Y").__minus_gt("redo"),_st("Cmd-Z").__minus_gt("undo"),_st("Cmd-[").__minus_gt("indentLess"),_st("Cmd-]").__minus_gt("indentMore"),_st("Ctrl-Alt-Backspace").__minus_gt("delWordAfter"),_st("Shift-Cmd-Alt-F").__minus_gt("replaceAll"),_st("Shift-Cmd-G").__minus_gt("findPrev"),_st("Shift-Cmd-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic","emacsy"])]);
+$1=smalltalk.HashedCollection._fromPairs_(["Alt-Backspace".__minus_gt("delWordBefore"),"Alt-Delete".__minus_gt("delWordAfter"),"Alt-Left".__minus_gt("goWordBoundaryLeft"),"Alt-Right".__minus_gt("goWordBoundaryRight"),"Cmd-A".__minus_gt("selectAll"),"Cmd-Alt-F".__minus_gt("replace"),"Cmd-D".__minus_gt("doIt"),"Cmd-Down".__minus_gt("goDocEnd"),"Cmd-End".__minus_gt("goDocEnd"),"Cmd-F".__minus_gt("find"),"Cmd-G".__minus_gt("findNext"),"Cmd-I".__minus_gt("inspectIt"),"Cmd-Left".__minus_gt("goLineStart"),"Cmd-P".__minus_gt("printIt"),"Cmd-Right".__minus_gt("goLineEnd"),"Cmd-S".__minus_gt("saveIt"),"Cmd-Up".__minus_gt("goDocStart"),"Cmd-Y".__minus_gt("redo"),"Cmd-Z".__minus_gt("undo"),"Cmd-[".__minus_gt("indentLess"),"Cmd-]".__minus_gt("indentMore"),"Ctrl-Alt-Backspace".__minus_gt("delWordAfter"),"Shift-Cmd-Alt-F".__minus_gt("replaceAll"),"Shift-Cmd-G".__minus_gt("findPrev"),"Shift-Cmd-Z".__minus_gt("redo"),"fallthrough".__minus_gt(["basic","emacsy"])]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},smalltalk.HLCodeWidget.klass)})},
 messageSends: ["->"]}),
@@ -799,7 +799,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=[_st("Alt-Left").__minus_gt("goLineStart"),_st("Alt-Right").__minus_gt("goLineEnd"),_st("Alt-Up").__minus_gt("goDocStart"),_st("Ctrl-A").__minus_gt("selectAll"),_st("Ctrl-Backspace").__minus_gt("delWordBefore"),_st("Ctrl-D").__minus_gt("doIt"),_st("Ctrl-Delete").__minus_gt("delWordAfter"),_st("Ctrl-Down").__minus_gt("goDocEnd"),_st("Ctrl-End").__minus_gt("goDocEnd"),_st("Ctrl-F").__minus_gt("find"),_st("Ctrl-G").__minus_gt("findNext"),_st("Ctrl-I").__minus_gt("inspectIt"),_st("Ctrl-Home").__minus_gt("goDocStart"),_st("Ctrl-Left").__minus_gt("goWordBoundaryLeft"),_st("Ctrl-P").__minus_gt("printIt"),_st("Ctrl-Right").__minus_gt("goWordBoundaryRight"),_st("Ctrl-S").__minus_gt("saveIt"),_st("Ctrl-Y").__minus_gt("redo"),_st("Ctrl-Z").__minus_gt("undo"),_st("Ctrl-[").__minus_gt("indentLess"),_st("Ctrl-]").__minus_gt("indentMore"),_st("Shift-Ctrl-F").__minus_gt("replace"),_st("Shift-Ctrl-G").__minus_gt("findPrev"),_st("Shift-Ctrl-R").__minus_gt("replaceAll"),_st("Shift-Ctrl-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic"])];
+$1=["Alt-Left".__minus_gt("goLineStart"),"Alt-Right".__minus_gt("goLineEnd"),"Alt-Up".__minus_gt("goDocStart"),"Ctrl-A".__minus_gt("selectAll"),"Ctrl-Backspace".__minus_gt("delWordBefore"),"Ctrl-D".__minus_gt("doIt"),"Ctrl-Delete".__minus_gt("delWordAfter"),"Ctrl-Down".__minus_gt("goDocEnd"),"Ctrl-End".__minus_gt("goDocEnd"),"Ctrl-F".__minus_gt("find"),"Ctrl-G".__minus_gt("findNext"),"Ctrl-I".__minus_gt("inspectIt"),"Ctrl-Home".__minus_gt("goDocStart"),"Ctrl-Left".__minus_gt("goWordBoundaryLeft"),"Ctrl-P".__minus_gt("printIt"),"Ctrl-Right".__minus_gt("goWordBoundaryRight"),"Ctrl-S".__minus_gt("saveIt"),"Ctrl-Y".__minus_gt("redo"),"Ctrl-Z".__minus_gt("undo"),"Ctrl-[".__minus_gt("indentLess"),"Ctrl-]".__minus_gt("indentMore"),"Shift-Ctrl-F".__minus_gt("replace"),"Shift-Ctrl-G".__minus_gt("findPrev"),"Shift-Ctrl-R".__minus_gt("replaceAll"),"Shift-Ctrl-Z".__minus_gt("redo"),"fallthrough".__minus_gt(["basic"])];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},smalltalk.HLCodeWidget.klass)})},
 messageSends: ["->"]}),
@@ -883,7 +883,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLCodeWidget.fn.prototype._configureEditor.apply(_st(self), []);
-_st(self)._contents_(_st(self)._methodContents());
+self._contents_(self._methodContents());
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},smalltalk.HLNavigationCodeWidget)})},
 messageSends: ["configureEditor", "contents:", "methodContents"]}),
 smalltalk.HLNavigationCodeWidget);
@@ -894,7 +894,7 @@ selector: "contents:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._methodContents_(aString);
+self._methodContents_(aString);
 smalltalk.HLCodeWidget.fn.prototype._contents_.apply(_st(self), [aString]);
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLNavigationCodeWidget)})},
 messageSends: ["methodContents:", "contents:"]}),
@@ -907,7 +907,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._methodContents()).__eq(_st(self)._contents()))._not();
+$1=_st(_st(self._methodContents()).__eq(self._contents()))._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"hasModification",{},smalltalk.HLNavigationCodeWidget)})},
 messageSends: ["not", "=", "contents", "methodContents"]}),
@@ -984,7 +984,7 @@ fn: function (aBrowserModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._browserModel_(aBrowserModel);
 $3=_st($2)._yourself();
 $1=$3;
@@ -1004,7 +1004,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self["@browserModel"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"browserModel",{},smalltalk.HLSourceCodeWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"browserModel",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: []}),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1019,7 +1019,7 @@ self["@browserModel"]=aBrowserModel;
 $1=self;
 _st($1)._observeSystem();
 $2=_st($1)._observeBrowserModel();
-return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aBrowserModel},smalltalk.HLSourceCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"browserModel:",{aBrowserModel:aBrowserModel},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["observeSystem", "observeBrowserModel"]}),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1042,7 +1042,7 @@ function $HLProtocolSelected(){return smalltalk.HLProtocolSelected||(typeof HLPr
 function $HLSourceCodeFocusRequested(){return smalltalk.HLSourceCodeFocusRequested||(typeof HLSourceCodeFocusRequested=="undefined"?nil:HLSourceCodeFocusRequested)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._browserModel())._announcer();
+$1=_st(self._browserModel())._announcer();
 _st($1)._on_send_to_($HLSaveSourceCode(),"onSaveIt",self);
 _st($1)._on_send_to_($HLShowInstanceToggled(),"onShowInstanceToggled",self);
 _st($1)._on_send_to_($HLSourceCodeSaved(),"onSourceCodeSaved",self);
@@ -1066,7 +1066,7 @@ fn: function (){
 var self=this;
 function $MethodModified(){return smalltalk.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(self)._browserModel())._systemAnnouncer())._on_send_to_($MethodModified(),"onMethodModified:",self);
+_st(_st(self._browserModel())._systemAnnouncer())._on_send_to_($MethodModified(),"onMethodModified:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["on:send:to:", "systemAnnouncer", "browserModel"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1081,11 +1081,11 @@ function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChan
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 block=_st(anAnnouncement)._actionBlock();
-$1=_st(self)._hasModification();
+$1=self._hasModification();
 if(smalltalk.assert($1)){
-_st(self)._confirm_ifTrue_("Changes have not been saved. Do you want to discard these changes?",(function(){
+self._confirm_ifTrue_("Changes have not been saved. Do you want to discard these changes?",(function(){
 return smalltalk.withContext(function($ctx2) {
-_st(self)._methodContents_(_st(self)._contents());
+self._methodContents_(self._contents());
 return _st(block)._value();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st($HLChangeForbidden())._signal();
@@ -1105,12 +1105,12 @@ var $1,$2;
 class_=_st(anAnnouncement)._item();
 $1=class_;
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
+$2=self._contents_("");
 return $2;
 } else {
 $1;
 };
-_st(self)._contents_(_st(class_)._definition());
+self._contents_(_st(class_)._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["item", "ifNil:", "contents:", "definition"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1121,7 +1121,7 @@ selector: "onCompileError:",
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._alert_(_st(_st(anAnnouncement)._error())._messageText());
+self._alert_(_st(_st(anAnnouncement)._error())._messageText());
 return self}, function($ctx1) {$ctx1.fill(self,"onCompileError:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["alert:", "messageText", "error"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1132,7 +1132,7 @@ selector: "onInstVarAdded",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._browserModel())._save_(_st(self)._contents());
+_st(self._browserModel())._save_(self._contents());
 return self}, function($ctx1) {$ctx1.fill(self,"onInstVarAdded",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["save:", "contents", "browserModel"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1146,24 +1146,24 @@ var method;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
 method=_st(anAnnouncement)._method();
-$1=_st(_st(_st(self)._browserModel())._selectedClass()).__eq(_st(method)._methodClass());
+$1=_st(_st(self._browserModel())._selectedClass()).__eq(_st(method)._methodClass());
 if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(_st(self)._browserModel())._selectedMethod();
+$3=_st(self._browserModel())._selectedMethod();
 if(($receiver = $3) == nil || $receiver == undefined){
 $4=self;
 return $4;
 } else {
 $3;
 };
-$5=_st(_st(_st(_st(self)._browserModel())._selectedMethod())._selector()).__eq(_st(method)._selector());
+$5=_st(_st(_st(self._browserModel())._selectedMethod())._selector()).__eq(_st(method)._selector());
 if(! smalltalk.assert($5)){
 $6=self;
 return $6;
 };
-_st(self)._refresh();
+self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["method", "ifFalse:", "=", "methodClass", "selectedClass", "browserModel", "ifNil:", "selectedMethod", "selector", "refresh"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1179,12 +1179,12 @@ var $1,$2;
 method=_st(anAnnouncement)._item();
 $1=method;
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
+$2=self._contents_("");
 return $2;
 } else {
 $1;
 };
-_st(self)._contents_(_st(method)._source());
+self._contents_(_st(method)._source());
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["item", "ifNil:", "contents:", "source"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1199,9 +1199,9 @@ function $String(){return smalltalk.String||(typeof String=="undefined"?nil:Stri
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 lineIndex=(1);
-_st(self)._contents_(_st($String())._streamContents_((function(stream){
+self._contents_(_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._contents())._linesDo_((function(each){
+return _st(self._contents())._linesDo_((function(each){
 return smalltalk.withContext(function($ctx3) {
 $1=_st(lineIndex).__eq(_st(anAnnouncement)._line());
 if(smalltalk.assert($1)){
@@ -1218,9 +1218,9 @@ _st(stream)._nextPutAll_(each);
 _st(stream)._nextPutAll_(_st($String())._cr());
 lineIndex=_st(lineIndex).__plus((1));
 return lineIndex;
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"onParseError:",{anAnnouncement:anAnnouncement,lineIndex:lineIndex,newContents:newContents},smalltalk.HLSourceCodeWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onParseError:",{anAnnouncement:anAnnouncement,lineIndex:lineIndex,newContents:newContents},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["contents:", "streamContents:", "linesDo:", "ifTrue:ifFalse:", "nextPutAll:", "copyFrom:to:", "column", "message", "+", "size", "=", "line", "cr", "contents"]}),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1231,14 +1231,14 @@ fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._browserModel())._selectedClass();
+$1=_st(self._browserModel())._selectedClass();
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
+$2=self._contents_("");
 return $2;
 } else {
 $1;
 };
-_st(self)._contents_(_st(_st(_st(self)._browserModel())._selectedClass())._definition());
+self._contents_(_st(_st(self._browserModel())._selectedClass())._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["ifNil:", "contents:", "selectedClass", "browserModel", "definition"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1249,8 +1249,8 @@ selector: "onSaveIt",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._browserModel())._save_(_st(self)._contents());
-return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{},smalltalk.HLSourceCodeWidget)})},
+_st(self._browserModel())._save_(self._contents());
+return self}, function($ctx1) {$ctx1.fill(self,"onSaveIt",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["save:", "contents", "browserModel"]}),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1261,14 +1261,14 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._browserModel())._selectedClass();
+$1=_st(self._browserModel())._selectedClass();
 if(($receiver = $1) == nil || $receiver == undefined){
-$2=_st(self)._contents_("");
+$2=self._contents_("");
 return $2;
 } else {
 $1;
 };
-_st(self)._contents_(_st(_st(_st(self)._browserModel())._selectedClass())._definition());
+self._contents_(_st(_st(self._browserModel())._selectedClass())._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["ifNil:", "contents:", "selectedClass", "browserModel", "definition"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1279,8 +1279,8 @@ selector: "onSourceCodeFocusRequested",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._focus();
-return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{},smalltalk.HLSourceCodeWidget)})},
+self._focus();
+return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeFocusRequested",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["focus"]}),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1290,8 +1290,8 @@ selector: "onSourceCodeSaved",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._methodContents_(_st(self)._contents());
-_st(self)._updateState();
+self._methodContents_(self._contents());
+self._updateState();
 return self}, function($ctx1) {$ctx1.fill(self,"onSourceCodeSaved",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["methodContents:", "contents", "updateState"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1306,7 +1306,7 @@ function $String(){return smalltalk.String||(typeof String=="undefined"?nil:Stri
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 error=_st(anAnnouncement)._error();
-_st(self)._confirm_ifTrue_(_st($String())._streamContents_((function(stream){
+self._confirm_ifTrue_(_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
 $1=stream;
 _st($1)._nextPutAll_(_st(error)._messageText());
@@ -1315,7 +1315,7 @@ $2=_st($1)._nextPutAll_("Would you like to define an instance variable?");
 return $2;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})})),(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self)._browserModel())._addInstVarNamed_(_st(error)._variableName());
+return _st(self._browserModel())._addInstVarNamed_(_st(error)._variableName());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"onUnknownVariableError:",{anAnnouncement:anAnnouncement,error:error},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["error", "confirm:ifTrue:", "streamContents:", "nextPutAll:", "messageText", "cr", "addInstVarNamed:", "variableName", "browserModel"]}),
@@ -1328,17 +1328,17 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-$1=_st(self)._hasModification();
+$1=self._hasModification();
 if(smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$3=_st(self)._hasFocus();
+$3=self._hasFocus();
 if(smalltalk.assert($3)){
 $4=self;
 return $4;
 };
-_st(self)._contents_(_st(_st(_st(self)._browserModel())._selectedMethod())._source());
+self._contents_(_st(_st(self._browserModel())._selectedMethod())._source());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["ifTrue:", "hasModification", "hasFocus", "contents:", "source", "selectedMethod", "browserModel"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1355,7 +1355,7 @@ _st($1)._class_("button");
 _st($1)._with_("SaveIt");
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._saveIt();
+return self._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 smalltalk.HLNavigationCodeWidget.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLBrowserCodeWidget)})},
@@ -1368,8 +1368,8 @@ selector: "saveIt",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._browserModel())._saveSourceCode();
-return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},smalltalk.HLSourceCodeWidget)})},
+_st(self._browserModel())._saveSourceCode();
+return self}, function($ctx1) {$ctx1.fill(self,"saveIt",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["saveSourceCode", "browserModel"]}),
 smalltalk.HLBrowserCodeWidget);
 
@@ -1380,8 +1380,8 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLNavigationCodeWidget.fn.prototype._unregsiter.apply(_st(self), []);
-_st(_st(_st(self)._browserModel())._announcer())._unsubscribe_(self);
-_st(_st(_st(self)._browserModel())._systemAnnouncer())._unsubscribe_(self);
+_st(_st(self._browserModel())._announcer())._unsubscribe_(self);
+_st(_st(self._browserModel())._systemAnnouncer())._unsubscribe_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLBrowserCodeWidget)})},
 messageSends: ["unregsiter", "unsubscribe:", "announcer", "browserModel", "systemAnnouncer"]}),
 smalltalk.HLBrowserCodeWidget);
@@ -1394,7 +1394,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return false;
-}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLSourceCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"canBeOpenAsTab",{},smalltalk.HLBrowserCodeWidget.klass)})},
 messageSends: []}),
 smalltalk.HLBrowserCodeWidget.klass);
 
@@ -1405,12 +1405,12 @@ fn: function (aBrowserModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._new();
+$2=self._new();
 _st($2)._browserModel_(aBrowserModel);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLSourceCodeWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aBrowserModel:aBrowserModel},smalltalk.HLBrowserCodeWidget.klass)})},
 messageSends: ["browserModel:", "new", "yourself"]}),
 smalltalk.HLBrowserCodeWidget.klass);
 
@@ -1454,7 +1454,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._codeWidget())._focus();
+$1=_st(self._codeWidget())._focus();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.HLWorkspace)})},
 messageSends: ["focus", "codeWidget"]}),
@@ -1468,9 +1468,9 @@ var self=this;
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st(self)._codeWidget(),(function(canvas){
+_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(self._codeWidget(),(function(canvas){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._renderTranscriptOn_(canvas);
+return self._renderTranscriptOn_(canvas);
 }, function($ctx2) {$ctx2.fillBlock({canvas:canvas},$ctx1)})}))));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLWorkspace)})},
 messageSends: ["with:", "with:with:", "codeWidget", "renderTranscriptOn:"]}),
@@ -1491,7 +1491,7 @@ $3=_st(html)._div();
 _st($3)._class_("list-label");
 $4=_st($3)._with_("Transcript");
 $4;
-return _st(_st(self)._transcript())._renderOn_(html);
+return _st(self._transcript())._renderOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderTranscriptOn:",{html:html},smalltalk.HLWorkspace)})},
 messageSends: ["class:", "div", "with:", "renderOn:", "transcript"]}),
@@ -1524,7 +1524,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
-_st(_st(self)._transcript())._unregister();
+_st(self._transcript())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWorkspace)})},
 messageSends: ["unregister", "transcript"]}),
 smalltalk.HLWorkspace);
@@ -1569,9 +1569,7 @@ selector: "tabPriority",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(10);
-return $1;
+return (10);
 }, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLWorkspace.klass)})},
 messageSends: []}),
 smalltalk.HLWorkspace.klass);

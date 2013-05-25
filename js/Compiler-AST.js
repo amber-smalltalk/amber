@@ -26,7 +26,7 @@ category: 'accessing',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._nodes())._add_(aNode);
+_st(self._nodes())._add_(aNode);
 _st(aNode)._parent_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addNode:",{aNode:aNode},smalltalk.Node)})},
 args: ["aNode"],
@@ -44,9 +44,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._nextNode();
+$2=self._nextNode();
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st(self)._parent();
+$3=self._parent();
 if(($receiver = $3) == nil || $receiver == undefined){
 $1=$3;
 } else {
@@ -220,7 +220,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
-$2=_st(self)._parent();
+$2=self._parent();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1=$2;
 } else {
@@ -245,7 +245,7 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._nodes())._at_ifAbsent_(_st(_st(_st(self)._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+$1=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -347,7 +347,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=self["@position"];
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st(self)._parent();
+$3=self._parent();
 if(($receiver = $3) == nil || $receiver == undefined){
 $1=$3;
 } else {
@@ -485,18 +485,18 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._shouldBeAliased())._or_((function(){
+$1=_st(_st(self._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._shouldBeInlined();
+return self._shouldBeInlined();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._nodes())._detect_ifNone_((function(each){
+return _st(_st(self._nodes())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._subtreeNeedsAliasing();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return false;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}))).__tild_eq(false);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))).__tild_eq(false);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.Node)})},
@@ -588,7 +588,7 @@ var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Array())._with_with_(_st(self)._left(),_st(self)._right());
+$1=_st($Array())._with_with_(self._left(),self._right());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.AssignmentNode)})},
 args: [],
@@ -753,9 +753,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._shouldBeAliased())._or_((function(){
+$1=_st(self._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._shouldBeInlined();
+return self._shouldBeInlined();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.BlockNode)})},
@@ -1046,7 +1046,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(_st(self)._source())._lines())._size()).__at(_st(_st(_st(_st(_st(self)._source())._lines())._last())._size()).__plus((1)));
+$1=_st(_st(_st(self._source())._lines())._size()).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__plus((1)));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"extent",{},smalltalk.MethodNode)})},
 args: [],
@@ -1272,7 +1272,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._scope())._isMethodScope())._not();
+$1=_st(_st(self._scope())._isMethodScope())._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nonLocalReturn",{},smalltalk.ReturnNode)})},
 args: [],
@@ -1395,12 +1395,12 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$5,$3;
 $1=_st($SendNode())._new();
-_st($1)._selector_(_st(self)._selector());
-_st($1)._arguments_(_st(self)._arguments());
+_st($1)._selector_(self._selector());
+_st($1)._arguments_(self._arguments());
 $2=_st($1)._yourself();
 first=$2;
 $4=_st($CascadeNode())._new();
-_st($4)._receiver_(_st(self)._receiver());
+_st($4)._receiver_(self._receiver());
 _st($4)._nodes_(_st(_st($Array())._with_(first)).__comma(aCollection));
 $5=_st($4)._yourself();
 $3=$5;
@@ -1472,15 +1472,15 @@ var self=this;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st($Array())._withAll_(_st(self)._arguments());
-_st($2)._add_(_st(self)._receiver());
+$2=_st($Array())._withAll_(self._arguments());
+_st($2)._add_(self._receiver());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.SendNode)})},
 args: [],
 source: "nodes\x0a\x09^ (Array withAll: self arguments)\x0a\x09\x09add: self receiver;\x0a\x09\x09yourself",
-messageSends: ["add:", "withAll:", "arguments", "receiver", "yourself"],
+messageSends: ["add:", "receiver", "withAll:", "arguments", "yourself"],
 referencedClasses: ["Array"]
 }),
 smalltalk.SendNode);
@@ -1623,17 +1623,17 @@ function $SendNode(){return smalltalk.SendNode||(typeof SendNode=="undefined"?ni
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$5,$4,$6,$1;
 $2=_st($SendNode())._new();
-_st($2)._position_(_st(self)._position());
+_st($2)._position_(self._position());
 $3=$2;
-$5=_st(self)._receiver();
+$5=self._receiver();
 if(($receiver = $5) == nil || $receiver == undefined){
 $4=anObject;
 } else {
-$4=_st(_st(self)._receiver())._valueForReceiver_(anObject);
+$4=_st(self._receiver())._valueForReceiver_(anObject);
 };
 _st($3)._receiver_($4);
-_st($2)._selector_(_st(self)._selector());
-_st($2)._arguments_(_st(self)._arguments());
+_st($2)._selector_(self._selector());
+_st($2)._arguments_(self._arguments());
 $6=_st($2)._yourself();
 $1=$6;
 return $1;
@@ -1677,9 +1677,9 @@ function $BlockSequenceNode(){return smalltalk.BlockSequenceNode||(typeof BlockS
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=_st($BlockSequenceNode())._new();
-_st($2)._position_(_st(self)._position());
-_st($2)._nodes_(_st(self)._nodes());
-_st($2)._temps_(_st(self)._temps());
+_st($2)._position_(self._position());
+_st($2)._nodes_(self._nodes());
+_st($2)._temps_(self._temps());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -1832,7 +1832,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._value())._isImmutable();
+$1=_st(self._value())._isImmutable();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.ValueNode)})},
 args: [],
@@ -1922,7 +1922,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._binding())._alias();
+$1=_st(self._binding())._alias();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"alias",{},smalltalk.VariableNode)})},
 args: [],
@@ -1978,7 +1978,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._binding())._validateAssignment();
+_st(self._binding())._validateAssignment();
 self["@assigned"]=true;
 return self}, function($ctx1) {$ctx1.fill(self,"beAssigned",{},smalltalk.VariableNode)})},
 args: [],
@@ -2087,11 +2087,11 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(self)._source())._ifEmpty_((function(){
+_st(self._source())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._error_("Method source is empty");
+return self._error_("Method source is empty");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=_st(_st($Smalltalk())._current())._parse_(_st(self)._source());
+$1=_st(_st($Smalltalk())._current())._parse_(self._source());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ast",{},smalltalk.CompiledMethod)})},
 args: [],

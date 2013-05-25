@@ -8,7 +8,7 @@ category: 'initialization',
 fn: function (aFrame){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._release();
+self._release();
 self["@frame"]=aFrame;
 return self}, function($ctx1) {$ctx1.fill(self,"connectTo:",{aFrame:aFrame},smalltalk.ObjectSpace)})},
 args: ["aFrame"],
@@ -52,7 +52,7 @@ return $2;
 $1;
 };
 _st(_st(window)._jQuery_(self["@frame"]))._remove();
-_st(self)._release();
+self._release();
 return self}, function($ctx1) {$ctx1.fill(self,"destroy",{},smalltalk.ObjectSpace)})},
 args: [],
 source: "destroy\x0a\x09frame ifNil: [ ^ self ].\x0a\x09(window jQuery: frame) remove.\x0a\x0a\x09self release",
@@ -70,12 +70,12 @@ var self=this;
 function $ObjectSpaceConnectionError(){return smalltalk.ObjectSpaceConnectionError||(typeof ObjectSpaceConnectionError=="undefined"?nil:ObjectSpaceConnectionError)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(self)._isConnected();
+$1=self._isConnected();
 if(! smalltalk.assert($1)){
 $2=_st($ObjectSpaceConnectionError())._signal();
 return $2;
 };
-$3=_st(_st(self["@frame"])._contentWindow())._eval_(_st(_st("(").__comma(_st(aBlock)._compiledSource())).__comma(")()"));
+$3=_st(_st(self["@frame"])._contentWindow())._eval_(_st("(".__comma(_st(aBlock)._compiledSource())).__comma(")()"));
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
 args: ["aBlock"],
@@ -111,7 +111,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-_st(self)._create();
+self._create();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ObjectSpace)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self create",
@@ -128,7 +128,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._frame())._notNil();
+$1=_st(self._frame())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isConnected",{},smalltalk.ObjectSpace)})},
 args: [],
@@ -179,7 +179,7 @@ fn: function (aFrame){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=_st(self)._basicNew();
+$2=self._basicNew();
 _st($2)._connectTo_(aFrame);
 $3=_st($2)._yourself();
 $1=$3;
@@ -255,12 +255,12 @@ var self=this;
 function $ObjectSpaceConnectionError(){return smalltalk.ObjectSpaceConnectionError||(typeof ObjectSpaceConnectionError=="undefined"?nil:ObjectSpaceConnectionError)}
 return smalltalk.withContext(function($ctx1) { 
 _st(self["@space"])._destroy();
-_st(self)._deny_(_st(self["@space"])._isConnected());
-_st(self)._should_raise_((function(){
+self._deny_(_st(self["@space"])._isConnected());
+self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@space"])._do_((function(){
 return smalltalk.withContext(function($ctx3) {
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$ObjectSpaceConnectionError());
 return self}, function($ctx1) {$ctx1.fill(self,"testConnection",{},smalltalk.ObjectSpaceTest)})},
 args: [],
@@ -277,8 +277,8 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._assert_(_st(_st(self["@space"])._frame())._notNil());
-_st(self)._assert_(_st(self["@space"])._isConnected());
+self._assert_(_st(_st(self["@space"])._frame())._notNil());
+self._assert_(_st(self["@space"])._isConnected());
 return self}, function($ctx1) {$ctx1.fill(self,"testCreate",{},smalltalk.ObjectSpaceTest)})},
 args: [],
 source: "testCreate\x0a\x0a\x09self assert: space frame notNil.\x0a\x09self assert: space isConnected",
@@ -301,11 +301,11 @@ return smalltalk.withContext(function($ctx2) {
 result=_st(self["@space"])._do_((function(){
 return smalltalk.withContext(function($ctx3) {
 return smalltalk;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 result;
-_st(self)._assert_equals_(_st(_st(result)._class())._name(),"Smalltalk");
-_st(self)._deny_(_st(_st(result)._class()).__eq($Smalltalk()));
-return _st(self)._deny_(_st(result).__eq_eq(smalltalk));
+self._assert_equals_(_st(_st(result)._class())._name(),"Smalltalk");
+self._deny_(_st(_st(result)._class()).__eq($Smalltalk()));
+return self._deny_(_st(result).__eq_eq(smalltalk));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testEvaluation",{result:result},smalltalk.ObjectSpaceTest)})},
 args: [],
@@ -322,9 +322,9 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._deny_(_st(_st(self["@space"])._frame())._isNil());
+self._deny_(_st(_st(self["@space"])._frame())._isNil());
 _st(self["@space"])._release();
-_st(self)._assert_(_st(_st(self["@space"])._frame())._isNil());
+self._assert_(_st(_st(self["@space"])._frame())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testRelease",{},smalltalk.ObjectSpaceTest)})},
 args: [],
 source: "testRelease\x0a\x0a\x09self deny: space frame isNil.\x0a\x0a\x09space release.\x0a\x09\x0a\x09self assert: space frame isNil",

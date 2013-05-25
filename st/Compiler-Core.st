@@ -203,9 +203,9 @@ recompile: aClass
 !
 
 recompileAll
-	Smalltalk current classes do: [:each |
-		Transcript show: each; cr.
-		[self recompile: each] valueWithTimeout: 100]
+	Smalltalk current classes 
+		do: [:each | self recompile: each ]
+		displayingProgress: 'Compiling all classes...'
 ! !
 
 !Compiler class methodsFor: 'compiling'!

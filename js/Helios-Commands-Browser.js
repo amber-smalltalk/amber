@@ -81,7 +81,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnClasses();
+_st(self._model())._focusOnClasses();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToClassesCommand)})},
 args: [],
 source: "execute\x0a\x09self model focusOnClasses",
@@ -132,7 +132,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnMethods();
+_st(self._model())._focusOnMethods();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToMethodsCommand)})},
 args: [],
 source: "execute\x0a\x09self model focusOnMethods",
@@ -183,7 +183,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnPackages();
+_st(self._model())._focusOnPackages();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToPackagesCommand)})},
 args: [],
 source: "execute\x0a\x09self model focusOnPackages",
@@ -234,7 +234,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnProtocols();
+_st(self._model())._focusOnProtocols();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToProtocolsCommand)})},
 args: [],
 source: "execute\x0a\x09self model focusOnProtocols",
@@ -285,7 +285,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._focusOnSourceCode();
+_st(self._model())._focusOnSourceCode();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToSourceCodeCommand)})},
 args: [],
 source: "execute\x0a\x09self model focusOnSourceCode",
@@ -336,7 +336,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._editComment();
+_st(self._model())._editComment();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLEditCommentCommand)})},
 args: [],
 source: "execute\x0a\x09self model editComment",
@@ -353,9 +353,9 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st(self)._model())._showComment())._and_((function(){
+$1=_st(_st(self._model())._showComment())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(self)._model())._selectedClass())._notNil();
+return _st(_st(self._model())._selectedClass())._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
@@ -443,7 +443,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showComment_(_st(_st(_st(self)._model())._showComment())._not());
+_st(self._model())._showComment_(_st(_st(self._model())._showComment())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
 args: [],
 source: "execute\x0a\x09self model showComment: self model showComment not",
@@ -494,7 +494,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showInstance_(false);
+_st(self._model())._showInstance_(false);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassSideCommand)})},
 args: [],
 source: "execute\x0a\x09self model showInstance: false",
@@ -545,7 +545,7 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._model())._showInstance_(true);
+_st(self._model())._showInstance_(true);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleInstanceSideCommand)})},
 args: [],
 source: "execute\x0a\x09self model showInstance: true",
