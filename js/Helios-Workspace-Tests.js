@@ -3,7 +3,7 @@ smalltalk.addClass('HLCodeWidgetTest', smalltalk.TestCase, [], 'Helios-Workspace
 smalltalk.addMethod(
 smalltalk.method({
 selector: "testKeyMap",
-category: 'as yet unclassified',
+category: 'tests',
 fn: function (){
 var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}

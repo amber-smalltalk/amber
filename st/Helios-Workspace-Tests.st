@@ -3,7 +3,7 @@ TestCase subclass: #HLCodeWidgetTest
 	instanceVariableNames: ''
 	package: 'Helios-Workspace-Tests'!
 
-!HLCodeWidgetTest methodsFor: 'as yet unclassified'!
+!HLCodeWidgetTest methodsFor: 'tests'!
 
 testKeyMap
 "Key maps are a collection of associations."
