@@ -599,7 +599,7 @@ The external name is referred to as the key.!
 at: aKey ifAbsent: aBlock
 	<
 		var index = self._positionOfKey_(aKey);
-		return index >>=0 ? self['@values'][index] : aBlock();
+		return index >>=0 ? self['@values'][index] : aBlock._value();
 	>
 !
 
@@ -637,7 +637,7 @@ removeKey: aKey ifAbsent: aBlock
 	<
 		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
-			return aBlock()
+			return aBlock._value()
 		} else {
 			var keys = self['@keys'], values = self['@values'];
 			var value = values[index], l = keys.length;
@@ -741,7 +741,7 @@ indexOf: anObject ifAbsent: aBlock
 		for(var i=0;i<self.length;i++) {
 			if(self[i].__eq(anObject)) {return i+1}
 		};
-		return aBlock();
+		return aBlock._value();
 	>
 !
 
@@ -757,7 +757,7 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 		for(var i=start-1;i<self.length;i++){
 			if(self[i].__eq(anObject)) {return i+1}
 		}
-		return aBlock();
+		return aBlock._value();
 	>
 !
 
@@ -831,14 +831,14 @@ shallowCopy
 detect: aBlock ifNone: anotherBlock
 	<
 		for(var i = 0; i < self.length; i++)
-			if(aBlock(self[i]))
+			if(aBlock._value_(self[i]))
 				return self[i];
-		return anotherBlock();
+		return anotherBlock._value();
 	>
 !
 
 do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self[i]);}>
+	<for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
 !
 
 do: aBlock displayingProgress: aString
@@ -847,11 +847,11 @@ do: aBlock displayingProgress: aString
 !
 
 with: anotherCollection do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self[i], anotherCollection[i]);}>
+	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], anotherCollection[i]);}>
 !
 
 withIndexDo: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self[i], i+1);}>
+	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>
 ! !
 
 !SequenceableCollection methodsFor: 'streaming'!
@@ -915,7 +915,7 @@ I am directly mapped to JavaScript Number.
 
 at: anIndex ifAbsent: aBlock
 	<
-		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
+		if((anIndex < 1) || (self.length < anIndex)) {return aBlock._value()};
 		return self[anIndex - 1];
 	>
 !
@@ -977,7 +977,7 @@ sort
 sort: aBlock
 	<
 		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return -1} else {return 1}
+			if(aBlock._value_value_(a,b)) {return -1} else {return 1}
 		})
 	>
 !
@@ -1129,7 +1129,7 @@ asciiValue
 !
 
 at: anIndex ifAbsent: aBlock
-	<return String(self).charAt(anIndex - 1) || aBlock()>
+	<return String(self).charAt(anIndex - 1) || aBlock._value()>
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
@@ -1259,11 +1259,11 @@ shallowCopy
 !String methodsFor: 'enumerating'!
 
 do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i));}>
+	<for(var i=0;i<self.length;i++){aBlock._value_(self.charAt(i));}>
 !
 
 withIndexDo: aBlock
-	<for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);}>
+	<for(var i=0;i<self.length;i++){aBlock._value_value_(self.charAt(i), i+1);}>
 ! !
 
 !String methodsFor: 'printing'!

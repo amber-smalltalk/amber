@@ -49,7 +49,7 @@ whileFalse
 
 whileFalse: aBlock
 	"inlined in the Compiler"
-	<while(!!self()) {aBlock()}>
+	<while(!!self()) {aBlock._value()}>
 !
 
 whileTrue
@@ -59,7 +59,7 @@ whileTrue
 
 whileTrue: aBlock
 	"inlined in the Compiler"
-	<while(self()) {aBlock()}>
+	<while(self()) {aBlock._value()}>
 ! !
 
 !BlockClosure methodsFor: 'converting'!
