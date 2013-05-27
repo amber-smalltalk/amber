@@ -738,7 +738,7 @@ selector: "try:catch:",
 fn: function (aBlock,anotherBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-try{return aBlock()} catch(e) {return anotherBlock(e)};
+try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)};
 return self}, function($ctx1) {$ctx1.fill(self,"try:catch:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Object)})},
 messageSends: []}),
 smalltalk.Object);
@@ -989,9 +989,9 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		if(self == true) {
-		return aBlock();
+		return aBlock._value();
 		} else {
-		return anotherBlock();
+		return anotherBlock._value();
 		}
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"ifTrue:ifFalse:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Boolean)})},
@@ -2130,7 +2130,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
-		return aString in obj ? obj[aString] : aBlock();
+		return aString in obj ? obj[aString] : aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
 messageSends: []}),
@@ -2144,7 +2144,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
-		return aString in obj ? aBlock(obj[aString]) : nil;
+		return aString in obj ? aBlock._value_(obj[aString]) : nil;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
 messageSends: []}),
@@ -2158,7 +2158,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		var obj = self['@jsObject'];
-		return aString in obj ? aBlock(obj[aString]) : anotherBlock();
+		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
 messageSends: []}),
@@ -2258,7 +2258,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		var o = self['@jsObject'];
 		for(var i in o) {
-			aBlock(i, o[i]);
+			aBlock._value_value_(i, o[i]);
 		}
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.JSObjectProxy)})},
