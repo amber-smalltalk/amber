@@ -1367,7 +1367,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		var index = self._positionOfKey_(aKey);
-		return index >=0 ? self['@values'][index] : aBlock();
+		return index >=0 ? self['@values'][index] : aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.Dictionary)})},
 messageSends: []}),
@@ -1505,7 +1505,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		var index = self._positionOfKey_(aKey);
 		if(index === -1) {
-			return aBlock()
+			return aBlock._value()
 		} else {
 			var keys = self['@keys'], values = self['@values'];
 			var value = values[index], l = keys.length;
@@ -1676,9 +1676,9 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		for(var i = 0; i < self.length; i++)
-			if(aBlock(self[i]))
+			if(aBlock._value_(self[i]))
 				return self[i];
-		return anotherBlock();
+		return anotherBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"detect:ifNone:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.SequenceableCollection)})},
 messageSends: []}),
@@ -1690,7 +1690,7 @@ selector: "do:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-for(var i=0;i<self.length;i++){aBlock(self[i]);};
+for(var i=0;i<self.length;i++){aBlock._value_(self[i]);};
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.SequenceableCollection)})},
 messageSends: []}),
 smalltalk.SequenceableCollection);
@@ -1772,7 +1772,7 @@ return smalltalk.withContext(function($ctx1) {
 		for(var i=0;i<self.length;i++) {
 			if(self[i].__eq(anObject)) {return i+1}
 		};
-		return aBlock();
+		return aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 messageSends: []}),
@@ -1804,7 +1804,7 @@ return smalltalk.withContext(function($ctx1) {
 		for(var i=start-1;i<self.length;i++){
 			if(self[i].__eq(anObject)) {return i+1}
 		}
-		return aBlock();
+		return aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:ifAbsent:",{anObject:anObject,start:start,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 messageSends: []}),
@@ -1948,7 +1948,7 @@ selector: "with:do:",
 fn: function (anotherCollection,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-for(var i=0;i<self.length;i++){aBlock(self[i], anotherCollection[i]);};
+for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], anotherCollection[i]);};
 return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 messageSends: []}),
 smalltalk.SequenceableCollection);
@@ -1959,7 +1959,7 @@ selector: "withIndexDo:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-for(var i=0;i<self.length;i++){aBlock(self[i], i+1);};
+for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);};
 return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.SequenceableCollection)})},
 messageSends: []}),
 smalltalk.SequenceableCollection);
@@ -2044,7 +2044,7 @@ fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		if((anIndex < 1) || (self.length < anIndex)) {return aBlock()};
+		if((anIndex < 1) || (self.length < anIndex)) {return aBlock._value()};
 		return self[anIndex - 1];
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.Array)})},
@@ -2177,7 +2177,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		return self.sort(function(a, b) {
-			if(aBlock(a,b)) {return -1} else {return 1}
+			if(aBlock._value_value_(a,b)) {return -1} else {return 1}
 		})
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"sort:",{aBlock:aBlock},smalltalk.Array)})},
@@ -2670,7 +2670,7 @@ selector: "at:ifAbsent:",
 fn: function (anIndex,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return String(self).charAt(anIndex - 1) || aBlock();
+return String(self).charAt(anIndex - 1) || aBlock._value();
 return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);
@@ -2744,7 +2744,7 @@ selector: "do:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-for(var i=0;i<self.length;i++){aBlock(self.charAt(i));};
+for(var i=0;i<self.length;i++){aBlock._value_(self.charAt(i));};
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);
@@ -3191,7 +3191,7 @@ selector: "withIndexDo:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-for(var i=0;i<self.length;i++){aBlock(self.charAt(i), i+1);};
+for(var i=0;i<self.length;i++){aBlock._value_value_(self.charAt(i), i+1);};
 return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.String)})},
 messageSends: []}),
 smalltalk.String);

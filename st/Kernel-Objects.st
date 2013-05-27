@@ -207,7 +207,7 @@ throw: anObject
 !
 
 try: aBlock catch: anotherBlock
-	<try{return aBlock()} catch(e) {return anotherBlock(e)}>
+	<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -442,9 +442,9 @@ ifTrue: aBlock ifFalse: anotherBlock
 	"inlined in the Compiler"
 	<
 		if(self == true) {
-		return aBlock();
+		return aBlock._value();
 		} else {
-		return anotherBlock();
+		return anotherBlock._value();
 		}
 	>
 !
@@ -958,7 +958,7 @@ at: aString ifAbsent: aBlock
 	"return the aString property or evaluate aBlock if the property is not defined on the object"
 	<
 		var obj = self['@jsObject'];
-		return aString in obj ? obj[aString] : aBlock();
+		return aString in obj ? obj[aString] : aBlock._value();
 	>
 !
 
@@ -966,7 +966,7 @@ at: aString ifPresent: aBlock
 	"return the evaluation of aBlock with the value if the property is defined or return nil"
 	<
 		var obj = self['@jsObject'];
-		return aString in obj ? aBlock(obj[aString]) : nil;
+		return aString in obj ? aBlock._value_(obj[aString]) : nil;
 	>
 !
 
@@ -975,7 +975,7 @@ at: aString ifPresent: aBlock ifAbsent: anotherBlock
 	or return value of anotherBlock"
 	<
 		var obj = self['@jsObject'];
-		return aString in obj ? aBlock(obj[aString]) : anotherBlock();
+		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
 	>
 !
 
@@ -1013,7 +1013,7 @@ keysAndValuesDo: aBlock
 	<
 		var o = self['@jsObject'];
 		for(var i in o) {
-			aBlock(i, o[i]);
+			aBlock._value_value_(i, o[i]);
 		}
 	>
 ! !

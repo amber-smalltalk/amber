@@ -302,7 +302,7 @@ selector: "whileFalse:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-while(!self()) {aBlock()};
+while(!self()) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
@@ -326,7 +326,7 @@ selector: "whileTrue:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-while(self()) {aBlock()};
+while(self()) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
