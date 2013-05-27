@@ -597,7 +597,7 @@ aCollection do: [:each | newCollection add: each].
 newFromPairs: aCollection
 "Accept an array of elements where every two elements form an association - the odd element being the key, and the even element the value."
 | newCollection |
-aCollection size even ifFalse: [ Error signal: '#newFromPairs only accepts arrays of an even length' ].
+aCollection size even ifFalse: [ self error: '#newFromPairs only accepts arrays of an even length' ].
 newCollection := self new.
 ( 1 to: aCollection size by: 2 ) do: [ :keyIndex | newCollection at: ( aCollection at: keyIndex ) put: ( aCollection at: keyIndex + 1 ) ].
 ^ newCollection.

@@ -1356,12 +1356,11 @@ selector: "newFromPairs:",
 fn: function (aCollection){
 var self=this;
 var newCollection;
-function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(_st(aCollection)._size())._even();
 if(! smalltalk.assert($1)){
-_st($Error())._signal_("#newFromPairs only accepts arrays of an even length");
+_st(self)._error_("#newFromPairs only accepts arrays of an even length");
 };
 newCollection=_st(self)._new();
 _st(_st((1))._to_by_(_st(aCollection)._size(),(2)))._do_((function(keyIndex){
@@ -1371,7 +1370,7 @@ return _st(newCollection)._at_put_(_st(aCollection)._at_(keyIndex),_st(aCollecti
 $2=newCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
-messageSends: ["ifFalse:", "signal:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"]}),
+messageSends: ["ifFalse:", "error:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"]}),
 smalltalk.HashedCollection.klass);
 
 
