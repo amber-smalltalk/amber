@@ -557,10 +557,10 @@ function Smalltalk() {
 		}
 	}
 
-	st.withContext = function(worker, setup) {
+	st.withContext = function(worker, setup, index) {
 		if(st.thisContext) {
             st.thisContext.pc++;
-			return inContext(worker, setup);
+			return inContext(worker, setup, index);
 		} else {
 			try {return inContext(worker, setup)}
 			catch(error) {
@@ -582,8 +582,9 @@ function Smalltalk() {
 		}
 	};
 
-	function inContext(worker, setup) {
+	function inContext(worker, setup, index) {
 		var context = pushContext(setup);
+        context.index = index || 0;
 		var result = worker(context);
 		popContext(context);
 		return result;
