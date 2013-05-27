@@ -507,6 +507,20 @@ testIndexOf
 	self assert: (self collection indexOf: 2) equals: 'a'.
 	self should: [ self collection indexOf: 999 ] raise: Error.
 	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
+!
+
+testNewFrom
+"Accept a collection of associations."
+| associations |
+associations := { 'a' -> 1. 'b' -> 2 }.
+self assertSameContents: ( self class collectionClass newFrom: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.
+!
+
+testNewFromPairs
+"Accept an array in which all odd indexes are keys and evens are values."
+| flattenedAssociations |
+flattenedAssociations := { 'a'. 1. 'b'. 2 }.
+self assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.
 ! !
 
 !HashedCollectionTest class methodsFor: 'accessing'!

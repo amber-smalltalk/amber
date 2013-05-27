@@ -1137,6 +1137,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.Hashed
 messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"]}),
 smalltalk.HashedCollectionTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNewFrom",
+fn: function (){
+var self=this;
+var associations;
+return smalltalk.withContext(function($ctx1) { 
+associations=[_st("a").__minus_gt((1)),_st("b").__minus_gt((2))];
+_st(self)._assertSameContents_as_(_st(_st(_st(self)._class())._collectionClass())._newFrom_(associations),smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testNewFrom",{associations:associations},smalltalk.HashedCollectionTest)})},
+messageSends: ["->", "assertSameContents:as:", "newFrom:", "collectionClass", "class"]}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNewFromPairs",
+fn: function (){
+var self=this;
+var flattenedAssociations;
+return smalltalk.withContext(function($ctx1) { 
+flattenedAssociations=["a",(1),"b",(2)];
+_st(self)._assertSameContents_as_(_st(_st(_st(self)._class())._collectionClass())._newFromPairs_(flattenedAssociations),smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},smalltalk.HashedCollectionTest)})},
+messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class", "->"]}),
+smalltalk.HashedCollectionTest);
+
 
 smalltalk.addMethod(
 smalltalk.method({

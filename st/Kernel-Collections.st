@@ -579,10 +579,28 @@ includesKey: aKey
 !HashedCollection class methodsFor: 'instance creation'!
 
 fromPairs: aCollection
+	"This message is poorly named and has been replaced by #newFrom:"
 	| dict |
+	self deprecatedAPI.
 	dict := self new.
 	aCollection do: [:each | dict add: each].
 	^dict
+!
+
+newFrom: aCollection
+| newCollection |
+newCollection := self new.
+aCollection do: [:each | newCollection add: each].
+^ newCollection.
+!
+
+newFromPairs: aCollection
+"Accept an array of elements where every two elements form an association - the odd element being the key, and the even element the value."
+| newCollection |
+aCollection size even ifFalse: [ Error signal: '#newFromPairs only accepts arrays of an even length' ].
+newCollection := self new.
+( 1 to: aCollection size by: 2 ) do: [ :keyIndex | newCollection at: ( aCollection at: keyIndex ) put: ( aCollection at: keyIndex + 1 ) ].
+^ newCollection.
 ! !
 
 HashedCollection subclass: #Dictionary
