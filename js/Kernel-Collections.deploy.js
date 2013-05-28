@@ -879,10 +879,10 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Dictionary())._fromPairs_(_st(self)._associations());
+$1=_st($Dictionary())._from_(_st(self)._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.HashedCollection)})},
-messageSends: ["fromPairs:", "associations"]}),
+messageSends: ["from:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
@@ -1383,10 +1383,10 @@ var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HashedCollection())._fromPairs_(_st(self)._associations());
+$1=_st($HashedCollection())._from_(_st(self)._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
-messageSends: ["fromPairs:", "associations"]}),
+messageSends: ["from:", "associations"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(

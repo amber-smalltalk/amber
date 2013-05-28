@@ -473,7 +473,7 @@ removeKey: aKey ifAbsent: aBlock
 !HashedCollection methodsFor: 'converting'!
 
 asDictionary
-	^Dictionary fromPairs: self associations
+	^Dictionary from: self associations
 !
 
 asJSON
@@ -671,7 +671,7 @@ removeKey: aKey ifAbsent: aBlock
 !Dictionary methodsFor: 'converting'!
 
 asHashedCollection
-	^HashedCollection fromPairs: self associations
+	^HashedCollection from: self associations
 !
 
 asJSON

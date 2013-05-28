@@ -1169,12 +1169,12 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Dictionary())._fromPairs_(_st(self)._associations());
+$1=_st($Dictionary())._from_(_st(self)._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.HashedCollection)})},
 args: [],
-source: "asDictionary\x0a\x09^Dictionary fromPairs: self associations",
-messageSends: ["fromPairs:", "associations"],
+source: "asDictionary\x0a\x09^Dictionary from: self associations",
+messageSends: ["from:", "associations"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.HashedCollection);
@@ -1829,12 +1829,12 @@ var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HashedCollection())._fromPairs_(_st(self)._associations());
+$1=_st($HashedCollection())._from_(_st(self)._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
 args: [],
-source: "asHashedCollection\x0a\x09^HashedCollection fromPairs: self associations",
-messageSends: ["fromPairs:", "associations"],
+source: "asHashedCollection\x0a\x09^HashedCollection from: self associations",
+messageSends: ["from:", "associations"],
 referencedClasses: ["HashedCollection"]
 }),
 smalltalk.Dictionary);

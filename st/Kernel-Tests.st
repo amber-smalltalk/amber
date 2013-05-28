@@ -490,6 +490,10 @@ collectionWithDuplicates
 
 !HashedCollectionTest methodsFor: 'tests'!
 
+testAsDictionary
+self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
+!
+
 testAt
 	self assert: (self collection at: 'a') equals: 2.
 	self should: [ self collection at: 5 ] raise: Error
@@ -579,6 +583,10 @@ testAccessing
 
 	self assert: (d includesKey: 1@3).
 	self deny: (d includesKey: 3@1)
+!
+
+testAsHashedCollection
+self assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).
 !
 
 testDynamicDictionaries
