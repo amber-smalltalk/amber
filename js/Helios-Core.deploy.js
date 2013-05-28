@@ -1155,6 +1155,20 @@ smalltalk.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "bindKeyDown:up:",
+fn: function (keyDownBlock,keyUpBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self._wrapper())._asJQuery();
+_st($1)._keydown_(keyDownBlock);
+$2=_st($1)._keyup_(keyUpBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"bindKeyDown:up:",{keyDownBlock:keyDownBlock,keyUpBlock:keyUpBlock},smalltalk.HLWidget)})},
+messageSends: ["keydown:", "asJQuery", "wrapper", "keyup:"]}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "canHaveFocus",
 fn: function (){
 var self=this;
@@ -1323,6 +1337,20 @@ smalltalk.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "unbindKeyDownUp",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self._wrapper())._asJQuery();
+_st($1)._unbind_("keydown");
+$2=_st($1)._unbind_("keyup");
+return self}, function($ctx1) {$ctx1.fill(self,"unbindKeyDownUp",{},smalltalk.HLWidget)})},
+messageSends: ["unbind:", "asJQuery", "wrapper"]}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "unregister",
 fn: function (){
 var self=this;
@@ -1457,11 +1485,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(self._wrapper())._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._wrapper())._asJQuery())._is_(":focus");
+return _st(_st(self._wrapper())._asJQuery())._hasClass_(self._focusClass());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"hasFocus",{},smalltalk.HLFocusableWidget)})},
-messageSends: ["and:", "is:", "asJQuery", "wrapper", "notNil"]}),
+messageSends: ["and:", "hasClass:", "focusClass", "asJQuery", "wrapper", "notNil"]}),
 smalltalk.HLFocusableWidget);
 
 smalltalk.addMethod(
@@ -1895,109 +1923,21 @@ smalltalk.method({
 selector: "setupKeyBindings",
 fn: function (){
 var self=this;
-var active,interval,delay,repeatInterval;
+function $HLRepeatingKeyBinderForWidget(){return smalltalk.HLRepeatingKeyBinderForWidget||(typeof HLRepeatingKeyBinderForWidget=="undefined"?nil:HLRepeatingKeyBinderForWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
-active=false;
-repeatInterval=(70);
-_st(_st(self._wrapper())._asJQuery())._unbind_("keydown");
-_st(_st(self._wrapper())._asJQuery())._keydown_((function(e){
+var $1,$2;
+$1=_st($HLRepeatingKeyBinderForWidget())._newWithWidget_(self);
+_st($1)._whileKeyPressed_doAction_((38),(function(){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(_st(e)._which()).__eq((38)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(active).__eq(false);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-if(smalltalk.assert($1)){
-active=true;
-active;
-self._activatePreviousListItem();
-delay=_st((function(){
-return smalltalk.withContext(function($ctx3) {
-interval=_st((function(){
-return smalltalk.withContext(function($ctx4) {
-$2=_st(_st(self._wrapper())._asJQuery())._hasClass_(self._focusClass());
-if(smalltalk.assert($2)){
 return self._activatePreviousListItem();
-} else {
-active=false;
-active;
-$3=interval;
-if(($receiver = $3) == nil || $receiver == undefined){
-$3;
-} else {
-_st(interval)._clearInterval();
-};
-$4=delay;
-if(($receiver = $4) == nil || $receiver == undefined){
-return $4;
-} else {
-return _st(delay)._clearTimeout();
-};
-};
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}))._valueWithInterval_(repeatInterval);
-return interval;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
-delay;
-};
-$5=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(active).__eq(false);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-if(smalltalk.assert($5)){
-active=true;
-active;
-self._activateNextListItem();
-delay=_st((function(){
-return smalltalk.withContext(function($ctx3) {
-interval=_st((function(){
-return smalltalk.withContext(function($ctx4) {
-$6=_st(_st(self._wrapper())._asJQuery())._hasClass_(self._focusClass());
-if(smalltalk.assert($6)){
-return self._activateNextListItem();
-} else {
-active=false;
-active;
-$7=interval;
-if(($receiver = $7) == nil || $receiver == undefined){
-$7;
-} else {
-_st(interval)._clearInterval();
-};
-$8=delay;
-if(($receiver = $8) == nil || $receiver == undefined){
-return $8;
-} else {
-return _st(delay)._clearTimeout();
-};
-};
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}))._valueWithInterval_(repeatInterval);
-return interval;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
-return delay;
-};
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-_st(_st(self._wrapper())._asJQuery())._keyup_((function(e){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st($1)._whileKeyPressed_doAction_((40),(function(){
 return smalltalk.withContext(function($ctx2) {
-$9=active;
-if(smalltalk.assert($9)){
-active=false;
-active;
-$10=interval;
-if(($receiver = $10) == nil || $receiver == undefined){
-$10;
-} else {
-_st(interval)._clearInterval();
-};
-$11=delay;
-if(($receiver = $11) == nil || $receiver == undefined){
-return $11;
-} else {
-return _st(delay)._clearTimeout();
-};
-};
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
-messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"]}),
+return self._activateNextListItem();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=_st($1)._rebindKeys();
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLListWidget)})},
+messageSends: ["whileKeyPressed:doAction:", "activatePreviousListItem", "newWithWidget:", "activateNextListItem", "rebindKeys"]}),
 smalltalk.HLListWidget);
 
 

@@ -616,11 +616,23 @@ unregister
 
 !HLWidget methodsFor: 'keybindings'!
 
+bindKeyDown: keyDownBlock up: keyUpBlock
+	self wrapper asJQuery
+		keydown: keyDownBlock;
+		keyup: keyUpBlock
+!
+
 registerBindings
 	self registerBindingsOn: self manager keyBinder bindings
 !
 
 registerBindingsOn: aBindingGroup
+!
+
+unbindKeyDownUp
+	self wrapper asJQuery
+		unbind: 'keydown';
+		unbind: 'keyup'
 ! !
 
 !HLWidget methodsFor: 'rendering'!
@@ -698,10 +710,6 @@ blur
 
 focus
 	self wrapper asJQuery focus
-!
-
-hasFocus
-	^ self wrapper notNil and: [ self wrapper asJQuery is: ':focus' ]
 ! !
 
 !HLFocusableWidget methodsFor: 'rendering'!
@@ -726,6 +734,10 @@ renderOn: html
 
 canHaveFocus
 	^ true
+!
+
+hasFocus
+	^ self wrapper notNil and: [ self wrapper asJQuery hasClass: self focusClass ]
 ! !
 
 HLFocusableWidget subclass: #HLListWidget
@@ -845,52 +857,11 @@ defaultItems
 
 !HLListWidget methodsFor: 'events'!
 
-setupKeyBindings
-	"TODO: refactor this!!"
-	
-	| active interval delay repeatInterval |
-	
-	active := false.
-	repeatInterval := 70.
-	self wrapper asJQuery unbind: 'keydown'.
-
-	self wrapper asJQuery keydown: [ :e |
-		
-        (e which = 38 and: [ active = false ]) ifTrue: [ 
-			active := true.
-			self activatePreviousListItem.
-        	delay := [
-				interval := [
-					(self wrapper asJQuery hasClass: self focusClass)
-						ifTrue: [
-							self activatePreviousListItem ]
-						ifFalse: [
-							active := false.
-							interval ifNotNil: [ interval clearInterval ].
-							delay ifNotNil: [ delay clearTimeout] ] ]
-					valueWithInterval: repeatInterval ]
-						valueWithTimeout: 300 ].
-			
-      	(e which = 40 and: [ active = false ]) ifTrue: [
-            active := true.
-			self activateNextListItem.
-        	delay := [
-				interval := [ 
-					(self wrapper asJQuery hasClass: self focusClass)
-						ifTrue: [
-							self activateNextListItem ]
-						ifFalse: [
-							active := false.
-							interval ifNotNil: [ interval clearInterval ].
-							delay ifNotNil: [ delay clearTimeout] ] ]
-					valueWithInterval: repeatInterval ]
-						valueWithTimeout: 300 ] ].
-	
-	self wrapper asJQuery keyup: [ :e |
-		active ifTrue: [
-			active := false.
-			interval ifNotNil: [ interval clearInterval ].
-			delay ifNotNil: [ delay clearTimeout] ] ]
+setupKeyBindings 
+	(HLRepeatingKeyBinderForWidget newWithWidget: self)
+		whileKeyPressed: 38 doAction: [ self activatePreviousListItem ];
+		whileKeyPressed: 40 doAction: [ self activateNextListItem ];
+		rebindKeys
 ! !
 
 !HLListWidget methodsFor: 'initialization'!
