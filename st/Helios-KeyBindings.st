@@ -597,37 +597,47 @@ on: aKeyBinder
         yourself
 ! !
 
-Object subclass: #HLRepeatingKeyBinderForWidget
-	instanceVariableNames: 'repeatInterval delay interval keysWithActions widget isKeyCurrentlyPressed'
+Object subclass: #HLRepeatingKeyBindingHandler
+	instanceVariableNames: 'repeatInterval delay interval keyBindings widget isKeyCurrentlyPressed'
 	package: 'Helios-KeyBindings'!
-!HLRepeatingKeyBinderForWidget commentStamp!
+!HLRepeatingKeyBindingHandler commentStamp!
 ##Usage
 
-    (HLRepeatingKeyBinderForWidget newWithWidget: aWidget)
-        whileKeyPressed: keyCode doAction: [xxxx];
-        whileKeyPressed: anotherKey doAction: [yyy];
+    (HLRepeatingKeyBindingHandler forWidget: aWidget)
+        whileKeyPressed: keyCode do: [xxxx];
+        whileKeyPressed: anotherKey do: [yyy];
         rebind
 
 Performs an action on a key press, waits for 300 ms and then preforms the action every repeatInterval ms until the button is released!
 
-!HLRepeatingKeyBinderForWidget methodsFor: 'accessing'!
+!HLRepeatingKeyBindingHandler methodsFor: 'accessing'!
 
 repeatInterval: aMillisecondIntegerValue 
 	repeatInterval := aMillisecondIntegerValue
 !
 
-whileKeyPressed: aKey doAction: aBlock
-	keysWithActions at: aKey put: aBlock
+whileKeyPressed: aKey do: aBlock
+	keyBindings at: aKey put: aBlock
 !
 
 widget: aWidget
 	widget := aWidget
 ! !
 
-!HLRepeatingKeyBinderForWidget methodsFor: 'actions'!
+!HLRepeatingKeyBindingHandler methodsFor: 'actions'!
 
 bindKeys
 	widget bindKeyDown: [ :e | self handleKeyDown: e ] up: [ :e | self handleKeyUp: e ]
+!
+
+delayBeforeStartingRepeatWithAction: action
+	^ [ interval := self startRepeatingAction: action ] valueWithTimeout: 300
+!
+
+handleKeyUp
+	isKeyCurrentlyPressed := false.
+	interval ifNotNil: [ interval clearInterval ].
+	delay ifNotNil: [ delay clearTimeout ]
 !
 
 rebindKeys
@@ -635,38 +645,26 @@ rebindKeys
 		bindKeys
 !
 
-resetKeypressActive
-	isKeyCurrentlyPressed := false.
-	interval ifNotNil: [ interval clearInterval ].
-	delay ifNotNil: [ delay clearTimeout ]
+startRepeatingAction: action
+	^ [ (widget hasFocus)
+		ifTrue: [ action value ]
+		ifFalse: [ self handleKeyUp ] ] valueWithInterval: repeatInterval
 !
 
 unbindKeys
 	widget unbindKeyDownUp
 ! !
 
-!HLRepeatingKeyBinderForWidget methodsFor: 'creation'!
-
-delayBeforeStartingRepeatWithAction: action
-	^ [ interval := self startRepeatingAction: action ] valueWithTimeout: 300
-!
-
-startRepeatingAction: action
-	^ [ (widget hasFocus)
-		ifTrue: [ action value ]
-		ifFalse: [ self resetKeypressActive ] ] valueWithInterval: repeatInterval
-! !
-
-!HLRepeatingKeyBinderForWidget methodsFor: 'events-processing'!
+!HLRepeatingKeyBindingHandler methodsFor: 'events-processing'!
 
 handleKeyDown: e
-	 keysWithActions keysAndValuesDo: [ :key :action | 
+	 keyBindings keysAndValuesDo: [ :key :action | 
 		self ifKey: key wasPressedIn: e thenDo: action ]
 !
 
 handleKeyUp: e
 	isKeyCurrentlyPressed
-		ifTrue: [ self resetKeypressActive ]
+		ifTrue: [ self handleKeyUp ]
 !
 
 ifKey: key wasPressedIn: e thenDo: action
@@ -680,18 +678,18 @@ whileTheKeyIsPressedDo: action
 	delay := self delayBeforeStartingRepeatWithAction: action
 ! !
 
-!HLRepeatingKeyBinderForWidget methodsFor: 'initialization'!
+!HLRepeatingKeyBindingHandler methodsFor: 'initialization'!
 
 initialize 
 	super initialize.
-	keysWithActions := Dictionary new.
+	keyBindings := Dictionary new.
 	isKeyCurrentlyPressed := false.
 	repeatInterval := 70.
 ! !
 
-!HLRepeatingKeyBinderForWidget class methodsFor: 'instance-creation'!
+!HLRepeatingKeyBindingHandler class methodsFor: 'instance-creation'!
 
-newWithWidget: aWidget
+forWidget: aWidget
 	^self new
 		widget: aWidget;
 		yourself

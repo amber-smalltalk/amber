@@ -1922,8 +1922,8 @@ referencedClasses: []
 smalltalk.HLKeyBinderHelper.klass);
 
 
-smalltalk.addClass('HLRepeatingKeyBinderForWidget', smalltalk.Object, ['repeatInterval', 'delay', 'interval', 'keysWithActions', 'widget', 'isKeyCurrentlyPressed'], 'Helios-KeyBindings');
-smalltalk.HLRepeatingKeyBinderForWidget.comment="##Usage\x0a\x0a    (HLRepeatingKeyBinderForWidget newWithWidget: aWidget)\x0a        whileKeyPressed: keyCode doAction: [xxxx];\x0a        whileKeyPressed: anotherKey doAction: [yyy];\x0a        rebind\x0a\x0aPerforms an action on a key press, waits for 300 ms and then preforms the action every repeatInterval ms until the button is released";
+smalltalk.addClass('HLRepeatingKeyBindingHandler', smalltalk.Object, ['repeatInterval', 'delay', 'interval', 'keyBindings', 'widget', 'isKeyCurrentlyPressed'], 'Helios-KeyBindings');
+smalltalk.HLRepeatingKeyBindingHandler.comment="##Usage\x0a\x0a    (HLRepeatingKeyBindingHandler forWidget: aWidget)\x0a        whileKeyPressed: keyCode do: [xxxx];\x0a        whileKeyPressed: anotherKey do: [yyy];\x0a        rebind\x0a\x0aPerforms an action on a key press, waits for 300 ms and then preforms the action every repeatInterval ms until the button is released";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindKeys",
@@ -1938,18 +1938,18 @@ return self._handleKeyDown_(e);
 return smalltalk.withContext(function($ctx2) {
 return self._handleKeyUp_(e);
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"bindKeys",{},smalltalk.HLRepeatingKeyBinderForWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"bindKeys",{},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: [],
 source: "bindKeys\x0a\x09widget bindKeyDown: [ :e | self handleKeyDown: e ] up: [ :e | self handleKeyUp: e ]",
 messageSends: ["bindKeyDown:up:", "handleKeyDown:", "handleKeyUp:"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "delayBeforeStartingRepeatWithAction:",
-category: 'creation',
+category: 'actions',
 fn: function (action){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1966,7 +1966,7 @@ source: "delayBeforeStartingRepeatWithAction: action\x0a\x09^ [ interval := self
 messageSends: ["valueWithTimeout:", "startRepeatingAction:"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1975,17 +1975,46 @@ category: 'events-processing',
 fn: function (e){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@keysWithActions"])._keysAndValuesDo_((function(key,action){
+_st(self["@keyBindings"])._keysAndValuesDo_((function(key,action){
 return smalltalk.withContext(function($ctx2) {
 return self._ifKey_wasPressedIn_thenDo_(key,e,action);
 }, function($ctx2) {$ctx2.fillBlock({key:key,action:action},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{e:e},smalltalk.HLRepeatingKeyBinderForWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["e"],
-source: "handleKeyDown: e\x0a\x09 keysWithActions keysAndValuesDo: [ :key :action | \x0a\x09\x09self ifKey: key wasPressedIn: e thenDo: action ]",
+source: "handleKeyDown: e\x0a\x09 keyBindings keysAndValuesDo: [ :key :action | \x0a\x09\x09self ifKey: key wasPressedIn: e thenDo: action ]",
 messageSends: ["keysAndValuesDo:", "ifKey:wasPressedIn:thenDo:"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleKeyUp",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@isKeyCurrentlyPressed"]=false;
+$1=self["@interval"];
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+_st(self["@interval"])._clearInterval();
+};
+$2=self["@delay"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$2;
+} else {
+_st(self["@delay"])._clearTimeout();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp",{},smalltalk.HLRepeatingKeyBindingHandler)})},
+args: [],
+source: "handleKeyUp\x0a\x09isKeyCurrentlyPressed := false.\x0a\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09delay ifNotNil: [ delay clearTimeout ]",
+messageSends: ["ifNotNil:", "clearInterval", "clearTimeout"],
+referencedClasses: []
+}),
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1997,15 +2026,15 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self["@isKeyCurrentlyPressed"];
 if(smalltalk.assert($1)){
-self._resetKeypressActive();
+self._handleKeyUp();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp:",{e:e},smalltalk.HLRepeatingKeyBinderForWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["e"],
-source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self resetKeypressActive ]",
-messageSends: ["ifTrue:", "resetKeypressActive"],
+source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ] ",
+messageSends: ["ifTrue:", "handleKeyUp"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2028,7 +2057,7 @@ source: "ifKey: key wasPressedIn: e thenDo: action\x0a\x09(e which = key and: [ 
 messageSends: ["ifTrue:", "whileTheKeyIsPressedDo:", "and:", "=", "which"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2039,16 +2068,16 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@keysWithActions"]=_st($Dictionary())._new();
+self["@keyBindings"]=_st($Dictionary())._new();
 self["@isKeyCurrentlyPressed"]=false;
 self["@repeatInterval"]=(70);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLRepeatingKeyBinderForWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: [],
-source: "initialize \x0a\x09super initialize.\x0a\x09keysWithActions := Dictionary new.\x0a\x09isKeyCurrentlyPressed := false.\x0a\x09repeatInterval := 70.",
+source: "initialize \x0a\x09super initialize.\x0a\x09keyBindings := Dictionary new.\x0a\x09isKeyCurrentlyPressed := false.\x0a\x09repeatInterval := 70.",
 messageSends: ["initialize", "new"],
 referencedClasses: ["Dictionary"]
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2067,7 +2096,7 @@ source: "rebindKeys\x0a\x09self unbindKeys;\x0a\x09\x09bindKeys",
 messageSends: ["unbindKeys", "bindKeys"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2083,41 +2112,12 @@ source: "repeatInterval: aMillisecondIntegerValue \x0a\x09repeatInterval := aMil
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resetKeypressActive",
-category: 'actions',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-self["@isKeyCurrentlyPressed"]=false;
-$1=self["@interval"];
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-_st(self["@interval"])._clearInterval();
-};
-$2=self["@delay"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$2;
-} else {
-_st(self["@delay"])._clearTimeout();
-};
-return self}, function($ctx1) {$ctx1.fill(self,"resetKeypressActive",{},smalltalk.HLRepeatingKeyBinderForWidget)})},
-args: [],
-source: "resetKeypressActive\x0a\x09isKeyCurrentlyPressed := false.\x0a\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09delay ifNotNil: [ delay clearTimeout ]",
-messageSends: ["ifNotNil:", "clearInterval", "clearTimeout"],
-referencedClasses: []
-}),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "startRepeatingAction:",
-category: 'creation',
+category: 'actions',
 fn: function (action){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2128,17 +2128,17 @@ $2=_st(self["@widget"])._hasFocus();
 if(smalltalk.assert($2)){
 return _st(action)._value();
 } else {
-return self._resetKeypressActive();
+return self._handleKeyUp();
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithInterval_(self["@repeatInterval"]);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"startRepeatingAction:",{action:action},smalltalk.HLRepeatingKeyBinderForWidget)})},
+}, function($ctx1) {$ctx1.fill(self,"startRepeatingAction:",{action:action},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["action"],
-source: "startRepeatingAction: action\x0a\x09^ [ (widget hasFocus)\x0a\x09\x09ifTrue: [ action value ]\x0a\x09\x09ifFalse: [ self resetKeypressActive ] ] valueWithInterval: repeatInterval",
-messageSends: ["valueWithInterval:", "ifTrue:ifFalse:", "value", "resetKeypressActive", "hasFocus"],
+source: "startRepeatingAction: action\x0a\x09^ [ (widget hasFocus)\x0a\x09\x09ifTrue: [ action value ]\x0a\x09\x09ifFalse: [ self handleKeyUp ] ] valueWithInterval: repeatInterval",
+messageSends: ["valueWithInterval:", "ifTrue:ifFalse:", "value", "handleKeyUp", "hasFocus"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2154,23 +2154,23 @@ source: "unbindKeys\x0a\x09widget unbindKeyDownUp",
 messageSends: ["unbindKeyDownUp"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "whileKeyPressed:doAction:",
+selector: "whileKeyPressed:do:",
 category: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@keysWithActions"])._at_put_(aKey,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"whileKeyPressed:doAction:",{aKey:aKey,aBlock:aBlock},smalltalk.HLRepeatingKeyBinderForWidget)})},
+_st(self["@keyBindings"])._at_put_(aKey,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"whileKeyPressed:do:",{aKey:aKey,aBlock:aBlock},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["aKey", "aBlock"],
-source: "whileKeyPressed: aKey doAction: aBlock\x0a\x09keysWithActions at: aKey put: aBlock",
+source: "whileKeyPressed: aKey do: aBlock\x0a\x09keyBindings at: aKey put: aBlock",
 messageSends: ["at:put:"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2188,7 +2188,7 @@ source: "whileTheKeyIsPressedDo: action\x0a\x09isKeyCurrentlyPressed := true.\x0
 messageSends: ["value", "delayBeforeStartingRepeatWithAction:"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2204,12 +2204,12 @@ source: "widget: aWidget\x0a\x09widget := aWidget",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget);
+smalltalk.HLRepeatingKeyBindingHandler);
 
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "newWithWidget:",
+selector: "forWidget:",
 category: 'instance-creation',
 fn: function (aWidget){
 var self=this;
@@ -2220,12 +2220,12 @@ _st($2)._widget_(aWidget);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newWithWidget:",{aWidget:aWidget},smalltalk.HLRepeatingKeyBinderForWidget.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"forWidget:",{aWidget:aWidget},smalltalk.HLRepeatingKeyBindingHandler.klass)})},
 args: ["aWidget"],
-source: "newWithWidget: aWidget\x0a\x09^self new\x0a\x09\x09widget: aWidget;\x0a\x09\x09yourself",
+source: "forWidget: aWidget\x0a\x09^self new\x0a\x09\x09widget: aWidget;\x0a\x09\x09yourself",
 messageSends: ["widget:", "new", "yourself"],
 referencedClasses: []
 }),
-smalltalk.HLRepeatingKeyBinderForWidget.klass);
+smalltalk.HLRepeatingKeyBindingHandler.klass);
 
 

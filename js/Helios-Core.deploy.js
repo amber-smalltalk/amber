@@ -1923,21 +1923,21 @@ smalltalk.method({
 selector: "setupKeyBindings",
 fn: function (){
 var self=this;
-function $HLRepeatingKeyBinderForWidget(){return smalltalk.HLRepeatingKeyBinderForWidget||(typeof HLRepeatingKeyBinderForWidget=="undefined"?nil:HLRepeatingKeyBinderForWidget)}
+function $HLRepeatingKeyBindingHandler(){return smalltalk.HLRepeatingKeyBindingHandler||(typeof HLRepeatingKeyBindingHandler=="undefined"?nil:HLRepeatingKeyBindingHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st($HLRepeatingKeyBinderForWidget())._newWithWidget_(self);
-_st($1)._whileKeyPressed_doAction_((38),(function(){
+$1=_st($HLRepeatingKeyBindingHandler())._forWidget_(self);
+_st($1)._whileKeyPressed_do_((38),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._activatePreviousListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st($1)._whileKeyPressed_doAction_((40),(function(){
+_st($1)._whileKeyPressed_do_((40),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._activateNextListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=_st($1)._rebindKeys();
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLListWidget)})},
-messageSends: ["whileKeyPressed:doAction:", "activatePreviousListItem", "newWithWidget:", "activateNextListItem", "rebindKeys"]}),
+messageSends: ["whileKeyPressed:do:", "activatePreviousListItem", "forWidget:", "activateNextListItem", "rebindKeys"]}),
 smalltalk.HLListWidget);
 
 

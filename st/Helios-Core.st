@@ -858,9 +858,9 @@ defaultItems
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings 
-	(HLRepeatingKeyBinderForWidget newWithWidget: self)
-		whileKeyPressed: 38 doAction: [ self activatePreviousListItem ];
-		whileKeyPressed: 40 doAction: [ self activateNextListItem ];
+	(HLRepeatingKeyBindingHandler forWidget: self)
+		whileKeyPressed: 38 do: [ self activatePreviousListItem ];
+		whileKeyPressed: 40 do: [ self activateNextListItem ];
 		rebindKeys
 ! !
 
