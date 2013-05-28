@@ -578,6 +578,13 @@ includesKey: aKey
 
 !HashedCollection class methodsFor: 'instance creation'!
 
+from: aCollection
+| newCollection |
+newCollection := self new.
+aCollection do: [:each | newCollection add: each].
+^ newCollection.
+!
+
 fromPairs: aCollection
 	"This message is poorly named and has been replaced by #newFrom:"
 	| dict |
@@ -585,13 +592,6 @@ fromPairs: aCollection
 	dict := self new.
 	aCollection do: [:each | dict add: each].
 	^dict
-!
-
-newFrom: aCollection
-| newCollection |
-newCollection := self new.
-aCollection do: [:each | newCollection add: each].
-^ newCollection.
 !
 
 newFromPairs: aCollection

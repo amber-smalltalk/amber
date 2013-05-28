@@ -1389,6 +1389,24 @@ smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testFrom",
+category: 'tests',
+fn: function (){
+var self=this;
+var associations;
+return smalltalk.withContext(function($ctx1) { 
+associations=[_st("a").__minus_gt((1)),_st("b").__minus_gt((2))];
+_st(self)._assertSameContents_as_(_st(_st(_st(self)._class())._collectionClass())._from_(associations),smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},smalltalk.HashedCollectionTest)})},
+args: [],
+source: "testFrom\x0a\x22Accept a collection of associations.\x22\x0a| associations |\x0aassociations := { 'a' -> 1. 'b' -> 2 }.\x0aself assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.",
+messageSends: ["->", "assertSameContents:as:", "from:", "collectionClass", "class"],
+referencedClasses: []
+}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testIndexOf",
 category: 'tests',
 fn: function (){
@@ -1409,24 +1427,6 @@ args: [],
 source: "testIndexOf\x0a\x09self assert: (self collection indexOf: 2) equals: 'a'.\x0a\x09self should: [ self collection indexOf: 999 ] raise: Error.\x0a\x09self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'",
 messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"],
 referencedClasses: ["Error"]
-}),
-smalltalk.HashedCollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testNewFrom",
-category: 'tests',
-fn: function (){
-var self=this;
-var associations;
-return smalltalk.withContext(function($ctx1) { 
-associations=[_st("a").__minus_gt((1)),_st("b").__minus_gt((2))];
-_st(self)._assertSameContents_as_(_st(_st(_st(self)._class())._collectionClass())._newFrom_(associations),smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2))]));
-return self}, function($ctx1) {$ctx1.fill(self,"testNewFrom",{associations:associations},smalltalk.HashedCollectionTest)})},
-args: [],
-source: "testNewFrom\x0a\x22Accept a collection of associations.\x22\x0a| associations |\x0aassociations := { 'a' -> 1. 'b' -> 2 }.\x0aself assertSameContents: ( self class collectionClass newFrom: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.",
-messageSends: ["->", "assertSameContents:as:", "newFrom:", "collectionClass", "class"],
-referencedClasses: []
 }),
 smalltalk.HashedCollectionTest);
 

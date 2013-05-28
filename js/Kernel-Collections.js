@@ -1742,6 +1742,30 @@ smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "from:",
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newCollection=_st(self)._new();
+_st(aCollection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._add_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=newCollection;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
+args: ["aCollection"],
+source: "from: aCollection\x0a| newCollection |\x0anewCollection := self new.\x0aaCollection do: [:each | newCollection add: each].\x0a^ newCollection.",
+messageSends: ["new", "do:", "add:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fromPairs:",
 category: 'instance creation',
 fn: function (aCollection){
@@ -1761,30 +1785,6 @@ return $1;
 args: ["aCollection"],
 source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #newFrom:\x22\x0a\x09| dict |\x0a\x09self deprecatedAPI.\x0a\x09dict := self new.\x0a\x09aCollection do: [:each | dict add: each].\x0a\x09^dict",
 messageSends: ["deprecatedAPI", "new", "do:", "add:"],
-referencedClasses: []
-}),
-smalltalk.HashedCollection.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "newFrom:",
-category: 'instance creation',
-fn: function (aCollection){
-var self=this;
-var newCollection;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-newCollection=_st(self)._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(newCollection)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=newCollection;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"newFrom:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
-args: ["aCollection"],
-source: "newFrom: aCollection\x0a| newCollection |\x0anewCollection := self new.\x0aaCollection do: [:each | newCollection add: each].\x0a^ newCollection.",
-messageSends: ["new", "do:", "add:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection.klass);

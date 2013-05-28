@@ -1313,6 +1313,25 @@ smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "from:",
+fn: function (aCollection){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newCollection=_st(self)._new();
+_st(aCollection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._add_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=newCollection;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
+messageSends: ["new", "do:", "add:"]}),
+smalltalk.HashedCollection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fromPairs:",
 fn: function (aCollection){
 var self=this;
@@ -1329,25 +1348,6 @@ $1=dict;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection,dict:dict},smalltalk.HashedCollection.klass)})},
 messageSends: ["deprecatedAPI", "new", "do:", "add:"]}),
-smalltalk.HashedCollection.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "newFrom:",
-fn: function (aCollection){
-var self=this;
-var newCollection;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-newCollection=_st(self)._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(newCollection)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=newCollection;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"newFrom:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
-messageSends: ["new", "do:", "add:"]}),
 smalltalk.HashedCollection.klass);
 
 smalltalk.addMethod(
