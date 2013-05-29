@@ -2,6 +2,8 @@ Smalltalk current createPackage: 'Helios-Browser'!
 HLWidget subclass: #HLBrowser
 	instanceVariableNames: 'model packagesListWidget classesListWidget protocolsListWidget methodsListWidget sourceWidget bottomDiv'
 	package: 'Helios-Browser'!
+!HLBrowser commentStamp!
+I render a system browser with 4 panes (Packages, Classes, Protocols, Methods) and a source area.!
 
 !HLBrowser methodsFor: 'accessing'!
 
@@ -129,6 +131,8 @@ canBeOpenAsTab
 HLWidget subclass: #HLBrowserBottomWidget
 	instanceVariableNames: 'model codeWidget documentationWidget'
 	package: 'Helios-Browser'!
+!HLBrowserBottomWidget commentStamp!
+I render the code area of a browser and optionally the documentation for the selected class.!
 
 !HLBrowserBottomWidget methodsFor: 'accessing'!
 
@@ -379,6 +383,8 @@ on: aClass selectorsCache: aSelectorsCache
 HLToolListWidget subclass: #HLClassesListWidget
 	instanceVariableNames: ''
 	package: 'Helios-Browser'!
+!HLClassesListWidget commentStamp!
+I render a list of classes in the selected package.!
 
 !HLClassesListWidget methodsFor: 'accessing'!
 
@@ -692,6 +698,8 @@ showInstance
 HLFocusableWidget subclass: #HLDocumentationWidget
 	instanceVariableNames: 'model'
 	package: 'Helios-Browser'!
+!HLDocumentationWidget commentStamp!
+I render the documentation for the selected class!
 
 !HLDocumentationWidget methodsFor: 'accessing'!
 
@@ -836,6 +844,8 @@ renderInheritanceOn: html
 HLToolListWidget subclass: #HLMethodsListWidget
 	instanceVariableNames: 'selectorsCache'
 	package: 'Helios-Browser'!
+!HLMethodsListWidget commentStamp!
+I render a list of methods for the selected protocol.!
 
 !HLMethodsListWidget methodsFor: 'accessing'!
 
@@ -1081,6 +1091,8 @@ selectorsCache
 HLToolListWidget subclass: #HLPackagesListWidget
 	instanceVariableNames: ''
 	package: 'Helios-Browser'!
+!HLPackagesListWidget commentStamp!
+I render a list of the system packages.!
 
 !HLPackagesListWidget methodsFor: 'accessing'!
 
@@ -1171,6 +1183,8 @@ renderItemLabel: aPackage on: html
 HLToolListWidget subclass: #HLProtocolsListWidget
 	instanceVariableNames: ''
 	package: 'Helios-Browser'!
+!HLProtocolsListWidget commentStamp!
+I render a list of protocols for the selected class.!
 
 !HLProtocolsListWidget methodsFor: 'accessing'!
 
