@@ -470,8 +470,8 @@ fn: function (){
 var self=this;
 var anchor,head,selection;
 return smalltalk.withContext(function($ctx1) { 
-head=smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(_st(_st(_st(self._highlightedNode())._position())._x()).__minus((1))),"ch".__minus_gt(_st(_st(_st(self._highlightedNode())._position())._y()).__minus((1)))]);
-anchor=smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(_st(_st(_st(self._highlightedNode())._extent())._x()).__minus((1))),"ch".__minus_gt(_st(_st(_st(self._highlightedNode())._extent())._y()).__minus((1)))]);
+head=smalltalk.HashedCollection._from_(["line".__minus_gt(_st(_st(_st(self._highlightedNode())._position())._x()).__minus((1))),"ch".__minus_gt(_st(_st(_st(self._highlightedNode())._position())._y()).__minus((1)))]);
+anchor=smalltalk.HashedCollection._from_(["line".__minus_gt(_st(_st(_st(self._highlightedNode())._extent())._x()).__minus((1))),"ch".__minus_gt(_st(_st(_st(self._highlightedNode())._extent())._y()).__minus((1)))]);
 _st(self["@editor"])._setSelection_to_(head,anchor);
 return self}, function($ctx1) {$ctx1.fill(self,"highlight",{anchor:anchor,head:head,selection:selection},smalltalk.HLDebuggerCodeWidget)})},
 args: [],

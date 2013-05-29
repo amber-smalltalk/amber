@@ -879,7 +879,7 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Dictionary())._from_(_st(self)._associations());
+$1=_st($Dictionary())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.HashedCollection)})},
 messageSends: ["from:", "associations"]}),
@@ -1319,7 +1319,7 @@ var self=this;
 var newCollection;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-newCollection=_st(self)._new();
+newCollection=self._new();
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._add_(each);
@@ -1338,7 +1338,7 @@ var self=this;
 var dict;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(self)._deprecatedAPI();
+self._deprecatedAPI();
 dict=self._new();
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -1360,10 +1360,10 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st(_st(aCollection)._size())._even();
 if(! smalltalk.assert($1)){
-_st(self)._error_("#newFromPairs only accepts arrays of an even length");
+self._error_("#newFromPairs only accepts arrays of an even length");
 };
-newCollection=_st(self)._new();
-_st(_st((1))._to_by_(_st(aCollection)._size(),(2)))._do_((function(keyIndex){
+newCollection=self._new();
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(keyIndex){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._at_put_(_st(aCollection)._at_(keyIndex),_st(aCollection)._at_(_st(keyIndex).__plus((1))));
 }, function($ctx2) {$ctx2.fillBlock({keyIndex:keyIndex},$ctx1)})}));
@@ -1383,7 +1383,7 @@ var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HashedCollection())._from_(_st(self)._associations());
+$1=_st($HashedCollection())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
 messageSends: ["from:", "associations"]}),

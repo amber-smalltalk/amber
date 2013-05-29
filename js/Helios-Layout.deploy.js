@@ -269,7 +269,7 @@ selector: "setupSplitter",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._fromPairs_(["axis".__minus_gt("y"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
+_st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._from_(["axis".__minus_gt("y"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})})),"drag".__minus_gt((function(e,ui){
@@ -356,7 +356,7 @@ selector: "setupSplitter",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._fromPairs_(["axis".__minus_gt("x"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
+_st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._from_(["axis".__minus_gt("x"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})})),"drag".__minus_gt((function(e,ui){

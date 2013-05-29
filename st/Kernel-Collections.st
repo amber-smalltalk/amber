@@ -586,7 +586,7 @@ aCollection do: [:each | newCollection add: each].
 !
 
 fromPairs: aCollection
-	"This message is poorly named and has been replaced by #newFrom:"
+	"This message is poorly named and has been replaced by #from:"
 	| dict |
 	self deprecatedAPI.
 	dict := self new.

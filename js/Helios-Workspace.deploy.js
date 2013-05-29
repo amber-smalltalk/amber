@@ -288,7 +288,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._fromPairs_(["theme".__minus_gt("amber"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._fromPairs_(["Shift-Space".__minus_gt("autocomplete")]))]);
+$1=smalltalk.HashedCollection._from_(["theme".__minus_gt("amber"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
 messageSends: ["->"]}),
@@ -463,7 +463,7 @@ _st(start)._at_put_("ch",_st(_st(self["@editor"])._getCursor_(false))._ch());
 _st(_st(self["@editor"])._getSelection())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
-return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(currentLine),"ch".__minus_gt((0))]),start);
+return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._from_(["line".__minus_gt(currentLine),"ch".__minus_gt((0))]),start);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 stop=_st($HashedCollection())._new();
 _st(stop)._at_put_("line",currentLine);
@@ -725,7 +725,7 @@ completions=_st($HLCodeWidget())._variableHintFor_token_(anEditor,token);
 } else {
 completions=_st($HLCodeWidget())._messageHintFor_token_(anEditor,token);
 };
-$2=smalltalk.HashedCollection._fromPairs_(["list".__minus_gt(completions),"from".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._end())),"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
+$2=smalltalk.HashedCollection._from_(["list".__minus_gt(completions),"from".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._end())),"to".__minus_gt(_st(_st($CodeMirror())._basicAt_("Pos"))._value_value_(_st(cursor)._line(),_st(token)._start()))]);
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},smalltalk.HLCodeWidget.klass)})},
 messageSends: ["getCursor", "getTokenAt:", "at:put:", "state", "value:value:", "getMode", "at:", "basicAt:", "ifTrue:ifFalse:", "variableHintFor:token:", "messageHintFor:token:", "=", "type", "->", "line", "end", "start"]}),
@@ -773,7 +773,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._fromPairs_(["Alt-Backspace".__minus_gt("delWordBefore"),"Alt-Delete".__minus_gt("delWordAfter"),"Alt-Left".__minus_gt("goWordBoundaryLeft"),"Alt-Right".__minus_gt("goWordBoundaryRight"),"Cmd-A".__minus_gt("selectAll"),"Cmd-Alt-F".__minus_gt("replace"),"Cmd-D".__minus_gt("doIt"),"Cmd-Down".__minus_gt("goDocEnd"),"Cmd-End".__minus_gt("goDocEnd"),"Cmd-F".__minus_gt("find"),"Cmd-G".__minus_gt("findNext"),"Cmd-I".__minus_gt("inspectIt"),"Cmd-Left".__minus_gt("goLineStart"),"Cmd-P".__minus_gt("printIt"),"Cmd-Right".__minus_gt("goLineEnd"),"Cmd-S".__minus_gt("saveIt"),"Cmd-Up".__minus_gt("goDocStart"),"Cmd-Y".__minus_gt("redo"),"Cmd-Z".__minus_gt("undo"),"Cmd-[".__minus_gt("indentLess"),"Cmd-]".__minus_gt("indentMore"),"Ctrl-Alt-Backspace".__minus_gt("delWordAfter"),"Shift-Cmd-Alt-F".__minus_gt("replaceAll"),"Shift-Cmd-G".__minus_gt("findPrev"),"Shift-Cmd-Z".__minus_gt("redo"),"fallthrough".__minus_gt(["basic","emacsy"])]);
+$1=smalltalk.HashedCollection._from_(["Alt-Backspace".__minus_gt("delWordBefore"),"Alt-Delete".__minus_gt("delWordAfter"),"Alt-Left".__minus_gt("goWordBoundaryLeft"),"Alt-Right".__minus_gt("goWordBoundaryRight"),"Cmd-A".__minus_gt("selectAll"),"Cmd-Alt-F".__minus_gt("replace"),"Cmd-D".__minus_gt("doIt"),"Cmd-Down".__minus_gt("goDocEnd"),"Cmd-End".__minus_gt("goDocEnd"),"Cmd-F".__minus_gt("find"),"Cmd-G".__minus_gt("findNext"),"Cmd-I".__minus_gt("inspectIt"),"Cmd-Left".__minus_gt("goLineStart"),"Cmd-P".__minus_gt("printIt"),"Cmd-Right".__minus_gt("goLineEnd"),"Cmd-S".__minus_gt("saveIt"),"Cmd-Up".__minus_gt("goDocStart"),"Cmd-Y".__minus_gt("redo"),"Cmd-Z".__minus_gt("undo"),"Cmd-[".__minus_gt("indentLess"),"Cmd-]".__minus_gt("indentMore"),"Ctrl-Alt-Backspace".__minus_gt("delWordAfter"),"Shift-Cmd-Alt-F".__minus_gt("replaceAll"),"Shift-Cmd-G".__minus_gt("findPrev"),"Shift-Cmd-Z".__minus_gt("redo"),"fallthrough".__minus_gt(["basic","emacsy"])]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"macKeyMap",{},smalltalk.HLCodeWidget.klass)})},
 messageSends: ["->"]}),
@@ -799,7 +799,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("Alt-Left").__minus_gt("goLineStart"),_st("Alt-Right").__minus_gt("goLineEnd"),_st("Alt-Up").__minus_gt("goDocStart"),_st("Ctrl-A").__minus_gt("selectAll"),_st("Ctrl-Backspace").__minus_gt("delWordBefore"),_st("Ctrl-D").__minus_gt("doIt"),_st("Ctrl-Delete").__minus_gt("delWordAfter"),_st("Ctrl-Down").__minus_gt("goDocEnd"),_st("Ctrl-End").__minus_gt("goDocEnd"),_st("Ctrl-F").__minus_gt("find"),_st("Ctrl-G").__minus_gt("findNext"),_st("Ctrl-I").__minus_gt("inspectIt"),_st("Ctrl-Home").__minus_gt("goDocStart"),_st("Ctrl-Left").__minus_gt("goWordBoundaryLeft"),_st("Ctrl-P").__minus_gt("printIt"),_st("Ctrl-Right").__minus_gt("goWordBoundaryRight"),_st("Ctrl-S").__minus_gt("saveIt"),_st("Ctrl-Y").__minus_gt("redo"),_st("Ctrl-Z").__minus_gt("undo"),_st("Ctrl-[").__minus_gt("indentLess"),_st("Ctrl-]").__minus_gt("indentMore"),_st("Shift-Ctrl-F").__minus_gt("replace"),_st("Shift-Ctrl-G").__minus_gt("findPrev"),_st("Shift-Ctrl-R").__minus_gt("replaceAll"),_st("Shift-Ctrl-Z").__minus_gt("redo"),_st("fallthrough").__minus_gt(["basic"])]);
+$1=smalltalk.HashedCollection._from_(["Alt-Left".__minus_gt("goLineStart"),"Alt-Right".__minus_gt("goLineEnd"),"Alt-Up".__minus_gt("goDocStart"),"Ctrl-A".__minus_gt("selectAll"),"Ctrl-Backspace".__minus_gt("delWordBefore"),"Ctrl-D".__minus_gt("doIt"),"Ctrl-Delete".__minus_gt("delWordAfter"),"Ctrl-Down".__minus_gt("goDocEnd"),"Ctrl-End".__minus_gt("goDocEnd"),"Ctrl-F".__minus_gt("find"),"Ctrl-G".__minus_gt("findNext"),"Ctrl-I".__minus_gt("inspectIt"),"Ctrl-Home".__minus_gt("goDocStart"),"Ctrl-Left".__minus_gt("goWordBoundaryLeft"),"Ctrl-P".__minus_gt("printIt"),"Ctrl-Right".__minus_gt("goWordBoundaryRight"),"Ctrl-S".__minus_gt("saveIt"),"Ctrl-Y".__minus_gt("redo"),"Ctrl-Z".__minus_gt("undo"),"Ctrl-[".__minus_gt("indentLess"),"Ctrl-]".__minus_gt("indentMore"),"Shift-Ctrl-F".__minus_gt("replace"),"Shift-Ctrl-G".__minus_gt("findPrev"),"Shift-Ctrl-R".__minus_gt("replaceAll"),"Shift-Ctrl-Z".__minus_gt("redo"),"fallthrough".__minus_gt(["basic"])]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"pcKeyMap",{},smalltalk.HLCodeWidget.klass)})},
 messageSends: ["->"]}),
