@@ -15,6 +15,7 @@
 * JSObjectProxy>>canForwardMessage: replaced by use of JSObjectProxy>>lookupProperty: with asJavaScriptSelector
 * JSObjectProxy>>forwardMessage: replaced by explicit JSObjectProxy>>forwardMessage:withArguments:
 * String>>asJavaScriptSelector moved to Kernel-Objects package
+* The functionality for HashedCollection>>fromPairs: is now available at HashedCollection>>from:. HashedCollection>>newFromPairs: will replace #fromPairs:.
 
 + Object>>asString
 + Object>>putOn:
@@ -52,7 +53,8 @@
 + Environment>>removeProtocol:
 + Environment>>renameProtocol:to:in:
 + CompiledMethod>>protocol:
-
++ HashedCollection>>from:
++ HashedCollection>>newFromPairs:
 
 - Object>>storeOn:
 - Object>>log:block:
