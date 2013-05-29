@@ -1082,6 +1082,18 @@ smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAsDictionary",
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(_st(_st(self)._collectionClass())._new())._asDictionary())._isMemberOf_($Dictionary()));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsDictionary",{},smalltalk.HashedCollectionTest)})},
+messageSends: ["assert:", "isMemberOf:", "asDictionary", "new", "collectionClass"]}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAt",
 fn: function (){
 var self=this;
@@ -1119,6 +1131,19 @@ smalltalk.HashedCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testFrom",
+fn: function (){
+var self=this;
+var associations;
+return smalltalk.withContext(function($ctx1) { 
+associations=[_st("a").__minus_gt((1)),_st("b").__minus_gt((2))];
+_st(self)._assertSameContents_as_(_st(_st(_st(self)._class())._collectionClass())._from_(associations),smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},smalltalk.HashedCollectionTest)})},
+messageSends: ["->", "assertSameContents:as:", "from:", "collectionClass", "class"]}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testIndexOf",
 fn: function (){
 var self=this;
@@ -1135,6 +1160,19 @@ return "sentinel";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),"sentinel");
 return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.HashedCollectionTest)})},
 messageSends: ["assert:equals:", "indexOf:", "collection", "should:raise:", "indexOf:ifAbsent:"]}),
+smalltalk.HashedCollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNewFromPairs",
+fn: function (){
+var self=this;
+var flattenedAssociations;
+return smalltalk.withContext(function($ctx1) { 
+flattenedAssociations=["a",(1),"b",(2)];
+_st(self)._assertSameContents_as_(_st(_st(_st(self)._class())._collectionClass())._newFromPairs_(flattenedAssociations),smalltalk.HashedCollection._fromPairs_([_st("a").__minus_gt((1)),_st("b").__minus_gt((2))]));
+return self}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},smalltalk.HashedCollectionTest)})},
+messageSends: ["assertSameContents:as:", "newFromPairs:", "collectionClass", "class", "->"]}),
 smalltalk.HashedCollectionTest);
 
 
@@ -1226,6 +1264,18 @@ self._assert_(_st(d)._includesKey_((1).__at((3))));
 self._deny_(_st(d)._includesKey_((3).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},smalltalk.DictionaryTest)})},
 messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"]}),
+smalltalk.DictionaryTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAsHashedCollection",
+fn: function (){
+var self=this;
+function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self)._assert_(_st(_st(_st(_st(self)._collectionClass())._new())._asHashedCollection())._isMemberOf_($HashedCollection()));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsHashedCollection",{},smalltalk.DictionaryTest)})},
+messageSends: ["assert:", "isMemberOf:", "asHashedCollection", "new", "collectionClass"]}),
 smalltalk.DictionaryTest);
 
 smalltalk.addMethod(

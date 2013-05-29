@@ -490,6 +490,10 @@ collectionWithDuplicates
 
 !HashedCollectionTest methodsFor: 'tests'!
 
+testAsDictionary
+self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
+!
+
 testAt
 	self assert: (self collection at: 'a') equals: 2.
 	self should: [ self collection at: 5 ] raise: Error
@@ -503,10 +507,24 @@ testContains
 	self deny: (self collection contains: [ :each | each = Object new ])
 !
 
+testFrom
+"Accept a collection of associations."
+| associations |
+associations := { 'a' -> 1. 'b' -> 2 }.
+self assertSameContents: ( self class collectionClass from: associations ) as: #{ 'a' -> 1. 'b' -> 2 }.
+!
+
 testIndexOf
 	self assert: (self collection indexOf: 2) equals: 'a'.
 	self should: [ self collection indexOf: 999 ] raise: Error.
 	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
+!
+
+testNewFromPairs
+"Accept an array in which all odd indexes are keys and evens are values."
+| flattenedAssociations |
+flattenedAssociations := { 'a'. 1. 'b'. 2 }.
+self assertSameContents: ( self class collectionClass newFromPairs: flattenedAssociations ) as: #{ 'a' -> 1. 'b' -> 2 }.
 ! !
 
 !HashedCollectionTest class methodsFor: 'accessing'!
@@ -565,6 +583,10 @@ testAccessing
 
 	self assert: (d includesKey: 1@3).
 	self deny: (d includesKey: 3@1)
+!
+
+testAsHashedCollection
+self assert: ( self collectionClass new asHashedCollection isMemberOf: HashedCollection ).
 !
 
 testDynamicDictionaries
