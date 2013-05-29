@@ -298,6 +298,12 @@ defaultCategory
 	^ 'as yet unclassified'
 ! !
 
+!CompiledMethod methodsFor: 'evaluating'!
+
+sendTo: anObject arguments: aCollection
+	^ self fn applyTo: anObject arguments: aCollection
+! !
+
 !CompiledMethod methodsFor: 'testing'!
 
 isCompiledMethod

@@ -214,6 +214,29 @@ smalltalk.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "nextChild",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self._nodes())._isEmpty();
+if(smalltalk.assert($2)){
+$1=self;
+} else {
+$1=_st(_st(self._nodes())._first())._nextChild();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextChild",{},smalltalk.Node)})},
+args: [],
+source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
+messageSends: ["ifTrue:ifFalse:", "nextChild", "first", "nodes", "isEmpty"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "nextNode",
 category: 'accessing',
 fn: function (){
@@ -243,17 +266,24 @@ selector: "nextNode:",
 category: 'accessing',
 fn: function (aNode){
 var self=this;
+var next;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+var $1,$2;
+var $early={};
+try {
+next=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
 return smalltalk.withContext(function($ctx2) {
-return nil;
+$1=self;
+throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode},smalltalk.Node)})},
+$2=_st(next)._nextChild();
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},smalltalk.Node)})},
 args: ["aNode"],
-source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode\x22\x0a\x09\x0a\x09^ self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ nil ]",
-messageSends: ["at:ifAbsent:", "+", "indexOf:", "nodes"],
+source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
+messageSends: ["at:ifAbsent:", "+", "indexOf:", "nodes", "nextChild"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -571,10 +601,11 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@left"]=aNode;
+_st(aNode)._parent_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"left:",{aNode:aNode},smalltalk.AssignmentNode)})},
 args: ["aNode"],
-source: "left: aNode\x0a\x09left := aNode",
-messageSends: [],
+source: "left: aNode\x0a\x09left := aNode.\x0a\x09aNode parent: self",
+messageSends: ["parent:"],
 referencedClasses: []
 }),
 smalltalk.AssignmentNode);
@@ -624,10 +655,11 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@right"]=aNode;
+_st(aNode)._parent_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"right:",{aNode:aNode},smalltalk.AssignmentNode)})},
 args: ["aNode"],
-source: "right: aNode\x0a\x09right := aNode",
-messageSends: [],
+source: "right: aNode\x0a\x09right := aNode.\x0a\x09aNode parent: self",
+messageSends: ["parent:"],
 referencedClasses: []
 }),
 smalltalk.AssignmentNode);
@@ -665,6 +697,24 @@ return true;
 }, function($ctx1) {$ctx1.fill(self,"isBlockNode",{},smalltalk.BlockNode)})},
 args: [],
 source: "isBlockNode\x0a\x09^true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextNode:",
+category: 'accessing',
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode},smalltalk.BlockNode)})},
+args: ["aNode"],
+source: "nextNode: aNode\x0a\x09\x22Answer the receiver as we want to avoid eager evaluation\x22\x0a\x09\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),

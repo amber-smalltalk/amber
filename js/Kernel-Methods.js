@@ -790,6 +790,24 @@ smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "sendTo:arguments:",
+category: 'evaluating',
+fn: function (anObject,aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._fn())._applyTo_arguments_(anObject,aCollection);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"sendTo:arguments:",{anObject:anObject,aCollection:aCollection},smalltalk.CompiledMethod)})},
+args: ["anObject", "aCollection"],
+source: "sendTo: anObject arguments: aCollection\x0a\x09^ self fn applyTo: anObject arguments: aCollection",
+messageSends: ["applyTo:arguments:", "fn"],
+referencedClasses: []
+}),
+smalltalk.CompiledMethod);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "source",
 category: 'accessing',
 fn: function (){

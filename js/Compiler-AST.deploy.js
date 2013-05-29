@@ -153,6 +153,24 @@ smalltalk.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "nextChild",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self._nodes())._isEmpty();
+if(smalltalk.assert($2)){
+$1=self;
+} else {
+$1=_st(_st(self._nodes())._first())._nextChild();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextChild",{},smalltalk.Node)})},
+messageSends: ["ifTrue:ifFalse:", "nextChild", "first", "nodes", "isEmpty"]}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "nextNode",
 fn: function (){
 var self=this;
@@ -176,15 +194,22 @@ smalltalk.method({
 selector: "nextNode:",
 fn: function (aNode){
 var self=this;
+var next;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
+var $1,$2;
+var $early={};
+try {
+next=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode)).__plus((1)),(function(){
 return smalltalk.withContext(function($ctx2) {
-return nil;
+$1=self;
+throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode},smalltalk.Node)})},
-messageSends: ["at:ifAbsent:", "+", "indexOf:", "nodes"]}),
+$2=_st(next)._nextChild();
+return $2;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},smalltalk.Node)})},
+messageSends: ["at:ifAbsent:", "+", "indexOf:", "nodes", "nextChild"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
@@ -423,8 +448,9 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@left"]=aNode;
+_st(aNode)._parent_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"left:",{aNode:aNode},smalltalk.AssignmentNode)})},
-messageSends: []}),
+messageSends: ["parent:"]}),
 smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
@@ -461,8 +487,9 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@right"]=aNode;
+_st(aNode)._parent_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"right:",{aNode:aNode},smalltalk.AssignmentNode)})},
-messageSends: []}),
+messageSends: ["parent:"]}),
 smalltalk.AssignmentNode);
 
 
@@ -489,6 +516,19 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isBlockNode",{},smalltalk.BlockNode)})},
+messageSends: []}),
+smalltalk.BlockNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextNode:",
+fn: function (aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode},smalltalk.BlockNode)})},
 messageSends: []}),
 smalltalk.BlockNode);
 

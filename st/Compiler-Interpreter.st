@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
 NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'methodContext outerContext pc locals method'
+	instanceVariableNames: 'outerContext innerContext pc locals method ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -14,6 +14,14 @@ home
 	^ self isBlockContext 
 		ifTrue: [ self outerContext methodContext ]
 		ifFalse: [ self ]
+!
+
+innerContext
+	^ innerContext
+!
+
+innerContext: anAIContext
+	innerContext := anAIContext
 !
 
 localAt: aString
@@ -43,7 +51,72 @@ outerContext
 !
 
 outerContext: anAIContext
-	outerContext := anAIContext
+	outerContext := anAIContext.
+	outerContext innerContext: self
+!
+
+selector
+	^ self method ifNotNil: [ 
+		self method selector ]
+! !
+
+!AIContext methodsFor: 'converting'!
+
+asString
+	^ methodContext asString
+! !
+
+!AIContext methodsFor: 'initialization'!
+
+initializeAST
+	ast := self method ast.
+	(SemanticAnalyzer on: self method methodClass)
+		visit: ast
+!
+
+initializeFromMethodContext: aMethodContext
+	methodContext := aMethodContext.
+	
+	self pc: aMethodContext pc.
+	self receiver: aMethodContext receiver.
+	self method: aMethodContext method.
+	aMethodContext outerContext ifNotNil: [ :outer |
+		"If the method context is nil, the block was defined in JS, so ignore it"
+		outer methodContext ifNotNil: [
+			self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
+			aMethodContext locals keysAndValuesDo: [ :key :value |
+				self locals at: key put: value ] ]
+!
+
+initializeInterpreter
+	interpreter := Interpreter new
+		context: self;
+		node: self retrieveNode;
+		yourself.
+	self innerContext isBlockContext ifFalse: [
+		self setupInterpreter: interpreter ]
+!
+
+initializeLocals
+	locals := Dictionary new.
+	locals at: 'thisContext' put: self.
+! !
+
+!AIContext methodsFor: 'interpreting'!
+
+arguments
+	^ self ast arguments collect: [ :each |
+		self localAt: each ]
+!
+
+ast
+	ast ifNil: [ self initializeAST ].
+	^ ast
+!
+
+interpreter
+	interpreter ifNil: [ self initializeInterpreter ].
+	^ interpreter
 !
 
 pc
@@ -62,36 +135,20 @@ receiver: anObject
 	self localAt: 'self' put: anObject
 !
 
-selector
-	^ self method
-		ifNotNil: [ self method selector ]
-! !
-
-!AIContext methodsFor: 'converting'!
-
-asString
-	^ methodContext asString
-! !
-
-!AIContext methodsFor: 'initialization'!
-
-initializeFromMethodContext: aMethodContext
-	methodContext := aMethodContext.
-	
-	self pc: aMethodContext pc.
-	self receiver: aMethodContext receiver.
-	self method: aMethodContext method.
-	aMethodContext outerContext ifNotNil: [ :outer |
-		"If the method context is nil, the block was defined in JS, so ignore it"
-		outer methodContext ifNotNil: [
-			self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
-			aMethodContext locals keysAndValuesDo: [ :key :value |
-				self locals at: key put: value ] ]
+retrieveNode
+	^ ASTPCNodeVisitor new
+		context: self;
+		visit: self ast;
+		currentNode
 !
 
-initializeLocals
-	locals := Dictionary new.
-	locals at: 'thisContext' put: self.
+setupInterpreter: anInterpreter
+	"Push the send args and receiver to the interpreter stack"
+	
+	self innerContext arguments reversed do: [ :each | 
+		anInterpreter push: each ].
+		
+	anInterpreter push: (self innerContext receiver)
 ! !
 
 !AIContext methodsFor: 'testing'!
@@ -233,7 +290,7 @@ context: aContext
 ! !
 
 Object subclass: #ASTInterpreter
-	instanceVariableNames: 'currentNode context shouldReturn result'
+	instanceVariableNames: 'currentNode nextNode context shouldReturn result'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
 I am like a `NodeVisitor`, interpreting nodes one after each other.
@@ -261,6 +318,14 @@ context: anAIContext
 
 currentNode
 	^ currentNode
+!
+
+nextNode
+	^ nextNode ifNil: [ self currentNode ]
+!
+
+nextNode: aNode
+	nextNode := aNode
 !
 
 result
@@ -612,6 +677,217 @@ visitSendNode: aNode
 		aNode shouldBeInlined ifFalse: [ 
 			self pc: self pc + 1.
 			currentNode := aNode ] ]
+! !
+
+NodeVisitor subclass: #Interpreter
+	instanceVariableNames: 'node context stack returnValue'
+	package: 'Compiler-Interpreter'!
+
+!Interpreter methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: aContext
+	context := aContext
+!
+
+node
+	"Answer the next node, ie the node to be evaluated in the next step"
+	
+	^ node
+!
+
+node: aNode
+	node := aNode
+!
+
+returnValue
+	^ returnValue ifNil: [ self context receiver ]
+!
+
+returnValue: anObject
+	returnValue := anObject
+!
+
+stack
+	^ stack ifNil: [ stack := OrderedCollection new ]
+! !
+
+!Interpreter methodsFor: 'interpreting'!
+
+interpret
+	"Interpret the next node to be evaluated"
+	
+	self visit: self node
+!
+
+next
+	self node: self node nextNode
+!
+
+proceed
+	"Eagerly evaluate the ast"
+	
+	[ self node notNil ] whileTrue: [ 
+		self step ]
+!
+
+skip
+	self next
+!
+
+step
+	self 
+		interpret; 
+		next
+! !
+
+!Interpreter methodsFor: 'private'!
+
+assign: aNode to: anObject
+	aNode binding isInstanceVar
+		ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]
+		ifFalse: [ self context localAt: aNode value put: anObject ]
+!
+
+eval: aString
+	"Evaluate aString as JS source inside an JS function.
+	aString is not sandboxed."
+	
+	| source function |
+	
+	source := String streamContents: [ :str |
+		str nextPutAll: '(function('.
+		self context locals keys
+			do: [ :each | str nextPutAll: each ]
+			separatedBy: [ str nextPutAll: ',' ].
+		str
+			nextPutAll: '){ return (function() {';
+			nextPutAll: aString;
+			nextPutAll: '})() })' ].
+			
+	function := Compiler new eval: source.
+	
+	^ function valueWithPossibleArguments: self context locals values
+!
+
+messageFromSendNode: aSendNode arguments: aCollection
+	^ Message new
+		selector: aSendNode selector;
+		arguments: aCollection;
+		yourself
+!
+
+messageNotUnderstood: aMessage receiver: anObject
+	MessageNotUnderstood new
+		meesage: aMessage;
+		receiver: anObject;
+		signal
+!
+
+sendMessage: aMessage to: anObject superSend: aBoolean
+	| method |
+	
+	aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].
+	anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
+	
+	method := anObject class superclass methodDictionary
+		at: aMessage selector
+		ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
+		
+	^ method sendTo: anObject arguments: aMessage arguments
+! !
+
+!Interpreter methodsFor: 'stack'!
+
+peek
+	"Peek the top object of the context stack"
+	
+	^ self stack last
+!
+
+pop
+	"Pop an object from the context stack"
+	
+	| value |
+	
+	value := self peek.
+	self stack removeLast.
+	^ value
+!
+
+push: anObject
+	"Push an object to the context stack"
+	
+	^ self stack add: anObject
+! !
+
+!Interpreter methodsFor: 'testing'!
+
+atEnd
+	^ self shouldReturn or: [ self node isNil ]
+!
+
+shouldReturn
+	^ returnValue notNil
+! !
+
+!Interpreter methodsFor: 'visiting'!
+
+visit: aNode
+	self shouldReturn ifFalse: [ super visit: aNode ]
+!
+
+visitAssignmentNode: aNode
+	"Do not pop as the pushed value would be the right node"
+	
+	self assign: aNode left to: self peek
+!
+
+visitClassReferenceNode: aNode
+	self push: (Smalltalk current at: aNode value)
+!
+
+visitJSStatementNode: aNode
+	self returnValue: (self eval: aNode source)
+!
+
+visitNode: aNode
+	"Do nothing by default. Especially, do not visit children recursively."
+!
+
+visitReturnNode: aNode
+	self returnValue: self pop
+!
+
+visitSendNode: aNode
+	| receiver args message result |
+	
+	args := aNode arguments collect: [ :each |
+		self pop ].
+	receiver := self pop.
+	
+	message := self
+		messageFromSendNode: aNode
+		arguments: args.
+	
+	result := self sendMessage: message to: receiver superSend: aNode superSend.
+	
+	self push: result
+!
+
+visitValueNode: aNode
+	self push: aNode value
+!
+
+visitVariableNode: aNode
+	"TODO: what about other vars (JS globals for instance)?"
+	
+	self push: (aNode binding isInstanceVar
+		ifTrue: [ self context receiver instVarAt: aNode value ]
+		ifFalse: [ self context localAt: aNode value ])
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!
