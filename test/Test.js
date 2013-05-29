@@ -8,7 +8,7 @@ category: 'not yet classified',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._runTestSuite();
+self._runTestSuite();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.NodeTestRunner.klass)})},
 args: [],
 source: "initialize\x0a\x09self runTestSuite",
@@ -49,11 +49,11 @@ if(smalltalk.assert($1)){
 _st(console)._log_(_st(_st(_st(_st(_st(_st(_st(result)._runs())._asString()).__comma(" tests run, ")).__comma(_st(_st(_st(result)._failures())._size())._asString())).__comma(" failures, ")).__comma(_st(_st(_st(result)._errors())._size())._asString())).__comma(" errors."));
 $2=_st(_st(result)._failures())._isEmpty();
 if(! smalltalk.assert($2)){
-_st(self)._throw_(_st(_st(_st(_st(_st(_st(_st(result)._failures())._first())._class())._name()).__comma(" >> ")).__comma(_st(_st(_st(result)._failures())._first())._selector())).__comma(" is failing!"));
+self._throw_(_st(_st(_st(_st(_st(_st(_st(result)._failures())._first())._class())._name()).__comma(" >> ")).__comma(_st(_st(_st(result)._failures())._first())._selector())).__comma(" is failing!"));
 };
 $3=_st(_st(result)._errors())._isEmpty();
 if(! smalltalk.assert($3)){
-return _st(self)._throw_(_st(_st(_st(_st(_st(_st(_st(result)._errors())._first())._class())._name()).__comma(" >> ")).__comma(_st(_st(_st(result)._errors())._first())._selector())).__comma(" has errors!"));
+return self._throw_(_st(_st(_st(_st(_st(_st(_st(result)._errors())._first())._class())._name()).__comma(" >> ")).__comma(_st(_st(_st(result)._errors())._first())._selector())).__comma(" has errors!"));
 };
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann,result:result},$ctx1)})}));
