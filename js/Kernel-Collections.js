@@ -2093,7 +2093,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addLast:",
-category: 'adding',
+category: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2458,15 +2458,15 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeLast",
-category: 'adding',
+category: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._remove_(self._last());
+self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.SequenceableCollection)})},
 args: [],
-source: "removeLast\x0a\x09self remove: self last",
-messageSends: ["remove:", "last"],
+source: "removeLast\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2857,6 +2857,22 @@ self.splice(aNumber - 1,anotherNumber - 1);
 return self}, function($ctx1) {$ctx1.fill(self,"removeFrom:to:",{aNumber:aNumber,anotherNumber:anotherNumber},smalltalk.Array)})},
 args: ["aNumber", "anotherNumber"],
 source: "removeFrom: aNumber to: anotherNumber\x0a\x09<self.splice(aNumber - 1,anotherNumber - 1)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeLast",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.pop();;
+return self}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.Array)})},
+args: [],
+source: "removeLast\x0a\x09<return self.pop();>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3271,15 +3287,15 @@ smalltalk.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "remove:",
+selector: "remove:ifAbsent:",
 category: 'adding',
-fn: function (anObject){
+fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._errorReadOnly();
-return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.CharacterArray)})},
-args: ["anObject"],
-source: "remove: anObject\x0a\x09self errorReadOnly",
+return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.CharacterArray)})},
+args: ["anObject", "aBlock"],
+source: "remove: anObject ifAbsent: aBlock\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),

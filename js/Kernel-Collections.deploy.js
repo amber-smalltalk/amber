@@ -1855,9 +1855,9 @@ selector: "removeLast",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._remove_(self._last());
+self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.SequenceableCollection)})},
-messageSends: ["remove:", "last"]}),
+messageSends: ["subclassResponsibility"]}),
 smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
@@ -2142,6 +2142,17 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self.splice(aNumber - 1,anotherNumber - 1);
 return self}, function($ctx1) {$ctx1.fill(self,"removeFrom:to:",{aNumber:aNumber,anotherNumber:anotherNumber},smalltalk.Array)})},
+messageSends: []}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeLast",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.pop();;
+return self}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.Array)})},
 messageSends: []}),
 smalltalk.Array);
 
@@ -2443,12 +2454,12 @@ smalltalk.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "remove:",
-fn: function (anObject){
+selector: "remove:ifAbsent:",
+fn: function (anObject,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._errorReadOnly();
-return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.CharacterArray)})},
+return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.CharacterArray)})},
 messageSends: ["errorReadOnly"]}),
 smalltalk.CharacterArray);
 

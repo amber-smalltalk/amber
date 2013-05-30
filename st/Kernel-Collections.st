@@ -773,14 +773,14 @@ third
 	^self at: 3
 ! !
 
-!SequenceableCollection methodsFor: 'adding'!
+!SequenceableCollection methodsFor: 'adding/removing'!
 
 addLast: anObject
 	self add: anObject
 !
 
 removeLast
-	self remove: self last
+	self subclassResponsibility
 ! !
 
 !SequenceableCollection methodsFor: 'comparing'!
@@ -956,6 +956,10 @@ remove: anObject ifAbsent: aBlock
 
 removeFrom: aNumber to: anotherNumber
 	<self.splice(aNumber - 1,anotherNumber - 1)>
+!
+
+removeLast
+	<return self.pop();>
 ! !
 
 !Array methodsFor: 'converting'!
@@ -1061,7 +1065,7 @@ add: anObject
 	self errorReadOnly
 !
 
-remove: anObject
+remove: anObject ifAbsent: aBlock
 	self errorReadOnly
 ! !
 
