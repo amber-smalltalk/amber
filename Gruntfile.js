@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     },
 
     amberc: {
-      _config: {
+      options: {
         amber_dir: process.cwd(),
         closure_jar: ''
       },

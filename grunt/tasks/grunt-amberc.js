@@ -29,17 +29,23 @@ module.exports = function(grunt) {
    */
   grunt.registerMultiTask('amberc', 'Compile Smalltalk files with the amberc compiler', function() {
     // mark required properties
-    this.requiresConfig('amberc._config.amber_dir');
+    this.requiresConfig('amberc.options.amber_dir');
     this.requiresConfig(['amberc', this.target, 'src']);
+
+    var options = this.options({
+      amber_dir: undefined,
+      closure_jar: '',
+      verbose: false
+    });
 
     // mark task as async task
     var done = this.async();
 
     // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc._config.amber_dir'), grunt.config('amberc._config.closure_jar'));
+    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'), grunt.config('amberc.options.closure_jar'));
 
     // generate the amberc configuration out of the given target properties
-    var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc._config.amber_dir'));
+    var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
 
     // run the compiler
     // change back to the old working directory and call the async callback once finished
