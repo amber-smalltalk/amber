@@ -787,6 +787,22 @@ smalltalk.InterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testGlobalVar",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo ^ window document title"),_st(_st(window)._document())._title());
+return self}, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},smalltalk.InterpreterTest)})},
+args: [],
+source: "testGlobalVar\x0a\x09self assert: (self interpret: 'foo ^ window document title') equals: window document title",
+messageSends: ["assert:equals:", "interpret:", "title", "document"],
+referencedClasses: []
+}),
+smalltalk.InterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testInlinedJSStatement",
 category: 'tests',
 fn: function (){

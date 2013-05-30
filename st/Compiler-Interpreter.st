@@ -967,8 +967,9 @@ visitValueNode: aNode
 !
 
 visitVariableNode: aNode
-	"TODO: what about other vars (JS globals for instance)?"
-	
+	aNode binding isUnknownVar ifTrue: [
+		^ self push: (window at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].
+		
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])

@@ -345,6 +345,10 @@ testDynamicDictionary
 	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
 !
 
+testGlobalVar
+	self assert: (self interpret: 'foo ^ window document title') equals: window document title
+!
+
 testInlinedJSStatement
 	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
 	

@@ -2675,19 +2675,27 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=self;
-$3=_st(_st(aNode)._binding())._isInstanceVar();
-if(smalltalk.assert($3)){
-$2=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
-} else {
-$2=_st(self._context())._localAt_(_st(aNode)._value());
+var $1,$2,$3,$5,$4;
+$1=_st(_st(aNode)._binding())._isUnknownVar();
+if(smalltalk.assert($1)){
+$2=self._push_(_st(window)._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("Unknown variable");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+return $2;
 };
-_st($1)._push_($2);
+$3=self;
+$5=_st(_st(aNode)._binding())._isInstanceVar();
+if(smalltalk.assert($5)){
+$4=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
+} else {
+$4=_st(self._context())._localAt_(_st(aNode)._value());
+};
+_st($3)._push_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.Interpreter)})},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09\x22TODO: what about other vars (JS globals for instance)?\x22\x0a\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
-messageSends: ["push:", "ifTrue:ifFalse:", "instVarAt:", "value", "receiver", "context", "localAt:", "isInstanceVar", "binding"],
+source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (window at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"],
 referencedClasses: []
 }),
 smalltalk.Interpreter);

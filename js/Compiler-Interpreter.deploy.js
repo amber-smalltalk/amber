@@ -2029,17 +2029,25 @@ selector: "visitVariableNode:",
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=self;
-$3=_st(_st(aNode)._binding())._isInstanceVar();
-if(smalltalk.assert($3)){
-$2=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
-} else {
-$2=_st(self._context())._localAt_(_st(aNode)._value());
+var $1,$2,$3,$5,$4;
+$1=_st(_st(aNode)._binding())._isUnknownVar();
+if(smalltalk.assert($1)){
+$2=self._push_(_st(window)._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("Unknown variable");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+return $2;
 };
-_st($1)._push_($2);
+$3=self;
+$5=_st(_st(aNode)._binding())._isInstanceVar();
+if(smalltalk.assert($5)){
+$4=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
+} else {
+$4=_st(self._context())._localAt_(_st(aNode)._value());
+};
+_st($3)._push_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.Interpreter)})},
-messageSends: ["push:", "ifTrue:ifFalse:", "instVarAt:", "value", "receiver", "context", "localAt:", "isInstanceVar", "binding"]}),
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"]}),
 smalltalk.Interpreter);
 
 
