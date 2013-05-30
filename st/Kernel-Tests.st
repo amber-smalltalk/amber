@@ -738,6 +738,10 @@ SequenceableCollectionTest subclass: #ArrayTest
 
 !ArrayTest methodsFor: 'tests'!
 
+testAddFirst
+	self assert: (#(2 3 4 5) addFirst: 1; yourself) equals: #(1 2 3 4 5)
+!
+
 testAtIfAbsent
 	| array |
 	array := #('hello' 'world').

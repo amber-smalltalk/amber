@@ -1525,6 +1525,21 @@ smalltalk.addClass('SequenceableCollectionTest', smalltalk.IndexableCollectionTe
 smalltalk.addClass('ArrayTest', smalltalk.SequenceableCollectionTest, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAddFirst",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=[(2), (3), (4), (5)];
+_st($1)._addFirst_((1));
+$2=_st($1)._yourself();
+self._assert_equals_($2,[(1), (2), (3), (4), (5)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testAddFirst",{},smalltalk.ArrayTest)})},
+messageSends: ["assert:equals:", "addFirst:", "yourself"]}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAtIfAbsent",
 fn: function (){
 var self=this;
