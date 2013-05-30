@@ -95,7 +95,34 @@ smalltalk.addClass('HLInspectItRequested', smalltalk.HLCodeHandled, [], 'Helios-
 smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-Announcements');
 
 
-smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLAnnouncement, ['context'], 'Helios-Announcements');
+smalltalk.addClass('HLDebuggerAnnouncement', smalltalk.HLAnnouncement, ['context'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@context"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.HLDebuggerAnnouncement)})},
+messageSends: []}),
+smalltalk.HLDebuggerAnnouncement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context:",
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@context"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.HLDebuggerAnnouncement)})},
+messageSends: []}),
+smalltalk.HLDebuggerAnnouncement);
+
+
+
+smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -120,6 +147,9 @@ return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},sm
 messageSends: []}),
 smalltalk.HLDebuggerContextSelected);
 
+
+
+smalltalk.addClass('HLDebuggerStepped', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
 smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');

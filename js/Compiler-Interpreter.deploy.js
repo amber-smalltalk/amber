@@ -1676,6 +1676,17 @@ smalltalk.Interpreter);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "restart",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._node_(_st(_st(self._context())._ast())._nextChild());
+return self}, function($ctx1) {$ctx1.fill(self,"restart",{},smalltalk.Interpreter)})},
+messageSends: ["node:", "nextChild", "ast", "context"]}),
+smalltalk.Interpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "result",
 fn: function (){
 var self=this;
@@ -1807,6 +1818,24 @@ _st($1)._interpret();
 $2=_st($1)._next();
 return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.Interpreter)})},
 messageSends: ["interpret", "next"]}),
+smalltalk.Interpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stepOver",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._step();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._node())._isSteppingNode();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},smalltalk.Interpreter)})},
+messageSends: ["step", "whileFalse:", "isSteppingNode", "node"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(

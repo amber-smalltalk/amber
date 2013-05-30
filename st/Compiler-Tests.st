@@ -302,7 +302,7 @@ interpreter
 	^ Interpreter new
 ! !
 
-!InterpreterTest methodsFor: 'as yet unclassified'!
+!InterpreterTest methodsFor: 'interpreting'!
 
 interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
@@ -375,6 +375,14 @@ testInstVarAssignment
 
 testKeywordSend
 	self assert: (self interpret: 'foo ^ Point x: 1 y: 2') equals: 1@2
+!
+
+testMultipleSequences
+	self assert: (self interpret: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6') equals: 30
+!
+
+testNestedSends
+	self assert: (self interpret: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString') equals: (Point x: (2@3) y: 4) asString
 !
 
 testNonlocalReturn

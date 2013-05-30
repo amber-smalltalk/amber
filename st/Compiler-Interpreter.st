@@ -743,6 +743,10 @@ proceed
 		self step ]
 !
 
+restart
+	self node: self context ast nextChild
+!
+
 skip
 	self next
 !
@@ -751,6 +755,13 @@ step
 	self 
 		interpret; 
 		next
+!
+
+stepOver
+	self step.
+	
+	[ self node isSteppingNode ] whileFalse: [ 
+		self step ]
 ! !
 
 !Interpreter methodsFor: 'private'!

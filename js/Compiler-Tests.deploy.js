@@ -638,6 +638,29 @@ smalltalk.InterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testMultipleSequences",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6"),(30));
+return self}, function($ctx1) {$ctx1.fill(self,"testMultipleSequences",{},smalltalk.InterpreterTest)})},
+messageSends: ["assert:equals:", "interpret:"]}),
+smalltalk.InterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNestedSends",
+fn: function (){
+var self=this;
+function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString"),_st(_st($Point())._x_y_((2).__at((3)),(4)))._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"testNestedSends",{},smalltalk.InterpreterTest)})},
+messageSends: ["assert:equals:", "interpret:", "asString", "x:y:", "@"]}),
+smalltalk.InterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testNonlocalReturn",
 fn: function (){
 var self=this;

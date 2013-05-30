@@ -2216,6 +2216,22 @@ smalltalk.Interpreter);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "restart",
+category: 'interpreting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._node_(_st(_st(self._context())._ast())._nextChild());
+return self}, function($ctx1) {$ctx1.fill(self,"restart",{},smalltalk.Interpreter)})},
+args: [],
+source: "restart\x0a\x09self node: self context ast nextChild",
+messageSends: ["node:", "nextChild", "ast", "context"],
+referencedClasses: []
+}),
+smalltalk.Interpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "result",
 category: 'accessing',
 fn: function (){
@@ -2385,6 +2401,29 @@ return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.Interpreter)}
 args: [],
 source: "step\x0a\x09self \x0a\x09\x09interpret; \x0a\x09\x09next",
 messageSends: ["interpret", "next"],
+referencedClasses: []
+}),
+smalltalk.Interpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stepOver",
+category: 'interpreting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._step();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._node())._isSteppingNode();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},smalltalk.Interpreter)})},
+args: [],
+source: "stepOver\x0a\x09self step.\x0a\x09\x0a\x09[ self node isSteppingNode ] whileFalse: [ \x0a\x09\x09self step ]",
+messageSends: ["step", "whileFalse:", "isSteppingNode", "node"],
 referencedClasses: []
 }),
 smalltalk.Interpreter);

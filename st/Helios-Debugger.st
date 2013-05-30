@@ -88,6 +88,11 @@ observeModel
 	self model announcer 
 		on: HLDebuggerContextSelected
 		send: #onContextSelected:
+		to: self.
+		
+	self model announcer 
+		on: HLDebuggerStepped
+		send: #onContextSelected:
 		to: self
 !
 
@@ -222,6 +227,11 @@ observeBrowserModel
 	self browserModel announcer 
 		on: HLDebuggerContextSelected
 		send: #onContextSelected
+		to: self.
+	
+	self browserModel announcer 
+		on: HLDebuggerStepped
+		send: #onContextSelected
 		to: self
 ! !
 
@@ -232,7 +242,7 @@ onContextSelected
 ! !
 
 HLToolModel subclass: #HLDebuggerModel
-	instanceVariableNames: 'rootContext currentContext contexts interpreter'
+	instanceVariableNames: 'rootContext currentContext contexts'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
 I am a model for Helios debugging.
@@ -261,15 +271,31 @@ currentContext: aContext
 !
 
 interpreter
-	^ interpreter
+	^ self currentContext interpreter
 !
 
 nextNode
-	^ self interpreter nextNode
+	^ self interpreter node
 !
 
 rootContext
 	^ rootContext
+! !
+
+!HLDebuggerModel methodsFor: 'actions'!
+
+restart
+	self interpreter restart.
+	self announcer announce: (HLDebuggerStepped new
+		context: self currentContext;
+		yourself)
+!
+
+stepOver
+	self interpreter stepOver.
+	self announcer announce: (HLDebuggerStepped new
+		context: self currentContext;
+		yourself)
 ! !
 
 !HLDebuggerModel methodsFor: 'initialization'!
@@ -348,7 +374,31 @@ label
 
 !HLStackListWidget methodsFor: 'actions'!
 
+restart
+	self model restart
+!
+
 selectItem: aContext
    	self model currentContext: aContext
+!
+
+stepOver
+	self model stepOver
+! !
+
+!HLStackListWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	html div 
+		class: 'debugger_bar'; 
+		with: [
+			html button 
+				class: 'btn restart';
+				with: 'Restart';
+				onClick: [ self restart ].
+			html button 
+				class: 'btn stepOver';
+				with: 'Step over';
+				onClick: [ self stepOver ] ]
 ! !
 

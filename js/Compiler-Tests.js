@@ -655,7 +655,7 @@ smalltalk.addClass('InterpreterTest', smalltalk.AbstractASTInterpreterTest, [], 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "interpret:receiver:withArguments:",
-category: 'as yet unclassified',
+category: 'interpreting',
 fn: function (aString,anObject,aDictionary){
 var self=this;
 var ctx;
@@ -848,6 +848,39 @@ args: [],
 source: "testKeywordSend\x0a\x09self assert: (self interpret: 'foo ^ Point x: 1 y: 2') equals: 1@2",
 messageSends: ["assert:equals:", "interpret:", "@"],
 referencedClasses: []
+}),
+smalltalk.InterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMultipleSequences",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6"),(30));
+return self}, function($ctx1) {$ctx1.fill(self,"testMultipleSequences",{},smalltalk.InterpreterTest)})},
+args: [],
+source: "testMultipleSequences\x0a\x09self assert: (self interpret: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6') equals: 30",
+messageSends: ["assert:equals:", "interpret:"],
+referencedClasses: []
+}),
+smalltalk.InterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNestedSends",
+category: 'tests',
+fn: function (){
+var self=this;
+function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString"),_st(_st($Point())._x_y_((2).__at((3)),(4)))._asString());
+return self}, function($ctx1) {$ctx1.fill(self,"testNestedSends",{},smalltalk.InterpreterTest)})},
+args: [],
+source: "testNestedSends\x0a\x09self assert: (self interpret: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString') equals: (Point x: (2@3) y: 4) asString",
+messageSends: ["assert:equals:", "interpret:", "asString", "x:y:", "@"],
+referencedClasses: ["Point"]
 }),
 smalltalk.InterpreterTest);
 
