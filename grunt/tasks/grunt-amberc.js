@@ -9,7 +9,8 @@ module.exports = function(grunt) {
      amberc: {
        _config: {
          amber_dir: process.cwd(),     // REQUIRED
-         closure_jar: ''               // optional
+         closure_jar: '',              // optional
+         verbose: true                 // optional
        },
        helloWorld: {
          src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
@@ -21,8 +22,7 @@ module.exports = function(grunt) {
          main_file: 'myMain.js',               // optional
          deploy: true,                         // optional
          output_suffix: 'mySuffix',            // optional
-         library_suffix: '-0.9',               // optional
-         verbose: true                         // optional
+         library_suffix: '-0.9'               // optional
        },
      },
 
@@ -37,6 +37,7 @@ module.exports = function(grunt) {
       closure_jar: '',
       verbose: false
     });
+    this.data.verbose = options.verbose;
 
     // mark task as async task
     var done = this.async();
@@ -111,9 +112,7 @@ module.exports = function(grunt) {
     if (undefined !== data.output_dir) {
       configuration.output_dir = data.output_dir;
     }
-    if (true === data.verbose) {
-      configuration.verbose = true;
-    }
+    configuration.verbose = data.verbose;
     return configuration;
   }
 };
