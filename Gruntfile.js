@@ -28,7 +28,7 @@ module.exports = function(grunt) {
     },
 
     amberc: {
-      _config: {
+      options: {
         amber_dir: process.cwd(),
         closure_jar: ''
       },
@@ -59,8 +59,7 @@ module.exports = function(grunt) {
       amber_canvas: {
         output_dir : 'js',
         src: ['st/Canvas.st', 'st/SUnit.st'],
-        deploy: true,
-        verbose: true
+        deploy: true
       },
       amber_IDE: {
         output_dir : 'js',
