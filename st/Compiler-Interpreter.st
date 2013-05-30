@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
 NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals method ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals method ast interpreter methodContext'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -703,8 +703,12 @@ node: aNode
 	node := aNode
 !
 
+result
+	^ self returnValue ifNil: [ self context receiver ]
+!
+
 returnValue
-	^ returnValue ifNil: [ self context receiver ]
+	^ returnValue
 !
 
 returnValue: anObject
@@ -723,6 +727,11 @@ interpret
 	self visit: self node
 !
 
+interpret: aNode
+	self node: aNode.
+	self interpret
+!
+
 next
 	self node: self node nextNode
 !
@@ -730,7 +739,7 @@ next
 proceed
 	"Eagerly evaluate the ast"
 	
-	[ self node notNil ] whileTrue: [ 
+	[ self atEnd ] whileFalse: [ 
 		self step ]
 !
 
@@ -831,7 +840,7 @@ atEnd
 !
 
 shouldReturn
-	^ returnValue notNil
+	^ self returnValue notNil
 ! !
 
 !Interpreter methodsFor: 'visiting'!
@@ -841,13 +850,73 @@ visit: aNode
 !
 
 visitAssignmentNode: aNode
-	"Do not pop as the pushed value would be the right node"
+	| value |
 	
-	self assign: aNode left to: self peek
+	value := self pop.
+	
+	"Pop the left side of the assignment.
+	It already has been visited, and we don't need its value."
+	self pop.
+	
+	self push: value.
+	self assign: aNode left to: value
+!
+
+visitBlockNode: aNode
+	"Do not evaluate the block node.
+	Instead, put all instructions into a block that we push to the stack for later evaluation"
+	
+	| blockNode blockContext block interpreter |
+	
+	"Copy the sequence node without the parent to avoid evaluating nodes up the block. 
+	#nextNode should not go anymore up than the block itself"
+	blockNode := aNode nodes first copy.
+	blockNode parent: nil.
+		
+	blockContext := self context class new
+		outerContext: self context;
+		yourself.
+	
+	block := [
+		interpreter := self class new.
+		interpreter
+			context: blockContext;
+			node: blockNode nextChild;
+			proceed.
+		
+		"Non local returns hanlding"
+		self returnValue: interpreter returnValue.
+		
+		"Answer the last evaluation of the block or nil"
+		interpreter stack isEmpty
+			ifTrue: [ nil ]
+			ifFalse: [ interpreter pop ] ].
+	
+	self push: block
 !
 
 visitClassReferenceNode: aNode
 	self push: (Smalltalk current at: aNode value)
+!
+
+visitDynamicArrayNode: aNode
+	| array |
+	
+	array := #().
+	aNode nodes do: [ :each |
+		array addFirst: self pop ].
+	
+	self push: array
+!
+
+visitDynamicDictionaryNode: aNode
+	| hashedCollection |
+	
+	hashedCollection := HashedCollection new.
+	aNode nodes do: [ :each | 
+		hashedCollection add: self pop ].
+	
+	self push: hashedCollection
 !
 
 visitJSStatementNode: aNode
@@ -865,17 +934,21 @@ visitReturnNode: aNode
 visitSendNode: aNode
 	| receiver args message result |
 	
-	args := aNode arguments collect: [ :each |
-		self pop ].
+	args := aNode arguments collect: [ :each | self pop ].
 	receiver := self pop.
 	
 	message := self
 		messageFromSendNode: aNode
-		arguments: args.
+		arguments: args reversed.
 	
 	result := self sendMessage: message to: receiver superSend: aNode superSend.
 	
-	self push: result
+	self context pc: self context pc + 1.
+	
+	"For cascade sends, push the reciever if the send is not the last one"
+	(aNode isCascadeSendNode and: [ aNode isLastChild not ])
+		ifTrue: [ self push: receiver ]
+		ifFalse: [ self push: result ]
 !
 
 visitValueNode: aNode

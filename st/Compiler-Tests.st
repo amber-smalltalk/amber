@@ -292,6 +292,127 @@ testSimpleStepping
 	self assert: self interpreter result equals: 1
 ! !
 
+AbstractASTInterpreterTest subclass: #InterpreterTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!InterpreterTest methodsFor: 'accessing'!
+
+interpreter
+	^ Interpreter new
+! !
+
+!InterpreterTest methodsFor: 'as yet unclassified'!
+
+interpret: aString receiver: anObject withArguments: aDictionary
+	"The food is a methodNode. Interpret the sequenceNode only"
+	
+	| ctx |
+	
+	ctx := AIContext new.
+	ctx receiver: anObject.
+	aDictionary keysAndValuesDo: [ :key :value |
+		ctx localAt: key put: value ].
+	
+	^ self interpreter
+		context: ctx;
+		interpret: (self parse: aString forClass: anObject class) nextChild;
+		proceed;
+		result
+! !
+
+!InterpreterTest methodsFor: 'tests'!
+
+testBinarySend
+	self assert: (self interpret: 'foo ^ 2+3+4') equals: 9
+!
+
+testBlockLiteral
+	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
+	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
+	self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
+!
+
+testCascade
+	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
+!
+
+testDynamicArray
+	self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)
+!
+
+testDynamicDictionary
+	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
+!
+
+testInlinedJSStatement
+	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
+	
+	self
+		assert: (self
+			interpret: 'foo: anInteger <return 2 + anInteger>'
+			withArguments: #{ 'anInteger' -> 3})
+		equals: 5
+!
+
+testInstVarAccess
+	self
+		assert: (self
+			interpret: 'foo ^ x'
+			receiver: 2@3
+			withArguments: #{})
+		equals: 2
+!
+
+testInstVarAssignment
+	self
+		assert: (self
+			interpret: 'foo: anInteger x := anInteger. ^ x'
+			receiver: Point new
+			withArguments: #{'anInteger' -> 2})
+		equals: 2
+!
+
+testKeywordSend
+	self assert: (self interpret: 'foo ^ Point x: 1 y: 2') equals: 1@2
+!
+
+testNonlocalReturn
+	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
+!
+
+testReceiver
+	self
+		assert: (self
+			interpret: 'foo ^ self'
+			receiver: 2@3
+			withArguments: #{})
+		equals: 2@3
+!
+
+testSuper
+	self 
+		assert: (self 
+			interpret: 'foo ^ super isBoolean' 
+			receiver: true 
+			withArguments: Dictionary new) 
+		equals: false
+!
+
+testTempAssignment
+	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+!
+
+testThisContext
+	self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.
+	self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.
+	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
+!
+
+testUnarySend
+	self assert: (self interpret: 'foo ^ 1 asString') equals: '1'
+! !
+
 TestCase subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!

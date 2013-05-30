@@ -498,9 +498,6 @@ visitBlockNode: aNode
 !
 
 visitCascadeNode: aNode
-	"Populate the receiver into all children"
-	aNode nodes do: [ :each |
-		each receiver: aNode receiver ].
 	super visitCascadeNode: aNode.
 	aNode nodes first superSend ifTrue: [
 		aNode nodes do: [ :each | each superSend: true ]]

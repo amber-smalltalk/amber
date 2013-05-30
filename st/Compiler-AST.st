@@ -16,14 +16,6 @@ addNode: aNode
 	aNode parent: self
 !
 
-extent
-	"Answer the line and column of the end position of the receiver in the source code"
-	
-	^ self nextNode 
-		ifNil: [ self parent ifNotNil: [ :node | node extent ] ]
-		ifNotNil: [ :node | node position ]
-!
-
 nextChild
 	"Answer the next node after aNode.
 	Recurse into the possible children of the receiver to answer the next node to be evaluated"
@@ -97,6 +89,13 @@ position: aPosition
 	position := aPosition
 ! !
 
+!Node methodsFor: 'copying'!
+
+postCopy
+	super postCopy.
+	self nodes do: [ :each | each parent: self ]
+! !
+
 !Node methodsFor: 'testing'!
 
 isAssignmentNode
@@ -111,12 +110,20 @@ isBlockSequenceNode
 	^false
 !
 
+isCascadeNode
+	^ false
+!
+
 isImmutable
 	^false
 !
 
 isJSStatementNode
 	^ false
+!
+
+isLastChild
+	^ self parent nodes last = self
 !
 
 isNode
@@ -200,6 +207,12 @@ I represent an block closure node.!
 
 !BlockNode methodsFor: 'accessing'!
 
+nextChild
+	"Answer the receiver as we want to avoid eager evaluation"
+	
+	^ self
+!
+
 nextNode: aNode
 	"Answer the receiver as we want to avoid eager evaluation"
 	
@@ -252,6 +265,12 @@ receiver
 
 receiver: aNode
 	receiver := aNode
+! !
+
+!CascadeNode methodsFor: 'testing'!
+
+isCascadeNode
+	^ true
 ! !
 
 !CascadeNode methodsFor: 'visiting'!
@@ -458,8 +477,10 @@ index: anInteger
 !
 
 nodes
-	^ (Array withAll: self arguments)
-		add: self receiver;
+	self receiver ifNil: [ ^ self arguments copy ].
+	
+	^ (Array with: self receiver)
+		addAll: self arguments;
 		yourself
 !
 
@@ -501,6 +522,10 @@ valueForReceiver: anObject
 ! !
 
 !SendNode methodsFor: 'testing'!
+
+isCascadeSendNode
+	^ self parent isCascadeNode
+!
 
 isSendNode
 	^ true
@@ -604,6 +629,11 @@ isValueNode
 
 accept: aVisitor
 	^ aVisitor visitValueNode: self
+! !
+
+!ValueNode methodsFor: 'xxxDoIt'!
+
+xxxDoIt ^[self stack] value
 ! !
 
 ValueNode subclass: #VariableNode
