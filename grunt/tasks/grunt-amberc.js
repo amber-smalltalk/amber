@@ -68,7 +68,7 @@ module.exports = function(grunt) {
       configuration.main = mainClass;
     }
     var mainFile = data.main_file;
-    if (undefined !== initFile) {
+    if (undefined !== mainFile) {
       configuration.mainfile = mainFile;
     }
     if (true === data.deploy) {
@@ -103,10 +103,10 @@ module.exports = function(grunt) {
       configuration.program = outputName;
     }
     if (undefined !== data.output_dir) {
-    	configuration.output_dir = data.output_dir;
+      configuration.output_dir = data.output_dir;
     }
     if (true === data.verbose) {
-    	configuration.verbose = true;
+      configuration.verbose = true;
     }
     return configuration;
   }
