@@ -62,20 +62,27 @@ smalltalk.method({
 selector: "main",
 fn: function (){
 var self=this;
-var args;
+var args,nodeMinorVersion;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
+nodeMinorVersion=_st(_st(_st(_st(process)._version())._tokenize_("."))._second())._asNumber();
+$1=_st(nodeMinorVersion).__lt((8));
+if(smalltalk.assert($1)){
+_st(console)._log_(_st("You are currently using Node.js ").__comma(_st(process)._version()));
+_st(console)._log_("Required is at least Node.js v0.8.x or greater.");
+return (-1);
+};
 args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(3));
-$1=_st(args)._isEmpty();
-if(smalltalk.assert($1)){
+$2=_st(args)._isEmpty();
+if(smalltalk.assert($2)){
 _st(self)._help_(nil);
 } else {
-$2=_st(self)._handleArguments_(args);
-return $2;
+$3=_st(self)._handleArguments_(args);
+return $3;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args},smalltalk.AmberCli.klass)})},
-messageSends: ["argv", "removeFrom:to:", "ifTrue:ifFalse:", "help:", "handleArguments:", "isEmpty"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},smalltalk.AmberCli.klass);});},
+messageSends: ["asNumber", "second", "tokenize:", "version", "ifTrue:", "log:", ",", "<", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "help:", "handleArguments:", "isEmpty"]}),
 smalltalk.AmberCli.klass);
 
 smalltalk.addMethod(
@@ -772,9 +779,7 @@ selector: "defaultPort",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(4000);
-return $1;
+return (4000);
 }, function($ctx1) {$ctx1.fill(self,"defaultPort",{},smalltalk.FileServer.klass)})},
 messageSends: []}),
 smalltalk.FileServer.klass);
