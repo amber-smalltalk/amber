@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-Semantic');
-smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
+smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addArg:",
@@ -92,6 +92,35 @@ return nil;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindingFor:",{aStringOrNode:aStringOrNode},smalltalk.LexicalScope)})},
 messageSends: ["at:ifAbsent:", "pseudoVars", "value", "args", "temps"]}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blockIndex",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@blockIndex"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=(0);
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"blockIndex",{},smalltalk.LexicalScope)})},
+messageSends: ["ifNil:"]}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blockIndex:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@blockIndex"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"blockIndex:",{anInteger:anInteger},smalltalk.LexicalScope)})},
+messageSends: []}),
 smalltalk.LexicalScope);
 
 smalltalk.addMethod(
@@ -898,7 +927,7 @@ smalltalk.UnknownVar);
 
 
 
-smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends', 'blockIndex'], 'Compiler-Semantic');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classReferences",
@@ -1037,6 +1066,27 @@ smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "nextBlockIndex",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@blockIndex"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@blockIndex"]=(0);
+self["@blockIndex"];
+} else {
+$1;
+};
+self["@blockIndex"]=_st(self["@blockIndex"]).__plus((1));
+$2=self["@blockIndex"];
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"nextBlockIndex",{},smalltalk.SemanticAnalyzer)})},
+messageSends: ["ifNil:", "+"]}),
+smalltalk.SemanticAnalyzer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "popScope",
 fn: function (){
 var self=this;
@@ -1147,6 +1197,7 @@ return smalltalk.withContext(function($ctx1) {
 self._pushScope_(self._newBlockScope());
 _st(aNode)._scope_(self["@currentScope"]);
 _st(self["@currentScope"])._node_(aNode);
+_st(self["@currentScope"])._blockIndex_(self._nextBlockIndex());
 _st(_st(aNode)._parameters())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 self._validateVariableScope_(each);
@@ -1155,7 +1206,7 @@ return _st(self["@currentScope"])._addArg_(each);
 smalltalk.NodeVisitor.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
 self._popScope();
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
-messageSends: ["pushScope:", "newBlockScope", "scope:", "node:", "do:", "parameters", "validateVariableScope:", "addArg:", "visitBlockNode:", "popScope"]}),
+messageSends: ["pushScope:", "newBlockScope", "scope:", "node:", "blockIndex:", "nextBlockIndex", "do:", "parameters", "validateVariableScope:", "addArg:", "visitBlockNode:", "popScope"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(

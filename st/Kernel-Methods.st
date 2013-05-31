@@ -564,6 +564,10 @@ home
 	<return self.homeContext>
 !
 
+index
+	<return self.index || 0>
+!
+
 locals
 	<return self.locals || {}>
 !

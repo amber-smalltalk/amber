@@ -1076,7 +1076,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll: anIRClosure scope outerScope alias, ')})'
+		nextPutAll: anIRClosure scope outerScope alias, ',', anIRClosure scope blockIndex asString, ')})'
 !
 
 nextPutClassRefFunction: aString

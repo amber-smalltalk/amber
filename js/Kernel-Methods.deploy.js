@@ -1096,6 +1096,17 @@ smalltalk.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "index",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.index || 0;
+return self}, function($ctx1) {$ctx1.fill(self,"index",{},smalltalk.MethodContext)})},
+messageSends: []}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isBlockContext",
 fn: function (){
 var self=this;

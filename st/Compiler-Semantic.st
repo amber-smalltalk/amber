@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Semantic'!
 Object subclass: #LexicalScope
-	instanceVariableNames: 'node instruction temps args outerScope'
+	instanceVariableNames: 'node instruction temps args outerScope blockIndex'
 	package: 'Compiler-Semantic'!
 !LexicalScope commentStamp!
 I represent a lexical scope where variable names are associated with ScopeVars
@@ -27,6 +27,14 @@ bindingFor: aStringOrNode
 	^ self pseudoVars at: aStringOrNode value ifAbsent: [
 		self args at: aStringOrNode value ifAbsent: [
 			self temps at: aStringOrNode value ifAbsent: [ nil ]]]
+!
+
+blockIndex
+	^ blockIndex ifNil: [ 0 ]
+!
+
+blockIndex: anInteger 
+	blockIndex := anInteger
 !
 
 instruction
@@ -380,7 +388,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope theClass classReferences messageSends superSends'
+	instanceVariableNames: 'currentScope theClass classReferences messageSends superSends blockIndex'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -452,6 +460,15 @@ newScopeOfClass: aLexicalScopeClass
 		yourself
 ! !
 
+!SemanticAnalyzer methodsFor: 'private'!
+
+nextBlockIndex
+	blockIndex ifNil: [ blockIndex := 0 ].
+	
+	blockIndex := blockIndex + 1.
+	^ blockIndex
+! !
+
 !SemanticAnalyzer methodsFor: 'scope'!
 
 popScope
@@ -488,6 +505,7 @@ visitBlockNode: aNode
 	self pushScope: self newBlockScope.
 	aNode scope: currentScope.
 	currentScope node: aNode.
+	currentScope blockIndex: self nextBlockIndex.
 	
 	aNode parameters do: [ :each |
 		self validateVariableScope: each.

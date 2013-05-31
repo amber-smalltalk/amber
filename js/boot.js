@@ -556,10 +556,10 @@ function Smalltalk() {
 		}
 	};
 
-	st.withContext = function(worker, setup, index) {
+	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
             st.thisContext.pc++;
-			return inContext(worker, setup, index);
+			return inContext(worker, setup);
 		} else {
 			try {
 				return inContext(worker, setup);
@@ -582,9 +582,8 @@ function Smalltalk() {
 		}
 	};
 
-	function inContext(worker, setup, index) {
+	function inContext(worker, setup) {
 		var context = pushContext(setup);
-        context.index = index || 0;
 		var result = worker(context);
 		popContext(context);
 		return result;
@@ -793,9 +792,10 @@ SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, loo
 	this.lookupClass = lookupClass;
 };
 
-SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
+SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx, index) {
 	this.locals        = locals || {};
 	this.outerContext  = ctx;
+    this.index         = index || 0;
 };
 
 SmalltalkMethodContext.prototype.init = function() {

@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-Semantic');
-smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
+smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
 smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -121,6 +121,45 @@ return $1;
 args: ["aStringOrNode"],
 source: "bindingFor: aStringOrNode\x0a\x09^ self pseudoVars at: aStringOrNode value ifAbsent: [\x0a\x09\x09self args at: aStringOrNode value ifAbsent: [\x0a\x09\x09\x09self temps at: aStringOrNode value ifAbsent: [ nil ]]]",
 messageSends: ["at:ifAbsent:", "pseudoVars", "value", "args", "temps"],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blockIndex",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@blockIndex"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=(0);
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"blockIndex",{},smalltalk.LexicalScope)})},
+args: [],
+source: "blockIndex\x0a\x09^ blockIndex ifNil: [ 0 ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LexicalScope);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blockIndex:",
+category: 'accessing',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@blockIndex"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"blockIndex:",{anInteger:anInteger},smalltalk.LexicalScope)})},
+args: ["anInteger"],
+source: "blockIndex: anInteger \x0a\x09blockIndex := anInteger",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -1213,7 +1252,7 @@ smalltalk.UnknownVar);
 
 
 
-smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends'], 'Compiler-Semantic');
+smalltalk.addClass('SemanticAnalyzer', smalltalk.NodeVisitor, ['currentScope', 'theClass', 'classReferences', 'messageSends', 'superSends', 'blockIndex'], 'Compiler-Semantic');
 smalltalk.SemanticAnalyzer.comment="I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1393,6 +1432,32 @@ smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "nextBlockIndex",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@blockIndex"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@blockIndex"]=(0);
+self["@blockIndex"];
+} else {
+$1;
+};
+self["@blockIndex"]=_st(self["@blockIndex"]).__plus((1));
+$2=self["@blockIndex"];
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"nextBlockIndex",{},smalltalk.SemanticAnalyzer)})},
+args: [],
+source: "nextBlockIndex\x0a\x09blockIndex ifNil: [ blockIndex := 0 ].\x0a\x09\x0a\x09blockIndex := blockIndex + 1.\x0a\x09^ blockIndex",
+messageSends: ["ifNil:", "+"],
+referencedClasses: []
+}),
+smalltalk.SemanticAnalyzer);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "popScope",
 category: 'scope',
 fn: function (){
@@ -1539,6 +1604,7 @@ return smalltalk.withContext(function($ctx1) {
 self._pushScope_(self._newBlockScope());
 _st(aNode)._scope_(self["@currentScope"]);
 _st(self["@currentScope"])._node_(aNode);
+_st(self["@currentScope"])._blockIndex_(self._nextBlockIndex());
 _st(_st(aNode)._parameters())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 self._validateVariableScope_(each);
@@ -1548,8 +1614,8 @@ smalltalk.NodeVisitor.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
 self._popScope();
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09self pushScope: self newBlockScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x09\x0a\x09aNode parameters do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitBlockNode: aNode.\x0a\x09self popScope",
-messageSends: ["pushScope:", "newBlockScope", "scope:", "node:", "do:", "parameters", "validateVariableScope:", "addArg:", "visitBlockNode:", "popScope"],
+source: "visitBlockNode: aNode\x0a\x09self pushScope: self newBlockScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x09currentScope blockIndex: self nextBlockIndex.\x0a\x09\x0a\x09aNode parameters do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitBlockNode: aNode.\x0a\x09self popScope",
+messageSends: ["pushScope:", "newBlockScope", "scope:", "node:", "blockIndex:", "nextBlockIndex", "do:", "parameters", "validateVariableScope:", "addArg:", "visitBlockNode:", "popScope"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);

@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
 Object subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext homeContext pc locals method ast interpreter methodContext homeMethodContext'
+	instanceVariableNames: 'outerContext innerContext pc locals method index ast interpreter methodContext'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -10,16 +10,8 @@ When debugging, my instances are created by copying the current `MethodContext` 
 
 !AIContext methodsFor: 'accessing'!
 
-home
-	^ self homeContext
-!
-
-homeContext
-	^ homeContext ifNil: [ homeContext := homeMethodContext aiContext ]
-!
-
-homeContext: aContext
-	homeContext := aContext
+index
+	^ index ifNil: [ 0 ]
 !
 
 innerContext
@@ -82,11 +74,13 @@ initializeAST
 
 initializeFromMethodContext: aMethodContext
 	methodContext := aMethodContext.
-	homeMethodContext := aMethodContext home.
 
-	self pc: aMethodContext pc.
-	self receiver: aMethodContext receiver.
-	self method: aMethodContext method.
+	self 
+		pc: aMethodContext pc;
+		index: aMethodContext index;
+		receiver: aMethodContext receiver;
+		method: aMethodContext method.
+		
 	aMethodContext outerContext ifNotNil: [ :outer |
 		"If the method context is nil, the block was defined in JS, so ignore it"
 		outer methodContext ifNotNil: [
@@ -117,6 +111,8 @@ arguments
 !
 
 ast
+	self isBlockContext ifTrue: [ ^ self outerContext ast ].
+
 	ast ifNil: [ self initializeAST ].
 	^ ast
 !
@@ -673,6 +669,9 @@ useInlinings: aBoolean
 
 !ASTPCNodeVisitor methodsFor: 'visiting'!
 
+visitBlockNode: aNode
+!
+
 visitJSStatementNode: aNode
 	currentNode := aNode
 !
@@ -980,13 +979,6 @@ visitVariableNode: aNode
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
-! !
-
-!MethodContext methodsFor: '*Compiler-Interpreter'!
-
-aiContext
-	^ (self basicAt: 'aiContext') ifNil: [
-		self basicAt: 'aiContext' put: (AIContext fromMethodContext: self) ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!
