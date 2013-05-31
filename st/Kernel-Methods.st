@@ -49,7 +49,7 @@ whileFalse
 
 whileFalse: aBlock
 	"inlined in the Compiler"
-	<while(!!self()) {aBlock._value()}>
+	<while(!!smalltalk.assert(self._value())) {aBlock._value()}>
 !
 
 whileTrue
@@ -59,7 +59,7 @@ whileTrue
 
 whileTrue: aBlock
 	"inlined in the Compiler"
-	<while(self()) {aBlock._value()}>
+	<while(smalltalk.assert(self._value())) {aBlock._value()}>
 ! !
 
 !BlockClosure methodsFor: 'converting'!
@@ -103,7 +103,7 @@ applyTo: anObject arguments: aCollection
 !
 
 ensure: aBlock
-	<try{return self()}finally{aBlock._value()}>
+	<try{return self._value()}finally{aBlock._value()}>
 !
 
 new

@@ -1515,6 +1515,25 @@ smalltalk.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "bindKeyDown:up:",
+category: 'keybindings',
+fn: function (keyDownBlock,keyUpBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self._wrapper())._asJQuery();
+_st($1)._keydown_(keyDownBlock);
+$2=_st($1)._keyup_(keyUpBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"bindKeyDown:up:",{keyDownBlock:keyDownBlock,keyUpBlock:keyUpBlock},smalltalk.HLWidget)})},
+args: ["keyDownBlock", "keyUpBlock"],
+source: "bindKeyDown: keyDownBlock up: keyUpBlock\x0a\x09self wrapper asJQuery\x0a\x09\x09keydown: keyDownBlock;\x0a\x09\x09keyup: keyUpBlock ",
+messageSends: ["keydown:", "asJQuery", "wrapper", "keyup:"],
+referencedClasses: []
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "canHaveFocus",
 category: 'testing',
 fn: function (){
@@ -1748,6 +1767,25 @@ smalltalk.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "unbindKeyDownUp",
+category: 'keybindings',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(self._wrapper())._asJQuery();
+_st($1)._unbind_("keydown");
+$2=_st($1)._unbind_("keyup");
+return self}, function($ctx1) {$ctx1.fill(self,"unbindKeyDownUp",{},smalltalk.HLWidget)})},
+args: [],
+source: "unbindKeyDownUp\x0a\x09self wrapper asJQuery\x0a\x09\x09unbind: 'keydown';\x0a\x09\x09unbind: 'keyup'",
+messageSends: ["unbind:", "asJQuery", "wrapper"],
+referencedClasses: []
+}),
+smalltalk.HLWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "unregister",
 category: 'actions',
 fn: function (){
@@ -1932,20 +1970,20 @@ smalltalk.HLFocusableWidget);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "hasFocus",
-category: 'events',
+category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(_st(self._wrapper())._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._wrapper())._asJQuery())._is_(":focus");
+return _st(_st(self._wrapper())._asJQuery())._hasClass_(self._focusClass());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"hasFocus",{},smalltalk.HLFocusableWidget)})},
 args: [],
-source: "hasFocus\x0a\x09^ self wrapper notNil and: [ self wrapper asJQuery is: ':focus' ]",
-messageSends: ["and:", "is:", "asJQuery", "wrapper", "notNil"],
+source: "hasFocus\x0a\x09^ self wrapper notNil and: [ self wrapper asJQuery hasClass: self focusClass ]",
+messageSends: ["and:", "hasClass:", "focusClass", "asJQuery", "wrapper", "notNil"],
 referencedClasses: []
 }),
 smalltalk.HLFocusableWidget);
@@ -2512,112 +2550,24 @@ selector: "setupKeyBindings",
 category: 'events',
 fn: function (){
 var self=this;
-var active,interval,delay,repeatInterval;
+function $HLRepeatingKeyBindingHandler(){return smalltalk.HLRepeatingKeyBindingHandler||(typeof HLRepeatingKeyBindingHandler=="undefined"?nil:HLRepeatingKeyBindingHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
-active=false;
-repeatInterval=(70);
-_st(_st(self._wrapper())._asJQuery())._unbind_("keydown");
-_st(_st(self._wrapper())._asJQuery())._keydown_((function(e){
+var $1,$2;
+$1=_st($HLRepeatingKeyBindingHandler())._forWidget_(self);
+_st($1)._whileKeyPressed_do_((38),(function(){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(_st(e)._which()).__eq((38)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(active).__eq(false);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-if(smalltalk.assert($1)){
-active=true;
-active;
-self._activatePreviousListItem();
-delay=_st((function(){
-return smalltalk.withContext(function($ctx3) {
-interval=_st((function(){
-return smalltalk.withContext(function($ctx4) {
-$2=_st(_st(self._wrapper())._asJQuery())._hasClass_(self._focusClass());
-if(smalltalk.assert($2)){
 return self._activatePreviousListItem();
-} else {
-active=false;
-active;
-$3=interval;
-if(($receiver = $3) == nil || $receiver == undefined){
-$3;
-} else {
-_st(interval)._clearInterval();
-};
-$4=delay;
-if(($receiver = $4) == nil || $receiver == undefined){
-return $4;
-} else {
-return _st(delay)._clearTimeout();
-};
-};
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}))._valueWithInterval_(repeatInterval);
-return interval;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
-delay;
-};
-$5=_st(_st(_st(e)._which()).__eq((40)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(active).__eq(false);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-if(smalltalk.assert($5)){
-active=true;
-active;
-self._activateNextListItem();
-delay=_st((function(){
-return smalltalk.withContext(function($ctx3) {
-interval=_st((function(){
-return smalltalk.withContext(function($ctx4) {
-$6=_st(_st(self._wrapper())._asJQuery())._hasClass_(self._focusClass());
-if(smalltalk.assert($6)){
-return self._activateNextListItem();
-} else {
-active=false;
-active;
-$7=interval;
-if(($receiver = $7) == nil || $receiver == undefined){
-$7;
-} else {
-_st(interval)._clearInterval();
-};
-$8=delay;
-if(($receiver = $8) == nil || $receiver == undefined){
-return $8;
-} else {
-return _st(delay)._clearTimeout();
-};
-};
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}))._valueWithInterval_(repeatInterval);
-return interval;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._valueWithTimeout_((300));
-return delay;
-};
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-_st(_st(self._wrapper())._asJQuery())._keyup_((function(e){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st($1)._whileKeyPressed_do_((40),(function(){
 return smalltalk.withContext(function($ctx2) {
-$9=active;
-if(smalltalk.assert($9)){
-active=false;
-active;
-$10=interval;
-if(($receiver = $10) == nil || $receiver == undefined){
-$10;
-} else {
-_st(interval)._clearInterval();
-};
-$11=delay;
-if(($receiver = $11) == nil || $receiver == undefined){
-return $11;
-} else {
-return _st(delay)._clearTimeout();
-};
-};
-}, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{active:active,interval:interval,delay:delay,repeatInterval:repeatInterval},smalltalk.HLListWidget)})},
+return self._activateNextListItem();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$2=_st($1)._rebindKeys();
+return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLListWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09\x22TODO: refactor this!\x22\x0a\x09\x0a\x09| active interval delay repeatInterval |\x0a\x09\x0a\x09active := false.\x0a\x09repeatInterval := 70.\x0a\x09self wrapper asJQuery unbind: 'keydown'.\x0a\x0a\x09self wrapper asJQuery keydown: [ :e |\x0a\x09\x09\x0a        (e which = 38 and: [ active = false ]) ifTrue: [ \x0a\x09\x09\x09active := true.\x0a\x09\x09\x09self activatePreviousListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [\x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activatePreviousListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ].\x0a\x09\x09\x09\x0a      \x09(e which = 40 and: [ active = false ]) ifTrue: [\x0a            active := true.\x0a\x09\x09\x09self activateNextListItem.\x0a        \x09delay := [\x0a\x09\x09\x09\x09interval := [ \x0a\x09\x09\x09\x09\x09(self wrapper asJQuery hasClass: self focusClass)\x0a\x09\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09\x09self activateNextListItem ]\x0a\x09\x09\x09\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09\x09\x09\x09active := false.\x0a\x09\x09\x09\x09\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09\x09\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]\x0a\x09\x09\x09\x09\x09valueWithInterval: repeatInterval ]\x0a\x09\x09\x09\x09\x09\x09valueWithTimeout: 300 ] ].\x0a\x09\x0a\x09self wrapper asJQuery keyup: [ :e |\x0a\x09\x09active ifTrue: [\x0a\x09\x09\x09active := false.\x0a\x09\x09\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09\x09\x09delay ifNotNil: [ delay clearTimeout] ] ]",
-messageSends: ["unbind:", "asJQuery", "wrapper", "keydown:", "ifTrue:", "activatePreviousListItem", "valueWithTimeout:", "valueWithInterval:", "ifTrue:ifFalse:", "ifNotNil:", "clearInterval", "clearTimeout", "hasClass:", "focusClass", "and:", "=", "which", "activateNextListItem", "keyup:"],
-referencedClasses: []
+source: "setupKeyBindings \x0a\x09(HLRepeatingKeyBindingHandler forWidget: self)\x0a\x09\x09whileKeyPressed: 38 do: [ self activatePreviousListItem ];\x0a\x09\x09whileKeyPressed: 40 do: [ self activateNextListItem ];\x0a\x09\x09rebindKeys",
+messageSends: ["whileKeyPressed:do:", "activatePreviousListItem", "forWidget:", "activateNextListItem", "rebindKeys"],
+referencedClasses: ["HLRepeatingKeyBindingHandler"]
 }),
 smalltalk.HLListWidget);
 

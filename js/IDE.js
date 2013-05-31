@@ -785,7 +785,7 @@ _st(start)._at_put_("ch",_st(_st(self["@editor"])._getCursor_(false))._ch());
 _st(_st(self["@editor"])._getSelection())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(start)._at_put_("ch",_st(_st(self["@editor"])._getLine_(currentLine))._size());
-return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._fromPairs_(["line".__minus_gt(currentLine),"ch".__minus_gt((0))]),start);
+return _st(self["@editor"])._setSelection_end_(smalltalk.HashedCollection._from_(["line".__minus_gt(currentLine),"ch".__minus_gt((0))]),start);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 stop=_st($HashedCollection())._new();
 _st(stop)._at_put_("line",currentLine);

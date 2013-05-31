@@ -9,7 +9,8 @@ module.exports = function(grunt) {
      amberc: {
        _config: {
          amber_dir: process.cwd(),     // REQUIRED
-         closure_jar: ''               // optional
+         closure_jar: '',              // optional
+         verbose: true                 // optional
        },
        helloWorld: {
          src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
@@ -21,25 +22,31 @@ module.exports = function(grunt) {
          main_file: 'myMain.js',               // optional
          deploy: true,                         // optional
          output_suffix: 'mySuffix',            // optional
-         library_suffix: '-0.9',               // optional
-         verbose: true                         // optional
+         library_suffix: '-0.9'               // optional
        },
      },
 
    */
   grunt.registerMultiTask('amberc', 'Compile Smalltalk files with the amberc compiler', function() {
     // mark required properties
-    this.requiresConfig('amberc._config.amber_dir');
+    this.requiresConfig('amberc.options.amber_dir');
     this.requiresConfig(['amberc', this.target, 'src']);
+
+    var options = this.options({
+      amber_dir: undefined,
+      closure_jar: '',
+      verbose: false
+    });
+    this.data.verbose = options.verbose;
 
     // mark task as async task
     var done = this.async();
 
     // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc._config.amber_dir'), grunt.config('amberc._config.closure_jar'));
+    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'), grunt.config('amberc.options.closure_jar'));
 
     // generate the amberc configuration out of the given target properties
-    var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc._config.amber_dir'));
+    var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
 
     // run the compiler
     // change back to the old working directory and call the async callback once finished
@@ -68,7 +75,7 @@ module.exports = function(grunt) {
       configuration.main = mainClass;
     }
     var mainFile = data.main_file;
-    if (undefined !== initFile) {
+    if (undefined !== mainFile) {
       configuration.mainfile = mainFile;
     }
     if (true === data.deploy) {
@@ -103,11 +110,9 @@ module.exports = function(grunt) {
       configuration.program = outputName;
     }
     if (undefined !== data.output_dir) {
-    	configuration.output_dir = data.output_dir;
+      configuration.output_dir = data.output_dir;
     }
-    if (true === data.verbose) {
-    	configuration.verbose = true;
-    }
+    configuration.verbose = data.verbose;
     return configuration;
   }
 };

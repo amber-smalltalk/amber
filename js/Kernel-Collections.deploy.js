@@ -879,10 +879,10 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Dictionary())._fromPairs_(self._associations());
+$1=_st($Dictionary())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.HashedCollection)})},
-messageSends: ["fromPairs:", "associations"]}),
+messageSends: ["from:", "associations"]}),
 smalltalk.HashedCollection);
 
 smalltalk.addMethod(
@@ -1313,21 +1313,57 @@ smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "from:",
+fn: function (aCollection){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newCollection=self._new();
+_st(aCollection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._add_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=newCollection;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
+messageSends: ["new", "do:", "add:"]}),
+smalltalk.HashedCollection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fromPairs:",
 fn: function (aCollection){
 var self=this;
-var dict;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-dict=self._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(dict)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=dict;
+$1=self._from_(aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection,dict:dict},smalltalk.HashedCollection.klass)})},
-messageSends: ["new", "do:", "add:"]}),
+}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},smalltalk.HashedCollection.klass)})},
+messageSends: ["from:"]}),
+smalltalk.HashedCollection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newFromPairs:",
+fn: function (aCollection){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(aCollection)._size())._even();
+if(! smalltalk.assert($1)){
+self._error_("#newFromPairs only accepts arrays of an even length");
+};
+newCollection=self._new();
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._at_put_(_st(aCollection)._at_(each),_st(aCollection)._at_(_st(each).__plus((1))));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$2=newCollection;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
+messageSends: ["ifFalse:", "error:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"]}),
 smalltalk.HashedCollection.klass);
 
 
@@ -1340,10 +1376,10 @@ var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HashedCollection())._fromPairs_(self._associations());
+$1=_st($HashedCollection())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
-messageSends: ["fromPairs:", "associations"]}),
+messageSends: ["from:", "associations"]}),
 smalltalk.Dictionary);
 
 smalltalk.addMethod(

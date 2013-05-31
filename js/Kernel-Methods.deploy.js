@@ -56,7 +56,7 @@ selector: "ensure:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-try{return self()}finally{aBlock._value()};
+try{return self._value()}finally{aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"ensure:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
@@ -302,7 +302,7 @@ selector: "whileFalse:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-while(!self()) {aBlock._value()};
+while(!smalltalk.assert(self._value())) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
@@ -326,7 +326,7 @@ selector: "whileTrue:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-while(self()) {aBlock._value()};
+while(smalltalk.assert(self._value())) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);

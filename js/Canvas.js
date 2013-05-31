@@ -2308,7 +2308,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@snippets"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@snippets"]=smalltalk.HashedCollection._fromPairs_([]);
+self["@snippets"]=smalltalk.HashedCollection._from_([]);
 $1=self["@snippets"];
 } else {
 $1=$2;

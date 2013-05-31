@@ -73,7 +73,15 @@ serve: args
 main
 	"Main entry point for Amber applications.
 	Parses commandline arguments and starts the according subprogram."
-	| args |
+	| args nodeMinorVersion |
+
+	nodeMinorVersion := ((process version) tokenize: '.') second asNumber.
+	nodeMinorVersion < 8 ifTrue: [
+		console log: 'You are currently using Node.js ', (process version).
+		console log: 'Required is at least Node.js v0.8.x or greater.'.
+		^ -1.
+	].
+
 	args := process argv.
 	"Remove the first args which contain the path to the node executable and the script file."
 	args removeFrom: 1 to: 3.

@@ -1169,12 +1169,12 @@ var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($Dictionary())._fromPairs_(self._associations());
+$1=_st($Dictionary())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asDictionary",{},smalltalk.HashedCollection)})},
 args: [],
-source: "asDictionary\x0a\x09^Dictionary fromPairs: self associations",
-messageSends: ["fromPairs:", "associations"],
+source: "asDictionary\x0a\x09^Dictionary from: self associations",
+messageSends: ["from:", "associations"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.HashedCollection);
@@ -1742,24 +1742,70 @@ smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "from:",
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newCollection=self._new();
+_st(aCollection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._add_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$1=newCollection;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
+args: ["aCollection"],
+source: "from: aCollection\x0a\x09| newCollection |\x0a\x09newCollection := self new.\x0a\x09aCollection do: [ :each | newCollection add: each ].\x0a\x09^ newCollection",
+messageSends: ["new", "do:", "add:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fromPairs:",
 category: 'instance creation',
 fn: function (aCollection){
 var self=this;
-var dict;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-dict=self._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(dict)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=dict;
+$1=self._from_(aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection,dict:dict},smalltalk.HashedCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "fromPairs: aCollection\x0a\x09| dict |\x0a\x09dict := self new.\x0a\x09aCollection do: [:each | dict add: each].\x0a\x09^dict",
-messageSends: ["new", "do:", "add:"],
+source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #from:\x22\x0a\x09^ self from: aCollection",
+messageSends: ["from:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newFromPairs:",
+category: 'instance creation',
+fn: function (aCollection){
+var self=this;
+var newCollection;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(aCollection)._size())._even();
+if(! smalltalk.assert($1)){
+self._error_("#newFromPairs only accepts arrays of an even length");
+};
+newCollection=self._new();
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newCollection)._at_put_(_st(aCollection)._at_(each),_st(aCollection)._at_(_st(each).__plus((1))));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$2=newCollection;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
+args: ["aCollection"],
+source: "newFromPairs: aCollection\x0a\x09\x22Accept an array of elements where every two elements form an \x0a\x09association - the odd element being the key, and the even element the value.\x22\x0a\x09\x0a\x09| newCollection |\x0a\x09\x0a\x09aCollection size even ifFalse: [ \x0a\x09\x09self error: '#newFromPairs only accepts arrays of an even length' ].\x0a\x09\x09\x0a\x09newCollection := self new.\x0a\x09( 1 to: aCollection size by: 2 ) do: [ :each | \x0a\x09\x09newCollection at: (aCollection at: each) put: (aCollection at: each + 1) ].\x0a\x09\x09\x0a\x09^ newCollection",
+messageSends: ["ifFalse:", "error:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection.klass);
@@ -1776,12 +1822,12 @@ var self=this;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HashedCollection())._fromPairs_(self._associations());
+$1=_st($HashedCollection())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
 args: [],
-source: "asHashedCollection\x0a\x09^HashedCollection fromPairs: self associations",
-messageSends: ["fromPairs:", "associations"],
+source: "asHashedCollection\x0a\x09^HashedCollection from: self associations",
+messageSends: ["from:", "associations"],
 referencedClasses: ["HashedCollection"]
 }),
 smalltalk.Dictionary);

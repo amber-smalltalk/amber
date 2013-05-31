@@ -314,7 +314,7 @@ selector: "testDynamicDictionary",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._fromPairs_([(1).__minus_gt((1)),(2).__minus_gt((3))]));
+self._assert_equals_(self._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._from_([(1).__minus_gt((1)),(2).__minus_gt((3))]));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionary",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:", "->"]}),
 smalltalk.ASTInterpreterTest);
@@ -326,7 +326,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._assert_equals_(self._interpret_("foo <return 2+3>"),(5));
-self._assert_equals_(self._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_(["anInteger".__minus_gt((3))])),(5));
+self._assert_equals_(self._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._from_(["anInteger".__minus_gt((3))])),(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:", "interpret:withArguments:", "->"]}),
 smalltalk.ASTInterpreterTest);
@@ -337,7 +337,7 @@ selector: "testInstVarAccess",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ x",(2).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2));
+self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ x",(2).__at((3)),smalltalk.HashedCollection._from_([])),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAccess",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"]}),
 smalltalk.ASTInterpreterTest);
@@ -349,7 +349,7 @@ fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st($Point())._new(),smalltalk.HashedCollection._fromPairs_(["anInteger".__minus_gt((2))])),(2));
+self._assert_equals_(self._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st($Point())._new(),smalltalk.HashedCollection._from_(["anInteger".__minus_gt((2))])),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new", "->"]}),
 smalltalk.ASTInterpreterTest);
@@ -371,7 +371,7 @@ selector: "testReceiver",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ self",(2).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2).__at((3)));
+self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ self",(2).__at((3)),smalltalk.HashedCollection._from_([])),(2).__at((3)));
 return self}, function($ctx1) {$ctx1.fill(self,"testReceiver",{},smalltalk.ASTInterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "@"]}),
 smalltalk.ASTInterpreterTest);
@@ -889,7 +889,7 @@ selector: "testDynamicDictionaryElementsOrdered",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'->1.\x0a\x09^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_(["foo".__minus_gt((1)),"bar".__minus_gt((2))]));
+self._should_return_("foo\x0a\x09| x |\x0a\x09x := 'foo'->1.\x0a\x09^ #{ x. (true ifTrue: [ x := 'bar'->2 ]) }\x0a",smalltalk.HashedCollection._from_(["foo".__minus_gt((1)),"bar".__minus_gt((2))]));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaryElementsOrdered",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
@@ -904,7 +904,7 @@ return smalltalk.withContext(function($ctx1) {
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := Array.\x0a\x09^ x with: 'foo'->x with: 'bar'->(true ifTrue: [ x := 2 ])\x0a",["foo".__minus_gt($Array()),"bar".__minus_gt((2))]);
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ Array with: 'foo'->x with: 'bar'->(true ifTrue: [ x := 2 ])\x0a",["foo".__minus_gt((1)),"bar".__minus_gt((2))]);
 self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ { 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",["foo".__minus_gt((1)),"bar".__minus_gt((2))]);
-self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",smalltalk.HashedCollection._fromPairs_(["foo".__minus_gt((1)),"bar".__minus_gt((2))]));
+self._should_return_("foo\x0a\x09| x |\x0a\x09x := 1.\x0a\x09^ #{ 'foo'->x. 'bar'->(true ifTrue: [ x := 2 ]) }\x0a",smalltalk.HashedCollection._from_(["foo".__minus_gt((1)),"bar".__minus_gt((2))]));
 return self}, function($ctx1) {$ctx1.fill(self,"testInnerTemporalDependentElementsOrdered",{},smalltalk.CodeGeneratorTest)})},
 messageSends: ["should:return:", "->"]}),
 smalltalk.CodeGeneratorTest);
@@ -921,7 +921,7 @@ self._should_return_("foo ^ #(1 2 3 4)",[(1), (2), (3), (4)]);
 self._should_return_("foo ^ {1. [:x | x ] value: 2. 3. [4] value}",[(1), (2), (3), (4)]);
 self._should_return_("foo ^ true",true);
 self._should_return_("foo ^ false",false);
-self._should_return_("foo ^ #{1->2. 3->4}",smalltalk.HashedCollection._fromPairs_([(1).__minus_gt((2)),(3).__minus_gt((4))]));
+self._should_return_("foo ^ #{1->2. 3->4}",smalltalk.HashedCollection._from_([(1).__minus_gt((2)),(3).__minus_gt((4))]));
 self._should_return_("foo ^ #hello","hello");
 self._should_return_("foo ^ -123.456",(-123.456));
 return self}, function($ctx1) {$ctx1.fill(self,"testLiterals",{},smalltalk.CodeGeneratorTest)})},

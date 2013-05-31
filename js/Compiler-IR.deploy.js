@@ -2062,7 +2062,7 @@ selector: "visitIRDynamicDictionary:",
 fn: function (anIRDynamicDictionary){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._stream())._nextPutAll_("smalltalk.HashedCollection._fromPairs_([");
+_st(self._stream())._nextPutAll_("smalltalk.HashedCollection._from_([");
 _st(_st(anIRDynamicDictionary)._instructions())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._visit_(each);

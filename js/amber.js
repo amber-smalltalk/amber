@@ -21,12 +21,12 @@ amber = (function() {
 	var loadJS;
 	var nocache = '';
 
-    function resolveViaDOM(url) {
-        var a = document.createElement("a");
-        a.href = url;
-        return a.href;
-    }
-
+	function resolveViaDOM(url) {
+		var a = document.createElement("a");
+		a.href = url;
+		return a.href;
+	}
+	
 	that.load = function(obj) {
 		spec = obj || {};
 
@@ -38,7 +38,7 @@ amber = (function() {
 		// When debug is turned on, logs are written to the console,
 		// and the user will be prompted before they leave the page.
 		if (debug) {
-			window.onbeforeunload = function(){ return 'You will loose all code that you have not committed'; }
+			window.onbeforeunload = function(){ return 'You will loose all code that you have not committed'; };
 		}
 
 		// Allow loading default Amber files from a different location
@@ -207,13 +207,13 @@ amber = (function() {
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk() {
 		that.smalltalkReady = function() {
-            if (spec.ready) {
-                spec.ready();
-            }
-            evaluateSmalltalkScripts();
-        };
+			if (spec.ready) {
+				spec.ready();
+			}
+			evaluateSmalltalkScripts();
+		};
 
-        loadAllJS();
+		loadAllJS();
 	}
 
 	/*
@@ -268,7 +268,7 @@ amber = (function() {
 			jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
 				smalltalk.Compiler._new()._evaluateExpression_(jQuery(elt).html());
 			});
-		})
+		});
 	}
 
 	var localPackages;
@@ -304,37 +304,36 @@ amber = (function() {
 	}
 
 	that.loadHelios = function() {
-        loadCSS('helios_frame.css');
-        var frame = jQuery('<div id="helios"><iframe frameborder=0 src="' + home + 'helios.html"></iframe></div>');
-
-        jQuery('body').append(frame);
-        jQuery(frame).resizable({
-            handles: 'n',
-            start: onResizeStart,
-            stop: onResizeStop,
-            resize: onResize,
-            
-        });
-
-        function onResize() {
-            jQuery('#helios')
-                .css('top', '')
-                .css('width', '100%')
-                .css('bottom', '0px');
-        }
-
-        function onResizeStart() {
-            jQuery('#helios').append('<div class="overlay"></div>')
-        }
-
-        function onResizeStop() {
-            jQuery('#helios').find('.overlay').remove();
-        }
-    };
+		loadCSS('helios_frame.css');
+		var frame = jQuery('<div id="helios"><iframe frameborder=0 src="' + home + 'helios.html"></iframe></div>');
+	
+		jQuery('body').append(frame);
+		jQuery(frame).resizable({
+			handles: 'n',
+			start: onResizeStart,
+			stop: onResizeStop,
+			resize: onResize
+		});
+	
+		function onResize() {
+			jQuery('#helios')
+				.css('top', '')
+				.css('width', '100%')
+				.css('bottom', '0px');
+		}
+	
+		function onResizeStart() {
+			jQuery('#helios').append('<div class="overlay"></div>');
+		}
+	
+		function onResizeStop() {
+			jQuery('#helios').find('.overlay').remove();
+		}
+	};
 
 	that.popupHelios = function() {
-        window.open(home + 'helios.html', "Helios", "menubar=no, status=no, scrollbars=no, menubar=no, width=1000, height=600");
-    };
+		window.open(home + 'helios.html', "Helios", "menubar=no, status=no, scrollbars=no, menubar=no, width=1000, height=600");
+	};
 
 	return that;
 })();
@@ -345,5 +344,5 @@ window.popupHelios = amber.popupHelios;
 
 // Backward compatibility
 function toggleAmberIDE () {
-    return smalltalk.TabManager._toggleAmberIDE();
+	return smalltalk.TabManager._toggleAmberIDE();
 }
