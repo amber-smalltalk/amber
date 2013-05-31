@@ -1335,19 +1335,12 @@ smalltalk.method({
 selector: "fromPairs:",
 fn: function (aCollection){
 var self=this;
-var dict;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-self._deprecatedAPI();
-dict=self._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(dict)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=dict;
+$1=self._from_(aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection,dict:dict},smalltalk.HashedCollection.klass)})},
-messageSends: ["deprecatedAPI", "new", "do:", "add:"]}),
+}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},smalltalk.HashedCollection.klass)})},
+messageSends: ["from:"]}),
 smalltalk.HashedCollection.klass);
 
 smalltalk.addMethod(
@@ -1363,10 +1356,10 @@ if(! smalltalk.assert($1)){
 self._error_("#newFromPairs only accepts arrays of an even length");
 };
 newCollection=self._new();
-_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(keyIndex){
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(newCollection)._at_put_(_st(aCollection)._at_(keyIndex),_st(aCollection)._at_(_st(keyIndex).__plus((1))));
-}, function($ctx2) {$ctx2.fillBlock({keyIndex:keyIndex},$ctx1)})}));
+return _st(newCollection)._at_put_(_st(aCollection)._at_(each),_st(aCollection)._at_(_st(each).__plus((1))));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=newCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},

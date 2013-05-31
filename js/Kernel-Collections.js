@@ -1758,7 +1758,7 @@ $1=newCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "from: aCollection\x0a| newCollection |\x0anewCollection := self new.\x0aaCollection do: [:each | newCollection add: each].\x0a^ newCollection.",
+source: "from: aCollection\x0a\x09| newCollection |\x0a\x09newCollection := self new.\x0a\x09aCollection do: [ :each | newCollection add: each ].\x0a\x09^ newCollection",
 messageSends: ["new", "do:", "add:"],
 referencedClasses: []
 }),
@@ -1770,21 +1770,14 @@ selector: "fromPairs:",
 category: 'instance creation',
 fn: function (aCollection){
 var self=this;
-var dict;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-self._deprecatedAPI();
-dict=self._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(dict)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=dict;
+$1=self._from_(aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection,dict:dict},smalltalk.HashedCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #from:\x22\x0a\x09| dict |\x0a\x09self deprecatedAPI.\x0a\x09dict := self new.\x0a\x09aCollection do: [:each | dict add: each].\x0a\x09^dict",
-messageSends: ["deprecatedAPI", "new", "do:", "add:"],
+source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #from:\x22\x0a\x09^ self from: aCollection",
+messageSends: ["from:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection.klass);
@@ -1803,15 +1796,15 @@ if(! smalltalk.assert($1)){
 self._error_("#newFromPairs only accepts arrays of an even length");
 };
 newCollection=self._new();
-_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(keyIndex){
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(newCollection)._at_put_(_st(aCollection)._at_(keyIndex),_st(aCollection)._at_(_st(keyIndex).__plus((1))));
-}, function($ctx2) {$ctx2.fillBlock({keyIndex:keyIndex},$ctx1)})}));
+return _st(newCollection)._at_put_(_st(aCollection)._at_(each),_st(aCollection)._at_(_st(each).__plus((1))));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=newCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "newFromPairs: aCollection\x0a\x22Accept an array of elements where every two elements form an association - the odd element being the key, and the even element the value.\x22\x0a| newCollection |\x0aaCollection size even ifFalse: [ self error: '#newFromPairs only accepts arrays of an even length' ].\x0anewCollection := self new.\x0a( 1 to: aCollection size by: 2 ) do: [ :keyIndex | newCollection at: ( aCollection at: keyIndex ) put: ( aCollection at: keyIndex + 1 ) ].\x0a^ newCollection.",
+source: "newFromPairs: aCollection\x0a\x09\x22Accept an array of elements where every two elements form an \x0a\x09association - the odd element being the key, and the even element the value.\x22\x0a\x09\x0a\x09| newCollection |\x0a\x09\x0a\x09aCollection size even ifFalse: [ \x0a\x09\x09self error: '#newFromPairs only accepts arrays of an even length' ].\x0a\x09\x09\x0a\x09newCollection := self new.\x0a\x09( 1 to: aCollection size by: 2 ) do: [ :each | \x0a\x09\x09newCollection at: (aCollection at: each) put: (aCollection at: each + 1) ].\x0a\x09\x09\x0a\x09^ newCollection",
 messageSends: ["ifFalse:", "error:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"],
 referencedClasses: []
 }),
