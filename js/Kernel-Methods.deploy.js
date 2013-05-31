@@ -1148,17 +1148,17 @@ if(! smalltalk.assert($1)){
 $2=self;
 return $2;
 };
-$4=self._home();
+$4=self._outerContext();
 if(($receiver = $4) == nil || $receiver == undefined){
 $3=$4;
 } else {
-var home;
-home=$receiver;
-$3=_st(home)._methodContext();
+var outer;
+outer=$receiver;
+$3=_st(outer)._methodContext();
 };
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.MethodContext)})},
-messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "methodContext", "home"]}),
+messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "outerContext", "methodContext"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(

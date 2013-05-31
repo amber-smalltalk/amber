@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
-NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals method ast interpreter methodContext'
+Object subclass: #AIContext
+	instanceVariableNames: 'outerContext innerContext homeContext pc locals method ast interpreter methodContext homeMethodContext'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -11,9 +11,15 @@ When debugging, my instances are created by copying the current `MethodContext` 
 !AIContext methodsFor: 'accessing'!
 
 home
-	^ self isBlockContext 
-		ifTrue: [ self outerContext methodContext ]
-		ifFalse: [ self ]
+	^ self homeContext
+!
+
+homeContext
+	^ homeContext ifNil: [ homeContext := homeMethodContext aiContext ]
+!
+
+homeContext: aContext
+	homeContext := aContext
 !
 
 innerContext
@@ -76,7 +82,8 @@ initializeAST
 
 initializeFromMethodContext: aMethodContext
 	methodContext := aMethodContext.
-	
+	homeMethodContext := aMethodContext home.
+
 	self pc: aMethodContext pc.
 	self receiver: aMethodContext receiver.
 	self method: aMethodContext method.
@@ -973,6 +980,13 @@ visitVariableNode: aNode
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
+! !
+
+!MethodContext methodsFor: '*Compiler-Interpreter'!
+
+aiContext
+	^ (self basicAt: 'aiContext') ifNil: [
+		self basicAt: 'aiContext' put: (AIContext fromMethodContext: self) ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!

@@ -314,7 +314,7 @@ initializeContexts
 !
 
 initializeFromContext: aMethodContext
-	rootContext := AIContext fromMethodContext: aMethodContext.
+	rootContext := aMethodContext aiContext.
 	self initializeContexts
 ! !
 

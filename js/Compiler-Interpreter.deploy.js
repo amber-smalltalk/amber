@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['outerContext', 'innerContext', 'pc', 'locals', 'method', 'ast', 'interpreter', 'methodContext'], 'Compiler-Interpreter');
+smalltalk.addClass('AIContext', smalltalk.Object, ['outerContext', 'innerContext', 'homeContext', 'pc', 'locals', 'method', 'ast', 'interpreter', 'methodContext', 'homeMethodContext'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -54,16 +54,41 @@ selector: "home",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._isBlockContext();
-if(smalltalk.assert($2)){
-$1=_st(self._outerContext())._methodContext();
-} else {
-$1=self;
-};
+var $1;
+$1=self._homeContext();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"home",{},smalltalk.AIContext)})},
-messageSends: ["ifTrue:ifFalse:", "methodContext", "outerContext", "isBlockContext"]}),
+messageSends: ["homeContext"]}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "homeContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@homeContext"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@homeContext"]=_st(self["@homeMethodContext"])._aiContext();
+$1=self["@homeContext"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"homeContext",{},smalltalk.AIContext)})},
+messageSends: ["ifNil:", "aiContext"]}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "homeContext:",
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@homeContext"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"homeContext:",{aContext:aContext},smalltalk.AIContext)})},
+messageSends: []}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -87,6 +112,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 self["@methodContext"]=aMethodContext;
+self["@homeMethodContext"]=_st(aMethodContext)._home();
 self._pc_(_st(aMethodContext)._pc());
 self._receiver_(_st(aMethodContext)._receiver());
 self._method_(_st(aMethodContext)._method());
@@ -108,7 +134,7 @@ return _st(self._locals())._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext)})},
-messageSends: ["pc:", "pc", "receiver:", "receiver", "method:", "method", "ifNotNil:", "outerContext:", "fromMethodContext:", "outerContext", "class", "methodContext", "keysAndValuesDo:", "at:put:", "locals"]}),
+messageSends: ["home", "pc:", "pc", "receiver:", "receiver", "method:", "method", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -129,7 +155,7 @@ if(! smalltalk.assert($3)){
 self._setupInterpreter_(self["@interpreter"]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},smalltalk.AIContext)})},
-messageSends: ["context:", "new", "node:", "retrieveNode", "yourself", "ifFalse:", "setupInterpreter:", "isBlockContext", "innerContext"]}),
+messageSends: ["context:", "new", "node:", "retrieveNode", "yourself", "ifFalse:", "isBlockContext", "innerContext", "setupInterpreter:"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -383,7 +409,7 @@ $1=_st(self._method())._selector();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.AIContext)})},
-messageSends: ["ifNotNil:", "selector", "method"]}),
+messageSends: ["ifNotNil:", "method", "selector"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -398,7 +424,7 @@ return _st(anInterpreter)._push_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(anInterpreter)._push_(_st(self._innerContext())._receiver());
 return self}, function($ctx1) {$ctx1.fill(self,"setupInterpreter:",{anInterpreter:anInterpreter},smalltalk.AIContext)})},
-messageSends: ["do:", "push:", "reversed", "arguments", "innerContext", "receiver"]}),
+messageSends: ["do:", "reversed", "arguments", "innerContext", "push:", "receiver"]}),
 smalltalk.AIContext);
 
 
@@ -2051,6 +2077,25 @@ messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "v
 smalltalk.Interpreter);
 
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "aiContext",
+fn: function (){
+var self=this;
+function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._basicAt_("aiContext");
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=self._basicAt_put_("aiContext",_st($AIContext())._fromMethodContext_(self));
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"aiContext",{},smalltalk.MethodContext)})},
+messageSends: ["ifNil:", "basicAt:", "basicAt:put:", "fromMethodContext:"]}),
+smalltalk.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({

@@ -576,8 +576,8 @@ method
 methodContext
 	self isBlockContext ifFalse: [ ^ self ].
 	
-	^ self home ifNotNil: [ :home |
-		home methodContext ]
+	^ self outerContext ifNotNil: [ :outer |
+		outer methodContext ]
 !
 
 outerContext

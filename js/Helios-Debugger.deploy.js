@@ -541,12 +541,11 @@ smalltalk.method({
 selector: "initializeFromContext:",
 fn: function (aMethodContext){
 var self=this;
-function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-self["@rootContext"]=_st($AIContext())._fromMethodContext_(aMethodContext);
+self["@rootContext"]=_st(aMethodContext)._aiContext();
 self._initializeContexts();
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromContext:",{aMethodContext:aMethodContext},smalltalk.HLDebuggerModel)})},
-messageSends: ["fromMethodContext:", "initializeContexts"]}),
+messageSends: ["aiContext", "initializeContexts"]}),
 smalltalk.HLDebuggerModel);
 
 smalltalk.addMethod(
