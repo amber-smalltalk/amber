@@ -50,13 +50,13 @@ if(typeof console === "undefined") {
 Array.prototype.addElement = function(el) {
 	if(typeof el === 'undefined') { return; }
 	if(this.indexOf(el) == -1) {
-        this.push(el);
-    }
+		this.push(el);
+	}
 };
 
 Array.prototype.removeElement = function(el) {
-    var i = this.indexOf(el);
-    if (i !== -1) { this.splice(i, 1); }
+	var i = this.indexOf(el);
+	if (i !== -1) { this.splice(i, 1); }
 };
 
 
@@ -76,11 +76,11 @@ function SmalltalkOrganizer() {
 }
 
 function SmalltalkPackageOrganizer() {
-    this.elements = [];
+	this.elements = [];
 }
 
 function SmalltalkClassOrganizer() {
-    this.elements = [];
+	this.elements = [];
 }
 
 function inherits(child, parent) {
@@ -106,13 +106,13 @@ function Smalltalk() {
 	var st = this;
 
 	/* This is the current call context object. While it is publicly available,
-	   Use smalltalk.getThisContext() instead which will answer a safe copy of
-	   the current context */
+		Use smalltalk.getThisContext() instead which will answer a safe copy of
+		the current context */
 
 	st.thisContext = undefined;
 
 	/* List of all reserved words in JavaScript. They may not be used as variables
-	   in Smalltalk. */
+		in Smalltalk. */
 
 	// list of reserved JavaScript keywords as of
 	//   http://es5.github.com/#x7.6.1.1
@@ -128,14 +128,14 @@ function Smalltalk() {
 		'implements', 'interface', 'let', 'package', 'private', 'protected',
 		'public', 'static', 'yield'];
 
-    var initialized = false;
+	var initialized = false;
 
-    /* Smalltalk classes */
+	/* Smalltalk classes */
 
-    var classes = [];
-    var wrappedClasses = [];
+	var classes = [];
+	var wrappedClasses = [];
 
-    /* Method not implemented handlers */
+	/* Method not implemented handlers */
 
 	var dnu = {
 		methods: [],
@@ -163,11 +163,11 @@ function Smalltalk() {
 		}
 	};
 
-    /* Answer all method selectors based on dnu handlers */
+	/* Answer all method selectors based on dnu handlers */
 
-    st.allSelectors = function() {
-        return dnu.selectors;
-    };
+	st.allSelectors = function() {
+		return dnu.selectors;
+	};
 
 	/* Unique ID number generator */
 
@@ -186,15 +186,15 @@ function Smalltalk() {
 	function pkg(spec) {
 		var that = new SmalltalkPackage();
 		that.pkgName = spec.pkgName;
-        that.organization = new SmalltalkPackageOrganizer();
+		that.organization = new SmalltalkPackageOrganizer();
 		that.properties = spec.properties || {};
 		return that;
 	}
 
 	/* Smalltalk class creation. A class is an instance of an automatically
-	   created metaclass object. Newly created classes (not their metaclass) 
-	   should be added to the smalltalk object, see smalltalk.addClass().
-	   Superclass linking is *not* handled here, see smalltalk.init()  */
+		created metaclass object. Newly created classes (not their metaclass) 
+		should be added to the smalltalk object, see smalltalk.addClass().
+		Superclass linking is *not* handled here, see smalltalk.init()  */
 
 	function klass(spec) {
 		spec = spec || {};
@@ -203,8 +203,8 @@ function Smalltalk() {
 		that.fn = spec.fn || function() {};
 		setupClass(that, spec);
 
-        that.className = spec.className;
-        that.wrapped   = spec.wrapped || false;
+		that.className = spec.className;
+		that.wrapped   = spec.wrapped || false;
 		meta.className = spec.className + ' class';
 		if(spec.superclass) {
 			that.superclass = spec.superclass;
@@ -221,22 +221,22 @@ function Smalltalk() {
 			spec.superclass ? spec.superclass.klass.fn : SmalltalkClass
 		);
 		that.instanceClass = new that.fn();
-        setupClass(that);
+		setupClass(that);
 		return that;
 	}
 
 	function setupClass(klass, spec) {
-        spec = spec || {};
+		spec = spec || {};
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
 
-        Object.defineProperty(klass, "toString", {
+		Object.defineProperty(klass, "toString", {
 			value: function() { return 'Smalltalk ' + this.className; },
-            enumerable:false, configurable: true, writable: false
+			enumerable:false, configurable: true, writable: false
 		});
 
 		klass.organization          = new SmalltalkClassOrganizer();
-        klass.organization.theClass = klass;
+		klass.organization.theClass = klass;
 
 		Object.defineProperty(klass, "methods", {
 			value: {},
@@ -246,7 +246,7 @@ function Smalltalk() {
 	}
 
 	/* Smalltalk method object. To add a method to a class,
-	   use smalltalk.addMethod() */
+		use smalltalk.addMethod() */
 
 	st.method = function(spec) {
 		var that = new SmalltalkMethod();
@@ -262,7 +262,7 @@ function Smalltalk() {
 	};
 
 	/* Initialize a class in its class hierarchy. Handle both classes and
-	   metaclasses. */
+		metaclasses. */
 
 	st.init = function(klass) {
 		st.initClass(klass);
@@ -271,18 +271,17 @@ function Smalltalk() {
 		}
 	};
 
-    st.initClass = function(klass) {
-        if(klass.wrapped) {
-            copySuperclass(klass);
-        }
-        else {
-            installSuperclass(klass);
-        }
+	st.initClass = function(klass) {
+		if(klass.wrapped) {
+			copySuperclass(klass);
+		} else {
+			installSuperclass(klass);
+		}
 
-        if(klass === st.Object || klass.wrapped) {
-            installDnuHandlers(klass);
-        }
-    };
+		if(klass === st.Object || klass.wrapped) {
+			installDnuHandlers(klass);
+		}
+	};
 
 	function wireKlass(klass) {
 		Object.defineProperty(klass.fn.prototype, "klass", {
@@ -292,20 +291,20 @@ function Smalltalk() {
 	}
 
 	function installSuperclass(klass) {
-        // only if the klass has not been initialized yet.
+		// only if the klass has not been initialized yet.
 		if(klass.fn.prototype._yourself) { return; }
 
 		if(klass.superclass && klass.superclass !== nil) {
-            inherits(klass.fn, klass.superclass.fn);
+			inherits(klass.fn, klass.superclass.fn);
 			wireKlass(klass);
 			reinstallMethods(klass);
-        }
+		}
 	}
 
 	function copySuperclass(klass, superclass) {
 		for (superclass = superclass || klass.superclass;
-			 superclass && superclass !== nil;
-			 superclass = superclass.superclass) {
+			superclass && superclass !== nil;
+			superclass = superclass.superclass) {
 			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
 				installMethodIfAbsent(superclass.methods[keys[i]], klass);
 			}
@@ -313,7 +312,7 @@ function Smalltalk() {
 	}
 
 	function installMethod(method, klass) {
-        Object.defineProperty(klass.fn.prototype, method.jsSelector, {
+		Object.defineProperty(klass.fn.prototype, method.jsSelector, {
 			value: method.fn,
 			enumerable: false, configurable: true, writable: true
 		});
@@ -326,16 +325,16 @@ function Smalltalk() {
 	}
 
 	function reinstallMethods(klass) {
-        for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
-            installMethod(klass.methods[keys[i]], klass);
+		for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
+			installMethod(klass.methods[keys[i]], klass);
 		}
 	}
 
 	function installDnuHandlers(klass) {
 		var m = dnu.methods;
-        for(var i=0; i<m.length; i++) {
+		for(var i=0; i<m.length; i++) {
 			installMethodIfAbsent(m[i], klass);
-        }
+		}
 	}
 
 	function installNewDnuHandler(newHandler) {
@@ -346,7 +345,7 @@ function Smalltalk() {
 	}
 
 	/* Answer all registered Packages as Array */
-    // TODO: Remove this hack
+	// TODO: Remove this hack
 
 	st.packages.all = function() {
 		var packages = [];
@@ -354,19 +353,19 @@ function Smalltalk() {
 			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
 			packages.push(st.packages[i]);
 		}
-		return packages
+		return packages;
 	};
 
 	/* Answer all registered Smalltalk classes */
-    //TODO: remove the function and make smalltalk.classes an array
+	//TODO: remove the function and make smalltalk.classes an array
 
 	st.classes = function() {
 		return classes;
 	};
 
-    st.wrappedClasses = function() {
-        return wrappedClasses;
-    };
+	st.wrappedClasses = function() {
+		return wrappedClasses;
+	};
 
 	/* Answer the direct subclasses of klass. */
 
@@ -390,35 +389,37 @@ function Smalltalk() {
 		return subclasses;
 	};
 
-    st.allSubclasses = function(klass) {
-        var result, subclasses;
-        result = subclasses = st.subclasses(klass);
-        subclasses.forEach(function(subclass) {
-            result.push.apply(result, st.allSubclasses(subclass));
-        });
-
-        return result;
-    };
+	st.allSubclasses = function(klass) {
+		var result, subclasses;
+		result = subclasses = st.subclasses(klass);
+		subclasses.forEach(function(subclass) {
+			result.push.apply(result, st.allSubclasses(subclass));
+		});
+	
+		return result;
+	};
 
 
 	/* Create a new class wrapping a JavaScript constructor, and add it to the
-	   global smalltalk object. Package is lazily created if it does not exist with given name. */
+		global smalltalk object. Package is lazily created if it does not exist with given name. */
 
 	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
-        if(wrapped !== false) {
-            wrapped = true;
-        }
+		if(wrapped !== false) {
+			wrapped = true;
+		}
 		var pkg = st.addPackage(pkgName);
 		st[className] = klass({
 			className:  className,
 			superclass: superclass,
 			pkg:        pkg,
 			fn:         fn,
-            wrapped:    wrapped
+			wrapped:    wrapped
 		});
 
-        classes.addElement(st[className]);
-		if(wrapped) {wrappedClasses.addElement(st[className])}
+		classes.addElement(st[className]);
+		if(wrapped) {
+			wrappedClasses.addElement(st[className]);
+		}
 		pkg.organization.elements.addElement(st[className]);
 	};
 
@@ -429,8 +430,8 @@ function Smalltalk() {
 	};
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
-	   If pkgName is null or empty we return nil, which is an allowed package for a class.
-	   If package already exists we still update the properties of it. */
+		If pkgName is null or empty we return nil, which is an allowed package for a class.
+		If package already exists we still update the properties of it. */
 
 	st.addPackage = function(pkgName, properties) {
 		if(!pkgName) {return nil;}
@@ -448,18 +449,18 @@ function Smalltalk() {
 	};
 
 	/* Add a class to the smalltalk object, creating a new one if needed.
-	   A Package is lazily created if it does not exist with given name. */
+		A Package is lazily created if it does not exist with given name. */
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
 		var pkg = st.addPackage(pkgName);
-        if (superclass == nil) { superclass = null; }
+		if (superclass == nil) { superclass = null; }
 		if(st[className] && st[className].superclass == superclass) {
 			st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames;
 			st[className].pkg = pkg || st[className].pkg;
 		} else {
-            if(st[className]) {
-                st.removeClass(st[className]);
+			if(st[className]) {
+				st.removeClass(st[className]);
 			}
 			st[className] = klass({
 				className: className,
@@ -469,114 +470,113 @@ function Smalltalk() {
 			});
 		}
 
-        classes.addElement(st[className]);
-        pkg.organization.elements.addElement(st[className]);
+		classes.addElement(st[className]);
+		pkg.organization.elements.addElement(st[className]);
 	};
 
-    st.removeClass = function(klass) {
-        klass.pkg.organization.elements.removeElement(klass);
-        classes.removeElement(klass);
-        delete st[klass.className];
-    };
+	st.removeClass = function(klass) {
+		klass.pkg.organization.elements.removeElement(klass);
+		classes.removeElement(klass);
+		delete st[klass.className];
+	};
 
-	/* 
-     * Add/remove a method to/from a class 
-     */
+	/* Add/remove a method to/from a class */
 
-    /* This is a temporary version of addMethod() for backward compatibility */
+	/* This is a temporary version of addMethod() for backward compatibility */
 	st.addMethod = function(method_exJsSelector, klass_exMethod, exKlass) {
-        if (typeof method_exJsSelector === "string") { //legacy
-            if (method_exJsSelector !== st.selector(klass_exMethod.selector)) {
-                console.log("DISCREPANCY: arg, in_method");
-                console.log(method_exJsSelector);
-                console.log(st.selector(klass_exMethod.selector));
-                klass_exMethod.jsSelector = method_exJsSelector;
-            }
-            return new_addMethod(klass_exMethod, exKlass);
-        }
-
-        return new_addMethod(method_exJsSelector, klass_exMethod);
-    }
-
-    // later, st.addMethod can be this:
-    function new_addMethod(method, klass) {
-        if (!(method.jsSelector)) {
-            method.jsSelector = st.selector(method.selector);
-        }
+		if (typeof method_exJsSelector === "string") { //legacy
+			if (method_exJsSelector !== st.selector(klass_exMethod.selector)) {
+				console.log("DISCREPANCY: arg, in_method");
+				console.log(method_exJsSelector);
+				console.log(st.selector(klass_exMethod.selector));
+				klass_exMethod.jsSelector = method_exJsSelector;
+			}
+			return new_addMethod(klass_exMethod, exKlass);
+		}
+	
+		return new_addMethod(method_exJsSelector, klass_exMethod);
+	};
+	
+	// later, st.addMethod can be this:
+	function new_addMethod(method, klass) {
+		if (!(method.jsSelector)) {
+			method.jsSelector = st.selector(method.selector);
+		}
 		installMethod(method, klass);
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
 
-        // During the bootstrap, #addCompiledMethod is not used.
-        // Therefore we populate the organizer here too
-        klass.organization.elements.addElement(method.category);
-
-        // If already initialized (else it will be done later anyway),
-        // re-initialize all subclasses to ensure the new method
-        // propagation (for wrapped classes, not using the prototype
-        // chain.
-        if(initialized) {
-            st.allSubclasses(klass).forEach(function(subclass) {
-                st.initClass(subclass);
-            });
-        }
-
-        for(var i=0; i<method.messageSends.length; i++) {
-            var dnuHandler = dnu.get(method.messageSends[i]);
-            if(initialized) {
-                installNewDnuHandler(dnuHandler);
+		// During the bootstrap, #addCompiledMethod is not used.
+		// Therefore we populate the organizer here too
+		klass.organization.elements.addElement(method.category);
+	
+		// If already initialized (else it will be done later anyway),
+		// re-initialize all subclasses to ensure the new method
+		// propagation (for wrapped classes, not using the prototype
+		// chain.
+		if(initialized) {
+			st.allSubclasses(klass).forEach(function(subclass) {
+				st.initClass(subclass);
+			});
+		}
+	
+		for(var i=0; i<method.messageSends.length; i++) {
+			var dnuHandler = dnu.get(method.messageSends[i]);
+			if(initialized) {
+				installNewDnuHandler(dnuHandler);
 			}
 		}
-	};
+	}
 
-    st.removeMethod = function(method) {
-        var protocol = method.category;
-        var klass = method.methodClass;
+	st.removeMethod = function(method) {
+		var protocol = method.category;
+		var klass = method.methodClass;
 
-        delete klass.fn.prototype[st.selector(method.selector)];
-	    delete klass.methods[method.selector];
+		delete klass.fn.prototype[st.selector(method.selector)];
+		delete klass.methods[method.selector];
 
 		var selectors = Object.keys(klass.methods);
-        // Do *not* delete protocols from here.
-        // This is handled by #removeCompiledMethod
-    };
+		// Do *not* delete protocols from here.
+		// This is handled by #removeCompiledMethod
+	};
 
 	/* Handles unhandled errors during message sends */
-    // simply send the message and handle #dnu:
+	// simply send the message and handle #dnu:
 
 	st.send = function(receiver, selector, args, klass) {
 		var method;
-		if(receiver == null) {
+		if(receiver === null) {
 			receiver = nil;
 		}
 		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
 		if(method) {
-            return method.apply(receiver, args);
+			return method.apply(receiver, args);
 		} else {
 			return messageNotUnderstood(receiver, selector, args);
 		}
-	}
+	};
 
 	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
-            st.thisContext.pc++;
+			st.thisContext.pc++;
 			return inContext(worker, setup);
 		} else {
-			try {return inContext(worker, setup)}
-			catch(error) {
+			try {
+				return inContext(worker, setup);
+			} catch(error) {
 				if(error.smalltalkError) {
 					handleError(error);
-                } else {
-                    var errorWrapper = st.JavaScriptException._on_(error);
-                    try {errorWrapper._signal()} catch(ex) {}
-                    errorWrapper._context_(st.getThisContext());
-                    handleError(errorWrapper);
-                }
+				} else {
+					var errorWrapper = st.JavaScriptException._on_(error);
+					try {errorWrapper._signal();} catch(ex) {}
+					errorWrapper._context_(st.getThisContext());
+					handleError(errorWrapper);
+				}
 				// Reset the context stack in any case
 				st.thisContext = undefined;
-                // Throw the exception anyway, as we want to stop
-                // the execution to avoid infinite loops
-                // Update: do not throw the exception. It's really annoying.
+				// Throw the exception anyway, as we want to stop
+				// the execution to avoid infinite loops
+				// Update: do not throw the exception. It's really annoying.
 				// throw error;
 			}
 		}
@@ -590,15 +590,15 @@ function Smalltalk() {
 	}
 
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler
-	   (See the Smalltalk class ErrorHandler and its subclasses */
+		(See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
-        st.ErrorHandler._current()._handleError_(error);
+		st.ErrorHandler._current()._handleError_(error);
 	}
 
 	/* Handles #dnu: *and* JavaScript method calls.
-	   if the receiver has no klass, we consider it a JS object (outside of the
-	   Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+		if the receiver has no klass, we consider it a JS object (outside of the
+		Amber system). Else assume that the receiver understands #doesNotUnderstand: */
 
 	function messageNotUnderstood(receiver, selector, args) {
 		/* Handles JS method calls. */
@@ -607,7 +607,7 @@ function Smalltalk() {
 		}
 
 		/* Handles not understood messages. Also see the Amber counter-part
-		   Object>>doesNotUnderstand: */
+			Object>>doesNotUnderstand: */
 
 		return receiver._doesNotUnderstand_(
 			st.Message._new()
@@ -617,17 +617,17 @@ function Smalltalk() {
 	}
 
 	/* Call a method of a JS object, or answer a property if it exists.
-	   Else try wrapping a JSObjectProxy around the receiver.
+		Else try wrapping a JSObjectProxy around the receiver.
 
-       If the object property is a function, then call it, except if it starts with
-       an uppercase character (we probably want to answer the function itself in this
-       case and send it #new from Amber).
+		If the object property is a function, then call it, except if it starts with
+		an uppercase character (we probably want to answer the function itself in this
+		case and send it #new from Amber).
 
-	   Converts keyword-based selectors by using the first
-	   keyword only, but keeping all message arguments.
-
-	   Example:
-	   "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
+		Converts keyword-based selectors by using the first
+		keyword only, but keeping all message arguments.
+		
+		Example:
+		"self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
 	function callJavaScriptMethod(receiver, selector, args) {
 		var jsSelector = selector._asJavaScriptSelector();
@@ -649,16 +649,17 @@ function Smalltalk() {
 	/* Handle thisContext pseudo variable */
 
 	st.getThisContext = function() {
-        if(st.thisContext) {
-		    st.thisContext.init();
-            return st.thisContext;
-        } else {
-            return nil;
-        }
+		if(st.thisContext) {
+			st.thisContext.init();
+			return st.thisContext;
+		} else {
+			return nil;
+		}
 	};
 
 	function pushContext(setup) {
-		return st.thisContext = new SmalltalkMethodContext(smalltalk.thisContext, setup);
+		st.thisContext = new SmalltalkMethodContext(smalltalk.thisContext, setup);
+		return st.thisContext;
 	}
 
 	function popContext(context) {
@@ -667,28 +668,28 @@ function Smalltalk() {
 
 	/* Convert a Smalltalk selector into a JS selector */
 
-    st.selector = function(string) {
-        var selector = '_' + string;
-	    selector = selector.replace(/:/g, '_');
-	    selector = selector.replace(/[\&]/g, '_and');
-	    selector = selector.replace(/[\|]/g, '_or');
-	    selector = selector.replace(/[+]/g, '_plus');
-	    selector = selector.replace(/-/g, '_minus');
-	    selector = selector.replace(/[*]/g ,'_star');
-	    selector = selector.replace(/[\/]/g ,'_slash');
-	    selector = selector.replace(/[\\]/g ,'_backslash');
-	    selector = selector.replace(/[\~]/g ,'_tild');
-	    selector = selector.replace(/>/g ,'_gt');
-	    selector = selector.replace(/</g ,'_lt');
-	    selector = selector.replace(/=/g ,'_eq');
-	    selector = selector.replace(/,/g ,'_comma');
-	    selector = selector.replace(/[@]/g ,'_at');
-        return selector
-    };
+	st.selector = function(string) {
+		var selector = '_' + string;
+		selector = selector.replace(/:/g, '_');
+		selector = selector.replace(/[\&]/g, '_and');
+		selector = selector.replace(/[\|]/g, '_or');
+		selector = selector.replace(/[+]/g, '_plus');
+		selector = selector.replace(/-/g, '_minus');
+		selector = selector.replace(/[*]/g ,'_star');
+		selector = selector.replace(/[\/]/g ,'_slash');
+		selector = selector.replace(/[\\]/g ,'_backslash');
+		selector = selector.replace(/[\~]/g ,'_tild');
+		selector = selector.replace(/>/g ,'_gt');
+		selector = selector.replace(/</g ,'_lt');
+		selector = selector.replace(/=/g ,'_eq');
+		selector = selector.replace(/,/g ,'_comma');
+		selector = selector.replace(/[@]/g ,'_at');
+		return selector;
+	};
 
 	/* Convert a string to a valid smalltalk selector.
-	   if you modify the following functions, also change String>>asSelector
-	   accordingly */
+		if you modify the following functions, also change String>>asSelector
+		accordingly */
 
 	st.convertSelector = function(selector) {
 		if(selector.match(/__/)) {
@@ -717,7 +718,7 @@ function Smalltalk() {
 			.replace(/_lt/g, '<')
 			.replace(/_eq/g, '=')
 			.replace(/_comma/g, ',')
-			.replace(/_at/g, '@')
+			.replace(/_at/g, '@');
 	}
 
 	/* Converts a JavaScript object to valid Smalltalk Object */
@@ -740,40 +741,40 @@ function Smalltalk() {
 		return object;
 	};
 
-    /* Boolean assertion */
-    st.assert = function(shouldBeBoolean) {
-        if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
-            return shouldBeBoolean == true;
-        } else {
-            smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
-        }
+	/* Boolean assertion */
+	st.assert = function(shouldBeBoolean) {
+		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
+			return (shouldBeBoolean == true);
+		} else {
+			smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+		}
     };
 
-    /* Backward compatibility with Amber 0.9.1 */
-    st.symbolFor = function(aString) { return aString; }
-
-    /* Smalltalk initialization. Called on page load */
-
-    st.initialize = function() {
+	/* Backward compatibility with Amber 0.9.1 */
+	st.symbolFor = function(aString) { return aString; };
+	
+	/* Smalltalk initialization. Called on page load */
+	
+	st.initialize = function() {
 		if(initialized) { return; }
 
 		classes.forEach(function(klass) {
-            st.init(klass);
-        });
-        classes.forEach(function(klass) {
-            klass._initialize();
-        });
-
-        initialized = true;
-    };
+			st.init(klass);
+		});
+		classes.forEach(function(klass) {
+			klass._initialize();
+		});
+	
+		initialized = true;
+	};
 }
 
 inherits(Smalltalk, SmalltalkObject);
 
 function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
-    this.setup       = setup || function() {};
-    this.pc          = 0;
+	this.setup       = setup || function() {};
+	this.pc          = 0;
 }
 
 // Fallbacks
@@ -785,39 +786,41 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
-    this.receiver    = receiver;
-    this.selector    = selector;
-    this.locals      = locals || {};
-    this.lookupClass = lookupClass;
+	this.receiver    = receiver;
+	this.selector    = selector;
+	this.locals      = locals || {};
+	this.lookupClass = lookupClass;
 };
 
 SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
-    this.locals        = locals || {};
-    this.outerContext  = ctx;
+	this.locals        = locals || {};
+	this.outerContext  = ctx;
 };
 
 SmalltalkMethodContext.prototype.init = function() {
 	var home = this.homeContext;
-	if(home) {home = home.init()}
+	if(home) {
+		home = home.init();
+	}
 
     this.setup(this);
 };
 
 SmalltalkMethodContext.prototype.method = function() {
-    var method;
-    var lookup = this.lookupClass || this.receiver.klass;
-    while(!method && lookup) {
-        method = lookup.methods[smalltalk.convertSelector(this.selector)];
-        lookup = lookup.superclass
-    }
-    return method;
+	var method;
+	var lookup = this.lookupClass || this.receiver.klass;
+	while(!method && lookup) {
+		method = lookup.methods[smalltalk.convertSelector(this.selector)];
+		lookup = lookup.superclass;
+	}
+	return method;
 };
 
 // TODO: this is just wrong :)
 SmalltalkMethodContext.prototype.resume = function() {
-    //Brutally set the receiver as thisContext, then re-enter the function
-    smalltalk.thisContext = this;
-    return this.method.apply(receiver, temps);
+	//Brutally set the receiver as thisContext, then re-enter the function
+	smalltalk.thisContext = this;
+	return this.method.apply(receiver, temps);
 };
 
 /* Global Smalltalk objects. */
@@ -835,8 +838,8 @@ if(this.jQuery) {
  */
 
 var _st = function(o) {
-	if(o == null) {return nil}
-	if(o.klass) {return o}
+	if(o == null) {return nil;}
+	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
 }; 
 
@@ -12413,7 +12416,7 @@ $1=newCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "from: aCollection\x0a| newCollection |\x0anewCollection := self new.\x0aaCollection do: [:each | newCollection add: each].\x0a^ newCollection.",
+source: "from: aCollection\x0a\x09| newCollection |\x0a\x09newCollection := self new.\x0a\x09aCollection do: [ :each | newCollection add: each ].\x0a\x09^ newCollection",
 messageSends: ["new", "do:", "add:"],
 referencedClasses: []
 }),
@@ -12425,21 +12428,14 @@ selector: "fromPairs:",
 category: 'instance creation',
 fn: function (aCollection){
 var self=this;
-var dict;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-self._deprecatedAPI();
-dict=self._new();
-_st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(dict)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=dict;
+$1=self._from_(aCollection);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection,dict:dict},smalltalk.HashedCollection.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"fromPairs:",{aCollection:aCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #from:\x22\x0a\x09| dict |\x0a\x09self deprecatedAPI.\x0a\x09dict := self new.\x0a\x09aCollection do: [:each | dict add: each].\x0a\x09^dict",
-messageSends: ["deprecatedAPI", "new", "do:", "add:"],
+source: "fromPairs: aCollection\x0a\x09\x22This message is poorly named and has been replaced by #from:\x22\x0a\x09^ self from: aCollection",
+messageSends: ["from:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection.klass);
@@ -12458,15 +12454,15 @@ if(! smalltalk.assert($1)){
 self._error_("#newFromPairs only accepts arrays of an even length");
 };
 newCollection=self._new();
-_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(keyIndex){
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(newCollection)._at_put_(_st(aCollection)._at_(keyIndex),_st(aCollection)._at_(_st(keyIndex).__plus((1))));
-}, function($ctx2) {$ctx2.fillBlock({keyIndex:keyIndex},$ctx1)})}));
+return _st(newCollection)._at_put_(_st(aCollection)._at_(each),_st(aCollection)._at_(_st(each).__plus((1))));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=newCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
-source: "newFromPairs: aCollection\x0a\x22Accept an array of elements where every two elements form an association - the odd element being the key, and the even element the value.\x22\x0a| newCollection |\x0aaCollection size even ifFalse: [ self error: '#newFromPairs only accepts arrays of an even length' ].\x0anewCollection := self new.\x0a( 1 to: aCollection size by: 2 ) do: [ :keyIndex | newCollection at: ( aCollection at: keyIndex ) put: ( aCollection at: keyIndex + 1 ) ].\x0a^ newCollection.",
+source: "newFromPairs: aCollection\x0a\x09\x22Accept an array of elements where every two elements form an \x0a\x09association - the odd element being the key, and the even element the value.\x22\x0a\x09\x0a\x09| newCollection |\x0a\x09\x0a\x09aCollection size even ifFalse: [ \x0a\x09\x09self error: '#newFromPairs only accepts arrays of an even length' ].\x0a\x09\x09\x0a\x09newCollection := self new.\x0a\x09( 1 to: aCollection size by: 2 ) do: [ :each | \x0a\x09\x09newCollection at: (aCollection at: each) put: (aCollection at: each + 1) ].\x0a\x09\x09\x0a\x09^ newCollection",
 messageSends: ["ifFalse:", "error:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"],
 referencedClasses: []
 }),
@@ -30727,7 +30723,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -30796,7 +30792,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -30844,7 +30840,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, first, last) {return first + last})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, last) {return first + last;})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -30913,7 +30909,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -30982,7 +30978,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("")})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31030,7 +31026,7 @@ smalltalk.parser = (function(){
             }
           }
           if (result2 !== null) {
-            result2 = (function(offset, line, column) {return "'"})(pos2.offset, pos2.line, pos2.column);
+            result2 = (function(offset, line, column) {return "'";})(pos2.offset, pos2.line, pos2.column);
           }
           if (result2 === null) {
             pos = clone(pos2);
@@ -31059,7 +31055,7 @@ smalltalk.parser = (function(){
               }
             }
             if (result2 !== null) {
-              result2 = (function(offset, line, column) {return "'"})(pos2.offset, pos2.line, pos2.column);
+              result2 = (function(offset, line, column) {return "'";})(pos2.offset, pos2.line, pos2.column);
             }
             if (result2 === null) {
               pos = clone(pos2);
@@ -31103,8 +31099,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                              return smalltalk.ValueNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._value_(val.join("").replace(/\"/ig, '"'))
+                                    ._position_((line).__at(column))
+                                    ._value_(val.join("").replace(/\"/ig, '"'));
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
@@ -31153,7 +31149,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, rest) {return rest})(pos0.offset, pos0.line, pos0.column, result0[1]);
+          result0 = (function(offset, line, column, rest) {return rest;})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31185,7 +31181,7 @@ smalltalk.parser = (function(){
             pos1 = clone(pos);
             result0 = parse_string();
             if (result0 !== null) {
-              result0 = (function(offset, line, column, node) {return node._value()})(pos1.offset, pos1.line, pos1.column, result0);
+              result0 = (function(offset, line, column, node) {return node._value();})(pos1.offset, pos1.line, pos1.column, result0);
             }
             if (result0 === null) {
               pos = clone(pos1);
@@ -31195,8 +31191,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                               return smalltalk.ValueNode._new()
-        		      	     ._position_((line).__at(column))
-                                     ._value_(val)
+                                     ._position_((line).__at(column))
+                                     ._value_(val);
                           })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
@@ -31232,8 +31228,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, n) {
                              return smalltalk.ValueNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._value_(n)
+                                    ._position_((line).__at(column))
+                                    ._value_(n);
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
@@ -31322,7 +31318,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, neg, num) {return parseInt((neg + num.join("")), 16)})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
+          result0 = (function(offset, line, column, neg, num) {return parseInt((neg + num.join("")), 16);})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31441,7 +31437,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, neg, int, dec) {return parseFloat((neg + int.join("") + "." + dec.join("")), 10)})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1], result0[3]);
+          result0 = (function(offset, line, column, neg, digits, dec) {return parseFloat((neg + digits.join("") + "." + dec.join("")), 10);})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1], result0[3]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31515,7 +31511,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, neg, digits) {return (parseInt(neg+digits.join(""), 10))})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
+          result0 = (function(offset, line, column, neg, digits) {return (parseInt(neg+digits.join(""), 10));})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31563,7 +31559,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, rest) {return rest})(pos0.offset, pos0.line, pos0.column, result0[1]);
+          result0 = (function(offset, line, column, rest) {return rest;})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31611,7 +31607,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, rest) {return rest})(pos0.offset, pos0.line, pos0.column, result0[1]);
+          result0 = (function(offset, line, column, rest) {return rest;})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -31662,7 +31658,7 @@ smalltalk.parser = (function(){
             pos = clone(pos3);
           }
           if (result2 !== null) {
-            result2 = (function(offset, line, column, lit) {return lit._value()})(pos2.offset, pos2.line, pos2.column, result2[0]);
+            result2 = (function(offset, line, column, lit) {return lit._value();})(pos2.offset, pos2.line, pos2.column, result2[0]);
           }
           if (result2 === null) {
             pos = clone(pos2);
@@ -31691,7 +31687,7 @@ smalltalk.parser = (function(){
               pos = clone(pos3);
             }
             if (result2 !== null) {
-              result2 = (function(offset, line, column, lit) {return lit._value()})(pos2.offset, pos2.line, pos2.column, result2[0]);
+              result2 = (function(offset, line, column, lit) {return lit._value();})(pos2.offset, pos2.line, pos2.column, result2[0]);
             }
             if (result2 === null) {
               pos = clone(pos2);
@@ -31730,8 +31726,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, lits) {
                              return smalltalk.ValueNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._value_(lits)
+                                    ._position_((line).__at(column))
+                                    ._value_(lits);
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
@@ -31824,8 +31820,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, expressions) {
                              return smalltalk.DynamicArrayNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._nodes_(expressions)
+                                    ._position_((line).__at(column))
+                                    ._nodes_(expressions);
                          })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
@@ -31903,8 +31899,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, expressions) {
                                 return smalltalk.DynamicDictionaryNode._new()
-        			       ._position_((line).__at(column))
-                                       ._nodes_(expressions)
+                                       ._position_((line).__at(column))
+                                       ._nodes_(expressions);
                             })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
@@ -31941,7 +31937,7 @@ smalltalk.parser = (function(){
           }
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column) {return true})(pos1.offset, pos1.line, pos1.column);
+          result0 = (function(offset, line, column) {return true;})(pos1.offset, pos1.line, pos1.column);
         }
         if (result0 === null) {
           pos = clone(pos1);
@@ -31958,7 +31954,7 @@ smalltalk.parser = (function(){
             }
           }
           if (result0 !== null) {
-            result0 = (function(offset, line, column) {return false})(pos1.offset, pos1.line, pos1.column);
+            result0 = (function(offset, line, column) {return false;})(pos1.offset, pos1.line, pos1.column);
           }
           if (result0 === null) {
             pos = clone(pos1);
@@ -31975,7 +31971,7 @@ smalltalk.parser = (function(){
               }
             }
             if (result0 !== null) {
-              result0 = (function(offset, line, column) {return nil})(pos1.offset, pos1.line, pos1.column);
+              result0 = (function(offset, line, column) {return nil;})(pos1.offset, pos1.line, pos1.column);
             }
             if (result0 === null) {
               pos = clone(pos1);
@@ -31985,8 +31981,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                                return smalltalk.ValueNode._new()
-        		       	      ._position_((line).__at(column))
-                                      ._value_(val)
+                                      ._position_((line).__at(column))
+                                      ._value_(val);
                            })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
@@ -32094,8 +32090,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, identifier) {
                              return smalltalk.VariableNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._value_(identifier)
+                                    ._position_((line).__at(column))
+                                    ._value_(identifier);
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
@@ -32125,8 +32121,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, className) {
                              return smalltalk.ClassReferenceNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._value_(className)
+                                    ._position_((line).__at(column))
+                                    ._value_(className);
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
@@ -32201,7 +32197,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, key, arg) {return {key:key, arg: arg}})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
+          result0 = (function(offset, line, column, key, arg) {return {key:key, arg: arg};})(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -32253,7 +32249,7 @@ smalltalk.parser = (function(){
           result0 = null;
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, bin) {return bin.join("")})(pos0.offset, pos0.line, pos0.column, result0);
+          result0 = (function(offset, line, column, bin) {return bin.join("");})(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -32306,7 +32302,7 @@ smalltalk.parser = (function(){
           pos = clone(pos2);
         }
         if (result1 !== null) {
-          result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg}})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
+          result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg};})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
         }
         if (result1 === null) {
           pos = clone(pos1);
@@ -32343,7 +32339,7 @@ smalltalk.parser = (function(){
               pos = clone(pos2);
             }
             if (result1 !== null) {
-              result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg}})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
+              result1 = (function(offset, line, column, key, arg) {return {key:key, arg: arg};})(pos1.offset, pos1.line, pos1.column, result1[1], result1[3]);
             }
             if (result1 === null) {
               pos = clone(pos1);
@@ -32356,13 +32352,14 @@ smalltalk.parser = (function(){
           result0 = (function(offset, line, column, pairs) {
                              var keywords = [];
                              var params = [];
-                             for(var i=0;i<pairs.length;i++){
+                             var i = 0;
+                             for(i = 0; i < pairs.length; i++){
                                  keywords.push(pairs[i].key);
                              }
-                             for(var i=0;i<pairs.length;i++){
+                             for(i = 0; i < pairs.length; i++){
                                  params.push(pairs[i].arg);
                              }
-                             return [keywords.join(""), params]
+                             return [keywords.join(""), params];
                          })(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
@@ -32415,7 +32412,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, selector, arg) {return [selector, [arg]]})(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
+          result0 = (function(offset, line, column, selector, arg) {return [selector, [arg]];})(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -32455,7 +32452,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, selector) {return [selector, []]})(pos0.offset, pos0.line, pos0.column, result0[1]);
+          result0 = (function(offset, line, column, selector) {return [selector, []];})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -32543,7 +32540,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, expression) {return expression})(pos0.offset, pos0.line, pos0.column, result0[3]);
+          result0 = (function(offset, line, column, expression) {return expression;})(pos0.offset, pos0.line, pos0.column, result0[3]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -32590,7 +32587,7 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, first, others) {
                              var result = [first];
-                             for(var i=0;i<others.length;i++) {
+                             for(var i = 0; i < others.length; i++) {
                                  result.push(others[i]);
                              }
                              return result;
@@ -32662,9 +32659,9 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, variable, expression) {
                              return smalltalk.AssignmentNode._new()
-        		     	    ._position_((line).__at(column))
+                                    ._position_((line).__at(column))
                                     ._left_(variable)
-                                    ._right_(expression)
+                                    ._right_(expression);
                          })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
         }
         if (result0 === null) {
@@ -32742,8 +32739,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, expression) {
                              return smalltalk.ReturnNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._nodes_([expression])
+                                    ._position_((line).__at(column))
+                                    ._nodes_([expression]);
                          })(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
@@ -32803,7 +32800,7 @@ smalltalk.parser = (function(){
             pos = clone(pos3);
           }
           if (result2 !== null) {
-            result2 = (function(offset, line, column, variable) {return variable})(pos2.offset, pos2.line, pos2.column, result2[1]);
+            result2 = (function(offset, line, column, variable) {return variable;})(pos2.offset, pos2.line, pos2.column, result2[1]);
           }
           if (result2 === null) {
             pos = clone(pos2);
@@ -32832,7 +32829,7 @@ smalltalk.parser = (function(){
               pos = clone(pos3);
             }
             if (result2 !== null) {
-              result2 = (function(offset, line, column, variable) {return variable})(pos2.offset, pos2.line, pos2.column, result2[1]);
+              result2 = (function(offset, line, column, variable) {return variable;})(pos2.offset, pos2.line, pos2.column, result2[1]);
             }
             if (result2 === null) {
               pos = clone(pos2);
@@ -32863,7 +32860,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, vars) {return vars})(pos0.offset, pos0.line, pos0.column, result0[1]);
+          result0 = (function(offset, line, column, vars) {return vars;})(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -32925,7 +32922,7 @@ smalltalk.parser = (function(){
           pos = clone(pos3);
         }
         if (result1 !== null) {
-          result1 = (function(offset, line, column, param) {return param})(pos2.offset, pos2.line, pos2.column, result1[3]);
+          result1 = (function(offset, line, column, param) {return param;})(pos2.offset, pos2.line, pos2.column, result1[3]);
         }
         if (result1 === null) {
           pos = clone(pos2);
@@ -32970,7 +32967,7 @@ smalltalk.parser = (function(){
               pos = clone(pos3);
             }
             if (result1 !== null) {
-              result1 = (function(offset, line, column, param) {return param})(pos2.offset, pos2.line, pos2.column, result1[3]);
+              result1 = (function(offset, line, column, param) {return param;})(pos2.offset, pos2.line, pos2.column, result1[3]);
             }
             if (result1 === null) {
               pos = clone(pos2);
@@ -33006,7 +33003,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, params) {return params})(pos0.offset, pos0.line, pos0.column, result0[0]);
+          result0 = (function(offset, line, column, params) {return params;})(pos0.offset, pos0.line, pos0.column, result0[0]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -33080,7 +33077,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, expression) {return expression})(pos0.offset, pos0.line, pos0.column, result0[2]);
+          result0 = (function(offset, line, column, expression) {return expression;})(pos0.offset, pos0.line, pos0.column, result0[2]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -33141,7 +33138,7 @@ smalltalk.parser = (function(){
           pos = clone(pos1);
         }
         if (result0 !== null) {
-          result0 = (function(offset, line, column, ret) {return [ret]})(pos0.offset, pos0.line, pos0.column, result0[0]);
+          result0 = (function(offset, line, column, ret) {return [ret];})(pos0.offset, pos0.line, pos0.column, result0[0]);
         }
         if (result0 === null) {
           pos = clone(pos0);
@@ -33236,7 +33233,7 @@ smalltalk.parser = (function(){
             result0 = (function(offset, line, column, exps, ret) {
                                  var expressions = exps;
                                  expressions.push(ret);
-                                 return expressions
+                                 return expressions;
                              })(pos0.offset, pos0.line, pos0.column, result0[0], result0[4]);
           }
           if (result0 === null) {
@@ -33282,7 +33279,7 @@ smalltalk.parser = (function(){
             }
             if (result0 !== null) {
               result0 = (function(offset, line, column, expressions) {
-                                   return expressions || []
+                                   return expressions || [];
                                })(pos0.offset, pos0.line, pos0.column, result0[0]);
             }
             if (result0 === null) {
@@ -33363,9 +33360,9 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, temps, statements) {
                              return smalltalk.SequenceNode._new()
-        		     	    ._position_((line).__at(column))
+                                    ._position_((line).__at(column))
                                     ._temps_(temps || [])
-                                    ._nodes_(statements || [])
+                                    ._nodes_(statements || []);
                          })(pos0.offset, pos0.line, pos0.column, result0[0], result0[2]);
         }
         if (result0 === null) {
@@ -33456,9 +33453,9 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, params, sequence) {
                              return smalltalk.BlockNode._new()
-        		     	    ._position_((line).__at(column))
+                                    ._position_((line).__at(column))
                                     ._parameters_(params || [])
-                                    ._nodes_([sequence._asBlockSequenceNode()])
+                                    ._nodes_([sequence._asBlockSequenceNode()]);
                          })(pos0.offset, pos0.line, pos0.column, result0[2], result0[4]);
         }
         if (result0 === null) {
@@ -33549,8 +33546,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, selector) {
                              return smalltalk.SendNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._selector_(selector)
+                                    ._position_((line).__at(column))
+                                    ._selector_(selector);
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
@@ -33722,9 +33719,9 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, selector, arg) {
                              return smalltalk.SendNode._new()
-        		     	    ._position_((line).__at(column))
+                                    ._position_((line).__at(column))
                                     ._selector_(selector)
-                                    ._arguments_([arg])
+                                    ._arguments_([arg]);
                          })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
         }
         if (result0 === null) {
@@ -33865,7 +33862,7 @@ smalltalk.parser = (function(){
             pos = clone(pos3);
           }
           if (result2 !== null) {
-            result2 = (function(offset, line, column, pair) {return pair})(pos2.offset, pos2.line, pos2.column, result2[0]);
+            result2 = (function(offset, line, column, pair) {return pair;})(pos2.offset, pos2.line, pos2.column, result2[0]);
           }
           if (result2 === null) {
             pos = clone(pos2);
@@ -33890,7 +33887,7 @@ smalltalk.parser = (function(){
                 pos = clone(pos3);
               }
               if (result2 !== null) {
-                result2 = (function(offset, line, column, pair) {return pair})(pos2.offset, pos2.line, pos2.column, result2[0]);
+                result2 = (function(offset, line, column, pair) {return pair;})(pos2.offset, pos2.line, pos2.column, result2[0]);
               }
               if (result2 === null) {
                 pos = clone(pos2);
@@ -33913,14 +33910,14 @@ smalltalk.parser = (function(){
           result0 = (function(offset, line, column, pairs) {
                              var selector = [];
                              var args = [];
-                              for(var i=0;i<pairs.length;i++) {
+                              for(var i = 0; i < pairs.length; i++) {
                                   selector.push(pairs[i].key);
                                   args.push(pairs[i].arg);
                               }
                               return smalltalk.SendNode._new()
-        		      	     ._position_((line).__at(column))
+                                     ._position_((line).__at(column))
                                      ._selector_(selector.join(""))
-                                     ._arguments_(args)
+                                     ._arguments_(args);
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
@@ -34063,7 +34060,7 @@ smalltalk.parser = (function(){
               pos = clone(pos3);
             }
             if (result3 !== null) {
-              result3 = (function(offset, line, column, mess) {return mess})(pos2.offset, pos2.line, pos2.column, result3[3]);
+              result3 = (function(offset, line, column, mess) {return mess;})(pos2.offset, pos2.line, pos2.column, result3[3]);
             }
             if (result3 === null) {
               pos = clone(pos2);
@@ -34114,7 +34111,7 @@ smalltalk.parser = (function(){
                   pos = clone(pos3);
                 }
                 if (result3 !== null) {
-                  result3 = (function(offset, line, column, mess) {return mess})(pos2.offset, pos2.line, pos2.column, result3[3]);
+                  result3 = (function(offset, line, column, mess) {return mess;})(pos2.offset, pos2.line, pos2.column, result3[3]);
                 }
                 if (result3 === null) {
                   pos = clone(pos2);
@@ -34141,13 +34138,13 @@ smalltalk.parser = (function(){
           result0 = (function(offset, line, column, send, messages) {
                              var cascade = [];
                              cascade.push(send);
-                             for(var i=0;i<messages.length;i++) {
+                             for(var i = 0; i < messages.length; i++) {
                                  cascade.push(messages[i]);
                              }
                              return smalltalk.CascadeNode._new()
-        		     	    ._position_((line).__at(column))
+                                    ._position_((line).__at(column))
                                     ._receiver_(send._receiver())
-                                    ._nodes_(cascade)
+                                    ._nodes_(cascade);
                          })(pos0.offset, pos0.line, pos0.column, result0[1], result0[2]);
         }
         if (result0 === null) {
@@ -34196,7 +34193,7 @@ smalltalk.parser = (function(){
             }
           }
           if (result2 !== null) {
-            result2 = (function(offset, line, column) {return ">"})(pos2.offset, pos2.line, pos2.column);
+            result2 = (function(offset, line, column) {return ">";})(pos2.offset, pos2.line, pos2.column);
           }
           if (result2 === null) {
             pos = clone(pos2);
@@ -34225,7 +34222,7 @@ smalltalk.parser = (function(){
               }
             }
             if (result2 !== null) {
-              result2 = (function(offset, line, column) {return ">"})(pos2.offset, pos2.line, pos2.column);
+              result2 = (function(offset, line, column) {return ">";})(pos2.offset, pos2.line, pos2.column);
             }
             if (result2 === null) {
               pos = clone(pos2);
@@ -34269,8 +34266,8 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, val) {
                              return smalltalk.JSStatementNode._new()
-        		     	    ._position_((line).__at(column))
-                                    ._source_(val.join(""))
+                                    ._position_((line).__at(column))
+                                    ._source_(val.join(""));
                          })(pos0.offset, pos0.line, pos0.column, result0[1]);
         }
         if (result0 === null) {
@@ -34338,10 +34335,10 @@ smalltalk.parser = (function(){
         if (result0 !== null) {
           result0 = (function(offset, line, column, pattern, sequence) {
                               return smalltalk.MethodNode._new()
-        		      	     ._position_((line).__at(column))
+                                     ._position_((line).__at(column))
                                      ._selector_(pattern[0])
                                      ._arguments_(pattern[1])
-                                     ._nodes_([sequence])
+                                     ._nodes_([sequence]);
                          })(pos0.offset, pos0.line, pos0.column, result0[1], result0[3]);
         }
         if (result0 === null) {
@@ -35241,12 +35238,12 @@ return _st(console)._log_("Error starting server: ".__comma(error));
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 _st($1)._on_do_("listening",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_(_st(_st("Starting file server on ".__comma(self._host())).__comma(":")).__comma(_st(self._port())._asString()));
+return _st(console)._log_(_st(_st("Starting file server on http://".__comma(self._host())).__comma(":")).__comma(_st(self._port())._asString()));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=_st($1)._listen_host_(self._port(),self._host());
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.FileServer)})},
 args: [],
-source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on ', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
+source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on http://', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
 messageSends: ["checkDirectoryLayout", "on:do:", "log:", ",", "createServer:", "handleRequest:respondTo:", "asString", "port", "host", "listen:host:"],
 referencedClasses: []
 }),
@@ -35710,7 +35707,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'not yet classified',
+category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
