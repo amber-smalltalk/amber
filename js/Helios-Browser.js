@@ -1,5 +1,6 @@
 smalltalk.addPackage('Helios-Browser');
 smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget', 'bottomDiv'], 'Helios-Browser');
+smalltalk.HLBrowser.comment="I render a system browser with 4 panes (Packages, Classes, Protocols, Methods) and a source area.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
@@ -375,6 +376,7 @@ smalltalk.HLBrowser.klass);
 
 
 smalltalk.addClass('HLBrowserBottomWidget', smalltalk.HLWidget, ['model', 'codeWidget', 'documentationWidget'], 'Helios-Browser');
+smalltalk.HLBrowserBottomWidget.comment="I render the code area of a browser and optionally the documentation for the selected class.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "canHaveFocus",
@@ -1159,6 +1161,7 @@ smalltalk.HLClassCache.klass);
 
 
 smalltalk.addClass('HLClassesListWidget', smalltalk.HLToolListWidget, [], 'Helios-Browser');
+smalltalk.HLClassesListWidget.comment="I render a list of classes in the selected package.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClassForItem:",
@@ -1951,6 +1954,7 @@ smalltalk.HLClassesListWidget);
 
 
 smalltalk.addClass('HLDocumentationWidget', smalltalk.HLFocusableWidget, ['model'], 'Helios-Browser');
+smalltalk.HLDocumentationWidget.comment="I render the documentation for the selected class";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "defaultDocumentation",
@@ -2379,6 +2383,7 @@ smalltalk.HLDocumentationWidget);
 
 
 smalltalk.addClass('HLMethodsListWidget', smalltalk.HLToolListWidget, ['selectorsCache'], 'Helios-Browser');
+smalltalk.HLMethodsListWidget.comment="I render a list of methods for the selected protocol.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allProtocol",
@@ -3038,6 +3043,7 @@ smalltalk.HLMethodsListWidget.klass);
 
 
 smalltalk.addClass('HLPackagesListWidget', smalltalk.HLToolListWidget, [], 'Helios-Browser');
+smalltalk.HLPackagesListWidget.comment="I render a list of the system packages.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitPackage",
@@ -3286,6 +3292,7 @@ smalltalk.HLPackagesListWidget);
 
 
 smalltalk.addClass('HLProtocolsListWidget', smalltalk.HLToolListWidget, [], 'Helios-Browser');
+smalltalk.HLProtocolsListWidget.comment="I render a list of protocols for the selected class.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "allProtocol",
