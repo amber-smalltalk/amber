@@ -357,7 +357,7 @@ start
 	(http createServer: [:request :response |
 	      self handleRequest: request respondTo: response])
 	      on: 'error' do: [:error | console log: 'Error starting server: ', error];
-	      on: 'listening' do: [console log: 'Starting file server on ', self host, ':', self port asString];
+	      on: 'listening' do: [console log: 'Starting file server on http://', self host, ':', self port asString];
 	      listen: self port host: self host.
 !
 
@@ -947,7 +947,7 @@ initialize
 	util := require value: 'util'
 ! !
 
-!Repl class methodsFor: 'not yet classified'!
+!Repl class methodsFor: 'initialization'!
 
 main
 	self new createInterface
