@@ -783,12 +783,12 @@ return _st(console)._log_("Error starting server: ".__comma(error));
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 _st($1)._on_do_("listening",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_(_st(_st("Starting file server on ".__comma(self._host())).__comma(":")).__comma(_st(self._port())._asString()));
+return _st(console)._log_(_st(_st("Starting file server on http://".__comma(self._host())).__comma(":")).__comma(_st(self._port())._asString()));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=_st($1)._listen_host_(self._port(),self._host());
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.FileServer)})},
 args: [],
-source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on ', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
+source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on http://', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
 messageSends: ["checkDirectoryLayout", "on:do:", "log:", ",", "createServer:", "handleRequest:respondTo:", "asString", "port", "host", "listen:host:"],
 referencedClasses: []
 }),
@@ -1252,7 +1252,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "main",
-category: 'not yet classified',
+category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
