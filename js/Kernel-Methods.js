@@ -132,7 +132,7 @@ $1=self._newWithValues_([anObject]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"newValue:",{anObject:anObject},smalltalk.BlockClosure)})},
 args: ["anObject"],
-source: "newValue: anObject\x0a^ self newWithValues: { anObject }",
+source: "newValue: anObject\x0a\x09^ self newWithValues: { anObject }",
 messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
@@ -150,7 +150,7 @@ $1=self._newWithValues_([anObject,anObject2]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"newValue:value:",{anObject:anObject,anObject2:anObject2},smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2"],
-source: "newValue: anObject value: anObject2\x0a^ self newWithValues: { anObject. anObject2 }.",
+source: "newValue: anObject value: anObject2\x0a\x09^ self newWithValues: { anObject. anObject2 }.",
 messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
@@ -168,7 +168,7 @@ $1=self._newWithValues_([anObject,anObject2,anObject3]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"newValue:value:value:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3},smalltalk.BlockClosure)})},
 args: ["anObject", "anObject2", "anObject3"],
-source: "newValue: anObject value: anObject2 value: anObject3\x0a^ self newWithValues: { anObject. anObject2. anObject3 }.",
+source: "newValue: anObject value: anObject2 value: anObject3\x0a\x09^ self newWithValues: { anObject. anObject2. anObject3 }.",
 messageSends: ["newWithValues:"],
 referencedClasses: []
 }),
@@ -182,14 +182,15 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-	var constructor = function() {};
-	constructor.prototype = self.prototype;
-	var object = new constructor;
-	var result = self.apply(object, aCollection);
-	return typeof result === "object" ? result : object;;
+		var constructor = function() {};
+		constructor.prototype = self.prototype;
+		var object = new constructor;
+		var result = self.apply(object, aCollection);
+		return typeof result === "object" ? result : object;
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},smalltalk.BlockClosure)})},
 args: ["aCollection"],
-source: "newWithValues: aCollection\x0a\x22Use the receiver as a JavaScript constructor with a variable number of arguments.\x0aAnswer the object created using the operator `new`.\x0a\x0aThis algorithm was inspired by http://stackoverflow.com/a/6069331.\x0a\x0aHere's a general breakdown of what's going on:\x0a1) Create a new, empty constructor function.\x0a2) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.\x0a3) Instantiate a new object using the constructor function just created. \x0a   This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. \x0a   This has to be done, as we have no access to the [[prototype]] property externally.\x0a4) Apply `self` to the object I just instantiated.\x22\x0a\x0a<\x0a\x09var constructor = function() {};\x0a\x09constructor.prototype = self.prototype;\x0a\x09var object = new constructor;\x0a\x09var result = self.apply(object, aCollection);\x0a\x09return typeof result === \x22object\x22 ? result : object;\x0a>",
+source: "newWithValues: aCollection\x0a\x09\x22Use the receiver as a JavaScript constructor with a variable number of arguments.\x0a\x09Answer the object created using the operator `new`.\x0a\x0a\x09This algorithm was inspired by http://stackoverflow.com/a/6069331.\x0a\x0a\x09Here's a general breakdown of what's going on:\x0a\x091) Create a new, empty constructor function.\x0a\x092) Set it's prototype to the receiver's prototype. Because the receiver is a `BlockClosure`, it is also a JavaScript function.\x0a\x093) Instantiate a new object using the constructor function just created. \x0a\x09\x09This forces the interpreter to set the internal [[prototype]] property to what was set on the function before. \x0a   \x09\x09This has to be done, as we have no access to the [[prototype]] property externally.\x0a\x094) Apply `self` to the object I just instantiated.\x22\x0a\x0a\x09<\x0a\x09\x09var constructor = function() {};\x0a\x09\x09constructor.prototype = self.prototype;\x0a\x09\x09var object = new constructor;\x0a\x09\x09var result = self.apply(object, aCollection);\x0a\x09\x09return typeof result === \x22object\x22 ? result : object;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -231,12 +232,12 @@ return _st(aBlock)._value_(smalltalkError);
 } else {
 return _st(smalltalkError)._resignal();
 };
-}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
 source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^self try: self catch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk current asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
-messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "value:", "resignal", "isKindOf:"],
+messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.BlockClosure);
@@ -403,7 +404,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},smalltalk.BlockClosure)})},
 args: [],
 source: "whileFalse\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileFalse: []",
@@ -437,7 +438,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},smalltalk.BlockClosure)})},
 args: [],
 source: "whileTrue\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileTrue: []",
@@ -500,7 +501,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.CompiledMethod)})},
 args: [],
 source: "category\x0a\x09^(self basicAt: 'category') ifNil: [ self defaultCategory ]",
-messageSends: ["ifNil:", "defaultCategory", "basicAt:"],
+messageSends: ["ifNil:", "basicAt:", "defaultCategory"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
@@ -512,8 +513,8 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 var oldProtocol;
-function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 oldProtocol=self._protocol();
@@ -531,16 +532,16 @@ _st(_st(self._methodClass())._organization())._addElement_(aString);
 _st(_st(_st(self._methodClass())._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol()).__eq(oldProtocol);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._ifEmpty_((function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})))._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._methodClass())._organization())._removeElement_(oldProtocol);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldProtocol:oldProtocol},smalltalk.CompiledMethod)})},
 args: ["aString"],
 source: "category: aString\x0a\x09| oldProtocol |\x0a\x09oldProtocol := self protocol.\x0a\x09self basicAt: 'category' put: aString.\x0a\x0a\x09SystemAnnouncer current announce: (MethodMoved new\x0a\x09\x09method: self;\x0a\x09\x09oldProtocol: oldProtocol;\x0a\x09\x09yourself).\x0a\x0a\x09self methodClass ifNotNil: [\x0a\x09\x09self methodClass organization addElement: aString.\x0a\x09\x0a\x09\x09(self methodClass methods\x0a\x09\x09\x09select: [ :each | each protocol = oldProtocol ])\x0a\x09\x09\x09ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]",
-messageSends: ["protocol", "basicAt:put:", "announce:", "method:", "new", "oldProtocol:", "yourself", "current", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"],
-referencedClasses: ["MethodMoved", "SystemAnnouncer"]
+messageSends: ["protocol", "basicAt:put:", "announce:", "current", "method:", "new", "oldProtocol:", "yourself", "ifNotNil:", "methodClass", "addElement:", "organization", "ifEmpty:", "select:", "methods", "=", "removeElement:"],
+referencedClasses: ["SystemAnnouncer", "MethodMoved"]
 }),
 smalltalk.CompiledMethod);
 
@@ -628,14 +629,14 @@ $1=_st(each)._includesSelector_(selector);
 if(smalltalk.assert($1)){
 throw $early=[true];
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},smalltalk.CompiledMethod)})},
 args: [],
 source: "isOverridden\x0a\x09| selector |\x0a    \x0a    selector := self selector.\x0a    self methodClass allSubclassesDo: [ :each |\x0a\x09    (each includesSelector: selector)\x0a        \x09ifTrue: [ ^ true ] ].\x0a\x09^ false",
-messageSends: ["selector", "allSubclassesDo:", "ifTrue:", "includesSelector:", "methodClass"],
+messageSends: ["selector", "allSubclassesDo:", "methodClass", "ifTrue:", "includesSelector:"],
 referencedClasses: []
 }),
 smalltalk.CompiledMethod);
@@ -900,7 +901,7 @@ _st(self["@queue"])._nextPut_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},smalltalk.ForkPool)})},
 args: ["aBlock"],
 source: "fork: aBlock\x0a\x09poolSize < self maxPoolSize ifTrue: [ self addWorker ].\x0a\x09queue nextPut: aBlock",
-messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "nextPut:"],
+messageSends: ["ifTrue:", "<", "maxPoolSize", "addWorker", "nextPut:"],
 referencedClasses: []
 }),
 smalltalk.ForkPool);
@@ -944,24 +945,24 @@ self["@poolSize"];
 block=_st(self["@queue"])._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx3) {
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){
 return _st((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(block)._value();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._ensure_((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._addWorker();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
 };
-}, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1)})});
+}, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1,1)})});
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},smalltalk.ForkPool)})},
 args: [],
 source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^[ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue nextIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ]]]",
-messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="],
+messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "==", "ensure:", "value", "addWorker"],
 referencedClasses: ["Object"]
 }),
 smalltalk.ForkPool);
@@ -1464,7 +1465,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.MethodContext)})},
 args: [],
 source: "asString\x0a\x09^self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
-messageSends: ["ifTrue:ifFalse:", ",", "asString", "methodContext", "selector", "name", "class", "receiver", "isBlockContext"],
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1553,7 +1554,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},
 args: [],
 source: "method\x0a\x09^ self methodContext ifNotNil: [\x0a\x09\x09self methodContext receiver class lookupSelector: self methodContext selector ]",
-messageSends: ["ifNotNil:", "lookupSelector:", "selector", "methodContext", "class", "receiver"],
+messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector"],
 referencedClasses: []
 }),
 smalltalk.MethodContext);

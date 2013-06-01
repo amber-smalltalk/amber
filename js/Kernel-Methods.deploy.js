@@ -130,11 +130,12 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-	var constructor = function() {};
-	constructor.prototype = self.prototype;
-	var object = new constructor;
-	var result = self.apply(object, aCollection);
-	return typeof result === "object" ? result : object;;
+		var constructor = function() {};
+		constructor.prototype = self.prototype;
+		var object = new constructor;
+		var result = self.apply(object, aCollection);
+		return typeof result === "object" ? result : object;
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"newWithValues:",{aCollection:aCollection},smalltalk.BlockClosure)})},
 messageSends: []}),
 smalltalk.BlockClosure);
@@ -169,10 +170,10 @@ return _st(aBlock)._value_(smalltalkError);
 } else {
 return _st(smalltalkError)._resignal();
 };
-}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({error:error,smalltalkError:smalltalkError},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},smalltalk.BlockClosure)})},
-messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "value:", "resignal", "isKindOf:"]}),
+messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"]}),
 smalltalk.BlockClosure);
 
 smalltalk.addMethod(
@@ -291,7 +292,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},smalltalk.BlockClosure)})},
 messageSends: ["whileFalse:"]}),
 smalltalk.BlockClosure);
@@ -315,7 +316,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},smalltalk.BlockClosure)})},
 messageSends: ["whileTrue:"]}),
 smalltalk.BlockClosure);
@@ -360,7 +361,7 @@ $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.CompiledMethod)})},
-messageSends: ["ifNil:", "defaultCategory", "basicAt:"]}),
+messageSends: ["ifNil:", "basicAt:", "defaultCategory"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
@@ -369,8 +370,8 @@ selector: "category:",
 fn: function (aString){
 var self=this;
 var oldProtocol;
-function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 oldProtocol=self._protocol();
@@ -388,13 +389,13 @@ _st(_st(self._methodClass())._organization())._addElement_(aString);
 _st(_st(_st(self._methodClass())._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol()).__eq(oldProtocol);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._ifEmpty_((function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})))._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._methodClass())._organization())._removeElement_(oldProtocol);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldProtocol:oldProtocol},smalltalk.CompiledMethod)})},
-messageSends: ["protocol", "basicAt:put:", "announce:", "method:", "new", "oldProtocol:", "yourself", "current", "ifNotNil:", "addElement:", "organization", "methodClass", "ifEmpty:", "removeElement:", "select:", "=", "methods"]}),
+messageSends: ["protocol", "basicAt:put:", "announce:", "current", "method:", "new", "oldProtocol:", "yourself", "ifNotNil:", "methodClass", "addElement:", "organization", "ifEmpty:", "select:", "methods", "=", "removeElement:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
@@ -460,12 +461,12 @@ $1=_st(each)._includesSelector_(selector);
 if(smalltalk.assert($1)){
 throw $early=[true];
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"isOverridden",{selector:selector},smalltalk.CompiledMethod)})},
-messageSends: ["selector", "allSubclassesDo:", "ifTrue:", "includesSelector:", "methodClass"]}),
+messageSends: ["selector", "allSubclassesDo:", "methodClass", "ifTrue:", "includesSelector:"]}),
 smalltalk.CompiledMethod);
 
 smalltalk.addMethod(
@@ -659,7 +660,7 @@ self._addWorker();
 };
 _st(self["@queue"])._nextPut_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"fork:",{aBlock:aBlock},smalltalk.ForkPool)})},
-messageSends: ["ifTrue:", "addWorker", "<", "maxPoolSize", "nextPut:"]}),
+messageSends: ["ifTrue:", "<", "maxPoolSize", "addWorker", "nextPut:"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
@@ -695,22 +696,22 @@ self["@poolSize"];
 block=_st(self["@queue"])._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx3) {
 return sentinel;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 block;
 $2=_st(block).__eq_eq(sentinel);
 if(! smalltalk.assert($2)){
 return _st((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(block)._value();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._ensure_((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._addWorker();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
 };
-}, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1)})});
+}, function($ctx2) {$ctx2.fillBlock({block:block},$ctx1,1)})});
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},smalltalk.ForkPool)})},
-messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "ensure:", "addWorker", "value", "=="]}),
+messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "==", "ensure:", "value", "addWorker"]}),
 smalltalk.ForkPool);
 
 smalltalk.addMethod(
@@ -1080,7 +1081,7 @@ $1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.MethodContext)})},
-messageSends: ["ifTrue:ifFalse:", ",", "asString", "methodContext", "selector", "name", "class", "receiver", "isBlockContext"]}),
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
@@ -1144,7 +1145,7 @@ $1=_st(_st(_st(self._methodContext())._receiver())._class())._lookupSelector_(_s
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},
-messageSends: ["ifNotNil:", "lookupSelector:", "selector", "methodContext", "class", "receiver"]}),
+messageSends: ["ifNotNil:", "methodContext", "lookupSelector:", "class", "receiver", "selector"]}),
 smalltalk.MethodContext);
 
 smalltalk.addMethod(
