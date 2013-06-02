@@ -163,7 +163,7 @@ $1=_st(_st(self._nodes())._first())._nextChild();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextChild",{},smalltalk.Node)})},
-messageSends: ["ifTrue:ifFalse:", "nextChild", "first", "nodes", "isEmpty"]}),
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
@@ -183,7 +183,7 @@ $1=_st(node)._nextNode_(self);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextNode",{},smalltalk.Node)})},
-messageSends: ["ifNotNil:", "nextNode:", "parent"]}),
+messageSends: ["ifNotNil:", "parent", "nextNode:"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
@@ -200,13 +200,13 @@ next=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode))._
 return smalltalk.withContext(function($ctx2) {
 $1=self;
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=_st(next)._nextChild();
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},smalltalk.Node)})},
-messageSends: ["at:ifAbsent:", "+", "indexOf:", "nodes", "nextChild"]}),
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
@@ -239,7 +239,7 @@ self["@nodes"]=aCollection;
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"nodes:",{aCollection:aCollection},smalltalk.Node)})},
 messageSends: ["do:", "parent:"]}),
 smalltalk.Node);
@@ -290,7 +290,7 @@ $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.Node)})},
-messageSends: ["ifNil:", "ifNotNil:", "position", "parent"]}),
+messageSends: ["ifNil:", "ifNotNil:", "parent", "position"]}),
 smalltalk.Node);
 
 smalltalk.addMethod(
@@ -314,7 +314,7 @@ smalltalk.Object.fn.prototype._postCopy.apply(_st(self), []);
 _st(self._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"postCopy",{},smalltalk.Node)})},
 messageSends: ["postCopy", "do:", "nodes", "parent:"]}),
 smalltalk.Node);
@@ -398,19 +398,19 @@ var $1;
 $1=_st(_st(self._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._shouldBeInlined();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._or_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._nodes())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._subtreeNeedsAliasing();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,3)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return false;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))).__tild_eq(false);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}))).__tild_eq(false);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.Node)})},
-messageSends: ["or:", "~=", "detect:ifNone:", "subtreeNeedsAliasing", "nodes", "shouldBeInlined", "shouldBeAliased"]}),
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "~=", "detect:ifNone:", "nodes", "subtreeNeedsAliasing"]}),
 smalltalk.Node);
 
 
@@ -622,10 +622,10 @@ var $1;
 $1=_st(self._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._shouldBeInlined();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.BlockNode)})},
-messageSends: ["or:", "shouldBeInlined", "shouldBeAliased"]}),
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined"]}),
 smalltalk.BlockNode);
 
 
@@ -846,7 +846,7 @@ var $1;
 $1=_st(_st(_st(self._source())._lines())._size()).__at(_st(_st(_st(_st(self._source())._lines())._last())._size()).__plus((1)));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"extent",{},smalltalk.MethodNode)})},
-messageSends: ["@", "+", "size", "last", "lines", "source"]}),
+messageSends: ["@", "size", "lines", "source", "+", "last"]}),
 smalltalk.MethodNode);
 
 smalltalk.addMethod(
@@ -1078,7 +1078,7 @@ self["@arguments"]=aCollection;
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},smalltalk.SendNode)})},
 messageSends: ["do:", "parent:"]}),
 smalltalk.SendNode);
@@ -1106,7 +1106,7 @@ $5=_st($4)._yourself();
 $3=$5;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"cascadeNodeWithMessages:",{aCollection:aCollection,first:first},smalltalk.SendNode)})},
-messageSends: ["selector:", "selector", "new", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"]}),
+messageSends: ["selector:", "new", "selector", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"]}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
@@ -1207,7 +1207,7 @@ if(smalltalk.assert($1)){
 _st(aNode)._parent_(self);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{aNode:aNode},smalltalk.SendNode)})},
-messageSends: ["ifTrue:", "parent:", "isNode"]}),
+messageSends: ["ifTrue:", "isNode", "parent:"]}),
 smalltalk.SendNode);
 
 smalltalk.addMethod(
@@ -1298,7 +1298,7 @@ $6=_st($2)._yourself();
 $1=$6;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},smalltalk.SendNode)})},
-messageSends: ["position:", "position", "new", "receiver:", "ifNil:ifNotNil:", "valueForReceiver:", "receiver", "selector:", "selector", "arguments:", "arguments", "yourself"]}),
+messageSends: ["position:", "new", "position", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"]}),
 smalltalk.SendNode);
 
 
@@ -1333,7 +1333,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},smalltalk.SequenceNode)})},
-messageSends: ["position:", "position", "new", "nodes:", "nodes", "temps:", "temps", "yourself"]}),
+messageSends: ["position:", "new", "position", "nodes:", "nodes", "temps:", "temps", "yourself"]}),
 smalltalk.SequenceNode);
 
 smalltalk.addMethod(
@@ -1490,7 +1490,7 @@ var $1;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._stack();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._value();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.ValueNode)})},
 messageSends: ["value", "stack"]}),
@@ -1641,10 +1641,10 @@ var $1;
 _st(self._source())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Method source is empty");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $1=_st(_st($Smalltalk())._current())._parse_(self._source());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ast",{},smalltalk.CompiledMethod)})},
-messageSends: ["ifEmpty:", "error:", "source", "parse:", "current"]}),
+messageSends: ["ifEmpty:", "source", "error:", "parse:", "current"]}),
 smalltalk.CompiledMethod);
 

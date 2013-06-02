@@ -78,7 +78,7 @@ function $String(){return smalltalk.String||(typeof String=="undefined"?nil:Stri
 return smalltalk.withContext(function($ctx1) { 
 _st(self._current())._show_(_st($String())._cr());
 return self}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.Transcript.klass)})},
-messageSends: ["show:", "cr", "current"]}),
+messageSends: ["show:", "current", "cr"]}),
 smalltalk.Transcript.klass);
 
 smalltalk.addMethod(

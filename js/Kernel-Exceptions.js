@@ -364,7 +364,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
 args: [],
 source: "messageText\x0a\x09^self receiver asString, ' does not understand #', self message selector",
-messageSends: [",", "selector", "message", "asString", "receiver"],
+messageSends: [",", "asString", "receiver", "selector", "message"],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
@@ -463,7 +463,7 @@ self._logError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler)})},
 args: ["anError"],
 source: "handleError: anError\x0a\x09anError context ifNotNil: [self logErrorContext: anError context].\x0a\x09self logError: anError",
-messageSends: ["ifNotNil:", "logErrorContext:", "context", "logError:"],
+messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
@@ -502,7 +502,7 @@ self._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
 source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext asString",
-messageSends: ["ifNotNil:", "logContext:", "home", "log:", "asString"],
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
@@ -545,7 +545,7 @@ self._logContext_(_st(aContext)._home());
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
 source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home]]",
-messageSends: ["ifNotNil:", "logContext:", "home"],
+messageSends: ["ifNotNil:", "home", "logContext:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);

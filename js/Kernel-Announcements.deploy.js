@@ -62,7 +62,7 @@ if(smalltalk.assert($1)){
 _st(self._valuable())._value_(anAnnouncement);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
-messageSends: ["ifTrue:", "value:", "valuable", "handlesAnnouncement:"]}),
+messageSends: ["ifTrue:", "handlesAnnouncement:", "value:", "valuable"]}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
@@ -83,7 +83,7 @@ $1=_st(class_)._includesBehavior_(_st(_st($Smalltalk())._current())._at_(_st(_st
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
-messageSends: ["ifNil:ifNotNil:", "includesBehavior:", "at:", "name", "theNonMetaClass", "class", "current", "announcementClass"]}),
+messageSends: ["ifNil:ifNotNil:", "at:", "current", "name", "announcementClass", "includesBehavior:", "theNonMetaClass", "class"]}),
 smalltalk.AnnouncementSubscription);
 
 smalltalk.addMethod(
@@ -135,7 +135,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self["@subscriptions"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._deliver_(anAnnouncement);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncement:anAnnouncement},smalltalk.Announcer)})},
 messageSends: ["do:", "deliver:"]}),
 smalltalk.Announcer);
@@ -175,8 +175,8 @@ smalltalk.method({
 selector: "on:send:to:",
 fn: function (aClass,aSelector,anObject){
 var self=this;
-function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 $1=_st($AnnouncementSubscription())._new();
@@ -189,7 +189,7 @@ _st($1)._announcementClass_(aClass);
 $4=_st($1)._yourself();
 _st(self["@subscriptions"])._add_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},smalltalk.Announcer)})},
-messageSends: ["add:", "valuable:", "receiver:", "new", "selector:", "yourself", "announcementClass:"]}),
+messageSends: ["add:", "valuable:", "new", "receiver:", "selector:", "yourself", "announcementClass:"]}),
 smalltalk.Announcer);
 
 smalltalk.addMethod(
@@ -201,7 +201,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@subscriptions"]=_st(self["@subscriptions"])._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._receiver()).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"unsubscribe:",{anObject:anObject},smalltalk.Announcer)})},
 messageSends: ["reject:", "=", "receiver"]}),
 smalltalk.Announcer);

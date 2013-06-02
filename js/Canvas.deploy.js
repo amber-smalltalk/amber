@@ -392,7 +392,7 @@ self._error_("Not an HTML entity: ".__comma(aString));
 };
 self._with_(result);
 return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},smalltalk.HTMLCanvas)})},
-messageSends: ["text", "html:", ",", "asJQuery", "ifFalse:", "error:", "=", "size", "with:"]}),
+messageSends: ["text", "html:", "asJQuery", ",", "ifFalse:", "=", "size", "error:", "with:"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
@@ -1600,9 +1600,9 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._snippetsFromJQuery_(aJQuery))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._installSnippetFromJQuery_(_st(each)._asJQuery());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},smalltalk.HTMLSnippet)})},
-messageSends: ["do:", "installSnippetFromJQuery:", "asJQuery", "snippetsFromJQuery:"]}),
+messageSends: ["do:", "snippetsFromJQuery:", "installSnippetFromJQuery:", "asJQuery"]}),
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
@@ -1627,7 +1627,7 @@ _st(element)._removeAttr_("data-snippet");
 self._snippetAt_install_(name,_st(_st(element)._detach())._get_((0)));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},smalltalk.HTMLSnippet)})},
-messageSends: ["attr:", "ifFalse:", "ifTrue:ifFalse:", "allButFirst", "attr:put:", "removeAttr:", "test:", "asRegexp", "snippetAt:install:", "get:", "detach", "="]}),
+messageSends: ["attr:", "ifFalse:", "=", "ifTrue:ifFalse:", "test:", "asRegexp", "allButFirst", "attr:put:", "removeAttr:", "snippetAt:install:", "get:", "detach"]}),
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
@@ -1648,15 +1648,15 @@ smalltalk.method({
 selector: "snippetAt:compile:",
 fn: function (aString,anElement){
 var self=this;
-function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st($ClassBuilder())._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
 return smalltalk.withContext(function($ctx2) {
 return _st(htmlReceiver)._snippet_(anElement);
-}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
+}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1,1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
 return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},smalltalk.HTMLSnippet)})},
-messageSends: ["installMethod:forClass:category:", "asCompiledMethod:", "currySelf", "snippet:", "new"]}),
+messageSends: ["installMethod:forClass:category:", "new", "asCompiledMethod:", "currySelf", "snippet:"]}),
 smalltalk.HTMLSnippet);
 
 smalltalk.addMethod(
@@ -1736,7 +1736,7 @@ self["@current"];
 $1;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},smalltalk.HTMLSnippet.klass)})},
-messageSends: ["ifNil:", "initializeFromJQuery:", "asJQuery", "new", "yourself"]}),
+messageSends: ["ifNil:", "initializeFromJQuery:", "new", "asJQuery", "yourself"]}),
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
@@ -1752,7 +1752,7 @@ if(smalltalk.assert($1)){
 self._ensureCurrent();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HTMLSnippet.klass)})},
-messageSends: ["initialize", "ifTrue:", "ensureCurrent", "isDOMAvailable"]}),
+messageSends: ["initialize", "ifTrue:", "isDOMAvailable", "ensureCurrent"]}),
 smalltalk.HTMLSnippet.klass);
 
 smalltalk.addMethod(
@@ -2587,7 +2587,7 @@ _st(_st(self._element())._styleSheet())._cssText_(aString);
 smalltalk.TagBrush.fn.prototype._with_.apply(_st(self), [aString]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"with:",{aString:aString},smalltalk.StyleTag)})},
-messageSends: ["ifTrue:ifFalse:", "cssText:", "styleSheet", "element", "with:", "isMSIE"]}),
+messageSends: ["ifTrue:ifFalse:", "isMSIE", "cssText:", "styleSheet", "element", "with:"]}),
 smalltalk.StyleTag);
 
 
@@ -2711,7 +2711,7 @@ var $1;
 $1=_st(_st($HTMLSnippet())._current())._snippetAt_(self._asString());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSnippet",{},smalltalk.CharacterArray)})},
-messageSends: ["snippetAt:", "asString", "current"]}),
+messageSends: ["snippetAt:", "current", "asString"]}),
 smalltalk.CharacterArray);
 
 smalltalk.addMethod(

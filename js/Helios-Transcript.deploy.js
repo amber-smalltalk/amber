@@ -48,7 +48,7 @@ $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@textarea"]=_st(html)._textarea();
 return self["@textarea"];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLTranscript)})},
 messageSends: ["class:", "div", "with:", "textarea"]}),
 smalltalk.HLTranscript);
@@ -67,7 +67,7 @@ $1;
 _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscript)})},
-messageSends: ["ifNotNil:", "append:", "asString", "asJQuery"]}),
+messageSends: ["ifNotNil:", "append:", "asJQuery", "asString"]}),
 smalltalk.HLTranscript);
 
 smalltalk.addMethod(
@@ -97,9 +97,9 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._transcripts())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._clear();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.HLTranscriptHandler.klass)})},
-messageSends: ["do:", "clear", "transcripts"]}),
+messageSends: ["do:", "transcripts", "clear"]}),
 smalltalk.HLTranscriptHandler.klass);
 
 smalltalk.addMethod(
@@ -134,9 +134,9 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._transcripts())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._show_(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscriptHandler.klass)})},
-messageSends: ["do:", "show:", "transcripts"]}),
+messageSends: ["do:", "transcripts", "show:"]}),
 smalltalk.HLTranscriptHandler.klass);
 
 smalltalk.addMethod(

@@ -208,6 +208,9 @@ smalltalk.HLDebuggerContextSelected);
 smalltalk.addClass('HLDebuggerStepped', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
+smalltalk.addClass('HLDebuggerWhere', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+
+
 smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 

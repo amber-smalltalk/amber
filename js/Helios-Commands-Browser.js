@@ -356,12 +356,12 @@ var $1;
 $1=_st(_st(self._model())._showComment())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._model())._selectedClass())._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model showComment and: [ self model selectedClass notNil ]",
-messageSends: ["and:", "notNil", "selectedClass", "model", "showComment"],
+messageSends: ["and:", "showComment", "model", "notNil", "selectedClass"],
 referencedClasses: []
 }),
 smalltalk.HLEditCommentCommand);
@@ -447,7 +447,7 @@ _st(self._model())._showComment_(_st(_st(self._model())._showComment())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
 args: [],
 source: "execute\x0a\x09self model showComment: self model showComment not",
-messageSends: ["showComment:", "not", "showComment", "model"],
+messageSends: ["showComment:", "model", "not", "showComment"],
 referencedClasses: []
 }),
 smalltalk.HLToggleClassCommentCommand);

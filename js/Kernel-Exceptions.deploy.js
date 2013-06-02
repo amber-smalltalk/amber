@@ -258,7 +258,7 @@ var $1;
 $1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
-messageSends: [",", "selector", "message", "asString", "receiver"]}),
+messageSends: [",", "asString", "receiver", "selector", "message"]}),
 smalltalk.MessageNotUnderstood);
 
 smalltalk.addMethod(
@@ -330,7 +330,7 @@ self._logErrorContext_(_st(anError)._context());
 };
 self._logError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler)})},
-messageSends: ["ifNotNil:", "logErrorContext:", "context", "logError:"]}),
+messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"]}),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
@@ -359,7 +359,7 @@ self._logContext_(_st(aContext)._home());
 };
 self._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
-messageSends: ["ifNotNil:", "logContext:", "home", "log:", "asString"]}),
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"]}),
 smalltalk.ErrorHandler);
 
 smalltalk.addMethod(
@@ -392,7 +392,7 @@ self._logContext_(_st(aContext)._home());
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
-messageSends: ["ifNotNil:", "logContext:", "home"]}),
+messageSends: ["ifNotNil:", "home", "logContext:"]}),
 smalltalk.ErrorHandler);
 
 

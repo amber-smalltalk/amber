@@ -32,7 +32,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.HLMethodReference)})},
 args: [],
 source: "method\x0a\x09^ self methodClass methodAt: self selector",
-messageSends: ["methodAt:", "selector", "methodClass"],
+messageSends: ["methodAt:", "methodClass", "selector"],
 referencedClasses: []
 }),
 smalltalk.HLMethodReference);
@@ -222,7 +222,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLReferences)})},
 args: [],
 source: "model\x0a\x09^ model ifNil: [\x0a\x09\x09model := (HLReferencesModel new\x0a\x09\x09\x09environment: self manager environment;\x0a\x09\x09\x09yourself) ]",
-messageSends: ["ifNil:", "environment:", "environment", "manager", "new", "yourself"],
+messageSends: ["ifNil:", "environment:", "new", "environment", "manager", "yourself"],
 referencedClasses: ["HLReferencesModel"]
 }),
 smalltalk.HLReferences);
@@ -292,9 +292,9 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
-function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
+function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 _st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._sendersListWidget(),self._implementorsListWidget()),_st($HLVerticalSplitter())._with_with_(self._classReferencesListWidget(),self._regexpListWidget())),self._sourceCodeWidget())));
 _st(self._sendersListWidget())._focus();
@@ -302,7 +302,7 @@ return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},sm
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self sendersListWidget\x0a                with: self implementorsListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self classReferencesListWidget\x0a                with: self regexpListWidget)) \x0a        with: self sourceCodeWidget)).\x0a\x09\x0a\x09self sendersListWidget focus",
 messageSends: ["with:", "with:with:", "sendersListWidget", "implementorsListWidget", "classReferencesListWidget", "regexpListWidget", "sourceCodeWidget", "focus"],
-referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter", "HLContainer"]
+referencedClasses: ["HLContainer", "HLHorizontalSplitter", "HLVerticalSplitter"]
 }),
 smalltalk.HLReferences);
 
@@ -371,7 +371,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceCodeWidget",{},smalltalk.HLReferences)})},
 args: [],
 source: "sourceCodeWidget\x0a\x09^ sourceCodeWidget ifNil: [\x0a      \x09sourceCodeWidget := HLBrowserCodeWidget new\x0a\x09\x09\x09browserModel: self model;\x0a\x09\x09\x09yourself ]",
-messageSends: ["ifNil:", "browserModel:", "model", "new", "yourself"],
+messageSends: ["ifNil:", "browserModel:", "new", "model", "yourself"],
 referencedClasses: ["HLBrowserCodeWidget"]
 }),
 smalltalk.HLReferences);
@@ -453,11 +453,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 return smalltalk.HLToolListWidget.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{anItem:anItem},smalltalk.HLReferencesListWidget)})},
 args: ["anItem"],
 source: "activateListItem: anItem\x0a\x09self model withChangesDo: [ super activateListItem: anItem ]",
-messageSends: ["withChangesDo:", "activateListItem:", "model"],
+messageSends: ["withChangesDo:", "model", "activateListItem:"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesListWidget);
@@ -508,15 +508,15 @@ $1=_st(self._model())._announcer();
 _st($1)._on_do_($HLSearchReferences(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return self._onSearchReferences_(_st(ann)._searchString());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,1)})}));
 $2=_st($1)._on_do_($HLMethodSelected(),(function(ann){
 return smalltalk.withContext(function($ctx2) {
 return self._onMethodSelected_(_st(ann)._item());
-}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLReferencesListWidget)})},
 args: [],
 source: "observeModel\x0a\x09self model announcer\x0a\x09\x09on: HLSearchReferences\x0a\x09\x09do: [ :ann | self onSearchReferences: ann searchString ];\x0a\x09\x09on: HLMethodSelected\x0a\x09\x09do: [ :ann | self onMethodSelected: ann item ]",
-messageSends: ["on:do:", "onSearchReferences:", "searchString", "announcer", "model", "onMethodSelected:", "item"],
+messageSends: ["on:do:", "announcer", "model", "onSearchReferences:", "searchString", "onMethodSelected:", "item"],
 referencedClasses: ["HLSearchReferences", "HLMethodSelected"]
 }),
 smalltalk.HLReferencesListWidget);
@@ -541,11 +541,11 @@ $1;
 _st(self._items())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st(aMethod)._selector());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 $3=self;
 throw $early=[$3];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $4=self;
 _st($4)._selectedItem_(_st(aMethod)._selector());
 $5=_st($4)._activateItem_(_st(aMethod)._selector());
@@ -554,7 +554,7 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
 args: ["aMethod"],
 source: "onMethodSelected: aMethod\x0a\x09aMethod ifNil: [ ^ self ].\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a\x09\x0a\x09self \x0a\x09\x09selectedItem: aMethod selector;\x0a\x09\x09activateItem: aMethod selector\x09",
-messageSends: ["ifNil:", "detect:ifNone:", "=", "selector", "items", "selectedItem:", "activateItem:"],
+messageSends: ["ifNil:", "detect:ifNone:", "items", "=", "selector", "selectedItem:", "activateItem:"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesListWidget);
@@ -586,7 +586,7 @@ _st(html)._with_(_st(_st(_st(_st(aMethod)._methodClass())._name()).__comma(" >> 
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aMethod:aMethod,html:html},smalltalk.HLReferencesListWidget)})},
 args: ["aMethod", "html"],
 source: "renderItemLabel: aMethod on: html\x0a\x09html with: aMethod methodClass name, ' >> #', aMethod selector",
-messageSends: ["with:", ",", "selector", "name", "methodClass"],
+messageSends: ["with:", ",", "name", "methodClass", "selector"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesListWidget);
@@ -808,12 +808,12 @@ var $1;
 $1=_st(_st(self._allMethods())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allSelectors",{},smalltalk.HLReferencesModel)})},
 args: [],
 source: "allSelectors\x0a\x09^ (self allMethods \x0a\x09\x09collect: [ :each | each selector ])\x0a\x09\x09asSet",
-messageSends: ["asSet", "collect:", "selector", "allMethods"],
+messageSends: ["asSet", "collect:", "allMethods", "selector"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
@@ -837,14 +837,14 @@ $1=_st(_st(method)._referencedClasses())._includes_(aString);
 if(smalltalk.assert($1)){
 return _st(references)._add_(method);
 };
-}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $2=references;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"classReferencesOf:",{aString:aString,references:references},smalltalk.HLReferencesModel)})},
 args: ["aString"],
 source: "classReferencesOf: aString\x0a\x09\x22Answer all methods referencing the class named aString\x22\x0a\x09\x0a\x09| references |\x0a\x09\x0a\x09references := OrderedCollection new.\x0a\x09\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary values do: [ :method |\x0a\x09\x09\x09(method referencedClasses includes: aString) ifTrue: [\x0a\x09\x09\x09\x09references add: method ] ] ].\x0a\x09\x09\x09\x09\x0a\x09^ references",
-messageSends: ["new", "do:", "ifTrue:", "add:", "includes:", "referencedClasses", "values", "methodDictionary", "classesAndMetaclasses"],
+messageSends: ["new", "do:", "classesAndMetaclasses", "values", "methodDictionary", "ifTrue:", "includes:", "referencedClasses", "add:"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);
@@ -902,15 +902,15 @@ var $1;
 $1=_st(_st(self._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._selector()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._methodReferenceOn_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"implementorsOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
 source: "implementorsOf: aString\x0a\x09^ (self allMethods select: [ :each |\x0a\x09\x09each selector = aString ])\x0a\x09\x09\x09collect: [ :each | self methodReferenceOn: each ]",
-messageSends: ["collect:", "methodReferenceOn:", "select:", "=", "selector", "allMethods"],
+messageSends: ["collect:", "select:", "allMethods", "=", "selector", "methodReferenceOn:"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
@@ -985,15 +985,15 @@ var $1;
 $1=_st(_st(self._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._source())._match_(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._methodReferenceOn_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"regexpReferencesOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
 source: "regexpReferencesOf: aString\x0a\x09^ (self allMethods select: [ :each |\x0a\x09\x09each source match: aString ])\x0a\x09\x09\x09collect: [ :each | self methodReferenceOn: each ]",
-messageSends: ["collect:", "methodReferenceOn:", "select:", "match:", "source", "allMethods"],
+messageSends: ["collect:", "select:", "allMethods", "match:", "source", "methodReferenceOn:"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
@@ -1015,7 +1015,7 @@ _st(self._announcer())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"search:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
 source: "search: aString\x0a\x09self updateCaches.\x0a\x09\x0a\x09self announcer announce: (HLSearchReferences new\x0a\x09\x09searchString: aString;\x0a\x09\x09yourself)",
-messageSends: ["updateCaches", "announce:", "searchString:", "new", "yourself", "announcer"],
+messageSends: ["updateCaches", "announce:", "announcer", "searchString:", "new", "yourself"],
 referencedClasses: ["HLSearchReferences"]
 }),
 smalltalk.HLReferencesModel);
@@ -1031,15 +1031,15 @@ var $1;
 $1=_st(_st(self._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._messageSends())._includes_(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._methodReferenceOn_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendersOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
 source: "sendersOf: aString\x0a\x09^ (self allMethods select: [ :each |\x0a\x09\x09each messageSends includes: aString ])\x0a\x09\x09\x09collect: [ :each | self methodReferenceOn: each ]",
-messageSends: ["collect:", "methodReferenceOn:", "select:", "includes:", "messageSends", "allMethods"],
+messageSends: ["collect:", "select:", "allMethods", "includes:", "messageSends", "methodReferenceOn:"],
 referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
@@ -1079,11 +1079,11 @@ _st($1)._add_(each);
 _st($1)._add_(_st(each)._class());
 $2=_st($1)._yourself();
 return $2;
-}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateClassesAndMetaclassesCache",{},smalltalk.HLReferencesModel)})},
 args: [],
 source: "updateClassesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache := self environment classes \x0a\x09\x09inject: OrderedCollection new \x0a\x09\x09into: [ :acc :each |\x0a\x09\x09\x09acc \x0a\x09\x09\x09\x09add: each; \x0a\x09\x09\x09\x09add: each class;\x0a\x09\x09\x09\x09yourself ]",
-messageSends: ["inject:into:", "new", "add:", "class", "yourself", "classes", "environment"],
+messageSends: ["inject:into:", "classes", "environment", "new", "add:", "class", "yourself"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);
@@ -1099,11 +1099,11 @@ return smalltalk.withContext(function($ctx1) {
 self["@methodsCache"]=_st(self._classesAndMetaclasses())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
 return smalltalk.withContext(function($ctx2) {
 return _st(acc).__comma(_st(each)._methods());
-}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsCache",{},smalltalk.HLReferencesModel)})},
 args: [],
 source: "updateMethodsCache\x0a\x09methodsCache := self classesAndMetaclasses\x0a\x09\x09inject: OrderedCollection new\x0a\x09\x09into: [ :acc :each |\x0a\x09\x09\x09acc, each methods ]",
-messageSends: ["inject:into:", "new", ",", "methods", "classesAndMetaclasses"],
+messageSends: ["inject:into:", "classesAndMetaclasses", "new", ",", "methods"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);

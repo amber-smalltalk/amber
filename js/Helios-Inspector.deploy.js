@@ -32,7 +32,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(html)._div())._with_(self._selectionDisplayString());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorDisplayWidget)})},
-messageSends: ["with:", "selectionDisplayString", "div"]}),
+messageSends: ["with:", "div", "selectionDisplayString"]}),
 smalltalk.HLInspectorDisplayWidget);
 
 smalltalk.addMethod(
@@ -52,7 +52,7 @@ $1="";
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectionDisplayString",{selection:selection},smalltalk.HLInspectorDisplayWidget)})},
-messageSends: ["selection", "ifTrue:ifFalse:", "printString", "instVarObjectAt:", "includes:", "keys", "variables"]}),
+messageSends: ["selection", "ifTrue:ifFalse:", "includes:", "keys", "variables", "printString", "instVarObjectAt:"]}),
 smalltalk.HLInspectorDisplayWidget);
 
 
@@ -286,7 +286,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@selection"]=anObject;
 _st(self._announcer())._announce_(_st($HLInstanceVariableSelected())._on_(self["@selection"]));
 return self}, function($ctx1) {$ctx1.fill(self,"selection:",{anObject:anObject},smalltalk.HLInspectorModel)})},
-messageSends: ["announce:", "on:", "announcer"]}),
+messageSends: ["announce:", "announcer", "on:"]}),
 smalltalk.HLInspectorModel);
 
 smalltalk.addMethod(
@@ -432,7 +432,7 @@ self._resetItems();
 smalltalk.HLNavigationListWidget.fn.prototype._refresh.apply(_st(self), []);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorVariablesWidget)})},
-messageSends: ["ifFalse:", "resetItems", "refresh", "=", "items", "variables"]}),
+messageSends: ["ifFalse:", "=", "variables", "items", "resetItems", "refresh"]}),
 smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
@@ -449,10 +449,10 @@ _st($1)._with_("Dive");
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._announcer())._announce_(_st($HLDiveRequested())._new());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self["@diveButton"]=$2;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
-messageSends: ["class:", "button", "with:", "onClick:", "announce:", "new", "announcer"]}),
+messageSends: ["class:", "button", "with:", "onClick:", "announce:", "announcer", "new"]}),
 smalltalk.HLInspectorVariablesWidget);
 
 smalltalk.addMethod(
@@ -554,7 +554,7 @@ $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["ifNil:", "model:", "code", "new", "receiver:", "inspectee", "yourself"]}),
+messageSends: ["ifNil:", "model:", "new", "code", "receiver:", "inspectee", "yourself"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -577,7 +577,7 @@ $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"displayWidget",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["ifNil:", "model:", "model", "new", "yourself"]}),
+messageSends: ["ifNil:", "model:", "new", "model", "yourself"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -678,7 +678,7 @@ _st($1)._observeCodeWidget();
 _st($1)._observeVariablesWidget();
 $2=_st($1)._observeModel();
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLInspectorWidget)})},
-messageSends: ["model:", "code", "codeWidget", "observeCodeWidget", "observeVariablesWidget", "observeModel"]}),
+messageSends: ["model:", "codeWidget", "code", "observeCodeWidget", "observeVariablesWidget", "observeModel"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -691,9 +691,9 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self._codeWidget())._announcer())._on_do_($HLDoItExecuted(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onDoneIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeCodeWidget",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["on:do:", "onDoneIt", "announcer", "codeWidget"]}),
+messageSends: ["on:do:", "announcer", "codeWidget", "onDoneIt"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -718,9 +718,9 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self._variablesWidget())._announcer())._on_do_($HLDiveRequested(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onDive();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeVariablesWidget",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["on:do:", "onDive", "announcer", "variablesWidget"]}),
+messageSends: ["on:do:", "announcer", "variablesWidget", "onDive"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -735,7 +735,7 @@ $1=_st($HLInspector())._new();
 _st($1)._inspect_(_st(self._model())._selectedInstVarObject());
 $2=_st($1)._openAsTab();
 return self}, function($ctx1) {$ctx1.fill(self,"onDive",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["inspect:", "selectedInstVarObject", "model", "new", "openAsTab"]}),
+messageSends: ["inspect:", "new", "selectedInstVarObject", "model", "openAsTab"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -768,7 +768,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._codeWidget())._receiver_(_st(self._model())._selectedInstVarObject());
 self._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"onInstanceVariableSelected",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["receiver:", "selectedInstVarObject", "model", "codeWidget", "refreshDisplayWidget"]}),
+messageSends: ["receiver:", "codeWidget", "selectedInstVarObject", "model", "refreshDisplayWidget"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
@@ -834,8 +834,8 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 _st(html)._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget()));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorWidget)})},
@@ -908,7 +908,7 @@ $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variablesWidget",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["ifNil:", "model:", "model", "new", "yourself"]}),
+messageSends: ["ifNil:", "model:", "new", "model", "yourself"]}),
 smalltalk.HLInspectorWidget);
 
 
@@ -919,9 +919,9 @@ smalltalk.method({
 selector: "renderContentOn:",
 fn: function (html){
 var self=this;
-function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
-function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
+function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
 _st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget())));
 _st(self._variablesWidget())._focus();
@@ -1054,10 +1054,10 @@ return smalltalk.withContext(function($ctx2) {
 return _st(self._inspectors())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._refresh();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithInterval_((500));
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithInterval_((500));
 return self}, function($ctx1) {$ctx1.fill(self,"watchChanges",{},smalltalk.HLInspector.klass)})},
-messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"]}),
+messageSends: ["valueWithInterval:", "do:", "inspectors", "refresh"]}),
 smalltalk.HLInspector.klass);
 
 

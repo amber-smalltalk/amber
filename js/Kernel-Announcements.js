@@ -86,7 +86,7 @@ _st(self._valuable())._value_(anAnnouncement);
 return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
 source: "deliver: anAnnouncement\x0a\x09(self handlesAnnouncement: anAnnouncement)\x0a\x09\x09ifTrue: [self valuable value: anAnnouncement]",
-messageSends: ["ifTrue:", "value:", "valuable", "handlesAnnouncement:"],
+messageSends: ["ifTrue:", "handlesAnnouncement:", "value:", "valuable"],
 referencedClasses: []
 }),
 smalltalk.AnnouncementSubscription);
@@ -112,7 +112,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
 source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk current at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]",
-messageSends: ["ifNil:ifNotNil:", "includesBehavior:", "at:", "name", "theNonMetaClass", "class", "current", "announcementClass"],
+messageSends: ["ifNil:ifNotNil:", "at:", "current", "name", "announcementClass", "includesBehavior:", "theNonMetaClass", "class"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AnnouncementSubscription);
@@ -183,7 +183,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self["@subscriptions"])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._deliver_(anAnnouncement);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"announce:",{anAnnouncement:anAnnouncement},smalltalk.Announcer)})},
 args: ["anAnnouncement"],
 source: "announce: anAnnouncement\x0a\x09subscriptions do: [ :each |\x0a\x09\x09each deliver: anAnnouncement ]",
@@ -238,8 +238,8 @@ selector: "on:send:to:",
 category: 'subscribing',
 fn: function (aClass,aSelector,anObject){
 var self=this;
-function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 $1=_st($AnnouncementSubscription())._new();
@@ -254,8 +254,8 @@ _st(self["@subscriptions"])._add_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},smalltalk.Announcer)})},
 args: ["aClass", "aSelector", "anObject"],
 source: "on: aClass send: aSelector to: anObject\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (MessageSend new\x0a\x09\x09\x09receiver: anObject;\x0a\x09\x09\x09selector: aSelector;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",
-messageSends: ["add:", "valuable:", "receiver:", "new", "selector:", "yourself", "announcementClass:"],
-referencedClasses: ["MessageSend", "AnnouncementSubscription"]
+messageSends: ["add:", "valuable:", "new", "receiver:", "selector:", "yourself", "announcementClass:"],
+referencedClasses: ["AnnouncementSubscription", "MessageSend"]
 }),
 smalltalk.Announcer);
 
@@ -269,7 +269,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@subscriptions"]=_st(self["@subscriptions"])._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._receiver()).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"unsubscribe:",{anObject:anObject},smalltalk.Announcer)})},
 args: ["anObject"],
 source: "unsubscribe: anObject\x0a\x09subscriptions := subscriptions reject: [ :each |\x0a\x09\x09each receiver = anObject ]",

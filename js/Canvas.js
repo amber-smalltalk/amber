@@ -541,7 +541,7 @@ self._with_(result);
 return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},smalltalk.HTMLCanvas)})},
 args: ["aString"],
 source: "entity: aString\x0a\x09\x22Adds a character representing html entity, eg.\x0a\x09html entity: 'copy'\x0a\x09adds a copyright sign.\x0a\x09If a name does not represent valid HTML entity, error is raised.\x22\x0a\x09| result |\x0a\x09result := ('<span />' asJQuery html: '&', aString, ';') text.\x0a\x09result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].\x0a\x09self with: result",
-messageSends: ["text", "html:", ",", "asJQuery", "ifFalse:", "error:", "=", "size", "with:"],
+messageSends: ["text", "html:", "asJQuery", ",", "ifFalse:", "=", "size", "error:", "with:"],
 referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
@@ -2203,11 +2203,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._snippetsFromJQuery_(aJQuery))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._installSnippetFromJQuery_(_st(each)._asJQuery());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},smalltalk.HTMLSnippet)})},
 args: ["aJQuery"],
 source: "initializeFromJQuery: aJQuery\x0a\x09\x22Finds and takes out all snippets out of aJQuery.\x0a\x09Installs it into self.\x22\x0a\x09\x0a\x09(self snippetsFromJQuery: aJQuery) do: [ :each |\x0a\x09\x09self installSnippetFromJQuery: each asJQuery ]",
-messageSends: ["do:", "installSnippetFromJQuery:", "asJQuery", "snippetsFromJQuery:"],
+messageSends: ["do:", "snippetsFromJQuery:", "installSnippetFromJQuery:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet);
@@ -2237,7 +2237,7 @@ self._snippetAt_install_(name,_st(_st(element)._detach())._get_((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},smalltalk.HTMLSnippet)})},
 args: ["element"],
 source: "installSnippetFromJQuery: element\x0a\x09| name |\x0a\x09name := element attr: 'data-snippet'.\x0a\x09name = '*' ifFalse: [\x0a\x09\x09('^\x5c*' asRegexp test: name)\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09name := name allButFirst.\x0a\x09\x09\x09\x09element attr: 'data-snippet' put: '*' ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09element removeAttr: 'data-snippet' ].\x0a\x09\x09self snippetAt: name install: (element detach get: 0) ]",
-messageSends: ["attr:", "ifFalse:", "ifTrue:ifFalse:", "allButFirst", "attr:put:", "removeAttr:", "test:", "asRegexp", "snippetAt:install:", "get:", "detach", "="],
+messageSends: ["attr:", "ifFalse:", "=", "ifTrue:ifFalse:", "test:", "asRegexp", "allButFirst", "attr:put:", "removeAttr:", "snippetAt:install:", "get:", "detach"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet);
@@ -2266,18 +2266,18 @@ selector: "snippetAt:compile:",
 category: 'method generation',
 fn: function (aString,anElement){
 var self=this;
-function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st($ClassBuilder())._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
 return smalltalk.withContext(function($ctx2) {
 return _st(htmlReceiver)._snippet_(anElement);
-}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
+}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1,1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
 return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},smalltalk.HTMLSnippet)})},
 args: ["aString", "anElement"],
 source: "snippetAt: aString compile: anElement\x0a\x09\x22Method generation for the snippet.\x0a\x09The selector is aString, the method block uses anElement\x22\x0a\x09\x0a\x09ClassBuilder new\x0a\x09\x09installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]\x0a\x09\x09\x09currySelf asCompiledMethod: aString)\x0a\x09\x09forClass: HTMLCanvas\x0a\x09\x09category: '**snippets'",
-messageSends: ["installMethod:forClass:category:", "asCompiledMethod:", "currySelf", "snippet:", "new"],
-referencedClasses: ["HTMLCanvas", "ClassBuilder"]
+messageSends: ["installMethod:forClass:category:", "new", "asCompiledMethod:", "currySelf", "snippet:"],
+referencedClasses: ["ClassBuilder", "HTMLCanvas"]
 }),
 smalltalk.HTMLSnippet);
 
@@ -2381,7 +2381,7 @@ $1;
 return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "ensureCurrent\x0a\x09current ifNil: [\x0a\x09\x09current := super new\x0a\x09\x09\x09initializeFromJQuery: document asJQuery;\x0a\x09\x09\x09yourself ]",
-messageSends: ["ifNil:", "initializeFromJQuery:", "asJQuery", "new", "yourself"],
+messageSends: ["ifNil:", "initializeFromJQuery:", "new", "asJQuery", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet.klass);
@@ -2402,7 +2402,7 @@ self._ensureCurrent();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self isDOMAvailable ifTrue: [\x0a\x09\x09self ensureCurrent ]",
-messageSends: ["initialize", "ifTrue:", "ensureCurrent", "isDOMAvailable"],
+messageSends: ["initialize", "ifTrue:", "isDOMAvailable", "ensureCurrent"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet.klass);
@@ -3599,7 +3599,7 @@ smalltalk.TagBrush.fn.prototype._with_.apply(_st(self), [aString]);
 return self}, function($ctx1) {$ctx1.fill(self,"with:",{aString:aString},smalltalk.StyleTag)})},
 args: ["aString"],
 source: "with: aString\x0a\x09HTMLCanvas isMSIE\x0a\x09\x09ifTrue: [self element styleSheet cssText: aString ]\x0a\x09\x09ifFalse: [super with: aString ].",
-messageSends: ["ifTrue:ifFalse:", "cssText:", "styleSheet", "element", "with:", "isMSIE"],
+messageSends: ["ifTrue:ifFalse:", "isMSIE", "cssText:", "styleSheet", "element", "with:"],
 referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.StyleTag);
@@ -3774,7 +3774,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSnippet",{},smalltalk.CharacterArray)})},
 args: [],
 source: "asSnippet\x0a\x09^ HTMLSnippet current snippetAt: self asString",
-messageSends: ["snippetAt:", "asString", "current"],
+messageSends: ["snippetAt:", "current", "asString"],
 referencedClasses: ["HTMLSnippet"]
 }),
 smalltalk.CharacterArray);

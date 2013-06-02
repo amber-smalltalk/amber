@@ -32,7 +32,7 @@ $1=self._asActionBinding();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBinding",{},smalltalk.HLCommand)})},
-messageSends: ["ifTrue:ifFalse:", "asGroupBinding", "asActionBinding", "isBindingGroup"]}),
+messageSends: ["ifTrue:ifFalse:", "isBindingGroup", "asGroupBinding", "asActionBinding"]}),
 smalltalk.HLCommand);
 
 smalltalk.addMethod(
@@ -278,11 +278,11 @@ _st(classes)._add_(self);
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(classes)._addAll_(_st(each)._concreteClasses());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 $2=classes;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"concreteClasses",{classes:classes},smalltalk.HLCommand.klass)})},
-messageSends: ["new", "ifTrue:", "add:", "isConcrete", "do:", "addAll:", "concreteClasses", "subclasses"]}),
+messageSends: ["new", "ifTrue:", "isConcrete", "add:", "do:", "subclasses", "addAll:", "concreteClasses"]}),
 smalltalk.HLCommand.klass);
 
 smalltalk.addMethod(
@@ -374,9 +374,9 @@ newBinding;
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_(newBinding);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:",{aBinding:aBinding,newBinding:newBinding},smalltalk.HLCommand.klass)})},
-messageSends: ["ifTrue:ifFalse:", "registerOn:", "isConcrete", "do:", "registerConcreteClassesOn:", "subclasses"]}),
+messageSends: ["ifTrue:ifFalse:", "isConcrete", "registerOn:", "do:", "subclasses", "registerConcreteClassesOn:"]}),
 smalltalk.HLCommand.klass);
 
 smalltalk.addMethod(
@@ -480,7 +480,7 @@ var $1;
 $1=_st(self._isConcrete())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isValidFor_(aModel);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(smalltalk.assert($1)){
 newBinding=self._registerOn_for_(aBinding,aModel);
 newBinding;
@@ -491,9 +491,9 @@ newBinding;
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_for_(newBinding,aModel);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:for:",{aBinding:aBinding,aModel:aModel,newBinding:newBinding},smalltalk.HLModelCommand.klass)})},
-messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "and:", "isValidFor:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"]}),
+messageSends: ["ifTrue:ifFalse:", "and:", "isConcrete", "isValidFor:", "registerOn:for:", "do:", "subclasses", "registerConcreteClassesOn:for:"]}),
 smalltalk.HLModelCommand.klass);
 
 smalltalk.addMethod(

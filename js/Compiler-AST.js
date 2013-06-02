@@ -232,7 +232,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextChild",{},smalltalk.Node)})},
 args: [],
 source: "nextChild\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the receiver to answer the next node to be evaluated\x22\x0a\x09\x0a\x09^ self nodes isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self nodes first nextChild ]",
-messageSends: ["ifTrue:ifFalse:", "nextChild", "first", "nodes", "isEmpty"],
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "nodes", "nextChild", "first"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -257,7 +257,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextNode",{},smalltalk.Node)})},
 args: [],
 source: "nextNode\x0a\x09^ self parent ifNotNil: [ :node |\x0a\x09\x09node nextNode: self ]",
-messageSends: ["ifNotNil:", "nextNode:", "parent"],
+messageSends: ["ifNotNil:", "parent", "nextNode:"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -277,7 +277,7 @@ next=_st(self._nodes())._at_ifAbsent_(_st(_st(self._nodes())._indexOf_(aNode))._
 return smalltalk.withContext(function($ctx2) {
 $1=self;
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $2=_st(next)._nextChild();
 return $2;
 }
@@ -285,7 +285,7 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextNode:",{aNode:aNode,next:next},smalltalk.Node)})},
 args: ["aNode"],
 source: "nextNode: aNode\x0a\x09\x22Answer the next node after aNode.\x0a\x09Recurse into the possible children of the next node to answer the next node to be evaluated\x22\x0a\x09\x0a\x09| next |\x0a\x09\x0a\x09next := self nodes \x0a\x09\x09at: (self nodes indexOf: aNode) + 1\x0a\x09\x09ifAbsent: [ ^ self ].\x0a\x09\x0a\x09^ next nextChild",
-messageSends: ["at:ifAbsent:", "+", "indexOf:", "nodes", "nextChild"],
+messageSends: ["at:ifAbsent:", "nodes", "+", "indexOf:", "nextChild"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -326,7 +326,7 @@ self["@nodes"]=aCollection;
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"nodes:",{aCollection:aCollection},smalltalk.Node)})},
 args: ["aCollection"],
 source: "nodes: aCollection\x0a\x09nodes := aCollection.\x0a\x09aCollection do: [ :each | each parent: self ]",
@@ -394,7 +394,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.Node)})},
 args: [],
 source: "position\x0a\x09\x22answer the line and column of the receiver in the source code\x22\x0a\x09\x0a\x09^ position ifNil: [ \x0a\x09\x09self parent ifNotNil: [ :node | node position ] ]",
-messageSends: ["ifNil:", "ifNotNil:", "position", "parent"],
+messageSends: ["ifNil:", "ifNotNil:", "parent", "position"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -426,7 +426,7 @@ smalltalk.Object.fn.prototype._postCopy.apply(_st(self), []);
 _st(self._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"postCopy",{},smalltalk.Node)})},
 args: [],
 source: "postCopy\x0a\x09super postCopy.\x0a\x09self nodes do: [ :each | each parent: self ]",
@@ -540,21 +540,21 @@ var $1;
 $1=_st(_st(self._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._shouldBeInlined();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._or_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._nodes())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._subtreeNeedsAliasing();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,3)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return false;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))).__tild_eq(false);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}))).__tild_eq(false);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.Node)})},
 args: [],
 source: "subtreeNeedsAliasing\x0a\x09^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a\x09\x09(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]",
-messageSends: ["or:", "~=", "detect:ifNone:", "subtreeNeedsAliasing", "nodes", "shouldBeInlined", "shouldBeAliased"],
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "~=", "detect:ifNone:", "nodes", "subtreeNeedsAliasing"],
 referencedClasses: []
 }),
 smalltalk.Node);
@@ -846,12 +846,12 @@ var $1;
 $1=_st(self._shouldBeAliased())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._shouldBeInlined();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.BlockNode)})},
 args: [],
 source: "subtreeNeedsAliasing\x0a\x09^ self shouldBeAliased or: [ self shouldBeInlined ]",
-messageSends: ["or:", "shouldBeInlined", "shouldBeAliased"],
+messageSends: ["or:", "shouldBeAliased", "shouldBeInlined"],
 referencedClasses: []
 }),
 smalltalk.BlockNode);
@@ -1157,7 +1157,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"extent",{},smalltalk.MethodNode)})},
 args: [],
 source: "extent\x0a\x09^ self source lines size @ (self source lines last size + 1)",
-messageSends: ["@", "+", "size", "last", "lines", "source"],
+messageSends: ["@", "size", "lines", "source", "+", "last"],
 referencedClasses: []
 }),
 smalltalk.MethodNode);
@@ -1479,7 +1479,7 @@ self["@arguments"]=aCollection;
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"arguments:",{aCollection:aCollection},smalltalk.SendNode)})},
 args: ["aCollection"],
 source: "arguments: aCollection\x0a\x09arguments := aCollection.\x0a\x09aCollection do: [ :each | each parent: self ]",
@@ -1514,7 +1514,7 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"cascadeNodeWithMessages:",{aCollection:aCollection,first:first},smalltalk.SendNode)})},
 args: ["aCollection"],
 source: "cascadeNodeWithMessages: aCollection\x0a\x09| first |\x0a\x09first := SendNode new\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself.\x0a\x09^CascadeNode new\x0a\x09\x09receiver: self receiver;\x0a\x09\x09nodes: (Array with: first), aCollection;\x0a\x09\x09yourself",
-messageSends: ["selector:", "selector", "new", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"],
+messageSends: ["selector:", "new", "selector", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"],
 referencedClasses: ["SendNode", "CascadeNode", "Array"]
 }),
 smalltalk.SendNode);
@@ -1650,7 +1650,7 @@ _st(aNode)._parent_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"receiver:",{aNode:aNode},smalltalk.SendNode)})},
 args: ["aNode"],
 source: "receiver: aNode\x0a\x09receiver := aNode.\x0a\x09aNode isNode ifTrue: [\x0a\x09\x09aNode parent: self ]",
-messageSends: ["ifTrue:", "parent:", "isNode"],
+messageSends: ["ifTrue:", "isNode", "parent:"],
 referencedClasses: []
 }),
 smalltalk.SendNode);
@@ -1771,7 +1771,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},smalltalk.SendNode)})},
 args: ["anObject"],
 source: "valueForReceiver: anObject\x0a\x09^SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [anObject]\x0a\x09\x09ifNotNil: [self receiver valueForReceiver: anObject]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
-messageSends: ["position:", "position", "new", "receiver:", "ifNil:ifNotNil:", "valueForReceiver:", "receiver", "selector:", "selector", "arguments:", "arguments", "yourself"],
+messageSends: ["position:", "new", "position", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
 referencedClasses: ["SendNode"]
 }),
 smalltalk.SendNode);
@@ -1817,7 +1817,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},smalltalk.SequenceNode)})},
 args: [],
 source: "asBlockSequenceNode\x0a\x09^BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
-messageSends: ["position:", "position", "new", "nodes:", "nodes", "temps:", "temps", "yourself"],
+messageSends: ["position:", "new", "position", "nodes:", "nodes", "temps:", "temps", "yourself"],
 referencedClasses: ["BlockSequenceNode"]
 }),
 smalltalk.SequenceNode);
@@ -2034,7 +2034,7 @@ var $1;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._stack();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._value();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.ValueNode)})},
 args: [],
@@ -2242,13 +2242,13 @@ var $1;
 _st(self._source())._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Method source is empty");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $1=_st(_st($Smalltalk())._current())._parse_(self._source());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"ast",{},smalltalk.CompiledMethod)})},
 args: [],
 source: "ast\x0a\x09self source ifEmpty: [ self error: 'Method source is empty' ].\x0a\x09\x0a\x09^ Smalltalk current parse: self source",
-messageSends: ["ifEmpty:", "error:", "source", "parse:", "current"],
+messageSends: ["ifEmpty:", "source", "error:", "parse:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.CompiledMethod);

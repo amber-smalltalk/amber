@@ -113,7 +113,7 @@ _st(self._current())._show_(_st($String())._cr());
 return self}, function($ctx1) {$ctx1.fill(self,"cr",{},smalltalk.Transcript.klass)})},
 args: [],
 source: "cr\x0a\x09self current show: String cr",
-messageSends: ["show:", "cr", "current"],
+messageSends: ["show:", "current", "cr"],
 referencedClasses: ["String"]
 }),
 smalltalk.Transcript.klass);

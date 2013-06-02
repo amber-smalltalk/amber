@@ -1,4 +1,168 @@
 smalltalk.addPackage('Compiler-Interpreter');
+smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['interpreter', 'node', 'context'], 'Compiler-Interpreter');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "applyTo:arguments:",
+fn: function (anObject,aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._interpreterError();
+return self}, function($ctx1) {$ctx1.fill(self,"applyTo:arguments:",{anObject:anObject,aCollection:aCollection},smalltalk.AIBlockClosure)})},
+messageSends: ["interpreterError"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compiledSource",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "[ AST Block closure ]";
+}, function($ctx1) {$ctx1.fill(self,"compiledSource",{},smalltalk.AIBlockClosure)})},
+messageSends: []}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "currySelf",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._interpreterError();
+return self}, function($ctx1) {$ctx1.fill(self,"currySelf",{},smalltalk.AIBlockClosure)})},
+messageSends: ["interpreterError"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeWithInterpreter:context:node:",
+fn: function (anInterpreter,aContext,aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@interpreter"]=anInterpreter;
+self["@node"]=aNode;
+self["@context"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"initializeWithInterpreter:context:node:",{anInterpreter:anInterpreter,aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure)})},
+messageSends: []}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpreterError",
+fn: function (){
+var self=this;
+function $AIInterpreterError(){return smalltalk.AIInterpreterError||(typeof AIInterpreterError=="undefined"?nil:AIInterpreterError)}
+return smalltalk.withContext(function($ctx1) { 
+_st($AIInterpreterError())._signal_("Method cannot be interpreted by the interpreter.");
+return self}, function($ctx1) {$ctx1.fill(self,"interpreterError",{},smalltalk.AIBlockClosure)})},
+messageSends: ["signal:"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "numArgs",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@node"])._temps())._size();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"numArgs",{},smalltalk.AIBlockClosure)})},
+messageSends: ["size", "temps"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._valueWithPossibleArguments_([]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.AIBlockClosure)})},
+messageSends: ["valueWithPossibleArguments:"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:",
+fn: function (anArgument){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._valueWithPossibleArguments_(["anArgument"]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:",{anArgument:anArgument},smalltalk.AIBlockClosure)})},
+messageSends: ["valueWithPossibleArguments:"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:value:",
+fn: function (firstArgument,secondArgument){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._valueWithPossibleArguments_(["firstArgument", "secondArgument"]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},smalltalk.AIBlockClosure)})},
+messageSends: ["valueWithPossibleArguments:"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value:value:value:",
+fn: function (firstArgument,secondArgument,thirdArgument){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._valueWithPossibleArguments_(["firstArgument", "secondArgument", "thirdArgument"]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},smalltalk.AIBlockClosure)})},
+messageSends: ["valueWithPossibleArguments:"]}),
+smalltalk.AIBlockClosure);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valueWithPossibleArguments:",
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(_st(self["@node"])._parameters())._withIndexDo_((function(each,index){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@context"])._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
+return smalltalk.withContext(function($ctx3) {
+return nil;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
+$1=self["@interpreter"];
+_st($1)._context_(self["@context"]);
+_st($1)._node_(_st(_st(_st(self["@node"])._nodes())._first())._nextChild());
+$2=_st($1)._step();
+return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},smalltalk.AIBlockClosure)})},
+messageSends: ["withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "context:", "node:", "nextChild", "first", "nodes", "step"]}),
+smalltalk.AIBlockClosure);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forInterpreter:context:node:",
+fn: function (anInterpreter,aContext,aNode){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._initializeWithInterpreter_context_node_(anInterpreter,aContext,aNode);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"forInterpreter:context:node:",{anInterpreter:anInterpreter,aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure.klass)})},
+messageSends: ["initializeWithInterpreter:context:node:", "new", "yourself"]}),
+smalltalk.AIBlockClosure.klass);
+
+
 smalltalk.addClass('AIContext', smalltalk.Object, ['outerContext', 'innerContext', 'pc', 'locals', 'method', 'index', 'ast', 'interpreter', 'methodContext'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
@@ -10,7 +174,7 @@ var $1;
 $1=_st(_st(self._ast())._arguments())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._localAt_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.AIContext)})},
 messageSends: ["collect:", "arguments", "ast", "localAt:"]}),
@@ -73,6 +237,17 @@ smalltalk.AIContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "index:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@index"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"index:",{anInteger:anInteger},smalltalk.AIContext)})},
+messageSends: []}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initializeAST",
 fn: function (){
 var self=this;
@@ -131,12 +306,15 @@ _st($1)._context_(self);
 _st($1)._node_(self._retrieveNode());
 $2=_st($1)._yourself();
 self["@interpreter"]=$2;
-$3=_st(self._innerContext())._isBlockContext();
-if(! smalltalk.assert($3)){
+$3=_st(_st(self._innerContext())._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self._innerContext())._isBlockContext())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($3)){
 self._setupInterpreter_(self["@interpreter"]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},smalltalk.AIContext)})},
-messageSends: ["context:", "new", "node:", "retrieveNode", "yourself", "ifFalse:", "isBlockContext", "innerContext", "setupInterpreter:"]}),
+messageSends: ["context:", "new", "node:", "retrieveNode", "yourself", "ifTrue:", "and:", "notNil", "innerContext", "not", "isBlockContext", "setupInterpreter:"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -218,7 +396,7 @@ var $1;
 $1=_st(self._locals())._at_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString},smalltalk.AIContext)})},
 messageSends: ["at:ifAbsent:", "locals"]}),
@@ -402,7 +580,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(_st(self._innerContext())._arguments())._reversed())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(anInterpreter)._push_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 _st(anInterpreter)._push_(_st(self._innerContext())._receiver());
 return self}, function($ctx1) {$ctx1.fill(self,"setupInterpreter:",{anInterpreter:anInterpreter},smalltalk.AIContext)})},
 messageSends: ["do:", "reversed", "arguments", "innerContext", "push:", "receiver"]}),
@@ -424,6 +602,9 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext.klass)})},
 messageSends: ["initializeFromMethodContext:", "new", "yourself"]}),
 smalltalk.AIContext.klass);
+
+
+smalltalk.addClass('AIInterpreterError', smalltalk.Error, [], 'Compiler-Interpreter');
 
 
 smalltalk.addClass('ASTDebugger', smalltalk.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
@@ -617,15 +798,15 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st(_st(self._interpreter())._nextNode())._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(self._interpreter())._nextNode())._stopOnStepping();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})})))._or_((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})))._or_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(self._interpreter())._atEnd())._not();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self._interpreter())._step();
 return self._step();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.ASTDebugger)})},
 messageSends: ["whileFalse:", "or:", "and:", "notNil", "nextNode", "interpreter", "stopOnStepping", "not", "atEnd", "step"]}),
 smalltalk.ASTDebugger);
@@ -761,16 +942,16 @@ _st(str)._nextPutAll_("(function(");
 _st(_st(_st(self._context())._locals())._keys())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(str)._nextPutAll_(each);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(str)._nextPutAll_(",");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 $1=str;
 _st($1)._nextPutAll_("){ return (function() {");
 _st($1)._nextPutAll_(aString);
 $2=_st($1)._nextPutAll_("})() })");
 return $2;
-}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
 function_=_st(_st($Compiler())._new())._eval_(source);
 $3=_st(function_)._valueWithPossibleArguments_(_st(_st(self._context())._locals())._values());
 return $3;
@@ -801,7 +982,7 @@ self._interpret_continue_(aNode,(function(value){
 return smalltalk.withContext(function($ctx2) {
 self["@result"]=value;
 return self["@result"];
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:",{aNode:aNode},smalltalk.ASTInterpreter)})},
 messageSends: ["interpret:continue:"]}),
 smalltalk.ASTInterpreter);
@@ -825,7 +1006,7 @@ self["@currentNode"];
 self._interpretNode_continue_(aNode,(function(value){
 return smalltalk.withContext(function($ctx2) {
 return self._continue_value_(aBlock,value);
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,3)})}));
 } else {
 self._continue_value_(aBlock,aNode);
 };
@@ -859,7 +1040,7 @@ self._continue_value_(aBlock,aCollection);
 self._interpret_continue_(_st(nodes)._first(),(function(value){
 return smalltalk.withContext(function($ctx2) {
 return self._interpretAll_continue_result_(_st(nodes)._allButFirst(),aBlock,_st(aCollection).__comma([value]));
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,3)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"interpretAll:continue:result:",{nodes:nodes,aBlock:aBlock,aCollection:aCollection},smalltalk.ASTInterpreter)})},
 messageSends: ["ifTrue:ifFalse:", "isEmpty", "continue:value:", "interpret:continue:", "first", "interpretAll:continue:result:", "allButFirst", ","]}),
@@ -874,7 +1055,7 @@ return smalltalk.withContext(function($ctx1) {
 self._interpret_continue_(_st(aNode)._right(),(function(value){
 return smalltalk.withContext(function($ctx2) {
 return self._continue_value_(aBlock,self._assign_to_(_st(aNode)._left(),value));
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretAssignmentNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpret:continue:", "right", "continue:value:", "assign:to:", "left"]}),
 smalltalk.ASTInterpreter);
@@ -894,8 +1075,8 @@ $1=self;
 _st($1)._interpret_(_st(_st(aNode)._nodes())._first());
 $2=_st($1)._result();
 return $2;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretBlockNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["continue:value:", "withBlockContext:", "interpret:", "first", "nodes", "result"]}),
 smalltalk.ASTInterpreter);
@@ -922,15 +1103,15 @@ return smalltalk.withContext(function($ctx2) {
 _st(_st(aNode)._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._receiver_(receiver);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
 return self._interpretAll_continue_(_st(_st(aNode)._nodes())._allButLast(),(function(){
 return smalltalk.withContext(function($ctx3) {
 return self._interpret_continue_(_st(_st(aNode)._nodes())._last(),(function(val){
 return smalltalk.withContext(function($ctx4) {
 return self._continue_value_(aBlock,val);
-}, function($ctx4) {$ctx4.fillBlock({val:val},$ctx3)})}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({receiver:receiver},$ctx1)})}));
+}, function($ctx4) {$ctx4.fillBlock({val:val},$ctx3,4)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({receiver:receiver},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretCascadeNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpret:continue:", "receiver", "do:", "nodes", "receiver:", "interpretAll:continue:", "allButLast", "last", "continue:value:"]}),
 smalltalk.ASTInterpreter);
@@ -956,7 +1137,7 @@ return smalltalk.withContext(function($ctx1) {
 self._interpretAll_continue_(_st(aNode)._nodes(),(function(array){
 return smalltalk.withContext(function($ctx2) {
 return self._continue_value_(aBlock,array);
-}, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretDynamicArrayNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpretAll:continue:", "nodes", "continue:value:"]}),
 smalltalk.ASTInterpreter);
@@ -976,9 +1157,9 @@ hashedCollection;
 _st(array)._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(hashedCollection)._add_(each);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
 return self._continue_value_(aBlock,hashedCollection);
-}, function($ctx2) {$ctx2.fillBlock({array:array,hashedCollection:hashedCollection},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({array:array,hashedCollection:hashedCollection},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretDynamicDictionaryNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpretAll:continue:", "nodes", "new", "do:", "add:", "continue:value:"]}),
 smalltalk.ASTInterpreter);
@@ -1004,7 +1185,7 @@ return smalltalk.withContext(function($ctx1) {
 self._interpretAll_continue_(_st(aNode)._nodes(),(function(array){
 return smalltalk.withContext(function($ctx2) {
 return self._continue_value_(aBlock,_st(array)._first());
-}, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretMethodNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpretAll:continue:", "nodes", "continue:value:", "first"]}),
 smalltalk.ASTInterpreter);
@@ -1031,7 +1212,7 @@ return smalltalk.withContext(function($ctx2) {
 self["@shouldReturn"]=true;
 self["@shouldReturn"];
 return self._continue_value_(aBlock,value);
-}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretReturnNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpret:continue:", "first", "nodes", "continue:value:"]}),
 smalltalk.ASTInterpreter);
@@ -1050,9 +1231,9 @@ return self._messageFromSendNode_arguments_do_(aNode,args,(function(message){
 return smalltalk.withContext(function($ctx4) {
 _st(self._context())._pc_(_st(_st(self._context())._pc()).__plus((1)));
 return self._continue_value_(aBlock,self._sendMessage_to_superSend_(message,receiver,_st(aNode)._superSend()));
-}, function($ctx4) {$ctx4.fillBlock({message:message},$ctx3)})}));
-}, function($ctx3) {$ctx3.fillBlock({args:args},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({receiver:receiver},$ctx1)})}));
+}, function($ctx4) {$ctx4.fillBlock({message:message},$ctx3,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({args:args},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({receiver:receiver},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretSendNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpret:continue:", "receiver", "interpretAll:continue:", "arguments", "messageFromSendNode:arguments:do:", "pc:", "context", "+", "pc", "continue:value:", "sendMessage:to:superSend:", "superSend"]}),
 smalltalk.ASTInterpreter);
@@ -1066,7 +1247,7 @@ return smalltalk.withContext(function($ctx1) {
 self._interpretAll_continue_(_st(aNode)._nodes(),(function(array){
 return smalltalk.withContext(function($ctx2) {
 return self._continue_value_(aBlock,_st(array)._last());
-}, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({array:array},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretSequenceNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 messageSends: ["interpretAll:continue:", "nodes", "continue:value:", "last"]}),
 smalltalk.ASTInterpreter);
@@ -1187,7 +1368,7 @@ method=_st(_st(_st(_st(anObject)._class())._superclass())._methodDictionary())._
 return smalltalk.withContext(function($ctx2) {
 $5=self._messageNotUnderstood_receiver_(aMessage,anObject);
 throw $early=[$5];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $6=_st(_st(method)._fn())._applyTo_arguments_(anObject,_st(aMessage)._arguments());
 return $6;
 }
@@ -1248,7 +1429,7 @@ var $1;
 $1=_st(self._shouldReturn())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._nextNode()).__eq_eq(self._currentNode());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},smalltalk.ASTSteppingInterpreter)})},
 messageSends: ["or:", "shouldReturn", "==", "nextNode", "currentNode"]}),
@@ -1263,7 +1444,7 @@ return smalltalk.withContext(function($ctx1) {
 smalltalk.ASTInterpreter.fn.prototype._initialize.apply(_st(self), []);
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ASTSteppingInterpreter)})},
 messageSends: ["initialize"]}),
 smalltalk.ASTSteppingInterpreter);
@@ -1278,7 +1459,7 @@ self["@nextNode"]=aNode;
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
 return smalltalk.ASTInterpreter.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTSteppingInterpreter)})},
 messageSends: ["interpret:continue:"]}),
 smalltalk.ASTSteppingInterpreter);
@@ -1309,7 +1490,26 @@ smalltalk.ASTSteppingInterpreter);
 
 
 
-smalltalk.addClass('ASTPCNodeVisitor', smalltalk.NodeVisitor, ['useInlinings', 'pc', 'context', 'currentNode'], 'Compiler-Interpreter');
+smalltalk.addClass('ASTPCNodeVisitor', smalltalk.NodeVisitor, ['useInlinings', 'pc', 'context', 'blockIndex', 'currentNode'], 'Compiler-Interpreter');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blockIndex",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@blockIndex"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@blockIndex"]=(0);
+$1=self["@blockIndex"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"blockIndex",{},smalltalk.ASTPCNodeVisitor)})},
+messageSends: ["ifNil:"]}),
+smalltalk.ASTPCNodeVisitor);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -1345,6 +1545,17 @@ $1=self["@currentNode"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentNode",{},smalltalk.ASTPCNodeVisitor)})},
 messageSends: []}),
+smalltalk.ASTPCNodeVisitor);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "increaseBlockIndex",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@blockIndex"]=_st(self._blockIndex()).__plus((1));
+return self}, function($ctx1) {$ctx1.fill(self,"increaseBlockIndex",{},smalltalk.ASTPCNodeVisitor)})},
+messageSends: ["+", "blockIndex"]}),
 smalltalk.ASTPCNodeVisitor);
 
 smalltalk.addMethod(
@@ -1411,8 +1622,14 @@ selector: "visitBlockNode:",
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._blockIndex()).__gt_eq(_st(self._context())._index());
+if(! smalltalk.assert($1)){
+self._increaseBlockIndex();
+smalltalk.NodeVisitor.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
-messageSends: []}),
+messageSends: ["ifFalse:", ">=", "blockIndex", "index", "context", "increaseBlockIndex", "visitBlockNode:"]}),
 smalltalk.ASTPCNodeVisitor);
 
 smalltalk.addMethod(
@@ -1432,19 +1649,22 @@ selector: "visitSendNode:",
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 $1=_st(self._pc()).__eq(_st(self._context())._pc());
 if(! smalltalk.assert($1)){
 $2=_st(aNode)._shouldBeInlined();
 if(! smalltalk.assert($2)){
+$3=_st(self._blockIndex()).__eq(_st(self._context())._index());
+if(smalltalk.assert($3)){
 self._pc_(_st(self._pc()).__plus((1)));
 self["@currentNode"]=aNode;
 self["@currentNode"];
 };
 };
+};
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
-messageSends: ["visitSendNode:", "ifFalse:", "pc:", "+", "pc", "shouldBeInlined", "=", "context"]}),
+messageSends: ["visitSendNode:", "ifFalse:", "=", "pc", "context", "shouldBeInlined", "ifTrue:", "blockIndex", "index", "pc:", "+"]}),
 smalltalk.ASTPCNodeVisitor);
 
 
@@ -1464,7 +1684,7 @@ _st(_st(self._context())._receiver())._instVarAt_put_(_st(aNode)._value(),anObje
 _st(self._context())._localAt_put_(_st(aNode)._value(),anObject);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"assign:to:",{aNode:aNode,anObject:anObject},smalltalk.Interpreter)})},
-messageSends: ["ifTrue:ifFalse:", "instVarAt:put:", "value", "receiver", "context", "localAt:put:", "isInstanceVar", "binding"]}),
+messageSends: ["ifTrue:ifFalse:", "isInstanceVar", "binding", "instVarAt:put:", "receiver", "context", "value", "localAt:put:"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1477,10 +1697,10 @@ var $1;
 $1=_st(self._shouldReturn())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._node())._isNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},smalltalk.Interpreter)})},
-messageSends: ["or:", "isNil", "node", "shouldReturn"]}),
+messageSends: ["or:", "shouldReturn", "isNil", "node"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1523,16 +1743,16 @@ _st(str)._nextPutAll_("(function(");
 _st(_st(_st(self._context())._locals())._keys())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(str)._nextPutAll_(each);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(str)._nextPutAll_(",");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 $1=str;
 _st($1)._nextPutAll_("){ return (function() {");
 _st($1)._nextPutAll_(aString);
 $2=_st($1)._nextPutAll_("})() })");
 return $2;
-}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
 function_=_st(_st($Compiler())._new())._eval_(source);
 $3=_st(function_)._valueWithPossibleArguments_(_st(_st(self._context())._locals())._values());
 return $3;
@@ -1578,7 +1798,7 @@ $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageFromSendNode:arguments:",{aSendNode:aSendNode,aCollection:aCollection},smalltalk.Interpreter)})},
-messageSends: ["selector:", "selector", "new", "arguments:", "yourself"]}),
+messageSends: ["selector:", "new", "selector", "arguments:", "yourself"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1670,10 +1890,10 @@ return smalltalk.withContext(function($ctx1) {
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._atEnd();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._step();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},smalltalk.Interpreter)})},
 messageSends: ["whileFalse:", "atEnd", "step"]}),
 smalltalk.Interpreter);
@@ -1770,13 +1990,13 @@ method=_st(_st(_st(_st(anObject)._class())._superclass())._methodDictionary())._
 return smalltalk.withContext(function($ctx2) {
 $5=self._messageNotUnderstood_receiver_(aMessage,anObject);
 throw $early=[$5];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $6=_st(method)._sendTo_arguments_(anObject,_st(aMessage)._arguments());
 return $6;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},smalltalk.Interpreter)})},
-messageSends: ["ifFalse:", "sendTo:", "ifNil:", "messageNotUnderstood:receiver:", "superclass", "class", "at:ifAbsent:", "selector", "methodDictionary", "sendTo:arguments:", "arguments"]}),
+messageSends: ["ifFalse:", "sendTo:", "ifNil:", "superclass", "class", "messageNotUnderstood:receiver:", "at:ifAbsent:", "methodDictionary", "selector", "sendTo:arguments:", "arguments"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1847,10 +2067,10 @@ self._step();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._node())._isSteppingNode();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._step();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},smalltalk.Interpreter)})},
 messageSends: ["step", "whileFalse:", "isSteppingNode", "node"]}),
 smalltalk.Interpreter);
@@ -1867,7 +2087,7 @@ if(! smalltalk.assert($1)){
 smalltalk.NodeVisitor.fn.prototype._visit_.apply(_st(self), [aNode]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},smalltalk.Interpreter)})},
-messageSends: ["ifFalse:", "visit:", "shouldReturn"]}),
+messageSends: ["ifFalse:", "shouldReturn", "visit:"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1890,35 +2110,13 @@ smalltalk.method({
 selector: "visitBlockNode:",
 fn: function (aNode){
 var self=this;
-var blockNode,blockContext,block,interpreter;
+var blockContext,block;
+function $AIBlockClosure(){return smalltalk.AIBlockClosure||(typeof AIBlockClosure=="undefined"?nil:AIBlockClosure)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
-blockNode=_st(_st(_st(aNode)._nodes())._first())._copy();
-_st(blockNode)._parent_(nil);
-$1=_st(_st(self._context())._class())._new();
-_st($1)._outerContext_(self._context());
-$2=_st($1)._yourself();
-blockContext=$2;
-block=(function(){
-return smalltalk.withContext(function($ctx2) {
-interpreter=_st(self._class())._new();
-interpreter;
-$3=interpreter;
-_st($3)._context_(blockContext);
-_st($3)._node_(_st(blockNode)._nextChild());
-$4=_st($3)._proceed();
-$4;
-self._returnValue_(_st(interpreter)._returnValue());
-$5=_st(_st(interpreter)._stack())._isEmpty();
-if(smalltalk.assert($5)){
-return nil;
-} else {
-return _st(interpreter)._pop();
-};
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+block=_st($AIBlockClosure())._forInterpreter_context_node_(self,self._context(),aNode);
 self._push_(block);
-return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,blockNode:blockNode,blockContext:blockContext,block:block,interpreter:interpreter},smalltalk.Interpreter)})},
-messageSends: ["copy", "first", "nodes", "parent:", "outerContext:", "new", "class", "context", "yourself", "context:", "node:", "nextChild", "proceed", "returnValue:", "returnValue", "ifTrue:ifFalse:", "isEmpty", "stack", "pop", "push:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,blockContext:blockContext,block:block},smalltalk.Interpreter)})},
+messageSends: ["forInterpreter:context:node:", "context", "push:"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1930,7 +2128,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 self._push_(_st(_st($Smalltalk())._current())._at_(_st(aNode)._value()));
 return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.Interpreter)})},
-messageSends: ["push:", "at:", "value", "current"]}),
+messageSends: ["push:", "at:", "current", "value"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -1944,7 +2142,7 @@ array=[];
 _st(_st(aNode)._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(array)._addFirst_(self._pop());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 self._push_(array);
 return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicArrayNode:",{aNode:aNode,array:array},smalltalk.Interpreter)})},
 messageSends: ["do:", "nodes", "addFirst:", "pop", "push:"]}),
@@ -1962,7 +2160,7 @@ hashedCollection=_st($HashedCollection())._new();
 _st(_st(aNode)._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(hashedCollection)._add_(self._pop());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 self._push_(hashedCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"visitDynamicDictionaryNode:",{aNode:aNode,hashedCollection:hashedCollection},smalltalk.Interpreter)})},
 messageSends: ["new", "do:", "nodes", "add:", "pop", "push:"]}),
@@ -2011,7 +2209,7 @@ var $1;
 args=_st(_st(aNode)._arguments())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._pop();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 receiver=self._pop();
 message=self._messageFromSendNode_arguments_(aNode,_st(args)._reversed());
 result=self._sendMessage_to_superSend_(message,receiver,_st(aNode)._superSend());
@@ -2019,7 +2217,7 @@ _st(self._context())._pc_(_st(_st(self._context())._pc()).__plus((1)));
 $1=_st(_st(aNode)._isCascadeSendNode())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(aNode)._isLastChild())._not();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 if(smalltalk.assert($1)){
 self._push_(receiver);
 } else {
@@ -2052,7 +2250,7 @@ if(smalltalk.assert($1)){
 $2=self._push_(_st(window)._at_ifAbsent_(_st(aNode)._value(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Unknown variable");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})));
 return $2;
 };
 $3=self;

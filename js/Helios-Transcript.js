@@ -65,7 +65,7 @@ $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 self["@textarea"]=_st(html)._textarea();
 return self["@textarea"];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLTranscript)})},
 args: ["html"],
 source: "renderOn: html\x0a\x09html div\x0a\x09\x09class: 'transcript';\x0a\x09\x09with: [ textarea := html textarea ]",
@@ -91,7 +91,7 @@ _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscript)})},
 args: ["aString"],
 source: "show: aString\x0a\x09textarea ifNotNil: [\x0a \x09\x09textarea asJQuery append: aString asString ]",
-messageSends: ["ifNotNil:", "append:", "asString", "asJQuery"],
+messageSends: ["ifNotNil:", "append:", "asJQuery", "asString"],
 referencedClasses: []
 }),
 smalltalk.HLTranscript);
@@ -130,11 +130,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._transcripts())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._clear();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"clear",{},smalltalk.HLTranscriptHandler.klass)})},
 args: [],
 source: "clear\x0a\x09self transcripts do: [ :each |\x0a\x09\x09each clear ]",
-messageSends: ["do:", "clear", "transcripts"],
+messageSends: ["do:", "transcripts", "clear"],
 referencedClasses: []
 }),
 smalltalk.HLTranscriptHandler.klass);
@@ -182,11 +182,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._transcripts())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._show_(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{aString:aString},smalltalk.HLTranscriptHandler.klass)})},
 args: ["aString"],
 source: "show: aString\x0a\x09self transcripts do: [ :each |\x0a\x09\x09each show: aString ]",
-messageSends: ["do:", "show:", "transcripts"],
+messageSends: ["do:", "transcripts", "show:"],
 referencedClasses: []
 }),
 smalltalk.HLTranscriptHandler.klass);

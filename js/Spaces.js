@@ -31,7 +31,7 @@ _st(_st(self["@frame"])._contentWindow())._location_(_st(window)._location());
 return self}, function($ctx1) {$ctx1.fill(self,"create",{},smalltalk.ObjectSpace)})},
 args: [],
 source: "create\x0a\x09(window jQuery: 'body') append: '<iframe style=\x22display: none;\x22></iframe>'.\x0a\x09frame := (window jQuery: 'iframe') get last.\x0a\x09frame contentWindow location: window location",
-messageSends: ["append:", "jQuery:", "last", "get", "location:", "location", "contentWindow"],
+messageSends: ["append:", "jQuery:", "last", "get", "location:", "contentWindow", "location"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpace);
@@ -80,7 +80,7 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09self isConnected ifFalse: [ ^ ObjectSpaceConnectionError signal ].\x0a\x09^ frame contentWindow eval: '(', aBlock compiledSource, ')()'",
-messageSends: ["ifFalse:", "signal", "isConnected", "eval:", ",", "compiledSource", "contentWindow"],
+messageSends: ["ifFalse:", "isConnected", "signal", "eval:", "contentWindow", ",", "compiledSource"],
 referencedClasses: ["ObjectSpaceConnectionError"]
 }),
 smalltalk.ObjectSpace);
@@ -260,8 +260,8 @@ self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@space"])._do_((function(){
 return smalltalk.withContext(function($ctx3) {
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$ObjectSpaceConnectionError());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ObjectSpaceConnectionError());
 return self}, function($ctx1) {$ctx1.fill(self,"testConnection",{},smalltalk.ObjectSpaceTest)})},
 args: [],
 source: "testConnection\x0a\x09space destroy.\x0a\x09self deny: space isConnected.\x0a\x09self should: [ space do: [] ] raise: ObjectSpaceConnectionError",
@@ -301,12 +301,12 @@ return smalltalk.withContext(function($ctx2) {
 result=_st(self["@space"])._do_((function(){
 return smalltalk.withContext(function($ctx3) {
 return smalltalk;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 result;
 self._assert_equals_(_st(_st(result)._class())._name(),"Smalltalk");
 self._deny_(_st(_st(result)._class()).__eq($Smalltalk()));
 return self._deny_(_st(result).__eq_eq(smalltalk));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testEvaluation",{result:result},smalltalk.ObjectSpaceTest)})},
 args: [],
 source: "testEvaluation\x0a\x09| result |\x0a\x0a\x09space whenReadyDo: [\x0a\x09\x09result := space do: [ smalltalk ].\x0a\x0a\x09\x09self assert: result class name equals: 'Smalltalk'.\x0a\x09\x09self deny: result class = Smalltalk.\x0a\x09\x09self deny: result == smalltalk ]",

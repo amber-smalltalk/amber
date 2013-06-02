@@ -1,4 +1,88 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
+BlockClosure subclass: #AIBlockClosure
+	instanceVariableNames: 'interpreter node context'
+	package: 'Compiler-Interpreter'!
+!AIBlockClosure commentStamp!
+I am a special `BlockClosure` subclass used by an interpreter to interpret a block node.
+
+While I am polymorphic with `BlockClosure`, some methods such as `#new` will raise interpretation errors. Unlike a `BlockClosure`, my instance are not JavaScript functions.
+
+Evaluating an instance will result in interpreting the `node` instance variable (instance of `BlockNode`).!
+
+!AIBlockClosure methodsFor: 'accessing'!
+
+compiledSource
+	"Unlike blocks, the receiver doesn't represent a JS function"
+	
+	^ '[ AST Block closure ]'
+!
+
+numArgs
+	^ node temps size
+! !
+
+!AIBlockClosure methodsFor: 'converting'!
+
+currySelf
+	self interpreterError
+! !
+
+!AIBlockClosure methodsFor: 'error handling'!
+
+interpreterError
+	AIInterpreterError signal: 'Method cannot be interpreted by the interpreter.'
+! !
+
+!AIBlockClosure methodsFor: 'evaluating'!
+
+applyTo: anObject arguments: aCollection
+	self interpreterError
+!
+
+value
+	^ self valueWithPossibleArguments: #()
+!
+
+value: anArgument
+	^ self valueWithPossibleArguments: #(anArgument)
+!
+
+value: firstArgument value: secondArgument
+	^ self valueWithPossibleArguments: #(firstArgument secondArgument)
+!
+
+value: firstArgument value: secondArgument value: thirdArgument
+	^ self valueWithPossibleArguments: #(firstArgument secondArgument thirdArgument)
+!
+
+valueWithPossibleArguments: aCollection
+	"Populate the arguments into the context locals"	
+	node parameters withIndexDo: [ :each :index |
+		context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].
+
+	"Interpret the first node of the BlockSequenceNode"
+	interpreter
+		context: context;
+		node: node nodes first nextChild;
+		step
+! !
+
+!AIBlockClosure methodsFor: 'initialization'!
+
+initializeWithInterpreter: anInterpreter context: aContext node: aNode
+	interpreter := anInterpreter.
+	node := aNode.
+	context := aContext
+! !
+
+!AIBlockClosure class methodsFor: 'instance creation'!
+
+forInterpreter: anInterpreter context: aContext node: aNode
+	^ self new
+		initializeWithInterpreter: anInterpreter context: aContext node: aNode;
+		yourself
+! !
+
 Object subclass: #AIContext
 	instanceVariableNames: 'outerContext innerContext pc locals method index ast interpreter methodContext'
 	package: 'Compiler-Interpreter'!
@@ -12,6 +96,10 @@ When debugging, my instances are created by copying the current `MethodContext` 
 
 index
 	^ index ifNil: [ 0 ]
+!
+
+index: anInteger
+	index := anInteger
 !
 
 innerContext
@@ -94,8 +182,9 @@ initializeInterpreter
 		context: self;
 		node: self retrieveNode;
 		yourself.
-	self innerContext isBlockContext ifFalse: [
-		self setupInterpreter: interpreter ]
+	(self innerContext notNil and: [ 
+		self innerContext isBlockContext not ]) ifTrue: [
+			self setupInterpreter: interpreter ]
 !
 
 initializeLocals
@@ -167,6 +256,12 @@ fromMethodContext: aMethodContext
 		initializeFromMethodContext: aMethodContext;
 		yourself
 ! !
+
+Error subclass: #AIInterpreterError
+	instanceVariableNames: ''
+	package: 'Compiler-Interpreter'!
+!AIInterpreterError commentStamp!
+I get signaled when an AST interpreter is unable to interpret a node.!
 
 Object subclass: #ASTDebugger
 	instanceVariableNames: 'interpreter context'
@@ -626,7 +721,7 @@ atEnd
 ! !
 
 NodeVisitor subclass: #ASTPCNodeVisitor
-	instanceVariableNames: 'useInlinings pc context currentNode'
+	instanceVariableNames: 'useInlinings pc context blockIndex currentNode'
 	package: 'Compiler-Interpreter'!
 !ASTPCNodeVisitor commentStamp!
 I visit an AST until I get to the current pc node and answer it.
@@ -639,6 +734,10 @@ After visiting the AST the current node corresponding to the `pc` is answered by
 
 !ASTPCNodeVisitor methodsFor: 'accessing'!
 
+blockIndex
+	^ blockIndex ifNil: [ blockIndex := 0 ]
+!
+
 context
 	^ context
 !
@@ -649,6 +748,10 @@ context: aContext
 
 currentNode
 	^ currentNode
+!
+
+increaseBlockIndex
+	blockIndex := self blockIndex + 1
 !
 
 pc
@@ -670,6 +773,9 @@ useInlinings: aBoolean
 !ASTPCNodeVisitor methodsFor: 'visiting'!
 
 visitBlockNode: aNode
+	self blockIndex >= self context index ifFalse: [
+		self increaseBlockIndex.
+		super visitBlockNode: aNode ]
 !
 
 visitJSStatementNode: aNode
@@ -680,9 +786,10 @@ visitSendNode: aNode
 	super visitSendNode: aNode.
 	
 	self pc = self context pc ifFalse: [
-		aNode shouldBeInlined ifFalse: [ 
-			self pc: self pc + 1.
-			currentNode := aNode ] ]
+		aNode shouldBeInlined ifFalse: [
+			self blockIndex = self context index ifTrue: [
+				self pc: self pc + 1.
+				currentNode := aNode ] ] ]
 ! !
 
 NodeVisitor subclass: #Interpreter
@@ -883,32 +990,9 @@ visitBlockNode: aNode
 	"Do not evaluate the block node.
 	Instead, put all instructions into a block that we push to the stack for later evaluation"
 	
-	| blockNode blockContext block interpreter |
+	| blockContext block |
 	
-	"Copy the sequence node without the parent to avoid evaluating nodes up the block. 
-	#nextNode should not go anymore up than the block itself"
-	blockNode := aNode nodes first copy.
-	blockNode parent: nil.
-		
-	blockContext := self context class new
-		outerContext: self context;
-		yourself.
-	
-	block := [
-		interpreter := self class new.
-		interpreter
-			context: blockContext;
-			node: blockNode nextChild;
-			proceed.
-		
-		"Non local returns hanlding"
-		self returnValue: interpreter returnValue.
-		
-		"Answer the last evaluation of the block or nil"
-		interpreter stack isEmpty
-			ifTrue: [ nil ]
-			ifFalse: [ interpreter pop ] ].
-	
+	block := AIBlockClosure forInterpreter: self context: self context node: aNode.
 	self push: block
 !
 

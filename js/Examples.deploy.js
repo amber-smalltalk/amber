@@ -10,7 +10,7 @@ self["@count"]=_st(self["@count"]).__minus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {
 return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"decrease",{},smalltalk.Counter)})},
 messageSends: ["-", "contents:", "with:", "asString"]}),
 smalltalk.Counter);
@@ -25,7 +25,7 @@ self["@count"]=_st(self["@count"]).__plus((1));
 _st(self["@header"])._contents_((function(html){
 return smalltalk.withContext(function($ctx2) {
 return _st(html)._with_(_st(self["@count"])._asString());
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"increase",{},smalltalk.Counter)})},
 messageSends: ["+", "contents:", "with:", "asString"]}),
 smalltalk.Counter);
@@ -58,15 +58,15 @@ _st($3)._with_("++");
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._increase();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._decrease();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.Counter)})},
-messageSends: ["with:", "asString", "h1", "yourself", "button", "onClick:", "increase", "decrease"]}),
+messageSends: ["with:", "h1", "asString", "yourself", "button", "onClick:", "increase", "decrease"]}),
 smalltalk.Counter);
 
 
@@ -78,7 +78,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._new())._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},smalltalk.Counter.klass)})},
-messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
+messageSends: ["appendToJQuery:", "new", "asJQuery"]}),
 smalltalk.Counter.klass);
 
 

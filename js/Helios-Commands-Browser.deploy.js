@@ -255,10 +255,10 @@ var $1;
 $1=_st(_st(self._model())._showComment())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._model())._selectedClass())._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
-messageSends: ["and:", "notNil", "selectedClass", "model", "showComment"]}),
+messageSends: ["and:", "showComment", "model", "notNil", "selectedClass"]}),
 smalltalk.HLEditCommentCommand);
 
 
@@ -319,7 +319,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._showComment_(_st(_st(self._model())._showComment())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
-messageSends: ["showComment:", "not", "showComment", "model"]}),
+messageSends: ["showComment:", "model", "not", "showComment"]}),
 smalltalk.HLToggleClassCommentCommand);
 
 

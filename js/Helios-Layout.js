@@ -183,12 +183,12 @@ _st($5)._class_("pane");
 $6=_st($5)._with_(self._secondWidget());
 self["@secondPane"]=$6;
 return self["@secondPane"];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self._setupSplitter();
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLSplitter)})},
 args: ["html"],
 source: "renderOn: html\x0a\x09html div class: self panesCssClass; with: [\x0a\x09\x09firstPane := html div class: 'pane'; with: self firstWidget.\x0a    \x09splitter := html div class: self cssClass.\x0a    \x09secondPane := html div class: 'pane'; with: self secondWidget ].\x0a        \x0a\x09self setupSplitter",
-messageSends: ["class:", "panesCssClass", "div", "with:", "firstWidget", "cssClass", "secondWidget", "setupSplitter"],
+messageSends: ["class:", "div", "panesCssClass", "with:", "firstWidget", "cssClass", "secondWidget", "setupSplitter"],
 referencedClasses: []
 }),
 smalltalk.HLSplitter);
@@ -368,14 +368,14 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._from_(["axis".__minus_gt("y"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})})),"drag".__minus_gt((function(e,ui){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})})),"drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._top());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})}))]));
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.HLHorizontalSplitter)})},
 args: [],
 source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'y'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: ui offset top ] }",
-messageSends: ["draggable:", "->", "parent", "asJQuery", "startResizing:", "helper", "resize:", "top", "offset"],
+messageSends: ["draggable:", "asJQuery", "->", "parent", "startResizing:", "helper", "resize:", "top", "offset"],
 referencedClasses: []
 }),
 smalltalk.HLHorizontalSplitter);
@@ -485,14 +485,14 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._from_(["axis".__minus_gt("x"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})})),"drag".__minus_gt((function(e,ui){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})})),"drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._left());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1)})}))]));
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.HLVerticalSplitter)})},
 args: [],
 source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: (ui offset left) ] }",
-messageSends: ["draggable:", "->", "parent", "asJQuery", "startResizing:", "helper", "resize:", "left", "offset"],
+messageSends: ["draggable:", "asJQuery", "->", "parent", "startResizing:", "helper", "resize:", "left", "offset"],
 referencedClasses: []
 }),
 smalltalk.HLVerticalSplitter);

@@ -110,12 +110,12 @@ $2=self._isAsync();
 if(smalltalk.assert($2)){
 return _st(c)._execute_(aBlock);
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"async:",{aBlock:aBlock,c:c},smalltalk.TestCase)})},
 args: ["aBlock"],
 source: "async: aBlock\x0a\x09| c |\x0a\x09self errorIfNotAsync: '#async'.\x0a\x09c := context.\x0a\x09^ [ self isAsync ifTrue: [ c execute: aBlock ] ]",
-messageSends: ["errorIfNotAsync:", "ifTrue:", "execute:", "isAsync"],
+messageSends: ["errorIfNotAsync:", "ifTrue:", "isAsync", "execute:"],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -167,7 +167,7 @@ self._error_(_st(aString).__comma(" used without prior #timeout:"));
 return self}, function($ctx1) {$ctx1.fill(self,"errorIfNotAsync:",{aString:aString},smalltalk.TestCase)})},
 args: ["aString"],
 source: "errorIfNotAsync: aString\x0a\x09self isAsync ifFalse: [\x0a\x09\x09self error: aString, ' used without prior #timeout:' ]",
-messageSends: ["ifFalse:", "error:", ",", "isAsync"],
+messageSends: ["ifFalse:", "isAsync", "error:", ","],
 referencedClasses: []
 }),
 smalltalk.TestCase);
@@ -317,10 +317,10 @@ self._assert_(_st((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
 return false;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_(anExceptionClass,(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_(anExceptionClass,(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return true;
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})})));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"should:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},smalltalk.TestCase)})},
 args: ["aBlock", "anExceptionClass"],
 source: "should: aBlock raise: anExceptionClass\x0a\x09self assert: ([aBlock value. false]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [:ex | true])",
@@ -340,10 +340,10 @@ self._assert_(_st((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
 return true;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_(anExceptionClass,(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_(anExceptionClass,(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return false;
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})})));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},smalltalk.TestCase)})},
 args: ["aBlock", "anExceptionClass"],
 source: "shouldnt: aBlock raise: anExceptionClass\x0a\x09self assert: ([aBlock value. true]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [:ex | false])",
@@ -405,7 +405,7 @@ self["@asyncTimeout"]=(0);
 self["@asyncTimeout"]=_st(self._async_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._assert_description_(false,"SUnit grace time exhausted");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._valueWithTimeout_(aNumber);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})))._valueWithTimeout_(aNumber);
 return self}, function($ctx1) {$ctx1.fill(self,"timeout:",{aNumber:aNumber},smalltalk.TestCase)})},
 args: ["aNumber"],
 source: "timeout: aNumber\x0a\x09\x22Set a grace time timeout in milliseconds to run the test asynchronously\x22\x0a\x09\x0a\x09asyncTimeout ifNotNil: [ asyncTimeout clearTimeout ].\x0a\x09\x0a\x09\x22to allow #async: message send without throwing an error\x22\x0a\x09asyncTimeout := 0.\x0a\x09\x0a\x09asyncTimeout := (self async: [\x0a\x09\x09self assert: false description: 'SUnit grace time exhausted' ])\x0a\x09\x09\x09valueWithTimeout: aNumber",
@@ -434,7 +434,7 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},smalltalk.TestCase.klass)})},
 args: [],
 source: "allTestSelectors\x0a\x09| selectors |\x0a\x09selectors := self testSelectors.\x0a\x09self shouldInheritSelectors ifTrue: [\x0a\x09\x09selectors addAll: self superclass allTestSelectors].\x0a\x09^selectors",
-messageSends: ["testSelectors", "ifTrue:", "addAll:", "allTestSelectors", "superclass", "shouldInheritSelectors"],
+messageSends: ["testSelectors", "ifTrue:", "shouldInheritSelectors", "addAll:", "allTestSelectors", "superclass"],
 referencedClasses: []
 }),
 smalltalk.TestCase.klass);
@@ -450,12 +450,12 @@ var $1;
 $1=_st(self._allTestSelectors())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._selector_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"buildSuite",{},smalltalk.TestCase.klass)})},
 args: [],
 source: "buildSuite\x0a\x09^self allTestSelectors collect: [:each | self selector: each]",
-messageSends: ["collect:", "selector:", "allTestSelectors"],
+messageSends: ["collect:", "allTestSelectors", "selector:"],
 referencedClasses: []
 }),
 smalltalk.TestCase.klass);
@@ -563,12 +563,12 @@ var $1;
 $1=_st(_st(self._methodDictionary())._keys())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._match_("^test");
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"testSelectors",{},smalltalk.TestCase.klass)})},
 args: [],
 source: "testSelectors\x0a\x09^self methodDictionary keys select: [:each | each match: '^test']",
-messageSends: ["select:", "match:", "keys", "methodDictionary"],
+messageSends: ["select:", "keys", "methodDictionary", "match:"],
 referencedClasses: []
 }),
 smalltalk.TestCase.klass);
@@ -593,13 +593,13 @@ failed;
 _st(aBlock)._value();
 failed=false;
 return failed;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self["@testCase"])._context_(nil);
 $1=_st(failed)._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self["@testCase"])._isAsync();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
 if(smalltalk.assert($1)){
 _st(self["@testCase"])._finished();
 };
@@ -607,11 +607,11 @@ $2=_st(self["@testCase"])._isAsync();
 if(! smalltalk.assert($2)){
 return _st(self["@testCase"])._tearDown();
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock,failed:failed},smalltalk.TestContext)})},
 args: ["aBlock"],
 source: "execute: aBlock\x0a\x09| failed |\x0a\x09\x0a\x09testCase context: self.\x0a\x09[\x0a\x09\x09failed := true.\x0a\x09\x09aBlock value.\x0a\x09\x09failed := false\x0a\x09]\x0a\x09\x09ensure: [\x0a\x09\x09\x09testCase context: nil.\x0a\x09\x09\x09\x0a\x09\x09\x09(failed and: [ testCase isAsync ]) ifTrue: [\x0a\x09\x09\x09\x09testCase finished ].\x0a\x09\x09\x09testCase isAsync ifFalse: [\x0a\x09\x09\x09\x09testCase tearDown ] ]",
-messageSends: ["context:", "ensure:", "ifTrue:", "finished", "and:", "isAsync", "ifFalse:", "tearDown", "value"],
+messageSends: ["context:", "ensure:", "value", "ifTrue:", "and:", "isAsync", "finished", "ifFalse:", "tearDown"],
 referencedClasses: []
 }),
 smalltalk.TestContext);
@@ -627,7 +627,7 @@ self._execute_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self["@testCase"])._setUp();
 return _st(self["@testCase"])._performTest();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.TestContext)})},
 args: [],
 source: "start\x0a\x09self execute: [\x0a\x09\x09testCase setUp.\x0a\x09\x09testCase performTest ]",
@@ -690,19 +690,19 @@ return smalltalk.withContext(function($ctx2) {
 return self._withErrorReporting_((function(){
 return smalltalk.withContext(function($ctx3) {
 return smalltalk.TestContext.fn.prototype._execute_.apply(_st(self), [aBlock]);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(self["@testCase"])._isAsync();
 if(! smalltalk.assert($1)){
 _st(self["@result"])._increaseRuns();
 return _st(self["@finished"])._value();
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"execute:",{aBlock:aBlock},smalltalk.ReportingTestContext)})},
 args: ["aBlock"],
 source: "execute: aBlock\x0a\x09[\x0a\x09\x09self withErrorReporting: [ super execute: aBlock ]\x0a\x09]\x0a\x09\x09ensure: [\x0a\x09\x09\x09testCase isAsync ifFalse: [\x0a\x09\x09\x09\x09result increaseRuns. finished value ] ]",
-messageSends: ["ensure:", "ifFalse:", "increaseRuns", "value", "isAsync", "withErrorReporting:", "execute:"],
+messageSends: ["ensure:", "withErrorReporting:", "execute:", "ifFalse:", "isAsync", "increaseRuns", "value"],
 referencedClasses: []
 }),
 smalltalk.ReportingTestContext);
@@ -745,24 +745,24 @@ selector: "withErrorReporting:",
 category: 'private',
 fn: function (aBlock){
 var self=this;
-function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._on_do_($TestFailure(),(function(ex){
 return smalltalk.withContext(function($ctx3) {
 return _st(self["@result"])._addFailure_(self["@testCase"]);
-}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@result"])._addError_(self["@testCase"]);
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withErrorReporting:",{aBlock:aBlock},smalltalk.ReportingTestContext)})},
 args: ["aBlock"],
 source: "withErrorReporting: aBlock\x0a\x09[ aBlock\x0a\x09\x09on: TestFailure\x0a\x09\x09do: [ :ex | result addFailure: testCase ]\x0a\x09]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :ex | result addError: testCase ]",
-messageSends: ["on:do:", "addError:", "addFailure:"],
-referencedClasses: ["Error", "TestFailure"]
+messageSends: ["on:do:", "addFailure:", "addError:"],
+referencedClasses: ["TestFailure", "Error"]
 }),
 smalltalk.ReportingTestContext);
 
@@ -919,7 +919,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},smalltalk.TestResult)})},
 args: ["aBlock"],
 source: "nextRunDo: aBlock\x0a\x22Runs aBlock with index of next run\x0aor does nothing if no more runs\x22\x0a^self runs == self total\x0a\x09ifFalse: [ aBlock value: self runs + 1 ]",
-messageSends: ["ifFalse:", "value:", "+", "runs", "==", "total"],
+messageSends: ["ifFalse:", "==", "runs", "total", "value:", "+"],
 referencedClasses: []
 }),
 smalltalk.TestResult);
@@ -930,8 +930,8 @@ selector: "runCase:",
 category: 'running',
 fn: function (aTestCase){
 var self=this;
-function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $TestFailure(){return smalltalk.TestFailure||(typeof TestFailure=="undefined"?nil:TestFailure)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -939,19 +939,19 @@ return _st((function(){
 return smalltalk.withContext(function($ctx3) {
 self._increaseRuns();
 return _st(aTestCase)._runCase();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._on_do_($TestFailure(),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}))._on_do_($TestFailure(),(function(ex){
 return smalltalk.withContext(function($ctx3) {
 return self._addFailure_(aTestCase);
-}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
+}, function($ctx3) {$ctx3.fillBlock({ex:ex},$ctx2,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return self._addError_(aTestCase);
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"runCase:",{aTestCase:aTestCase},smalltalk.TestResult)})},
 args: ["aTestCase"],
 source: "runCase: aTestCase\x0a\x09[[ self increaseRuns.\x0a\x09\x09aTestCase runCase]\x0a\x09on: TestFailure do: [:ex | self addFailure: aTestCase]]\x0a\x09on: Error do: [:ex | self addError: aTestCase]",
-messageSends: ["on:do:", "addError:", "addFailure:", "increaseRuns", "runCase"],
-referencedClasses: ["Error", "TestFailure"]
+messageSends: ["on:do:", "increaseRuns", "runCase", "addFailure:", "addError:"],
+referencedClasses: ["TestFailure", "Error"]
 }),
 smalltalk.TestResult);
 
@@ -996,7 +996,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"status",{},smalltalk.TestResult)})},
 args: [],
 source: "status\x0a\x09^self errors isEmpty\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self failures isEmpty\x0a\x09\x09\x09\x09ifTrue: ['success']\x0a\x09\x09\x09\x09ifFalse: ['failure']]\x0a\x09\x09ifFalse: ['error']",
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "failures", "errors"],
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"],
 referencedClasses: []
 }),
 smalltalk.TestResult);
@@ -1087,7 +1087,7 @@ var $1;
 $1=_st($ReportingTestContext())._testCase_result_finished_(_st(self["@suite"])._at_(anInteger),self["@result"],(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._resume();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"contextOf:",{anInteger:anInteger},smalltalk.TestSuiteRunner)})},
 args: ["anInteger"],
@@ -1119,11 +1119,11 @@ $1=_st(runs).__lt(_st(self["@result"])._total());
 if(smalltalk.assert($1)){
 return _st(self._contextOf_(_st(runs).__plus((1))))._start();
 };
-}, function($ctx2) {$ctx2.fillBlock({runs:runs},$ctx1)})});
+}, function($ctx2) {$ctx2.fillBlock({runs:runs},$ctx1,1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TestSuiteRunner)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a\x09result := TestResult new.\x0a\x09runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].",
-messageSends: ["initialize", "new", "runs", "ifTrue:", "start", "contextOf:", "+", "<", "total"],
+messageSends: ["initialize", "new", "runs", "ifTrue:", "<", "total", "start", "contextOf:", "+"],
 referencedClasses: ["Announcer", "TestResult"]
 }),
 smalltalk.TestSuiteRunner);

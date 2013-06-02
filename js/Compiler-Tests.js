@@ -262,7 +262,7 @@ _st(ctx)._receiver_(anObject);
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(ctx)._localAt_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $2=self._interpreter();
 _st($2)._context_(ctx);
 _st($2)._interpret_(_st(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nodes())._first());
@@ -667,7 +667,7 @@ _st(ctx)._receiver_(anObject);
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(ctx)._localAt_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
 $2=self._interpreter();
 _st($2)._context_(ctx);
 _st($2)._interpret_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
@@ -776,7 +776,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._fromPairs_([(1).__minus_gt((1)),(2).__minus_gt((3))]));
+self._assert_equals_(self._interpret_("foo ^ #{1->1. 2->3}"),smalltalk.HashedCollection._from_([(1).__minus_gt((1)),(2).__minus_gt((3))]));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionary",{},smalltalk.InterpreterTest)})},
 args: [],
 source: "testDynamicDictionary\x0a\x09self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}",
@@ -809,7 +809,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._assert_equals_(self._interpret_("foo <return 2+3>"),(5));
-self._assert_equals_(self._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._fromPairs_(["anInteger".__minus_gt((3))])),(5));
+self._assert_equals_(self._interpret_withArguments_("foo: anInteger <return 2 + anInteger>",smalltalk.HashedCollection._from_(["anInteger".__minus_gt((3))])),(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testInlinedJSStatement",{},smalltalk.InterpreterTest)})},
 args: [],
 source: "testInlinedJSStatement\x0a\x09self assert: (self interpret: 'foo <return 2+3>') equals: 5.\x0a\x09\x0a\x09self\x0a\x09\x09assert: (self\x0a\x09\x09\x09interpret: 'foo: anInteger <return 2 + anInteger>'\x0a\x09\x09\x09withArguments: #{ 'anInteger' -> 3})\x0a\x09\x09equals: 5",
@@ -825,7 +825,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ x",(2).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2));
+self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ x",(2).__at((3)),smalltalk.HashedCollection._from_([])),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAccess",{},smalltalk.InterpreterTest)})},
 args: [],
 source: "testInstVarAccess\x0a\x09self\x0a\x09\x09assert: (self\x0a\x09\x09\x09interpret: 'foo ^ x'\x0a\x09\x09\x09receiver: 2@3\x0a\x09\x09\x09withArguments: #{})\x0a\x09\x09equals: 2",
@@ -842,7 +842,7 @@ fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st($Point())._new(),smalltalk.HashedCollection._fromPairs_(["anInteger".__minus_gt((2))])),(2));
+self._assert_equals_(self._interpret_receiver_withArguments_("foo: anInteger x := anInteger. ^ x",_st($Point())._new(),smalltalk.HashedCollection._from_(["anInteger".__minus_gt((2))])),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVarAssignment",{},smalltalk.InterpreterTest)})},
 args: [],
 source: "testInstVarAssignment\x0a\x09self\x0a\x09\x09assert: (self\x0a\x09\x09\x09interpret: 'foo: anInteger x := anInteger. ^ x'\x0a\x09\x09\x09receiver: Point new\x0a\x09\x09\x09withArguments: #{'anInteger' -> 2})\x0a\x09\x09equals: 2",
@@ -923,7 +923,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ self",(2).__at((3)),smalltalk.HashedCollection._fromPairs_([])),(2).__at((3)));
+self._assert_equals_(self._interpret_receiver_withArguments_("foo ^ self",(2).__at((3)),smalltalk.HashedCollection._from_([])),(2).__at((3)));
 return self}, function($ctx1) {$ctx1.fill(self,"testReceiver",{},smalltalk.InterpreterTest)})},
 args: [],
 source: "testReceiver\x0a\x09self\x0a\x09\x09assert: (self\x0a\x09\x09\x09interpret: 'foo ^ self'\x0a\x09\x09\x09receiver: 2@3\x0a\x09\x09\x09withArguments: #{})\x0a\x09\x09equals: 2@3",
@@ -1038,7 +1038,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compiler",{},smalltalk.CodeGeneratorTest)})},
 args: [],
 source: "compiler\x0a\x09^ Compiler new\x0a\x09\x09codeGeneratorClass: self codeGeneratorClass;\x0a\x09\x09yourself",
-messageSends: ["codeGeneratorClass:", "codeGeneratorClass", "new", "yourself"],
+messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.CodeGeneratorTest);
@@ -1074,7 +1074,7 @@ self._assert_equals_(anObject,result);
 return self}, function($ctx1) {$ctx1.fill(self,"should:return:",{aString:aString,anObject:anObject,method:method,result:result},smalltalk.CodeGeneratorTest)})},
 args: ["aString", "anObject"],
 source: "should: aString return: anObject\x0a\x09| method result |\x0a\x0a\x09method := self compiler install: aString forClass: self targetClass category: 'tests'.\x0a\x09result := receiver perform: method selector.\x0a\x09self targetClass removeCompiledMethod: method.\x0a\x09self assert: anObject equals: result",
-messageSends: ["install:forClass:category:", "targetClass", "compiler", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"],
+messageSends: ["install:forClass:category:", "compiler", "targetClass", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"],
 referencedClasses: []
 }),
 smalltalk.CodeGeneratorTest);
@@ -1637,7 +1637,7 @@ $2=_st($1)._yourself();
 node=$2;
 node;
 return self._assert_(_st(_st(_st($MethodLexicalScope())._new())._bindingFor_(node))._isPseudoVar());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testPseudoVar",{node:node,pseudoVars:pseudoVars},smalltalk.ScopeVarTest)})},
 args: [],
 source: "testPseudoVar\x0a\x09| node pseudoVars |\x0a\x09pseudoVars := #('self' 'super' 'true' 'false' 'nil').\x0a\x09pseudoVars do: [:each |\x0a\x09\x09node := VariableNode new\x0a\x09\x09value: each;\x0a\x09\x09yourself.\x0a\x09\x09self assert: (MethodLexicalScope new bindingFor: node) isPseudoVar ]",
@@ -1705,15 +1705,15 @@ selector: "setUp",
 category: 'running',
 fn: function (){
 var self=this;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
 self["@analyzer"]=_st($SemanticAnalyzer())._on_($Object());
 return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.SemanticAnalyzerTest)})},
 args: [],
 source: "setUp\x0a\x09analyzer := SemanticAnalyzer on: Object",
 messageSends: ["on:"],
-referencedClasses: ["Object", "SemanticAnalyzer"]
+referencedClasses: ["SemanticAnalyzer", "Object"]
 }),
 smalltalk.SemanticAnalyzerTest);
 
@@ -1731,7 +1731,7 @@ ast=_st(smalltalk)._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$InvalidAssignmentError());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$InvalidAssignmentError());
 return self}, function($ctx1) {$ctx1.fill(self,"testAssignment",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
 source: "testAssignment\x0a\x09| src ast |\x0a\x0a\x09src := 'foo self := 1'.\x0a\x09ast := smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: InvalidAssignmentError",
@@ -1855,7 +1855,7 @@ ast=_st(smalltalk)._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$UnknownVariableError());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$UnknownVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariables",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
 source: "testUnknownVariables\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a | b + a'.\x0a\x09ast := smalltalk parse: src.\x0a\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
@@ -1878,7 +1878,7 @@ ast=_st(smalltalk)._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$UnknownVariableError());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$UnknownVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testUnknownVariablesWithScope",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
 source: "testUnknownVariablesWithScope\x0a\x09| src ast |\x0a\x0a\x09src := 'foo | a b | [ c + 1. [ a + 1. d + 1 ]]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09\x0a\x09self should: [ analyzer visit: ast ] raise: UnknownVariableError",
@@ -1920,7 +1920,7 @@ ast=_st(smalltalk)._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$ShadowingVariableError());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ShadowingVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing2",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
 source: "testVariableShadowing2\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ | a | a := 2 ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",
@@ -1981,7 +1981,7 @@ ast=_st(smalltalk)._parse_(src);
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@analyzer"])._visit_(ast);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$ShadowingVariableError());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ShadowingVariableError());
 return self}, function($ctx1) {$ctx1.fill(self,"testVariableShadowing5",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 args: [],
 source: "testVariableShadowing5\x0a\x09| src ast |\x0a\x09src := 'foo | a | a + 1. [ [ [ | a | a := 2 ] ] ]'.\x0a\x09ast := smalltalk parse: src.\x0a\x09self should: [analyzer visit: ast] raise: ShadowingVariableError",

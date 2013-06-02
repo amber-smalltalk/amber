@@ -22,7 +22,7 @@ _st(_st(window)._jQuery_("body"))._append_("<iframe style=\x22display: none;\x22
 self["@frame"]=_st(_st(_st(window)._jQuery_("iframe"))._get())._last();
 _st(_st(self["@frame"])._contentWindow())._location_(_st(window)._location());
 return self}, function($ctx1) {$ctx1.fill(self,"create",{},smalltalk.ObjectSpace)})},
-messageSends: ["append:", "jQuery:", "last", "get", "location:", "location", "contentWindow"]}),
+messageSends: ["append:", "jQuery:", "last", "get", "location:", "contentWindow", "location"]}),
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
@@ -61,7 +61,7 @@ return $2;
 $3=_st(_st(self["@frame"])._contentWindow())._eval_(_st("(".__comma(_st(aBlock)._compiledSource())).__comma(")()"));
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
-messageSends: ["ifFalse:", "signal", "isConnected", "eval:", ",", "compiledSource", "contentWindow"]}),
+messageSends: ["ifFalse:", "isConnected", "signal", "eval:", "contentWindow", ",", "compiledSource"]}),
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
@@ -193,8 +193,8 @@ self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@space"])._do_((function(){
 return smalltalk.withContext(function($ctx3) {
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$ObjectSpaceConnectionError());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$ObjectSpaceConnectionError());
 return self}, function($ctx1) {$ctx1.fill(self,"testConnection",{},smalltalk.ObjectSpaceTest)})},
 messageSends: ["destroy", "deny:", "isConnected", "should:raise:", "do:"]}),
 smalltalk.ObjectSpaceTest);
@@ -224,12 +224,12 @@ return smalltalk.withContext(function($ctx2) {
 result=_st(self["@space"])._do_((function(){
 return smalltalk.withContext(function($ctx3) {
 return smalltalk;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 result;
 self._assert_equals_(_st(_st(result)._class())._name(),"Smalltalk");
 self._deny_(_st(_st(result)._class()).__eq($Smalltalk()));
 return self._deny_(_st(result).__eq_eq(smalltalk));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testEvaluation",{result:result},smalltalk.ObjectSpaceTest)})},
 messageSends: ["whenReadyDo:", "do:", "assert:equals:", "name", "class", "deny:", "=", "=="]}),
 smalltalk.ObjectSpaceTest);

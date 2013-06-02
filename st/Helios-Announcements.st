@@ -108,6 +108,10 @@ HLDebuggerAnnouncement subclass: #HLDebuggerStepped
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
+HLDebuggerAnnouncement subclass: #HLDebuggerWhere
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
 HLAnnouncement subclass: #HLDiveRequested
 	instanceVariableNames: ''
 	package: 'Helios-Announcements'!

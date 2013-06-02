@@ -237,7 +237,7 @@ _st(self._model())._copyClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCopyClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model copyClassTo: self input",
-messageSends: ["copyClassTo:", "input", "model"],
+messageSends: ["copyClassTo:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLCopyClassCommand);
@@ -389,7 +389,7 @@ _st(self._model())._openClassNamed_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model openClassNamed: self input",
-messageSends: ["openClassNamed:", "input", "model"],
+messageSends: ["openClassNamed:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLFindClassCommand);
@@ -524,7 +524,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
 source: "defaultInput\x0a\x09^ self model selectedMethod \x0a\x09\x09ifNil: [\x0a\x09\x09\x09self model selectedClass\x0a\x09\x09\x09\x09ifNil: [ '' ]\x0a\x09\x09\x09\x09ifNotNil: [ :class | class name ] ]\x0a\x09\x09ifNotNil: [ :method | method selector ]",
-messageSends: ["ifNil:ifNotNil:", "name", "selectedClass", "model", "selector", "selectedMethod"],
+messageSends: ["ifNil:ifNotNil:", "selectedMethod", "model", "selectedClass", "name", "selector"],
 referencedClasses: []
 }),
 smalltalk.HLFindReferencesCommand);
@@ -578,7 +578,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availableClassNames, self model allSelectors",
-messageSends: [",", "allSelectors", "model", "availableClassNames"],
+messageSends: [",", "availableClassNames", "model", "allSelectors"],
 referencedClasses: []
 }),
 smalltalk.HLFindReferencesCommand);
@@ -781,7 +781,7 @@ _st(self._model())._moveClassToPackage_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveClassToPackageCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveClassToPackage: self input",
-messageSends: ["moveClassToPackage:", "input", "model"],
+messageSends: ["moveClassToPackage:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLMoveClassToPackageCommand);
@@ -983,7 +983,7 @@ _st(self._model())._moveMethodToClass_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToClass: self input",
-messageSends: ["moveMethodToClass:", "input", "model"],
+messageSends: ["moveMethodToClass:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLMoveMethodToClassCommand);
@@ -1116,7 +1116,7 @@ _st(self._model())._moveMethodToProtocol_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToProtocol: self input",
-messageSends: ["moveMethodToProtocol:", "input", "model"],
+messageSends: ["moveMethodToProtocol:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLMoveMethodToProtocolCommand);
@@ -1656,7 +1656,7 @@ _st(self._model())._renameClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameClassTo: self input",
-messageSends: ["renameClassTo:", "input", "model"],
+messageSends: ["renameClassTo:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLRenameClassCommand);
@@ -1807,7 +1807,7 @@ _st(self._model())._renameProtocolTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameProtocolTo: self input",
-messageSends: ["renameProtocolTo:", "input", "model"],
+messageSends: ["renameProtocolTo:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLRenameProtocolCommand);
