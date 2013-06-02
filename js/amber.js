@@ -92,7 +92,6 @@ amber = (function() {
 				'parser',
 				'IDE',
 				'Examples',
-				'Benchfib',
 				'Kernel-Tests',
 				'SUnit-Tests'
 			]);
