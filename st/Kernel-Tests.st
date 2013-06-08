@@ -1604,6 +1604,10 @@ testSize
 	self assert: (Set withAll: #(1 1 1 1)) size equals: 1
 !
 
+testUnboxedObjects
+	self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')
+!
+
 testUnicity
 	| set |
 	set := Set new.

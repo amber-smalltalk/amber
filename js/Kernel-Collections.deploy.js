@@ -3430,7 +3430,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		var found;
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(anObject == self['@elements'][i]) {
+			if(_st(anObject).__eq_eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}

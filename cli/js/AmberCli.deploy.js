@@ -9,7 +9,7 @@ var self=this;
 var switches;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-switches=_st(_st(_st(self)._class())._methodsInProtocol_("commands"))._collect_((function(each){
+switches=_st(_st(self._class())._methodsInProtocol_("commands"))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -35,9 +35,9 @@ var self=this;
 var selector;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-selector=_st(self)._selectorForCommandLineSwitch_(_st(args)._first());
+selector=self._selectorForCommandLineSwitch_(_st(args)._first());
 _st(args)._remove_(_st(args)._first());
-_st(self)._perform_withArguments_(selector,_st($Array())._with_(args));
+self._perform_withArguments_(selector,_st($Array())._with_(args));
 return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},smalltalk.AmberCli.klass)})},
 messageSends: ["selectorForCommandLineSwitch:", "first", "remove:", "perform:withArguments:", "with:"]}),
 smalltalk.AmberCli.klass);
@@ -49,7 +49,7 @@ fn: function (args){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(console)._log_("Available Commands:");
-_st(_st(self)._commandLineSwitches())._do_((function(each){
+_st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(console)._log_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -68,7 +68,7 @@ var $1,$2,$3;
 nodeMinorVersion=_st(_st(_st(_st(process)._version())._tokenize_("."))._second())._asNumber();
 $1=_st(nodeMinorVersion).__lt((8));
 if(smalltalk.assert($1)){
-_st(console)._log_(_st("You are currently using Node.js ").__comma(_st(process)._version()));
+_st(console)._log_("You are currently using Node.js ".__comma(_st(process)._version()));
 _st(console)._log_("Required is at least Node.js v0.8.x or greater.");
 return (-1);
 };
@@ -76,12 +76,12 @@ args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(3));
 $2=_st(args)._isEmpty();
 if(smalltalk.assert($2)){
-_st(self)._help_(nil);
+self._help_(nil);
 } else {
-$3=_st(self)._handleArguments_(args);
+$3=self._handleArguments_(args);
 return $3;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},smalltalk.AmberCli.klass);});},
+return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},smalltalk.AmberCli.klass)})},
 messageSends: ["asNumber", "second", "tokenize:", "version", "ifTrue:", "log:", ",", "<", "argv", "removeFrom:to:", "ifTrue:ifFalse:", "help:", "handleArguments:", "isEmpty"]}),
 smalltalk.AmberCli.klass);
 
@@ -107,7 +107,7 @@ var self=this;
 var command,selector;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(self)._commandLineSwitches())._includes_(aSwitch);
+$1=_st(self._commandLineSwitches())._includes_(aSwitch);
 if(smalltalk.assert($1)){
 selector=_st(_st(aSwitch)._replace_with_("-[a-z]",(function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -187,15 +187,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-$1=_st(self["@fs"])._existsSync_(_st(_st(self)._basePath()).__comma("index.html"));
+$1=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("index.html"));
 if(! smalltalk.assert($1)){
 _st(console)._warn_("Warning: project directory does not contain index.html");
 };
-$2=_st(self["@fs"])._existsSync_(_st(_st(self)._basePath()).__comma("st"));
+$2=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("st"));
 if(! smalltalk.assert($2)){
 _st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
 };
-$3=_st(self["@fs"])._existsSync_(_st(_st(self)._basePath()).__comma("js"));
+$3=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
 if(! smalltalk.assert($3)){
 _st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
@@ -236,14 +236,14 @@ var uri,filename;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 uri=_st(_st(self["@url"])._parse_(_st(aRequest)._url()))._pathname();
-filename=_st(self["@path"])._join_with_(_st(self)._basePath(),uri);
+filename=_st(self["@path"])._join_with_(self._basePath(),uri);
 _st(self["@fs"])._exists_do_(filename,(function(aBoolean){
 return smalltalk.withContext(function($ctx2) {
 $1=aBoolean;
 if(smalltalk.assert($1)){
-return _st(self)._respondFileNamed_to_(filename,aResponse);
+return self._respondFileNamed_to_(filename,aResponse);
 } else {
-return _st(self)._respondNotFoundTo_(aResponse);
+return self._respondNotFoundTo_(aResponse);
 };
 }, function($ctx2) {$ctx2.fillBlock({aBoolean:aBoolean},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"handleGETRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse,uri:uri,filename:filename},smalltalk.FileServer)})},
@@ -256,7 +256,7 @@ selector: "handleOPTIONSRequest:respondTo:",
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aResponse)._writeHead_options_((200),smalltalk.HashedCollection._fromPairs_([_st("Access-Control-Allow-Origin").__minus_gt("*"),_st("Access-Control-Allow-Methods").__minus_gt("GET, PUT, POST, DELETE, OPTIONS"),_st("Access-Control-Allow-Headers").__minus_gt("Content-Type, Accept"),_st("Content-Length").__minus_gt((0)),_st("Access-Control-Max-Age").__minus_gt((10))]));
+_st(aResponse)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Access-Control-Allow-Origin".__minus_gt("*"),"Access-Control-Allow-Methods".__minus_gt("GET, PUT, POST, DELETE, OPTIONS"),"Access-Control-Allow-Headers".__minus_gt("Content-Type, Accept"),"Content-Length".__minus_gt((0)),"Access-Control-Max-Age".__minus_gt((10))]));
 _st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"handleOPTIONSRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},smalltalk.FileServer)})},
 messageSends: ["writeHead:options:", "->", "end"]}),
@@ -270,23 +270,23 @@ var self=this;
 var file,stream;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(self)._isAuthenticated_(aRequest);
+$1=self._isAuthenticated_(aRequest);
 if(! smalltalk.assert($1)){
-_st(self)._respondAuthenticationRequiredTo_(aResponse);
+self._respondAuthenticationRequiredTo_(aResponse);
 return nil;
 };
-file=_st(".").__comma(_st(aRequest)._url());
+file=".".__comma(_st(aRequest)._url());
 stream=_st(self["@fs"])._createWriteStream_(file);
 _st(stream)._on_do_("error",(function(error){
 return smalltalk.withContext(function($ctx2) {
-_st(console)._warn_(_st("Error creating WriteStream for file ").__comma(file));
+_st(console)._warn_("Error creating WriteStream for file ".__comma(file));
 _st(console)._warn_("    Did you forget to create the necessary js/ or st/ directory in your project?");
-_st(console)._warn_(_st("    The exact error is: ").__comma(error));
-return _st(self)._respondNotCreatedTo_(aResponse);
+_st(console)._warn_("    The exact error is: ".__comma(error));
+return self._respondNotCreatedTo_(aResponse);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 _st(stream)._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._respondCreatedTo_(aResponse);
+return self._respondCreatedTo_(aResponse);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(aRequest)._setEncoding_("utf8");
 _st(aRequest)._on_do_("data",(function(data){
@@ -313,15 +313,15 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(_st(aRequest)._method()).__eq("PUT");
 if(smalltalk.assert($1)){
-_st(self)._handlePUTRequest_respondTo_(aRequest,aResponse);
+self._handlePUTRequest_respondTo_(aRequest,aResponse);
 };
 $2=_st(_st(aRequest)._method()).__eq("GET");
 if(smalltalk.assert($2)){
-_st(self)._handleGETRequest_respondTo_(aRequest,aResponse);
+self._handleGETRequest_respondTo_(aRequest,aResponse);
 };
 $3=_st(_st(aRequest)._method()).__eq("OPTIONS");
 if(smalltalk.assert($3)){
-_st(self)._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
+self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},smalltalk.FileServer)})},
 messageSends: ["ifTrue:", "handlePUTRequest:respondTo:", "=", "method", "handleGETRequest:respondTo:", "handleOPTIONSRequest:respondTo:"]}),
@@ -358,13 +358,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
-self["@path"]=_st(self)._require_("path");
-self["@http"]=_st(self)._require_("http");
-self["@fs"]=_st(self)._require_("fs");
-self["@util"]=_st(self)._require_("util");
-self["@url"]=_st(self)._require_("url");
-self["@host"]=_st(_st(self)._class())._defaultHost();
-self["@port"]=_st(_st(self)._class())._defaultPort();
+self["@path"]=self._require_("path");
+self["@http"]=self._require_("http");
+self["@fs"]=self._require_("fs");
+self["@util"]=self._require_("util");
+self["@url"]=self._require_("url");
+self["@host"]=_st(self._class())._defaultHost();
+self["@port"]=_st(self._class())._defaultPort();
 self["@username"]=nil;
 self["@password"]=nil;
 self["@fallbackPage"]=nil;
@@ -404,7 +404,7 @@ token="";
 token=$4;
 };
 token;
-auth=_st(self)._base64Decode_(_st(token)._at_((2)));
+auth=self._base64Decode_(_st(token)._at_((2)));
 auth;
 parts=_st(auth)._tokenize_(":");
 parts;
@@ -478,7 +478,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aResponse;
-_st($1)._writeHead_options_((401),smalltalk.HashedCollection._fromPairs_([_st("WWW-Authenticate").__minus_gt("Basic realm=\x22Secured Developer Area\x22")]));
+_st($1)._writeHead_options_((401),smalltalk.HashedCollection._from_(["WWW-Authenticate".__minus_gt("Basic realm=\x22Secured Developer Area\x22")]));
 _st($1)._write_("<html><body>Authentication needed</body></html>");
 $2=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondAuthenticationRequiredTo:",{aResponse:aResponse},smalltalk.FileServer)})},
@@ -493,7 +493,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aResponse;
-_st($1)._writeHead_options_((201),smalltalk.HashedCollection._fromPairs_([_st("Content-Type").__minus_gt("text/plain"),_st("Access-Control-Allow-Origin").__minus_gt("*")]));
+_st($1)._writeHead_options_((201),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain"),"Access-Control-Allow-Origin".__minus_gt("*")]));
 $2=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 messageSends: ["writeHead:options:", "->", "end"]}),
@@ -518,9 +518,9 @@ return smalltalk.withContext(function($ctx2) {
 $2=_st(ex)._notNil();
 if(smalltalk.assert($2)){
 _st(console)._log_(_st(filename).__comma(" does not exist"));
-return _st(self)._respondInternalErrorTo_(aResponse);
+return self._respondInternalErrorTo_(aResponse);
 } else {
-type=_st(_st(self)._class())._mimeTypeFor_(filename);
+type=_st(self._class())._mimeTypeFor_(filename);
 type;
 $3=_st(type).__eq("application/javascript");
 if(smalltalk.assert($3)){
@@ -528,7 +528,7 @@ type=_st(type).__comma(";charset=utf-8");
 type;
 };
 $4=aResponse;
-_st($4)._writeHead_options_((200),smalltalk.HashedCollection._fromPairs_([_st("Content-Type").__minus_gt(type)]));
+_st($4)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
 _st($4)._write_encoding_(file,"binary");
 $5=_st($4)._end();
 return $5;
@@ -546,7 +546,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aResponse;
-_st($1)._writeHead_options_((500),smalltalk.HashedCollection._fromPairs_([_st("Content-Type").__minus_gt("text/plain")]));
+_st($1)._writeHead_options_((500),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
 _st($1)._write_("500 Internal server error");
 $2=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondInternalErrorTo:",{aResponse:aResponse},smalltalk.FileServer)})},
@@ -561,7 +561,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aResponse;
-_st($1)._writeHead_options_((400),smalltalk.HashedCollection._fromPairs_([_st("Content-Type").__minus_gt("text/plain")]));
+_st($1)._writeHead_options_((400),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
 _st($1)._write_("File could not be created. Did you forget to create the st/js directories on the server?");
 $2=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},smalltalk.FileServer)})},
@@ -575,13 +575,13 @@ fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-$1=_st(_st(self)._fallbackPage())._isNil();
+$1=_st(self._fallbackPage())._isNil();
 if(! smalltalk.assert($1)){
-$2=_st(self)._respondFileNamed_to_(_st(self)._fallbackPage(),aResponse);
+$2=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 return $2;
 };
 $3=aResponse;
-_st($3)._writeHead_options_((404),smalltalk.HashedCollection._fromPairs_([_st("Content-Type").__minus_gt("text/plain")]));
+_st($3)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
 _st($3)._write_("404 Not found");
 $4=_st($3)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},smalltalk.FileServer)})},
@@ -596,7 +596,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aResponse;
-_st($1)._writeHead_options_((200),smalltalk.HashedCollection._fromPairs_([_st("Content-Type").__minus_gt("text/plain"),_st("Access-Control-Allow-Origin").__minus_gt("*")]));
+_st($1)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain"),"Access-Control-Allow-Origin".__minus_gt("*")]));
 $2=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 messageSends: ["writeHead:options:", "->", "end"]}),
@@ -609,20 +609,20 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(self)._checkDirectoryLayout();
+self._checkDirectoryLayout();
 $1=_st(self["@http"])._createServer_((function(request,response){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._handleRequest_respondTo_(request,response);
+return self._handleRequest_respondTo_(request,response);
 }, function($ctx2) {$ctx2.fillBlock({request:request,response:response},$ctx1)})}));
 _st($1)._on_do_("error",(function(error){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_(_st("Error starting server: ").__comma(error));
+return _st(console)._log_("Error starting server: ".__comma(error));
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1)})}));
 _st($1)._on_do_("listening",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_(_st(_st(_st("Starting file server on ").__comma(_st(self)._host())).__comma(":")).__comma(_st(_st(self)._port())._asString()));
+return _st(console)._log_(_st(_st("Starting file server on http://".__comma(self._host())).__comma(":")).__comma(_st(self._port())._asString()));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$2=_st($1)._listen_host_(_st(self)._port(),_st(self)._host());
+$2=_st($1)._listen_host_(self._port(),self._host());
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.FileServer)})},
 messageSends: ["checkDirectoryLayout", "on:do:", "log:", ",", "createServer:", "handleRequest:respondTo:", "asString", "port", "host", "listen:host:"]}),
 smalltalk.FileServer);
@@ -633,8 +633,8 @@ selector: "startOn:",
 fn: function (aPort){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self)._port_(aPort);
-_st(self)._start();
+self._port_(aPort);
+self._start();
 return self}, function($ctx1) {$ctx1.fill(self,"startOn:",{aPort:aPort},smalltalk.FileServer)})},
 messageSends: ["port:", "start"]}),
 smalltalk.FileServer);
@@ -671,7 +671,7 @@ var self=this;
 var switches;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-switches=_st(_st(self)._methodsInProtocol_("accessing"))._collect_((function(each){
+switches=_st(self._methodsInProtocol_("accessing"))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -700,8 +700,8 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4,$5;
 var $early={};
 try {
-switches=_st(self)._commandLineSwitches();
-server=_st(self)._new();
+switches=self._commandLineSwitches();
+server=self._new();
 _st(options)._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 $1=server;
@@ -710,8 +710,8 @@ throw $early=[$1];
 $2=_st(_st(options)._size())._even();
 if(! smalltalk.assert($2)){
 _st(console)._log_("Using default parameters.");
-_st(console)._log_(_st("Wrong commandline options or not enough arguments for: ").__comma(options));
-_st(console)._log_(_st("Use any of the following ones: ").__comma(switches));
+_st(console)._log_("Wrong commandline options or not enough arguments for: ".__comma(options));
+_st(console)._log_("Use any of the following ones: ".__comma(switches));
 $3=server;
 return $3;
 };
@@ -733,12 +733,12 @@ optionValue=_st(popFront)._value_(options);
 optionValue;
 $4=_st(switches)._includes_(optionName);
 if(smalltalk.assert($4)){
-optionName=_st(self)._selectorForCommandLineSwitch_(optionName);
+optionName=self._selectorForCommandLineSwitch_(optionName);
 optionName;
 return _st(server)._perform_withArguments_(optionName,_st($Array())._with_(optionValue));
 } else {
 _st(console)._log_(_st(optionName).__comma(" is not a valid commandline option"));
-return _st(console)._log_(_st("Use any of the following ones: ").__comma(switches));
+return _st(console)._log_("Use any of the following ones: ".__comma(switches));
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $5=server;
@@ -767,7 +767,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._fromPairs_([_st("%").__minus_gt("application/x-trash"),_st("323").__minus_gt("text/h323"),_st("abw").__minus_gt("application/x-abiword"),_st("ai").__minus_gt("application/postscript"),_st("aif").__minus_gt("audio/x-aiff"),_st("aifc").__minus_gt("audio/x-aiff"),_st("aiff").__minus_gt("audio/x-aiff"),_st("alc").__minus_gt("chemical/x-alchemy"),_st("art").__minus_gt("image/x-jg"),_st("asc").__minus_gt("text/plain"),_st("asf").__minus_gt("video/x-ms-asf"),_st("asn").__minus_gt("chemical/x-ncbi-asn1-spec"),_st("aso").__minus_gt("chemical/x-ncbi-asn1-binary"),_st("asx").__minus_gt("video/x-ms-asf"),_st("au").__minus_gt("audio/basic"),_st("avi").__minus_gt("video/x-msvideo"),_st("b").__minus_gt("chemical/x-molconn-Z"),_st("bak").__minus_gt("application/x-trash"),_st("bat").__minus_gt("application/x-msdos-program"),_st("bcpio").__minus_gt("application/x-bcpio"),_st("bib").__minus_gt("text/x-bibtex"),_st("bin").__minus_gt("application/octet-stream"),_st("bmp").__minus_gt("image/x-ms-bmp"),_st("book").__minus_gt("application/x-maker"),_st("bsd").__minus_gt("chemical/x-crossfire"),_st("c").__minus_gt("text/x-csrc"),_st("c++").__minus_gt("text/x-c++src"),_st("c3d").__minus_gt("chemical/x-chem3d"),_st("cac").__minus_gt("chemical/x-cache"),_st("cache").__minus_gt("chemical/x-cache"),_st("cascii").__minus_gt("chemical/x-cactvs-binary"),_st("cat").__minus_gt("application/vnd.ms-pki.seccat"),_st("cbin").__minus_gt("chemical/x-cactvs-binary"),_st("cc").__minus_gt("text/x-c++src"),_st("cdf").__minus_gt("application/x-cdf"),_st("cdr").__minus_gt("image/x-coreldraw"),_st("cdt").__minus_gt("image/x-coreldrawtemplate"),_st("cdx").__minus_gt("chemical/x-cdx"),_st("cdy").__minus_gt("application/vnd.cinderella"),_st("cef").__minus_gt("chemical/x-cxf"),_st("cer").__minus_gt("chemical/x-cerius"),_st("chm").__minus_gt("chemical/x-chemdraw"),_st("chrt").__minus_gt("application/x-kchart"),_st("cif").__minus_gt("chemical/x-cif"),_st("class").__minus_gt("application/java-vm"),_st("cls").__minus_gt("text/x-tex"),_st("cmdf").__minus_gt("chemical/x-cmdf"),_st("cml").__minus_gt("chemical/x-cml"),_st("cod").__minus_gt("application/vnd.rim.cod"),_st("com").__minus_gt("application/x-msdos-program"),_st("cpa").__minus_gt("chemical/x-compass"),_st("cpio").__minus_gt("application/x-cpio"),_st("cpp").__minus_gt("text/x-c++src"),_st("cpt").__minus_gt("image/x-corelphotopaint"),_st("crl").__minus_gt("application/x-pkcs7-crl"),_st("crt").__minus_gt("application/x-x509-ca-cert"),_st("csf").__minus_gt("chemical/x-cache-csf"),_st("csh").__minus_gt("text/x-csh"),_st("csm").__minus_gt("chemical/x-csml"),_st("csml").__minus_gt("chemical/x-csml"),_st("css").__minus_gt("text/css"),_st("csv").__minus_gt("text/comma-separated-values"),_st("ctab").__minus_gt("chemical/x-cactvs-binary"),_st("ctx").__minus_gt("chemical/x-ctx"),_st("cu").__minus_gt("application/cu-seeme"),_st("cub").__minus_gt("chemical/x-gaussian-cube"),_st("cxf").__minus_gt("chemical/x-cxf"),_st("cxx").__minus_gt("text/x-c++src"),_st("dat").__minus_gt("chemical/x-mopac-input"),_st("dcr").__minus_gt("application/x-director"),_st("deb").__minus_gt("application/x-debian-package"),_st("dif").__minus_gt("video/dv"),_st("diff").__minus_gt("text/plain"),_st("dir").__minus_gt("application/x-director"),_st("djv").__minus_gt("image/vnd.djvu"),_st("djvu").__minus_gt("image/vnd.djvu"),_st("dl").__minus_gt("video/dl"),_st("dll").__minus_gt("application/x-msdos-program"),_st("dmg").__minus_gt("application/x-apple-diskimage"),_st("dms").__minus_gt("application/x-dms"),_st("doc").__minus_gt("application/msword"),_st("dot").__minus_gt("application/msword"),_st("dv").__minus_gt("video/dv"),_st("dvi").__minus_gt("application/x-dvi"),_st("dx").__minus_gt("chemical/x-jcamp-dx"),_st("dxr").__minus_gt("application/x-director"),_st("emb").__minus_gt("chemical/x-embl-dl-nucleotide"),_st("embl").__minus_gt("chemical/x-embl-dl-nucleotide"),_st("ent").__minus_gt("chemical/x-pdb"),_st("eps").__minus_gt("application/postscript"),_st("etx").__minus_gt("text/x-setext"),_st("exe").__minus_gt("application/x-msdos-program"),_st("ez").__minus_gt("application/andrew-inset"),_st("fb").__minus_gt("application/x-maker"),_st("fbdoc").__minus_gt("application/x-maker"),_st("fch").__minus_gt("chemical/x-gaussian-checkpoint"),_st("fchk").__minus_gt("chemical/x-gaussian-checkpoint"),_st("fig").__minus_gt("application/x-xfig"),_st("flac").__minus_gt("application/x-flac"),_st("fli").__minus_gt("video/fli"),_st("fm").__minus_gt("application/x-maker"),_st("frame").__minus_gt("application/x-maker"),_st("frm").__minus_gt("application/x-maker"),_st("gal").__minus_gt("chemical/x-gaussian-log"),_st("gam").__minus_gt("chemical/x-gamess-input"),_st("gamin").__minus_gt("chemical/x-gamess-input"),_st("gau").__minus_gt("chemical/x-gaussian-input"),_st("gcd").__minus_gt("text/x-pcs-gcd"),_st("gcf").__minus_gt("application/x-graphing-calculator"),_st("gcg").__minus_gt("chemical/x-gcg8-sequence"),_st("gen").__minus_gt("chemical/x-genbank"),_st("gf").__minus_gt("application/x-tex-gf"),_st("gif").__minus_gt("image/gif"),_st("gjc").__minus_gt("chemical/x-gaussian-input"),_st("gjf").__minus_gt("chemical/x-gaussian-input"),_st("gl").__minus_gt("video/gl"),_st("gnumeric").__minus_gt("application/x-gnumeric"),_st("gpt").__minus_gt("chemical/x-mopac-graph"),_st("gsf").__minus_gt("application/x-font"),_st("gsm").__minus_gt("audio/x-gsm"),_st("gtar").__minus_gt("application/x-gtar"),_st("h").__minus_gt("text/x-chdr"),_st("h++").__minus_gt("text/x-c++hdr"),_st("hdf").__minus_gt("application/x-hdf"),_st("hh").__minus_gt("text/x-c++hdr"),_st("hin").__minus_gt("chemical/x-hin"),_st("hpp").__minus_gt("text/x-c++hdr"),_st("hqx").__minus_gt("application/mac-binhex40"),_st("hs").__minus_gt("text/x-haskell"),_st("hta").__minus_gt("application/hta"),_st("htc").__minus_gt("text/x-component"),_st("htm").__minus_gt("text/html"),_st("html").__minus_gt("text/html"),_st("hxx").__minus_gt("text/x-c++hdr"),_st("ica").__minus_gt("application/x-ica"),_st("ice").__minus_gt("x-conference/x-cooltalk"),_st("ico").__minus_gt("image/x-icon"),_st("ics").__minus_gt("text/calendar"),_st("icz").__minus_gt("text/calendar"),_st("ief").__minus_gt("image/ief"),_st("iges").__minus_gt("model/iges"),_st("igs").__minus_gt("model/iges"),_st("iii").__minus_gt("application/x-iphone"),_st("inp").__minus_gt("chemical/x-gamess-input"),_st("ins").__minus_gt("application/x-internet-signup"),_st("iso").__minus_gt("application/x-iso9660-image"),_st("isp").__minus_gt("application/x-internet-signup"),_st("ist").__minus_gt("chemical/x-isostar"),_st("istr").__minus_gt("chemical/x-isostar"),_st("jad").__minus_gt("text/vnd.sun.j2me.app-descriptor"),_st("jar").__minus_gt("application/java-archive"),_st("java").__minus_gt("text/x-java"),_st("jdx").__minus_gt("chemical/x-jcamp-dx"),_st("jmz").__minus_gt("application/x-jmol"),_st("jng").__minus_gt("image/x-jng"),_st("jnlp").__minus_gt("application/x-java-jnlp-file"),_st("jpe").__minus_gt("image/jpeg"),_st("jpeg").__minus_gt("image/jpeg"),_st("jpg").__minus_gt("image/jpeg"),_st("js").__minus_gt("application/javascript"),_st("kar").__minus_gt("audio/midi"),_st("key").__minus_gt("application/pgp-keys"),_st("kil").__minus_gt("application/x-killustrator"),_st("kin").__minus_gt("chemical/x-kinemage"),_st("kpr").__minus_gt("application/x-kpresenter"),_st("kpt").__minus_gt("application/x-kpresenter"),_st("ksp").__minus_gt("application/x-kspread"),_st("kwd").__minus_gt("application/x-kword"),_st("kwt").__minus_gt("application/x-kword"),_st("latex").__minus_gt("application/x-latex"),_st("lha").__minus_gt("application/x-lha"),_st("lhs").__minus_gt("text/x-literate-haskell"),_st("lsf").__minus_gt("video/x-la-asf"),_st("lsx").__minus_gt("video/x-la-asf"),_st("ltx").__minus_gt("text/x-tex"),_st("lzh").__minus_gt("application/x-lzh"),_st("lzx").__minus_gt("application/x-lzx"),_st("m3u").__minus_gt("audio/x-mpegurl"),_st("m4a").__minus_gt("audio/mpeg"),_st("maker").__minus_gt("application/x-maker"),_st("man").__minus_gt("application/x-troff-man"),_st("mcif").__minus_gt("chemical/x-mmcif"),_st("mcm").__minus_gt("chemical/x-macmolecule"),_st("mdb").__minus_gt("application/msaccess"),_st("me").__minus_gt("application/x-troff-me"),_st("mesh").__minus_gt("model/mesh"),_st("mid").__minus_gt("audio/midi"),_st("midi").__minus_gt("audio/midi"),_st("mif").__minus_gt("application/x-mif"),_st("mm").__minus_gt("application/x-freemind"),_st("mmd").__minus_gt("chemical/x-macromodel-input"),_st("mmf").__minus_gt("application/vnd.smaf"),_st("mml").__minus_gt("text/mathml"),_st("mmod").__minus_gt("chemical/x-macromodel-input"),_st("mng").__minus_gt("video/x-mng"),_st("moc").__minus_gt("text/x-moc"),_st("mol").__minus_gt("chemical/x-mdl-molfile"),_st("mol2").__minus_gt("chemical/x-mol2"),_st("moo").__minus_gt("chemical/x-mopac-out"),_st("mop").__minus_gt("chemical/x-mopac-input"),_st("mopcrt").__minus_gt("chemical/x-mopac-input"),_st("mov").__minus_gt("video/quicktime"),_st("movie").__minus_gt("video/x-sgi-movie"),_st("mp2").__minus_gt("audio/mpeg"),_st("mp3").__minus_gt("audio/mpeg"),_st("mp4").__minus_gt("video/mp4"),_st("mpc").__minus_gt("chemical/x-mopac-input"),_st("mpe").__minus_gt("video/mpeg"),_st("mpeg").__minus_gt("video/mpeg"),_st("mpega").__minus_gt("audio/mpeg"),_st("mpg").__minus_gt("video/mpeg"),_st("mpga").__minus_gt("audio/mpeg"),_st("ms").__minus_gt("application/x-troff-ms"),_st("msh").__minus_gt("model/mesh"),_st("msi").__minus_gt("application/x-msi"),_st("mvb").__minus_gt("chemical/x-mopac-vib"),_st("mxu").__minus_gt("video/vnd.mpegurl"),_st("nb").__minus_gt("application/mathematica"),_st("nc").__minus_gt("application/x-netcdf"),_st("nwc").__minus_gt("application/x-nwc"),_st("o").__minus_gt("application/x-object"),_st("oda").__minus_gt("application/oda"),_st("odb").__minus_gt("application/vnd.oasis.opendocument.database"),_st("odc").__minus_gt("application/vnd.oasis.opendocument.chart"),_st("odf").__minus_gt("application/vnd.oasis.opendocument.formula"),_st("odg").__minus_gt("application/vnd.oasis.opendocument.graphics"),_st("odi").__minus_gt("application/vnd.oasis.opendocument.image"),_st("odm").__minus_gt("application/vnd.oasis.opendocument.text-master"),_st("odp").__minus_gt("application/vnd.oasis.opendocument.presentation"),_st("ods").__minus_gt("application/vnd.oasis.opendocument.spreadsheet"),_st("odt").__minus_gt("application/vnd.oasis.opendocument.text"),_st("ogg").__minus_gt("application/ogg"),_st("old").__minus_gt("application/x-trash"),_st("oth").__minus_gt("application/vnd.oasis.opendocument.text-web"),_st("oza").__minus_gt("application/x-oz-application"),_st("p").__minus_gt("text/x-pascal"),_st("p7r").__minus_gt("application/x-pkcs7-certreqresp"),_st("pac").__minus_gt("application/x-ns-proxy-autoconfig"),_st("pas").__minus_gt("text/x-pascal"),_st("pat").__minus_gt("image/x-coreldrawpattern"),_st("pbm").__minus_gt("image/x-portable-bitmap"),_st("pcf").__minus_gt("application/x-font"),_st("pcf.Z").__minus_gt("application/x-font"),_st("pcx").__minus_gt("image/pcx"),_st("pdb").__minus_gt("chemical/x-pdb"),_st("pdf").__minus_gt("application/pdf"),_st("pfa").__minus_gt("application/x-font"),_st("pfb").__minus_gt("application/x-font"),_st("pgm").__minus_gt("image/x-portable-graymap"),_st("pgn").__minus_gt("application/x-chess-pgn"),_st("pgp").__minus_gt("application/pgp-signature"),_st("pk").__minus_gt("application/x-tex-pk"),_st("pl").__minus_gt("text/x-perl"),_st("pls").__minus_gt("audio/x-scpls"),_st("pm").__minus_gt("text/x-perl"),_st("png").__minus_gt("image/png"),_st("pnm").__minus_gt("image/x-portable-anymap"),_st("pot").__minus_gt("text/plain"),_st("ppm").__minus_gt("image/x-portable-pixmap"),_st("pps").__minus_gt("application/vnd.ms-powerpoint"),_st("ppt").__minus_gt("application/vnd.ms-powerpoint"),_st("prf").__minus_gt("application/pics-rules"),_st("prt").__minus_gt("chemical/x-ncbi-asn1-ascii"),_st("ps").__minus_gt("application/postscript"),_st("psd").__minus_gt("image/x-photoshop"),_st("psp").__minus_gt("text/x-psp"),_st("py").__minus_gt("text/x-python"),_st("pyc").__minus_gt("application/x-python-code"),_st("pyo").__minus_gt("application/x-python-code"),_st("qt").__minus_gt("video/quicktime"),_st("qtl").__minus_gt("application/x-quicktimeplayer"),_st("ra").__minus_gt("audio/x-realaudio"),_st("ram").__minus_gt("audio/x-pn-realaudio"),_st("rar").__minus_gt("application/rar"),_st("ras").__minus_gt("image/x-cmu-raster"),_st("rd").__minus_gt("chemical/x-mdl-rdfile"),_st("rdf").__minus_gt("application/rdf+xml"),_st("rgb").__minus_gt("image/x-rgb"),_st("rm").__minus_gt("audio/x-pn-realaudio"),_st("roff").__minus_gt("application/x-troff"),_st("ros").__minus_gt("chemical/x-rosdal"),_st("rpm").__minus_gt("application/x-redhat-package-manager"),_st("rss").__minus_gt("application/rss+xml"),_st("rtf").__minus_gt("text/rtf"),_st("rtx").__minus_gt("text/richtext"),_st("rxn").__minus_gt("chemical/x-mdl-rxnfile"),_st("sct").__minus_gt("text/scriptlet"),_st("sd").__minus_gt("chemical/x-mdl-sdfile"),_st("sd2").__minus_gt("audio/x-sd2"),_st("sda").__minus_gt("application/vnd.stardivision.draw"),_st("sdc").__minus_gt("application/vnd.stardivision.calc"),_st("sdd").__minus_gt("application/vnd.stardivision.impress"),_st("sdf").__minus_gt("chemical/x-mdl-sdfile"),_st("sdp").__minus_gt("application/vnd.stardivision.impress"),_st("sdw").__minus_gt("application/vnd.stardivision.writer"),_st("ser").__minus_gt("application/java-serialized-object"),_st("sgf").__minus_gt("application/x-go-sgf"),_st("sgl").__minus_gt("application/vnd.stardivision.writer-global"),_st("sh").__minus_gt("text/x-sh"),_st("shar").__minus_gt("application/x-shar"),_st("shtml").__minus_gt("text/html"),_st("sid").__minus_gt("audio/prs.sid"),_st("sik").__minus_gt("application/x-trash"),_st("silo").__minus_gt("model/mesh"),_st("sis").__minus_gt("application/vnd.symbian.install"),_st("sit").__minus_gt("application/x-stuffit"),_st("skd").__minus_gt("application/x-koan"),_st("skm").__minus_gt("application/x-koan"),_st("skp").__minus_gt("application/x-koan"),_st("skt").__minus_gt("application/x-koan"),_st("smf").__minus_gt("application/vnd.stardivision.math"),_st("smi").__minus_gt("application/smil"),_st("smil").__minus_gt("application/smil"),_st("snd").__minus_gt("audio/basic"),_st("spc").__minus_gt("chemical/x-galactic-spc"),_st("spl").__minus_gt("application/x-futuresplash"),_st("src").__minus_gt("application/x-wais-source"),_st("stc").__minus_gt("application/vnd.sun.xml.calc.template"),_st("std").__minus_gt("application/vnd.sun.xml.draw.template"),_st("sti").__minus_gt("application/vnd.sun.xml.impress.template"),_st("stl").__minus_gt("application/vnd.ms-pki.stl"),_st("stw").__minus_gt("application/vnd.sun.xml.writer.template"),_st("sty").__minus_gt("text/x-tex"),_st("sv4cpio").__minus_gt("application/x-sv4cpio"),_st("sv4crc").__minus_gt("application/x-sv4crc"),_st("svg").__minus_gt("image/svg+xml"),_st("svgz").__minus_gt("image/svg+xml"),_st("sw").__minus_gt("chemical/x-swissprot"),_st("swf").__minus_gt("application/x-shockwave-flash"),_st("swfl").__minus_gt("application/x-shockwave-flash"),_st("sxc").__minus_gt("application/vnd.sun.xml.calc"),_st("sxd").__minus_gt("application/vnd.sun.xml.draw"),_st("sxg").__minus_gt("application/vnd.sun.xml.writer.global"),_st("sxi").__minus_gt("application/vnd.sun.xml.impress"),_st("sxm").__minus_gt("application/vnd.sun.xml.math"),_st("sxw").__minus_gt("application/vnd.sun.xml.writer"),_st("t").__minus_gt("application/x-troff"),_st("tar").__minus_gt("application/x-tar"),_st("taz").__minus_gt("application/x-gtar"),_st("tcl").__minus_gt("text/x-tcl"),_st("tex").__minus_gt("text/x-tex"),_st("texi").__minus_gt("application/x-texinfo"),_st("texinfo").__minus_gt("application/x-texinfo"),_st("text").__minus_gt("text/plain"),_st("tgf").__minus_gt("chemical/x-mdl-tgf"),_st("tgz").__minus_gt("application/x-gtar"),_st("tif").__minus_gt("image/tiff"),_st("tiff").__minus_gt("image/tiff"),_st("tk").__minus_gt("text/x-tcl"),_st("tm").__minus_gt("text/texmacs"),_st("torrent").__minus_gt("application/x-bittorrent"),_st("tr").__minus_gt("application/x-troff"),_st("ts").__minus_gt("text/texmacs"),_st("tsp").__minus_gt("application/dsptype"),_st("tsv").__minus_gt("text/tab-separated-values"),_st("txt").__minus_gt("text/plain"),_st("udeb").__minus_gt("application/x-debian-package"),_st("uls").__minus_gt("text/iuls"),_st("ustar").__minus_gt("application/x-ustar"),_st("val").__minus_gt("chemical/x-ncbi-asn1-binary"),_st("vcd").__minus_gt("application/x-cdlink"),_st("vcf").__minus_gt("text/x-vcard"),_st("vcs").__minus_gt("text/x-vcalendar"),_st("vmd").__minus_gt("chemical/x-vmd"),_st("vms").__minus_gt("chemical/x-vamas-iso14976"),_st("vor").__minus_gt("application/vnd.stardivision.writer"),_st("vrm").__minus_gt("x-world/x-vrml"),_st("vrml").__minus_gt("x-world/x-vrml"),_st("vsd").__minus_gt("application/vnd.visio"),_st("wad").__minus_gt("application/x-doom"),_st("wav").__minus_gt("audio/x-wav"),_st("wax").__minus_gt("audio/x-ms-wax"),_st("wbmp").__minus_gt("image/vnd.wap.wbmp"),_st("wbxml").__minus_gt("application/vnd.wap.wbxml"),_st("wk").__minus_gt("application/x-123"),_st("wm").__minus_gt("video/x-ms-wm"),_st("wma").__minus_gt("audio/x-ms-wma"),_st("wmd").__minus_gt("application/x-ms-wmd"),_st("wml").__minus_gt("text/vnd.wap.wml"),_st("wmlc").__minus_gt("application/vnd.wap.wmlc"),_st("wmls").__minus_gt("text/vnd.wap.wmlscript"),_st("wmlsc").__minus_gt("application/vnd.wap.wmlscriptc"),_st("wmv").__minus_gt("video/x-ms-wmv"),_st("wmx").__minus_gt("video/x-ms-wmx"),_st("wmz").__minus_gt("application/x-ms-wmz"),_st("wp5").__minus_gt("application/wordperfect5.1"),_st("wpd").__minus_gt("application/wordperfect"),_st("wrl").__minus_gt("x-world/x-vrml"),_st("wsc").__minus_gt("text/scriptlet"),_st("wvx").__minus_gt("video/x-ms-wvx"),_st("wz").__minus_gt("application/x-wingz"),_st("xbm").__minus_gt("image/x-xbitmap"),_st("xcf").__minus_gt("application/x-xcf"),_st("xht").__minus_gt("application/xhtml+xml"),_st("xhtml").__minus_gt("application/xhtml+xml"),_st("xlb").__minus_gt("application/vnd.ms-excel"),_st("xls").__minus_gt("application/vnd.ms-excel"),_st("xlt").__minus_gt("application/vnd.ms-excel"),_st("xml").__minus_gt("application/xml"),_st("xpi").__minus_gt("application/x-xpinstall"),_st("xpm").__minus_gt("image/x-xpixmap"),_st("xsl").__minus_gt("application/xml"),_st("xtel").__minus_gt("chemical/x-xtel"),_st("xul").__minus_gt("application/vnd.mozilla.xul+xml"),_st("xwd").__minus_gt("image/x-xwindowdump"),_st("xyz").__minus_gt("chemical/x-xyz"),_st("zip").__minus_gt("application/zip"),_st("zmt").__minus_gt("chemical/x-mopac-input"),_st("~").__minus_gt("application/x-trash")]);
+$1=smalltalk.HashedCollection._from_(["%".__minus_gt("application/x-trash"),"323".__minus_gt("text/h323"),"abw".__minus_gt("application/x-abiword"),"ai".__minus_gt("application/postscript"),"aif".__minus_gt("audio/x-aiff"),"aifc".__minus_gt("audio/x-aiff"),"aiff".__minus_gt("audio/x-aiff"),"alc".__minus_gt("chemical/x-alchemy"),"art".__minus_gt("image/x-jg"),"asc".__minus_gt("text/plain"),"asf".__minus_gt("video/x-ms-asf"),"asn".__minus_gt("chemical/x-ncbi-asn1-spec"),"aso".__minus_gt("chemical/x-ncbi-asn1-binary"),"asx".__minus_gt("video/x-ms-asf"),"au".__minus_gt("audio/basic"),"avi".__minus_gt("video/x-msvideo"),"b".__minus_gt("chemical/x-molconn-Z"),"bak".__minus_gt("application/x-trash"),"bat".__minus_gt("application/x-msdos-program"),"bcpio".__minus_gt("application/x-bcpio"),"bib".__minus_gt("text/x-bibtex"),"bin".__minus_gt("application/octet-stream"),"bmp".__minus_gt("image/x-ms-bmp"),"book".__minus_gt("application/x-maker"),"bsd".__minus_gt("chemical/x-crossfire"),"c".__minus_gt("text/x-csrc"),"c++".__minus_gt("text/x-c++src"),"c3d".__minus_gt("chemical/x-chem3d"),"cac".__minus_gt("chemical/x-cache"),"cache".__minus_gt("chemical/x-cache"),"cascii".__minus_gt("chemical/x-cactvs-binary"),"cat".__minus_gt("application/vnd.ms-pki.seccat"),"cbin".__minus_gt("chemical/x-cactvs-binary"),"cc".__minus_gt("text/x-c++src"),"cdf".__minus_gt("application/x-cdf"),"cdr".__minus_gt("image/x-coreldraw"),"cdt".__minus_gt("image/x-coreldrawtemplate"),"cdx".__minus_gt("chemical/x-cdx"),"cdy".__minus_gt("application/vnd.cinderella"),"cef".__minus_gt("chemical/x-cxf"),"cer".__minus_gt("chemical/x-cerius"),"chm".__minus_gt("chemical/x-chemdraw"),"chrt".__minus_gt("application/x-kchart"),"cif".__minus_gt("chemical/x-cif"),"class".__minus_gt("application/java-vm"),"cls".__minus_gt("text/x-tex"),"cmdf".__minus_gt("chemical/x-cmdf"),"cml".__minus_gt("chemical/x-cml"),"cod".__minus_gt("application/vnd.rim.cod"),"com".__minus_gt("application/x-msdos-program"),"cpa".__minus_gt("chemical/x-compass"),"cpio".__minus_gt("application/x-cpio"),"cpp".__minus_gt("text/x-c++src"),"cpt".__minus_gt("image/x-corelphotopaint"),"crl".__minus_gt("application/x-pkcs7-crl"),"crt".__minus_gt("application/x-x509-ca-cert"),"csf".__minus_gt("chemical/x-cache-csf"),"csh".__minus_gt("text/x-csh"),"csm".__minus_gt("chemical/x-csml"),"csml".__minus_gt("chemical/x-csml"),"css".__minus_gt("text/css"),"csv".__minus_gt("text/comma-separated-values"),"ctab".__minus_gt("chemical/x-cactvs-binary"),"ctx".__minus_gt("chemical/x-ctx"),"cu".__minus_gt("application/cu-seeme"),"cub".__minus_gt("chemical/x-gaussian-cube"),"cxf".__minus_gt("chemical/x-cxf"),"cxx".__minus_gt("text/x-c++src"),"dat".__minus_gt("chemical/x-mopac-input"),"dcr".__minus_gt("application/x-director"),"deb".__minus_gt("application/x-debian-package"),"dif".__minus_gt("video/dv"),"diff".__minus_gt("text/plain"),"dir".__minus_gt("application/x-director"),"djv".__minus_gt("image/vnd.djvu"),"djvu".__minus_gt("image/vnd.djvu"),"dl".__minus_gt("video/dl"),"dll".__minus_gt("application/x-msdos-program"),"dmg".__minus_gt("application/x-apple-diskimage"),"dms".__minus_gt("application/x-dms"),"doc".__minus_gt("application/msword"),"dot".__minus_gt("application/msword"),"dv".__minus_gt("video/dv"),"dvi".__minus_gt("application/x-dvi"),"dx".__minus_gt("chemical/x-jcamp-dx"),"dxr".__minus_gt("application/x-director"),"emb".__minus_gt("chemical/x-embl-dl-nucleotide"),"embl".__minus_gt("chemical/x-embl-dl-nucleotide"),"ent".__minus_gt("chemical/x-pdb"),"eps".__minus_gt("application/postscript"),"etx".__minus_gt("text/x-setext"),"exe".__minus_gt("application/x-msdos-program"),"ez".__minus_gt("application/andrew-inset"),"fb".__minus_gt("application/x-maker"),"fbdoc".__minus_gt("application/x-maker"),"fch".__minus_gt("chemical/x-gaussian-checkpoint"),"fchk".__minus_gt("chemical/x-gaussian-checkpoint"),"fig".__minus_gt("application/x-xfig"),"flac".__minus_gt("application/x-flac"),"fli".__minus_gt("video/fli"),"fm".__minus_gt("application/x-maker"),"frame".__minus_gt("application/x-maker"),"frm".__minus_gt("application/x-maker"),"gal".__minus_gt("chemical/x-gaussian-log"),"gam".__minus_gt("chemical/x-gamess-input"),"gamin".__minus_gt("chemical/x-gamess-input"),"gau".__minus_gt("chemical/x-gaussian-input"),"gcd".__minus_gt("text/x-pcs-gcd"),"gcf".__minus_gt("application/x-graphing-calculator"),"gcg".__minus_gt("chemical/x-gcg8-sequence"),"gen".__minus_gt("chemical/x-genbank"),"gf".__minus_gt("application/x-tex-gf"),"gif".__minus_gt("image/gif"),"gjc".__minus_gt("chemical/x-gaussian-input"),"gjf".__minus_gt("chemical/x-gaussian-input"),"gl".__minus_gt("video/gl"),"gnumeric".__minus_gt("application/x-gnumeric"),"gpt".__minus_gt("chemical/x-mopac-graph"),"gsf".__minus_gt("application/x-font"),"gsm".__minus_gt("audio/x-gsm"),"gtar".__minus_gt("application/x-gtar"),"h".__minus_gt("text/x-chdr"),"h++".__minus_gt("text/x-c++hdr"),"hdf".__minus_gt("application/x-hdf"),"hh".__minus_gt("text/x-c++hdr"),"hin".__minus_gt("chemical/x-hin"),"hpp".__minus_gt("text/x-c++hdr"),"hqx".__minus_gt("application/mac-binhex40"),"hs".__minus_gt("text/x-haskell"),"hta".__minus_gt("application/hta"),"htc".__minus_gt("text/x-component"),"htm".__minus_gt("text/html"),"html".__minus_gt("text/html"),"hxx".__minus_gt("text/x-c++hdr"),"ica".__minus_gt("application/x-ica"),"ice".__minus_gt("x-conference/x-cooltalk"),"ico".__minus_gt("image/x-icon"),"ics".__minus_gt("text/calendar"),"icz".__minus_gt("text/calendar"),"ief".__minus_gt("image/ief"),"iges".__minus_gt("model/iges"),"igs".__minus_gt("model/iges"),"iii".__minus_gt("application/x-iphone"),"inp".__minus_gt("chemical/x-gamess-input"),"ins".__minus_gt("application/x-internet-signup"),"iso".__minus_gt("application/x-iso9660-image"),"isp".__minus_gt("application/x-internet-signup"),"ist".__minus_gt("chemical/x-isostar"),"istr".__minus_gt("chemical/x-isostar"),"jad".__minus_gt("text/vnd.sun.j2me.app-descriptor"),"jar".__minus_gt("application/java-archive"),"java".__minus_gt("text/x-java"),"jdx".__minus_gt("chemical/x-jcamp-dx"),"jmz".__minus_gt("application/x-jmol"),"jng".__minus_gt("image/x-jng"),"jnlp".__minus_gt("application/x-java-jnlp-file"),"jpe".__minus_gt("image/jpeg"),"jpeg".__minus_gt("image/jpeg"),"jpg".__minus_gt("image/jpeg"),"js".__minus_gt("application/javascript"),"kar".__minus_gt("audio/midi"),"key".__minus_gt("application/pgp-keys"),"kil".__minus_gt("application/x-killustrator"),"kin".__minus_gt("chemical/x-kinemage"),"kpr".__minus_gt("application/x-kpresenter"),"kpt".__minus_gt("application/x-kpresenter"),"ksp".__minus_gt("application/x-kspread"),"kwd".__minus_gt("application/x-kword"),"kwt".__minus_gt("application/x-kword"),"latex".__minus_gt("application/x-latex"),"lha".__minus_gt("application/x-lha"),"lhs".__minus_gt("text/x-literate-haskell"),"lsf".__minus_gt("video/x-la-asf"),"lsx".__minus_gt("video/x-la-asf"),"ltx".__minus_gt("text/x-tex"),"lzh".__minus_gt("application/x-lzh"),"lzx".__minus_gt("application/x-lzx"),"m3u".__minus_gt("audio/x-mpegurl"),"m4a".__minus_gt("audio/mpeg"),"maker".__minus_gt("application/x-maker"),"man".__minus_gt("application/x-troff-man"),"mcif".__minus_gt("chemical/x-mmcif"),"mcm".__minus_gt("chemical/x-macmolecule"),"mdb".__minus_gt("application/msaccess"),"me".__minus_gt("application/x-troff-me"),"mesh".__minus_gt("model/mesh"),"mid".__minus_gt("audio/midi"),"midi".__minus_gt("audio/midi"),"mif".__minus_gt("application/x-mif"),"mm".__minus_gt("application/x-freemind"),"mmd".__minus_gt("chemical/x-macromodel-input"),"mmf".__minus_gt("application/vnd.smaf"),"mml".__minus_gt("text/mathml"),"mmod".__minus_gt("chemical/x-macromodel-input"),"mng".__minus_gt("video/x-mng"),"moc".__minus_gt("text/x-moc"),"mol".__minus_gt("chemical/x-mdl-molfile"),"mol2".__minus_gt("chemical/x-mol2"),"moo".__minus_gt("chemical/x-mopac-out"),"mop".__minus_gt("chemical/x-mopac-input"),"mopcrt".__minus_gt("chemical/x-mopac-input"),"mov".__minus_gt("video/quicktime"),"movie".__minus_gt("video/x-sgi-movie"),"mp2".__minus_gt("audio/mpeg"),"mp3".__minus_gt("audio/mpeg"),"mp4".__minus_gt("video/mp4"),"mpc".__minus_gt("chemical/x-mopac-input"),"mpe".__minus_gt("video/mpeg"),"mpeg".__minus_gt("video/mpeg"),"mpega".__minus_gt("audio/mpeg"),"mpg".__minus_gt("video/mpeg"),"mpga".__minus_gt("audio/mpeg"),"ms".__minus_gt("application/x-troff-ms"),"msh".__minus_gt("model/mesh"),"msi".__minus_gt("application/x-msi"),"mvb".__minus_gt("chemical/x-mopac-vib"),"mxu".__minus_gt("video/vnd.mpegurl"),"nb".__minus_gt("application/mathematica"),"nc".__minus_gt("application/x-netcdf"),"nwc".__minus_gt("application/x-nwc"),"o".__minus_gt("application/x-object"),"oda".__minus_gt("application/oda"),"odb".__minus_gt("application/vnd.oasis.opendocument.database"),"odc".__minus_gt("application/vnd.oasis.opendocument.chart"),"odf".__minus_gt("application/vnd.oasis.opendocument.formula"),"odg".__minus_gt("application/vnd.oasis.opendocument.graphics"),"odi".__minus_gt("application/vnd.oasis.opendocument.image"),"odm".__minus_gt("application/vnd.oasis.opendocument.text-master"),"odp".__minus_gt("application/vnd.oasis.opendocument.presentation"),"ods".__minus_gt("application/vnd.oasis.opendocument.spreadsheet"),"odt".__minus_gt("application/vnd.oasis.opendocument.text"),"ogg".__minus_gt("application/ogg"),"old".__minus_gt("application/x-trash"),"oth".__minus_gt("application/vnd.oasis.opendocument.text-web"),"oza".__minus_gt("application/x-oz-application"),"p".__minus_gt("text/x-pascal"),"p7r".__minus_gt("application/x-pkcs7-certreqresp"),"pac".__minus_gt("application/x-ns-proxy-autoconfig"),"pas".__minus_gt("text/x-pascal"),"pat".__minus_gt("image/x-coreldrawpattern"),"pbm".__minus_gt("image/x-portable-bitmap"),"pcf".__minus_gt("application/x-font"),"pcf.Z".__minus_gt("application/x-font"),"pcx".__minus_gt("image/pcx"),"pdb".__minus_gt("chemical/x-pdb"),"pdf".__minus_gt("application/pdf"),"pfa".__minus_gt("application/x-font"),"pfb".__minus_gt("application/x-font"),"pgm".__minus_gt("image/x-portable-graymap"),"pgn".__minus_gt("application/x-chess-pgn"),"pgp".__minus_gt("application/pgp-signature"),"pk".__minus_gt("application/x-tex-pk"),"pl".__minus_gt("text/x-perl"),"pls".__minus_gt("audio/x-scpls"),"pm".__minus_gt("text/x-perl"),"png".__minus_gt("image/png"),"pnm".__minus_gt("image/x-portable-anymap"),"pot".__minus_gt("text/plain"),"ppm".__minus_gt("image/x-portable-pixmap"),"pps".__minus_gt("application/vnd.ms-powerpoint"),"ppt".__minus_gt("application/vnd.ms-powerpoint"),"prf".__minus_gt("application/pics-rules"),"prt".__minus_gt("chemical/x-ncbi-asn1-ascii"),"ps".__minus_gt("application/postscript"),"psd".__minus_gt("image/x-photoshop"),"psp".__minus_gt("text/x-psp"),"py".__minus_gt("text/x-python"),"pyc".__minus_gt("application/x-python-code"),"pyo".__minus_gt("application/x-python-code"),"qt".__minus_gt("video/quicktime"),"qtl".__minus_gt("application/x-quicktimeplayer"),"ra".__minus_gt("audio/x-realaudio"),"ram".__minus_gt("audio/x-pn-realaudio"),"rar".__minus_gt("application/rar"),"ras".__minus_gt("image/x-cmu-raster"),"rd".__minus_gt("chemical/x-mdl-rdfile"),"rdf".__minus_gt("application/rdf+xml"),"rgb".__minus_gt("image/x-rgb"),"rm".__minus_gt("audio/x-pn-realaudio"),"roff".__minus_gt("application/x-troff"),"ros".__minus_gt("chemical/x-rosdal"),"rpm".__minus_gt("application/x-redhat-package-manager"),"rss".__minus_gt("application/rss+xml"),"rtf".__minus_gt("text/rtf"),"rtx".__minus_gt("text/richtext"),"rxn".__minus_gt("chemical/x-mdl-rxnfile"),"sct".__minus_gt("text/scriptlet"),"sd".__minus_gt("chemical/x-mdl-sdfile"),"sd2".__minus_gt("audio/x-sd2"),"sda".__minus_gt("application/vnd.stardivision.draw"),"sdc".__minus_gt("application/vnd.stardivision.calc"),"sdd".__minus_gt("application/vnd.stardivision.impress"),"sdf".__minus_gt("chemical/x-mdl-sdfile"),"sdp".__minus_gt("application/vnd.stardivision.impress"),"sdw".__minus_gt("application/vnd.stardivision.writer"),"ser".__minus_gt("application/java-serialized-object"),"sgf".__minus_gt("application/x-go-sgf"),"sgl".__minus_gt("application/vnd.stardivision.writer-global"),"sh".__minus_gt("text/x-sh"),"shar".__minus_gt("application/x-shar"),"shtml".__minus_gt("text/html"),"sid".__minus_gt("audio/prs.sid"),"sik".__minus_gt("application/x-trash"),"silo".__minus_gt("model/mesh"),"sis".__minus_gt("application/vnd.symbian.install"),"sit".__minus_gt("application/x-stuffit"),"skd".__minus_gt("application/x-koan"),"skm".__minus_gt("application/x-koan"),"skp".__minus_gt("application/x-koan"),"skt".__minus_gt("application/x-koan"),"smf".__minus_gt("application/vnd.stardivision.math"),"smi".__minus_gt("application/smil"),"smil".__minus_gt("application/smil"),"snd".__minus_gt("audio/basic"),"spc".__minus_gt("chemical/x-galactic-spc"),"spl".__minus_gt("application/x-futuresplash"),"src".__minus_gt("application/x-wais-source"),"stc".__minus_gt("application/vnd.sun.xml.calc.template"),"std".__minus_gt("application/vnd.sun.xml.draw.template"),"sti".__minus_gt("application/vnd.sun.xml.impress.template"),"stl".__minus_gt("application/vnd.ms-pki.stl"),"stw".__minus_gt("application/vnd.sun.xml.writer.template"),"sty".__minus_gt("text/x-tex"),"sv4cpio".__minus_gt("application/x-sv4cpio"),"sv4crc".__minus_gt("application/x-sv4crc"),"svg".__minus_gt("image/svg+xml"),"svgz".__minus_gt("image/svg+xml"),"sw".__minus_gt("chemical/x-swissprot"),"swf".__minus_gt("application/x-shockwave-flash"),"swfl".__minus_gt("application/x-shockwave-flash"),"sxc".__minus_gt("application/vnd.sun.xml.calc"),"sxd".__minus_gt("application/vnd.sun.xml.draw"),"sxg".__minus_gt("application/vnd.sun.xml.writer.global"),"sxi".__minus_gt("application/vnd.sun.xml.impress"),"sxm".__minus_gt("application/vnd.sun.xml.math"),"sxw".__minus_gt("application/vnd.sun.xml.writer"),"t".__minus_gt("application/x-troff"),"tar".__minus_gt("application/x-tar"),"taz".__minus_gt("application/x-gtar"),"tcl".__minus_gt("text/x-tcl"),"tex".__minus_gt("text/x-tex"),"texi".__minus_gt("application/x-texinfo"),"texinfo".__minus_gt("application/x-texinfo"),"text".__minus_gt("text/plain"),"tgf".__minus_gt("chemical/x-mdl-tgf"),"tgz".__minus_gt("application/x-gtar"),"tif".__minus_gt("image/tiff"),"tiff".__minus_gt("image/tiff"),"tk".__minus_gt("text/x-tcl"),"tm".__minus_gt("text/texmacs"),"torrent".__minus_gt("application/x-bittorrent"),"tr".__minus_gt("application/x-troff"),"ts".__minus_gt("text/texmacs"),"tsp".__minus_gt("application/dsptype"),"tsv".__minus_gt("text/tab-separated-values"),"txt".__minus_gt("text/plain"),"udeb".__minus_gt("application/x-debian-package"),"uls".__minus_gt("text/iuls"),"ustar".__minus_gt("application/x-ustar"),"val".__minus_gt("chemical/x-ncbi-asn1-binary"),"vcd".__minus_gt("application/x-cdlink"),"vcf".__minus_gt("text/x-vcard"),"vcs".__minus_gt("text/x-vcalendar"),"vmd".__minus_gt("chemical/x-vmd"),"vms".__minus_gt("chemical/x-vamas-iso14976"),"vor".__minus_gt("application/vnd.stardivision.writer"),"vrm".__minus_gt("x-world/x-vrml"),"vrml".__minus_gt("x-world/x-vrml"),"vsd".__minus_gt("application/vnd.visio"),"wad".__minus_gt("application/x-doom"),"wav".__minus_gt("audio/x-wav"),"wax".__minus_gt("audio/x-ms-wax"),"wbmp".__minus_gt("image/vnd.wap.wbmp"),"wbxml".__minus_gt("application/vnd.wap.wbxml"),"wk".__minus_gt("application/x-123"),"wm".__minus_gt("video/x-ms-wm"),"wma".__minus_gt("audio/x-ms-wma"),"wmd".__minus_gt("application/x-ms-wmd"),"wml".__minus_gt("text/vnd.wap.wml"),"wmlc".__minus_gt("application/vnd.wap.wmlc"),"wmls".__minus_gt("text/vnd.wap.wmlscript"),"wmlsc".__minus_gt("application/vnd.wap.wmlscriptc"),"wmv".__minus_gt("video/x-ms-wmv"),"wmx".__minus_gt("video/x-ms-wmx"),"wmz".__minus_gt("application/x-ms-wmz"),"wp5".__minus_gt("application/wordperfect5.1"),"wpd".__minus_gt("application/wordperfect"),"wrl".__minus_gt("x-world/x-vrml"),"wsc".__minus_gt("text/scriptlet"),"wvx".__minus_gt("video/x-ms-wvx"),"wz".__minus_gt("application/x-wingz"),"xbm".__minus_gt("image/x-xbitmap"),"xcf".__minus_gt("application/x-xcf"),"xht".__minus_gt("application/xhtml+xml"),"xhtml".__minus_gt("application/xhtml+xml"),"xlb".__minus_gt("application/vnd.ms-excel"),"xls".__minus_gt("application/vnd.ms-excel"),"xlt".__minus_gt("application/vnd.ms-excel"),"xml".__minus_gt("application/xml"),"xpi".__minus_gt("application/x-xpinstall"),"xpm".__minus_gt("image/x-xpixmap"),"xsl".__minus_gt("application/xml"),"xtel".__minus_gt("chemical/x-xtel"),"xul".__minus_gt("application/vnd.mozilla.xul+xml"),"xwd".__minus_gt("image/x-xwindowdump"),"xyz".__minus_gt("chemical/x-xyz"),"zip".__minus_gt("application/zip"),"zmt".__minus_gt("chemical/x-mopac-input"),"~".__minus_gt("application/x-trash")]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMimeTypes",{},smalltalk.FileServer.klass)})},
 messageSends: ["->"]}),
@@ -823,7 +823,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self)._mimeTypes())._at_ifAbsent_(_st(aString)._replace_with_(".*[\x5c.]",""),(function(){
+$1=_st(self._mimeTypes())._at_ifAbsent_(_st(aString)._replace_with_(".*[\x5c.]",""),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "text/plain";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -841,7 +841,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@mimeTypes"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@mimeTypes"]=_st(self)._defaultMimeTypes();
+self["@mimeTypes"]=self._defaultMimeTypes();
 $1=self["@mimeTypes"];
 } else {
 $1=$2;
@@ -859,7 +859,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(console)._log_("Available commandline options are:");
 _st(console)._log_("--help");
-_st(_st(self)._commandLineSwitches())._do_((function(each){
+_st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(console)._log_(_st(each).__comma(" <parameter>"));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
@@ -905,13 +905,13 @@ return smalltalk.withContext(function($ctx1) {
 self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
 _st(self["@interface"])._on_do_("line",(function(buffer){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._eval_(buffer);
+return self._eval_(buffer);
 }, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1)})}));
 _st(self["@interface"])._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self)._close();
+return self._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(self)._setPrompt();
+self._setPrompt();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
 messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "eval:", "close", "setPrompt", "prompt"]}),
@@ -930,7 +930,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 $1=_st(buffer)._isEmpty();
 if(! smalltalk.assert($1)){
-_st(self)._try_catch_((function(){
+self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
 result=_st(_st($Compiler())._new())._evaluateExpression_(buffer);
 result;
@@ -980,7 +980,7 @@ selector: "setPrompt",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@interface"])._setPrompt_(_st(self)._prompt());
+_st(self["@interface"])._setPrompt_(self._prompt());
 return self}, function($ctx1) {$ctx1.fill(self,"setPrompt",{},smalltalk.Repl)})},
 messageSends: ["setPrompt:", "prompt"]}),
 smalltalk.Repl);
@@ -992,7 +992,7 @@ selector: "main",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self)._new())._createInterface();
+_st(self._new())._createInterface();
 return self}, function($ctx1) {$ctx1.fill(self,"main",{},smalltalk.Repl.klass)})},
 messageSends: ["createInterface", "new"]}),
 smalltalk.Repl.klass);
