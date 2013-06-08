@@ -4206,6 +4206,22 @@ smalltalk.SetTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testUnboxedObjects",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(_st(["foo"._yourself(),"foo"._yourself()])._asSet())._asArray(),["foo"]);
+return self}, function($ctx1) {$ctx1.fill(self,"testUnboxedObjects",{},smalltalk.SetTest)})},
+args: [],
+source: "testUnboxedObjects\x0a\x09self assert: {'foo' yourself. 'foo' yourself} asSet asArray equals: #('foo')",
+messageSends: ["assert:equals:", "asArray", "asSet", "yourself"],
+referencedClasses: []
+}),
+smalltalk.SetTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testUnicity",
 category: 'tests',
 fn: function (){
