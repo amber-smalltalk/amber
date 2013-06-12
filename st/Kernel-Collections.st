@@ -962,7 +962,7 @@ add: anObject
 remove: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
-			if(self[i] == anObject) {
+			if(_st(self[i]).__eq(anObject)) {
 				self.splice(i,1);
 				return self;
 			}
@@ -1516,7 +1516,7 @@ add: anObject
 	<
 		var found;
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(_st(anObject).__eq_eq(self['@elements'][i])) {
+			if(_st(anObject).__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
