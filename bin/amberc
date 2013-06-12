@@ -162,6 +162,11 @@ function print_usage() {
 	console.log('     Additionally export code for deploy - stripped from source etc.');
 	console.log('     Uses suffix ".deploy.js" in addition to any explicit suffic set by -s.');
 	console.log('');
+	console.log('  -D');
+	console.log('     Specifies the output directory for all generated .js files.');
+	console.log('     The hierarchy of the input files is not maintaned.');
+	console.log('     If this option is omitted all generated .js files are placed next to their input files');
+	console.log('');
 	console.log('  -s suffix');
 	console.log('     Add <suffix> to compiled .js files. File.st is then compiled into');
 	console.log('     File.<suffix>.js.');
