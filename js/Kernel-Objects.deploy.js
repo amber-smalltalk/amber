@@ -3828,6 +3828,17 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "globalJsVariables",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.globalJsVariables;
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
+messageSends: []}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isSmalltalkObject:",
 fn: function (anObject){
 var self=this;

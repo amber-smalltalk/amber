@@ -1810,6 +1810,11 @@ at: aString
 	<return self[aString]>
 !
 
+globalJsVariables
+	"Array of global JavaScript variables"
+	<return self.globalJsVariables>
+!
+
 parse: aString
 	| result |
 	

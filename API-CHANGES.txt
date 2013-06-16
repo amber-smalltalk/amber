@@ -52,6 +52,7 @@
 + Environment>>removeProtocol:
 + Environment>>renameProtocol:to:in:
 + CompiledMethod>>protocol:
++ Smalltalk>>globalJsVariables
 
 
 - Object>>storeOn:

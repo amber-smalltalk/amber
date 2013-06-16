@@ -128,6 +128,8 @@ function Smalltalk() {
 		'implements', 'interface', 'let', 'package', 'private', 'protected',
 		'public', 'static', 'yield'];
 
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
 	var initialized = false;
 
 	/* Smalltalk classes */
