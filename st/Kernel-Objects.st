@@ -1810,11 +1810,6 @@ at: aString
 	<return self[aString]>
 !
 
-globalJsVariables
-	"Array of global JavaScript variables"
-	<return self.globalJsVariables>
-!
-
 parse: aString
 	| result |
 	
@@ -1878,6 +1873,23 @@ asSmalltalkException: anObject
 
 parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
+! !
+
+!Smalltalk methodsFor: 'globals'!
+
+addGlobalJsVariable: aString
+	self globalJsVariables add: aString.
+	^self
+!
+
+deleteGlobalJsVariable: aString
+	self globalJsVariables remove: aString ifAbsent:[].
+	^self
+!
+
+globalJsVariables
+	"Array of global JavaScript variables"
+	<return self.globalJsVariables>
 ! !
 
 !Smalltalk methodsFor: 'packages'!

@@ -3721,6 +3721,20 @@ smalltalk.Random);
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "addGlobalJsVariable:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self._globalJsVariables())._add_(aString);
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+messageSends: ["add:", "globalJsVariables"]}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSmalltalkException:",
 fn: function (anObject){
 var self=this;
@@ -3813,6 +3827,22 @@ return smalltalk.withContext(function($ctx1) {
 self.removeClass(aClass);
 return self}, function($ctx1) {$ctx1.fill(self,"deleteClass:",{aClass:aClass},smalltalk.Smalltalk)})},
 messageSends: []}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deleteGlobalJsVariable:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+messageSends: ["remove:ifAbsent:", "globalJsVariables"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
