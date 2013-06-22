@@ -13519,7 +13519,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		for(var i=0;i<self.length;i++) {
-			if(self[i] == anObject) {
+			if(_st(self[i]).__eq(anObject)) {
 				self.splice(i,1);
 				return self;
 			}
@@ -13528,7 +13528,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Array)})},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
+source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -15237,7 +15237,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		var found;
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(anObject == self['@elements'][i]) {
+			if(_st(anObject).__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
@@ -15246,7 +15246,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(anObject == self['@elements'][i]) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
+source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(_st(anObject).__eq(self['@elements'][i])) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -35571,7 +35571,7 @@ referencedClasses: []
 smalltalk.FileServer.klass);
 
 
-smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util'], 'AmberCli');
+smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util', 'session'], 'AmberCli');
 smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -35591,15 +35591,70 @@ smalltalk.Repl);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "command:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(aString).__eq(":q");
+if(smalltalk.assert($2)){
+_st(process)._exit();
+$1=true;
+} else {
+$1=false;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"command:",{aString:aString},smalltalk.Repl)})},
+args: ["aString"],
+source: "command: aString\x0a\x09^ aString = ':q'\x0a\x09\x09ifTrue: [process exit. true]\x0a\x09\x09ifFalse: [false]",
+messageSends: ["ifTrue:ifFalse:", "exit", "="],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "createInterface",
 category: 'actions',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+_st($Transcript())._show_(_st(_st(_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ")).__comma(_st(_st(process)._versions())._node())).__comma(")."));
+$1=$Transcript();
+_st($1)._show_("Type :q to exit.");
+$2=_st($1)._cr();
 self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
 _st(self["@interface"])._on_do_("line",(function(buffer){
 return smalltalk.withContext(function($ctx2) {
+$3=self._command_(buffer);
+if(! smalltalk.assert($3)){
+var assignment;
+assignment=_st(_st(buffer)._tokenize_(":="))._collect_((function(s){
+return smalltalk.withContext(function($ctx3) {
+return _st(s)._trimBoth();
+}, function($ctx3) {$ctx3.fillBlock({s:s},$ctx2)})}));
+assignment;
+$4=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(_st(assignment)._first())._includes_(" "))._not();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+if(smalltalk.assert($4)){
+_st(_st($Compiler())._new())._install_forClass_category_(_st(_st(_st(assignment)._first()).__comma(" ^ ")).__comma(_st(assignment)._last()),$DoIt(),"session");
+$5=$Transcript();
+_st($5)._show_(_st("Call `self ".__comma(_st(assignment)._first())).__comma("` to retrieve value."));
+$6=_st($5)._cr();
+$6;
+return _st(self["@interface"])._prompt();
+} else {
 return self._eval_(buffer);
+};
+};
 }, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1)})}));
 _st(self["@interface"])._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -35609,9 +35664,9 @@ self._setPrompt();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
 args: [],
-source: "createInterface\x0a\x09\x22No completion for now\x22\x0a\x09interface := readline createInterface: process stdin stdout: process stdout.\x0a\x09interface on: 'line' do: [:buffer  | self eval: buffer].\x0a\x09interface on: 'close' do: [self close].\x0a\x09self setPrompt.\x0a\x09interface prompt",
-messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "eval:", "close", "setPrompt", "prompt"],
-referencedClasses: []
+source: "createInterface\x0a\x09\x22No completion for now\x22\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.\x0a\x0a\x09interface := readline createInterface: process stdin stdout: process stdout.\x0a\x09interface on: 'line' do: [:buffer |\x0a\x09\x09(self command: buffer) ifFalse: [ | assignment |\x0a\x09\x09\x09assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].\x0a            (assignment size = 2 and: [(assignment first includes: ' ') not])\x0a            \x09ifTrue: [\x0a            \x09\x09Compiler new install: assignment first, ' ^ ', assignment last forClass: DoIt category: 'session'.\x0a            \x09\x09Transcript show: 'Call `self ', assignment first, '` to retrieve value.'; cr.\x0a            \x09\x09interface prompt]\x0a            \x09ifFalse: [\x0a            \x09\x09self eval: buffer]]].\x0a\x09interface on: 'close' do: [self close].\x0a\x09self setPrompt.\x0a\x09interface prompt",
+messageSends: ["show:", ",", "node", "versions", "version", "current", "cr", "createInterface:stdout:", "stdin", "stdout", "on:do:", "ifFalse:", "collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "install:forClass:category:", "last", "first", "new", "prompt", "eval:", "and:", "not", "includes:", "=", "size", "command:", "close", "setPrompt"],
+referencedClasses: ["Smalltalk", "Transcript", "DoIt", "Compiler"]
 }),
 smalltalk.Repl);
 
@@ -35631,7 +35686,7 @@ $1=_st(buffer)._isEmpty();
 if(! smalltalk.assert($1)){
 self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-result=_st(_st($Compiler())._new())._evaluateExpression_(buffer);
+result=_st(_st($Compiler())._new())._evaluateExpression_on_(buffer,self["@session"]);
 result;
 return _st($Transcript())._show_(result);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(e){
@@ -35647,8 +35702,8 @@ return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer,result:result},smalltalk.Repl)})},
 args: ["buffer"],
-source: "eval: buffer\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer.\x0a\x09\x09\x09Transcript show: result]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ErrorHandler new handleError: e]\x0a\x09\x09\x09    ifFalse: [process stdout write: e jsStack]]].\x0a\x09interface prompt",
-messageSends: ["ifFalse:", "try:catch:", "evaluateExpression:", "new", "show:", "ifTrue:ifFalse:", "handleError:", "write:", "jsStack", "stdout", "isSmalltalkError", "isEmpty", "prompt"],
+source: "eval: buffer\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer on: session.\x0a\x09\x09\x09Transcript show: result]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ErrorHandler new handleError: e]\x0a\x09\x09\x09    ifFalse: [process stdout write: e jsStack]]].\x0a\x09interface prompt",
+messageSends: ["ifFalse:", "try:catch:", "evaluateExpression:on:", "new", "show:", "ifTrue:ifFalse:", "handleError:", "write:", "jsStack", "stdout", "isSmalltalkError", "isEmpty", "prompt"],
 referencedClasses: ["Compiler", "Transcript", "ErrorHandler"]
 }),
 smalltalk.Repl);
@@ -35659,15 +35714,17 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@session"]=_st($DoIt())._new();
 self["@readline"]=_st(require)._value_("readline");
 self["@util"]=_st(require)._value_("util");
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'",
-messageSends: ["initialize", "value:"],
-referencedClasses: []
+source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'",
+messageSends: ["initialize", "new", "value:"],
+referencedClasses: ["DoIt"]
 }),
 smalltalk.Repl);
 

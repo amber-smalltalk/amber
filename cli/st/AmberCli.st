@@ -892,7 +892,7 @@ main
 ! !
 
 Object subclass: #Repl
-	instanceVariableNames: 'readline interface util'
+	instanceVariableNames: 'readline interface util session'
 	package: 'AmberCli'!
 !Repl commentStamp!
 I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.
@@ -915,18 +915,36 @@ close
 
 createInterface
 	"No completion for now"
+	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Type :q to exit.'; cr.
+
 	interface := readline createInterface: process stdin stdout: process stdout.
-	interface on: 'line' do: [:buffer  | self eval: buffer].
+	interface on: 'line' do: [:buffer |
+		(self command: buffer) ifFalse: [ | assignment |
+			assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].
+            (assignment size = 2 and: [(assignment first includes: ' ') not])
+            	ifTrue: [
+            		Compiler new install: assignment first, ' ^ ', assignment last forClass: DoIt category: 'session'.
+            		Transcript show: 'Call `self ', assignment first, '` to retrieve value.'; cr.
+            		interface prompt]
+            	ifFalse: [
+            		self eval: buffer]]].
 	interface on: 'close' do: [self close].
 	self setPrompt.
 	interface prompt
+!
+
+command: aString
+	^ aString = ':q'
+		ifTrue: [process exit. true]
+		ifFalse: [false]
 !
 
 eval: buffer
 	| result |
 	buffer isEmpty ifFalse: [
 		self try: [
-			result := Compiler new evaluateExpression: buffer.
+			result := Compiler new evaluateExpression: buffer on: session.
 			Transcript show: result]
 		catch: [:e |
 			e isSmalltalkError
@@ -943,6 +961,7 @@ setPrompt
 
 initialize
 	super initialize.
+	session := DoIt new.
 	readline := require value: 'readline'.
 	util := require value: 'util'
 ! !
