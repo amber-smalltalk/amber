@@ -41,6 +41,9 @@ function handle_options(optionsArray, amber_dir) {
 			case '-l':
 				defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
 				break;
+			case '-g':
+				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
+				break;
 			case '-i':
 				defaults.init = optionsArray.shift();
 				break;
@@ -138,6 +141,10 @@ function print_usage() {
 	console.log('  -l library1,library2');
 	console.log('     Add listed JavaScript libraries in listed order.');
 	console.log('     Libraries are not separated by spaces or end with .js.');
+	console.log('');
+	console.log('  -g jsGlobal1,jsGlobal2');
+	console.log('     Comma separated list of JS global variable names.');
+	console.log('     The names are added to a list containing "window", "document" and others.');
 	console.log('');
 	console.log('  -i init_file');
 	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
