@@ -35576,7 +35576,7 @@ smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Lo
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addVariableNamed:to:",
-category: 'actions',
+category: 'private',
 fn: function (aString,anObject){
 var self=this;
 var class_,compiler,newClassName,newClass,newObject;
@@ -35776,7 +35776,7 @@ self["@readline"]=_st(require)._value_("readline");
 self["@util"]=_st(require)._value_("util");
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'.",
+source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'",
 messageSends: ["initialize", "new", "value:"],
 referencedClasses: ["DoIt"]
 }),
@@ -35785,7 +35785,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
-category: 'actions',
+category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -35841,58 +35841,73 @@ selector: "line:",
 category: 'actions',
 fn: function (buffer){
 var self=this;
-var assignment;
+var assignment,varName,code,value;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 assignment=_st(_st(buffer)._tokenize_(":="))._collect_((function(s){
 return smalltalk.withContext(function($ctx2) {
 return _st(s)._trimBoth();
 }, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1)})}));
-$1=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
+$1=_st(self._instanceVariableNamesFor_(_st(self["@session"])._class()))._includes_(buffer);
+if(smalltalk.assert($1)){
+varName=buffer;
+varName;
+value=_st(self["@session"])._perform_(buffer);
+value;
+} else {
+$2=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st(assignment)._first())._includes_(" "))._not();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($1)){
-var name,value;
-name=_st(assignment)._first();
-name;
-self["@session"]=self._addVariableNamed_to_(name,self["@session"]);
-self["@session"];
-value=self._eval_on_quiet_(buffer,self["@session"],true);
-value;
-$2=$Transcript();
-_st($2)._show_(_st(_st(_st(_st(name).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
-$3=_st($2)._cr();
-$3;
-_st(self["@interface"])._prompt();
+if(smalltalk.assert($2)){
+code=_st(assignment)._last();
+code;
+varName=_st(assignment)._first();
 } else {
-var res,value;
-$4=self["@resultCount"];
-if(($receiver = $4) == nil || $receiver == undefined){
+code=buffer;
+code;
+varName=self._nextResultName();
+};
+varName;
+self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
+self["@session"];
+value=self._eval_on_quiet_(_st(_st(varName).__comma(" := ")).__comma(code),self["@session"],true);
+value;
+};
+$3=$Transcript();
+_st($3)._show_(_st(_st(_st(_st(varName).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
+$4=_st($3)._cr();
+_st(self["@interface"])._prompt();
+return self}, function($ctx1) {$ctx1.fill(self,"line:",{buffer:buffer,assignment:assignment,varName:varName,code:code,value:value},smalltalk.Repl)})},
+args: ["buffer"],
+source: "line: buffer\x0a\x09| assignment varName code value |\x0a\x09assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].\x0a\x0a    ((self instanceVariableNamesFor: session class) includes: buffer)\x0a    \x09ifFalse: [\x0a    \x09\x09varName := (assignment size = 2 and: [(assignment first includes: ' ') not])\x0a    \x09\x09\x09ifTrue: [code := assignment last. assignment first]\x0a    \x09\x09\x09ifFalse: [code := buffer. self nextResultName].\x0a    \x09\x09session := self addVariableNamed: varName to: session.\x0a    \x09\x09value := self eval: varName, ' := ', code on: session quiet: true]\x0a    \x09ifTrue: [ \x22Do not assign new variable if previous variable has been recalled.\x22\x0a    \x09\x09varName := buffer.\x0a    \x09\x09value := session perform: buffer].\x0a\x0a    Transcript show: varName, ': ', value class name, ' = ', value asString; cr.\x0a    interface prompt",
+messageSends: ["collect:", "trimBoth", "tokenize:", "ifFalse:ifTrue:", "ifTrue:ifFalse:", "last", "first", "nextResultName", "and:", "not", "includes:", "=", "size", "addVariableNamed:to:", "eval:on:quiet:", ",", "perform:", "instanceVariableNamesFor:", "class", "show:", "asString", "name", "cr", "prompt"],
+referencedClasses: ["Transcript"]
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextResultName",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@resultCount"];
+if(($receiver = $1) == nil || $receiver == undefined){
 self["@resultCount"]=(1);
-self["@resultCount"];
 } else {
 self["@resultCount"]=_st(self["@resultCount"]).__plus((1));
-self["@resultCount"];
 };
-res="res".__comma(_st(self["@resultCount"])._asString());
-res;
-self["@session"]=self._addVariableNamed_to_(res,self["@session"]);
-self["@session"];
-value=self._eval_on_quiet_(_st(_st(res).__comma(" := ")).__comma(buffer),self["@session"],true);
-value;
-$5=$Transcript();
-_st($5)._show_(_st(_st(_st(_st(res).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
-$6=_st($5)._cr();
-$6;
-_st(self["@interface"])._prompt();
-};
-return self}, function($ctx1) {$ctx1.fill(self,"line:",{buffer:buffer,assignment:assignment},smalltalk.Repl)})},
-args: ["buffer"],
-source: "line: buffer\x0a\x09| assignment |\x0a\x09assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].\x0a    (assignment size = 2 and: [(assignment first includes: ' ') not])\x0a    \x09ifTrue: [ |name value|\x0a    \x09\x09name := assignment first.\x0a    \x09\x09session := self addVariableNamed: name to: session.\x0a\x0a    \x09\x09value := self eval: buffer on: session quiet: true.\x0a\x0a    \x09\x09Transcript show: name, ': ', value class name, ' = ', value asString; cr.\x0a    \x09\x09interface prompt]\x0a    \x09ifFalse: [ | res value |\x0a    \x09\x09resultCount\x0a    \x09\x09\x09ifNotNil: [resultCount := resultCount + 1]\x0a    \x09\x09\x09ifNil: [resultCount := 1].\x0a    \x09\x09res := 'res', resultCount asString.\x0a    \x09\x09session := self addVariableNamed: res to: session.\x0a    \x09\x09value := self eval: res, ' := ', buffer on: session quiet: true.\x0a\x0a    \x09\x09Transcript show: res, ': ', value class name, ' = ', value asString; cr.\x0a    \x09\x09interface prompt]",
-messageSends: ["collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "first", "addVariableNamed:to:", "eval:on:quiet:", "show:", ",", "asString", "name", "class", "cr", "prompt", "ifNotNil:ifNil:", "+", "and:", "not", "includes:", "=", "size"],
-referencedClasses: ["Transcript"]
+$2="res".__comma(_st(self["@resultCount"])._asString());
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"nextResultName",{},smalltalk.Repl)})},
+args: [],
+source: "nextResultName\x0a\x09resultCount := resultCount\x0a    \x09ifNotNil: [resultCount + 1]\x0a    \x09ifNil: [1].\x0a    ^ 'res', resultCount asString",
+messageSends: ["ifNotNil:ifNil:", "+", ",", "asString"],
+referencedClasses: []
 }),
 smalltalk.Repl);
 

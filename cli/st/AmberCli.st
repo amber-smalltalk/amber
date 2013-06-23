@@ -937,27 +937,22 @@ command: aString
 !
 
 line: buffer
-	| assignment |
+	| assignment varName code value |
 	assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].
-    (assignment size = 2 and: [(assignment first includes: ' ') not])
-    	ifTrue: [ |name value|
-    		name := assignment first.
-    		session := self addVariableNamed: name to: session.
 
-    		value := self eval: buffer on: session quiet: true.
+    ((self instanceVariableNamesFor: session class) includes: buffer)
+    	ifFalse: [
+    		varName := (assignment size = 2 and: [(assignment first includes: ' ') not])
+    			ifTrue: [code := assignment last. assignment first]
+    			ifFalse: [code := buffer. self nextResultName].
+    		session := self addVariableNamed: varName to: session.
+    		value := self eval: varName, ' := ', code on: session quiet: true]
+    	ifTrue: [ "Do not assign new variable if previous variable has been recalled."
+    		varName := buffer.
+    		value := session perform: buffer].
 
-    		Transcript show: name, ': ', value class name, ' = ', value asString; cr.
-    		interface prompt]
-    	ifFalse: [ | res value |
-    		resultCount
-    			ifNotNil: [resultCount := resultCount + 1]
-    			ifNil: [resultCount := 1].
-    		res := 'res', resultCount asString.
-    		session := self addVariableNamed: res to: session.
-    		value := self eval: res, ' := ', buffer on: session quiet: true.
-
-    		Transcript show: res, ': ', value class name, ' = ', value asString; cr.
-    		interface prompt]
+    Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
+    interface prompt
 !
 
 keyPress: key
@@ -985,6 +980,12 @@ eval: buffer on: anObject quiet: aBoolean
 eval: buffer on: anObject
 	self eval: buffer on: anObject quiet: false.
 !
+
+setPrompt
+	interface setPrompt: self prompt
+! !
+
+!Repl methodsFor: 'private'!
 
 addVariableNamed: aString to: anObject
 	| class compiler newClassName newClass newObject |
@@ -1027,8 +1028,11 @@ instanceVariableNamesFor: aClass
 			aClass instanceVariableNames]
 !
 
-setPrompt
-	interface setPrompt: self prompt
+nextResultName
+	resultCount := resultCount
+    	ifNotNil: [resultCount + 1]
+    	ifNil: [1].
+    ^ 'res', resultCount asString
 ! !
 
 !Repl methodsFor: 'initialization'!
