@@ -3725,11 +3725,8 @@ selector: "addGlobalJsVariable:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 _st(self._globalJsVariables())._add_(aString);
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
 messageSends: ["add:", "globalJsVariables"]}),
 smalltalk.Smalltalk);
 
@@ -3835,13 +3832,10 @@ selector: "deleteGlobalJsVariable:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
 messageSends: ["remove:ifAbsent:", "globalJsVariables"]}),
 smalltalk.Smalltalk);
 

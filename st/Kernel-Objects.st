@@ -1878,13 +1878,11 @@ parseError: anException parsing: aString
 !Smalltalk methodsFor: 'globals'!
 
 addGlobalJsVariable: aString
-	self globalJsVariables add: aString.
-	^self
+	self globalJsVariables add: aString
 !
 
 deleteGlobalJsVariable: aString
-	self globalJsVariables remove: aString ifAbsent:[].
-	^self
+	self globalJsVariables remove: aString ifAbsent:[]
 !
 
 globalJsVariables

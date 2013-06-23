@@ -5086,13 +5086,10 @@ category: 'globals',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 _st(self._globalJsVariables())._add_(aString);
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "addGlobalJsVariable: aString\x0a\x09self globalJsVariables add: aString.\x0a\x09^self",
+source: "addGlobalJsVariable: aString\x0a\x09self globalJsVariables add: aString",
 messageSends: ["add:", "globalJsVariables"],
 referencedClasses: []
 }),
@@ -5236,15 +5233,12 @@ category: 'globals',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=self;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[].\x0a\x09^self",
+source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
 messageSends: ["remove:ifAbsent:", "globalJsVariables"],
 referencedClasses: []
 }),
