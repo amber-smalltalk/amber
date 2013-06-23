@@ -128,6 +128,8 @@ function Smalltalk() {
 		'implements', 'interface', 'let', 'package', 'private', 'protected',
 		'public', 'static', 'yield'];
 
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
 	var initialized = false;
 
 	/* Smalltalk classes */
@@ -5966,6 +5968,25 @@ smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Smalltalk.comment="I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with class-side method `#current`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "addGlobalJsVariable:",
+category: 'globals',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self._globalJsVariables())._add_(aString);
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+args: ["aString"],
+source: "addGlobalJsVariable: aString\x0a\x09self globalJsVariables add: aString.\x0a\x09^self",
+messageSends: ["add:", "globalJsVariables"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSmalltalkException:",
 category: 'error handling',
 fn: function (anObject){
@@ -6097,6 +6118,27 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "deleteGlobalJsVariable:",
+category: 'globals',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+args: ["aString"],
+source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[].\x0a\x09^self",
+messageSends: ["remove:ifAbsent:", "globalJsVariables"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "deletePackage:",
 category: 'packages',
 fn: function (packageName){
@@ -6106,6 +6148,22 @@ delete smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "globalJsVariables",
+category: 'globals',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.globalJsVariables;
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
+args: [],
+source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return self.globalJsVariables>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -13519,7 +13577,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		for(var i=0;i<self.length;i++) {
-			if(self[i] == anObject) {
+			if(_st(self[i]).__eq(anObject)) {
 				self.splice(i,1);
 				return self;
 			}
@@ -13528,7 +13586,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Array)})},
 args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i] == anObject) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
+source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -15237,7 +15295,7 @@ return smalltalk.withContext(function($ctx1) {
 
 		var found;
 		for(var i=0; i < self['@elements'].length; i++) {
-			if(anObject == self['@elements'][i]) {
+			if(_st(anObject).__eq(self['@elements'][i])) {
 				found = true;
 				break;
 			}
@@ -15246,7 +15304,7 @@ return smalltalk.withContext(function($ctx1) {
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"add:",{anObject:anObject},smalltalk.Set)})},
 args: ["anObject"],
-source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(anObject == self['@elements'][i]) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
+source: "add: anObject\x0a\x09<\x0a\x09\x09var found;\x0a\x09\x09for(var i=0; i < self['@elements'].length; i++) {\x0a\x09\x09\x09if(_st(anObject).__eq(self['@elements'][i])) {\x0a\x09\x09\x09\x09found = true;\x0a\x09\x09\x09\x09break;\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09if(!found) {self['@elements'].push(anObject)}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -27716,10 +27774,11 @@ fn: function (aNode){
 var self=this;
 var identifier;
 function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 identifier=_st(aNode)._value();
-$1=_st(_st(["jQuery", "window", "document", "process", "global"]._includes_(identifier))._not())._and_((function(){
+$1=_st(_st(_st(_st(_st($Smalltalk())._current())._globalJsVariables())._includes_(identifier))._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isVariableGloballyUndefined_(identifier);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -27733,9 +27792,9 @@ _st(_st(_st(self["@currentScope"])._methodScope())._unknownVariables())._add_(_s
 };
 return self}, function($ctx1) {$ctx1.fill(self,"errorUnknownVariable:",{aNode:aNode,identifier:identifier},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
-source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow four variable names in addition: `jQuery`, `window`, `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((#('jQuery' 'window' 'document' 'process' 'global') includes: identifier) not\x0a\x09\x09and: [ self isVariableGloballyUndefined: identifier ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
-messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:"],
-referencedClasses: ["UnknownVariableError"]
+source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow all variables listed by Smalltalk>>#globalJsVariables.\x0a\x09This list includes: `jQuery`, `window`, `document`,  `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((Smalltalk current globalJsVariables includes: identifier) not\x0a\x09\x09and: [ self isVariableGloballyUndefined: identifier ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
+messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:", "globalJsVariables", "current"],
+referencedClasses: ["UnknownVariableError", "Smalltalk"]
 }),
 smalltalk.SemanticAnalyzer);
 

@@ -1875,6 +1875,21 @@ parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
 ! !
 
+!Smalltalk methodsFor: 'globals'!
+
+addGlobalJsVariable: aString
+	self globalJsVariables add: aString
+!
+
+deleteGlobalJsVariable: aString
+	self globalJsVariables remove: aString ifAbsent:[]
+!
+
+globalJsVariables
+	"Array of global JavaScript variables"
+	<return self.globalJsVariables>
+! !
+
 !Smalltalk methodsFor: 'packages'!
 
 createPackage: packageName

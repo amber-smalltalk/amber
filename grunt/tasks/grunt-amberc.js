@@ -15,14 +15,15 @@ module.exports = function(grunt) {
        helloWorld: {
          src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
          output_dir: 'projects/HelloWorld/js',  // optional
+         libraries: 'Canvas',                   // optional
+         jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional
          output_name: 'helloWorld',            // optional
-         libraries: 'Canvas',                  // optional
          init: 'myInit',                       // optional
          main_file: 'myMain.js',               // optional
          deploy: true,                         // optional
          output_suffix: 'mySuffix',            // optional
-         library_suffix: '-0.9'               // optional
+         library_suffix: '-0.9'                // optional
        },
      },
 
@@ -111,6 +112,9 @@ module.exports = function(grunt) {
     }
     if (undefined !== data.output_dir) {
       configuration.output_dir = data.output_dir;
+    }
+    if (undefined !== data.jsGlobals) {
+      configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);
     }
     configuration.verbose = data.verbose;
     return configuration;
