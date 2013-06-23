@@ -941,10 +941,11 @@ fn: function (aNode){
 var self=this;
 var identifier;
 function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 identifier=_st(aNode)._value();
-$1=_st(_st(["jQuery", "window", "document", "process", "global"]._includes_(identifier))._not())._and_((function(){
+$1=_st(_st(_st(_st(_st($Smalltalk())._current())._globalJsVariables())._includes_(identifier))._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isVariableGloballyUndefined_(identifier);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
@@ -957,7 +958,7 @@ $3;
 _st(_st(_st(self["@currentScope"])._methodScope())._unknownVariables())._add_(_st(aNode)._value());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"errorUnknownVariable:",{aNode:aNode,identifier:identifier},smalltalk.SemanticAnalyzer)})},
-messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:"]}),
+messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:", "globalJsVariables", "current"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(

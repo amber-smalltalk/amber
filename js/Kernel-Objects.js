@@ -5081,6 +5081,22 @@ smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Smalltalk.comment="I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.\x0a\x0a## API\x0a\x0aI have only one instance, accessed with class-side method `#current`.\x0a\x0aThe `smalltalk` object holds all class and packages defined in the system.\x0a\x0a## Classes\x0a\x0aClasses can be accessed using the following methods:\x0a\x0a- `#classes` answers the full list of Smalltalk classes in the system\x0a- `#at:` answers a specific class or `nil`\x0a\x0a## Packages\x0a\x0aPackages can be accessed using the following methods:\x0a\x0a- `#packages` answers the full list of packages\x0a- `#packageAt:` answers a specific package or `nil`\x0a\x0a## Parsing\x0a\x0aThe `#parse:` method is used to parse Amber source code.\x0aIt requires the `Compiler` package and the `js/parser.js` parser file in order to work.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "addGlobalJsVariable:",
+category: 'globals',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._globalJsVariables())._add_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+args: ["aString"],
+source: "addGlobalJsVariable: aString\x0a\x09self globalJsVariables add: aString",
+messageSends: ["add:", "globalJsVariables"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSmalltalkException:",
 category: 'error handling',
 fn: function (anObject){
@@ -5212,6 +5228,24 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "deleteGlobalJsVariable:",
+category: 'globals',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+args: ["aString"],
+source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
+messageSends: ["remove:ifAbsent:", "globalJsVariables"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "deletePackage:",
 category: 'packages',
 fn: function (packageName){
@@ -5221,6 +5255,22 @@ delete smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
 source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "globalJsVariables",
+category: 'globals',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.globalJsVariables;
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
+args: [],
+source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return self.globalJsVariables>",
 messageSends: [],
 referencedClasses: []
 }),
