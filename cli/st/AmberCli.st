@@ -892,7 +892,7 @@ main
 ! !
 
 Object subclass: #Repl
-	instanceVariableNames: 'readline interface util session'
+	instanceVariableNames: 'readline interface util session resultCount'
 	package: 'AmberCli'!
 !Repl commentStamp!
 I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.
@@ -920,16 +920,12 @@ createInterface
 
 	interface := readline createInterface: process stdin stdout: process stdout.
 	interface on: 'line' do: [:buffer |
-		(self command: buffer) ifFalse: [ | assignment |
-			assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].
-            (assignment size = 2 and: [(assignment first includes: ' ') not])
-            	ifTrue: [
-            		Compiler new install: assignment first, ' ^ ', assignment last forClass: DoIt category: 'session'.
-            		Transcript show: 'Call `self ', assignment first, '` to retrieve value.'; cr.
-            		interface prompt]
-            	ifFalse: [
-            		self eval: buffer]]].
+		(self command: buffer)
+			ifFalse: [self line: buffer]].
 	interface on: 'close' do: [self close].
+
+	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self keyPress: key]].
+
 	self setPrompt.
 	interface prompt
 !
@@ -940,17 +936,95 @@ command: aString
 		ifFalse: [false]
 !
 
-eval: buffer
+line: buffer
+	| assignment |
+	assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].
+    (assignment size = 2 and: [(assignment first includes: ' ') not])
+    	ifTrue: [ |name value|
+    		name := assignment first.
+    		session := self addVariableNamed: name to: session.
+
+    		value := self eval: buffer on: session quiet: true.
+
+    		Transcript show: name, ': ', value class name, ' = ', value asString; cr.
+    		interface prompt]
+    	ifFalse: [ | res value |
+    		resultCount
+    			ifNotNil: [resultCount := resultCount + 1]
+    			ifNil: [resultCount := 1].
+    		res := 'res', resultCount asString.
+    		session := self addVariableNamed: res to: session.
+    		value := self eval: res, ' := ', buffer on: session quiet: true.
+
+    		Transcript show: res, ': ', value class name, ' = ', value asString; cr.
+    		interface prompt]
+!
+
+keyPress: key
+	(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |
+		esc := String fromCharCode: 27.
+		cls := esc, '[2J', esc, '[0;0f'.
+		process stdout write: cls.
+		interface prompt]
+!
+
+eval: buffer on: anObject quiet: aBoolean
 	| result |
 	buffer isEmpty ifFalse: [
 		self try: [
-			result := Compiler new evaluateExpression: buffer on: session.
-			Transcript show: result]
+			result := Compiler new evaluateExpression: buffer on: anObject.
+			aBoolean ifFalse: [Transcript show: result]]
 		catch: [:e |
 			e isSmalltalkError
 			    ifTrue: [ErrorHandler new handleError: e]
 			    ifFalse: [process stdout write: e jsStack]]].
-	interface prompt
+	aBoolean ifFalse: [interface prompt].
+	^ result
+!
+
+eval: buffer on: anObject
+	self eval: buffer on: anObject quiet: false.
+!
+
+addVariableNamed: aString to: anObject
+	| class compiler newClassName newClass newObject |
+	class := anObject class.
+
+	"Count up name."
+	(class name matchesOf: '\d+$')
+		ifNotNil: [ | counter |
+			counter := (class name matchesOf: '\d+$') first asNumber + 1.
+			newClassName := class name replaceRegexp: '\d+$' asRegexp with: counter asString]
+		ifNil: [
+			newClassName := class name, '2'].
+
+	"Create subclass with new variable."
+	newClass := ClassBuilder new
+		addSubclassOf: class
+		named: newClassName asSymbol
+		instanceVariableNames: {aString} package: 'Compiler-Core'.
+
+	"Add getter and setter."
+	compiler := Compiler new.
+	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: newClass category: 'session'.
+	compiler install: aString, ' ^ ', aString forClass: newClass category: 'session'.
+
+	newObject := newClass new.
+
+	"Set previous values."
+	(self instanceVariableNamesFor: class) do: [:name |
+		newObject perform: name, ':' withArguments: {anObject perform: name}].
+
+	^ newObject
+!
+
+instanceVariableNamesFor: aClass
+	"Yields all instance variable names for the given class, including inherited ones."
+	^ aClass superclass
+		ifNotNil: [
+			aClass instanceVariableNames copyWithAll: (self instanceVariableNamesFor: aClass superclass)]
+		ifNil: [
+			aClass instanceVariableNames]
 !
 
 setPrompt

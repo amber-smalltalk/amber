@@ -35571,8 +35571,50 @@ referencedClasses: []
 smalltalk.FileServer.klass);
 
 
-smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util', 'session'], 'AmberCli');
+smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util', 'session', 'resultCount'], 'AmberCli');
 smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addVariableNamed:to:",
+category: 'actions',
+fn: function (aString,anObject){
+var self=this;
+var class_,compiler,newClassName,newClass,newObject;
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+class_=_st(anObject)._class();
+$1=_st(_st(class_)._name())._matchesOf_("\x5cd+$");
+if(($receiver = $1) == nil || $receiver == undefined){
+newClassName=_st(_st(class_)._name()).__comma("2");
+newClassName;
+} else {
+var counter;
+counter=_st(_st(_st(_st(_st(class_)._name())._matchesOf_("\x5cd+$"))._first())._asNumber()).__plus((1));
+counter;
+newClassName=_st(_st(class_)._name())._replaceRegexp_with_("\x5cd+$"._asRegexp(),_st(counter)._asString());
+newClassName;
+};
+newClass=_st(_st($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(class_,_st(newClassName)._asSymbol(),[aString],"Compiler-Core");
+compiler=_st($Compiler())._new();
+_st(compiler)._install_forClass_category_(_st(_st(_st(aString).__comma(": anObject ^ ")).__comma(aString)).__comma(" := anObject"),newClass,"session");
+_st(compiler)._install_forClass_category_(_st(_st(aString).__comma(" ^ ")).__comma(aString),newClass,"session");
+newObject=_st(newClass)._new();
+_st(self._instanceVariableNamesFor_(class_))._do_((function(name){
+return smalltalk.withContext(function($ctx2) {
+return _st(newObject)._perform_withArguments_(_st(name).__comma(":"),[_st(anObject)._perform_(name)]);
+}, function($ctx2) {$ctx2.fillBlock({name:name},$ctx1)})}));
+$2=newObject;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"addVariableNamed:to:",{aString:aString,anObject:anObject,class_:class_,compiler:compiler,newClassName:newClassName,newClass:newClass,newObject:newObject},smalltalk.Repl)})},
+args: ["aString", "anObject"],
+source: "addVariableNamed: aString to: anObject\x0a\x09| class compiler newClassName newClass newObject |\x0a\x09class := anObject class.\x0a\x0a\x09\x22Count up name.\x22\x0a\x09(class name matchesOf: '\x5cd+$')\x0a\x09\x09ifNotNil: [ | counter |\x0a\x09\x09\x09counter := (class name matchesOf: '\x5cd+$') first asNumber + 1.\x0a\x09\x09\x09newClassName := class name replaceRegexp: '\x5cd+$' asRegexp with: counter asString]\x0a\x09\x09ifNil: [\x0a\x09\x09\x09newClassName := class name, '2'].\x0a\x0a\x09\x22Create subclass with new variable.\x22\x0a\x09newClass := ClassBuilder new\x0a\x09\x09addSubclassOf: class\x0a\x09\x09named: newClassName asSymbol\x0a\x09\x09instanceVariableNames: {aString} package: 'Compiler-Core'.\x0a\x0a\x09\x22Add getter and setter.\x22\x0a\x09compiler := Compiler new.\x0a\x09compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: newClass category: 'session'.\x0a\x09compiler install: aString, ' ^ ', aString forClass: newClass category: 'session'.\x0a\x0a\x09newObject := newClass new.\x0a\x0a\x09\x22Set previous values.\x22\x0a\x09(self instanceVariableNamesFor: class) do: [:name |\x0a\x09\x09newObject perform: name, ':' withArguments: {anObject perform: name}].\x0a\x0a\x09^ newObject",
+messageSends: ["class", "ifNotNil:ifNil:", "+", "asNumber", "first", "matchesOf:", "name", "replaceRegexp:with:", "asRegexp", "asString", ",", "addSubclassOf:named:instanceVariableNames:package:", "asSymbol", "new", "install:forClass:category:", "do:", "perform:withArguments:", "perform:", "instanceVariableNamesFor:"],
+referencedClasses: ["ClassBuilder", "Compiler"]
+}),
+smalltalk.Repl);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
@@ -35621,10 +35663,8 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
-function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
-function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 _st($Transcript())._show_(_st(_st(_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ")).__comma(_st(_st(process)._versions())._node())).__comma(")."));
 $1=$Transcript();
 _st($1)._show_("Type :q to exit.");
@@ -35634,75 +35674,89 @@ _st(self["@interface"])._on_do_("line",(function(buffer){
 return smalltalk.withContext(function($ctx2) {
 $3=self._command_(buffer);
 if(! smalltalk.assert($3)){
-var assignment;
-assignment=_st(_st(buffer)._tokenize_(":="))._collect_((function(s){
-return smalltalk.withContext(function($ctx3) {
-return _st(s)._trimBoth();
-}, function($ctx3) {$ctx3.fillBlock({s:s},$ctx2)})}));
-assignment;
-$4=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(assignment)._first())._includes_(" "))._not();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-if(smalltalk.assert($4)){
-_st(_st($Compiler())._new())._install_forClass_category_(_st(_st(_st(assignment)._first()).__comma(" ^ ")).__comma(_st(assignment)._last()),$DoIt(),"session");
-$5=$Transcript();
-_st($5)._show_(_st("Call `self ".__comma(_st(assignment)._first())).__comma("` to retrieve value."));
-$6=_st($5)._cr();
-$6;
-return _st(self["@interface"])._prompt();
-} else {
-return self._eval_(buffer);
-};
+return self._line_(buffer);
 };
 }, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1)})}));
 _st(self["@interface"])._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
+return smalltalk.withContext(function($ctx2) {
+$4=key;
+if(($receiver = $4) == nil || $receiver == undefined){
+return $4;
+} else {
+return self._keyPress_(key);
+};
+}, function($ctx2) {$ctx2.fillBlock({s:s,key:key},$ctx1)})}));
 self._setPrompt();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
 args: [],
-source: "createInterface\x0a\x09\x22No completion for now\x22\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.\x0a\x0a\x09interface := readline createInterface: process stdin stdout: process stdout.\x0a\x09interface on: 'line' do: [:buffer |\x0a\x09\x09(self command: buffer) ifFalse: [ | assignment |\x0a\x09\x09\x09assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].\x0a            (assignment size = 2 and: [(assignment first includes: ' ') not])\x0a            \x09ifTrue: [\x0a            \x09\x09Compiler new install: assignment first, ' ^ ', assignment last forClass: DoIt category: 'session'.\x0a            \x09\x09Transcript show: 'Call `self ', assignment first, '` to retrieve value.'; cr.\x0a            \x09\x09interface prompt]\x0a            \x09ifFalse: [\x0a            \x09\x09self eval: buffer]]].\x0a\x09interface on: 'close' do: [self close].\x0a\x09self setPrompt.\x0a\x09interface prompt",
-messageSends: ["show:", ",", "node", "versions", "version", "current", "cr", "createInterface:stdout:", "stdin", "stdout", "on:do:", "ifFalse:", "collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "install:forClass:category:", "last", "first", "new", "prompt", "eval:", "and:", "not", "includes:", "=", "size", "command:", "close", "setPrompt"],
-referencedClasses: ["Smalltalk", "Transcript", "DoIt", "Compiler"]
+source: "createInterface\x0a\x09\x22No completion for now\x22\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.\x0a\x0a\x09interface := readline createInterface: process stdin stdout: process stdout.\x0a\x09interface on: 'line' do: [:buffer |\x0a\x09\x09(self command: buffer)\x0a\x09\x09\x09ifFalse: [self line: buffer]].\x0a\x09interface on: 'close' do: [self close].\x0a\x0a\x09process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self keyPress: key]].\x0a\x0a\x09self setPrompt.\x0a\x09interface prompt",
+messageSends: ["show:", ",", "node", "versions", "version", "current", "cr", "createInterface:stdout:", "stdin", "stdout", "on:do:", "ifFalse:", "line:", "command:", "close", "ifNotNil:", "keyPress:", "setPrompt", "prompt"],
+referencedClasses: ["Smalltalk", "Transcript"]
 }),
 smalltalk.Repl);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "eval:",
+selector: "eval:on:",
 category: 'actions',
-fn: function (buffer){
+fn: function (buffer,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._eval_on_quiet_(buffer,anObject,false);
+return self}, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject},smalltalk.Repl)})},
+args: ["buffer", "anObject"],
+source: "eval: buffer on: anObject\x0a\x09self eval: buffer on: anObject quiet: false.",
+messageSends: ["eval:on:quiet:"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "eval:on:quiet:",
+category: 'actions',
+fn: function (buffer,anObject,aBoolean){
 var self=this;
 var result;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4,$5;
 $1=_st(buffer)._isEmpty();
 if(! smalltalk.assert($1)){
 self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-result=_st(_st($Compiler())._new())._evaluateExpression_on_(buffer,self["@session"]);
+result=_st(_st($Compiler())._new())._evaluateExpression_on_(buffer,anObject);
 result;
+$2=aBoolean;
+if(! smalltalk.assert($2)){
 return _st($Transcript())._show_(result);
+};
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(e){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(e)._isSmalltalkError();
-if(smalltalk.assert($2)){
+$3=_st(e)._isSmalltalkError();
+if(smalltalk.assert($3)){
 return _st(_st($ErrorHandler())._new())._handleError_(e);
 } else {
 return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 };
+$4=aBoolean;
+if(! smalltalk.assert($4)){
 _st(self["@interface"])._prompt();
-return self}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer,result:result},smalltalk.Repl)})},
-args: ["buffer"],
-source: "eval: buffer\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer on: session.\x0a\x09\x09\x09Transcript show: result]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ErrorHandler new handleError: e]\x0a\x09\x09\x09    ifFalse: [process stdout write: e jsStack]]].\x0a\x09interface prompt",
+};
+$5=result;
+return $5;
+}, function($ctx1) {$ctx1.fill(self,"eval:on:quiet:",{buffer:buffer,anObject:anObject,aBoolean:aBoolean,result:result},smalltalk.Repl)})},
+args: ["buffer", "anObject", "aBoolean"],
+source: "eval: buffer on: anObject quiet: aBoolean\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer on: anObject.\x0a\x09\x09\x09aBoolean ifFalse: [Transcript show: result]]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ErrorHandler new handleError: e]\x0a\x09\x09\x09    ifFalse: [process stdout write: e jsStack]]].\x0a\x09aBoolean ifFalse: [interface prompt].\x0a\x09^ result",
 messageSends: ["ifFalse:", "try:catch:", "evaluateExpression:on:", "new", "show:", "ifTrue:ifFalse:", "handleError:", "write:", "jsStack", "stdout", "isSmalltalkError", "isEmpty", "prompt"],
 referencedClasses: ["Compiler", "Transcript", "ErrorHandler"]
 }),
@@ -35722,9 +35776,123 @@ self["@readline"]=_st(require)._value_("readline");
 self["@util"]=_st(require)._value_("util");
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'",
+source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'.",
 messageSends: ["initialize", "new", "value:"],
 referencedClasses: ["DoIt"]
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "instanceVariableNamesFor:",
+category: 'actions',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(aClass)._superclass();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(aClass)._instanceVariableNames();
+} else {
+$1=_st(_st(aClass)._instanceVariableNames())._copyWithAll_(self._instanceVariableNamesFor_(_st(aClass)._superclass()));
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},smalltalk.Repl)})},
+args: ["aClass"],
+source: "instanceVariableNamesFor: aClass\x0a\x09\x22Yields all instance variable names for the given class, including inherited ones.\x22\x0a\x09^ aClass superclass\x0a\x09\x09ifNotNil: [\x0a\x09\x09\x09aClass instanceVariableNames copyWithAll: (self instanceVariableNamesFor: aClass superclass)]\x0a\x09\x09ifNil: [\x0a\x09\x09\x09aClass instanceVariableNames]",
+messageSends: ["ifNotNil:ifNil:", "copyWithAll:", "instanceVariableNamesFor:", "superclass", "instanceVariableNames"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "keyPress:",
+category: 'actions',
+fn: function (key){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(key)._ctrl())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(key)._name()).__eq("l");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($1)){
+var esc,cls;
+esc=_st($String())._fromCharCode_((27));
+esc;
+cls=_st(_st(_st(esc).__comma("[2J")).__comma(esc)).__comma("[0;0f");
+cls;
+_st(_st(process)._stdout())._write_(cls);
+_st(self["@interface"])._prompt();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"keyPress:",{key:key},smalltalk.Repl)})},
+args: ["key"],
+source: "keyPress: key\x0a\x09(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |\x0a\x09\x09esc := String fromCharCode: 27.\x0a\x09\x09cls := esc, '[2J', esc, '[0;0f'.\x0a\x09\x09process stdout write: cls.\x0a\x09\x09interface prompt]",
+messageSends: ["ifTrue:", "fromCharCode:", ",", "write:", "stdout", "prompt", "and:", "=", "name", "ctrl"],
+referencedClasses: ["String"]
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "line:",
+category: 'actions',
+fn: function (buffer){
+var self=this;
+var assignment;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+assignment=_st(_st(buffer)._tokenize_(":="))._collect_((function(s){
+return smalltalk.withContext(function($ctx2) {
+return _st(s)._trimBoth();
+}, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1)})}));
+$1=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(assignment)._first())._includes_(" "))._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($1)){
+var name,value;
+name=_st(assignment)._first();
+name;
+self["@session"]=self._addVariableNamed_to_(name,self["@session"]);
+self["@session"];
+value=self._eval_on_quiet_(buffer,self["@session"],true);
+value;
+$2=$Transcript();
+_st($2)._show_(_st(_st(_st(_st(name).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
+$3=_st($2)._cr();
+$3;
+_st(self["@interface"])._prompt();
+} else {
+var res,value;
+$4=self["@resultCount"];
+if(($receiver = $4) == nil || $receiver == undefined){
+self["@resultCount"]=(1);
+self["@resultCount"];
+} else {
+self["@resultCount"]=_st(self["@resultCount"]).__plus((1));
+self["@resultCount"];
+};
+res="res".__comma(_st(self["@resultCount"])._asString());
+res;
+self["@session"]=self._addVariableNamed_to_(res,self["@session"]);
+self["@session"];
+value=self._eval_on_quiet_(_st(_st(res).__comma(" := ")).__comma(buffer),self["@session"],true);
+value;
+$5=$Transcript();
+_st($5)._show_(_st(_st(_st(_st(res).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
+$6=_st($5)._cr();
+$6;
+_st(self["@interface"])._prompt();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"line:",{buffer:buffer,assignment:assignment},smalltalk.Repl)})},
+args: ["buffer"],
+source: "line: buffer\x0a\x09| assignment |\x0a\x09assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].\x0a    (assignment size = 2 and: [(assignment first includes: ' ') not])\x0a    \x09ifTrue: [ |name value|\x0a    \x09\x09name := assignment first.\x0a    \x09\x09session := self addVariableNamed: name to: session.\x0a\x0a    \x09\x09value := self eval: buffer on: session quiet: true.\x0a\x0a    \x09\x09Transcript show: name, ': ', value class name, ' = ', value asString; cr.\x0a    \x09\x09interface prompt]\x0a    \x09ifFalse: [ | res value |\x0a    \x09\x09resultCount\x0a    \x09\x09\x09ifNotNil: [resultCount := resultCount + 1]\x0a    \x09\x09\x09ifNil: [resultCount := 1].\x0a    \x09\x09res := 'res', resultCount asString.\x0a    \x09\x09session := self addVariableNamed: res to: session.\x0a    \x09\x09value := self eval: res, ' := ', buffer on: session quiet: true.\x0a\x0a    \x09\x09Transcript show: res, ': ', value class name, ' = ', value asString; cr.\x0a    \x09\x09interface prompt]",
+messageSends: ["collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "first", "addVariableNamed:to:", "eval:on:quiet:", "show:", ",", "asString", "name", "class", "cr", "prompt", "ifNotNil:ifNil:", "+", "and:", "not", "includes:", "=", "size"],
+referencedClasses: ["Transcript"]
 }),
 smalltalk.Repl);
 
