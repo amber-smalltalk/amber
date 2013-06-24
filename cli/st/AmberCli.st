@@ -914,53 +914,11 @@ close
 !
 
 createInterface
-	"No completion for now"
-	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
-	Transcript show: 'Type :q to exit.'; cr.
-
 	interface := readline createInterface: process stdin stdout: process stdout.
-	interface on: 'line' do: [:buffer |
-		(self command: buffer)
-			ifFalse: [self line: buffer]].
+	interface on: 'line' do: [:buffer | self line: buffer].
 	interface on: 'close' do: [self close].
-
-	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self keyPress: key]].
-
-	self setPrompt.
+	self printWelcome; setupHotkeys; setPrompt.
 	interface prompt
-!
-
-command: aString
-	^ aString = ':q'
-		ifTrue: [process exit. true]
-		ifFalse: [false]
-!
-
-line: buffer
-	| assignment varName code value |
-	assignment := (buffer tokenize: ':=') collect: [:s | s trimBoth].
-
-    ((self instanceVariableNamesFor: session class) includes: buffer)
-    	ifFalse: [
-    		varName := (assignment size = 2 and: [(assignment first includes: ' ') not])
-    			ifTrue: [code := assignment last. assignment first]
-    			ifFalse: [code := buffer. self nextResultName].
-    		session := self addVariableNamed: varName to: session.
-    		value := self eval: varName, ' := ', code on: session quiet: true]
-    	ifTrue: [ "Do not assign new variable if previous variable has been recalled."
-    		varName := buffer.
-    		value := session perform: buffer].
-
-    Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
-    interface prompt
-!
-
-keyPress: key
-	(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |
-		esc := String fromCharCode: 27.
-		cls := esc, '[2J', esc, '[0;0f'.
-		process stdout write: cls.
-		interface prompt]
 !
 
 eval: buffer on: anObject quiet: aBoolean
@@ -978,7 +936,11 @@ eval: buffer on: anObject quiet: aBoolean
 !
 
 eval: buffer on: anObject
-	self eval: buffer on: anObject quiet: false.
+	^ self eval: buffer on: anObject quiet: false.
+!
+
+eval: buffer
+	^ self eval: buffer on: DoIt new.
 !
 
 setPrompt
@@ -987,36 +949,102 @@ setPrompt
 
 !Repl methodsFor: 'private'!
 
+printWelcome
+	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Type :q to exit.'; cr.
+!
+
+setupHotkeys
+	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self keyPress: key]].
+!
+
+command: aString
+	"Tries to process the given string as a command. Returns true if it was a command, false if not."
+	^ aString = ':q'
+		ifTrue: [process exit. true]
+		ifFalse: [false]
+!
+
+line: buffer
+	"Processes lines entered through the readline interface."
+	(self command: buffer) ifFalse: [
+		(self isDefined: buffer)
+			ifTrue: [self presentResultNamed: buffer withValue: (session perform: buffer)]
+			ifFalse: [self assignNewVariable: buffer]]
+!
+
+assignNewVariable: buffer
+	| assignment varName value |
+	assignment := self parseAssignment: buffer onFailUseName: self nextResultName withExpr: buffer.
+	varName := assignment at: 'name'.
+	session := self addVariableNamed: varName to: session.
+	value := self eval: varName, ' := ', (assignment at: 'expr') on: session quiet: true.
+	self presentResultNamed: varName withValue: value
+!
+
+presentResultNamed: varName withValue: value
+	Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
+	interface prompt
+!
+
+parseAssignment: aString onFailUseName: nameString withExpr: exprString
+	"Returns a variable name and its assigned expression if the given expression is an assignment; nil otherwise."
+	| assignment |
+	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
+	^ (assignment size = 2 and: [self isIdentifier: assignment first])
+		ifTrue: [Dictionary from: {'name' -> assignment first. 'expr' -> assignment last}]
+		ifFalse: [Dictionary from: {'name' -> nameString. 'expr' -> exprString}]
+!
+
+isIdentifier: aString
+	^ aString match: '^[a-z_]\w+$' asRegexp
+!
+
+isDefined: aString
+	^ (self instanceVariableNamesFor: session class) includes: aString
+!
+
+keyPress: key
+	(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |
+		esc := String fromCharCode: 27.
+		cls := esc, '[2J', esc, '[0;0f'.
+		process stdout write: cls.
+		interface prompt]
+!
+
 addVariableNamed: aString to: anObject
-	| class compiler newClassName newClass newObject |
-	class := anObject class.
-
-	"Count up name."
-	(class name matchesOf: '\d+$')
-		ifNotNil: [ | counter |
-			counter := (class name matchesOf: '\d+$') first asNumber + 1.
-			newClassName := class name replaceRegexp: '\d+$' asRegexp with: counter asString]
-		ifNil: [
-			newClassName := class name, '2'].
-
-	"Create subclass with new variable."
-	newClass := ClassBuilder new
-		addSubclassOf: class
-		named: newClassName asSymbol
-		instanceVariableNames: {aString} package: 'Compiler-Core'.
-
-	"Add getter and setter."
-	compiler := Compiler new.
-	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: newClass category: 'session'.
-	compiler install: aString, ' ^ ', aString forClass: newClass category: 'session'.
-
+	| newClass newObject |
+	newClass := self subclass: anObject class withVariable: aString.
+	self encapsulateVariable: aString withValue: anObject in: newClass.
 	newObject := newClass new.
-
-	"Set previous values."
-	(self instanceVariableNamesFor: class) do: [:name |
-		newObject perform: name, ':' withArguments: {anObject perform: name}].
-
+	self setPreviousVarsFor: newObject from: anObject.
 	^ newObject
+!
+
+subclassNameFor: aClass
+	^ (aClass name matchesOf: '\d+$')
+		ifNotNil: [ | counter |
+			counter := (aClass name matchesOf: '\d+$') first asNumber + 1.
+			aClass name replaceRegexp: '\d+$' asRegexp with: counter asString]
+		ifNil: [
+			aClass name, '2'].
+!
+
+subclass: aClass withVariable: varName
+	"Create subclass with new variable."
+	^ ClassBuilder new
+		addSubclassOf: aClass
+		named: (self subclassNameFor: aClass) asSymbol
+		instanceVariableNames: {varName}
+		package: 'Compiler-Core'
+!
+
+encapsulateVariable: aString withValue: anObject in: aClass
+	"Add getter and setter for given variable to session."
+	| compiler |
+	compiler := Compiler new.
+	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.
+	compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.
 !
 
 instanceVariableNamesFor: aClass
@@ -1026,6 +1054,11 @@ instanceVariableNamesFor: aClass
 			aClass instanceVariableNames copyWithAll: (self instanceVariableNamesFor: aClass superclass)]
 		ifNil: [
 			aClass instanceVariableNames]
+!
+
+setPreviousVarsFor: newObject from: oldObject
+	(self instanceVariableNamesFor: oldObject class) do: [:each |
+		newObject perform: each, ':' withArguments: {oldObject perform: each}].
 !
 
 nextResultName
@@ -1049,4 +1082,3 @@ initialize
 main
 	self new createInterface
 ! !
-
