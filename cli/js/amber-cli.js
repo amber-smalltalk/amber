@@ -35604,15 +35604,18 @@ fn: function (buffer){
 var self=this;
 var assignment,varName,value;
 return smalltalk.withContext(function($ctx1) { 
-assignment=self._parseAssignment_onFailUseName_withExpr_(buffer,self._nextResultName(),buffer);
+assignment=self._parseAssignment_onFail_(buffer,(function(){
+return smalltalk.withContext(function($ctx2) {
+return ["name".__minus_gt(self._nextResultName()),"expr".__minus_gt(buffer)];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 varName=_st(assignment)._at_("name");
 self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
 value=self._eval_on_quiet_(_st(_st(varName).__comma(" := ")).__comma(_st(assignment)._at_("expr")),self["@session"],true);
 self._presentResultNamed_withValue_(varName,value);
 return self}, function($ctx1) {$ctx1.fill(self,"assignNewVariable:",{buffer:buffer,assignment:assignment,varName:varName,value:value},smalltalk.Repl)})},
 args: ["buffer"],
-source: "assignNewVariable: buffer\x0a\x09| assignment varName value |\x0a\x09assignment := self parseAssignment: buffer onFailUseName: self nextResultName withExpr: buffer.\x0a\x09varName := assignment at: 'name'.\x0a\x09session := self addVariableNamed: varName to: session.\x0a\x09value := self eval: varName, ' := ', (assignment at: 'expr') on: session quiet: true.\x0a\x09self presentResultNamed: varName withValue: value",
-messageSends: ["parseAssignment:onFailUseName:withExpr:", "nextResultName", "at:", "addVariableNamed:to:", "eval:on:quiet:", ",", "presentResultNamed:withValue:"],
+source: "assignNewVariable: buffer\x0a\x09| assignment varName value |\x0a\x09assignment := self parseAssignment: buffer onFail: [{'name' -> self nextResultName. 'expr' -> buffer}].\x0a\x09varName := assignment at: 'name'.\x0a\x09session := self addVariableNamed: varName to: session.\x0a\x09value := self eval: varName, ' := ', (assignment at: 'expr') on: session quiet: true.\x0a\x09self presentResultNamed: varName withValue: value",
+messageSends: ["parseAssignment:onFail:", "->", "nextResultName", "at:", "addVariableNamed:to:", "eval:on:quiet:", ",", "presentResultNamed:withValue:"],
 referencedClasses: []
 }),
 smalltalk.Repl);
@@ -35950,9 +35953,9 @@ smalltalk.Repl);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "parseAssignment:onFailUseName:withExpr:",
+selector: "parseAssignment:onFail:",
 category: 'private',
-fn: function (aString,nameString,exprString){
+fn: function (aString,aBlock){
 var self=this;
 var assignment;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
@@ -35969,13 +35972,13 @@ return self._isIdentifier_(_st(assignment)._first());
 if(smalltalk.assert($2)){
 $1=_st($Dictionary())._from_(["name".__minus_gt(_st(assignment)._first()),"expr".__minus_gt(_st(assignment)._last())]);
 } else {
-$1=_st($Dictionary())._from_(["name".__minus_gt(nameString),"expr".__minus_gt(exprString)]);
+$1=_st($Dictionary())._from_(_st(aBlock)._value());
 };
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"parseAssignment:onFailUseName:withExpr:",{aString:aString,nameString:nameString,exprString:exprString,assignment:assignment},smalltalk.Repl)})},
-args: ["aString", "nameString", "exprString"],
-source: "parseAssignment: aString onFailUseName: nameString withExpr: exprString\x0a\x09\x22Returns a variable name and its assigned expression if the given expression is an assignment; nil otherwise.\x22\x0a\x09| assignment |\x0a\x09assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].\x0a\x09^ (assignment size = 2 and: [self isIdentifier: assignment first])\x0a\x09\x09ifTrue: [Dictionary from: {'name' -> assignment first. 'expr' -> assignment last}]\x0a\x09\x09ifFalse: [Dictionary from: {'name' -> nameString. 'expr' -> exprString}]",
-messageSends: ["collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "from:", "->", "first", "last", "and:", "isIdentifier:", "=", "size"],
+}, function($ctx1) {$ctx1.fill(self,"parseAssignment:onFail:",{aString:aString,aBlock:aBlock,assignment:assignment},smalltalk.Repl)})},
+args: ["aString", "aBlock"],
+source: "parseAssignment: aString onFail: aBlock\x0a\x09\x22Returns a variable name and its assigned expression if the given expression is an assignment; nil otherwise.\x22\x0a\x09| assignment |\x0a\x09assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].\x0a\x09^ (assignment size = 2 and: [self isIdentifier: assignment first])\x0a\x09\x09ifTrue: [Dictionary from: {'name' -> assignment first. 'expr' -> assignment last}]\x0a\x09\x09ifFalse: [Dictionary from: aBlock value]",
+messageSends: ["collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "from:", "->", "first", "last", "value", "and:", "isIdentifier:", "=", "size"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.Repl);

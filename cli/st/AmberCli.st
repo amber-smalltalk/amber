@@ -975,7 +975,7 @@ line: buffer
 
 assignNewVariable: buffer
 	| assignment varName value |
-	assignment := self parseAssignment: buffer onFailUseName: self nextResultName withExpr: buffer.
+	assignment := self parseAssignment: buffer onFail: [{'name' -> self nextResultName. 'expr' -> buffer}].
 	varName := assignment at: 'name'.
 	session := self addVariableNamed: varName to: session.
 	value := self eval: varName, ' := ', (assignment at: 'expr') on: session quiet: true.
@@ -987,13 +987,13 @@ presentResultNamed: varName withValue: value
 	interface prompt
 !
 
-parseAssignment: aString onFailUseName: nameString withExpr: exprString
+parseAssignment: aString onFail: aBlock
 	"Returns a variable name and its assigned expression if the given expression is an assignment; nil otherwise."
 	| assignment |
 	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
 	^ (assignment size = 2 and: [self isIdentifier: assignment first])
 		ifTrue: [Dictionary from: {'name' -> assignment first. 'expr' -> assignment last}]
-		ifFalse: [Dictionary from: {'name' -> nameString. 'expr' -> exprString}]
+		ifFalse: [Dictionary from: aBlock value]
 !
 
 isIdentifier: aString
