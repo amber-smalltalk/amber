@@ -913,13 +913,17 @@ smalltalk.method({
 selector: "newTag:",
 fn: function (aString){
 var self=this;
+var tag;
 function $TagBrush(){return smalltalk.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($TagBrush())._fromString_canvas_(aString,self);
+tag=_st($TagBrush())._fromString_canvas_(aString,self);
+_st(tag)._at_put_("amberContext","yepp");
+_st(_st(tag)._element())._at_put_("amberContext",_st(_st(_st(_st(smalltalk.getThisContext()._outerContext())._outerContext())._outerContext())._methodContext())._method());
+$1=tag;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newTag:",{aString:aString},smalltalk.HTMLCanvas)})},
-messageSends: ["fromString:canvas:"]}),
+}, function($ctx1) {$ctx1.fill(self,"newTag:",{aString:aString,tag:tag},smalltalk.HTMLCanvas)})},
+messageSends: ["fromString:canvas:", "at:put:", "method", "methodContext", "outerContext", "element"]}),
 smalltalk.HTMLCanvas);
 
 smalltalk.addMethod(
@@ -1588,6 +1592,127 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"onJQuery:",{aJQuery:aJQuery},smalltalk.HTMLCanvas.klass)})},
 messageSends: ["initializeFromJQuery:", "basicNew", "initialize", "yourself"]}),
 smalltalk.HTMLCanvas.klass);
+
+
+smalltalk.addClass('HTMLCanvasInspector', smalltalk.Object, [], 'Canvas');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activate",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._amberDOMElements())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._installCanvasInspectorOn_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"activate",{},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["do:", "installCanvasInspectorOn:", "amberDOMElements"]}),
+smalltalk.HTMLCanvasInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "amberDOMElements",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(window)._jQuery_("[amberContext=yepp]"))._toArray();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amberDOMElements",{},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["toArray", "jQuery:"]}),
+smalltalk.HTMLCanvasInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deactivate",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._amberDOMElements())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._restore_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"deactivate",{},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["do:", "restore:", "amberDOMElements"]}),
+smalltalk.HTMLCanvasInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._activate();
+return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["activate"]}),
+smalltalk.HTMLCanvasInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect:",
+fn: function (aDOMElement){
+var self=this;
+var jquery,method;
+return smalltalk.withContext(function($ctx1) { 
+self._deactivate();
+method=_st(aDOMElement)._at_("amberContext");
+_st(console)._log_(_st(_st(_st(_st(method)._methodClass())._name()).__comma(" >> #")).__comma(_st(method)._selector()));
+return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{aDOMElement:aDOMElement,jquery:jquery,method:method},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["deactivate", "at:", "log:", ",", "selector", "name", "methodClass"]}),
+smalltalk.HTMLCanvasInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installCanvasInspectorOn:",
+fn: function (aDOMElement){
+var self=this;
+var jquery,method,originalMouseOver,originalClick;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+jquery=_st(jQuery)._value_(aDOMElement);
+originalMouseOver=_st(aDOMElement)._at_("mouseover");
+originalClick=_st(aDOMElement)._at_("click");
+_st(console)._log_(originalClick);
+_st(aDOMElement)._at_put_("amberOriginalOnMouseOver",originalMouseOver);
+_st(aDOMElement)._at_put_("amberOriginalOnClick",originalClick);
+$1=jquery;
+_st($1)._off_("click");
+$2=_st($1)._off_("mouseover");
+_st(jquery)._mouseover_((function(){
+return smalltalk.withContext(function($ctx2) {
+method=_st(aDOMElement)._at_("amberContext");
+method;
+return _st(console)._log_(_st(_st(_st(_st(method)._methodClass())._name()).__comma(" >> #")).__comma(_st(method)._selector()));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st(jquery)._click_((function(event){
+return smalltalk.withContext(function($ctx2) {
+_st(event)._preventDefault();
+self._inspect_(aDOMElement);
+return false;
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"installCanvasInspectorOn:",{aDOMElement:aDOMElement,jquery:jquery,method:method,originalMouseOver:originalMouseOver,originalClick:originalClick},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["value:", "at:", "log:", "at:put:", "off:", "mouseover:", ",", "selector", "name", "methodClass", "click:", "preventDefault", "inspect:"]}),
+smalltalk.HTMLCanvasInspector);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "restore:",
+fn: function (aDOMElement){
+var self=this;
+var jquery;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+jquery=_st(jQuery)._value_(aDOMElement);
+$1=jquery;
+_st($1)._off_("click");
+$2=_st($1)._off_("mouseover");
+_st(jquery)._mouseover_(_st(aDOMElement)._at_("amberOriginalOnMouseOver"));
+_st(jquery)._click_(_st(aDOMElement)._at_("amberOriginalOnClick"));
+_st(console)._log_(_st(aDOMElement)._at_("amberOriginalOnClick"));
+return self}, function($ctx1) {$ctx1.fill(self,"restore:",{aDOMElement:aDOMElement,jquery:jquery},smalltalk.HTMLCanvasInspector)})},
+messageSends: ["value:", "off:", "mouseover:", "at:", "click:", "log:"]}),
+smalltalk.HTMLCanvasInspector);
+
 
 
 smalltalk.addClass('HTMLSnippet', smalltalk.Object, ['snippets'], 'Canvas');

@@ -340,7 +340,11 @@ nav
 !
 
 newTag: aString
-	^TagBrush fromString: aString canvas: self
+	| tag |
+	tag := TagBrush fromString: aString canvas: self.
+	tag at: 'amberContext' put: 'yepp'.
+	tag element at: 'amberContext' put: thisContext outerContext outerContext outerContext methodContext method.
+	^ tag
 !
 
 noscript
@@ -530,6 +534,79 @@ onJQuery: aJQuery
 		initializeFromJQuery: aJQuery;
 		initialize;
 		yourself
+! !
+
+Object subclass: #HTMLCanvasInspector
+	instanceVariableNames: ''
+	package: 'Canvas'!
+!HTMLCanvasInspector commentStamp!
+I am used to inspect DOM elements built with Amber using the HTML canvas.!
+
+!HTMLCanvasInspector methodsFor: 'as yet unclassified'!
+
+activate
+	"nasty nasty"
+	
+	self amberDOMElements do: [ :each |
+		self installCanvasInspectorOn: each ]
+!
+
+amberDOMElements
+	^ (window jQuery: '[amberContext=yepp]') toArray
+!
+
+deactivate
+	self amberDOMElements do: [ :each |
+		self restore: each ]
+!
+
+inspect
+	self activate
+!
+
+inspect: aDOMElement
+	| jquery method |
+	
+	self deactivate.
+	
+	method := (aDOMElement at: 'amberContext').
+	console log: method methodClass name, ' >> #', method selector
+!
+
+installCanvasInspectorOn: aDOMElement
+	| jquery method originalMouseOver originalClick |
+	
+	jquery := jQuery value: aDOMElement.
+	originalMouseOver := aDOMElement at: 'mouseover'.
+	originalClick := aDOMElement at: 'click'.
+	
+	console log: originalClick.
+	
+	aDOMElement at: 'amberOriginalOnMouseOver' put: originalMouseOver.
+	aDOMElement at: 'amberOriginalOnClick' put: originalClick.
+	
+	jquery off: 'click'; off: 'mouseover'.
+	
+	jquery mouseover: [
+		method := (aDOMElement at: 'amberContext').
+		console log: method methodClass name, ' >> #', method selector ].
+		
+	jquery click: [ :event |
+		event preventDefault.
+		self inspect: aDOMElement.
+		false ]
+!
+
+restore: aDOMElement
+	| jquery |
+	
+	jquery := jQuery value: aDOMElement.
+	jquery off: 'click'; off: 'mouseover'.
+	
+	jquery mouseover: (aDOMElement at: 'amberOriginalOnMouseOver').
+	jquery click: (aDOMElement at: 'amberOriginalOnClick').
+	
+	console log: (aDOMElement at: 'amberOriginalOnClick')
 ! !
 
 Object subclass: #HTMLSnippet
