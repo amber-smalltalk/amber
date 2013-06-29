@@ -892,7 +892,7 @@ main
 ! !
 
 Object subclass: #Repl
-	instanceVariableNames: 'readline interface util'
+	instanceVariableNames: 'readline interface util session resultCount commands'
 	package: 'AmberCli'!
 !Repl commentStamp!
 I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.
@@ -905,6 +905,10 @@ My runtime requirement is a functional Node.js executable with working Readline 
 
 prompt
 	^'amber >> '
+!
+
+commands
+	^ commands
 ! !
 
 !Repl methodsFor: 'actions'!
@@ -914,25 +918,27 @@ close
 !
 
 createInterface
-	"No completion for now"
 	interface := readline createInterface: process stdin stdout: process stdout.
-	interface on: 'line' do: [:buffer  | self eval: buffer].
+	interface on: 'line' do: [:buffer | self processLine: buffer].
 	interface on: 'close' do: [self close].
-	self setPrompt.
+	self printWelcome; setupHotkeys; setPrompt.
 	interface prompt
 !
 
 eval: buffer
+	^ self eval: buffer on: DoIt new.
+!
+
+eval: buffer on: anObject
 	| result |
 	buffer isEmpty ifFalse: [
 		self try: [
-			result := Compiler new evaluateExpression: buffer.
-			Transcript show: result]
+			result := Compiler new evaluateExpression: buffer on: anObject]
 		catch: [:e |
 			e isSmalltalkError
 			    ifTrue: [ErrorHandler new handleError: e]
 			    ifFalse: [process stdout write: e jsStack]]].
-	interface prompt
+	^ result
 !
 
 setPrompt
@@ -943,8 +949,149 @@ setPrompt
 
 initialize
 	super initialize.
+	session := DoIt new.
 	readline := require value: 'readline'.
-	util := require value: 'util'
+	util := require value: 'util'.
+	self setupCommands
+!
+
+setupHotkeys
+	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self onKeyPress: key]].
+!
+
+setupCommands
+	commands := Dictionary from: {
+		{':q'} -> [process exit].
+		{''} -> [interface prompt]}
+! !
+
+!Repl methodsFor: 'private'!
+
+addVariableNamed: aString to: anObject
+	| newClass newObject |
+	newClass := self subclass: anObject class withVariable: aString.
+	self encapsulateVariable: aString withValue: anObject in: newClass.
+	newObject := newClass new.
+	self setPreviousVariablesFor: newObject from: anObject.
+	^ newObject
+!
+
+assignNewVariable: buffer do: aBlock
+	"Assigns a new variable and calls the given block with the variable's name and value
+	 if buffer contains an assignment expression. If it doesn't the block is called with nil for
+	 both arguments."
+	^ self parseAssignment: buffer do: [ :name :expr || varName value |
+		varName := name ifNil: [self nextResultName].
+		session := self addVariableNamed: varName to: session.
+		value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.
+		aBlock value: varName value: value]
+!
+
+encapsulateVariable: aString withValue: anObject in: aClass
+	"Add getter and setter for given variable to session."
+	| compiler |
+	compiler := Compiler new.
+	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.
+	compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.
+!
+
+executeCommand: aString
+	"Tries to process the given string as a command. Returns true if it was a command, false if not."
+	self commands keysAndValuesDo: [:names :cmd |
+		(names includes: aString) ifTrue: [
+			cmd value.
+			^ true]].
+	^ false
+!
+
+instanceVariableNamesFor: aClass
+	"Yields all instance variable names for the given class, including inherited ones."
+	^ aClass superclass
+		ifNotNil: [
+			aClass instanceVariableNames copyWithAll: (self instanceVariableNamesFor: aClass superclass)]
+		ifNil: [
+			aClass instanceVariableNames]
+!
+
+isIdentifier: aString
+	^ aString match: '^[a-z_]\w+$' asRegexp
+!
+
+isVariableDefined: aString
+	^ (self instanceVariableNamesFor: session class) includes: aString
+!
+
+nextResultName
+	resultCount := resultCount
+    	ifNotNil: [resultCount + 1]
+    	ifNil: [1].
+    ^ 'res', resultCount asString
+!
+
+onKeyPress: key
+	(key ctrl and: [key name = 'l'])
+		ifTrue: [self clearScreen]
+!
+
+clearScreen
+	| esc cls |
+	esc := String fromCharCode: 27.
+	cls := esc, '[2J', esc, '[0;0f'.
+	process stdout write: cls.
+	interface prompt
+!
+
+parseAssignment: aString do: aBlock
+	"Assigns a new variable if the given string is an assignment expression. Calls the given block with name and value.
+	 If the string is not one no variable will be assigned and the block will be called with nil for both arguments."
+	| assignment |
+	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
+	^ (assignment size = 2 and: [self isIdentifier: assignment first])
+		ifTrue: [aBlock value: assignment first value: assignment last]
+		ifFalse: [aBlock value: nil value: nil]
+!
+
+presentResultNamed: varName withValue: value
+	Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
+	interface prompt
+!
+
+printWelcome
+	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Type :q to exit.'; cr.
+!
+
+processLine: buffer
+	"Processes lines entered through the readline interface."
+	| show |
+	show := [:varName :value | self presentResultNamed: varName withValue: value].
+	(self executeCommand: buffer) ifFalse: [
+		(self isVariableDefined: buffer)
+			ifTrue: [show value: buffer value: (session perform: buffer)]
+			ifFalse: [self assignNewVariable: buffer do: show]]
+!
+
+setPreviousVariablesFor: newObject from: oldObject
+	(self instanceVariableNamesFor: oldObject class) do: [:each |
+		newObject perform: each, ':' withArguments: {oldObject perform: each}].
+!
+
+subclass: aClass withVariable: varName
+	"Create subclass with new variable."
+	^ ClassBuilder new
+		addSubclassOf: aClass
+		named: (self subclassNameFor: aClass) asSymbol
+		instanceVariableNames: {varName}
+		package: 'Compiler-Core'
+!
+
+subclassNameFor: aClass
+	^ (aClass name matchesOf: '\d+$')
+		ifNotNil: [ | counter |
+			counter := (aClass name matchesOf: '\d+$') first asNumber + 1.
+			aClass name replaceRegexp: '\d+$' asRegexp with: counter asString]
+		ifNil: [
+			aClass name, '2'].
 ! !
 
 !Repl class methodsFor: 'initialization'!
