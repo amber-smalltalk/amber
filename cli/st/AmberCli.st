@@ -915,128 +915,65 @@ close
 
 createInterface
 	interface := readline createInterface: process stdin stdout: process stdout.
-	interface on: 'line' do: [:buffer | self line: buffer].
+	interface on: 'line' do: [:buffer | self processLine: buffer].
 	interface on: 'close' do: [self close].
 	self printWelcome; setupHotkeys; setPrompt.
 	interface prompt
-!
-
-eval: buffer on: anObject quiet: aBoolean
-	| result |
-	buffer isEmpty ifFalse: [
-		self try: [
-			result := Compiler new evaluateExpression: buffer on: anObject.
-			aBoolean ifFalse: [Transcript show: result]]
-		catch: [:e |
-			e isSmalltalkError
-			    ifTrue: [ErrorHandler new handleError: e]
-			    ifFalse: [process stdout write: e jsStack]]].
-	aBoolean ifFalse: [interface prompt].
-	^ result
-!
-
-eval: buffer on: anObject
-	^ self eval: buffer on: anObject quiet: false.
 !
 
 eval: buffer
 	^ self eval: buffer on: DoIt new.
 !
 
+eval: buffer on: anObject
+	| result |
+	buffer isEmpty ifFalse: [
+		self try: [
+			result := Compiler new evaluateExpression: buffer on: anObject]
+		catch: [:e |
+			e isSmalltalkError
+			    ifTrue: [ErrorHandler new handleError: e]
+			    ifFalse: [process stdout write: e jsStack]]].
+	^ result
+!
+
 setPrompt
 	interface setPrompt: self prompt
 ! !
 
-!Repl methodsFor: 'private'!
+!Repl methodsFor: 'initialization'!
 
-printWelcome
-	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
-	Transcript show: 'Type :q to exit.'; cr.
+initialize
+	super initialize.
+	session := DoIt new.
+	readline := require value: 'readline'.
+	util := require value: 'util'
 !
 
 setupHotkeys
-	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self keyPress: key]].
-!
+	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self onKeyPress: key]].
+! !
 
-command: aString
-	"Tries to process the given string as a command. Returns true if it was a command, false if not."
-	^ aString = ':q'
-		ifTrue: [process exit. true]
-		ifFalse: [false]
-!
-
-line: buffer
-	"Processes lines entered through the readline interface."
-	(self command: buffer) ifFalse: [
-		(self isDefined: buffer)
-			ifTrue: [self presentResultNamed: buffer withValue: (session perform: buffer)]
-			ifFalse: [self assignNewVariable: buffer]]
-!
-
-assignNewVariable: buffer
-	| assignment varName value |
-	assignment := self parseAssignment: buffer onFail: [{'name' -> self nextResultName. 'expr' -> buffer}].
-	varName := assignment at: 'name'.
-	session := self addVariableNamed: varName to: session.
-	value := self eval: varName, ' := ', (assignment at: 'expr') on: session quiet: true.
-	self presentResultNamed: varName withValue: value
-!
-
-presentResultNamed: varName withValue: value
-	Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
-	interface prompt
-!
-
-parseAssignment: aString onFail: aBlock
-	"Returns a variable name and its assigned expression if the given expression is an assignment; nil otherwise."
-	| assignment |
-	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
-	^ (assignment size = 2 and: [self isIdentifier: assignment first])
-		ifTrue: [Dictionary from: {'name' -> assignment first. 'expr' -> assignment last}]
-		ifFalse: [Dictionary from: aBlock value]
-!
-
-isIdentifier: aString
-	^ aString match: '^[a-z_]\w+$' asRegexp
-!
-
-isDefined: aString
-	^ (self instanceVariableNamesFor: session class) includes: aString
-!
-
-keyPress: key
-	(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |
-		esc := String fromCharCode: 27.
-		cls := esc, '[2J', esc, '[0;0f'.
-		process stdout write: cls.
-		interface prompt]
-!
+!Repl methodsFor: 'private'!
 
 addVariableNamed: aString to: anObject
 	| newClass newObject |
 	newClass := self subclass: anObject class withVariable: aString.
 	self encapsulateVariable: aString withValue: anObject in: newClass.
 	newObject := newClass new.
-	self setPreviousVarsFor: newObject from: anObject.
+	self setPreviousVariablesFor: newObject from: anObject.
 	^ newObject
 !
 
-subclassNameFor: aClass
-	^ (aClass name matchesOf: '\d+$')
-		ifNotNil: [ | counter |
-			counter := (aClass name matchesOf: '\d+$') first asNumber + 1.
-			aClass name replaceRegexp: '\d+$' asRegexp with: counter asString]
-		ifNil: [
-			aClass name, '2'].
-!
-
-subclass: aClass withVariable: varName
-	"Create subclass with new variable."
-	^ ClassBuilder new
-		addSubclassOf: aClass
-		named: (self subclassNameFor: aClass) asSymbol
-		instanceVariableNames: {varName}
-		package: 'Compiler-Core'
+assignNewVariable: buffer do: aBlock
+	"Assigns a new variable and calls the given block with the variable's name and value
+	 if buffer contains an assignment expression. If it doesn't the block is called with nil for
+	 both arguments."
+	^ self parseAssignment: buffer do: [ :name :expr || varName value |
+		varName := name ifNil: [self nextResultName].
+		session := self addVariableNamed: varName to: session.
+		value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.
+		aBlock value: varName value: value]
 !
 
 encapsulateVariable: aString withValue: anObject in: aClass
@@ -1045,6 +982,13 @@ encapsulateVariable: aString withValue: anObject in: aClass
 	compiler := Compiler new.
 	compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.
 	compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.
+!
+
+executeCommand: aString
+	"Tries to process the given string as a command. Returns true if it was a command, false if not."
+	^ aString = ':q'
+		ifTrue: [process exit]
+		ifFalse: [false]
 !
 
 instanceVariableNamesFor: aClass
@@ -1056,9 +1000,12 @@ instanceVariableNamesFor: aClass
 			aClass instanceVariableNames]
 !
 
-setPreviousVarsFor: newObject from: oldObject
-	(self instanceVariableNamesFor: oldObject class) do: [:each |
-		newObject perform: each, ':' withArguments: {oldObject perform: each}].
+isIdentifier: aString
+	^ aString match: '^[a-z_]\w+$' asRegexp
+!
+
+isVariableDefined: aString
+	^ (self instanceVariableNamesFor: session class) includes: aString
 !
 
 nextResultName
@@ -1066,15 +1013,67 @@ nextResultName
     	ifNotNil: [resultCount + 1]
     	ifNil: [1].
     ^ 'res', resultCount asString
-! !
+!
 
-!Repl methodsFor: 'initialization'!
+onKeyPress: key
+	(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |
+		esc := String fromCharCode: 27.
+		cls := esc, '[2J', esc, '[0;0f'.
+		process stdout write: cls.
+		interface prompt]
+!
 
-initialize
-	super initialize.
-	session := DoIt new.
-	readline := require value: 'readline'.
-	util := require value: 'util'
+parseAssignment: aString do: aBlock
+	"Assigns a new variable if the given string is an assignment expression. Calls the given block with name and value.
+	 If the string is not one no variable will be assigned and the block will be called with nil for both arguments."
+	| assignment |
+	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
+	^ (assignment size = 2 and: [self isIdentifier: assignment first])
+		ifTrue: [aBlock value: assignment first value: assignment last]
+		ifFalse: [aBlock value: nil value: nil]
+!
+
+presentResultNamed: varName withValue: value
+	Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
+	interface prompt
+!
+
+printWelcome
+	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Type :q to exit.'; cr.
+!
+
+processLine: buffer
+	"Processes lines entered through the readline interface."
+	| show |
+	show := [:varName :value | self presentResultNamed: varName withValue: value].
+	(self executeCommand: buffer) ifFalse: [
+		(self isVariableDefined: buffer)
+			ifTrue: [show value: buffer value: (session perform: buffer)]
+			ifFalse: [self assignNewVariable: buffer do: show]]
+!
+
+setPreviousVariablesFor: newObject from: oldObject
+	(self instanceVariableNamesFor: oldObject class) do: [:each |
+		newObject perform: each, ':' withArguments: {oldObject perform: each}].
+!
+
+subclass: aClass withVariable: varName
+	"Create subclass with new variable."
+	^ ClassBuilder new
+		addSubclassOf: aClass
+		named: (self subclassNameFor: aClass) asSymbol
+		instanceVariableNames: {varName}
+		package: 'Compiler-Core'
+!
+
+subclassNameFor: aClass
+	^ (aClass name matchesOf: '\d+$')
+		ifNotNil: [ | counter |
+			counter := (aClass name matchesOf: '\d+$') first asNumber + 1.
+			aClass name replaceRegexp: '\d+$' asRegexp with: counter asString]
+		ifNil: [
+			aClass name, '2'].
 ! !
 
 !Repl class methodsFor: 'initialization'!
@@ -1082,3 +1081,4 @@ initialize
 main
 	self new createInterface
 ! !
+
