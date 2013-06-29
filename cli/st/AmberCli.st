@@ -892,7 +892,7 @@ main
 ! !
 
 Object subclass: #Repl
-	instanceVariableNames: 'readline interface util session resultCount'
+	instanceVariableNames: 'readline interface util session resultCount commands'
 	package: 'AmberCli'!
 !Repl commentStamp!
 I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.
@@ -905,6 +905,10 @@ My runtime requirement is a functional Node.js executable with working Readline 
 
 prompt
 	^'amber >> '
+!
+
+commands
+	^ commands
 ! !
 
 !Repl methodsFor: 'actions'!
@@ -947,11 +951,18 @@ initialize
 	super initialize.
 	session := DoIt new.
 	readline := require value: 'readline'.
-	util := require value: 'util'
+	util := require value: 'util'.
+	self setupCommands
 !
 
 setupHotkeys
 	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self onKeyPress: key]].
+!
+
+setupCommands
+	commands := Dictionary from: {
+		{':q'} -> [process exit].
+		{''} -> [interface prompt]}
 ! !
 
 !Repl methodsFor: 'private'!
@@ -986,9 +997,11 @@ encapsulateVariable: aString withValue: anObject in: aClass
 
 executeCommand: aString
 	"Tries to process the given string as a command. Returns true if it was a command, false if not."
-	^ aString = ':q'
-		ifTrue: [process exit]
-		ifFalse: [false]
+	self commands keysAndValuesDo: [:names :cmd |
+		(names includes: aString) ifTrue: [
+			cmd value.
+			^ true]].
+	^ false
 !
 
 instanceVariableNamesFor: aClass
@@ -1016,11 +1029,16 @@ nextResultName
 !
 
 onKeyPress: key
-	(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |
-		esc := String fromCharCode: 27.
-		cls := esc, '[2J', esc, '[0;0f'.
-		process stdout write: cls.
-		interface prompt]
+	(key ctrl and: [key name = 'l'])
+		ifTrue: [self clearScreen]
+!
+
+clearScreen
+	| esc cls |
+	esc := String fromCharCode: 27.
+	cls := esc, '[2J', esc, '[0;0f'.
+	process stdout write: cls.
+	interface prompt
 !
 
 parseAssignment: aString do: aBlock

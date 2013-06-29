@@ -1116,7 +1116,7 @@ referencedClasses: []
 smalltalk.FileServer.klass);
 
 
-smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util', 'session', 'resultCount'], 'AmberCli');
+smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util', 'session', 'resultCount', 'commands'], 'AmberCli');
 smalltalk.Repl.comment="I am a class representing a REPL (Read Evaluate Print Loop) and provide a command line interface to Amber Smalltalk.\x0aOn the prompt you can type Amber statements which will be evaluated after pressing <Enter>.\x0aThe evaluation is comparable with executing a 'DoIt' in a workspace.\x0a\x0aMy runtime requirement is a functional Node.js executable with working Readline support.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1185,6 +1185,27 @@ smalltalk.Repl);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "clearScreen",
+category: 'private',
+fn: function (){
+var self=this;
+var esc,cls;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+esc=_st($String())._fromCharCode_((27));
+cls=_st(_st(_st(esc).__comma("[2J")).__comma(esc)).__comma("[0;0f");
+_st(_st(process)._stdout())._write_(cls);
+_st(self["@interface"])._prompt();
+return self}, function($ctx1) {$ctx1.fill(self,"clearScreen",{esc:esc,cls:cls},smalltalk.Repl)})},
+args: [],
+source: "clearScreen\x0a\x09| esc cls |\x0a\x09esc := String fromCharCode: 27.\x0a\x09cls := esc, '[2J', esc, '[0;0f'.\x0a\x09process stdout write: cls.\x0a\x09interface prompt",
+messageSends: ["fromCharCode:", ",", "write:", "stdout", "prompt"],
+referencedClasses: ["String"]
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "close",
 category: 'actions',
 fn: function (){
@@ -1195,6 +1216,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"close",{},smalltalk.Repl)})},
 args: [],
 source: "close\x0a\x09process stdin destroy",
 messageSends: ["destroy", "stdin"],
+referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commands",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@commands"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commands",{},smalltalk.Repl)})},
+args: [],
+source: "commands\x0a\x09^ commands",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Repl);
@@ -1312,18 +1351,24 @@ category: 'private',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(aString).__eq(":q");
-if(smalltalk.assert($2)){
-$1=_st(process)._exit();
-} else {
-$1=false;
+var $1;
+var $early={};
+try {
+_st(self._commands())._keysAndValuesDo_((function(names,cmd){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(names)._includes_(aString);
+if(smalltalk.assert($1)){
+_st(cmd)._value();
+throw $early=[true];
 };
-return $1;
+}, function($ctx2) {$ctx2.fillBlock({names:names,cmd:cmd},$ctx1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"executeCommand:",{aString:aString},smalltalk.Repl)})},
 args: ["aString"],
-source: "executeCommand: aString\x0a\x09\x22Tries to process the given string as a command. Returns true if it was a command, false if not.\x22\x0a\x09^ aString = ':q'\x0a\x09\x09ifTrue: [process exit]\x0a\x09\x09ifFalse: [false]",
-messageSends: ["ifTrue:ifFalse:", "exit", "="],
+source: "executeCommand: aString\x0a\x09\x22Tries to process the given string as a command. Returns true if it was a command, false if not.\x22\x0a\x09self commands keysAndValuesDo: [:names :cmd |\x0a\x09\x09(names includes: aString) ifTrue: [\x0a\x09\x09\x09cmd value.\x0a\x09\x09\x09^ true]].\x0a\x09^ false",
+messageSends: ["keysAndValuesDo:", "ifTrue:", "value", "includes:", "commands"],
 referencedClasses: []
 }),
 smalltalk.Repl);
@@ -1340,10 +1385,11 @@ smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
 self["@session"]=_st($DoIt())._new();
 self["@readline"]=_st(require)._value_("readline");
 self["@util"]=_st(require)._value_("util");
+self._setupCommands();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'",
-messageSends: ["initialize", "new", "value:"],
+source: "initialize\x0a\x09super initialize.\x0a\x09session := DoIt new.\x0a\x09readline := require value: 'readline'.\x0a\x09util := require value: 'util'.\x0a\x09self setupCommands",
+messageSends: ["initialize", "new", "value:", "setupCommands"],
 referencedClasses: ["DoIt"]
 }),
 smalltalk.Repl);
@@ -1437,7 +1483,6 @@ selector: "onKeyPress:",
 category: 'private',
 fn: function (key){
 var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(_st(key)._ctrl())._and_((function(){
@@ -1445,19 +1490,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(key)._name()).__eq("l");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(smalltalk.assert($1)){
-var esc,cls;
-esc=_st($String())._fromCharCode_((27));
-esc;
-cls=_st(_st(_st(esc).__comma("[2J")).__comma(esc)).__comma("[0;0f");
-cls;
-_st(_st(process)._stdout())._write_(cls);
-_st(self["@interface"])._prompt();
+self._clearScreen();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{key:key},smalltalk.Repl)})},
 args: ["key"],
-source: "onKeyPress: key\x0a\x09(key ctrl and: [key name = 'l']) ifTrue: [ | esc cls |\x0a\x09\x09esc := String fromCharCode: 27.\x0a\x09\x09cls := esc, '[2J', esc, '[0;0f'.\x0a\x09\x09process stdout write: cls.\x0a\x09\x09interface prompt]",
-messageSends: ["ifTrue:", "fromCharCode:", ",", "write:", "stdout", "prompt", "and:", "=", "name", "ctrl"],
-referencedClasses: ["String"]
+source: "onKeyPress: key\x0a\x09(key ctrl and: [key name = 'l'])\x0a\x09\x09ifTrue: [self clearScreen]",
+messageSends: ["ifTrue:", "clearScreen", "and:", "=", "name", "ctrl"],
+referencedClasses: []
 }),
 smalltalk.Repl);
 
@@ -1613,6 +1652,29 @@ args: [],
 source: "setPrompt\x0a\x09interface setPrompt: self prompt",
 messageSends: ["setPrompt:", "prompt"],
 referencedClasses: []
+}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupCommands",
+category: 'initialization',
+fn: function (){
+var self=this;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+self["@commands"]=_st($Dictionary())._from_([_st([":q"]).__minus_gt((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(process)._exit();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})),_st([""]).__minus_gt((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@interface"])._prompt();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]);
+return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},smalltalk.Repl)})},
+args: [],
+source: "setupCommands\x0a\x09commands := Dictionary from: {\x0a\x09\x09{':q'} -> [process exit].\x0a\x09\x09{''} -> [interface prompt]}",
+messageSends: ["from:", "->", "exit", "prompt"],
+referencedClasses: ["Dictionary"]
 }),
 smalltalk.Repl);
 
