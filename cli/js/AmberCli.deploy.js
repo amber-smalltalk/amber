@@ -884,7 +884,62 @@ messageSends: [",", "replace:with:", "asUppercase", "second"]}),
 smalltalk.FileServer.klass);
 
 
-smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util'], 'AmberCli');
+smalltalk.addClass('Repl', smalltalk.Object, ['readline', 'interface', 'util', 'session', 'resultCount'], 'AmberCli');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addVariableNamed:to:",
+fn: function (aString,anObject){
+var self=this;
+var newClass,newObject;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+newClass=self._subclass_withVariable_(_st(anObject)._class(),aString);
+self._encapsulateVariable_withValue_in_(aString,anObject,newClass);
+newObject=_st(newClass)._new();
+self._setPreviousVariablesFor_from_(newObject,anObject);
+$1=newObject;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"addVariableNamed:to:",{aString:aString,anObject:anObject,newClass:newClass,newObject:newObject},smalltalk.Repl)})},
+messageSends: ["subclass:withVariable:", "class", "encapsulateVariable:withValue:in:", "new", "setPreviousVariablesFor:from:"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "assignNewVariable:do:",
+fn: function (buffer,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$5,$7,$6,$4,$1;
+$1=self._parseAssignment_do_(buffer,(function(name,expr){
+var varName,value;
+return smalltalk.withContext(function($ctx2) {
+$2=name;
+if(($receiver = $2) == nil || $receiver == undefined){
+varName=self._nextResultName();
+} else {
+varName=$2;
+};
+varName;
+self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
+self["@session"];
+$3=self;
+$5=_st(varName).__comma(" := ");
+$7=expr;
+if(($receiver = $7) == nil || $receiver == undefined){
+$6=buffer;
+} else {
+$6=$7;
+};
+$4=_st($5).__comma($6);
+value=_st($3)._eval_on_($4,self["@session"]);
+value;
+return _st(aBlock)._value_value_(varName,value);
+}, function($ctx2) {$ctx2.fillBlock({name:name,expr:expr,varName:varName,value:value},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},smalltalk.Repl)})},
+messageSends: ["parseAssignment:do:", "ifNil:", "nextResultName", "addVariableNamed:to:", "eval:on:", ",", "value:value:"]}),
+smalltalk.Repl);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "close",
@@ -902,19 +957,38 @@ selector: "createInterface",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
 _st(self["@interface"])._on_do_("line",(function(buffer){
 return smalltalk.withContext(function($ctx2) {
-return self._eval_(buffer);
+return self._processLine_(buffer);
 }, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1)})}));
 _st(self["@interface"])._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-self._setPrompt();
+$1=self;
+_st($1)._printWelcome();
+_st($1)._setupHotkeys();
+$2=_st($1)._setPrompt();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
-messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "eval:", "close", "setPrompt", "prompt"]}),
+messageSends: ["createInterface:stdout:", "stdin", "stdout", "on:do:", "processLine:", "close", "printWelcome", "setupHotkeys", "setPrompt", "prompt"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "encapsulateVariable:withValue:in:",
+fn: function (aString,anObject,aClass){
+var self=this;
+var compiler;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+compiler=_st($Compiler())._new();
+_st(compiler)._install_forClass_category_(_st(_st(_st(aString).__comma(": anObject ^ ")).__comma(aString)).__comma(" := anObject"),aClass,"session");
+_st(compiler)._install_forClass_category_(_st(_st(aString).__comma(" ^ ")).__comma(aString),aClass,"session");
+return self}, function($ctx1) {$ctx1.fill(self,"encapsulateVariable:withValue:in:",{aString:aString,anObject:anObject,aClass:aClass,compiler:compiler},smalltalk.Repl)})},
+messageSends: ["new", "install:forClass:category:", ","]}),
 smalltalk.Repl);
 
 smalltalk.addMethod(
@@ -922,19 +996,31 @@ smalltalk.method({
 selector: "eval:",
 fn: function (buffer){
 var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._eval_on_(buffer,_st($DoIt())._new());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer},smalltalk.Repl)})},
+messageSends: ["eval:on:", "new"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "eval:on:",
+fn: function (buffer,anObject){
+var self=this;
 var result;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(buffer)._isEmpty();
 if(! smalltalk.assert($1)){
 self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
-result=_st(_st($Compiler())._new())._evaluateExpression_(buffer);
-result;
-return _st($Transcript())._show_(result);
+result=_st(_st($Compiler())._new())._evaluateExpression_on_(buffer,anObject);
+return result;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(e){
 return smalltalk.withContext(function($ctx2) {
 $2=_st(e)._isSmalltalkError();
@@ -945,9 +1031,28 @@ return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 };
-_st(self["@interface"])._prompt();
-return self}, function($ctx1) {$ctx1.fill(self,"eval:",{buffer:buffer,result:result},smalltalk.Repl)})},
-messageSends: ["ifFalse:", "try:catch:", "evaluateExpression:", "new", "show:", "ifTrue:ifFalse:", "handleError:", "write:", "jsStack", "stdout", "isSmalltalkError", "isEmpty", "prompt"]}),
+$3=result;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},smalltalk.Repl)})},
+messageSends: ["ifFalse:", "try:catch:", "evaluateExpression:on:", "new", "ifTrue:ifFalse:", "handleError:", "write:", "jsStack", "stdout", "isSmalltalkError", "isEmpty"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "executeCommand:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(aString).__eq(":q");
+if(smalltalk.assert($2)){
+$1=_st(process)._exit();
+} else {
+$1=false;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"executeCommand:",{aString:aString},smalltalk.Repl)})},
+messageSends: ["ifTrue:ifFalse:", "exit", "="]}),
 smalltalk.Repl);
 
 smalltalk.addMethod(
@@ -955,12 +1060,186 @@ smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+self["@session"]=_st($DoIt())._new();
 self["@readline"]=_st(require)._value_("readline");
 self["@util"]=_st(require)._value_("util");
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
-messageSends: ["initialize", "value:"]}),
+messageSends: ["initialize", "new", "value:"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "instanceVariableNamesFor:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(aClass)._superclass();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(aClass)._instanceVariableNames();
+} else {
+$1=_st(_st(aClass)._instanceVariableNames())._copyWithAll_(self._instanceVariableNamesFor_(_st(aClass)._superclass()));
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},smalltalk.Repl)})},
+messageSends: ["ifNotNil:ifNil:", "copyWithAll:", "instanceVariableNamesFor:", "superclass", "instanceVariableNames"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isIdentifier:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(aString)._match_("^[a-z_]\x5cw+$"._asRegexp());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isIdentifier:",{aString:aString},smalltalk.Repl)})},
+messageSends: ["match:", "asRegexp"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isVariableDefined:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._instanceVariableNamesFor_(_st(self["@session"])._class()))._includes_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isVariableDefined:",{aString:aString},smalltalk.Repl)})},
+messageSends: ["includes:", "instanceVariableNamesFor:", "class"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextResultName",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@resultCount"];
+if(($receiver = $1) == nil || $receiver == undefined){
+self["@resultCount"]=(1);
+} else {
+self["@resultCount"]=_st(self["@resultCount"]).__plus((1));
+};
+$2="res".__comma(_st(self["@resultCount"])._asString());
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"nextResultName",{},smalltalk.Repl)})},
+messageSends: ["ifNotNil:ifNil:", "+", ",", "asString"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyPress:",
+fn: function (key){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(key)._ctrl())._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(key)._name()).__eq("l");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($1)){
+var esc,cls;
+esc=_st($String())._fromCharCode_((27));
+esc;
+cls=_st(_st(_st(esc).__comma("[2J")).__comma(esc)).__comma("[0;0f");
+cls;
+_st(_st(process)._stdout())._write_(cls);
+_st(self["@interface"])._prompt();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{key:key},smalltalk.Repl)})},
+messageSends: ["ifTrue:", "fromCharCode:", ",", "write:", "stdout", "prompt", "and:", "=", "name", "ctrl"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "parseAssignment:do:",
+fn: function (aString,aBlock){
+var self=this;
+var assignment;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+assignment=_st(_st(aString)._tokenize_(":="))._collect_((function(s){
+return smalltalk.withContext(function($ctx2) {
+return _st(s)._trimBoth();
+}, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1)})}));
+$2=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._isIdentifier_(_st(assignment)._first());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value_value_(_st(assignment)._first(),_st(assignment)._last());
+} else {
+$1=_st(aBlock)._value_value_(nil,nil);
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"parseAssignment:do:",{aString:aString,aBlock:aBlock,assignment:assignment},smalltalk.Repl)})},
+messageSends: ["collect:", "trimBoth", "tokenize:", "ifTrue:ifFalse:", "value:value:", "first", "last", "and:", "isIdentifier:", "=", "size"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "presentResultNamed:withValue:",
+fn: function (varName,value){
+var self=this;
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=$Transcript();
+_st($1)._show_(_st(_st(_st(_st(varName).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
+$2=_st($1)._cr();
+_st(self["@interface"])._prompt();
+return self}, function($ctx1) {$ctx1.fill(self,"presentResultNamed:withValue:",{varName:varName,value:value},smalltalk.Repl)})},
+messageSends: ["show:", ",", "asString", "name", "class", "cr", "prompt"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printWelcome",
+fn: function (){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st($Transcript())._show_(_st(_st(_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ")).__comma(_st(_st(process)._versions())._node())).__comma(")."));
+$1=$Transcript();
+_st($1)._show_("Type :q to exit.");
+$2=_st($1)._cr();
+return self}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},smalltalk.Repl)})},
+messageSends: ["show:", ",", "node", "versions", "version", "current", "cr"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "processLine:",
+fn: function (buffer){
+var self=this;
+var show;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+show=(function(varName,value){
+return smalltalk.withContext(function($ctx2) {
+return self._presentResultNamed_withValue_(varName,value);
+}, function($ctx2) {$ctx2.fillBlock({varName:varName,value:value},$ctx1)})});
+$1=self._executeCommand_(buffer);
+if(! smalltalk.assert($1)){
+$2=self._isVariableDefined_(buffer);
+if(smalltalk.assert($2)){
+_st(show)._value_value_(buffer,_st(self["@session"])._perform_(buffer));
+} else {
+self._assignNewVariable_do_(buffer,show);
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"processLine:",{buffer:buffer,show:show},smalltalk.Repl)})},
+messageSends: ["presentResultNamed:withValue:", "ifFalse:", "ifTrue:ifFalse:", "value:value:", "perform:", "assignNewVariable:do:", "isVariableDefined:", "executeCommand:"]}),
 smalltalk.Repl);
 
 smalltalk.addMethod(
@@ -976,6 +1255,20 @@ smalltalk.Repl);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "setPreviousVariablesFor:from:",
+fn: function (newObject,oldObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._instanceVariableNamesFor_(_st(oldObject)._class()))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(newObject)._perform_withArguments_(_st(each).__comma(":"),[_st(oldObject)._perform_(each)]);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"setPreviousVariablesFor:from:",{newObject:newObject,oldObject:oldObject},smalltalk.Repl)})},
+messageSends: ["do:", "perform:withArguments:", ",", "perform:", "instanceVariableNamesFor:", "class"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "setPrompt",
 fn: function (){
 var self=this;
@@ -983,6 +1276,61 @@ return smalltalk.withContext(function($ctx1) {
 _st(self["@interface"])._setPrompt_(self._prompt());
 return self}, function($ctx1) {$ctx1.fill(self,"setPrompt",{},smalltalk.Repl)})},
 messageSends: ["setPrompt:", "prompt"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupHotkeys",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+_st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
+return smalltalk.withContext(function($ctx2) {
+$1=key;
+if(($receiver = $1) == nil || $receiver == undefined){
+return $1;
+} else {
+return self._onKeyPress_(key);
+};
+}, function($ctx2) {$ctx2.fillBlock({s:s,key:key},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"setupHotkeys",{},smalltalk.Repl)})},
+messageSends: ["on:do:", "ifNotNil:", "onKeyPress:", "stdin"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "subclass:withVariable:",
+fn: function (aClass,varName){
+var self=this;
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($ClassBuilder())._new())._addSubclassOf_named_instanceVariableNames_package_(aClass,_st(self._subclassNameFor_(aClass))._asSymbol(),[varName],"Compiler-Core");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"subclass:withVariable:",{aClass:aClass,varName:varName},smalltalk.Repl)})},
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "asSymbol", "subclassNameFor:", "new"]}),
+smalltalk.Repl);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "subclassNameFor:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(_st(aClass)._name())._matchesOf_("\x5cd+$");
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=_st(_st(aClass)._name()).__comma("2");
+} else {
+var counter;
+counter=_st(_st(_st(_st(_st(aClass)._name())._matchesOf_("\x5cd+$"))._first())._asNumber()).__plus((1));
+counter;
+$1=_st(_st(aClass)._name())._replaceRegexp_with_("\x5cd+$"._asRegexp(),_st(counter)._asString());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"subclassNameFor:",{aClass:aClass},smalltalk.Repl)})},
+messageSends: ["ifNotNil:ifNil:", "+", "asNumber", "first", "matchesOf:", "name", "replaceRegexp:with:", "asRegexp", "asString", ","]}),
 smalltalk.Repl);
 
 
