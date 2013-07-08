@@ -531,13 +531,11 @@ function Smalltalk() {
 	}
 
 	st.removeMethod = function(method) {
-		var protocol = method.category;
 		var klass = method.methodClass;
 
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
 
-		var selectors = Object.keys(klass.methods);
 		// Do *not* delete protocols from here.
 		// This is handled by #removeCompiledMethod
 	};
@@ -816,13 +814,6 @@ SmalltalkMethodContext.prototype.method = function() {
 		lookup = lookup.superclass;
 	}
 	return method;
-};
-
-// TODO: this is just wrong :)
-SmalltalkMethodContext.prototype.resume = function() {
-	//Brutally set the receiver as thisContext, then re-enter the function
-	smalltalk.thisContext = this;
-	return this.method.apply(receiver, temps);
 };
 
 /* Global Smalltalk objects. */
