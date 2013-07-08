@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
 BlockClosure subclass: #AIBlockClosure
-	instanceVariableNames: 'interpreter node context'
+	instanceVariableNames: 'node outerContext'
 	package: 'Compiler-Interpreter'!
 !AIBlockClosure commentStamp!
 I am a special `BlockClosure` subclass used by an interpreter to interpret a block node.
@@ -56,35 +56,41 @@ value: firstArgument value: secondArgument value: thirdArgument
 !
 
 valueWithPossibleArguments: aCollection
+	| context |
+	
+	context := outerContext newBlockContext.
+
 	"Populate the arguments into the context locals"	
 	node parameters withIndexDo: [ :each :index |
 		context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].
 
 	"Interpret the first node of the BlockSequenceNode"
-	interpreter
-		context: context;
+	context interpreter
 		node: node nodes first nextChild;
-		step
+		proceed.
+		
+	outerContext interpreter 
+		push: context interpreter value;
+		returnValue: context returnValue
 ! !
 
 !AIBlockClosure methodsFor: 'initialization'!
 
-initializeWithInterpreter: anInterpreter context: aContext node: aNode
-	interpreter := anInterpreter.
+initializeWithContext: aContext node: aNode
 	node := aNode.
-	context := aContext
+	outerContext := aContext
 ! !
 
 !AIBlockClosure class methodsFor: 'instance creation'!
 
-forInterpreter: anInterpreter context: aContext node: aNode
+forContext: aContext node: aNode
 	^ self new
-		initializeWithInterpreter: anInterpreter context: aContext node: aNode;
+		initializeWithContext: aContext node: aNode;
 		yourself
 ! !
 
 Object subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals method index ast interpreter methodContext'
+	instanceVariableNames: 'outerContext innerContext pc locals method index ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -111,7 +117,12 @@ innerContext: anAIContext
 !
 
 localAt: aString
-	^ self locals at: aString ifAbsent: [ nil ]
+	"Lookup the local value up to the method context"
+
+	^ self locals at: aString ifAbsent: [ 
+		self isBlockContext 
+			ifTrue: [ nil ]
+			ifFalse: [ self outerContext localAt: aString ] ]
 !
 
 localAt: aString put: anObject
@@ -132,6 +143,13 @@ method: aCompiledMethod
 	method := aCompiledMethod
 !
 
+methodContext
+	self isBlockContext ifFalse: [ ^ self ].
+	
+	^ self outerContext ifNotNil: [ :outer |
+		outer methodContext ]
+!
+
 outerContext
 	^ outerContext
 !
@@ -149,7 +167,17 @@ selector
 !AIContext methodsFor: 'converting'!
 
 asString
-	^ methodContext asString
+	^self isBlockContext
+		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
+		ifFalse: [ self receiver class name, ' >> ', self selector ]
+! !
+
+!AIContext methodsFor: 'factory'!
+
+newBlockContext
+	^ self class new
+		outerContext: self;
+		yourself
 ! !
 
 !AIContext methodsFor: 'initialization'!
@@ -161,7 +189,6 @@ initializeAST
 !
 
 initializeFromMethodContext: aMethodContext
-	methodContext := aMethodContext.
 
 	self 
 		pc: aMethodContext pc;
@@ -246,7 +273,9 @@ setupInterpreter: anInterpreter
 !AIContext methodsFor: 'testing'!
 
 isBlockContext
-	^ methodContext isBlockContext
+	"Block context do not have selectors."
+	
+	^ self selector isNil
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
@@ -793,7 +822,7 @@ visitSendNode: aNode
 ! !
 
 NodeVisitor subclass: #Interpreter
-	instanceVariableNames: 'node context stack returnValue'
+	instanceVariableNames: 'node context stack value returnValue'
 	package: 'Compiler-Interpreter'!
 
 !Interpreter methodsFor: 'accessing'!
@@ -992,7 +1021,7 @@ visitBlockNode: aNode
 	
 	| blockContext block |
 	
-	block := AIBlockClosure forInterpreter: self context: self context node: aNode.
+	block := AIBlockClosure forContext: self context node: aNode.
 	self push: block
 !
 

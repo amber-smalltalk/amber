@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['interpreter', 'node', 'context'], 'Compiler-Interpreter');
+smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "applyTo:arguments:",
@@ -35,14 +35,13 @@ smalltalk.AIBlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializeWithInterpreter:context:node:",
-fn: function (anInterpreter,aContext,aNode){
+selector: "initializeWithContext:node:",
+fn: function (aContext,aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@interpreter"]=anInterpreter;
 self["@node"]=aNode;
-self["@context"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithInterpreter:context:node:",{anInterpreter:anInterpreter,aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure)})},
+self["@outerContext"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:node:",{aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure)})},
 messageSends: []}),
 smalltalk.AIBlockClosure);
 
@@ -128,42 +127,46 @@ smalltalk.method({
 selector: "valueWithPossibleArguments:",
 fn: function (aCollection){
 var self=this;
+var context;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4;
+context=_st(self["@outerContext"])._newBlockContext();
 _st(_st(self["@node"])._parameters())._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
-return _st(self["@context"])._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
+return _st(context)._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
 return smalltalk.withContext(function($ctx3) {
 return nil;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
-$1=self["@interpreter"];
-_st($1)._context_(self["@context"]);
+$1=_st(context)._interpreter();
 _st($1)._node_(_st(_st(_st(self["@node"])._nodes())._first())._nextChild());
-$2=_st($1)._step();
-return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},smalltalk.AIBlockClosure)})},
-messageSends: ["withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "context:", "node:", "nextChild", "first", "nodes", "step"]}),
+$2=_st($1)._proceed();
+$3=_st(self["@outerContext"])._interpreter();
+_st($3)._push_(_st(_st(context)._interpreter())._value());
+$4=_st($3)._returnValue_(_st(context)._returnValue());
+return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context},smalltalk.AIBlockClosure)})},
+messageSends: ["newBlockContext", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "first", "nodes", "proceed", "push:", "value", "returnValue:", "returnValue"]}),
 smalltalk.AIBlockClosure);
 
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "forInterpreter:context:node:",
-fn: function (anInterpreter,aContext,aNode){
+selector: "forContext:node:",
+fn: function (aContext,aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._initializeWithInterpreter_context_node_(anInterpreter,aContext,aNode);
+_st($2)._initializeWithContext_node_(aContext,aNode);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"forInterpreter:context:node:",{anInterpreter:anInterpreter,aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure.klass)})},
-messageSends: ["initializeWithInterpreter:context:node:", "new", "yourself"]}),
+}, function($ctx1) {$ctx1.fill(self,"forContext:node:",{aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure.klass)})},
+messageSends: ["initializeWithContext:node:", "new", "yourself"]}),
 smalltalk.AIBlockClosure.klass);
 
 
-smalltalk.addClass('AIContext', smalltalk.Object, ['outerContext', 'innerContext', 'pc', 'locals', 'method', 'index', 'ast', 'interpreter', 'methodContext'], 'Compiler-Interpreter');
+smalltalk.addClass('AIContext', smalltalk.Object, ['outerContext', 'innerContext', 'pc', 'locals', 'method', 'index', 'ast', 'interpreter'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "arguments",
@@ -186,11 +189,16 @@ selector: "asString",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@methodContext"])._asString();
+var $2,$1;
+$2=self._isBlockContext();
+if(smalltalk.assert($2)){
+$1=_st("a block (in ".__comma(_st(self._methodContext())._asString())).__comma(")");
+} else {
+$1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma(self._selector());
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.AIContext)})},
-messageSends: ["asString"]}),
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -266,7 +274,6 @@ fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-self["@methodContext"]=aMethodContext;
 $1=self;
 _st($1)._pc_(_st(aMethodContext)._pc());
 _st($1)._index_(_st(aMethodContext)._index());
@@ -380,10 +387,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@methodContext"])._isBlockContext();
+$1=_st(self._selector())._isNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.AIContext)})},
-messageSends: ["isBlockContext"]}),
+messageSends: ["isNil", "selector"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -392,14 +399,19 @@ selector: "localAt:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 $1=_st(self._locals())._at_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
+$2=self._isBlockContext();
+if(smalltalk.assert($2)){
 return nil;
+} else {
+return _st(self._outerContext())._localAt_(aString);
+};
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString},smalltalk.AIContext)})},
-messageSends: ["at:ifAbsent:", "locals"]}),
+messageSends: ["at:ifAbsent:", "locals", "ifTrue:ifFalse:", "isBlockContext", "localAt:", "outerContext"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -454,6 +466,47 @@ return smalltalk.withContext(function($ctx1) {
 self["@method"]=aCompiledMethod;
 return self}, function($ctx1) {$ctx1.fill(self,"method:",{aCompiledMethod:aCompiledMethod},smalltalk.AIContext)})},
 messageSends: []}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3;
+$1=self._isBlockContext();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$4=self._outerContext();
+if(($receiver = $4) == nil || $receiver == undefined){
+$3=$4;
+} else {
+var outer;
+outer=$receiver;
+$3=_st(outer)._methodContext();
+};
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.AIContext)})},
+messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "outerContext", "methodContext"]}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newBlockContext",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self._class())._new();
+_st($2)._outerContext_(self);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newBlockContext",{},smalltalk.AIContext)})},
+messageSends: ["outerContext:", "new", "class", "yourself"]}),
 smalltalk.AIContext);
 
 smalltalk.addMethod(
@@ -1669,7 +1722,7 @@ smalltalk.ASTPCNodeVisitor);
 
 
 
-smalltalk.addClass('Interpreter', smalltalk.NodeVisitor, ['node', 'context', 'stack', 'returnValue'], 'Compiler-Interpreter');
+smalltalk.addClass('Interpreter', smalltalk.NodeVisitor, ['node', 'context', 'stack', 'value', 'returnValue'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assign:to:",
@@ -2113,10 +2166,10 @@ var self=this;
 var blockContext,block;
 function $AIBlockClosure(){return smalltalk.AIBlockClosure||(typeof AIBlockClosure=="undefined"?nil:AIBlockClosure)}
 return smalltalk.withContext(function($ctx1) { 
-block=_st($AIBlockClosure())._forInterpreter_context_node_(self,self._context(),aNode);
+block=_st($AIBlockClosure())._forContext_node_(self._context(),aNode);
 self._push_(block);
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,blockContext:blockContext,block:block},smalltalk.Interpreter)})},
-messageSends: ["forInterpreter:context:node:", "context", "push:"]}),
+messageSends: ["forContext:node:", "context", "push:"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(

@@ -1,5 +1,5 @@
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['interpreter', 'node', 'context'], 'Compiler-Interpreter');
+smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
 smalltalk.AIBlockClosure.comment="I am a special `BlockClosure` subclass used by an interpreter to interpret a block node.\x0a\x0aWhile I am polymorphic with `BlockClosure`, some methods such as `#new` will raise interpretation errors. Unlike a `BlockClosure`, my instance are not JavaScript functions.\x0a\x0aEvaluating an instance will result in interpreting the `node` instance variable (instance of `BlockNode`).";
 smalltalk.addMethod(
 smalltalk.method({
@@ -51,17 +51,16 @@ smalltalk.AIBlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initializeWithInterpreter:context:node:",
+selector: "initializeWithContext:node:",
 category: 'initialization',
-fn: function (anInterpreter,aContext,aNode){
+fn: function (aContext,aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@interpreter"]=anInterpreter;
 self["@node"]=aNode;
-self["@context"]=aContext;
-return self}, function($ctx1) {$ctx1.fill(self,"initializeWithInterpreter:context:node:",{anInterpreter:anInterpreter,aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure)})},
-args: ["anInterpreter", "aContext", "aNode"],
-source: "initializeWithInterpreter: anInterpreter context: aContext node: aNode\x0a\x09interpreter := anInterpreter.\x0a\x09node := aNode.\x0a\x09context := aContext",
+self["@outerContext"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"initializeWithContext:node:",{aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure)})},
+args: ["aContext", "aNode"],
+source: "initializeWithContext: aContext node: aNode\x0a\x09node := aNode.\x0a\x09outerContext := aContext",
 messageSends: [],
 referencedClasses: []
 }),
@@ -180,23 +179,27 @@ selector: "valueWithPossibleArguments:",
 category: 'evaluating',
 fn: function (aCollection){
 var self=this;
+var context;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4;
+context=_st(self["@outerContext"])._newBlockContext();
 _st(_st(self["@node"])._parameters())._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
-return _st(self["@context"])._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
+return _st(context)._localAt_put_(each,_st(aCollection)._at_ifAbsent_(index,(function(){
 return smalltalk.withContext(function($ctx3) {
 return nil;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
-$1=self["@interpreter"];
-_st($1)._context_(self["@context"]);
+$1=_st(context)._interpreter();
 _st($1)._node_(_st(_st(_st(self["@node"])._nodes())._first())._nextChild());
-$2=_st($1)._step();
-return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection},smalltalk.AIBlockClosure)})},
+$2=_st($1)._proceed();
+$3=_st(self["@outerContext"])._interpreter();
+_st($3)._push_(_st(_st(context)._interpreter())._value());
+$4=_st($3)._returnValue_(_st(context)._returnValue());
+return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context},smalltalk.AIBlockClosure)})},
 args: ["aCollection"],
-source: "valueWithPossibleArguments: aCollection\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09interpreter\x0a\x09\x09context: context;\x0a\x09\x09node: node nodes first nextChild;\x0a\x09\x09step",
-messageSends: ["withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "context:", "node:", "nextChild", "first", "nodes", "step"],
+source: "valueWithPossibleArguments: aCollection\x0a\x09| context |\x0a\x09\x0a\x09context := outerContext newBlockContext.\x0a\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: node nodes first nextChild;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter \x0a\x09\x09push: context interpreter value;\x0a\x09\x09returnValue: context returnValue",
+messageSends: ["newBlockContext", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "first", "nodes", "proceed", "push:", "value", "returnValue:", "returnValue"],
 referencedClasses: []
 }),
 smalltalk.AIBlockClosure);
@@ -204,27 +207,27 @@ smalltalk.AIBlockClosure);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "forInterpreter:context:node:",
+selector: "forContext:node:",
 category: 'instance creation',
-fn: function (anInterpreter,aContext,aNode){
+fn: function (aContext,aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._initializeWithInterpreter_context_node_(anInterpreter,aContext,aNode);
+_st($2)._initializeWithContext_node_(aContext,aNode);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"forInterpreter:context:node:",{anInterpreter:anInterpreter,aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure.klass)})},
-args: ["anInterpreter", "aContext", "aNode"],
-source: "forInterpreter: anInterpreter context: aContext node: aNode\x0a\x09^ self new\x0a\x09\x09initializeWithInterpreter: anInterpreter context: aContext node: aNode;\x0a\x09\x09yourself",
-messageSends: ["initializeWithInterpreter:context:node:", "new", "yourself"],
+}, function($ctx1) {$ctx1.fill(self,"forContext:node:",{aContext:aContext,aNode:aNode},smalltalk.AIBlockClosure.klass)})},
+args: ["aContext", "aNode"],
+source: "forContext: aContext node: aNode\x0a\x09^ self new\x0a\x09\x09initializeWithContext: aContext node: aNode;\x0a\x09\x09yourself",
+messageSends: ["initializeWithContext:node:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.AIBlockClosure.klass);
 
 
-smalltalk.addClass('AIContext', smalltalk.Object, ['outerContext', 'innerContext', 'pc', 'locals', 'method', 'index', 'ast', 'interpreter', 'methodContext'], 'Compiler-Interpreter');
+smalltalk.addClass('AIContext', smalltalk.Object, ['outerContext', 'innerContext', 'pc', 'locals', 'method', 'index', 'ast', 'interpreter'], 'Compiler-Interpreter');
 smalltalk.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)";
 smalltalk.addMethod(
 smalltalk.method({
@@ -254,13 +257,18 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self["@methodContext"])._asString();
+var $2,$1;
+$2=self._isBlockContext();
+if(smalltalk.assert($2)){
+$1=_st("a block (in ".__comma(_st(self._methodContext())._asString())).__comma(")");
+} else {
+$1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma(self._selector());
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.AIContext)})},
 args: [],
-source: "asString\x0a\x09^ methodContext asString",
-messageSends: ["asString"],
+source: "asString\x0a\x09^self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
+messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -359,7 +367,6 @@ fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
-self["@methodContext"]=aMethodContext;
 $1=self;
 _st($1)._pc_(_st(aMethodContext)._pc());
 _st($1)._index_(_st(aMethodContext)._index());
@@ -384,7 +391,7 @@ return _st(self._locals())._at_put_(key,value);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext)})},
 args: ["aMethodContext"],
-source: "initializeFromMethodContext: aMethodContext\x0a\x09methodContext := aMethodContext.\x0a\x0a\x09self \x0a\x09\x09pc: aMethodContext pc;\x0a\x09\x09index: aMethodContext index;\x0a\x09\x09receiver: aMethodContext receiver;\x0a\x09\x09method: aMethodContext method.\x0a\x09\x09\x0a\x09aMethodContext outerContext ifNotNil: [ :outer |\x0a\x09\x09\x22If the method context is nil, the block was defined in JS, so ignore it\x22\x0a\x09\x09outer methodContext ifNotNil: [\x0a\x09\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09\x09\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09self locals at: key put: value ] ]",
+source: "initializeFromMethodContext: aMethodContext\x0a\x0a\x09self \x0a\x09\x09pc: aMethodContext pc;\x0a\x09\x09index: aMethodContext index;\x0a\x09\x09receiver: aMethodContext receiver;\x0a\x09\x09method: aMethodContext method.\x0a\x09\x09\x0a\x09aMethodContext outerContext ifNotNil: [ :outer |\x0a\x09\x09\x22If the method context is nil, the block was defined in JS, so ignore it\x22\x0a\x09\x09outer methodContext ifNotNil: [\x0a\x09\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09\x09\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09self locals at: key put: value ] ]",
 messageSends: ["pc:", "pc", "index:", "index", "receiver:", "receiver", "method:", "method", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"],
 referencedClasses: []
 }),
@@ -503,12 +510,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@methodContext"])._isBlockContext();
+$1=_st(self._selector())._isNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.AIContext)})},
 args: [],
-source: "isBlockContext\x0a\x09^ methodContext isBlockContext",
-messageSends: ["isBlockContext"],
+source: "isBlockContext\x0a\x09\x22Block context do not have selectors.\x22\x0a\x09\x0a\x09^ self selector isNil",
+messageSends: ["isNil", "selector"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -520,16 +527,21 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 $1=_st(self._locals())._at_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
+$2=self._isBlockContext();
+if(smalltalk.assert($2)){
 return nil;
+} else {
+return _st(self._outerContext())._localAt_(aString);
+};
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"localAt:",{aString:aString},smalltalk.AIContext)})},
 args: ["aString"],
-source: "localAt: aString\x0a\x09^ self locals at: aString ifAbsent: [ nil ]",
-messageSends: ["at:ifAbsent:", "locals"],
+source: "localAt: aString\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self isBlockContext \x0a\x09\x09\x09ifTrue: [ nil ]\x0a\x09\x09\x09ifFalse: [ self outerContext localAt: aString ] ]",
+messageSends: ["at:ifAbsent:", "locals", "ifTrue:ifFalse:", "isBlockContext", "localAt:", "outerContext"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -604,6 +616,57 @@ return self}, function($ctx1) {$ctx1.fill(self,"method:",{aCompiledMethod:aCompi
 args: ["aCompiledMethod"],
 source: "method: aCompiledMethod\x0a\x09method := aCompiledMethod",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodContext",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3;
+$1=self._isBlockContext();
+if(! smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+$4=self._outerContext();
+if(($receiver = $4) == nil || $receiver == undefined){
+$3=$4;
+} else {
+var outer;
+outer=$receiver;
+$3=_st(outer)._methodContext();
+};
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.AIContext)})},
+args: [],
+source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a\x09\x0a\x09^ self outerContext ifNotNil: [ :outer |\x0a\x09\x09outer methodContext ]",
+messageSends: ["ifFalse:", "isBlockContext", "ifNotNil:", "outerContext", "methodContext"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "newBlockContext",
+category: 'factory',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(self._class())._new();
+_st($2)._outerContext_(self);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"newBlockContext",{},smalltalk.AIContext)})},
+args: [],
+source: "newBlockContext\x0a\x09^ self class new\x0a\x09\x09outerContext: self;\x0a\x09\x09yourself",
+messageSends: ["outerContext:", "new", "class", "yourself"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -2211,7 +2274,7 @@ smalltalk.ASTPCNodeVisitor);
 
 
 
-smalltalk.addClass('Interpreter', smalltalk.NodeVisitor, ['node', 'context', 'stack', 'returnValue'], 'Compiler-Interpreter');
+smalltalk.addClass('Interpreter', smalltalk.NodeVisitor, ['node', 'context', 'stack', 'value', 'returnValue'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "assign:to:",
@@ -2796,12 +2859,12 @@ var self=this;
 var blockContext,block;
 function $AIBlockClosure(){return smalltalk.AIBlockClosure||(typeof AIBlockClosure=="undefined"?nil:AIBlockClosure)}
 return smalltalk.withContext(function($ctx1) { 
-block=_st($AIBlockClosure())._forInterpreter_context_node_(self,self._context(),aNode);
+block=_st($AIBlockClosure())._forContext_node_(self._context(),aNode);
 self._push_(block);
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,blockContext:blockContext,block:block},smalltalk.Interpreter)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09\x22Do not evaluate the block node.\x0a\x09Instead, put all instructions into a block that we push to the stack for later evaluation\x22\x0a\x09\x0a\x09| blockContext block |\x0a\x09\x0a\x09block := AIBlockClosure forInterpreter: self context: self context node: aNode.\x0a\x09self push: block",
-messageSends: ["forInterpreter:context:node:", "context", "push:"],
+source: "visitBlockNode: aNode\x0a\x09\x22Do not evaluate the block node.\x0a\x09Instead, put all instructions into a block that we push to the stack for later evaluation\x22\x0a\x09\x0a\x09| blockContext block |\x0a\x09\x0a\x09block := AIBlockClosure forContext: self context node: aNode.\x0a\x09self push: block",
+messageSends: ["forContext:node:", "context", "push:"],
 referencedClasses: ["AIBlockClosure"]
 }),
 smalltalk.Interpreter);
