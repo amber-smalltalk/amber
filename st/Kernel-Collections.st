@@ -416,6 +416,14 @@ indexOf: anObject ifAbsent: aBlock
 	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
 !
 
+keyAtValue: anObject
+	^ self keyAtValue: anObject ifAbsent: [ self errorNotFound ]
+!
+
+keyAtValue: anObject ifAbsent: aBlock
+	^ self indexOf: anObject ifAbsent: aBlock
+!
+
 keys
 	<
 		if ('function'===typeof Object.keys) return Object.keys(self);
