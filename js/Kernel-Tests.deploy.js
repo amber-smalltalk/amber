@@ -2813,9 +2813,6 @@ smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
 smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
 
 
-smalltalk.addClass('new*new*ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
-
-
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3774,11 +3771,5 @@ return self}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},smalltalk.Undefine
 messageSends: ["assert:", "isNil", "deny:", "notNil"]}),
 smalltalk.UndefinedTest);
 
-
-
-smalltalk.addClass('new*ObjectMock4', smalltalk.new*ObjectMock3, [], 'Kernel-Tests');
-
-
-smalltalk.addClass('new*new*ObjectMock3', smalltalk.new*ObjectMock2, [], 'Kernel-Tests');
 
 

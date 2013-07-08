@@ -1349,10 +1349,6 @@ ObjectMock3 subclass: #ObjectMock4
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-ObjectMock3 subclass: #new*new*ObjectMock4
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
 TestCase subclass: #ObjectTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -1847,12 +1843,4 @@ testIsNil
 	self assert: nil isNil.
 	self deny: nil notNil.
 ! !
-
-new*ObjectMock3 subclass: #new*ObjectMock4
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-new*ObjectMock2 subclass: #new*new*ObjectMock3
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
 

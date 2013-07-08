@@ -3520,9 +3520,6 @@ smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
 smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
 
 
-smalltalk.addClass('new*new*ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
-
-
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -4776,11 +4773,5 @@ referencedClasses: []
 }),
 smalltalk.UndefinedTest);
 
-
-
-smalltalk.addClass('new*ObjectMock4', smalltalk.new*ObjectMock3, [], 'Kernel-Tests');
-
-
-smalltalk.addClass('new*new*ObjectMock3', smalltalk.new*ObjectMock2, [], 'Kernel-Tests');
 
 
