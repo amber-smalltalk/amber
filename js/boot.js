@@ -158,10 +158,14 @@ function Smalltalk() {
 		/* Dnu handler method */
 
 		createHandler: function (selector) {
-			return function () {
+			var handler = function() {
 				var args = Array.prototype.slice.call(arguments);
 				return messageNotUnderstood(this, selector, args);
 			};
+
+			handler.isAmberDNU = true;
+
+			return handler;
 		}
 	};
 
@@ -321,7 +325,8 @@ function Smalltalk() {
 	}
 
 	function installMethodIfAbsent(method, klass) {
-		if(!klass.fn.prototype[method.jsSelector]) {
+		var jsFunction = klass.fn.prototype[method.jsSelector];
+		if(!jsFunction || jsFunction.isAmberDNU) {
 			installMethod(method, klass);
 		}
 	}
