@@ -1657,6 +1657,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},s
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"]}),
 smalltalk.ArrayTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testRemoveFromTo",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((1),(3)),[(4)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(3)),[(1), (4)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(4)),[(1)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},smalltalk.ArrayTest)})},
+messageSends: ["assert:equals:", "removeFrom:to:"]}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testRemoveIndex",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_([(1), (2), (3), (4)]._removeIndex_((2)),[(1), (3), (4)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeIndex_((1)),[(2), (3), (4)]);
+self._assert_equals_(["hello"]._removeIndex_((1)),[]);
+return self}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},smalltalk.ArrayTest)})},
+messageSends: ["assert:equals:", "removeIndex:"]}),
+smalltalk.ArrayTest);
+
 
 smalltalk.addMethod(
 smalltalk.method({

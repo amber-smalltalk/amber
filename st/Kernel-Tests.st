@@ -793,6 +793,20 @@ testPrintString
 	self assert: array printString equals: 'an Array (''foo'' 3)'.
 	array addLast: 3.
 	self assert: array printString equals: 'an Array (''foo'' 3 3)'.
+!
+
+testRemoveFromTo
+	
+	self assert: (#(1 2 3 4) removeFrom: 1 to: 3) equals: #(4).
+	self assert: (#(1 2 3 4) removeFrom: 2 to: 3) equals: #(1 4).
+	self assert: (#(1 2 3 4) removeFrom: 2 to: 4) equals: #(1)
+!
+
+testRemoveIndex
+	
+	self assert: (#(1 2 3 4) removeIndex: 2) equals: #(1 3 4).
+	self assert: (#(1 2 3 4) removeIndex: 1) equals: #(2 3 4).
+	self assert: (#('hello') removeIndex: 1) equals: #()
 ! !
 
 !ArrayTest class methodsFor: 'accessing'!

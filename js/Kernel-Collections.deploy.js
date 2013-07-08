@@ -2165,8 +2165,19 @@ selector: "removeFrom:to:",
 fn: function (aNumber,anotherNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self.splice(aNumber - 1,anotherNumber - 1);
+self.splice(aNumber -1, anotherNumber - aNumber + 1);
 return self}, function($ctx1) {$ctx1.fill(self,"removeFrom:to:",{aNumber:aNumber,anotherNumber:anotherNumber},smalltalk.Array)})},
+messageSends: []}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeIndex:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.splice(anInteger - 1, 1);
+return self}, function($ctx1) {$ctx1.fill(self,"removeIndex:",{anInteger:anInteger},smalltalk.Array)})},
 messageSends: []}),
 smalltalk.Array);
 

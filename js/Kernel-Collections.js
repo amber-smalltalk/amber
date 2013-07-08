@@ -2139,7 +2139,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addLast:",
-category: 'adding',
+category: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2504,7 +2504,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "removeLast",
-category: 'adding',
+category: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2883,10 +2883,26 @@ category: 'adding/removing',
 fn: function (aNumber,anotherNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self.splice(aNumber - 1,anotherNumber - 1);
+self.splice(aNumber -1, anotherNumber - aNumber + 1);
 return self}, function($ctx1) {$ctx1.fill(self,"removeFrom:to:",{aNumber:aNumber,anotherNumber:anotherNumber},smalltalk.Array)})},
 args: ["aNumber", "anotherNumber"],
-source: "removeFrom: aNumber to: anotherNumber\x0a\x09<self.splice(aNumber - 1,anotherNumber - 1)>",
+source: "removeFrom: aNumber to: anotherNumber\x0a\x09<self.splice(aNumber -1, anotherNumber - aNumber + 1)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeIndex:",
+category: 'adding/removing',
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.splice(anInteger - 1, 1);
+return self}, function($ctx1) {$ctx1.fill(self,"removeIndex:",{anInteger:anInteger},smalltalk.Array)})},
+args: ["anInteger"],
+source: "removeIndex: anInteger\x0a\x09<self.splice(anInteger - 1, 1)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3132,7 +3148,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'adding',
+category: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3302,7 +3318,7 @@ smalltalk.CharacterArray);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "remove:",
-category: 'adding',
+category: 'adding/removing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
