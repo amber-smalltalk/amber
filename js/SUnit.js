@@ -689,7 +689,7 @@ _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._withErrorReporting_((function(){
 return smalltalk.withContext(function($ctx3) {
-return smalltalk.TestContext.fn.prototype._execute_.apply(_st(self), [aBlock]);
+return smalltalk.ReportingTestContext.superclass.fn.prototype._execute_.apply(_st(self), [aBlock]);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -775,7 +775,7 @@ fn: function (aTestCase,aTestResult,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=smalltalk.TestContext.klass.fn.prototype._testCase_.apply(_st(self), [aTestCase]);
+$2=smalltalk.ReportingTestContext.klass.superclass.fn.prototype._testCase_.apply(_st(self), [aTestCase]);
 _st($2)._result_(aTestResult);
 _st($2)._finished_(aBlock);
 $3=_st($2)._yourself();
@@ -889,7 +889,7 @@ var self=this;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.TestResult.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@timestamp"]=_st($Date())._now();
 self["@runs"]=(0);
 self["@errors"]=_st($Array())._new();
@@ -1107,7 +1107,7 @@ function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"
 function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.TestSuiteRunner.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@announcer"]=_st($Announcer())._new();
 self["@result"]=_st($TestResult())._new();
 self["@runNextTest"]=(function(){
@@ -1222,7 +1222,7 @@ fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(smalltalk.Object.klass.fn.prototype._new.apply(_st(self), []))._suite_(aCollection);
+$1=_st(smalltalk.TestSuiteRunner.klass.superclass.fn.prototype._new.apply(_st(self), []))._suite_(aCollection);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},smalltalk.TestSuiteRunner.klass)})},
 args: ["aCollection"],

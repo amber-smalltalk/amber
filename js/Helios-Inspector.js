@@ -570,7 +570,7 @@ var $1;
 $1=_st(self._variables()).__eq(self._items());
 if(! smalltalk.assert($1)){
 self._resetItems();
-smalltalk.HLNavigationListWidget.fn.prototype._refresh.apply(_st(self), []);
+smalltalk.HLInspectorVariablesWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorVariablesWidget)})},
 args: [],
@@ -613,7 +613,7 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._renderHeadOn_(html);
-smalltalk.HLNavigationListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+smalltalk.HLInspectorVariablesWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x0a\x09super renderContentOn: html",
@@ -664,7 +664,7 @@ category: 'reactions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLNavigationListWidget.fn.prototype._selectItem_.apply(_st(self), [anObject]);
+smalltalk.HLInspectorVariablesWidget.superclass.fn.prototype._selectItem_.apply(_st(self), [anObject]);
 _st(self._model())._selectedInstVar_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{anObject:anObject},smalltalk.HLInspectorVariablesWidget)})},
 args: ["anObject"],
@@ -777,7 +777,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLInspectorWidget.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLInspectorWidget)})},
 args: [],
@@ -1188,7 +1188,7 @@ fn: function (){
 var self=this;
 function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="undefined"?nil:HLInspector)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLInspectorWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st($HLInspector())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLInspectorWidget)})},
 args: [],
@@ -1274,7 +1274,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLInspectorWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLInspector.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._watchChanges();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLInspector.klass)})},
 args: [],

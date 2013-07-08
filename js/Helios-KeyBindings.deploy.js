@@ -428,7 +428,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(smalltalk.HLBinding.fn.prototype._displayLabel.apply(_st(self), [])).__comma("...");
+$1=_st(smalltalk.HLBindingGroup.superclass.fn.prototype._displayLabel.apply(_st(self), [])).__comma("...");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"displayLabel",{},smalltalk.HLBindingGroup)})},
 messageSends: [",", "displayLabel"]}),
@@ -702,7 +702,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@isFinal"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@isFinal"]=smalltalk.HLBinding.fn.prototype._isFinal.apply(_st(self), []);
+self["@isFinal"]=smalltalk.HLBindingInput.superclass.fn.prototype._isFinal.apply(_st(self), []);
 $1=self["@isFinal"];
 } else {
 $1=$2;
@@ -1103,7 +1103,7 @@ var self=this;
 function $HLKeyBinderHelper(){return smalltalk.HLKeyBinderHelper||(typeof HLKeyBinderHelper=="undefined"?nil:HLKeyBinderHelper)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLKeyBinder.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@helper"]=_st($HLKeyBinderHelper())._on_(self);
 $1=self["@helper"];
 _st($1)._renderStart();
@@ -1570,7 +1570,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLRepeatingKeyBindingHandler.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@keyBindings"]=_st($Dictionary())._new();
 self["@isKeyCurrentlyPressed"]=false;
 self["@repeatInterval"]=(70);

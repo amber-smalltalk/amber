@@ -597,6 +597,7 @@ compileNode: aNode
 	self inliner visit: ir.
 
 	^ self irTranslator
+		currentClass: self currentClass;
 		visit: ir;
 		contents
 !

@@ -270,7 +270,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLBrowser.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st([self._packagesListWidget(),self._classesListWidget(),self._protocolsListWidget(),self._methodsListWidget(),self._sourceWidget()])._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._unregister();
@@ -1715,7 +1715,7 @@ category: 'rendering',
 fn: function (aClass,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLToolListWidget.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]);
+smalltalk.HLClassesListWidget.superclass.fn.prototype._renderItem_on_.apply(_st(self), [aClass,html]);
 _st(self._getChildrenOf_(aClass))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._renderItem_level_on_(each,(1),html);
@@ -2370,7 +2370,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLFocusableWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLDocumentationWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st(_st(self._model())._announcer())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLDocumentationWidget)})},
 args: [],
@@ -2882,13 +2882,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
-smalltalk.HLToolListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+smalltalk.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 } else {
 $2=_st(html)._div();
 _st($2)._class_("class_side");
 $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.HLToolListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return smalltalk.HLMethodsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3;
 };
@@ -3541,13 +3541,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=_st(self._model())._showInstance();
 if(smalltalk.assert($1)){
-smalltalk.HLToolListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+smalltalk.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 } else {
 $2=_st(html)._div();
 _st($2)._class_("class_side");
 $3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.HLToolListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+return smalltalk.HLProtocolsListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $3;
 };
@@ -3583,7 +3583,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HLToolListWidget.fn.prototype._selectedItem.apply(_st(self), []);
+$1=smalltalk.HLProtocolsListWidget.superclass.fn.prototype._selectedItem.apply(_st(self), []);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedItem",{},smalltalk.HLProtocolsListWidget)})},
 args: [],
@@ -3699,7 +3699,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLSelectorsCache.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._observeSystem();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLSelectorsCache)})},
 args: [],
@@ -3846,7 +3846,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@current"]=smalltalk.Object.klass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=smalltalk.HLSelectorsCache.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
 $1=$2;

@@ -147,7 +147,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Announcer.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@subscriptions"]=_st($OrderedCollection())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Announcer)})},
 messageSends: ["initialize", "new"]}),
@@ -220,7 +220,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@current"]=smalltalk.Announcer.klass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=smalltalk.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
 $1=$2;

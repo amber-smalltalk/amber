@@ -979,7 +979,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.HLWidget.klass.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLCodeWidget.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 $1=self;
 _st($1)._setupCodeMirror();
 _st($1)._setupCommands();
@@ -1168,7 +1168,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLCodeWidget.fn.prototype._configureEditor.apply(_st(self), []);
+smalltalk.HLNavigationCodeWidget.superclass.fn.prototype._configureEditor.apply(_st(self), []);
 self._contents_(self._methodContents());
 return self}, function($ctx1) {$ctx1.fill(self,"configureEditor",{},smalltalk.HLNavigationCodeWidget)})},
 args: [],
@@ -1186,7 +1186,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._methodContents_(aString);
-smalltalk.HLCodeWidget.fn.prototype._contents_.apply(_st(self), [aString]);
+smalltalk.HLNavigationCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLNavigationCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self methodContents: aString.\x0a\x09super contents: aString",
@@ -1778,7 +1778,7 @@ $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._saveIt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-smalltalk.HLNavigationCodeWidget.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
+smalltalk.HLBrowserCodeWidget.superclass.fn.prototype._renderButtonsOn_.apply(_st(self), [html]);
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLBrowserCodeWidget)})},
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09html button \x0a\x09\x09class: 'button';\x0a\x09\x09with: 'SaveIt';\x0a\x09\x09onClick: [ self saveIt ].\x0a\x09super renderButtonsOn: html",
@@ -1810,7 +1810,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLNavigationCodeWidget.fn.prototype._unregsiter.apply(_st(self), []);
+smalltalk.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []);
 _st(_st(self._browserModel())._announcer())._unsubscribe_(self);
 _st(_st(self._browserModel())._systemAnnouncer())._unsubscribe_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLBrowserCodeWidget)})},
@@ -1999,7 +1999,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st(self._transcript())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWorkspace)})},
 args: [],

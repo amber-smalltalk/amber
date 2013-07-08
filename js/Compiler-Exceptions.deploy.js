@@ -149,7 +149,7 @@ selector: "handleError:",
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ErrorHandler.fn.prototype._handleError_.apply(_st(self), [anError]);
+smalltalk.RethrowErrorHandler.superclass.fn.prototype._handleError_.apply(_st(self), [anError]);
 self._basicSignal_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.RethrowErrorHandler)})},
 messageSends: ["handleError:", "basicSignal:"]}),

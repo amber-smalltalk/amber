@@ -2780,6 +2780,42 @@ smalltalk.ObjectMock);
 
 
 
+smalltalk.addClass('ObjectMock2', smalltalk.ObjectMock, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "foo",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@foo"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock2)})},
+messageSends: []}),
+smalltalk.ObjectMock2);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "foo:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@foo"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject},smalltalk.ObjectMock2)})},
+messageSends: []}),
+smalltalk.ObjectMock2);
+
+
+
+smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
+
+
+smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
+
+
+smalltalk.addClass('new*new*ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
+
+
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3096,7 +3132,7 @@ var self=this;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.PackageTest.fn.prototype._setUp.apply(_st(self), []);
+smalltalk.PackageWithDefaultCommitPathChangedTest.superclass.fn.prototype._setUp.apply(_st(self), []);
 $1=$Package();
 _st($1)._defaultCommitPathJs_("javascripts/");
 $2=_st($1)._defaultCommitPathSt_("smalltalk/");
@@ -3738,5 +3774,11 @@ return self}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},smalltalk.Undefine
 messageSends: ["assert:", "isNil", "deny:", "notNil"]}),
 smalltalk.UndefinedTest);
 
+
+
+smalltalk.addClass('new*ObjectMock4', smalltalk.new*ObjectMock3, [], 'Kernel-Tests');
+
+
+smalltalk.addClass('new*new*ObjectMock3', smalltalk.new*ObjectMock2, [], 'Kernel-Tests');
 
 

@@ -868,13 +868,21 @@ visitIRVerbatim: anIRVerbatim
 ! !
 
 IRVisitor subclass: #IRJSTranslator
-	instanceVariableNames: 'stream'
+	instanceVariableNames: 'stream currentClass'
 	package: 'Compiler-IR'!
 
 !IRJSTranslator methodsFor: 'accessing'!
 
 contents
 	^ self stream contents
+!
+
+currentClass
+	^ currentClass
+!
+
+currentClass: aClass
+	currentClass := aClass
 !
 
 stream
@@ -1010,7 +1018,8 @@ visitSend: anIRSend
 
 visitSuperSend: anIRSend
 	self stream
-		nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
+		nextPutAll: self currentClass asJavascript;
+		nextPutAll: '.superclass.fn.prototype.';
 		nextPutAll: anIRSend selector asSelector, '.apply(';
 		nextPutAll: '_st('.
 	self visit: anIRSend instructions first.

@@ -17,7 +17,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLTranscript.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._register();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLTranscript)})},
 messageSends: ["initialize", "register"]}),
@@ -77,7 +77,7 @@ fn: function (){
 var self=this;
 function $HLTranscriptHandler(){return smalltalk.HLTranscriptHandler||(typeof HLTranscriptHandler=="undefined"?nil:HLTranscriptHandler)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLTranscript.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st($HLTranscriptHandler())._unregister_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLTranscript)})},
 messageSends: ["unregister", "unregister:"]}),

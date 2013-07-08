@@ -771,6 +771,25 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "recompile",
+category: 'compiling',
+fn: function (){
+var self=this;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Compiler())._new())._recompile_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recompile",{},smalltalk.Behavior)})},
+args: [],
+source: "recompile\x0a\x09^ Compiler new recompile: self",
+messageSends: ["recompile:", "new"],
+referencedClasses: ["Compiler"]
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeCompiledMethod:",
 category: 'compiling',
 fn: function (aMethod){
@@ -1715,14 +1734,15 @@ function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnno
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 self._basicRenameClass_to_(aClass,className);
+_st(aClass)._recompile();
 $1=_st($ClassRenamed())._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,className:className},smalltalk.ClassBuilder)})},
 args: ["aClass", "className"],
-source: "renameClass: aClass to: className\x0a\x09self basicRenameClass: aClass to: className.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRenamed new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
-messageSends: ["basicRenameClass:to:", "announce:", "theClass:", "new", "yourself", "current"],
+source: "renameClass: aClass to: className\x0a\x09self basicRenameClass: aClass to: className.\x0a\x09\x0a\x09\x22Recompile the class to fix potential issues with super sends\x22\x0a\x09aClass recompile.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRenamed new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
+messageSends: ["basicRenameClass:to:", "recompile", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassRenamed", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
@@ -1843,7 +1863,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ClassCategoryReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",
@@ -1906,7 +1926,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ClassCommentReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",

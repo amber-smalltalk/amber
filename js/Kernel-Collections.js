@@ -1149,7 +1149,7 @@ fn: function (aHashedCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.IndexableCollection.fn.prototype._addAll_.apply(_st(self), [_st(aHashedCollection)._associations()]);
+smalltalk.HashedCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(aHashedCollection)._associations()]);
 $1=aHashedCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"addAll:",{aHashedCollection:aHashedCollection},smalltalk.HashedCollection)})},
@@ -1573,7 +1573,7 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.IndexableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.HashedCollection.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_(" (");
 _st(self._associations())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -1984,7 +1984,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HashedCollection.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Dictionary.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@keys"]=[];
 self["@values"]=[];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Dictionary)})},
@@ -2873,7 +2873,7 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.SequenceableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Array.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_(" (");
 self._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -4744,7 +4744,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Collection.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Set.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@elements"]=[];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Set)})},
 args: [],
@@ -4761,7 +4761,7 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Collection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Set.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_(" (");
 self._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -4868,7 +4868,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Queue.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@read"]=_st($OrderedCollection())._new();
 self["@write"]=_st($OrderedCollection())._new();
 self["@readIndex"]=(1);

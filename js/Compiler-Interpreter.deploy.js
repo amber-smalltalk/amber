@@ -631,7 +631,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ASTInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@shouldReturn"]=false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ASTInterpreter)})},
 messageSends: ["initialize"]}),
@@ -1078,7 +1078,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ASTInterpreter.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ASTSteppingInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
@@ -1095,7 +1095,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@nextNode"]=aNode;
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.ASTInterpreter.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
+return smalltalk.ASTSteppingInterpreter.superclass.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTSteppingInterpreter)})},
 messageSends: ["interpret:continue:"]}),
@@ -1241,7 +1241,7 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 $1=_st(self._pc()).__eq(_st(self._context())._pc());
 if(! smalltalk.assert($1)){
 $2=_st(aNode)._shouldBeInlined();

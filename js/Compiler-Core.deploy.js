@@ -134,12 +134,13 @@ var $2,$3,$1;
 _st(self._semanticAnalyzer())._visit_(aNode);
 ir=_st(self._translator())._visit_(aNode);
 $2=self._irTranslator();
+_st($2)._currentClass_(self._currentClass());
 _st($2)._visit_(ir);
 $3=_st($2)._contents();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},smalltalk.CodeGenerator)})},
-messageSends: ["visit:", "semanticAnalyzer", "translator", "irTranslator", "contents"]}),
+messageSends: ["visit:", "semanticAnalyzer", "translator", "currentClass:", "currentClass", "irTranslator", "contents"]}),
 smalltalk.CodeGenerator);
 
 smalltalk.addMethod(
