@@ -163,8 +163,6 @@ function Smalltalk() {
 				return messageNotUnderstood(this, selector, args);
 			};
 
-			handler.isAmberDNU = true;
-
 			return handler;
 		}
 	};
