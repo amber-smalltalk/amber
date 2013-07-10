@@ -5531,10 +5531,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "0.10";
+return "0.11.0";
 }, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.Smalltalk)})},
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.10'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.11.0'",
 messageSends: [],
 referencedClasses: []
 }),

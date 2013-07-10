@@ -4055,7 +4055,7 @@ selector: "version",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "0.10";
+return "0.11.0";
 }, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);
