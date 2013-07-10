@@ -1834,7 +1834,7 @@ reservedWords
 version
 	"Answer the version string of Amber"
 	
-	^ '0.10'
+	^ '0.11'
 ! !
 
 !Smalltalk methodsFor: 'classes'!
