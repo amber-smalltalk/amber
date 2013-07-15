@@ -1053,14 +1053,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self;
-_st($1)._refreshVariablesWidget();
-$2=_st($1)._refreshDisplayWidget();
+self._inspect_(self._inspectee());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorWidget)})},
 args: [],
-source: "refresh\x0a\x09self \x0a\x09\x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
-messageSends: ["refreshVariablesWidget", "refreshDisplayWidget"],
+source: "refresh\x0a\x09self inspect: self inspectee",
+messageSends: ["inspect:", "inspectee"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorWidget);

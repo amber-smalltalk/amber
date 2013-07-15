@@ -787,12 +787,9 @@ selector: "refresh",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self;
-_st($1)._refreshVariablesWidget();
-$2=_st($1)._refreshDisplayWidget();
+self._inspect_(self._inspectee());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorWidget)})},
-messageSends: ["refreshVariablesWidget", "refreshDisplayWidget"]}),
+messageSends: ["inspect:", "inspectee"]}),
 smalltalk.HLInspectorWidget);
 
 smalltalk.addMethod(
