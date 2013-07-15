@@ -127,11 +127,11 @@ fn: function (anArgument){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._valueWithPossibleArguments_(["anArgument"]);
+$1=self._valueWithPossibleArguments_([anArgument]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:",{anArgument:anArgument},smalltalk.AIBlockClosure)})},
 args: ["anArgument"],
-source: "value: anArgument\x0a\x09^ self valueWithPossibleArguments: #(anArgument)",
+source: "value: anArgument\x0a\x09^ self valueWithPossibleArguments: {anArgument}",
 messageSends: ["valueWithPossibleArguments:"],
 referencedClasses: []
 }),
@@ -145,11 +145,11 @@ fn: function (firstArgument,secondArgument){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._valueWithPossibleArguments_(["firstArgument", "secondArgument"]);
+$1=self._valueWithPossibleArguments_([firstArgument,secondArgument]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArgument:firstArgument,secondArgument:secondArgument},smalltalk.AIBlockClosure)})},
 args: ["firstArgument", "secondArgument"],
-source: "value: firstArgument value: secondArgument\x0a\x09^ self valueWithPossibleArguments: #(firstArgument secondArgument)",
+source: "value: firstArgument value: secondArgument\x0a\x09^ self valueWithPossibleArguments: {firstArgument . secondArgument}",
 messageSends: ["valueWithPossibleArguments:"],
 referencedClasses: []
 }),
@@ -163,11 +163,11 @@ fn: function (firstArgument,secondArgument,thirdArgument){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._valueWithPossibleArguments_(["firstArgument", "secondArgument", "thirdArgument"]);
+$1=self._valueWithPossibleArguments_([firstArgument,secondArgument,thirdArgument]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArgument:firstArgument,secondArgument:secondArgument,thirdArgument:thirdArgument},smalltalk.AIBlockClosure)})},
 args: ["firstArgument", "secondArgument", "thirdArgument"],
-source: "value: firstArgument value: secondArgument value: thirdArgument\x0a\x09^ self valueWithPossibleArguments: #(firstArgument secondArgument thirdArgument)",
+source: "value: firstArgument value: secondArgument value: thirdArgument\x0a\x09^ self valueWithPossibleArguments: {firstArgument . secondArgument . thirdArgument}",
 messageSends: ["valueWithPossibleArguments:"],
 referencedClasses: []
 }),
@@ -198,7 +198,7 @@ _st($3)._push_(_st(_st(context)._interpreter())._value());
 $4=_st($3)._returnValue_(_st(context)._returnValue());
 return self}, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context},smalltalk.AIBlockClosure)})},
 args: ["aCollection"],
-source: "valueWithPossibleArguments: aCollection\x0a\x09| context |\x0a\x09\x0a\x09context := outerContext newBlockContext.\x0a\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: node nodes first nextChild;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter \x0a\x09\x09push: context interpreter value;\x0a\x09\x09returnValue: context returnValue",
+source: "valueWithPossibleArguments: aCollection\x0a\x09| context |\x0a\x09context := outerContext newBlockContext.\x0a\x0a\x09\x22Populate the arguments into the context locals\x22\x09\x0a\x09node parameters withIndexDo: [ :each :index |\x0a\x09\x09context localAt: each put: (aCollection at: index ifAbsent: [ nil ]) ].\x0a\x0a\x09\x22Interpret the first node of the BlockSequenceNode\x22\x0a\x09context interpreter\x0a\x09\x09node: node nodes first nextChild;\x0a\x09\x09proceed.\x0a\x09\x09\x0a\x09outerContext interpreter \x0a\x09\x09push: context interpreter value;\x0a\x09\x09returnValue: context returnValue",
 messageSends: ["newBlockContext", "withIndexDo:", "parameters", "localAt:put:", "at:ifAbsent:", "node:", "interpreter", "nextChild", "first", "nodes", "proceed", "push:", "value", "returnValue:", "returnValue"],
 referencedClasses: []
 }),
@@ -405,23 +405,28 @@ fn: function (){
 var self=this;
 function $Interpreter(){return smalltalk.Interpreter||(typeof Interpreter=="undefined"?nil:Interpreter)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4;
 $1=_st($Interpreter())._new();
 _st($1)._context_(self);
-_st($1)._node_(self._retrieveNode());
 $2=_st($1)._yourself();
 self["@interpreter"]=$2;
-$3=_st(_st(self._innerContext())._notNil())._and_((function(){
+$3=self["@ast"];
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
+} else {
+_st(self["@interpreter"])._node_(self._retrieveNode());
+};
+$4=_st(_st(self._innerContext())._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._innerContext())._isBlockContext())._not();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($3)){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+if(smalltalk.assert($4)){
 self._setupInterpreter_(self["@interpreter"]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{},smalltalk.AIContext)})},
 args: [],
-source: "initializeInterpreter\x0a\x09interpreter := Interpreter new\x0a\x09\x09context: self;\x0a\x09\x09node: self retrieveNode;\x0a\x09\x09yourself.\x0a\x09(self innerContext notNil and: [ \x0a\x09\x09self innerContext isBlockContext not ]) ifTrue: [\x0a\x09\x09\x09self setupInterpreter: interpreter ]",
-messageSends: ["context:", "new", "node:", "retrieveNode", "yourself", "ifTrue:", "and:", "notNil", "innerContext", "not", "isBlockContext", "setupInterpreter:"],
+source: "initializeInterpreter\x0a\x09interpreter := Interpreter new\x0a\x09\x09context: self;\x0a\x09\x09yourself.\x0a\x09ast ifNotNil: [ interpreter node: self retrieveNode ].\x0a\x09\x0a\x09(self innerContext notNil and: [ \x0a\x09\x09self innerContext isBlockContext not ]) ifTrue: [\x0a\x09\x09\x09self setupInterpreter: interpreter ]",
+messageSends: ["context:", "new", "yourself", "ifNotNil:", "node:", "retrieveNode", "ifTrue:", "and:", "notNil", "innerContext", "not", "isBlockContext", "setupInterpreter:"],
 referencedClasses: ["Interpreter"]
 }),
 smalltalk.AIContext);
@@ -2863,7 +2868,7 @@ block=_st($AIBlockClosure())._forContext_node_(self._context(),aNode);
 self._push_(block);
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode,blockContext:blockContext,block:block},smalltalk.Interpreter)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09\x22Do not evaluate the block node.\x0a\x09Instead, put all instructions into a block that we push to the stack for later evaluation\x22\x0a\x09\x0a\x09| blockContext block |\x0a\x09\x0a\x09block := AIBlockClosure forContext: self context node: aNode.\x0a\x09self push: block",
+source: "visitBlockNode: aNode\x0a\x09\x22Do not evaluate the block node.\x0a\x09Instead, put all instructions into a block that we push to the stack for later evaluation\x22\x0a\x09\x0a\x09| blockContext block |\x0a\x09\x0a\x09block := AIBlockClosure forContext: self context node: aNode.\x0a\x09\x0a\x09self push: block",
 messageSends: ["forContext:node:", "context", "push:"],
 referencedClasses: ["AIBlockClosure"]
 }),
@@ -3056,6 +3061,30 @@ return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (window at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
 messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"],
+referencedClasses: []
+}),
+smalltalk.Interpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "xxxDoIt",
+category: 'xxxDoIt',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$1=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+$2=self;
+_st($2)._step();
+$3=_st($2)._yourself();
+return $3;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.Interpreter)})},
+args: [],
+source: "xxxDoIt ^[self step; yourself] value",
+messageSends: ["value", "step", "yourself"],
 referencedClasses: []
 }),
 smalltalk.Interpreter);
