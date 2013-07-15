@@ -1095,11 +1095,6 @@ visitVariableNode: aNode
 		ifFalse: [ self context localAt: aNode value ])
 ! !
 
-!Interpreter methodsFor: 'xxxDoIt'!
-
-xxxDoIt ^[self step; yourself] value
-! !
-
 !Node methodsFor: '*Compiler-Interpreter'!
 
 interpreter: anInterpreter continue: aBlock

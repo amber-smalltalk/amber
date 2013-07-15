@@ -3065,30 +3065,6 @@ referencedClasses: []
 }),
 smalltalk.Interpreter);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-category: 'xxxDoIt',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-$2=self;
-_st($2)._step();
-$3=_st($2)._yourself();
-return $3;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.Interpreter)})},
-args: [],
-source: "xxxDoIt ^[self step; yourself] value",
-messageSends: ["value", "step", "yourself"],
-referencedClasses: []
-}),
-smalltalk.Interpreter);
-
 
 
 smalltalk.addMethod(
