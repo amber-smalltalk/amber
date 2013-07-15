@@ -1023,7 +1023,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ASTInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@shouldReturn"]=false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ASTInterpreter)})},
 messageSends: ["initialize"]}),
@@ -1499,7 +1499,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ASTInterpreter.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ASTSteppingInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
@@ -1516,7 +1516,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@nextNode"]=aNode;
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.ASTInterpreter.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
+return smalltalk.ASTSteppingInterpreter.superclass.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTSteppingInterpreter)})},
 messageSends: ["interpret:continue:"]}),
@@ -1684,7 +1684,7 @@ var $1;
 $1=_st(self._blockIndex()).__gt_eq(_st(self._context())._index());
 if(! smalltalk.assert($1)){
 self._increaseBlockIndex();
-smalltalk.NodeVisitor.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
+smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
 messageSends: ["ifFalse:", ">=", "blockIndex", "index", "context", "increaseBlockIndex", "visitBlockNode:"]}),
@@ -1708,7 +1708,7 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 $1=_st(self._pc()).__eq(_st(self._context())._pc());
 if(! smalltalk.assert($1)){
 $2=_st(aNode)._shouldBeInlined();
@@ -1928,14 +1928,14 @@ smalltalk.method({
 selector: "pop",
 fn: function (){
 var self=this;
-var value;
+var peekedValue;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-value=self._peek();
+peekedValue=self._peek();
 _st(self._stack())._removeLast();
-$1=value;
+$1=peekedValue;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pop",{value:value},smalltalk.Interpreter)})},
+}, function($ctx1) {$ctx1.fill(self,"pop",{peekedValue:peekedValue},smalltalk.Interpreter)})},
 messageSends: ["peek", "removeLast", "stack"]}),
 smalltalk.Interpreter);
 
@@ -2142,7 +2142,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._shouldReturn();
 if(! smalltalk.assert($1)){
-smalltalk.NodeVisitor.fn.prototype._visit_.apply(_st(self), [aNode]);
+smalltalk.Interpreter.superclass.fn.prototype._visit_.apply(_st(self), [aNode]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},smalltalk.Interpreter)})},
 messageSends: ["ifFalse:", "shouldReturn", "visit:"]}),
@@ -2153,13 +2153,13 @@ smalltalk.method({
 selector: "visitAssignmentNode:",
 fn: function (aNode){
 var self=this;
-var value;
+var poppedValue;
 return smalltalk.withContext(function($ctx1) { 
-value=self._pop();
+poppedValue=self._pop();
 self._pop();
-self._push_(value);
-self._assign_to_(_st(aNode)._left(),value);
-return self}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,value:value},smalltalk.Interpreter)})},
+self._push_(poppedValue);
+self._assign_to_(_st(aNode)._left(),poppedValue);
+return self}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,poppedValue:poppedValue},smalltalk.Interpreter)})},
 messageSends: ["pop", "push:", "assign:to:", "left"]}),
 smalltalk.Interpreter);
 

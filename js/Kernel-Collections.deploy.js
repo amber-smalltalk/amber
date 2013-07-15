@@ -864,7 +864,7 @@ fn: function (aHashedCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.IndexableCollection.fn.prototype._addAll_.apply(_st(self), [_st(aHashedCollection)._associations()]);
+smalltalk.HashedCollection.superclass.fn.prototype._addAll_.apply(_st(self), [_st(aHashedCollection)._associations()]);
 $1=aHashedCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"addAll:",{aHashedCollection:aHashedCollection},smalltalk.HashedCollection)})},
@@ -1105,6 +1105,35 @@ smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "keyAtValue:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._keyAtValue_ifAbsent_(anObject,(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._errorNotFound();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"keyAtValue:",{anObject:anObject},smalltalk.HashedCollection)})},
+messageSends: ["keyAtValue:ifAbsent:", "errorNotFound"]}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "keyAtValue:ifAbsent:",
+fn: function (anObject,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._indexOf_ifAbsent_(anObject,aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"keyAtValue:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.HashedCollection)})},
+messageSends: ["indexOf:ifAbsent:"]}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "keys",
 fn: function (){
 var self=this;
@@ -1154,7 +1183,7 @@ selector: "printOn:",
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.IndexableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.HashedCollection.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_(" (");
 _st(self._associations())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -1469,7 +1498,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HashedCollection.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Dictionary.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@keys"]=[];
 self["@values"]=[];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Dictionary)})},
@@ -2137,7 +2166,7 @@ selector: "printOn:",
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.SequenceableCollection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Array.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_(" (");
 self._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -2176,8 +2205,19 @@ selector: "removeFrom:to:",
 fn: function (aNumber,anotherNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self.splice(aNumber - 1,anotherNumber - 1);
+self.splice(aNumber -1, anotherNumber - aNumber + 1);
 return self}, function($ctx1) {$ctx1.fill(self,"removeFrom:to:",{aNumber:aNumber,anotherNumber:anotherNumber},smalltalk.Array)})},
+messageSends: []}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeIndex:",
+fn: function (anInteger){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.splice(anInteger - 1, 1);
+return self}, function($ctx1) {$ctx1.fill(self,"removeIndex:",{anInteger:anInteger},smalltalk.Array)})},
 messageSends: []}),
 smalltalk.Array);
 
@@ -3510,7 +3550,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Collection.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Set.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@elements"]=[];
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Set)})},
 messageSends: ["initialize"]}),
@@ -3522,7 +3562,7 @@ selector: "printOn:",
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Collection.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Set.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 _st(aStream)._nextPutAll_(" (");
 self._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -3603,7 +3643,7 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Queue.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@read"]=_st($OrderedCollection())._new();
 self["@write"]=_st($OrderedCollection())._new();
 self["@readIndex"]=(1);

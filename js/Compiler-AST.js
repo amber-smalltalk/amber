@@ -422,7 +422,7 @@ category: 'copying',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._postCopy.apply(_st(self), []);
+smalltalk.Node.superclass.fn.prototype._postCopy.apply(_st(self), []);
 _st(self._nodes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._parent_(self);

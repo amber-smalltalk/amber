@@ -416,6 +416,14 @@ indexOf: anObject ifAbsent: aBlock
 	^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock
 !
 
+keyAtValue: anObject
+	^ self keyAtValue: anObject ifAbsent: [ self errorNotFound ]
+!
+
+keyAtValue: anObject ifAbsent: aBlock
+	^ self indexOf: anObject ifAbsent: aBlock
+!
+
 keys
 	<
 		if ('function'===typeof Object.keys) return Object.keys(self);
@@ -976,7 +984,11 @@ remove: anObject ifAbsent: aBlock
 !
 
 removeFrom: aNumber to: anotherNumber
-	<self.splice(aNumber - 1,anotherNumber - 1)>
+	<self.splice(aNumber -1, anotherNumber - aNumber + 1)>
+!
+
+removeIndex: anInteger
+	<self.splice(anInteger - 1, 1)>
 !
 
 removeLast
@@ -1082,11 +1094,13 @@ at: anIndex put: anObject
 
 !CharacterArray methodsFor: 'adding'!
 
-add: anObject
-	self errorReadOnly
-!
-
 remove: anObject ifAbsent: aBlock
+	self errorReadOnly
+! !
+
+!CharacterArray methodsFor: 'adding/removing'!
+
+add: anObject
 	self errorReadOnly
 ! !
 

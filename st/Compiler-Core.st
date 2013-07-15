@@ -62,6 +62,7 @@ compileNode: aNode
 	self semanticAnalyzer visit: aNode.
 	ir := self translator visit: aNode.
 	^ self irTranslator
+		currentClass: self currentClass;
 		visit: ir;
 		contents
 !

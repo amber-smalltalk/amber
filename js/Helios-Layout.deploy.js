@@ -214,7 +214,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(smalltalk.HLSplitter.fn.prototype._cssClass.apply(_st(self), [])).__comma(" horizontal");
+$1=_st(smalltalk.HLHorizontalSplitter.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" horizontal");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLHorizontalSplitter)})},
 messageSends: [",", "cssClass"]}),
@@ -227,7 +227,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(smalltalk.HLSplitter.fn.prototype._panesCssClass.apply(_st(self), [])).__comma(" horizontal");
+$1=_st(smalltalk.HLHorizontalSplitter.superclass.fn.prototype._panesCssClass.apply(_st(self), [])).__comma(" horizontal");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"panesCssClass",{},smalltalk.HLHorizontalSplitter)})},
 messageSends: [",", "panesCssClass"]}),
@@ -301,7 +301,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(smalltalk.HLSplitter.fn.prototype._cssClass.apply(_st(self), [])).__comma(" vertical");
+$1=_st(smalltalk.HLVerticalSplitter.superclass.fn.prototype._cssClass.apply(_st(self), [])).__comma(" vertical");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.HLVerticalSplitter)})},
 messageSends: [",", "cssClass"]}),
@@ -314,7 +314,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(smalltalk.HLSplitter.fn.prototype._panesCssClass.apply(_st(self), [])).__comma(" vertical");
+$1=_st(smalltalk.HLVerticalSplitter.superclass.fn.prototype._panesCssClass.apply(_st(self), [])).__comma(" vertical");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"panesCssClass",{},smalltalk.HLVerticalSplitter)})},
 messageSends: [",", "panesCssClass"]}),

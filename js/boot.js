@@ -128,6 +128,8 @@ function Smalltalk() {
 		'implements', 'interface', 'let', 'package', 'private', 'protected',
 		'public', 'static', 'yield'];
 
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
 	var initialized = false;
 
 	/* Smalltalk classes */
@@ -156,10 +158,12 @@ function Smalltalk() {
 		/* Dnu handler method */
 
 		createHandler: function (selector) {
-			return function () {
+			var handler = function() {
 				var args = Array.prototype.slice.call(arguments);
 				return messageNotUnderstood(this, selector, args);
 			};
+
+			return handler;
 		}
 	};
 
@@ -273,6 +277,7 @@ function Smalltalk() {
 
 	st.initClass = function(klass) {
 		if(klass.wrapped) {
+			klass.inheritedMethods = {};
 			copySuperclass(klass);
 		} else {
 			installSuperclass(klass);
@@ -306,7 +311,7 @@ function Smalltalk() {
 			superclass && superclass !== nil;
 			superclass = superclass.superclass) {
 			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
-				installMethodIfAbsent(superclass.methods[keys[i]], klass);
+				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
 			}
 		}
 	}
@@ -318,10 +323,15 @@ function Smalltalk() {
 		});
 	}
 
-	function installMethodIfAbsent(method, klass) {
-		if(!klass.fn.prototype[method.jsSelector]) {
-			installMethod(method, klass);
+	function inheritMethodIfAbsent(method, klass) {
+		var selector = method.selector;
+
+		if(klass.methods.hasOwnProperty(selector) || klass.inheritedMethods.hasOwnProperty(selector)) {
+			return;
 		}
+
+		installMethod(method, klass);
+		klass.inheritedMethods[method.selector] = true;
 	}
 
 	function reinstallMethods(klass) {
@@ -333,14 +343,21 @@ function Smalltalk() {
 	function installDnuHandlers(klass) {
 		var m = dnu.methods;
 		for(var i=0; i<m.length; i++) {
-			installMethodIfAbsent(m[i], klass);
+			installDnuHandlerIfAbsent(m[i], klass);
 		}
 	}
 
 	function installNewDnuHandler(newHandler) {
-		installMethodIfAbsent(newHandler, st.Object);
+		installDnuHandlerIfAbsent(newHandler, st.Object);
 		for(var i = 0; i < wrappedClasses.length; i++) {
-			installMethodIfAbsent(newHandler, wrappedClasses[i]);
+			installDnuHandlerIfAbsent(newHandler, wrappedClasses[i]);
+		}
+	}
+
+	function installDnuHandlerIfAbsent(handler, klass) {
+		var jsFunction = klass.fn.prototype[handler.jsSelector];
+		if(!jsFunction) {
+			installMethod(handler, klass);
 		}
 	}
 
@@ -533,6 +550,9 @@ function Smalltalk() {
 
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
+
+		// Do *not* delete protocols from here.
+		// This is handled by #removeCompiledMethod
 	};
 
 	/* Handles unhandled errors during message sends */

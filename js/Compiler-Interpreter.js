@@ -1354,7 +1354,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ASTInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@shouldReturn"]=false;
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ASTInterpreter)})},
 args: [],
@@ -1971,7 +1971,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.ASTInterpreter.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ASTSteppingInterpreter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
@@ -1993,7 +1993,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@nextNode"]=aNode;
 self["@continuation"]=(function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.ASTInterpreter.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
+return smalltalk.ASTSteppingInterpreter.superclass.fn.prototype._interpret_continue_.apply(_st(self), [aNode,aBlock]);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"interpret:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTSteppingInterpreter)})},
 args: ["aNode", "aBlock"],
@@ -2222,7 +2222,7 @@ var $1;
 $1=_st(self._blockIndex()).__gt_eq(_st(self._context())._index());
 if(! smalltalk.assert($1)){
 self._increaseBlockIndex();
-smalltalk.NodeVisitor.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
+smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
 args: ["aNode"],
@@ -2256,7 +2256,7 @@ fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-smalltalk.NodeVisitor.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 $1=_st(self._pc()).__eq(_st(self._context())._pc());
 if(! smalltalk.assert($1)){
 $2=_st(aNode)._shouldBeInlined();
@@ -2546,16 +2546,16 @@ selector: "pop",
 category: 'stack',
 fn: function (){
 var self=this;
-var value;
+var peekedValue;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-value=self._peek();
+peekedValue=self._peek();
 _st(self._stack())._removeLast();
-$1=value;
+$1=peekedValue;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"pop",{value:value},smalltalk.Interpreter)})},
+}, function($ctx1) {$ctx1.fill(self,"pop",{peekedValue:peekedValue},smalltalk.Interpreter)})},
 args: [],
-source: "pop\x0a\x09\x22Pop an object from the context stack\x22\x0a\x09\x0a\x09| value |\x0a\x09\x0a\x09value := self peek.\x0a\x09self stack removeLast.\x0a\x09^ value",
+source: "pop\x0a\x09\x22Pop an object from the context stack\x22\x0a\x09\x0a\x09| peekedValue |\x0a\x09\x0a\x09peekedValue := self peek.\x0a\x09self stack removeLast.\x0a\x09^ peekedValue",
 messageSends: ["peek", "removeLast", "stack"],
 referencedClasses: []
 }),
@@ -2825,7 +2825,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._shouldReturn();
 if(! smalltalk.assert($1)){
-smalltalk.NodeVisitor.fn.prototype._visit_.apply(_st(self), [aNode]);
+smalltalk.Interpreter.superclass.fn.prototype._visit_.apply(_st(self), [aNode]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visit:",{aNode:aNode},smalltalk.Interpreter)})},
 args: ["aNode"],
@@ -2841,15 +2841,15 @@ selector: "visitAssignmentNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-var value;
+var poppedValue;
 return smalltalk.withContext(function($ctx1) { 
-value=self._pop();
+poppedValue=self._pop();
 self._pop();
-self._push_(value);
-self._assign_to_(_st(aNode)._left(),value);
-return self}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,value:value},smalltalk.Interpreter)})},
+self._push_(poppedValue);
+self._assign_to_(_st(aNode)._left(),poppedValue);
+return self}, function($ctx1) {$ctx1.fill(self,"visitAssignmentNode:",{aNode:aNode,poppedValue:poppedValue},smalltalk.Interpreter)})},
 args: ["aNode"],
-source: "visitAssignmentNode: aNode\x0a\x09| value |\x0a\x09\x0a\x09value := self pop.\x0a\x09\x0a\x09\x22Pop the left side of the assignment.\x0a\x09It already has been visited, and we don't need its value.\x22\x0a\x09self pop.\x0a\x09\x0a\x09self push: value.\x0a\x09self assign: aNode left to: value",
+source: "visitAssignmentNode: aNode\x0a\x09| poppedValue |\x0a\x09\x0a\x09poppedValue := self pop.\x0a\x09\x0a\x09\x22Pop the left side of the assignment.\x0a\x09It already has been visited, and we don't need its value.\x22\x0a\x09self pop.\x0a\x09\x0a\x09self push: poppedValue.\x0a\x09self assign: aNode left to: poppedValue",
 messageSends: ["pop", "push:", "assign:to:", "left"],
 referencedClasses: []
 }),

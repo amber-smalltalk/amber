@@ -312,9 +312,7 @@ observeVariablesWidget
 !
 
 refresh
-	self 
-		refreshVariablesWidget;
-		refreshDisplayWidget
+	self inspect: self inspectee
 !
 
 refreshDisplayWidget

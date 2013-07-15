@@ -973,11 +973,11 @@ peek
 pop
 	"Pop an object from the context stack"
 	
-	| value |
+	| peekedValue |
 	
-	value := self peek.
+	peekedValue := self peek.
 	self stack removeLast.
-	^ value
+	^ peekedValue
 !
 
 push: anObject
@@ -1003,16 +1003,16 @@ visit: aNode
 !
 
 visitAssignmentNode: aNode
-	| value |
+	| poppedValue |
 	
-	value := self pop.
+	poppedValue := self pop.
 	
 	"Pop the left side of the assignment.
 	It already has been visited, and we don't need its value."
 	self pop.
 	
-	self push: value.
-	self assign: aNode left to: value
+	self push: poppedValue.
+	self assign: aNode left to: poppedValue
 !
 
 visitBlockNode: aNode

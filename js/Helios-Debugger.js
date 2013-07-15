@@ -319,7 +319,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLFocusableWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLDebugger.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st(self._inspectorWidget())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLDebugger)})},
 args: [],
@@ -425,7 +425,7 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._clearHighlight();
-smalltalk.HLBrowserCodeWidget.fn.prototype._contents_.apply(_st(self), [aString]);
+smalltalk.HLDebuggerCodeWidget.superclass.fn.prototype._contents_.apply(_st(self), [aString]);
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{aString:aString},smalltalk.HLDebuggerCodeWidget)})},
 args: ["aString"],
 source: "contents: aString\x0a\x09self clearHighlight.\x0a\x09super contents: aString",
@@ -442,7 +442,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$2=smalltalk.HLBrowserCodeWidget.fn.prototype._editorOptions.apply(_st(self), []);
+$2=smalltalk.HLDebuggerCodeWidget.superclass.fn.prototype._editorOptions.apply(_st(self), []);
 _st($2)._at_put_("gutters",["CodeMirror-linenumbers", "stops"]);
 $3=_st($2)._yourself();
 $1=$3;
@@ -510,7 +510,7 @@ function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected
 function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 function $HLDebuggerWhere(){return smalltalk.HLDebuggerWhere||(typeof HLDebuggerWhere=="undefined"?nil:HLDebuggerWhere)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLBrowserCodeWidget.fn.prototype._observeBrowserModel.apply(_st(self), []);
+smalltalk.HLDebuggerCodeWidget.superclass.fn.prototype._observeBrowserModel.apply(_st(self), []);
 _st(_st(self._browserModel())._announcer())._on_send_to_($HLDebuggerContextSelected(),"onContextSelected",self);
 _st(_st(self._browserModel())._announcer())._on_send_to_($HLDebuggerStepped(),"onContextSelected",self);
 _st(_st(self._browserModel())._announcer())._on_send_to_($HLDebuggerWhere(),"onContextSelected",self);

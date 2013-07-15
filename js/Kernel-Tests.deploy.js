@@ -1672,6 +1672,32 @@ return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},s
 messageSends: ["new", "assert:equals:", "printString", "add:", "remove:", "addLast:"]}),
 smalltalk.ArrayTest);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testRemoveFromTo",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((1),(3)),[(4)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(3)),[(1), (4)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(4)),[(1)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},smalltalk.ArrayTest)})},
+messageSends: ["assert:equals:", "removeFrom:to:"]}),
+smalltalk.ArrayTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testRemoveIndex",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_([(1), (2), (3), (4)]._removeIndex_((2)),[(1), (3), (4)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeIndex_((1)),[(2), (3), (4)]);
+self._assert_equals_(["hello"]._removeIndex_((1)),[]);
+return self}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},smalltalk.ArrayTest)})},
+messageSends: ["assert:equals:", "removeIndex:"]}),
+smalltalk.ArrayTest);
+
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2769,6 +2795,39 @@ smalltalk.ObjectMock);
 
 
 
+smalltalk.addClass('ObjectMock2', smalltalk.ObjectMock, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "foo",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@foo"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock2)})},
+messageSends: []}),
+smalltalk.ObjectMock2);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "foo:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@foo"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject},smalltalk.ObjectMock2)})},
+messageSends: []}),
+smalltalk.ObjectMock2);
+
+
+
+smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
+
+
+smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
+
+
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3085,7 +3144,7 @@ var self=this;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.PackageTest.fn.prototype._setUp.apply(_st(self), []);
+smalltalk.PackageWithDefaultCommitPathChangedTest.superclass.fn.prototype._setUp.apply(_st(self), []);
 $1=$Package();
 _st($1)._defaultCommitPathJs_("javascripts/");
 $2=_st($1)._defaultCommitPathSt_("smalltalk/");

@@ -210,6 +210,10 @@ compile: aString category: anotherString
 		category: anotherString
 !
 
+recompile
+	^ Compiler new recompile: self
+!
+
 removeCompiledMethod: aMethod
 	self basicRemoveCompiledMethod: aMethod.
 	
@@ -572,6 +576,9 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 
 renameClass: aClass to: className
 	self basicRenameClass: aClass to: className.
+	
+	"Recompile the class to fix potential issues with super sends"
+	aClass recompile.
 	
 	SystemAnnouncer current
 		announce: (ClassRenamed new

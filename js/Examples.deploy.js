@@ -36,7 +36,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Counter.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@count"]=(0);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Counter)})},
 messageSends: ["initialize"]}),

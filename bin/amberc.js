@@ -106,6 +106,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'mainfile': undefined,
 		'stFiles': [],
 		'jsFiles': [],
+		'jsGlobals': [],
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
@@ -421,6 +422,11 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 		self.defaults.smalltalk = eval(content);
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
+
+		if(0 != self.defaults.jsGlobals.length) {
+			var jsGlobalVariables = self.defaults.smalltalk.globalJsVariables;
+			jsGlobalVariables.push.apply(jsGlobalVariables, self.defaults.jsGlobals);
+		}
 
 		self.compile();
 	});

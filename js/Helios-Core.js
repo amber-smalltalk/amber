@@ -2218,7 +2218,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.HLFocusableWidget.fn.prototype._focus.apply(_st(self), []);
+smalltalk.HLListWidget.superclass.fn.prototype._focus.apply(_st(self), []);
 $1=_st(self._items())._isEmpty();
 if(! smalltalk.assert($1)){
 $2=self._selectedItem();
@@ -2244,7 +2244,7 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLFocusableWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLListWidget.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@mapping"]=_st($Dictionary())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLListWidget)})},
 args: [],
@@ -2345,7 +2345,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 var $early={};
 try {
-smalltalk.HLFocusableWidget.fn.prototype._refresh.apply(_st(self), []);
+smalltalk.HLListWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
 self._ensureVisible_(_st(_st(self["@mapping"])._at_ifAbsent_(self._selectedItem(),(function(){
 return smalltalk.withContext(function($ctx2) {
 $1=self;
@@ -2704,7 +2704,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.HLListWidget.fn.prototype._setupKeyBindings.apply(_st(self), []);
+smalltalk.HLNavigationListWidget.superclass.fn.prototype._setupKeyBindings.apply(_st(self), []);
 _st(_st(self._wrapper())._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(e)._which()).__eq((39));
@@ -2736,7 +2736,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.HLNavigationListWidget.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
+return smalltalk.HLToolListWidget.superclass.fn.prototype._activateListItem_.apply(_st(self), [anItem]);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{anItem:anItem},smalltalk.HLToolListWidget)})},
 args: ["anItem"],
@@ -2755,7 +2755,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.HLNavigationListWidget.fn.prototype._activateNextListItem.apply(_st(self), []);
+return smalltalk.HLToolListWidget.superclass.fn.prototype._activateNextListItem.apply(_st(self), []);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activateNextListItem",{},smalltalk.HLToolListWidget)})},
 args: [],
@@ -2774,7 +2774,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._model())._withChangesDo_((function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.HLNavigationListWidget.fn.prototype._activatePreviousListItem.apply(_st(self), []);
+return smalltalk.HLToolListWidget.superclass.fn.prototype._activatePreviousListItem.apply(_st(self), []);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"activatePreviousListItem",{},smalltalk.HLToolListWidget)})},
 args: [],
@@ -2928,7 +2928,7 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._renderHeadOn_(html);
-smalltalk.HLNavigationListWidget.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+smalltalk.HLToolListWidget.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLToolListWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09self renderHeadOn: html.\x09\x0a\x09super renderContentOn: html",
@@ -3022,7 +3022,7 @@ category: 'accessing',
 fn: function (anItem){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLNavigationListWidget.fn.prototype._selectedItem_.apply(_st(self), [anItem]);
+smalltalk.HLToolListWidget.superclass.fn.prototype._selectedItem_.apply(_st(self), [anItem]);
 self._updateMenu();
 return self}, function($ctx1) {$ctx1.fill(self,"selectedItem:",{anItem:anItem},smalltalk.HLToolListWidget)})},
 args: ["anItem"],
@@ -3039,7 +3039,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLNavigationListWidget.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLToolListWidget.superclass.fn.prototype._unregister.apply(_st(self), []);
 _st(_st(self._model())._announcer())._unsubscribe_(self);
 _st(_st(self._model())._systemAnnouncer())._unsubscribe_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLToolListWidget)})},
@@ -3339,7 +3339,7 @@ function $HLInspector(){return smalltalk.HLInspector||(typeof HLInspector=="unde
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.HLManager.superclass.fn.prototype._initialize.apply(_st(self), []);
 _st($HLErrorHandler())._register();
 _st($HLProgressHandler())._register();
 self._registerInspector_($HLInspector());
@@ -4238,7 +4238,7 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLConfirmationWidget.fn.prototype._renderMainOn_.apply(_st(self), [html]);
+smalltalk.HLRequestWidget.superclass.fn.prototype._renderMainOn_.apply(_st(self), [html]);
 self["@input"]=_st(html)._textarea();
 _st(_st(self["@input"])._asJQuery())._val_(self._value());
 return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLRequestWidget)})},
@@ -4416,7 +4416,7 @@ $1=self._isVisible();
 if(smalltalk.assert($1)){
 self["@visible"]=false;
 self["@visible"];
-smalltalk.HLModalWidget.fn.prototype._remove.apply(_st(self), []);
+smalltalk.HLProgressWidget.superclass.fn.prototype._remove.apply(_st(self), []);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLProgressWidget)})},
 args: [],

@@ -2184,7 +2184,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
 if(($receiver = $2) == nil || $receiver == undefined){
-$1=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+$1=smalltalk.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
 var jsSelector;
 jsSelector=$receiver;
@@ -2296,7 +2296,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_ifAbsent_("value",(function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+return smalltalk.JSObjectProxy.superclass.fn.prototype._value.apply(_st(self), []);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.JSObjectProxy)})},
@@ -3012,7 +3012,7 @@ function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnno
 function $ProtocolAdded(){return smalltalk.ProtocolAdded||(typeof ProtocolAdded=="undefined"?nil:ProtocolAdded)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
+smalltalk.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]);
 $1=_st($ProtocolAdded())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -3031,7 +3031,7 @@ function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnno
 function $ProtocolRemoved(){return smalltalk.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
+smalltalk.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]);
 $1=_st($ProtocolRemoved())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -3182,7 +3182,7 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_(" (");
 _st($1)._nextPutAll_(self._name());
@@ -3309,7 +3309,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Package.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._commitPathsFromLoader();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Package.klass)})},
 messageSends: ["initialize", "commitPathsFromLoader"]}),
@@ -3721,6 +3721,17 @@ smalltalk.Random);
 smalltalk.addClass('Smalltalk', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "addGlobalJsVariable:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._globalJsVariables())._add_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"addGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+messageSends: ["add:", "globalJsVariables"]}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSmalltalkException:",
 fn: function (anObject){
 var self=this;
@@ -3817,12 +3828,36 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "deleteGlobalJsVariable:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
+messageSends: ["remove:ifAbsent:", "globalJsVariables"]}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "deletePackage:",
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 delete smalltalk.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
+messageSends: []}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "globalJsVariables",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.globalJsVariables;
+return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);
 
@@ -4020,7 +4055,7 @@ selector: "version",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "0.10";
+return "0.11.0";
 }, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);

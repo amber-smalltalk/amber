@@ -969,7 +969,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Widget.klass.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.SourceArea.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._setupCodeMirror();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.SourceArea.klass)})},
 args: [],
@@ -1071,7 +1071,7 @@ function $Workspace(){return smalltalk.Workspace||(typeof Workspace=="undefined"
 function $TestRunner(){return smalltalk.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
-smalltalk.Widget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@opened"]=true;
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
@@ -1545,7 +1545,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@current"]=smalltalk.Widget.klass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=smalltalk.TabManager.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
 $1=$2;
@@ -2405,7 +2405,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Browser.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@selectedTab"]="instance";
 self["@selectedPackage"]=_st(self._packages())._first();
 self["@unsavedChanges"]=false;
@@ -3838,7 +3838,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Debugger.superclass.fn.prototype._initialize.apply(_st(self), []);
 _st(self["@unsavedChanges"]).__eq(false);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Debugger)})},
 args: [],
@@ -4497,7 +4497,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@current"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@current"]=smalltalk.TabWidget.klass.fn.prototype._new.apply(_st(self), []);
+self["@current"]=smalltalk.IDETranscript.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
 $1=$2;
@@ -5226,7 +5226,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ReferencesBrowser.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@selector"]="";
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ReferencesBrowser)})},
 args: [],
@@ -5879,7 +5879,7 @@ fn: function (){
 var self=this;
 function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.TabWidget.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.TestRunner.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@result"]=_st($TestResult())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TestRunner)})},
 args: [],
@@ -6781,7 +6781,7 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.TabWidget.fn.prototype._show.apply(_st(self), []);
+smalltalk.Workspace.superclass.fn.prototype._show.apply(_st(self), []);
 _st(self["@sourceArea"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.Workspace)})},
 args: [],
@@ -6857,7 +6857,7 @@ var self=this;
 var label;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-smalltalk.CharacterArray.fn.prototype._inspectOn_.apply(_st(self), [anInspector]);
+smalltalk.String.superclass.fn.prototype._inspectOn_.apply(_st(self), [anInspector]);
 $1=_st(_st(self._printString())._size()).__gt((30));
 if(smalltalk.assert($1)){
 label=_st(_st(self._printString())._copyFrom_to_((1),(30))).__comma("...'");

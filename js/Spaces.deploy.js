@@ -83,7 +83,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ObjectSpace.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._create();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ObjectSpace)})},
 messageSends: ["initialize", "create"]}),

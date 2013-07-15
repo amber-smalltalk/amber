@@ -670,7 +670,7 @@ fn: function (){
 var self=this;
 function $Queue(){return smalltalk.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ForkPool.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@poolSize"]=(0);
 self["@queue"]=_st($Queue())._new();
 self["@worker"]=self._makeWorker();
@@ -819,7 +819,7 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Message.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_("(");
 _st($1)._nextPutAll_(self._selector());
@@ -916,7 +916,7 @@ fn: function (){
 var self=this;
 function $Message(){return smalltalk.Message||(typeof Message=="undefined"?nil:Message)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.MessageSend.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@message"]=_st($Message())._new();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.MessageSend)})},
 messageSends: ["initialize", "new"]}),
@@ -929,7 +929,7 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.MessageSend.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_("(");
 _st($1)._nextPutAll_(self._receiver());
@@ -1202,7 +1202,7 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.MethodContext.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_("(");
 _st($1)._nextPutAll_(self._asString());

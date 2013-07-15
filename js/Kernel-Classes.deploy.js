@@ -590,6 +590,20 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "recompile",
+fn: function (){
+var self=this;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Compiler())._new())._recompile_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recompile",{},smalltalk.Behavior)})},
+messageSends: ["recompile:", "new"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeCompiledMethod:",
 fn: function (aMethod){
 var self=this;
@@ -1315,12 +1329,13 @@ function $ClassRenamed(){return smalltalk.ClassRenamed||(typeof ClassRenamed=="u
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 self._basicRenameClass_to_(aClass,className);
+_st(aClass)._recompile();
 $1=_st($ClassRenamed())._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,className:className},smalltalk.ClassBuilder)})},
-messageSends: ["basicRenameClass:to:", "announce:", "current", "theClass:", "new", "yourself"]}),
+messageSends: ["basicRenameClass:to:", "recompile", "announce:", "current", "theClass:", "new", "yourself"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
@@ -1412,7 +1427,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ClassCategoryReader)})},
 messageSends: ["initialize"]}),
 smalltalk.ClassCategoryReader);
@@ -1459,7 +1474,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ClassCommentReader)})},
 messageSends: ["initialize"]}),
 smalltalk.ClassCommentReader);
