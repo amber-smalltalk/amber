@@ -44,20 +44,19 @@ value
 !
 
 value: anArgument
-	^ self valueWithPossibleArguments: #(anArgument)
+	^ self valueWithPossibleArguments: {anArgument}
 !
 
 value: firstArgument value: secondArgument
-	^ self valueWithPossibleArguments: #(firstArgument secondArgument)
+	^ self valueWithPossibleArguments: {firstArgument . secondArgument}
 !
 
 value: firstArgument value: secondArgument value: thirdArgument
-	^ self valueWithPossibleArguments: #(firstArgument secondArgument thirdArgument)
+	^ self valueWithPossibleArguments: {firstArgument . secondArgument . thirdArgument}
 !
 
 valueWithPossibleArguments: aCollection
 	| context |
-	
 	context := outerContext newBlockContext.
 
 	"Populate the arguments into the context locals"	
@@ -207,8 +206,9 @@ initializeFromMethodContext: aMethodContext
 initializeInterpreter
 	interpreter := Interpreter new
 		context: self;
-		node: self retrieveNode;
 		yourself.
+	ast ifNotNil: [ interpreter node: self retrieveNode ].
+	
 	(self innerContext notNil and: [ 
 		self innerContext isBlockContext not ]) ifTrue: [
 			self setupInterpreter: interpreter ]
@@ -1022,6 +1022,7 @@ visitBlockNode: aNode
 	| blockContext block |
 	
 	block := AIBlockClosure forContext: self context node: aNode.
+	
 	self push: block
 !
 
@@ -1092,6 +1093,11 @@ visitVariableNode: aNode
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
+! !
+
+!Interpreter methodsFor: 'xxxDoIt'!
+
+xxxDoIt ^[self step; yourself] value
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!
