@@ -41,11 +41,11 @@ require = function (require) {
             'CodeMirror/addon/hint/show-hint': {
                 deps: [ 'CodeMirror/codemirror' ]
             },
-            'amber/boot': {
-                deps: [ 'es5-shim-2.0.2/es5-shim.min', 'es5-shim-2.0.2/es5-sham.min' ]
+            'ensure-console': {
+                exports: 'console'
             },
             'amber/Kernel-Objects.deploy': {
-                deps: [ 'smalltalk', 'nil' ]
+                deps: [ 'smalltalk', 'nil', '_st' ]
             },
             'amber/Kernel-Classes.deploy': {
                 deps: [ 'amber/Kernel-Objects.deploy' ]
