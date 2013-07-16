@@ -35,6 +35,13 @@ require = function (require) {
             },
             'CodeMirror/addon/hint/show-hint': {
                 deps: [ 'CodeMirror/codemirror']
+            },
+            'smalltalk': {
+                exports: 'smalltalk'
+            },
+            'nil': {
+                deps: [ 'smalltalk' ],
+                exports: 'nil'
             }
         },
         deps: [
