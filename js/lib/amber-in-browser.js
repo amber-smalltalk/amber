@@ -69,7 +69,7 @@ require = function (require) {
                 deps: [ 'amber/Kernel-Objects.deploy' ]
             },
              'amber/Kernel-Objects': {
-                deps: [ 'smalltalk', 'nil' ]
+                deps: [ 'smalltalk', 'nil', '_st' ]
             },
             'amber/Kernel-Classes': {
                 deps: [ 'amber/Kernel-Objects' ]
