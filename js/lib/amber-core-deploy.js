@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'amber/Kernel-Objects.deploy',
     'amber/Kernel-Classes.deploy',
     'amber/Kernel-Methods.deploy',

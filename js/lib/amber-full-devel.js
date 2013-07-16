@@ -1,4 +1,5 @@
 define([
+    'jquery',
     'jquery-ui',
     'jQuery/jquery.textarea',
     'CodeMirror/codemirror',
