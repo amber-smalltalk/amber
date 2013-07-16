@@ -8,7 +8,7 @@ var require;
 require = function (require) {
     var scripts = document.getElementsByTagName("script");
     var src = scripts[ scripts.length - 1 ].src;
-    var home = resolveViaDOM(src).replace(/[^\/]+$/, "");
+    var home = resolveViaDOM(src).replace(/\/[^\/]+$/, "");
 
     function resolveViaDOM(url) {
         var a = document.createElement("a");
