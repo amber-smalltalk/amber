@@ -2447,17 +2447,18 @@ parent=_st(window)._parent();
 } else {
 parent=$1;
 };
-$2=parent;
-if(($receiver = $2) == nil || $receiver == undefined){
+$2=_st(_st(parent)._isNil())._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(parent)._at_("smalltalk"))._isNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+if(smalltalk.assert($2)){
 $3=_st($Environment())._new();
 return $3;
-} else {
-$2;
 };
 $4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
-messageSends: ["ifNil:", "opener", "parent", "new", "at:"]}),
+messageSends: ["ifNil:", "opener", "parent", "ifTrue:", "or:", "isNil", "at:", "new"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
