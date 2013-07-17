@@ -1,3 +1,3 @@
-define(['amber/boot'], function () {
-    return smalltalk;
+define(['amber/boot'], function (boot) {
+    return boot.smalltalk;
 });

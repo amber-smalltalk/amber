@@ -1,3 +1,3 @@
-define(['amber/boot'], function () {
-    return nil;
+define(['amber/boot'], function (boot) {
+    return boot.nil;
 });
