@@ -1689,4 +1689,4 @@ messageSends: ["widget:", "new", "yourself"]}),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

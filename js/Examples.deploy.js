@@ -83,4 +83,4 @@ messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.Counterzzz.klass);
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

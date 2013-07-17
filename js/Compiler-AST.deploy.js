@@ -1537,4 +1537,4 @@ return $1;
 messageSends: ["ifEmpty:", "error:", "source", "parse:", "current"]}),
 smalltalk.CompiledMethod);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

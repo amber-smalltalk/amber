@@ -762,4 +762,4 @@ smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kerne
 smalltalk.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class.";
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

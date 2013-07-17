@@ -3894,4 +3894,4 @@ referencedClasses: []
 smalltalk.HLSelectorsCache.klass);
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

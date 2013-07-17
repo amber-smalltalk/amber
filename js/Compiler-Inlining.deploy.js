@@ -1158,4 +1158,4 @@ smalltalk.InliningCodeGenerator);
 
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

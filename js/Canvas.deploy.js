@@ -2759,4 +2759,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},smalltalk.JSObjectP
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

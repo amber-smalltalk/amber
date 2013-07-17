@@ -1638,4 +1638,4 @@ messageSends: ["theClass:", "new", "level:", "getNodesFrom:", "yourself"]}),
 smalltalk.ClassSorterNode.klass);
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

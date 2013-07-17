@@ -172,4 +172,4 @@ messageSends: ["remove:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

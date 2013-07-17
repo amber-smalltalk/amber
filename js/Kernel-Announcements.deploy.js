@@ -554,4 +554,4 @@ smalltalk.addClass('ProtocolAdded', smalltalk.ProtocolAnnouncement, [], 'Kernel-
 smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

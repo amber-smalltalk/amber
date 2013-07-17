@@ -4339,4 +4339,4 @@ return $1;
 messageSends: ["replace:with:"]}),
 smalltalk.String);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

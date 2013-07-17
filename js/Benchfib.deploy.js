@@ -216,4 +216,4 @@ return $1;
 messageSends: ["whileTrue:", "*", "millisecondsToRun:", "benchmark", "<", "+", "benchFib", ",", "printString", "/"]}),
 smalltalk.Number);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

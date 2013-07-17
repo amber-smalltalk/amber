@@ -2102,4 +2102,4 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.CompiledMethod);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

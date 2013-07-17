@@ -534,4 +534,4 @@ smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helio
 smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

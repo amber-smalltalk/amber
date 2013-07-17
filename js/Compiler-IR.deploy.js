@@ -2778,4 +2778,4 @@ return $1;
 messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"]}),
 smalltalk.String);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

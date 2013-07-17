@@ -6,4 +6,4 @@ smalltalk.addClass('HLError', smalltalk.Error, [], 'Helios-Exceptions');
 smalltalk.addClass('HLChangeForbidden', smalltalk.HLError, [], 'Helios-Exceptions');
 
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);

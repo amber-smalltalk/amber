@@ -102,9 +102,9 @@ inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 
 /* Global Smalltalk objects. */
-var smalltalk, nil, _st;
+var global_smalltalk, global_nil, global__st;
 
-nil = new SmalltalkNil();
+global_nil = new SmalltalkNil();
 (function (nil) {
 
 function Smalltalk() {
@@ -809,7 +809,7 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-smalltalk = new Smalltalk();
+global_smalltalk = new Smalltalk();
 (function (smalltalk) {
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
@@ -848,7 +848,7 @@ SmalltalkMethodContext.prototype.method = function() {
  * Used in message sends
  */
 
-_st = function(o) {
+global__st = function(o) {
 	if(o == null) {return nil;}
 	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
@@ -895,5 +895,5 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
 
-})(smalltalk);
-})(nil);
+})(global_smalltalk);
+})(global_nil);

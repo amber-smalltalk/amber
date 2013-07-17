@@ -5539,4 +5539,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspe
 messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instVarAt:", "instanceVariableNames", "class", "setLabel:", "printString", "setVariables:"]}),
 smalltalk.MethodContext);
 
-})(smalltalk,nil,_st);
+})(global_smalltalk,global_nil,global__st);
