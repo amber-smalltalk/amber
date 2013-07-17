@@ -33,11 +33,11 @@
    |
    ==================================================================== */
 
-// TODO make this unnecessary
-/* Global Smalltalk objects. */
-var global_smalltalk, global_nil, global__st;
 
 define([ 'ensure-console', 'es5-shim-2.0.2/es5-shim.min', 'es5-shim-2.0.2/es5-sham.min' ], function () {
+
+/* Previouslu global Smalltalk objects; now they are local to this module and exported. */
+var global_smalltalk, global_nil, global__st;
 
 /* Array extensions */
 
