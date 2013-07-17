@@ -373,11 +373,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
+_st($1)._nextPutAll_("});");
 $2=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOn:",{aStream:aStream},smalltalk.Exporter)})},
 args: ["aStream"],
-source: "exportPackageEpilogueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
+source: "exportPackageEpilogueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '});';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: []
 }),
@@ -428,11 +428,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("(function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){");
 $2=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.Exporter)})},
 args: ["aStream"],
-source: "exportPackagePrologueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+source: "exportPackagePrologueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: []
 }),

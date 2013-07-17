@@ -187,7 +187,7 @@ exportPackageDefinitionOf: package on: aStream
 
 exportPackageEpilogueOn: aStream
 	aStream
-		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
+		nextPutAll: '});';
 		lf
 !
 
@@ -205,7 +205,7 @@ exportPackageExtensionsOf: package on: aStream
 
 exportPackagePrologueOn: aStream
 	aStream
-		nextPutAll: '(function(smalltalk,nil,_st){';
+		nextPutAll: 'define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){';
 		lf
 ! !
 
