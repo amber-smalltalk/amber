@@ -187,7 +187,7 @@ exportPackageDefinitionOf: package on: aStream
 
 exportPackageEpilogueOn: aStream
 	aStream
-		nextPutAll: '})(smalltalk,nil,_st);';
+		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
 		lf
 !
 

@@ -310,7 +310,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("})(smalltalk,nil,_st);");
+_st($1)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
 $2=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOn:",{aStream:aStream},smalltalk.Exporter)})},
 messageSends: ["nextPutAll:", "lf"]}),
