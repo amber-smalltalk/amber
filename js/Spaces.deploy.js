@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.addMethod(
@@ -249,3 +250,4 @@ smalltalk.ObjectSpaceTest);
 
 
 
+})(smalltalk,nil,_st);

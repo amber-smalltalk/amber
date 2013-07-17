@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
 smalltalk.addClass('Counterzzz', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
@@ -82,3 +83,4 @@ messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.Counterzzz.klass);
 
 
+})(smalltalk,nil,_st);

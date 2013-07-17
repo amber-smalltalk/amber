@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Tools');
 smalltalk.addClass('HLToolCommand', smalltalk.HLModelCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
@@ -1896,3 +1897,4 @@ referencedClasses: []
 smalltalk.HLRenameProtocolCommand.klass);
 
 
+})(smalltalk,nil,_st);

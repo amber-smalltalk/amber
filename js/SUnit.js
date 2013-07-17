@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit');
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.ResultAnnouncement.comment="I get signaled when a `TestCase` has been run.\x0a\x0aMy instances hold the result (instance of `TestResult`) of the test run.";
@@ -1233,3 +1234,4 @@ referencedClasses: []
 smalltalk.TestSuiteRunner.klass);
 
 
+})(smalltalk,nil,_st);

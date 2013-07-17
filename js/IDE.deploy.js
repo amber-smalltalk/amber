@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
@@ -5538,3 +5539,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspe
 messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instVarAt:", "instanceVariableNames", "class", "setLabel:", "printString", "setVariables:"]}),
 smalltalk.MethodContext);
 
+})(smalltalk,nil,_st);

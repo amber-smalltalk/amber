@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
 smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
 smalltalk.addMethod(
@@ -1529,3 +1530,4 @@ return $1;
 messageSends: ["interpretClassReferenceNode:continue:"]}),
 smalltalk.ClassReferenceNode);
 
+})(smalltalk,nil,_st);

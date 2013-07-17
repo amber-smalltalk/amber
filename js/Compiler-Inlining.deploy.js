@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Inlining');
 smalltalk.addClass('IRInlinedAssignment', smalltalk.IRAssignment, [], 'Compiler-Inlining');
 smalltalk.addMethod(
@@ -1157,3 +1158,4 @@ smalltalk.InliningCodeGenerator);
 
 
 
+})(smalltalk,nil,_st);

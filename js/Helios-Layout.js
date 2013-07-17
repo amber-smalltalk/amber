@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Layout');
 smalltalk.addClass('HLContainer', smalltalk.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(
@@ -531,3 +532,4 @@ referencedClasses: []
 }),
 smalltalk.Object);
 
+})(smalltalk,nil,_st);

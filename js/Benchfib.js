@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
@@ -250,3 +251,4 @@ referencedClasses: ["Date"]
 }),
 smalltalk.Number);
 
+})(smalltalk,nil,_st);

@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Objects');
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
 smalltalk.addMethod(
@@ -4338,3 +4339,4 @@ return $1;
 messageSends: ["replace:with:"]}),
 smalltalk.String);
 
+})(smalltalk,nil,_st);

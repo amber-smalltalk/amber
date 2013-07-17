@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace-Tests');
 smalltalk.addClass('HLCodeWidgetTest', smalltalk.TestCase, [], 'Helios-Workspace-Tests');
 smalltalk.addMethod(
@@ -21,3 +22,4 @@ smalltalk.HLCodeWidgetTest);
 
 
 
+})(smalltalk,nil,_st);

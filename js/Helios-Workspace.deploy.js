@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
@@ -1575,3 +1576,4 @@ messageSends: []}),
 smalltalk.HLWorkspace.klass);
 
 
+})(smalltalk,nil,_st);

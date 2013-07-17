@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit');
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.addMethod(
@@ -921,3 +922,4 @@ messageSends: ["suite:", "new"]}),
 smalltalk.TestSuiteRunner.klass);
 
 
+})(smalltalk,nil,_st);

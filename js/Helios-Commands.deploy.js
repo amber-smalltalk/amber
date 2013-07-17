@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands');
 smalltalk.addClass('HLCommand', smalltalk.Object, [], 'Helios-Commands');
 smalltalk.addMethod(
@@ -920,3 +921,4 @@ messageSends: []}),
 smalltalk.HLViewCommand.klass);
 
 
+})(smalltalk,nil,_st);

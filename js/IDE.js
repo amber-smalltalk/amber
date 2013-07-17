@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
@@ -6963,3 +6964,4 @@ referencedClasses: ["Dictionary"]
 }),
 smalltalk.MethodContext);
 
+})(smalltalk,nil,_st);

@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
@@ -2229,3 +2230,4 @@ referencedClasses: []
 smalltalk.HLRepeatingKeyBindingHandler.klass);
 
 
+})(smalltalk,nil,_st);

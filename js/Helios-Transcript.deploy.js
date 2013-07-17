@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Transcript');
 smalltalk.addClass('HLTranscript', smalltalk.HLWidget, ['textarea'], 'Helios-Transcript');
 smalltalk.addMethod(
@@ -171,3 +172,4 @@ messageSends: ["remove:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
 
 
+})(smalltalk,nil,_st);

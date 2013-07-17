@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Announcements');
 smalltalk.addClass('HLAboutToChange', smalltalk.Object, ['actionBlock'], 'Helios-Announcements');
 smalltalk.addMethod(
@@ -402,3 +403,4 @@ smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helio
 smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
+})(smalltalk,nil,_st);
