@@ -89,14 +89,19 @@ exportPackage: packageName
 
 	| package |
 	^String streamContents: [:stream |
-				package := Smalltalk current packageAt: packageName.
-				self exportPackageDefinitionOf: package on: stream.
+		self exportPackagePrologueOn: stream.
+		[
+			package := Smalltalk current packageAt: packageName.
+			self exportPackageDefinitionOf: package on: stream.
 
-		"Export classes in dependency order.
-		Update (issue #171): Remove duplicates for export"
+			"Export classes in dependency order.
+			Update (issue #171): Remove duplicates for export"
 			package sortedClasses asSet do: [:each |
 						stream nextPutAll: (self exportClass: each)].
-		self exportPackageExtensionsOf: package on: stream]
+			self exportPackageExtensionsOf: package on: stream
+		] ensure: [
+			self exportPackageEpilogueOn: stream
+		]]
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -180,6 +185,12 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
+exportPackageEpilogueOn: aStream
+	aStream
+		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
+		lf
+!
+
 exportPackageExtensionsOf: package on: aStream
 	"Issue #143: sort classes and methods alphabetically"
 
@@ -190,6 +201,12 @@ exportPackageExtensionsOf: package on: aStream
 			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
 				(method category match: '^\*', name) ifTrue: [
 					self exportMethod: method of: aClass on: aStream ]]]]
+!
+
+exportPackagePrologueOn: aStream
+	aStream
+		nextPutAll: '(function(smalltalk,nil,_st){';
+		lf
 ! !
 
 Exporter subclass: #ChunkExporter
@@ -291,6 +308,9 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
+exportPackageEpilogueOn: aStream
+!
+
 exportPackageExtensionsOf: package on: aStream
 	"We need to override this one too since we need to group
 	all methods in a given protocol under a leading methodsFor: chunk
@@ -308,6 +328,9 @@ exportPackageExtensionsOf: package on: aStream
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 				methods := map at: category.
 				self exportMethods: methods category: category of: aClass on: aStream ]]]
+!
+
+exportPackagePrologueOn: aStream
 ! !
 
 Exporter subclass: #StrippedExporter

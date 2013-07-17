@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.addMethod(
@@ -1341,3 +1342,4 @@ messageSends: ["theClass:", "new", "yourself"]}),
 smalltalk.SemanticAnalyzer.klass);
 
 
+})(global_smalltalk,global_nil,global__st);

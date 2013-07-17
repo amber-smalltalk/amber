@@ -206,9 +206,9 @@ amber = (function() {
 
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk() {
-		that.smalltalkReady = function() {
+		that.smalltalkReady = function(smalltalk,nil,_st) {
 			if (spec.ready) {
-				spec.ready();
+				spec.ready(smalltalk,nil,_st);
 			}
 			evaluateSmalltalkScripts();
 		};
