@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
@@ -216,4 +216,4 @@ return $1;
 messageSends: ["whileTrue:", "*", "millisecondsToRun:", "benchmark", "<", "+", "benchFib", ",", "printString", "/"]}),
 smalltalk.Number);
 
-})(global_smalltalk,global_nil,global__st);
+});

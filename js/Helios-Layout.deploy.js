@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Layout');
 smalltalk.addClass('HLContainer', smalltalk.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(
@@ -392,4 +392,4 @@ return false;
 messageSends: []}),
 smalltalk.Object);
 
-})(global_smalltalk,global_nil,global__st);
+});

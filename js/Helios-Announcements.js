@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Announcements');
 smalltalk.addClass('HLAboutToChange', smalltalk.Object, ['actionBlock'], 'Helios-Announcements');
 smalltalk.addMethod(
@@ -534,4 +534,4 @@ smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helio
 smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
 
-})(global_smalltalk,global_nil,global__st);
+});

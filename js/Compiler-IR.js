@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
@@ -3682,4 +3682,4 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.String);
 
-})(global_smalltalk,global_nil,global__st);
+});

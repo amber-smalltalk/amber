@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit-Tests');
 smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
 smalltalk.addMethod(
@@ -428,4 +428,4 @@ smalltalk.SUnitAsyncTest);
 
 
 
-})(global_smalltalk,global_nil,global__st);
+});

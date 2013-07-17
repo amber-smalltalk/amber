@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Objects');
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
 smalltalk.addMethod(
@@ -4339,4 +4339,4 @@ return $1;
 messageSends: ["replace:with:"]}),
 smalltalk.String);
 
-})(global_smalltalk,global_nil,global__st);
+});

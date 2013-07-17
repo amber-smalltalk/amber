@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
 smalltalk.addClass('Counterzzz', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
@@ -83,4 +83,4 @@ messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.Counterzzz.klass);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

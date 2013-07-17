@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
 smalltalk.addClass('Counterzzz', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.Counterzzz.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter new appendToJQuery: 'body' asJQuery";
@@ -109,4 +109,4 @@ referencedClasses: []
 smalltalk.Counterzzz.klass);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

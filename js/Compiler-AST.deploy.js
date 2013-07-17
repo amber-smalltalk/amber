@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-AST');
 smalltalk.addClass('Node', smalltalk.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.addMethod(
@@ -1537,4 +1537,4 @@ return $1;
 messageSends: ["ifEmpty:", "error:", "source", "parse:", "current"]}),
 smalltalk.CompiledMethod);
 
-})(global_smalltalk,global_nil,global__st);
+});

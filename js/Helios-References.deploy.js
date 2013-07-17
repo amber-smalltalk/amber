@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-References');
 smalltalk.addClass('HLMethodReference', smalltalk.Object, ['selector', 'methodClass'], 'Helios-References');
 smalltalk.addMethod(
@@ -841,4 +841,4 @@ smalltalk.HLReferencesModel);
 
 
 
-})(global_smalltalk,global_nil,global__st);
+});

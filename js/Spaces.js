@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.ObjectSpace.comment="I am a connection to another Smalltalk environment.\x0aThe implementation creates an iframe on the same location as the window, and connect to the Amber environment.\x0a\x0a\x0a\x0a## Usage example:\x0a\x0a\x09| space |\x0a\x09\x0a\x09space := ObjectSpace new.\x0a\x09space do: [ smalltalk ] \x22Answers aSmalltalk\x22\x0a\x09(space do: [ smalltalk ]) == smalltalk \x22Answers false\x22\x0a\x09\x0a\x09space release \x22Remove the object space environment\x22";
@@ -336,4 +336,4 @@ smalltalk.ObjectSpaceTest);
 
 
 
-})(global_smalltalk,global_nil,global__st);
+});

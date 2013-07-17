@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands');
 smalltalk.addClass('HLCommand', smalltalk.Object, [], 'Helios-Commands');
 smalltalk.addMethod(
@@ -997,4 +997,4 @@ messageSends: []}),
 smalltalk.HLViewCommand.klass);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

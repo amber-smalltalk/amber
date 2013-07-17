@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Transcript');
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
@@ -151,4 +151,4 @@ messageSends: ["show:", "current"]}),
 smalltalk.Transcript.klass);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

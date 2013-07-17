@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
 smalltalk.addMethod(
@@ -836,4 +836,4 @@ return $1;
 messageSends: ["commit:", "new"]}),
 smalltalk.Package);
 
-})(global_smalltalk,global_nil,global__st);
+});

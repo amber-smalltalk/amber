@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Exceptions');
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(
@@ -452,4 +452,4 @@ messageSends: []}),
 smalltalk.ErrorHandler.klass);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

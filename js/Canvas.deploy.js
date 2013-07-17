@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
@@ -2759,4 +2759,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"asJQuery",{},smalltalk.JSObjectP
 messageSends: []}),
 smalltalk.JSObjectProxy);
 
-})(global_smalltalk,global_nil,global__st);
+});

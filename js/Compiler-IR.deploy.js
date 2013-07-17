@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.addMethod(
@@ -2778,4 +2778,4 @@ return $1;
 messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"]}),
 smalltalk.String);
 
-})(global_smalltalk,global_nil,global__st);
+});

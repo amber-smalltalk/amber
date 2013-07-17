@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.addMethod(
@@ -250,4 +250,4 @@ smalltalk.ObjectSpaceTest);
 
 
 
-})(global_smalltalk,global_nil,global__st);
+});

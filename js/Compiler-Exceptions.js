@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Exceptions');
 smalltalk.addClass('CompilerError', smalltalk.Error, [], 'Compiler-Exceptions');
 smalltalk.CompilerError.comment="I am the common superclass of all compiling errors.";
@@ -221,4 +221,4 @@ smalltalk.RethrowErrorHandler);
 
 
 
-})(global_smalltalk,global_nil,global__st);
+});

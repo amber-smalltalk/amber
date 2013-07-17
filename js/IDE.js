@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
@@ -6964,4 +6964,4 @@ referencedClasses: ["Dictionary"]
 }),
 smalltalk.MethodContext);
 
-})(global_smalltalk,global_nil,global__st);
+});

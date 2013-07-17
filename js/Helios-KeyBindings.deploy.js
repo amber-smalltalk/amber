@@ -1,4 +1,4 @@
-(function(smalltalk,nil,_st){
+define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
@@ -1689,4 +1689,4 @@ messageSends: ["widget:", "new", "yourself"]}),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
 
 
-})(global_smalltalk,global_nil,global__st);
+});
