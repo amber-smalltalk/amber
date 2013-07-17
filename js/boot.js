@@ -101,6 +101,12 @@ inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 
+/* Global Smalltalk objects. */
+var smalltalk, nil, _st;
+
+nil = new SmalltalkNil();
+(function (nil) {
+
 function Smalltalk() {
 
 	var st = this;
@@ -196,7 +202,7 @@ function Smalltalk() {
 	}
 
 	/* Smalltalk class creation. A class is an instance of an automatically
-		created metaclass object. Newly created classes (not their metaclass) 
+		created metaclass object. Newly created classes (not their metaclass)
 		should be added to the smalltalk object, see smalltalk.addClass().
 		Superclass linking is *not* handled here, see smalltalk.init()  */
 
@@ -785,6 +791,10 @@ function Smalltalk() {
 
 inherits(Smalltalk, SmalltalkObject);
 
+if(this.jQuery) {
+    this.jQuery.allowJavaScriptCalls = true;
+}
+
 function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
 	this.setup       = setup || function() {};
@@ -798,6 +808,9 @@ SmalltalkMethodContext.prototype.selector = null;
 SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
+
+smalltalk = new Smalltalk();
+(function (smalltalk) {
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -830,21 +843,12 @@ SmalltalkMethodContext.prototype.method = function() {
 	return method;
 };
 
-/* Global Smalltalk objects. */
-
-var nil = new SmalltalkNil();
-var smalltalk = new Smalltalk();
-
-if(this.jQuery) {
-	this.jQuery.allowJavaScriptCalls = true;
-}
-
 /*
  * Answer the smalltalk representation of o.
  * Used in message sends
  */
 
-var _st = function(o) {
+_st = function(o) {
 	if(o == null) {return nil;}
 	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
@@ -890,3 +894,6 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
+
+})(smalltalk);
+})(nil);
