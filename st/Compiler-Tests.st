@@ -307,14 +307,18 @@ interpreter
 interpret: aString receiver: anObject withArguments: aDictionary
 	"The food is a methodNode. Interpret the sequenceNode only"
 	
-	| ctx |
+	| ctx interpreter |
 	
-	ctx := AIContext new.
-	ctx receiver: anObject.
+	interpreter := self interpreter.
+	
+	ctx := AIContext new
+		receiver: anObject;
+		interpreter: interpreter;
+		yourself.
 	aDictionary keysAndValuesDo: [ :key :value |
 		ctx localAt: key put: value ].
 	
-	^ self interpreter
+	^ interpreter
 		context: ctx;
 		interpret: (self parse: aString forClass: anObject class) nextChild;
 		proceed;

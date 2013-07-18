@@ -658,27 +658,31 @@ selector: "interpret:receiver:withArguments:",
 category: 'interpreting',
 fn: function (aString,anObject,aDictionary){
 var self=this;
-var ctx;
+var ctx,interpreter;
 function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-ctx=_st($AIContext())._new();
-_st(ctx)._receiver_(anObject);
+var $1,$2,$4,$5,$3;
+interpreter=self._interpreter();
+$1=_st($AIContext())._new();
+_st($1)._receiver_(anObject);
+_st($1)._interpreter_(interpreter);
+$2=_st($1)._yourself();
+ctx=$2;
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(ctx)._localAt_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-$2=self._interpreter();
-_st($2)._context_(ctx);
-_st($2)._interpret_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
-_st($2)._proceed();
-$3=_st($2)._result();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx},smalltalk.InterpreterTest)})},
+$4=interpreter;
+_st($4)._context_(ctx);
+_st($4)._interpret_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
+_st($4)._proceed();
+$5=_st($4)._result();
+$3=$5;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,interpreter:interpreter},smalltalk.InterpreterTest)})},
 args: ["aString", "anObject", "aDictionary"],
-source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx |\x0a\x09\x0a\x09ctx := AIContext new.\x0a\x09ctx receiver: anObject.\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ self interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: (self parse: aString forClass: anObject class) nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
-messageSends: ["new", "receiver:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "interpret:", "nextChild", "parse:forClass:", "class", "proceed", "result"],
+source: "interpret: aString receiver: anObject withArguments: aDictionary\x0a\x09\x22The food is a methodNode. Interpret the sequenceNode only\x22\x0a\x09\x0a\x09| ctx interpreter |\x0a\x09\x0a\x09interpreter := self interpreter.\x0a\x09\x0a\x09ctx := AIContext new\x0a\x09\x09receiver: anObject;\x0a\x09\x09interpreter: interpreter;\x0a\x09\x09yourself.\x0a\x09aDictionary keysAndValuesDo: [ :key :value |\x0a\x09\x09ctx localAt: key put: value ].\x0a\x09\x0a\x09^ interpreter\x0a\x09\x09context: ctx;\x0a\x09\x09interpret: (self parse: aString forClass: anObject class) nextChild;\x0a\x09\x09proceed;\x0a\x09\x09result",
+messageSends: ["interpreter", "receiver:", "new", "interpreter:", "yourself", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "parse:forClass:", "class", "proceed", "result"],
 referencedClasses: ["AIContext"]
 }),
 smalltalk.InterpreterTest);

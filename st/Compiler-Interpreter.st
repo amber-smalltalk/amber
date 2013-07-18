@@ -56,8 +56,13 @@ value: firstArgument value: secondArgument value: thirdArgument
 !
 
 valueWithPossibleArguments: aCollection
-	| context |
+	| context sequenceNode |
 	context := outerContext newBlockContext.
+
+	"Interpret a copy of the sequence node to avoid creating a new AIBlockClosure"
+	sequenceNode := node nodes first copy
+		parent: nil;
+		yourself.
 
 	"Populate the arguments into the context locals"	
 	node parameters withIndexDo: [ :each :index |
@@ -65,12 +70,15 @@ valueWithPossibleArguments: aCollection
 
 	"Interpret the first node of the BlockSequenceNode"
 	context interpreter
-		node: node nodes first nextChild;
+		node: sequenceNode nextChild;
 		proceed.
 		
-	outerContext interpreter 
-		push: context interpreter value;
-		returnValue: context returnValue
+	outerContext interpreter
+		returnValue: context interpreter returnValue.
+		
+	console log: context interpreter returnValue.
+		
+	^ context interpreter pop
 ! !
 
 !AIBlockClosure methodsFor: 'initialization'!
@@ -236,6 +244,10 @@ ast
 interpreter
 	interpreter ifNil: [ self initializeInterpreter ].
 	^ interpreter
+!
+
+interpreter: anInterpreter
+	interpreter := anInterpreter
 !
 
 pc
@@ -822,7 +834,7 @@ visitSendNode: aNode
 ! !
 
 NodeVisitor subclass: #Interpreter
-	instanceVariableNames: 'node context stack value returnValue'
+	instanceVariableNames: 'node context stack returnValue'
 	package: 'Compiler-Interpreter'!
 
 !Interpreter methodsFor: 'accessing'!
@@ -967,6 +979,8 @@ sendMessage: aMessage to: anObject superSend: aBoolean
 peek
 	"Peek the top object of the context stack"
 	
+	self stack ifEmpty: [ ^ nil ].
+	
 	^ self stack last
 !
 
@@ -1019,7 +1033,7 @@ visitBlockNode: aNode
 	"Do not evaluate the block node.
 	Instead, put all instructions into a block that we push to the stack for later evaluation"
 	
-	| blockContext block |
+	| block |
 	
 	block := AIBlockClosure forContext: self context node: aNode.
 	

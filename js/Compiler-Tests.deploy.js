@@ -497,25 +497,29 @@ smalltalk.method({
 selector: "interpret:receiver:withArguments:",
 fn: function (aString,anObject,aDictionary){
 var self=this;
-var ctx;
+var ctx,interpreter;
 function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-ctx=_st($AIContext())._new();
-_st(ctx)._receiver_(anObject);
+var $1,$2,$4,$5,$3;
+interpreter=self._interpreter();
+$1=_st($AIContext())._new();
+_st($1)._receiver_(anObject);
+_st($1)._interpreter_(interpreter);
+$2=_st($1)._yourself();
+ctx=$2;
 _st(aDictionary)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(ctx)._localAt_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
-$2=self._interpreter();
-_st($2)._context_(ctx);
-_st($2)._interpret_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
-_st($2)._proceed();
-$3=_st($2)._result();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx},smalltalk.InterpreterTest)})},
-messageSends: ["new", "receiver:", "keysAndValuesDo:", "localAt:put:", "context:", "interpreter", "interpret:", "nextChild", "parse:forClass:", "class", "proceed", "result"]}),
+$4=interpreter;
+_st($4)._context_(ctx);
+_st($4)._interpret_(_st(self._parse_forClass_(aString,_st(anObject)._class()))._nextChild());
+_st($4)._proceed();
+$5=_st($4)._result();
+$3=$5;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"interpret:receiver:withArguments:",{aString:aString,anObject:anObject,aDictionary:aDictionary,ctx:ctx,interpreter:interpreter},smalltalk.InterpreterTest)})},
+messageSends: ["interpreter", "receiver:", "new", "interpreter:", "yourself", "keysAndValuesDo:", "localAt:put:", "context:", "interpret:", "nextChild", "parse:forClass:", "class", "proceed", "result"]}),
 smalltalk.InterpreterTest);
 
 smalltalk.addMethod(
