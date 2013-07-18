@@ -94,8 +94,8 @@ inherits(SmalltalkOrganizer, SmalltalkObject);
 inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
-global_nil = new SmalltalkNil();
-(function (nil) {
+
+var nil = global_nil = new SmalltalkNil();
 
 function Smalltalk() {
 
@@ -782,7 +782,7 @@ function Smalltalk() {
 inherits(Smalltalk, SmalltalkObject);
 
 if(this.jQuery) {
-    this.jQuery.allowJavaScriptCalls = true;
+	this.jQuery.allowJavaScriptCalls = true;
 }
 
 function SmalltalkMethodContext(home, setup) {
@@ -799,8 +799,7 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-global_smalltalk = new Smalltalk();
-(function (smalltalk) {
+var smalltalk = global_smalltalk = new Smalltalk();
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -884,9 +883,6 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
-
-})(global_smalltalk);
-})(global_nil);
 
 return { smalltalk: global_smalltalk, nil: global_nil, _st: global__st };
 });
