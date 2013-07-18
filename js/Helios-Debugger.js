@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Debugger');
 smalltalk.addClass('HLContextInspectorDecorator', smalltalk.Object, ['context'], 'Helios-Debugger');
 smalltalk.addMethod(
@@ -1014,3 +1015,4 @@ smalltalk.HLStackListWidget);
 
 
 
+})(global_smalltalk,global_nil,global__st);

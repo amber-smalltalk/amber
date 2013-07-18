@@ -45,6 +45,18 @@ if(typeof console === "undefined") {
 	};
 }
 
+/* Global Smalltalk objects. */
+// The globals below all begin with `global_' prefix.
+// This prefix is to advice developers to avoid their usage,
+// instead using local versions smalltalk, nil, _st that are
+// provided by appropriate wrappers to each package.
+// The plan is to use different module loader (and slightly change the wrappers)
+// so that these globals are hidden completely inside the exports/imports of the module loader.
+// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
+var global_smalltalk, global_nil, global__st;
+
+(function () {
+
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
@@ -100,6 +112,8 @@ inherits(SmalltalkOrganizer, SmalltalkObject);
 inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
+
+var nil = global_nil = new SmalltalkNil();
 
 function Smalltalk() {
 
@@ -196,7 +210,7 @@ function Smalltalk() {
 	}
 
 	/* Smalltalk class creation. A class is an instance of an automatically
-		created metaclass object. Newly created classes (not their metaclass) 
+		created metaclass object. Newly created classes (not their metaclass)
 		should be added to the smalltalk object, see smalltalk.addClass().
 		Superclass linking is *not* handled here, see smalltalk.init()  */
 
@@ -412,7 +426,7 @@ function Smalltalk() {
 		subclasses.forEach(function(subclass) {
 			result.push.apply(result, st.allSubclasses(subclass));
 		});
-	
+
 		return result;
 	};
 
@@ -510,10 +524,10 @@ function Smalltalk() {
 			}
 			return new_addMethod(klass_exMethod, exKlass);
 		}
-	
+
 		return new_addMethod(method_exJsSelector, klass_exMethod);
 	};
-	
+
 	// later, st.addMethod can be this:
 	function new_addMethod(method, klass) {
 		if (!(method.jsSelector)) {
@@ -526,7 +540,7 @@ function Smalltalk() {
 		// During the bootstrap, #addCompiledMethod is not used.
 		// Therefore we populate the organizer here too
 		klass.organization.elements.addElement(method.category);
-	
+
 		// If already initialized (else it will be done later anyway),
 		// re-initialize all subclasses to ensure the new method
 		// propagation (for wrapped classes, not using the prototype
@@ -536,7 +550,7 @@ function Smalltalk() {
 				st.initClass(subclass);
 			});
 		}
-	
+
 		for(var i=0; i<method.messageSends.length; i++) {
 			var dnuHandler = dnu.get(method.messageSends[i]);
 			if(initialized) {
@@ -640,7 +654,7 @@ function Smalltalk() {
 
 		Converts keyword-based selectors by using the first
 		keyword only, but keeping all message arguments.
-		
+
 		Example:
 		"self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
 
@@ -673,8 +687,7 @@ function Smalltalk() {
 	};
 
 	function pushContext(setup) {
-		st.thisContext = new SmalltalkMethodContext(smalltalk.thisContext, setup);
-		return st.thisContext;
+		return st.thisContext = new SmalltalkMethodContext(st.thisContext, setup);
 	}
 
 	function popContext(context) {
@@ -758,18 +771,18 @@ function Smalltalk() {
 
 	/* Boolean assertion */
 	st.assert = function(shouldBeBoolean) {
-		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === smalltalk.Boolean)) {
+		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
 			return (shouldBeBoolean == true);
 		} else {
-			smalltalk.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 		}
-    };
+	};
 
 	/* Backward compatibility with Amber 0.9.1 */
 	st.symbolFor = function(aString) { return aString; };
-	
+
 	/* Smalltalk initialization. Called on page load */
-	
+
 	st.initialize = function() {
 		if(initialized) { return; }
 
@@ -779,12 +792,16 @@ function Smalltalk() {
 		classes.forEach(function(klass) {
 			klass._initialize();
 		});
-	
+
 		initialized = true;
 	};
 }
 
 inherits(Smalltalk, SmalltalkObject);
+
+if(this.jQuery) {
+	this.jQuery.allowJavaScriptCalls = true;
+}
 
 function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
@@ -799,6 +816,8 @@ SmalltalkMethodContext.prototype.selector = null;
 SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
+
+var smalltalk = global_smalltalk = new Smalltalk();
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -819,7 +838,7 @@ SmalltalkMethodContext.prototype.init = function() {
 		home = home.init();
 	}
 
-    this.setup(this);
+	this.setup(this);
 };
 
 SmalltalkMethodContext.prototype.method = function() {
@@ -832,25 +851,16 @@ SmalltalkMethodContext.prototype.method = function() {
 	return method;
 };
 
-/* Global Smalltalk objects. */
-
-var nil = new SmalltalkNil();
-var smalltalk = new Smalltalk();
-
-if(this.jQuery) {
-	this.jQuery.allowJavaScriptCalls = true;
-}
-
 /*
  * Answer the smalltalk representation of o.
  * Used in message sends
  */
 
-var _st = function(o) {
+global__st = function(o) {
 	if(o == null) {return nil;}
 	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
-}; 
+};
 
 
 /***************************************** BOOTSTRAP ******************************************/
@@ -892,3 +902,5 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
+
+})();

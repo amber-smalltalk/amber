@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Inspector');
 smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
@@ -1428,3 +1429,4 @@ referencedClasses: []
 smalltalk.HLInspector.klass);
 
 
+})(global_smalltalk,global_nil,global__st);

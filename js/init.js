@@ -1,4 +1,4 @@
-(function () {
+(function (smalltalk,nil,_st) {
     var inBrowser = typeof amber !== "undefined" && typeof amber.load === "function";
     function init() {
         smalltalk.initialize();
@@ -6,7 +6,7 @@
         /* Similar to jQuery(document).ready() */
 
         if (inBrowser && amber.smalltalkReady) {
-            amber.smalltalkReady();
+            amber.smalltalkReady(smalltalk,nil,_st);
         }
     }
 
@@ -23,4 +23,4 @@
         // immediately after init, so it must happens synchronously.
         init();
     }
-})();
+})(global_smalltalk,global_nil,global__st);

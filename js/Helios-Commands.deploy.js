@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands');
 smalltalk.addClass('HLCommand', smalltalk.Object, [], 'Helios-Commands');
 smalltalk.addMethod(
@@ -6,9 +7,11 @@ smalltalk.method({
 selector: "asActionBinding",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st((smalltalk.HLBindingAction || HLBindingAction))._on_labelled_(_st(self)._key(),_st(self)._label()))._callback_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._execute();
+return smalltalk.withContext(function($ctx2) {
+return _st(self)._execute();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asActionBinding",{},smalltalk.HLCommand)})},
@@ -21,7 +24,8 @@ smalltalk.method({
 selector: "asBinding",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 $2=_st(self)._isBindingGroup();
 if(smalltalk.assert($2)){
 $1=_st(self)._asGroupBinding();
@@ -39,7 +43,8 @@ smalltalk.method({
 selector: "asGroupBinding",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st((smalltalk.HLBindingGroup || HLBindingGroup))._on_labelled_(_st(self)._key(),_st(self)._label());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asGroupBinding",{},smalltalk.HLCommand)})},
@@ -52,7 +57,8 @@ smalltalk.method({
 selector: "documentation",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._class())._documentation();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"documentation",{}, smalltalk.HLCommand)})},
@@ -65,7 +71,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLCommand)})},
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLCommand)})},
 messageSends: []}),
 smalltalk.HLCommand);
 
@@ -75,7 +82,8 @@ smalltalk.method({
 selector: "isBindingGroup",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(_st(_st(self)._class())._methodDictionary())._includesKey_("execute"))._not();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBindingGroup",{},smalltalk.HLCommand)})},
@@ -88,7 +96,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._class())._key();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCommand)})},
@@ -101,7 +110,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._class())._label();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCommand)})},
@@ -114,7 +124,8 @@ smalltalk.method({
 selector: "registerOn:",
 fn: function (aBinding){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(aBinding)._add_(_st(self)._asBinding());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"registerOn:",{aBinding:aBinding},smalltalk.HLCommand)})},
@@ -128,9 +139,11 @@ smalltalk.method({
 selector: "concreteSubclasses",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._subclasses())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._isConcrete();
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._isConcrete();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"concreteSubclasses",{},smalltalk.HLCommand.klass)})},
@@ -143,7 +156,8 @@ smalltalk.method({
 selector: "documentation",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "";
+return smalltalk.withContext(function($ctx1) { 
+return "";
 }, function($ctx1) {$ctx1.fill(self,"documentation",{}, smalltalk.HLCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCommand.klass);
@@ -154,7 +168,8 @@ smalltalk.method({
 selector: "isConcrete",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._key())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isConcrete",{},smalltalk.HLCommand.klass)})},
@@ -167,7 +182,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return nil;
+return smalltalk.withContext(function($ctx1) { 
+return nil;
 }, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCommand.klass);
@@ -178,7 +194,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "";
+return smalltalk.withContext(function($ctx1) { 
+return "";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCommand.klass);
@@ -189,10 +206,12 @@ smalltalk.method({
 selector: "registerConcreteClassesOn:",
 fn: function (aBinding){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(_st(self)._concreteSubclasses())._do_((function(each){
 var binding;
-return smalltalk.withContext(function($ctx2) {binding=_st(each)._registerOn_(aBinding);
+return smalltalk.withContext(function($ctx2) {
+binding=_st(each)._registerOn_(aBinding);
 binding;
 $1=_st(binding)._isBindingGroup();
 if(smalltalk.assert($1)){
@@ -209,7 +228,8 @@ smalltalk.method({
 selector: "registerOn:",
 fn: function (aBinding){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._new())._registerOn_(aBinding);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"registerOn:",{aBinding:aBinding},smalltalk.HLCommand.klass)})},
@@ -224,7 +244,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.HLManager || HLManager))._current())._removeActiveTab();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st((smalltalk.HLManager || HLManager))._current())._removeActiveTab();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLCloseTabCommand)})},
 messageSends: ["removeActiveTab", "current"]}),
 smalltalk.HLCloseTabCommand);
@@ -236,7 +257,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (87);
+return smalltalk.withContext(function($ctx1) { 
+return (87);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLCloseTabCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCloseTabCommand.klass);
@@ -247,7 +269,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Close tab";
+return smalltalk.withContext(function($ctx1) { 
+return "Close tab";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLCloseTabCommand.klass)})},
 messageSends: []}),
 smalltalk.HLCloseTabCommand.klass);
@@ -260,7 +283,8 @@ smalltalk.method({
 selector: "model",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@model"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLModelCommand)})},
@@ -273,7 +297,8 @@ smalltalk.method({
 selector: "model:",
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@model"]=aModel;
+return smalltalk.withContext(function($ctx1) { 
+self["@model"]=aModel;
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLModelCommand)})},
 messageSends: []}),
 smalltalk.HLModelCommand);
@@ -285,7 +310,8 @@ smalltalk.method({
 selector: "for:",
 fn: function (aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(self)._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"for:",{aModel:aModel},smalltalk.HLModelCommand.klass)})},
@@ -298,10 +324,12 @@ smalltalk.method({
 selector: "registerConcreteClassesOn:for:",
 fn: function (aBinding,aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(_st(self)._concreteSubclasses())._do_((function(each){
 var binding;
-return smalltalk.withContext(function($ctx2) {binding=_st(each)._registerOn_for_(aBinding,aModel);
+return smalltalk.withContext(function($ctx2) {
+binding=_st(each)._registerOn_for_(aBinding,aModel);
 binding;
 $1=_st(binding)._isBindingGroup();
 if(smalltalk.assert($1)){
@@ -318,7 +346,8 @@ smalltalk.method({
 selector: "registerOn:for:",
 fn: function (aBinding,aModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(self)._for_(aModel))._registerOn_(aBinding);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"registerOn:for:",{aBinding:aBinding,aModel:aModel},smalltalk.HLModelCommand.klass)})},
@@ -334,7 +363,8 @@ smalltalk.method({
 selector: "for:",
 fn: function (aBrowserModel){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
 $2=_st(self)._new();
 _st($2)._model_(aBrowserModel);
 $3=_st($2)._yourself();
@@ -353,7 +383,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (71);
+return smalltalk.withContext(function($ctx1) { 
+return (71);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToCommand.klass);
@@ -364,7 +395,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Go to";
+return smalltalk.withContext(function($ctx1) { 
+return "Go to";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGoToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToCommand.klass);
@@ -377,7 +409,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnClasses();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._focusOnClasses();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToClassesCommand)})},
 messageSends: ["focusOnClasses", "model"]}),
 smalltalk.HLGoToClassesCommand);
@@ -389,7 +422,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (67);
+return smalltalk.withContext(function($ctx1) { 
+return (67);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToClassesCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToClassesCommand.klass);
@@ -400,7 +434,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Classes";
+return smalltalk.withContext(function($ctx1) { 
+return "Classes";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGoToClassesCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToClassesCommand.klass);
@@ -413,7 +448,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnMethods();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._focusOnMethods();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToMethodsCommand)})},
 messageSends: ["focusOnMethods", "model"]}),
 smalltalk.HLGoToMethodsCommand);
@@ -425,7 +461,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (77);
+return smalltalk.withContext(function($ctx1) { 
+return (77);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToMethodsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToMethodsCommand.klass);
@@ -436,7 +473,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Methods";
+return smalltalk.withContext(function($ctx1) { 
+return "Methods";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGoToMethodsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToMethodsCommand.klass);
@@ -449,7 +487,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnPackages();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._focusOnPackages();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToPackagesCommand)})},
 messageSends: ["focusOnPackages", "model"]}),
 smalltalk.HLGoToPackagesCommand);
@@ -461,7 +500,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (80);
+return smalltalk.withContext(function($ctx1) { 
+return (80);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToPackagesCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToPackagesCommand.klass);
@@ -472,7 +512,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Packages";
+return smalltalk.withContext(function($ctx1) { 
+return "Packages";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGoToPackagesCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToPackagesCommand.klass);
@@ -485,7 +526,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnProtocols();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._focusOnProtocols();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToProtocolsCommand)})},
 messageSends: ["focusOnProtocols", "model"]}),
 smalltalk.HLGoToProtocolsCommand);
@@ -497,7 +539,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (84);
+return smalltalk.withContext(function($ctx1) { 
+return (84);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToProtocolsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToProtocolsCommand.klass);
@@ -508,7 +551,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Protocols";
+return smalltalk.withContext(function($ctx1) { 
+return "Protocols";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGoToProtocolsCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToProtocolsCommand.klass);
@@ -521,7 +565,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._focusOnSourceCode();
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._focusOnSourceCode();
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLGoToSourceCodeCommand)})},
 messageSends: ["focusOnSourceCode", "model"]}),
 smalltalk.HLGoToSourceCodeCommand);
@@ -533,7 +578,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (83);
+return smalltalk.withContext(function($ctx1) { 
+return (83);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLGoToSourceCodeCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToSourceCodeCommand.klass);
@@ -544,7 +590,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Source code";
+return smalltalk.withContext(function($ctx1) { 
+return "Source code";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLGoToSourceCodeCommand.klass)})},
 messageSends: []}),
 smalltalk.HLGoToSourceCodeCommand.klass);
@@ -558,7 +605,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (77);
+return smalltalk.withContext(function($ctx1) { 
+return (77);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveToCommand.klass);
@@ -569,7 +617,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Move";
+return smalltalk.withContext(function($ctx1) { 
+return "Move";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveToCommand.klass);
@@ -583,7 +632,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (77);
+return smalltalk.withContext(function($ctx1) { 
+return (77);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToCommand.klass);
@@ -594,7 +644,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Method";
+return smalltalk.withContext(function($ctx1) { 
+return "Method";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToCommand.klass);
@@ -607,7 +658,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToClassCommand);
 
@@ -618,7 +670,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (67);
+return smalltalk.withContext(function($ctx1) { 
+return (67);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToClassCommand.klass);
@@ -629,7 +682,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "to class";
+return smalltalk.withContext(function($ctx1) { 
+return "to class";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToClassCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToClassCommand.klass);
@@ -642,7 +696,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand);
 
@@ -653,7 +708,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (84);
+return smalltalk.withContext(function($ctx1) { 
+return (84);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand.klass);
@@ -664,7 +720,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "to protocol";
+return smalltalk.withContext(function($ctx1) { 
+return "to protocol";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLMoveMethodToProtocolCommand.klass)})},
 messageSends: []}),
 smalltalk.HLMoveMethodToProtocolCommand.klass);
@@ -678,7 +735,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (84);
+return smalltalk.withContext(function($ctx1) { 
+return (84);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleCommand.klass);
@@ -689,7 +747,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Toggle";
+return smalltalk.withContext(function($ctx1) { 
+return "Toggle";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLToggleCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleCommand.klass);
@@ -702,7 +761,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._showInstance_(false);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._showInstance_(false);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassSideCommand)})},
 messageSends: ["showInstance:", "model"]}),
 smalltalk.HLToggleClassSideCommand);
@@ -714,7 +774,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (67);
+return smalltalk.withContext(function($ctx1) { 
+return (67);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleClassSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleClassSideCommand.klass);
@@ -725,7 +786,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Class side";
+return smalltalk.withContext(function($ctx1) { 
+return "Class side";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLToggleClassSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleClassSideCommand.klass);
@@ -738,7 +800,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st(self)._model())._showInstance_(true);
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self)._model())._showInstance_(true);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleInstanceSideCommand)})},
 messageSends: ["showInstance:", "model"]}),
 smalltalk.HLToggleInstanceSideCommand);
@@ -750,7 +813,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (73);
+return smalltalk.withContext(function($ctx1) { 
+return (73);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLToggleInstanceSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleInstanceSideCommand.klass);
@@ -761,7 +825,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Instance side";
+return smalltalk.withContext(function($ctx1) { 
+return "Instance side";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLToggleInstanceSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleInstanceSideCommand.klass);
@@ -775,7 +840,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (79);
+return smalltalk.withContext(function($ctx1) { 
+return (79);
 }, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLOpenCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenCommand.klass);
@@ -786,7 +852,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Open";
+return smalltalk.withContext(function($ctx1) { 
+return "Open";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLOpenCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenCommand.klass);
@@ -799,7 +866,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st((smalltalk.HLBrowser || HLBrowser))._openAsTab();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenBrowserCommand)})},
@@ -813,7 +881,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (66);
+return smalltalk.withContext(function($ctx1) { 
+return (66);
 }, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLOpenBrowserCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenBrowserCommand.klass);
@@ -824,7 +893,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Browser";
+return smalltalk.withContext(function($ctx1) { 
+return "Browser";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLOpenBrowserCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenBrowserCommand.klass);
@@ -837,7 +907,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st((smalltalk.HLTranscript || HLTranscript))._openAsTab();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"execute",{}, smalltalk.HLOpenTranscriptCommand)})},
@@ -851,7 +922,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (84);
+return smalltalk.withContext(function($ctx1) { 
+return (84);
 }, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLOpenTranscriptCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenTranscriptCommand.klass);
@@ -862,7 +934,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Transcript";
+return smalltalk.withContext(function($ctx1) { 
+return "Transcript";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLOpenTranscriptCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenTranscriptCommand.klass);
@@ -875,7 +948,8 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st((smalltalk.HLCodeWidget || HLCodeWidget))._openAsTab();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLOpenWorkspaceCommand)})},
@@ -889,7 +963,8 @@ smalltalk.method({
 selector: "key",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return (87);
+return smalltalk.withContext(function($ctx1) { 
+return (87);
 }, function($ctx1) {$ctx1.fill(self,"key",{}, smalltalk.HLOpenWorkspaceCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenWorkspaceCommand.klass);
@@ -900,7 +975,8 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "Workspace";
+return smalltalk.withContext(function($ctx1) { 
+return "Workspace";
 }, function($ctx1) {$ctx1.fill(self,"label",{}, smalltalk.HLOpenWorkspaceCommand.klass)})},
 messageSends: []}),
 smalltalk.HLOpenWorkspaceCommand.klass);
@@ -914,9 +990,11 @@ smalltalk.method({
 selector: "label",
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "View";
+return smalltalk.withContext(function($ctx1) { 
+return "View";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLViewCommand.klass)})},
 messageSends: []}),
 smalltalk.HLViewCommand.klass);
 
 
+})(global_smalltalk,global_nil,global__st);

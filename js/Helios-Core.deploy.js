@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
 smalltalk.addMethod(
@@ -3699,3 +3700,4 @@ messageSends: []}),
 smalltalk.HLSUnit.klass);
 
 
+})(global_smalltalk,global_nil,global__st);

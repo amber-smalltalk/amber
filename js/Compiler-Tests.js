@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Tests');
 smalltalk.addClass('ASTVisitorTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
@@ -2019,3 +2020,4 @@ smalltalk.SemanticAnalyzerTest);
 
 
 
+})(global_smalltalk,global_nil,global__st);

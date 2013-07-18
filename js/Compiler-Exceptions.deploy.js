@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Exceptions');
 smalltalk.addClass('CompilerError', smalltalk.Error, [], 'Compiler-Exceptions');
 
@@ -157,3 +158,4 @@ smalltalk.RethrowErrorHandler);
 
 
 
+})(global_smalltalk,global_nil,global__st);

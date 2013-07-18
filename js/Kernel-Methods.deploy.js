@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Methods');
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
@@ -1331,3 +1332,4 @@ messageSends: []}),
 smalltalk.NativeFunction.klass);
 
 
+})(global_smalltalk,global_nil,global__st);

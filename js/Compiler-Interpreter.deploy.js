@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
 smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
 smalltalk.addMethod(
@@ -2621,3 +2622,4 @@ return $1;
 messageSends: ["interpretClassReferenceNode:continue:"]}),
 smalltalk.ClassReferenceNode);
 
+})(global_smalltalk,global_nil,global__st);
