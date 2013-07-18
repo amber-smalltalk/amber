@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Test');
 smalltalk.addClass('NodeTestRunner', smalltalk.Object, [], 'Test');
 
@@ -67,3 +68,4 @@ referencedClasses: ["OrderedCollection", "TestCase", "TestSuiteRunner", "ResultA
 smalltalk.NodeTestRunner.klass);
 
 
+})(global_smalltalk,global_nil,global__st);
