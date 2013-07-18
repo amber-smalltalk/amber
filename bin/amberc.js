@@ -418,7 +418,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 			// data is an array where index 0 is the error code and index 1 contains the data
 			content += data[1];
 		});
-		content = content + 'return smalltalk;})();';
+		content = content + 'return global_smalltalk;})();';
 		self.defaults.smalltalk = eval(content);
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());

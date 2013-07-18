@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
@@ -2075,3 +2076,4 @@ referencedClasses: []
 smalltalk.HLWorkspace.klass);
 
 
+})(global_smalltalk,global_nil,global__st);

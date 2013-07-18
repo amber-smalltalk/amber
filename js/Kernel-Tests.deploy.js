@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
@@ -3773,3 +3774,4 @@ smalltalk.UndefinedTest);
 
 
 
+})(global_smalltalk,global_nil,global__st);
