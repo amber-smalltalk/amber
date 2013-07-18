@@ -45,6 +45,18 @@ if(typeof console === "undefined") {
 	};
 }
 
+/* Global Smalltalk objects. */
+// The globals below all begin with `global_' prefix.
+// This prefix is to advice developers to avoid their usage,
+// instead using local versions smalltalk, nil, _st that are
+// provided by appropriate wrappers to each package.
+// The plan is to use different module loader (and slightly change the wrappers)
+// so that these globals are hidden completely inside the exports/imports of the module loader.
+// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
+var global_smalltalk, global_nil, global__st;
+
+(function () {
+
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
@@ -101,18 +113,7 @@ inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 
-/* Global Smalltalk objects. */
-// The globals below all begin with `global_' prefix.
-// This prefix is to advice developers to avoid their usage,
-// instead using local versions smalltalk, nil, _st that are
-// provided by appropriate wrappers to each package.
-// The plan is to use different module loader (and slightly change the wrappers)
-// so that these globals are hidden completely inside the exports/imports of the module loader.
-// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
-var global_smalltalk, global_nil, global__st;
-
-global_nil = new SmalltalkNil();
-(function (nil) {
+var nil = global_nil = new SmalltalkNil();
 
 function Smalltalk() {
 
@@ -816,8 +817,7 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-global_smalltalk = new Smalltalk();
-(function (smalltalk) {
+var smalltalk = global_smalltalk = new Smalltalk();
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -902,5 +902,4 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
 
-})(global_smalltalk);
-})(global_nil);
+})();
