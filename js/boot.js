@@ -36,9 +36,6 @@
 
 define([ 'ensure-console', 'es5-shim-2.0.2/es5-shim.min', 'es5-shim-2.0.2/es5-sham.min' ], function () {
 
-/* Previouslu global Smalltalk objects; now they are local to this module and exported. */
-var global_smalltalk, global_nil, global__st;
-
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
@@ -94,8 +91,8 @@ inherits(SmalltalkOrganizer, SmalltalkObject);
 inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
-global_nil = new SmalltalkNil();
-(function (nil) {
+
+var nil = new SmalltalkNil();
 
 function Smalltalk() {
 
@@ -782,7 +779,7 @@ function Smalltalk() {
 inherits(Smalltalk, SmalltalkObject);
 
 if(this.jQuery) {
-    this.jQuery.allowJavaScriptCalls = true;
+	this.jQuery.allowJavaScriptCalls = true;
 }
 
 function SmalltalkMethodContext(home, setup) {
@@ -799,8 +796,7 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-global_smalltalk = new Smalltalk();
-(function (smalltalk) {
+var smalltalk = new Smalltalk();
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -838,7 +834,7 @@ SmalltalkMethodContext.prototype.method = function() {
  * Used in message sends
  */
 
-global__st = function(o) {
+function _st(o) {
 	if(o == null) {return nil;}
 	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
@@ -885,8 +881,5 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
 
-})(global_smalltalk);
-})(global_nil);
-
-return { smalltalk: global_smalltalk, nil: global_nil, _st: global__st };
+return { smalltalk: smalltalk, nil: nil, _st: _st };
 });
