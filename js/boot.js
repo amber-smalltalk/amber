@@ -102,6 +102,13 @@ inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 
 /* Global Smalltalk objects. */
+// The globals below all begin with `global_' prefix.
+// This prefix is to advice developers to avoid their usage,
+// instead using local versions smalltalk, nil, _st that are
+// provided by appropriate wrappers to each package.
+// The plan is to use different module loader (and slightly change the wrappers)
+// so that these globals are hidden completely inside the exports/imports of the module loader.
+// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
 var global_smalltalk, global_nil, global__st;
 
 global_nil = new SmalltalkNil();
@@ -792,7 +799,7 @@ function Smalltalk() {
 inherits(Smalltalk, SmalltalkObject);
 
 if(this.jQuery) {
-    this.jQuery.allowJavaScriptCalls = true;
+	this.jQuery.allowJavaScriptCalls = true;
 }
 
 function SmalltalkMethodContext(home, setup) {
