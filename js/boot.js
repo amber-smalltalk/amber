@@ -45,6 +45,18 @@ if(typeof console === "undefined") {
 	};
 }
 
+/* Global Smalltalk objects. */
+// The globals below all begin with `global_' prefix.
+// This prefix is to advice developers to avoid their usage,
+// instead using local versions smalltalk, nil, _st that are
+// provided by appropriate wrappers to each package.
+// The plan is to use different module loader (and slightly change the wrappers)
+// so that these globals are hidden completely inside the exports/imports of the module loader.
+// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
+var global_smalltalk, global_nil, global__st;
+
+(function () {
+
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
@@ -100,6 +112,8 @@ inherits(SmalltalkOrganizer, SmalltalkObject);
 inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
 inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
+
+var nil = global_nil = new SmalltalkNil();
 
 function Smalltalk() {
 
@@ -196,7 +210,7 @@ function Smalltalk() {
 	}
 
 	/* Smalltalk class creation. A class is an instance of an automatically
-		created metaclass object. Newly created classes (not their metaclass) 
+		created metaclass object. Newly created classes (not their metaclass)
 		should be added to the smalltalk object, see smalltalk.addClass().
 		Superclass linking is *not* handled here, see smalltalk.init()  */
 
@@ -785,6 +799,10 @@ function Smalltalk() {
 
 inherits(Smalltalk, SmalltalkObject);
 
+if(this.jQuery) {
+	this.jQuery.allowJavaScriptCalls = true;
+}
+
 function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
 	this.setup       = setup || function() {};
@@ -798,6 +816,8 @@ SmalltalkMethodContext.prototype.selector = null;
 SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
+
+var smalltalk = global_smalltalk = new Smalltalk();
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -830,21 +850,12 @@ SmalltalkMethodContext.prototype.method = function() {
 	return method;
 };
 
-/* Global Smalltalk objects. */
-
-var nil = new SmalltalkNil();
-var smalltalk = new Smalltalk();
-
-if(this.jQuery) {
-	this.jQuery.allowJavaScriptCalls = true;
-}
-
 /*
  * Answer the smalltalk representation of o.
  * Used in message sends
  */
 
-var _st = function(o) {
+global__st = function(o) {
 	if(o == null) {return nil;}
 	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
@@ -890,3 +901,5 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
+
+})();

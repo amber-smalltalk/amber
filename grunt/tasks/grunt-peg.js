@@ -23,7 +23,7 @@ module.exports = function(grunt) {
       export_var: 'module.exports'
     });
     var parser = PEG.buildParser(grunt.file.read(this.data.src), options);
-    var content = options.export_var + ' = ' + parser.toSource() + ';\n';
+    var content = '(function(smalltalk,nil){\n'+options.export_var + ' = ' + parser.toSource() + ';\n})(global_smalltalk,global_nil);';
     grunt.file.write(this.data.dest, content);
   });
 };

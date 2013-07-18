@@ -1,3 +1,4 @@
+(function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Collections');
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.addMethod(
@@ -4262,3 +4263,4 @@ smalltalk.StringStream);
 
 
 
+})(global_smalltalk,global_nil,global__st);
