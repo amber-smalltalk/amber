@@ -22,8 +22,8 @@ module.exports = function(grunt) {
           cache: true,
           export_var: 'smalltalk.parser'
         },
-        src: 'js/parser.pegjs',
-        dest: 'js/parser.js',
+        src: 'support/parser.pegjs',
+        dest: 'support/parser.js',
       }
     },
 

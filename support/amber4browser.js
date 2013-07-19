@@ -69,6 +69,7 @@ amber = (function() {
 		} else {
 			loadIDEDependencies();
 			loadCSS('amber.css');
+            addJSToLoad('support/parser.js');
 
 			loadPackages([
 				'Kernel-Objects',
@@ -89,7 +90,6 @@ amber = (function() {
 				'Compiler-Inlining',
 				'Compiler-Interpreter',
 				'Compiler-Tests',
-				'parser',
 				'IDE',
 				'Examples',
 				'Benchfib',
