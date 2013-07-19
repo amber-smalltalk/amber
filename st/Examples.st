@@ -1,15 +1,15 @@
 Smalltalk current createPackage: 'Examples'!
-Widget subclass: #Counterzzz
+Widget subclass: #Counter
 	instanceVariableNames: 'count header'
 	package: 'Examples'!
-!Counterzzz commentStamp!
+!Counter commentStamp!
 This is a trivial Widget example mimicking the classic Counter example in Seaside.
 In order to play with it, just evaluate the doit below in a workspace.
 Then take a look in the HTML document above the IDE.
 
 		Counter new appendToJQuery: 'body' asJQuery!
 
-!Counterzzz methodsFor: 'actions'!
+!Counter methodsFor: 'actions'!
 
 decrease
 	count := count - 1.
@@ -21,14 +21,14 @@ increase
 	header contents: [:html | html with: count asString]
 ! !
 
-!Counterzzz methodsFor: 'initialization'!
+!Counter methodsFor: 'initialization'!
 
 initialize
 	super initialize.
 	count := 0
 ! !
 
-!Counterzzz methodsFor: 'rendering'!
+!Counter methodsFor: 'rendering'!
 
 renderOn: html
 	header := html h1
@@ -42,7 +42,7 @@ renderOn: html
 	onClick: [self decrease]
 ! !
 
-!Counterzzz class methodsFor: 'example'!
+!Counter class methodsFor: 'example'!
 
 tryExample
 	"In order to play with the Counter, just select the
