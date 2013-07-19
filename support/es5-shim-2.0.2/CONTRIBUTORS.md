@@ -1,4 +1,3 @@
-
 -   kriskowal Kris Kowal Copyright (C) 2009-2011 MIT License
 -   tlrobinson Tom Robinson Copyright (C) 2009-2010 MIT License (Narwhal
     Project)
