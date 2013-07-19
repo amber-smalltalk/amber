@@ -53,7 +53,7 @@ amber = (function() {
 		loadDependencies();
 		addJSToLoad('support/es5-shim-2.0.2/es5-shim.min.js');
 		addJSToLoad('support/es5-shim-2.0.2/es5-sham.min.js');
-		addJSToLoad('js/boot.js');
+		addJSToLoad('support/boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -104,7 +104,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('js/init.js');
+		addJSToLoad('support/init.js');
 		initializeSmalltalk();
 	};
 
