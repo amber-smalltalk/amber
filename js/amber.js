@@ -51,8 +51,8 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-shim.min.js');
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-sham.min.js');
+		addJSToLoad('lib/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('lib/es5-shim-2.0.2/es5-sham.min.js');
 		addJSToLoad('js/boot.js');
 
 		if (deploy) {
@@ -185,23 +185,23 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			addJSToLoad('js/lib/jQuery/jquery-1.8.2.min.js');
+			addJSToLoad('lib/jQuery/jquery-1.8.2.min.js');
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {
-			addJSToLoad('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js');
+			addJSToLoad('lib/jQuery/jquery-ui-1.8.16.custom.min.js');
 		}
 	}
 
 	function loadIDEDependencies() {
-		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
-		addJSToLoad('js/lib/CodeMirror/codemirror.js');
-		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
-		addJSToLoad('js/lib/CodeMirror/addon/hint/show-hint.js');
-		loadCSS('lib/CodeMirror/codemirror.css', 'js');
-		loadCSS('lib/CodeMirror/theme/ambiance.css', 'js');
-		loadCSS('lib/CodeMirror/addon/hint/show-hint.css', 'js');
-		loadCSS('lib/CodeMirror/amber.css', 'js');
+		addJSToLoad('lib/jQuery/jquery.textarea.js');
+		addJSToLoad('lib/CodeMirror/codemirror.js');
+		addJSToLoad('lib/CodeMirror/smalltalk.js');
+		addJSToLoad('lib/CodeMirror/addon/hint/show-hint.js');
+		loadCSS('lib/CodeMirror/codemirror.css', '.');
+		loadCSS('lib/CodeMirror/theme/ambiance.css', '.');
+		loadCSS('lib/CodeMirror/addon/hint/show-hint.css', '.');
+		loadCSS('lib/CodeMirror/amber.css', '.');
 	}
 
 	// This will be called after JS files have been loaded
