@@ -19,7 +19,7 @@ require = function (require) {
     var config = {
         baseUrl: home,
         paths: {
-            'amber': '..',
+            'amber': '../js',
             'jquery': 'jQuery/jquery-1.8.2.min',
             'jquery-ui': 'jQuery/jquery-ui-1.8.16.custom.min'
         },
