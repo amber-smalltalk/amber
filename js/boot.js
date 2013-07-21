@@ -156,6 +156,7 @@ function Smalltalk() {
 	var dnu = {
 		methods: [],
 		selectors: [],
+		checker: Object.create(null),
 
 		get: function (string) {
 			var index = this.selectors.indexOf(string);
@@ -164,9 +165,14 @@ function Smalltalk() {
 			}
 			this.selectors.push(string);
 			var selector = st.selector(string);
+			this.checker[selector] = true;
 			var method = {jsSelector: selector, fn: this.createHandler(selector)};
 			this.methods.push(method);
 			return method;
+		},
+
+		isSelector: function (selector) {
+			return this.checker[selector];
 		},
 
 		/* Dnu handler method */
@@ -321,6 +327,7 @@ function Smalltalk() {
 	}
 
 	function copySuperclass(klass, superclass) {
+		deinstallAllMethods(klass);
 		for (superclass = superclass || klass.superclass;
 			superclass && superclass !== nil;
 			superclass = superclass.superclass) {
@@ -328,6 +335,7 @@ function Smalltalk() {
 				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
 			}
 		}
+		reinstallMethods(klass);
 	}
 
 	function installMethod(method, klass) {
@@ -346,6 +354,16 @@ function Smalltalk() {
 
 		installMethod(method, klass);
 		klass.inheritedMethods[method.selector] = true;
+	}
+
+	function deinstallAllMethods(klass) {
+		var proto = klass.fn.prototype;
+		for(var keys = Object.getOwnPropertyNames(proto), i=0; i<keys.length; i++) {
+			var key = keys[i];
+			if (dnu.isSelector(key)) {
+				proto[key] = null;
+			}
+		}
 	}
 
 	function reinstallMethods(klass) {
@@ -570,6 +588,16 @@ function Smalltalk() {
 
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
+
+		// If already initialized (else it will be done later anyway),
+		// re-initialize all subclasses to ensure the method removal
+		// propagation (for wrapped classes, not using the prototype
+		// chain.
+		if(initialized) {
+			st.allSubclasses(klass).forEach(function(subclass) {
+				st.initClass(subclass);
+			});
+		}
 
 		// Do *not* delete protocols from here.
 		// This is handled by #removeCompiledMethod
