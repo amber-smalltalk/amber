@@ -2911,6 +2911,453 @@ smalltalk.MessageSendTest);
 
 
 
+smalltalk.addClass('MethodInheritanceTest', smalltalk.TestCase, ['receiverTop', 'receiverMiddle', 'receiverBottom', 'method', 'performBlock'], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "codeGeneratorClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $CodeGenerator(){return smalltalk.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$CodeGenerator();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "codeGeneratorClass\x0a\x09^ CodeGenerator",
+messageSends: [],
+referencedClasses: ["CodeGenerator"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compiler",
+category: 'factory',
+fn: function (){
+var self=this;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($Compiler())._new();
+_st($2)._codeGeneratorClass_(self._codeGeneratorClass());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compiler",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "compiler\x0a\x09^ Compiler new\x0a\x09\x09codeGeneratorClass: self codeGeneratorClass;\x0a\x09\x09yourself",
+messageSends: ["codeGeneratorClass:", "codeGeneratorClass", "new", "yourself"],
+referencedClasses: ["Compiler"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deinstallBottom",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._targetClassBottom())._removeCompiledMethod_(self["@method"]);
+return self}, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "deinstallBottom\x0a\x09self targetClassBottom removeCompiledMethod: method",
+messageSends: ["removeCompiledMethod:", "targetClassBottom"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deinstallMiddle",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._targetClassMiddle())._removeCompiledMethod_(self["@method"]);
+return self}, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "deinstallMiddle\x0a\x09self targetClassMiddle removeCompiledMethod: method",
+messageSends: ["removeCompiledMethod:", "targetClassMiddle"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deinstallTop",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._targetClassTop())._removeCompiledMethod_(self["@method"]);
+return self}, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "deinstallTop\x0a\x09self targetClassTop removeCompiledMethod: method",
+messageSends: ["removeCompiledMethod:", "targetClassTop"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installBottom:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassBottom(),"tests");
+return self}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},smalltalk.MethodInheritanceTest)})},
+args: ["aString"],
+source: "installBottom: aString\x0a\x09method := self compiler install: aString forClass: self targetClassBottom category: 'tests'",
+messageSends: ["install:forClass:category:", "targetClassBottom", "compiler"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installMiddle:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassMiddle(),"tests");
+return self}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},smalltalk.MethodInheritanceTest)})},
+args: ["aString"],
+source: "installMiddle: aString\x0a\x09method := self compiler install: aString forClass: self targetClassMiddle category: 'tests'",
+messageSends: ["install:forClass:category:", "targetClassMiddle", "compiler"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installTop:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassTop(),"tests");
+return self}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},smalltalk.MethodInheritanceTest)})},
+args: ["aString"],
+source: "installTop: aString\x0a\x09method := self compiler install: aString forClass: self targetClassTop category: 'tests'",
+messageSends: ["install:forClass:category:", "targetClassTop", "compiler"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setUp",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@receiverTop"]=_st(self._targetClassTop())._new();
+self["@receiverMiddle"]=_st(self._targetClassMiddle())._new();
+self["@receiverBottom"]=_st(self._targetClassBottom())._new();
+self["@method"]=nil;
+self["@performBlock"]=(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("performBlock not initialized");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "setUp\x0a\x09receiverTop := self targetClassTop new.\x0a\x09receiverMiddle := self targetClassMiddle new.\x0a\x09receiverBottom := self targetClassBottom new.\x0a\x09method := nil.\x0a\x09performBlock := [ self error: 'performBlock not initialized' ]",
+messageSends: ["new", "targetClassTop", "targetClassMiddle", "targetClassBottom", "error:"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNU",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._shouldMNUTop();
+self._shouldMNUMiddle();
+self._shouldMNUBottom();
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "shouldMNU\x0a\x09self shouldMNUTop.\x0a\x09self shouldMNUMiddle.\x0a\x09self shouldMNUBottom",
+messageSends: ["shouldMNUTop", "shouldMNUMiddle", "shouldMNUBottom"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNUBottom",
+category: 'testing',
+fn: function (){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@performBlock"])._value_(self["@receiverBottom"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$MessageNotUnderstood());
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "shouldMNUBottom\x0a\x09self should: [ performBlock value: receiverBottom ] raise: MessageNotUnderstood",
+messageSends: ["should:raise:", "value:"],
+referencedClasses: ["MessageNotUnderstood"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNUMiddle",
+category: 'testing',
+fn: function (){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$MessageNotUnderstood());
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "shouldMNUMiddle\x0a\x09self should: [ performBlock value: receiverMiddle ] raise: MessageNotUnderstood",
+messageSends: ["should:raise:", "value:"],
+referencedClasses: ["MessageNotUnderstood"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNUTop",
+category: 'testing',
+fn: function (){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@performBlock"])._value_(self["@receiverTop"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),$MessageNotUnderstood());
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "shouldMNUTop\x0a\x09self should: [ performBlock value: receiverTop ] raise: MessageNotUnderstood",
+messageSends: ["should:raise:", "value:"],
+referencedClasses: ["MessageNotUnderstood"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldReturn:",
+category: 'testing',
+fn: function (anObject){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { 
+result=_st(self["@performBlock"])._value_(self["@receiverTop"]);
+self._assert_equals_(["top",anObject],["top",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+self._assert_equals_(["middle",anObject],["middle",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
+self._assert_equals_(["bottom",anObject],["bottom",result]);
+return self}, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},smalltalk.MethodInheritanceTest)})},
+args: ["anObject"],
+source: "shouldReturn: anObject\x0a\x09| result |\x0a\x0a\x09result := performBlock value: receiverTop.\x0a\x09self assert: { 'top'. anObject } equals: { 'top'. result }.\x0a\x09result := performBlock value: receiverMiddle.\x0a\x09self assert: { 'middle'. anObject } equals: { 'middle'. result }.\x0a\x09result := performBlock value: receiverBottom.\x0a\x09self assert: { 'bottom'. anObject } equals: { 'bottom'. result }",
+messageSends: ["value:", "assert:equals:"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldReturn:and:and:",
+category: 'testing',
+fn: function (anObject,anObject2,anObject3){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { 
+result=_st(self["@performBlock"])._value_(self["@receiverTop"]);
+self._assert_equals_(["top",anObject],["top",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+self._assert_equals_(["middle",anObject2],["middle",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
+self._assert_equals_(["bottom",anObject3],["bottom",result]);
+return self}, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},smalltalk.MethodInheritanceTest)})},
+args: ["anObject", "anObject2", "anObject3"],
+source: "shouldReturn: anObject and: anObject2 and: anObject3\x0a\x09| result |\x0a\x0a\x09result := performBlock value: receiverTop.\x0a\x09self assert: { 'top'. anObject } equals: { 'top'. result }.\x0a\x09result := performBlock value: receiverMiddle.\x0a\x09self assert: { 'middle'. anObject2 } equals: { 'middle'. result }.\x0a\x09result := performBlock value: receiverBottom.\x0a\x09self assert: { 'bottom'. anObject3 } equals: { 'bottom'. result }",
+messageSends: ["value:", "assert:equals:"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "targetClassBottom",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$JavaScriptException();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"targetClassBottom",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "targetClassBottom\x0a\x09^ JavaScriptException",
+messageSends: [],
+referencedClasses: ["JavaScriptException"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "targetClassMiddle",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$Error();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"targetClassMiddle",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "targetClassMiddle\x0a\x09^ Error",
+messageSends: [],
+referencedClasses: ["Error"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "targetClassTop",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$Object();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"targetClassTop",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "targetClassTop\x0a\x09^ Object",
+messageSends: [],
+referencedClasses: ["Object"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tearDown",
+category: 'initialization',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deinstallTop();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deinstallMiddle();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deinstallBottom();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [].\x0a\x09[ self deinstallMiddle ] on: Error do: [].\x0a\x09[ self deinstallBottom ] on: Error do: []",
+messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"],
+referencedClasses: ["Error"]
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMNU11",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._shouldMNU();
+self._installTop_("foo ^ false");
+self._installTop_("foo ^ true");
+self._deinstallTop();
+self._shouldMNU();
+return self}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "testMNU11\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self shouldMNU.\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self deinstallTop.\x0a\x09self shouldMNU",
+messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMNU22",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._shouldMNU();
+self._installMiddle_("foo ^ false");
+self._installMiddle_("foo ^ true");
+self._deinstallMiddle();
+self._shouldMNU();
+return self}, function($ctx1) {$ctx1.fill(self,"testMNU22",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "testMNU22\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self shouldMNU.\x0a\x09self installMiddle: 'foo ^ false'.\x0a\x09self installMiddle: 'foo ^ true'.\x0a\x09self deinstallMiddle.\x0a\x09self shouldMNU",
+messageSends: ["foo", "shouldMNU", "installMiddle:", "deinstallMiddle"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testReturns1",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._installTop_("foo ^ false");
+self._shouldReturn_(false);
+self._installTop_("foo ^ true");
+self._shouldReturn_(true);
+return self}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},smalltalk.MethodInheritanceTest)})},
+args: [],
+source: "testReturns1\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self shouldReturn: false.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self shouldReturn: true",
+messageSends: ["foo", "installTop:", "shouldReturn:"],
+referencedClasses: []
+}),
+smalltalk.MethodInheritanceTest);
+
+
+
 smalltalk.addClass('NumberTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3475,50 +3922,6 @@ referencedClasses: []
 }),
 smalltalk.ObjectMock);
 
-
-
-smalltalk.addClass('ObjectMock2', smalltalk.ObjectMock, [], 'Kernel-Tests');
-smalltalk.ObjectMock2.comment="ObjectMock is there only to perform tests on classes.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo",
-category: 'not yet classified',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@foo"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock2)})},
-args: [],
-source: "foo\x0a\x09^foo",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ObjectMock2);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo:",
-category: 'not yet classified',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@foo"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject},smalltalk.ObjectMock2)})},
-args: ["anObject"],
-source: "foo: anObject\x0a\x09foo := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ObjectMock2);
-
-
-
-smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
-
-
-smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
 
 
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
