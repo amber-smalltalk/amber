@@ -2601,8 +2601,17 @@ selector: "testMNU11",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._shouldMNU();
+self._installTop_("foo ^ false");
+self._installTop_("foo ^ true");
+self._deinstallTop();
+self._shouldMNU();
 return self}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},smalltalk.MethodInheritanceTest)})},
-messageSends: []}),
+messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"]}),
 smalltalk.MethodInheritanceTest);
 
 smalltalk.addMethod(
@@ -2630,8 +2639,16 @@ selector: "testReturns1",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._installTop_("foo ^ false");
+self._shouldReturn_(false);
+self._installTop_("foo ^ true");
+self._shouldReturn_(true);
 return self}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},smalltalk.MethodInheritanceTest)})},
-messageSends: []}),
+messageSends: ["foo", "installTop:", "shouldReturn:"]}),
 smalltalk.MethodInheritanceTest);
 
 
