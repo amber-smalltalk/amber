@@ -179,7 +179,7 @@ fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		smalltalk.removeMethod(aMethod)
+		smalltalk.removeMethod(aMethod,self);
 		smalltalk.init(self);
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},

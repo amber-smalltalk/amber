@@ -559,8 +559,14 @@ function Smalltalk() {
 		}
 	}
 
-	st.removeMethod = function(method) {
-		var klass = method.methodClass;
+	st.removeMethod = function(method, klass) {
+		if (klass !== method.methodClass) {
+            throw new Error(
+                "Refusing to remove method "
+                    + method.methodClass.className+">>"+method.selector
+                    + " from different class "
+                    + klass.className);
+        }
 
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
