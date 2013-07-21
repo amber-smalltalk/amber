@@ -546,6 +546,18 @@ function Smalltalk() {
 		return new_addMethod(method_exJsSelector, klass_exMethod);
 	};
 
+	function propagateMethodChange(klass) {
+		// If already initialized (else it will be done later anyway),
+		// re-initialize all subclasses to ensure the method change
+		// propagation (for wrapped classes, not using the prototype
+		// chain.
+		if (initialized) {
+			st.allSubclasses(klass).forEach(function (subclass) {
+				st.initClass(subclass);
+			});
+		}
+	}
+
 	// later, st.addMethod can be this:
 	function new_addMethod(method, klass) {
 		if (!(method.jsSelector)) {
@@ -559,15 +571,7 @@ function Smalltalk() {
 		// Therefore we populate the organizer here too
 		klass.organization.elements.addElement(method.category);
 
-		// If already initialized (else it will be done later anyway),
-		// re-initialize all subclasses to ensure the new method
-		// propagation (for wrapped classes, not using the prototype
-		// chain.
-		if(initialized) {
-			st.allSubclasses(klass).forEach(function(subclass) {
-				st.initClass(subclass);
-			});
-		}
+		propagateMethodChange(klass);
 
 		for(var i=0; i<method.messageSends.length; i++) {
 			var dnuHandler = dnu.get(method.messageSends[i]);
@@ -589,15 +593,7 @@ function Smalltalk() {
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
 
-		// If already initialized (else it will be done later anyway),
-		// re-initialize all subclasses to ensure the method removal
-		// propagation (for wrapped classes, not using the prototype
-		// chain.
-		if(initialized) {
-			st.allSubclasses(klass).forEach(function(subclass) {
-				st.initClass(subclass);
-			});
-		}
+		propagateMethodChange(klass);
 
 		// Do *not* delete protocols from here.
 		// This is handled by #removeCompiledMethod
