@@ -593,6 +593,7 @@ function Smalltalk() {
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
 
+        st.initClass(klass);
 		propagateMethodChange(klass);
 
 		// Do *not* delete protocols from here.
