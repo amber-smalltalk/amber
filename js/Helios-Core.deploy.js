@@ -2455,7 +2455,7 @@ return $3;
 } else {
 $2;
 };
-$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+$4=_st(_st(_st(parent)._at_("global_smalltalk"))._at_("Environment"))._new();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
 messageSends: ["ifNil:", "parent", "opener", "new", "at:"]}),
