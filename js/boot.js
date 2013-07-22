@@ -311,16 +311,30 @@ function Smalltalk() {
 	}
 
 	function copySuperclass(klass, superclass) {
+		var inheritedMethods = {};
 		deinstallAllMethods(klass);
-		klass.inheritedMethods = {};
 		for (superclass = superclass || klass.superclass;
 			superclass && superclass !== nil;
 			superclass = superclass.superclass) {
 			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
-				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
+				inheritMethodIfAbsent(superclass.methods[keys[i]]);
 			}
 		}
 		reinstallMethods(klass);
+
+		function inheritMethodIfAbsent(method) {
+			var selector = method.selector;
+
+			//TODO: prepare klass methods into inheritedMethods to only test once
+			//TODO: Object.create(null) to ditch hasOwnProperty call (very slow)
+			if(klass.methods.hasOwnProperty(selector) || inheritedMethods.hasOwnProperty(selector)) {
+				return;
+			}
+
+			installMethod(method, klass);
+			inheritedMethods[method.selector] = true;
+		}
+
 	}
 
 	function installMethod(method, klass) {
@@ -328,17 +342,6 @@ function Smalltalk() {
 			value: method.fn,
 			enumerable: false, configurable: true, writable: true
 		});
-	}
-
-	function inheritMethodIfAbsent(method, klass) {
-		var selector = method.selector;
-
-		if(klass.methods.hasOwnProperty(selector) || klass.inheritedMethods.hasOwnProperty(selector)) {
-			return;
-		}
-
-		installMethod(method, klass);
-		klass.inheritedMethods[method.selector] = true;
 	}
 
 	function deinstallAllMethods(klass) {
