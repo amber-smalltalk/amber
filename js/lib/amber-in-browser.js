@@ -45,7 +45,7 @@ require = function (require) {
                 exports: 'console'
             },
             'amber/Kernel-Objects.deploy': {
-                deps: [ 'smalltalk', 'nil', '_st' ]
+                deps: []
             },
             'amber/Kernel-Classes.deploy': {
                 deps: [ 'amber/Kernel-Objects.deploy' ]
@@ -69,7 +69,7 @@ require = function (require) {
                 deps: [ 'amber/Kernel-Objects.deploy' ]
             },
              'amber/Kernel-Objects': {
-                deps: [ 'smalltalk', 'nil', '_st' ]
+                deps: []
             },
             'amber/Kernel-Classes': {
                 deps: [ 'amber/Kernel-Objects' ]
@@ -120,7 +120,7 @@ require = function (require) {
                 deps: [ 'amber/Compiler-Core' ]
             },
             'amber/parser': {
-                deps: [ 'smalltalk' ]
+                deps: []
             },
             'amber/IDE': {
                 deps: [ 'amber/Canvas', 'amber/Kernel-Exceptions' ]
