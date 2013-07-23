@@ -100,18 +100,21 @@ function OrganizeBrik(brikz, st) {
 
 	var org = this;
 
-	org.Organizer = function () {};
-	inherits(org.Organizer, SmalltalkObject);
-
-	org.PackageOrganizer = function () {
+	function SmalltalkOrganizer () {}
+	function SmalltalkPackageOrganizer () {
 		this.elements = [];
-	};
-	inherits(org.PackageOrganizer, org.Organizer);
-
-	org.ClassOrganizer = function () {
+	}
+	function SmalltalkClassOrganizer () {
 		this.elements = [];
-	};
-	inherits(org.ClassOrganizer, org.Organizer);
+	}
+
+	inherits(SmalltalkOrganizer, SmalltalkObject);
+	inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
+	inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
+
+	org.Organizer = SmalltalkOrganizer;
+	org.PackageOrganizer = SmalltalkPackageOrganizer;
+	org.ClassOrganizer = SmalltalkClassOrganizer;
 
 	org.setupClassOrganization = function (klass) {
 		klass.organization = new org.ClassOrganizer;
@@ -133,10 +136,11 @@ function OrganizeBrik(brikz, st) {
 
 function DNUBrik(brikz, st) {
 
-	/* Method not implemented handlers */
-
 	brikz.ensure("selectorConversion");
 	brikz.ensure("messageSend");
+	var manip = brikz.ensure("manipulation");
+
+	/* Method not implemented handlers */
 
 	this.methods = [];
 	this.selectors = [];
@@ -163,6 +167,13 @@ function DNUBrik(brikz, st) {
 
 		return handler;
 	}
+
+	this.installHandlers = function (klass) {
+		var m = this.methods;
+		for(var i=0; i<m.length; i++) {
+			manip.installMethodIfAbsent(m[i], klass);
+		}
+	};
 }
 
 function ClassInitBrik(brikz, st) {
@@ -189,7 +200,7 @@ function ClassInitBrik(brikz, st) {
 		}
 
 		if(klass === st.Object || klass.wrapped) {
-			installDnuHandlers(klass);
+			dnu.installHandlers(klass);
 		}
 	};
 
@@ -223,13 +234,6 @@ function ClassInitBrik(brikz, st) {
 
 		manip.installMethod(method, klass);
 		klass.inheritedMethods[method.selector] = true;
-	}
-
-	function installDnuHandlers(klass) {
-		var m = dnu.methods;
-		for(var i=0; i<m.length; i++) {
-			manip.installMethodIfAbsent(m[i], klass);
-		}
 	}
 }
 
@@ -498,10 +502,11 @@ function MethodsBrik(brikz, st) {
 
 	var manip = brikz.ensure("manipulation");
 	var org = brikz.ensure("organize");
-	var instance = brikz.ensure("instance");
+	var stInit = brikz.ensure("stInit");
 	var dnu = brikz.ensure("dnu");
 	brikz.ensure("selectorConversion");
 	brikz.ensure("augments");
+	brikz.ensure("classes");
 
 	function SmalltalkMethod() {}
 	inherits(SmalltalkMethod, SmalltalkObject);
@@ -566,7 +571,7 @@ function MethodsBrik(brikz, st) {
 		// re-initialize all subclasses to ensure the new method
 		// propagation (for wrapped classes, not using the prototype
 		// chain.
-		if(instance.initialized()) {
+		if(stInit.initialized()) {
 			st.allSubclasses(klass).forEach(function(subclass) {
 				st.initClass(subclass);
 			});
@@ -574,7 +579,7 @@ function MethodsBrik(brikz, st) {
 
 		for(var i=0; i<method.messageSends.length; i++) {
 			var dnuHandler = dnu.get(method.messageSends[i]);
-			if(instance.initialized()) {
+			if(stInit.initialized()) {
 				installNewDnuHandler(dnuHandler);
 			}
 		}
@@ -627,9 +632,10 @@ function AugmentsBrik(brikz, st) {
 	};
 }
 
-function InstanceBrik(brikz, st) {
+function SmalltalkInitBrik(brikz, st) {
 
 	brikz.ensure("classInit");
+	brikz.ensure("classes");
 
 	var initialized = false;
 
@@ -651,29 +657,6 @@ function InstanceBrik(brikz, st) {
 	this.initialized = function () {
 		return initialized;
 	};
-
-	/* List of all reserved words in JavaScript. They may not be used as variables
-		in Smalltalk. */
-
-	// list of reserved JavaScript keywords as of
-	//   http://es5.github.com/#x7.6.1.1
-	// and
-	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
-	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
-		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
-		'try', 'typeof', 'var', 'void', 'while', 'with',
-		// ES5: future use: http://es5.github.com/#x7.6.1.2
-		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
-		// ES5: future use in strict mode
-		'implements', 'interface', 'let', 'package', 'private', 'protected',
-		'public', 'static', 'yield'];
-
-	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
-
-	if(this.jQuery) {
-		this.jQuery.allowJavaScriptCalls = true;
-	}
 
 }
 
@@ -718,6 +701,25 @@ function PrimitivesBrik(brikz, st) {
 
 	/* Backward compatibility with Amber 0.9.1 */
 	st.symbolFor = function(aString) { return aString; };
+
+	/* List of all reserved words in JavaScript. They may not be used as variables
+	 in Smalltalk. */
+
+	// list of reserved JavaScript keywords as of
+	//   http://es5.github.com/#x7.6.1.1
+	// and
+	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
+	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
+		'try', 'typeof', 'var', 'void', 'while', 'with',
+		// ES5: future use: http://es5.github.com/#x7.6.1.2
+		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
+		// ES5: future use in strict mode
+		'implements', 'interface', 'let', 'package', 'private', 'protected',
+		'public', 'static', 'yield'];
+
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
 
 }
 
@@ -917,6 +919,10 @@ function MessageSendBrik(brikz, st) {
 		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
 	}
 
+	if(this.jQuery) {
+		this.jQuery.allowJavaScriptCalls = true;
+	}
+
 	this.messageNotUnderstood = messageNotUnderstood;
 }
 
@@ -1033,9 +1039,10 @@ brikz.classInit = ClassInitBrik;
 brikz.manipulation = ManipulationBrik;
 brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
-brikz.instance = InstanceBrik;
+brikz.stInit = SmalltalkInitBrik;
 brikz.augments = AugmentsBrik;
 brikz.bootstrap = BootstrapBrik;
+
 brikz.rebuild();
 
 global_smalltalk = api;
