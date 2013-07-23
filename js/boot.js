@@ -196,6 +196,106 @@ function DNUBrik(brikz, st) {
 	}
 }
 
+function ClassInitBrik(brikz, st) {
+
+	var dnu = brikz.ensure("dnu");
+	var manip = brikz.ensure("manipulation");
+
+	/* Initialize a class in its class hierarchy. Handle both classes and
+	 metaclasses. */
+
+	st.init = function(klass) {
+		st.initClass(klass);
+		if(klass.klass && !klass.meta) {
+			st.initClass(klass.klass);
+		}
+	};
+
+	st.initClass = function(klass) {
+		if(klass.wrapped) {
+			klass.inheritedMethods = {};
+			copySuperclass(klass);
+		} else {
+			installSuperclass(klass);
+		}
+
+		if(klass === st.Object || klass.wrapped) {
+			installDnuHandlers(klass);
+		}
+	};
+
+	function installSuperclass(klass) {
+		// only if the klass has not been initialized yet.
+		if(klass.fn.prototype._yourself) { return; }
+
+		if(klass.superclass && klass.superclass !== nil) {
+			inherits(klass.fn, klass.superclass.fn);
+			manip.wireKlass(klass);
+			manip.reinstallMethods(klass);
+		}
+	}
+
+	function copySuperclass(klass, superclass) {
+		for (superclass = superclass || klass.superclass;
+			 superclass && superclass !== nil;
+			 superclass = superclass.superclass) {
+			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
+				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
+			}
+		}
+	}
+
+	function inheritMethodIfAbsent(method, klass) {
+		var selector = method.selector;
+
+		if(klass.methods.hasOwnProperty(selector) || klass.inheritedMethods.hasOwnProperty(selector)) {
+			return;
+		}
+
+		manip.installMethod(method, klass);
+		klass.inheritedMethods[method.selector] = true;
+	}
+
+	function installDnuHandlers(klass) {
+		var m = dnu.methods;
+		for(var i=0; i<m.length; i++) {
+			manip.installMethodIfAbsent(m[i], klass);
+		}
+	}
+}
+
+function ManipulationBrik(brikz, st) {
+
+	var manip = this;
+
+	manip.installMethodIfAbsent = function (handler, klass) {
+		var jsFunction = klass.fn.prototype[handler.jsSelector];
+		if(!jsFunction) {
+			manip.installMethod(handler, klass);
+		}
+	};
+
+	manip.installMethod = function (method, klass) {
+		Object.defineProperty(klass.fn.prototype, method.jsSelector, {
+			value: method.fn,
+			enumerable: false, configurable: true, writable: true
+		});
+	};
+
+	manip.wireKlass = function (klass) {
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
+	};
+
+	manip.reinstallMethods = function (klass) {
+		for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
+			manip.installMethod(klass.methods[keys[i]], klass);
+		}
+	};
+}
+
 var nil = new SmalltalkNil();
 
 function SmalltalkFactory(brikz, st) {
@@ -205,6 +305,7 @@ function SmalltalkFactory(brikz, st) {
 	brikz.ensure("selectorConversion");
 	var org = brikz.ensure("organize");
 	var dnu = brikz.ensure("dnu");
+	var manip = brikz.ensure("manipulation");
 
 	/* This is the current call context object. While it is publicly available,
 		Use smalltalk.getThisContext() instead which will answer a safe copy of
@@ -314,7 +415,7 @@ function SmalltalkFactory(brikz, st) {
 			value: {},
 			enumerable: false, configurable: true, writable: true
 		});
-		wireKlass(klass);
+		manip.wireKlass(klass);
 	}
 
 	/* Smalltalk method object. To add a method to a class,
@@ -333,99 +434,10 @@ function SmalltalkFactory(brikz, st) {
 		return that;
 	};
 
-	/* Initialize a class in its class hierarchy. Handle both classes and
-		metaclasses. */
-
-	st.init = function(klass) {
-		st.initClass(klass);
-		if(klass.klass && !klass.meta) {
-			st.initClass(klass.klass);
-		}
-	};
-
-	st.initClass = function(klass) {
-		if(klass.wrapped) {
-			klass.inheritedMethods = {};
-			copySuperclass(klass);
-		} else {
-			installSuperclass(klass);
-		}
-
-		if(klass === st.Object || klass.wrapped) {
-			installDnuHandlers(klass);
-		}
-	};
-
-	function wireKlass(klass) {
-		Object.defineProperty(klass.fn.prototype, "klass", {
-			value: klass,
-			enumerable: false, configurable: true, writable: true
-		});
-	}
-
-	function installSuperclass(klass) {
-		// only if the klass has not been initialized yet.
-		if(klass.fn.prototype._yourself) { return; }
-
-		if(klass.superclass && klass.superclass !== nil) {
-			inherits(klass.fn, klass.superclass.fn);
-			wireKlass(klass);
-			reinstallMethods(klass);
-		}
-	}
-
-	function copySuperclass(klass, superclass) {
-		for (superclass = superclass || klass.superclass;
-			superclass && superclass !== nil;
-			superclass = superclass.superclass) {
-			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
-				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
-			}
-		}
-	}
-
-	function installMethod(method, klass) {
-		Object.defineProperty(klass.fn.prototype, method.jsSelector, {
-			value: method.fn,
-			enumerable: false, configurable: true, writable: true
-		});
-	}
-
-	function inheritMethodIfAbsent(method, klass) {
-		var selector = method.selector;
-
-		if(klass.methods.hasOwnProperty(selector) || klass.inheritedMethods.hasOwnProperty(selector)) {
-			return;
-		}
-
-		installMethod(method, klass);
-		klass.inheritedMethods[method.selector] = true;
-	}
-
-	function reinstallMethods(klass) {
-		for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
-			installMethod(klass.methods[keys[i]], klass);
-		}
-	}
-
-	function installDnuHandlers(klass) {
-		var m = dnu.methods;
-		for(var i=0; i<m.length; i++) {
-			installMethodIfAbsent(m[i], klass);
-		}
-	}
-
 	function installNewDnuHandler(newHandler) {
-		installMethodIfAbsent(newHandler, st.Object);
+		manip.installMethodIfAbsent(newHandler, st.Object);
 		for(var i = 0; i < wrappedClasses.length; i++) {
-			installMethodIfAbsent(newHandler, wrappedClasses[i]);
-		}
-	}
-
-	function installMethodIfAbsent(handler, klass) {
-		var jsFunction = klass.fn.prototype[handler.jsSelector];
-		if(!jsFunction) {
-			installMethod(handler, klass);
+			manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
 		}
 	}
 
@@ -587,7 +599,7 @@ function SmalltalkFactory(brikz, st) {
 		if (!(method.jsSelector)) {
 			method.jsSelector = st.selector(method.selector);
 		}
-		installMethod(method, klass);
+		manip.installMethod(method, klass);
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
 
@@ -889,6 +901,8 @@ brikz.messageSend = MessageSendBrik;
 brikz.organize = OrganizeBrik;
 brikz.selectorConversion = SelectorConversionBrik;
 brikz.smalltalk = SmalltalkFactory;
+brikz.classInit = ClassInitBrik;
+brikz.manipulation = ManipulationBrik;
 brikz.rebuild();
 
 var smalltalk = api;
