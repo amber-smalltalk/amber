@@ -101,12 +101,6 @@ Array.prototype.removeElement = function(el) {
 };
 
 
-/* Smalltalk constructors definition */
-
-function SmalltalkObject() {}
-function SmalltalkMethod() {}
-function SmalltalkNil() {}
-
 function inherits(child, parent) {
 	child.prototype = Object.create(parent.prototype, {
 		constructor: { value: child,
@@ -114,9 +108,11 @@ function inherits(child, parent) {
 	});
 }
 
-inherits(SmalltalkNil, SmalltalkObject);
-inherits(SmalltalkMethod, SmalltalkObject);
+/* Smalltalk constructors definition */
 
+function SmalltalkObject() {}
+function SmalltalkNil() {}
+inherits(SmalltalkNil, SmalltalkObject);
 
 function OrganizeBrik(brikz, st) {
 	var org = this;
@@ -515,61 +511,21 @@ function ClassesBrik(brikz, st) {
 
 }
 
-var nil = new SmalltalkNil();
+function MethodsBrik(brikz, st) {
 
-function SmalltalkFactory(brikz, st) {
-
-//	var st = this;
-
-	brikz.ensure("selectorConversion");
-	var org = brikz.ensure("organize");
-	var dnu = brikz.ensure("dnu");
 	var manip = brikz.ensure("manipulation");
-	brikz.ensure("classes");
+	var org = brikz.ensure("organize");
+	var instance = brikz.ensure("instance");
+	var dnu = brikz.ensure("dnu");
+	brikz.ensure("selectorConversion");
 
-	/* This is the current call context object. While it is publicly available,
-		Use smalltalk.getThisContext() instead which will answer a safe copy of
-		the current context */
+	function SmalltalkMethod() {}
+	inherits(SmalltalkMethod, SmalltalkObject);
 
-	st.thisContext = undefined;
-
-	/* List of all reserved words in JavaScript. They may not be used as variables
-		in Smalltalk. */
-
-	// list of reserved JavaScript keywords as of
-	//   http://es5.github.com/#x7.6.1.1
-	// and
-	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
-	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
-		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
-		'try', 'typeof', 'var', 'void', 'while', 'with',
-		// ES5: future use: http://es5.github.com/#x7.6.1.2
-		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
-		// ES5: future use in strict mode
-		'implements', 'interface', 'let', 'package', 'private', 'protected',
-		'public', 'static', 'yield'];
-
-	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
-
-	var initialized = false;
-
-	/* Answer all method selectors based on dnu handlers */
-
-	st.allSelectors = function() {
-		return dnu.selectors;
-	};
-
-	/* Unique ID number generator */
-
-	var oid = 0;
-	st.nextId = function() {
-		oid += 1;
-		return oid;
-	};
+	this.Method = SmalltalkMethod;
 
 	/* Smalltalk method object. To add a method to a class,
-		use smalltalk.addMethod() */
+	 use smalltalk.addMethod() */
 
 	st.method = function(spec) {
 		var that = new SmalltalkMethod();
@@ -626,7 +582,7 @@ function SmalltalkFactory(brikz, st) {
 		// re-initialize all subclasses to ensure the new method
 		// propagation (for wrapped classes, not using the prototype
 		// chain.
-		if(initialized) {
+		if(instance.initialized()) {
 			st.allSubclasses(klass).forEach(function(subclass) {
 				st.initClass(subclass);
 			});
@@ -634,7 +590,7 @@ function SmalltalkFactory(brikz, st) {
 
 		for(var i=0; i<method.messageSends.length; i++) {
 			var dnuHandler = dnu.get(method.messageSends[i]);
-			if(initialized) {
+			if(instance.initialized()) {
 				installNewDnuHandler(dnuHandler);
 			}
 		}
@@ -648,6 +604,80 @@ function SmalltalkFactory(brikz, st) {
 
 		// Do *not* delete protocols from here.
 		// This is handled by #removeCompiledMethod
+	};
+
+	/* Answer all method selectors based on dnu handlers */
+
+	st.allSelectors = function() {
+		return dnu.selectors;
+	};
+
+}
+
+function InstanceBrik(brikz, st) {
+
+	brikz.ensure("classInit");
+
+	var initialized = false;
+
+	/* Smalltalk initialization. Called on page load */
+
+	st.initialize = function() {
+		if(initialized) { return; }
+
+		st.classes().forEach(function(klass) {
+			st.init(klass);
+		});
+		st.classes().forEach(function(klass) {
+			klass._initialize();
+		});
+
+		initialized = true;
+	};
+
+	this.initialized = function () {
+		return initialized;
+	};
+
+}
+
+var nil = new SmalltalkNil();
+
+function SmalltalkFactory(brikz, st) {
+
+//	var st = this;
+
+	/* This is the current call context object. While it is publicly available,
+		Use smalltalk.getThisContext() instead which will answer a safe copy of
+		the current context */
+
+	st.thisContext = undefined;
+
+	/* List of all reserved words in JavaScript. They may not be used as variables
+		in Smalltalk. */
+
+	// list of reserved JavaScript keywords as of
+	//   http://es5.github.com/#x7.6.1.1
+	// and
+	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
+	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
+		'try', 'typeof', 'var', 'void', 'while', 'with',
+		// ES5: future use: http://es5.github.com/#x7.6.1.2
+		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
+		// ES5: future use in strict mode
+		'implements', 'interface', 'let', 'package', 'private', 'protected',
+		'public', 'static', 'yield'];
+
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
+	/* Unique ID number generator */
+
+	var oid = 0;
+	st.nextId = function() {
+		oid += 1;
+		return oid;
 	};
 
 	st.withContext = function(worker, setup) {
@@ -741,20 +771,6 @@ function SmalltalkFactory(brikz, st) {
 	/* Backward compatibility with Amber 0.9.1 */
 	st.symbolFor = function(aString) { return aString; };
 
-	/* Smalltalk initialization. Called on page load */
-
-	st.initialize = function() {
-		if(initialized) { return; }
-
-		st.classes().forEach(function(klass) {
-			st.init(klass);
-		});
-		st.classes().forEach(function(klass) {
-			klass._initialize();
-		});
-
-		initialized = true;
-	};
 }
 
 function MessageSendBrik(brikz, st) {
@@ -919,6 +935,8 @@ brikz.smalltalk = SmalltalkFactory;
 brikz.classInit = ClassInitBrik;
 brikz.manipulation = ManipulationBrik;
 brikz.classes = ClassesBrik;
+brikz.methods = MethodsBrik;
+brikz.instance = InstanceBrik;
 brikz.rebuild();
 
 var smalltalk = api;
@@ -978,7 +996,7 @@ smalltalk.Object.klass.superclass = smalltalk.Class;
 
 smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
 smalltalk.wrapClassName("Package", "Kernel-Objects", brikz.classes.Package, smalltalk.Object, false);
-smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
+smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", brikz.methods.Method, smalltalk.Object, false);
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, smalltalk.Object, false);
 smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, smalltalk.Organizer, false);
 smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", brikz.organize.ClassOrganizer, smalltalk.Organizer, false);
