@@ -162,7 +162,7 @@ function OrganizeBrik(brikz, st) {
 	};
 }
 
-var nil = global_nil = new SmalltalkNil();
+var nil = new SmalltalkNil();
 
 function SmalltalkFactory(brikz, st) {
 
@@ -877,7 +877,7 @@ brikz.selectorConversion = SelectorConversionBrik;
 brikz.smalltalk = SmalltalkFactory;
 brikz.rebuild();
 
-var smalltalk = global_smalltalk = api;
+var smalltalk = api;
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
@@ -915,7 +915,7 @@ SmalltalkMethodContext.prototype.method = function() {
  * Used in message sends
  */
 
-global__st = function(o) {
+function _st(o) {
 	if(o == null) {return nil;}
 	if(o.klass) {return o;}
 	return smalltalk.JSObjectProxy._on_(o);
@@ -961,5 +961,9 @@ smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContex
 
 smalltalk.alias(smalltalk.Array, "OrderedCollection");
 smalltalk.alias(smalltalk.Date, "Time");
+
+global_smalltalk = api;
+global_nil = nil;
+global__st = _st;
 
 })();
