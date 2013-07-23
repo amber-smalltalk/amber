@@ -148,6 +148,8 @@ function SmalltalkFactory(brikz, st) {
 
 //	var st = this;
 
+	brikz.ensure("selectorConversion");
+
 	/* This is the current call context object. While it is publicly available,
 		Use smalltalk.getThisContext() instead which will answer a safe copy of
 		the current context */
@@ -723,6 +725,55 @@ function SmalltalkFactory(brikz, st) {
 		st.thisContext = context.homeContext;
 	}
 
+	/* Converts a JavaScript object to valid Smalltalk Object */
+	st.readJSObject = function(js) {
+		var object = js;
+		var readObject = (js.constructor === Object);
+		var readArray = (js.constructor === Array);
+
+		if(readObject) {
+			object = st.Dictionary._new();
+		}
+		for(var i in js) {
+			if(readObject) {
+				object._at_put_(i, st.readJSObject(js[i]));
+			}
+			if(readArray) {
+				object[i] = st.readJSObject(js[i]);
+			}
+		}
+		return object;
+	};
+
+	/* Boolean assertion */
+	st.assert = function(shouldBeBoolean) {
+		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
+			return (shouldBeBoolean == true);
+		} else {
+			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+		}
+	};
+
+	/* Backward compatibility with Amber 0.9.1 */
+	st.symbolFor = function(aString) { return aString; };
+
+	/* Smalltalk initialization. Called on page load */
+
+	st.initialize = function() {
+		if(initialized) { return; }
+
+		classes.forEach(function(klass) {
+			st.init(klass);
+		});
+		classes.forEach(function(klass) {
+			klass._initialize();
+		});
+
+		initialized = true;
+	};
+}
+
+function SelectorConversionBrik(brikz, st) {
 	/* Convert a Smalltalk selector into a JS selector */
 
 	st.selector = function(string) {
@@ -777,53 +828,6 @@ function SmalltalkFactory(brikz, st) {
 			.replace(/_comma/g, ',')
 			.replace(/_at/g, '@');
 	}
-
-	/* Converts a JavaScript object to valid Smalltalk Object */
-	st.readJSObject = function(js) {
-		var object = js;
-		var readObject = (js.constructor === Object);
-		var readArray = (js.constructor === Array);
-
-		if(readObject) {
-			object = st.Dictionary._new();
-		}
-		for(var i in js) {
-			if(readObject) {
-				object._at_put_(i, st.readJSObject(js[i]));
-			}
-			if(readArray) {
-				object[i] = st.readJSObject(js[i]);
-			}
-		}
-		return object;
-	};
-
-	/* Boolean assertion */
-	st.assert = function(shouldBeBoolean) {
-		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
-			return (shouldBeBoolean == true);
-		} else {
-			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
-		}
-	};
-
-	/* Backward compatibility with Amber 0.9.1 */
-	st.symbolFor = function(aString) { return aString; };
-
-	/* Smalltalk initialization. Called on page load */
-
-	st.initialize = function() {
-		if(initialized) { return; }
-
-		classes.forEach(function(klass) {
-			st.init(klass);
-		});
-		classes.forEach(function(klass) {
-			klass._initialize();
-		});
-
-		initialized = true;
-	};
 }
 
 function Smalltalk() {}
@@ -850,6 +854,7 @@ inherits(SmalltalkMethodContext, SmalltalkObject);
 var api = new Smalltalk;
 var brikz = new Brikz(api);
 
+brikz.selectorConversion = SelectorConversionBrik;
 brikz.smalltalk = SmalltalkFactory;
 brikz.rebuild();
 
