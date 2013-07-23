@@ -57,6 +57,35 @@ var global_smalltalk, global_nil, global__st;
 
 (function () {
 
+/* Reconfigurable micro composition system, https://github.com/herby/brikz */
+
+function Brikz(api) {
+	var brikz = this, backup = {};
+
+	function mixin(s, t, k) {
+		for (k=k||Object.keys(s), l=k.length, i=0; i<l; ++i) t[k[i]]=s[k[i]];
+		return t;
+	}
+
+	Object.defineProperties(this, {
+		ensure: { value: null,
+			enumerable: false, configurable: true, writable: true},
+		rebuild: { value: function () {
+			var oapi = mixin(api, {}), obrikz = mixin(backup, {});
+			mixin({}, api, Object.keys(api)); backup = {};
+			brikz.ensure = function (key) {
+				var b = brikz[key], bak = [];
+				while (typeof b === "function") b = new b(brikz, api, bak);
+				if (b === bak) { b = obrikz[key]; mixin(oapi, api, bak); }
+				brikz[key] = backup[key] = b;
+			}
+			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
+			brikz.ensure = null;
+		}, enumerable: false, configurable: true, writable: false }});
+}
+
+/* Brikz end */
+
 /* Array extensions */
 
 Array.prototype.addElement = function(el) {
@@ -115,9 +144,9 @@ inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 var nil = global_nil = new SmalltalkNil();
 
-function Smalltalk() {
+function SmalltalkFactory(brikz, st) {
 
-	var st = this;
+//	var st = this;
 
 	/* This is the current call context object. While it is publicly available,
 		Use smalltalk.getThisContext() instead which will answer a safe copy of
@@ -797,6 +826,7 @@ function Smalltalk() {
 	};
 }
 
+function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
 
 if(this.jQuery) {
@@ -817,7 +847,13 @@ SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
 
-var smalltalk = global_smalltalk = new Smalltalk();
+var api = new Smalltalk;
+var brikz = new Brikz(api);
+
+brikz.smalltalk = SmalltalkFactory;
+brikz.rebuild();
+
+var smalltalk = global_smalltalk = api;
 
 SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 	this.receiver    = receiver;
