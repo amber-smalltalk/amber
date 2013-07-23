@@ -977,6 +977,52 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
+function BootstrapBrik(brikz, st) {
+
+	brikz.ensure("classes");
+	brikz.ensure("methods");
+	brikz.ensure("organize");
+	brikz.ensure("runtime");
+
+	/***************************************** BOOTSTRAP ******************************************/
+
+	st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
+	st.wrapClassName("Behavior", "Kernel-Classes", brikz.classes.Behavior, st.Object, false);
+	st.wrapClassName("Metaclass", "Kernel-Classes", brikz.classes.Metaclass, st.Behavior, false);
+	st.wrapClassName("Class", "Kernel-Classes", brikz.classes.Class, st.Behavior, false);
+
+	st.Object.klass.superclass = st.Class;
+
+	st.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, st.Object, false);
+	st.wrapClassName("Package", "Kernel-Objects", brikz.classes.Package, st.Object, false);
+	st.wrapClassName("CompiledMethod", "Kernel-Methods", brikz.methods.Method, st.Object, false);
+	st.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, st.Object, false);
+	st.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, st.Organizer, false);
+	st.wrapClassName("ClassOrganizer", "Kernel-Objects", brikz.organize.ClassOrganizer, st.Organizer, false);
+
+	st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
+	st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
+	st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
+	st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
+	st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
+
+	st.addClass("Collection", st.Object, null, "Kernel-Collections");
+	st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
+	st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
+	st.addClass("CharacterArray", st.SequenceableCollection, null, "Kernel-Collections");
+	st.wrapClassName("String", "Kernel-Collections", String, st.CharacterArray);
+	st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
+	st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
+
+	st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
+	st.wrapClassName("MethodContext", "Kernel-Methods", brikz.runtime.MethodContext, st.Object, false);
+
+	/* Alias definitions */
+
+	st.alias(st.Array, "OrderedCollection");
+	st.alias(st.Date, "Time");
+}
+
 brikz.dnu = DNUBrik;
 brikz.messageSend = MessageSendBrik;
 brikz.organize = OrganizeBrik;
@@ -989,49 +1035,8 @@ brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.instance = InstanceBrik;
 brikz.augments = AugmentsBrik;
+brikz.bootstrap = BootstrapBrik;
 brikz.rebuild();
-
-var smalltalk = api;
-
-/***************************************** BOOTSTRAP ******************************************/
-
-smalltalk.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
-smalltalk.wrapClassName("Behavior", "Kernel-Classes", brikz.classes.Behavior, smalltalk.Object, false);
-smalltalk.wrapClassName("Metaclass", "Kernel-Classes", brikz.classes.Metaclass, smalltalk.Behavior, false);
-smalltalk.wrapClassName("Class", "Kernel-Classes", brikz.classes.Class, smalltalk.Behavior, false);
-
-smalltalk.Object.klass.superclass = smalltalk.Class;
-
-
-smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
-smalltalk.wrapClassName("Package", "Kernel-Objects", brikz.classes.Package, smalltalk.Object, false);
-smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", brikz.methods.Method, smalltalk.Object, false);
-smalltalk.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, smalltalk.Object, false);
-smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, smalltalk.Organizer, false);
-smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", brikz.organize.ClassOrganizer, smalltalk.Organizer, false);
-
-
-smalltalk.wrapClassName("Number", "Kernel-Objects", Number, smalltalk.Object);
-smalltalk.wrapClassName("BlockClosure", "Kernel-Methods", Function, smalltalk.Object);
-smalltalk.wrapClassName("Boolean", "Kernel-Objects", Boolean, smalltalk.Object);
-smalltalk.wrapClassName("Date", "Kernel-Objects", Date, smalltalk.Object);
-smalltalk.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, smalltalk.Object, false);
-
-smalltalk.addClass("Collection", smalltalk.Object, null, "Kernel-Collections");
-smalltalk.addClass("IndexableCollection", smalltalk.Collection, null, "Kernel-Collections");
-smalltalk.addClass("SequenceableCollection", smalltalk.IndexableCollection, null, "Kernel-Collections");
-smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Kernel-Collections");
-smalltalk.wrapClassName("String", "Kernel-Collections", String, smalltalk.CharacterArray);
-smalltalk.wrapClassName("Array", "Kernel-Collections", Array, smalltalk.SequenceableCollection);
-smalltalk.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, smalltalk.Object);
-
-smalltalk.wrapClassName("Error", "Kernel-Exceptions", Error, smalltalk.Object);
-smalltalk.wrapClassName("MethodContext", "Kernel-Methods", brikz.runtime.MethodContext, smalltalk.Object, false);
-
-/* Alias definitions */
-
-smalltalk.alias(smalltalk.Array, "OrderedCollection");
-smalltalk.alias(smalltalk.Date, "Time");
 
 global_smalltalk = api;
 global_nil = nil;
