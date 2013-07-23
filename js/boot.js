@@ -688,15 +688,7 @@ function InstanceBrik(brikz, st) {
 
 }
 
-function SmalltalkFactory(brikz, st) {
-
-//	var st = this;
-
-	/* This is the current call context object. While it is publicly available,
-		Use smalltalk.getThisContext() instead which will answer a safe copy of
-		the current context */
-
-	st.thisContext = undefined;
+function PrimitivesBrik(brikz, st) {
 
 	/* Unique ID number generator */
 
@@ -705,6 +697,48 @@ function SmalltalkFactory(brikz, st) {
 		oid += 1;
 		return oid;
 	};
+
+	/* Converts a JavaScript object to valid Smalltalk Object */
+	st.readJSObject = function(js) {
+		var object = js;
+		var readObject = (js.constructor === Object);
+		var readArray = (js.constructor === Array);
+
+		if(readObject) {
+			object = st.Dictionary._new();
+		}
+		for(var i in js) {
+			if(readObject) {
+				object._at_put_(i, st.readJSObject(js[i]));
+			}
+			if(readArray) {
+				object[i] = st.readJSObject(js[i]);
+			}
+		}
+		return object;
+	};
+
+	/* Boolean assertion */
+	st.assert = function(shouldBeBoolean) {
+		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
+			return (shouldBeBoolean == true);
+		} else {
+			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+		}
+	};
+
+	/* Backward compatibility with Amber 0.9.1 */
+	st.symbolFor = function(aString) { return aString; };
+
+}
+
+function RuntimeBrik(brikz, st) {
+
+	/* This is the current call context object. While it is publicly available,
+	 Use smalltalk.getThisContext() instead which will answer a safe copy of
+	 the current context */
+
+	st.thisContext = undefined;
 
 	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
@@ -764,38 +798,6 @@ function SmalltalkFactory(brikz, st) {
 	function popContext(context) {
 		st.thisContext = context.homeContext;
 	}
-
-	/* Converts a JavaScript object to valid Smalltalk Object */
-	st.readJSObject = function(js) {
-		var object = js;
-		var readObject = (js.constructor === Object);
-		var readArray = (js.constructor === Array);
-
-		if(readObject) {
-			object = st.Dictionary._new();
-		}
-		for(var i in js) {
-			if(readObject) {
-				object._at_put_(i, st.readJSObject(js[i]));
-			}
-			if(readArray) {
-				object[i] = st.readJSObject(js[i]);
-			}
-		}
-		return object;
-	};
-
-	/* Boolean assertion */
-	st.assert = function(shouldBeBoolean) {
-		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
-			return (shouldBeBoolean == true);
-		} else {
-			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
-		}
-	};
-
-	/* Backward compatibility with Amber 0.9.1 */
-	st.symbolFor = function(aString) { return aString; };
 
 }
 
@@ -947,7 +949,8 @@ brikz.dnu = DNUBrik;
 brikz.messageSend = MessageSendBrik;
 brikz.organize = OrganizeBrik;
 brikz.selectorConversion = SelectorConversionBrik;
-brikz.smalltalk = SmalltalkFactory;
+brikz.runtime = RuntimeBrik;
+brikz.primitives = PrimitivesBrik;
 brikz.classInit = ClassInitBrik;
 brikz.manipulation = ManipulationBrik;
 brikz.classes = ClassesBrik;
