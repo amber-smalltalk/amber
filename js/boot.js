@@ -675,17 +675,6 @@ function InstanceBrik(brikz, st) {
 		this.jQuery.allowJavaScriptCalls = true;
 	}
 
-	/*
-	 * Answer the smalltalk representation of o.
-	 * Used in message sends
-	 */
-
-	this._st = function (o) {
-		if(o == null) {return nil;}
-		if(o.klass) {return o;}
-		return st.JSObjectProxy._on_(o);
-	};
-
 }
 
 function PrimitivesBrik(brikz, st) {
@@ -733,6 +722,52 @@ function PrimitivesBrik(brikz, st) {
 }
 
 function RuntimeBrik(brikz, st) {
+
+	function SmalltalkMethodContext(home, setup) {
+		this.homeContext = home;
+		this.setup       = setup || function() {};
+		this.pc          = 0;
+	}
+
+// Fallbacks
+	SmalltalkMethodContext.prototype.locals = {};
+	SmalltalkMethodContext.prototype.receiver = null;
+	SmalltalkMethodContext.prototype.selector = null;
+	SmalltalkMethodContext.prototype.lookupClass = null;
+
+	inherits(SmalltalkMethodContext, SmalltalkObject);
+	this.MethodContext = SmalltalkMethodContext;
+
+	SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
+		this.receiver    = receiver;
+		this.selector    = selector;
+		this.locals      = locals || {};
+		this.lookupClass = lookupClass;
+	};
+
+	SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
+		this.locals        = locals || {};
+		this.outerContext  = ctx;
+	};
+
+	SmalltalkMethodContext.prototype.init = function() {
+		var home = this.homeContext;
+		if(home) {
+			home = home.init();
+		}
+
+		this.setup(this);
+	};
+
+	SmalltalkMethodContext.prototype.method = function() {
+		var method;
+		var lookup = this.lookupClass || this.receiver.klass;
+		while(!method && lookup) {
+			method = lookup.methods[smalltalk.convertSelector(this.selector)];
+			lookup = lookup.superclass;
+		}
+		return method;
+	};
 
 	/* This is the current call context object. While it is publicly available,
 	 Use smalltalk.getThisContext() instead which will answer a safe copy of
@@ -798,6 +833,17 @@ function RuntimeBrik(brikz, st) {
 	function popContext(context) {
 		st.thisContext = context.homeContext;
 	}
+
+	/*
+	 * Answer the smalltalk representation of o.
+	 * Used in message sends
+	 */
+
+	this._st = function (o) {
+		if(o == null) {return nil;}
+		if(o.klass) {return o;}
+		return st.JSObjectProxy._on_(o);
+	};
 
 }
 
@@ -931,20 +977,6 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
-function SmalltalkMethodContext(home, setup) {
-	this.homeContext = home;
-	this.setup       = setup || function() {};
-	this.pc          = 0;
-}
-
-// Fallbacks
-SmalltalkMethodContext.prototype.locals = {};
-SmalltalkMethodContext.prototype.receiver = null;
-SmalltalkMethodContext.prototype.selector = null;
-SmalltalkMethodContext.prototype.lookupClass = null;
-
-inherits(SmalltalkMethodContext, SmalltalkObject);
-
 brikz.dnu = DNUBrik;
 brikz.messageSend = MessageSendBrik;
 brikz.organize = OrganizeBrik;
@@ -960,37 +992,6 @@ brikz.augments = AugmentsBrik;
 brikz.rebuild();
 
 var smalltalk = api;
-
-SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
-	this.receiver    = receiver;
-	this.selector    = selector;
-	this.locals      = locals || {};
-	this.lookupClass = lookupClass;
-};
-
-SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
-	this.locals        = locals || {};
-	this.outerContext  = ctx;
-};
-
-SmalltalkMethodContext.prototype.init = function() {
-	var home = this.homeContext;
-	if(home) {
-		home = home.init();
-	}
-
-	this.setup(this);
-};
-
-SmalltalkMethodContext.prototype.method = function() {
-	var method;
-	var lookup = this.lookupClass || this.receiver.klass;
-	while(!method && lookup) {
-		method = lookup.methods[smalltalk.convertSelector(this.selector)];
-		lookup = lookup.superclass;
-	}
-	return method;
-};
 
 /***************************************** BOOTSTRAP ******************************************/
 
@@ -1025,7 +1026,7 @@ smalltalk.wrapClassName("Array", "Kernel-Collections", Array, smalltalk.Sequence
 smalltalk.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, smalltalk.Object);
 
 smalltalk.wrapClassName("Error", "Kernel-Exceptions", Error, smalltalk.Object);
-smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, smalltalk.Object, false);
+smalltalk.wrapClassName("MethodContext", "Kernel-Methods", brikz.runtime.MethodContext, smalltalk.Object, false);
 
 /* Alias definitions */
 
@@ -1034,6 +1035,6 @@ smalltalk.alias(smalltalk.Date, "Time");
 
 global_smalltalk = api;
 global_nil = nil;
-global__st = brikz.instance._st;
+global__st = brikz.runtime._st;
 
 })();
