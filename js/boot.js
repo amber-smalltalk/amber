@@ -77,7 +77,7 @@ function Brikz(api) {
 				var b = brikz[key], bak = [];
 				while (typeof b === "function") b = new b(brikz, api, bak);
 				if (b === bak) { b = obrikz[key]; mixin(oapi, api, bak); }
-				brikz[key] = backup[key] = b;
+				return brikz[key] = backup[key] = b;
 			}
 			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
 			brikz.ensure = null;
@@ -113,17 +113,6 @@ function SmalltalkPackage() {}
 function SmalltalkMethod() {}
 function SmalltalkNil() {}
 
-function SmalltalkOrganizer() {
-}
-
-function SmalltalkPackageOrganizer() {
-	this.elements = [];
-}
-
-function SmalltalkClassOrganizer() {
-	this.elements = [];
-}
-
 function inherits(child, parent) {
 	child.prototype = Object.create(parent.prototype, {
 		constructor: { value: child,
@@ -137,10 +126,41 @@ inherits(SmalltalkMetaclass, SmalltalkBehavior);
 inherits(SmalltalkNil, SmalltalkObject);
 inherits(SmalltalkMethod, SmalltalkObject);
 inherits(SmalltalkPackage, SmalltalkObject);
-inherits(SmalltalkOrganizer, SmalltalkObject);
-inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
-inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
+
+function OrganizeBrik(brikz, st) {
+	var org = this;
+
+	org.Organizer = function () {};
+	inherits(org.Organizer, SmalltalkObject);
+
+	org.PackageOrganizer = function () {
+		this.elements = [];
+	};
+	inherits(org.PackageOrganizer, org.Organizer);
+
+	org.ClassOrganizer = function () {
+		this.elements = [];
+	};
+	inherits(org.ClassOrganizer, org.Organizer);
+
+	org.setupClassOrganization = function (klass) {
+		klass.organization = new org.ClassOrganizer;
+		klass.organization.theClass = klass;
+	};
+
+	org.setupPackageOrganization = function (pkg) {
+		pkg.organization = new org.PackageOrganizer;
+	};
+
+	org.addOrganizationElement = function (owner, element) {
+		owner.organization.elements.addElement(element);
+	};
+
+	org.removeOrganizationElement = function (owner, element) {
+		owner.organization.elements.removeElement(element);
+	};
+}
 
 var nil = global_nil = new SmalltalkNil();
 
@@ -149,6 +169,7 @@ function SmalltalkFactory(brikz, st) {
 //	var st = this;
 
 	brikz.ensure("selectorConversion");
+	var org = brikz.ensure("organize");
 
 	/* This is the current call context object. While it is publicly available,
 		Use smalltalk.getThisContext() instead which will answer a safe copy of
@@ -235,7 +256,7 @@ function SmalltalkFactory(brikz, st) {
 	function pkg(spec) {
 		var that = new SmalltalkPackage();
 		that.pkgName = spec.pkgName;
-		that.organization = new SmalltalkPackageOrganizer();
+		org.setupPackageOrganization(that);
 		that.properties = spec.properties || {};
 		return that;
 	}
@@ -283,10 +304,7 @@ function SmalltalkFactory(brikz, st) {
 			value: function() { return 'Smalltalk ' + this.className; },
 			enumerable:false, configurable: true, writable: false
 		});
-
-		klass.organization          = new SmalltalkClassOrganizer();
-		klass.organization.theClass = klass;
-
+		org.setupClassOrganization(klass);
 		Object.defineProperty(klass, "methods", {
 			value: {},
 			enumerable: false, configurable: true, writable: true
@@ -482,7 +500,7 @@ function SmalltalkFactory(brikz, st) {
 		if(wrapped) {
 			wrappedClasses.addElement(st[className]);
 		}
-		pkg.organization.elements.addElement(st[className]);
+		org.addOrganizationElement(pkg, st[className]);
 	};
 
 	/* Create an alias for an existing class */
@@ -533,11 +551,11 @@ function SmalltalkFactory(brikz, st) {
 		}
 
 		classes.addElement(st[className]);
-		pkg.organization.elements.addElement(st[className]);
+		org.addOrganizationElement(pkg, st[className]);
 	};
 
 	st.removeClass = function(klass) {
-		klass.pkg.organization.elements.removeElement(klass);
+		org.removeOrganizationElement(klass.pkg, klass);
 		classes.removeElement(klass);
 		delete st[klass.className];
 	};
@@ -570,7 +588,7 @@ function SmalltalkFactory(brikz, st) {
 
 		// During the bootstrap, #addCompiledMethod is not used.
 		// Therefore we populate the organizer here too
-		klass.organization.elements.addElement(method.category);
+		org.addOrganizationElement(klass, method.category);
 
 		// If already initialized (else it will be done later anyway),
 		// re-initialize all subclasses to ensure the new method
@@ -854,6 +872,7 @@ inherits(SmalltalkMethodContext, SmalltalkObject);
 var api = new Smalltalk;
 var brikz = new Brikz(api);
 
+brikz.organize = OrganizeBrik;
 brikz.selectorConversion = SelectorConversionBrik;
 brikz.smalltalk = SmalltalkFactory;
 brikz.rebuild();
@@ -916,9 +935,9 @@ smalltalk.Object.klass.superclass = smalltalk.Class;
 smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
 smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
 smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
-smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
-smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", SmalltalkPackageOrganizer, smalltalk.Organizer, false);
-smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", SmalltalkClassOrganizer, smalltalk.Organizer, false);
+smalltalk.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, smalltalk.Object, false);
+smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, smalltalk.Organizer, false);
+smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", brikz.organize.ClassOrganizer, smalltalk.Organizer, false);
 
 
 smalltalk.wrapClassName("Number", "Kernel-Objects", Number, smalltalk.Object);
