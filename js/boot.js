@@ -108,11 +108,18 @@ function inherits(child, parent) {
 	});
 }
 
-/* Smalltalk constructors definition */
+/* Smalltalk foundational objects */
 
 function SmalltalkObject() {}
 function SmalltalkNil() {}
 inherits(SmalltalkNil, SmalltalkObject);
+
+function Smalltalk() {}
+inherits(Smalltalk, SmalltalkObject);
+
+var nil = new SmalltalkNil();
+var api = new Smalltalk;
+var brikz = new Brikz(api);
 
 function OrganizeBrik(brikz, st) {
 	var org = this;
@@ -641,8 +648,6 @@ function InstanceBrik(brikz, st) {
 
 }
 
-var nil = new SmalltalkNil();
-
 function SmalltalkFactory(brikz, st) {
 
 //	var st = this;
@@ -903,9 +908,6 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
-function Smalltalk() {}
-inherits(Smalltalk, SmalltalkObject);
-
 if(this.jQuery) {
 	this.jQuery.allowJavaScriptCalls = true;
 }
@@ -923,9 +925,6 @@ SmalltalkMethodContext.prototype.selector = null;
 SmalltalkMethodContext.prototype.lookupClass = null;
 
 inherits(SmalltalkMethodContext, SmalltalkObject);
-
-var api = new Smalltalk;
-var brikz = new Brikz(api);
 
 brikz.dnu = DNUBrik;
 brikz.messageSend = MessageSendBrik;
