@@ -166,6 +166,7 @@ function DNUBrik(brikz, st) {
 
 	/* Method not implemented handlers */
 
+	brikz.ensure("selectorConversion");
 	brikz.ensure("messageSend");
 
 	this.methods = [];
@@ -730,6 +731,8 @@ function SmalltalkFactory(brikz, st) {
 }
 
 function MessageSendBrik(brikz, st) {
+
+	brikz.ensure("selectorConversion");
 
 	/* Handles unhandled errors during message sends */
 	// simply send the message and handle #dnu:
