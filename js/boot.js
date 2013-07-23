@@ -104,12 +104,6 @@ Array.prototype.removeElement = function(el) {
 /* Smalltalk constructors definition */
 
 function SmalltalkObject() {}
-function SmalltalkBehavior() {}
-function SmalltalkClass() {}
-function SmalltalkMetaclass() {
-	this.meta = true;
-}
-function SmalltalkPackage() {}
 function SmalltalkMethod() {}
 function SmalltalkNil() {}
 
@@ -120,12 +114,8 @@ function inherits(child, parent) {
 	});
 }
 
-inherits(SmalltalkBehavior, SmalltalkObject);
-inherits(SmalltalkClass, SmalltalkBehavior);
-inherits(SmalltalkMetaclass, SmalltalkBehavior);
 inherits(SmalltalkNil, SmalltalkObject);
 inherits(SmalltalkMethod, SmalltalkObject);
-inherits(SmalltalkPackage, SmalltalkObject);
 
 
 function OrganizeBrik(brikz, st) {
@@ -296,62 +286,32 @@ function ManipulationBrik(brikz, st) {
 	};
 }
 
-var nil = new SmalltalkNil();
+function ClassesBrik(brikz, st) {
 
-function SmalltalkFactory(brikz, st) {
-
-//	var st = this;
-
-	brikz.ensure("selectorConversion");
 	var org = brikz.ensure("organize");
-	var dnu = brikz.ensure("dnu");
 	var manip = brikz.ensure("manipulation");
 
-	/* This is the current call context object. While it is publicly available,
-		Use smalltalk.getThisContext() instead which will answer a safe copy of
-		the current context */
+	function SmalltalkPackage() {}
+	function SmalltalkBehavior() {}
+	function SmalltalkClass() {}
+	function SmalltalkMetaclass() {
+		this.meta = true;
+	}
 
-	st.thisContext = undefined;
+	inherits(SmalltalkPackage, SmalltalkObject);
+	inherits(SmalltalkBehavior, SmalltalkObject);
+	inherits(SmalltalkClass, SmalltalkBehavior);
+	inherits(SmalltalkMetaclass, SmalltalkBehavior);
 
-	/* List of all reserved words in JavaScript. They may not be used as variables
-		in Smalltalk. */
-
-	// list of reserved JavaScript keywords as of
-	//   http://es5.github.com/#x7.6.1.1
-	// and
-	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
-	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
-		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
-		'try', 'typeof', 'var', 'void', 'while', 'with',
-		// ES5: future use: http://es5.github.com/#x7.6.1.2
-		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
-		// ES5: future use in strict mode
-		'implements', 'interface', 'let', 'package', 'private', 'protected',
-		'public', 'static', 'yield'];
-
-	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
-
-	var initialized = false;
+	this.Package = SmalltalkPackage;
+	this.Behavior = SmalltalkBehavior;
+	this.Class = SmalltalkClass;
+	this.Metaclass = SmalltalkMetaclass;
 
 	/* Smalltalk classes */
 
 	var classes = [];
 	var wrappedClasses = [];
-
-	/* Answer all method selectors based on dnu handlers */
-
-	st.allSelectors = function() {
-		return dnu.selectors;
-	};
-
-	/* Unique ID number generator */
-
-	var oid = 0;
-	st.nextId = function() {
-		oid += 1;
-		return oid;
-	};
 
 	/* We hold all Packages in a separate Object */
 
@@ -418,39 +378,84 @@ function SmalltalkFactory(brikz, st) {
 		manip.wireKlass(klass);
 	}
 
-	/* Smalltalk method object. To add a method to a class,
-		use smalltalk.addMethod() */
+	/* Add a package to the smalltalk.packages object, creating a new one if needed.
+	 If pkgName is null or empty we return nil, which is an allowed package for a class.
+	 If package already exists we still update the properties of it. */
 
-	st.method = function(spec) {
-		var that = new SmalltalkMethod();
-		that.selector          = spec.selector;
-		that.jsSelector        = spec.jsSelector;
-		that.args              = spec.args || {};
-		that.category          = spec.category;
-		that.source            = spec.source;
-		that.messageSends      = spec.messageSends || [];
-		that.referencedClasses = spec.referencedClasses || [];
-		that.fn                = spec.fn;
-		return that;
+	st.addPackage = function(pkgName, properties) {
+		if(!pkgName) {return nil;}
+		if(!(st.packages[pkgName])) {
+			st.packages[pkgName] = pkg({
+				pkgName: pkgName,
+				properties: properties
+			});
+		} else {
+			if(properties) {
+				st.packages[pkgName].properties = properties;
+			}
+		}
+		return st.packages[pkgName];
 	};
 
-	function installNewDnuHandler(newHandler) {
-		manip.installMethodIfAbsent(newHandler, st.Object);
-		for(var i = 0; i < wrappedClasses.length; i++) {
-			manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
-		}
-	}
+	/* Add a class to the smalltalk object, creating a new one if needed.
+	 A Package is lazily created if it does not exist with given name. */
 
-	/* Answer all registered Packages as Array */
-	// TODO: Remove this hack
-
-	st.packages.all = function() {
-		var packages = [];
-		for(var i in st.packages) {
-			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
-			packages.push(st.packages[i]);
+	st.addClass = function(className, superclass, iVarNames, pkgName) {
+		var pkg = st.addPackage(pkgName);
+		if (superclass == nil) { superclass = null; }
+		if(st[className] && st[className].superclass == superclass) {
+			st[className].superclass = superclass;
+			st[className].iVarNames = iVarNames;
+			st[className].pkg = pkg || st[className].pkg;
+		} else {
+			if(st[className]) {
+				st.removeClass(st[className]);
+			}
+			st[className] = klass({
+				className: className,
+				superclass: superclass,
+				pkg: pkg,
+				iVarNames: iVarNames
+			});
 		}
-		return packages;
+
+		classes.addElement(st[className]);
+		org.addOrganizationElement(pkg, st[className]);
+	};
+
+	st.removeClass = function(klass) {
+		org.removeOrganizationElement(klass.pkg, klass);
+		classes.removeElement(klass);
+		delete st[klass.className];
+	};
+
+	/* Create a new class wrapping a JavaScript constructor, and add it to the
+	 global smalltalk object. Package is lazily created if it does not exist with given name. */
+
+	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
+		if(wrapped !== false) {
+			wrapped = true;
+		}
+		var pkg = st.addPackage(pkgName);
+		st[className] = klass({
+			className:  className,
+			superclass: superclass,
+			pkg:        pkg,
+			fn:         fn,
+			wrapped:    wrapped
+		});
+
+		classes.addElement(st[className]);
+		if(wrapped) {
+			wrappedClasses.addElement(st[className]);
+		}
+		org.addOrganizationElement(pkg, st[className]);
+	};
+
+	/* Create an alias for an existing class */
+
+	st.alias = function(klass, alias) {
+		st[alias] = klass;
 	};
 
 	/* Answer all registered Smalltalk classes */
@@ -462,6 +467,18 @@ function SmalltalkFactory(brikz, st) {
 
 	st.wrappedClasses = function() {
 		return wrappedClasses;
+	};
+
+	/* Answer all registered Packages as Array */
+	// TODO: Remove this hack
+
+	st.packages.all = function() {
+		var packages = [];
+		for(var i in st.packages) {
+			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
+			packages.push(st.packages[i]);
+		}
+		return packages;
 	};
 
 	/* Answer the direct subclasses of klass. */
@@ -496,86 +513,84 @@ function SmalltalkFactory(brikz, st) {
 		return result;
 	};
 
+}
 
-	/* Create a new class wrapping a JavaScript constructor, and add it to the
-		global smalltalk object. Package is lazily created if it does not exist with given name. */
+var nil = new SmalltalkNil();
 
-	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
-		if(wrapped !== false) {
-			wrapped = true;
+function SmalltalkFactory(brikz, st) {
+
+//	var st = this;
+
+	brikz.ensure("selectorConversion");
+	var org = brikz.ensure("organize");
+	var dnu = brikz.ensure("dnu");
+	var manip = brikz.ensure("manipulation");
+	brikz.ensure("classes");
+
+	/* This is the current call context object. While it is publicly available,
+		Use smalltalk.getThisContext() instead which will answer a safe copy of
+		the current context */
+
+	st.thisContext = undefined;
+
+	/* List of all reserved words in JavaScript. They may not be used as variables
+		in Smalltalk. */
+
+	// list of reserved JavaScript keywords as of
+	//   http://es5.github.com/#x7.6.1.1
+	// and
+	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
+	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
+		'try', 'typeof', 'var', 'void', 'while', 'with',
+		// ES5: future use: http://es5.github.com/#x7.6.1.2
+		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
+		// ES5: future use in strict mode
+		'implements', 'interface', 'let', 'package', 'private', 'protected',
+		'public', 'static', 'yield'];
+
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
+	var initialized = false;
+
+	/* Answer all method selectors based on dnu handlers */
+
+	st.allSelectors = function() {
+		return dnu.selectors;
+	};
+
+	/* Unique ID number generator */
+
+	var oid = 0;
+	st.nextId = function() {
+		oid += 1;
+		return oid;
+	};
+
+	/* Smalltalk method object. To add a method to a class,
+		use smalltalk.addMethod() */
+
+	st.method = function(spec) {
+		var that = new SmalltalkMethod();
+		that.selector          = spec.selector;
+		that.jsSelector        = spec.jsSelector;
+		that.args              = spec.args || {};
+		that.category          = spec.category;
+		that.source            = spec.source;
+		that.messageSends      = spec.messageSends || [];
+		that.referencedClasses = spec.referencedClasses || [];
+		that.fn                = spec.fn;
+		return that;
+	};
+
+	function installNewDnuHandler(newHandler) {
+		manip.installMethodIfAbsent(newHandler, st.Object);
+		var wrappedClasses = st.wrappedClasses();
+		for(var i = 0; i < wrappedClasses.length; i++) {
+			manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
 		}
-		var pkg = st.addPackage(pkgName);
-		st[className] = klass({
-			className:  className,
-			superclass: superclass,
-			pkg:        pkg,
-			fn:         fn,
-			wrapped:    wrapped
-		});
-
-		classes.addElement(st[className]);
-		if(wrapped) {
-			wrappedClasses.addElement(st[className]);
-		}
-		org.addOrganizationElement(pkg, st[className]);
-	};
-
-	/* Create an alias for an existing class */
-
-	st.alias = function(klass, alias) {
-		st[alias] = klass;
-	};
-
-	/* Add a package to the smalltalk.packages object, creating a new one if needed.
-		If pkgName is null or empty we return nil, which is an allowed package for a class.
-		If package already exists we still update the properties of it. */
-
-	st.addPackage = function(pkgName, properties) {
-		if(!pkgName) {return nil;}
-		if(!(st.packages[pkgName])) {
-			st.packages[pkgName] = pkg({
-				pkgName: pkgName,
-				properties: properties
-			});
-		} else {
-			if(properties) {
-				st.packages[pkgName].properties = properties;
-			}
-		}
-		return st.packages[pkgName];
-	};
-
-	/* Add a class to the smalltalk object, creating a new one if needed.
-		A Package is lazily created if it does not exist with given name. */
-
-	st.addClass = function(className, superclass, iVarNames, pkgName) {
-		var pkg = st.addPackage(pkgName);
-		if (superclass == nil) { superclass = null; }
-		if(st[className] && st[className].superclass == superclass) {
-			st[className].superclass = superclass;
-			st[className].iVarNames = iVarNames;
-			st[className].pkg = pkg || st[className].pkg;
-		} else {
-			if(st[className]) {
-				st.removeClass(st[className]);
-			}
-			st[className] = klass({
-				className: className,
-				superclass: superclass,
-				pkg: pkg,
-				iVarNames: iVarNames
-			});
-		}
-
-		classes.addElement(st[className]);
-		org.addOrganizationElement(pkg, st[className]);
-	};
-
-	st.removeClass = function(klass) {
-		org.removeOrganizationElement(klass.pkg, klass);
-		classes.removeElement(klass);
-		delete st[klass.className];
-	};
+	}
 
 	/* Add/remove a method to/from a class */
 
@@ -731,10 +746,10 @@ function SmalltalkFactory(brikz, st) {
 	st.initialize = function() {
 		if(initialized) { return; }
 
-		classes.forEach(function(klass) {
+		st.classes().forEach(function(klass) {
 			st.init(klass);
 		});
-		classes.forEach(function(klass) {
+		st.classes().forEach(function(klass) {
 			klass._initialize();
 		});
 
@@ -903,6 +918,7 @@ brikz.selectorConversion = SelectorConversionBrik;
 brikz.smalltalk = SmalltalkFactory;
 brikz.classInit = ClassInitBrik;
 brikz.manipulation = ManipulationBrik;
+brikz.classes = ClassesBrik;
 brikz.rebuild();
 
 var smalltalk = api;
@@ -953,15 +969,15 @@ function _st(o) {
 /***************************************** BOOTSTRAP ******************************************/
 
 smalltalk.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
-smalltalk.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, smalltalk.Object, false);
-smalltalk.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, smalltalk.Behavior, false);
-smalltalk.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, smalltalk.Behavior, false);
+smalltalk.wrapClassName("Behavior", "Kernel-Classes", brikz.classes.Behavior, smalltalk.Object, false);
+smalltalk.wrapClassName("Metaclass", "Kernel-Classes", brikz.classes.Metaclass, smalltalk.Behavior, false);
+smalltalk.wrapClassName("Class", "Kernel-Classes", brikz.classes.Class, smalltalk.Behavior, false);
 
 smalltalk.Object.klass.superclass = smalltalk.Class;
 
 
 smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
-smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
+smalltalk.wrapClassName("Package", "Kernel-Objects", brikz.classes.Package, smalltalk.Object, false);
 smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
 smalltalk.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, smalltalk.Object, false);
 smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, smalltalk.Organizer, false);
