@@ -411,18 +411,18 @@ function SmalltalkFactory(brikz, st) {
 	function installDnuHandlers(klass) {
 		var m = dnu.methods;
 		for(var i=0; i<m.length; i++) {
-			installDnuHandlerIfAbsent(m[i], klass);
+			installMethodIfAbsent(m[i], klass);
 		}
 	}
 
 	function installNewDnuHandler(newHandler) {
-		installDnuHandlerIfAbsent(newHandler, st.Object);
+		installMethodIfAbsent(newHandler, st.Object);
 		for(var i = 0; i < wrappedClasses.length; i++) {
-			installDnuHandlerIfAbsent(newHandler, wrappedClasses[i]);
+			installMethodIfAbsent(newHandler, wrappedClasses[i]);
 		}
 	}
 
-	function installDnuHandlerIfAbsent(handler, klass) {
+	function installMethodIfAbsent(handler, klass) {
 		var jsFunction = klass.fn.prototype[handler.jsSelector];
 		if(!jsFunction) {
 			installMethod(handler, klass);
