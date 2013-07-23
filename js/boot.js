@@ -86,21 +86,6 @@ function Brikz(api) {
 
 /* Brikz end */
 
-/* Array extensions */
-
-Array.prototype.addElement = function(el) {
-	if(typeof el === 'undefined') { return; }
-	if(this.indexOf(el) == -1) {
-		this.push(el);
-	}
-};
-
-Array.prototype.removeElement = function(el) {
-	var i = this.indexOf(el);
-	if (i !== -1) { this.splice(i, 1); }
-};
-
-
 function inherits(child, parent) {
 	child.prototype = Object.create(parent.prototype, {
 		constructor: { value: child,
@@ -625,6 +610,20 @@ function InstanceBrik(brikz, st) {
 
 	brikz.ensure("classInit");
 
+	/* Array extensions */
+
+	Array.prototype.addElement = function(el) {
+		if(typeof el === 'undefined') { return; }
+		if(this.indexOf(el) == -1) {
+			this.push(el);
+		}
+	};
+
+	Array.prototype.removeElement = function(el) {
+		var i = this.indexOf(el);
+		if (i !== -1) { this.splice(i, 1); }
+	};
+
 	var initialized = false;
 
 	/* Smalltalk initialization. Called on page load */
@@ -646,18 +645,6 @@ function InstanceBrik(brikz, st) {
 		return initialized;
 	};
 
-}
-
-function SmalltalkFactory(brikz, st) {
-
-//	var st = this;
-
-	/* This is the current call context object. While it is publicly available,
-		Use smalltalk.getThisContext() instead which will answer a safe copy of
-		the current context */
-
-	st.thisContext = undefined;
-
 	/* List of all reserved words in JavaScript. They may not be used as variables
 		in Smalltalk. */
 
@@ -676,6 +663,33 @@ function SmalltalkFactory(brikz, st) {
 		'public', 'static', 'yield'];
 
 	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
+	if(this.jQuery) {
+		this.jQuery.allowJavaScriptCalls = true;
+	}
+
+	/*
+	 * Answer the smalltalk representation of o.
+	 * Used in message sends
+	 */
+
+	this._st = function (o) {
+		if(o == null) {return nil;}
+		if(o.klass) {return o;}
+		return st.JSObjectProxy._on_(o);
+	};
+
+}
+
+function SmalltalkFactory(brikz, st) {
+
+//	var st = this;
+
+	/* This is the current call context object. While it is publicly available,
+		Use smalltalk.getThisContext() instead which will answer a safe copy of
+		the current context */
+
+	st.thisContext = undefined;
 
 	/* Unique ID number generator */
 
@@ -908,10 +922,6 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
-if(this.jQuery) {
-	this.jQuery.allowJavaScriptCalls = true;
-}
-
 function SmalltalkMethodContext(home, setup) {
 	this.homeContext = home;
 	this.setup       = setup || function() {};
@@ -971,18 +981,6 @@ SmalltalkMethodContext.prototype.method = function() {
 	return method;
 };
 
-/*
- * Answer the smalltalk representation of o.
- * Used in message sends
- */
-
-function _st(o) {
-	if(o == null) {return nil;}
-	if(o.klass) {return o;}
-	return smalltalk.JSObjectProxy._on_(o);
-};
-
-
 /***************************************** BOOTSTRAP ******************************************/
 
 smalltalk.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
@@ -1025,6 +1023,6 @@ smalltalk.alias(smalltalk.Date, "Time");
 
 global_smalltalk = api;
 global_nil = nil;
-global__st = _st;
+global__st = brikz.instance._st;
 
 })();
