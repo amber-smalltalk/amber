@@ -33,18 +33,6 @@
    |
    ==================================================================== */
 
-/* Make sure that console is defined */
-
-if(typeof console === "undefined") {
-	this.console = {
-		log: function() {},
-		warn: function() {},
-		info: function() {},
-		debug: function() {},
-		error: function() {}
-	};
-}
-
 /* Global Smalltalk objects. */
 // The globals below all begin with `global_' prefix.
 // This prefix is to advice developers to avoid their usage,
@@ -107,6 +95,9 @@ var api = new Smalltalk;
 var brikz = new Brikz(api);
 
 function OrganizeBrik(brikz, st) {
+
+	brikz.ensure("augments");
+
 	var org = this;
 
 	org.Organizer = function () {};
@@ -510,6 +501,7 @@ function MethodsBrik(brikz, st) {
 	var instance = brikz.ensure("instance");
 	var dnu = brikz.ensure("dnu");
 	brikz.ensure("selectorConversion");
+	brikz.ensure("augments");
 
 	function SmalltalkMethod() {}
 	inherits(SmalltalkMethod, SmalltalkObject);
@@ -606,9 +598,19 @@ function MethodsBrik(brikz, st) {
 
 }
 
-function InstanceBrik(brikz, st) {
+function AugmentsBrik(brikz, st) {
 
-	brikz.ensure("classInit");
+	/* Make sure that console is defined */
+
+	if(typeof console === "undefined") {
+		this.console = {
+			log: function() {},
+			warn: function() {},
+			info: function() {},
+			debug: function() {},
+			error: function() {}
+		};
+	}
 
 	/* Array extensions */
 
@@ -623,6 +625,11 @@ function InstanceBrik(brikz, st) {
 		var i = this.indexOf(el);
 		if (i !== -1) { this.splice(i, 1); }
 	};
+}
+
+function InstanceBrik(brikz, st) {
+
+	brikz.ensure("classInit");
 
 	var initialized = false;
 
@@ -946,6 +953,7 @@ brikz.manipulation = ManipulationBrik;
 brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.instance = InstanceBrik;
+brikz.augments = AugmentsBrik;
 brikz.rebuild();
 
 var smalltalk = api;
