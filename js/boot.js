@@ -162,6 +162,39 @@ function OrganizeBrik(brikz, st) {
 	};
 }
 
+function DNUBrik(brikz, st) {
+
+	/* Method not implemented handlers */
+
+	brikz.ensure("messageSend");
+
+	this.methods = [];
+	this.selectors = [];
+
+	this.get = function (string) {
+		var index = this.selectors.indexOf(string);
+		if(index !== -1) {
+			return this.methods[index];
+		}
+		this.selectors.push(string);
+		var selector = st.selector(string);
+		var method = {jsSelector: selector, fn: this.createHandler(selector)};
+		this.methods.push(method);
+		return method;
+	};
+
+	/* Dnu handler method */
+
+	this.createHandler = function (selector) {
+		var handler = function() {
+			var args = Array.prototype.slice.call(arguments);
+			return brikz.messageSend.messageNotUnderstood(this, selector, args);
+		};
+
+		return handler;
+	}
+}
+
 var nil = new SmalltalkNil();
 
 function SmalltalkFactory(brikz, st) {
@@ -170,6 +203,7 @@ function SmalltalkFactory(brikz, st) {
 
 	brikz.ensure("selectorConversion");
 	var org = brikz.ensure("organize");
+	var dnu = brikz.ensure("dnu");
 
 	/* This is the current call context object. While it is publicly available,
 		Use smalltalk.getThisContext() instead which will answer a safe copy of
@@ -202,36 +236,6 @@ function SmalltalkFactory(brikz, st) {
 
 	var classes = [];
 	var wrappedClasses = [];
-
-	/* Method not implemented handlers */
-
-	var dnu = {
-		methods: [],
-		selectors: [],
-
-		get: function (string) {
-			var index = this.selectors.indexOf(string);
-			if(index !== -1) {
-				return this.methods[index];
-			}
-			this.selectors.push(string);
-			var selector = st.selector(string);
-			var method = {jsSelector: selector, fn: this.createHandler(selector)};
-			this.methods.push(method);
-			return method;
-		},
-
-		/* Dnu handler method */
-
-		createHandler: function (selector) {
-			var handler = function() {
-				var args = Array.prototype.slice.call(arguments);
-				return messageNotUnderstood(this, selector, args);
-			};
-
-			return handler;
-		}
-	};
 
 	/* Answer all method selectors based on dnu handlers */
 
@@ -618,22 +622,6 @@ function SmalltalkFactory(brikz, st) {
 		// This is handled by #removeCompiledMethod
 	};
 
-	/* Handles unhandled errors during message sends */
-	// simply send the message and handle #dnu:
-
-	st.send = function(receiver, selector, args, klass) {
-		var method;
-		if(receiver === null) {
-			receiver = nil;
-		}
-		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
-		if(method) {
-			return method.apply(receiver, args);
-		} else {
-			return messageNotUnderstood(receiver, selector, args);
-		}
-	};
-
 	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
 			st.thisContext.pc++;
@@ -672,56 +660,6 @@ function SmalltalkFactory(brikz, st) {
 
 	function handleError(error) {
 		st.ErrorHandler._current()._handleError_(error);
-	}
-
-	/* Handles #dnu: *and* JavaScript method calls.
-		if the receiver has no klass, we consider it a JS object (outside of the
-		Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-
-	function messageNotUnderstood(receiver, selector, args) {
-		/* Handles JS method calls. */
-		if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
-			return callJavaScriptMethod(receiver, selector, args);
-		}
-
-		/* Handles not understood messages. Also see the Amber counter-part
-			Object>>doesNotUnderstand: */
-
-		return receiver._doesNotUnderstand_(
-			st.Message._new()
-				._selector_(st.convertSelector(selector))
-				._arguments_(args)
-		);
-	}
-
-	/* Call a method of a JS object, or answer a property if it exists.
-		Else try wrapping a JSObjectProxy around the receiver.
-
-		If the object property is a function, then call it, except if it starts with
-		an uppercase character (we probably want to answer the function itself in this
-		case and send it #new from Amber).
-
-		Converts keyword-based selectors by using the first
-		keyword only, but keeping all message arguments.
-
-		Example:
-		"self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-
-	function callJavaScriptMethod(receiver, selector, args) {
-		var jsSelector = selector._asJavaScriptSelector();
-		var jsProperty = receiver[jsSelector];
-		if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-			return jsProperty.apply(receiver, args);
-		} else if(jsProperty !== undefined) {
-			if(args[0]) {
-				receiver[jsSelector] = args[0];
-				return nil;
-			} else {
-				return jsProperty;
-			}
-		}
-
-		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
 	}
 
 	/* Handle thisContext pseudo variable */
@@ -789,6 +727,77 @@ function SmalltalkFactory(brikz, st) {
 
 		initialized = true;
 	};
+}
+
+function MessageSendBrik(brikz, st) {
+
+	/* Handles unhandled errors during message sends */
+	// simply send the message and handle #dnu:
+
+	st.send = function(receiver, selector, args, klass) {
+		var method;
+		if(receiver === null) {
+			receiver = nil;
+		}
+		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+		if(method) {
+			return method.apply(receiver, args);
+		} else {
+			return messageNotUnderstood(receiver, selector, args);
+		}
+	};
+
+	/* Handles #dnu: *and* JavaScript method calls.
+	 if the receiver has no klass, we consider it a JS object (outside of the
+	 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+
+	function messageNotUnderstood(receiver, selector, args) {
+		/* Handles JS method calls. */
+		if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
+			return callJavaScriptMethod(receiver, selector, args);
+		}
+
+		/* Handles not understood messages. Also see the Amber counter-part
+		 Object>>doesNotUnderstand: */
+
+		return receiver._doesNotUnderstand_(
+			st.Message._new()
+				._selector_(st.convertSelector(selector))
+				._arguments_(args)
+		);
+	}
+
+	/* Call a method of a JS object, or answer a property if it exists.
+	 Else try wrapping a JSObjectProxy around the receiver.
+
+	 If the object property is a function, then call it, except if it starts with
+	 an uppercase character (we probably want to answer the function itself in this
+	 case and send it #new from Amber).
+
+	 Converts keyword-based selectors by using the first
+	 keyword only, but keeping all message arguments.
+
+	 Example:
+	 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
+
+	function callJavaScriptMethod(receiver, selector, args) {
+		var jsSelector = selector._asJavaScriptSelector();
+		var jsProperty = receiver[jsSelector];
+		if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
+			return jsProperty.apply(receiver, args);
+		} else if(jsProperty !== undefined) {
+			if(args[0]) {
+				receiver[jsSelector] = args[0];
+				return nil;
+			} else {
+				return jsProperty;
+			}
+		}
+
+		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
+	}
+
+	this.messageNotUnderstood = messageNotUnderstood;
 }
 
 function SelectorConversionBrik(brikz, st) {
@@ -872,6 +881,8 @@ inherits(SmalltalkMethodContext, SmalltalkObject);
 var api = new Smalltalk;
 var brikz = new Brikz(api);
 
+brikz.dnu = DNUBrik;
+brikz.messageSend = MessageSendBrik;
 brikz.organize = OrganizeBrik;
 brikz.selectorConversion = SelectorConversionBrik;
 brikz.smalltalk = SmalltalkFactory;
