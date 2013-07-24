@@ -673,11 +673,12 @@ function SmalltalkInitBrik(brikz, st) {
 	st.initialize = function() {
 		if(initialized) { return; }
 
-		runnable();
-
 		st.classes().forEach(function(klass) {
 			st.init(klass);
 		});
+
+		runnable();
+
 		st.classes().forEach(function(klass) {
 			klass._initialize();
 		});
