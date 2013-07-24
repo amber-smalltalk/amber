@@ -47,28 +47,46 @@ var global_smalltalk, global_nil, global__st;
 
 /* Reconfigurable micro composition system, https://github.com/herby/brikz */
 
-function Brikz(api) {
+function Brikz(api, apiKey, initKey) {
 	var brikz = this, backup = {};
+	apiKey = apiKey || 'exports';
+	initKey = initKey || '__init__';
 
-	function mixin(s, t, k) {
-		for (k=k||Object.keys(s), l=k.length, i=0; i<l; ++i) t[k[i]]=s[k[i]];
-		return t;
+	function mixin(src, target, keys) {
+		for (keys = keys || Object.keys(src), l=keys.length, i=0; i<l; ++i) {
+			var value = src[keys[i]];
+			if (typeof value !== "undefined") target[keys[i]] = value;
+		}
+		return target;
+	}
+
+	function forEach(c, fn) {
+		Object.keys(c).forEach(function(k) { if (c[k]) fn(c[k], k, c); });
 	}
 
 	Object.defineProperties(this, {
 		ensure: { value: null,
 			enumerable: false, configurable: true, writable: true},
-		rebuild: { value: function () {
-			var oapi = mixin(api, {}), obrikz = mixin(backup, {});
-			mixin({}, api, Object.keys(api)); backup = {};
-			brikz.ensure = function (key) {
-				var b = brikz[key], bak = [];
+		rebuild: { value: function() {
+			var obrikz = mixin(backup, {});
+			forEach(obrikz, function(brik) {
+				mixin({}, api, brik[apiKey] || Object.keys(brik));
+			});
+			var oapi = mixin(api, {});
+			backup = {};
+			brikz.ensure = function(key) {
+				var b = brikz[key], bak = obrikz[key];
+				mixin({}, api, Object.keys(api));
 				while (typeof b === "function") b = new b(brikz, api, bak);
-				if (b === bak) { b = obrikz[key]; mixin(oapi, api, bak); }
+				if (b && !b[apiKey]) b[apiKey] = mixin(api, {});
 				return brikz[key] = backup[key] = b;
 			}
-			Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
+			forEach(brikz, function(brik, key) { brikz.ensure(key); });
 			brikz.ensure = null;
+			mixin({}, api, Object.keys(api));
+			mixin(oapi, api);
+			forEach(brikz, function(brik) { mixin(brik[apiKey] || {}, api); });
+			forEach(brikz, function(brik) {brik[initKey] && brik[initKey]();});
 		}, enumerable: false, configurable: true, writable: false }});
 }
 
@@ -990,43 +1008,43 @@ function BootstrapBrik(brikz, st) {
 	brikz.ensure("organize");
 	brikz.ensure("runtime");
 
-	/***************************************** BOOTSTRAP ******************************************/
+	this.bootstrap = function () {
+		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
+		st.wrapClassName("Behavior", "Kernel-Classes", brikz.classes.Behavior, st.Object, false);
+		st.wrapClassName("Metaclass", "Kernel-Classes", brikz.classes.Metaclass, st.Behavior, false);
+		st.wrapClassName("Class", "Kernel-Classes", brikz.classes.Class, st.Behavior, false);
 
-	st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
-	st.wrapClassName("Behavior", "Kernel-Classes", brikz.classes.Behavior, st.Object, false);
-	st.wrapClassName("Metaclass", "Kernel-Classes", brikz.classes.Metaclass, st.Behavior, false);
-	st.wrapClassName("Class", "Kernel-Classes", brikz.classes.Class, st.Behavior, false);
+		st.Object.klass.superclass = st.Class;
 
-	st.Object.klass.superclass = st.Class;
+		st.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, st.Object, false);
+		st.wrapClassName("Package", "Kernel-Objects", brikz.classes.Package, st.Object, false);
+		st.wrapClassName("CompiledMethod", "Kernel-Methods", brikz.methods.Method, st.Object, false);
+		st.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, st.Object, false);
+		st.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, st.Organizer, false);
+		st.wrapClassName("ClassOrganizer", "Kernel-Objects", brikz.organize.ClassOrganizer, st.Organizer, false);
 
-	st.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, st.Object, false);
-	st.wrapClassName("Package", "Kernel-Objects", brikz.classes.Package, st.Object, false);
-	st.wrapClassName("CompiledMethod", "Kernel-Methods", brikz.methods.Method, st.Object, false);
-	st.wrapClassName("Organizer", "Kernel-Objects", brikz.organize.Organizer, st.Object, false);
-	st.wrapClassName("PackageOrganizer", "Kernel-Objects", brikz.organize.PackageOrganizer, st.Organizer, false);
-	st.wrapClassName("ClassOrganizer", "Kernel-Objects", brikz.organize.ClassOrganizer, st.Organizer, false);
+		st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
+		st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
+		st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
+		st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
+		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
 
-	st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
-	st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
-	st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
-	st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
-	st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
+		st.addClass("Collection", st.Object, null, "Kernel-Collections");
+		st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
+		st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
+		st.addClass("CharacterArray", st.SequenceableCollection, null, "Kernel-Collections");
+		st.wrapClassName("String", "Kernel-Collections", String, st.CharacterArray);
+		st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
+		st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
 
-	st.addClass("Collection", st.Object, null, "Kernel-Collections");
-	st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
-	st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
-	st.addClass("CharacterArray", st.SequenceableCollection, null, "Kernel-Collections");
-	st.wrapClassName("String", "Kernel-Collections", String, st.CharacterArray);
-	st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
-	st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
+		st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
+		st.wrapClassName("MethodContext", "Kernel-Methods", brikz.runtime.MethodContext, st.Object, false);
 
-	st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
-	st.wrapClassName("MethodContext", "Kernel-Methods", brikz.runtime.MethodContext, st.Object, false);
+		/* Alias definitions */
 
-	/* Alias definitions */
-
-	st.alias(st.Array, "OrderedCollection");
-	st.alias(st.Date, "Time");
+		st.alias(st.Array, "OrderedCollection");
+		st.alias(st.Date, "Time");
+	};
 }
 
 brikz.dnu = DNUBrik;
@@ -1044,6 +1062,7 @@ brikz.augments = AugmentsBrik;
 brikz.bootstrap = BootstrapBrik;
 
 brikz.rebuild();
+brikz.bootstrap.bootstrap();
 
 global_smalltalk = api;
 global_nil = nil;
