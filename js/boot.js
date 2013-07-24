@@ -417,12 +417,16 @@ function ClassesBrik(brikz, st) {
 	 A Package is lazily created if it does not exist with given name. */
 
 	st.addClass = function(className, superclass, iVarNames, pkgName) {
-		var pkg = st.addPackage(pkgName);
 		if (superclass == nil) { superclass = null; }
+		rawAddClass(pkgName, className, superclass, iVarNames, false, null);
+	};
+
+	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
+		var pkg = st.addPackage(pkgName);
 		if(st[className] && st[className].superclass == superclass) {
-			st[className].superclass = superclass;
-			st[className].iVarNames = iVarNames;
-			st[className].pkg = pkg || st[className].pkg;
+//            st[className].superclass = superclass;
+			st[className].iVarNames = iVarNames || [];
+			if (pkg) st[className].pkg = pkg;
 		} else {
 			if(st[className]) {
 				st.removeClass(st[className]);
@@ -431,13 +435,15 @@ function ClassesBrik(brikz, st) {
 				className: className,
 				superclass: superclass,
 				pkg: pkg,
-				iVarNames: iVarNames
+				iVarNames: iVarNames,
+				fn: fn,
+				wrapped: wrapped
 			});
 		}
 
 		classes.addElement(st[className]);
 		org.addOrganizationElement(pkg, st[className]);
-	};
+	}
 
 	st.removeClass = function(klass) {
 		org.removeOrganizationElement(klass.pkg, klass);
@@ -449,23 +455,11 @@ function ClassesBrik(brikz, st) {
 	 global smalltalk object. Package is lazily created if it does not exist with given name. */
 
 	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
-		if(wrapped !== false) {
-			wrapped = true;
-		}
-		var pkg = st.addPackage(pkgName);
-		st[className] = klass({
-			className:  className,
-			superclass: superclass,
-			pkg:        pkg,
-			fn:         fn,
-			wrapped:    wrapped
-		});
-
-		classes.addElement(st[className]);
+		wrapped = wrapped !== false;
+		rawAddClass(pkgName, className, superclass, null, wrapped, fn);
 		if(wrapped) {
 			wrappedClasses.addElement(st[className]);
 		}
-		org.addOrganizationElement(pkg, st[className]);
 	};
 
 	/* Create an alias for an existing class */
@@ -679,6 +673,8 @@ function SmalltalkInitBrik(brikz, st) {
 	st.initialize = function() {
 		if(initialized) { return; }
 
+		runnable();
+
 		st.classes().forEach(function(klass) {
 			st.init(klass);
 		});
@@ -713,6 +709,18 @@ function SmalltalkInitBrik(brikz, st) {
 
 		st.alias(st.Array, "OrderedCollection");
 		st.alias(st.Date, "Time");
+
+		/*
+		 * Answer the smalltalk representation of o.
+		 * Used in message sends
+		 */
+
+		st._st = function (o) {
+			if(o == null) {return nil;}
+			if(o.klass) {return o;}
+			return st.JSObjectProxy._on_(o);
+		};
+
 	};
 }
 
@@ -897,17 +905,6 @@ function RuntimeBrik(brikz, st) {
 		st.thisContext = context.homeContext;
 	}
 
-	/*
-	 * Answer the smalltalk representation of o.
-	 * Used in message sends
-	 */
-
-	this._st = function (o) {
-		if(o == null) {return nil;}
-		if(o.klass) {return o;}
-		return st.JSObjectProxy._on_(o);
-	};
-
 }
 
 function MessageSendBrik(brikz, st) {
@@ -1044,13 +1041,12 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
+/* Making smalltalk that can load */
+
 brikz.root = RootBrik;
 brikz.dnu = DNUBrik;
-brikz.messageSend = MessageSendBrik;
 brikz.organize = OrganizeBrik;
 brikz.selectorConversion = SelectorConversionBrik;
-brikz.runtime = RuntimeBrik;
-brikz.primitives = PrimitivesBrik;
 brikz.classInit = ClassInitBrik;
 brikz.manipulation = ManipulationBrik;
 brikz.classes = ClassesBrik;
@@ -1060,8 +1056,19 @@ brikz.augments = AugmentsBrik;
 
 brikz.rebuild();
 
+/* Making smalltalk that can run */
+
+function runnable () {
+	brikz.messageSend = MessageSendBrik;
+	brikz.runtime = RuntimeBrik;
+	brikz.primitives = PrimitivesBrik;
+
+	brikz.rebuild();
+};
+
 global_smalltalk = api;
 global_nil = nil;
-global__st = brikz.runtime._st;
+global__st = api._st;
+api._st = null;
 
 })();
