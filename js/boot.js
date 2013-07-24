@@ -97,17 +97,20 @@ function inherits(child, parent) {
 /* Smalltalk foundational objects */
 
 function SmalltalkObject() {}
-function SmalltalkNil() {}
-inherits(SmalltalkNil, SmalltalkObject);
 
 function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
 
-var nil = new SmalltalkNil();
 var api = new Smalltalk;
 var brikz = new Brikz(api);
 
 function RootBrik(brikz, st) {
+
+	function SmalltalkNil() {}
+	inherits(SmalltalkNil, SmalltalkObject);
+
+	this.nil = new SmalltalkNil;
+
 	this.__init__ = function () {
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
 		st.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, st.Object, false);
@@ -202,6 +205,7 @@ function ClassInitBrik(brikz, st) {
 
 	var dnu = brikz.ensure("dnu");
 	var manip = brikz.ensure("manipulation");
+	var nil = brikz.ensure("root").nil;
 
 	/* Initialize a class in its class hierarchy. Handle both classes and
 	 metaclasses. */
@@ -295,6 +299,7 @@ function ClassesBrik(brikz, st) {
 
 	var org = brikz.ensure("organize");
 	var manip = brikz.ensure("manipulation");
+	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkPackage() {}
 	function SmalltalkBehavior() {}
@@ -659,6 +664,7 @@ function SmalltalkInitBrik(brikz, st) {
 
 	brikz.ensure("classInit");
 	brikz.ensure("classes");
+	var nil = brikz.ensure("root").nil;
 
 	var initialized = false;
 
@@ -783,7 +789,7 @@ function PrimitivesBrik(brikz, st) {
 
 function RuntimeBrik(brikz, st) {
 
-	brikz.ensure("root");
+	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkMethodContext(home, setup) {
 		this.homeContext = home;
@@ -904,6 +910,7 @@ function RuntimeBrik(brikz, st) {
 function MessageSendBrik(brikz, st) {
 
 	brikz.ensure("selectorConversion");
+	var nil = brikz.ensure("root").nil;
 
 	/* Handles unhandled errors during message sends */
 	// simply send the message and handle #dnu:
@@ -1061,7 +1068,7 @@ function runnable () {
 };
 
 global_smalltalk = api;
-global_nil = nil;
+global_nil = brikz.root.nil;
 global__st = api._st;
 api._st = null;
 
