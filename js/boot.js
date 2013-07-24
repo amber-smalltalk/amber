@@ -52,43 +52,37 @@ function Brikz(api, apiKey, initKey) {
 	apiKey = apiKey || 'exports';
 	initKey = initKey || '__init__';
 
-	function mixin(src, target, keys) {
-		for (keys = keys || Object.keys(src), l=keys.length, i=0; i<l; ++i) {
+	function mixin(src, target, what) {
+		for (var keys = Object.keys(what||src), l=keys.length, i=0; i<l; ++i) {
 			var value = src[keys[i]];
-			if (typeof value !== "undefined") target[keys[i]] = value;
+			if (typeof value !== "undefined") { target[keys[i]] = value; }
 		}
 		return target;
 	}
 
-	function forEach(c, fn) {
-		Object.keys(c).forEach(function(k) { if (c[k]) fn(c[k], k, c); });
-	}
+	var d={value: null, enumerable: false, configurable: true, writable: true};
+	Object.defineProperties(this, { ensure: d, rebuild: d });
 
-	Object.defineProperties(this, {
-		ensure: { value: null,
-			enumerable: false, configurable: true, writable: true},
-		rebuild: { value: function() {
-			var obrikz = mixin(backup, {}), inits = [], chk = {};
-			forEach(obrikz, function(brik) {
-				mixin({}, api, brik[apiKey] || Object.keys(brik));
-			});
-			var oapi = mixin(api, {});
-			backup = {};
-			brikz.ensure = function(key) {
-				var b = brikz[key], bak = obrikz[key];
-				mixin({}, api, Object.keys(api));
-				while (typeof b === "function") b = new b(brikz, api, bak);
-				if (b && !b[apiKey]) b[apiKey] = mixin(api, {});
-				if (b && b[initKey] && !chk[key]) { chk[key]=1;inits.push(b); }
-				return brikz[key] = backup[key] = b;
-			}
-			forEach(brikz, function(brik, key) { brikz.ensure(key); });
-			brikz.ensure = null;
-			mixin({}, api, Object.keys(api));
-			mixin(oapi, api);
-			forEach(brikz, function(brik) { mixin(brik[apiKey] || {}, api); });
-			inits.forEach(function(brik) { brik[initKey](); });
-		}, enumerable: false, configurable: true, writable: false }});
+	this.rebuild = function () {
+		Object.keys(backup).forEach(function (key) {
+			mixin({}, api, (backup[key]||0)[apiKey]);
+		});
+		var oapi = mixin(api, {}), order = [], chk = {};
+		brikz.ensure = function(key) {
+			var b = brikz[key], bak = backup[key];
+			mixin({}, api, api);
+			while (typeof b === "function") { b = new b(brikz, api, bak); }
+			if (b && !chk[key]) { chk[key]=true; order.push(b); }
+			if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
+			return brikz[key] = b;
+		};
+		Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
+		brikz.ensure = null;
+		mixin(oapi, mixin({}, api, api));
+		order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
+		order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
+		backup = mixin(brikz, {});
+	};
 }
 
 /* Brikz end */
