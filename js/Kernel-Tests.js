@@ -3292,10 +3292,19 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._shouldMNU();
+self._installTop_("foo ^ false");
+self._installTop_("foo ^ true");
+self._deinstallTop();
+self._shouldMNU();
 return self}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},smalltalk.MethodInheritanceTest)})},
 args: [],
-source: "testMNU11\x0a\x09\x22Breaks other tests. Commenting out\x22\x0a\x09\x22performBlock := [ :x | x foo ].\x0a\x09self shouldMNU.\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self deinstallTop.\x0a\x09self shouldMNU\x22",
-messageSends: [],
+source: "testMNU11\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self shouldMNU.\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self deinstallTop.\x0a\x09self shouldMNU",
+messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"],
 referencedClasses: []
 }),
 smalltalk.MethodInheritanceTest);
@@ -3331,10 +3340,18 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1)})});
+self._installTop_("foo ^ false");
+self._shouldReturn_(false);
+self._installTop_("foo ^ true");
+self._shouldReturn_(true);
 return self}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},smalltalk.MethodInheritanceTest)})},
 args: [],
-source: "testReturns1\x0a\x09\x22Breaks other tests. Commenting out\x22\x0a\x09\x22performBlock := [ :x | x foo ].\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self shouldReturn: false.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self shouldReturn: true\x22",
-messageSends: [],
+source: "testReturns1\x0a\x09performBlock := [ :x | x foo ].\x0a\x09self installTop: 'foo ^ false'.\x0a\x09self shouldReturn: false.\x0a\x09self installTop: 'foo ^ true'.\x0a\x09self shouldReturn: true",
+messageSends: ["foo", "installTop:", "shouldReturn:"],
 referencedClasses: []
 }),
 smalltalk.MethodInheritanceTest);

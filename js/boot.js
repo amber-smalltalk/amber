@@ -92,6 +92,7 @@ function inherits(child, parent) {
 		constructor: { value: child,
 			enumerable: false, configurable: true, writable: true }
 	});
+	return child;
 }
 
 /* Smalltalk foundational objects */
@@ -169,6 +170,7 @@ function DNUBrik(brikz, st) {
 
 	this.methods = [];
 	this.selectors = [];
+	this.checker = Object.create(null);
 
 	this.get = function (string) {
 		var index = this.selectors.indexOf(string);
@@ -177,9 +179,14 @@ function DNUBrik(brikz, st) {
 		}
 		this.selectors.push(string);
 		var selector = st.selector(string);
+		this.checker[selector] = true;
 		var method = {jsSelector: selector, fn: this.createHandler(selector)};
 		this.methods.push(method);
 		return method;
+	};
+
+	this.isSelector = function (selector) {
+		return this.checker[selector];
 	};
 
 	/* Dnu handler method */
@@ -219,10 +226,7 @@ function ClassInitBrik(brikz, st) {
 
 	st.initClass = function(klass) {
 		if(klass.wrapped) {
-			klass.inheritedMethods = {};
 			copySuperclass(klass);
-		} else {
-			installSuperclass(klass);
 		}
 
 		if(klass === st.Object || klass.wrapped) {
@@ -230,18 +234,9 @@ function ClassInitBrik(brikz, st) {
 		}
 	};
 
-	function installSuperclass(klass) {
-		// only if the klass has not been initialized yet.
-		if(klass.fn.prototype._yourself) { return; }
-
-		if(klass.superclass && klass.superclass !== nil) {
-			inherits(klass.fn, klass.superclass.fn);
-			manip.wireKlass(klass);
-			manip.reinstallMethods(klass);
-		}
-	}
-
 	function copySuperclass(klass, superclass) {
+		var inheritedMethods = {};
+		deinstallAllMethods(klass);
 		for (superclass = superclass || klass.superclass;
 			 superclass && superclass !== nil;
 			 superclass = superclass.superclass) {
@@ -249,17 +244,31 @@ function ClassInitBrik(brikz, st) {
 				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
 			}
 		}
-	}
+		manip.reinstallMethods(klass);
 
-	function inheritMethodIfAbsent(method, klass) {
-		var selector = method.selector;
+		function inheritMethodIfAbsent(method) {
+			var selector = method.selector;
 
-		if(klass.methods.hasOwnProperty(selector) || klass.inheritedMethods.hasOwnProperty(selector)) {
-			return;
+			//TODO: prepare klass methods into inheritedMethods to only test once
+			//TODO: Object.create(null) to ditch hasOwnProperty call (very slow)
+			if(klass.methods.hasOwnProperty(selector) || inheritedMethods.hasOwnProperty(selector)) {
+				return;
+			}
+
+			manip.installMethod(method, klass);
+			inheritedMethods[method.selector] = true;
 		}
 
-		manip.installMethod(method, klass);
-		klass.inheritedMethods[method.selector] = true;
+	}
+
+	function deinstallAllMethods(klass) {
+		var proto = klass.fn.prototype;
+		for(var keys = Object.getOwnPropertyNames(proto), i=0; i<keys.length; i++) {
+			var key = keys[i];
+			if (dnu.isSelector(key)) {
+				proto[key] = null;
+			}
+		}
 	}
 }
 
@@ -351,7 +360,7 @@ function ClassesBrik(brikz, st) {
 		spec = spec || {};
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
-		that.fn = spec.fn || function() {};
+		that.fn = spec.fn || inherits(function () {}, spec.superclass.fn);
 		setupClass(that, spec);
 
 		that.className = spec.className;
@@ -367,10 +376,7 @@ function ClassesBrik(brikz, st) {
 	function metaclass(spec) {
 		spec = spec || {};
 		var that = new SmalltalkMetaclass();
-		inherits(
-			that.fn = function() {},
-			spec.superclass ? spec.superclass.klass.fn : SmalltalkClass
-		);
+		that.fn = inherits(function () {}, spec.superclass ? spec.superclass.klass.fn : SmalltalkClass);
 		that.instanceClass = new that.fn();
 		setupClass(that);
 		return that;
@@ -595,15 +601,7 @@ function MethodsBrik(brikz, st) {
 		// Therefore we populate the organizer here too
 		org.addOrganizationElement(klass, method.category);
 
-		// If already initialized (else it will be done later anyway),
-		// re-initialize all subclasses to ensure the new method
-		// propagation (for wrapped classes, not using the prototype
-		// chain.
-		if(stInit.initialized()) {
-			st.allSubclasses(klass).forEach(function(subclass) {
-				st.initClass(subclass);
-			});
-		}
+		propagateMethodChange(klass);
 
 		for(var i=0; i<method.messageSends.length; i++) {
 			var dnuHandler = dnu.get(method.messageSends[i]);
@@ -613,17 +611,34 @@ function MethodsBrik(brikz, st) {
 		}
 	}
 
+	function propagateMethodChange(klass) {
+		// If already initialized (else it will be done later anyway),
+		// re-initialize all subclasses to ensure the method change
+		// propagation (for wrapped classes, not using the prototype
+		// chain).
+
+		//TODO: optimize, only one method need to be updated, not all of them
+		if (stInit.initialized()) {
+			st.allSubclasses(klass).forEach(function (subclass) {
+				st.initClass(subclass);
+			});
+		}
+	}
+
 	st.removeMethod = function(method, klass) {
 		if (klass !== method.methodClass) {
-            throw new Error(
-                "Refusing to remove method "
-                    + method.methodClass.className+">>"+method.selector
-                    + " from different class "
-                    + klass.className);
-        }
+			throw new Error(
+				"Refusing to remove method "
+					+ method.methodClass.className+">>"+method.selector
+					+ " from different class "
+					+ klass.className);
+		}
 
 		delete klass.fn.prototype[st.selector(method.selector)];
 		delete klass.methods[method.selector];
+
+		st.initClass(klass);
+		propagateMethodChange(klass);
 
 		// Do *not* delete protocols from here.
 		// This is handled by #removeCompiledMethod
