@@ -1251,16 +1251,15 @@ selector: "commit",
 category: '*Importer-Exporter',
 fn: function (){
 var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($PackageHandler())._for_(self._transportType()))._commit_(self);
+$1=_st(self._transport())._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
 args: [],
-source: "commit\x0a\x09^ (PackageHandler for: self transportType) commit: self",
-messageSends: ["commit:", "for:", "transportType"],
-referencedClasses: ["PackageHandler"]
+source: "commit\x0a\x09^ self transport commit: self",
+messageSends: ["commit:", "transport"],
+referencedClasses: []
 }),
 smalltalk.Package);
 
@@ -1270,7 +1269,6 @@ selector: "commitPathJs",
 category: '*Importer-Exporter',
 fn: function (){
 var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1;
 $3=self["@extension"];
@@ -1282,14 +1280,14 @@ $2=$3;
 };
 $1=_st($2)._at_ifAbsentPut_("commitPathJs",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($PackageHandler())._for_(self._transportType()))._commitPathJsFor_(self);
+return _st(self._transport())._commitPathJsFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
 args: [],
-source: "commitPathJs\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [(PackageHandler for: self transportType) commitPathJsFor: self]",
-messageSends: ["at:ifAbsentPut:", "commitPathJsFor:", "for:", "transportType", "ifNil:"],
-referencedClasses: ["PackageHandler"]
+source: "commitPathJs\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]",
+messageSends: ["at:ifAbsentPut:", "commitPathJsFor:", "transport", "ifNil:"],
+referencedClasses: []
 }),
 smalltalk.Package);
 
@@ -1324,7 +1322,6 @@ selector: "commitPathSt",
 category: '*Importer-Exporter',
 fn: function (){
 var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $3,$2,$1;
 $3=self["@extension"];
@@ -1336,14 +1333,14 @@ $2=$3;
 };
 $1=_st($2)._at_ifAbsentPut_("commitPathSt",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($PackageHandler())._for_(self._transportType()))._commitPathStFor_(self);
+return _st(self._transport())._commitPathStFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
 args: [],
-source: "commitPathSt\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [(PackageHandler for: self transportType) commitPathStFor: self]",
-messageSends: ["at:ifAbsentPut:", "commitPathStFor:", "for:", "transportType", "ifNil:"],
-referencedClasses: ["PackageHandler"]
+source: "commitPathSt\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]",
+messageSends: ["at:ifAbsentPut:", "commitPathStFor:", "transport", "ifNil:"],
+referencedClasses: []
 }),
 smalltalk.Package);
 
@@ -1369,6 +1366,25 @@ args: ["aString"],
 source: "commitPathSt: aString\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString",
 messageSends: ["at:put:", "ifNil:"],
 referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transport",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($PackageHandler())._for_(self._transportType());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
+args: [],
+source: "transport\x0a\x09^ PackageHandler for: self transportType",
+messageSends: ["for:", "transportType"],
+referencedClasses: ["PackageHandler"]
 }),
 smalltalk.Package);
 

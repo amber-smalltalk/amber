@@ -549,11 +549,11 @@ loadPackages: aCollection prefix: aString
 !Package methodsFor: '*Importer-Exporter'!
 
 commit
-	^ (PackageHandler for: self transportType) commit: self
+	^ self transport commit: self
 !
 
 commitPathJs
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [(PackageHandler for: self transportType) commitPathJsFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]
 !
 
 commitPathJs: aString
@@ -561,11 +561,15 @@ commitPathJs: aString
 !
 
 commitPathSt
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [(PackageHandler for: self transportType) commitPathStFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]
 !
 
 commitPathSt: aString
 	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
+!
+
+transport
+	^ PackageHandler for: self transportType
 !
 
 transportType
