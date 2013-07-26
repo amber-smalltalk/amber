@@ -917,20 +917,38 @@ smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "for:",
+selector: "classRegisteredFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
 function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($LegacyPackageHandler())._new();
+$1=$LegacyPackageHandler();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "classRegisteredFor: aString\x0a\x09\x22Temporary. Should return instance of appropriate\x0a\x09package handler for supplied transport type.\x22\x0a\x09^LegacyPackageHandler",
+messageSends: [],
+referencedClasses: ["LegacyPackageHandler"]
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "for:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classRegisteredFor_(aString))._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
 args: ["aString"],
-source: "for: aString\x0a\x09\x22Temporary. Should return instance of appropriate\x0a\x09package handler for supplied transport type.\x22\x0a\x09^LegacyPackageHandler new",
-messageSends: ["new"],
-referencedClasses: ["LegacyPackageHandler"]
+source: "for: aString\x0a\x09^(self classRegisteredFor: aString) new",
+messageSends: ["new", "classRegisteredFor:"],
+referencedClasses: []
 }),
 smalltalk.PackageHandler.klass);
 
@@ -964,6 +982,42 @@ args: [],
 source: "commitChannels\x0a\x09^{ \x0a\x09\x09[ :pkg | Exporter new -> (pkg commitPathJs, '/', pkg name, '.js') ].\x0a\x09\x09[ :pkg | StrippedExporter new -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].\x0a\x09\x09[ :pkg | ChunkExporter new -> (pkg commitPathSt, '/', pkg name, '.st') ]\x0a\x09}",
 messageSends: ["->", ",", "name", "commitPathJs", "new", "commitPathSt"],
 referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
+}),
+smalltalk.LegacyPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJsFor:",
+category: 'committing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._defaultCommitPathJs();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},smalltalk.LegacyPackageHandler)})},
+args: ["aPackage"],
+source: "commitPathJsFor: aPackage\x0a\x09^self class defaultCommitPathJs",
+messageSends: ["defaultCommitPathJs", "class"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathStFor:",
+category: 'committing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._defaultCommitPathSt();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},smalltalk.LegacyPackageHandler)})},
+args: ["aPackage"],
+source: "commitPathStFor: aPackage\x0a\x09^self class defaultCommitPathSt",
+messageSends: ["defaultCommitPathSt", "class"],
+referencedClasses: []
 }),
 smalltalk.LegacyPackageHandler);
 
@@ -1036,6 +1090,125 @@ referencedClasses: ["Package"]
 smalltalk.LegacyPackageHandler);
 
 
+smalltalk.LegacyPackageHandler.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathsFromLoader",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var commitPath = typeof amber !== 'undefined' && amber.commitPath;
+		if (!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "commitPathsFromLoader\x0a\x09<\x0a\x09\x09var commitPath = typeof amber !== 'undefined' && amber.commitPath;\x0a\x09\x09if (!commitPath) return;\x0a\x09\x09if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);\x0a\x09\x09if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathJs",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultCommitPathJs"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@defaultCommitPathJs"]="js";
+$1=self["@defaultCommitPathJs"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "defaultCommitPathJs\x0a\x09^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathJs:",
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathJs"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs:",{aString:aString},smalltalk.LegacyPackageHandler.klass)})},
+args: ["aString"],
+source: "defaultCommitPathJs: aString\x0a\x09defaultCommitPathJs := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathSt",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultCommitPathSt"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@defaultCommitPathSt"]="st";
+$1=self["@defaultCommitPathSt"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "defaultCommitPathSt\x0a\x09^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathSt:",
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathSt"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt:",{aString:aString},smalltalk.LegacyPackageHandler.klass)})},
+args: ["aString"],
+source: "defaultCommitPathSt: aString\x0a\x09defaultCommitPathSt := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.LegacyPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._commitPathsFromLoader();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self commitPathsFromLoader",
+messageSends: ["initialize", "commitPathsFromLoader"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "loadPackages:prefix:",
@@ -1050,6 +1223,23 @@ return $1;
 args: ["aCollection", "aString"],
 source: "loadPackages: aCollection prefix: aString\x0a\x09^ self new loadPackages: aCollection prefix: aString",
 messageSends: ["loadPackages:prefix:", "new"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resetCommitPaths",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathJs"]=nil;
+self["@defaultCommitPathSt"]=nil;
+return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "resetCommitPaths\x0a\x09defaultCommitPathJs := nil.\x0a\x09defaultCommitPathSt := nil",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.LegacyPackageHandler.klass);

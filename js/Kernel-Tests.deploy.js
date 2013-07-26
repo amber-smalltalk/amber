@@ -2781,39 +2781,6 @@ smalltalk.ObjectMock);
 
 
 
-smalltalk.addClass('ObjectMock2', smalltalk.ObjectMock, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@foo"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock2)})},
-messageSends: []}),
-smalltalk.ObjectMock2);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@foo"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject},smalltalk.ObjectMock2)})},
-messageSends: []}),
-smalltalk.ObjectMock2);
-
-
-
-smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
-
-
-smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
-
-
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3043,12 +3010,13 @@ smalltalk.method({
 selector: "setUp",
 fn: function (){
 var self=this;
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-self["@backUpCommitPathJs"]=_st($Package())._defaultCommitPathJs();
-self["@backUpCommitPathSt"]=_st($Package())._defaultCommitPathSt();
-_st($Package())._resetCommitPaths();
+self["@backUpCommitPathJs"]=_st($LegacyPackageHandler())._defaultCommitPathJs();
+self["@backUpCommitPathSt"]=_st($LegacyPackageHandler())._defaultCommitPathSt();
+_st($LegacyPackageHandler())._resetCommitPaths();
 self["@zorkPackage"]=_st(_st($Package())._new())._name_("Zork");
 $1=_st($Package())._new();
 _st($1)._name_("Grul");
@@ -3065,10 +3033,10 @@ smalltalk.method({
 selector: "tearDown",
 fn: function (){
 var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=$Package();
+$1=$LegacyPackageHandler();
 _st($1)._defaultCommitPathJs_(self["@backUpCommitPathJs"]);
 $2=_st($1)._defaultCommitPathSt_(self["@backUpCommitPathSt"]);
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.PackageTest)})},
@@ -3127,11 +3095,11 @@ smalltalk.method({
 selector: "setUp",
 fn: function (){
 var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 smalltalk.PackageWithDefaultCommitPathChangedTest.superclass.fn.prototype._setUp.apply(_st(self), []);
-$1=$Package();
+$1=$LegacyPackageHandler();
 _st($1)._defaultCommitPathJs_("javascripts/");
 $2=_st($1)._defaultCommitPathSt_("smalltalk/");
 return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.PackageWithDefaultCommitPathChangedTest)})},

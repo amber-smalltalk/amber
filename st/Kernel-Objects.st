@@ -1434,7 +1434,7 @@ You can fetch a package from the server:
 !Package methodsFor: 'accessing'!
 
 commitPathJs
-	^ commitPathJs ifNil: [self class defaultCommitPathJs]
+	^ commitPathJs ifNil: [(PackageHandler for: self transportType) commitPathJsFor: self]
 !
 
 commitPathJs: aString
@@ -1442,7 +1442,7 @@ commitPathJs: aString
 !
 
 commitPathSt
-	^ commitPathSt ifNil: [self class defaultCommitPathSt]
+	^ commitPathSt ifNil: [(PackageHandler for: self transportType) commitPathStFor: self]
 !
 
 commitPathSt: aString
@@ -1511,45 +1511,6 @@ named: aPackageName
 named: aPackageName ifAbsent: aBlock
 
 	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
-! !
-
-!Package class methodsFor: 'commit paths'!
-
-commitPathsFromLoader
-	<
-		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
-		if (!!commitPath) return;
-		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
-		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
-	>
-!
-
-defaultCommitPathJs
-	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
-!
-
-defaultCommitPathJs: aString
-	defaultCommitPathJs := aString
-!
-
-defaultCommitPathSt
-	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
-!
-
-defaultCommitPathSt: aString
-	defaultCommitPathSt := aString
-!
-
-resetCommitPaths
-		defaultCommitPathJs := nil.
-		defaultCommitPathSt := nil.
-! !
-
-!Package class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	self commitPathsFromLoader
 ! !
 
 !Package class methodsFor: 'loading-storing'!

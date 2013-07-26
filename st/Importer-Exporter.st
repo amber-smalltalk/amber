@@ -431,10 +431,14 @@ ajaxPutAt: aURL data: aString
 
 !PackageHandler class methodsFor: 'accessing'!
 
-for: aString
+classRegisteredFor: aString
 	"Temporary. Should return instance of appropriate
 	package handler for supplied transport type."
-	^LegacyPackageHandler new
+	^LegacyPackageHandler
+!
+
+for: aString
+	^(self classRegisteredFor: aString) new
 ! !
 
 PackageHandler subclass: #LegacyPackageHandler
@@ -453,6 +457,14 @@ commitChannels
 		[ :pkg | StrippedExporter new -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
 		[ :pkg | ChunkExporter new -> (pkg commitPathSt, '/', pkg name, '.st') ]
 	}
+!
+
+commitPathJsFor: aPackage
+	^self class defaultCommitPathJs
+!
+
+commitPathStFor: aPackage
+	^self class defaultCommitPathSt
 ! !
 
 !LegacyPackageHandler methodsFor: 'loading'!
@@ -485,6 +497,47 @@ setupPackageNamed: packageName prefix: aString
 		setupClasses;
 		commitPathJs: '/', aString, '/js';
 		commitPathSt: '/', aString, '/st'
+! !
+
+LegacyPackageHandler class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+
+!LegacyPackageHandler class methodsFor: 'commit paths'!
+
+commitPathsFromLoader
+	<
+		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
+		if (!!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	>
+!
+
+defaultCommitPathJs
+	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
+!
+
+defaultCommitPathJs: aString
+	defaultCommitPathJs := aString
+!
+
+defaultCommitPathSt
+	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
+!
+
+defaultCommitPathSt: aString
+	defaultCommitPathSt := aString
+!
+
+resetCommitPaths
+	defaultCommitPathJs := nil.
+	defaultCommitPathSt := nil
+! !
+
+!LegacyPackageHandler class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self commitPathsFromLoader
 ! !
 
 !LegacyPackageHandler class methodsFor: 'loading'!

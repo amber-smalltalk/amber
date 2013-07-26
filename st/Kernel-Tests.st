@@ -1325,30 +1325,6 @@ foo: anObject
 	foo := anObject
 ! !
 
-ObjectMock subclass: #ObjectMock2
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-!ObjectMock2 commentStamp!
-ObjectMock is there only to perform tests on classes.!
-
-!ObjectMock2 methodsFor: 'not yet classified'!
-
-foo
-	^foo
-!
-
-foo: anObject
-	foo := anObject
-! !
-
-ObjectMock2 subclass: #ObjectMock3
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-ObjectMock3 subclass: #ObjectMock4
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
 TestCase subclass: #ObjectTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -1451,10 +1427,10 @@ TestCase subclass: #PackageTest
 !PackageTest methodsFor: 'running'!
 
 setUp
-	backUpCommitPathJs := Package defaultCommitPathJs.
-	backUpCommitPathSt := Package defaultCommitPathSt.
+	backUpCommitPathJs := LegacyPackageHandler defaultCommitPathJs.
+	backUpCommitPathSt := LegacyPackageHandler defaultCommitPathSt.
 
-	Package resetCommitPaths.
+	LegacyPackageHandler resetCommitPaths.
 
 	zorkPackage := Package new name: 'Zork'.
 	grulPackage := Package new
@@ -1465,7 +1441,7 @@ setUp
 !
 
 tearDown
-	Package
+	LegacyPackageHandler
 		defaultCommitPathJs: backUpCommitPathJs;
 		defaultCommitPathSt: backUpCommitPathSt
 ! !
@@ -1497,7 +1473,7 @@ PackageTest subclass: #PackageWithDefaultCommitPathChangedTest
 setUp
 	super setUp.
 
-	Package
+	LegacyPackageHandler
 		defaultCommitPathJs: 'javascripts/';
 		defaultCommitPathSt: 'smalltalk/'.
 ! !
