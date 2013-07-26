@@ -4188,7 +4188,7 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Objects'
 smalltalk.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
+smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Objects');
 smalltalk.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
 smalltalk.addMethod(
 smalltalk.method({
@@ -4204,86 +4204,6 @@ return $1;
 args: [],
 source: "classes\x0a\x09^ self organization elements",
 messageSends: ["elements", "organization"],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathJs",
-category: 'accessing',
-fn: function (){
-var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@commitPathJs"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(_st($PackageHandler())._for_(self._transportType()))._commitPathJsFor_(self);
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
-args: [],
-source: "commitPathJs\x0a\x09^ commitPathJs ifNil: [(PackageHandler for: self transportType) commitPathJsFor: self]",
-messageSends: ["ifNil:", "commitPathJsFor:", "for:", "transportType"],
-referencedClasses: ["PackageHandler"]
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathJs:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@commitPathJs"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathJs:",{aString:aString},smalltalk.Package)})},
-args: ["aString"],
-source: "commitPathJs: aString\x0a\x09commitPathJs := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathSt",
-category: 'accessing',
-fn: function (){
-var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@commitPathSt"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(_st($PackageHandler())._for_(self._transportType()))._commitPathStFor_(self);
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
-args: [],
-source: "commitPathSt\x0a\x09^ commitPathSt ifNil: [(PackageHandler for: self transportType) commitPathStFor: self]",
-messageSends: ["ifNil:", "commitPathStFor:", "for:", "transportType"],
-referencedClasses: ["PackageHandler"]
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathSt:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@commitPathSt"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
-args: ["aString"],
-source: "commitPathSt: aString\x0a\x09commitPathSt := aString",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -4415,22 +4335,6 @@ return $1;
 args: [],
 source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^self class sortedClasses: self classes",
 messageSends: ["sortedClasses:", "classes", "class"],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "transportType",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return (self.transport && self.transport.type) || 'unknown';;
-return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
-args: [],
-source: "transportType\x0a\x09<return (self.transport && self.transport.type) || 'unknown';>",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);

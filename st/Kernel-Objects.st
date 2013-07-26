@@ -1411,7 +1411,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'commitPathJs commitPathSt'
+	instanceVariableNames: 'extension'
 	package: 'Kernel-Objects'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -1433,22 +1433,6 @@ You can fetch a package from the server:
 
 !Package methodsFor: 'accessing'!
 
-commitPathJs
-	^ commitPathJs ifNil: [(PackageHandler for: self transportType) commitPathJsFor: self]
-!
-
-commitPathJs: aString
-	commitPathJs := aString
-!
-
-commitPathSt
-	^ commitPathSt ifNil: [(PackageHandler for: self transportType) commitPathStFor: self]
-!
-
-commitPathSt: aString
-	commitPathSt := aString
-!
-
 name
 	<return self.pkgName>
 !
@@ -1459,10 +1443,6 @@ name: aString
 
 organization
 	^ self basicAt: 'organization'
-!
-
-transportType
-	<return (self.transport && self.transport.type) || 'unknown';>
 ! !
 
 !Package methodsFor: 'classes'!

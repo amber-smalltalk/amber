@@ -550,5 +550,25 @@ loadPackages: aCollection prefix: aString
 
 commit
 	^ (PackageHandler for: self transportType) commit: self
+!
+
+commitPathJs
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [(PackageHandler for: self transportType) commitPathJsFor: self]
+!
+
+commitPathJs: aString
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs put: aString
+!
+
+commitPathSt
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [(PackageHandler for: self transportType) commitPathStFor: self]
+!
+
+commitPathSt: aString
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
+!
+
+transportType
+	<return (self.transport && self.transport.type) || 'unknown';>
 ! !
 

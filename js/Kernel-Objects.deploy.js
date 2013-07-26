@@ -3058,7 +3058,7 @@ smalltalk.ClassOrganizer);
 smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Objects');
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
+smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
@@ -3070,66 +3070,6 @@ $1=_st(self._organization())._elements();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Package)})},
 messageSends: ["elements", "organization"]}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathJs",
-fn: function (){
-var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@commitPathJs"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(_st($PackageHandler())._for_(self._transportType()))._commitPathJsFor_(self);
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
-messageSends: ["ifNil:", "commitPathJsFor:", "for:", "transportType"]}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathJs:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@commitPathJs"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathJs:",{aString:aString},smalltalk.Package)})},
-messageSends: []}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathSt",
-fn: function (){
-var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@commitPathSt"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(_st($PackageHandler())._for_(self._transportType()))._commitPathStFor_(self);
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
-messageSends: ["ifNil:", "commitPathStFor:", "for:", "transportType"]}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathSt:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@commitPathSt"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
-messageSends: []}),
 smalltalk.Package);
 
 smalltalk.addMethod(
@@ -3226,17 +3166,6 @@ $1=_st(self._class())._sortedClasses_(self._classes());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses",{},smalltalk.Package)})},
 messageSends: ["sortedClasses:", "classes", "class"]}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "transportType",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return (self.transport && self.transport.type) || 'unknown';;
-return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
-messageSends: []}),
 smalltalk.Package);
 
 

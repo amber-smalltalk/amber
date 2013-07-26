@@ -1017,4 +1017,103 @@ return $1;
 messageSends: ["commit:", "for:", "transportType"]}),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJs",
+fn: function (){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_ifAbsentPut_("commitPathJs",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($PackageHandler())._for_(self._transportType()))._commitPathJsFor_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
+messageSends: ["at:ifAbsentPut:", "commitPathJsFor:", "for:", "transportType", "ifNil:"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJs:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_put_("commitPathJs",aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJs:",{aString:aString},smalltalk.Package)})},
+messageSends: ["at:put:", "ifNil:"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathSt",
+fn: function (){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_ifAbsentPut_("commitPathSt",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($PackageHandler())._for_(self._transportType()))._commitPathStFor_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
+messageSends: ["at:ifAbsentPut:", "commitPathStFor:", "for:", "transportType", "ifNil:"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathSt:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_put_("commitPathSt",aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
+messageSends: ["at:put:", "ifNil:"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transportType",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (self.transport && self.transport.type) || 'unknown';;
+return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
+messageSends: []}),
+smalltalk.Package);
+
 })(global_smalltalk,global_nil,global__st);
