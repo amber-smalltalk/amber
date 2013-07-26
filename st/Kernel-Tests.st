@@ -1077,6 +1077,88 @@ testRaisingException
 	self should: [ self throwException ] raise: JavaScriptException
 ! !
 
+TestCase subclass: #LegacyPackageHandlerTest
+	instanceVariableNames: 'zorkPackage grulPackage backUpCommitPathJs backUpCommitPathSt'
+	package: 'Kernel-Tests'!
+
+!LegacyPackageHandlerTest methodsFor: 'running'!
+
+setUp
+	backUpCommitPathJs := LegacyPackageHandler defaultCommitPathJs.
+	backUpCommitPathSt := LegacyPackageHandler defaultCommitPathSt.
+
+	LegacyPackageHandler resetCommitPaths.
+
+	zorkPackage := Package new name: 'Zork'.
+	grulPackage := Package new
+					name: 'Grul';
+					commitPathJs: 'server/grul/js';
+					commitPathSt: 'grul/st';
+					yourself
+!
+
+tearDown
+	LegacyPackageHandler
+		defaultCommitPathJs: backUpCommitPathJs;
+		defaultCommitPathSt: backUpCommitPathSt
+! !
+
+!LegacyPackageHandlerTest methodsFor: 'tests'!
+
+testGrulCommitPathJsShouldBeServerGrulJs
+	self assert: grulPackage commitPathJs equals: 'server/grul/js'
+!
+
+testGrulCommitPathStShouldBeGrulSt
+	self assert: grulPackage commitPathSt equals: 'grul/st'
+!
+
+testZorkCommitPathJsShouldBeJs
+	self assert: zorkPackage commitPathJs equals: 'js'
+!
+
+testZorkCommitPathStShouldBeSt
+	self assert: zorkPackage commitPathSt equals: 'st'
+! !
+
+LegacyPackageHandlerTest subclass: #LegacyPackageHandlerTestWithDefaultsChanged
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!LegacyPackageHandlerTestWithDefaultsChanged methodsFor: 'running'!
+
+setUp
+	super setUp.
+
+	LegacyPackageHandler
+		defaultCommitPathJs: 'javascripts/';
+		defaultCommitPathSt: 'smalltalk/'.
+! !
+
+!LegacyPackageHandlerTestWithDefaultsChanged methodsFor: 'tests'!
+
+testGrulCommitPathJsShouldBeServerGrulJs
+	self assert: grulPackage commitPathJs equals: 'server/grul/js'
+!
+
+testGrulCommitPathStShouldBeGrulSt
+	self assert: grulPackage commitPathSt equals: 'grul/st'
+!
+
+testZorkCommitPathJsShouldBeJavascript
+	self assert: zorkPackage commitPathJs equals: 'javascripts/'
+!
+
+testZorkCommitPathStShouldBeSmalltalk
+	self assert: zorkPackage commitPathSt equals: 'smalltalk/'
+! !
+
+!LegacyPackageHandlerTestWithDefaultsChanged class methodsFor: 'accessing'!
+
+shouldInheritSelectors
+	^ false
+! !
+
 TestCase subclass: #MessageSendTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -1418,88 +1500,6 @@ testidentityHash
 
 	self assert: o1 identityHash == o1 identityHash.
 	self deny: o1 identityHash == o2 identityHash
-! !
-
-TestCase subclass: #PackageTest
-	instanceVariableNames: 'zorkPackage grulPackage backUpCommitPathJs backUpCommitPathSt'
-	package: 'Kernel-Tests'!
-
-!PackageTest methodsFor: 'running'!
-
-setUp
-	backUpCommitPathJs := LegacyPackageHandler defaultCommitPathJs.
-	backUpCommitPathSt := LegacyPackageHandler defaultCommitPathSt.
-
-	LegacyPackageHandler resetCommitPaths.
-
-	zorkPackage := Package new name: 'Zork'.
-	grulPackage := Package new
-					name: 'Grul';
-					commitPathJs: 'server/grul/js';
-					commitPathSt: 'grul/st';
-					yourself
-!
-
-tearDown
-	LegacyPackageHandler
-		defaultCommitPathJs: backUpCommitPathJs;
-		defaultCommitPathSt: backUpCommitPathSt
-! !
-
-!PackageTest methodsFor: 'tests'!
-
-testGrulCommitPathJsShouldBeServerGrulJs
-	self assert: grulPackage commitPathJs equals: 'server/grul/js'
-!
-
-testGrulCommitPathStShouldBeGrulSt
-	self assert: grulPackage commitPathSt equals: 'grul/st'
-!
-
-testZorkCommitPathJsShouldBeJs
-	self assert: zorkPackage commitPathJs equals: 'js'
-!
-
-testZorkCommitPathStShouldBeSt
-	self assert: zorkPackage commitPathSt equals: 'st'
-! !
-
-PackageTest subclass: #PackageWithDefaultCommitPathChangedTest
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-!PackageWithDefaultCommitPathChangedTest methodsFor: 'running'!
-
-setUp
-	super setUp.
-
-	LegacyPackageHandler
-		defaultCommitPathJs: 'javascripts/';
-		defaultCommitPathSt: 'smalltalk/'.
-! !
-
-!PackageWithDefaultCommitPathChangedTest methodsFor: 'tests'!
-
-testGrulCommitPathJsShouldBeServerGrulJs
-	self assert: grulPackage commitPathJs equals: 'server/grul/js'
-!
-
-testGrulCommitPathStShouldBeGrulSt
-	self assert: grulPackage commitPathSt equals: 'grul/st'
-!
-
-testZorkCommitPathJsShouldBeJavascript
-	self assert: zorkPackage commitPathJs equals: 'javascripts/'
-!
-
-testZorkCommitPathStShouldBeSmalltalk
-	self assert: zorkPackage commitPathSt equals: 'smalltalk/'
-! !
-
-!PackageWithDefaultCommitPathChangedTest class methodsFor: 'accessing'!
-
-shouldInheritSelectors
-	^ false
 ! !
 
 TestCase subclass: #PointTest
