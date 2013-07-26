@@ -1226,7 +1226,7 @@ defaultEnvironment
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	^ ((parent at: 'smalltalk')
+	^ ((parent at: 'global_smalltalk')
 		at: 'Environment') new
 ! !
 

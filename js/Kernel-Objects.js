@@ -4188,7 +4188,7 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Objects'
 smalltalk.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['commitPathJs', 'commitPathSt'], 'Kernel-Objects');
+smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Objects');
 smalltalk.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
 smalltalk.addMethod(
 smalltalk.method({
@@ -4204,84 +4204,6 @@ return $1;
 args: [],
 source: "classes\x0a\x09^ self organization elements",
 messageSends: ["elements", "organization"],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathJs",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@commitPathJs"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(self._class())._defaultCommitPathJs();
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
-args: [],
-source: "commitPathJs\x0a\x09^ commitPathJs ifNil: [self class defaultCommitPathJs]",
-messageSends: ["ifNil:", "defaultCommitPathJs", "class"],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathJs:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@commitPathJs"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathJs:",{aString:aString},smalltalk.Package)})},
-args: ["aString"],
-source: "commitPathJs: aString\x0a\x09commitPathJs := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathSt",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@commitPathSt"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=_st(self._class())._defaultCommitPathSt();
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
-args: [],
-source: "commitPathSt\x0a\x09^ commitPathSt ifNil: [self class defaultCommitPathSt]",
-messageSends: ["ifNil:", "defaultCommitPathSt", "class"],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathSt:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@commitPathSt"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
-args: ["aString"],
-source: "commitPathSt: aString\x0a\x09commitPathSt := aString",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -4421,124 +4343,6 @@ smalltalk.Package);
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
 smalltalk.method({
-selector: "commitPathsFromLoader",
-category: 'commit paths',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var commitPath = typeof amber !== 'undefined' && amber.commitPath;
-		if (!commitPath) return;
-		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
-		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.Package.klass)})},
-args: [],
-source: "commitPathsFromLoader\x0a\x09<\x0a\x09\x09var commitPath = typeof amber !== 'undefined' && amber.commitPath;\x0a\x09\x09if (!commitPath) return;\x0a\x09\x09if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);\x0a\x09\x09if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultCommitPathJs",
-category: 'commit paths',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@defaultCommitPathJs"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@defaultCommitPathJs"]="js";
-$1=self["@defaultCommitPathJs"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs",{},smalltalk.Package.klass)})},
-args: [],
-source: "defaultCommitPathJs\x0a\x09^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultCommitPathJs:",
-category: 'commit paths',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@defaultCommitPathJs"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs:",{aString:aString},smalltalk.Package.klass)})},
-args: ["aString"],
-source: "defaultCommitPathJs: aString\x0a\x09defaultCommitPathJs := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultCommitPathSt",
-category: 'commit paths',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@defaultCommitPathSt"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@defaultCommitPathSt"]="st";
-$1=self["@defaultCommitPathSt"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt",{},smalltalk.Package.klass)})},
-args: [],
-source: "defaultCommitPathSt\x0a\x09^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultCommitPathSt:",
-category: 'commit paths',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@defaultCommitPathSt"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt:",{aString:aString},smalltalk.Package.klass)})},
-args: ["aString"],
-source: "defaultCommitPathSt: aString\x0a\x09defaultCommitPathSt := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
-self._commitPathsFromLoader();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Package.klass)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self commitPathsFromLoader",
-messageSends: ["initialize", "commitPathsFromLoader"],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "load:",
 category: 'loading-storing',
 fn: function (aPackageName){
@@ -4608,23 +4412,6 @@ args: ["aPackageName", "aBlock"],
 source: "named: aPackageName ifAbsent: aBlock\x0a\x0a\x09^Smalltalk current packageAt: aPackageName ifAbsent: aBlock",
 messageSends: ["packageAt:ifAbsent:", "current"],
 referencedClasses: ["Smalltalk"]
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resetCommitPaths",
-category: 'commit paths',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@defaultCommitPathJs"]=nil;
-self["@defaultCommitPathSt"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.Package.klass)})},
-args: [],
-source: "resetCommitPaths\x0a\x09\x09defaultCommitPathJs := nil.\x0a\x09\x09defaultCommitPathSt := nil.",
-messageSends: [],
-referencedClasses: []
 }),
 smalltalk.Package.klass);
 

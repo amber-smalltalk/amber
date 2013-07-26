@@ -412,18 +412,65 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 !PackageHandler methodsFor: 'committing'!
 
 commit: aPackage
-	{ 
-		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
-		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
-		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
-	} 
-		do: [ :commitStrategy|| fileContents |
-			fileContents := (commitStrategy key new exportPackage: aPackage name).
+	self commitChannels
+		do: [ :commitStrategyFactory || fileContents commitStrategy |
+			commitStrategy := commitStrategyFactory value: aPackage.
+			fileContents := (commitStrategy key exportPackage: aPackage name).
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
 ! !
 
-!PackageHandler methodsFor: 'loading'!
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+! !
+
+!PackageHandler class methodsFor: 'accessing'!
+
+classRegisteredFor: aString
+	"Temporary. Should return instance of appropriate
+	package handler for supplied transport type."
+	^LegacyPackageHandler
+!
+
+for: aString
+	^(self classRegisteredFor: aString) new
+! !
+
+PackageHandler subclass: #LegacyPackageHandler
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!LegacyPackageHandler commentStamp!
+I am responsible for handling package loading and committing.
+
+I should not be used directly. Instead, use the corresponding `Package` methods.!
+
+!LegacyPackageHandler methodsFor: 'committing'!
+
+commitChannels
+	^{ 
+		[ :pkg | Exporter new -> (pkg commitPathJs, '/', pkg name, '.js') ].
+		[ :pkg | StrippedExporter new -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
+		[ :pkg | ChunkExporter new -> (pkg commitPathSt, '/', pkg name, '.st') ]
+	}
+!
+
+commitPathJsFor: aPackage
+	^self class defaultCommitPathJs
+!
+
+commitPathStFor: aPackage
+	^self class defaultCommitPathSt
+! !
+
+!LegacyPackageHandler methodsFor: 'loading'!
 
 loadPackage: packageName prefix: aString
 	| url |
@@ -445,17 +492,7 @@ loadPackages: aCollection prefix: aString
 		self loadPackage: each prefix: aString ]
 ! !
 
-!PackageHandler methodsFor: 'private'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 
-			'type' -> 'PUT'.
-			'data' -> aString.
-			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
-!
+!LegacyPackageHandler methodsFor: 'private'!
 
 setupPackageNamed: packageName prefix: aString
 
@@ -465,7 +502,48 @@ setupPackageNamed: packageName prefix: aString
 		commitPathSt: '/', aString, '/st'
 ! !
 
-!PackageHandler class methodsFor: 'loading'!
+LegacyPackageHandler class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+
+!LegacyPackageHandler class methodsFor: 'commit paths'!
+
+commitPathsFromLoader
+	<
+		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
+		if (!!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	>
+!
+
+defaultCommitPathJs
+	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
+!
+
+defaultCommitPathJs: aString
+	defaultCommitPathJs := aString
+!
+
+defaultCommitPathSt
+	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
+!
+
+defaultCommitPathSt: aString
+	defaultCommitPathSt := aString
+!
+
+resetCommitPaths
+	defaultCommitPathJs := nil.
+	defaultCommitPathSt := nil
+! !
+
+!LegacyPackageHandler class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self commitPathsFromLoader
+! !
+
+!LegacyPackageHandler class methodsFor: 'loading'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
@@ -474,6 +552,30 @@ loadPackages: aCollection prefix: aString
 !Package methodsFor: '*Importer-Exporter'!
 
 commit
-	^ PackageHandler new commit: self
+	^ self transport commit: self
+!
+
+commitPathJs
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]
+!
+
+commitPathJs: aString
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs put: aString
+!
+
+commitPathSt
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]
+!
+
+commitPathSt: aString
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
+!
+
+transport
+	^ PackageHandler for: self transportType
+!
+
+transportType
+	<return (self.transport && self.transport.type) || 'unknown';>
 ! !
 

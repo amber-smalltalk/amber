@@ -3237,11 +3237,11 @@ return $3;
 } else {
 $2;
 };
-$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+$4=_st(_st(_st(parent)._at_("global_smalltalk"))._at_("Environment"))._new();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
 args: [],
-source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'smalltalk')\x0a\x09\x09at: 'Environment') new",
+source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'global_smalltalk')\x0a\x09\x09at: 'Environment') new",
 messageSends: ["ifNil:", "parent", "opener", "new", "at:"],
 referencedClasses: ["Environment"]
 }),
