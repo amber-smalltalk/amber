@@ -268,7 +268,7 @@ basicAddCompiledMethod: aMethod
 
 basicRemoveCompiledMethod: aMethod
 	<
-		smalltalk.removeMethod(aMethod)
+		smalltalk.removeMethod(aMethod,self);
 		smalltalk.init(self);
 	>
 ! !
