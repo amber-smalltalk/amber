@@ -1,4 +1,4 @@
-define(["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-Core", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Core');
 smalltalk.addClass('AbstractCodeGenerator', smalltalk.Object, ['currentClass', 'source'], 'Compiler-Core');
 smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API.";

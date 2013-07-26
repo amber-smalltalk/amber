@@ -1,4 +1,4 @@
-define(["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Transcript", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Transcript');
 smalltalk.addClass('HLTranscript', smalltalk.HLWidget, ['textarea'], 'Helios-Transcript');
 smalltalk.addMethod(
