@@ -1,3 +1,3 @@
-define(['amber/boot'], function (boot) {
+define(['./boot'], function (boot) {
     return boot.smalltalk;
 });

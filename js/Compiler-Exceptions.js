@@ -1,4 +1,4 @@
-define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
+define(["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Exceptions');
 smalltalk.addClass('CompilerError', smalltalk.Error, [], 'Compiler-Exceptions');
 smalltalk.CompilerError.comment="I am the common superclass of all compiling errors.";
