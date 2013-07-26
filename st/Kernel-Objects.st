@@ -1459,6 +1459,10 @@ name: aString
 
 organization
 	^ self basicAt: 'organization'
+!
+
+transportType
+	<return (self.transport && self.transport.type) || 'unknown';>
 ! !
 
 !Package methodsFor: 'classes'!

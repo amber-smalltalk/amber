@@ -3226,6 +3226,17 @@ return $1;
 messageSends: ["sortedClasses:", "classes", "class"]}),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transportType",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (self.transport && self.transport.type) || 'unknown';;
+return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
+messageSends: []}),
+smalltalk.Package);
+
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(

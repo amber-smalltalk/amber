@@ -810,6 +810,19 @@ smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "for:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
+messageSends: ["new"]}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "loadPackages:prefix:",
 fn: function (aCollection,aString){
 var self=this;
@@ -830,10 +843,10 @@ var self=this;
 function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($PackageHandler())._new())._commit_(self);
+$1=_st(_st($PackageHandler())._for_(self._transportType()))._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
-messageSends: ["commit:", "new"]}),
+messageSends: ["commit:", "for:", "transportType"]}),
 smalltalk.Package);
 
 })(global_smalltalk,global_nil,global__st);

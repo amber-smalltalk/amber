@@ -986,6 +986,24 @@ smalltalk.PackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "for:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "for: aString\x0a\x09\x22Temporary. Should return instance of appropriate\x0a\x09package handler for supplied transport type.\x22\x0a\x09^self new",
+messageSends: ["new"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "loadPackages:prefix:",
 category: 'loading',
 fn: function (aCollection,aString){
@@ -1012,12 +1030,12 @@ var self=this;
 function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($PackageHandler())._new())._commit_(self);
+$1=_st(_st($PackageHandler())._for_(self._transportType()))._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
 args: [],
-source: "commit\x0a\x09^ PackageHandler new commit: self",
-messageSends: ["commit:", "new"],
+source: "commit\x0a\x09^ (PackageHandler for: self transportType) commit: self",
+messageSends: ["commit:", "for:", "transportType"],
 referencedClasses: ["PackageHandler"]
 }),
 smalltalk.Package);

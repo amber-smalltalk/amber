@@ -4417,6 +4417,22 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transportType",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (self.transport && self.transport.type) || 'unknown';;
+return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
+args: [],
+source: "transportType\x0a\x09<return (self.transport && self.transport.type) || 'unknown';>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(

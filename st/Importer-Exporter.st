@@ -462,6 +462,14 @@ setupPackageNamed: packageName prefix: aString
 		commitPathSt: '/', aString, '/st'
 ! !
 
+!PackageHandler class methodsFor: 'accessing'!
+
+for: aString
+	"Temporary. Should return instance of appropriate
+	package handler for supplied transport type."
+	^self new
+! !
+
 !PackageHandler class methodsFor: 'loading'!
 
 loadPackages: aCollection prefix: aString
@@ -471,6 +479,6 @@ loadPackages: aCollection prefix: aString
 !Package methodsFor: '*Importer-Exporter'!
 
 commit
-	^ PackageHandler new commit: self
+	^ (PackageHandler for: self transportType) commit: self
 ! !
 
