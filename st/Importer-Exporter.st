@@ -420,7 +420,49 @@ commit: aPackage
 		displayingProgress: 'Committing package ', aPackage name
 ! !
 
-!PackageHandler methodsFor: 'loading'!
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+! !
+
+!PackageHandler class methodsFor: 'accessing'!
+
+for: aString
+	"Temporary. Should return instance of appropriate
+	package handler for supplied transport type."
+	^LegacyPackageHandler new
+! !
+
+PackageHandler subclass: #LegacyPackageHandler
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!LegacyPackageHandler commentStamp!
+I am responsible for handling package loading and committing.
+
+I should not be used directly. Instead, use the corresponding `Package` methods.!
+
+!LegacyPackageHandler methodsFor: 'committing'!
+
+commit: aPackage
+	{ 
+		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+	} 
+		do: [ :commitStrategy|| fileContents |
+			fileContents := (commitStrategy key new exportPackage: aPackage name).
+			self ajaxPutAt: commitStrategy value data: fileContents ]
+		displayingProgress: 'Committing package ', aPackage name
+! !
+
+!LegacyPackageHandler methodsFor: 'loading'!
 
 loadPackage: packageName prefix: aString
 	| url |
@@ -442,17 +484,7 @@ loadPackages: aCollection prefix: aString
 		self loadPackage: each prefix: aString ]
 ! !
 
-!PackageHandler methodsFor: 'private'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 
-			'type' -> 'PUT'.
-			'data' -> aString.
-			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
-!
+!LegacyPackageHandler methodsFor: 'private'!
 
 setupPackageNamed: packageName prefix: aString
 
@@ -462,15 +494,7 @@ setupPackageNamed: packageName prefix: aString
 		commitPathSt: '/', aString, '/st'
 ! !
 
-!PackageHandler class methodsFor: 'accessing'!
-
-for: aString
-	"Temporary. Should return instance of appropriate
-	package handler for supplied transport type."
-	^self new
-! !
-
-!PackageHandler class methodsFor: 'loading'!
+!LegacyPackageHandler class methodsFor: 'loading'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
