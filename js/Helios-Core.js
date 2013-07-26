@@ -1,4 +1,4 @@
-define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Core", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
 smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).\x0a\x0a";
@@ -3237,11 +3237,11 @@ return $3;
 } else {
 $2;
 };
-$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+$4=_st(_st(_st(parent)._at_("global_smalltalk"))._at_("Environment"))._new();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
 args: [],
-source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'smalltalk')\x0a\x09\x09at: 'Environment') new",
+source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x09parent ifNil: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'global_smalltalk')\x0a\x09\x09at: 'Environment') new",
 messageSends: ["ifNil:", "parent", "opener", "new", "at:"],
 referencedClasses: ["Environment"]
 }),
