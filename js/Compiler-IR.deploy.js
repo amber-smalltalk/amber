@@ -1,4 +1,4 @@
-define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-IR", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.addMethod(

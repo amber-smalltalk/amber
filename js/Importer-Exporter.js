@@ -1,4 +1,4 @@
-define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
+define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
 smalltalk.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk";
@@ -319,11 +319,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
-self._exportPackagePrologueOn_(stream);
-return _st((function(){
-return smalltalk.withContext(function($ctx3) {
 package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
 package_;
+self._exportPackagePrologueOf_on_(package_,stream);
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
 self._exportPackageDefinitionOf_on_(package_,stream);
 _st(_st(_st(package_)._sortedClasses())._asSet())._do_((function(each){
 return smalltalk.withContext(function($ctx4) {
@@ -338,8 +338,8 @@ return self._exportPackageEpilogueOn_(stream);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"exportPackage:",{packageName:packageName,package_:package_},smalltalk.Exporter)})},
 args: ["packageName"],
-source: "exportPackage: packageName\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09^String streamContents: [:stream |\x0a\x09\x09self exportPackagePrologueOn: stream.\x0a\x09\x09[\x0a\x09\x09\x09package := Smalltalk current packageAt: packageName.\x0a\x09\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x09\x22Export classes in dependency order.\x0a\x09\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09\x09\x09\x09stream nextPutAll: (self exportClass: each)].\x0a\x09\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09\x09] ensure: [\x0a\x09\x09\x09self exportPackageEpilogueOn: stream\x0a\x09\x09]]",
-messageSends: ["streamContents:", "exportPackagePrologueOn:", "ensure:", "exportPackageEpilogueOn:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
+source: "exportPackage: packageName\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09^String streamContents: [:stream |\x0a\x09\x09package := Smalltalk current packageAt: packageName.\x0a\x09\x09self exportPackagePrologueOf: package on: stream.\x0a\x09\x09[\x0a\x09\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x09\x22Export classes in dependency order.\x0a\x09\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09\x09\x09\x09stream nextPutAll: (self exportClass: each)].\x0a\x09\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09\x09] ensure: [\x0a\x09\x09\x09self exportPackageEpilogueOn: stream\x0a\x09\x09]]",
+messageSends: ["streamContents:", "packageAt:", "current", "exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOn:", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
 referencedClasses: ["Smalltalk", "String"]
 }),
 smalltalk.Exporter);
@@ -421,19 +421,21 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
+selector: "exportPackagePrologueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("define(\x22amber/");
+_st($1)._nextPutAll_(_st(aPackage)._name());
+_st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.Exporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "lf"],
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22amber/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "name", "lf"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
@@ -896,24 +898,130 @@ selector: "commit:",
 category: 'committing',
 fn: function (aPackage){
 var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._commitChannels())._do_displayingProgress_((function(commitStrategyFactory){
+var fileContents,commitStrategy;
+return smalltalk.withContext(function($ctx2) {
+commitStrategy=_st(commitStrategyFactory)._value_(aPackage);
+commitStrategy;
+fileContents=_st(_st(commitStrategy)._key())._exportPackage_(_st(aPackage)._name());
+fileContents;
+return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
+}, function($ctx2) {$ctx2.fillBlock({commitStrategyFactory:commitStrategyFactory,fileContents:fileContents,commitStrategy:commitStrategy},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
+return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
+args: ["aPackage"],
+source: "commit: aPackage\x0a\x09self commitChannels\x0a\x09\x09do: [ :commitStrategyFactory || fileContents commitStrategy |\x0a\x09\x09\x09commitStrategy := commitStrategyFactory value: aPackage.\x0a\x09\x09\x09fileContents := (commitStrategy key exportPackage: aPackage name).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
+messageSends: ["do:displayingProgress:", "value:", "exportPackage:", "name", "key", "ajaxPutAt:data:", "value", ",", "commitChannels"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classRegisteredFor:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$LegacyPackageHandler();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "classRegisteredFor: aString\x0a\x09\x22Temporary. Should return instance of appropriate\x0a\x09package handler for supplied transport type.\x22\x0a\x09^LegacyPackageHandler",
+messageSends: [],
+referencedClasses: ["LegacyPackageHandler"]
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "for:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classRegisteredFor_(aString))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "for: aString\x0a\x09^(self classRegisteredFor: aString) new",
+messageSends: ["new", "classRegisteredFor:"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+
+smalltalk.addClass('LegacyPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
+smalltalk.LegacyPackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitChannels",
+category: 'committing',
+fn: function (){
+var self=this;
 function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
 function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
-_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_displayingProgress_((function(commitStrategy){
-var fileContents;
+var $1;
+$1=[(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(_st(aPackage)._name());
-fileContents;
-return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
-}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
-return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
-args: ["aPackage"],
-source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: aPackage name).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "exportPackage:", "name", "new", "key", "ajaxPutAt:data:", "value", ",", "->", "commitPathJs", "commitPathSt"],
+return _st(_st($Exporter())._new()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".js"));
+}, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})}),(function(pkg){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($StrippedExporter())._new()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".deploy.js"));
+}, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})}),(function(pkg){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($ChunkExporter())._new()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathSt()).__comma("/")).__comma(_st(pkg)._name())).__comma(".st"));
+}, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})})];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.LegacyPackageHandler)})},
+args: [],
+source: "commitChannels\x0a\x09^{ \x0a\x09\x09[ :pkg | Exporter new -> (pkg commitPathJs, '/', pkg name, '.js') ].\x0a\x09\x09[ :pkg | StrippedExporter new -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].\x0a\x09\x09[ :pkg | ChunkExporter new -> (pkg commitPathSt, '/', pkg name, '.st') ]\x0a\x09}",
+messageSends: ["->", ",", "name", "commitPathJs", "new", "commitPathSt"],
 referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJsFor:",
+category: 'committing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._defaultCommitPathJs();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},smalltalk.LegacyPackageHandler)})},
+args: ["aPackage"],
+source: "commitPathJsFor: aPackage\x0a\x09^self class defaultCommitPathJs",
+messageSends: ["defaultCommitPathJs", "class"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathStFor:",
+category: 'committing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._defaultCommitPathSt();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},smalltalk.LegacyPackageHandler)})},
+args: ["aPackage"],
+source: "commitPathStFor: aPackage\x0a\x09^self class defaultCommitPathSt",
+messageSends: ["defaultCommitPathSt", "class"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -935,13 +1043,13 @@ return self._setupPackageNamed_prefix_(packageName,aString);
 return smalltalk.withContext(function($ctx2) {
 return _st(window)._alert_("Could not load package at: ".__comma(url));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
-return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.LegacyPackageHandler)})},
 args: ["packageName", "aString"],
 source: "loadPackage: packageName prefix: aString\x0a\x09| url |\x0a\x09url := '/', aString, '/js/', packageName, '.js'.\x0a\x09jQuery\x0a\x09\x09ajax: url\x0a\x09\x09options: #{\x0a\x09\x09\x09'type' -> 'GET'.\x0a\x09\x09\x09'dataType' -> 'script'.\x0a\x09\x09\x09'complete' -> [ :jqXHR :textStatus |\x0a\x09\x09\x09\x09jqXHR readyState = 4\x0a\x09\x09\x09\x09\x09ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].\x0a\x09\x09\x09'error' -> [ window alert: 'Could not load package at: ', url ]\x0a\x09\x09}",
 messageSends: [",", "ajax:options:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"],
 referencedClasses: []
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -954,13 +1062,13 @@ _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._loadPackage_prefix_(each,aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.LegacyPackageHandler)})},
 args: ["aCollection", "aString"],
 source: "loadPackages: aCollection prefix: aString\x0a\x09aCollection do: [ :each |\x0a\x09\x09self loadPackage: each prefix: aString ]",
 messageSends: ["do:", "loadPackage:prefix:"],
 referencedClasses: []
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -975,14 +1083,133 @@ $1=_st($Package())._named_(packageName);
 _st($1)._setupClasses();
 _st($1)._commitPathJs_(_st("/".__comma(aString)).__comma("/js"));
 $2=_st($1)._commitPathSt_(_st("/".__comma(aString)).__comma("/st"));
-return self}, function($ctx1) {$ctx1.fill(self,"setupPackageNamed:prefix:",{packageName:packageName,aString:aString},smalltalk.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupPackageNamed:prefix:",{packageName:packageName,aString:aString},smalltalk.LegacyPackageHandler)})},
 args: ["packageName", "aString"],
 source: "setupPackageNamed: packageName prefix: aString\x0a\x0a\x09(Package named: packageName)\x0a\x09\x09setupClasses;\x0a\x09\x09commitPathJs: '/', aString, '/js';\x0a\x09\x09commitPathSt: '/', aString, '/st'",
 messageSends: ["setupClasses", "named:", "commitPathJs:", ",", "commitPathSt:"],
 referencedClasses: ["Package"]
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
 
+
+smalltalk.LegacyPackageHandler.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathsFromLoader",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var commitPath = typeof amber !== 'undefined' && amber.commitPath;
+		if (!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "commitPathsFromLoader\x0a\x09<\x0a\x09\x09var commitPath = typeof amber !== 'undefined' && amber.commitPath;\x0a\x09\x09if (!commitPath) return;\x0a\x09\x09if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);\x0a\x09\x09if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathJs",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultCommitPathJs"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@defaultCommitPathJs"]="js";
+$1=self["@defaultCommitPathJs"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "defaultCommitPathJs\x0a\x09^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathJs:",
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathJs"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs:",{aString:aString},smalltalk.LegacyPackageHandler.klass)})},
+args: ["aString"],
+source: "defaultCommitPathJs: aString\x0a\x09defaultCommitPathJs := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathSt",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultCommitPathSt"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@defaultCommitPathSt"]="st";
+$1=self["@defaultCommitPathSt"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "defaultCommitPathSt\x0a\x09^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathSt:",
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathSt"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt:",{aString:aString},smalltalk.LegacyPackageHandler.klass)})},
+args: ["aString"],
+source: "defaultCommitPathSt: aString\x0a\x09defaultCommitPathSt := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.LegacyPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._commitPathsFromLoader();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self commitPathsFromLoader",
+messageSends: ["initialize", "commitPathsFromLoader"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -994,13 +1221,30 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._new())._loadPackages_prefix_(aCollection,aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.PackageHandler.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.LegacyPackageHandler.klass)})},
 args: ["aCollection", "aString"],
 source: "loadPackages: aCollection prefix: aString\x0a\x09^ self new loadPackages: aCollection prefix: aString",
 messageSends: ["loadPackages:prefix:", "new"],
 referencedClasses: []
 }),
-smalltalk.PackageHandler.klass);
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resetCommitPaths",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathJs"]=nil;
+self["@defaultCommitPathSt"]=nil;
+return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "resetCommitPaths\x0a\x09defaultCommitPathJs := nil.\x0a\x09defaultCommitPathSt := nil",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
 
 
 smalltalk.addMethod(
@@ -1009,16 +1253,156 @@ selector: "commit",
 category: '*Importer-Exporter',
 fn: function (){
 var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($PackageHandler())._new())._commit_(self);
+$1=_st(self._transport())._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
 args: [],
-source: "commit\x0a\x09^ PackageHandler new commit: self",
-messageSends: ["commit:", "new"],
+source: "commit\x0a\x09^ self transport commit: self",
+messageSends: ["commit:", "transport"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJs",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_ifAbsentPut_("commitPathJs",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._transport())._commitPathJsFor_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
+args: [],
+source: "commitPathJs\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]",
+messageSends: ["at:ifAbsentPut:", "commitPathJsFor:", "transport", "ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJs:",
+category: '*Importer-Exporter',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_put_("commitPathJs",aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJs:",{aString:aString},smalltalk.Package)})},
+args: ["aString"],
+source: "commitPathJs: aString\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs put: aString",
+messageSends: ["at:put:", "ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathSt",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_ifAbsentPut_("commitPathSt",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._transport())._commitPathStFor_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
+args: [],
+source: "commitPathSt\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]",
+messageSends: ["at:ifAbsentPut:", "commitPathStFor:", "transport", "ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathSt:",
+category: '*Importer-Exporter',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_put_("commitPathSt",aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
+args: ["aString"],
+source: "commitPathSt: aString\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString",
+messageSends: ["at:put:", "ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transport",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($PackageHandler())._for_(self._transportType());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
+args: [],
+source: "transport\x0a\x09^ PackageHandler for: self transportType",
+messageSends: ["for:", "transportType"],
 referencedClasses: ["PackageHandler"]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transportType",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (self.transport && self.transport.type) || 'unknown';;
+return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
+args: [],
+source: "transportType\x0a\x09<return (self.transport && self.transport.type) || 'unknown';>",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Package);
 

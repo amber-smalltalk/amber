@@ -1,4 +1,4 @@
-define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Core", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
 smalltalk.addMethod(
@@ -2455,7 +2455,7 @@ return $3;
 } else {
 $2;
 };
-$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+$4=_st(_st(_st(parent)._at_("global_smalltalk"))._at_("Environment"))._new();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
 messageSends: ["ifNil:", "parent", "opener", "new", "at:"]}),

@@ -1,4 +1,4 @@
-define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){
+define("amber/Kernel-Classes", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
