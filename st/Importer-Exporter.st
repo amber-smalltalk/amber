@@ -1,3 +1,4 @@
+define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 Smalltalk current createPackage: 'Importer-Exporter'!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
@@ -89,9 +90,9 @@ exportPackage: packageName
 
 	| package |
 	^String streamContents: [:stream |
-		self exportPackagePrologueOn: stream.
+		package := Smalltalk current packageAt: packageName.
+		self exportPackagePrologueOf: package on: stream.
 		[
-			package := Smalltalk current packageAt: packageName.
 			self exportPackageDefinitionOf: package on: stream.
 
 			"Export classes in dependency order.
@@ -203,9 +204,11 @@ exportPackageExtensionsOf: package on: aStream
 					self exportMethod: method of: aClass on: aStream ]]]]
 !
 
-exportPackagePrologueOn: aStream
+exportPackagePrologueOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'define(["smalltalk","nil","_st"], function(smalltalk,nil,_st){';
+		nextPutAll: 'define("amber/';
+		nextPutAll: aPackage name;
+		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
 		lf
 ! !
 

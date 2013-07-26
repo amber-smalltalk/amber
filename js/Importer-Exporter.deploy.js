@@ -266,11 +266,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
-self._exportPackagePrologueOn_(stream);
-return _st((function(){
-return smalltalk.withContext(function($ctx3) {
 package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
 package_;
+self._exportPackagePrologueOf_on_(package_,stream);
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
 self._exportPackageDefinitionOf_on_(package_,stream);
 _st(_st(_st(package_)._sortedClasses())._asSet())._do_((function(each){
 return smalltalk.withContext(function($ctx4) {
@@ -284,7 +284,7 @@ return self._exportPackageEpilogueOn_(stream);
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"exportPackage:",{packageName:packageName,package_:package_},smalltalk.Exporter)})},
-messageSends: ["streamContents:", "exportPackagePrologueOn:", "ensure:", "exportPackageEpilogueOn:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"]}),
+messageSends: ["streamContents:", "packageAt:", "current", "exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOn:", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"]}),
 smalltalk.Exporter);
 
 smalltalk.addMethod(
@@ -349,16 +349,18 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
-fn: function (aStream){
+selector: "exportPackagePrologueOf:on:",
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("define(\x22amber/");
+_st($1)._nextPutAll_(_st(aPackage)._name());
+_st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.Exporter)})},
-messageSends: ["nextPutAll:", "lf"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+messageSends: ["nextPutAll:", "name", "lf"]}),
 smalltalk.Exporter);
 
 

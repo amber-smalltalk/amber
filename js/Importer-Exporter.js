@@ -319,11 +319,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
-self._exportPackagePrologueOn_(stream);
-return _st((function(){
-return smalltalk.withContext(function($ctx3) {
 package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
 package_;
+self._exportPackagePrologueOf_on_(package_,stream);
+return _st((function(){
+return smalltalk.withContext(function($ctx3) {
 self._exportPackageDefinitionOf_on_(package_,stream);
 _st(_st(_st(package_)._sortedClasses())._asSet())._do_((function(each){
 return smalltalk.withContext(function($ctx4) {
@@ -338,8 +338,8 @@ return self._exportPackageEpilogueOn_(stream);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"exportPackage:",{packageName:packageName,package_:package_},smalltalk.Exporter)})},
 args: ["packageName"],
-source: "exportPackage: packageName\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09^String streamContents: [:stream |\x0a\x09\x09self exportPackagePrologueOn: stream.\x0a\x09\x09[\x0a\x09\x09\x09package := Smalltalk current packageAt: packageName.\x0a\x09\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x09\x22Export classes in dependency order.\x0a\x09\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09\x09\x09\x09stream nextPutAll: (self exportClass: each)].\x0a\x09\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09\x09] ensure: [\x0a\x09\x09\x09self exportPackageEpilogueOn: stream\x0a\x09\x09]]",
-messageSends: ["streamContents:", "exportPackagePrologueOn:", "ensure:", "exportPackageEpilogueOn:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
+source: "exportPackage: packageName\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09^String streamContents: [:stream |\x0a\x09\x09package := Smalltalk current packageAt: packageName.\x0a\x09\x09self exportPackagePrologueOf: package on: stream.\x0a\x09\x09[\x0a\x09\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x09\x22Export classes in dependency order.\x0a\x09\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09\x09\x09\x09stream nextPutAll: (self exportClass: each)].\x0a\x09\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09\x09] ensure: [\x0a\x09\x09\x09self exportPackageEpilogueOn: stream\x0a\x09\x09]]",
+messageSends: ["streamContents:", "packageAt:", "current", "exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOn:", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
 referencedClasses: ["Smalltalk", "String"]
 }),
 smalltalk.Exporter);
@@ -421,19 +421,21 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
+selector: "exportPackagePrologueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("define(\x22amber/");
+_st($1)._nextPutAll_(_st(aPackage)._name());
+_st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.Exporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define([\x22smalltalk\x22,\x22nil\x22,\x22_st\x22], function(smalltalk,nil,_st){';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "lf"],
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22amber/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "name", "lf"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
