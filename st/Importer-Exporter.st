@@ -409,13 +409,10 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 !PackageHandler methodsFor: 'committing'!
 
 commit: aPackage
-	{ 
-		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
-		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
-		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
-	} 
-		do: [ :commitStrategy|| fileContents |
-			fileContents := (commitStrategy key new exportPackage: aPackage name).
+	self commitChannels
+		do: [ :commitStrategyFactory || fileContents commitStrategy |
+			commitStrategy := commitStrategyFactory value: aPackage.
+			fileContents := (commitStrategy key exportPackage: aPackage name).
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
 ! !
@@ -450,16 +447,12 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 
 !LegacyPackageHandler methodsFor: 'committing'!
 
-commit: aPackage
-	{ 
-		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
-		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
-		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
-	} 
-		do: [ :commitStrategy|| fileContents |
-			fileContents := (commitStrategy key new exportPackage: aPackage name).
-			self ajaxPutAt: commitStrategy value data: fileContents ]
-		displayingProgress: 'Committing package ', aPackage name
+commitChannels
+	^{ 
+		[ :pkg | Exporter new -> (pkg commitPathJs, '/', pkg name, '.js') ].
+		[ :pkg | StrippedExporter new -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
+		[ :pkg | ChunkExporter new -> (pkg commitPathSt, '/', pkg name, '.st') ]
+	}
 ! !
 
 !LegacyPackageHandler methodsFor: 'loading'!
