@@ -1107,6 +1107,146 @@ testValueWithArguments
 	self assert: (messageSend valueWithPossibleArguments: #(4)) equals: 6
 ! !
 
+TestCase subclass: #MethodInheritanceTest
+	instanceVariableNames: 'receiverTop receiverMiddle receiverBottom method performBlock'
+	package: 'Kernel-Tests'!
+
+!MethodInheritanceTest methodsFor: 'accessing'!
+
+codeGeneratorClass
+	^ CodeGenerator
+!
+
+targetClassBottom
+	^ JavaScriptException
+!
+
+targetClassMiddle
+	^ Error
+!
+
+targetClassTop
+	^ Object
+! !
+
+!MethodInheritanceTest methodsFor: 'factory'!
+
+compiler
+	^ Compiler new
+		codeGeneratorClass: self codeGeneratorClass;
+		yourself
+! !
+
+!MethodInheritanceTest methodsFor: 'initialization'!
+
+setUp
+	receiverTop := self targetClassTop new.
+	receiverMiddle := self targetClassMiddle new.
+	receiverBottom := self targetClassBottom new.
+	method := nil.
+	performBlock := [ self error: 'performBlock not initialized' ]
+!
+
+tearDown
+	[ self deinstallTop ] on: Error do: [].
+	[ self deinstallMiddle ] on: Error do: [].
+	[ self deinstallBottom ] on: Error do: []
+! !
+
+!MethodInheritanceTest methodsFor: 'testing'!
+
+deinstallBottom
+	self targetClassBottom removeCompiledMethod: method
+!
+
+deinstallMiddle
+	self targetClassMiddle removeCompiledMethod: method
+!
+
+deinstallTop
+	self targetClassTop removeCompiledMethod: method
+!
+
+installBottom: aString
+	method := self compiler install: aString forClass: self targetClassBottom category: 'tests'
+!
+
+installMiddle: aString
+	method := self compiler install: aString forClass: self targetClassMiddle category: 'tests'
+!
+
+installTop: aString
+	method := self compiler install: aString forClass: self targetClassTop category: 'tests'
+!
+
+shouldMNU
+	self shouldMNUTop.
+	self shouldMNUMiddle.
+	self shouldMNUBottom
+!
+
+shouldMNUBottom
+	self should: [ performBlock value: receiverBottom ] raise: MessageNotUnderstood
+!
+
+shouldMNUMiddle
+	self should: [ performBlock value: receiverMiddle ] raise: MessageNotUnderstood
+!
+
+shouldMNUTop
+	self should: [ performBlock value: receiverTop ] raise: MessageNotUnderstood
+!
+
+shouldReturn: anObject
+	| result |
+
+	result := performBlock value: receiverTop.
+	self assert: { 'top'. anObject } equals: { 'top'. result }.
+	result := performBlock value: receiverMiddle.
+	self assert: { 'middle'. anObject } equals: { 'middle'. result }.
+	result := performBlock value: receiverBottom.
+	self assert: { 'bottom'. anObject } equals: { 'bottom'. result }
+!
+
+shouldReturn: anObject and: anObject2 and: anObject3
+	| result |
+
+	result := performBlock value: receiverTop.
+	self assert: { 'top'. anObject } equals: { 'top'. result }.
+	result := performBlock value: receiverMiddle.
+	self assert: { 'middle'. anObject2 } equals: { 'middle'. result }.
+	result := performBlock value: receiverBottom.
+	self assert: { 'bottom'. anObject3 } equals: { 'bottom'. result }
+! !
+
+!MethodInheritanceTest methodsFor: 'tests'!
+
+testMNU11
+	performBlock := [ :x | x foo ].
+	self shouldMNU.
+	self installTop: 'foo ^ false'.
+	self installTop: 'foo ^ true'.
+	self deinstallTop.
+	self shouldMNU
+!
+
+testMNU22
+	performBlock := [ :x | x foo ].
+	self shouldMNU.
+	self installMiddle: 'foo ^ false'.
+	self installMiddle: 'foo ^ true'.
+	self deinstallMiddle.
+	self shouldMNU
+!
+
+testReturns1
+	performBlock := [ :x | x foo ].
+	self installTop: 'foo ^ false'.
+	self shouldReturn: false.
+	self installTop: 'foo ^ true'.
+	self shouldReturn: true
+! !
+
 TestCase subclass: #NumberTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -1324,30 +1464,6 @@ foo
 foo: anObject
 	foo := anObject
 ! !
-
-ObjectMock subclass: #ObjectMock2
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-!ObjectMock2 commentStamp!
-ObjectMock is there only to perform tests on classes.!
-
-!ObjectMock2 methodsFor: 'not yet classified'!
-
-foo
-	^foo
-!
-
-foo: anObject
-	foo := anObject
-! !
-
-ObjectMock2 subclass: #ObjectMock3
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-ObjectMock3 subclass: #ObjectMock4
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
 
 TestCase subclass: #ObjectTest
 	instanceVariableNames: ''
