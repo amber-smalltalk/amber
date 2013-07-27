@@ -754,18 +754,18 @@ messageSends: ["do:displayingProgress:", "value:", "exportPackage:", "name", "ke
 smalltalk.PackageHandler);
 
 
+smalltalk.PackageHandler.klass.iVarNames = ['registry'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classRegisteredFor:",
 fn: function (aString){
 var self=this;
-function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=$LegacyPackageHandler();
+$1=_st(self["@registry"])._at_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
-messageSends: []}),
+messageSends: ["at:"]}),
 smalltalk.PackageHandler.klass);
 
 smalltalk.addMethod(
@@ -779,6 +779,41 @@ $1=_st(self._classRegisteredFor_(aString))._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
 messageSends: ["new", "classRegisteredFor:"]}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.PackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@registry"]=smalltalk.HashedCollection._from_([]);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.PackageHandler.klass)})},
+messageSends: ["initialize"]}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register:for:",
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@registry"])._at_put_(aString,aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"register:for:",{aClass:aClass,aString:aString},smalltalk.PackageHandler.klass)})},
+messageSends: ["at:put:"]}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerFor:",
+fn: function (aString){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($PackageHandler())._register_for_(self,aString);
+return self}, function($ctx1) {$ctx1.fill(self,"registerFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
+messageSends: ["register:for:"]}),
 smalltalk.PackageHandler.klass);
 
 
@@ -972,9 +1007,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.LegacyPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._registerFor_("unknown");
 self._commitPathsFromLoader();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.LegacyPackageHandler.klass)})},
-messageSends: ["initialize", "commitPathsFromLoader"]}),
+messageSends: ["initialize", "registerFor:", "commitPathsFromLoader"]}),
 smalltalk.LegacyPackageHandler.klass);
 
 smalltalk.addMethod(

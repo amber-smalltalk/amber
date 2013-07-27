@@ -429,16 +429,33 @@ ajaxPutAt: aURL data: aString
 			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
+PackageHandler class instanceVariableNames: 'registry'!
+
 !PackageHandler class methodsFor: 'accessing'!
 
 classRegisteredFor: aString
-	"Temporary. Should return instance of appropriate
-	package handler for supplied transport type."
-	^LegacyPackageHandler
+	^registry at: aString
 !
 
 for: aString
 	^(self classRegisteredFor: aString) new
+! !
+
+!PackageHandler class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	registry := #{}
+! !
+
+!PackageHandler class methodsFor: 'registry'!
+
+register: aClass for: aString
+	registry at: aString put: aClass
+!
+
+registerFor: aString
+	PackageHandler register: self for: aString
 ! !
 
 PackageHandler subclass: #LegacyPackageHandler
@@ -537,6 +554,7 @@ resetCommitPaths
 
 initialize
 	super initialize.
+	self registerFor: 'unknown'.
 	self commitPathsFromLoader
 ! !
 
