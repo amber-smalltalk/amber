@@ -1,3 +1,3 @@
-define(['./boot'], function (boot) {
+define("amber_vm/smalltalk", ["./boot"], function (boot) {
     return boot.smalltalk;
 });
