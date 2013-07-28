@@ -19,6 +19,8 @@ require = function (require) {
     var config = {
         baseUrl: home,
         paths: {
+            'amber_set': '.',
+            'amber_vm': '.',
             'amber': '../js',
             'jquery': 'jQuery/jquery-1.8.2.min',
             'jquery-ui': 'jQuery/jquery-ui-1.8.16.custom.min'
@@ -99,7 +101,7 @@ require = function (require) {
                 deps: [ './Kernel-Objects' ]
             },
             'amber/Compiler-Exceptions': {
-                deps: [ './Kernel-Exceptions' ]
+                deps: [ './Kernel-Exceptions', './Compiler-AST' ]
             },
             'amber/Compiler-Core': {
                 deps: [ './Kernel-Objects' ]
@@ -118,9 +120,6 @@ require = function (require) {
             },
             'amber/Compiler-Interpreter': {
                 deps: [ './Compiler-Core' ]
-            },
-            'amber/parser': {
-                deps: []
             },
             'amber/IDE': {
                 deps: [ './Canvas', './Kernel-Exceptions' ]

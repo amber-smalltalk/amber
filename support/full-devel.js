@@ -28,7 +28,7 @@ define([
     'amber/Compiler-Inlining',
     'amber/Compiler-Interpreter',
     'amber/Compiler-Tests',
-    'parser',
+    'amber_vm/parser',
     'amber/IDE',
     'amber/Examples',
     'amber/Benchfib',
