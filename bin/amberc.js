@@ -56,19 +56,19 @@ function Combo(callback) {
 
 Combo.prototype = {
   add: function () {
-    var self = this,
-        id = this.items;
-    this.items++;
-    return function () {
-      self.check(id, arguments);
-    };
+	var self = this,
+		id = this.items;
+	this.items++;
+	return function () {
+	  self.check(id, arguments);
+	};
   },
   check: function (id, arguments) {
-    this.results[id] = Array.prototype.slice.call(arguments);
-    this.items--;
-    if (this.items == 0) {
-      this.callback.apply(this, this.results);
-    }
+	this.results[id] = Array.prototype.slice.call(arguments);
+	this.items--;
+	if (this.items == 0) {
+	  this.callback.apply(this, this.results);
+	}
   }
 };
 
@@ -86,10 +86,10 @@ function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
 	this.closure_jar = closure_jar || '';
 	this.kernel_libraries = ['boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
-	                         'Kernel-Announcements'];
+							'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
+							'Kernel-Announcements'];
 	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter',
-	                          'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
+							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
 
@@ -226,11 +226,11 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
-    var special = filename[0] == "@";
-    if (special) { filename = filename.slice(1); }
+	var special = filename[0] == "@";
+	if (special) { filename = filename.slice(1); }
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-    var amberJsFile = path.join(this.amber_dir, special?'js/lib':'js', jsFile);
+	var amberJsFile = path.join(this.amber_dir, special?'js/lib':'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {
@@ -417,19 +417,19 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
-        var define = amdefine(module), requirejs = define.require;
-        define("amber_vm/browser-compatibility", [], {});
+		var define = amdefine(module), requirejs = define.require;
+		define("amber_vm/browser-compatibility", [], {});
 
 		var content = '(function() {';
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			// data is an array where index 0 is the error code and index 1 contains the data
 			content += data[1];
-            var match = (""+data[1]).match(/^define\("([^"]*)"/);
-            if (match) content += 'requirejs("'+match[1]+'");\n';
+			var match = (""+data[1]).match(/^define\("([^"]*)"/);
+			if (match) content += 'requirejs("'+match[1]+'");\n';
 		});
 		content = content + 'return requirejs("amber_vm/smalltalk");})();';
 		self.defaults.smalltalk = eval(content);
-        self.defaults.smalltalk.initialize();
+		self.defaults.smalltalk.initialize();
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
@@ -599,21 +599,21 @@ AmberC.prototype.compose_js_files = function() {
 		self.optimize();
 	});
 
-    var defineDefine = function () {
-        var path = require('path');
-        var amdefine = $SRC$;
-        var define = amdefine(module);
-        var result = function () {
-            var id = arguments[0];
-            setTimeout(function () { define.require(id); }, 0);
-            return define.apply(this, arguments);
-        };
-        result.amd = {};
-        return result;
-    };
+	var defineDefine = function () {
+		var path = require('path');
+		var amdefine = $SRC$;
+		var define = amdefine(module);
+		var result = function () {
+			var id = arguments[0];
+			setTimeout(function () { define.require(id); }, 0);
+			return define.apply(this, arguments);
+		};
+		result.amd = {};
+		return result;
+	};
 
-    fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')();\n'
-        + 'define("amber_vm/browser-compatibility", [], {});\n');
+	fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')();\n'
+		+ 'define("amber_vm/browser-compatibility", [], {});\n');
 	program_files.forEach(function(file) {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
@@ -623,7 +623,7 @@ AmberC.prototype.compose_js_files = function() {
 			throw(new Error('Can not find file ' + file));
 		}
 	});
-    fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk"], function (st) { st.initialize(); });\n');
+	fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk"], function (st) { st.initialize(); });\n');
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
 		fileStream.write('smalltalk.' + defaults.main + '._main()');
