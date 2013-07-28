@@ -8,6 +8,8 @@
  * Execute 'node compiler.js' without arguments or with -h / --help for help.
  */
 
+var amdefine = require("amdefine");
+
 /**
  * Map the async filter function onto array and evaluate callback, once all have finished.
  * Taken from: http://howtonode.org/control-flow-part-iii
@@ -415,7 +417,7 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
-        var define = require('amdefine')(module), requirejs = define.require;
+        var define = amdefine(module), requirejs = define.require;
         define("amber_vm/browser-compatibility", [], {});
 
 		var content = '(function() {';
@@ -597,6 +599,21 @@ AmberC.prototype.compose_js_files = function() {
 		self.optimize();
 	});
 
+    var defineDefine = function () {
+        var path = require('path');
+        var amdefine = $SRC$;
+        var define = amdefine(module);
+        var result = function () {
+            var id = arguments[0];
+            setTimeout(function () { define.require(id); }, 0);
+            return define.apply(this, arguments);
+        };
+        result.amd = {};
+        return result;
+    };
+
+    fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')();\n'
+        + 'define("amber_vm/browser-compatibility", [], {});\n');
 	program_files.forEach(function(file) {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
@@ -606,6 +623,7 @@ AmberC.prototype.compose_js_files = function() {
 			throw(new Error('Can not find file ' + file));
 		}
 	});
+    fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk"], function (st) { st.initialize(); });\n');
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
 		fileStream.write('smalltalk.' + defaults.main + '._main()');
