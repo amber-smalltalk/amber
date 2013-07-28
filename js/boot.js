@@ -34,7 +34,7 @@
    ==================================================================== */
 
 
-define([ './browser-compatibility' ], function () {
+define("amber_vm/boot", [ './browser-compatibility' ], function () {
 
 /* Array extensions */
 
