@@ -917,22 +917,22 @@ referencedClasses: []
 smalltalk.PackageHandler);
 
 
+smalltalk.PackageHandler.klass.iVarNames = ['registry'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classRegisteredFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=$LegacyPackageHandler();
+$1=_st(self["@registry"])._at_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
 args: ["aString"],
-source: "classRegisteredFor: aString\x0a\x09\x22Temporary. Should return instance of appropriate\x0a\x09package handler for supplied transport type.\x22\x0a\x09^LegacyPackageHandler",
-messageSends: [],
-referencedClasses: ["LegacyPackageHandler"]
+source: "classRegisteredFor: aString\x0a\x09^registry at: aString",
+messageSends: ["at:"],
+referencedClasses: []
 }),
 smalltalk.PackageHandler.klass);
 
@@ -951,6 +951,56 @@ args: ["aString"],
 source: "for: aString\x0a\x09^(self classRegisteredFor: aString) new",
 messageSends: ["new", "classRegisteredFor:"],
 referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.PackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@registry"]=smalltalk.HashedCollection._from_([]);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.PackageHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09registry := #{}",
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register:for:",
+category: 'registry',
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@registry"])._at_put_(aString,aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"register:for:",{aClass:aClass,aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aClass", "aString"],
+source: "register: aClass for: aString\x0a\x09registry at: aString put: aClass",
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerFor:",
+category: 'registry',
+fn: function (aString){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($PackageHandler())._register_for_(self,aString);
+return self}, function($ctx1) {$ctx1.fill(self,"registerFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "registerFor: aString\x0a\x09PackageHandler register: self for: aString",
+messageSends: ["register:for:"],
+referencedClasses: ["PackageHandler"]
 }),
 smalltalk.PackageHandler.klass);
 
@@ -1202,11 +1252,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.LegacyPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._registerFor_("unknown");
 self._commitPathsFromLoader();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.LegacyPackageHandler.klass)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self commitPathsFromLoader",
-messageSends: ["initialize", "commitPathsFromLoader"],
+source: "initialize\x0a\x09super initialize.\x0a\x09self registerFor: 'unknown'.\x0a\x09self commitPathsFromLoader",
+messageSends: ["initialize", "registerFor:", "commitPathsFromLoader"],
 referencedClasses: []
 }),
 smalltalk.LegacyPackageHandler.klass);
