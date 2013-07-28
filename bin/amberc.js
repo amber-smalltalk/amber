@@ -83,11 +83,11 @@ var path = require('path'),
 function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
 	this.closure_jar = closure_jar || '';
-	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 	                         'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter', 'Compiler-Exceptions',
-	                          'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter',
+	                          'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
 
@@ -101,7 +101,7 @@ var createDefaults = function(amber_dir, finished_callback){
 
 	return {
 		'load': [],
-		'init': path.join(amber_dir, 'js', 'init.js'),
+//		'init': path.join(amber_dir, 'js', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
 		'stFiles': [],
@@ -166,7 +166,7 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
 	}
 	if (undefined === configuration.init) {
-		throw new Error('AmberC.check_configuration_ok(): init value missing in configuration object');
+//		throw new Error('AmberC.check_configuration_ok(): init value missing in configuration object');
 	}
 
 	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.lenght) {
@@ -224,9 +224,11 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
+    var special = filename[0] == "@";
+    if (special) { filename = filename.slice(1); }
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(this.amber_dir, 'js', jsFile);
+    var amberJsFile = path.join(this.amber_dir, special?'js/lib':'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {
@@ -394,12 +396,12 @@ AmberC.prototype.resolve_compiler = function(callback) {
  */
 AmberC.prototype.resolve_init = function(compilerFiles) {
 	// check and add init.js
-	var initFile = this.defaults.init;
-	if ('.js' !== path.extname(initFile)) {
-		initFile = this.resolve_js(initFile);
-		this.defaults.init = initFile;
-	}
-	compilerFiles.push(initFile);
+//	var initFile = this.defaults.init;
+//	if ('.js' !== path.extname(initFile)) {
+//		initFile = this.resolve_js(initFile);
+//		this.defaults.init = initFile;
+//	}
+//	compilerFiles.push(initFile);
 
 	this.create_compiler(compilerFiles);
 };
@@ -413,13 +415,19 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
+        var define = require('amdefine')(module), requirejs = define.require;
+        define("amber_vm/browser-compatibility", [], {});
+
 		var content = '(function() {';
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			// data is an array where index 0 is the error code and index 1 contains the data
 			content += data[1];
+            var match = (""+data[1]).match(/^define\("([^"]*)"/);
+            if (match) content += 'requirejs("'+match[1]+'");\n';
 		});
-		content = content + 'return smalltalk;})();';
+		content = content + 'return requirejs("amber_vm/smalltalk");})();';
 		self.defaults.smalltalk = eval(content);
+        self.defaults.smalltalk.initialize();
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
@@ -573,8 +581,8 @@ AmberC.prototype.compose_js_files = function() {
 	}
 
 	if (undefined !== defaults.init) {
-		console.log('Adding initializer ' + defaults.init);
-		program_files.push(defaults.init);
+//		console.log('Adding initializer ' + defaults.init);
+//		program_files.push(defaults.init);
 	}
 
 	console.ambercLog('Writing program file: %s.js', programFile);
