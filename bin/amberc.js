@@ -8,8 +8,6 @@
  * Execute 'node compiler.js' without arguments or with -h / --help for help.
  */
 
-var amdefine = require("amdefine");
-
 /**
  * Map the async filter function onto array and evaluate callback, once all have finished.
  * Taken from: http://howtonode.org/control-flow-part-iii
@@ -43,6 +41,40 @@ function always_resolve(callback) {
 	callback();
 }
 
+
+/**
+ * Helper for concatenation modules and producing output
+ * that can be actually run.
+ */
+function makeBuilder () {
+	var defineDefine = function () {
+		var path = require('path');
+		return ($SRC$)(module);
+	};
+
+	return {
+		elements: [],
+		ids: [],
+		add: function () { this.elements.push.apply(this.elements, arguments); },
+		addId: function () { this.ids.push.apply(this.ids, arguments); },
+		forEach: function () { this.elements.forEach.apply(this.elements, arguments); },
+		start: function () {
+			this.add(
+				'var define = ('+(''+defineDefine).replace('$SRC$', ""+require('amdefine'))+')(), requirejs = define.require;',
+				'define("amber_vm/browser-compatibility", [], {});'
+			);
+		},
+		finish: function (realWork) {
+			this.add(
+				'define("amber_vm/_init", ["amber_vm/smalltalk","'+this.ids.join('","')+'"], function (smalltalk) {',
+				'smalltalk.initialize();',
+				realWork,
+				'});', 'requirejs("amber_vm/_init");'
+			);
+		},
+		toString: function () { return this.elements.join('\n'); }
+	};
+}
 
 /**
  * Combine several async functions and evaluate callback once all of them have finished.
@@ -417,19 +449,19 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
-		var define = amdefine(module), requirejs = define.require;
-		define("amber_vm/browser-compatibility", [], {});
+		var builder = makeBuilder();
+		builder.add('(function() {');
+		builder.start();
 
-		var content = '(function() {';
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			// data is an array where index 0 is the error code and index 1 contains the data
-			content += data[1];
+			builder.add(data[1]);
 			var match = (""+data[1]).match(/^define\("([^"]*)"/);
-			if (match) content += 'requirejs("'+match[1]+'");\n';
+			if (match) builder.addId(match[1]);
 		});
-		content = content + 'return requirejs("amber_vm/smalltalk");})();';
-		self.defaults.smalltalk = eval(content);
-		self.defaults.smalltalk.initialize();
+		builder.finish('self.defaults.smalltalk = smalltalk;');
+		builder.add('})();');
+		eval(builder.toString());
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
@@ -599,38 +631,38 @@ AmberC.prototype.compose_js_files = function() {
 		self.optimize();
 	});
 
-	var defineDefine = function () {
-		var path = require('path');
-		return ($SRC$)(module);
-	};
+	var builder = makeBuilder();
+	builder.start();
 
-	fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')(), requirejs = define.require;\n'
-		+ 'define("amber_vm/browser-compatibility", [], {});\n');
-	var ids = [];
 	program_files.forEach(function(file) {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
 			var buffer = fs.readFileSync(file);
 			var match = buffer.toString().match(/^define\("([^"]*)"/);
-			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) { ids.push(match[1]); }
-			fileStream.write(buffer);
+			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) { builder.addId(match[1]); }
+			builder.add(buffer);
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
 		}
 	});
-	fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk","'+ids.join('","')+'"], function (smalltalk) { smalltalk.initialize();\n');
+
+	var realWork = '';
+
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
-		fileStream.write('smalltalk.' + defaults.main + '._main()');
+		realWork += 'smalltalk.' + defaults.main + '._main();';
 	}
-	fileStream.write('});\nrequirejs("amber_vm/_init");\n');
 
 	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
 		console.log('Adding main file: ' + defaults.mainfile);
-		fileStream.write(fs.readFileSync(defaults.mainfile));
+		realWork += '\n' + fs.readFileSync(defaults.mainfile);
 	}
 
+	builder.finish(realWork);
+
+	console.log('Writing...');
+	builder.forEach(function (element) { fileStream.write(element); fileStream.write('\n'); });
 	console.log('Done.');
 	fileStream.end();
 };
