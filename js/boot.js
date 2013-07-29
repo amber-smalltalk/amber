@@ -274,32 +274,31 @@ function ClassInitBrik(brikz, st) {
 
 function ManipulationBrik(brikz, st) {
 
-	var manip = this;
-
-	manip.installMethodIfAbsent = function (handler, klass) {
+	this.installMethodIfAbsent = function (handler, klass) {
 		var jsFunction = klass.fn.prototype[handler.jsSelector];
 		if(!jsFunction) {
-			manip.installMethod(handler, klass);
+			installMethod(handler, klass);
 		}
 	};
 
-	manip.installMethod = function (method, klass) {
+	function installMethod (method, klass) {
 		Object.defineProperty(klass.fn.prototype, method.jsSelector, {
 			value: method.fn,
 			enumerable: false, configurable: true, writable: true
 		});
-	};
+	}
+	this.installMethod = installMethod;
 
-	manip.wireKlass = function (klass) {
+	this.wireKlass = function (klass) {
 		Object.defineProperty(klass.fn.prototype, "klass", {
 			value: klass,
 			enumerable: false, configurable: true, writable: true
 		});
 	};
 
-	manip.reinstallMethods = function (klass) {
+	this.reinstallMethods = function (klass) {
 		for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
-			manip.installMethod(klass.methods[keys[i]], klass);
+			installMethod(klass.methods[keys[i]], klass);
 		}
 	};
 }
