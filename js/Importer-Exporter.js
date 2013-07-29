@@ -740,14 +740,14 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
+selector: "exportPackagePrologueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream",
 messageSends: [],
 referencedClasses: []
 }),

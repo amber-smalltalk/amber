@@ -1,4 +1,3 @@
-define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 Smalltalk current createPackage: 'Importer-Exporter'!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
@@ -333,7 +332,7 @@ exportPackageExtensionsOf: package on: aStream
 				self exportMethods: methods category: category of: aClass on: aStream ]]]
 !
 
-exportPackagePrologueOn: aStream
+exportPackagePrologueOf: aPackage on: aStream
 ! !
 
 Exporter subclass: #StrippedExporter
