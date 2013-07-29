@@ -601,33 +601,30 @@ AmberC.prototype.compose_js_files = function() {
 
 	var defineDefine = function () {
 		var path = require('path');
-		var amdefine = $SRC$;
-		var define = amdefine(module);
-		var result = function () {
-			var id = arguments[0];
-			setTimeout(function () { define.require(id); }, 0);
-			return define.apply(this, arguments);
-		};
-		result.amd = {};
-		return result;
+		return ($SRC$)(module);
 	};
 
-	fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')();\n'
+	fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')(), requirejs = define.require;\n'
 		+ 'define("amber_vm/browser-compatibility", [], {});\n');
+	var ids = [];
 	program_files.forEach(function(file) {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
-			fileStream.write(fs.readFileSync(file));
+			var buffer = fs.readFileSync(file);
+			var match = buffer.toString().match(/^define\("([^"]*)"/);
+			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) { ids.push(match[1]); }
+			fileStream.write(buffer);
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
 		}
 	});
-	fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk"], function (st) { st.initialize(); });\n');
+	fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk","'+ids.join('","')+'"], function (smalltalk) { smalltalk.initialize();\n');
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
 		fileStream.write('smalltalk.' + defaults.main + '._main()');
 	}
+	fileStream.write('});\nrequirejs("amber_vm/_init");\n');
 
 	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
 		console.log('Adding main file: ' + defaults.mainfile);
