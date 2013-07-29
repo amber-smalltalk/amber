@@ -612,11 +612,11 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
-fn: function (aStream){
+selector: "exportPackagePrologueOf:on:",
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.ChunkExporter)})},
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
 messageSends: []}),
 smalltalk.ChunkExporter);
 
