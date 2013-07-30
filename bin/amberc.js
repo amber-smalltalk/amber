@@ -43,11 +43,21 @@ function always_resolve(callback) {
 
 
 /**
- * Helper for concatenation modules and producing output
- * that can be actually run.
+ * Helper for concatenating Amber generated AMD modules.
+ * The produced output can be exported and run as an independent program.
+ *
+ * var concatenator = createConcatenator();
+ * concatenator.start(); // write the required AMD define header
+ * concatenator.add(module1);
+ * concatenator.addId(module1_ID);
+ * //...
+ * concatenator.finish("//some last code");
+ * var concatenation = concatenator.toString();
+ * // The variable concatenation contains the concatenated result
+ * // which can either be stored in a file or interpreted with eval().
  */
-function makeBuilder () {
-	var defineDefine = function () {
+function createConcatenator () {
+	var defineAmdDefine = function () {
 		var path = require('path');
 		return ($SRC$)(module);
 	};
@@ -66,7 +76,7 @@ function makeBuilder () {
 		},
 		start: function () {
 			this.add(
-				'var define = (' + ('' + defineDefine).replace('$SRC$', '' + require('amdefine')) + ')(), requirejs = define.require;',
+				'var define = (' + ('' + defineAmdDefine).replace('$SRC$', '' + require('amdefine')) + ')(), requirejs = define.require;',
 				'define("amber_vm/browser-compatibility", [], {});'
 			);
 		},
@@ -438,7 +448,7 @@ AmberC.prototype.resolve_compiler = function(callback) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
-		var builder = makeBuilder();
+		var builder = createConcatenator();
 		builder.add('(function() {');
 		builder.start();
 
@@ -619,7 +629,7 @@ AmberC.prototype.compose_js_files = function() {
 		self.optimize();
 	});
 
-	var builder = makeBuilder();
+	var builder = createConcatenator();
 	builder.start();
 
 	program_files.forEach(function(file) {
