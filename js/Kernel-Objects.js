@@ -1511,99 +1511,6 @@ smalltalk.Boolean);
 
 
 
-smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.BrowserInterface.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "ajax:",
-category: 'actions',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(jQuery)._ajax_(anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},smalltalk.BrowserInterface)})},
-args: ["anObject"],
-source: "ajax: anObject\x0a\x09^jQuery ajax: anObject",
-messageSends: ["ajax:"],
-referencedClasses: []
-}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "alert:",
-category: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._alert_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.BrowserInterface)})},
-args: ["aString"],
-source: "alert: aString\x0a\x09^window alert: aString",
-messageSends: ["alert:"],
-referencedClasses: []
-}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirm:",
-category: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._confirm_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},smalltalk.BrowserInterface)})},
-args: ["aString"],
-source: "confirm: aString\x0a\x09^window confirm: aString",
-messageSends: ["confirm:"],
-referencedClasses: []
-}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isAvailable",
-category: 'testing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return typeof window !== "undefined" && typeof jQuery !== "undefined";
-return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},smalltalk.BrowserInterface)})},
-args: [],
-source: "isAvailable\x0a<return typeof window !== \x22undefined\x22 && typeof jQuery !== \x22undefined\x22>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "prompt:",
-category: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._prompt_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},smalltalk.BrowserInterface)})},
-args: ["aString"],
-source: "prompt: aString\x0a\x09^window prompt: aString",
-messageSends: ["prompt:"],
-referencedClasses: []
-}),
-smalltalk.BrowserInterface);
-
-
-smalltalk.BrowserInterface.klass.iVarNames = ['uiWorker','ajaxWorker'];
-
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.Date.comment="I am used to work with both dates and times. Therefore `Date today` and `Date now` are both valid in\x0aAmber and answer the same date object.\x0a\x0aDate directly maps to the `Date()` JavaScript constructor, and Amber date objects are JavaScript date objects.\x0a\x0a## API\x0a\x0aThe class-side `instance creation` protocol contains some convenience methods for creating date/time objects such as `#fromSeconds:`.\x0a\x0aArithmetic and comparison is supported (see the `comparing` and `arithmetic` protocols).\x0a\x0aThe `converting` protocol provides convenience methods for various convertions (to numbers, strings, etc.).";
 smalltalk.addMethod(
@@ -4932,19 +4839,24 @@ var self=this;
 var candidate;
 function $BrowserInterface(){return smalltalk.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 smalltalk.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+$1=$BrowserInterface();
+if(($receiver = $1) == nil || $receiver == undefined){
+candidate=$1;
+} else {
 candidate=_st($BrowserInterface())._new();
-$1=_st(candidate)._isAvailable();
-if(smalltalk.assert($1)){
+};
+$2=_st(candidate)._isAvailable();
+if(smalltalk.assert($2)){
 self._setWorker_(candidate);
-$2=self;
-return $2;
+$3=self;
+return $3;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},smalltalk.PlatformInterface.klass)})},
 args: [],
-source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09candidate := BrowserInterface new.\x0a\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]",
-messageSends: ["initialize", "new", "ifTrue:", "setWorker:", "isAvailable"],
+source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09candidate := BrowserInterface ifNotNil: [ BrowserInterface new ].\x0a\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]",
+messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "setWorker:", "isAvailable"],
 referencedClasses: ["BrowserInterface"]
 }),
 smalltalk.PlatformInterface.klass);

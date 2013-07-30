@@ -1094,73 +1094,6 @@ smalltalk.Boolean);
 
 
 
-smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "ajax:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(jQuery)._ajax_(anObject);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},smalltalk.BrowserInterface)})},
-messageSends: ["ajax:"]}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "alert:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._alert_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.BrowserInterface)})},
-messageSends: ["alert:"]}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirm:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._confirm_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},smalltalk.BrowserInterface)})},
-messageSends: ["confirm:"]}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isAvailable",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return typeof window !== "undefined" && typeof jQuery !== "undefined";
-return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},smalltalk.BrowserInterface)})},
-messageSends: []}),
-smalltalk.BrowserInterface);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "prompt:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._prompt_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},smalltalk.BrowserInterface)})},
-messageSends: ["prompt:"]}),
-smalltalk.BrowserInterface);
-
-
-smalltalk.BrowserInterface.klass.iVarNames = ['uiWorker','ajaxWorker'];
-
 smalltalk.addClass('Date', smalltalk.Object, [], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3617,17 +3550,22 @@ var self=this;
 var candidate;
 function $BrowserInterface(){return smalltalk.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 smalltalk.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+$1=$BrowserInterface();
+if(($receiver = $1) == nil || $receiver == undefined){
+candidate=$1;
+} else {
 candidate=_st($BrowserInterface())._new();
-$1=_st(candidate)._isAvailable();
-if(smalltalk.assert($1)){
+};
+$2=_st(candidate)._isAvailable();
+if(smalltalk.assert($2)){
 self._setWorker_(candidate);
-$2=self;
-return $2;
+$3=self;
+return $3;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},smalltalk.PlatformInterface.klass)})},
-messageSends: ["initialize", "new", "ifTrue:", "setWorker:", "isAvailable"]}),
+messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "setWorker:", "isAvailable"]}),
 smalltalk.PlatformInterface.klass);
 
 smalltalk.addMethod(

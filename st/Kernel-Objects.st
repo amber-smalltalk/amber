@@ -509,48 +509,6 @@ isImmutable
 	^ true
 ! !
 
-Object subclass: #BrowserInterface
-	instanceVariableNames: ''
-	package: 'Kernel-Objects'!
-!BrowserInterface commentStamp!
-I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
-
-## API
-
-    self alert: 'Hey, there is a problem'.
-    self confirm: 'Affirmative?'.
-    self prompt: 'Your name:'.
-
-    self ajax: #{
-        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
-    }.!
-
-!BrowserInterface methodsFor: 'actions'!
-
-ajax: anObject
-	^jQuery ajax: anObject
-!
-
-alert: aString
-	^window alert: aString
-!
-
-confirm: aString
-	^window confirm: aString
-!
-
-prompt: aString
-	^window prompt: aString
-! !
-
-!BrowserInterface methodsFor: 'testing'!
-
-isAvailable
-<return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
-! !
-
-BrowserInterface class instanceVariableNames: 'uiWorker ajaxWorker'!
-
 Object subclass: #Date
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
@@ -1719,7 +1677,7 @@ initialize
 	
 	super initialize.
 	
-	candidate := BrowserInterface new.
+	candidate := BrowserInterface ifNotNil: [ BrowserInterface new ].
 	candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]
 ! !
 
