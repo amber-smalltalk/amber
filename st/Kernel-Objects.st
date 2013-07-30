@@ -1572,14 +1572,18 @@ named: aPackageName ifAbsent: aBlock
 !Package class methodsFor: 'loading-storing'!
 
 load: aPackageName
+	self deprecatedAPI.
 	self load: aPackageName prefix: self defaultCommitPathJs, '/'
 !
 
 load: aPackageName prefix: aPrefix
-	jQuery
-		getScript: (aPrefix , aPackageName , '.js')
-		onSuccess: [
+	self deprecatedAPI.
+	PlatformInterface ajax: #{
+		'url' -> (aPrefix , aPackageName , '.js').
+		'dataType' -> 'script'.
+		'success' -> [
 			(Package named: aPackageName) setupClasses ]
+	}
 ! !
 
 !Package class methodsFor: 'sorting'!
