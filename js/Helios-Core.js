@@ -1072,7 +1072,7 @@ fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(_st(window)._jQuery_("#helper"))._remove();
+_st("#helper"._asJQuery())._remove();
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(html)._div();
@@ -1083,12 +1083,12 @@ return $2;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
-return _st(_st(window)._jQuery_("#helper"))._remove();
+return _st("#helper"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"withHelperLabelled:do:",{aString:aString,aBlock:aBlock},smalltalk.HLToolModel)})},
 args: ["aString", "aBlock"],
-source: "withHelperLabelled: aString do: aBlock\x0a\x09\x22TODO: doesn't belong here\x22\x0a\x0a\x09(window jQuery: '#helper') remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: aString ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[\x0a\x09\x09aBlock value.\x0a\x09\x09(window jQuery: '#helper') remove\x0a\x09] \x0a\x09\x09valueWithTimeout: 10",
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery", "id:", "div", "with:", "valueWithTimeout:", "value"],
+source: "withHelperLabelled: aString do: aBlock\x0a\x09\x22TODO: doesn't belong here\x22\x0a\x0a\x09'#helper' asJQuery remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: aString ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[\x0a\x09\x09aBlock value.\x0a\x09\x09'#helper' asJQuery remove\x0a\x09] \x0a\x09\x09valueWithTimeout: 10",
+messageSends: ["remove", "asJQuery", "appendToJQuery:", "id:", "div", "with:", "valueWithTimeout:", "value"],
 referencedClasses: []
 }),
 smalltalk.HLToolModel);
@@ -2048,11 +2048,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._get_((0))));
+self._activateListItem_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._eq_((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li.inactive') get: 0))",
-messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"],
+source: "activateFirstListItem\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li.inactive') eq: 0)",
+messageSends: ["activateListItem:", "eq:", "find:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -3387,12 +3387,12 @@ category: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".navbar"))._remove();
+_st(".navbar"._asJQuery())._remove();
 self._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLManager)})},
 args: [],
-source: "refresh\x0a\x09(window jQuery: '.navbar') remove.\x0a\x09self appendToJQuery: 'body' asJQuery",
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery"],
+source: "refresh\x0a\x09'.navbar' asJQuery remove.\x0a\x09self appendToJQuery: 'body' asJQuery",
+messageSends: ["remove", "asJQuery", "appendToJQuery:"],
 referencedClasses: []
 }),
 smalltalk.HLManager);
@@ -3746,7 +3746,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(window)._jQuery_("body"))._keydown_((function(e){
+_st("body"._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(_st(e)._keyCode()).__gt_eq((37)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -3758,8 +3758,8 @@ return false;
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"clearKeydownEvent",{},smalltalk.HLManager.klass)})},
 args: [],
-source: "clearKeydownEvent\x0a\x09\x22Prevent default keydown event with arrow key from scrolling the parent page\x0a\x09when helios is run inside a frame.\x22\x0a\x09\x0a\x09(window jQuery: 'body') keydown: [ :e | \x0a\x09\x09(e keyCode >= 37 and: [ e keyCode <= 40 ])\x0a\x09\x09\x09ifTrue: [ false ] ]",
-messageSends: ["keydown:", "ifTrue:", "and:", "<=", "keyCode", ">=", "jQuery:"],
+source: "clearKeydownEvent\x0a\x09\x22Prevent default keydown event with arrow key from scrolling the parent page\x0a\x09when helios is run inside a frame.\x22\x0a\x09\x0a\x09'body' asJQuery keydown: [ :e | \x0a\x09\x09(e keyCode >= 37 and: [ e keyCode <= 40 ])\x0a\x09\x09\x09ifTrue: [ false ] ]",
+messageSends: ["keydown:", "ifTrue:", "and:", "<=", "keyCode", ">=", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLManager.klass);
@@ -3863,16 +3863,16 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st(".dialog"._asJQuery())._removeClass_("active");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
+_st("#overlay"._asJQuery())._remove();
+return _st(".dialog"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLModalWidget)})},
 args: [],
-source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
+source: "remove\x0a\x09'.dialog' asJQuery removeClass: 'active'.\x0a\x09[ \x0a\x09\x09'#overlay' asJQuery remove.\x0a\x09\x09'.dialog' asJQuery remove\x0a\x09] valueWithTimeout: 300",
+messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -3911,12 +3911,12 @@ _st($3)._renderMainOn_(html);
 $4=_st($3)._renderButtonsOn_(html);
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(window)._jQuery_(".dialog"))._addClass_("active");
+_st(".dialog"._asJQuery())._addClass_("active");
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,confirmButton:confirmButton},smalltalk.HLModalWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09renderMainOn: html;\x0a\x09\x09\x09\x09renderButtonsOn: html ].\x0a\x0a\x09(window jQuery: '.dialog') addClass: 'active'.\x0a\x09self setupKeyBindings",
-messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "jQuery:", "setupKeyBindings"],
+source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09renderMainOn: html;\x0a\x09\x09\x09\x09renderButtonsOn: html ].\x0a\x0a\x09'.dialog' asJQuery addClass: 'active'.\x0a\x09self setupKeyBindings",
+messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "asJQuery", "setupKeyBindings"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -3944,7 +3944,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(window)._jQuery_(".dialog"))._keyup_((function(e){
+_st(".dialog"._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(e)._keyCode()).__eq((27));
 if(smalltalk.assert($1)){
@@ -3953,8 +3953,8 @@ return self._cancel();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLModalWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09(window jQuery: '.dialog') keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
-messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "jQuery:"],
+source: "setupKeyBindings\x0a\x09'.dialog' asJQuery keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
+messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -4125,16 +4125,16 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st(".dialog"._asJQuery())._removeClass_("active");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
+_st("#overlay"._asJQuery())._remove();
+return _st(".dialog"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLConfirmationWidget)})},
 args: [],
-source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
+source: "remove\x0a\x09'.dialog' asJQuery removeClass: 'active'.\x0a\x09[ \x0a\x09\x09'#overlay' asJQuery remove.\x0a\x09\x09'.dialog' asJQuery remove\x0a\x09] valueWithTimeout: 300",
+messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"],
 referencedClasses: []
 }),
 smalltalk.HLConfirmationWidget);
