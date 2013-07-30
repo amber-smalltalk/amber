@@ -445,6 +445,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			// data is an array where index 0 is the error code and index 1 contains the data
 			builder.add(data[1]);
+			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
 			var match = ('' + data[1]).match(/^define\("([^"]*)"/);
 			if (match) {
 				builder.addId(match[1]);
@@ -625,6 +626,7 @@ AmberC.prototype.compose_js_files = function() {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
 			var buffer = fs.readFileSync(file);
+			// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
 			var match = buffer.toString().match(/^define\("([^"]*)"/);
 			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
 				builder.addId(match[1]);
