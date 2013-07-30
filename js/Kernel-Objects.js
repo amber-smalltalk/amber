@@ -4630,19 +4630,20 @@ var $1,$2,$3;
 smalltalk.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 $1=$BrowserInterface();
 if(($receiver = $1) == nil || $receiver == undefined){
-candidate=$1;
+$1;
 } else {
 candidate=_st($BrowserInterface())._new();
-};
+candidate;
 $2=_st(candidate)._isAvailable();
 if(smalltalk.assert($2)){
 self._setWorker_(candidate);
 $3=self;
 return $3;
 };
+};
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},smalltalk.PlatformInterface.klass)})},
 args: [],
-source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09candidate := BrowserInterface ifNotNil: [ BrowserInterface new ].\x0a\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]",
+source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09BrowserInterface ifNotNil: [\x0a\x09\x09candidate := BrowserInterface new.\x0a\x09\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]\x0a\x09]",
 messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "setWorker:", "isAvailable"],
 referencedClasses: ["BrowserInterface"]
 }),

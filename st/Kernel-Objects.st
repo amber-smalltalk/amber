@@ -1634,8 +1634,10 @@ initialize
 	
 	super initialize.
 	
-	candidate := BrowserInterface ifNotNil: [ BrowserInterface new ].
-	candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]
+	BrowserInterface ifNotNil: [
+		candidate := BrowserInterface new.
+		candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]
+	]
 ! !
 
 Object subclass: #Point
