@@ -3448,9 +3448,10 @@ selector: "load:",
 fn: function (aPackageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+self._deprecatedAPI();
 self._load_prefix_(aPackageName,_st(self._defaultCommitPathJs()).__comma("/"));
 return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},smalltalk.Package.klass)})},
-messageSends: ["load:prefix:", ",", "defaultCommitPathJs"]}),
+messageSends: ["deprecatedAPI", "load:prefix:", ",", "defaultCommitPathJs"]}),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
@@ -3459,13 +3460,15 @@ selector: "load:prefix:",
 fn: function (aPackageName,aPrefix){
 var self=this;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-_st(jQuery)._getScript_onSuccess_(_st(_st(aPrefix).__comma(aPackageName)).__comma(".js"),(function(){
+self._deprecatedAPI();
+_st($PlatformInterface())._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(_st(_st(aPrefix).__comma(aPackageName)).__comma(".js")),"dataType".__minus_gt("script"),"success".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($Package())._named_(aPackageName))._setupClasses();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"load:prefix:",{aPackageName:aPackageName,aPrefix:aPrefix},smalltalk.Package.klass)})},
-messageSends: ["getScript:onSuccess:", ",", "setupClasses", "named:"]}),
+messageSends: ["deprecatedAPI", "ajax:", "->", ",", "setupClasses", "named:"]}),
 smalltalk.Package.klass);
 
 smalltalk.addMethod(
