@@ -1155,15 +1155,11 @@ category: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery('#amber').resizable({
-	handles: 'n',
-	resize: aBlock,
-	minHeight: 230
-});
+_st("#amber"._asJQuery())._resizable_(smalltalk.HashedCollection._from_(["handles".__minus_gt("n"),"resize".__minus_gt(aBlock),"minHeight".__minus_gt((230))]));
 return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{aBlock:aBlock},smalltalk.TabManager)})},
 args: ["aBlock"],
-source: "onResize: aBlock\x0a\x09<jQuery('#amber').resizable({\x0a\x09handles: 'n',\x0a\x09resize: aBlock,\x0a\x09minHeight: 230\x0a})>",
-messageSends: [],
+source: "onResize: aBlock\x0a\x09'#amber' asJQuery resizable: #{\x0a\x09\x09'handles' -> 'n'.\x0a\x09\x09'resize' -> aBlock.\x0a\x09\x09'minHeight' -> 230\x0a\x09}",
+messageSends: ["resizable:", "->", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.TabManager);
@@ -1525,11 +1521,14 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery('#amber').css('top', '').css('bottom', '0px');
+var $1,$2;
+$1="#amber"._asJQuery();
+_st($1)._css_put_("top","");
+$2=_st($1)._css_put_("bottom","0px");
 return self}, function($ctx1) {$ctx1.fill(self,"updatePosition",{},smalltalk.TabManager)})},
 args: [],
-source: "updatePosition\x0a\x09<jQuery('#amber').css('top', '').css('bottom', '0px')>",
-messageSends: [],
+source: "updatePosition\x0a\x09'#amber' asJQuery\x0a\x09\x09css: 'top' put: '';\x0a\x09\x09css: 'bottom' put: '0px'",
+messageSends: ["css:put:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.TabManager);
