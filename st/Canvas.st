@@ -1054,6 +1054,20 @@ Exemple:
 
     Counter new appendToJQuery: 'body' asJQuery!
 
+!Widget methodsFor: 'actions'!
+
+alert: aString
+	window alert: aString
+!
+
+confirm: aString
+	^window confirm: aString
+!
+
+prompt: aString
+	^window prompt: aString
+! !
+
 !Widget methodsFor: 'adding'!
 
 appendToBrush: aTagBrush

@@ -472,7 +472,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(window)._alert_(_st(ex)._messageText());
+$1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 $2=_st(compiler)._evaluateExpression_on_(aString,self._receiver());
@@ -1444,7 +1444,7 @@ function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Obje
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-className=_st(window)._prompt_("New class");
+className=self._prompt_("New class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(className)._notEmpty();
@@ -1469,7 +1469,7 @@ var self=this;
 var newProtocol;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-newProtocol=_st(window)._prompt_("New method protocol");
+newProtocol=self._prompt_("New method protocol");
 $1=_st(_st(newProtocol)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(newProtocol)._notEmpty();
@@ -1502,7 +1502,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@unsavedChanges"];
 if(smalltalk.assert($2)){
-$1=_st(window)._confirm_("Cancel changes?");
+$1=self._confirm_("Cancel changes?");
 } else {
 $1=true;
 };
@@ -1722,7 +1722,7 @@ _st(compiler)._source_(source);
 node=_st(compiler)._parse_(source);
 $2=_st(node)._isParseFailure();
 if(smalltalk.assert($2)){
-$3=_st(window)._alert_(_st(_st("PARSE ERROR: ".__comma(_st(node)._reason())).__comma(", position: ")).__comma(_st(_st(node)._position())._asString()));
+$3=self._alert_(_st(_st("PARSE ERROR: ".__comma(_st(node)._reason())).__comma(", position: ")).__comma(_st(_st(node)._position())._asString()));
 return $3;
 };
 _st(compiler)._currentClass_(aClass);
@@ -1731,7 +1731,7 @@ _st(_st(compiler)._unknownVariables())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $4=_st(window)._at_(each);
 if(($receiver = $4) == nil || $receiver == undefined){
-$5=_st(window)._confirm_(_st("Declare '".__comma(each)).__comma("' as instance variable?"));
+$5=self._confirm_(_st("Declare '".__comma(each)).__comma("' as instance variable?"));
 if(smalltalk.assert($5)){
 self._addInstanceVariableNamed_toClass_(each,aClass);
 $6=self._compileMethodDefinitionFor_(aClass);
@@ -1760,7 +1760,7 @@ function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="u
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-className=_st(window)._prompt_("Copy class");
+className=self._prompt_("Copy class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(className)._notEmpty();
@@ -2066,7 +2066,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._confirm_(_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?"));
+$1=self._confirm_(_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removeClass_(self["@selectedClass"]);
 self._resetClassesList();
@@ -2085,7 +2085,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=self._cancelChanges();
 if(smalltalk.assert($1)){
-$2=_st(window)._confirm_(_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
+$2=self._confirm_(_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
 if(smalltalk.assert($2)){
 $3=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($3)){
@@ -2108,7 +2108,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._confirm_(_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
+$1=self._confirm_(_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removePackage_(self["@selectedPackage"]);
 self._updateCategoriesList();
@@ -2125,7 +2125,7 @@ var self=this;
 var newName;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-newName=_st(window)._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
+newName=self._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
 $1=_st(_st(newName)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(newName)._notEmpty();
@@ -2150,7 +2150,7 @@ var newName;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-newName=_st(window)._prompt_("Rename package ".__comma(self["@selectedPackage"]));
+newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
 $1=newName;
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
