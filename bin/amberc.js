@@ -66,7 +66,7 @@ function makeBuilder () {
 		},
 		start: function () {
 			this.add(
-				'var define = (' + ('' + defineAmdDefine).replace('$SRC$', '' + require('amdefine')) + ')(), requirejs = define.require;',
+				'var define = (' + ('' + defineDefine).replace('$SRC$', '' + require('amdefine')) + ')(), requirejs = define.require;',
 				'define("amber_vm/browser-compatibility", [], {});'
 			);
 		},
