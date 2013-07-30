@@ -685,9 +685,9 @@ var variables,classNames,pseudoVariables;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-variables=_st(_st(_st(_st(window)._jQuery_(_st(_st(anEditor)._display())._wrapper()))._find_("span.cm-variable"))._get())._collect_((function(each){
+variables=_st(_st(_st(_st(_st(_st(anEditor)._display())._wrapper())._asJQuery())._find_("span.cm-variable"))._get())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(window)._jQuery_(each))._html();
+return _st(_st(each)._asJQuery())._html();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 classNames=_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -703,7 +703,7 @@ return _st(each).__eq(_st(aToken)._string());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
-messageSends: ["collect:", "html", "jQuery:", "get", "find:", "wrapper", "display", "name", "classes", "current", "pseudoVariableNames", "reject:", "=", "string", "select:", "includesSubString:", "asArray", "asSet", ","]}),
+messageSends: ["collect:", "html", "asJQuery", "get", "find:", "wrapper", "display", "name", "classes", "current", "pseudoVariableNames", "reject:", "=", "string", "select:", "includesSubString:", "asArray", "asSet", ","]}),
 smalltalk.HLCodeWidget);
 
 

@@ -372,7 +372,7 @@ compilationProtocol
 withHelperLabelled: aString do: aBlock
 	"TODO: doesn't belong here"
 
-	(window jQuery: '#helper') remove.
+	'#helper' asJQuery remove.
 
 	[ :html |
 		html div 
@@ -381,7 +381,7 @@ withHelperLabelled: aString do: aBlock
 	
 	[
 		aBlock value.
-		(window jQuery: '#helper') remove
+		'#helper' asJQuery remove
 	] 
 		valueWithTimeout: 10
 ! !
@@ -781,7 +781,7 @@ selectedItem: anObject
 !HLListWidget methodsFor: 'actions'!
 
 activateFirstListItem
-	self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li.inactive') get: 0))
+	self activateListItem: ((wrapper asJQuery find: 'li.inactive') eq: 0)
 !
 
 activateItem: anObject
@@ -1247,7 +1247,7 @@ initialize
 !HLManager methodsFor: 'rendering'!
 
 refresh
-	(window jQuery: '.navbar') remove.
+	'.navbar' asJQuery remove.
 	self appendToJQuery: 'body' asJQuery
 !
 
@@ -1335,7 +1335,7 @@ clearKeydownEvent
 	"Prevent default keydown event with arrow key from scrolling the parent page
 	when helios is run inside a frame."
 	
-	(window jQuery: 'body') keydown: [ :e | 
+	'body' asJQuery keydown: [ :e | 
 		(e keyCode >= 37 and: [ e keyCode <= 40 ])
 			ifTrue: [ false ] ]
 ! !
@@ -1359,10 +1359,10 @@ cancel
 !
 
 remove
-	(window jQuery: '.dialog') removeClass: 'active'.
+	'.dialog' asJQuery removeClass: 'active'.
 	[ 
-		(window jQuery: '#overlay') remove.
-		(window jQuery: '.dialog') remove
+		'#overlay' asJQuery remove.
+		'.dialog' asJQuery remove
 	] valueWithTimeout: 300
 ! !
 
@@ -1382,7 +1382,7 @@ renderContentOn: html
 				renderMainOn: html;
 				renderButtonsOn: html ].
 
-	(window jQuery: '.dialog') addClass: 'active'.
+	'.dialog' asJQuery addClass: 'active'.
 	self setupKeyBindings
 !
 
@@ -1390,7 +1390,7 @@ renderMainOn: html
 !
 
 setupKeyBindings
-	(window jQuery: '.dialog') keyup: [ :e |
+	'.dialog' asJQuery keyup: [ :e |
 		e keyCode = 27 ifTrue: [ self cancel ] ]
 ! !
 
@@ -1441,10 +1441,10 @@ confirm
 !
 
 remove
-	(window jQuery: '.dialog') removeClass: 'active'.
+	'.dialog' asJQuery removeClass: 'active'.
 	[ 
-		(window jQuery: '#overlay') remove.
-		(window jQuery: '.dialog') remove
+		'#overlay' asJQuery remove.
+		'.dialog' asJQuery remove
 	] valueWithTimeout: 300
 ! !
 
