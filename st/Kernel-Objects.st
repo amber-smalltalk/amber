@@ -509,6 +509,48 @@ isImmutable
 	^ true
 ! !
 
+Object subclass: #BrowserInterface
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!BrowserInterface commentStamp!
+I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+
+## API
+
+    self alert: 'Hey, there is a problem'.
+    self confirm: 'Affirmative?'.
+    self prompt: 'Your name:'.
+
+    self ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+!BrowserInterface methodsFor: 'actions'!
+
+ajax: anObject
+	^jQuery ajax: anObject
+!
+
+alert: aString
+	^window alert: aString
+!
+
+confirm: aString
+	^window confirm: aString
+!
+
+prompt: aString
+	^window prompt: aString
+! !
+
+!BrowserInterface methodsFor: 'testing'!
+
+isAvailable
+<return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
+! !
+
+BrowserInterface class instanceVariableNames: 'uiWorker ajaxWorker'!
+
 Object subclass: #Date
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
@@ -918,6 +960,40 @@ inspect: anObject
 
 register: anInspector
 	inspector := anInspector
+! !
+
+Object subclass: #InterfacingObject
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!InterfacingObject commentStamp!
+I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+
+## API
+
+    self alert: 'Hey, there is a problem'.
+    self confirm: 'Affirmative?'.
+    self prompt: 'Your name:'.
+
+    self ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+!InterfacingObject methodsFor: 'actions'!
+
+ajax: anObject
+	^PlatformInterface ajax: anObject
+!
+
+alert: aString
+	^PlatformInterface alert: aString
+!
+
+confirm: aString
+	^PlatformInterface confirm: aString
+!
+
+prompt: aString
+	^PlatformInterface prompt: aString
 ! !
 
 Object subclass: #JSObjectProxy
@@ -1580,6 +1656,67 @@ sortedClasses: classes
 	nodes do: [:aNode |
 		aNode traverseClassesWith: expandedClasses].
 	^expandedClasses
+! !
+
+Object subclass: #PlatformInterface
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!PlatformInterface commentStamp!
+I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+
+## API
+
+    self alert: 'Hey, there is a problem'.
+    self confirm: 'Affirmative?'.
+    self prompt: 'Your name:'.
+
+    self ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+PlatformInterface class instanceVariableNames: 'worker'!
+
+!PlatformInterface class methodsFor: 'accessing'!
+
+setWorker: anObject
+	worker := anObject
+! !
+
+!PlatformInterface class methodsFor: 'actions'!
+
+ajax: anObject
+	^worker
+		ifNotNil: [ worker ajax: anObject ]
+		ifNil: [ self error: 'ajax: not available' ]
+!
+
+alert: aString
+	^worker
+		ifNotNil: [ worker alert: aString ]
+		ifNil: [ self error: 'alert: not available' ]
+!
+
+confirm: aString
+	^worker
+		ifNotNil: [ worker confirm: aString ]
+		ifNil: [ self error: 'confirm: not available' ]
+!
+
+prompt: aString
+	^worker
+		ifNotNil: [ worker prompt: aString ]
+		ifNil: [ self error: 'prompt: not available' ]
+! !
+
+!PlatformInterface class methodsFor: 'initialization'!
+
+initialize
+	| candidate |
+	
+	super initialize.
+	
+	candidate := BrowserInterface new.
+	candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]
 ! !
 
 Object subclass: #Point
