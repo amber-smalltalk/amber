@@ -1,4 +1,46 @@
 Smalltalk current createPackage: 'Canvas'!
+Object subclass: #BrowserInterface
+	instanceVariableNames: ''
+	package: 'Canvas'!
+!BrowserInterface commentStamp!
+I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+
+## API
+
+    self alert: 'Hey, there is a problem'.
+    self confirm: 'Affirmative?'.
+    self prompt: 'Your name:'.
+
+    self ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+!BrowserInterface methodsFor: 'actions'!
+
+ajax: anObject
+	^jQuery ajax: anObject
+!
+
+alert: aString
+	^window alert: aString
+!
+
+confirm: aString
+	^window confirm: aString
+!
+
+prompt: aString
+	^window prompt: aString
+! !
+
+!BrowserInterface methodsFor: 'testing'!
+
+isAvailable
+<return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
+! !
+
+BrowserInterface class instanceVariableNames: 'uiWorker ajaxWorker'!
+
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Canvas'!
