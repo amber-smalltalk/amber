@@ -2887,7 +2887,7 @@ smalltalk.InspectorHandler.klass);
 
 
 smalltalk.addClass('InterfacingObject', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.InterfacingObject.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
+smalltalk.InterfacingObject.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ajax:",
@@ -4545,7 +4545,7 @@ smalltalk.Package.klass);
 
 
 smalltalk.addClass('PlatformInterface', smalltalk.Object, [], 'Kernel-Objects');
-smalltalk.PlatformInterface.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
+smalltalk.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
 
 smalltalk.PlatformInterface.klass.iVarNames = ['worker'];
 smalltalk.addMethod(

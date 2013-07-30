@@ -3,9 +3,11 @@ Object subclass: #BrowserInterface
 	instanceVariableNames: ''
 	package: 'Canvas'!
 !BrowserInterface commentStamp!
-I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+I am platform interface class that tries to use window and jQuery; that is, one for browser environment.
 
 ## API
+
+    self isAvailable. "true if window and jQuery exist".
 
     self alert: 'Hey, there is a problem'.
     self confirm: 'Affirmative?'.
