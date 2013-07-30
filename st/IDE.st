@@ -380,11 +380,11 @@ newBrowserTab
 !
 
 onResize: aBlock
-	<jQuery('#amber').resizable({
-	handles: 'n',
-	resize: aBlock,
-	minHeight: 230
-})>
+	'#amber' asJQuery resizable: #{
+		'handles' -> 'n'.
+		'resize' -> aBlock.
+		'minHeight' -> 230
+	}
 !
 
 onWindowResize: aBlock
@@ -432,7 +432,9 @@ updateBodyMargin
 !
 
 updatePosition
-	<jQuery('#amber').css('top', '').css('bottom', '0px')>
+	'#amber' asJQuery
+		css: 'top' put: '';
+		css: 'bottom' put: '0px'
 ! !
 
 !TabManager methodsFor: 'adding/Removing'!
