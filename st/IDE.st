@@ -388,7 +388,7 @@ onResize: aBlock
 !
 
 onWindowResize: aBlock
-	<jQuery(window).resize(aBlock)>
+	window asJQuery resize: aBlock
 !
 
 open
@@ -535,10 +535,10 @@ TabManager class instanceVariableNames: 'current'!
 !TabManager class methodsFor: 'actions'!
 
 toggleAmberIDE
-	(window jQuery: '#amber') length = 0
+	'#amber' asJQuery length = 0
 		ifTrue: [ Browser open ]
 		ifFalse: [
-			((window jQuery: '#amber') is: ':visible')
+			('#amber' asJQuery is: ':visible')
 				ifTrue: [ TabManager current close ]
 				ifFalse: [ TabManager current open ] ]
 ! !

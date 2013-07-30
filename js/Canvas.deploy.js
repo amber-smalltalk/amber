@@ -1909,10 +1909,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._jQuery_(self._element());
+$1=_st(self._element())._asJQuery();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJQuery",{},smalltalk.TagBrush)})},
-messageSends: ["jQuery:", "element"]}),
+messageSends: ["asJQuery", "element"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
