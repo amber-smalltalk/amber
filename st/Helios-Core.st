@@ -580,10 +580,6 @@ wrapper
 
 !HLWidget methodsFor: 'actions'!
 
-alert: aString
-	window alert: aString
-!
-
 confirm: aString ifTrue: aBlock
 	self manager confirm: aString ifTrue: aBlock
 !

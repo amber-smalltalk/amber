@@ -245,7 +245,7 @@ eval: aString
 	| compiler |
 	compiler := Compiler new.
 	[ compiler parseExpression: aString ] on: Error do: [:ex |
-		^window alert: ex messageText].
+		^self alert: ex messageText].
 	^compiler evaluateExpression: aString on: self receiver
 !
 
@@ -780,7 +780,7 @@ addInstanceVariableNamed: aString toClass: aClass
 
 addNewClass
 	| className |
-	className := window prompt: 'New class'.
+	className := self prompt: 'New class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		Object subclass: className instanceVariableNames: '' package: self selectedPackage.
 			self
@@ -791,7 +791,7 @@ addNewClass
 
 addNewProtocol
 	| newProtocol |
-	newProtocol := window prompt: 'New method protocol'.
+	newProtocol := self prompt: 'New method protocol'.
 	(newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [
 	selectedMethod category: newProtocol.
 	self setMethodProtocol: newProtocol]
@@ -799,7 +799,7 @@ addNewProtocol
 
 cancelChanges
 	^unsavedChanges
-	ifTrue: [window confirm: 'Cancel changes?']
+	ifTrue: [self confirm: 'Cancel changes?']
 	ifFalse: [true]
 !
 
@@ -851,13 +851,13 @@ compileMethodDefinitionFor: aClass
 	compiler source: source.
 	node := compiler parse: source.
 	node isParseFailure ifTrue: [
-	^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
+	^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].
 	compiler currentClass: aClass.
 	method := compiler eval: (compiler compileNode: node).
 	compiler unknownVariables do: [:each |
 		"Do not try to redeclare javascript's objects"
 		(window at: each) ifNil: [
-		(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
+		(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].
 	ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
@@ -867,7 +867,7 @@ compileMethodDefinitionFor: aClass
 
 copyClass
 	| className |
-	className := window prompt: 'Copy class'.
+	className := self prompt: 'Copy class'.
 	(className notNil and: [className notEmpty]) ifTrue: [
 		ClassBuilder new copyClass: self selectedClass named: className.
 			self
@@ -902,7 +902,7 @@ hideMethodButtons
 !
 
 removeClass
-	(window confirm: 'Do you really want to remove ', selectedClass name, '?')
+	(self confirm: 'Do you really want to remove ', selectedClass name, '?')
 	ifTrue: [
 		Smalltalk current removeClass: selectedClass.
 		self resetClassesList.
@@ -911,7 +911,7 @@ removeClass
 
 removeMethod
 	self cancelChanges ifTrue: [
-	(window confirm: 'Do you really want to remove #', selectedMethod selector, '?')
+	(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')
 		ifTrue: [
 		selectedTab = #instance
 			ifTrue: [selectedClass removeCompiledMethod: selectedMethod]
@@ -921,7 +921,7 @@ removeMethod
 
 removePackage
 
-	(window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
+	(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')
 	ifTrue: [
 		Smalltalk current removePackage: selectedPackage.
 		self updateCategoriesList]
@@ -929,7 +929,7 @@ removePackage
 
 renameClass
 	| newName |
-	newName := window prompt: 'Rename class ', selectedClass name.
+	newName := self prompt: 'Rename class ', selectedClass name.
 	(newName notNil and: [newName notEmpty]) ifTrue: [
 	selectedClass rename: newName.
 	self
@@ -940,7 +940,7 @@ renameClass
 renamePackage
 
 	| newName |
-	newName := window prompt: 'Rename package ', selectedPackage.
+	newName := self prompt: 'Rename package ', selectedPackage.
 	newName ifNotNil: [
 	newName notEmpty ifTrue: [
 	Smalltalk current renamePackage: selectedPackage to: newName.

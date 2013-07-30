@@ -608,7 +608,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(window)._alert_(_st(ex)._messageText());
+$1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 $2=_st(compiler)._evaluateExpression_on_(aString,self._receiver());
@@ -617,7 +617,7 @@ return $2;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,compiler:compiler},smalltalk.SourceArea)})},
 args: ["aString"],
-source: "eval: aString\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [:ex |\x0a\x09\x09^window alert: ex messageText].\x0a\x09^compiler evaluateExpression: aString on: self receiver",
+source: "eval: aString\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [:ex |\x0a\x09\x09^self alert: ex messageText].\x0a\x09^compiler evaluateExpression: aString on: self receiver",
 messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:", "receiver"],
 referencedClasses: ["Compiler", "Error"]
 }),
@@ -1875,7 +1875,7 @@ function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Obje
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-className=_st(window)._prompt_("New class");
+className=self._prompt_("New class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(className)._notEmpty();
@@ -1890,7 +1890,7 @@ self._selectClass_(_st(_st($Smalltalk())._current())._at_(className));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"addNewClass",{className:className},smalltalk.Browser)})},
 args: [],
-source: "addNewClass\x0a\x09| className |\x0a\x09className := window prompt: 'New class'.\x0a\x09(className notNil and: [className notEmpty]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk current at: className)]",
+source: "addNewClass\x0a\x09| className |\x0a\x09className := self prompt: 'New class'.\x0a\x09(className notNil and: [className notEmpty]) ifTrue: [\x0a\x09\x09Object subclass: className instanceVariableNames: '' package: self selectedPackage.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk current at: className)]",
 messageSends: ["prompt:", "ifTrue:", "subclass:instanceVariableNames:package:", "selectedPackage", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current", "and:", "notEmpty", "notNil"],
 referencedClasses: ["Object", "Smalltalk"]
 }),
@@ -1905,7 +1905,7 @@ var self=this;
 var newProtocol;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-newProtocol=_st(window)._prompt_("New method protocol");
+newProtocol=self._prompt_("New method protocol");
 $1=_st(_st(newProtocol)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(newProtocol)._notEmpty();
@@ -1916,7 +1916,7 @@ self._setMethodProtocol_(newProtocol);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"addNewProtocol",{newProtocol:newProtocol},smalltalk.Browser)})},
 args: [],
-source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09newProtocol := window prompt: 'New method protocol'.\x0a\x09(newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [\x0a\x09selectedMethod category: newProtocol.\x0a\x09self setMethodProtocol: newProtocol]",
+source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09newProtocol := self prompt: 'New method protocol'.\x0a\x09(newProtocol notNil and: [newProtocol notEmpty]) ifTrue: [\x0a\x09selectedMethod category: newProtocol.\x0a\x09self setMethodProtocol: newProtocol]",
 messageSends: ["prompt:", "ifTrue:", "category:", "setMethodProtocol:", "and:", "notEmpty", "notNil"],
 referencedClasses: []
 }),
@@ -1948,14 +1948,14 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@unsavedChanges"];
 if(smalltalk.assert($2)){
-$1=_st(window)._confirm_("Cancel changes?");
+$1=self._confirm_("Cancel changes?");
 } else {
 $1=true;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cancelChanges",{},smalltalk.Browser)})},
 args: [],
-source: "cancelChanges\x0a\x09^unsavedChanges\x0a\x09ifTrue: [window confirm: 'Cancel changes?']\x0a\x09ifFalse: [true]",
+source: "cancelChanges\x0a\x09^unsavedChanges\x0a\x09ifTrue: [self confirm: 'Cancel changes?']\x0a\x09ifFalse: [true]",
 messageSends: ["ifTrue:ifFalse:", "confirm:"],
 referencedClasses: []
 }),
@@ -2218,7 +2218,7 @@ _st(compiler)._source_(source);
 node=_st(compiler)._parse_(source);
 $2=_st(node)._isParseFailure();
 if(smalltalk.assert($2)){
-$3=_st(window)._alert_(_st(_st("PARSE ERROR: ".__comma(_st(node)._reason())).__comma(", position: ")).__comma(_st(_st(node)._position())._asString()));
+$3=self._alert_(_st(_st("PARSE ERROR: ".__comma(_st(node)._reason())).__comma(", position: ")).__comma(_st(_st(node)._position())._asString()));
 return $3;
 };
 _st(compiler)._currentClass_(aClass);
@@ -2227,7 +2227,7 @@ _st(_st(compiler)._unknownVariables())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $4=_st(window)._at_(each);
 if(($receiver = $4) == nil || $receiver == undefined){
-$5=_st(window)._confirm_(_st("Declare '".__comma(each)).__comma("' as instance variable?"));
+$5=self._confirm_(_st("Declare '".__comma(each)).__comma("' as instance variable?"));
 if(smalltalk.assert($5)){
 self._addInstanceVariableNamed_toClass_(each,aClass);
 $6=self._compileMethodDefinitionFor_(aClass);
@@ -2244,7 +2244,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node},smalltalk.Browser)})},
 args: ["aClass"],
-source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^window alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [:each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(window at: each) ifNil: [\x0a\x09\x09(window confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^self compileMethodDefinitionFor: aClass]]].\x0a\x09ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
+source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [:each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(window at: each) ifNil: [\x0a\x09\x09(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^self compileMethodDefinitionFor: aClass]]].\x0a\x09ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
 messageSends: ["val", "ifNil:", "category", "new", "source:", "parse:", "ifTrue:", "alert:", ",", "asString", "position", "reason", "isParseFailure", "currentClass:", "eval:", "compileNode:", "do:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "confirm:", "at:", "unknownVariables", "installMethod:forClass:category:", "updateMethodsList", "selectMethod:"],
 referencedClasses: ["Compiler", "ClassBuilder"]
 }),
@@ -2261,7 +2261,7 @@ function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="u
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-className=_st(window)._prompt_("Copy class");
+className=self._prompt_("Copy class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(className)._notEmpty();
@@ -2276,7 +2276,7 @@ self._selectClass_(_st(_st($Smalltalk())._current())._at_(className));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass",{className:className},smalltalk.Browser)})},
 args: [],
-source: "copyClass\x0a\x09| className |\x0a\x09className := window prompt: 'Copy class'.\x0a\x09(className notNil and: [className notEmpty]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk current at: className)]",
+source: "copyClass\x0a\x09| className |\x0a\x09className := self prompt: 'Copy class'.\x0a\x09(className notNil and: [className notEmpty]) ifTrue: [\x0a\x09\x09ClassBuilder new copyClass: self selectedClass named: className.\x0a\x09\x09\x09self\x0a\x09\x09\x09resetClassesList;\x0a\x09\x09\x09updateClassesList.\x0a\x09\x09self selectClass: (Smalltalk current at: className)]",
 messageSends: ["prompt:", "ifTrue:", "copyClass:named:", "selectedClass", "new", "resetClassesList", "updateClassesList", "selectClass:", "at:", "current", "and:", "notEmpty", "notNil"],
 referencedClasses: ["ClassBuilder", "Smalltalk"]
 }),
@@ -2637,7 +2637,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._confirm_(_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?"));
+$1=self._confirm_(_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removeClass_(self["@selectedClass"]);
 self._resetClassesList();
@@ -2645,7 +2645,7 @@ self._selectClass_(nil);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"removeClass",{},smalltalk.Browser)})},
 args: [],
-source: "removeClass\x0a\x09(window confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk current removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil]",
+source: "removeClass\x0a\x09(self confirm: 'Do you really want to remove ', selectedClass name, '?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk current removeClass: selectedClass.\x0a\x09\x09self resetClassesList.\x0a\x09\x09self selectClass: nil]",
 messageSends: ["ifTrue:", "removeClass:", "current", "resetClassesList", "selectClass:", "confirm:", ",", "name"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -2661,7 +2661,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=self._cancelChanges();
 if(smalltalk.assert($1)){
-$2=_st(window)._confirm_(_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
+$2=self._confirm_(_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
 if(smalltalk.assert($2)){
 $3=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($3)){
@@ -2674,7 +2674,7 @@ self._selectMethod_(nil);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"removeMethod",{},smalltalk.Browser)})},
 args: [],
-source: "removeMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09(window confirm: 'Do you really want to remove #', selectedMethod selector, '?')\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedTab = #instance\x0a\x09\x09\x09ifTrue: [selectedClass removeCompiledMethod: selectedMethod]\x0a\x09\x09\x09ifFalse: [selectedClass class removeCompiledMethod: selectedMethod].\x0a\x09\x09self selectMethod: nil]]",
+source: "removeMethod\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self confirm: 'Do you really want to remove #', selectedMethod selector, '?')\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedTab = #instance\x0a\x09\x09\x09ifTrue: [selectedClass removeCompiledMethod: selectedMethod]\x0a\x09\x09\x09ifFalse: [selectedClass class removeCompiledMethod: selectedMethod].\x0a\x09\x09self selectMethod: nil]]",
 messageSends: ["ifTrue:", "ifTrue:ifFalse:", "removeCompiledMethod:", "class", "=", "selectMethod:", "confirm:", ",", "selector", "cancelChanges"],
 referencedClasses: []
 }),
@@ -2689,14 +2689,14 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._confirm_(_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
+$1=self._confirm_(_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removePackage_(self["@selectedPackage"]);
 self._updateCategoriesList();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"removePackage",{},smalltalk.Browser)})},
 args: [],
-source: "removePackage\x0a\x0a\x09(window confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk current removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList]",
+source: "removePackage\x0a\x0a\x09(self confirm: 'Do you really want to remove the whole package ', selectedPackage, ' with all its classes?')\x0a\x09ifTrue: [\x0a\x09\x09Smalltalk current removePackage: selectedPackage.\x0a\x09\x09self updateCategoriesList]",
 messageSends: ["ifTrue:", "removePackage:", "current", "updateCategoriesList", "confirm:", ","],
 referencedClasses: ["Smalltalk"]
 }),
@@ -2711,7 +2711,7 @@ var self=this;
 var newName;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-newName=_st(window)._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
+newName=self._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
 $1=_st(_st(newName)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(newName)._notEmpty();
@@ -2725,7 +2725,7 @@ $3;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renameClass",{newName:newName},smalltalk.Browser)})},
 args: [],
-source: "renameClass\x0a\x09| newName |\x0a\x09newName := window prompt: 'Rename class ', selectedClass name.\x0a\x09(newName notNil and: [newName notEmpty]) ifTrue: [\x0a\x09selectedClass rename: newName.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateSourceAndButtons]",
+source: "renameClass\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename class ', selectedClass name.\x0a\x09(newName notNil and: [newName notEmpty]) ifTrue: [\x0a\x09selectedClass rename: newName.\x0a\x09self\x0a\x09\x09updateClassesList;\x0a\x09\x09updateSourceAndButtons]",
 messageSends: ["prompt:", ",", "name", "ifTrue:", "rename:", "updateClassesList", "updateSourceAndButtons", "and:", "notEmpty", "notNil"],
 referencedClasses: []
 }),
@@ -2741,7 +2741,7 @@ var newName;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-newName=_st(window)._prompt_("Rename package ".__comma(self["@selectedPackage"]));
+newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
 $1=newName;
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
@@ -2754,7 +2754,7 @@ self._updateCategoriesList();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renamePackage",{newName:newName},smalltalk.Browser)})},
 args: [],
-source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := window prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk current renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList]]",
+source: "renamePackage\x0a\x0a\x09| newName |\x0a\x09newName := self prompt: 'Rename package ', selectedPackage.\x0a\x09newName ifNotNil: [\x0a\x09newName notEmpty ifTrue: [\x0a\x09Smalltalk current renamePackage: selectedPackage to: newName.\x0a\x09self updateCategoriesList]]",
 messageSends: ["prompt:", ",", "ifNotNil:", "ifTrue:", "renamePackage:to:", "current", "updateCategoriesList", "notEmpty"],
 referencedClasses: ["Smalltalk"]
 }),

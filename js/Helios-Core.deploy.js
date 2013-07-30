@@ -1145,17 +1145,6 @@ smalltalk.HLTabWidget.klass);
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "alert:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(window)._alert_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.HLWidget)})},
-messageSends: ["alert:"]}),
-smalltalk.HLWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "bindKeyDown:up:",
 fn: function (keyDownBlock,keyUpBlock){
 var self=this;
