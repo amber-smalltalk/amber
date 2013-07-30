@@ -1175,11 +1175,11 @@ category: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery(window).resize(aBlock);
+_st(_st(window)._asJQuery())._resize_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"onWindowResize:",{aBlock:aBlock},smalltalk.TabManager)})},
 args: ["aBlock"],
-source: "onWindowResize: aBlock\x0a\x09<jQuery(window).resize(aBlock)>",
-messageSends: [],
+source: "onWindowResize: aBlock\x0a\x09window asJQuery resize: aBlock",
+messageSends: ["resize:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.TabManager);
@@ -1586,11 +1586,11 @@ function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:B
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
+$1=_st(_st("#amber"._asJQuery())._length()).__eq((0));
 if(smalltalk.assert($1)){
 _st($Browser())._open();
 } else {
-$2=_st(_st(window)._jQuery_("#amber"))._is_(":visible");
+$2=_st("#amber"._asJQuery())._is_(":visible");
 if(smalltalk.assert($2)){
 _st(_st($TabManager())._current())._close();
 } else {
@@ -1599,8 +1599,8 @@ _st(_st($TabManager())._current())._open();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{},smalltalk.TabManager.klass)})},
 args: [],
-source: "toggleAmberIDE\x0a\x09(window jQuery: '#amber') length = 0\x0a\x09\x09ifTrue: [ Browser open ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09((window jQuery: '#amber') is: ':visible')\x0a\x09\x09\x09\x09ifTrue: [ TabManager current close ]\x0a\x09\x09\x09\x09ifFalse: [ TabManager current open ] ]",
-messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "jQuery:", "=", "length"],
+source: "toggleAmberIDE\x0a\x09'#amber' asJQuery length = 0\x0a\x09\x09ifTrue: [ Browser open ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09('#amber' asJQuery is: ':visible')\x0a\x09\x09\x09\x09ifTrue: [ TabManager current close ]\x0a\x09\x09\x09\x09ifFalse: [ TabManager current open ] ]",
+messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "asJQuery", "=", "length"],
 referencedClasses: ["Browser", "TabManager"]
 }),
 smalltalk.TabManager.klass);

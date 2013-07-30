@@ -904,9 +904,9 @@ selector: "onWindowResize:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery(window).resize(aBlock);
+_st(_st(window)._asJQuery())._resize_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"onWindowResize:",{aBlock:aBlock},smalltalk.TabManager)})},
-messageSends: []}),
+messageSends: ["resize:", "asJQuery"]}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -1230,11 +1230,11 @@ function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:B
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
+$1=_st(_st("#amber"._asJQuery())._length()).__eq((0));
 if(smalltalk.assert($1)){
 _st($Browser())._open();
 } else {
-$2=_st(_st(window)._jQuery_("#amber"))._is_(":visible");
+$2=_st("#amber"._asJQuery())._is_(":visible");
 if(smalltalk.assert($2)){
 _st(_st($TabManager())._current())._close();
 } else {
@@ -1242,7 +1242,7 @@ _st(_st($TabManager())._current())._open();
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{},smalltalk.TabManager.klass)})},
-messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "jQuery:", "=", "length"]}),
+messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "asJQuery", "=", "length"]}),
 smalltalk.TabManager.klass);
 
 

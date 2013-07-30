@@ -887,7 +887,7 @@ width: aString
 !TagBrush methodsFor: 'converting'!
 
 asJQuery
-	^window jQuery: self element
+	^self element asJQuery
 ! !
 
 !TagBrush methodsFor: 'events'!
