@@ -869,7 +869,7 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('PackageHandler', smalltalk.InterfacingObject, [], 'Importer-Exporter');
 smalltalk.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -878,14 +878,14 @@ category: 'private',
 fn: function (aURL,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._from_(["type".__minus_gt("PUT"),"data".__minus_gt(aString),"contentType".__minus_gt("text/plain;charset=UTF-8"),"error".__minus_gt((function(xhr){
+self._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(aURL),"type".__minus_gt("PUT"),"data".__minus_gt(aString),"contentType".__minus_gt("text/plain;charset=UTF-8"),"error".__minus_gt((function(xhr){
 return smalltalk.withContext(function($ctx2) {
 return self._error_(_st(_st(_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
 }, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.PackageHandler)})},
 args: ["aURL", "aString"],
-source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL \x0a\x09\x09options: #{ \x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
-messageSends: ["ajax:options:", "->", "error:", ",", "responseText"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:", "->", "error:", ",", "responseText"],
 referencedClasses: []
 }),
 smalltalk.PackageHandler);
@@ -925,7 +925,7 @@ var url;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 url=_st(_st(_st("/".__comma(aString)).__comma("/js/")).__comma(packageName)).__comma(".js");
-_st(jQuery)._ajax_options_(url,smalltalk.HashedCollection._from_(["type".__minus_gt("GET"),"dataType".__minus_gt("script"),"complete".__minus_gt((function(jqXHR,textStatus){
+self._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(url),"type".__minus_gt("GET"),"dataType".__minus_gt("script"),"complete".__minus_gt((function(jqXHR,textStatus){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(jqXHR)._readyState()).__eq((4));
 if(smalltalk.assert($1)){
@@ -933,12 +933,12 @@ return self._setupPackageNamed_prefix_(packageName,aString);
 };
 }, function($ctx2) {$ctx2.fillBlock({jqXHR:jqXHR,textStatus:textStatus},$ctx1)})})),"error".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(window)._alert_("Could not load package at: ".__comma(url));
+return self._alert_("Could not load package at: ".__comma(url));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.PackageHandler)})},
 args: ["packageName", "aString"],
-source: "loadPackage: packageName prefix: aString\x0a\x09| url |\x0a\x09url := '/', aString, '/js/', packageName, '.js'.\x0a\x09jQuery\x0a\x09\x09ajax: url\x0a\x09\x09options: #{\x0a\x09\x09\x09'type' -> 'GET'.\x0a\x09\x09\x09'dataType' -> 'script'.\x0a\x09\x09\x09'complete' -> [ :jqXHR :textStatus |\x0a\x09\x09\x09\x09jqXHR readyState = 4\x0a\x09\x09\x09\x09\x09ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].\x0a\x09\x09\x09'error' -> [ window alert: 'Could not load package at: ', url ]\x0a\x09\x09}",
-messageSends: [",", "ajax:options:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"],
+source: "loadPackage: packageName prefix: aString\x0a\x09| url |\x0a\x09url := '/', aString, '/js/', packageName, '.js'.\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> url.\x0a\x09\x09\x09'type' -> 'GET'.\x0a\x09\x09\x09'dataType' -> 'script'.\x0a\x09\x09\x09'complete' -> [ :jqXHR :textStatus |\x0a\x09\x09\x09\x09jqXHR readyState = 4\x0a\x09\x09\x09\x09\x09ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].\x0a\x09\x09\x09'error' -> [ self alert: 'Could not load package at: ', url ]\x0a\x09\x09}",
+messageSends: [",", "ajax:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"],
 referencedClasses: []
 }),
 smalltalk.PackageHandler);

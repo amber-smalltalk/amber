@@ -824,7 +824,7 @@ fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(_st(window)._jQuery_("#helper"))._remove();
+_st("#helper"._asJQuery())._remove();
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(html)._div();
@@ -835,10 +835,10 @@ return $2;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
-return _st(_st(window)._jQuery_("#helper"))._remove();
+return _st("#helper"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"withHelperLabelled:do:",{aString:aString,aBlock:aBlock},smalltalk.HLToolModel)})},
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery", "id:", "div", "with:", "valueWithTimeout:", "value"]}),
+messageSends: ["remove", "asJQuery", "appendToJQuery:", "id:", "div", "with:", "valueWithTimeout:", "value"]}),
 smalltalk.HLToolModel);
 
 
@@ -1143,17 +1143,6 @@ smalltalk.HLTabWidget.klass);
 
 
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "alert:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(window)._alert_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.HLWidget)})},
-messageSends: ["alert:"]}),
-smalltalk.HLWidget);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindKeyDown:up:",
@@ -1541,9 +1530,9 @@ selector: "activateFirstListItem",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._get_((0))));
+self._activateListItem_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._eq_((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
-messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"]}),
+messageSends: ["activateListItem:", "eq:", "find:", "asJQuery"]}),
 smalltalk.HLListWidget);
 
 smalltalk.addMethod(
@@ -2570,10 +2559,10 @@ selector: "refresh",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".navbar"))._remove();
+_st(".navbar"._asJQuery())._remove();
 self._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLManager)})},
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery"]}),
+messageSends: ["remove", "asJQuery", "appendToJQuery:"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -2859,7 +2848,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(window)._jQuery_("body"))._keydown_((function(e){
+_st("body"._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(_st(e)._keyCode()).__gt_eq((37)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -2870,7 +2859,7 @@ return false;
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"clearKeydownEvent",{},smalltalk.HLManager.klass)})},
-messageSends: ["keydown:", "ifTrue:", "and:", "<=", "keyCode", ">=", "jQuery:"]}),
+messageSends: ["keydown:", "ifTrue:", "and:", "<=", "keyCode", ">=", "asJQuery"]}),
 smalltalk.HLManager.klass);
 
 smalltalk.addMethod(
@@ -2945,14 +2934,14 @@ selector: "remove",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st(".dialog"._asJQuery())._removeClass_("active");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
+_st("#overlay"._asJQuery())._remove();
+return _st(".dialog"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLModalWidget)})},
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"]}),
+messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"]}),
 smalltalk.HLModalWidget);
 
 smalltalk.addMethod(
@@ -2983,10 +2972,10 @@ _st($3)._renderMainOn_(html);
 $4=_st($3)._renderButtonsOn_(html);
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st(window)._jQuery_(".dialog"))._addClass_("active");
+_st(".dialog"._asJQuery())._addClass_("active");
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,confirmButton:confirmButton},smalltalk.HLModalWidget)})},
-messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "jQuery:", "setupKeyBindings"]}),
+messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "asJQuery", "setupKeyBindings"]}),
 smalltalk.HLModalWidget);
 
 smalltalk.addMethod(
@@ -3006,7 +2995,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(window)._jQuery_(".dialog"))._keyup_((function(e){
+_st(".dialog"._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(e)._keyCode()).__eq((27));
 if(smalltalk.assert($1)){
@@ -3014,7 +3003,7 @@ return self._cancel();
 };
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLModalWidget)})},
-messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "jQuery:"]}),
+messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "asJQuery"]}),
 smalltalk.HLModalWidget);
 
 
@@ -3141,14 +3130,14 @@ selector: "remove",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st(".dialog"._asJQuery())._removeClass_("active");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
+_st("#overlay"._asJQuery())._remove();
+return _st(".dialog"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLConfirmationWidget)})},
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"]}),
+messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"]}),
 smalltalk.HLConfirmationWidget);
 
 smalltalk.addMethod(

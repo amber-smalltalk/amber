@@ -1,5 +1,98 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
+smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
+smalltalk.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ajax:",
+category: 'actions',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(jQuery)._ajax_(anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},smalltalk.BrowserInterface)})},
+args: ["anObject"],
+source: "ajax: anObject\x0a\x09^jQuery ajax: anObject",
+messageSends: ["ajax:"],
+referencedClasses: []
+}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alert:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._alert_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.BrowserInterface)})},
+args: ["aString"],
+source: "alert: aString\x0a\x09^window alert: aString",
+messageSends: ["alert:"],
+referencedClasses: []
+}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirm:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._confirm_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},smalltalk.BrowserInterface)})},
+args: ["aString"],
+source: "confirm: aString\x0a\x09^window confirm: aString",
+messageSends: ["confirm:"],
+referencedClasses: []
+}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isAvailable",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return typeof window !== "undefined" && typeof jQuery !== "undefined";
+return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},smalltalk.BrowserInterface)})},
+args: [],
+source: "isAvailable\x0a<return typeof window !== \x22undefined\x22 && typeof jQuery !== \x22undefined\x22>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._prompt_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},smalltalk.BrowserInterface)})},
+args: ["aString"],
+source: "prompt: aString\x0a\x09^window prompt: aString",
+messageSends: ["prompt:"],
+referencedClasses: []
+}),
+smalltalk.BrowserInterface);
+
+
+smalltalk.BrowserInterface.klass.iVarNames = ['uiWorker','ajaxWorker'];
+
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.HTMLCanvas.comment="I am a canvas for building HTML.\x0a\x0aI provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.\x0a\x0a## API\x0a\x0aMy instances are used as the argument of the `#renderOn:` method of `Widget` objects.\x0a\x0aThe `#with:` method is used to compose HTML, nesting tags. `#with:` can take a `TagBrush`, a `String`, a `BlockClosure` or a `Widget` as argument.\x0a\x0a## Usage example:\x0a\x0a    aCanvas a \x0a        with: [ aCanvas span with: 'click me' ];\x0a        onClick: [ window alert: 'clicked!' ]";
 smalltalk.addMethod(
@@ -2623,12 +2716,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._jQuery_(self._element());
+$1=_st(self._element())._asJQuery();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJQuery",{},smalltalk.TagBrush)})},
 args: [],
-source: "asJQuery\x0a\x09^window jQuery: self element",
-messageSends: ["jQuery:", "element"],
+source: "asJQuery\x0a\x09^self element asJQuery",
+messageSends: ["asJQuery", "element"],
 referencedClasses: []
 }),
 smalltalk.TagBrush);
@@ -3628,7 +3721,7 @@ referencedClasses: []
 smalltalk.StyleTag.klass);
 
 
-smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
+smalltalk.addClass('Widget', smalltalk.InterfacingObject, [], 'Canvas');
 smalltalk.Widget.comment="I am a presenter building HTML. Subclasses are typically reusable components.\x0a\x0a## API\x0a\x0aUse `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).\x0a\x0aTo add a widget to the page, the convenience method `#appendToJQuery:` is very useful.\x0a\x0aExemple: \x0a\x0a    Counter new appendToJQuery: 'body' asJQuery";
 smalltalk.addMethod(
 smalltalk.method({

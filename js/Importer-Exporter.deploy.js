@@ -719,19 +719,19 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('PackageHandler', smalltalk.InterfacingObject, [], 'Importer-Exporter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ajaxPutAt:data:",
 fn: function (aURL,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._from_(["type".__minus_gt("PUT"),"data".__minus_gt(aString),"contentType".__minus_gt("text/plain;charset=UTF-8"),"error".__minus_gt((function(xhr){
+self._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(aURL),"type".__minus_gt("PUT"),"data".__minus_gt(aString),"contentType".__minus_gt("text/plain;charset=UTF-8"),"error".__minus_gt((function(xhr){
 return smalltalk.withContext(function($ctx2) {
 return self._error_(_st(_st(_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
 }, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.PackageHandler)})},
-messageSends: ["ajax:options:", "->", "error:", ",", "responseText"]}),
+messageSends: ["ajax:", "->", "error:", ",", "responseText"]}),
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
@@ -763,7 +763,7 @@ var url;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 url=_st(_st(_st("/".__comma(aString)).__comma("/js/")).__comma(packageName)).__comma(".js");
-_st(jQuery)._ajax_options_(url,smalltalk.HashedCollection._from_(["type".__minus_gt("GET"),"dataType".__minus_gt("script"),"complete".__minus_gt((function(jqXHR,textStatus){
+self._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(url),"type".__minus_gt("GET"),"dataType".__minus_gt("script"),"complete".__minus_gt((function(jqXHR,textStatus){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(jqXHR)._readyState()).__eq((4));
 if(smalltalk.assert($1)){
@@ -771,10 +771,10 @@ return self._setupPackageNamed_prefix_(packageName,aString);
 };
 }, function($ctx2) {$ctx2.fillBlock({jqXHR:jqXHR,textStatus:textStatus},$ctx1)})})),"error".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(window)._alert_("Could not load package at: ".__comma(url));
+return self._alert_("Could not load package at: ".__comma(url));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.PackageHandler)})},
-messageSends: [",", "ajax:options:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"]}),
+messageSends: [",", "ajax:", "->", "ifTrue:", "setupPackageNamed:prefix:", "=", "readyState", "alert:"]}),
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(

@@ -680,12 +680,6 @@ constructor: aString value:anObject value: anObject2 value:anObject3
 !NativeFunction class methodsFor: 'testing'!
 
 exists: aString
-	<
-		if(aString in window) {
-			return true
-		} else {
-			return false
-		}
-	>
+	^PlatformInterface existsGlobal: aString
 ! !
 
