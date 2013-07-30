@@ -1665,6 +1665,17 @@ confirm: aString
 		ifNil: [ self error: 'confirm: not available' ]
 !
 
+existsGlobal: aString
+<
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !!/^[\\w_]+$/.test(aString))\n'+
+	'	return false;\n'+
+	'try { eval(aString); return true; } catch (ex) {}\n'+
+	'return false;');
+	return f(aString);
+>
+!
+
 prompt: aString
 	^worker
 		ifNotNil: [ worker prompt: aString ]

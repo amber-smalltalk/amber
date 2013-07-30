@@ -858,7 +858,7 @@ compileMethodDefinitionFor: aClass
 	method := compiler eval: (compiler compileNode: node).
 	compiler unknownVariables do: [:each |
 		"Do not try to redeclare javascript's objects"
-		(window at: each) ifNil: [
+		(PlatformInterface existsGlobal: each) ifFalse: [
 		(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^self compileMethodDefinitionFor: aClass]]].

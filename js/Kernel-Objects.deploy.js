@@ -3544,6 +3544,23 @@ smalltalk.PlatformInterface.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "existsGlobal:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !/^[\\w_]+$/.test(aString))\n'+
+	'	return false;\n'+
+	'try { eval(aString); return true; } catch (ex) {}\n'+
+	'return false;');
+	return f(aString);;
+return self}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
+messageSends: []}),
+smalltalk.PlatformInterface.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 fn: function (){
 var self=this;
