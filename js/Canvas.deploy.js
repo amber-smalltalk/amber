@@ -2609,18 +2609,7 @@ messageSends: ["initializeFromString:canvas:", "new", "yourself"]}),
 smalltalk.StyleTag.klass);
 
 
-smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "alert:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(window)._alert_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.Widget)})},
-messageSends: ["alert:"]}),
-smalltalk.Widget);
-
+smalltalk.addClass('Widget', smalltalk.InterfacingObject, [], 'Canvas');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",
@@ -2642,32 +2631,6 @@ return smalltalk.withContext(function($ctx1) {
 self._renderOn_(_st($HTMLCanvas())._onJQuery_(aJQuery));
 return self}, function($ctx1) {$ctx1.fill(self,"appendToJQuery:",{aJQuery:aJQuery},smalltalk.Widget)})},
 messageSends: ["renderOn:", "onJQuery:"]}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "confirm:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._confirm_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},smalltalk.Widget)})},
-messageSends: ["confirm:"]}),
-smalltalk.Widget);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "prompt:",
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(window)._prompt_(aString);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},smalltalk.Widget)})},
-messageSends: ["prompt:"]}),
 smalltalk.Widget);
 
 smalltalk.addMethod(

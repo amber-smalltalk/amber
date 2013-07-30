@@ -1038,7 +1038,7 @@ canvas: aCanvas
 	yourself
 ! !
 
-Object subclass: #Widget
+InterfacingObject subclass: #Widget
 	instanceVariableNames: ''
 	package: 'Canvas'!
 !Widget commentStamp!
@@ -1053,20 +1053,6 @@ To add a widget to the page, the convenience method `#appendToJQuery:` is very u
 Exemple: 
 
     Counter new appendToJQuery: 'body' asJQuery!
-
-!Widget methodsFor: 'actions'!
-
-alert: aString
-	window alert: aString
-!
-
-confirm: aString
-	^window confirm: aString
-!
-
-prompt: aString
-	^window prompt: aString
-! !
 
 !Widget methodsFor: 'adding'!
 
