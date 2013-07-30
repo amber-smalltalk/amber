@@ -924,7 +924,7 @@ Object subclass: #InterfacingObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !InterfacingObject commentStamp!
-I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.
 
 ## API
 
@@ -1624,15 +1624,16 @@ Object subclass: #PlatformInterface
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !PlatformInterface commentStamp!
-I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me.
+I am single entry point to UI and environment interface.
+My `initialize` tries several options (for now, browser environment only) to set myself up.
 
 ## API
 
-    self alert: 'Hey, there is a problem'.
-    self confirm: 'Affirmative?'.
-    self prompt: 'Your name:'.
+    PlatformInterface alert: 'Hey, there is a problem'.
+    PlatformInterface confirm: 'Affirmative?'.
+    PlatformInterface prompt: 'Your name:'.
 
-    self ajax: #{
+    PlatformInterface ajax: #{
         'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
     }.!
 
