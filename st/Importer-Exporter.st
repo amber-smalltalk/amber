@@ -87,9 +87,9 @@ exportPackage: packageName on: stream
 	"Export a given package by name."
 
 	| package |
-	self exportPackagePrologueOn: stream.
+	package := Smalltalk current packageAt: packageName.
+	self exportPackagePrologueOf: package on: stream.
 	[
-		package := Smalltalk current packageAt: packageName.
 		self exportPackageDefinitionOf: package on: stream.
 
 		"Export classes in dependency order.
@@ -98,7 +98,7 @@ exportPackage: packageName on: stream
 			self exportClass: each on: stream ].
 		self exportPackageExtensionsOf: package on: stream
 	] ensure: [
-		self exportPackageEpilogueOn: stream
+		self exportPackageEpilogueOf: package on: stream
 	]
 ! !
 
@@ -183,7 +183,7 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
-exportPackageEpilogueOn: aStream
+exportPackageEpilogueOf: aPackage on: aStream
 	aStream
 		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
 		lf
@@ -201,7 +201,7 @@ exportPackageExtensionsOf: package on: aStream
 					self exportMethod: method on: aStream ]]]]
 !
 
-exportPackagePrologueOn: aStream
+exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: '(function(smalltalk,nil,_st){';
 		lf
@@ -307,7 +307,7 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
-exportPackageEpilogueOn: aStream
+exportPackageEpilogueOf: aPackage on: aStream.
 !
 
 exportPackageExtensionsOf: package on: aStream
@@ -329,7 +329,7 @@ exportPackageExtensionsOf: package on: aStream
 				self exportCategory: #{ 'methods'->methods. 'name'->category. 'class'->aClass} on: aStream ]]]
 !
 
-exportPackagePrologueOn: aStream
+exportPackagePrologueOf: aPackage on: aStream.
 ! !
 
 Exporter subclass: #StrippedExporter

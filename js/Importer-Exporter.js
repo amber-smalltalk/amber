@@ -309,11 +309,10 @@ var self=this;
 var package_;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-self._exportPackagePrologueOn_(stream);
+package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
+self._exportPackagePrologueOf_on_(package_,stream);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
-package_;
 self._exportPackageDefinitionOf_on_(package_,stream);
 _st(_st(_st(package_)._sortedClasses())._asSet())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
@@ -322,12 +321,12 @@ return self._exportClass_on_(each,stream);
 return self._exportPackageExtensionsOf_on_(package_,stream);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._exportPackageEpilogueOn_(stream);
+return self._exportPackageEpilogueOf_on_(package_,stream);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{packageName:packageName,stream:stream,package_:package_},smalltalk.Exporter)})},
 args: ["packageName", "stream"],
-source: "exportPackage: packageName on: stream\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09self exportPackagePrologueOn: stream.\x0a\x09[\x0a\x09\x09package := Smalltalk current packageAt: packageName.\x0a\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x22Export classes in dependency order.\x0a\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09self exportClass: each on: stream ].\x0a\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09] ensure: [\x0a\x09\x09self exportPackageEpilogueOn: stream\x0a\x09]",
-messageSends: ["exportPackagePrologueOn:", "ensure:", "exportPackageEpilogueOn:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "exportClass:on:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
+source: "exportPackage: packageName on: stream\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09package := Smalltalk current packageAt: packageName.\x0a\x09self exportPackagePrologueOf: package on: stream.\x0a\x09[\x0a\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x22Export classes in dependency order.\x0a\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09self exportClass: each on: stream ].\x0a\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09] ensure: [\x0a\x09\x09self exportPackageEpilogueOf: package on: stream\x0a\x09]",
+messageSends: ["packageAt:", "current", "exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOf:on:", "exportPackageDefinitionOf:on:", "do:", "exportClass:on:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Exporter);
@@ -354,18 +353,18 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackageEpilogueOn:",
+selector: "exportPackageEpilogueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
 _st($1)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOn:",{aStream:aStream},smalltalk.Exporter)})},
-args: ["aStream"],
-source: "exportPackageEpilogueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: []
 }),
@@ -409,18 +408,18 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
+selector: "exportPackagePrologueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
 _st($1)._nextPutAll_("(function(smalltalk,nil,_st){");
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.Exporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: []
 }),
@@ -665,14 +664,14 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackageEpilogueOn:",
+selector: "exportPackageEpilogueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOn:",{aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aStream"],
-source: "exportPackageEpilogueOn: aStream",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageEpilogueOf: aPackage on: aStream.",
 messageSends: [],
 referencedClasses: []
 }),
@@ -726,14 +725,14 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportPackagePrologueOn:",
+selector: "exportPackagePrologueOf:on:",
 category: 'private',
-fn: function (aStream){
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream.",
 messageSends: [],
 referencedClasses: []
 }),
