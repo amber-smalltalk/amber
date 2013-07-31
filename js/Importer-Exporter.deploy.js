@@ -101,12 +101,12 @@ $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(pkg){
 return smalltalk.withContext(function($ctx3) {
-return self._exportPackage_on_(_st(pkg)._name(),stream);
+return self._exportPackage_on_(pkg,stream);
 }, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"exportAll",{},smalltalk.Exporter)})},
-messageSends: ["streamContents:", "do:", "exportPackage:on:", "name", "packages", "current"]}),
+messageSends: ["streamContents:", "do:", "exportPackage:on:", "packages", "current"]}),
 smalltalk.Exporter);
 
 smalltalk.addMethod(
@@ -251,12 +251,9 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackage:on:",
-fn: function (packageName,stream){
+fn: function (package_,stream){
 var self=this;
-var package_;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
 self._exportPackagePrologueOf_on_(package_,stream);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -270,8 +267,8 @@ return self._exportPackageExtensionsOf_on_(package_,stream);
 return smalltalk.withContext(function($ctx2) {
 return self._exportPackageEpilogueOf_on_(package_,stream);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{packageName:packageName,stream:stream,package_:package_},smalltalk.Exporter)})},
-messageSends: ["packageAt:", "current", "exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOf:on:", "exportPackageDefinitionOf:on:", "do:", "exportClass:on:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{package_:package_,stream:stream},smalltalk.Exporter)})},
+messageSends: ["exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOf:on:", "exportPackageDefinitionOf:on:", "do:", "exportClass:on:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"]}),
 smalltalk.Exporter);
 
 smalltalk.addMethod(
@@ -736,13 +733,13 @@ var fileContents;
 return smalltalk.withContext(function($ctx2) {
 fileContents=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(commitStrategy)._key())._new())._exportPackage_on_(_st(aPackage)._name(),stream);
+return _st(_st(_st(commitStrategy)._key())._new())._exportPackage_on_(aPackage,stream);
 }, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2)})}));
 fileContents;
 return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
-messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "name", "new", "key", "ajaxPutAt:data:", "value", ",", "->", "commitPathJs", "commitPathSt"]}),
+messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "new", "key", "ajaxPutAt:data:", "value", ",", "name", "->", "commitPathJs", "commitPathSt"]}),
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(

@@ -71,7 +71,7 @@ exportAll
 
 	^String streamContents: [:stream |
 		Smalltalk current packages do: [:pkg |
-		self exportPackage: pkg name on: stream]]
+		self exportPackage: pkg on: stream]]
 !
 
 exportClass: aClass on: aStream
@@ -83,11 +83,9 @@ exportClass: aClass on: aStream
 	self exportMethodsOf: aClass class on: aStream
 !
 
-exportPackage: packageName on: stream
-	"Export a given package by name."
+exportPackage: package on: stream
+	"Export a given package."
 
-	| package |
-	package := Smalltalk current packageAt: packageName.
 	self exportPackagePrologueOf: package on: stream.
 	[
 		self exportPackageDefinitionOf: package on: stream.
@@ -415,7 +413,7 @@ commit: aPackage
 	} 
 		do: [ :commitStrategy|| fileContents |
 			fileContents := String streamContents: [ :stream |
-				commitStrategy key new exportPackage: aPackage name on: stream ].
+				commitStrategy key new exportPackage: aPackage on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
 ! !

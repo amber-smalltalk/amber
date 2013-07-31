@@ -124,14 +124,14 @@ $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(pkg){
 return smalltalk.withContext(function($ctx3) {
-return self._exportPackage_on_(_st(pkg)._name(),stream);
+return self._exportPackage_on_(pkg,stream);
 }, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"exportAll",{},smalltalk.Exporter)})},
 args: [],
-source: "exportAll\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09self exportPackage: pkg name on: stream]]",
-messageSends: ["streamContents:", "do:", "exportPackage:on:", "name", "packages", "current"],
+source: "exportAll\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09self exportPackage: pkg on: stream]]",
+messageSends: ["streamContents:", "do:", "exportPackage:on:", "packages", "current"],
 referencedClasses: ["Smalltalk", "String"]
 }),
 smalltalk.Exporter);
@@ -304,12 +304,9 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackage:on:",
 category: 'fileOut',
-fn: function (packageName,stream){
+fn: function (package_,stream){
 var self=this;
-var package_;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
 self._exportPackagePrologueOf_on_(package_,stream);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -323,11 +320,11 @@ return self._exportPackageExtensionsOf_on_(package_,stream);
 return smalltalk.withContext(function($ctx2) {
 return self._exportPackageEpilogueOf_on_(package_,stream);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{packageName:packageName,stream:stream,package_:package_},smalltalk.Exporter)})},
-args: ["packageName", "stream"],
-source: "exportPackage: packageName on: stream\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09package := Smalltalk current packageAt: packageName.\x0a\x09self exportPackagePrologueOf: package on: stream.\x0a\x09[\x0a\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x22Export classes in dependency order.\x0a\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09self exportClass: each on: stream ].\x0a\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09] ensure: [\x0a\x09\x09self exportPackageEpilogueOf: package on: stream\x0a\x09]",
-messageSends: ["packageAt:", "current", "exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOf:on:", "exportPackageDefinitionOf:on:", "do:", "exportClass:on:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
-referencedClasses: ["Smalltalk"]
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{package_:package_,stream:stream},smalltalk.Exporter)})},
+args: ["package", "stream"],
+source: "exportPackage: package on: stream\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09self exportPackagePrologueOf: package on: stream.\x0a\x09[\x0a\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x22Export classes in dependency order.\x0a\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09self exportClass: each on: stream ].\x0a\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09] ensure: [\x0a\x09\x09self exportPackageEpilogueOf: package on: stream\x0a\x09]",
+messageSends: ["exportPackagePrologueOf:on:", "ensure:", "exportPackageEpilogueOf:on:", "exportPackageDefinitionOf:on:", "do:", "exportClass:on:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
+referencedClasses: []
 }),
 smalltalk.Exporter);
 
@@ -893,15 +890,15 @@ var fileContents;
 return smalltalk.withContext(function($ctx2) {
 fileContents=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(commitStrategy)._key())._new())._exportPackage_on_(_st(aPackage)._name(),stream);
+return _st(_st(_st(commitStrategy)._key())._new())._exportPackage_on_(aPackage,stream);
 }, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2)})}));
 fileContents;
 return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
 args: ["aPackage"],
-source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09commitStrategy key new exportPackage: aPackage name on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "name", "new", "key", "ajaxPutAt:data:", "value", ",", "->", "commitPathJs", "commitPathSt"],
+source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09commitStrategy key new exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
+messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "new", "key", "ajaxPutAt:data:", "value", ",", "name", "->", "commitPathJs", "commitPathSt"],
 referencedClasses: ["String", "Exporter", "StrippedExporter", "ChunkExporter"]
 }),
 smalltalk.PackageHandler);
