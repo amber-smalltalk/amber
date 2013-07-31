@@ -90,7 +90,7 @@ exportPackage: packageName
 	| package |
 	^String streamContents: [:stream |
 		package := Smalltalk current packageAt: packageName.
-		self exportPackagePrologueOf: package on: stream.
+		self exportAmdPackagePrologueOf: package on: stream.
 		[
 			self exportPackageDefinitionOf: package on: stream.
 
@@ -100,7 +100,7 @@ exportPackage: packageName
 						stream nextPutAll: (self exportClass: each)].
 			self exportPackageExtensionsOf: package on: stream
 		] ensure: [
-			self exportPackageEpilogueOn: stream
+			self exportAmdPackageEpilogueOn: stream
 		]]
 ! !
 
@@ -113,6 +113,20 @@ classNameFor: aClass
 		aClass isNil
 			ifTrue: ['nil']
 			ifFalse: [aClass name]]
+!
+
+exportAmdPackageEpilogueOn: aStream
+	aStream
+		nextPutAll: '});';
+		lf
+!
+
+exportAmdPackagePrologueOf: aPackage on: aStream
+	aStream
+		nextPutAll: 'define("amber/';
+		nextPutAll: aPackage name;
+		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
+		lf
 !
 
 exportDefinitionOf: aClass on: aStream
@@ -185,12 +199,6 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
-exportPackageEpilogueOn: aStream
-	aStream
-		nextPutAll: '});';
-		lf
-!
-
 exportPackageExtensionsOf: package on: aStream
 	"Issue #143: sort classes and methods alphabetically"
 
@@ -201,14 +209,6 @@ exportPackageExtensionsOf: package on: aStream
 			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
 				(method category match: '^\*', name) ifTrue: [
 					self exportMethod: method of: aClass on: aStream ]]]]
-!
-
-exportPackagePrologueOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'define("amber/';
-		nextPutAll: aPackage name;
-		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
-		lf
 ! !
 
 Exporter subclass: #ChunkExporter
@@ -234,6 +234,12 @@ classNameFor: aClass
 		aClass isNil
 			ifTrue: ['nil']
 			ifFalse: [aClass name]]
+!
+
+exportAmdPackageEpilogueOn: aStream
+!
+
+exportAmdPackagePrologueOf: aPackage on: aStream
 !
 
 exportDefinitionOf: aClass on: aStream
@@ -310,9 +316,6 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
-exportPackageEpilogueOn: aStream
-!
-
 exportPackageExtensionsOf: package on: aStream
 	"We need to override this one too since we need to group
 	all methods in a given protocol under a leading methodsFor: chunk
@@ -330,9 +333,6 @@ exportPackageExtensionsOf: package on: aStream
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 				methods := map at: category.
 				self exportMethods: methods category: category of: aClass on: aStream ]]]
-!
-
-exportPackagePrologueOf: aPackage on: aStream
 ! !
 
 Exporter subclass: #StrippedExporter
