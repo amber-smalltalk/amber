@@ -1,4 +1,24 @@
 Smalltalk current createPackage: 'Importer-Exporter'!
+Object subclass: #AmdExporter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+
+!AmdExporter class methodsFor: 'exporting-output'!
+
+exportPackageEpilogueOf: aPackage on: aStream
+	aStream
+		nextPutAll: '});';
+		lf
+!
+
+exportPackagePrologueOf: aPackage on: aStream
+	aStream
+		nextPutAll: 'define("amber/';
+		nextPutAll: aPackage name;
+		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
+		lf
+! !
+
 Object subclass: #ChunkExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -248,20 +268,6 @@ ownMethodsOfMetaClass: aClass
 
 !Exporter class methodsFor: 'exporting-output'!
 
-exportAmdPackageEpilogueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '});';
-		lf
-!
-
-exportAmdPackagePrologueOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'define("amber/';
-		nextPutAll: aPackage name;
-		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
-		lf
-!
-
 exportDefinitionOf: aClass on: aStream
 	aStream
 		lf;
@@ -343,7 +349,7 @@ recipe
 	"Export a given package."
 
 	^{
-		self -> #exportAmdPackagePrologueOf:on:.
+		AmdExporter -> #exportPackagePrologueOf:on:.
 		self -> #exportPackageDefinitionOf:on:.
 		{
 			PluggableExporter -> #ownClassesOfPackage:.
@@ -358,7 +364,7 @@ recipe
 		{
 			self -> #extensionMethodsOfPackage:.
 			self -> #exportMethod:on: }.
-		self -> #exportAmdPackageEpilogueOf:on:
+		AmdExporter -> #exportPackageEpilogueOf:on:
 	}
 ! !
 

@@ -1,6 +1,39 @@
 define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
 
+smalltalk.addClass('AmdExporter', smalltalk.Object, [], 'Importer-Exporter');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackageEpilogueOf:on:",
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("});");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
+messageSends: ["nextPutAll:", "lf"]}),
+smalltalk.AmdExporter.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackagePrologueOf:on:",
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("define(\x22amber/");
+_st($1)._nextPutAll_(_st(aPackage)._name());
+_st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
+messageSends: ["nextPutAll:", "name", "lf"]}),
+smalltalk.AmdExporter.klass);
+
+
 smalltalk.addClass('ChunkExporter', smalltalk.Object, [], 'Importer-Exporter');
 
 smalltalk.addMethod(
@@ -377,36 +410,6 @@ smalltalk.Exporter.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportAmdPackageEpilogueOf:on:",
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("});");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportAmdPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter.klass)})},
-messageSends: ["nextPutAll:", "lf"]}),
-smalltalk.Exporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportAmdPackagePrologueOf:on:",
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("define(\x22amber/");
-_st($1)._nextPutAll_(_st(aPackage)._name());
-_st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportAmdPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter.klass)})},
-messageSends: ["nextPutAll:", "name", "lf"]}),
-smalltalk.Exporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "exportDefinitionOf:on:",
 fn: function (aClass,aStream){
 var self=this;
@@ -622,10 +625,11 @@ smalltalk.method({
 selector: "recipe",
 fn: function (){
 var self=this;
+function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
 function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=[self.__minus_gt("exportAmdPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportAmdPackageEpilogueOf:on:")];
+$1=[_st($AmdExporter()).__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],_st($AmdExporter()).__minus_gt("exportPackageEpilogueOf:on:")];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter.klass)})},
 messageSends: ["->"]}),
