@@ -24,6 +24,7 @@ require = function (require) {
             'amber_vm/boot': '../boot',
             'amber_vm/parser': '../parser',
             'amber': '..',
+            'amber/_source': '../../st',
             'jquery': 'jQuery/jquery-1.8.2.min',
             'jquery-ui': 'jQuery/jquery-ui-1.8.16.custom.min'
         },
@@ -121,7 +122,7 @@ require = function (require) {
                 deps: [ 'amber/Compiler-IR' ]
             },
             'amber/Compiler-Interpreter': {
-                deps: [ 'amber/Compiler-Core' ]
+                deps: [ 'amber/Compiler-AST' ]
             },
             'amber/IDE': {
                 deps: [ 'amber/Canvas', 'amber/Kernel-Exceptions' ]
