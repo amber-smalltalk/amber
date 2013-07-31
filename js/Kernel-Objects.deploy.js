@@ -2185,7 +2185,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
 if(($receiver = $2) == nil || $receiver == undefined){
-$1=smalltalk.Object.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+$1=smalltalk.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
 var jsSelector;
 jsSelector=$receiver;
@@ -2297,7 +2297,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._at_ifAbsent_("value",(function(){
 return smalltalk.withContext(function($ctx2) {
-return smalltalk.Object.fn.prototype._value.apply(_st(self), []);
+return smalltalk.JSObjectProxy.superclass.fn.prototype._value.apply(_st(self), []);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.JSObjectProxy)})},
@@ -3013,7 +3013,7 @@ function $ProtocolAdded(){return smalltalk.ProtocolAdded||(typeof ProtocolAdded=
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Organizer.fn.prototype._addElement_.apply(_st(self), [aString]);
+smalltalk.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]);
 $1=_st($ProtocolAdded())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -3032,7 +3032,7 @@ function $ProtocolRemoved(){return smalltalk.ProtocolRemoved||(typeof ProtocolRe
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Organizer.fn.prototype._removeElement_.apply(_st(self), [aString]);
+smalltalk.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]);
 $1=_st($ProtocolRemoved())._new();
 _st($1)._protocol_(aString);
 _st($1)._theClass_(self._theClass());
@@ -3183,7 +3183,7 @@ fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-smalltalk.Object.fn.prototype._printOn_.apply(_st(self), [aStream]);
+smalltalk.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_(" (");
 _st($1)._nextPutAll_(self._name());
@@ -3310,7 +3310,7 @@ selector: "initialize",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.Object.klass.fn.prototype._initialize.apply(_st(self), []);
+smalltalk.Package.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._commitPathsFromLoader();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Package.klass)})},
 messageSends: ["initialize", "commitPathsFromLoader"]}),
