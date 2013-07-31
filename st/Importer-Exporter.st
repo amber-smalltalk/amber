@@ -150,7 +150,7 @@ exportMetaDefinitionOf: aClass on: aStream
 		aStream nextPutAll: '];', String lf]
 !
 
-exportMethod: aMethod of: aClass on: aStream
+exportMethod: aMethod on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
 		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
@@ -165,7 +165,7 @@ exportMethod: aMethod of: aClass on: aStream
 	aStream
 		lf;
 		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
+		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
 !
 
@@ -174,7 +174,7 @@ exportMethodsOf: aClass on: aStream
 
 	((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:each |
 		(each category match: '^\*') ifFalse: [
-			self exportMethod: each of: aClass on: aStream]].
+			self exportMethod: each on: aStream]].
 	aStream lf
 !
 
@@ -200,7 +200,7 @@ exportPackageExtensionsOf: package on: aStream
 		{each. each class} do: [:aClass |
 			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
 				(method category match: '^\*', name) ifTrue: [
-					self exportMethod: method of: aClass on: aStream ]]]]
+					self exportMethod: method on: aStream ]]]]
 !
 
 exportPackagePrologueOn: aStream
@@ -267,7 +267,7 @@ exportMetaDefinitionOf: aClass on: aStream
 			nextPutAll: '''!!'; lf; lf]
 !
 
-exportMethod: aMethod of: aClass on: aStream
+exportMethod: aMethod on: aStream
 	aStream
 		lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;
 		nextPutAll: '!!'
@@ -280,7 +280,7 @@ exportMethods: methods category: category of: aClass on: aStream
 		nextPutAll: '!!', (self classNameFor: aClass);
 		nextPutAll: ' methodsFor: ''', category, '''!!'.
 		(methods sorted: [:a :b | a selector <= b selector]) do: [:each |
-				self exportMethod: each of: aClass on: aStream].
+				self exportMethod: each on: aStream].
 	aStream nextPutAll: ' !!'; lf; lf
 !
 
@@ -357,7 +357,7 @@ exportDefinitionOf: aClass on: aStream
 	aStream lf
 !
 
-exportMethod: aMethod of: aClass on: aStream
+exportMethod: aMethod on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
 		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
@@ -366,7 +366,7 @@ exportMethod: aMethod of: aClass on: aStream
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;
 		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass);
+		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
 ! !
 
