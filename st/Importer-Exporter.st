@@ -71,37 +71,35 @@ exportAll
 
 	^String streamContents: [:stream |
 		Smalltalk current packages do: [:pkg |
-		stream nextPutAll: (self exportPackage: pkg name)]]
+		self exportPackage: pkg name on: stream]]
 !
 
-exportClass: aClass
+exportClass: aClass on: aStream
 	"Export a single class. Subclasses override these methods."
 
-	^String streamContents: [:stream |
-		self exportDefinitionOf: aClass on: stream.
-		self exportMethodsOf: aClass on: stream.
-		self exportMetaDefinitionOf: aClass on: stream.
-		self exportMethodsOf: aClass class on: stream]
+	self exportDefinitionOf: aClass on: aStream.
+	self exportMethodsOf: aClass on: aStream.
+	self exportMetaDefinitionOf: aClass on: aStream.
+	self exportMethodsOf: aClass class on: aStream
 !
 
-exportPackage: packageName
+exportPackage: packageName on: stream
 	"Export a given package by name."
 
 	| package |
-	^String streamContents: [:stream |
-		self exportPackagePrologueOn: stream.
-		[
-			package := Smalltalk current packageAt: packageName.
-			self exportPackageDefinitionOf: package on: stream.
+	self exportPackagePrologueOn: stream.
+	[
+		package := Smalltalk current packageAt: packageName.
+		self exportPackageDefinitionOf: package on: stream.
 
-			"Export classes in dependency order.
-			Update (issue #171): Remove duplicates for export"
-			package sortedClasses asSet do: [:each |
-						stream nextPutAll: (self exportClass: each)].
-			self exportPackageExtensionsOf: package on: stream
-		] ensure: [
-			self exportPackageEpilogueOn: stream
-		]]
+		"Export classes in dependency order.
+		Update (issue #171): Remove duplicates for export"
+		package sortedClasses asSet do: [:each |
+			self exportClass: each on: stream ].
+		self exportPackageExtensionsOf: package on: stream
+	] ensure: [
+		self exportPackageEpilogueOn: stream
+	]
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -415,7 +413,8 @@ commit: aPackage
 		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
 	} 
 		do: [ :commitStrategy|| fileContents |
-			fileContents := (commitStrategy key new exportPackage: aPackage name).
+			fileContents := String streamContents: [ :stream |
+				commitStrategy key new exportPackage: aPackage name on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
 ! !
