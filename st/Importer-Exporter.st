@@ -78,26 +78,28 @@ exportClass: aClass on: aStream
 	"Export a single class. Subclasses override these methods."
 
 	self exportDefinitionOf: aClass on: aStream.
-	self exportMethodsOf: aClass on: aStream.
+	(self ownMethodsOfClass: aClass) do: [ :each |
+		self exportMethod: each on: aStream
+	].
 	self exportMetaDefinitionOf: aClass on: aStream.
-	self exportMethodsOf: aClass class on: aStream
+	(self ownMethodsOfMetaClass: aClass) do: [ :each |
+		self exportMethod: each on: aStream
+	].
 !
 
 exportPackage: package on: stream
 	"Export a given package."
 
 	self exportPackagePrologueOf: package on: stream.
-	[
-		self exportPackageDefinitionOf: package on: stream.
+	self exportPackageDefinitionOf: package on: stream.
 
-		"Export classes in dependency order.
-		Update (issue #171): Remove duplicates for export"
-		package sortedClasses asSet do: [:each |
-			self exportClass: each on: stream ].
-		self exportPackageExtensionsOf: package on: stream
-	] ensure: [
-		self exportPackageEpilogueOf: package on: stream
-	]
+	(self ownClassesOfPackage: package) do: [:each |
+		self exportClass: each on: stream
+	].
+	(self extensionMethodsOfPackage: package) do: [ :each |
+		self exportMethod: each on: stream
+	].
+	self exportPackageEpilogueOf: package on: stream
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -113,6 +115,7 @@ classNameFor: aClass
 
 exportDefinitionOf: aClass on: aStream
 	aStream
+		lf;
 		nextPutAll: 'smalltalk.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
@@ -136,6 +139,7 @@ exportDefinitionOf: aClass on: aStream
 !
 
 exportMetaDefinitionOf: aClass on: aStream
+	aStream lf.
 	aClass class instanceVariableNames isEmpty ifFalse: [
 		aStream
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
@@ -165,15 +169,6 @@ exportMethod: aMethod on: aStream
 		nextPutAll: ');';lf;lf
 !
 
-exportMethodsOf: aClass on: aStream
-	"Issue #143: sort methods alphabetically"
-
-	((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:each |
-		(each category match: '^\*') ifFalse: [
-			self exportMethod: each on: aStream]].
-	aStream lf
-!
-
 exportPackageDefinitionOf: package on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addPackage(';
@@ -187,22 +182,43 @@ exportPackageEpilogueOf: aPackage on: aStream
 		lf
 !
 
-exportPackageExtensionsOf: package on: aStream
-	"Issue #143: sort classes and methods alphabetically"
-
-	| name |
-	name := package name.
-	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass |
-			((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |
-				(method category match: '^\*', name) ifTrue: [
-					self exportMethod: method on: aStream ]]]]
-!
-
 exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: '(function(smalltalk,nil,_st){';
 		lf
+!
+
+extensionMethodsOfPackage: package
+	"Issue #143: sort classes and methods alphabetically"
+
+	| name result |
+	name := package name.
+	result := OrderedCollection new.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			result addAll: (((aClass methodDictionary values)
+				sorted: [:a :b | a selector <= b selector])
+				select: [:method | method category match: '^\*', name]) ]].
+	^result
+!
+
+ownClassesOfPackage: package
+	"Export classes in dependency order.
+	Update (issue #171): Remove duplicates for export"
+	^package sortedClasses asSet
+!
+
+ownMethodsOfClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
+		reject: [:each | (each category match: '^\*')]
+!
+
+ownMethodsOfMetaClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^self ownMethodsOfClass: aClass class
 ! !
 
 Exporter subclass: #ChunkExporter
@@ -212,6 +228,34 @@ Exporter subclass: #ChunkExporter
 I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.
 
 I do not output any compiled code.!
+
+!ChunkExporter methodsFor: 'fileOut'!
+
+exportClass: aClass on: aStream
+	"Export a single class. Subclasses override these methods."
+
+	self exportDefinitionOf: aClass on: aStream.
+	(self ownCategoriesOfClass: aClass) do: [ :each |
+		self exportCategory: each on: aStream
+	].
+	self exportMetaDefinitionOf: aClass on: aStream.
+	(self ownCategoriesOfMetaClass: aClass) do: [ :each |
+		self exportCategory: each on: aStream
+	].
+!
+
+exportPackage: package on: stream
+	"Export a given package."
+
+	self exportPackageDefinitionOf: package on: stream.
+
+	(self ownClassesOfPackage: package) do: [:each |
+		self exportClass: each on: stream
+	].
+	(self extensionCategoriesOfPackage: package) do: [ :each |
+		self exportCategory: each on: stream
+	]
+! !
 
 !ChunkExporter methodsFor: 'private'!
 
@@ -280,23 +324,6 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '!!'
 !
 
-exportMethodsOf: aClass on: aStream
-	"Issue #143: sort protocol alphabetically"
-
-	| map |
-	map := Dictionary new.
-	aClass protocolsDo: [:category :methods |
-		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
-	(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
-		methods := map at: category.
-		self
-			exportCategory: #{
-				'methods'->methods.
-				'name'->category.
-				'class'->aClass }
-			on: aStream ]
-!
-
 exportPackageDefinitionOf: package on: aStream
 	"Chunk format."
 
@@ -305,29 +332,40 @@ exportPackageDefinitionOf: package on: aStream
 		lf
 !
 
-exportPackageEpilogueOf: aPackage on: aStream.
-!
-
-exportPackageExtensionsOf: package on: aStream
-	"We need to override this one too since we need to group
-	all methods in a given protocol under a leading methodsFor: chunk
-	for that class."
-
+extensionCategoriesOfPackage: package
 	"Issue #143: sort protocol alphabetically"
 
-	| name map |
+	| name map result |
 	name := package name.
+	result := OrderedCollection new.
 	(Package sortedClasses: Smalltalk current classes) do: [:each |
 		{each. each class} do: [:aClass |
 			map := Dictionary new.
 			aClass protocolsDo: [:category :methods |
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
-			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
-				methods := map at: category.
-				self exportCategory: #{ 'methods'->methods. 'name'->category. 'class'->aClass} on: aStream ]]]
+			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
+				#{ 'methods'->(map at: category). 'name'->category. 'class'->aClass}]) ]].
+	^result
 !
 
-exportPackagePrologueOf: aPackage on: aStream.
+ownCategoriesOfClass: aClass
+	"Issue #143: sort protocol alphabetically"
+
+	| map |
+	map := Dictionary new.
+	aClass protocolsDo: [:category :methods |
+		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
+	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
+		#{
+			'methods'->(map at: category).
+			'name'->category.
+			'class'->aClass }]
+!
+
+ownCategoriesOfMetaClass: aClass
+	"Issue #143: sort protocol alphabetically"
+
+	^self ownCategoriesOfClass: aClass class
 ! !
 
 Exporter subclass: #StrippedExporter
@@ -340,6 +378,7 @@ I export Amber code into a JavaScript string, but without any optional associate
 
 exportDefinitionOf: aClass on: aStream
 	aStream
+		lf;
 		nextPutAll: 'smalltalk.addClass(';
 		nextPutAll: '''', (self classNameFor: aClass), ''', ';
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
