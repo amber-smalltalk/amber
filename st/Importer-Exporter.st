@@ -10,44 +10,54 @@ I do not output any compiled code.!
 !ChunkExporter methodsFor: 'fileOut'!
 
 recipe
-	"Export a given package."
-
-	| exportCategoryRecipe |
-	exportCategoryRecipe := {
-		self -> #exportCategoryPrologueOf:on:.
-		{
-			self -> #methodsOfCategory:.
-			self -> #exportMethod:on: }.
-		self -> #exportCategoryEpilogueOf:on: }.
-
-	^{
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
-			self -> #exportMetaDefinitionOf:on:.
-			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
-		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
-	}
+	^self class recipe
 ! !
 
-!ChunkExporter methodsFor: 'private'!
+!ChunkExporter class methodsFor: 'exporting-accessing'!
 
-chunkEscape: aString
-	"Replace all occurrences of !! with !!!! and trim at both ends."
+extensionCategoriesOfPackage: package
+	"Issue #143: sort protocol alphabetically"
 
-	^(aString replace: '!!' with: '!!!!') trimBoth
+	| name map result |
+	name := package name.
+	result := OrderedCollection new.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			map := Dictionary new.
+			aClass protocolsDo: [:category :methods |
+				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
+			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
+				#{ 'methods'->(map at: category). 'name'->category. 'class'->aClass}]) ]].
+	^result
 !
 
-classNameFor: aClass
-	^aClass isMetaclass
-		ifTrue: [aClass instanceClass name, ' class']
-		ifFalse: [
-		aClass isNil
-			ifTrue: ['nil']
-			ifFalse: [aClass name]]
+methodsOfCategory: category
+	"Issue #143: sort methods alphabetically"
+
+	^(category at: #methods) sorted: [:a :b | a selector <= b selector]
 !
+
+ownCategoriesOfClass: aClass
+	"Issue #143: sort protocol alphabetically"
+
+	| map |
+	map := Dictionary new.
+	aClass protocolsDo: [:category :methods |
+		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
+	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
+		#{
+			'methods'->(map at: category).
+			'name'->category.
+			'class'->aClass }]
+!
+
+ownCategoriesOfMetaClass: aClass
+	"Issue #143: sort protocol alphabetically"
+
+	^self ownCategoriesOfClass: aClass class
+! !
+
+!ChunkExporter class methodsFor: 'exporting-output'!
 
 exportCategoryEpilogueOf: category on: aStream
 	aStream nextPutAll: ' !!'; lf; lf
@@ -104,48 +114,48 @@ exportPackageDefinitionOf: package on: aStream
 	aStream
 		nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!!';
 		lf
+! !
+
+!ChunkExporter class methodsFor: 'fileOut'!
+
+recipe
+	"Export a given package."
+
+	| exportCategoryRecipe |
+	exportCategoryRecipe := {
+		self -> #exportCategoryPrologueOf:on:.
+		{
+			self -> #methodsOfCategory:.
+			self -> #exportMethod:on: }.
+		self -> #exportCategoryEpilogueOf:on: }.
+
+	^{
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
+			self -> #exportMetaDefinitionOf:on:.
+			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
+		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
+	}
+! !
+
+!ChunkExporter class methodsFor: 'private'!
+
+chunkEscape: aString
+	"Replace all occurrences of !! with !!!! and trim at both ends."
+
+	^(aString replace: '!!' with: '!!!!') trimBoth
 !
 
-extensionCategoriesOfPackage: package
-	"Issue #143: sort protocol alphabetically"
-
-	| name map result |
-	name := package name.
-	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass |
-			map := Dictionary new.
-			aClass protocolsDo: [:category :methods |
-				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
-			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
-				#{ 'methods'->(map at: category). 'name'->category. 'class'->aClass}]) ]].
-	^result
-!
-
-methodsOfCategory: category
-	"Issue #143: sort methods alphabetically"
-
-	^(category at: #methods) sorted: [:a :b | a selector <= b selector]
-!
-
-ownCategoriesOfClass: aClass
-	"Issue #143: sort protocol alphabetically"
-
-	| map |
-	map := Dictionary new.
-	aClass protocolsDo: [:category :methods |
-		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
-	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
-		#{
-			'methods'->(map at: category).
-			'name'->category.
-			'class'->aClass }]
-!
-
-ownCategoriesOfMetaClass: aClass
-	"Issue #143: sort protocol alphabetically"
-
-	^self ownCategoriesOfClass: aClass class
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [aClass instanceClass name, ' class']
+		ifFalse: [
+		aClass isNil
+			ifTrue: ['nil']
+			ifFalse: [aClass name]]
 ! !
 
 Object subclass: #ChunkParser
@@ -216,38 +226,39 @@ Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
 !Exporter methodsFor: 'fileOut'!
 
 recipe
-	"Export a given package."
-
-	^{
-		self -> #exportPackagePrologueOf:on:.
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfClass:.
-				self -> #exportMethod:on: }.
-			self -> #exportMetaDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfMetaClass:.
-				self -> #exportMethod:on: } }.
-		{
-			self -> #extensionMethodsOfPackage:.
-			self -> #exportMethod:on: }.
-		self -> #exportPackageEpilogueOf:on:
-	}
+	^self class recipe
 ! !
 
-!Exporter methodsFor: 'private'!
+!Exporter class methodsFor: 'exporting-accessing'!
 
-classNameFor: aClass
-	^aClass isMetaclass
-		ifTrue: [aClass instanceClass name, '.klass']
-		ifFalse: [
-		aClass isNil
-			ifTrue: ['nil']
-			ifFalse: [aClass name]]
+extensionMethodsOfPackage: package
+	"Issue #143: sort classes and methods alphabetically"
+
+	| name result |
+	name := package name.
+	result := OrderedCollection new.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			result addAll: (((aClass methodDictionary values)
+				sorted: [:a :b | a selector <= b selector])
+				select: [:method | method category match: '^\*', name]) ]].
+	^result
 !
+
+ownMethodsOfClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
+		reject: [:each | (each category match: '^\*')]
+!
+
+ownMethodsOfMetaClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^self ownMethodsOfClass: aClass class
+! !
+
+!Exporter class methodsFor: 'exporting-output'!
 
 exportDefinitionOf: aClass on: aStream
 	aStream
@@ -322,33 +333,42 @@ exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: '(function(smalltalk,nil,_st){';
 		lf
-!
+! !
 
-extensionMethodsOfPackage: package
-	"Issue #143: sort classes and methods alphabetically"
+!Exporter class methodsFor: 'fileOut'!
 
-	| name result |
-	name := package name.
-	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass |
-			result addAll: (((aClass methodDictionary values)
-				sorted: [:a :b | a selector <= b selector])
-				select: [:method | method category match: '^\*', name]) ]].
-	^result
-!
+recipe
+	"Export a given package."
 
-ownMethodsOfClass: aClass
-	"Issue #143: sort methods alphabetically"
+	^{
+		self -> #exportPackagePrologueOf:on:.
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfClass:.
+				self -> #exportMethod:on: }.
+			self -> #exportMetaDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfMetaClass:.
+				self -> #exportMethod:on: } }.
+		{
+			self -> #extensionMethodsOfPackage:.
+			self -> #exportMethod:on: }.
+		self -> #exportPackageEpilogueOf:on:
+	}
+! !
 
-	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
-		reject: [:each | (each category match: '^\*')]
-!
+!Exporter class methodsFor: 'private'!
 
-ownMethodsOfMetaClass: aClass
-	"Issue #143: sort methods alphabetically"
-
-	^self ownMethodsOfClass: aClass class
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [aClass instanceClass name, '.klass']
+		ifFalse: [
+		aClass isNil
+			ifTrue: ['nil']
+			ifFalse: [aClass name]]
 ! !
 
 Exporter subclass: #StrippedExporter
@@ -357,7 +377,7 @@ Exporter subclass: #StrippedExporter
 !StrippedExporter commentStamp!
 I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
 
-!StrippedExporter methodsFor: 'private'!
+!StrippedExporter class methodsFor: 'exporting-output'!
 
 exportDefinitionOf: aClass on: aStream
 	aStream
