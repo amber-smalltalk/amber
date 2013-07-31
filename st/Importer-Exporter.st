@@ -7,12 +7,6 @@ I am an exporter dedicated to outputting Amber source code in the classic Smallt
 
 I do not output any compiled code.!
 
-!ChunkExporter methodsFor: 'fileOut'!
-
-recipe
-	^self class recipe
-! !
-
 !ChunkExporter class methodsFor: 'exporting-accessing'!
 
 extensionCategoriesOfPackage: package
@@ -222,12 +216,6 @@ I am typically used to save code outside of the Amber runtime (committing to dis
 ## API
 
 Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
-
-!Exporter methodsFor: 'fileOut'!
-
-recipe
-	^self class recipe
-! !
 
 !Exporter class methodsFor: 'exporting-accessing'!
 
@@ -455,7 +443,7 @@ commit: aPackage
 	} 
 		do: [ :commitStrategy|| fileContents |
 			fileContents := String streamContents: [ :stream |
-				(PluggableExporter newUsing: commitStrategy key new recipe) exportPackage: aPackage on: stream ].
+				(PluggableExporter newUsing: commitStrategy key recipe) exportPackage: aPackage on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
 ! !

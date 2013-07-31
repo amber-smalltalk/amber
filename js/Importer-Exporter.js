@@ -3,24 +3,6 @@ smalltalk.addPackage('Importer-Exporter');
 
 smalltalk.addClass('ChunkExporter', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-category: 'fileOut',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._class())._recipe();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.ChunkExporter)})},
-args: [],
-source: "recipe\x0a\x09^self class recipe",
-messageSends: ["recipe", "class"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -452,24 +434,6 @@ smalltalk.ChunkParser.klass);
 
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).\x0a\x0a## API\x0a\x0aUse `#exportAll`, `#exportClass:` or `#exportPackage:` methods.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-category: 'fileOut',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._class())._recipe();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter)})},
-args: [],
-source: "recipe\x0a\x09^self class recipe",
-messageSends: ["recipe", "class"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -931,15 +895,15 @@ var fileContents;
 return smalltalk.withContext(function($ctx2) {
 fileContents=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st($PluggableExporter())._newUsing_(_st(_st(_st(commitStrategy)._key())._new())._recipe()))._exportPackage_on_(aPackage,stream);
+return _st(_st($PluggableExporter())._newUsing_(_st(_st(commitStrategy)._key())._recipe()))._exportPackage_on_(aPackage,stream);
 }, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2)})}));
 fileContents;
 return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
 args: ["aPackage"],
-source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09(PluggableExporter newUsing: commitStrategy key new recipe) exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "newUsing:", "recipe", "new", "key", "ajaxPutAt:data:", "value", ",", "name", "->", "commitPathJs", "commitPathSt"],
+source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09(PluggableExporter newUsing: commitStrategy key recipe) exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
+messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "newUsing:", "recipe", "key", "ajaxPutAt:data:", "value", ",", "name", "->", "commitPathJs", "commitPathSt"],
 referencedClasses: ["PluggableExporter", "String", "Exporter", "StrippedExporter", "ChunkExporter"]
 }),
 smalltalk.PackageHandler);

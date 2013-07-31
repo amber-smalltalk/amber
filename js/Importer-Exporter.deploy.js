@@ -2,19 +2,6 @@
 smalltalk.addPackage('Importer-Exporter');
 
 smalltalk.addClass('ChunkExporter', smalltalk.Object, [], 'Importer-Exporter');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._class())._recipe();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.ChunkExporter)})},
-messageSends: ["recipe", "class"]}),
-smalltalk.ChunkExporter);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -364,19 +351,6 @@ smalltalk.ChunkParser.klass);
 
 
 smalltalk.addClass('Exporter', smalltalk.Object, [], 'Importer-Exporter');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._class())._recipe();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter)})},
-messageSends: ["recipe", "class"]}),
-smalltalk.Exporter);
-
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -759,13 +733,13 @@ var fileContents;
 return smalltalk.withContext(function($ctx2) {
 fileContents=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st($PluggableExporter())._newUsing_(_st(_st(_st(commitStrategy)._key())._new())._recipe()))._exportPackage_on_(aPackage,stream);
+return _st(_st($PluggableExporter())._newUsing_(_st(_st(commitStrategy)._key())._recipe()))._exportPackage_on_(aPackage,stream);
 }, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2)})}));
 fileContents;
 return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
-messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "newUsing:", "recipe", "new", "key", "ajaxPutAt:data:", "value", ",", "name", "->", "commitPathJs", "commitPathSt"]}),
+messageSends: ["do:displayingProgress:", "streamContents:", "exportPackage:on:", "newUsing:", "recipe", "key", "ajaxPutAt:data:", "value", ",", "name", "->", "commitPathJs", "commitPathSt"]}),
 smalltalk.PackageHandler);
 
 smalltalk.addMethod(
