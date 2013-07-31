@@ -48,7 +48,138 @@ on: aStream
 	^self new stream: aStream
 ! !
 
-Object subclass: #Exporter
+Object subclass: #Importer
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!Importer commentStamp!
+I can import Amber code from a string in the chunk format.
+
+## API
+
+    Importer new import: aString!
+
+!Importer methodsFor: 'fileIn'!
+
+import: aStream
+	| chunk result parser lastEmpty |
+	parser := ChunkParser on: aStream.
+	lastEmpty := false.
+	[chunk := parser nextChunk.
+	chunk isNil] whileFalse: [
+		chunk isEmpty
+			ifTrue: [lastEmpty := true]
+			ifFalse: [
+				result := Compiler new evaluateExpression: chunk.
+				lastEmpty
+						ifTrue: [
+									lastEmpty := false.
+									result scanFrom: parser]]]
+! !
+
+Object subclass: #PackageHandler
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!PackageHandler commentStamp!
+I am responsible for handling package loading and committing.
+
+I should not be used directly. Instead, use the corresponding `Package` methods.!
+
+!PackageHandler methodsFor: 'committing'!
+
+commit: aPackage
+	{ 
+		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+	} 
+		do: [ :commitStrategy|| fileContents |
+			fileContents := String streamContents: [ :stream |
+				commitStrategy key new exportPackage: aPackage on: stream ].
+			self ajaxPutAt: commitStrategy value data: fileContents ]
+		displayingProgress: 'Committing package ', aPackage name
+! !
+
+!PackageHandler methodsFor: 'loading'!
+
+loadPackage: packageName prefix: aString
+	| url |
+	url := '/', aString, '/js/', packageName, '.js'.
+	jQuery
+		ajax: url
+		options: #{
+			'type' -> 'GET'.
+			'dataType' -> 'script'.
+			'complete' -> [ :jqXHR :textStatus |
+				jqXHR readyState = 4
+					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
+			'error' -> [ window alert: 'Could not load package at: ', url ]
+		}
+!
+
+loadPackages: aCollection prefix: aString
+	aCollection do: [ :each |
+		self loadPackage: each prefix: aString ]
+! !
+
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+!
+
+setupPackageNamed: packageName prefix: aString
+
+	(Package named: packageName)
+		setupClasses;
+		commitPathJs: '/', aString, '/js';
+		commitPathSt: '/', aString, '/st'
+! !
+
+!PackageHandler class methodsFor: 'loading'!
+
+loadPackages: aCollection prefix: aString
+	^ self new loadPackages: aCollection prefix: aString
+! !
+
+Object subclass: #PluggableExporter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+
+!PluggableExporter methodsFor: 'fileOut'!
+
+export: anObject usingRecipe: anArray on: aStream
+	| args |
+	args := { anObject. aStream }.
+	anArray do: [ :each | | val |
+		val := each value.
+		val == each
+			ifFalse: [ "association"
+				each key perform: val withArguments: args ]
+			ifTrue: [ "sub-array"
+				| selection |
+				selection := each first key perform: each first value withArguments: { anObject }.
+				selection do: [ :eachPart |	self export: eachPart usingRecipe: each allButFirst on: aStream ]]]
+!
+
+exportAll
+	"Export all packages in the system."
+
+	^String streamContents: [:stream |
+		Smalltalk current packages do: [:pkg |
+		self exportPackage: pkg on: stream]]
+!
+
+exportPackage: aPackage on: aStream
+	self export: aPackage usingRecipe: self recipe on: aStream
+! !
+
+PluggableExporter subclass: #Exporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 !Exporter commentStamp!
@@ -66,40 +197,27 @@ Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
 
 !Exporter methodsFor: 'fileOut'!
 
-exportAll
-	"Export all packages in the system."
-
-	^String streamContents: [:stream |
-		Smalltalk current packages do: [:pkg |
-		self exportPackage: pkg on: stream]]
-!
-
-exportClass: aClass on: aStream
-	"Export a single class. Subclasses override these methods."
-
-	self exportDefinitionOf: aClass on: aStream.
-	(self ownMethodsOfClass: aClass) do: [ :each |
-		self exportMethod: each on: aStream
-	].
-	self exportMetaDefinitionOf: aClass on: aStream.
-	(self ownMethodsOfMetaClass: aClass) do: [ :each |
-		self exportMethod: each on: aStream
-	].
-!
-
-exportPackage: package on: stream
+recipe
 	"Export a given package."
 
-	self exportPackagePrologueOf: package on: stream.
-	self exportPackageDefinitionOf: package on: stream.
-
-	(self ownClassesOfPackage: package) do: [:each |
-		self exportClass: each on: stream
-	].
-	(self extensionMethodsOfPackage: package) do: [ :each |
-		self exportMethod: each on: stream
-	].
-	self exportPackageEpilogueOf: package on: stream
+	^{
+		self -> #exportPackagePrologueOf:on:.
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			self -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfClass:.
+				self -> #exportMethod:on: }.
+			self -> #exportMetaDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfMetaClass:.
+				self -> #exportMethod:on: } }.
+		{
+			self -> #extensionMethodsOfPackage:.
+			self -> #exportMethod:on: }.
+		self -> #exportPackageEpilogueOf:on:
+	}
 ! !
 
 !Exporter methodsFor: 'private'!
@@ -231,30 +349,27 @@ I do not output any compiled code.!
 
 !ChunkExporter methodsFor: 'fileOut'!
 
-exportClass: aClass on: aStream
-	"Export a single class. Subclasses override these methods."
-
-	self exportDefinitionOf: aClass on: aStream.
-	(self ownCategoriesOfClass: aClass) do: [ :each |
-		self exportCategory: each on: aStream
-	].
-	self exportMetaDefinitionOf: aClass on: aStream.
-	(self ownCategoriesOfMetaClass: aClass) do: [ :each |
-		self exportCategory: each on: aStream
-	].
-!
-
-exportPackage: package on: stream
+recipe
 	"Export a given package."
 
-	self exportPackageDefinitionOf: package on: stream.
+	| exportCategoryRecipe |
+	exportCategoryRecipe := {
+		self -> #exportCategoryPrologueOf:on:.
+		{
+			self -> #methodsOfCategory:.
+			self -> #exportMethod:on: }.
+		self -> #exportCategoryEpilogueOf:on: }.
 
-	(self ownClassesOfPackage: package) do: [:each |
-		self exportClass: each on: stream
-	].
-	(self extensionCategoriesOfPackage: package) do: [ :each |
-		self exportCategory: each on: stream
-	]
+	^{
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			self -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
+			self -> #exportMetaDefinitionOf:on:.
+			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
+		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
+	}
 ! !
 
 !ChunkExporter methodsFor: 'private'!
@@ -274,15 +389,14 @@ classNameFor: aClass
 			ifFalse: [aClass name]]
 !
 
-exportCategory: category on: aStream
-	"Issue #143: sort methods alphabetically"
+exportCategoryEpilogueOf: category on: aStream
+	aStream nextPutAll: ' !!'; lf; lf
+!
 
+exportCategoryPrologueOf: category on: aStream
 	aStream
 		nextPutAll: '!!', (self classNameFor: (category at: #class));
-		nextPutAll: ' methodsFor: ''', (category at: #name), '''!!'.
-		((category at: #methods) sorted: [:a :b | a selector <= b selector]) do: [:each |
-				self exportMethod: each on: aStream].
-	aStream nextPutAll: ' !!'; lf; lf
+		nextPutAll: ' methodsFor: ''', (category at: #name), '''!!'
 !
 
 exportDefinitionOf: aClass on: aStream
@@ -348,6 +462,12 @@ extensionCategoriesOfPackage: package
 	^result
 !
 
+methodsOfCategory: category
+	"Issue #143: sort methods alphabetically"
+
+	^(category at: #methods) sorted: [:a :b | a selector <= b selector]
+!
+
 ownCategoriesOfClass: aClass
 	"Issue #143: sort protocol alphabetically"
 
@@ -404,105 +524,6 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
-! !
-
-Object subclass: #Importer
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!Importer commentStamp!
-I can import Amber code from a string in the chunk format.
-
-## API
-
-    Importer new import: aString!
-
-!Importer methodsFor: 'fileIn'!
-
-import: aStream
-	| chunk result parser lastEmpty |
-	parser := ChunkParser on: aStream.
-	lastEmpty := false.
-	[chunk := parser nextChunk.
-	chunk isNil] whileFalse: [
-		chunk isEmpty
-			ifTrue: [lastEmpty := true]
-			ifFalse: [
-				result := Compiler new evaluateExpression: chunk.
-				lastEmpty
-						ifTrue: [
-									lastEmpty := false.
-									result scanFrom: parser]]]
-! !
-
-Object subclass: #PackageHandler
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!PackageHandler commentStamp!
-I am responsible for handling package loading and committing.
-
-I should not be used directly. Instead, use the corresponding `Package` methods.!
-
-!PackageHandler methodsFor: 'committing'!
-
-commit: aPackage
-	{ 
-		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
-		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
-		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
-	} 
-		do: [ :commitStrategy|| fileContents |
-			fileContents := String streamContents: [ :stream |
-				commitStrategy key new exportPackage: aPackage on: stream ].
-			self ajaxPutAt: commitStrategy value data: fileContents ]
-		displayingProgress: 'Committing package ', aPackage name
-! !
-
-!PackageHandler methodsFor: 'loading'!
-
-loadPackage: packageName prefix: aString
-	| url |
-	url := '/', aString, '/js/', packageName, '.js'.
-	jQuery
-		ajax: url
-		options: #{
-			'type' -> 'GET'.
-			'dataType' -> 'script'.
-			'complete' -> [ :jqXHR :textStatus |
-				jqXHR readyState = 4
-					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
-			'error' -> [ window alert: 'Could not load package at: ', url ]
-		}
-!
-
-loadPackages: aCollection prefix: aString
-	aCollection do: [ :each |
-		self loadPackage: each prefix: aString ]
-! !
-
-!PackageHandler methodsFor: 'private'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 
-			'type' -> 'PUT'.
-			'data' -> aString.
-			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
-!
-
-setupPackageNamed: packageName prefix: aString
-
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
-! !
-
-!PackageHandler class methodsFor: 'loading'!
-
-loadPackages: aCollection prefix: aString
-	^ self new loadPackages: aCollection prefix: aString
 ! !
 
 !Package methodsFor: '*Importer-Exporter'!
