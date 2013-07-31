@@ -478,6 +478,36 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "exportCategory:on:",
+category: 'private',
+fn: function (category,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=aStream;
+_st($1)._nextPutAll_("!".__comma(self._classNameFor_(_st(category)._at_("class"))));
+$2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(_st(category)._at_("name"))).__comma("'!"));
+_st(_st(_st(category)._at_("methods"))._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})})))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._exportMethod_on_(each,aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$3=aStream;
+_st($3)._nextPutAll_(" !");
+_st($3)._lf();
+$4=_st($3)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategory:on:",{category:category,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["category", "aStream"],
+source: "exportCategory: category on: aStream\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: (category at: #class));\x0a\x09\x09nextPutAll: ' methodsFor: ''', (category at: #name), '''!'.\x0a\x09\x09((category at: #methods) sorted: [:a :b | a selector <= b selector]) do: [:each |\x0a\x09\x09\x09\x09self exportMethod: each on: aStream].\x0a\x09aStream nextPutAll: ' !'; lf; lf",
+messageSends: ["nextPutAll:", ",", "classNameFor:", "at:", "do:", "exportMethod:on:", "sorted:", "<=", "selector", "lf"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "exportDefinitionOf:on:",
 category: 'private',
 fn: function (aClass,aStream){
@@ -580,36 +610,6 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "exportMethods:category:of:on:",
-category: 'private',
-fn: function (methods,category,aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=aStream;
-_st($1)._nextPutAll_("!".__comma(self._classNameFor_(aClass)));
-$2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(category)).__comma("'!"));
-_st(_st(methods)._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})})))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return self._exportMethod_on_(each,aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$3=aStream;
-_st($3)._nextPutAll_(" !");
-_st($3)._lf();
-$4=_st($3)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethods:category:of:on:",{methods:methods,category:category,aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["methods", "category", "aClass", "aStream"],
-source: "exportMethods: methods category: category of: aClass on: aStream\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', category, '''!'.\x0a\x09\x09(methods sorted: [:a :b | a selector <= b selector]) do: [:each |\x0a\x09\x09\x09\x09self exportMethod: each on: aStream].\x0a\x09aStream nextPutAll: ' !'; lf; lf",
-messageSends: ["nextPutAll:", ",", "classNameFor:", "do:", "exportMethod:on:", "sorted:", "<=", "selector", "lf"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "exportMethodsOf:on:",
 category: 'private',
 fn: function (aClass,aStream){
@@ -634,12 +634,12 @@ var methods;
 return smalltalk.withContext(function($ctx2) {
 methods=_st(map)._at_(category);
 methods;
-return self._exportMethods_category_of_on_(methods,category,aClass,aStream);
+return self._exportCategory_on_(smalltalk.HashedCollection._from_(["methods".__minus_gt(methods),"name".__minus_gt(category),"class".__minus_gt(aClass)]),aStream);
 }, function($ctx2) {$ctx2.fillBlock({category:category,methods:methods},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"exportMethodsOf:on:",{aClass:aClass,aStream:aStream,map:map},smalltalk.ChunkExporter)})},
 args: ["aClass", "aStream"],
-source: "exportMethodsOf: aClass on: aStream\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09(category match: '^\x5c*') ifFalse: [ map at: category put: methods ]].\x0a\x09(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |\x0a\x09\x09methods := map at: category.\x0a\x09\x09self\x0a\x09\x09\x09exportMethods: methods\x0a\x09\x09\x09category: category\x0a\x09\x09\x09of: aClass\x0a\x09\x09\x09on: aStream ]",
-messageSends: ["new", "protocolsDo:", "ifFalse:", "at:put:", "match:", "do:", "at:", "exportMethods:category:of:on:", "sorted:", "<=", "keys"],
+source: "exportMethodsOf: aClass on: aStream\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09(category match: '^\x5c*') ifFalse: [ map at: category put: methods ]].\x0a\x09(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |\x0a\x09\x09methods := map at: category.\x0a\x09\x09self\x0a\x09\x09\x09exportCategory: #{\x0a\x09\x09\x09\x09'methods'->methods.\x0a\x09\x09\x09\x09'name'->category.\x0a\x09\x09\x09\x09'class'->aClass }\x0a\x09\x09\x09on: aStream ]",
+messageSends: ["new", "protocolsDo:", "ifFalse:", "at:put:", "match:", "do:", "at:", "exportCategory:on:", "->", "sorted:", "<=", "keys"],
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.ChunkExporter);
@@ -712,14 +712,14 @@ var methods;
 return smalltalk.withContext(function($ctx4) {
 methods=_st(map)._at_(category);
 methods;
-return self._exportMethods_category_of_on_(methods,category,aClass,aStream);
+return self._exportCategory_on_(smalltalk.HashedCollection._from_(["methods".__minus_gt(methods),"name".__minus_gt(category),"class".__minus_gt(aClass)]),aStream);
 }, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3)})}));
 }, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackageExtensionsOf:on:",{package_:package_,aStream:aStream,name:name,map:map},smalltalk.ChunkExporter)})},
 args: ["package", "aStream"],
-source: "exportPackageExtensionsOf: package on: aStream\x0a\x09\x22We need to override this one too since we need to group\x0a\x09all methods in a given protocol under a leading methodsFor: chunk\x0a\x09for that class.\x22\x0a\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map |\x0a\x09name := package name.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09\x09\x09(category match: '^\x5c*', name) ifTrue: [ map at: category put: methods ]].\x0a\x09\x09\x09(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |\x0a\x09\x09\x09\x09methods := map at: category.\x0a\x09\x09\x09\x09self exportMethods: methods category: category of: aClass on: aStream ]]]",
-messageSends: ["name", "do:", "new", "protocolsDo:", "ifTrue:", "at:put:", "match:", ",", "at:", "exportMethods:category:of:on:", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"],
+source: "exportPackageExtensionsOf: package on: aStream\x0a\x09\x22We need to override this one too since we need to group\x0a\x09all methods in a given protocol under a leading methodsFor: chunk\x0a\x09for that class.\x22\x0a\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map |\x0a\x09name := package name.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09\x09\x09(category match: '^\x5c*', name) ifTrue: [ map at: category put: methods ]].\x0a\x09\x09\x09(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |\x0a\x09\x09\x09\x09methods := map at: category.\x0a\x09\x09\x09\x09self exportCategory: #{ 'methods'->methods. 'name'->category. 'class'->aClass} on: aStream ]]]",
+messageSends: ["name", "do:", "new", "protocolsDo:", "ifTrue:", "at:put:", "match:", ",", "at:", "exportCategory:on:", "->", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"],
 referencedClasses: ["Dictionary", "Smalltalk", "Package"]
 }),
 smalltalk.ChunkExporter);

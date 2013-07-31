@@ -232,6 +232,17 @@ classNameFor: aClass
 			ifFalse: [aClass name]]
 !
 
+exportCategory: category on: aStream
+	"Issue #143: sort methods alphabetically"
+
+	aStream
+		nextPutAll: '!!', (self classNameFor: (category at: #class));
+		nextPutAll: ' methodsFor: ''', (category at: #name), '''!!'.
+		((category at: #methods) sorted: [:a :b | a selector <= b selector]) do: [:each |
+				self exportMethod: each on: aStream].
+	aStream nextPutAll: ' !!'; lf; lf
+!
+
 exportDefinitionOf: aClass on: aStream
 	"Chunk format."
 
@@ -271,17 +282,6 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '!!'
 !
 
-exportMethods: methods category: category of: aClass on: aStream
-	"Issue #143: sort methods alphabetically"
-
-	aStream
-		nextPutAll: '!!', (self classNameFor: aClass);
-		nextPutAll: ' methodsFor: ''', category, '''!!'.
-		(methods sorted: [:a :b | a selector <= b selector]) do: [:each |
-				self exportMethod: each on: aStream].
-	aStream nextPutAll: ' !!'; lf; lf
-!
-
 exportMethodsOf: aClass on: aStream
 	"Issue #143: sort protocol alphabetically"
 
@@ -292,9 +292,10 @@ exportMethodsOf: aClass on: aStream
 	(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 		methods := map at: category.
 		self
-			exportMethods: methods
-			category: category
-			of: aClass
+			exportCategory: #{
+				'methods'->methods.
+				'name'->category.
+				'class'->aClass }
 			on: aStream ]
 !
 
@@ -325,7 +326,7 @@ exportPackageExtensionsOf: package on: aStream
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |
 				methods := map at: category.
-				self exportMethods: methods category: category of: aClass on: aStream ]]]
+				self exportCategory: #{ 'methods'->methods. 'name'->category. 'class'->aClass} on: aStream ]]]
 !
 
 exportPackagePrologueOn: aStream
