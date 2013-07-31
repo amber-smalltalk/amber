@@ -1,345 +1,5 @@
 Smalltalk current createPackage: 'Importer-Exporter'!
-Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
-	package: 'Importer-Exporter'!
-!ChunkParser commentStamp!
-I am responsible for parsing aStream contents in the chunk format.
-
-## API
-
-    ChunkParser new
-        stream: aStream;
-        nextChunk!
-
-!ChunkParser methodsFor: 'accessing'!
-
-stream: aStream
-	stream := aStream
-! !
-
-!ChunkParser methodsFor: 'reading'!
-
-nextChunk
-	"The chunk format (Smalltalk Interchange Format or Fileout format)
-	is a trivial format but can be a bit tricky to understand:
-		- Uses the exclamation mark as delimiter of chunks.
-		- Inside a chunk a normal exclamation mark must be doubled.
-		- A non empty chunk must be a valid Smalltalk expression.
-		- A chunk on top level with a preceding empty chunk is an instruction chunk:
-			- The object created by the expression then takes over reading chunks.
-
-	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
-
-	| char result chunk |
-	result := '' writeStream.
-		[char := stream next.
-		char notNil] whileTrue: [
-				char = '!!' ifTrue: [
-						stream peek = '!!'
-								ifTrue: [stream next "skipping the escape double"]
-								ifFalse: [^result contents trimBoth "chunk end marker found"]].
-				result nextPut: char].
-	^nil "a chunk needs to end with !!"
-! !
-
-!ChunkParser class methodsFor: 'not yet classified'!
-
-on: aStream
-	^self new stream: aStream
-! !
-
-Object subclass: #Importer
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!Importer commentStamp!
-I can import Amber code from a string in the chunk format.
-
-## API
-
-    Importer new import: aString!
-
-!Importer methodsFor: 'fileIn'!
-
-import: aStream
-	| chunk result parser lastEmpty |
-	parser := ChunkParser on: aStream.
-	lastEmpty := false.
-	[chunk := parser nextChunk.
-	chunk isNil] whileFalse: [
-		chunk isEmpty
-			ifTrue: [lastEmpty := true]
-			ifFalse: [
-				result := Compiler new evaluateExpression: chunk.
-				lastEmpty
-						ifTrue: [
-									lastEmpty := false.
-									result scanFrom: parser]]]
-! !
-
-Object subclass: #PackageHandler
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!PackageHandler commentStamp!
-I am responsible for handling package loading and committing.
-
-I should not be used directly. Instead, use the corresponding `Package` methods.!
-
-!PackageHandler methodsFor: 'committing'!
-
-commit: aPackage
-	{ 
-		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
-		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
-		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
-	} 
-		do: [ :commitStrategy|| fileContents |
-			fileContents := String streamContents: [ :stream |
-				commitStrategy key new exportPackage: aPackage on: stream ].
-			self ajaxPutAt: commitStrategy value data: fileContents ]
-		displayingProgress: 'Committing package ', aPackage name
-! !
-
-!PackageHandler methodsFor: 'loading'!
-
-loadPackage: packageName prefix: aString
-	| url |
-	url := '/', aString, '/js/', packageName, '.js'.
-	jQuery
-		ajax: url
-		options: #{
-			'type' -> 'GET'.
-			'dataType' -> 'script'.
-			'complete' -> [ :jqXHR :textStatus |
-				jqXHR readyState = 4
-					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
-			'error' -> [ window alert: 'Could not load package at: ', url ]
-		}
-!
-
-loadPackages: aCollection prefix: aString
-	aCollection do: [ :each |
-		self loadPackage: each prefix: aString ]
-! !
-
-!PackageHandler methodsFor: 'private'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 
-			'type' -> 'PUT'.
-			'data' -> aString.
-			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
-!
-
-setupPackageNamed: packageName prefix: aString
-
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
-! !
-
-!PackageHandler class methodsFor: 'loading'!
-
-loadPackages: aCollection prefix: aString
-	^ self new loadPackages: aCollection prefix: aString
-! !
-
-Object subclass: #PluggableExporter
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-
-!PluggableExporter methodsFor: 'fileOut'!
-
-export: anObject usingRecipe: anArray on: aStream
-	| args |
-	args := { anObject. aStream }.
-	anArray do: [ :each | | val |
-		val := each value.
-		val == each
-			ifFalse: [ "association"
-				each key perform: val withArguments: args ]
-			ifTrue: [ "sub-array"
-				| selection |
-				selection := each first key perform: each first value withArguments: { anObject }.
-				selection do: [ :eachPart |	self export: eachPart usingRecipe: each allButFirst on: aStream ]]]
-!
-
-exportAll
-	"Export all packages in the system."
-
-	^String streamContents: [:stream |
-		Smalltalk current packages do: [:pkg |
-		self exportPackage: pkg on: stream]]
-!
-
-exportPackage: aPackage on: aStream
-	self export: aPackage usingRecipe: self recipe on: aStream
-! !
-
-PluggableExporter subclass: #Exporter
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!Exporter commentStamp!
-I am responsible for outputting Amber code into a JavaScript string.
-
-The generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.
-
-## Use case
-
-I am typically used to save code outside of the Amber runtime (committing to disk, etc.).
-
-## API
-
-Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
-
-!Exporter methodsFor: 'fileOut'!
-
-recipe
-	"Export a given package."
-
-	^{
-		self -> #exportPackagePrologueOf:on:.
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			self -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfClass:.
-				self -> #exportMethod:on: }.
-			self -> #exportMetaDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfMetaClass:.
-				self -> #exportMethod:on: } }.
-		{
-			self -> #extensionMethodsOfPackage:.
-			self -> #exportMethod:on: }.
-		self -> #exportPackageEpilogueOf:on:
-	}
-! !
-
-!Exporter methodsFor: 'private'!
-
-classNameFor: aClass
-	^aClass isMetaclass
-		ifTrue: [aClass instanceClass name, '.klass']
-		ifFalse: [
-		aClass isNil
-			ifTrue: ['nil']
-			ifFalse: [aClass name]]
-!
-
-exportDefinitionOf: aClass on: aStream
-	aStream
-		lf;
-		nextPutAll: 'smalltalk.addClass(';
-		nextPutAll: '''', (self classNameFor: aClass), ''', ';
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
-		nextPutAll: ', ['.
-	aClass instanceVariableNames
-		do: [:each | aStream nextPutAll: '''', each, '''']
-		separatedBy: [aStream nextPutAll: ', '].
-	aStream
-		nextPutAll: '], ''';
-		nextPutAll: aClass category, '''';
-		nextPutAll: ');'.
-	aClass comment notEmpty ifTrue: [
-		aStream
-			lf;
-		nextPutAll: 'smalltalk.';
-		nextPutAll: (self classNameFor: aClass);
-		nextPutAll: '.comment=';
-		nextPutAll: aClass comment asJavascript;
-		nextPutAll: ';'].
-	aStream lf
-!
-
-exportMetaDefinitionOf: aClass on: aStream
-	aStream lf.
-	aClass class instanceVariableNames isEmpty ifFalse: [
-		aStream
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
-		nextPutAll: '.iVarNames = ['.
-		aClass class instanceVariableNames
-		do: [:each | aStream nextPutAll: '''', each, '''']
-		separatedBy: [aStream nextPutAll: ','].
-		aStream nextPutAll: '];', String lf]
-!
-
-exportMethod: aMethod on: aStream
-	aStream
-		nextPutAll: 'smalltalk.addMethod(';lf;
-		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
-		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'category: ''', aMethod category, ''',';lf;
-		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
-		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
-		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
-		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
-		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
-	aStream
-		lf;
-		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
-		nextPutAll: ');';lf;lf
-!
-
-exportPackageDefinitionOf: package on: aStream
-	aStream
-		nextPutAll: 'smalltalk.addPackage(';
-		nextPutAll: '''', package name, ''');';
-		lf
-!
-
-exportPackageEpilogueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
-		lf
-!
-
-exportPackagePrologueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '(function(smalltalk,nil,_st){';
-		lf
-!
-
-extensionMethodsOfPackage: package
-	"Issue #143: sort classes and methods alphabetically"
-
-	| name result |
-	name := package name.
-	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass |
-			result addAll: (((aClass methodDictionary values)
-				sorted: [:a :b | a selector <= b selector])
-				select: [:method | method category match: '^\*', name]) ]].
-	^result
-!
-
-ownClassesOfPackage: package
-	"Export classes in dependency order.
-	Update (issue #171): Remove duplicates for export"
-	^package sortedClasses asSet
-!
-
-ownMethodsOfClass: aClass
-	"Issue #143: sort methods alphabetically"
-
-	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
-		reject: [:each | (each category match: '^\*')]
-!
-
-ownMethodsOfMetaClass: aClass
-	"Issue #143: sort methods alphabetically"
-
-	^self ownMethodsOfClass: aClass class
-! !
-
-Exporter subclass: #ChunkExporter
+Object subclass: #ChunkExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 !ChunkExporter commentStamp!
@@ -363,7 +23,7 @@ recipe
 	^{
 		self -> #exportPackageDefinitionOf:on:.
 		{
-			self -> #ownClassesOfPackage:.
+			PluggableExporter -> #ownClassesOfPackage:.
 			self -> #exportDefinitionOf:on:.
 			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
 			self -> #exportMetaDefinitionOf:on:.
@@ -488,6 +148,209 @@ ownCategoriesOfMetaClass: aClass
 	^self ownCategoriesOfClass: aClass class
 ! !
 
+Object subclass: #ChunkParser
+	instanceVariableNames: 'stream'
+	package: 'Importer-Exporter'!
+!ChunkParser commentStamp!
+I am responsible for parsing aStream contents in the chunk format.
+
+## API
+
+    ChunkParser new
+        stream: aStream;
+        nextChunk!
+
+!ChunkParser methodsFor: 'accessing'!
+
+stream: aStream
+	stream := aStream
+! !
+
+!ChunkParser methodsFor: 'reading'!
+
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
+
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+
+	| char result chunk |
+	result := '' writeStream.
+		[char := stream next.
+		char notNil] whileTrue: [
+				char = '!!' ifTrue: [
+						stream peek = '!!'
+								ifTrue: [stream next "skipping the escape double"]
+								ifFalse: [^result contents trimBoth "chunk end marker found"]].
+				result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
+
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
+! !
+
+Object subclass: #Exporter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!Exporter commentStamp!
+I am responsible for outputting Amber code into a JavaScript string.
+
+The generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.
+
+## Use case
+
+I am typically used to save code outside of the Amber runtime (committing to disk, etc.).
+
+## API
+
+Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
+
+!Exporter methodsFor: 'fileOut'!
+
+recipe
+	"Export a given package."
+
+	^{
+		self -> #exportPackagePrologueOf:on:.
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfClass:.
+				self -> #exportMethod:on: }.
+			self -> #exportMetaDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfMetaClass:.
+				self -> #exportMethod:on: } }.
+		{
+			self -> #extensionMethodsOfPackage:.
+			self -> #exportMethod:on: }.
+		self -> #exportPackageEpilogueOf:on:
+	}
+! !
+
+!Exporter methodsFor: 'private'!
+
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [aClass instanceClass name, '.klass']
+		ifFalse: [
+		aClass isNil
+			ifTrue: ['nil']
+			ifFalse: [aClass name]]
+!
+
+exportDefinitionOf: aClass on: aStream
+	aStream
+		lf;
+		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '''', (self classNameFor: aClass), ''', ';
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: ', ['.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ', '].
+	aStream
+		nextPutAll: '], ''';
+		nextPutAll: aClass category, '''';
+		nextPutAll: ');'.
+	aClass comment notEmpty ifTrue: [
+		aStream
+			lf;
+		nextPutAll: 'smalltalk.';
+		nextPutAll: (self classNameFor: aClass);
+		nextPutAll: '.comment=';
+		nextPutAll: aClass comment asJavascript;
+		nextPutAll: ';'].
+	aStream lf
+!
+
+exportMetaDefinitionOf: aClass on: aStream
+	aStream lf.
+	aClass class instanceVariableNames isEmpty ifFalse: [
+		aStream
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
+		nextPutAll: '.iVarNames = ['.
+		aClass class instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ','].
+		aStream nextPutAll: '];', String lf]
+!
+
+exportMethod: aMethod on: aStream
+	aStream
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
+		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
+	aStream
+		lf;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
+		nextPutAll: ');';lf;lf
+!
+
+exportPackageDefinitionOf: package on: aStream
+	aStream
+		nextPutAll: 'smalltalk.addPackage(';
+		nextPutAll: '''', package name, ''');';
+		lf
+!
+
+exportPackageEpilogueOf: aPackage on: aStream
+	aStream
+		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
+		lf
+!
+
+exportPackagePrologueOf: aPackage on: aStream
+	aStream
+		nextPutAll: '(function(smalltalk,nil,_st){';
+		lf
+!
+
+extensionMethodsOfPackage: package
+	"Issue #143: sort classes and methods alphabetically"
+
+	| name result |
+	name := package name.
+	result := OrderedCollection new.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			result addAll: (((aClass methodDictionary values)
+				sorted: [:a :b | a selector <= b selector])
+				select: [:method | method category match: '^\*', name]) ]].
+	^result
+!
+
+ownMethodsOfClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
+		reject: [:each | (each category match: '^\*')]
+!
+
+ownMethodsOfMetaClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^self ownMethodsOfClass: aClass class
+! !
+
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -524,6 +387,159 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
+! !
+
+Object subclass: #Importer
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!Importer commentStamp!
+I can import Amber code from a string in the chunk format.
+
+## API
+
+    Importer new import: aString!
+
+!Importer methodsFor: 'fileIn'!
+
+import: aStream
+	| chunk result parser lastEmpty |
+	parser := ChunkParser on: aStream.
+	lastEmpty := false.
+	[chunk := parser nextChunk.
+	chunk isNil] whileFalse: [
+		chunk isEmpty
+			ifTrue: [lastEmpty := true]
+			ifFalse: [
+				result := Compiler new evaluateExpression: chunk.
+				lastEmpty
+						ifTrue: [
+									lastEmpty := false.
+									result scanFrom: parser]]]
+! !
+
+Object subclass: #PackageHandler
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!PackageHandler commentStamp!
+I am responsible for handling package loading and committing.
+
+I should not be used directly. Instead, use the corresponding `Package` methods.!
+
+!PackageHandler methodsFor: 'committing'!
+
+commit: aPackage
+	{ 
+		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+	} 
+		do: [ :commitStrategy|| fileContents |
+			fileContents := String streamContents: [ :stream |
+				(PluggableExporter newUsing: commitStrategy key new recipe) exportPackage: aPackage on: stream ].
+			self ajaxPutAt: commitStrategy value data: fileContents ]
+		displayingProgress: 'Committing package ', aPackage name
+! !
+
+!PackageHandler methodsFor: 'loading'!
+
+loadPackage: packageName prefix: aString
+	| url |
+	url := '/', aString, '/js/', packageName, '.js'.
+	jQuery
+		ajax: url
+		options: #{
+			'type' -> 'GET'.
+			'dataType' -> 'script'.
+			'complete' -> [ :jqXHR :textStatus |
+				jqXHR readyState = 4
+					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
+			'error' -> [ window alert: 'Could not load package at: ', url ]
+		}
+!
+
+loadPackages: aCollection prefix: aString
+	aCollection do: [ :each |
+		self loadPackage: each prefix: aString ]
+! !
+
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+!
+
+setupPackageNamed: packageName prefix: aString
+
+	(Package named: packageName)
+		setupClasses;
+		commitPathJs: '/', aString, '/js';
+		commitPathSt: '/', aString, '/st'
+! !
+
+!PackageHandler class methodsFor: 'loading'!
+
+loadPackages: aCollection prefix: aString
+	^ self new loadPackages: aCollection prefix: aString
+! !
+
+Object subclass: #PluggableExporter
+	instanceVariableNames: 'recipe'
+	package: 'Importer-Exporter'!
+
+!PluggableExporter methodsFor: 'accessing'!
+
+recipe
+	^recipe
+!
+
+recipe: anArray
+	recipe := anArray
+! !
+
+!PluggableExporter methodsFor: 'fileOut'!
+
+export: anObject usingRecipe: anArray on: aStream
+	| args |
+	args := { anObject. aStream }.
+	anArray do: [ :each | | val |
+		val := each value.
+		val == each
+			ifFalse: [ "association"
+				each key perform: val withArguments: args ]
+			ifTrue: [ "sub-array"
+				| selection |
+				selection := each first key perform: each first value withArguments: { anObject }.
+				selection do: [ :eachPart |	self export: eachPart usingRecipe: each allButFirst on: aStream ]]]
+!
+
+exportAll
+	"Export all packages in the system."
+
+	^String streamContents: [:stream |
+		Smalltalk current packages do: [:pkg |
+		self exportPackage: pkg on: stream]]
+!
+
+exportPackage: aPackage on: aStream
+	self export: aPackage usingRecipe: self recipe on: aStream
+! !
+
+!PluggableExporter class methodsFor: 'exporting-accessing'!
+
+newUsing: recipe
+	^self new recipe: recipe; yourself
+!
+
+ownClassesOfPackage: package
+	"Export classes in dependency order.
+	Update (issue #171): Remove duplicates for export"
+	^package sortedClasses asSet
 ! !
 
 !Package methodsFor: '*Importer-Exporter'!
