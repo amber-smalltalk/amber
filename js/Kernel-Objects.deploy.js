@@ -1,5 +1,7 @@
 define("amber/Kernel-Objects", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Objects');
+smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({

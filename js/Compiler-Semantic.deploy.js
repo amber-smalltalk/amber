@@ -1,5 +1,7 @@
 define("amber/Compiler-Semantic", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
+smalltalk.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.addMethod(
 smalltalk.method({

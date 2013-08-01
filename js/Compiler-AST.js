@@ -1,5 +1,7 @@
 define("amber/Compiler-AST", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-AST');
+smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('Node', smalltalk.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.Node.comment="I am the abstract root class of the abstract syntax tree.\x0a\x0aConcrete classes should implement `#accept:` to allow visiting.\x0a\x0a`position` holds a point containing line and column number of the symbol location in the original source file.";
 smalltalk.addMethod(

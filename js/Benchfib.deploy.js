@@ -1,5 +1,7 @@
 define("amber/Benchfib", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
+smalltalk.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(

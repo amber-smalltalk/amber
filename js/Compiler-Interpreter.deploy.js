@@ -1,5 +1,7 @@
 define("amber/Compiler-Interpreter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
+smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
 smalltalk.addMethod(
 smalltalk.method({

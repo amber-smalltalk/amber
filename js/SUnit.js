@@ -1,5 +1,7 @@
 define("amber/SUnit", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit');
+smalltalk.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.ResultAnnouncement.comment="I get signaled when a `TestCase` has been run.\x0a\x0aMy instances hold the result (instance of `TestResult`) of the test run.";
 smalltalk.addMethod(

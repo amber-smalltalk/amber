@@ -1,5 +1,7 @@
 define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
+smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber"};
+
 
 smalltalk.addClass('AmdExporter', smalltalk.Object, [], 'Importer-Exporter');
 
