@@ -1,5 +1,7 @@
 define("amber/Helios-Transcript", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Transcript');
+smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLTranscript', smalltalk.HLWidget, ['textarea'], 'Helios-Transcript');
 smalltalk.addMethod(
 smalltalk.method({

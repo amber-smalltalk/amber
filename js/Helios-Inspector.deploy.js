@@ -1,5 +1,7 @@
 define("amber/Helios-Inspector", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Inspector');
+smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({

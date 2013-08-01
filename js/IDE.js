@@ -1,5 +1,7 @@
 define("amber/IDE", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
+smalltalk.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({

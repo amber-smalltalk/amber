@@ -1,5 +1,7 @@
 define("amber/Kernel-Exceptions", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Exceptions');
+smalltalk.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(
 smalltalk.method({

@@ -1,5 +1,7 @@
 define("amber/Helios-Debugger", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Debugger');
+smalltalk.packages["Helios-Debugger"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLContextInspectorDecorator', smalltalk.Object, ['context'], 'Helios-Debugger');
 smalltalk.addMethod(
 smalltalk.method({

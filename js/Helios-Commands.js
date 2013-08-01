@@ -1,5 +1,7 @@
 define("amber/Helios-Commands", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands');
+smalltalk.packages["Helios-Commands"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLCommand', smalltalk.Object, [], 'Helios-Commands');
 smalltalk.addMethod(
 "_asActionBinding",
