@@ -1149,21 +1149,14 @@ selector: "commitPathStFor:",
 category: 'committing',
 fn: function (aPackage){
 var self=this;
-var result;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-result=self._toUrl_(_st(self._namespaceFor_(aPackage)).__comma("/_source"));
-$2=_st(result)._match_("/_source$");
-if(smalltalk.assert($2)){
-$1=nil;
-} else {
-$1=result;
-};
+var $1;
+$1=self._toUrl_(_st(self._namespaceFor_(aPackage)).__comma("/_source"));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,result:result},smalltalk.AmdPackageHandler)})},
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},smalltalk.AmdPackageHandler)})},
 args: ["aPackage"],
-source: "commitPathStFor: aPackage\x0a\x09| result |\x0a\x09result := self toUrl: (self namespaceFor: aPackage), '/_source'.\x0a\x09^ (result match: '/_source$') ifTrue: [ nil ] ifFalse: [ result ]",
-messageSends: ["toUrl:", ",", "namespaceFor:", "ifTrue:ifFalse:", "match:"],
+source: "commitPathStFor: aPackage\x0a\x09\x22if _source is not mapped, .st commit will likely fail\x22\x0a\x09^self toUrl: (self namespaceFor: aPackage), '/_source'.",
+messageSends: ["toUrl:", ",", "namespaceFor:"],
 referencedClasses: []
 }),
 smalltalk.AmdPackageHandler);

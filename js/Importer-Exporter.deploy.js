@@ -926,19 +926,12 @@ smalltalk.method({
 selector: "commitPathStFor:",
 fn: function (aPackage){
 var self=this;
-var result;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-result=self._toUrl_(_st(self._namespaceFor_(aPackage)).__comma("/_source"));
-$2=_st(result)._match_("/_source$");
-if(smalltalk.assert($2)){
-$1=nil;
-} else {
-$1=result;
-};
+var $1;
+$1=self._toUrl_(_st(self._namespaceFor_(aPackage)).__comma("/_source"));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage,result:result},smalltalk.AmdPackageHandler)})},
-messageSends: ["toUrl:", ",", "namespaceFor:", "ifTrue:ifFalse:", "match:"]}),
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},smalltalk.AmdPackageHandler)})},
+messageSends: ["toUrl:", ",", "namespaceFor:"]}),
 smalltalk.AmdPackageHandler);
 
 smalltalk.addMethod(

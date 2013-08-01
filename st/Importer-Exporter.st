@@ -551,9 +551,8 @@ commitPathJsFor: aPackage
 !
 
 commitPathStFor: aPackage
-	| result |
-	result := self toUrl: (self namespaceFor: aPackage), '/_source'.
-	^ (result match: '/_source$') ifTrue: [ nil ] ifFalse: [ result ]
+	"if _source is not mapped, .st commit will likely fail"
+	^self toUrl: (self namespaceFor: aPackage), '/_source'.
 !
 
 namespaceFor: aPackage
