@@ -1,5 +1,7 @@
 define("amber/Helios-Browser", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Browser');
+smalltalk.packages["Helios-Browser"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget', 'bottomDiv'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({

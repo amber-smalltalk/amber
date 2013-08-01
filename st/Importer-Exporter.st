@@ -13,9 +13,21 @@ exportPackageEpilogueOf: aPackage on: aStream
 
 exportPackagePrologueOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'define("amber/';
+		nextPutAll: 'define("';
+		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
+		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
+		lf
+!
+
+exportPackageTransportOf: aPackage on: aStream
+	aStream
+		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: aPackage name asJavascript;
+		nextPutAll: '].transport = ';
+		nextPutAll: aPackage transportJson;
+		nextPutAll: ';';
 		lf
 ! !
 
@@ -345,6 +357,16 @@ exportPackagePrologueOf: aPackage on: aStream
 
 !Exporter class methodsFor: 'fileOut'!
 
+amdRecipe
+	"Export a given package with amd transport type."
+
+	| legacy |
+	legacy := self recipe.
+	^(legacy copyFrom: 1 to: 2),
+	{ AmdExporter -> #exportPackageTransportOf:on: },
+	(legacy copyFrom: 3 to: legacy size)
+!
+
 recipe
 	"Export a given package."
 
@@ -504,6 +526,74 @@ register: aClass for: aString
 
 registerFor: aString
 	PackageHandler register: self for: aString
+! !
+
+PackageHandler subclass: #AmdPackageHandler
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!AmdPackageHandler commentStamp!
+I am responsible for handling package loading and committing.
+
+I should not be used directly. Instead, use the corresponding `Package` methods.!
+
+!AmdPackageHandler methodsFor: 'committing'!
+
+commitChannels
+	^{ 
+		[ :pkg | Exporter amdRecipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
+		[ :pkg | StrippedExporter amdRecipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
+		[ :pkg | ChunkExporter recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
+	}
+!
+
+commitPathJsFor: aPackage
+	^self toUrl: (self namespaceFor: aPackage)
+!
+
+commitPathStFor: aPackage
+	"if _source is not mapped, .st commit will likely fail"
+	^self toUrl: (self namespaceFor: aPackage), '/_source'.
+!
+
+namespaceFor: aPackage
+	^aPackage amdNamespace
+		ifNil: [ aPackage amdNamespace: self class defaultNamespace; amdNamespace ]
+! !
+
+!AmdPackageHandler methodsFor: 'private'!
+
+toUrl: aString
+	(Smalltalk current at: '_amd_require')
+		ifNil: [ self error: 'AMD loader not present' ]
+		ifNotNil: [ :require | ^(require basicAt: 'toUrl') value: aString ]
+! !
+
+AmdPackageHandler class instanceVariableNames: 'defaultNamespace'!
+
+!AmdPackageHandler class methodsFor: 'commit paths'!
+
+commitPathsFromLoader
+	"TODO"
+!
+
+defaultNamespace
+	^ defaultNamespace ifNil: [ self error: 'AMD default namespace not set.' ]
+!
+
+defaultNamespace: aString
+	defaultNamespace := aString
+!
+
+resetCommitPaths
+	defaultNamespace := nil
+! !
+
+!AmdPackageHandler class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	self registerFor: 'amd'.
+	self commitPathsFromLoader
 ! !
 
 PackageHandler subclass: #LegacyPackageHandler
@@ -668,12 +758,24 @@ ownClassesOfPackage: package
 
 !Package methodsFor: '*Importer-Exporter'!
 
+amdNamespace
+<return (self.transport && self.transport.amdNamespace) || nil>
+!
+
+amdNamespace: aString
+<
+	if (!!self.transport) { self.transport = { type: 'amd' }; }
+	if (self.transport.type !!== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
+	self.transport.amdNamespace = aString;
+>
+!
+
 commit
 	^ self transport commit: self
 !
 
 commitPathJs
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [self transport commitPathJsFor: self]
 !
 
 commitPathJs: aString
@@ -681,7 +783,7 @@ commitPathJs: aString
 !
 
 commitPathSt
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [self transport commitPathStFor: self]
 !
 
 commitPathSt: aString
@@ -690,6 +792,10 @@ commitPathSt: aString
 
 transport
 	^ PackageHandler for: self transportType
+!
+
+transportJson
+	<return JSON.stringify(self.transport || null);>
 !
 
 transportType

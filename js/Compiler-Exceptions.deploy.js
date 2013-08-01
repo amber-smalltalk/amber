@@ -1,5 +1,7 @@
 define("amber/Compiler-Exceptions", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Exceptions');
+smalltalk.packages["Compiler-Exceptions"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('CompilerError', smalltalk.Error, [], 'Compiler-Exceptions');
 
 

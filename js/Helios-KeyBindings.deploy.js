@@ -1,5 +1,7 @@
 define("amber/Helios-KeyBindings", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
+smalltalk.packages["Helios-KeyBindings"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({

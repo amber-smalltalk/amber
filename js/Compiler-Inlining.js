@@ -1,5 +1,7 @@
 define("amber/Compiler-Inlining", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Inlining');
+smalltalk.packages["Compiler-Inlining"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('IRInlinedAssignment', smalltalk.IRAssignment, [], 'Compiler-Inlining');
 smalltalk.IRInlinedAssignment.comment="I represent an inlined assignment instruction.";
 smalltalk.addMethod(

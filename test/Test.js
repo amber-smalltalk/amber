@@ -1,5 +1,7 @@
 define("amber/Test", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Test');
+smalltalk.packages["Test"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('NodeTestRunner', smalltalk.Object, [], 'Test');
 
 smalltalk.addMethod(
@@ -66,6 +68,5 @@ messageSends: ["new", "do:", "addAll:", "buildSuite", "select:", "not", "isAbstr
 referencedClasses: ["OrderedCollection", "TestCase", "TestSuiteRunner", "ResultAnnouncement"]
 }),
 smalltalk.NodeTestRunner.klass);
-
 
 });

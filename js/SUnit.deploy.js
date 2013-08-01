@@ -1,5 +1,7 @@
 define("amber/SUnit", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit');
+smalltalk.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.addMethod(
 smalltalk.method({
