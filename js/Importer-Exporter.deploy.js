@@ -1441,13 +1441,13 @@ $2=self["@extension"];
 } else {
 $2=$3;
 };
-$1=_st($2)._at_ifAbsentPut_("commitPathJs",(function(){
+$1=_st($2)._at_ifAbsent_("commitPathJs",(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._transport())._commitPathJsFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
-messageSends: ["at:ifAbsentPut:", "commitPathJsFor:", "transport", "ifNil:"]}),
+messageSends: ["at:ifAbsent:", "commitPathJsFor:", "transport", "ifNil:"]}),
 smalltalk.Package);
 
 smalltalk.addMethod(
@@ -1484,13 +1484,13 @@ $2=self["@extension"];
 } else {
 $2=$3;
 };
-$1=_st($2)._at_ifAbsentPut_("commitPathSt",(function(){
+$1=_st($2)._at_ifAbsent_("commitPathSt",(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._transport())._commitPathStFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
-messageSends: ["at:ifAbsentPut:", "commitPathStFor:", "transport", "ifNil:"]}),
+messageSends: ["at:ifAbsent:", "commitPathStFor:", "transport", "ifNil:"]}),
 smalltalk.Package);
 
 smalltalk.addMethod(

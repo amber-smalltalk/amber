@@ -776,7 +776,7 @@ commit
 !
 
 commitPathJs
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [self transport commitPathJsFor: self]
 !
 
 commitPathJs: aString
@@ -784,7 +784,7 @@ commitPathJs: aString
 !
 
 commitPathSt
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [self transport commitPathStFor: self]
 !
 
 commitPathSt: aString
