@@ -13,7 +13,9 @@ exportPackageEpilogueOf: aPackage on: aStream
 
 exportPackagePrologueOf: aPackage on: aStream
 	aStream
-		nextPutAll: 'define("amber/';
+		nextPutAll: 'define("';
+		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
+		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
 		lf

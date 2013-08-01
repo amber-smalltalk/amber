@@ -23,14 +23,23 @@ selector: "exportPackagePrologueOf:on:",
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$4,$3,$5;
 $1=aStream;
-_st($1)._nextPutAll_("define(\x22amber/");
+_st($1)._nextPutAll_("define(\x22");
+$2=$1;
+$4=_st(aPackage)._amdNamespace();
+if(($receiver = $4) == nil || $receiver == undefined){
+$3="amber";
+} else {
+$3=$4;
+};
+_st($2)._nextPutAll_($3);
+_st($1)._nextPutAll_("/");
 _st($1)._nextPutAll_(_st(aPackage)._name());
 _st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
-$2=_st($1)._lf();
+$5=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-messageSends: ["nextPutAll:", "name", "lf"]}),
+messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "lf"]}),
 smalltalk.AmdExporter.klass);
 
 smalltalk.addMethod(
