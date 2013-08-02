@@ -59,7 +59,7 @@ function always_resolve(callback) {
 function createConcatenator () {
 	var defineAmdDefine = function () {
 		var path = require('path');
-		return ($AMDEFINE_SRC$)(module);
+		return ($AMDEFINE_SRC$)();
 	};
 
 	// The createAmdefineString is hack to help injecting amdefine into the concatenated output.
