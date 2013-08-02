@@ -1,5 +1,7 @@
 define("amber/Kernel-Announcements", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Announcements');
+smalltalk.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.addMethod(
 smalltalk.method({

@@ -1,5 +1,7 @@
 define("amber/Spaces", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
+smalltalk.packages["Spaces"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.addMethod(
 smalltalk.method({

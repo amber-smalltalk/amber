@@ -1,5 +1,7 @@
 define("amber/Helios-Layout", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Layout');
+smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLContainer', smalltalk.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(
 smalltalk.method({

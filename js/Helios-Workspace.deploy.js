@@ -1,5 +1,7 @@
 define("amber/Helios-Workspace", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
+smalltalk.packages["Helios-Workspace"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({

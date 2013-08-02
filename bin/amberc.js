@@ -8,8 +8,6 @@
  * Execute 'node compiler.js' without arguments or with -h / --help for help.
  */
 
-var amdefine = require("amdefine");
-
 /**
  * Map the async filter function onto array and evaluate callback, once all have finished.
  * Taken from: http://howtonode.org/control-flow-part-iii
@@ -45,31 +43,99 @@ function always_resolve(callback) {
 
 
 /**
+ * Helper for concatenating Amber generated AMD modules.
+ * The produced output can be exported and run as an independent program.
+ *
+ * var concatenator = createConcatenator();
+ * concatenator.start(); // write the required AMD define header
+ * concatenator.add(module1);
+ * concatenator.addId(module1_ID);
+ * //...
+ * concatenator.finish("//some last code");
+ * var concatenation = concatenator.toString();
+ * // The variable concatenation contains the concatenated result
+ * // which can either be stored in a file or interpreted with eval().
+ */
+function createConcatenator () {
+	var defineAmdDefine = function () {
+		var path = require('path');
+		return ($AMDEFINE_SRC$)();
+	};
+
+	// The createAmdefineString is hack to help injecting amdefine into the concatenated output.
+	//
+	// Usually, the line 'var define = require('amdefine')(module), requirejs = define.require;'
+	// is needed when using amdefine with node and npm installed.
+	// var f = require('amdefine') itself returns one big self-sufficient function which must be called
+	// as f(module) to get the define you can use.
+	//
+	// However, amdefine needs the definition of the 'path' variable (node's internal 'path' module).
+	// To create this dependency the defineAmdDefine() function is used which defines
+	// the path variable first and adds a placeholder for the amdefine function/sourcecode.
+	// The defineAmdDefine() function is then converted to its string representation
+	// and the placeholder is replaced with the actual sourcecode of the amdefine function.
+	var createAmdefineString = function() {
+		return ('' + defineAmdDefine).replace('$AMDEFINE_SRC$', '' + require('amdefine'));
+	}
+
+	return {
+		elements: [],
+		ids: [],
+		add: function () {
+			this.elements.push.apply(this.elements, arguments);
+		},
+		addId: function () {
+			this.ids.push.apply(this.ids, arguments);
+		},
+		forEach: function () {
+			this.elements.forEach.apply(this.elements, arguments);
+		},
+		start: function () {
+			this.add(
+				'var define = (' + createAmdefineString() + ')(), requirejs = define.require;',
+				'define("amber_vm/browser-compatibility", [], {});'
+			);
+		},
+		finish: function (realWork) {
+			this.add(
+				'define("amber_vm/_init", ["amber_vm/smalltalk","' + this.ids.join('","') + '"], function (smalltalk) {',
+				'smalltalk.initialize();',
+				realWork,
+				'});', 'requirejs("amber_vm/_init");'
+			);
+		},
+		toString: function () {
+			return this.elements.join('\n');
+		}
+	};
+}
+
+/**
  * Combine several async functions and evaluate callback once all of them have finished.
  * Taken from: http://howtonode.org/control-flow
  */
 function Combo(callback) {
-  this.callback = callback;
-  this.items = 0;
-  this.results = [];
+	this.callback = callback;
+	this.items = 0;
+	this.results = [];
 }
 
 Combo.prototype = {
-  add: function () {
-	var self = this,
+	add: function () {
+		var self = this,
 		id = this.items;
-	this.items++;
-	return function () {
-	  self.check(id, arguments);
-	};
-  },
-  check: function (id, arguments) {
-	this.results[id] = Array.prototype.slice.call(arguments);
-	this.items--;
-	if (this.items == 0) {
-	  this.callback.apply(this, this.results);
+		this.items++;
+		return function () {
+			self.check(id, arguments);
+		};
+	},
+	check: function (id, arguments) {
+		this.results[id] = Array.prototype.slice.call(arguments);
+		this.items--;
+		if (this.items == 0) {
+			this.callback.apply(this, this.results);
+		}
 	}
-  }
 };
 
 var path = require('path'),
@@ -103,7 +169,6 @@ var createDefaults = function(amber_dir, finished_callback){
 
 	return {
 		'load': [],
-//		'init': path.join(amber_dir, 'support', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
 		'stFiles': [],
@@ -167,9 +232,6 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 	if (undefined === configuration) {
 		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
 	}
-	if (undefined === configuration.init) {
-//		throw new Error('AmberC.check_configuration_ok(): init value missing in configuration object');
-	}
 
 	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.lenght) {
 		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
@@ -227,7 +289,9 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
 	var special = filename[0] == "@";
-	if (special) { filename = filename.slice(1); }
+	if (special) {
+		filename = filename.slice(1);
+	}
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
 	var amberJsFile = path.join(this.amber_dir, special?'support':'js', jsFile);
@@ -332,7 +396,7 @@ AmberC.prototype.resolve_libraries = function() {
 	// Resolve libraries listed in this.kernel_libraries
 	var self = this;
 	var all_resolved = new Combo(function(resolved_kernel_files, resolved_compiler_files) {
-		self.resolve_init(resolved_compiler_files[0]);
+		self.create_compiler(resolved_compiler_files[0]);
 	});
 	this.resolve_kernel(all_resolved.add());
 	this.resolve_compiler(all_resolved.add());
@@ -393,23 +457,6 @@ AmberC.prototype.resolve_compiler = function(callback) {
 
 
 /**
- * Resolves default.init and adds it to compilerFiles.
- * Followed by create_compiler().
- */
-AmberC.prototype.resolve_init = function(compilerFiles) {
-	// check and add init.js
-//	var initFile = this.defaults.init;
-//	if ('.js' !== path.extname(initFile)) {
-//		initFile = this.resolve_js(initFile);
-//		this.defaults.init = initFile;
-//	}
-//	compilerFiles.push(initFile);
-
-	this.create_compiler(compilerFiles);
-};
-
-
-/**
  * Read all .js files needed by compiler and eval() them.
  * The finished Compiler gets stored in defaults.smalltalk.
  * Followed by compile().
@@ -417,19 +464,23 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
-		var define = amdefine(module), requirejs = define.require;
-		define("amber_vm/browser-compatibility", [], {});
+		var builder = createConcatenator();
+		builder.add('(function() {');
+		builder.start();
 
-		var content = '(function() {';
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			// data is an array where index 0 is the error code and index 1 contains the data
-			content += data[1];
-			var match = (""+data[1]).match(/^define\("([^"]*)"/);
-			if (match) content += 'requirejs("'+match[1]+'");\n';
+			builder.add(data[1]);
+			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
+			var match = ('' + data[1]).match(/^define\("([^"]*)"/);
+			if (match) {
+				builder.addId(match[1]);
+			}
 		});
-		content = content + 'return requirejs("amber_vm/smalltalk");})();';
-		self.defaults.smalltalk = eval(content);
-		self.defaults.smalltalk.initialize();
+		// store the generated smalltalk env in self.defaults.smalltalk
+		builder.finish('self.defaults.smalltalk = smalltalk;');
+		builder.add('})();');
+		eval(builder.toString());
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
@@ -505,9 +556,15 @@ AmberC.prototype.category_export = function() {
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
 			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
-		fs.writeFile(jsFile, defaults.smalltalk.Exporter._new()._exportPackage_(category), function(err) {
+		var smalltalk = defaults.smalltalk;
+		var pluggableExporter = smalltalk.PluggableExporter;
+		var packageObject = smalltalk.Package._named_(category);
+        packageObject._amdNamespace_("amber");
+		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
+			pluggableExporter._newUsing_(smalltalk.Exporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
-				fs.writeFile(jsFileDeploy, defaults.smalltalk.StrippedExporter._new()._exportPackage_(category), callback);
+				fs.writeFile(jsFileDeploy, smalltalk.String._streamContents_(function (stream) {
+					pluggableExporter._newUsing_(smalltalk.StrippedExporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), callback);
 			} else {
 				callback(null, null);
 			}
@@ -582,11 +639,6 @@ AmberC.prototype.compose_js_files = function() {
 		program_files.push.apply(program_files, compiledFiles);
 	}
 
-	if (undefined !== defaults.init) {
-//		console.log('Adding initializer ' + defaults.init);
-//		program_files.push(defaults.init);
-	}
-
 	console.ambercLog('Writing program file: %s.js', programFile);
 
 	var fileStream = fs.createWriteStream(programFile + defaults.suffix_used + '.js');
@@ -599,41 +651,44 @@ AmberC.prototype.compose_js_files = function() {
 		self.optimize();
 	});
 
-	var defineDefine = function () {
-		var path = require('path');
-		var amdefine = $SRC$;
-		var define = amdefine(module);
-		var result = function () {
-			var id = arguments[0];
-			setTimeout(function () { define.require(id); }, 0);
-			return define.apply(this, arguments);
-		};
-		result.amd = {};
-		return result;
-	};
+	var builder = createConcatenator();
+	builder.start();
 
-	fileStream.write('var define = ('+(''+defineDefine).replace('$SRC$', ""+amdefine)+')();\n'
-		+ 'define("amber_vm/browser-compatibility", [], {});\n');
 	program_files.forEach(function(file) {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
-			fileStream.write(fs.readFileSync(file));
+			var buffer = fs.readFileSync(file);
+			// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
+			var match = buffer.toString().match(/^define\("([^"]*)"/);
+			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
+				builder.addId(match[1]);
+			}
+			builder.add(buffer);
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
 		}
 	});
-	fileStream.write('define("amber_vm/_init", ["amber_vm/smalltalk"], function (st) { st.initialize(); });\n');
+
+	var mainFunctionOrFile = '';
+
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
-		fileStream.write('smalltalk.' + defaults.main + '._main()');
+		mainFunctionOrFile += 'smalltalk.' + defaults.main + '._main();';
 	}
 
 	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
 		console.log('Adding main file: ' + defaults.mainfile);
-		fileStream.write(fs.readFileSync(defaults.mainfile));
+		mainFunctionOrFile += '\n' + fs.readFileSync(defaults.mainfile);
 	}
 
+	builder.finish(mainFunctionOrFile);
+
+	console.log('Writing...');
+	builder.forEach(function (element) {
+		fileStream.write(element);
+		fileStream.write('\n');
+	});
 	console.log('Done.');
 	fileStream.end();
 };

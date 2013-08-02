@@ -1,5 +1,7 @@
 define("amber/Compiler-Tests", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Tests');
+smalltalk.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber"};
+
 smalltalk.addClass('ASTVisitorTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({

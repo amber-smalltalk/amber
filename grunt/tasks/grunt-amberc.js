@@ -49,8 +49,7 @@ module.exports = function(grunt) {
     // generate the amberc configuration out of the given target properties
     var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
 
-    // run the compiler
-    // change back to the old working directory and call the async callback once finished
+    // run the compiler and call the async callback once finished
     var self = this;
     compiler.main(configuration, function(){
       // signal that task has finished
