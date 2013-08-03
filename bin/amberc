@@ -44,14 +44,14 @@ function handle_options(optionsArray, amber_dir) {
 			case '-g':
 				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
 				break;
-			case '-i':
-				defaults.init = optionsArray.shift();
-				break;
 			case '-m':
 				defaults.main = optionsArray.shift();
 				break;
 			case '-M':
 				defaults.mainfile = optionsArray.shift();
+				break;
+			case '-n':
+				defaults.amd_namespace = optionsArray.shift();
 				break;
 			case '-o':
 				defaults.closure = true;
@@ -146,14 +146,15 @@ function print_usage() {
 	console.log('     Comma separated list of JS global variable names.');
 	console.log('     The names are added to a list containing "window", "document" and others.');
 	console.log('');
-	console.log('  -i init_file');
-	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
-	console.log('');
 	console.log('  -m main_class');
 	console.log('     Add a call to the class method main_class>>main at the end of <Program>.');
 	console.log('');
 	console.log('  -M main_file');
 	console.log('     Add <main_file> at the end of <Program.js> acting as #main.');
+	console.log('');
+	console.log('  -n amd_namespace');
+	console.log('     Export packages with <amd_namespace> as the require.js namespace.');
+	console.log('     Default value is "amber".');
 	console.log('');
 	console.log('  -o');
 	console.log('     Optimize each .js file using the Google closure compiler.');
