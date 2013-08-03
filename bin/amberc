@@ -44,9 +44,6 @@ function handle_options(optionsArray, amber_dir) {
 			case '-g':
 				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
 				break;
-			case '-i':
-				defaults.init = optionsArray.shift();
-				break;
 			case '-m':
 				defaults.main = optionsArray.shift();
 				break;
@@ -145,9 +142,6 @@ function print_usage() {
 	console.log('  -g jsGlobal1,jsGlobal2');
 	console.log('     Comma separated list of JS global variable names.');
 	console.log('     The names are added to a list containing "window", "document" and others.');
-	console.log('');
-	console.log('  -i init_file');
-	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
 	console.log('');
 	console.log('  -m main_class');
 	console.log('     Add a call to the class method main_class>>main at the end of <Program>.');
