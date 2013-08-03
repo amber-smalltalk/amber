@@ -50,6 +50,9 @@ function handle_options(optionsArray, amber_dir) {
 			case '-M':
 				defaults.mainfile = optionsArray.shift();
 				break;
+			case '-n':
+				defaults.amd_namespace = optionsArray.shift();
+				break;
 			case '-o':
 				defaults.closure = true;
 				defaults.closure_parts = true;
@@ -148,6 +151,10 @@ function print_usage() {
 	console.log('');
 	console.log('  -M main_file');
 	console.log('     Add <main_file> at the end of <Program.js> acting as #main.');
+	console.log('');
+	console.log('  -n amd_namespace');
+	console.log('     Export packages with <amd_namespace> as the require.js namespace.');
+	console.log('     Default value is "amber".');
 	console.log('');
 	console.log('  -o');
 	console.log('     Optimize each .js file using the Google closure compiler.');
