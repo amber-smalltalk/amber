@@ -80,7 +80,8 @@ function createConcatenator () {
 				'define("amber_vm/_init", ["amber_vm/smalltalk","' + this.ids.join('","') + '"], function (smalltalk) {',
 				'smalltalk.initialize();',
 				realWork,
-				'});', 'requirejs("amber_vm/_init");'
+				'});',
+				'requirejs("amber_vm/_init");'
 			);
 		},
 		toString: function () {
@@ -538,7 +539,7 @@ AmberC.prototype.category_export = function() {
 		var smalltalk = defaults.smalltalk;
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
-        packageObject._amdNamespace_("amber");
+		packageObject._amdNamespace_("amber");
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
 			pluggableExporter._newUsing_(smalltalk.Exporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
