@@ -154,6 +154,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'stFiles': [],
 		'jsFiles': [],
 		'jsGlobals': [],
+		'amd_namespace': 'amber',
 		'closure': false,
 		'closure_parts': false,
 		'closure_full': false,
@@ -187,6 +188,10 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 
 	if (configuration.closure || configuration.closure_parts || configuration.closure_full) {
 		configuration.deploy = true;
+	}
+
+	if (configuration.amd_namespace.length == 0) {
+		configuration.amd_namespace = 'amber';
 	}
 
 	console.ambercLog = console.log;
@@ -539,7 +544,7 @@ AmberC.prototype.category_export = function() {
 		var smalltalk = defaults.smalltalk;
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
-		packageObject._amdNamespace_("amber");
+		packageObject._amdNamespace_(defaults.amd_namespace);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
 			pluggableExporter._newUsing_(smalltalk.Exporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
