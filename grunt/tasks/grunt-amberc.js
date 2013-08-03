@@ -19,7 +19,7 @@ module.exports = function(grunt) {
          jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional
          output_name: 'helloWorld',             // optional
-         amd_namespace: 'MyPackage',            // optional (default: 'amber')
+         amd_namespace: 'MyNamespace',          // optional (default: 'amber')
          main_file: 'myMain.js',                // optional
          deploy: true,                          // optional
          output_suffix: 'mySuffix',             // optional
