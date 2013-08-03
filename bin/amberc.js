@@ -57,27 +57,6 @@ function always_resolve(callback) {
  * // which can either be stored in a file or interpreted with eval().
  */
 function createConcatenator () {
-	var defineAmdDefine = function () {
-		var path = require('path');
-		return ($AMDEFINE_SRC$)();
-	};
-
-	// The createAmdefineString is hack to help injecting amdefine into the concatenated output.
-	//
-	// Usually, the line 'var define = require('amdefine')(module), requirejs = define.require;'
-	// is needed when using amdefine with node and npm installed.
-	// var f = require('amdefine') itself returns one big self-sufficient function which must be called
-	// as f(module) to get the define you can use.
-	//
-	// However, amdefine needs the definition of the 'path' variable (node's internal 'path' module).
-	// To create this dependency the defineAmdDefine() function is used which defines
-	// the path variable first and adds a placeholder for the amdefine function/sourcecode.
-	// The defineAmdDefine() function is then converted to its string representation
-	// and the placeholder is replaced with the actual sourcecode of the amdefine function.
-	var createAmdefineString = function() {
-		return ('' + defineAmdDefine).replace('$AMDEFINE_SRC$', '' + require('amdefine'));
-	}
-
 	return {
 		elements: [],
 		ids: [],
@@ -92,7 +71,7 @@ function createConcatenator () {
 		},
 		start: function () {
 			this.add(
-				'var define = (' + createAmdefineString() + ')(), requirejs = define.require;',
+				'var define = (' + require('amdefine') + ')(), requirejs = define.require;',
 				'define("amber_vm/browser-compatibility", [], {});'
 			);
 		},
@@ -101,7 +80,8 @@ function createConcatenator () {
 				'define("amber_vm/_init", ["amber_vm/smalltalk","' + this.ids.join('","') + '"], function (smalltalk) {',
 				'smalltalk.initialize();',
 				realWork,
-				'});', 'requirejs("amber_vm/_init");'
+				'});',
+				'requirejs("amber_vm/_init");'
 			);
 		},
 		toString: function () {
@@ -559,7 +539,7 @@ AmberC.prototype.category_export = function() {
 		var smalltalk = defaults.smalltalk;
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
-        packageObject._amdNamespace_("amber");
+		packageObject._amdNamespace_("amber");
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
 			pluggableExporter._newUsing_(smalltalk.Exporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
