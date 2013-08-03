@@ -19,7 +19,6 @@ module.exports = function(grunt) {
          jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional
          output_name: 'helloWorld',            // optional
-         init: 'myInit',                       // optional
          main_file: 'myMain.js',               // optional
          deploy: true,                         // optional
          output_suffix: 'mySuffix',            // optional
@@ -65,10 +64,6 @@ module.exports = function(grunt) {
     var libraries = data.libraries;
     if (undefined !== libraries) {
       configuration.load = libraries;
-    }
-    var initFile = data.init;
-    if (undefined !== initFile) {
-      configuration.init = initFile;
     }
     var mainClass = data.main_class;
     if (undefined !== mainClass) {
