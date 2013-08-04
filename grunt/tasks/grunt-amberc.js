@@ -18,12 +18,12 @@ module.exports = function(grunt) {
          libraries: 'Canvas',                   // optional
          jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional
-         output_name: 'helloWorld',            // optional
-         init: 'myInit',                       // optional
-         main_file: 'myMain.js',               // optional
-         deploy: true,                         // optional
-         output_suffix: 'mySuffix',            // optional
-         library_suffix: '-0.9'                // optional
+         output_name: 'helloWorld',             // optional
+         amd_namespace: 'MyNamespace',          // optional (default: 'amber')
+         main_file: 'myMain.js',                // optional
+         deploy: true,                          // optional
+         output_suffix: 'mySuffix',             // optional
+         library_suffix: '-0.9'                 // optional
        },
      },
 
@@ -66,10 +66,6 @@ module.exports = function(grunt) {
     if (undefined !== libraries) {
       configuration.load = libraries;
     }
-    var initFile = data.init;
-    if (undefined !== initFile) {
-      configuration.init = initFile;
-    }
     var mainClass = data.main_class;
     if (undefined !== mainClass) {
       configuration.main = mainClass;
@@ -108,6 +104,10 @@ module.exports = function(grunt) {
     var outputName = data.output_name;
     if (undefined !== outputName) {
       configuration.program = outputName;
+    }
+    var amdNamespace = data.amd_namespace;
+    if (undefined !== amdNamespace) {
+      configuration.amd_namespace = amdNamespace;
     }
     if (undefined !== data.output_dir) {
       configuration.output_dir = data.output_dir;
