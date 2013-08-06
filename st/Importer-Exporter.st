@@ -425,7 +425,7 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #PackageHandler
+InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 !PackageHandler commentStamp!
@@ -448,9 +448,9 @@ commit: aPackage
 !PackageHandler methodsFor: 'private'!
 
 ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 
+	self
+		ajax: #{
+			'url' -> aURL.
 			'type' -> 'PUT'.
 			'data' -> aString.
 			'contentType' -> 'text/plain;charset=UTF-8'.
@@ -517,15 +517,15 @@ commitPathStFor: aPackage
 loadPackage: packageName prefix: aString
 	| url |
 	url := '/', aString, '/js/', packageName, '.js'.
-	jQuery
-		ajax: url
-		options: #{
+	self
+		ajax: #{
+			'url' -> url.
 			'type' -> 'GET'.
 			'dataType' -> 'script'.
 			'complete' -> [ :jqXHR :textStatus |
 				jqXHR readyState = 4
 					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
-			'error' -> [ window alert: 'Could not load package at: ', url ]
+			'error' -> [ self alert: 'Could not load package at: ', url ]
 		}
 !
 

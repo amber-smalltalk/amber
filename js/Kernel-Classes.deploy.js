@@ -178,10 +178,7 @@ selector: "basicRemoveCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-	;
+smalltalk.removeMethod(aMethod,self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 messageSends: []}),
 smalltalk.Behavior);
