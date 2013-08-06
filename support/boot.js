@@ -759,8 +759,8 @@ function PrimitivesBrik(brikz, st) {
 
 	/* Boolean assertion */
 	st.assert = function(shouldBeBoolean) {
-		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
-			return (shouldBeBoolean == true);
+		if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === st.Boolean) {
+			return shouldBeBoolean == true;
 		} else {
 			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 		}
@@ -789,6 +789,7 @@ function PrimitivesBrik(brikz, st) {
 
 function RuntimeBrik(brikz, st) {
 
+	brikz.ensure("selectorConversion");
 	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkMethodContext(home, setup) {
@@ -824,7 +825,7 @@ function RuntimeBrik(brikz, st) {
 	SmalltalkMethodContext.prototype.init = function() {
 		var home = this.homeContext;
 		if(home) {
-			home = home.init();
+			home.init();
 		}
 
 		this.setup(this);
@@ -834,7 +835,7 @@ function RuntimeBrik(brikz, st) {
 		var method;
 		var lookup = this.lookupClass || this.receiver.klass;
 		while(!method && lookup) {
-			method = lookup.methods[smalltalk.convertSelector(this.selector)];
+			method = lookup.methods[st.convertSelector(this.selector)];
 			lookup = lookup.superclass;
 		}
 		return method;
