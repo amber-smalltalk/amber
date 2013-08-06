@@ -570,23 +570,7 @@ function MethodsBrik(brikz, st) {
 
 	/* Add/remove a method to/from a class */
 
-	/* This is a temporary version of addMethod() for backward compatibility */
-	st.addMethod = function(method_exJsSelector, klass_exMethod, exKlass) {
-		if (typeof method_exJsSelector === "string") { //legacy
-			if (method_exJsSelector !== st.selector(klass_exMethod.selector)) {
-				console.log("DISCREPANCY: arg, in_method");
-				console.log(method_exJsSelector);
-				console.log(st.selector(klass_exMethod.selector));
-				klass_exMethod.jsSelector = method_exJsSelector;
-			}
-			return new_addMethod(klass_exMethod, exKlass);
-		}
-
-		return new_addMethod(method_exJsSelector, klass_exMethod);
-	};
-
-	// later, st.addMethod can be this:
-	function new_addMethod(method, klass) {
+	st.addMethod = function (method, klass) {
 		if (!(method.jsSelector)) {
 			method.jsSelector = st.selector(method.selector);
 		}
@@ -781,9 +765,6 @@ function PrimitivesBrik(brikz, st) {
 			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
 		}
 	};
-
-	/* Backward compatibility with Amber 0.9.1 */
-	st.symbolFor = function(aString) { return aString; };
 
 	/* List of all reserved words in JavaScript. They may not be used as variables
 	 in Smalltalk. */
