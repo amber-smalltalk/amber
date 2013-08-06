@@ -239,7 +239,7 @@ function ClassInitBrik(brikz, st) {
 			 superclass && superclass !== nil;
 			 superclass = superclass.superclass) {
 			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
-				inheritMethodIfAbsent(superclass.methods[keys[i]], klass);
+				inheritMethodIfAbsent(superclass.methods[keys[i]]);
 			}
 		}
 		manip.reinstallMethods(klass);
@@ -273,8 +273,7 @@ function ClassInitBrik(brikz, st) {
 function ManipulationBrik(brikz, st) {
 
 	this.installMethodIfAbsent = function (handler, klass) {
-		var jsFunction = klass.fn.prototype[handler.jsSelector];
-		if(!jsFunction) {
+		if(!klass.fn.prototype[handler.jsSelector]) {
 			installMethod(handler, klass);
 		}
 	};
@@ -295,8 +294,9 @@ function ManipulationBrik(brikz, st) {
 	};
 
 	this.reinstallMethods = function (klass) {
-		for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
-			installMethod(klass.methods[keys[i]], klass);
+		var methods = klass.methods;
+		for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
+			installMethod(methods[keys[i]], klass);
 		}
 	};
 }
