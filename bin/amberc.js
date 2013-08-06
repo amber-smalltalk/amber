@@ -131,10 +131,10 @@ var path = require('path'),
 function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
 	this.closure_jar = closure_jar || '';
-	this.kernel_libraries = ['boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter',
+	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter',
 							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
@@ -279,7 +279,7 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 	}
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(this.amber_dir, (special ? 'js/lib' : 'js'), jsFile);
+	var amberJsFile = path.join(this.amber_dir, special?'support':'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {

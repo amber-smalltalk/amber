@@ -22,8 +22,8 @@ module.exports = function(grunt) {
           cache: true,
           export_var: 'smalltalk.parser'
         },
-        src: 'js/parser.pegjs',
-        dest: 'js/parser.js',
+        src: 'support/parser.pegjs',
+        dest: 'support/parser.js',
       }
     },
 
@@ -76,7 +76,7 @@ module.exports = function(grunt) {
         src: ['test/Test.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
+        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser',
         'SUnit', 'Importer-Exporter',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         output_name: 'test/amber_test_runner'
@@ -94,7 +94,7 @@ module.exports = function(grunt) {
         src: ['cli/st/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser'
+            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser'
         ],
         main_class: 'AmberCli',
         output_name: 'amber-cli'

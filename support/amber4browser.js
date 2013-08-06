@@ -21,16 +21,14 @@ require = function (require) {
         paths: {
             'amber_set': '.',
             'amber_vm': '.',
-            'amber_vm/boot': '../boot',
-            'amber_vm/parser': '../parser',
-            'amber': '..',
-            'amber/_source': '../../st',
+            'amber': '../js',
+            'amber/_source': '../st',
             'jquery': 'jQuery/jquery-1.8.2.min',
             'jquery-ui': 'jQuery/jquery-ui-1.8.16.custom.min'
         },
         map: {
             '*': {
-                'css': 'require-css-0.0.6/css'
+                'css': 'requirejs/require-css-0.0.6/css'
             }
         },
         shim: {
@@ -41,10 +39,10 @@ require = function (require) {
                 deps: [ 'jquery', 'jquery-ui' ]
             },
             'CodeMirror/smalltalk': {
-                deps: [ 'CodeMirror/codemirror' ]
+                deps: [ './codemirror' ]
             },
             'CodeMirror/addon/hint/show-hint': {
-                deps: [ 'CodeMirror/codemirror' ]
+                deps: [ '../../codemirror' ]
             },
             'ensure-console': {
                 exports: 'console'
@@ -53,94 +51,94 @@ require = function (require) {
                 deps: []
             },
             'amber/Kernel-Classes.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
             'amber/Kernel-Methods.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
             'amber/Kernel-Collections.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
             'amber/Kernel-Exceptions.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
             'amber/Kernel-Transcript.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
             'amber/Kernel-Announcements.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
             'amber/Canvas.deploy': {
-                deps: [ 'amber/Kernel-Objects.deploy' ]
+                deps: [ './Kernel-Objects.deploy' ]
             },
              'amber/Kernel-Objects': {
                 deps: []
             },
             'amber/Kernel-Classes': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Kernel-Methods': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Kernel-Collections': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Kernel-Exceptions': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Kernel-Transcript': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Kernel-Announcements': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Canvas': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/SUnit': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Importer-Exporter': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Compiler-Exceptions': {
-                deps: [ 'amber/Kernel-Exceptions', 'amber/Compiler-AST' ]
+                deps: [ './Kernel-Exceptions', './Compiler-AST' ]
             },
             'amber/Compiler-Core': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Compiler-AST': {
-                deps: [ 'amber/Compiler-Core' ]
+                deps: [ './Compiler-Core' ]
             },
             'amber/Compiler-Semantic': {
-                deps: [ 'amber/Compiler-Core' ]
+                deps: [ './Compiler-Core' ]
             },
             'amber/Compiler-IR': {
-                deps: [ 'amber/Compiler-Core' ]
+                deps: [ './Compiler-Core' ]
             },
             'amber/Compiler-Inlining': {
-                deps: [ 'amber/Compiler-IR' ]
+                deps: [ './Compiler-IR' ]
             },
             'amber/Compiler-Interpreter': {
-                deps: [ 'amber/Compiler-AST' ]
+                deps: [ './Compiler-AST' ]
             },
             'amber/IDE': {
-                deps: [ 'amber/Canvas', 'amber/Kernel-Exceptions' ]
+                deps: [ './Canvas', './Kernel-Exceptions' ]
             },
             'amber/Examples': {
-                deps: [ 'amber/Canvas' ]
+                deps: [ './Canvas' ]
             },
             'amber/Benchfib': {
-                deps: [ 'amber/Kernel-Objects' ]
+                deps: [ './Kernel-Objects' ]
             },
             'amber/Kernel-Tests': {
-                deps: [ 'amber/SUnit' ]
+                deps: [ './SUnit' ]
             },
             'amber/Compiler-Tests': {
-                deps: [ 'amber/SUnit' ]
+                deps: [ './SUnit' ]
             },
             'amber/SUnit-Tests': {
-                deps: [ 'amber/SUnit' ]
+                deps: [ './SUnit' ]
             }
         }
     };
