@@ -45,7 +45,8 @@ module.exports = function(grunt) {
               'st/Helios-Commands.st', 'st/Helios-Commands-Core.st', 'st/Helios-Commands-Browser.st', 'st/Helios-Commands-Tools.st',
               'st/Helios-References.st', 'st/Helios-Inspector.st', 'st/Helios-Browser.st',
               'st/Helios-Transcript.st', 'st/Helios-Workspace.st', 'st/Helios-Debugger.st',
-              'st/Helios-Workspace-Tests.st'
+              'st/Helios-Workspace-Tests.st',
+              'st/Benchfib.st', 'st/Examples.st', 'st/Spaces.st'
               ],
         jsGlobals: ['navigator'],
         deploy: true
