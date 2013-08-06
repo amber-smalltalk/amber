@@ -168,25 +168,24 @@ function DNUBrik(brikz, st) {
 
 	/* Method not implemented handlers */
 
-	this.methods = [];
+	var methods = [], checker = Object.create(null);
 	this.selectors = [];
-	this.checker = Object.create(null);
 
 	this.get = function (string) {
 		var index = this.selectors.indexOf(string);
 		if(index !== -1) {
-			return this.methods[index];
+			return methods[index];
 		}
 		this.selectors.push(string);
 		var selector = st.selector(string);
-		this.checker[selector] = true;
+		checker[selector] = true;
 		var method = {jsSelector: selector, fn: this.createHandler(selector)};
-		this.methods.push(method);
+		methods.push(method);
 		return method;
 	};
 
 	this.isSelector = function (selector) {
-		return this.checker[selector];
+		return checker[selector];
 	};
 
 	/* Dnu handler method */
@@ -201,9 +200,8 @@ function DNUBrik(brikz, st) {
 	}
 
 	this.installHandlers = function (klass) {
-		var m = this.methods;
-		for(var i=0; i<m.length; i++) {
-			manip.installMethodIfAbsent(m[i], klass);
+		for(var i=0; i<methods.length; i++) {
+			manip.installMethodIfAbsent(methods[i], klass);
 		}
 	};
 }
