@@ -134,7 +134,7 @@ function AmberC(amber_dir, closure_jar) {
 	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter',
+	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
 							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 

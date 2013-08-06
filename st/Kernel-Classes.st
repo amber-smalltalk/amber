@@ -267,10 +267,7 @@ basicAddCompiledMethod: aMethod
 !
 
 basicRemoveCompiledMethod: aMethod
-	<
-		smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-	>
+	<smalltalk.removeMethod(aMethod,self)>
 ! !
 
 !Behavior methodsFor: 'testing'!
