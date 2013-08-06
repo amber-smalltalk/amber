@@ -227,13 +227,10 @@ category: 'private',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-	;
+smalltalk.removeMethod(aMethod,self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "basicRemoveCompiledMethod: aMethod\x0a\x09<\x0a\x09\x09smalltalk.removeMethod(aMethod)\x0a\x09\x09smalltalk.init(self);\x0a\x09>",
+source: "basicRemoveCompiledMethod: aMethod\x0a\x09<smalltalk.removeMethod(aMethod,self)>",
 messageSends: [],
 referencedClasses: []
 }),

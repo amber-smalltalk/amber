@@ -1,4 +1,48 @@
 Smalltalk current createPackage: 'Canvas'!
+Object subclass: #BrowserInterface
+	instanceVariableNames: ''
+	package: 'Canvas'!
+!BrowserInterface commentStamp!
+I am platform interface class that tries to use window and jQuery; that is, one for browser environment.
+
+## API
+
+    self isAvailable. "true if window and jQuery exist".
+
+    self alert: 'Hey, there is a problem'.
+    self confirm: 'Affirmative?'.
+    self prompt: 'Your name:'.
+
+    self ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+!BrowserInterface methodsFor: 'actions'!
+
+ajax: anObject
+	^jQuery ajax: anObject
+!
+
+alert: aString
+	^window alert: aString
+!
+
+confirm: aString
+	^window confirm: aString
+!
+
+prompt: aString
+	^window prompt: aString
+! !
+
+!BrowserInterface methodsFor: 'testing'!
+
+isAvailable
+<return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
+! !
+
+BrowserInterface class instanceVariableNames: 'uiWorker ajaxWorker'!
+
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Canvas'!
@@ -887,7 +931,7 @@ width: aString
 !TagBrush methodsFor: 'converting'!
 
 asJQuery
-	^window jQuery: self element
+	^self element asJQuery
 ! !
 
 !TagBrush methodsFor: 'events'!
@@ -1038,7 +1082,7 @@ canvas: aCanvas
 	yourself
 ! !
 
-Object subclass: #Widget
+InterfacingObject subclass: #Widget
 	instanceVariableNames: ''
 	package: 'Canvas'!
 !Widget commentStamp!
