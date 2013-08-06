@@ -1754,19 +1754,16 @@ selector: "exists:",
 category: 'testing',
 fn: function (aString){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-
-		if(aString in window) {
-			return true
-		} else {
-			return false
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
+var $1;
+$1=_st($PlatformInterface())._existsGlobal_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
 args: ["aString"],
-source: "exists: aString\x0a\x09<\x0a\x09\x09if(aString in window) {\x0a\x09\x09\x09return true\x0a\x09\x09} else {\x0a\x09\x09\x09return false\x0a\x09\x09}\x0a\x09>",
-messageSends: [],
-referencedClasses: []
+source: "exists: aString\x0a\x09^PlatformInterface existsGlobal: aString",
+messageSends: ["existsGlobal:"],
+referencedClasses: ["PlatformInterface"]
 }),
 smalltalk.NativeFunction.klass);
 

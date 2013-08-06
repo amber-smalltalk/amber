@@ -462,7 +462,7 @@ handleKeyDown: event
 !
 
 setupEvents
-	(window jQuery: 'body') keydown: [ :event | self handleKeyDown: event ]
+	'body' asJQuery keydown: [ :event | self handleKeyDown: event ]
 ! !
 
 !HLKeyBinder methodsFor: 'initialization'!
@@ -578,14 +578,14 @@ renderSelectionOn: html
 !
 
 renderStart
-	(window jQuery: '#helper') remove.
+	'#helper' asJQuery remove.
 
 	[ :html |
 		html div 
 			id: 'helper';
 			with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.
 	
-	[ (window jQuery: '#helper') fadeOut: 1000 ] 
+	[ '#helper' asJQuery fadeOut: 1000 ] 
 		valueWithTimeout: 2000
 ! !
 

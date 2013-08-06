@@ -1296,16 +1296,13 @@ smalltalk.method({
 selector: "exists:",
 fn: function (aString){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-
-		if(aString in window) {
-			return true
-		} else {
-			return false
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
-messageSends: []}),
+var $1;
+$1=_st($PlatformInterface())._existsGlobal_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
+messageSends: ["existsGlobal:"]}),
 smalltalk.NativeFunction.klass);
 
 
