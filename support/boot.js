@@ -379,15 +379,15 @@ function ClassesBrik(brikz, st) {
 		return that;
 	}
 
+	SmalltalkBehavior.prototype.toString = function () {
+		return 'Smalltalk ' + this.className;
+	};
+
 	function setupClass(klass, spec) {
 		spec = spec || {};
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
 
-		Object.defineProperty(klass, "toString", {
-			value: function() { return 'Smalltalk ' + this.className; },
-			enumerable:false, configurable: true, writable: false
-		});
 		org.setupClassOrganization(klass);
 		Object.defineProperty(klass, "methods", {
 			value: {},
