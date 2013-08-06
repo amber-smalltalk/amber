@@ -51,9 +51,9 @@ amber = (function() {
 		}
 
 		loadDependencies();
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-shim.min.js');
-		addJSToLoad('js/lib/es5-shim-2.0.2/es5-sham.min.js');
-		addJSToLoad('js/boot.js');
+		addJSToLoad('support/es5-shim-2.0.2/es5-shim.min.js');
+		addJSToLoad('support/es5-shim-2.0.2/es5-sham.min.js');
+		addJSToLoad('support/boot.js');
 
 		if (deploy) {
 			loadPackages([
@@ -69,6 +69,7 @@ amber = (function() {
 		} else {
 			loadIDEDependencies();
 			loadCSS('amber.css');
+            addJSToLoad('support/parser.js');
 
 			loadPackages([
 				'Kernel-Objects',
@@ -89,7 +90,6 @@ amber = (function() {
 				'Compiler-Inlining',
 				'Compiler-Interpreter',
 				'Compiler-Tests',
-				'parser',
 				'IDE',
 				'Examples',
 				'Benchfib',
@@ -104,7 +104,7 @@ amber = (function() {
 		}
 
 		// Be sure to setup & initialize smalltalk classes
-		addJSToLoad('js/init.js');
+		addJSToLoad('support/init.js');
 		initializeSmalltalk();
 	};
 
@@ -185,23 +185,23 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			addJSToLoad('js/lib/jQuery/jquery-1.8.2.min.js');
+			addJSToLoad('support/jQuery/jquery-1.8.2.min.js');
 		}
 
 		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {
-			addJSToLoad('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js');
+			addJSToLoad('support/jQuery/jquery-ui-1.8.16.custom.min.js');
 		}
 	}
 
 	function loadIDEDependencies() {
-		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
-		addJSToLoad('js/lib/CodeMirror/codemirror.js');
-		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
-		addJSToLoad('js/lib/CodeMirror/addon/hint/show-hint.js');
-		loadCSS('lib/CodeMirror/codemirror.css', 'js');
-		loadCSS('lib/CodeMirror/theme/ambiance.css', 'js');
-		loadCSS('lib/CodeMirror/addon/hint/show-hint.css', 'js');
-		loadCSS('lib/CodeMirror/amber.css', 'js');
+		addJSToLoad('support/jQuery/jquery.textarea.js');
+		addJSToLoad('support/CodeMirror/codemirror.js');
+		addJSToLoad('support/CodeMirror/smalltalk.js');
+		addJSToLoad('support/CodeMirror/addon/hint/show-hint.js');
+		loadCSS('support/CodeMirror/codemirror.css', '.');
+		loadCSS('support/CodeMirror/theme/ambiance.css', '.');
+		loadCSS('support/CodeMirror/addon/hint/show-hint.css', '.');
+		loadCSS('support/CodeMirror/amber.css', '.');
 	}
 
 	// This will be called after JS files have been loaded
