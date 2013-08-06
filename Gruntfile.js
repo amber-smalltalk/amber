@@ -77,7 +77,7 @@ module.exports = function(grunt) {
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser',
-        'SUnit',
+        'SUnit', 'Importer-Exporter',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         output_name: 'test/amber_test_runner'
       },
