@@ -2032,44 +2032,6 @@ current
 	<return smalltalk>
 ! !
 
-Object subclass: #Timeout
-	instanceVariableNames: 'rawTimeout'
-	package: 'Kernel-Objects'!
-!Timeout commentStamp!
-I am wrapping the returns from `set{Timeout,Interval}`.
-
-## Motivation
-
-Number suffices in browsers, but node.js returns an object.!
-
-!Timeout methodsFor: 'accessing'!
-
-rawTimeout: anObject
-	rawTimeout := anObject
-! !
-
-!Timeout methodsFor: 'timeout/interval'!
-
-clearInterval
-	<
-		var interval = self["@rawTimeout"];
-		clearInterval(interval);
-	>
-!
-
-clearTimeout
-	<
-		var timeout = self["@rawTimeout"];
-		clearTimeout(timeout);
-	>
-! !
-
-!Timeout class methodsFor: 'instance creation'!
-
-on: anObject
-	^self new rawTimeout: anObject; yourself
-! !
-
 Object subclass: #UndefinedObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!

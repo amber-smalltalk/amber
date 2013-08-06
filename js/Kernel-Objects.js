@@ -4619,6 +4619,28 @@ smalltalk.PlatformInterface.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "existsGlobal:",
+category: 'actions',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !/^[\\w_]+$/.test(aString))\n'+
+	'	return false;\n'+
+	'try { eval(aString); return true; } catch (ex) {}\n'+
+	'return false;');
+	return f(aString);;
+return self}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
+args: ["aString"],
+source: "existsGlobal: aString\x0a<\x0a\x09var f = new Function('aString',\x0a\x09'if (/^[0-9]/.test(aString) || !/^[\x5c\x5cw_]+$/.test(aString))\x5cn'+\x0a\x09'\x09return false;\x5cn'+\x0a\x09'try { eval(aString); return true; } catch (ex) {}\x5cn'+\x0a\x09'return false;');\x0a\x09return f(aString);\x0a>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PlatformInterface.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
@@ -5001,28 +5023,6 @@ messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
 smalltalk.ProgressHandler.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "existsGlobal:",
-category: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-	var f = new Function('aString',
-	'if (/^[0-9]/.test(aString) || !/^[\\w_]+$/.test(aString))\n'+
-	'	return false;\n'+
-	'try { eval(aString); return true; } catch (ex) {}\n'+
-	'return false;');
-	return f(aString);;
-return self}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
-args: ["aString"],
-source: "existsGlobal: aString\x0a<\x0a\x09var f = new Function('aString',\x0a\x09'if (/^[0-9]/.test(aString) || !/^[\x5c\x5cw_]+$/.test(aString))\x5cn'+\x0a\x09'\x09return false;\x5cn'+\x0a\x09'try { eval(aString); return true; } catch (ex) {}\x5cn'+\x0a\x09'return false;');\x0a\x09return f(aString);\x0a>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.PlatformInterface.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -5595,85 +5595,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk.klass);
-
-
-smalltalk.addClass('Timeout', smalltalk.Object, ['rawTimeout'], 'Kernel-Objects');
-smalltalk.Timeout.comment="I am wrapping the returns from `set{Timeout,Interval}`.\x0a\x0a## Motivation\x0a\x0aNumber suffices in browsers, but node.js returns an object.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "clearInterval",
-category: 'timeout/interval',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var interval = self["@rawTimeout"];
-		clearInterval(interval);
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"clearInterval",{},smalltalk.Timeout)})},
-args: [],
-source: "clearInterval\x0a\x09<\x0a\x09\x09var interval = self[\x22@rawTimeout\x22];\x0a\x09\x09clearInterval(interval);\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Timeout);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "clearTimeout",
-category: 'timeout/interval',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var timeout = self["@rawTimeout"];
-		clearTimeout(timeout);
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"clearTimeout",{},smalltalk.Timeout)})},
-args: [],
-source: "clearTimeout\x0a\x09<\x0a\x09\x09var timeout = self[\x22@rawTimeout\x22];\x0a\x09\x09clearTimeout(timeout);\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Timeout);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "rawTimeout:",
-category: 'accessing',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@rawTimeout"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"rawTimeout:",{anObject:anObject},smalltalk.Timeout)})},
-args: ["anObject"],
-source: "rawTimeout: anObject\x0a\x09rawTimeout := anObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Timeout);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "on:",
-category: 'instance creation',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._rawTimeout_(anObject);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Timeout.klass)})},
-args: ["anObject"],
-source: "on: anObject\x0a\x09^self new rawTimeout: anObject; yourself",
-messageSends: ["rawTimeout:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.Timeout.klass);
 
 
 smalltalk.addClass('UndefinedObject', smalltalk.Object, [], 'Kernel-Objects');
