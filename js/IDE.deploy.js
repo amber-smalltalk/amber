@@ -472,7 +472,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(compiler)._parseExpression_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(window)._alert_(_st(ex)._messageText());
+$1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
 $2=_st(compiler)._evaluateExpression_on_(aString,self._receiver());
@@ -889,13 +889,9 @@ selector: "onResize:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery('#amber').resizable({
-	handles: 'n',
-	resize: aBlock,
-	minHeight: 230
-});
+_st("#amber"._asJQuery())._resizable_(smalltalk.HashedCollection._from_(["handles".__minus_gt("n"),"resize".__minus_gt(aBlock),"minHeight".__minus_gt((230))]));
 return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{aBlock:aBlock},smalltalk.TabManager)})},
-messageSends: []}),
+messageSends: ["resizable:", "->", "asJQuery"]}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -904,9 +900,9 @@ selector: "onWindowResize:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery(window).resize(aBlock);
+_st(_st(window)._asJQuery())._resize_(aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"onWindowResize:",{aBlock:aBlock},smalltalk.TabManager)})},
-messageSends: []}),
+messageSends: ["resize:", "asJQuery"]}),
 smalltalk.TabManager);
 
 smalltalk.addMethod(
@@ -1184,9 +1180,12 @@ selector: "updatePosition",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-jQuery('#amber').css('top', '').css('bottom', '0px');
+var $1,$2;
+$1="#amber"._asJQuery();
+_st($1)._css_put_("top","");
+$2=_st($1)._css_put_("bottom","0px");
 return self}, function($ctx1) {$ctx1.fill(self,"updatePosition",{},smalltalk.TabManager)})},
-messageSends: []}),
+messageSends: ["css:put:", "asJQuery"]}),
 smalltalk.TabManager);
 
 
@@ -1230,11 +1229,11 @@ function $Browser(){return smalltalk.Browser||(typeof Browser=="undefined"?nil:B
 function $TabManager(){return smalltalk.TabManager||(typeof TabManager=="undefined"?nil:TabManager)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(_st(_st(window)._jQuery_("#amber"))._length()).__eq((0));
+$1=_st(_st("#amber"._asJQuery())._length()).__eq((0));
 if(smalltalk.assert($1)){
 _st($Browser())._open();
 } else {
-$2=_st(_st(window)._jQuery_("#amber"))._is_(":visible");
+$2=_st("#amber"._asJQuery())._is_(":visible");
 if(smalltalk.assert($2)){
 _st(_st($TabManager())._current())._close();
 } else {
@@ -1242,7 +1241,7 @@ _st(_st($TabManager())._current())._open();
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"toggleAmberIDE",{},smalltalk.TabManager.klass)})},
-messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "jQuery:", "=", "length"]}),
+messageSends: ["ifTrue:ifFalse:", "open", "close", "current", "is:", "asJQuery", "=", "length"]}),
 smalltalk.TabManager.klass);
 
 
@@ -1444,7 +1443,7 @@ function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Obje
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-className=_st(window)._prompt_("New class");
+className=self._prompt_("New class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(className)._notEmpty();
@@ -1469,7 +1468,7 @@ var self=this;
 var newProtocol;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-newProtocol=_st(window)._prompt_("New method protocol");
+newProtocol=self._prompt_("New method protocol");
 $1=_st(_st(newProtocol)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(newProtocol)._notEmpty();
@@ -1502,7 +1501,7 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@unsavedChanges"];
 if(smalltalk.assert($2)){
-$1=_st(window)._confirm_("Cancel changes?");
+$1=self._confirm_("Cancel changes?");
 } else {
 $1=true;
 };
@@ -1704,6 +1703,7 @@ fn: function (aClass){
 var self=this;
 var compiler,method,source,node;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
@@ -1722,23 +1722,21 @@ _st(compiler)._source_(source);
 node=_st(compiler)._parse_(source);
 $2=_st(node)._isParseFailure();
 if(smalltalk.assert($2)){
-$3=_st(window)._alert_(_st(_st("PARSE ERROR: ".__comma(_st(node)._reason())).__comma(", position: ")).__comma(_st(_st(node)._position())._asString()));
+$3=self._alert_(_st(_st("PARSE ERROR: ".__comma(_st(node)._reason())).__comma(", position: ")).__comma(_st(_st(node)._position())._asString()));
 return $3;
 };
 _st(compiler)._currentClass_(aClass);
 method=_st(compiler)._eval_(_st(compiler)._compileNode_(node));
 _st(_st(compiler)._unknownVariables())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$4=_st(window)._at_(each);
-if(($receiver = $4) == nil || $receiver == undefined){
-$5=_st(window)._confirm_(_st("Declare '".__comma(each)).__comma("' as instance variable?"));
+$4=_st($PlatformInterface())._existsGlobal_(each);
+if(! smalltalk.assert($4)){
+$5=self._confirm_(_st("Declare '".__comma(each)).__comma("' as instance variable?"));
 if(smalltalk.assert($5)){
 self._addInstanceVariableNamed_toClass_(each,aClass);
 $6=self._compileMethodDefinitionFor_(aClass);
 throw $early=[$6];
 };
-} else {
-return $4;
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 _st(_st($ClassBuilder())._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
@@ -1747,7 +1745,7 @@ self._selectMethod_(method);
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node},smalltalk.Browser)})},
-messageSends: ["val", "ifNil:", "category", "new", "source:", "parse:", "ifTrue:", "alert:", ",", "asString", "position", "reason", "isParseFailure", "currentClass:", "eval:", "compileNode:", "do:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "confirm:", "at:", "unknownVariables", "installMethod:forClass:category:", "updateMethodsList", "selectMethod:"]}),
+messageSends: ["val", "ifNil:", "category", "new", "source:", "parse:", "ifTrue:", "alert:", ",", "asString", "position", "reason", "isParseFailure", "currentClass:", "eval:", "compileNode:", "do:", "ifFalse:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "confirm:", "existsGlobal:", "unknownVariables", "installMethod:forClass:category:", "updateMethodsList", "selectMethod:"]}),
 smalltalk.Browser);
 
 smalltalk.addMethod(
@@ -1760,7 +1758,7 @@ function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="u
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-className=_st(window)._prompt_("Copy class");
+className=self._prompt_("Copy class");
 $1=_st(_st(className)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(className)._notEmpty();
@@ -2066,7 +2064,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._confirm_(_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?"));
+$1=self._confirm_(_st("Do you really want to remove ".__comma(_st(self["@selectedClass"])._name())).__comma("?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removeClass_(self["@selectedClass"]);
 self._resetClassesList();
@@ -2085,7 +2083,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 $1=self._cancelChanges();
 if(smalltalk.assert($1)){
-$2=_st(window)._confirm_(_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
+$2=self._confirm_(_st("Do you really want to remove #".__comma(_st(self["@selectedMethod"])._selector())).__comma("?"));
 if(smalltalk.assert($2)){
 $3=_st(self["@selectedTab"]).__eq("instance");
 if(smalltalk.assert($3)){
@@ -2108,7 +2106,7 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._confirm_(_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
+$1=self._confirm_(_st("Do you really want to remove the whole package ".__comma(self["@selectedPackage"])).__comma(" with all its classes?"));
 if(smalltalk.assert($1)){
 _st(_st($Smalltalk())._current())._removePackage_(self["@selectedPackage"]);
 self._updateCategoriesList();
@@ -2125,7 +2123,7 @@ var self=this;
 var newName;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
-newName=_st(window)._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
+newName=self._prompt_("Rename class ".__comma(_st(self["@selectedClass"])._name()));
 $1=_st(_st(newName)._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(newName)._notEmpty();
@@ -2150,7 +2148,7 @@ var newName;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-newName=_st(window)._prompt_("Rename package ".__comma(self["@selectedPackage"]));
+newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
 $1=newName;
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;

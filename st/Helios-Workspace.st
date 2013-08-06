@@ -215,8 +215,8 @@ messageHintFor: anEditor token: aToken
 variableHintFor: anEditor token: aToken
 	| variables classNames pseudoVariables |
 	
-	variables := ((window jQuery: anEditor display wrapper) find: 'span.cm-variable') get
-		collect: [ :each | (window jQuery: each) html ].
+	variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get
+		collect: [ :each | each asJQuery html ].
 	
 	classNames := Smalltalk current classes collect: [ :each | each name ].
 	pseudoVariables := Smalltalk current pseudoVariableNames.

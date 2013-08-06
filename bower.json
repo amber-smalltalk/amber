@@ -1,0 +1,12 @@
+{
+  "name": "amber",
+  "version": "0.11.0",
+  "main": "js/amber.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

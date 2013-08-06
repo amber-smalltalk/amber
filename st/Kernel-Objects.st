@@ -708,7 +708,69 @@ today
 	^self new
 ! !
 
-Object subclass: #Environment
+Object subclass: #InspectorHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!InspectorHandler commentStamp!
+I am responsible for inspecting object.
+
+My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
+
+The default inspector object is the transcript.!
+
+InspectorHandler class instanceVariableNames: 'inspector'!
+
+!InspectorHandler class methodsFor: 'accessing'!
+
+inspector
+	^ inspector ifNil: [ inspector := Transcript ]
+! !
+
+!InspectorHandler class methodsFor: 'registration'!
+
+inspect: anObject
+	^ self inspector inspect: anObject
+!
+
+register: anInspector
+	inspector := anInspector
+! !
+
+Object subclass: #InterfacingObject
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!InterfacingObject commentStamp!
+I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.
+
+## API
+
+    self alert: 'Hey, there is a problem'.
+    self confirm: 'Affirmative?'.
+    self prompt: 'Your name:'.
+
+    self ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+!InterfacingObject methodsFor: 'actions'!
+
+ajax: anObject
+	^PlatformInterface ajax: anObject
+!
+
+alert: aString
+	^PlatformInterface alert: aString
+!
+
+confirm: aString
+	^PlatformInterface confirm: aString
+!
+
+prompt: aString
+	^PlatformInterface prompt: aString
+! !
+
+InterfacingObject subclass: #Environment
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Environment commentStamp!
@@ -778,7 +840,7 @@ eval: aString on: aReceiver
 	| compiler |
 	compiler := Compiler new.
 	[ compiler parseExpression: aString ] on: Error do: [ :ex |
-		^ window alert: ex messageText ].
+		^ self alert: ex messageText ].
 	^ compiler evaluateExpression: aString on: aReceiver
 !
 
@@ -890,34 +952,6 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
-! !
-
-Object subclass: #InspectorHandler
-	instanceVariableNames: ''
-	package: 'Kernel-Objects'!
-!InspectorHandler commentStamp!
-I am responsible for inspecting object.
-
-My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
-
-The default inspector object is the transcript.!
-
-InspectorHandler class instanceVariableNames: 'inspector'!
-
-!InspectorHandler class methodsFor: 'accessing'!
-
-inspector
-	^ inspector ifNil: [ inspector := Transcript ]
-! !
-
-!InspectorHandler class methodsFor: 'registration'!
-
-inspect: anObject
-	^ self inspector inspect: anObject
-!
-
-register: anInspector
-	inspector := anInspector
 ! !
 
 Object subclass: #JSObjectProxy
@@ -1411,7 +1445,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'commitPathJs commitPathSt'
+	instanceVariableNames: 'extension'
 	package: 'Kernel-Objects'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -1432,22 +1466,6 @@ You can fetch a package from the server:
 	Package load: 'Additional-Examples'!
 
 !Package methodsFor: 'accessing'!
-
-commitPathJs
-	^ commitPathJs ifNil: [self class defaultCommitPathJs]
-!
-
-commitPathJs: aString
-	commitPathJs := aString
-!
-
-commitPathSt
-	^ commitPathSt ifNil: [self class defaultCommitPathSt]
-!
-
-commitPathSt: aString
-	commitPathSt := aString
-!
 
 name
 	<return self.pkgName>
@@ -1509,56 +1527,21 @@ named: aPackageName ifAbsent: aBlock
 	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
 ! !
 
-!Package class methodsFor: 'commit paths'!
-
-commitPathsFromLoader
-	<
-		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
-		if (!!commitPath) return;
-		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
-		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
-	>
-!
-
-defaultCommitPathJs
-	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
-!
-
-defaultCommitPathJs: aString
-	defaultCommitPathJs := aString
-!
-
-defaultCommitPathSt
-	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
-!
-
-defaultCommitPathSt: aString
-	defaultCommitPathSt := aString
-!
-
-resetCommitPaths
-		defaultCommitPathJs := nil.
-		defaultCommitPathSt := nil.
-! !
-
-!Package class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	self commitPathsFromLoader
-! !
-
 !Package class methodsFor: 'loading-storing'!
 
 load: aPackageName
+	self deprecatedAPI.
 	self load: aPackageName prefix: self defaultCommitPathJs, '/'
 !
 
 load: aPackageName prefix: aPrefix
-	jQuery
-		getScript: (aPrefix , aPackageName , '.js')
-		onSuccess: [
+	self deprecatedAPI.
+	PlatformInterface ajax: #{
+		'url' -> (aPrefix , aPackageName , '.js').
+		'dataType' -> 'script'.
+		'success' -> [
 			(Package named: aPackageName) setupClasses ]
+	}
 ! !
 
 !Package class methodsFor: 'sorting'!
@@ -1580,6 +1563,81 @@ sortedClasses: classes
 	nodes do: [:aNode |
 		aNode traverseClassesWith: expandedClasses].
 	^expandedClasses
+! !
+
+Object subclass: #PlatformInterface
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!PlatformInterface commentStamp!
+I am single entry point to UI and environment interface.
+My `initialize` tries several options (for now, browser environment only) to set myself up.
+
+## API
+
+    PlatformInterface alert: 'Hey, there is a problem'.
+    PlatformInterface confirm: 'Affirmative?'.
+    PlatformInterface prompt: 'Your name:'.
+
+    PlatformInterface ajax: #{
+        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'
+    }.!
+
+PlatformInterface class instanceVariableNames: 'worker'!
+
+!PlatformInterface class methodsFor: 'accessing'!
+
+setWorker: anObject
+	worker := anObject
+! !
+
+!PlatformInterface class methodsFor: 'actions'!
+
+ajax: anObject
+	^worker
+		ifNotNil: [ worker ajax: anObject ]
+		ifNil: [ self error: 'ajax: not available' ]
+!
+
+alert: aString
+	^worker
+		ifNotNil: [ worker alert: aString ]
+		ifNil: [ self error: 'alert: not available' ]
+!
+
+confirm: aString
+	^worker
+		ifNotNil: [ worker confirm: aString ]
+		ifNil: [ self error: 'confirm: not available' ]
+!
+
+existsGlobal: aString
+<
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !!/^[\\w_]+$/.test(aString))\n'+
+	'	return false;\n'+
+	'try { eval(aString); return true; } catch (ex) {}\n'+
+	'return false;');
+	return f(aString);
+>
+!
+
+prompt: aString
+	^worker
+		ifNotNil: [ worker prompt: aString ]
+		ifNil: [ self error: 'prompt: not available' ]
+! !
+
+!PlatformInterface class methodsFor: 'initialization'!
+
+initialize
+	| candidate |
+	
+	super initialize.
+	
+	BrowserInterface ifNotNil: [
+		candidate := BrowserInterface new.
+		candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]
+	]
 ! !
 
 Object subclass: #Point
