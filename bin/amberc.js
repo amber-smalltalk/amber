@@ -83,10 +83,10 @@ var path = require('path'),
 function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
 	this.closure_jar = closure_jar || '';
-	this.kernel_libraries = ['boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['@boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							 'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
 							 'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter', 'Compiler-Exceptions',
+	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
 							  'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
@@ -101,7 +101,7 @@ var createDefaults = function(amber_dir, finished_callback){
 
 	return {
 		'load': [],
-		'init': path.join(amber_dir, 'js', 'init.js'),
+		'init': path.join(amber_dir, 'support', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
 		'stFiles': [],
@@ -224,9 +224,11 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
+    var special = filename[0] == "@";
+    if (special) { filename = filename.slice(1); }
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(this.amber_dir, 'js', jsFile);
+	var amberJsFile = path.join(this.amber_dir, special?'support':'js', jsFile);
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {
