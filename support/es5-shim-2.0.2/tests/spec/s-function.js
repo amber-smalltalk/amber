@@ -1,4 +1,3 @@
-
 describe('Function', function() {
     "use strict";
     describe('bind', function() {

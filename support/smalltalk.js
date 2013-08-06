@@ -3,3 +3,4 @@ define("amber_vm/smalltalk", ["require", "./boot"], function (require, boot) {
     smalltalk._amd_require = require;
     return  smalltalk;
 });
+
