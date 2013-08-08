@@ -420,9 +420,9 @@ commit: aPackage
 !PackageHandler methodsFor: 'private'!
 
 ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL 
-		options: #{ 
+	self
+		ajax: #{
+			'url' -> aURL.
 			'type' -> 'PUT'.
 			'data' -> aString.
 			'contentType' -> 'text/plain;charset=UTF-8'.
