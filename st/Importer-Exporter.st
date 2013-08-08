@@ -21,14 +21,14 @@ extensionCategoriesOfPackage: package
 			aClass protocolsDo: [:category :methods |
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
-				#{ 'methods'->(map at: category). 'name'->category. 'class'->aClass}]) ]].
+				MethodCategory name: category class: aClass methods: (map at: category)]) ]].
 	^result
 !
 
 methodsOfCategory: category
 	"Issue #143: sort methods alphabetically"
 
-	^(category at: #methods) sorted: [:a :b | a selector <= b selector]
+	^(category methods) sorted: [:a :b | a selector <= b selector]
 !
 
 ownCategoriesOfClass: aClass
@@ -39,10 +39,7 @@ ownCategoriesOfClass: aClass
 	aClass protocolsDo: [:category :methods |
 		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
 	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
-		#{
-			'methods'->(map at: category).
-			'name'->category.
-			'class'->aClass }]
+		MethodCategory name: category class: aClass methods: (map at: category) ]
 !
 
 ownCategoriesOfMetaClass: aClass
@@ -59,8 +56,8 @@ exportCategoryEpilogueOf: category on: aStream
 
 exportCategoryPrologueOf: category on: aStream
 	aStream
-		nextPutAll: '!!', (self classNameFor: (category at: #class));
-		nextPutAll: ' methodsFor: ''', (category at: #name), '''!!'
+		nextPutAll: '!!', (self classNameFor: category klass);
+		nextPutAll: ' methodsFor: ''', category name, '''!!'
 !
 
 exportDefinitionOf: aClass on: aStream
