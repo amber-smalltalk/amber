@@ -14,6 +14,7 @@ define([
     'amber/Kernel-Classes',
     'amber/Kernel-Methods',
     'amber/Kernel-Collections',
+    'amber/Kernel-Infrastructure',
     'amber/Kernel-Exceptions',
     'amber/Kernel-Transcript',
     'amber/Kernel-Announcements',

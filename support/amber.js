@@ -59,6 +59,9 @@ require = function (require) {
             'amber/Kernel-Collections.deploy': {
                 deps: [ './Kernel-Objects.deploy' ]
             },
+            'amber/Kernel-Infrastructure.deploy': {
+                deps: [ './Kernel-Collections.deploy' ]
+            },
             'amber/Kernel-Exceptions.deploy': {
                 deps: [ './Kernel-Objects.deploy' ]
             },
@@ -83,6 +86,9 @@ require = function (require) {
             'amber/Kernel-Collections': {
                 deps: [ './Kernel-Objects' ]
             },
+            'amber/Kernel-Infrastructure': {
+                deps: [ './Kernel-Collections' ]
+            },
             'amber/Kernel-Exceptions': {
                 deps: [ './Kernel-Objects' ]
             },
@@ -93,13 +99,13 @@ require = function (require) {
                 deps: [ './Kernel-Objects' ]
             },
             'amber/Canvas': {
-                deps: [ './Kernel-Objects' ]
+                deps: [ './Kernel-Infrastructure' ]
             },
             'amber/SUnit': {
                 deps: [ './Kernel-Objects' ]
             },
             'amber/Importer-Exporter': {
-                deps: [ './Kernel-Objects' ]
+                deps: [ './Kernel-Infrastructure' ]
             },
             'amber/Compiler-Exceptions': {
                 deps: [ './Kernel-Exceptions', './Compiler-AST' ]
