@@ -84,8 +84,8 @@ function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
 	this.closure_jar = closure_jar || '';
 	this.kernel_libraries = ['@boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-							 'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
-							 'Kernel-Announcements'];
+	                         'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
+	                         'Kernel-Announcements'];
 	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
 							  'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
