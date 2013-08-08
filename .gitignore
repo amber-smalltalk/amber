@@ -16,3 +16,6 @@ test/run.js
 
 # Ignoring local NPM modules
 /node_modules/*
+
+# Ignoring local bower modules
+/bower_components/*
