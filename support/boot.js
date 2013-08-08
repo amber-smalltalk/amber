@@ -535,6 +535,7 @@ function MethodsBrik(brikz, st) {
 	var dnu = brikz.ensure("dnu");
 	brikz.ensure("selectorConversion");
 	brikz.ensure("classes");
+	brikz.ensure("classInit");
 
 	function SmalltalkMethod() {}
 	inherits(SmalltalkMethod, SmalltalkObject);
