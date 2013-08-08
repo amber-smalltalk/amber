@@ -57,12 +57,15 @@ $3=$4;
 _st($2)._nextPutAll_($3);
 _st($1)._nextPutAll_("/");
 _st($1)._nextPutAll_(_st(aPackage)._name());
-_st($1)._nextPutAll_("\x22, [\x22");
-_st($1)._nextPutAll_(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._join_("\x22,\x22"));
-_st($1)._nextPutAll_("\x22], function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("\x22, [");
+_st($1)._nextPutAll_(_st(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._asJavascript();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._join_(","));
+_st($1)._nextPutAll_("], function(smalltalk,nil,_st){");
 $5=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "join:", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]}),
+messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "join:", "collect:", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]}),
 smalltalk.AmdExporter.klass);
 
 smalltalk.addMethod(

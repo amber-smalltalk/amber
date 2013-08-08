@@ -17,9 +17,10 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
-		nextPutAll: '", ["';
-		nextPutAll: ((#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) join: '","');
-		nextPutAll: '"], function(smalltalk,nil,_st){';
+		nextPutAll: '", [';
+		nextPutAll: (((#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies))
+			collect: [ :each | each asJavascript ]) join: ',');
+		nextPutAll: '], function(smalltalk,nil,_st){';
 		lf
 !
 
