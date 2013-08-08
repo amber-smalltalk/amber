@@ -534,7 +534,6 @@ function MethodsBrik(brikz, st) {
 	var stInit = brikz.ensure("stInit");
 	var dnu = brikz.ensure("dnu");
 	brikz.ensure("selectorConversion");
-	brikz.ensure("augments");
 	brikz.ensure("classes");
 
 	function SmalltalkMethod() {}
