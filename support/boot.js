@@ -787,16 +787,30 @@ function PrimitivesBrik(brikz, st) {
 
 }
 
+function PrepareRuntimeBrik(brikz, st) {
+
+	brikz.ensure("root");
+
+	function SmalltalkMethodContext(home, setup) {
+		this.construct.apply(this, arguments);
+	}
+
+	inherits(SmalltalkMethodContext, SmalltalkObject);
+
+	this.__init__ = function () {
+		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
+	};
+
+	this.MethodContext = SmalltalkMethodContext;
+}
+
 function RuntimeBrik(brikz, st) {
 
 	brikz.ensure("selectorConversion");
+	brikz.ensure("prepRuntime");
 	var nil = brikz.ensure("root").nil;
 
-	function SmalltalkMethodContext(home, setup) {
-		this.homeContext = home;
-		this.setup       = setup || function() {};
-		this.pc          = 0;
-	}
+	var SmalltalkMethodContext = brikz.prepRuntime.MethodContext;
 
 // Fallbacks
 	SmalltalkMethodContext.prototype.locals = {};
@@ -804,10 +818,10 @@ function RuntimeBrik(brikz, st) {
 	SmalltalkMethodContext.prototype.selector = null;
 	SmalltalkMethodContext.prototype.lookupClass = null;
 
-	inherits(SmalltalkMethodContext, SmalltalkObject);
-
-	this.__init__ = function () {
-		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
+	SmalltalkMethodContext.prototype.construct  = function (home, setup) {
+		this.homeContext = home;
+		this.setup       = setup || function() {};
+		this.pc          = 0;
 	};
 
 	SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
@@ -1055,6 +1069,7 @@ brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.stInit = SmalltalkInitBrik;
 brikz.augments = AugmentsBrik;
+brikz.prepRuntime = PrepareRuntimeBrik;
 
 brikz.rebuild();
 
