@@ -1913,6 +1913,33 @@ smalltalk.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "loadDependencies",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+var root;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+root=_st($Object())._package();
+$1=self.__eq_eq(root);
+if(smalltalk.assert($1)){
+$2=[];
+return $2;
+} else {
+$3=[root];
+return $3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{root:root},smalltalk.Package)})},
+args: [],
+source: "loadDependencies\x0a\x09\x22Returns list of packages that need to be present\x0a\x09before loading this package.\x0a\x09These are determined as set of packages covering\x0a\x09all classes used either for subclassing or for defining\x0a\x09extension methods on.\x22\x0a\x09\x0a\x09\x22Fake one for now. TODO\x22\x0a\x09| root |\x0a\x09root := Object package.\x0a\x09self == root ifTrue: [ ^#() ] ifFalse: [ ^{root} ]",
+messageSends: ["package", "ifTrue:ifFalse:", "=="],
+referencedClasses: ["Object"]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "transport",
 category: '*Importer-Exporter',
 fn: function (){
