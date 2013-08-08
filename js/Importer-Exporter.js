@@ -1,4 +1,4 @@
-define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st","amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -68,17 +68,14 @@ $3=$4;
 _st($2)._nextPutAll_($3);
 _st($1)._nextPutAll_("/");
 _st($1)._nextPutAll_(_st(aPackage)._name());
-_st($1)._nextPutAll_("\x22, [");
-_st($1)._nextPutAll_(_st(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._asJavascript();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._join_(","));
-_st($1)._nextPutAll_("], function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("\x22, ");
+_st($1)._nextPutAll_(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._asJavascript());
+_st($1)._nextPutAll_(", function(smalltalk,nil,_st){");
 $5=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
 args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); \x22ifNil: only for LegacyPH, it should not happen with AmdPH\x22\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, [';\x0a\x09\x09nextPutAll: (((#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies))\x0a\x09\x09\x09collect: [ :each | each asJavascript ]) join: ',');\x0a\x09\x09nextPutAll: '], function(smalltalk,nil,_st){';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "join:", "collect:", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); \x22ifNil: only for LegacyPH, it should not happen with AmdPH\x22\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
 referencedClasses: []
 }),
 smalltalk.AmdExporter.klass);
