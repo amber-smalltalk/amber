@@ -1,9 +1,28 @@
-define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Importer-Exporter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st","amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber"};
 
-
 smalltalk.addClass('AmdExporter', smalltalk.Object, [], 'Importer-Exporter');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "amdNamesOfPackages:",
+fn: function (anArray){
+var self=this;
+var deps,depNames;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(anArray)._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._amdNamespace())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._amdNamespace()).__comma("/")).__comma(_st(each)._name());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray,deps:deps,depNames:depNames},smalltalk.AmdExporter.klass)})},
+messageSends: ["collect:", ",", "name", "amdNamespace", "select:", "notNil"]}),
+smalltalk.AmdExporter.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -38,10 +57,12 @@ $3=$4;
 _st($2)._nextPutAll_($3);
 _st($1)._nextPutAll_("/");
 _st($1)._nextPutAll_(_st(aPackage)._name());
-_st($1)._nextPutAll_("\x22, [\x22amber_vm/smalltalk\x22,\x22amber_vm/nil\x22,\x22amber_vm/_st\x22], function(smalltalk,nil,_st){");
+_st($1)._nextPutAll_("\x22, [\x22");
+_st($1)._nextPutAll_(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._join_("\x22,\x22"));
+_st($1)._nextPutAll_("\x22], function(smalltalk,nil,_st){");
 $5=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "lf"]}),
+messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "join:", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]}),
 smalltalk.AmdExporter.klass);
 
 smalltalk.addMethod(

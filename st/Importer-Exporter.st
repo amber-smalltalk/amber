@@ -17,7 +17,9 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
-		nextPutAll: '", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){';
+		nextPutAll: '", ["';
+		nextPutAll: ((#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) join: '","');
+		nextPutAll: '"], function(smalltalk,nil,_st){';
 		lf
 !
 
@@ -29,6 +31,15 @@ exportPackageTransportOf: aPackage on: aStream
 		nextPutAll: aPackage transportJson;
 		nextPutAll: ';';
 		lf
+! !
+
+!AmdExporter class methodsFor: 'private'!
+
+amdNamesOfPackages: anArray
+	| deps depNames |
+	^(anArray
+		select: [ :each | each amdNamespace notNil ])
+		collect: [ :each | each amdNamespace, '/', each name ]
 ! !
 
 Object subclass: #ChunkExporter
