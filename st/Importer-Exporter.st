@@ -425,6 +425,46 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
+Object subclass: #MethodCategory
+	instanceVariableNames: 'methods name klass'
+	package: 'Importer-Exporter'!
+
+!MethodCategory methodsFor: 'accessing'!
+
+klass
+	^klass
+!
+
+klass: aClass
+	klass := aClass
+!
+
+methods
+	^methods
+!
+
+methods: anArray
+	methods := anArray
+!
+
+name
+	^name
+!
+
+name: aString
+	name := aString
+! !
+
+!MethodCategory class methodsFor: 'not yet classified'!
+
+name: aString class: aClass methods: anArray
+	^self new
+		name: aString;
+		klass: aClass;
+		methods: anArray;
+		yourself
+! !
+
 InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!

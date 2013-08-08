@@ -857,6 +857,134 @@ smalltalk.Importer);
 
 
 
+smalltalk.addClass('MethodCategory', smalltalk.Object, ['methods', 'name', 'klass'], 'Importer-Exporter');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "klass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@klass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"klass",{},smalltalk.MethodCategory)})},
+args: [],
+source: "klass\x0a\x09^klass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "klass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@klass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"klass:",{aClass:aClass},smalltalk.MethodCategory)})},
+args: ["aClass"],
+source: "klass: aClass\x0a\x09klass := aClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methods",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@methods"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methods",{},smalltalk.MethodCategory)})},
+args: [],
+source: "methods\x0a\x09^methods",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methods:",
+category: 'accessing',
+fn: function (anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@methods"]=anArray;
+return self}, function($ctx1) {$ctx1.fill(self,"methods:",{anArray:anArray},smalltalk.MethodCategory)})},
+args: ["anArray"],
+source: "methods: anArray\x0a\x09methods := anArray",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@name"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.MethodCategory)})},
+args: [],
+source: "name\x0a\x09^name",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@name"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smalltalk.MethodCategory)})},
+args: ["aString"],
+source: "name: aString\x0a\x09name := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name:class:methods:",
+category: 'not yet classified',
+fn: function (aString,aClass,anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._name_(aString);
+_st($2)._klass_(aClass);
+_st($2)._methods_(anArray);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"name:class:methods:",{aString:aString,aClass:aClass,anArray:anArray},smalltalk.MethodCategory.klass)})},
+args: ["aString", "aClass", "anArray"],
+source: "name: aString class: aClass methods: anArray\x0a\x09^self new\x0a\x09\x09name: aString;\x0a\x09\x09klass: aClass;\x0a\x09\x09methods: anArray;\x0a\x09\x09yourself",
+messageSends: ["name:", "new", "klass:", "methods:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.MethodCategory.klass);
+
+
 smalltalk.addClass('PackageHandler', smalltalk.InterfacingObject, [], 'Importer-Exporter');
 smalltalk.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
