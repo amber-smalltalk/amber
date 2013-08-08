@@ -741,6 +741,17 @@ return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},sma
 messageSends: ["do:displayingProgress:", "value:", "streamContents:", "exportPackage:on:", "newUsing:", "key", "ajaxPutAt:data:", "value", ",", "name", "commitChannels"]}),
 smalltalk.PackageHandler);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitChannels",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.PackageHandler)})},
+messageSends: ["subclassResponsibility"]}),
+smalltalk.PackageHandler);
+
 
 smalltalk.PackageHandler.klass.iVarNames = ['registry'];
 smalltalk.addMethod(

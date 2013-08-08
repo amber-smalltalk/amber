@@ -443,6 +443,10 @@ commit: aPackage
 				(PluggableExporter newUsing: commitStrategy key) exportPackage: aPackage on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
+!
+
+commitChannels
+	self subclassResponsibility
 ! !
 
 !PackageHandler methodsFor: 'private'!

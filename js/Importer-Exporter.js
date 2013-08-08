@@ -907,6 +907,22 @@ referencedClasses: ["PluggableExporter", "String"]
 }),
 smalltalk.PackageHandler);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitChannels",
+category: 'committing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.PackageHandler)})},
+args: [],
+source: "commitChannels\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler);
+
 
 smalltalk.PackageHandler.klass.iVarNames = ['registry'];
 smalltalk.addMethod(
