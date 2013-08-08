@@ -1639,7 +1639,7 @@ smalltalk.method({
 selector: "ensureVisible:",
 fn: function (aListItem){
 var self=this;
-var perent,position;
+var parent,position;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 position=self._positionOf_(aListItem);
@@ -1652,7 +1652,7 @@ $2=_st(_st(_st(_st(aListItem)._position())._top()).__plus(_st(aListItem)._height
 if(smalltalk.assert($2)){
 _st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(aListItem)._height())).__minus(_st(_st(parent)._height()).__minus(_st(_st(aListItem)._position())._top()))).__plus((10)));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"ensureVisible:",{aListItem:aListItem,perent:perent,position:position},smalltalk.HLListWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"ensureVisible:",{aListItem:aListItem,parent:parent,position:position},smalltalk.HLListWidget)})},
 messageSends: ["positionOf:", "parent", "ifTrue:", "scrollTop:", "-", "+", "top", "position", "scrollTop", "get:", "<", "height", ">"]}),
 smalltalk.HLListWidget);
 

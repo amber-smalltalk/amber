@@ -64,14 +64,14 @@ extensionCategoriesOfPackage: package
 			aClass protocolsDo: [:category :methods |
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
-				#{ 'methods'->(map at: category). 'name'->category. 'class'->aClass}]) ]].
+				MethodCategory name: category class: aClass methods: (map at: category)]) ]].
 	^result
 !
 
 methodsOfCategory: category
 	"Issue #143: sort methods alphabetically"
 
-	^(category at: #methods) sorted: [:a :b | a selector <= b selector]
+	^(category methods) sorted: [:a :b | a selector <= b selector]
 !
 
 ownCategoriesOfClass: aClass
@@ -82,10 +82,7 @@ ownCategoriesOfClass: aClass
 	aClass protocolsDo: [:category :methods |
 		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
 	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
-		#{
-			'methods'->(map at: category).
-			'name'->category.
-			'class'->aClass }]
+		MethodCategory name: category class: aClass methods: (map at: category) ]
 !
 
 ownCategoriesOfMetaClass: aClass
@@ -102,8 +99,8 @@ exportCategoryEpilogueOf: category on: aStream
 
 exportCategoryPrologueOf: category on: aStream
 	aStream
-		nextPutAll: '!!', (self classNameFor: (category at: #class));
-		nextPutAll: ' methodsFor: ''', (category at: #name), '''!!'
+		nextPutAll: '!!', (self classNameFor: category klass);
+		nextPutAll: ' methodsFor: ''', category name, '''!!'
 !
 
 exportDefinitionOf: aClass on: aStream
@@ -478,6 +475,46 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
+Object subclass: #MethodCategory
+	instanceVariableNames: 'methods name klass'
+	package: 'Importer-Exporter'!
+
+!MethodCategory methodsFor: 'accessing'!
+
+klass
+	^klass
+!
+
+klass: aClass
+	klass := aClass
+!
+
+methods
+	^methods
+!
+
+methods: anArray
+	methods := anArray
+!
+
+name
+	^name
+!
+
+name: aString
+	name := aString
+! !
+
+!MethodCategory class methodsFor: 'not yet classified'!
+
+name: aString class: aClass methods: anArray
+	^self new
+		name: aString;
+		klass: aClass;
+		methods: anArray;
+		yourself
+! !
+
 InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -496,6 +533,10 @@ commit: aPackage
 				(PluggableExporter newUsing: commitStrategy key) exportPackage: aPackage on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
+!
+
+commitChannels
+	self subclassResponsibility
 ! !
 
 !PackageHandler methodsFor: 'private'!

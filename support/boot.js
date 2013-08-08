@@ -93,7 +93,7 @@ function SmalltalkObject() {}
 function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
 
-var api = new Smalltalk;
+var api = new Smalltalk();
 var brikz = new Brikz(api);
 
 function RootBrik(brikz, st) {
@@ -101,7 +101,7 @@ function RootBrik(brikz, st) {
 	function SmalltalkNil() {}
 	inherits(SmalltalkNil, SmalltalkObject);
 
-	this.nil = new SmalltalkNil;
+	this.nil = new SmalltalkNil();
 
 	this.__init__ = function () {
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
@@ -134,12 +134,12 @@ function OrganizeBrik(brikz, st) {
 	};
 
 	this.setupClassOrganization = function (klass) {
-		klass.organization = new SmalltalkClassOrganizer;
+		klass.organization = new SmalltalkClassOrganizer();
 		klass.organization.theClass = klass;
 	};
 
 	this.setupPackageOrganization = function (pkg) {
-		pkg.organization = new SmalltalkPackageOrganizer;
+		pkg.organization = new SmalltalkPackageOrganizer();
 	};
 
 	this.addOrganizationElement = function (owner, element) {
@@ -188,7 +188,7 @@ function DNUBrik(brikz, st) {
 		};
 
 		return handler;
-	}
+	};
 
 	this.installHandlers = function (klass) {
 		for(var i=0; i<methods.length; i++) {
@@ -204,7 +204,7 @@ function ClassInitBrik(brikz, st) {
 	var nil = brikz.ensure("root").nil;
 
 	/* Initialize a class in its class hierarchy. Handle both classes and
-	 metaclasses. */
+	metaclasses. */
 
 	st.init = function(klass) {
 		st.initClass(klass);
@@ -227,8 +227,8 @@ function ClassInitBrik(brikz, st) {
 		var inheritedMethods = {};
 		deinstallAllMethods(klass);
 		for (superclass = superclass || klass.superclass;
-			 superclass && superclass !== nil;
-			 superclass = superclass.superclass) {
+			superclass && superclass !== nil;
+			superclass = superclass.superclass) {
 			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
 				inheritMethodIfAbsent(superclass.methods[keys[i]]);
 			}
@@ -778,16 +778,30 @@ function PrimitivesBrik(brikz, st) {
 
 }
 
+function PrepareRuntimeBrik(brikz, st) {
+
+	brikz.ensure("root");
+
+	function SmalltalkMethodContext(home, setup) {
+		this.construct.apply(this, arguments);
+	}
+
+	inherits(SmalltalkMethodContext, SmalltalkObject);
+
+	this.__init__ = function () {
+		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
+	};
+
+	this.MethodContext = SmalltalkMethodContext;
+}
+
 function RuntimeBrik(brikz, st) {
 
 	brikz.ensure("selectorConversion");
+	brikz.ensure("prepRuntime");
 	var nil = brikz.ensure("root").nil;
 
-	function SmalltalkMethodContext(home, setup) {
-		this.homeContext = home;
-		this.setup       = setup || function() {};
-		this.pc          = 0;
-	}
+	var SmalltalkMethodContext = brikz.prepRuntime.MethodContext;
 
 // Fallbacks
 	SmalltalkMethodContext.prototype.locals = {};
@@ -795,10 +809,10 @@ function RuntimeBrik(brikz, st) {
 	SmalltalkMethodContext.prototype.selector = null;
 	SmalltalkMethodContext.prototype.lookupClass = null;
 
-	inherits(SmalltalkMethodContext, SmalltalkObject);
-
-	this.__init__ = function () {
-		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
+	SmalltalkMethodContext.prototype.construct  = function (home, setup) {
+		this.homeContext = home;
+		this.setup       = setup || function() {};
+		this.pc          = 0;
 	};
 
 	SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
@@ -1046,6 +1060,7 @@ brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.stInit = SmalltalkInitBrik;
 brikz.augments = AugmentsBrik;
+brikz.prepRuntime = PrepareRuntimeBrik;
 
 brikz.rebuild();
 
