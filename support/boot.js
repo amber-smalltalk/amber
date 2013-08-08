@@ -102,7 +102,7 @@ function SmalltalkObject() {}
 function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
 
-var api = new Smalltalk;
+var api = new Smalltalk();
 var brikz = new Brikz(api);
 
 function RootBrik(brikz, st) {
@@ -110,7 +110,7 @@ function RootBrik(brikz, st) {
 	function SmalltalkNil() {}
 	inherits(SmalltalkNil, SmalltalkObject);
 
-	this.nil = new SmalltalkNil;
+	this.nil = new SmalltalkNil();
 
 	this.__init__ = function () {
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
@@ -143,12 +143,12 @@ function OrganizeBrik(brikz, st) {
 	};
 
 	this.setupClassOrganization = function (klass) {
-		klass.organization = new SmalltalkClassOrganizer;
+		klass.organization = new SmalltalkClassOrganizer();
 		klass.organization.theClass = klass;
 	};
 
 	this.setupPackageOrganization = function (pkg) {
-		pkg.organization = new SmalltalkPackageOrganizer;
+		pkg.organization = new SmalltalkPackageOrganizer();
 	};
 
 	this.addOrganizationElement = function (owner, element) {
@@ -197,7 +197,7 @@ function DNUBrik(brikz, st) {
 		};
 
 		return handler;
-	}
+	};
 
 	this.installHandlers = function (klass) {
 		for(var i=0; i<methods.length; i++) {
@@ -213,7 +213,7 @@ function ClassInitBrik(brikz, st) {
 	var nil = brikz.ensure("root").nil;
 
 	/* Initialize a class in its class hierarchy. Handle both classes and
-	 metaclasses. */
+	metaclasses. */
 
 	st.init = function(klass) {
 		st.initClass(klass);
@@ -236,8 +236,8 @@ function ClassInitBrik(brikz, st) {
 		var inheritedMethods = {};
 		deinstallAllMethods(klass);
 		for (superclass = superclass || klass.superclass;
-			 superclass && superclass !== nil;
-			 superclass = superclass.superclass) {
+			superclass && superclass !== nil;
+			superclass = superclass.superclass) {
 			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
 				inheritMethodIfAbsent(superclass.methods[keys[i]]);
 			}
