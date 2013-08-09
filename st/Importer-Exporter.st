@@ -373,6 +373,19 @@ classNameFor: aClass
 
 !Exporter methodsFor: 'fileOut'!
 
+amdRecipe
+	"Export a given package with amd transport type."
+
+	| legacy result |
+	legacy := self recipe.
+	result := (legacy copyFrom: 1 to: 2),
+	{ AmdExporter -> #exportPackageTransportOf:on: },
+	(legacy copyFrom: 3 to: legacy size).
+	result first key: AmdExporter.
+	result last key: AmdExporter.
+	^result
+!
+
 recipe
 	"Export a given package."
 
@@ -580,16 +593,6 @@ exportPackagePrologueOf: aPackage on: aStream
 ! !
 
 !Exporter class methodsFor: 'fileOut'!
-
-amdRecipe
-	"Export a given package with amd transport type."
-
-	| legacy |
-	legacy := self recipe.
-	^(legacy copyFrom: 1 to: 2),
-	{ AmdExporter -> #exportPackageTransportOf:on: },
-	(legacy copyFrom: 3 to: legacy size)
-!
 
 recipe
 	"Export a given package."
@@ -937,9 +940,9 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 
 commitChannels
 	^{ 
-		[ :pkg | Exporter amdRecipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
-		[ :pkg | StrippedExporter amdRecipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
-		[ :pkg | ChunkExporter recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
+		[ :pkg | Exporter default amdRecipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
+		[ :pkg | StrippedExporter default amdRecipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
+		[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
 	}
 !
 

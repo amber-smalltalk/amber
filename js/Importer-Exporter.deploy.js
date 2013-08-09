@@ -610,6 +610,25 @@ smalltalk.ChunkExporter.klass);
 smalltalk.addClass('Exporter', smalltalk.AbstractExporter, [], 'Importer-Exporter');
 smalltalk.addMethod(
 smalltalk.method({
+selector: "amdRecipe",
+fn: function (){
+var self=this;
+var legacy,result;
+function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+legacy=self._recipe();
+result=_st(_st(_st(legacy)._copyFrom_to_((1),(2))).__comma([_st($AmdExporter()).__minus_gt("exportPackageTransportOf:on:")])).__comma(_st(legacy)._copyFrom_to_((3),_st(legacy)._size()));
+_st(_st(result)._first())._key_($AmdExporter());
+_st(_st(result)._last())._key_($AmdExporter());
+$1=result;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{legacy:legacy,result:result},smalltalk.Exporter)})},
+messageSends: ["recipe", ",", "copyFrom:to:", "size", "->", "key:", "first", "last"]}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "classNameFor:",
 fn: function (aClass){
 var self=this;
@@ -857,22 +876,6 @@ return $1;
 messageSends: ["->"]}),
 smalltalk.Exporter);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "amdRecipe",
-fn: function (){
-var self=this;
-var legacy;
-function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-legacy=self._recipe();
-$1=_st(_st(_st(legacy)._copyFrom_to_((1),(2))).__comma([_st($AmdExporter()).__minus_gt("exportPackageTransportOf:on:")])).__comma(_st(legacy)._copyFrom_to_((3),_st(legacy)._size()));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{legacy:legacy},smalltalk.Exporter.klass)})},
-messageSends: ["recipe", ",", "copyFrom:to:", "size", "->"]}),
-smalltalk.Exporter.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1647,17 +1650,17 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=[(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($Exporter())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".js"));
+return _st(_st(_st($Exporter())._default())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".js"));
 }, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})}),(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($StrippedExporter())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".deploy.js"));
+return _st(_st(_st($StrippedExporter())._default())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".deploy.js"));
 }, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})}),(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ChunkExporter())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathSt()).__comma("/")).__comma(_st(pkg)._name())).__comma(".st"));
+return _st(_st(_st($ChunkExporter())._default())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathSt()).__comma("/")).__comma(_st(pkg)._name())).__comma(".st"));
 }, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})})];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.AmdPackageHandler)})},
-messageSends: ["->", ",", "name", "commitPathJs", "amdRecipe", "commitPathSt", "recipe"]}),
+messageSends: ["->", ",", "name", "commitPathJs", "amdRecipe", "default", "commitPathSt", "recipe"]}),
 smalltalk.AmdPackageHandler);
 
 smalltalk.addMethod(

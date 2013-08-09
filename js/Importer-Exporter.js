@@ -753,6 +753,30 @@ smalltalk.addClass('Exporter', smalltalk.AbstractExporter, [], 'Importer-Exporte
 smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).\x0a\x0a## API\x0a\x0aUse `#exportAll`, `#exportClass:` or `#exportPackage:` methods.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "amdRecipe",
+category: 'fileOut',
+fn: function (){
+var self=this;
+var legacy,result;
+function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+legacy=self._recipe();
+result=_st(_st(_st(legacy)._copyFrom_to_((1),(2))).__comma([_st($AmdExporter()).__minus_gt("exportPackageTransportOf:on:")])).__comma(_st(legacy)._copyFrom_to_((3),_st(legacy)._size()));
+_st(_st(result)._first())._key_($AmdExporter());
+_st(_st(result)._last())._key_($AmdExporter());
+$1=result;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{legacy:legacy,result:result},smalltalk.Exporter)})},
+args: [],
+source: "amdRecipe\x0a\x09\x22Export a given package with amd transport type.\x22\x0a\x0a\x09| legacy result |\x0a\x09legacy := self recipe.\x0a\x09result := (legacy copyFrom: 1 to: 2),\x0a\x09{ AmdExporter -> #exportPackageTransportOf:on: },\x0a\x09(legacy copyFrom: 3 to: legacy size).\x0a\x09result first key: AmdExporter.\x0a\x09result last key: AmdExporter.\x0a\x09^result",
+messageSends: ["recipe", ",", "copyFrom:to:", "size", "->", "key:", "first", "last"],
+referencedClasses: ["AmdExporter"]
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "classNameFor:",
 category: 'convenience',
 fn: function (aClass){
@@ -1055,27 +1079,6 @@ referencedClasses: ["PluggableExporter"]
 }),
 smalltalk.Exporter);
 
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "amdRecipe",
-category: 'fileOut',
-fn: function (){
-var self=this;
-var legacy;
-function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-legacy=self._recipe();
-$1=_st(_st(_st(legacy)._copyFrom_to_((1),(2))).__comma([_st($AmdExporter()).__minus_gt("exportPackageTransportOf:on:")])).__comma(_st(legacy)._copyFrom_to_((3),_st(legacy)._size()));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{legacy:legacy},smalltalk.Exporter.klass)})},
-args: [],
-source: "amdRecipe\x0a\x09\x22Export a given package with amd transport type.\x22\x0a\x0a\x09| legacy |\x0a\x09legacy := self recipe.\x0a\x09^(legacy copyFrom: 1 to: 2),\x0a\x09{ AmdExporter -> #exportPackageTransportOf:on: },\x0a\x09(legacy copyFrom: 3 to: legacy size)",
-messageSends: ["recipe", ",", "copyFrom:to:", "size", "->"],
-referencedClasses: ["AmdExporter"]
-}),
-smalltalk.Exporter.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2047,19 +2050,19 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=[(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($Exporter())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".js"));
+return _st(_st(_st($Exporter())._default())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".js"));
 }, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})}),(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($StrippedExporter())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".deploy.js"));
+return _st(_st(_st($StrippedExporter())._default())._amdRecipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".deploy.js"));
 }, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})}),(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($ChunkExporter())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathSt()).__comma("/")).__comma(_st(pkg)._name())).__comma(".st"));
+return _st(_st(_st($ChunkExporter())._default())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathSt()).__comma("/")).__comma(_st(pkg)._name())).__comma(".st"));
 }, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1)})})];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.AmdPackageHandler)})},
 args: [],
-source: "commitChannels\x0a\x09^{ \x0a\x09\x09[ :pkg | Exporter amdRecipe -> (pkg commitPathJs, '/', pkg name, '.js') ].\x0a\x09\x09[ :pkg | StrippedExporter amdRecipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].\x0a\x09\x09[ :pkg | ChunkExporter recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]\x0a\x09}",
-messageSends: ["->", ",", "name", "commitPathJs", "amdRecipe", "commitPathSt", "recipe"],
+source: "commitChannels\x0a\x09^{ \x0a\x09\x09[ :pkg | Exporter default amdRecipe -> (pkg commitPathJs, '/', pkg name, '.js') ].\x0a\x09\x09[ :pkg | StrippedExporter default amdRecipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].\x0a\x09\x09[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]\x0a\x09}",
+messageSends: ["->", ",", "name", "commitPathJs", "amdRecipe", "default", "commitPathSt", "recipe"],
 referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 }),
 smalltalk.AmdPackageHandler);
