@@ -2635,5 +2635,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.UndefinedObjec
 messageSends: ["error:"]}),
 smalltalk.UndefinedObject.klass);
 
-
 });

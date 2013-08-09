@@ -452,7 +452,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'extension'
+	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -502,6 +502,21 @@ sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
 	^self class sortedClasses: self classes
+! !
+
+!Package methodsFor: 'dependencies'!
+
+loadDependencies
+	"Returns list of packages that need to be present
+	before loading this package.
+	These are determined as set of packages covering
+	all classes used either for subclassing or for defining
+	extension methods on."
+	
+	"Fake one for now. TODO"
+	| root |
+	root := Object package.
+	self == root ifTrue: [ ^#() ] ifFalse: [ ^{root} ]
 ! !
 
 !Package methodsFor: 'printing'!

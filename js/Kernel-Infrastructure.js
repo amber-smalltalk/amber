@@ -1,5 +1,6 @@
 define("amber/Kernel-Infrastructure", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Infrastructure');
+
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript.";
 
@@ -1206,7 +1207,7 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastr
 smalltalk.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1239,6 +1240,33 @@ args: [],
 source: "isPackage\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "loadDependencies",
+category: 'dependencies',
+fn: function (){
+var self=this;
+var root;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+root=_st($Object())._package();
+$1=self.__eq_eq(root);
+if(smalltalk.assert($1)){
+$2=[];
+return $2;
+} else {
+$3=[root];
+return $3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{root:root},smalltalk.Package)})},
+args: [],
+source: "loadDependencies\x0a\x09\x22Returns list of packages that need to be present\x0a\x09before loading this package.\x0a\x09These are determined as set of packages covering\x0a\x09all classes used either for subclassing or for defining\x0a\x09extension methods on.\x22\x0a\x09\x0a\x09\x22Fake one for now. TODO\x22\x0a\x09| root |\x0a\x09root := Object package.\x0a\x09self == root ifTrue: [ ^#() ] ifFalse: [ ^{root} ]",
+messageSends: ["package", "ifTrue:ifFalse:", "=="],
+referencedClasses: ["Object"]
 }),
 smalltalk.Package);
 
@@ -2223,7 +2251,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

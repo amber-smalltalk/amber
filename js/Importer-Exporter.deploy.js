@@ -145,10 +145,10 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("!".__comma(self._classNameFor_(_st(category)._klass())));
+_st($1)._nextPutAll_("!".__comma(self._classNameFor_(_st(category)._theClass())));
 $2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(_st(category)._name())).__comma("'!"));
 return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{category:category,aStream:aStream},smalltalk.ChunkExporter.klass)})},
-messageSends: ["nextPutAll:", ",", "classNameFor:", "klass", "name"]}),
+messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"]}),
 smalltalk.ChunkExporter.klass);
 
 smalltalk.addMethod(
@@ -285,14 +285,14 @@ return smalltalk.withContext(function($ctx4) {
 return _st(a).__lt_eq(b);
 }, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3)})})))._collect_((function(category){
 return smalltalk.withContext(function($ctx4) {
-return _st($MethodCategory())._name_class_methods_(category,aClass,_st(map)._at_(category));
+return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._at_(category));
 }, function($ctx4) {$ctx4.fillBlock({category:category},$ctx3)})})));
 }, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=result;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{package_:package_,name:name,map:map,result:result},smalltalk.ChunkExporter.klass)})},
-messageSends: ["name", "new", "do:", "protocolsDo:", "ifTrue:", "at:put:", "match:", ",", "addAll:", "collect:", "name:class:methods:", "at:", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"]}),
+messageSends: ["name", "new", "do:", "protocolsDo:", "ifTrue:", "at:put:", "match:", ",", "addAll:", "collect:", "name:theClass:methods:", "at:", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"]}),
 smalltalk.ChunkExporter.klass);
 
 smalltalk.addMethod(
@@ -334,11 +334,11 @@ return smalltalk.withContext(function($ctx2) {
 return _st(a).__lt_eq(b);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})})))._collect_((function(category){
 return smalltalk.withContext(function($ctx2) {
-return _st($MethodCategory())._name_class_methods_(category,aClass,_st(map)._at_(category));
+return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._at_(category));
 }, function($ctx2) {$ctx2.fillBlock({category:category},$ctx1)})}));
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},smalltalk.ChunkExporter.klass)})},
-messageSends: ["new", "protocolsDo:", "ifFalse:", "at:put:", "match:", "collect:", "name:class:methods:", "at:", "sorted:", "<=", "keys"]}),
+messageSends: ["new", "protocolsDo:", "ifFalse:", "at:put:", "match:", "collect:", "name:theClass:methods:", "at:", "sorted:", "<=", "keys"]}),
 smalltalk.ChunkExporter.klass);
 
 smalltalk.addMethod(
@@ -804,31 +804,7 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('MethodCategory', smalltalk.Object, ['methods', 'name', 'klass'], 'Importer-Exporter');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "klass",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@klass"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"klass",{},smalltalk.MethodCategory)})},
-messageSends: []}),
-smalltalk.MethodCategory);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "klass:",
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@klass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"klass:",{aClass:aClass},smalltalk.MethodCategory)})},
-messageSends: []}),
-smalltalk.MethodCategory);
-
+smalltalk.addClass('MethodCategory', smalltalk.Object, ['methods', 'name', 'theClass'], 'Importer-Exporter');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methods",
@@ -877,23 +853,47 @@ return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smallta
 messageSends: []}),
 smalltalk.MethodCategory);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "theClass",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.MethodCategory)})},
+messageSends: []}),
+smalltalk.MethodCategory);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "name:class:methods:",
+selector: "theClass:",
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.MethodCategory)})},
+messageSends: []}),
+smalltalk.MethodCategory);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name:theClass:methods:",
 fn: function (aString,aClass,anArray){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
 _st($2)._name_(aString);
-_st($2)._klass_(aClass);
+_st($2)._theClass_(aClass);
 _st($2)._methods_(anArray);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"name:class:methods:",{aString:aString,aClass:aClass,anArray:anArray},smalltalk.MethodCategory.klass)})},
-messageSends: ["name:", "new", "klass:", "methods:", "yourself"]}),
+}, function($ctx1) {$ctx1.fill(self,"name:theClass:methods:",{aString:aString,aClass:aClass,anArray:anArray},smalltalk.MethodCategory.klass)})},
+messageSends: ["name:", "new", "theClass:", "methods:", "yourself"]}),
 smalltalk.MethodCategory.klass);
 
 
@@ -1633,28 +1633,6 @@ $1=_st($2)._at_put_("commitPathSt",aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
 messageSends: ["at:put:", "ifNil:"]}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "loadDependencies",
-fn: function (){
-var self=this;
-var root;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-root=_st($Object())._package();
-$1=self.__eq_eq(root);
-if(smalltalk.assert($1)){
-$2=[];
-return $2;
-} else {
-$3=[root];
-return $3;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{root:root},smalltalk.Package)})},
-messageSends: ["package", "ifTrue:ifFalse:", "=="]}),
 smalltalk.Package);
 
 smalltalk.addMethod(

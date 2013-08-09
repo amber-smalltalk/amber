@@ -3642,5 +3642,4 @@ referencedClasses: []
 }),
 smalltalk.UndefinedObject.klass);
 
-
 });

@@ -1,5 +1,6 @@
 define("amber/Kernel-Infrastructure", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Infrastructure');
+
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 
 smalltalk.InspectorHandler.klass.iVarNames = ['inspector'];
@@ -904,7 +905,7 @@ smalltalk.ClassOrganizer);
 smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastructure');
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
@@ -927,6 +928,28 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isPackage",{},smalltalk.Package)})},
 messageSends: []}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "loadDependencies",
+fn: function (){
+var self=this;
+var root;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+root=_st($Object())._package();
+$1=self.__eq_eq(root);
+if(smalltalk.assert($1)){
+$2=[];
+return $2;
+} else {
+$3=[root];
+return $3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{root:root},smalltalk.Package)})},
+messageSends: ["package", "ifTrue:ifFalse:", "=="]}),
 smalltalk.Package);
 
 smalltalk.addMethod(
@@ -1667,7 +1690,6 @@ return smalltalk;
 return self}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Smalltalk.klass)})},
 messageSends: []}),
 smalltalk.Smalltalk.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({
