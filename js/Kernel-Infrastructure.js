@@ -1277,16 +1277,30 @@ selector: "loadDependencyClasses",
 category: 'dependencies',
 fn: function (){
 var self=this;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+var starCategoryName;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=[$Object()];
+var $2,$3,$1;
+starCategoryName="*".__comma(self._name());
+$2=_st(_st(self._classes())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._superclass();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
+_st($2)._remove_ifAbsent_(nil,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st($2)._addAll_(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocols())._includes_(starCategoryName);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+$3=_st($2)._yourself();
+$1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{},smalltalk.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},smalltalk.Package)})},
 args: [],
-source: "loadDependencyClasses\x0a\x09\x22Returns classes needed at the time of loading a package.\x0a\x09These are all that are used to subclass\x0a\x09and to define an extension method\x22\x0a\x09\x0a\x09\x22Fake one for now. TODO\x22\x0a\x09^ { Object }",
-messageSends: [],
-referencedClasses: ["Object"]
+source: "loadDependencyClasses\x0a\x09\x22Returns classes needed at the time of loading a package.\x0a\x09These are all that are used to subclass\x0a\x09and to define an extension method\x22\x0a\x09\x0a\x09| starCategoryName |\x0a\x09starCategoryName := '*', self name.\x0a\x09^(self classes collect: [ :each | each superclass ]) asSet\x0a\x09\x09remove: nil ifAbsent: [];\x0a\x09\x09addAll: (Smalltalk current classes select: [ :each | each protocols includes: starCategoryName ]);\x0a\x09\x09yourself",
+messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "superclass", "classes", "addAll:", "select:", "includes:", "protocols", "current", "yourself"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
 

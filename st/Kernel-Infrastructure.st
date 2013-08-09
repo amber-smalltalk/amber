@@ -522,8 +522,12 @@ loadDependencyClasses
 	These are all that are used to subclass
 	and to define an extension method"
 	
-	"Fake one for now. TODO"
-	^ { Object }
+	| starCategoryName |
+	starCategoryName := '*', self name.
+	^(self classes collect: [ :each | each superclass ]) asSet
+		remove: nil ifAbsent: [];
+		addAll: (Smalltalk current classes select: [ :each | each protocols includes: starCategoryName ]);
+		yourself
 ! !
 
 !Package methodsFor: 'printing'!
