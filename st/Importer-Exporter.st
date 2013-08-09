@@ -1,47 +1,4 @@
 Smalltalk current createPackage: 'Importer-Exporter'!
-Object subclass: #AmdExporter
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-
-!AmdExporter class methodsFor: 'exporting-output'!
-
-exportPackageEpilogueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '});';
-		lf
-!
-
-exportPackagePrologueOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'define("';
-		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
-		nextPutAll: '/';
-		nextPutAll: aPackage name;
-		nextPutAll: '", ';
-		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
-		nextPutAll: ', function(smalltalk,nil,_st){';
-		lf
-!
-
-exportPackageTransportOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'smalltalk.packages[';
-		nextPutAll: aPackage name asJavascript;
-		nextPutAll: '].transport = ';
-		nextPutAll: aPackage transportJson;
-		nextPutAll: ';';
-		lf
-! !
-
-!AmdExporter class methodsFor: 'private'!
-
-amdNamesOfPackages: anArray
-	| deps depNames |
-	^(anArray
-		select: [ :each | each amdNamespace notNil ])
-		collect: [ :each | each amdNamespace, '/', each name ]
-! !
-
 Object subclass: #AbstractExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -736,6 +693,49 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
+! !
+
+Object subclass: #AmdExporter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+
+!AmdExporter class methodsFor: 'exporting-output'!
+
+exportPackageEpilogueOf: aPackage on: aStream
+	aStream
+		nextPutAll: '});';
+		lf
+!
+
+exportPackagePrologueOf: aPackage on: aStream
+	aStream
+		nextPutAll: 'define("';
+		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
+		nextPutAll: '/';
+		nextPutAll: aPackage name;
+		nextPutAll: '", ';
+		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
+		nextPutAll: ', function(smalltalk,nil,_st){';
+		lf
+!
+
+exportPackageTransportOf: aPackage on: aStream
+	aStream
+		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: aPackage name asJavascript;
+		nextPutAll: '].transport = ';
+		nextPutAll: aPackage transportJson;
+		nextPutAll: ';';
+		lf
+! !
+
+!AmdExporter class methodsFor: 'private'!
+
+amdNamesOfPackages: anArray
+	| deps depNames |
+	^(anArray
+		select: [ :each | each amdNamespace notNil ])
+		collect: [ :each | each amdNamespace, '/', each name ]
 ! !
 
 Object subclass: #ChunkParser

@@ -2,108 +2,6 @@ define("amber/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber"};
 
-smalltalk.addClass('AmdExporter', smalltalk.Object, [], 'Importer-Exporter');
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "amdNamesOfPackages:",
-category: 'private',
-fn: function (anArray){
-var self=this;
-var deps,depNames;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(anArray)._select_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._amdNamespace())._notNil();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(each)._amdNamespace()).__comma("/")).__comma(_st(each)._name());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray,deps:deps,depNames:depNames},smalltalk.AmdExporter.klass)})},
-args: ["anArray"],
-source: "amdNamesOfPackages: anArray\x0a\x09| deps depNames |\x0a\x09^(anArray\x0a\x09\x09select: [ :each | each amdNamespace notNil ])\x0a\x09\x09collect: [ :each | each amdNamespace, '/', each name ]",
-messageSends: ["collect:", ",", "name", "amdNamespace", "select:", "notNil"],
-referencedClasses: []
-}),
-smalltalk.AmdExporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageEpilogueOf:on:",
-category: 'exporting-output',
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("});");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-args: ["aPackage", "aStream"],
-source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '});';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "lf"],
-referencedClasses: []
-}),
-smalltalk.AmdExporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackagePrologueOf:on:",
-category: 'exporting-output',
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5;
-$1=aStream;
-_st($1)._nextPutAll_("define(\x22");
-$2=$1;
-$4=_st(aPackage)._amdNamespace();
-if(($receiver = $4) == nil || $receiver == undefined){
-$3="amber";
-} else {
-$3=$4;
-};
-_st($2)._nextPutAll_($3);
-_st($1)._nextPutAll_("/");
-_st($1)._nextPutAll_(_st(aPackage)._name());
-_st($1)._nextPutAll_("\x22, ");
-_st($1)._nextPutAll_(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._asJavascript());
-_st($1)._nextPutAll_(", function(smalltalk,nil,_st){");
-$5=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-args: ["aPackage", "aStream"],
-source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); \x22ifNil: only for LegacyPH, it should not happen with AmdPH\x22\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function(smalltalk,nil,_st){';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
-referencedClasses: []
-}),
-smalltalk.AmdExporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageTransportOf:on:",
-category: 'exporting-output',
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.packages[");
-_st($1)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
-_st($1)._nextPutAll_("].transport = ");
-_st($1)._nextPutAll_(_st(aPackage)._transportJson());
-_st($1)._nextPutAll_(";");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-args: ["aPackage", "aStream"],
-source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transportJson;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "asJavascript", "name", "transportJson", "lf"],
-referencedClasses: []
-}),
-smalltalk.AmdExporter.klass);
-
-
 smalltalk.addClass('AbstractExporter', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.AbstractExporter.comment="I am an abstract exporter for Amber source code.";
 smalltalk.addMethod(
@@ -1619,6 +1517,108 @@ messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "compiledSo
 referencedClasses: []
 }),
 smalltalk.StrippedExporter.klass);
+
+
+smalltalk.addClass('AmdExporter', smalltalk.Object, [], 'Importer-Exporter');
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "amdNamesOfPackages:",
+category: 'private',
+fn: function (anArray){
+var self=this;
+var deps,depNames;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(anArray)._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._amdNamespace())._notNil();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(each)._amdNamespace()).__comma("/")).__comma(_st(each)._name());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amdNamesOfPackages:",{anArray:anArray,deps:deps,depNames:depNames},smalltalk.AmdExporter.klass)})},
+args: ["anArray"],
+source: "amdNamesOfPackages: anArray\x0a\x09| deps depNames |\x0a\x09^(anArray\x0a\x09\x09select: [ :each | each amdNamespace notNil ])\x0a\x09\x09collect: [ :each | each amdNamespace, '/', each name ]",
+messageSends: ["collect:", ",", "name", "amdNamespace", "select:", "notNil"],
+referencedClasses: []
+}),
+smalltalk.AmdExporter.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackageEpilogueOf:on:",
+category: 'exporting-output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("});");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '});';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "lf"],
+referencedClasses: []
+}),
+smalltalk.AmdExporter.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackagePrologueOf:on:",
+category: 'exporting-output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$3,$5;
+$1=aStream;
+_st($1)._nextPutAll_("define(\x22");
+$2=$1;
+$4=_st(aPackage)._amdNamespace();
+if(($receiver = $4) == nil || $receiver == undefined){
+$3="amber";
+} else {
+$3=$4;
+};
+_st($2)._nextPutAll_($3);
+_st($1)._nextPutAll_("/");
+_st($1)._nextPutAll_(_st(aPackage)._name());
+_st($1)._nextPutAll_("\x22, ");
+_st($1)._nextPutAll_(_st(["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st"].__comma(self._amdNamesOfPackages_(_st(aPackage)._loadDependencies())))._asJavascript());
+_st($1)._nextPutAll_(", function(smalltalk,nil,_st){");
+$5=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); \x22ifNil: only for LegacyPH, it should not happen with AmdPH\x22\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
+referencedClasses: []
+}),
+smalltalk.AmdExporter.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackageTransportOf:on:",
+category: 'exporting-output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("smalltalk.packages[");
+_st($1)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
+_st($1)._nextPutAll_("].transport = ");
+_st($1)._nextPutAll_(_st(aPackage)._transportJson());
+_st($1)._nextPutAll_(";");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transportJson;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "asJavascript", "name", "transportJson", "lf"],
+referencedClasses: []
+}),
+smalltalk.AmdExporter.klass);
 
 
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
