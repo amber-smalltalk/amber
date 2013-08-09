@@ -1,11 +1,175 @@
 Smalltalk current createPackage: 'Importer-Exporter'!
-Object subclass: #ChunkExporter
+Object subclass: #AbstractExporter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!AbstractExporter commentStamp!
+I am an abstract exporter for Amber source code.!
+
+!AbstractExporter methodsFor: 'convenience'!
+
+chunkEscape: aString
+	"Replace all occurrences of !! with !!!! and trim at both ends."
+
+	^(aString replace: '!!' with: '!!!!') trimBoth
+!
+
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [ aClass instanceClass name, ' class' ]
+		ifFalse: [
+			aClass isNil
+				ifTrue: [ 'nil' ]
+				ifFalse: [ aClass name ] ]
+! !
+
+!AbstractExporter methodsFor: 'fileOut'!
+
+recipe
+	"Recipe to export a given package."
+
+	self subclassResponsibility
+! !
+
+AbstractExporter class instanceVariableNames: 'default'!
+
+!AbstractExporter class methodsFor: 'instance creation'!
+
+default
+	^ default ifNil: [ default := self new ]
+! !
+
+AbstractExporter subclass: #ChunkExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 !ChunkExporter commentStamp!
 I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.
 
 I do not output any compiled code.!
+
+!ChunkExporter methodsFor: 'exporting-accessing'!
+
+extensionCategoriesOfPackage: package
+	"Issue #143: sort protocol alphabetically"
+
+	| name map result |
+	name := package name.
+	result := OrderedCollection new.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			map := Dictionary new.
+			aClass protocolsDo: [:category :methods |
+				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
+			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
+				MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].
+	^result
+!
+
+methodsOfCategory: category
+	"Issue #143: sort methods alphabetically"
+
+	^(category methods) sorted: [:a :b | a selector <= b selector]
+!
+
+ownCategoriesOfClass: aClass
+	"Issue #143: sort protocol alphabetically"
+
+	| map |
+	map := Dictionary new.
+	aClass protocolsDo: [:category :methods |
+		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
+	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
+		MethodCategory name: category theClass: aClass methods: (map at: category) ]
+!
+
+ownCategoriesOfMetaClass: aClass
+	"Issue #143: sort protocol alphabetically"
+
+	^self ownCategoriesOfClass: aClass class
+! !
+
+!ChunkExporter methodsFor: 'exporting-output'!
+
+exportCategoryEpilogueOf: category on: aStream
+	aStream nextPutAll: ' !!'; lf; lf
+!
+
+exportCategoryPrologueOf: category on: aStream
+	aStream
+		nextPutAll: '!!', (self classNameFor: category theClass);
+		nextPutAll: ' methodsFor: ''', category name, '''!!'
+!
+
+exportDefinitionOf: aClass on: aStream
+	"Chunk format."
+
+	aStream
+		nextPutAll: (self classNameFor: aClass superclass);
+		nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
+		tab; nextPutAll: 'instanceVariableNames: '''.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: each]
+		separatedBy: [aStream nextPutAll: ' '].
+	aStream
+		nextPutAll: ''''; lf;
+		tab; nextPutAll: 'package: ''', aClass category, '''!!'; lf.
+	aClass comment notEmpty ifTrue: [
+		aStream
+		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
+		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+	aStream lf
+!
+
+exportMetaDefinitionOf: aClass on: aStream
+
+	aClass class instanceVariableNames isEmpty ifFalse: [
+		aStream
+			nextPutAll: (self classNameFor: aClass class);
+			nextPutAll: ' instanceVariableNames: '''.
+		aClass class instanceVariableNames
+			do: [:each | aStream nextPutAll: each]
+			separatedBy: [aStream nextPutAll: ' '].
+		aStream
+			nextPutAll: '''!!'; lf; lf]
+!
+
+exportMethod: aMethod on: aStream
+	aStream
+		lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;
+		nextPutAll: '!!'
+!
+
+exportPackageDefinitionOf: package on: aStream
+	"Chunk format."
+
+	aStream
+		nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!!';
+		lf
+! !
+
+!ChunkExporter methodsFor: 'fileOut'!
+
+recipe
+	"Export a given package."
+
+	| exportCategoryRecipe |
+	exportCategoryRecipe := {
+		self -> #exportCategoryPrologueOf:on:.
+		{
+			self -> #methodsOfCategory:.
+			self -> #exportMethod:on: }.
+		self -> #exportCategoryEpilogueOf:on: }.
+
+	^{
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
+			self -> #exportMetaDefinitionOf:on:.
+			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
+		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
+	}
+! !
 
 !ChunkExporter class methodsFor: 'exporting-accessing'!
 
@@ -149,56 +313,7 @@ classNameFor: aClass
 			ifFalse: [aClass name]]
 ! !
 
-Object subclass: #ChunkParser
-	instanceVariableNames: 'stream'
-	package: 'Importer-Exporter'!
-!ChunkParser commentStamp!
-I am responsible for parsing aStream contents in the chunk format.
-
-## API
-
-    ChunkParser new
-        stream: aStream;
-        nextChunk!
-
-!ChunkParser methodsFor: 'accessing'!
-
-stream: aStream
-	stream := aStream
-! !
-
-!ChunkParser methodsFor: 'reading'!
-
-nextChunk
-	"The chunk format (Smalltalk Interchange Format or Fileout format)
-	is a trivial format but can be a bit tricky to understand:
-		- Uses the exclamation mark as delimiter of chunks.
-		- Inside a chunk a normal exclamation mark must be doubled.
-		- A non empty chunk must be a valid Smalltalk expression.
-		- A chunk on top level with a preceding empty chunk is an instruction chunk:
-			- The object created by the expression then takes over reading chunks.
-
-	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
-
-	| char result chunk |
-	result := '' writeStream.
-		[char := stream next.
-		char notNil] whileTrue: [
-				char = '!!' ifTrue: [
-						stream peek = '!!'
-								ifTrue: [stream next "skipping the escape double"]
-								ifFalse: [^result contents trimBoth "chunk end marker found"]].
-				result nextPut: char].
-	^nil "a chunk needs to end with !!"
-! !
-
-!ChunkParser class methodsFor: 'not yet classified'!
-
-on: aStream
-	^self new stream: aStream
-! !
-
-Object subclass: #Exporter
+AbstractExporter subclass: #Exporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 !Exporter commentStamp!
@@ -213,6 +328,148 @@ I am typically used to save code outside of the Amber runtime (committing to dis
 ## API
 
 Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
+
+!Exporter methodsFor: 'as yet unclassified'!
+
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [ aClass instanceClass name, '.klass' ]
+		ifFalse: [
+			aClass isNil
+				ifTrue: [ 'nil' ]
+				ifFalse: [ aClass name ] ]
+! !
+
+!Exporter methodsFor: 'exporting-accessing'!
+
+extensionMethodsOfPackage: package
+	"Issue #143: sort classes and methods alphabetically"
+
+	| name result |
+	name := package name.
+	result := OrderedCollection new.
+	(Package sortedClasses: Smalltalk current classes) do: [:each |
+		{each. each class} do: [:aClass |
+			result addAll: (((aClass methodDictionary values)
+				sorted: [:a :b | a selector <= b selector])
+				select: [:method | method category match: '^\*', name]) ]].
+	^result
+!
+
+ownMethodsOfClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
+		reject: [:each | (each category match: '^\*')]
+!
+
+ownMethodsOfMetaClass: aClass
+	"Issue #143: sort methods alphabetically"
+
+	^self ownMethodsOfClass: aClass class
+! !
+
+!Exporter methodsFor: 'exporting-output'!
+
+exportDefinitionOf: aClass on: aStream
+	aStream
+		lf;
+		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '''', (self classNameFor: aClass), ''', ';
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: ', ['.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ', '].
+	aStream
+		nextPutAll: '], ''';
+		nextPutAll: aClass category, '''';
+		nextPutAll: ');'.
+	aClass comment notEmpty ifTrue: [
+		aStream
+			lf;
+		nextPutAll: 'smalltalk.';
+		nextPutAll: (self classNameFor: aClass);
+		nextPutAll: '.comment=';
+		nextPutAll: aClass comment asJavascript;
+		nextPutAll: ';'].
+	aStream lf
+!
+
+exportMetaDefinitionOf: aClass on: aStream
+	aStream lf.
+	aClass class instanceVariableNames isEmpty ifFalse: [
+		aStream
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
+		nextPutAll: '.iVarNames = ['.
+		aClass class instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ','].
+		aStream nextPutAll: '];', String lf]
+!
+
+exportMethod: aMethod on: aStream
+	aStream
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
+		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
+		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;
+		nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.
+	aStream
+		lf;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
+		nextPutAll: ');';lf;lf
+!
+
+exportPackageDefinitionOf: package on: aStream
+	aStream
+		nextPutAll: 'smalltalk.addPackage(';
+		nextPutAll: '''', package name, ''');';
+		lf
+!
+
+exportPackageEpilogueOf: aPackage on: aStream
+	aStream
+		nextPutAll: '})(global_smalltalk,global_nil,global__st);';
+		lf
+!
+
+exportPackagePrologueOf: aPackage on: aStream
+	aStream
+		nextPutAll: '(function(smalltalk,nil,_st){';
+		lf
+! !
+
+!Exporter methodsFor: 'fileOut'!
+
+recipe
+	"Export a given package."
+
+	^{
+		self -> #exportPackagePrologueOf:on:.
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfClass:.
+				self -> #exportMethod:on: }.
+			self -> #exportMetaDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfMetaClass:.
+				self -> #exportMethod:on: } }.
+		{
+			self -> #extensionMethodsOfPackage:.
+			self -> #exportMethod:on: }.
+		self -> #exportPackageEpilogueOf:on:
+	}
+! !
 
 !Exporter class methodsFor: 'exporting-accessing'!
 
@@ -362,6 +619,38 @@ Exporter subclass: #StrippedExporter
 !StrippedExporter commentStamp!
 I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
 
+!StrippedExporter methodsFor: 'exporting-output'!
+
+exportDefinitionOf: aClass on: aStream
+	aStream
+		lf;
+		nextPutAll: 'smalltalk.addClass(';
+		nextPutAll: '''', (self classNameFor: aClass), ''', ';
+		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
+		nextPutAll: ', ['.
+	aClass instanceVariableNames
+		do: [:each | aStream nextPutAll: '''', each, '''']
+		separatedBy: [aStream nextPutAll: ', '].
+	aStream
+		nextPutAll: '], ''';
+		nextPutAll: aClass category, '''';
+		nextPutAll: ');'.
+	aStream lf
+!
+
+exportMethod: aMethod on: aStream
+	aStream
+		nextPutAll: 'smalltalk.addMethod(';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
+		nextPutAll: 'smalltalk.method({';lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
+		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
+		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;
+		nextPutAll: '}),';lf;
+		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
+		nextPutAll: ');';lf;lf
+! !
+
 !StrippedExporter class methodsFor: 'exporting-output'!
 
 exportDefinitionOf: aClass on: aStream
@@ -392,6 +681,55 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '}),';lf;
 		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
 		nextPutAll: ');';lf;lf
+! !
+
+Object subclass: #ChunkParser
+	instanceVariableNames: 'stream'
+	package: 'Importer-Exporter'!
+!ChunkParser commentStamp!
+I am responsible for parsing aStream contents in the chunk format.
+
+## API
+
+    ChunkParser new
+        stream: aStream;
+        nextChunk!
+
+!ChunkParser methodsFor: 'accessing'!
+
+stream: aStream
+	stream := aStream
+! !
+
+!ChunkParser methodsFor: 'reading'!
+
+nextChunk
+	"The chunk format (Smalltalk Interchange Format or Fileout format)
+	is a trivial format but can be a bit tricky to understand:
+		- Uses the exclamation mark as delimiter of chunks.
+		- Inside a chunk a normal exclamation mark must be doubled.
+		- A non empty chunk must be a valid Smalltalk expression.
+		- A chunk on top level with a preceding empty chunk is an instruction chunk:
+			- The object created by the expression then takes over reading chunks.
+
+	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+
+	| char result chunk |
+	result := '' writeStream.
+		[char := stream next.
+		char notNil] whileTrue: [
+				char = '!!' ifTrue: [
+						stream peek = '!!'
+								ifTrue: [stream next "skipping the escape double"]
+								ifFalse: [^result contents trimBoth "chunk end marker found"]].
+				result nextPut: char].
+	^nil "a chunk needs to end with !!"
+! !
+
+!ChunkParser class methodsFor: 'not yet classified'!
+
+on: aStream
+	^self new stream: aStream
 ! !
 
 Object subclass: #Importer
@@ -544,9 +882,9 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 
 commitChannels
 	^{ 
-		[ :pkg | Exporter recipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
-		[ :pkg | StrippedExporter recipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
-		[ :pkg | ChunkExporter recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
+		[ :pkg | Exporter default recipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
+		[ :pkg | StrippedExporter default recipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
+		[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
 	}
 !
 
