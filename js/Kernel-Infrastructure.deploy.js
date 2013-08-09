@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Infrastructure');
+
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 
 smalltalk.InspectorHandler.klass.iVarNames = ['inspector'];
@@ -904,7 +905,7 @@ smalltalk.ClassOrganizer);
 smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastructure');
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
@@ -1667,7 +1668,6 @@ return smalltalk;
 return self}, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Smalltalk.klass)})},
 messageSends: []}),
 smalltalk.Smalltalk.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

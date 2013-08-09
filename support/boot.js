@@ -114,7 +114,7 @@ function RootBrik(brikz, st) {
 
 	this.__init__ = function () {
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
-		st.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, st.Object, false);
+		st.wrapClassName("Smalltalk", "Kernel-Infrastructure", Smalltalk, st.Object, false);
 		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
 	};
 }
@@ -137,9 +137,9 @@ function OrganizeBrik(brikz, st) {
 	inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
 
 	this.__init__ = function () {
-		st.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, st.Object, false);
-		st.wrapClassName("PackageOrganizer", "Kernel-Objects", SmalltalkPackageOrganizer, st.Organizer, false);
-		st.wrapClassName("ClassOrganizer", "Kernel-Objects", SmalltalkClassOrganizer, st.Organizer, false);
+		st.wrapClassName("Organizer", "Kernel-Infrastructure", SmalltalkOrganizer, st.Object, false);
+		st.wrapClassName("PackageOrganizer", "Kernel-Infrastructure", SmalltalkPackageOrganizer, st.Organizer, false);
+		st.wrapClassName("ClassOrganizer", "Kernel-Infrastructure", SmalltalkClassOrganizer, st.Organizer, false);
 	};
 
 	this.setupClassOrganization = function (klass) {
@@ -326,7 +326,7 @@ function ClassesBrik(brikz, st) {
 
 		st.Object.klass.superclass = st.Class;
 
-		st.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, st.Object, false);
+		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
 	};
 
 	/* Smalltalk classes */
