@@ -501,10 +501,10 @@ AmberC.prototype.category_export = function() {
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-			pluggableExporter._newUsing_(smalltalk.Exporter._recipe())._exportPackage_on_(packageObject, stream); }), function(err) {
+			pluggableExporter._forRecipe_(smalltalk.Exporter._recipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
 				fs.writeFile(jsFileDeploy, smalltalk.String._streamContents_(function (stream) {
-					pluggableExporter._newUsing_(smalltalk.StrippedExporter._recipe())._exportPackage_on_(packageObject, stream); }), callback);
+					pluggableExporter._forRecipe_(smalltalk.StrippedExporter._recipe())._exportPackage_on_(packageObject, stream); }), callback);
 			} else {
 				callback(null, null);
 			}
