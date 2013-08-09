@@ -1352,28 +1352,6 @@ smalltalk.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "loadDependencies",
-fn: function (){
-var self=this;
-var root;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-root=_st($Object())._package();
-$1=self.__eq_eq(root);
-if(smalltalk.assert($1)){
-$2=[];
-return $2;
-} else {
-$3=[root];
-return $3;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{root:root},smalltalk.Package)})},
-messageSends: ["package", "ifTrue:ifFalse:", "=="]}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "transport",
 fn: function (){
 var self=this;

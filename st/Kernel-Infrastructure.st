@@ -504,6 +504,21 @@ sortedClasses
 	^self class sortedClasses: self classes
 ! !
 
+!Package methodsFor: 'dependencies'!
+
+loadDependencies
+	"Returns list of packages that need to be present
+	before loading this package.
+	These are determined as set of packages covering
+	all classes used either for subclassing or for defining
+	extension methods on."
+	
+	"Fake one for now. TODO"
+	| root |
+	root := Object package.
+	self == root ifTrue: [ ^#() ] ifFalse: [ ^{root} ]
+! !
+
 !Package methodsFor: 'printing'!
 
 printOn: aStream
