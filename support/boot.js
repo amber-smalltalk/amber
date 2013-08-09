@@ -33,18 +33,6 @@
    |
    ==================================================================== */
 
-/* Make sure that console is defined */
-
-if(typeof console === "undefined") {
-	this.console = {
-		log: function() {},
-		warn: function() {},
-		info: function() {},
-		debug: function() {},
-		error: function() {}
-	};
-}
-
 /* Global Smalltalk objects. */
 // The globals below all begin with `global_' prefix.
 // This prefix is to advice developers to avoid their usage,
@@ -57,43 +45,47 @@ var global_smalltalk, global_nil, global__st;
 
 (function () {
 
-/* Array extensions */
+/* Reconfigurable micro composition system, https://github.com/herby/brikz */
 
-Array.prototype.addElement = function(el) {
-	if(typeof el === 'undefined') { return; }
-	if(this.indexOf(el) == -1) {
-		this.push(el);
+function Brikz(api, apiKey, initKey) {
+	var brikz = this, backup = {};
+	apiKey = apiKey || 'exports';
+	initKey = initKey || '__init__';
+
+	function mixin(src, target, what) {
+		for (var keys = Object.keys(what||src), l=keys.length, i=0; i<l; ++i) {
+			var value = src[keys[i]];
+			if (typeof value !== "undefined") { target[keys[i]] = value; }
+		}
+		return target;
 	}
-};
 
-Array.prototype.removeElement = function(el) {
-	var i = this.indexOf(el);
-	if (i !== -1) { this.splice(i, 1); }
-};
+	var d={value: null, enumerable: false, configurable: true, writable: true};
+	Object.defineProperties(this, { ensure: d, rebuild: d });
 
-
-/* Smalltalk constructors definition */
-
-function SmalltalkObject() {}
-function SmalltalkBehavior() {}
-function SmalltalkClass() {}
-function SmalltalkMetaclass() {
-	this.meta = true;
+	this.rebuild = function () {
+		Object.keys(backup).forEach(function (key) {
+			mixin({}, api, (backup[key]||0)[apiKey]);
+		});
+		var oapi = mixin(api, {}), order = [], chk = {};
+		brikz.ensure = function(key) {
+			var b = brikz[key], bak = backup[key];
+			mixin({}, api, api);
+			while (typeof b === "function") { b = new b(brikz, api, bak); }
+			if (b && !chk[key]) { chk[key]=true; order.push(b); }
+			if (b && !b[apiKey]) { b[apiKey] = mixin(api, {}); }
+			return brikz[key] = b;
+		};
+		Object.keys(brikz).forEach(function (key) { brikz.ensure(key); });
+		brikz.ensure = null;
+		mixin(oapi, mixin({}, api, api));
+		order.forEach(function(brik) { mixin(brik[apiKey] || {}, api); });
+		order.forEach(function(brik) { brik[initKey] && brik[initKey](); });
+		backup = mixin(brikz, {});
+	};
 }
-function SmalltalkPackage() {}
-function SmalltalkMethod() {}
-function SmalltalkNil() {}
 
-function SmalltalkOrganizer() {
-}
-
-function SmalltalkPackageOrganizer() {
-	this.elements = [];
-}
-
-function SmalltalkClassOrganizer() {
-	this.elements = [];
-}
+/* Brikz end */
 
 function inherits(child, parent) {
 	child.prototype = Object.create(parent.prototype, {
@@ -103,104 +95,244 @@ function inherits(child, parent) {
 	return child;
 }
 
-inherits(SmalltalkBehavior, SmalltalkObject);
-inherits(SmalltalkClass, SmalltalkBehavior);
-inherits(SmalltalkMetaclass, SmalltalkBehavior);
-inherits(SmalltalkNil, SmalltalkObject);
-inherits(SmalltalkMethod, SmalltalkObject);
-inherits(SmalltalkPackage, SmalltalkObject);
-inherits(SmalltalkOrganizer, SmalltalkObject);
-inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
-inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
+/* Smalltalk foundational objects */
 
+function SmalltalkObject() {}
 
-var nil = global_nil = new SmalltalkNil();
+function Smalltalk() {}
+inherits(Smalltalk, SmalltalkObject);
 
-function Smalltalk() {
+var api = new Smalltalk();
+var brikz = new Brikz(api);
 
-	var st = this;
+function RootBrik(brikz, st) {
 
-	/* This is the current call context object. While it is publicly available,
-		Use smalltalk.getThisContext() instead which will answer a safe copy of
-		the current context */
+	function SmalltalkNil() {}
+	inherits(SmalltalkNil, SmalltalkObject);
 
-	st.thisContext = undefined;
+	this.nil = new SmalltalkNil();
 
-	/* List of all reserved words in JavaScript. They may not be used as variables
-		in Smalltalk. */
+	this.__init__ = function () {
+		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
+		st.wrapClassName("Smalltalk", "Kernel-Infrastructure", Smalltalk, st.Object, false);
+		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
+	};
+}
 
-	// list of reserved JavaScript keywords as of
-	//   http://es5.github.com/#x7.6.1.1
-	// and
-	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
-	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
-		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
-		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
-		'try', 'typeof', 'var', 'void', 'while', 'with',
-		// ES5: future use: http://es5.github.com/#x7.6.1.2
-		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
-		// ES5: future use in strict mode
-		'implements', 'interface', 'let', 'package', 'private', 'protected',
-		'public', 'static', 'yield'];
+function OrganizeBrik(brikz, st) {
 
-	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+	brikz.ensure("augments");
+	brikz.ensure("root");
 
-	var initialized = false;
+	function SmalltalkOrganizer () {}
+	function SmalltalkPackageOrganizer () {
+		this.elements = [];
+	}
+	function SmalltalkClassOrganizer () {
+		this.elements = [];
+	}
+
+	inherits(SmalltalkOrganizer, SmalltalkObject);
+	inherits(SmalltalkPackageOrganizer, SmalltalkOrganizer);
+	inherits(SmalltalkClassOrganizer, SmalltalkOrganizer);
+
+	this.__init__ = function () {
+		st.wrapClassName("Organizer", "Kernel-Infrastructure", SmalltalkOrganizer, st.Object, false);
+		st.wrapClassName("PackageOrganizer", "Kernel-Infrastructure", SmalltalkPackageOrganizer, st.Organizer, false);
+		st.wrapClassName("ClassOrganizer", "Kernel-Infrastructure", SmalltalkClassOrganizer, st.Organizer, false);
+	};
+
+	this.setupClassOrganization = function (klass) {
+		klass.organization = new SmalltalkClassOrganizer();
+		klass.organization.theClass = klass;
+	};
+
+	this.setupPackageOrganization = function (pkg) {
+		pkg.organization = new SmalltalkPackageOrganizer();
+	};
+
+	this.addOrganizationElement = function (owner, element) {
+		owner.organization.elements.addElement(element);
+	};
+
+	this.removeOrganizationElement = function (owner, element) {
+		owner.organization.elements.removeElement(element);
+	};
+}
+
+function DNUBrik(brikz, st) {
+
+	brikz.ensure("selectorConversion");
+	brikz.ensure("messageSend");
+	var manip = brikz.ensure("manipulation");
+
+	/* Method not implemented handlers */
+
+	var methods = [], checker = Object.create(null);
+	this.selectors = [];
+
+	this.get = function (string) {
+		var index = this.selectors.indexOf(string);
+		if(index !== -1) {
+			return methods[index];
+		}
+		this.selectors.push(string);
+		var selector = st.selector(string);
+		checker[selector] = true;
+		var method = {jsSelector: selector, fn: this.createHandler(selector)};
+		methods.push(method);
+		return method;
+	};
+
+	this.isSelector = function (selector) {
+		return checker[selector];
+	};
+
+	/* Dnu handler method */
+
+	this.createHandler = function (selector) {
+		var handler = function() {
+			var args = Array.prototype.slice.call(arguments);
+			return brikz.messageSend.messageNotUnderstood(this, selector, args);
+		};
+
+		return handler;
+	};
+
+	this.installHandlers = function (klass) {
+		for(var i=0; i<methods.length; i++) {
+			manip.installMethodIfAbsent(methods[i], klass);
+		}
+	};
+}
+
+function ClassInitBrik(brikz, st) {
+
+	var dnu = brikz.ensure("dnu");
+	var manip = brikz.ensure("manipulation");
+	var nil = brikz.ensure("root").nil;
+
+	/* Initialize a class in its class hierarchy. Handle both classes and
+	metaclasses. */
+
+	st.init = function(klass) {
+		st.initClass(klass);
+		if(klass.klass && !klass.meta) {
+			st.initClass(klass.klass);
+		}
+	};
+
+	st.initClass = function(klass) {
+		if(klass.wrapped) {
+			copySuperclass(klass);
+		}
+
+		if(klass === st.Object || klass.wrapped) {
+			dnu.installHandlers(klass);
+		}
+	};
+
+	function copySuperclass(klass, superclass) {
+		var inheritedMethods = {};
+		deinstallAllMethods(klass);
+		for (superclass = superclass || klass.superclass;
+			superclass && superclass !== nil;
+			superclass = superclass.superclass) {
+			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
+				inheritMethodIfAbsent(superclass.methods[keys[i]]);
+			}
+		}
+		manip.reinstallMethods(klass);
+
+		function inheritMethodIfAbsent(method) {
+			var selector = method.selector;
+
+			//TODO: prepare klass methods into inheritedMethods to only test once
+			//TODO: Object.create(null) to ditch hasOwnProperty call (very slow)
+			if(klass.methods.hasOwnProperty(selector) || inheritedMethods.hasOwnProperty(selector)) {
+				return;
+			}
+
+			manip.installMethod(method, klass);
+			inheritedMethods[method.selector] = true;
+		}
+
+	}
+
+	function deinstallAllMethods(klass) {
+		var proto = klass.fn.prototype;
+		for(var keys = Object.getOwnPropertyNames(proto), i=0; i<keys.length; i++) {
+			var key = keys[i];
+			if (dnu.isSelector(key)) {
+				proto[key] = null;
+			}
+		}
+	}
+}
+
+function ManipulationBrik(brikz, st) {
+
+	this.installMethodIfAbsent = function (handler, klass) {
+		if(!klass.fn.prototype[handler.jsSelector]) {
+			installMethod(handler, klass);
+		}
+	};
+
+	function installMethod (method, klass) {
+		Object.defineProperty(klass.fn.prototype, method.jsSelector, {
+			value: method.fn,
+			enumerable: false, configurable: true, writable: true
+		});
+	}
+	this.installMethod = installMethod;
+
+	this.wireKlass = function (klass) {
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
+	};
+
+	this.reinstallMethods = function (klass) {
+		var methods = klass.methods;
+		for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
+			installMethod(methods[keys[i]], klass);
+		}
+	};
+}
+
+function ClassesBrik(brikz, st) {
+
+	var org = brikz.ensure("organize");
+	var manip = brikz.ensure("manipulation");
+	var nil = brikz.ensure("root").nil;
+
+	function SmalltalkPackage() {}
+	function SmalltalkBehavior() {}
+	function SmalltalkClass() {}
+	function SmalltalkMetaclass() {
+		this.meta = true;
+	}
+
+	inherits(SmalltalkPackage, SmalltalkObject);
+	inherits(SmalltalkBehavior, SmalltalkObject);
+	inherits(SmalltalkClass, SmalltalkBehavior);
+	inherits(SmalltalkMetaclass, SmalltalkBehavior);
+
+	this.__init__ = function () {
+		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, st.Object, false);
+		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
+		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
+
+		st.Object.klass.superclass = st.Class;
+
+		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
+	};
 
 	/* Smalltalk classes */
 
 	var classes = [];
 	var wrappedClasses = [];
-
-	/* Method not implemented handlers */
-
-	var dnu = {
-		methods: [],
-		selectors: [],
-		checker: Object.create(null),
-
-		get: function (string) {
-			var index = this.selectors.indexOf(string);
-			if(index !== -1) {
-				return this.methods[index];
-			}
-			this.selectors.push(string);
-			var selector = st.selector(string);
-			this.checker[selector] = true;
-			var method = {jsSelector: selector, fn: this.createHandler(selector)};
-			this.methods.push(method);
-			return method;
-		},
-
-		isSelector: function (selector) {
-			return this.checker[selector];
-		},
-
-		/* Dnu handler method */
-
-		createHandler: function (selector) {
-			var handler = function() {
-				var args = Array.prototype.slice.call(arguments);
-				return messageNotUnderstood(this, selector, args);
-			};
-
-			return handler;
-		}
-	};
-
-	/* Answer all method selectors based on dnu handlers */
-
-	st.allSelectors = function() {
-		return dnu.selectors;
-	};
-
-	/* Unique ID number generator */
-
-	var oid = 0;
-	st.nextId = function() {
-		oid += 1;
-		return oid;
-	};
 
 	/* We hold all Packages in a separate Object */
 
@@ -211,7 +343,7 @@ function Smalltalk() {
 	function pkg(spec) {
 		var that = new SmalltalkPackage();
 		that.pkgName = spec.pkgName;
-		that.organization = new SmalltalkPackageOrganizer();
+		org.setupPackageOrganization(that);
 		that.properties = spec.properties || {};
 		return that;
 	}
@@ -247,164 +379,95 @@ function Smalltalk() {
 		return that;
 	}
 
+	SmalltalkBehavior.prototype.toString = function () {
+		return 'Smalltalk ' + this.className;
+	};
+
 	function setupClass(klass, spec) {
 		spec = spec || {};
 		klass.iVarNames = spec.iVarNames || [];
 		klass.pkg = spec.pkg;
 
-		Object.defineProperty(klass, "toString", {
-			value: function() { return 'Smalltalk ' + this.className; },
-			enumerable:false, configurable: true, writable: false
-		});
-
-		klass.organization          = new SmalltalkClassOrganizer();
-		klass.organization.theClass = klass;
-
+		org.setupClassOrganization(klass);
 		Object.defineProperty(klass, "methods", {
 			value: {},
 			enumerable: false, configurable: true, writable: true
 		});
-		wireKlass(klass);
+		manip.wireKlass(klass);
 	}
 
-	/* Smalltalk method object. To add a method to a class,
-		use smalltalk.addMethod() */
+	/* Add a package to the smalltalk.packages object, creating a new one if needed.
+	 If pkgName is null or empty we return nil, which is an allowed package for a class.
+	 If package already exists we still update the properties of it. */
 
-	st.method = function(spec) {
-		var that = new SmalltalkMethod();
-		that.selector          = spec.selector;
-		that.jsSelector        = spec.jsSelector;
-		that.args              = spec.args || {};
-		that.category          = spec.category;
-		that.source            = spec.source;
-		that.messageSends      = spec.messageSends || [];
-		that.referencedClasses = spec.referencedClasses || [];
-		that.fn                = spec.fn;
-		return that;
-	};
-
-	/* Initialize a class in its class hierarchy. Handle both classes and
-		metaclasses. */
-
-	st.init = function(klass) {
-		st.initClass(klass);
-		if(klass.klass && !klass.meta) {
-			st.initClass(klass.klass);
-		}
-	};
-
-	st.initClass = function(klass) {
-		if(klass.wrapped) {
-			copySuperclass(klass);
-		}
-
-		if(klass === st.Object || klass.wrapped) {
-			installDnuHandlers(klass);
-		}
-	};
-
-	function wireKlass(klass) {
-		Object.defineProperty(klass.fn.prototype, "klass", {
-			value: klass,
-			enumerable: false, configurable: true, writable: true
-		});
-	}
-
-	function copySuperclass(klass, superclass) {
-		var inheritedMethods = {};
-		deinstallAllMethods(klass);
-		for (superclass = superclass || klass.superclass;
-			superclass && superclass !== nil;
-			superclass = superclass.superclass) {
-			for (var keys = Object.keys(superclass.methods), i = 0; i < keys.length; i++) {
-				inheritMethodIfAbsent(superclass.methods[keys[i]]);
+	st.addPackage = function(pkgName, properties) {
+		if(!pkgName) {return nil;}
+		if(!(st.packages[pkgName])) {
+			st.packages[pkgName] = pkg({
+				pkgName: pkgName,
+				properties: properties
+			});
+		} else {
+			if(properties) {
+				st.packages[pkgName].properties = properties;
 			}
 		}
-		reinstallMethods(klass);
+		return st.packages[pkgName];
+	};
 
-		function inheritMethodIfAbsent(method) {
-			var selector = method.selector;
+	/* Add a class to the smalltalk object, creating a new one if needed.
+	 A Package is lazily created if it does not exist with given name. */
 
-			//TODO: prepare klass methods into inheritedMethods to only test once
-			//TODO: Object.create(null) to ditch hasOwnProperty call (very slow)
-			if(klass.methods.hasOwnProperty(selector) || inheritedMethods.hasOwnProperty(selector)) {
-				return;
+	st.addClass = function(className, superclass, iVarNames, pkgName) {
+		if (superclass == nil) { superclass = null; }
+		rawAddClass(pkgName, className, superclass, iVarNames, false, null);
+	};
+
+	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
+		var pkg = st.addPackage(pkgName);
+		if(st[className] && st[className].superclass == superclass) {
+//            st[className].superclass = superclass;
+			st[className].iVarNames = iVarNames || [];
+			if (pkg) st[className].pkg = pkg;
+		} else {
+			if(st[className]) {
+				st.removeClass(st[className]);
 			}
-
-			installMethod(method, klass);
-			inheritedMethods[method.selector] = true;
-		}
-
-	}
-
-	function installMethod(method, klass) {
-		Object.defineProperty(klass.fn.prototype, method.jsSelector, {
-			value: method.fn,
-			enumerable: false, configurable: true, writable: true
-		});
-	}
-
-	function deinstallAllMethods(klass) {
-		var proto = klass.fn.prototype;
-		for(var keys = Object.getOwnPropertyNames(proto), i=0; i<keys.length; i++) {
-			var key = keys[i];
-			if (dnu.isSelector(key)) {
-				proto[key] = null;
-			}
-		}
-	}
-
-	function reinstallMethods(klass) {
-		for(var keys = Object.keys(klass.methods), i=0; i<keys.length; i++) {
-			installMethod(klass.methods[keys[i]], klass);
-		}
-	}
-
-	function installDnuHandlers(klass) {
-		var m = dnu.methods;
-		for(var i=0; i<m.length; i++) {
-			installDnuHandlerIfAbsent(m[i], klass);
-		}
-	}
-
-	function installNewDnuHandler(newHandler) {
-		installDnuHandlerIfAbsent(newHandler, st.Object);
-		for(var i = 0; i < wrappedClasses.length; i++) {
-			installDnuHandlerIfAbsent(newHandler, wrappedClasses[i]);
-		}
-	}
-
-	function installDnuHandlerIfAbsent(handler, klass) {
-		var jsFunction = klass.fn.prototype[handler.jsSelector];
-		if(!jsFunction) {
-			installMethod(handler, klass);
-		}
-	}
-
-	function propagateMethodChange(klass) {
-		// If already initialized (else it will be done later anyway),
-		// re-initialize all subclasses to ensure the method change
-		// propagation (for wrapped classes, not using the prototype
-		// chain).
-
-		//TODO: optimize, only one method need to be updated, not all of them
-		if (initialized) {
-			st.allSubclasses(klass).forEach(function (subclass) {
-				st.initClass(subclass);
+			st[className] = klass({
+				className: className,
+				superclass: superclass,
+				pkg: pkg,
+				iVarNames: iVarNames,
+				fn: fn,
+				wrapped: wrapped
 			});
 		}
+
+		classes.addElement(st[className]);
+		org.addOrganizationElement(pkg, st[className]);
 	}
 
-	/* Answer all registered Packages as Array */
-	// TODO: Remove this hack
+	st.removeClass = function(klass) {
+		org.removeOrganizationElement(klass.pkg, klass);
+		classes.removeElement(klass);
+		delete st[klass.className];
+	};
 
-	st.packages.all = function() {
-		var packages = [];
-		for(var i in st.packages) {
-			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
-			packages.push(st.packages[i]);
+	/* Create a new class wrapping a JavaScript constructor, and add it to the
+	 global smalltalk object. Package is lazily created if it does not exist with given name. */
+
+	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
+		wrapped = wrapped !== false;
+		rawAddClass(pkgName, className, superclass, null, wrapped, fn);
+		if(wrapped) {
+			wrappedClasses.addElement(st[className]);
 		}
-		return packages;
+	};
+
+	/* Create an alias for an existing class */
+
+	st.alias = function(klass, alias) {
+		st[alias] = klass;
 	};
 
 	/* Answer all registered Smalltalk classes */
@@ -416,6 +479,18 @@ function Smalltalk() {
 
 	st.wrappedClasses = function() {
 		return wrappedClasses;
+	};
+
+	/* Answer all registered Packages as Array */
+	// TODO: Remove this hack
+
+	st.packages.all = function() {
+		var packages = [];
+		for(var i in st.packages) {
+			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
+			packages.push(st.packages[i]);
+		}
+		return packages;
 	};
 
 	/* Answer the direct subclasses of klass. */
@@ -450,124 +525,84 @@ function Smalltalk() {
 		return result;
 	};
 
+}
 
-	/* Create a new class wrapping a JavaScript constructor, and add it to the
-		global smalltalk object. Package is lazily created if it does not exist with given name. */
+function MethodsBrik(brikz, st) {
 
-	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
-		if(wrapped !== false) {
-			wrapped = true;
+	var manip = brikz.ensure("manipulation");
+	var org = brikz.ensure("organize");
+	var stInit = brikz.ensure("stInit");
+	var dnu = brikz.ensure("dnu");
+	brikz.ensure("selectorConversion");
+	brikz.ensure("classes");
+	brikz.ensure("classInit");
+
+	function SmalltalkMethod() {}
+	inherits(SmalltalkMethod, SmalltalkObject);
+
+	this.__init__ = function () {
+		st.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, st.Object, false);
+	};
+
+	/* Smalltalk method object. To add a method to a class,
+	 use smalltalk.addMethod() */
+
+	st.method = function(spec) {
+		var that = new SmalltalkMethod();
+		that.selector          = spec.selector;
+		that.jsSelector        = spec.jsSelector;
+		that.args              = spec.args || {};
+		that.category          = spec.category;
+		that.source            = spec.source;
+		that.messageSends      = spec.messageSends || [];
+		that.referencedClasses = spec.referencedClasses || [];
+		that.fn                = spec.fn;
+		return that;
+	};
+
+	function installNewDnuHandler(newHandler) {
+		manip.installMethodIfAbsent(newHandler, st.Object);
+		var wrappedClasses = st.wrappedClasses();
+		for(var i = 0; i < wrappedClasses.length; i++) {
+			manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
 		}
-		var pkg = st.addPackage(pkgName);
-		st[className] = klass({
-			className:  className,
-			superclass: superclass,
-			pkg:        pkg,
-			fn:         fn,
-			wrapped:    wrapped
-		});
-
-		classes.addElement(st[className]);
-		if(wrapped) {
-			wrappedClasses.addElement(st[className]);
-		}
-		pkg.organization.elements.addElement(st[className]);
-	};
-
-	/* Create an alias for an existing class */
-
-	st.alias = function(klass, alias) {
-		st[alias] = klass;
-	};
-
-	/* Add a package to the smalltalk.packages object, creating a new one if needed.
-		If pkgName is null or empty we return nil, which is an allowed package for a class.
-		If package already exists we still update the properties of it. */
-
-	st.addPackage = function(pkgName, properties) {
-		if(!pkgName) {return nil;}
-		if(!(st.packages[pkgName])) {
-			st.packages[pkgName] = pkg({
-				pkgName: pkgName,
-				properties: properties
-			});
-		} else {
-			if(properties) {
-				st.packages[pkgName].properties = properties;
-			}
-		}
-		return st.packages[pkgName];
-	};
-
-	/* Add a class to the smalltalk object, creating a new one if needed.
-		A Package is lazily created if it does not exist with given name. */
-
-	st.addClass = function(className, superclass, iVarNames, pkgName) {
-		var pkg = st.addPackage(pkgName);
-		if (superclass == nil) { superclass = null; }
-		if(st[className] && st[className].superclass == superclass) {
-			st[className].superclass = superclass;
-			st[className].iVarNames = iVarNames;
-			st[className].pkg = pkg || st[className].pkg;
-		} else {
-			if(st[className]) {
-				st.removeClass(st[className]);
-			}
-			st[className] = klass({
-				className: className,
-				superclass: superclass,
-				pkg: pkg,
-				iVarNames: iVarNames
-			});
-		}
-
-		classes.addElement(st[className]);
-		pkg.organization.elements.addElement(st[className]);
-	};
-
-	st.removeClass = function(klass) {
-		klass.pkg.organization.elements.removeElement(klass);
-		classes.removeElement(klass);
-		delete st[klass.className];
-	};
+	}
 
 	/* Add/remove a method to/from a class */
 
-	/* This is a temporary version of addMethod() for backward compatibility */
-	st.addMethod = function(method_exJsSelector, klass_exMethod, exKlass) {
-		if (typeof method_exJsSelector === "string") { //legacy
-			if (method_exJsSelector !== st.selector(klass_exMethod.selector)) {
-				console.log("DISCREPANCY: arg, in_method");
-				console.log(method_exJsSelector);
-				console.log(st.selector(klass_exMethod.selector));
-				klass_exMethod.jsSelector = method_exJsSelector;
-			}
-			return new_addMethod(klass_exMethod, exKlass);
-		}
-
-		return new_addMethod(method_exJsSelector, klass_exMethod);
-	};
-
-	// later, st.addMethod can be this:
-	function new_addMethod(method, klass) {
+	st.addMethod = function (method, klass) {
 		if (!(method.jsSelector)) {
 			method.jsSelector = st.selector(method.selector);
 		}
-		installMethod(method, klass);
+		manip.installMethod(method, klass);
 		klass.methods[method.selector] = method;
 		method.methodClass = klass;
 
 		// During the bootstrap, #addCompiledMethod is not used.
 		// Therefore we populate the organizer here too
-		klass.organization.elements.addElement(method.category);
+		org.addOrganizationElement(klass, method.category);
 
 		propagateMethodChange(klass);
 
 		for(var i=0; i<method.messageSends.length; i++) {
 			var dnuHandler = dnu.get(method.messageSends[i]);
-			if(initialized) {
+			if(stInit.initialized()) {
 				installNewDnuHandler(dnuHandler);
 			}
+		}
+	}
+
+	function propagateMethodChange(klass) {
+		// If already initialized (else it will be done later anyway),
+		// re-initialize all subclasses to ensure the method change
+		// propagation (for wrapped classes, not using the prototype
+		// chain).
+
+		//TODO: optimize, only one method need to be updated, not all of them
+		if (stInit.initialized()) {
+			st.allSubclasses(klass).forEach(function (subclass) {
+				st.initClass(subclass);
+			});
 		}
 	}
 
@@ -590,21 +625,241 @@ function Smalltalk() {
 		// This is handled by #removeCompiledMethod
 	};
 
-	/* Handles unhandled errors during message sends */
-	// simply send the message and handle #dnu:
+	/* Answer all method selectors based on dnu handlers */
 
-	st.send = function(receiver, selector, args, klass) {
-		var method;
-		if(receiver === null) {
-			receiver = nil;
-		}
-		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
-		if(method) {
-			return method.apply(receiver, args);
-		} else {
-			return messageNotUnderstood(receiver, selector, args);
+	st.allSelectors = function() {
+		return dnu.selectors;
+	};
+
+}
+
+function AugmentsBrik(brikz, st) {
+
+	/* Make sure that console is defined */
+
+	if(typeof console === "undefined") {
+		this.console = {
+			log: function() {},
+			warn: function() {},
+			info: function() {},
+			debug: function() {},
+			error: function() {}
+		};
+	}
+
+	/* Array extensions */
+
+	Array.prototype.addElement = function(el) {
+		if(typeof el === 'undefined') { return; }
+		if(this.indexOf(el) == -1) {
+			this.push(el);
 		}
 	};
+
+	Array.prototype.removeElement = function(el) {
+		var i = this.indexOf(el);
+		if (i !== -1) { this.splice(i, 1); }
+	};
+}
+
+function SmalltalkInitBrik(brikz, st) {
+
+	brikz.ensure("classInit");
+	brikz.ensure("classes");
+	var nil = brikz.ensure("root").nil;
+
+	var initialized = false;
+
+	/* Smalltalk initialization. Called on page load */
+
+	st.initialize = function() {
+		if(initialized) { return; }
+
+		st.classes().forEach(function(klass) {
+			st.init(klass);
+		});
+
+		runnable();
+
+		st.classes().forEach(function(klass) {
+			klass._initialize();
+		});
+
+		initialized = true;
+	};
+
+	this.initialized = function () {
+		return initialized;
+	};
+
+	this.__init__ = function () {
+		st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
+		st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
+		st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
+		st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
+
+		st.addClass("Collection", st.Object, null, "Kernel-Collections");
+		st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
+		st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
+		st.addClass("CharacterArray", st.SequenceableCollection, null, "Kernel-Collections");
+		st.wrapClassName("String", "Kernel-Collections", String, st.CharacterArray);
+		st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
+		st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
+
+		st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
+
+		/* Alias definitions */
+
+		st.alias(st.Array, "OrderedCollection");
+		st.alias(st.Date, "Time");
+
+		/*
+		 * Answer the smalltalk representation of o.
+		 * Used in message sends
+		 */
+
+		st._st = function (o) {
+			if(o == null) {return nil;}
+			if(o.klass) {return o;}
+			return st.JSObjectProxy._on_(o);
+		};
+
+	};
+}
+
+function PrimitivesBrik(brikz, st) {
+
+	/* Unique ID number generator */
+
+	var oid = 0;
+	st.nextId = function() {
+		oid += 1;
+		return oid;
+	};
+
+	/* Converts a JavaScript object to valid Smalltalk Object */
+	st.readJSObject = function(js) {
+		var object = js;
+		var readObject = (js.constructor === Object);
+		var readArray = (js.constructor === Array);
+
+		if(readObject) {
+			object = st.Dictionary._new();
+		}
+		for(var i in js) {
+			if(readObject) {
+				object._at_put_(i, st.readJSObject(js[i]));
+			}
+			if(readArray) {
+				object[i] = st.readJSObject(js[i]);
+			}
+		}
+		return object;
+	};
+
+	/* Boolean assertion */
+	st.assert = function(shouldBeBoolean) {
+		if (undefined !== shouldBeBoolean && shouldBeBoolean.klass === st.Boolean) {
+			return shouldBeBoolean == true;
+		} else {
+			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
+		}
+	};
+
+	/* List of all reserved words in JavaScript. They may not be used as variables
+	 in Smalltalk. */
+
+	// list of reserved JavaScript keywords as of
+	//   http://es5.github.com/#x7.6.1.1
+	// and
+	//   http://people.mozilla.org/~jorendorff/es6-draft.html#sec-7.6.1
+	st.reservedWords = ['break', 'case', 'catch', 'continue', 'debugger',
+		'default', 'delete', 'do', 'else', 'finally', 'for', 'function',
+		'if', 'in', 'instanceof', 'new', 'return', 'switch', 'this', 'throw',
+		'try', 'typeof', 'var', 'void', 'while', 'with',
+		// ES5: future use: http://es5.github.com/#x7.6.1.2
+		'class', 'const', 'enum', 'export', 'extends', 'import', 'super',
+		// ES5: future use in strict mode
+		'implements', 'interface', 'let', 'package', 'private', 'protected',
+		'public', 'static', 'yield'];
+
+	st.globalJsVariables = ['jQuery', 'window', 'document', 'process', 'global'];
+
+}
+
+function PrepareRuntimeBrik(brikz, st) {
+
+	brikz.ensure("root");
+
+	function SmalltalkMethodContext(home, setup) {
+		this.construct.apply(this, arguments);
+	}
+
+	inherits(SmalltalkMethodContext, SmalltalkObject);
+
+	this.__init__ = function () {
+		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
+	};
+
+	this.MethodContext = SmalltalkMethodContext;
+}
+
+function RuntimeBrik(brikz, st) {
+
+	brikz.ensure("selectorConversion");
+	brikz.ensure("prepRuntime");
+	var nil = brikz.ensure("root").nil;
+
+	var SmalltalkMethodContext = brikz.prepRuntime.MethodContext;
+
+// Fallbacks
+	SmalltalkMethodContext.prototype.locals = {};
+	SmalltalkMethodContext.prototype.receiver = null;
+	SmalltalkMethodContext.prototype.selector = null;
+	SmalltalkMethodContext.prototype.lookupClass = null;
+
+	SmalltalkMethodContext.prototype.construct  = function (home, setup) {
+		this.homeContext = home;
+		this.setup       = setup || function() {};
+		this.pc          = 0;
+	};
+
+	SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
+		this.receiver    = receiver;
+		this.selector    = selector;
+		this.locals      = locals || {};
+		this.lookupClass = lookupClass;
+	};
+
+	SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
+		this.locals        = locals || {};
+		this.outerContext  = ctx;
+	};
+
+	SmalltalkMethodContext.prototype.init = function() {
+		var home = this.homeContext;
+		if(home) {
+			home.init();
+		}
+
+		this.setup(this);
+	};
+
+	SmalltalkMethodContext.prototype.method = function() {
+		var method;
+		var lookup = this.lookupClass || this.receiver.klass;
+		while(!method && lookup) {
+			method = lookup.methods[st.convertSelector(this.selector)];
+			lookup = lookup.superclass;
+		}
+		return method;
+	};
+
+	/* This is the current call context object. While it is publicly available,
+	 Use smalltalk.getThisContext() instead which will answer a safe copy of
+	 the current context */
+
+	st.thisContext = undefined;
 
 	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
@@ -646,56 +901,6 @@ function Smalltalk() {
 		st.ErrorHandler._current()._handleError_(error);
 	}
 
-	/* Handles #dnu: *and* JavaScript method calls.
-		if the receiver has no klass, we consider it a JS object (outside of the
-		Amber system). Else assume that the receiver understands #doesNotUnderstand: */
-
-	function messageNotUnderstood(receiver, selector, args) {
-		/* Handles JS method calls. */
-		if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
-			return callJavaScriptMethod(receiver, selector, args);
-		}
-
-		/* Handles not understood messages. Also see the Amber counter-part
-			Object>>doesNotUnderstand: */
-
-		return receiver._doesNotUnderstand_(
-			st.Message._new()
-				._selector_(st.convertSelector(selector))
-				._arguments_(args)
-		);
-	}
-
-	/* Call a method of a JS object, or answer a property if it exists.
-		Else try wrapping a JSObjectProxy around the receiver.
-
-		If the object property is a function, then call it, except if it starts with
-		an uppercase character (we probably want to answer the function itself in this
-		case and send it #new from Amber).
-
-		Converts keyword-based selectors by using the first
-		keyword only, but keeping all message arguments.
-
-		Example:
-		"self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
-
-	function callJavaScriptMethod(receiver, selector, args) {
-		var jsSelector = selector._asJavaScriptSelector();
-		var jsProperty = receiver[jsSelector];
-		if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
-			return jsProperty.apply(receiver, args);
-		} else if(jsProperty !== undefined) {
-			if(args[0]) {
-				receiver[jsSelector] = args[0];
-				return nil;
-			} else {
-				return jsProperty;
-			}
-		}
-
-		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
-	}
-
 	/* Handle thisContext pseudo variable */
 
 	st.getThisContext = function() {
@@ -715,6 +920,87 @@ function Smalltalk() {
 		st.thisContext = context.homeContext;
 	}
 
+}
+
+function MessageSendBrik(brikz, st) {
+
+	brikz.ensure("selectorConversion");
+	var nil = brikz.ensure("root").nil;
+
+	/* Handles unhandled errors during message sends */
+	// simply send the message and handle #dnu:
+
+	st.send = function(receiver, selector, args, klass) {
+		var method;
+		if(receiver === null) {
+			receiver = nil;
+		}
+		method = klass ? klass.fn.prototype[selector] : receiver.klass && receiver[selector];
+		if(method) {
+			return method.apply(receiver, args);
+		} else {
+			return messageNotUnderstood(receiver, selector, args);
+		}
+	};
+
+	/* Handles #dnu: *and* JavaScript method calls.
+	 if the receiver has no klass, we consider it a JS object (outside of the
+	 Amber system). Else assume that the receiver understands #doesNotUnderstand: */
+
+	function messageNotUnderstood(receiver, selector, args) {
+		/* Handles JS method calls. */
+		if(receiver.klass === undefined || receiver.allowJavaScriptCalls) {
+			return callJavaScriptMethod(receiver, selector, args);
+		}
+
+		/* Handles not understood messages. Also see the Amber counter-part
+		 Object>>doesNotUnderstand: */
+
+		return receiver._doesNotUnderstand_(
+			st.Message._new()
+				._selector_(st.convertSelector(selector))
+				._arguments_(args)
+		);
+	}
+
+	/* Call a method of a JS object, or answer a property if it exists.
+	 Else try wrapping a JSObjectProxy around the receiver.
+
+	 If the object property is a function, then call it, except if it starts with
+	 an uppercase character (we probably want to answer the function itself in this
+	 case and send it #new from Amber).
+
+	 Converts keyword-based selectors by using the first
+	 keyword only, but keeping all message arguments.
+
+	 Example:
+	 "self do: aBlock with: anObject" -> "self.do(aBlock, anObject)" */
+
+	function callJavaScriptMethod(receiver, selector, args) {
+		var jsSelector = selector._asJavaScriptSelector();
+		var jsProperty = receiver[jsSelector];
+		if(typeof jsProperty === "function" && !/^[A-Z]/.test(jsSelector)) {
+			return jsProperty.apply(receiver, args);
+		} else if(jsProperty !== undefined) {
+			if(args[0]) {
+				receiver[jsSelector] = args[0];
+				return nil;
+			} else {
+				return jsProperty;
+			}
+		}
+
+		return st.send(st.JSObjectProxy._on_(receiver), selector, args);
+	}
+
+	if(typeof jQuery !== "undefined") {
+		jQuery.allowJavaScriptCalls = true;
+	}
+
+	this.messageNotUnderstood = messageNotUnderstood;
+}
+
+function SelectorConversionBrik(brikz, st) {
 	/* Convert a Smalltalk selector into a JS selector */
 
 	st.selector = function(string) {
@@ -769,158 +1055,37 @@ function Smalltalk() {
 			.replace(/_comma/g, ',')
 			.replace(/_at/g, '@');
 	}
-
-	/* Converts a JavaScript object to valid Smalltalk Object */
-	st.readJSObject = function(js) {
-		var object = js;
-		var readObject = (js.constructor === Object);
-		var readArray = (js.constructor === Array);
-
-		if(readObject) {
-			object = st.Dictionary._new();
-		}
-		for(var i in js) {
-			if(readObject) {
-				object._at_put_(i, st.readJSObject(js[i]));
-			}
-			if(readArray) {
-				object[i] = st.readJSObject(js[i]);
-			}
-		}
-		return object;
-	};
-
-	/* Boolean assertion */
-	st.assert = function(shouldBeBoolean) {
-		if ((undefined !== shouldBeBoolean) && (shouldBeBoolean.klass === st.Boolean)) {
-			return (shouldBeBoolean == true);
-		} else {
-			st.NonBooleanReceiver._new()._object_(shouldBeBoolean)._signal();
-		}
-	};
-
-	/* Backward compatibility with Amber 0.9.1 */
-	st.symbolFor = function(aString) { return aString; };
-
-	/* Smalltalk initialization. Called on page load */
-
-	st.initialize = function() {
-		if(initialized) { return; }
-
-		classes.forEach(function(klass) {
-			st.init(klass);
-		});
-		classes.forEach(function(klass) {
-			klass._initialize();
-		});
-
-		initialized = true;
-	};
 }
 
-inherits(Smalltalk, SmalltalkObject);
+/* Making smalltalk that can load */
 
-if(this.jQuery) {
-	this.jQuery.allowJavaScriptCalls = true;
-}
+brikz.root = RootBrik;
+brikz.dnu = DNUBrik;
+brikz.organize = OrganizeBrik;
+brikz.selectorConversion = SelectorConversionBrik;
+brikz.classInit = ClassInitBrik;
+brikz.manipulation = ManipulationBrik;
+brikz.classes = ClassesBrik;
+brikz.methods = MethodsBrik;
+brikz.stInit = SmalltalkInitBrik;
+brikz.augments = AugmentsBrik;
+brikz.prepRuntime = PrepareRuntimeBrik;
 
-function SmalltalkMethodContext(home, setup) {
-	this.homeContext = home;
-	this.setup       = setup || function() {};
-	this.pc          = 0;
-}
+brikz.rebuild();
 
-// Fallbacks
-SmalltalkMethodContext.prototype.locals = {};
-SmalltalkMethodContext.prototype.receiver = null;
-SmalltalkMethodContext.prototype.selector = null;
-SmalltalkMethodContext.prototype.lookupClass = null;
+/* Making smalltalk that can run */
 
-inherits(SmalltalkMethodContext, SmalltalkObject);
+function runnable () {
+	brikz.messageSend = MessageSendBrik;
+	brikz.runtime = RuntimeBrik;
+	brikz.primitives = PrimitivesBrik;
 
-var smalltalk = global_smalltalk = new Smalltalk();
-
-SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
-	this.receiver    = receiver;
-	this.selector    = selector;
-	this.locals      = locals || {};
-	this.lookupClass = lookupClass;
+	brikz.rebuild();
 };
 
-SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
-	this.locals        = locals || {};
-	this.outerContext  = ctx;
-};
-
-SmalltalkMethodContext.prototype.init = function() {
-	var home = this.homeContext;
-	if(home) {
-		home = home.init();
-	}
-
-	this.setup(this);
-};
-
-SmalltalkMethodContext.prototype.method = function() {
-	var method;
-	var lookup = this.lookupClass || this.receiver.klass;
-	while(!method && lookup) {
-		method = lookup.methods[smalltalk.convertSelector(this.selector)];
-		lookup = lookup.superclass;
-	}
-	return method;
-};
-
-/*
- * Answer the smalltalk representation of o.
- * Used in message sends
- */
-
-global__st = function(o) {
-	if(o == null) {return nil;}
-	if(o.klass) {return o;}
-	return smalltalk.JSObjectProxy._on_(o);
-};
-
-
-/***************************************** BOOTSTRAP ******************************************/
-
-smalltalk.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
-smalltalk.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, smalltalk.Object, false);
-smalltalk.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, smalltalk.Behavior, false);
-smalltalk.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, smalltalk.Behavior, false);
-
-smalltalk.Object.klass.superclass = smalltalk.Class;
-
-
-smalltalk.wrapClassName("Smalltalk", "Kernel-Objects", Smalltalk, smalltalk.Object, false);
-smalltalk.wrapClassName("Package", "Kernel-Objects", SmalltalkPackage, smalltalk.Object, false);
-smalltalk.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, smalltalk.Object, false);
-smalltalk.wrapClassName("Organizer", "Kernel-Objects", SmalltalkOrganizer, smalltalk.Object, false);
-smalltalk.wrapClassName("PackageOrganizer", "Kernel-Objects", SmalltalkPackageOrganizer, smalltalk.Organizer, false);
-smalltalk.wrapClassName("ClassOrganizer", "Kernel-Objects", SmalltalkClassOrganizer, smalltalk.Organizer, false);
-
-
-smalltalk.wrapClassName("Number", "Kernel-Objects", Number, smalltalk.Object);
-smalltalk.wrapClassName("BlockClosure", "Kernel-Methods", Function, smalltalk.Object);
-smalltalk.wrapClassName("Boolean", "Kernel-Objects", Boolean, smalltalk.Object);
-smalltalk.wrapClassName("Date", "Kernel-Objects", Date, smalltalk.Object);
-smalltalk.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, smalltalk.Object, false);
-
-smalltalk.addClass("Collection", smalltalk.Object, null, "Kernel-Collections");
-smalltalk.addClass("IndexableCollection", smalltalk.Collection, null, "Kernel-Collections");
-smalltalk.addClass("SequenceableCollection", smalltalk.IndexableCollection, null, "Kernel-Collections");
-smalltalk.addClass("CharacterArray", smalltalk.SequenceableCollection, null, "Kernel-Collections");
-smalltalk.wrapClassName("String", "Kernel-Collections", String, smalltalk.CharacterArray);
-smalltalk.wrapClassName("Array", "Kernel-Collections", Array, smalltalk.SequenceableCollection);
-smalltalk.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, smalltalk.Object);
-
-smalltalk.wrapClassName("Error", "Kernel-Exceptions", Error, smalltalk.Object);
-smalltalk.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, smalltalk.Object, false);
-
-/* Alias definitions */
-
-smalltalk.alias(smalltalk.Array, "OrderedCollection");
-smalltalk.alias(smalltalk.Date, "Time");
+global_smalltalk = api;
+global_nil = brikz.root.nil;
+global__st = api._st;
+api._st = null;
 
 })();

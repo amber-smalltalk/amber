@@ -54,19 +54,19 @@ function Combo(callback) {
 
 Combo.prototype = {
   add: function () {
-    var self = this,
-        id = this.items;
-    this.items++;
-    return function () {
-      self.check(id, arguments);
-    };
+	var self = this,
+		id = this.items;
+	this.items++;
+	return function () {
+	  self.check(id, arguments);
+	};
   },
   check: function (id, arguments) {
-    this.results[id] = Array.prototype.slice.call(arguments);
-    this.items--;
-    if (this.items == 0) {
-      this.callback.apply(this, this.results);
-    }
+	this.results[id] = Array.prototype.slice.call(arguments);
+	this.items--;
+	if (this.items == 0) {
+	  this.callback.apply(this, this.results);
+	}
   }
 };
 
@@ -84,10 +84,10 @@ function AmberC(amber_dir, closure_jar) {
 	this.amber_dir = amber_dir;
 	this.closure_jar = closure_jar || '';
 	this.kernel_libraries = ['@boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-	                         'Kernel-Collections', 'Kernel-Exceptions', 'Kernel-Transcript',
+	                         'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 	                         'Kernel-Announcements'];
 	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
-	                          'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
+							  'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
 
@@ -497,9 +497,14 @@ AmberC.prototype.category_export = function() {
 		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
 			+ ' category ' + category + ' as ' + jsFile
 			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
-		fs.writeFile(jsFile, defaults.smalltalk.Exporter._new()._exportPackage_(category), function(err) {
+		var smalltalk = defaults.smalltalk;
+		var pluggableExporter = smalltalk.PluggableExporter;
+		var packageObject = smalltalk.Package._named_(category);
+		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
+			pluggableExporter._newUsing_(smalltalk.Exporter._recipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
-				fs.writeFile(jsFileDeploy, defaults.smalltalk.StrippedExporter._new()._exportPackage_(category), callback);
+				fs.writeFile(jsFileDeploy, smalltalk.String._streamContents_(function (stream) {
+					pluggableExporter._newUsing_(smalltalk.StrippedExporter._recipe())._exportPackage_on_(packageObject, stream); }), callback);
 			} else {
 				callback(null, null);
 			}

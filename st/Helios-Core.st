@@ -816,7 +816,7 @@ activatePreviousListItem
 ensureVisible: aListItem	
 	"Move the scrollbar to show the active element"
 	
-	| perent position |
+	| parent position |
 	
 	position := self positionOf: aListItem.
 	parent := aListItem parent.
