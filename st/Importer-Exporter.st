@@ -21,7 +21,7 @@ extensionCategoriesOfPackage: package
 			aClass protocolsDo: [:category :methods |
 				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
 			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
-				MethodCategory name: category class: aClass methods: (map at: category)]) ]].
+				MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].
 	^result
 !
 
@@ -39,7 +39,7 @@ ownCategoriesOfClass: aClass
 	aClass protocolsDo: [:category :methods |
 		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
 	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
-		MethodCategory name: category class: aClass methods: (map at: category) ]
+		MethodCategory name: category theClass: aClass methods: (map at: category) ]
 !
 
 ownCategoriesOfMetaClass: aClass
@@ -56,7 +56,7 @@ exportCategoryEpilogueOf: category on: aStream
 
 exportCategoryPrologueOf: category on: aStream
 	aStream
-		nextPutAll: '!!', (self classNameFor: category klass);
+		nextPutAll: '!!', (self classNameFor: category theClass);
 		nextPutAll: ' methodsFor: ''', category name, '''!!'
 !
 
@@ -423,18 +423,10 @@ import: aStream
 ! !
 
 Object subclass: #MethodCategory
-	instanceVariableNames: 'methods name klass'
+	instanceVariableNames: 'methods name theClass'
 	package: 'Importer-Exporter'!
 
 !MethodCategory methodsFor: 'accessing'!
-
-klass
-	^klass
-!
-
-klass: aClass
-	klass := aClass
-!
 
 methods
 	^methods
@@ -450,14 +442,22 @@ name
 
 name: aString
 	name := aString
+!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
 ! !
 
 !MethodCategory class methodsFor: 'not yet classified'!
 
-name: aString class: aClass methods: anArray
+name: aString theClass: aClass methods: anArray
 	^self new
 		name: aString;
-		klass: aClass;
+		theClass: aClass;
 		methods: anArray;
 		yourself
 ! !
