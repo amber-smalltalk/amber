@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Objects');
+
 smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2632,6 +2633,5 @@ self._error_("You cannot create new instances of UndefinedObject. Use nil");
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.UndefinedObject.klass)})},
 messageSends: ["error:"]}),
 smalltalk.UndefinedObject.klass);
-
 
 })(global_smalltalk,global_nil,global__st);
