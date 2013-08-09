@@ -46,13 +46,13 @@ I am an exporter dedicated to outputting Amber source code in the classic Smallt
 
 I do not output any compiled code.!
 
-!ChunkExporter methodsFor: 'exporting-accessing'!
+!ChunkExporter methodsFor: 'accessing'!
 
-extensionCategoriesOfPackage: package
+extensionCategoriesOfPackage: aPackage
 	"Issue #143: sort protocol alphabetically"
 
 	| name map result |
-	name := package name.
+	name := aPackage name.
 	result := OrderedCollection new.
 	(Package sortedClasses: Smalltalk current classes) do: [:each |
 		{each. each class} do: [:aClass |
@@ -64,13 +64,15 @@ extensionCategoriesOfPackage: package
 	^result
 !
 
-methodsOfCategory: category
+methodsOfCategory: aCategory
 	"Issue #143: sort methods alphabetically"
 
-	^(category methods) sorted: [:a :b | a selector <= b selector]
+	^(aCategory methods) sorted: [:a :b | a selector <= b selector]
 !
 
 ownCategoriesOfClass: aClass
+	"Answer the protocols of aClassthat are not package extensions"
+	
 	"Issue #143: sort protocol alphabetically"
 
 	| map |
@@ -87,16 +89,41 @@ ownCategoriesOfMetaClass: aClass
 	^self ownCategoriesOfClass: aClass class
 ! !
 
-!ChunkExporter methodsFor: 'exporting-output'!
+!ChunkExporter methodsFor: 'fileOut'!
 
-exportCategoryEpilogueOf: category on: aStream
+recipe
+	"Export a given package."
+
+	| exportCategoryRecipe |
+	exportCategoryRecipe := {
+		self -> #exportCategoryPrologueOf:on:.
+		{
+			self -> #methodsOfCategory:.
+			self -> #exportMethod:on: }.
+		self -> #exportCategoryEpilogueOf:on: }.
+
+	^{
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
+			self -> #exportMetaDefinitionOf:on:.
+			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
+		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
+	}
+! !
+
+!ChunkExporter methodsFor: 'output'!
+
+exportCategoryEpilogueOf: aCategory on: aStream
 	aStream nextPutAll: ' !!'; lf; lf
 !
 
-exportCategoryPrologueOf: category on: aStream
+exportCategoryPrologueOf: aCategory on: aStream
 	aStream
-		nextPutAll: '!!', (self classNameFor: category theClass);
-		nextPutAll: ' methodsFor: ''', category name, '''!!'
+		nextPutAll: '!!', (self classNameFor: aCategory theClass);
+		nextPutAll: ' methodsFor: ''', aCategory name, '''!!'
 !
 
 exportDefinitionOf: aClass on: aStream
@@ -138,37 +165,12 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '!!'
 !
 
-exportPackageDefinitionOf: package on: aStream
+exportPackageDefinitionOf: aPackage on: aStream
 	"Chunk format."
 
 	aStream
-		nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!!';
+		nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!!';
 		lf
-! !
-
-!ChunkExporter methodsFor: 'fileOut'!
-
-recipe
-	"Export a given package."
-
-	| exportCategoryRecipe |
-	exportCategoryRecipe := {
-		self -> #exportCategoryPrologueOf:on:.
-		{
-			self -> #methodsOfCategory:.
-			self -> #exportMethod:on: }.
-		self -> #exportCategoryEpilogueOf:on: }.
-
-	^{
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
-			self -> #exportMetaDefinitionOf:on:.
-			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
-		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
-	}
 ! !
 
 !ChunkExporter class methodsFor: 'exporting-accessing'!
@@ -329,24 +331,13 @@ I am typically used to save code outside of the Amber runtime (committing to dis
 
 Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
 
-!Exporter methodsFor: 'as yet unclassified'!
+!Exporter methodsFor: 'accessing'!
 
-classNameFor: aClass
-	^aClass isMetaclass
-		ifTrue: [ aClass instanceClass name, '.klass' ]
-		ifFalse: [
-			aClass isNil
-				ifTrue: [ 'nil' ]
-				ifFalse: [ aClass name ] ]
-! !
-
-!Exporter methodsFor: 'exporting-accessing'!
-
-extensionMethodsOfPackage: package
+extensionMethodsOfPackage: aPackage
 	"Issue #143: sort classes and methods alphabetically"
 
 	| name result |
-	name := package name.
+	name := aPackage name.
 	result := OrderedCollection new.
 	(Package sortedClasses: Smalltalk current classes) do: [:each |
 		{each. each class} do: [:aClass |
@@ -369,7 +360,43 @@ ownMethodsOfMetaClass: aClass
 	^self ownMethodsOfClass: aClass class
 ! !
 
-!Exporter methodsFor: 'exporting-output'!
+!Exporter methodsFor: 'convenience'!
+
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [ aClass instanceClass name, '.klass' ]
+		ifFalse: [
+			aClass isNil
+				ifTrue: [ 'nil' ]
+				ifFalse: [ aClass name ] ]
+! !
+
+!Exporter methodsFor: 'fileOut'!
+
+recipe
+	"Export a given package."
+
+	^{
+		self -> #exportPackagePrologueOf:on:.
+		self -> #exportPackageDefinitionOf:on:.
+		{
+			PluggableExporter -> #ownClassesOfPackage:.
+			self -> #exportDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfClass:.
+				self -> #exportMethod:on: }.
+			self -> #exportMetaDefinitionOf:on:.
+			{
+				self -> #ownMethodsOfMetaClass:.
+				self -> #exportMethod:on: } }.
+		{
+			self -> #extensionMethodsOfPackage:.
+			self -> #exportMethod:on: }.
+		self -> #exportPackageEpilogueOf:on:
+	}
+! !
+
+!Exporter methodsFor: 'output'!
 
 exportDefinitionOf: aClass on: aStream
 	aStream
@@ -427,10 +454,10 @@ exportMethod: aMethod on: aStream
 		nextPutAll: ');';lf;lf
 !
 
-exportPackageDefinitionOf: package on: aStream
+exportPackageDefinitionOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addPackage(';
-		nextPutAll: '''', package name, ''');';
+		nextPutAll: '''', aPackage name, ''');';
 		lf
 !
 
@@ -444,31 +471,6 @@ exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: '(function(smalltalk,nil,_st){';
 		lf
-! !
-
-!Exporter methodsFor: 'fileOut'!
-
-recipe
-	"Export a given package."
-
-	^{
-		self -> #exportPackagePrologueOf:on:.
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfClass:.
-				self -> #exportMethod:on: }.
-			self -> #exportMetaDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfMetaClass:.
-				self -> #exportMethod:on: } }.
-		{
-			self -> #extensionMethodsOfPackage:.
-			self -> #exportMethod:on: }.
-		self -> #exportPackageEpilogueOf:on:
-	}
 ! !
 
 !Exporter class methodsFor: 'exporting-accessing'!
@@ -619,7 +621,7 @@ Exporter subclass: #StrippedExporter
 !StrippedExporter commentStamp!
 I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
 
-!StrippedExporter methodsFor: 'exporting-output'!
+!StrippedExporter methodsFor: 'output'!
 
 exportDefinitionOf: aClass on: aStream
 	aStream
@@ -775,8 +777,8 @@ methods
 	^methods
 !
 
-methods: anArray
-	methods := anArray
+methods: aCollection
+	methods := aCollection
 !
 
 name
@@ -820,7 +822,7 @@ commit: aPackage
 		do: [ :commitStrategyFactory || fileContents commitStrategy |
 			commitStrategy := commitStrategyFactory value: aPackage.
 			fileContents := String streamContents: [ :stream |
-				(PluggableExporter newUsing: commitStrategy key) exportPackage: aPackage on: stream ].
+				(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
 !
@@ -986,32 +988,19 @@ My instances are created using
   PluggableExporter newUsing: recipe,
 where recipe is structured description of the exporting algorithm.
 
-Then actual exporting is done using
-  aPluggableExporter export: data usingRecipe: recipe on: stream
+The actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.
 
-Recipe is an array, which can contain two kinds of elements:
 
- - an assocation where the key is the receiver and the value is a two-arguments selector
-    In this case, `receiver perform: selector withArguments: { data. stream }` is called.
-	This essentially defines one step of export process.
-	The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods
-	that just format appropriate aspect of data into a stream; like a class or a singleton,
-	so you can make the recipe itself decoupled from data.
-
- - a subarray, where first element is special and the rest is recursive recipe.
-
-    `subarray first` must be an association similar to one above,
-	with key being the 'repository' receiver, but value is one-arg selector.
-	In this case, `receiver perform: selector withArguments: { data }` should create a collection.
-	Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.
-	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]
-  
 I am used to export amber packages, so I have a convenience method
 `exportPackage: aPackage on: aStream`
-which exports `aPackage` using the `recipe` passed on `newUsing:`
+which exports `aPackage` using the `recipe`
 (it is otherwise no special, so it may be renamed to export:on:)!
 
 !PluggableExporter methodsFor: 'accessing'!
+
+interpreter
+	^ RecipeInterpreter new
+!
 
 recipe
 	^recipe
@@ -1023,21 +1012,7 @@ recipe: anArray
 
 !PluggableExporter methodsFor: 'fileOut'!
 
-export: anObject usingRecipe: anArray on: aStream
-	| args |
-	args := { anObject. aStream }.
-	anArray do: [ :each | | val |
-		val := each value.
-		val == each
-			ifFalse: [ "association"
-				each key perform: val withArguments: args ]
-			ifTrue: [ "sub-array"
-				| selection |
-				selection := each first key perform: each first value withArguments: { anObject }.
-				selection do: [ :eachPart |	self export: eachPart usingRecipe: each allButFirst on: aStream ]]]
-!
-
-exportAll
+exportAllPackages
 	"Export all packages in the system."
 
 	^String streamContents: [:stream |
@@ -1046,19 +1021,86 @@ exportAll
 !
 
 exportPackage: aPackage on: aStream
-	self export: aPackage usingRecipe: self recipe on: aStream
+	self interpreter interpret: self recipe for: aPackage on: aStream
 ! !
 
-!PluggableExporter class methodsFor: 'exporting-accessing'!
-
-newUsing: recipe
-	^self new recipe: recipe; yourself
-!
+!PluggableExporter class methodsFor: 'convenience'!
 
 ownClassesOfPackage: package
 	"Export classes in dependency order.
 	Update (issue #171): Remove duplicates for export"
 	^package sortedClasses asSet
+! !
+
+!PluggableExporter class methodsFor: 'instance creation'!
+
+forRecipe: aRecipe
+	^self new recipe: aRecipe; yourself
+! !
+
+Object subclass: #RecipeInterpreter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!RecipeInterpreter commentStamp!
+I am an interpreter for export recipes.
+
+## Recipe format
+
+Recipe is an array, which can contain two kinds of elements:
+
+ - an assocation where the key is the receiver and the value is a two-arguments selector
+    In this case, `receiver perform: selector withArguments: { data. stream }` is called.
+	This essentially defines one step of export process.
+	The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods
+	that just format appropriate aspect of data into a stream; like a class or a singleton,
+	so that the recipe itself can be decoupled from data.
+
+ - a subarray, where first element is special and the rest is recursive recipe.
+
+    `subarray first` must be an association similar to one above,
+	with key being the 'repository' receiver, but value is one-arg selector.
+	In this case, `receiver perform: selector withArguments: { data }` should create a collection.
+	Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.
+	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]!
+
+!RecipeInterpreter methodsFor: 'accessing'!
+
+recipe
+	^recipe
+!
+
+recipe: anArray
+	recipe := anArray
+! !
+
+!RecipeInterpreter methodsFor: 'interpreting'!
+
+interpret: aRecipe for: anObject on: aStream
+	| recipeStream |
+	
+	recipeStream := aRecipe readStream.
+	
+	[ recipeStream atEnd ] whileFalse: [
+		self 
+			interpretStep: recipeStream next
+			for: anObject
+			on: aStream ]
+!
+
+interpretStep: aRecipeStep for: anObject on: aStream
+	aRecipeStep value == aRecipeStep ifTrue: [ 
+		^ self interpretSubRecipe: aRecipeStep for: anObject on: aStream ].
+			
+	aRecipeStep key perform: aRecipeStep value withArguments: { anObject. aStream }
+!
+
+interpretSubRecipe: aRecipe for: anObject on: aStream
+	| selection |
+	selection := aRecipe first key 
+		perform: aRecipe first value 
+		withArguments: { anObject }.
+	selection do: [ :each |	
+		self interpret: aRecipe allButFirst for: each on: aStream ]
 ! !
 
 !Package methodsFor: '*Importer-Exporter'!

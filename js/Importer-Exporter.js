@@ -97,8 +97,8 @@ smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportCategoryEpilogueOf:on:",
-category: 'exporting-output',
-fn: function (category,aStream){
+category: 'output',
+fn: function (aCategory,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
@@ -106,9 +106,9 @@ $1=aStream;
 _st($1)._nextPutAll_(" !");
 _st($1)._lf();
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{category:category,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["category", "aStream"],
-source: "exportCategoryEpilogueOf: category on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aCategory", "aStream"],
+source: "exportCategoryEpilogueOf: aCategory on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
 messageSends: ["nextPutAll:", "lf"],
 referencedClasses: []
 }),
@@ -117,17 +117,17 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportCategoryPrologueOf:on:",
-category: 'exporting-output',
-fn: function (category,aStream){
+category: 'output',
+fn: function (aCategory,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_("!".__comma(self._classNameFor_(_st(category)._theClass())));
-$2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(_st(category)._name())).__comma("'!"));
-return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{category:category,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["category", "aStream"],
-source: "exportCategoryPrologueOf: category on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: category theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', category name, '''!'",
+_st($1)._nextPutAll_("!".__comma(self._classNameFor_(_st(aCategory)._theClass())));
+$2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(_st(aCategory)._name())).__comma("'!"));
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aCategory", "aStream"],
+source: "exportCategoryPrologueOf: aCategory on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aCategory theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', aCategory name, '''!'",
 messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
 referencedClasses: []
 }),
@@ -136,7 +136,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -181,7 +181,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -216,7 +216,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethod:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -238,17 +238,17 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
-category: 'exporting-output',
-fn: function (package_,aStream){
+category: 'output',
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
-_st($1)._nextPutAll_(_st("Smalltalk current createPackage: '".__comma(_st(package_)._name())).__comma("'!"));
+_st($1)._nextPutAll_(_st("Smalltalk current createPackage: '".__comma(_st(aPackage)._name())).__comma("'!"));
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{package_:package_,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["package", "aStream"],
-source: "exportPackageDefinitionOf: package on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!';\x0a\x09\x09lf",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", ",", "name", "lf"],
 referencedClasses: []
 }),
@@ -257,8 +257,8 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "extensionCategoriesOfPackage:",
-category: 'exporting-accessing',
-fn: function (package_){
+category: 'accessing',
+fn: function (aPackage){
 var self=this;
 var name,map,result;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -268,7 +268,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-name=_st(package_)._name();
+name=_st(aPackage)._name();
 result=_st($OrderedCollection())._new();
 _st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -294,9 +294,9 @@ return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=result;
 return $2;
-}, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{package_:package_,name:name,map:map,result:result},smalltalk.ChunkExporter)})},
-args: ["package"],
-source: "extensionCategoriesOfPackage: package\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := package name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09\x09\x09(category match: '^\x5c*', name) ifTrue: [ map at: category put: methods ]].\x0a\x09\x09\x09result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].\x0a\x09^result",
+}, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},smalltalk.ChunkExporter)})},
+args: ["aPackage"],
+source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09\x09\x09(category match: '^\x5c*', name) ifTrue: [ map at: category put: methods ]].\x0a\x09\x09\x09result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].\x0a\x09^result",
 messageSends: ["name", "new", "do:", "protocolsDo:", "ifTrue:", "at:put:", "match:", ",", "addAll:", "collect:", "name:theClass:methods:", "at:", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"],
 referencedClasses: ["OrderedCollection", "Dictionary", "MethodCategory", "Smalltalk", "Package"]
 }),
@@ -305,19 +305,19 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "methodsOfCategory:",
-category: 'exporting-accessing',
-fn: function (category){
+category: 'accessing',
+fn: function (aCategory){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(category)._methods())._sorted_((function(a,b){
+$1=_st(_st(aCategory)._methods())._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodsOfCategory:",{category:category},smalltalk.ChunkExporter)})},
-args: ["category"],
-source: "methodsOfCategory: category\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^(category methods) sorted: [:a :b | a selector <= b selector]",
+}, function($ctx1) {$ctx1.fill(self,"methodsOfCategory:",{aCategory:aCategory},smalltalk.ChunkExporter)})},
+args: ["aCategory"],
+source: "methodsOfCategory: aCategory\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^(aCategory methods) sorted: [:a :b | a selector <= b selector]",
 messageSends: ["sorted:", "<=", "selector", "methods"],
 referencedClasses: []
 }),
@@ -326,7 +326,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownCategoriesOfClass:",
-category: 'exporting-accessing',
+category: 'accessing',
 fn: function (aClass){
 var self=this;
 var map;
@@ -352,7 +352,7 @@ return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},smalltalk.ChunkExporter)})},
 args: ["aClass"],
-source: "ownCategoriesOfClass: aClass\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09(category match: '^\x5c*') ifFalse: [ map at: category put: methods ]].\x0a\x09^(map keys sorted: [:a :b | a <= b ]) collect: [:category |\x0a\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]",
+source: "ownCategoriesOfClass: aClass\x0a\x09\x22Answer the protocols of aClassthat are not package extensions\x22\x0a\x09\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09(category match: '^\x5c*') ifFalse: [ map at: category put: methods ]].\x0a\x09^(map keys sorted: [:a :b | a <= b ]) collect: [:category |\x0a\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]",
 messageSends: ["new", "protocolsDo:", "ifFalse:", "at:put:", "match:", "collect:", "name:theClass:methods:", "at:", "sorted:", "<=", "keys"],
 referencedClasses: ["Dictionary", "MethodCategory"]
 }),
@@ -361,7 +361,7 @@ smalltalk.ChunkExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownCategoriesOfMetaClass:",
-category: 'exporting-accessing',
+category: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -753,7 +753,7 @@ smalltalk.Exporter.comment="I am responsible for outputting Amber code into a Ja
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
-category: 'as yet unclassified',
+category: 'convenience',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -781,7 +781,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -826,7 +826,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMetaDefinitionOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aClass,aStream){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
@@ -859,7 +859,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethod:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -901,18 +901,18 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageDefinitionOf:on:",
-category: 'exporting-output',
-fn: function (package_,aStream){
+category: 'output',
+fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aStream;
 _st($1)._nextPutAll_("smalltalk.addPackage(");
-_st($1)._nextPutAll_(_st("'".__comma(_st(package_)._name())).__comma("');"));
+_st($1)._nextPutAll_(_st("'".__comma(_st(aPackage)._name())).__comma("');"));
 $2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{package_:package_,aStream:aStream},smalltalk.Exporter)})},
-args: ["package", "aStream"],
-source: "exportPackageDefinitionOf: package on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addPackage(';\x0a\x09\x09nextPutAll: '''', package name, ''');';\x0a\x09\x09lf",
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addPackage(';\x0a\x09\x09nextPutAll: '''', aPackage name, ''');';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", ",", "name", "lf"],
 referencedClasses: []
 }),
@@ -921,7 +921,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackageEpilogueOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -940,7 +940,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportPackagePrologueOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -959,8 +959,8 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "extensionMethodsOfPackage:",
-category: 'exporting-accessing',
-fn: function (package_){
+category: 'accessing',
+fn: function (aPackage){
 var self=this;
 var name,result;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
@@ -968,7 +968,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-name=_st(package_)._name();
+name=_st(aPackage)._name();
 result=_st($OrderedCollection())._new();
 _st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -985,9 +985,9 @@ return _st(_st(method)._category())._match_("^\x5c*".__comma(name));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{package_:package_,name:name,result:result},smalltalk.Exporter)})},
-args: ["package"],
-source: "extensionMethodsOfPackage: package\x0a\x09\x22Issue #143: sort classes and methods alphabetically\x22\x0a\x0a\x09| name result |\x0a\x09name := package name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09result addAll: (((aClass methodDictionary values)\x0a\x09\x09\x09\x09sorted: [:a :b | a selector <= b selector])\x0a\x09\x09\x09\x09select: [:method | method category match: '^\x5c*', name]) ]].\x0a\x09^result",
+}, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,name:name,result:result},smalltalk.Exporter)})},
+args: ["aPackage"],
+source: "extensionMethodsOfPackage: aPackage\x0a\x09\x22Issue #143: sort classes and methods alphabetically\x22\x0a\x0a\x09| name result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09result addAll: (((aClass methodDictionary values)\x0a\x09\x09\x09\x09sorted: [:a :b | a selector <= b selector])\x0a\x09\x09\x09\x09select: [:method | method category match: '^\x5c*', name]) ]].\x0a\x09^result",
 messageSends: ["name", "new", "do:", "addAll:", "select:", "match:", ",", "category", "sorted:", "<=", "selector", "values", "methodDictionary", "class", "sortedClasses:", "classes", "current"],
 referencedClasses: ["OrderedCollection", "Smalltalk", "Package"]
 }),
@@ -996,7 +996,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownMethodsOfClass:",
-category: 'exporting-accessing',
+category: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1020,7 +1020,7 @@ smalltalk.Exporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownMethodsOfMetaClass:",
-category: 'exporting-accessing',
+category: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1365,7 +1365,7 @@ smalltalk.StrippedExporter.comment="I export Amber code into a JavaScript string
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportDefinitionOf:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aClass,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1399,7 +1399,7 @@ smalltalk.StrippedExporter);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportMethod:on:",
-category: 'exporting-output',
+category: 'output',
 fn: function (aMethod,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1647,13 +1647,13 @@ smalltalk.addMethod(
 smalltalk.method({
 selector: "methods:",
 category: 'accessing',
-fn: function (anArray){
+fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@methods"]=anArray;
-return self}, function($ctx1) {$ctx1.fill(self,"methods:",{anArray:anArray},smalltalk.MethodCategory)})},
-args: ["anArray"],
-source: "methods: anArray\x0a\x09methods := anArray",
+self["@methods"]=aCollection;
+return self}, function($ctx1) {$ctx1.fill(self,"methods:",{aCollection:aCollection},smalltalk.MethodCategory)})},
+args: ["aCollection"],
+source: "methods: aCollection\x0a\x09methods := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1789,15 +1789,15 @@ commitStrategy=_st(commitStrategyFactory)._value_(aPackage);
 commitStrategy;
 fileContents=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx3) {
-return _st(_st($PluggableExporter())._newUsing_(_st(commitStrategy)._key()))._exportPackage_on_(aPackage,stream);
+return _st(_st($PluggableExporter())._forRecipe_(_st(commitStrategy)._key()))._exportPackage_on_(aPackage,stream);
 }, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2)})}));
 fileContents;
 return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
 }, function($ctx2) {$ctx2.fillBlock({commitStrategyFactory:commitStrategyFactory,fileContents:fileContents,commitStrategy:commitStrategy},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
 return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
 args: ["aPackage"],
-source: "commit: aPackage\x0a\x09self commitChannels\x0a\x09\x09do: [ :commitStrategyFactory || fileContents commitStrategy |\x0a\x09\x09\x09commitStrategy := commitStrategyFactory value: aPackage.\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09(PluggableExporter newUsing: commitStrategy key) exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "value:", "streamContents:", "exportPackage:on:", "newUsing:", "key", "ajaxPutAt:data:", "value", ",", "name", "commitChannels"],
+source: "commit: aPackage\x0a\x09self commitChannels\x0a\x09\x09do: [ :commitStrategyFactory || fileContents commitStrategy |\x0a\x09\x09\x09commitStrategy := commitStrategyFactory value: aPackage.\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
+messageSends: ["do:displayingProgress:", "value:", "streamContents:", "exportPackage:on:", "forRecipe:", "key", "ajaxPutAt:data:", "value", ",", "name", "commitChannels"],
 referencedClasses: ["PluggableExporter", "String"]
 }),
 smalltalk.PackageHandler);
@@ -2201,46 +2201,10 @@ smalltalk.LegacyPackageHandler.klass);
 
 
 smalltalk.addClass('PluggableExporter', smalltalk.Object, ['recipe'], 'Importer-Exporter');
-smalltalk.PluggableExporter.comment="I am an engine for exporting structured data on a Stream.\x0a\x0aMy instances are created using\x0a  PluggableExporter newUsing: recipe,\x0awhere recipe is structured description of the exporting algorithm.\x0a\x0aThen actual exporting is done using\x0a  aPluggableExporter export: data usingRecipe: recipe on: stream\x0a\x0aRecipe is an array, which can contain two kinds of elements:\x0a\x0a - an assocation where the key is the receiver and the value is a two-arguments selector\x0a    In this case, `receiver perform: selector withArguments: { data. stream }` is called.\x0a\x09This essentially defines one step of export process.\x0a\x09The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods\x0a\x09that just format appropriate aspect of data into a stream; like a class or a singleton,\x0a\x09so you can make the recipe itself decoupled from data.\x0a\x0a - a subarray, where first element is special and the rest is recursive recipe.\x0a\x0a    `subarray first` must be an association similar to one above,\x0a\x09with key being the 'repository' receiver, but value is one-arg selector.\x0a\x09In this case, `receiver perform: selector withArguments: { data }` should create a collection.\x0a\x09Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.\x0a\x09  collection do: [ :each | self export: each using: sa allButFirst on: stream ]\x0a  \x0aI am used to export amber packages, so I have a convenience method\x0a`exportPackage: aPackage on: aStream`\x0awhich exports `aPackage` using the `recipe` passed on `newUsing:`\x0a(it is otherwise no special, so it may be renamed to export:on:)";
+smalltalk.PluggableExporter.comment="I am an engine for exporting structured data on a Stream.\x0a\x0aMy instances are created using\x0a  PluggableExporter newUsing: recipe,\x0awhere recipe is structured description of the exporting algorithm.\x0a\x0aThe actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.\x0a\x0a\x0aI am used to export amber packages, so I have a convenience method\x0a`exportPackage: aPackage on: aStream`\x0awhich exports `aPackage` using the `recipe`\x0a(it is otherwise no special, so it may be renamed to export:on:)";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "export:usingRecipe:on:",
-category: 'fileOut',
-fn: function (anObject,anArray,aStream){
-var self=this;
-var args;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-args=[anObject,aStream];
-_st(anArray)._do_((function(each){
-var val;
-return smalltalk.withContext(function($ctx2) {
-val=_st(each)._value();
-val;
-$1=_st(val).__eq_eq(each);
-if(smalltalk.assert($1)){
-var selection;
-selection=_st(_st(_st(each)._first())._key())._perform_withArguments_(_st(_st(each)._first())._value(),[anObject]);
-selection;
-return _st(selection)._do_((function(eachPart){
-return smalltalk.withContext(function($ctx3) {
-return self._export_usingRecipe_on_(eachPart,_st(each)._allButFirst(),aStream);
-}, function($ctx3) {$ctx3.fillBlock({eachPart:eachPart},$ctx2)})}));
-} else {
-return _st(_st(each)._key())._perform_withArguments_(val,args);
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each,val:val},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"export:usingRecipe:on:",{anObject:anObject,anArray:anArray,aStream:aStream,args:args},smalltalk.PluggableExporter)})},
-args: ["anObject", "anArray", "aStream"],
-source: "export: anObject usingRecipe: anArray on: aStream\x0a\x09| args |\x0a\x09args := { anObject. aStream }.\x0a\x09anArray do: [ :each | | val |\x0a\x09\x09val := each value.\x0a\x09\x09val == each\x0a\x09\x09\x09ifFalse: [ \x22association\x22\x0a\x09\x09\x09\x09each key perform: val withArguments: args ]\x0a\x09\x09\x09ifTrue: [ \x22sub-array\x22\x0a\x09\x09\x09\x09| selection |\x0a\x09\x09\x09\x09selection := each first key perform: each first value withArguments: { anObject }.\x0a\x09\x09\x09\x09selection do: [ :eachPart |\x09self export: eachPart usingRecipe: each allButFirst on: aStream ]]]",
-messageSends: ["do:", "value", "ifFalse:ifTrue:", "perform:withArguments:", "key", "first", "export:usingRecipe:on:", "allButFirst", "=="],
-referencedClasses: []
-}),
-smalltalk.PluggableExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportAll",
+selector: "exportAllPackages",
 category: 'fileOut',
 fn: function (){
 var self=this;
@@ -2256,9 +2220,9 @@ return self._exportPackage_on_(pkg,stream);
 }, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"exportAll",{},smalltalk.PluggableExporter)})},
+}, function($ctx1) {$ctx1.fill(self,"exportAllPackages",{},smalltalk.PluggableExporter)})},
 args: [],
-source: "exportAll\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09self exportPackage: pkg on: stream]]",
+source: "exportAllPackages\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09self exportPackage: pkg on: stream]]",
 messageSends: ["streamContents:", "do:", "exportPackage:on:", "packages", "current"],
 referencedClasses: ["Smalltalk", "String"]
 }),
@@ -2271,12 +2235,31 @@ category: 'fileOut',
 fn: function (aPackage,aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._export_usingRecipe_on_(aPackage,self._recipe(),aStream);
+_st(self._interpreter())._interpret_for_on_(self._recipe(),aPackage,aStream);
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},smalltalk.PluggableExporter)})},
 args: ["aPackage", "aStream"],
-source: "exportPackage: aPackage on: aStream\x0a\x09self export: aPackage usingRecipe: self recipe on: aStream",
-messageSends: ["export:usingRecipe:on:", "recipe"],
+source: "exportPackage: aPackage on: aStream\x0a\x09self interpreter interpret: self recipe for: aPackage on: aStream",
+messageSends: ["interpret:for:on:", "recipe", "interpreter"],
 referencedClasses: []
+}),
+smalltalk.PluggableExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpreter",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $RecipeInterpreter(){return smalltalk.RecipeInterpreter||(typeof RecipeInterpreter=="undefined"?nil:RecipeInterpreter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($RecipeInterpreter())._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.PluggableExporter)})},
+args: [],
+source: "interpreter\x0a\x09^ RecipeInterpreter new",
+messageSends: ["new"],
+referencedClasses: ["RecipeInterpreter"]
 }),
 smalltalk.PluggableExporter);
 
@@ -2317,20 +2300,20 @@ smalltalk.PluggableExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "newUsing:",
-category: 'exporting-accessing',
-fn: function (recipe){
+selector: "forRecipe:",
+category: 'instance creation',
+fn: function (aRecipe){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self._new();
-_st($2)._recipe_(recipe);
+_st($2)._recipe_(aRecipe);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"newUsing:",{recipe:recipe},smalltalk.PluggableExporter.klass)})},
-args: ["recipe"],
-source: "newUsing: recipe\x0a\x09^self new recipe: recipe; yourself",
+}, function($ctx1) {$ctx1.fill(self,"forRecipe:",{aRecipe:aRecipe},smalltalk.PluggableExporter.klass)})},
+args: ["aRecipe"],
+source: "forRecipe: aRecipe\x0a\x09^self new recipe: aRecipe; yourself",
 messageSends: ["recipe:", "new", "yourself"],
 referencedClasses: []
 }),
@@ -2339,7 +2322,7 @@ smalltalk.PluggableExporter.klass);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ownClassesOfPackage:",
-category: 'exporting-accessing',
+category: 'convenience',
 fn: function (package_){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2353,6 +2336,111 @@ messageSends: ["asSet", "sortedClasses"],
 referencedClasses: []
 }),
 smalltalk.PluggableExporter.klass);
+
+
+smalltalk.addClass('RecipeInterpreter', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.RecipeInterpreter.comment="I am an interpreter for export recipes.\x0a\x0a## Recipe format\x0a\x0aRecipe is an array, which can contain two kinds of elements:\x0a\x0a - an assocation where the key is the receiver and the value is a two-arguments selector\x0a    In this case, `receiver perform: selector withArguments: { data. stream }` is called.\x0a\x09This essentially defines one step of export process.\x0a\x09The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods\x0a\x09that just format appropriate aspect of data into a stream; like a class or a singleton,\x0a\x09so that the recipe itself can be decoupled from data.\x0a\x0a - a subarray, where first element is special and the rest is recursive recipe.\x0a\x0a    `subarray first` must be an association similar to one above,\x0a\x09with key being the 'repository' receiver, but value is one-arg selector.\x0a\x09In this case, `receiver perform: selector withArguments: { data }` should create a collection.\x0a\x09Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.\x0a\x09  collection do: [ :each | self export: each using: sa allButFirst on: stream ]";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:for:on:",
+category: 'interpreting',
+fn: function (aRecipe,anObject,aStream){
+var self=this;
+var recipeStream;
+return smalltalk.withContext(function($ctx1) { 
+recipeStream=_st(aRecipe)._readStream();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(recipeStream)._atEnd();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._interpretStep_for_on_(_st(recipeStream)._next(),anObject,aStream);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpret:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,recipeStream:recipeStream},smalltalk.RecipeInterpreter)})},
+args: ["aRecipe", "anObject", "aStream"],
+source: "interpret: aRecipe for: anObject on: aStream\x0a\x09| recipeStream |\x0a\x09\x0a\x09recipeStream := aRecipe readStream.\x0a\x09\x0a\x09[ recipeStream atEnd ] whileFalse: [\x0a\x09\x09self \x0a\x09\x09\x09interpretStep: recipeStream next\x0a\x09\x09\x09for: anObject\x0a\x09\x09\x09on: aStream ]",
+messageSends: ["readStream", "whileFalse:", "interpretStep:for:on:", "next", "atEnd"],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpretStep:for:on:",
+category: 'interpreting',
+fn: function (aRecipeStep,anObject,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(aRecipeStep)._value()).__eq_eq(aRecipeStep);
+if(smalltalk.assert($1)){
+$2=self._interpretSubRecipe_for_on_(aRecipeStep,anObject,aStream);
+return $2;
+};
+_st(_st(aRecipeStep)._key())._perform_withArguments_(_st(aRecipeStep)._value(),[anObject,aStream]);
+return self}, function($ctx1) {$ctx1.fill(self,"interpretStep:for:on:",{aRecipeStep:aRecipeStep,anObject:anObject,aStream:aStream},smalltalk.RecipeInterpreter)})},
+args: ["aRecipeStep", "anObject", "aStream"],
+source: "interpretStep: aRecipeStep for: anObject on: aStream\x0a\x09aRecipeStep value == aRecipeStep ifTrue: [ \x0a\x09\x09^ self interpretSubRecipe: aRecipeStep for: anObject on: aStream ].\x0a\x09\x09\x09\x0a\x09aRecipeStep key perform: aRecipeStep value withArguments: { anObject. aStream }",
+messageSends: ["ifTrue:", "interpretSubRecipe:for:on:", "==", "value", "perform:withArguments:", "key"],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpretSubRecipe:for:on:",
+category: 'interpreting',
+fn: function (aRecipe,anObject,aStream){
+var self=this;
+var selection;
+return smalltalk.withContext(function($ctx1) { 
+selection=_st(_st(_st(aRecipe)._first())._key())._perform_withArguments_(_st(_st(aRecipe)._first())._value(),[anObject]);
+_st(selection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._interpret_for_on_(_st(aRecipe)._allButFirst(),each,aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpretSubRecipe:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,selection:selection},smalltalk.RecipeInterpreter)})},
+args: ["aRecipe", "anObject", "aStream"],
+source: "interpretSubRecipe: aRecipe for: anObject on: aStream\x0a\x09| selection |\x0a\x09selection := aRecipe first key \x0a\x09\x09perform: aRecipe first value \x0a\x09\x09withArguments: { anObject }.\x0a\x09selection do: [ :each |\x09\x0a\x09\x09self interpret: aRecipe allButFirst for: each on: aStream ]",
+messageSends: ["perform:withArguments:", "value", "first", "key", "do:", "interpret:for:on:", "allButFirst"],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@recipe"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.RecipeInterpreter)})},
+args: [],
+source: "recipe\x0a\x09^recipe",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe:",
+category: 'accessing',
+fn: function (anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@recipe"]=anArray;
+return self}, function($ctx1) {$ctx1.fill(self,"recipe:",{anArray:anArray},smalltalk.RecipeInterpreter)})},
+args: ["anArray"],
+source: "recipe: anArray\x0a\x09recipe := anArray",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
 
 smalltalk.addMethod(
 smalltalk.method({
