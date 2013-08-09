@@ -425,6 +425,11 @@ import: aStream
 Object subclass: #MethodCategory
 	instanceVariableNames: 'methods name theClass'
 	package: 'Importer-Exporter'!
+!MethodCategory commentStamp!
+I am an abstraction for a method category in a class / metaclass.
+
+I know of my class, name and methods.
+I am used when exporting a package.!
 
 !MethodCategory methodsFor: 'accessing'!
 
@@ -636,6 +641,34 @@ loadPackages: aCollection prefix: aString
 Object subclass: #PluggableExporter
 	instanceVariableNames: 'recipe'
 	package: 'Importer-Exporter'!
+!PluggableExporter commentStamp!
+I am an engine for exporting structured data on a Stream.
+
+My instances are created using
+  PluggableExporter newUsing: recipe,
+where recipe is structured description of the exporting algorithm,
+
+Then actual exporting is done using
+  aPluggableExporter export: data usingRecipe: recipe on: stream
+
+Recipe is an array, which can contain two kinds of elements:
+ - an assocation where key is the receiver and value is two-arg selector
+    In this case, `receiver perform: selector withArguments: { data. stream }` is called.
+	This essentially defines one step of export process.
+	The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods
+	that just format appropriate aspect of data into a stream; like a class or a singleton,
+	so you can make the recipe itself decoupled from data.
+ - a subarray (sa), where first element is special and the rest is recursive recipe
+    `sa first` must be an association similar to one above,
+	with key being the 'repository' receiver, but value is one-arg selector.
+	In this case, `receiver perform: selector withArguments: { data }` should create a collection.
+	Then, the sub-recipe (`sa allButFirst`) is applied to every element of a collection, eg.
+	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]
+  
+I am used to export amber packages, so I have convenience method
+exportPackage: aPackage on: aStream
+which exports aPackage using recipe you passed on newUsing:
+(it is otherwise no special, so it may be renamed to export:on:)!
 
 !PluggableExporter methodsFor: 'accessing'!
 
