@@ -546,10 +546,10 @@ AmberC.prototype.category_export = function() {
 		var packageObject = smalltalk.Package._named_(category);
 		packageObject._amdNamespace_(defaults.amd_namespace);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-			pluggableExporter._forRecipe_(smalltalk.Exporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
+			pluggableExporter._forRecipe_(smalltalk.Exporter._default()._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
 			if (defaults.deploy) {
 				fs.writeFile(jsFileDeploy, smalltalk.String._streamContents_(function (stream) {
-					pluggableExporter._forRecipe_(smalltalk.StrippedExporter._amdRecipe())._exportPackage_on_(packageObject, stream); }), callback);
+					pluggableExporter._forRecipe_(smalltalk.StrippedExporter._default()._amdRecipe())._exportPackage_on_(packageObject, stream); }), callback);
 			} else {
 				callback(null, null);
 			}
