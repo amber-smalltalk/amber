@@ -1208,7 +1208,7 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastr
 smalltalk.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
 smalltalk.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
 smalltalk.addMethod(
 smalltalk.method({

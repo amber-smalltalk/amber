@@ -906,7 +906,7 @@ smalltalk.ClassOrganizer);
 smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastructure');
 
 
-smalltalk.addClass('Package', smalltalk.Object, [], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
