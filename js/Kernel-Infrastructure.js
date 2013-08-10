@@ -1,5 +1,6 @@
 define("amber/Kernel-Infrastructure", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Infrastructure');
+smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber"};
 
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript.";

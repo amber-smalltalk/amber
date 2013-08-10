@@ -1,5 +1,6 @@
 define("amber/Kernel-Infrastructure", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Infrastructure');
+smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber"};
 
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 
