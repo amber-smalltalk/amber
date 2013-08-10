@@ -1688,40 +1688,6 @@ referencedClasses: []
 }),
 smalltalk.RecipeInterpreter);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@recipe"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.RecipeInterpreter)})},
-args: [],
-source: "recipe\x0a\x09^recipe",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.RecipeInterpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe:",
-category: 'accessing',
-fn: function (anArray){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@recipe"]=anArray;
-return self}, function($ctx1) {$ctx1.fill(self,"recipe:",{anArray:anArray},smalltalk.RecipeInterpreter)})},
-args: ["anArray"],
-source: "recipe: anArray\x0a\x09recipe := anArray",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.RecipeInterpreter);
-
 
 smalltalk.addMethod(
 smalltalk.method({
