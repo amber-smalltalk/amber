@@ -871,16 +871,6 @@ Recipe is an array, which can contain two kinds of elements:
 	Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.
 	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]!
 
-!RecipeInterpreter methodsFor: 'accessing'!
-
-recipe
-	^recipe
-!
-
-recipe: anArray
-	recipe := anArray
-! !
-
 !RecipeInterpreter methodsFor: 'interpreting'!
 
 interpret: aRecipe for: anObject on: aStream

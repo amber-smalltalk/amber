@@ -1584,30 +1584,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"interpretSubRecipe:for:on:",{aRe
 messageSends: ["perform:withArguments:", "value", "first", "key", "do:", "interpret:for:on:", "allButFirst"]}),
 smalltalk.RecipeInterpreter);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@recipe"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.RecipeInterpreter)})},
-messageSends: []}),
-smalltalk.RecipeInterpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe:",
-fn: function (anArray){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@recipe"]=anArray;
-return self}, function($ctx1) {$ctx1.fill(self,"recipe:",{anArray:anArray},smalltalk.RecipeInterpreter)})},
-messageSends: []}),
-smalltalk.RecipeInterpreter);
-
 
 smalltalk.addMethod(
 smalltalk.method({
