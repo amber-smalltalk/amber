@@ -429,6 +429,11 @@ function ClassesBrik(brikz, st) {
 //            st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames || [];
 			if (pkg) st[className].pkg = pkg;
+			if (fn) {
+				fn.prototype = st[className].fn.prototype;
+				st[className].fn = fn;
+				fn.prototype.constructor = fn;
+			}
 		} else {
 			if(st[className]) {
 				st.removeClass(st[className]);
@@ -798,47 +803,47 @@ function RuntimeBrik(brikz, st) {
 		this.pc          = 0;
 	}
 
-// Fallbacks
-	SmalltalkMethodContext.prototype.locals = {};
-	SmalltalkMethodContext.prototype.receiver = null;
-	SmalltalkMethodContext.prototype.selector = null;
-	SmalltalkMethodContext.prototype.lookupClass = null;
-
 	inherits(SmalltalkMethodContext, SmalltalkObject);
 
 	this.__init__ = function () {
 		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
-	};
 
-	SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
-		this.receiver    = receiver;
-		this.selector    = selector;
-		this.locals      = locals || {};
-		this.lookupClass = lookupClass;
-	};
+		// Fallbacks
+		SmalltalkMethodContext.prototype.locals = {};
+		SmalltalkMethodContext.prototype.receiver = null;
+		SmalltalkMethodContext.prototype.selector = null;
+		SmalltalkMethodContext.prototype.lookupClass = null;
 
-	SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
-		this.locals        = locals || {};
-		this.outerContext  = ctx;
-	};
+		SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
+			this.receiver    = receiver;
+			this.selector    = selector;
+			this.locals      = locals || {};
+			this.lookupClass = lookupClass;
+		};
 
-	SmalltalkMethodContext.prototype.init = function() {
-		var home = this.homeContext;
-		if(home) {
-			home.init();
-		}
+		SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
+			this.locals        = locals || {};
+			this.outerContext  = ctx;
+		};
 
-		this.setup(this);
-	};
+		SmalltalkMethodContext.prototype.init = function() {
+			var home = this.homeContext;
+			if(home) {
+				home.init();
+			}
 
-	SmalltalkMethodContext.prototype.method = function() {
-		var method;
-		var lookup = this.lookupClass || this.receiver.klass;
-		while(!method && lookup) {
-			method = lookup.methods[st.convertSelector(this.selector)];
-			lookup = lookup.superclass;
-		}
-		return method;
+			this.setup(this);
+		};
+
+		SmalltalkMethodContext.prototype.method = function() {
+			var method;
+			var lookup = this.lookupClass || this.receiver.klass;
+			while(!method && lookup) {
+				method = lookup.methods[st.convertSelector(this.selector)];
+				lookup = lookup.superclass;
+			}
+			return method;
+		};
 	};
 
 	/* This is the current call context object. While it is publicly available,
