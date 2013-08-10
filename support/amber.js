@@ -74,30 +74,6 @@ require = function (require) {
             'amber/Canvas.deploy': {
                 deps: [ './Kernel-Objects.deploy' ]
             },
-             'amber/Kernel-Objects': {
-                deps: []
-            },
-            'amber/Kernel-Classes': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/Kernel-Methods': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/Kernel-Collections': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/Kernel-Infrastructure': {
-                deps: [ './Kernel-Collections' ]
-            },
-            'amber/Kernel-Exceptions': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/Kernel-Transcript': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/Kernel-Announcements': {
-                deps: [ './Kernel-Objects' ]
-            },
             'amber/Canvas': {
                 deps: [ './Kernel-Infrastructure' ]
             },

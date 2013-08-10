@@ -1,4 +1,4 @@
-define("amber/Kernel-Collections", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Kernel-Collections", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Collections');
 smalltalk.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber"};
 

@@ -1,4 +1,4 @@
-define("amber/Kernel-Methods", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Kernel-Methods", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Methods');
 smalltalk.packages["Kernel-Methods"].transport = {"type":"amd","amdNamespace":"amber"};
 
