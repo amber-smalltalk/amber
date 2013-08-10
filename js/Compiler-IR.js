@@ -1,4 +1,4 @@
-define("amber/Compiler-IR", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Compiler-Core", "amber/Kernel-Objects", "amber/Kernel-Methods", "amber/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
 smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber"};
 

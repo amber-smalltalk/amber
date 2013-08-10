@@ -1,4 +1,4 @@
-define("amber/Compiler-AST", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-AST", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Methods"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-AST');
 smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber"};
 

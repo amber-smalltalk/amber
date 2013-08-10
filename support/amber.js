@@ -80,30 +80,6 @@ require = function (require) {
             'amber/SUnit': {
                 deps: [ './Kernel-Objects' ]
             },
-            'amber/Importer-Exporter': {
-                deps: [ './Kernel-Infrastructure' ]
-            },
-            'amber/Compiler-Exceptions': {
-                deps: [ './Kernel-Exceptions', './Compiler-AST' ]
-            },
-            'amber/Compiler-Core': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/Compiler-AST': {
-                deps: [ './Compiler-Core' ]
-            },
-            'amber/Compiler-Semantic': {
-                deps: [ './Compiler-Core' ]
-            },
-            'amber/Compiler-IR': {
-                deps: [ './Compiler-Core' ]
-            },
-            'amber/Compiler-Inlining': {
-                deps: [ './Compiler-IR' ]
-            },
-            'amber/Compiler-Interpreter': {
-                deps: [ './Compiler-AST' ]
-            },
             'amber/IDE': {
                 deps: [ './Canvas', './Kernel-Exceptions' ]
             },

@@ -1,4 +1,4 @@
-define("amber/Compiler-Core", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Core');
 smalltalk.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber"};
 

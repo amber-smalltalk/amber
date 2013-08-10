@@ -1,4 +1,4 @@
-define("amber/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
 smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber"};
 

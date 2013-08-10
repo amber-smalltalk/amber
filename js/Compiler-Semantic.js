@@ -1,4 +1,4 @@
-define("amber/Compiler-Semantic", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Compiler-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
 smalltalk.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber"};
 
