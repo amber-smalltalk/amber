@@ -1,4 +1,4 @@
-define("amber/Compiler-Tests", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Compiler-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/SUnit"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Tests');
 smalltalk.packages["Compiler-Tests"].transport = {"type":"amd","amdNamespace":"amber"};
 

@@ -1,4 +1,4 @@
-define("amber/IDE", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/IDE", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Canvas", "amber/Kernel-Exceptions", "amber/Kernel-Objects", "amber/Kernel-Collections", "amber/Kernel-Methods"], function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
 smalltalk.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber"};
 

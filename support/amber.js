@@ -74,30 +74,12 @@ require = function (require) {
             'amber/Canvas.deploy': {
                 deps: [ './Kernel-Objects.deploy' ]
             },
-            'amber/Canvas': {
-                deps: [ './Kernel-Infrastructure' ]
-            },
-            'amber/SUnit': {
-                deps: [ './Kernel-Objects' ]
-            },
-            'amber/IDE': {
-                deps: [ './Canvas', './Kernel-Exceptions' ]
-            },
             'amber/Examples': {
                 deps: [ './Canvas' ]
             },
             'amber/Benchfib': {
                 deps: [ './Kernel-Objects' ]
             },
-            'amber/Kernel-Tests': {
-                deps: [ './SUnit' ]
-            },
-            'amber/Compiler-Tests': {
-                deps: [ './SUnit' ]
-            },
-            'amber/SUnit-Tests': {
-                deps: [ './SUnit' ]
-            }
         }
     };
 

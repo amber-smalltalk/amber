@@ -1,4 +1,4 @@
-define("amber/Canvas", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure", "amber/Kernel-Methods", "amber/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
 smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber"};
 
