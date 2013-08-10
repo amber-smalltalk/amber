@@ -1,4 +1,4 @@
-define("amber/Test", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Test", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Test');
 smalltalk.packages["Test"].transport = {"type":"amd","amdNamespace":"amber"};
 
