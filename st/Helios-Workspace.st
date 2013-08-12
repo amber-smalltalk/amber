@@ -82,7 +82,7 @@ currentLineOrSelection
 
 editorOptions
 	^ #{
-		'theme' -> 'ambiance'.
+		'theme' -> 'amber'.
         'lineNumbers' -> true.
         'enterMode' -> 'flat'.
         'indentWithTabs' -> true.
