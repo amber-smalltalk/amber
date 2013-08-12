@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
+
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1574,6 +1575,5 @@ return (10);
 }, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLWorkspace.klass)})},
 messageSends: []}),
 smalltalk.HLWorkspace.klass);
-
 
 })(global_smalltalk,global_nil,global__st);
