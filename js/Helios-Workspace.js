@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
+
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
@@ -385,11 +386,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._from_(["theme".__minus_gt("amber"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]))]);
+$1=smalltalk.HashedCollection._from_(["theme".__minus_gt("ambiance"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
 args: [],
-source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> 'amber'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}\x0a\x09}",
+source: "editorOptions\x0a\x09^ #{\x0a\x09\x09'theme' -> 'ambiance'.\x0a        'lineNumbers' -> true.\x0a        'enterMode' -> 'flat'.\x0a        'indentWithTabs' -> true.\x0a\x09\x09'indentUnit' -> 4.\x0a        'matchBrackets' -> true.\x0a        'electricChars' -> false.\x0a\x09\x09'keyMap' -> 'Amber'.\x0a\x09\x09'extraKeys' -> #{'Shift-Space' -> 'autocomplete'}\x0a\x09}",
 messageSends: ["->"],
 referencedClasses: []
 }),
@@ -2074,6 +2075,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLWorkspace.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

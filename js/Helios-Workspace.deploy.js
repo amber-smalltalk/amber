@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
+
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
@@ -289,7 +290,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=smalltalk.HashedCollection._from_(["theme".__minus_gt("amber"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]))]);
+$1=smalltalk.HashedCollection._from_(["theme".__minus_gt("ambiance"),"lineNumbers".__minus_gt(true),"enterMode".__minus_gt("flat"),"indentWithTabs".__minus_gt(true),"indentUnit".__minus_gt((4)),"matchBrackets".__minus_gt(true),"electricChars".__minus_gt(false),"keyMap".__minus_gt("Amber"),"extraKeys".__minus_gt(smalltalk.HashedCollection._from_(["Shift-Space".__minus_gt("autocomplete")]))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"editorOptions",{},smalltalk.HLCodeWidget)})},
 messageSends: ["->"]}),
@@ -1574,6 +1575,5 @@ return (10);
 }, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLWorkspace.klass)})},
 messageSends: []}),
 smalltalk.HLWorkspace.klass);
-
 
 })(global_smalltalk,global_nil,global__st);
