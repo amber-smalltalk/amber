@@ -932,6 +932,57 @@ smalltalk.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "loadDependencies",
+fn: function (){
+var self=this;
+var classes,packages;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+classes=self._loadDependencyClasses();
+$2=_st(_st(classes)._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._package();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
+_st($2)._remove_ifAbsent_(self,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"loadDependencies",{classes:classes,packages:packages},smalltalk.Package)})},
+messageSends: ["loadDependencyClasses", "remove:ifAbsent:", "asSet", "collect:", "package", "yourself"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "loadDependencyClasses",
+fn: function (){
+var self=this;
+var starCategoryName;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+starCategoryName="*".__comma(self._name());
+$2=_st(_st(self._classes())._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._superclass();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
+_st($2)._remove_ifAbsent_(nil,(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+_st($2)._addAll_(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocols())._includes_(starCategoryName);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},smalltalk.Package)})},
+messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "superclass", "classes", "addAll:", "select:", "includes:", "protocols", "current", "yourself"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "name",
 fn: function (){
 var self=this;
