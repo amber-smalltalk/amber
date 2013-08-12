@@ -504,6 +504,32 @@ sortedClasses
 	^self class sortedClasses: self classes
 ! !
 
+!Package methodsFor: 'dependencies'!
+
+loadDependencies
+	"Returns list of packages that need to be loaded
+	before loading this package."
+	
+	| classes packages |
+	classes := self loadDependencyClasses.
+	^(classes collect: [ :each | each package ]) asSet
+		remove: self ifAbsent: [];
+		yourself
+!
+
+loadDependencyClasses
+	"Returns classes needed at the time of loading a package.
+	These are all that are used to subclass
+	and to define an extension method"
+	
+	| starCategoryName |
+	starCategoryName := '*', self name.
+	^(self classes collect: [ :each | each superclass ]) asSet
+		remove: nil ifAbsent: [];
+		addAll: (Smalltalk current classes select: [ :each | each protocols includes: starCategoryName ]);
+		yourself
+! !
+
 !Package methodsFor: 'printing'!
 
 printOn: aStream
