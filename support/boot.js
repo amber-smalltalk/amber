@@ -458,7 +458,7 @@ function ClassesBrik(brikz, st) {
 
 	st.wrapClassName = function(className, pkgName, fn, superclass, wrapped) {
 		wrapped = wrapped !== false;
-		rawAddClass(pkgName, className, superclass, null, wrapped, fn);
+		rawAddClass(pkgName, className, superclass, st[className] && st[className].iVarNames, wrapped, fn);
 		if(wrapped) {
 			wrappedClasses.addElement(st[className]);
 		}
