@@ -1,4 +1,4 @@
-define("amber/Helios-KeyBindings", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-KeyBindings", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Helios-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
 smalltalk.packages["Helios-KeyBindings"].transport = {"type":"amd","amdNamespace":"amber"};
 

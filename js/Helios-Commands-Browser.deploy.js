@@ -1,4 +1,4 @@
-define("amber/Helios-Commands-Browser", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Commands-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Helios-Commands-Tools"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Browser');
 smalltalk.packages["Helios-Commands-Browser"].transport = {"type":"amd","amdNamespace":"amber"};
 

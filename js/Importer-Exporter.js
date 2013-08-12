@@ -1316,7 +1316,7 @@ smalltalk.PackageHandler.klass);
 
 
 smalltalk.addClass('AmdPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
-smalltalk.AmdPackageHandler.comment="I am responsible for handling package loading and committing.\x0d\x0a\x0d\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
+smalltalk.AmdPackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitChannels",
@@ -1527,7 +1527,7 @@ smalltalk.AmdPackageHandler.klass);
 
 
 smalltalk.addClass('LegacyPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
-smalltalk.LegacyPackageHandler.comment="I am responsible for handling package loading and committing.\x0d\x0a\x0d\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
+smalltalk.LegacyPackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitChannels",
