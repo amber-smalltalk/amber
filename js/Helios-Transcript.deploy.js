@@ -1,4 +1,4 @@
-define("amber/Helios-Transcript", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Helios-Core", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Transcript');
 smalltalk.packages["Helios-Transcript"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -172,6 +172,5 @@ _st(self._transcripts())._remove_(aTranscript);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 messageSends: ["remove:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
-
 
 });

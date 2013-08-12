@@ -429,5 +429,4 @@ messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished", "+", "asse
 smalltalk.SUnitAsyncTest);
 
 
-
 });

@@ -1235,5 +1235,4 @@ referencedClasses: []
 }),
 smalltalk.TestSuiteRunner.klass);
 
-
 });

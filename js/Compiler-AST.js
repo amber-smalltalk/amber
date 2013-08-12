@@ -2064,7 +2064,6 @@ referencedClasses: []
 smalltalk.ClassReferenceNode);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNode",

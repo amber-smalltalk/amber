@@ -757,5 +757,4 @@ messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
 
 
-
 });

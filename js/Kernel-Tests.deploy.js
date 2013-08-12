@@ -4080,5 +4080,4 @@ messageSends: ["assert:", "isNil", "deny:", "notNil"]}),
 smalltalk.UndefinedTest);
 
 
-
 });

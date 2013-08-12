@@ -1846,5 +1846,4 @@ referencedClasses: []
 }),
 smalltalk.Timeout.klass);
 
-
 });

@@ -1363,5 +1363,4 @@ return $1;
 messageSends: ["rawTimeout:", "new", "yourself"]}),
 smalltalk.Timeout.klass);
 
-
 });

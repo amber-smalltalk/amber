@@ -1779,5 +1779,4 @@ referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer.klass);
 
-
 });

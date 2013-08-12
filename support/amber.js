@@ -74,12 +74,6 @@ require = function (require) {
             'amber/Canvas.deploy': {
                 deps: [ './Kernel-Objects.deploy' ]
             },
-            'amber/Examples': {
-                deps: [ './Canvas' ]
-            },
-            'amber/Benchfib': {
-                deps: [ './Kernel-Objects' ]
-            },
         }
     };
 

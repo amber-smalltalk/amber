@@ -1,4 +1,4 @@
-define("amber/Helios-Commands-Tools", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Helios-Commands-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Tools');
 smalltalk.packages["Helios-Commands-Tools"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -1897,6 +1897,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLRenameProtocolCommand.klass);
-
 
 });

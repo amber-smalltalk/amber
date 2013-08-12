@@ -545,5 +545,4 @@ referencedClasses: []
 smalltalk.SUnitAsyncTest);
 
 
-
 });

@@ -1,4 +1,4 @@
-define("amber/Helios-Debugger", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Debugger", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Helios-Core", "amber/Helios-Workspace", "amber/Kernel-Exceptions"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Debugger');
 smalltalk.packages["Helios-Debugger"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -698,7 +698,6 @@ _st(self._model())._currentContext_(aContext);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext},smalltalk.HLStackListWidget)})},
 messageSends: ["currentContext:", "model"]}),
 smalltalk.HLStackListWidget);
-
 
 
 });

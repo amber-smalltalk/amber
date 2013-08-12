@@ -5181,5 +5181,4 @@ referencedClasses: []
 smalltalk.UndefinedTest);
 
 
-
 });

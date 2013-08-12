@@ -1,4 +1,4 @@
-define("amber/Helios-Layout", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Layout", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Helios-Core", "amber/Canvas", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Layout');
 smalltalk.packages["Helios-Layout"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -380,7 +380,6 @@ _st(aSplitter)._height_(_st(_st(self["@splitter"])._asJQuery())._height());
 return self}, function($ctx1) {$ctx1.fill(self,"startResizing:",{aSplitter:aSplitter},smalltalk.HLVerticalSplitter)})},
 messageSends: ["height:", "height", "asJQuery"]}),
 smalltalk.HLVerticalSplitter);
-
 
 
 smalltalk.addMethod(

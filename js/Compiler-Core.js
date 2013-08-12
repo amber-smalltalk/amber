@@ -1022,5 +1022,4 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 
-
 });

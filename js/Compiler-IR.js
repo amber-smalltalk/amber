@@ -3643,7 +3643,6 @@ referencedClasses: []
 smalltalk.JSStream);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToInstruction:",

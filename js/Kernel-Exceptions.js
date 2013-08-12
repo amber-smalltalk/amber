@@ -628,5 +628,4 @@ referencedClasses: []
 }),
 smalltalk.ErrorHandler.klass);
 
-
 });

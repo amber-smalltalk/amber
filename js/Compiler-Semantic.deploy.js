@@ -1343,5 +1343,4 @@ return $1;
 messageSends: ["theClass:", "new", "yourself"]}),
 smalltalk.SemanticAnalyzer.klass);
 
-
 });
