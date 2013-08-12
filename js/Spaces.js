@@ -337,5 +337,4 @@ referencedClasses: []
 smalltalk.ObjectSpaceTest);
 
 
-
 });

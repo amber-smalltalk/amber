@@ -5398,7 +5398,6 @@ messageSends: ["show", "focus"]}),
 smalltalk.Workspace);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",

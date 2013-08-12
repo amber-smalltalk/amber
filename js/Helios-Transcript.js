@@ -235,5 +235,4 @@ referencedClasses: []
 }),
 smalltalk.HLTranscriptHandler.klass);
 
-
 });

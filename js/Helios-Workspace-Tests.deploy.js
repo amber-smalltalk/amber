@@ -18,5 +18,4 @@ messageSends: ["assert:", "isKindOf:", "pcKeyMap", "macKeyMap"]}),
 smalltalk.HLCodeWidgetTest);
 
 
-
 });

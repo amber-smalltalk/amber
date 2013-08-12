@@ -2033,7 +2033,7 @@ self._handleKeyUp();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["e"],
-source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ] ",
+source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ]",
 messageSends: ["ifTrue:", "handleKeyUp"],
 referencedClasses: []
 }),
@@ -2230,6 +2230,5 @@ messageSends: ["widget:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
-
 
 });

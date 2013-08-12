@@ -159,5 +159,4 @@ messageSends: ["handleError:", "basicSignal:"]}),
 smalltalk.RethrowErrorHandler);
 
 
-
 });

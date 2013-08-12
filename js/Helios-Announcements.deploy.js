@@ -404,5 +404,4 @@ smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helio
 
 smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
-
 });

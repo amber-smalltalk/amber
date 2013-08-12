@@ -1257,5 +1257,4 @@ messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver"
 smalltalk.SemanticAnalyzerTest);
 
 
-
 });

@@ -1690,5 +1690,4 @@ return $1;
 messageSends: ["widget:", "new", "yourself"]}),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
 
-
 });

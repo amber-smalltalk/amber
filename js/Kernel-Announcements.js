@@ -763,5 +763,4 @@ smalltalk.ProtocolAdded.comment="I am emitted when a protocol is added to a clas
 smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class.";
 
-
 });

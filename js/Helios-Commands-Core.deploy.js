@@ -629,5 +629,4 @@ return "View";
 messageSends: []}),
 smalltalk.HLViewCommand.klass);
 
-
 });

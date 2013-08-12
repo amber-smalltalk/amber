@@ -17,7 +17,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"main",{result:result},smalltalk.
 messageSends: ["tinyBenchmarks", "log:", ","]}),
 smalltalk.Benchfib.klass);
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "benchFib",

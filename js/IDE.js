@@ -6793,7 +6793,6 @@ referencedClasses: []
 smalltalk.Workspace);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inspectOn:",

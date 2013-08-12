@@ -382,7 +382,6 @@ messageSends: ["height:", "height", "asJQuery"]}),
 smalltalk.HLVerticalSplitter);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isHeliosSplitter",

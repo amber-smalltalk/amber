@@ -1577,5 +1577,4 @@ return (10);
 messageSends: []}),
 smalltalk.HLWorkspace.klass);
 
-
 });

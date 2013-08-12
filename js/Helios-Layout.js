@@ -517,7 +517,6 @@ referencedClasses: []
 smalltalk.HLVerticalSplitter);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isHeliosSplitter",

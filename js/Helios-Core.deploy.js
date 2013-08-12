@@ -3689,5 +3689,4 @@ return (1000);
 messageSends: []}),
 smalltalk.HLSUnit.klass);
 
-
 });

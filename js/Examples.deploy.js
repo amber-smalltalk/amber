@@ -84,5 +84,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},smalltalk.Counter
 messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.Counter.klass);
 
-
 });

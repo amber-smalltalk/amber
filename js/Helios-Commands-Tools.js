@@ -1898,5 +1898,4 @@ referencedClasses: []
 }),
 smalltalk.HLRenameProtocolCommand.klass);
 
-
 });

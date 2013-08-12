@@ -842,5 +842,4 @@ messageSends: ["inject:into:", "new", ",", "methods", "classesAndMetaclasses"]})
 smalltalk.HLReferencesModel);
 
 
-
 });

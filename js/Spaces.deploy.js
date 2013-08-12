@@ -251,5 +251,4 @@ messageSends: ["deny:", "isNil", "frame", "release", "assert:"]}),
 smalltalk.ObjectSpaceTest);
 
 
-
 });

@@ -590,5 +590,4 @@ referencedClasses: []
 }),
 smalltalk.HLToggleInstanceSideCommand.klass);
 
-
 });

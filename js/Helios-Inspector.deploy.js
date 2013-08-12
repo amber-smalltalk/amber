@@ -1060,5 +1060,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"watchChanges",{},smalltalk.HLIns
 messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"]}),
 smalltalk.HLInspector.klass);
 
-
 });

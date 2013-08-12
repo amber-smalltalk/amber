@@ -22,7 +22,6 @@ referencedClasses: []
 }),
 smalltalk.Benchfib.klass);
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "benchFib",

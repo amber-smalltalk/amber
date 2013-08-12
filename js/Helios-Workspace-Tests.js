@@ -23,5 +23,4 @@ referencedClasses: ["HashedCollection", "HLCodeWidget"]
 smalltalk.HLCodeWidgetTest);
 
 
-
 });

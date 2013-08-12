@@ -2724,7 +2724,6 @@ return "widget";
 messageSends: []}),
 smalltalk.Widget.klass);
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",

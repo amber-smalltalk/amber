@@ -922,5 +922,4 @@ referencedClasses: []
 smalltalk.HLStackListWidget);
 
 
-
 });

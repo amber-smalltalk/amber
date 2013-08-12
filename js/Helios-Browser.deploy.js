@@ -2988,5 +2988,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.HLSelectorsCac
 messageSends: ["shouldNotImplement"]}),
 smalltalk.HLSelectorsCache.klass);
 
-
 });

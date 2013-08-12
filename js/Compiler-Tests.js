@@ -1667,5 +1667,4 @@ referencedClasses: []
 smalltalk.SemanticAnalyzerTest);
 
 
-
 });

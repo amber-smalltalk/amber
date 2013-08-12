@@ -420,5 +420,4 @@ return "Instance side";
 messageSends: []}),
 smalltalk.HLToggleInstanceSideCommand.klass);
 
-
 });

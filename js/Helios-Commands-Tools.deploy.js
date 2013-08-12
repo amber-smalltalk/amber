@@ -1343,5 +1343,4 @@ return "Rename protocol...";
 messageSends: []}),
 smalltalk.HLRenameProtocolCommand.klass);
 
-
 });

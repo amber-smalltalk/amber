@@ -110,5 +110,4 @@ referencedClasses: []
 }),
 smalltalk.Counter.klass);
 
-
 });

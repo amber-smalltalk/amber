@@ -700,5 +700,4 @@ messageSends: ["currentContext:", "model"]}),
 smalltalk.HLStackListWidget);
 
 
-
 });

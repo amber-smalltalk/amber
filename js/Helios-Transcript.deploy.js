@@ -173,5 +173,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTrans
 messageSends: ["remove:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
 
-
 });

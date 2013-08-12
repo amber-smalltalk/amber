@@ -1159,5 +1159,4 @@ messageSends: ["new"]}),
 smalltalk.InliningCodeGenerator);
 
 
-
 });
