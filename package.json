@@ -31,7 +31,7 @@
     "ambers": "./bin/server"
   },
   "scripts": {
-    "test": "sh -c 'grunt amberc:amber_test_runner' && node ./test/amber_test_runner.js"
+    "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"
   },
   "devDependencies": {
     "pegjs": "~0.7.0",
