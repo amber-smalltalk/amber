@@ -2749,7 +2749,6 @@ messageSends: ["ifEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]}),
 smalltalk.JSStream);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToInstruction:",

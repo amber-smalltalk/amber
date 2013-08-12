@@ -1504,5 +1504,4 @@ referencedClasses: ["IRInliningJSTranslator"]
 smalltalk.InliningCodeGenerator);
 
 
-
 });

@@ -1636,5 +1636,4 @@ return $1;
 messageSends: ["theClass:", "new", "level:", "getNodesFrom:", "yourself"]}),
 smalltalk.ClassSorterNode.klass);
 
-
 });

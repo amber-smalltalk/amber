@@ -1,4 +1,4 @@
-define("amber/Helios-References", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-References", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Helios-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-References');
 smalltalk.packages["Helios-References"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -556,7 +556,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
 args: ["aMethod"],
-source: "onMethodSelected: aMethod\x0a\x09aMethod ifNil: [ ^ self ].\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a\x09\x0a\x09self \x0a\x09\x09selectedItem: aMethod selector;\x0a\x09\x09activateItem: aMethod selector\x09",
+source: "onMethodSelected: aMethod\x0a\x09aMethod ifNil: [ ^ self ].\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a\x09\x0a\x09self \x0a\x09\x09selectedItem: aMethod selector;\x0a\x09\x09activateItem: aMethod selector",
 messageSends: ["ifNil:", "detect:ifNone:", "=", "selector", "items", "selectedItem:", "activateItem:"],
 referencedClasses: []
 }),
@@ -1110,7 +1110,6 @@ messageSends: ["inject:into:", "new", ",", "methods", "classesAndMetaclasses"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);
-
 
 
 });

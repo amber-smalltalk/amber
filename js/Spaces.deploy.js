@@ -1,4 +1,4 @@
-define("amber/Spaces", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Spaces", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Exceptions", "amber/SUnit"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
 smalltalk.packages["Spaces"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -249,7 +249,6 @@ self._assert_(_st(_st(self["@space"])._frame())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testRelease",{},smalltalk.ObjectSpaceTest)})},
 messageSends: ["deny:", "isNil", "frame", "release", "assert:"]}),
 smalltalk.ObjectSpaceTest);
-
 
 
 });

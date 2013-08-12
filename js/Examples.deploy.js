@@ -1,4 +1,4 @@
-define("amber/Examples", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
 smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -83,6 +83,5 @@ _st(self._new())._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},smalltalk.Counter.klass)})},
 messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.Counter.klass);
-
 
 });

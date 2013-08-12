@@ -1,4 +1,4 @@
-define("amber/Helios-Core", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure", "amber/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -3688,6 +3688,5 @@ return (1000);
 }, function($ctx1) {$ctx1.fill(self,"tabPriority",{},smalltalk.HLSUnit.klass)})},
 messageSends: []}),
 smalltalk.HLSUnit.klass);
-
 
 });

@@ -2143,5 +2143,4 @@ referencedClasses: []
 }),
 smalltalk.ClassSorterNode.klass);
 
-
 });

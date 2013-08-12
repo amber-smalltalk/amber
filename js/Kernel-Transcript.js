@@ -219,5 +219,4 @@ referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
-
 });

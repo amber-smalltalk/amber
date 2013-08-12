@@ -222,5 +222,4 @@ referencedClasses: []
 smalltalk.RethrowErrorHandler);
 
 
-
 });

@@ -453,5 +453,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandle
 messageSends: []}),
 smalltalk.ErrorHandler.klass);
 
-
 });

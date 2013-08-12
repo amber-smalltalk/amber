@@ -1509,7 +1509,6 @@ messageSends: ["visitClassReferenceNode:"]}),
 smalltalk.ClassReferenceNode);
 
 
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNode",

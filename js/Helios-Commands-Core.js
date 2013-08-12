@@ -1,4 +1,4 @@
-define("amber/Helios-Commands-Core", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Commands-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Core');
 smalltalk.packages["Helios-Commands-Core"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -126,7 +126,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommand)})},
 args: [],
-source: "execute\x0a\x09",
+source: "execute",
 messageSends: [],
 referencedClasses: []
 }),
@@ -858,6 +858,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLViewCommand.klass);
-
 
 });

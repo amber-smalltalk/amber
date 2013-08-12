@@ -1,4 +1,4 @@
-define("amber/Helios-Announcements", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Announcements');
 smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -534,6 +534,5 @@ smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helio
 
 
 smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
-
 
 });

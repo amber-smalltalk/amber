@@ -152,5 +152,4 @@ return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},small
 messageSends: ["show:", "current"]}),
 smalltalk.Transcript.klass);
 
-
 });

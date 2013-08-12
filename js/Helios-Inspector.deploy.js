@@ -1,4 +1,4 @@
-define("amber/Helios-Inspector", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Helios-Core", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Inspector');
 smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -1059,6 +1059,5 @@ return _st(each)._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"watchChanges",{},smalltalk.HLInspector.klass)})},
 messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"]}),
 smalltalk.HLInspector.klass);
-
 
 });

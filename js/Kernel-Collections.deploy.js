@@ -4264,5 +4264,4 @@ messageSends: ["nextPutAll:", "tab"]}),
 smalltalk.StringStream);
 
 
-
 });

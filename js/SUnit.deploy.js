@@ -923,5 +923,4 @@ return $1;
 messageSends: ["suite:", "new"]}),
 smalltalk.TestSuiteRunner.klass);
 
-
 });

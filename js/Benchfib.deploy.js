@@ -1,4 +1,4 @@
-define("amber/Benchfib", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Benchfib", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
 smalltalk.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -16,7 +16,6 @@ _st(console)._log_("0 tinyBenchmarks => ".__comma(result));
 return self}, function($ctx1) {$ctx1.fill(self,"main",{result:result},smalltalk.Benchfib.klass)})},
 messageSends: ["tinyBenchmarks", "log:", ","]}),
 smalltalk.Benchfib.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

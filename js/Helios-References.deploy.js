@@ -1,4 +1,4 @@
-define("amber/Helios-References", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber/Helios-References", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Helios-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-References');
 smalltalk.packages["Helios-References"].transport = {"type":"amd","amdNamespace":"amber"};
 
@@ -840,7 +840,6 @@ return _st(acc).__comma(_st(each)._methods());
 return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsCache",{},smalltalk.HLReferencesModel)})},
 messageSends: ["inject:into:", "new", ",", "methods", "classesAndMetaclasses"]}),
 smalltalk.HLReferencesModel);
-
 
 
 });
