@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Inlining');
+
 smalltalk.addClass('IRInlinedAssignment', smalltalk.IRAssignment, [], 'Compiler-Inlining');
 smalltalk.IRInlinedAssignment.comment="I represent an inlined assignment instruction.";
 smalltalk.addMethod(
@@ -1500,7 +1501,6 @@ messageSends: ["new"],
 referencedClasses: ["IRInliningJSTranslator"]
 }),
 smalltalk.InliningCodeGenerator);
-
 
 
 })(global_smalltalk,global_nil,global__st);

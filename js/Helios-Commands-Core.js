@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Core');
+
 smalltalk.addClass('HLCommand', smalltalk.Object, ['input'], 'Helios-Commands-Core');
 smalltalk.addMethod(
 smalltalk.method({
@@ -124,7 +125,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCommand)})},
 args: [],
-source: "execute\x0a\x09",
+source: "execute",
 messageSends: [],
 referencedClasses: []
 }),
@@ -856,6 +857,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLViewCommand.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

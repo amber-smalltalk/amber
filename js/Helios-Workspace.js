@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
+
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
@@ -353,7 +354,7 @@ $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},smalltalk.HLCodeWidget)})},
 args: [],
-source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result        ",
+source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result",
 messageSends: ["announce:", "on:", "announcer", "model", "doIt:", "currentLineOrSelection"],
 referencedClasses: ["HLDoItRequested", "HLDoItExecuted"]
 }),
@@ -2074,6 +2075,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLWorkspace.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
+
 smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2721,7 +2722,6 @@ return "widget";
 }, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Widget.klass)})},
 messageSends: []}),
 smalltalk.Widget.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

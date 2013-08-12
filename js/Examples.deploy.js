@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
+
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(
 smalltalk.method({
@@ -81,6 +82,5 @@ _st(self._new())._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"tryExample",{},smalltalk.Counter.klass)})},
 messageSends: ["appendToJQuery:", "asJQuery", "new"]}),
 smalltalk.Counter.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

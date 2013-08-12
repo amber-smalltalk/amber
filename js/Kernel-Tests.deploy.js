@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -4076,7 +4077,6 @@ self._deny_(nil._notNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},smalltalk.UndefinedTest)})},
 messageSends: ["assert:", "isNil", "deny:", "notNil"]}),
 smalltalk.UndefinedTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);
