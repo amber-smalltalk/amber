@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1755,6 +1756,19 @@ smalltalk.StringTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAsNumber",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("3"._asNumber(),(3));
+self._assert_equals_("-3"._asNumber(),(-3));
+self._assert_equals_("-1.5"._asNumber(),(-1.5));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.StringTest)})},
+messageSends: ["assert:equals:", "asNumber"]}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAt",
 fn: function (){
 var self=this;
@@ -2840,6 +2854,17 @@ self._assert_equals_(_st((1).__plus((2))).__star((3)),(9));
 self._assert_equals_((1).__plus((2).__star((3))),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},smalltalk.NumberTest)})},
 messageSends: ["assert:equals:", "+", "-", "/", "*"]}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAsNumber",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((3)._asNumber(),(3));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.NumberTest)})},
+messageSends: ["assert:equals:", "asNumber"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(
@@ -4076,7 +4101,6 @@ self._deny_(nil._notNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},smalltalk.UndefinedTest)})},
 messageSends: ["assert:", "isNil", "deny:", "notNil"]}),
 smalltalk.UndefinedTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

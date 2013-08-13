@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2190,6 +2191,24 @@ smalltalk.StringTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAsNumber",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("3"._asNumber(),(3));
+self._assert_equals_("-3"._asNumber(),(-3));
+self._assert_equals_("-1.5"._asNumber(),(-1.5));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.StringTest)})},
+args: [],
+source: "testAsNumber\x0a\x09self assert: '3' asNumber equals: 3.\x0a\x09self assert: '-3' asNumber equals: -3.\x0a\x09self assert: '-1.5' asNumber equals: -1.5.",
+messageSends: ["assert:equals:", "asNumber"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAt",
 category: 'tests',
 fn: function (){
@@ -3613,6 +3632,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},smalltalk.Num
 args: [],
 source: "testArithmetic\x0a\x09\x0a\x09\x22We rely on JS here, so we won't test complex behavior, just check if\x0a\x09message sends are corrects\x22\x0a\x0a\x09self assert: 1.5 + 1 equals: 2.5.\x0a\x09self assert: 2 - 1 equals: 1.\x0a\x09self assert: -2 - 1 equals: -3.\x0a\x09self assert: 12 / 2 equals: 6.\x0a\x09self assert: 3 * 4 equals: 12.\x0a\x0a\x09\x22Simple parenthesis and execution order\x22\x0a\x09self assert: 1 + 2 * 3 equals: 9.\x0a\x09self assert: 1 + (2 * 3) equals: 7",
 messageSends: ["assert:equals:", "+", "-", "/", "*"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAsNumber",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((3)._asNumber(),(3));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.NumberTest)})},
+args: [],
+source: "testAsNumber\x0a\x09self assert: 3 asNumber equals: 3.",
+messageSends: ["assert:equals:", "asNumber"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
@@ -5177,7 +5212,6 @@ messageSends: ["assert:", "isNil", "deny:", "notNil"],
 referencedClasses: []
 }),
 smalltalk.UndefinedTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);
