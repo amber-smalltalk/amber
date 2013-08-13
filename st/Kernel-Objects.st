@@ -844,6 +844,14 @@ atRandom
 	^(Random new next * self) truncated + 1
 !
 
+ceiling
+	<return Math.ceil(self);>
+!
+
+floor
+	<return Math.floor(self);>
+!
+
 rounded
 	<return Math.round(self);>
 !

@@ -2504,6 +2504,22 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "ceiling",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.ceil(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"ceiling",{},smalltalk.Number)})},
+args: [],
+source: "ceiling\x0a\x09<return Math.ceil(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "copy",
 category: 'copying',
 fn: function (){
@@ -2552,6 +2568,22 @@ return $1;
 args: [],
 source: "even\x0a\x09^ 0 = (self \x5c\x5c 2)",
 messageSends: ["=", "\x5c\x5c"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "floor",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.floor(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"floor",{},smalltalk.Number)})},
+args: [],
+source: "floor\x0a\x09<return Math.floor(self);>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
