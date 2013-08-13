@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace-Tests');
+
 smalltalk.addClass('HLCodeWidgetTest', smalltalk.TestCase, [], 'Helios-Workspace-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -14,7 +15,6 @@ self._assert_(_st(_st($HLCodeWidget())._macKeyMap())._isKindOf_($HashedCollectio
 return self}, function($ctx1) {$ctx1.fill(self,"testKeyMap",{},smalltalk.HLCodeWidgetTest)})},
 messageSends: ["assert:", "isKindOf:", "pcKeyMap", "macKeyMap"]}),
 smalltalk.HLCodeWidgetTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

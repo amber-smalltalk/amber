@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Browser');
+
 smalltalk.addClass('HLBrowserCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(
@@ -587,6 +588,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLToggleInstanceSideCommand.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

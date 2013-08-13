@@ -2869,6 +2869,19 @@ smalltalk.NumberTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testCeiling",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((1.2)._ceiling(),(2));
+self._assert_equals_((-1.2)._ceiling(),(-1));
+self._assert_equals_((1)._ceiling(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},smalltalk.NumberTest)})},
+messageSends: ["assert:equals:", "ceiling"]}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testComparison",
 fn: function (){
 var self=this;
@@ -2915,6 +2928,19 @@ self._deny_("".__eq((0)));
 self._deny_((0).__eq(""));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.NumberTest)})},
 messageSends: ["assert:", "=", "deny:", "yourself"]}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testFloor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((1.2)._floor(),(1));
+self._assert_equals_((-1.2)._floor(),(-2));
+self._assert_equals_((1)._floor(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testFloor",{},smalltalk.NumberTest)})},
+messageSends: ["assert:equals:", "floor"]}),
 smalltalk.NumberTest);
 
 smalltalk.addMethod(

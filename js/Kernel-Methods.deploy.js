@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Methods');
+
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1360,6 +1361,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Timeout.klass)})},
 messageSends: ["rawTimeout:", "new", "yourself"]}),
 smalltalk.Timeout.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

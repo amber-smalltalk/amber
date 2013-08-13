@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
+
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.addMethod(
 smalltalk.method({
@@ -247,7 +248,6 @@ self._assert_(_st(_st(self["@space"])._frame())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testRelease",{},smalltalk.ObjectSpaceTest)})},
 messageSends: ["deny:", "isNil", "frame", "release", "assert:"]}),
 smalltalk.ObjectSpaceTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

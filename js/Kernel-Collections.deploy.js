@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Collections');
+
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.addMethod(
 smalltalk.method({
@@ -4260,7 +4261,6 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"tab",{},smalltalk.StringStream)})},
 messageSends: ["nextPutAll:", "tab"]}),
 smalltalk.StringStream);
-
 
 
 })(global_smalltalk,global_nil,global__st);
