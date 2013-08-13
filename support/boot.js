@@ -824,6 +824,7 @@ function RuntimeBrik(brikz, st) {
 		SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
 			this.locals        = locals || {};
 			this.outerContext  = ctx;
+			this.index         = index || 0;
 		};
 
 		SmalltalkMethodContext.prototype.init = function() {
