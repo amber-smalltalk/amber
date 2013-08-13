@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
+
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2745,7 +2746,6 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextPutVars:",{aCollection:aCollection},smalltalk.JSStream)})},
 messageSends: ["ifEmpty:", "nextPutAll:", "do:separatedBy:", "lf"]}),
 smalltalk.JSStream);
-
 
 
 smalltalk.addMethod(

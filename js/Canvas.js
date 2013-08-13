@@ -1,7 +1,8 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
+
 smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
-smalltalk.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
+smalltalk.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ajax:",
@@ -3787,7 +3788,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Widget.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Layout');
+
 smalltalk.addClass('HLContainer', smalltalk.HLWidget, ['splitter'], 'Helios-Layout');
 smalltalk.addMethod(
 smalltalk.method({
@@ -513,7 +514,6 @@ messageSends: ["height:", "height", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLVerticalSplitter);
-
 
 
 smalltalk.addMethod(

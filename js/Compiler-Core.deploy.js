@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Core');
+
 smalltalk.addClass('AbstractCodeGenerator', smalltalk.Object, ['currentClass', 'source'], 'Compiler-Core');
 smalltalk.addMethod(
 smalltalk.method({
@@ -753,7 +754,6 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.NodeVisitor)})},
 messageSends: ["visitNode:"]}),
 smalltalk.NodeVisitor);
-
 
 
 })(global_smalltalk,global_nil,global__st);

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Tests');
+
 smalltalk.addClass('ASTVisitorTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1253,7 +1254,6 @@ self._assert_(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(_st(ast)._nodes())._fi
 return self}, function($ctx1) {$ctx1.fill(self,"testVariablesLookup",{src:src,ast:ast},smalltalk.SemanticAnalyzerTest)})},
 messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver", "first", "nodes", "==", "scope", "left", "last"]}),
 smalltalk.SemanticAnalyzerTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

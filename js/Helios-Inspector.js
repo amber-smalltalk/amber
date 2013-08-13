@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Inspector');
+
 smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
 smalltalk.method({
@@ -45,7 +46,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(html)._div())._with_(self._selectionDisplayString());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorDisplayWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09\x0a    html div with: self selectionDisplayString\x0a    ",
+source: "renderContentOn: html\x0a\x09\x0a    html div with: self selectionDisplayString",
 messageSends: ["with:", "selectionDisplayString", "div"],
 referencedClasses: []
 }),
@@ -181,7 +182,7 @@ self["@variables"]=[];
 _st(self["@inspectee"])._inspectOn_(anInspector);
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:on:",{anObject:anObject,anInspector:anInspector},smalltalk.HLInspectorModel)})},
 args: ["anObject", "anInspector"],
-source: "inspect: anObject on: anInspector\x0a\x09inspectee := anObject.\x0a\x09variables := #().\x0a\x09inspectee inspectOn: anInspector    ",
+source: "inspect: anObject on: anInspector\x0a\x09inspectee := anObject.\x0a\x09variables := #().\x0a\x09inspectee inspectOn: anInspector",
 messageSends: ["inspectOn:"],
 referencedClasses: []
 }),
@@ -199,7 +200,7 @@ $1=self["@inspectee"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspectee",{},smalltalk.HLInspectorModel)})},
 args: [],
-source: "inspectee \x0a\x09^ inspectee ",
+source: "inspectee \x0a\x09^ inspectee",
 messageSends: [],
 referencedClasses: []
 }),
@@ -215,7 +216,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@inspectee"]=anObject;
 return self}, function($ctx1) {$ctx1.fill(self,"inspectee:",{anObject:anObject},smalltalk.HLInspectorModel)})},
 args: ["anObject"],
-source: "inspectee: anObject \x0a\x09inspectee := anObject\x0a    ",
+source: "inspectee: anObject \x0a\x09inspectee := anObject",
 messageSends: [],
 referencedClasses: []
 }),
@@ -338,7 +339,7 @@ $1=self._instVarObjectAt_(self._selection());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedInstVarObject",{},smalltalk.HLInspectorModel)})},
 args: [],
-source: "selectedInstVarObject\x0a\x09^ self instVarObjectAt: self selection\x0a    ",
+source: "selectedInstVarObject\x0a\x09^ self instVarObjectAt: self selection",
 messageSends: ["instVarObjectAt:", "selection"],
 referencedClasses: []
 }),
@@ -361,7 +362,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selection",{},smalltalk.HLInspectorModel)})},
 args: [],
-source: "selection\x0a\x09^ selection ifNil:[ '' ] ",
+source: "selection\x0a\x09^ selection ifNil:[ '' ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -379,7 +380,7 @@ self["@selection"]=anObject;
 _st(self._announcer())._announce_(_st($HLInstanceVariableSelected())._on_(self["@selection"]));
 return self}, function($ctx1) {$ctx1.fill(self,"selection:",{anObject:anObject},smalltalk.HLInspectorModel)})},
 args: ["anObject"],
-source: "selection: anObject\x0a\x09selection := anObject.\x0a\x0a\x09self announcer announce: (HLInstanceVariableSelected on: selection)\x0a    ",
+source: "selection: anObject\x0a\x09selection := anObject.\x0a\x0a\x09self announcer announce: (HLInstanceVariableSelected on: selection)",
 messageSends: ["announce:", "on:", "announcer"],
 referencedClasses: ["HLInstanceVariableSelected"]
 }),
@@ -435,7 +436,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@variables"]=aCollection;
 return self}, function($ctx1) {$ctx1.fill(self,"variables:",{aCollection:aCollection},smalltalk.HLInspectorModel)})},
 args: ["aCollection"],
-source: "variables: aCollection\x0a\x09variables := aCollection\x0a    ",
+source: "variables: aCollection\x0a\x09variables := aCollection",
 messageSends: [],
 referencedClasses: []
 }),
@@ -538,7 +539,7 @@ $1=self["@model"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLInspectorVariablesWidget)})},
 args: [],
-source: "model\x0a    ^ model\x0a        ",
+source: "model\x0a    ^ model",
 messageSends: [],
 referencedClasses: []
 }),
@@ -554,7 +555,7 @@ return smalltalk.withContext(function($ctx1) {
 self["@model"]=aModel;
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLInspectorVariablesWidget)})},
 args: ["aModel"],
-source: "model: aModel\x0a    model := aModel\x0a        ",
+source: "model: aModel\x0a    model := aModel",
 messageSends: [],
 referencedClasses: []
 }),
@@ -958,7 +959,7 @@ return self._onDive();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeVariablesWidget",{},smalltalk.HLInspectorWidget)})},
 args: [],
-source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a        on: HLDiveRequested do:[ self onDive ]\x0a        ",
+source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a        on: HLDiveRequested do:[ self onDive ]",
 messageSends: ["on:do:", "onDive", "announcer", "variablesWidget"],
 referencedClasses: ["HLDiveRequested"]
 }),
@@ -1124,7 +1125,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(html)._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget()));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a   \x09html with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            with: self variablesWidget\x0a            with: self displayWidget)\x0a        with: self codeWidget)\x0a ",
+source: "renderContentOn: html\x0a   \x09html with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            with: self variablesWidget\x0a            with: self displayWidget)\x0a        with: self codeWidget)",
 messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget"],
 referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter"]
 }),
@@ -1427,6 +1428,5 @@ messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"],
 referencedClasses: []
 }),
 smalltalk.HLInspector.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

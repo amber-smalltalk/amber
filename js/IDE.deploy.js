@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
+
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
@@ -5394,7 +5395,6 @@ _st(self["@sourceArea"])._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.Workspace)})},
 messageSends: ["show", "focus"]}),
 smalltalk.Workspace);
-
 
 
 smalltalk.addMethod(

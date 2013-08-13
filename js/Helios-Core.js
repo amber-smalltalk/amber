@@ -1,7 +1,8 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
+
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
-smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).\x0a\x0a";
+smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
@@ -1511,7 +1512,7 @@ _st($1)._keydown_(keyDownBlock);
 $2=_st($1)._keyup_(keyUpBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"bindKeyDown:up:",{keyDownBlock:keyDownBlock,keyUpBlock:keyUpBlock},smalltalk.HLWidget)})},
 args: ["keyDownBlock", "keyUpBlock"],
-source: "bindKeyDown: keyDownBlock up: keyUpBlock\x0a\x09self wrapper asJQuery\x0a\x09\x09keydown: keyDownBlock;\x0a\x09\x09keyup: keyUpBlock ",
+source: "bindKeyDown: keyDownBlock up: keyUpBlock\x0a\x09self wrapper asJQuery\x0a\x09\x09keydown: keyDownBlock;\x0a\x09\x09keyup: keyUpBlock",
 messageSends: ["keydown:", "asJQuery", "wrapper", "keyup:"],
 referencedClasses: []
 }),
@@ -3870,7 +3871,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLModalWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09",
+source: "renderButtonsOn: html",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4852,6 +4853,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLSUnit.klass);
-
 
 })(global_smalltalk,global_nil,global__st);
