@@ -1356,6 +1356,12 @@ testArithmetic
 	self assert: 1 + (2 * 3) equals: 7
 !
 
+testCeiling
+	self assert: 1.2 ceiling equals: 2.
+	self assert: -1.2 ceiling equals: -1.
+	self assert: 1.0 ceiling equals: 1.
+!
+
 testComparison
 
 	self assert: 3 > 2.
@@ -1388,6 +1394,12 @@ testEquality
 	self deny: false = 0.
 	self deny: '' = 0.
 	self deny: 0 = ''
+!
+
+testFloor
+	self assert: 1.2 floor equals: 1.
+	self assert: -1.2 floor equals: -2.
+	self assert: 1.0 floor equals: 1.
 !
 
 testHexNumbers

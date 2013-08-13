@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3619,6 +3620,24 @@ smalltalk.NumberTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testCeiling",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((1.2)._ceiling(),(2));
+self._assert_equals_((-1.2)._ceiling(),(-1));
+self._assert_equals_((1)._ceiling(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},smalltalk.NumberTest)})},
+args: [],
+source: "testCeiling\x0a\x09self assert: 1.2 ceiling equals: 2.\x0a\x09self assert: -1.2 ceiling equals: -1.\x0a\x09self assert: 1.0 ceiling equals: 1.",
+messageSends: ["assert:equals:", "ceiling"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testComparison",
 category: 'tests',
 fn: function (){
@@ -3678,6 +3697,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.Numbe
 args: [],
 source: "testEquality\x0a\x09self assert: (1 = 1).\x0a\x09self assert: (0 = 0).\x0a\x09self deny: (1 = 0).\x0a\x0a\x09self assert: (1 yourself = 1).\x0a\x09self assert: (1 = 1 yourself).\x0a\x09self assert: (1 yourself = 1 yourself).\x0a\x09\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = 0.\x0a\x09self deny: 0 = ''",
 messageSends: ["assert:", "=", "deny:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testFloor",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((1.2)._floor(),(1));
+self._assert_equals_((-1.2)._floor(),(-2));
+self._assert_equals_((1)._floor(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testFloor",{},smalltalk.NumberTest)})},
+args: [],
+source: "testFloor\x0a\x09self assert: 1.2 floor equals: 1.\x0a\x09self assert: -1.2 floor equals: -2.\x0a\x09self assert: 1.0 floor equals: 1.",
+messageSends: ["assert:equals:", "floor"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
@@ -5177,7 +5214,6 @@ messageSends: ["assert:", "isNil", "deny:", "notNil"],
 referencedClasses: []
 }),
 smalltalk.UndefinedTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);
