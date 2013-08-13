@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
+
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1687,6 +1688,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"forWidget:",{aWidget:aWidget},smalltalk.HLRepeatingKeyBindingHandler.klass)})},
 messageSends: ["widget:", "new", "yourself"]}),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

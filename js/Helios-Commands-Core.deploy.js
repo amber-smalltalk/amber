@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Core');
+
 smalltalk.addClass('HLCommand', smalltalk.Object, ['input'], 'Helios-Commands-Core');
 smalltalk.addMethod(
 smalltalk.method({
@@ -626,6 +627,5 @@ return "View";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLViewCommand.klass)})},
 messageSends: []}),
 smalltalk.HLViewCommand.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

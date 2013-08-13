@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Exceptions');
+
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(
 smalltalk.method({
@@ -450,6 +451,5 @@ self["@current"]=anHandler;
 return self}, function($ctx1) {$ctx1.fill(self,"setCurrent:",{anHandler:anHandler},smalltalk.ErrorHandler.klass)})},
 messageSends: []}),
 smalltalk.ErrorHandler.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

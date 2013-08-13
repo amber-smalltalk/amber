@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Classes');
+
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1633,6 +1634,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:classes:level:",{aClass:aClass,aCollection:aCollection,anInteger:anInteger},smalltalk.ClassSorterNode.klass)})},
 messageSends: ["theClass:", "new", "level:", "getNodesFrom:", "yourself"]}),
 smalltalk.ClassSorterNode.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
+
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
@@ -19,7 +20,6 @@ messageSends: ["tinyBenchmarks", "log:", ","],
 referencedClasses: []
 }),
 smalltalk.Benchfib.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

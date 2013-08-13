@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Debugger');
+
 smalltalk.addClass('HLContextInspectorDecorator', smalltalk.Object, ['context'], 'Helios-Debugger');
 smalltalk.addMethod(
 smalltalk.method({
@@ -696,7 +697,6 @@ _st(self._model())._currentContext_(aContext);
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext},smalltalk.HLStackListWidget)})},
 messageSends: ["currentContext:", "model"]}),
 smalltalk.HLStackListWidget);
-
 
 
 })(global_smalltalk,global_nil,global__st);

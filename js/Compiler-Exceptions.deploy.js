@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Exceptions');
+
 smalltalk.addClass('CompilerError', smalltalk.Error, [], 'Compiler-Exceptions');
 
 
@@ -155,7 +156,6 @@ self._basicSignal_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.RethrowErrorHandler)})},
 messageSends: ["handleError:", "basicSignal:"]}),
 smalltalk.RethrowErrorHandler);
-
 
 
 })(global_smalltalk,global_nil,global__st);

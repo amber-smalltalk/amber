@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit-Tests');
+
 smalltalk.addClass('ExampleSetTest', smalltalk.TestCase, ['empty', 'full'], 'SUnit-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -425,7 +426,6 @@ return self._assert_equals_(x,(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testTwoAsyncPassesWithFinishedOnlyOneIsRun",{x:x},smalltalk.SUnitAsyncTest)})},
 messageSends: ["timeout:", "valueWithTimeout:", "async:", "finished", "+", "assert:equals:"]}),
 smalltalk.SUnitAsyncTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

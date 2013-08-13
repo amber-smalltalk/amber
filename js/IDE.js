@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
+
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(
 smalltalk.method({
@@ -6789,7 +6790,6 @@ messageSends: ["show", "focus"],
 referencedClasses: []
 }),
 smalltalk.Workspace);
-
 
 
 smalltalk.addMethod(

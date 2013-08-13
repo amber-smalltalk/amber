@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
+
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2031,7 +2032,7 @@ self._handleKeyUp();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["e"],
-source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ] ",
+source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ]",
 messageSends: ["ifTrue:", "handleKeyUp"],
 referencedClasses: []
 }),
@@ -2228,6 +2229,5 @@ messageSends: ["widget:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
-
 
 })(global_smalltalk,global_nil,global__st);
