@@ -1,7 +1,8 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
+
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
-smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).\x0a\x0a";
+smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "announcer",
@@ -1072,7 +1073,7 @@ fn: function (aString,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(_st(window)._jQuery_("#helper"))._remove();
+_st("#helper"._asJQuery())._remove();
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(html)._div();
@@ -1083,12 +1084,12 @@ return $2;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(aBlock)._value();
-return _st(_st(window)._jQuery_("#helper"))._remove();
+return _st("#helper"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"withHelperLabelled:do:",{aString:aString,aBlock:aBlock},smalltalk.HLToolModel)})},
 args: ["aString", "aBlock"],
-source: "withHelperLabelled: aString do: aBlock\x0a\x09\x22TODO: doesn't belong here\x22\x0a\x0a\x09(window jQuery: '#helper') remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: aString ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[\x0a\x09\x09aBlock value.\x0a\x09\x09(window jQuery: '#helper') remove\x0a\x09] \x0a\x09\x09valueWithTimeout: 10",
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "id:", "div", "with:", "asJQuery", "valueWithTimeout:", "value"],
+source: "withHelperLabelled: aString do: aBlock\x0a\x09\x22TODO: doesn't belong here\x22\x0a\x0a\x09'#helper' asJQuery remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: aString ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[\x0a\x09\x09aBlock value.\x0a\x09\x09'#helper' asJQuery remove\x0a\x09] \x0a\x09\x09valueWithTimeout: 10",
+messageSends: ["remove", "asJQuery", "appendToJQuery:", "id:", "div", "with:", "valueWithTimeout:", "value"],
 referencedClasses: []
 }),
 smalltalk.HLToolModel);
@@ -1500,22 +1501,6 @@ smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
 smalltalk.HLWidget.comment="I am the abstract superclass of all Helios widgets.\x0a\x0aI provide common methods, additional behavior to widgets useful for Helios, like dialog creation, command execution and tab creation.\x0a\x0a## API\x0a\x0a1. Rendering\x0a\x0a    Instead of overriding `#renderOn:` as with other Widget subclasses, my subclasses should override `#renderContentOn:`.\x0a\x0a2. Refreshing\x0a\x0a    To re-render a widget, use `#refresh`.\x0a\x0a3. Key bindings registration and tabs\x0a\x0a    When displayed as a tab, the widget has a chance to register keybindings with the `#registerBindingsOn:` hook method.\x0a    \x0a4. Unregistration\x0a\x0a    When a widget has subscribed to announcements or other actions that need to be cleared when closing the tab, the hook method `#unregister` will be called by helios.\x0a\x0a5. Tabs\x0a\x0a   To enable a widget class to be open as a tab, override the class-side `#canBeOpenAsTab` method to answer `true`. `#tabClass` and `#tabPriority` can be overridden too to respectively change the css class of the tab and the order of tabs in the main menu.\x0a\x0a6. Command execution\x0a\x0a    An helios command (instance of `HLCommand` or one of its subclass) can be executed with `#execute:`.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "alert:",
-category: 'actions',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(window)._alert_(aString);
-return self}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.HLWidget)})},
-args: ["aString"],
-source: "alert: aString\x0a\x09window alert: aString",
-messageSends: ["alert:"],
-referencedClasses: []
-}),
-smalltalk.HLWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "bindKeyDown:up:",
 category: 'keybindings',
 fn: function (keyDownBlock,keyUpBlock){
@@ -1527,7 +1512,7 @@ _st($1)._keydown_(keyDownBlock);
 $2=_st($1)._keyup_(keyUpBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"bindKeyDown:up:",{keyDownBlock:keyDownBlock,keyUpBlock:keyUpBlock},smalltalk.HLWidget)})},
 args: ["keyDownBlock", "keyUpBlock"],
-source: "bindKeyDown: keyDownBlock up: keyUpBlock\x0a\x09self wrapper asJQuery\x0a\x09\x09keydown: keyDownBlock;\x0a\x09\x09keyup: keyUpBlock ",
+source: "bindKeyDown: keyDownBlock up: keyUpBlock\x0a\x09self wrapper asJQuery\x0a\x09\x09keydown: keyDownBlock;\x0a\x09\x09keyup: keyUpBlock",
 messageSends: ["keydown:", "asJQuery", "wrapper", "keyup:"],
 referencedClasses: []
 }),
@@ -2048,11 +2033,11 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._activateListItem_(_st(window)._jQuery_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._get_((0))));
+self._activateListItem_(_st(_st(_st(self["@wrapper"])._asJQuery())._find_("li.inactive"))._eq_((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"activateFirstListItem",{},smalltalk.HLListWidget)})},
 args: [],
-source: "activateFirstListItem\x0a\x09self activateListItem: (window jQuery: ((wrapper asJQuery find: 'li.inactive') get: 0))",
-messageSends: ["activateListItem:", "jQuery:", "get:", "find:", "asJQuery"],
+source: "activateFirstListItem\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li.inactive') eq: 0)",
+messageSends: ["activateListItem:", "eq:", "find:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2190,7 +2175,7 @@ selector: "ensureVisible:",
 category: 'actions',
 fn: function (aListItem){
 var self=this;
-var perent,position;
+var parent,position;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 position=self._positionOf_(aListItem);
@@ -2203,9 +2188,9 @@ $2=_st(_st(_st(_st(aListItem)._position())._top()).__plus(_st(aListItem)._height
 if(smalltalk.assert($2)){
 _st(_st(parent)._get_((0)))._scrollTop_(_st(_st(_st(_st(_st(parent)._get_((0)))._scrollTop()).__plus(_st(aListItem)._height())).__minus(_st(_st(parent)._height()).__minus(_st(_st(aListItem)._position())._top()))).__plus((10)));
 };
-return self}, function($ctx1) {$ctx1.fill(self,"ensureVisible:",{aListItem:aListItem,perent:perent,position:position},smalltalk.HLListWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"ensureVisible:",{aListItem:aListItem,parent:parent,position:position},smalltalk.HLListWidget)})},
 args: ["aListItem"],
-source: "ensureVisible: aListItem\x09\x0a\x09\x22Move the scrollbar to show the active element\x22\x0a\x09\x0a\x09| perent position |\x0a\x09\x0a\x09position := self positionOf: aListItem.\x0a\x09parent := aListItem parent.\x0a\x09\x0a    aListItem position top < 0 ifTrue: [\x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].\x0a    aListItem position top + aListItem height > parent height ifTrue: [ \x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ]",
+source: "ensureVisible: aListItem\x09\x0a\x09\x22Move the scrollbar to show the active element\x22\x0a\x09\x0a\x09| parent position |\x0a\x09\x0a\x09position := self positionOf: aListItem.\x0a\x09parent := aListItem parent.\x0a\x09\x0a    aListItem position top < 0 ifTrue: [\x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].\x0a    aListItem position top + aListItem height > parent height ifTrue: [ \x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ]",
 messageSends: ["positionOf:", "parent", "ifTrue:", "<", "top", "position", "scrollTop:", "get:", "-", "+", "scrollTop", ">", "height"],
 referencedClasses: []
 }),
@@ -3238,11 +3223,11 @@ if(smalltalk.assert($2)){
 $3=_st($Environment())._new();
 return $3;
 };
-$4=_st(_st(_st(parent)._at_("smalltalk"))._at_("Environment"))._new();
+$4=_st(_st(_st(parent)._at_("global_smalltalk"))._at_("Environment"))._new();
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"defaultEnvironment",{parent:parent},smalltalk.HLManager)})},
 args: [],
-source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x0a\x09(parent isNil or: [ (parent at: 'smalltalk') isNil ])\x0a\x09\x09ifTrue: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'smalltalk')\x0a\x09\x09at: 'Environment') new",
+source: "defaultEnvironment\x0a\x09\x22If helios is loaded from within a frame, answer the parent window environment\x22\x0a\x09\x0a\x09| parent |\x0a\x09\x0a\x09parent := window opener ifNil: [ window parent ].\x0a\x0a\x09(parent isNil or: [ (parent at: 'smalltalk') isNil ])\x0a\x09\x09ifTrue: [ ^ Environment new ].\x0a\x09\x0a\x09^ ((parent at: 'global_smalltalk')\x0a\x09\x09at: 'Environment') new",
 messageSends: ["ifNil:", "opener", "parent", "ifTrue:", "or:", "isNil", "at:", "new"],
 referencedClasses: ["Environment"]
 }),
@@ -3388,12 +3373,12 @@ category: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".navbar"))._remove();
+_st(".navbar"._asJQuery())._remove();
 self._appendToJQuery_("body"._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLManager)})},
 args: [],
-source: "refresh\x0a\x09(window jQuery: '.navbar') remove.\x0a\x09self appendToJQuery: 'body' asJQuery",
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "asJQuery"],
+source: "refresh\x0a\x09'.navbar' asJQuery remove.\x0a\x09self appendToJQuery: 'body' asJQuery",
+messageSends: ["remove", "asJQuery", "appendToJQuery:"],
 referencedClasses: []
 }),
 smalltalk.HLManager);
@@ -3747,7 +3732,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(window)._jQuery_("body"))._keydown_((function(e){
+_st("body"._asJQuery())._keydown_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(_st(e)._keyCode()).__gt_eq((37)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -3759,8 +3744,8 @@ return false;
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"clearKeydownEvent",{},smalltalk.HLManager.klass)})},
 args: [],
-source: "clearKeydownEvent\x0a\x09\x22Prevent default keydown event with arrow key from scrolling the parent page\x0a\x09when helios is run inside a frame.\x22\x0a\x09\x0a\x09(window jQuery: 'body') keydown: [ :e | \x0a\x09\x09(e keyCode >= 37 and: [ e keyCode <= 40 ])\x0a\x09\x09\x09ifTrue: [ false ] ]",
-messageSends: ["keydown:", "jQuery:", "ifTrue:", "and:", ">=", "keyCode", "<="],
+source: "clearKeydownEvent\x0a\x09\x22Prevent default keydown event with arrow key from scrolling the parent page\x0a\x09when helios is run inside a frame.\x22\x0a\x09\x0a\x09'body' asJQuery keydown: [ :e | \x0a\x09\x09(e keyCode >= 37 and: [ e keyCode <= 40 ])\x0a\x09\x09\x09ifTrue: [ false ] ]",
+messageSends: ["keydown:", "asJQuery", "ifTrue:", "and:", ">=", "keyCode", "<="],
 referencedClasses: []
 }),
 smalltalk.HLManager.klass);
@@ -3864,16 +3849,16 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st(".dialog"._asJQuery())._removeClass_("active");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
+_st("#overlay"._asJQuery())._remove();
+return _st(".dialog"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLModalWidget)})},
 args: [],
-source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
+source: "remove\x0a\x09'.dialog' asJQuery removeClass: 'active'.\x0a\x09[ \x0a\x09\x09'#overlay' asJQuery remove.\x0a\x09\x09'.dialog' asJQuery remove\x0a\x09] valueWithTimeout: 300",
+messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -3887,7 +3872,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLModalWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09",
+source: "renderButtonsOn: html",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3912,12 +3897,12 @@ _st($3)._renderMainOn_(html);
 $4=_st($3)._renderButtonsOn_(html);
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-_st(_st(window)._jQuery_(".dialog"))._addClass_("active");
+_st(".dialog"._asJQuery())._addClass_("active");
 self._setupKeyBindings();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,confirmButton:confirmButton},smalltalk.HLModalWidget)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09renderMainOn: html;\x0a\x09\x09\x09\x09renderButtonsOn: html ].\x0a\x0a\x09(window jQuery: '.dialog') addClass: 'active'.\x0a\x09self setupKeyBindings",
-messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "jQuery:", "setupKeyBindings"],
+source: "renderContentOn: html\x0a\x09| confirmButton |\x0a\x09\x0a\x09html div id: 'overlay'.\x0a\x09html div \x0a\x09\x09class: 'dialog ', self cssClass;\x0a\x09\x09with: [\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09renderMainOn: html;\x0a\x09\x09\x09\x09renderButtonsOn: html ].\x0a\x0a\x09'.dialog' asJQuery addClass: 'active'.\x0a\x09self setupKeyBindings",
+messageSends: ["id:", "div", "class:", ",", "cssClass", "with:", "renderMainOn:", "renderButtonsOn:", "addClass:", "asJQuery", "setupKeyBindings"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -3945,7 +3930,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-_st(_st(window)._jQuery_(".dialog"))._keyup_((function(e){
+_st(".dialog"._asJQuery())._keyup_((function(e){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(e)._keyCode()).__eq((27));
 if(smalltalk.assert($1)){
@@ -3954,8 +3939,8 @@ return self._cancel();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLModalWidget)})},
 args: [],
-source: "setupKeyBindings\x0a\x09(window jQuery: '.dialog') keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
-messageSends: ["keyup:", "jQuery:", "ifTrue:", "=", "keyCode", "cancel"],
+source: "setupKeyBindings\x0a\x09'.dialog' asJQuery keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
+messageSends: ["keyup:", "asJQuery", "ifTrue:", "=", "keyCode", "cancel"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -4126,16 +4111,16 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(".dialog"))._removeClass_("active");
+_st(".dialog"._asJQuery())._removeClass_("active");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-_st(_st(window)._jQuery_("#overlay"))._remove();
-return _st(_st(window)._jQuery_(".dialog"))._remove();
+_st("#overlay"._asJQuery())._remove();
+return _st(".dialog"._asJQuery())._remove();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithTimeout_((300));
 return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.HLConfirmationWidget)})},
 args: [],
-source: "remove\x0a\x09(window jQuery: '.dialog') removeClass: 'active'.\x0a\x09[ \x0a\x09\x09(window jQuery: '#overlay') remove.\x0a\x09\x09(window jQuery: '.dialog') remove\x0a\x09] valueWithTimeout: 300",
-messageSends: ["removeClass:", "jQuery:", "valueWithTimeout:", "remove"],
+source: "remove\x0a\x09'.dialog' asJQuery removeClass: 'active'.\x0a\x09[ \x0a\x09\x09'#overlay' asJQuery remove.\x0a\x09\x09'.dialog' asJQuery remove\x0a\x09] valueWithTimeout: 300",
+messageSends: ["removeClass:", "asJQuery", "valueWithTimeout:", "remove"],
 referencedClasses: []
 }),
 smalltalk.HLConfirmationWidget);
@@ -4869,6 +4854,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLSUnit.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

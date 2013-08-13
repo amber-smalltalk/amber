@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Methods');
+
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.BlockClosure.comment="I represent a lexical closure.\x0aI am is directly mapped to JavaScript Function.\x0a\x0a## API\x0a\x0a1. Evaluation\x0a\x0a    My instances get evaluated with the `#value*` methods in the 'evaluating' protocol.\x0a\x0a    Example: ` [ :x | x + 1 ] value: 3 \x22Answers 4\x22 `\x0a\x0a2. Control structures\x0a\x0a    Blocks are used (together with `Boolean`) for control structures (methods in the `controlling` protocol).\x0a\x0a    Example: `aBlock whileTrue: [ ... ]`\x0a\x0a3. Error handling\x0a\x0a    I provide the `#on:do:` method for handling exceptions.\x0a\x0a    Example: ` aBlock on: MessageNotUnderstood do: [ :ex | ... ] `";
 smalltalk.addMethod(
@@ -1787,21 +1788,96 @@ selector: "exists:",
 category: 'testing',
 fn: function (aString){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-
-		if(aString in window) {
-			return true
-		} else {
-			return false
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
+var $1;
+$1=_st($PlatformInterface())._existsGlobal_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
 args: ["aString"],
-source: "exists: aString\x0a\x09<\x0a\x09\x09if(aString in window) {\x0a\x09\x09\x09return true\x0a\x09\x09} else {\x0a\x09\x09\x09return false\x0a\x09\x09}\x0a\x09>",
-messageSends: [],
-referencedClasses: []
+source: "exists: aString\x0a\x09^PlatformInterface existsGlobal: aString",
+messageSends: ["existsGlobal:"],
+referencedClasses: ["PlatformInterface"]
 }),
 smalltalk.NativeFunction.klass);
 
+
+smalltalk.addClass('Timeout', smalltalk.Object, ['rawTimeout'], 'Kernel-Methods');
+smalltalk.Timeout.comment="I am wrapping the returns from `set{Timeout,Interval}`.\x0a\x0a## Motivation\x0a\x0aNumber suffices in browsers, but node.js returns an object.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "clearInterval",
+category: 'timeout/interval',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var interval = self["@rawTimeout"];
+		clearInterval(interval);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"clearInterval",{},smalltalk.Timeout)})},
+args: [],
+source: "clearInterval\x0a\x09<\x0a\x09\x09var interval = self[\x22@rawTimeout\x22];\x0a\x09\x09clearInterval(interval);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "clearTimeout",
+category: 'timeout/interval',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"clearTimeout",{},smalltalk.Timeout)})},
+args: [],
+source: "clearTimeout\x0a\x09<\x0a\x09\x09var timeout = self[\x22@rawTimeout\x22];\x0a\x09\x09clearTimeout(timeout);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rawTimeout:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@rawTimeout"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"rawTimeout:",{anObject:anObject},smalltalk.Timeout)})},
+args: ["anObject"],
+source: "rawTimeout: anObject\x0a\x09rawTimeout := anObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Timeout);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._rawTimeout_(anObject);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Timeout.klass)})},
+args: ["anObject"],
+source: "on: anObject\x0a\x09^self new rawTimeout: anObject; yourself",
+messageSends: ["rawTimeout:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.Timeout.klass);
 
 })(global_smalltalk,global_nil,global__st);

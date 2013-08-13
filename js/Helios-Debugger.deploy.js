@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Debugger');
+
 smalltalk.addClass('HLContextInspectorDecorator', smalltalk.Object, ['context'], 'Helios-Debugger');
 smalltalk.addMethod(
 smalltalk.method({
@@ -770,7 +771,6 @@ _st(self._model())._where();
 return self}, function($ctx1) {$ctx1.fill(self,"where",{},smalltalk.HLStackListWidget)})},
 messageSends: ["where", "model"]}),
 smalltalk.HLStackListWidget);
-
 
 
 })(global_smalltalk,global_nil,global__st);

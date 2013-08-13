@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-References');
+
 smalltalk.addClass('HLMethodReference', smalltalk.Object, ['selector', 'methodClass'], 'Helios-References');
 smalltalk.addMethod(
 smalltalk.method({
@@ -838,7 +839,6 @@ return _st(acc).__comma(_st(each)._methods());
 return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsCache",{},smalltalk.HLReferencesModel)})},
 messageSends: ["inject:into:", "classesAndMetaclasses", "new", ",", "methods"]}),
 smalltalk.HLReferencesModel);
-
 
 
 })(global_smalltalk,global_nil,global__st);

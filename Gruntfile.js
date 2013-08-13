@@ -22,8 +22,8 @@ module.exports = function(grunt) {
           cache: true,
           export_var: 'smalltalk.parser'
         },
-        src: 'js/parser.pegjs',
-        dest: 'js/parser.js',
+        src: 'support/parser.pegjs',
+        dest: 'support/parser.js',
       }
     },
 
@@ -39,8 +39,16 @@ module.exports = function(grunt) {
               'st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
               'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st',
               'st/Canvas.st', 'st/SUnit.st', 'st/IDE.st',
-              'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st'
+              'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st',
+              'st/Helios-Core.st', 'st/Helios-Exceptions.st', 'st/Helios-Announcements.st',
+              'st/Helios-KeyBindings.st', 'st/Helios-Layout.st',
+              'st/Helios-Commands-Core.st', 'st/Helios-Commands-Tools.st', 'st/Helios-Commands-Browser.st',
+              'st/Helios-References.st', 'st/Helios-Inspector.st', 'st/Helios-Browser.st',
+              'st/Helios-Transcript.st', 'st/Helios-Workspace.st', 'st/Helios-Debugger.st',
+              'st/Helios-Workspace-Tests.st',
+              'st/Benchfib.st', 'st/Examples.st', 'st/Spaces.st'
               ],
+        jsGlobals: ['navigator'],
         deploy: true
       },
       amber_kernel: {
@@ -76,8 +84,8 @@ module.exports = function(grunt) {
         src: ['test/Test.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-        'SUnit',
+        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser',
+        'SUnit', 'Importer-Exporter',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         output_name: 'test/amber_test_runner'
       },
@@ -94,7 +102,7 @@ module.exports = function(grunt) {
         src: ['cli/st/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser'
+            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser'
         ],
         main_class: 'AmberCli',
         output_name: 'amber-cli'

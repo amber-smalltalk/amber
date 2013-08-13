@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit');
+
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.addMethod(
 smalltalk.method({
@@ -920,6 +921,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},smalltalk.TestSuiteRunner.klass)})},
 messageSends: ["suite:", "new"]}),
 smalltalk.TestSuiteRunner.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

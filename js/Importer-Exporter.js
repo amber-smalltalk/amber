@@ -1,5 +1,782 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
+
+smalltalk.addClass('AbstractExporter', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.AbstractExporter.comment="I am an abstract exporter for Amber source code.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "chunkEscape:",
+category: 'convenience',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(aString)._replace_with_("!","!!"))._trimBoth();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},smalltalk.AbstractExporter)})},
+args: ["aString"],
+source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^(aString replace: '!' with: '!!') trimBoth",
+messageSends: ["trimBoth", "replace:with:"],
+referencedClasses: []
+}),
+smalltalk.AbstractExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classNameFor:",
+category: 'convenience',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(" class");
+} else {
+$3=_st(aClass)._isNil();
+if(smalltalk.assert($3)){
+$1="nil";
+} else {
+$1=_st(aClass)._name();
+};
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.AbstractExporter)})},
+args: ["aClass"],
+source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, ' class' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass isNil\x0a\x09\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09\x09ifFalse: [ aClass name ] ]",
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
+referencedClasses: []
+}),
+smalltalk.AbstractExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe",
+category: 'fileOut',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.AbstractExporter)})},
+args: [],
+source: "recipe\x0a\x09\x22Recipe to export a given package.\x22\x0a\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.AbstractExporter);
+
+
+smalltalk.AbstractExporter.klass.iVarNames = ['default'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "default",
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@default"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@default"]=self._new();
+$1=self["@default"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.AbstractExporter.klass)})},
+args: [],
+source: "default\x0a\x09^ default ifNil: [ default := self new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: []
+}),
+smalltalk.AbstractExporter.klass);
+
+
+smalltalk.addClass('ChunkExporter', smalltalk.AbstractExporter, [], 'Importer-Exporter');
+smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportCategoryEpilogueOf:on:",
+category: 'output',
+fn: function (aCategory,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_(" !");
+_st($1)._lf();
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryEpilogueOf:on:",{aCategory:aCategory,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aCategory", "aStream"],
+source: "exportCategoryEpilogueOf: aCategory on: aStream\x0a\x09aStream nextPutAll: ' !'; lf; lf",
+messageSends: ["nextPutAll:", "lf"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportCategoryPrologueOf:on:",
+category: 'output',
+fn: function (aCategory,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("!".__comma(self._classNameFor_(_st(aCategory)._theClass())));
+$2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(_st(aCategory)._name())).__comma("'!"));
+return self}, function($ctx1) {$ctx1.fill(self,"exportCategoryPrologueOf:on:",{aCategory:aCategory,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aCategory", "aStream"],
+source: "exportCategoryPrologueOf: aCategory on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aCategory theClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', aCategory name, '''!'",
+messageSends: ["nextPutAll:", ",", "classNameFor:", "theClass", "name"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportDefinitionOf:on:",
+category: 'output',
+fn: function (aClass,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+$1=aStream;
+_st($1)._nextPutAll_(self._classNameFor_(_st(aClass)._superclass()));
+_st($1)._nextPutAll_(" subclass: #".__comma(self._classNameFor_(aClass)));
+_st($1)._lf();
+_st($1)._tab();
+$2=_st($1)._nextPutAll_("instanceVariableNames: '");
+_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(" ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$3=aStream;
+_st($3)._nextPutAll_("'");
+_st($3)._lf();
+_st($3)._tab();
+_st($3)._nextPutAll_(_st("package: '".__comma(_st(aClass)._category())).__comma("'!"));
+$4=_st($3)._lf();
+$5=_st(_st(aClass)._comment())._notEmpty();
+if(smalltalk.assert($5)){
+$6=aStream;
+_st($6)._nextPutAll_(_st("!".__comma(self._classNameFor_(aClass))).__comma(" commentStamp!"));
+_st($6)._lf();
+_st($6)._nextPutAll_(_st(self._chunkEscape_(_st(aClass)._comment())).__comma("!"));
+$7=_st($6)._lf();
+$7;
+};
+_st(aStream)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aClass", "aStream"],
+source: "exportDefinitionOf: aClass on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;\x0a\x09\x09tab; nextPutAll: 'instanceVariableNames: '''.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: each]\x0a\x09\x09separatedBy: [aStream nextPutAll: ' '].\x0a\x09aStream\x0a\x09\x09nextPutAll: ''''; lf;\x0a\x09\x09tab; nextPutAll: 'package: ''', aClass category, '''!'; lf.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;\x0a\x09\x09nextPutAll: (self chunkEscape: aClass comment), '!';lf].\x0a\x09aStream lf",
+messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "chunkEscape:"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportMetaDefinitionOf:on:",
+category: 'output',
+fn: function (aClass,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5;
+$1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
+if(! smalltalk.assert($1)){
+$2=aStream;
+_st($2)._nextPutAll_(self._classNameFor_(_st(aClass)._class()));
+$3=_st($2)._nextPutAll_(" instanceVariableNames: '");
+$3;
+_st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(" ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$4=aStream;
+_st($4)._nextPutAll_("'!");
+_st($4)._lf();
+$5=_st($4)._lf();
+$5;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aClass", "aStream"],
+source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: (self classNameFor: aClass class);\x0a\x09\x09\x09nextPutAll: ' instanceVariableNames: '''.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09\x09do: [:each | aStream nextPutAll: each]\x0a\x09\x09\x09separatedBy: [aStream nextPutAll: ' '].\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '''!'; lf; lf]",
+messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "classNameFor:", "do:separatedBy:", "lf"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportMethod:on:",
+category: 'output',
+fn: function (aMethod,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._lf();
+_st($1)._lf();
+_st($1)._nextPutAll_(self._chunkEscape_(_st(aMethod)._source()));
+_st($1)._lf();
+$2=_st($1)._nextPutAll_("!");
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aMethod", "aStream"],
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;\x0a\x09\x09nextPutAll: '!'",
+messageSends: ["lf", "nextPutAll:", "chunkEscape:", "source"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackageDefinitionOf:on:",
+category: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_(_st("Smalltalk current createPackage: '".__comma(_st(aPackage)._name())).__comma("'!"));
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.ChunkExporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", ",", "name", "lf"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extensionCategoriesOfPackage:",
+category: 'accessing',
+fn: function (aPackage){
+var self=this;
+var name,map,result;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $MethodCategory(){return smalltalk.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+name=_st(aPackage)._name();
+result=_st($OrderedCollection())._new();
+_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st([each,_st(each)._class()])._do_((function(aClass){
+return smalltalk.withContext(function($ctx3) {
+map=_st($Dictionary())._new();
+map;
+_st(aClass)._protocolsDo_((function(category,methods){
+return smalltalk.withContext(function($ctx4) {
+$1=_st(category)._match_("^\x5c*".__comma(name));
+if(smalltalk.assert($1)){
+return _st(map)._at_put_(category,methods);
+};
+}, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,3)})}));
+return _st(result)._addAll_(_st(_st(_st(map)._keys())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx4) {
+return _st(a).__lt_eq(b);
+}, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,5)})})))._collect_((function(category){
+return smalltalk.withContext(function($ctx4) {
+return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._at_(category));
+}, function($ctx4) {$ctx4.fillBlock({category:category},$ctx3,6)})})));
+}, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$2=result;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},smalltalk.ChunkExporter)})},
+args: ["aPackage"],
+source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09\x09\x09(category match: '^\x5c*', name) ifTrue: [ map at: category put: methods ]].\x0a\x09\x09\x09result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].\x0a\x09^result",
+messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "current", "class", "protocolsDo:", "ifTrue:", "match:", ",", "at:put:", "addAll:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
+referencedClasses: ["OrderedCollection", "Package", "Smalltalk", "Dictionary", "MethodCategory"]
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methodsOfCategory:",
+category: 'accessing',
+fn: function (aCategory){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(aCategory)._methods())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methodsOfCategory:",{aCategory:aCategory},smalltalk.ChunkExporter)})},
+args: ["aCategory"],
+source: "methodsOfCategory: aCategory\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^(aCategory methods) sorted: [:a :b | a selector <= b selector]",
+messageSends: ["sorted:", "methods", "<=", "selector"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownCategoriesOfClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+var map;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+function $MethodCategory(){return smalltalk.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+map=_st($Dictionary())._new();
+_st(aClass)._protocolsDo_((function(category,methods){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(category)._match_("^\x5c*");
+if(! smalltalk.assert($1)){
+return _st(map)._at_put_(category,methods);
+};
+}, function($ctx2) {$ctx2.fillBlock({category:category,methods:methods},$ctx1,1)})}));
+$2=_st(_st(_st(map)._keys())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(a).__lt_eq(b);
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})})))._collect_((function(category){
+return smalltalk.withContext(function($ctx2) {
+return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._at_(category));
+}, function($ctx2) {$ctx2.fillBlock({category:category},$ctx1,4)})}));
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},smalltalk.ChunkExporter)})},
+args: ["aClass"],
+source: "ownCategoriesOfClass: aClass\x0a\x09\x22Answer the protocols of aClassthat are not package extensions\x22\x0a\x09\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09(category match: '^\x5c*') ifFalse: [ map at: category put: methods ]].\x0a\x09^(map keys sorted: [:a :b | a <= b ]) collect: [:category |\x0a\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]",
+messageSends: ["new", "protocolsDo:", "ifFalse:", "match:", "at:put:", "collect:", "sorted:", "keys", "<=", "name:theClass:methods:", "at:"],
+referencedClasses: ["Dictionary", "MethodCategory"]
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownCategoriesOfMetaClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._ownCategoriesOfClass_(_st(aClass)._class());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfMetaClass:",{aClass:aClass},smalltalk.ChunkExporter)})},
+args: ["aClass"],
+source: "ownCategoriesOfMetaClass: aClass\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09^self ownCategoriesOfClass: aClass class",
+messageSends: ["ownCategoriesOfClass:", "class"],
+referencedClasses: []
+}),
+smalltalk.ChunkExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe",
+category: 'fileOut',
+fn: function (){
+var self=this;
+var exportCategoryRecipe;
+function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+exportCategoryRecipe=[self.__minus_gt("exportCategoryPrologueOf:on:"),[self.__minus_gt("methodsOfCategory:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportCategoryEpilogueOf:on:")];
+$1=[self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),_st([self.__minus_gt("ownCategoriesOfClass:")]).__comma(exportCategoryRecipe),self.__minus_gt("exportMetaDefinitionOf:on:"),_st([self.__minus_gt("ownCategoriesOfMetaClass:")]).__comma(exportCategoryRecipe)],_st([self.__minus_gt("extensionCategoriesOfPackage:")]).__comma(exportCategoryRecipe)];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recipe",{exportCategoryRecipe:exportCategoryRecipe},smalltalk.ChunkExporter)})},
+args: [],
+source: "recipe\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09| exportCategoryRecipe |\x0a\x09exportCategoryRecipe := {\x0a\x09\x09self -> #exportCategoryPrologueOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09self -> #methodsOfCategory:.\x0a\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09self -> #exportCategoryEpilogueOf:on: }.\x0a\x0a\x09^{\x0a\x09\x09self -> #exportPackageDefinitionOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09PluggableExporter -> #ownClassesOfPackage:.\x0a\x09\x09\x09self -> #exportDefinitionOf:on:.\x0a\x09\x09\x09{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.\x0a\x09\x09\x09self -> #exportMetaDefinitionOf:on:.\x0a\x09\x09\x09{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.\x0a\x09\x09{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe\x0a\x09}",
+messageSends: ["->", ","],
+referencedClasses: ["PluggableExporter"]
+}),
+smalltalk.ChunkExporter);
+
+
+
+smalltalk.addClass('Exporter', smalltalk.AbstractExporter, [], 'Importer-Exporter');
+smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).\x0a\x0a## API\x0a\x0aUse `#exportAll`, `#exportClass:` or `#exportPackage:` methods.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classNameFor:",
+category: 'convenience',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
+} else {
+$3=_st(aClass)._isNil();
+if(smalltalk.assert($3)){
+$1="nil";
+} else {
+$1=_st(aClass)._name();
+};
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.Exporter)})},
+args: ["aClass"],
+source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09aClass isNil\x0a\x09\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09\x09ifFalse: [ aClass name ] ]",
+messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportDefinitionOf:on:",
+category: 'output',
+fn: function (aClass,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+$1=aStream;
+_st($1)._lf();
+_st($1)._nextPutAll_("smalltalk.addClass(");
+_st($1)._nextPutAll_(_st("'".__comma(self._classNameFor_(aClass))).__comma("', "));
+_st($1)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aClass)._superclass())));
+$2=_st($1)._nextPutAll_(", [");
+_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(_st("'".__comma(each)).__comma("'"));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(", ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$3=aStream;
+_st($3)._nextPutAll_("], '");
+_st($3)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
+$4=_st($3)._nextPutAll_(");");
+$5=_st(_st(aClass)._comment())._notEmpty();
+if(smalltalk.assert($5)){
+$6=aStream;
+_st($6)._lf();
+_st($6)._nextPutAll_("smalltalk.");
+_st($6)._nextPutAll_(self._classNameFor_(aClass));
+_st($6)._nextPutAll_(".comment=");
+_st($6)._nextPutAll_(_st(_st(aClass)._comment())._asJavascript());
+$7=_st($6)._nextPutAll_(";");
+$7;
+};
+_st(aStream)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
+args: ["aClass", "aStream"],
+source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: '''', each, '''']\x0a\x09\x09separatedBy: [aStream nextPutAll: ', '].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.';\x0a\x09\x09nextPutAll: (self classNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';'].\x0a\x09aStream lf",
+messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "asJavascript"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportMetaDefinitionOf:on:",
+category: 'output',
+fn: function (aClass,aStream){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+_st(aStream)._lf();
+$1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
+if(! smalltalk.assert($1)){
+$2=aStream;
+_st($2)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aClass)._class())));
+$3=_st($2)._nextPutAll_(".iVarNames = [");
+$3;
+_st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(_st("'".__comma(each)).__comma("'"));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(",");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+_st(aStream)._nextPutAll_("];".__comma(_st($String())._lf()));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
+args: ["aClass", "aStream"],
+source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aStream lf.\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: '''', each, '''']\x0a\x09\x09separatedBy: [aStream nextPutAll: ','].\x0a\x09\x09aStream nextPutAll: '];', String lf]",
+messageSends: ["lf", "ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", ",", "classNameFor:", "do:separatedBy:"],
+referencedClasses: ["String"]
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportMethod:on:",
+category: 'output',
+fn: function (aMethod,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=aStream;
+_st($1)._nextPutAll_("smalltalk.addMethod(");
+_st($1)._lf();
+_st($1)._nextPutAll_("smalltalk.method({");
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("selector: ".__comma(_st(_st(aMethod)._selector())._asJavascript())).__comma(","));
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("category: '".__comma(_st(aMethod)._category())).__comma("',"));
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("fn: ".__comma(_st(_st(aMethod)._fn())._compiledSource())).__comma(","));
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("args: ".__comma(_st(_st(aMethod)._arguments())._asJavascript())).__comma(","));
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("source: ".__comma(_st(_st(aMethod)._source())._asJavascript())).__comma(","));
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("messageSends: ".__comma(_st(_st(aMethod)._messageSends())._asJavascript())).__comma(","));
+_st($1)._lf();
+$2=_st($1)._nextPutAll_("referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
+$3=aStream;
+_st($3)._lf();
+_st($3)._nextPutAll_("}),");
+_st($3)._lf();
+_st($3)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aMethod)._methodClass())));
+_st($3)._nextPutAll_(");");
+_st($3)._lf();
+$4=_st($3)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},smalltalk.Exporter)})},
+args: ["aMethod", "aStream"],
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'category: ''', aMethod category, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "category", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:", "methodClass"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackageDefinitionOf:on:",
+category: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("smalltalk.addPackage(");
+_st($1)._nextPutAll_(_st("'".__comma(_st(aPackage)._name())).__comma("');"));
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageDefinitionOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addPackage(';\x0a\x09\x09nextPutAll: '''', aPackage name, ''');';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", ",", "name", "lf"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackageEpilogueOf:on:",
+category: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageEpilogueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "lf"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackagePrologueOf:on:",
+category: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("(function(smalltalk,nil,_st){");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "lf"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extensionMethodsOfPackage:",
+category: 'accessing',
+fn: function (aPackage){
+var self=this;
+var name,result;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+name=_st(aPackage)._name();
+result=_st($OrderedCollection())._new();
+_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st([each,_st(each)._class()])._do_((function(aClass){
+return smalltalk.withContext(function($ctx3) {
+return _st(result)._addAll_(_st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,3)})})))._select_((function(method){
+return smalltalk.withContext(function($ctx4) {
+return _st(_st(method)._category())._match_("^\x5c*".__comma(name));
+}, function($ctx4) {$ctx4.fillBlock({method:method},$ctx3,4)})})));
+}, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$1=result;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,name:name,result:result},smalltalk.Exporter)})},
+args: ["aPackage"],
+source: "extensionMethodsOfPackage: aPackage\x0a\x09\x22Issue #143: sort classes and methods alphabetically\x22\x0a\x0a\x09| name result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09result addAll: (((aClass methodDictionary values)\x0a\x09\x09\x09\x09sorted: [:a :b | a selector <= b selector])\x0a\x09\x09\x09\x09select: [:method | method category match: '^\x5c*', name]) ]].\x0a\x09^result",
+messageSends: ["name", "new", "do:", "sortedClasses:", "classes", "current", "class", "addAll:", "select:", "sorted:", "values", "methodDictionary", "<=", "selector", "match:", "category", ","],
+referencedClasses: ["OrderedCollection", "Package", "Smalltalk"]
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownMethodsOfClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._category())._match_("^\x5c*");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownMethodsOfClass:",{aClass:aClass},smalltalk.Exporter)})},
+args: ["aClass"],
+source: "ownMethodsOfClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])\x0a\x09\x09reject: [:each | (each category match: '^\x5c*')]",
+messageSends: ["reject:", "sorted:", "values", "methodDictionary", "<=", "selector", "match:", "category"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownMethodsOfMetaClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._ownMethodsOfClass_(_st(aClass)._class());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownMethodsOfMetaClass:",{aClass:aClass},smalltalk.Exporter)})},
+args: ["aClass"],
+source: "ownMethodsOfMetaClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^self ownMethodsOfClass: aClass class",
+messageSends: ["ownMethodsOfClass:", "class"],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe",
+category: 'fileOut',
+fn: function (){
+var self=this;
+function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=[self.__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportPackageEpilogueOf:on:")];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter)})},
+args: [],
+source: "recipe\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09^{\x0a\x09\x09self -> #exportPackagePrologueOf:on:.\x0a\x09\x09self -> #exportPackageDefinitionOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09PluggableExporter -> #ownClassesOfPackage:.\x0a\x09\x09\x09self -> #exportDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09\x09self -> #exportMetaDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfMetaClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: } }.\x0a\x09\x09{\x0a\x09\x09\x09self -> #extensionMethodsOfPackage:.\x0a\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09self -> #exportPackageEpilogueOf:on:\x0a\x09}",
+messageSends: ["->"],
+referencedClasses: ["PluggableExporter"]
+}),
+smalltalk.Exporter);
+
+
+
+smalltalk.addClass('StrippedExporter', smalltalk.Exporter, [], 'Importer-Exporter');
+smalltalk.StrippedExporter.comment="I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportDefinitionOf:on:",
+category: 'output',
+fn: function (aClass,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=aStream;
+_st($1)._lf();
+_st($1)._nextPutAll_("smalltalk.addClass(");
+_st($1)._nextPutAll_(_st("'".__comma(self._classNameFor_(aClass))).__comma("', "));
+_st($1)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aClass)._superclass())));
+$2=_st($1)._nextPutAll_(", [");
+_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(_st("'".__comma(each)).__comma("'"));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(aStream)._nextPutAll_(", ");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$3=aStream;
+_st($3)._nextPutAll_("], '");
+_st($3)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
+$4=_st($3)._nextPutAll_(");");
+_st(aStream)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.StrippedExporter)})},
+args: ["aClass", "aStream"],
+source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: '''', each, '''']\x0a\x09\x09separatedBy: [aStream nextPutAll: ', '].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aStream lf",
+messageSends: ["lf", "nextPutAll:", ",", "classNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category"],
+referencedClasses: []
+}),
+smalltalk.StrippedExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportMethod:on:",
+category: 'output',
+fn: function (aMethod,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("smalltalk.addMethod(");
+_st($1)._lf();
+_st($1)._nextPutAll_("smalltalk.method({");
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("selector: ".__comma(_st(_st(aMethod)._selector())._asJavascript())).__comma(","));
+_st($1)._lf();
+_st($1)._nextPutAll_(_st("fn: ".__comma(_st(_st(aMethod)._fn())._compiledSource())).__comma(","));
+_st($1)._lf();
+_st($1)._nextPutAll_("messageSends: ".__comma(_st(_st(aMethod)._messageSends())._asJavascript()));
+_st($1)._nextPutAll_("}),");
+_st($1)._lf();
+_st($1)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aMethod)._methodClass())));
+_st($1)._nextPutAll_(");");
+_st($1)._lf();
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:on:",{aMethod:aMethod,aStream:aStream},smalltalk.StrippedExporter)})},
+args: ["aMethod", "aStream"],
+source: "exportMethod: aMethod on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
+messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "compiledSource", "fn", "messageSends", "classNameFor:", "methodClass"],
+referencedClasses: []
+}),
+smalltalk.StrippedExporter);
+
+
+
 smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
 smalltalk.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk";
 smalltalk.addMethod(
@@ -80,748 +857,6 @@ referencedClasses: []
 smalltalk.ChunkParser.klass);
 
 
-smalltalk.addClass('Exporter', smalltalk.Object, [], 'Importer-Exporter');
-smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).\x0a\x0a## API\x0a\x0aUse `#exportAll`, `#exportClass:` or `#exportPackage:` methods.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "classNameFor:",
-category: 'private',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(aClass)._isMetaclass();
-if(smalltalk.assert($2)){
-$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(".klass");
-} else {
-$3=_st(aClass)._isNil();
-if(smalltalk.assert($3)){
-$1="nil";
-} else {
-$1=_st(aClass)._name();
-};
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.Exporter)})},
-args: ["aClass"],
-source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [aClass instanceClass name, '.klass']\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: ['nil']\x0a\x09\x09\x09ifFalse: [aClass name]]",
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportAll",
-category: 'fileOut',
-fn: function (){
-var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($String())._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(pkg){
-return smalltalk.withContext(function($ctx3) {
-return _st(stream)._nextPutAll_(self._exportPackage_(_st(pkg)._name()));
-}, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"exportAll",{},smalltalk.Exporter)})},
-args: [],
-source: "exportAll\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09stream nextPutAll: (self exportPackage: pkg name)]]",
-messageSends: ["streamContents:", "do:", "packages", "current", "nextPutAll:", "exportPackage:", "name"],
-referencedClasses: ["String", "Smalltalk"]
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportClass:",
-category: 'fileOut',
-fn: function (aClass){
-var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($String())._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {
-self._exportDefinitionOf_on_(aClass,stream);
-self._exportMethodsOf_on_(aClass,stream);
-self._exportMetaDefinitionOf_on_(aClass,stream);
-return self._exportMethodsOf_on_(_st(aClass)._class(),stream);
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"exportClass:",{aClass:aClass},smalltalk.Exporter)})},
-args: ["aClass"],
-source: "exportClass: aClass\x0a\x09\x22Export a single class. Subclasses override these methods.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09self exportDefinitionOf: aClass on: stream.\x0a\x09\x09self exportMethodsOf: aClass on: stream.\x0a\x09\x09self exportMetaDefinitionOf: aClass on: stream.\x0a\x09\x09self exportMethodsOf: aClass class on: stream]",
-messageSends: ["streamContents:", "exportDefinitionOf:on:", "exportMethodsOf:on:", "exportMetaDefinitionOf:on:", "class"],
-referencedClasses: ["String"]
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportDefinitionOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.addClass(");
-_st($1)._nextPutAll_(_st("'".__comma(self._classNameFor_(aClass))).__comma("', "));
-_st($1)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aClass)._superclass())));
-$2=_st($1)._nextPutAll_(", [");
-_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(_st("'".__comma(each)).__comma("'"));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(", ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=aStream;
-_st($3)._nextPutAll_("], '");
-_st($3)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
-$4=_st($3)._nextPutAll_(");");
-$5=_st(_st(aClass)._comment())._notEmpty();
-if(smalltalk.assert($5)){
-$6=aStream;
-_st($6)._lf();
-_st($6)._nextPutAll_("smalltalk.");
-_st($6)._nextPutAll_(self._classNameFor_(aClass));
-_st($6)._nextPutAll_(".comment=");
-_st($6)._nextPutAll_(_st(_st(aClass)._comment())._asJavascript());
-$7=_st($6)._nextPutAll_(";");
-$7;
-};
-_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
-args: ["aClass", "aStream"],
-source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: '''', each, '''']\x0a\x09\x09separatedBy: [aStream nextPutAll: ', '].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09\x09lf;\x0a\x09\x09nextPutAll: 'smalltalk.';\x0a\x09\x09nextPutAll: (self classNameFor: aClass);\x0a\x09\x09nextPutAll: '.comment=';\x0a\x09\x09nextPutAll: aClass comment asJavascript;\x0a\x09\x09nextPutAll: ';'].\x0a\x09aStream lf",
-messageSends: ["nextPutAll:", ",", "classNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "lf", "asJavascript"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMetaDefinitionOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
-if(! smalltalk.assert($1)){
-$2=aStream;
-_st($2)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aClass)._class())));
-$3=_st($2)._nextPutAll_(".iVarNames = [");
-$3;
-_st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(_st("'".__comma(each)).__comma("'"));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(",");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-_st(aStream)._nextPutAll_("];".__comma(_st($String())._lf()));
-};
-return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
-args: ["aClass", "aStream"],
-source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass class);\x0a\x09\x09nextPutAll: '.iVarNames = ['.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: '''', each, '''']\x0a\x09\x09separatedBy: [aStream nextPutAll: ','].\x0a\x09\x09aStream nextPutAll: '];', String lf]",
-messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", ",", "classNameFor:", "do:separatedBy:", "lf"],
-referencedClasses: ["String"]
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMethod:of:on:",
-category: 'private',
-fn: function (aMethod,aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.addMethod(");
-_st($1)._lf();
-_st($1)._nextPutAll_("smalltalk.method({");
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("selector: ".__comma(_st(_st(aMethod)._selector())._asJavascript())).__comma(","));
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("category: '".__comma(_st(aMethod)._category())).__comma("',"));
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("fn: ".__comma(_st(_st(aMethod)._fn())._compiledSource())).__comma(","));
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("args: ".__comma(_st(_st(aMethod)._arguments())._asJavascript())).__comma(","));
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("source: ".__comma(_st(_st(aMethod)._source())._asJavascript())).__comma(","));
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("messageSends: ".__comma(_st(_st(aMethod)._messageSends())._asJavascript())).__comma(","));
-_st($1)._lf();
-$2=_st($1)._nextPutAll_("referencedClasses: ".__comma(_st(_st(aMethod)._referencedClasses())._asJavascript()));
-$3=aStream;
-_st($3)._lf();
-_st($3)._nextPutAll_("}),");
-_st($3)._lf();
-_st($3)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(aClass)));
-_st($3)._nextPutAll_(");");
-_st($3)._lf();
-$4=_st($3)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
-args: ["aMethod", "aClass", "aStream"],
-source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'category: ''', aMethod category, ''',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;\x0a\x09\x09nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'referencedClasses: ', aMethod referencedClasses asJavascript.\x0a\x09aStream\x0a\x09\x09lf;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "category", "compiledSource", "fn", "arguments", "source", "messageSends", "referencedClasses", "classNameFor:"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMethodsOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-_st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(_st(each)._category())._match_("^\x5c*");
-if(! smalltalk.assert($1)){
-return self._exportMethod_of_on_(each,aClass,aStream);
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethodsOf:on:",{aClass:aClass,aStream:aStream},smalltalk.Exporter)})},
-args: ["aClass", "aStream"],
-source: "exportMethodsOf: aClass on: aStream\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:each |\x0a\x09\x09(each category match: '^\x5c*') ifFalse: [\x0a\x09\x09\x09self exportMethod: each of: aClass on: aStream]].\x0a\x09aStream lf",
-messageSends: ["do:", "sorted:", "values", "methodDictionary", "<=", "selector", "ifFalse:", "match:", "category", "exportMethod:of:on:", "lf"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackage:",
-category: 'fileOut',
-fn: function (packageName){
-var self=this;
-var package_;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($String())._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {
-self._exportPackagePrologueOn_(stream);
-return _st((function(){
-return smalltalk.withContext(function($ctx3) {
-package_=_st(_st($Smalltalk())._current())._packageAt_(packageName);
-package_;
-self._exportPackageDefinitionOf_on_(package_,stream);
-_st(_st(_st(package_)._sortedClasses())._asSet())._do_((function(each){
-return smalltalk.withContext(function($ctx4) {
-return _st(stream)._nextPutAll_(self._exportClass_(each));
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
-return self._exportPackageExtensionsOf_on_(package_,stream);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}))._ensure_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._exportPackageEpilogueOn_(stream);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"exportPackage:",{packageName:packageName,package_:package_},smalltalk.Exporter)})},
-args: ["packageName"],
-source: "exportPackage: packageName\x0a\x09\x22Export a given package by name.\x22\x0a\x0a\x09| package |\x0a\x09^String streamContents: [:stream |\x0a\x09\x09self exportPackagePrologueOn: stream.\x0a\x09\x09[\x0a\x09\x09\x09package := Smalltalk current packageAt: packageName.\x0a\x09\x09\x09self exportPackageDefinitionOf: package on: stream.\x0a\x0a\x09\x09\x09\x22Export classes in dependency order.\x0a\x09\x09\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09\x09\x09package sortedClasses asSet do: [:each |\x0a\x09\x09\x09\x09\x09\x09stream nextPutAll: (self exportClass: each)].\x0a\x09\x09\x09self exportPackageExtensionsOf: package on: stream\x0a\x09\x09] ensure: [\x0a\x09\x09\x09self exportPackageEpilogueOn: stream\x0a\x09\x09]]",
-messageSends: ["streamContents:", "exportPackagePrologueOn:", "ensure:", "exportPackageEpilogueOn:", "packageAt:", "current", "exportPackageDefinitionOf:on:", "do:", "nextPutAll:", "exportClass:", "asSet", "sortedClasses", "exportPackageExtensionsOf:on:"],
-referencedClasses: ["Smalltalk", "String"]
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageDefinitionOf:on:",
-category: 'private',
-fn: function (package_,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.addPackage(");
-_st($1)._nextPutAll_(_st("'".__comma(_st(package_)._name())).__comma("');"));
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{package_:package_,aStream:aStream},smalltalk.Exporter)})},
-args: ["package", "aStream"],
-source: "exportPackageDefinitionOf: package on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addPackage(';\x0a\x09\x09nextPutAll: '''', package name, ''');';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", ",", "name", "lf"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageEpilogueOn:",
-category: 'private',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("})(global_smalltalk,global_nil,global__st);");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOn:",{aStream:aStream},smalltalk.Exporter)})},
-args: ["aStream"],
-source: "exportPackageEpilogueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '})(global_smalltalk,global_nil,global__st);';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "lf"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageExtensionsOf:on:",
-category: 'private',
-fn: function (package_,aStream){
-var self=this;
-var name;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-name=_st(package_)._name();
-_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st([each,_st(each)._class()])._do_((function(aClass){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(_st(_st(aClass)._methodDictionary())._values())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx4) {
-return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
-}, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,3)})})))._do_((function(method){
-return smalltalk.withContext(function($ctx4) {
-$1=_st(_st(method)._category())._match_("^\x5c*".__comma(name));
-if(smalltalk.assert($1)){
-return self._exportMethod_of_on_(method,aClass,aStream);
-};
-}, function($ctx4) {$ctx4.fillBlock({method:method},$ctx3,4)})}));
-}, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageExtensionsOf:on:",{package_:package_,aStream:aStream,name:name},smalltalk.Exporter)})},
-args: ["package", "aStream"],
-source: "exportPackageExtensionsOf: package on: aStream\x0a\x09\x22Issue #143: sort classes and methods alphabetically\x22\x0a\x0a\x09| name |\x0a\x09name := package name.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector]) do: [:method |\x0a\x09\x09\x09\x09(method category match: '^\x5c*', name) ifTrue: [\x0a\x09\x09\x09\x09\x09self exportMethod: method of: aClass on: aStream ]]]]",
-messageSends: ["name", "do:", "sortedClasses:", "classes", "current", "class", "sorted:", "values", "methodDictionary", "<=", "selector", "ifTrue:", "match:", "category", ",", "exportMethod:of:on:"],
-referencedClasses: ["Package", "Smalltalk"]
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackagePrologueOn:",
-category: 'private',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("(function(smalltalk,nil,_st){");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.Exporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: '(function(smalltalk,nil,_st){';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "lf"],
-referencedClasses: []
-}),
-smalltalk.Exporter);
-
-
-
-smalltalk.addClass('ChunkExporter', smalltalk.Exporter, [], 'Importer-Exporter');
-smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "chunkEscape:",
-category: 'private',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(aString)._replace_with_("!","!!"))._trimBoth();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"chunkEscape:",{aString:aString},smalltalk.ChunkExporter)})},
-args: ["aString"],
-source: "chunkEscape: aString\x0a\x09\x22Replace all occurrences of ! with !! and trim at both ends.\x22\x0a\x0a\x09^(aString replace: '!' with: '!!') trimBoth",
-messageSends: ["trimBoth", "replace:with:"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "classNameFor:",
-category: 'private',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(aClass)._isMetaclass();
-if(smalltalk.assert($2)){
-$1=_st(_st(_st(aClass)._instanceClass())._name()).__comma(" class");
-} else {
-$3=_st(aClass)._isNil();
-if(smalltalk.assert($3)){
-$1="nil";
-} else {
-$1=_st(aClass)._name();
-};
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.ChunkExporter)})},
-args: ["aClass"],
-source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [aClass instanceClass name, ' class']\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: ['nil']\x0a\x09\x09\x09ifFalse: [aClass name]]",
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportDefinitionOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7;
-$1=aStream;
-_st($1)._nextPutAll_(self._classNameFor_(_st(aClass)._superclass()));
-_st($1)._nextPutAll_(" subclass: #".__comma(self._classNameFor_(aClass)));
-_st($1)._lf();
-_st($1)._tab();
-$2=_st($1)._nextPutAll_("instanceVariableNames: '");
-_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(" ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=aStream;
-_st($3)._nextPutAll_("'");
-_st($3)._lf();
-_st($3)._tab();
-_st($3)._nextPutAll_(_st("package: '".__comma(_st(aClass)._category())).__comma("'!"));
-$4=_st($3)._lf();
-$5=_st(_st(aClass)._comment())._notEmpty();
-if(smalltalk.assert($5)){
-$6=aStream;
-_st($6)._nextPutAll_(_st("!".__comma(self._classNameFor_(aClass))).__comma(" commentStamp!"));
-_st($6)._lf();
-_st($6)._nextPutAll_(_st(self._chunkEscape_(_st(aClass)._comment())).__comma("!"));
-$7=_st($6)._lf();
-$7;
-};
-_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aClass", "aStream"],
-source: "exportDefinitionOf: aClass on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;\x0a\x09\x09tab; nextPutAll: 'instanceVariableNames: '''.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: each]\x0a\x09\x09separatedBy: [aStream nextPutAll: ' '].\x0a\x09aStream\x0a\x09\x09nextPutAll: ''''; lf;\x0a\x09\x09tab; nextPutAll: 'package: ''', aClass category, '''!'; lf.\x0a\x09aClass comment notEmpty ifTrue: [\x0a\x09\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aClass), ' commentStamp!';lf;\x0a\x09\x09nextPutAll: (self chunkEscape: aClass comment), '!';lf].\x0a\x09aStream lf",
-messageSends: ["nextPutAll:", "classNameFor:", "superclass", ",", "lf", "tab", "do:separatedBy:", "instanceVariableNames", "category", "ifTrue:", "notEmpty", "comment", "chunkEscape:"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMetaDefinitionOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
-$1=_st(_st(_st(aClass)._class())._instanceVariableNames())._isEmpty();
-if(! smalltalk.assert($1)){
-$2=aStream;
-_st($2)._nextPutAll_(self._classNameFor_(_st(aClass)._class()));
-$3=_st($2)._nextPutAll_(" instanceVariableNames: '");
-$3;
-_st(_st(_st(aClass)._class())._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(" ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$4=aStream;
-_st($4)._nextPutAll_("'!");
-_st($4)._lf();
-$5=_st($4)._lf();
-$5;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"exportMetaDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aClass", "aStream"],
-source: "exportMetaDefinitionOf: aClass on: aStream\x0a\x0a\x09aClass class instanceVariableNames isEmpty ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: (self classNameFor: aClass class);\x0a\x09\x09\x09nextPutAll: ' instanceVariableNames: '''.\x0a\x09\x09aClass class instanceVariableNames\x0a\x09\x09\x09do: [:each | aStream nextPutAll: each]\x0a\x09\x09\x09separatedBy: [aStream nextPutAll: ' '].\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: '''!'; lf; lf]",
-messageSends: ["ifFalse:", "isEmpty", "instanceVariableNames", "class", "nextPutAll:", "classNameFor:", "do:separatedBy:", "lf"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMethod:of:on:",
-category: 'private',
-fn: function (aMethod,aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._lf();
-_st($1)._lf();
-_st($1)._nextPutAll_(self._chunkEscape_(_st(aMethod)._source()));
-_st($1)._lf();
-$2=_st($1)._nextPutAll_("!");
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aMethod", "aClass", "aStream"],
-source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09lf; lf; nextPutAll: (self chunkEscape: aMethod source); lf;\x0a\x09\x09nextPutAll: '!'",
-messageSends: ["lf", "nextPutAll:", "chunkEscape:", "source"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMethods:category:of:on:",
-category: 'private',
-fn: function (methods,category,aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=aStream;
-_st($1)._nextPutAll_("!".__comma(self._classNameFor_(aClass)));
-$2=_st($1)._nextPutAll_(_st(" methodsFor: '".__comma(category)).__comma("'!"));
-_st(_st(methods)._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})})))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return self._exportMethod_of_on_(each,aClass,aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-$3=aStream;
-_st($3)._nextPutAll_(" !");
-_st($3)._lf();
-$4=_st($3)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethods:category:of:on:",{methods:methods,category:category,aClass:aClass,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["methods", "category", "aClass", "aStream"],
-source: "exportMethods: methods category: category of: aClass on: aStream\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: '!', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ' methodsFor: ''', category, '''!'.\x0a\x09\x09(methods sorted: [:a :b | a selector <= b selector]) do: [:each |\x0a\x09\x09\x09\x09self exportMethod: each of: aClass on: aStream].\x0a\x09aStream nextPutAll: ' !'; lf; lf",
-messageSends: ["nextPutAll:", ",", "classNameFor:", "do:", "sorted:", "<=", "selector", "exportMethod:of:on:", "lf"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMethodsOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-var map;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-map=_st($Dictionary())._new();
-_st(aClass)._protocolsDo_((function(category,methods){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(category)._match_("^\x5c*");
-if(! smalltalk.assert($1)){
-return _st(map)._at_put_(category,methods);
-};
-}, function($ctx2) {$ctx2.fillBlock({category:category,methods:methods},$ctx1,1)})}));
-_st(_st(_st(map)._keys())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-return _st(a).__lt_eq(b);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})})))._do_((function(category){
-var methods;
-return smalltalk.withContext(function($ctx2) {
-methods=_st(map)._at_(category);
-methods;
-return self._exportMethods_category_of_on_(methods,category,aClass,aStream);
-}, function($ctx2) {$ctx2.fillBlock({category:category,methods:methods},$ctx1,4)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethodsOf:on:",{aClass:aClass,aStream:aStream,map:map},smalltalk.ChunkExporter)})},
-args: ["aClass", "aStream"],
-source: "exportMethodsOf: aClass on: aStream\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09(category match: '^\x5c*') ifFalse: [ map at: category put: methods ]].\x0a\x09(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |\x0a\x09\x09methods := map at: category.\x0a\x09\x09self\x0a\x09\x09\x09exportMethods: methods\x0a\x09\x09\x09category: category\x0a\x09\x09\x09of: aClass\x0a\x09\x09\x09on: aStream ]",
-messageSends: ["new", "protocolsDo:", "ifFalse:", "match:", "at:put:", "do:", "sorted:", "keys", "<=", "at:", "exportMethods:category:of:on:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageDefinitionOf:on:",
-category: 'private',
-fn: function (package_,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_(_st("Smalltalk current createPackage: '".__comma(_st(package_)._name())).__comma("'!"));
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageDefinitionOf:on:",{package_:package_,aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["package", "aStream"],
-source: "exportPackageDefinitionOf: package on: aStream\x0a\x09\x22Chunk format.\x22\x0a\x0a\x09aStream\x0a\x09\x09nextPutAll: 'Smalltalk current createPackage: ''', package name, '''!';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", ",", "name", "lf"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageEpilogueOn:",
-category: 'private',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageEpilogueOn:",{aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aStream"],
-source: "exportPackageEpilogueOn: aStream",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageExtensionsOf:on:",
-category: 'private',
-fn: function (package_,aStream){
-var self=this;
-var name,map;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-name=_st(package_)._name();
-_st(_st($Package())._sortedClasses_(_st(_st($Smalltalk())._current())._classes()))._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st([each,_st(each)._class()])._do_((function(aClass){
-return smalltalk.withContext(function($ctx3) {
-map=_st($Dictionary())._new();
-map;
-_st(aClass)._protocolsDo_((function(category,methods){
-return smalltalk.withContext(function($ctx4) {
-$1=_st(category)._match_("^\x5c*".__comma(name));
-if(smalltalk.assert($1)){
-return _st(map)._at_put_(category,methods);
-};
-}, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,3)})}));
-return _st(_st(_st(map)._keys())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx4) {
-return _st(a).__lt_eq(b);
-}, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3,5)})})))._do_((function(category){
-var methods;
-return smalltalk.withContext(function($ctx4) {
-methods=_st(map)._at_(category);
-methods;
-return self._exportMethods_category_of_on_(methods,category,aClass,aStream);
-}, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,6)})}));
-}, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageExtensionsOf:on:",{package_:package_,aStream:aStream,name:name,map:map},smalltalk.ChunkExporter)})},
-args: ["package", "aStream"],
-source: "exportPackageExtensionsOf: package on: aStream\x0a\x09\x22We need to override this one too since we need to group\x0a\x09all methods in a given protocol under a leading methodsFor: chunk\x0a\x09for that class.\x22\x0a\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map |\x0a\x09name := package name.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [:each |\x0a\x09\x09{each. each class} do: [:aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [:category :methods |\x0a\x09\x09\x09\x09(category match: '^\x5c*', name) ifTrue: [ map at: category put: methods ]].\x0a\x09\x09\x09(map keys sorted: [:a :b | a <= b ]) do: [:category | | methods |\x0a\x09\x09\x09\x09methods := map at: category.\x0a\x09\x09\x09\x09self exportMethods: methods category: category of: aClass on: aStream ]]]",
-messageSends: ["name", "do:", "sortedClasses:", "classes", "current", "class", "new", "protocolsDo:", "ifTrue:", "match:", ",", "at:put:", "sorted:", "keys", "<=", "at:", "exportMethods:category:of:on:"],
-referencedClasses: ["Package", "Smalltalk", "Dictionary"]
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackagePrologueOn:",
-category: 'private',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOn:",{aStream:aStream},smalltalk.ChunkExporter)})},
-args: ["aStream"],
-source: "exportPackagePrologueOn: aStream",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-
-
-smalltalk.addClass('StrippedExporter', smalltalk.Exporter, [], 'Importer-Exporter');
-smalltalk.StrippedExporter.comment="I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportDefinitionOf:on:",
-category: 'private',
-fn: function (aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.addClass(");
-_st($1)._nextPutAll_(_st("'".__comma(self._classNameFor_(aClass))).__comma("', "));
-_st($1)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(_st(aClass)._superclass())));
-$2=_st($1)._nextPutAll_(", [");
-_st(_st(aClass)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(_st("'".__comma(each)).__comma("'"));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(aStream)._nextPutAll_(", ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=aStream;
-_st($3)._nextPutAll_("], '");
-_st($3)._nextPutAll_(_st(_st(aClass)._category()).__comma("'"));
-$4=_st($3)._nextPutAll_(");");
-_st(aStream)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportDefinitionOf:on:",{aClass:aClass,aStream:aStream},smalltalk.StrippedExporter)})},
-args: ["aClass", "aStream"],
-source: "exportDefinitionOf: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addClass(';\x0a\x09\x09nextPutAll: '''', (self classNameFor: aClass), ''', ';\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);\x0a\x09\x09nextPutAll: ', ['.\x0a\x09aClass instanceVariableNames\x0a\x09\x09do: [:each | aStream nextPutAll: '''', each, '''']\x0a\x09\x09separatedBy: [aStream nextPutAll: ', '].\x0a\x09aStream\x0a\x09\x09nextPutAll: '], ''';\x0a\x09\x09nextPutAll: aClass category, '''';\x0a\x09\x09nextPutAll: ');'.\x0a\x09aStream lf",
-messageSends: ["nextPutAll:", ",", "classNameFor:", "superclass", "do:separatedBy:", "instanceVariableNames", "category", "lf"],
-referencedClasses: []
-}),
-smalltalk.StrippedExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportMethod:of:on:",
-category: 'private',
-fn: function (aMethod,aClass,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.addMethod(");
-_st($1)._lf();
-_st($1)._nextPutAll_("smalltalk.method({");
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("selector: ".__comma(_st(_st(aMethod)._selector())._asJavascript())).__comma(","));
-_st($1)._lf();
-_st($1)._nextPutAll_(_st("fn: ".__comma(_st(_st(aMethod)._fn())._compiledSource())).__comma(","));
-_st($1)._lf();
-_st($1)._nextPutAll_("messageSends: ".__comma(_st(_st(aMethod)._messageSends())._asJavascript()));
-_st($1)._nextPutAll_("}),");
-_st($1)._lf();
-_st($1)._nextPutAll_("smalltalk.".__comma(self._classNameFor_(aClass)));
-_st($1)._nextPutAll_(");");
-_st($1)._lf();
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportMethod:of:on:",{aMethod:aMethod,aClass:aClass,aStream:aStream},smalltalk.StrippedExporter)})},
-args: ["aMethod", "aClass", "aStream"],
-source: "exportMethod: aMethod of: aClass on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.addMethod(';lf;\x0a\x09\x09\x22nextPutAll: aMethod selector asSelector asJavascript, ',';lf;\x22\x0a\x09\x09nextPutAll: 'smalltalk.method({';lf;\x0a\x09\x09nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;\x0a\x09\x09nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;\x0a\x09\x09nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;\x0a\x09\x09nextPutAll: '}),';lf;\x0a\x09\x09nextPutAll: 'smalltalk.', (self classNameFor: aClass);\x0a\x09\x09nextPutAll: ');';lf;lf",
-messageSends: ["nextPutAll:", "lf", ",", "asJavascript", "selector", "compiledSource", "fn", "messageSends", "classNameFor:"],
-referencedClasses: []
-}),
-smalltalk.StrippedExporter);
-
-
-
 smalltalk.addClass('Importer', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.Importer.comment="I can import Amber code from a string in the chunk format.\x0a\x0a## API\x0a\x0a    Importer new import: aString";
 smalltalk.addMethod(
@@ -869,7 +904,136 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('PackageHandler', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('MethodCategory', smalltalk.Object, ['methods', 'name', 'theClass'], 'Importer-Exporter');
+smalltalk.MethodCategory.comment="I am an abstraction for a method category in a class / metaclass.\x0a\x0aI know of my class, name and methods.\x0aI am used when exporting a package.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methods",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@methods"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"methods",{},smalltalk.MethodCategory)})},
+args: [],
+source: "methods\x0a\x09^methods",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "methods:",
+category: 'accessing',
+fn: function (aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@methods"]=aCollection;
+return self}, function($ctx1) {$ctx1.fill(self,"methods:",{aCollection:aCollection},smalltalk.MethodCategory)})},
+args: ["aCollection"],
+source: "methods: aCollection\x0a\x09methods := aCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@name"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.MethodCategory)})},
+args: [],
+source: "name\x0a\x09^name",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@name"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smalltalk.MethodCategory)})},
+args: ["aString"],
+source: "name: aString\x0a\x09name := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "theClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@theClass"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.MethodCategory)})},
+args: [],
+source: "theClass\x0a\x09^theClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "theClass:",
+category: 'accessing',
+fn: function (aClass){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
+return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.MethodCategory)})},
+args: ["aClass"],
+source: "theClass: aClass\x0a\x09theClass := aClass",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodCategory);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "name:theClass:methods:",
+category: 'not yet classified',
+fn: function (aString,aClass,anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._name_(aString);
+_st($2)._theClass_(aClass);
+_st($2)._methods_(anArray);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"name:theClass:methods:",{aString:aString,aClass:aClass,anArray:anArray},smalltalk.MethodCategory.klass)})},
+args: ["aString", "aClass", "anArray"],
+source: "name: aString theClass: aClass methods: anArray\x0a\x09^self new\x0a\x09\x09name: aString;\x0a\x09\x09theClass: aClass;\x0a\x09\x09methods: anArray;\x0a\x09\x09yourself",
+messageSends: ["name:", "new", "theClass:", "methods:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.MethodCategory.klass);
+
+
+smalltalk.addClass('PackageHandler', smalltalk.InterfacingObject, [], 'Importer-Exporter');
 smalltalk.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -878,14 +1042,14 @@ category: 'private',
 fn: function (aURL,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(jQuery)._ajax_options_(aURL,smalltalk.HashedCollection._from_(["type".__minus_gt("PUT"),"data".__minus_gt(aString),"contentType".__minus_gt("text/plain;charset=UTF-8"),"error".__minus_gt((function(xhr){
+self._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(aURL),"type".__minus_gt("PUT"),"data".__minus_gt(aString),"contentType".__minus_gt("text/plain;charset=UTF-8"),"error".__minus_gt((function(xhr){
 return smalltalk.withContext(function($ctx2) {
 return self._error_(_st(_st(_st("Commiting ".__comma(aURL)).__comma(" failed with reason: \x22")).__comma(_st(xhr)._responseText())).__comma("\x22"));
 }, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})}))]));
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.PackageHandler)})},
 args: ["aURL", "aString"],
-source: "ajaxPutAt: aURL data: aString\x0a\x09jQuery\x0a\x09\x09ajax: aURL \x0a\x09\x09options: #{ \x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
-messageSends: ["ajax:options:", "->", "error:", ",", "responseText"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:", "->", "error:", ",", "responseText"],
 referencedClasses: []
 }),
 smalltalk.PackageHandler);
@@ -896,24 +1060,201 @@ selector: "commit:",
 category: 'committing',
 fn: function (aPackage){
 var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
+return smalltalk.withContext(function($ctx1) { 
+_st(self._commitChannels())._do_displayingProgress_((function(commitStrategyFactory){
+var fileContents,commitStrategy;
+return smalltalk.withContext(function($ctx2) {
+commitStrategy=_st(commitStrategyFactory)._value_(aPackage);
+commitStrategy;
+fileContents=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st($PluggableExporter())._forRecipe_(_st(commitStrategy)._key()))._exportPackage_on_(aPackage,stream);
+}, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2,2)})}));
+fileContents;
+return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
+}, function($ctx2) {$ctx2.fillBlock({commitStrategyFactory:commitStrategyFactory,fileContents:fileContents,commitStrategy:commitStrategy},$ctx1,1)})}),"Committing package ".__comma(_st(aPackage)._name()));
+return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
+args: ["aPackage"],
+source: "commit: aPackage\x0a\x09self commitChannels\x0a\x09\x09do: [ :commitStrategyFactory || fileContents commitStrategy |\x0a\x09\x09\x09commitStrategy := commitStrategyFactory value: aPackage.\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
+messageSends: ["do:displayingProgress:", "commitChannels", "value:", "streamContents:", "exportPackage:on:", "forRecipe:", "key", "ajaxPutAt:data:", "value", ",", "name"],
+referencedClasses: ["String", "PluggableExporter"]
+}),
+smalltalk.PackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitChannels",
+category: 'committing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.PackageHandler)})},
+args: [],
+source: "commitChannels\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler);
+
+
+smalltalk.PackageHandler.klass.iVarNames = ['registry'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "classRegisteredFor:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@registry"])._at_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "classRegisteredFor: aString\x0a\x09^registry at: aString",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "for:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._classRegisteredFor_(aString))._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "for: aString\x0a\x09^(self classRegisteredFor: aString) new",
+messageSends: ["new", "classRegisteredFor:"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.PackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self["@registry"]=smalltalk.HashedCollection._from_([]);
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.PackageHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09registry := #{}",
+messageSends: ["initialize"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "register:for:",
+category: 'registry',
+fn: function (aClass,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@registry"])._at_put_(aString,aClass);
+return self}, function($ctx1) {$ctx1.fill(self,"register:for:",{aClass:aClass,aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aClass", "aString"],
+source: "register: aClass for: aString\x0a\x09registry at: aString put: aClass",
+messageSends: ["at:put:"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "registerFor:",
+category: 'registry',
+fn: function (aString){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($PackageHandler())._register_for_(self,aString);
+return self}, function($ctx1) {$ctx1.fill(self,"registerFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
+args: ["aString"],
+source: "registerFor: aString\x0a\x09PackageHandler register: self for: aString",
+messageSends: ["register:for:"],
+referencedClasses: ["PackageHandler"]
+}),
+smalltalk.PackageHandler.klass);
+
+
+smalltalk.addClass('LegacyPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
+smalltalk.LegacyPackageHandler.comment="I am responsible for handling package loading and committing.\x0d\x0a\x0d\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitChannels",
+category: 'committing',
+fn: function (){
+var self=this;
 function $Exporter(){return smalltalk.Exporter||(typeof Exporter=="undefined"?nil:Exporter)}
 function $StrippedExporter(){return smalltalk.StrippedExporter||(typeof StrippedExporter=="undefined"?nil:StrippedExporter)}
 function $ChunkExporter(){return smalltalk.ChunkExporter||(typeof ChunkExporter=="undefined"?nil:ChunkExporter)}
 return smalltalk.withContext(function($ctx1) { 
-_st([_st($Exporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".js")),_st($StrippedExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathJs()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".deploy.js")),_st($ChunkExporter()).__minus_gt(_st(_st(_st(_st(aPackage)._commitPathSt()).__comma("/")).__comma(_st(aPackage)._name())).__comma(".st"))])._do_displayingProgress_((function(commitStrategy){
-var fileContents;
+var $1;
+$1=[(function(pkg){
 return smalltalk.withContext(function($ctx2) {
-fileContents=_st(_st(_st(commitStrategy)._key())._new())._exportPackage_(_st(aPackage)._name());
-fileContents;
-return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
-}, function($ctx2) {$ctx2.fillBlock({commitStrategy:commitStrategy,fileContents:fileContents},$ctx1,1)})}),"Committing package ".__comma(_st(aPackage)._name()));
-return self}, function($ctx1) {$ctx1.fill(self,"commit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
-args: ["aPackage"],
-source: "commit: aPackage\x0a\x09{ \x0a\x09\x09Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').\x0a\x09\x09StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').\x0a\x09\x09ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')\x0a\x09} \x0a\x09\x09do: [ :commitStrategy|| fileContents |\x0a\x09\x09\x09fileContents := (commitStrategy key new exportPackage: aPackage name).\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "->", ",", "commitPathJs", "name", "commitPathSt", "exportPackage:", "new", "key", "ajaxPutAt:data:", "value"],
+return _st(_st(_st($Exporter())._default())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".js"));
+}, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1,1)})}),(function(pkg){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st($StrippedExporter())._default())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathJs()).__comma("/")).__comma(_st(pkg)._name())).__comma(".deploy.js"));
+}, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1,2)})}),(function(pkg){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st($ChunkExporter())._default())._recipe()).__minus_gt(_st(_st(_st(_st(pkg)._commitPathSt()).__comma("/")).__comma(_st(pkg)._name())).__comma(".st"));
+}, function($ctx2) {$ctx2.fillBlock({pkg:pkg},$ctx1,3)})})];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitChannels",{},smalltalk.LegacyPackageHandler)})},
+args: [],
+source: "commitChannels\x0a\x09^{ \x0a\x09\x09[ :pkg | Exporter default recipe -> (pkg commitPathJs, '/', pkg name, '.js') ].\x0a\x09\x09[ :pkg | StrippedExporter default recipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].\x0a\x09\x09[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]\x0a\x09}",
+messageSends: ["->", "recipe", "default", ",", "commitPathJs", "name", "commitPathSt"],
 referencedClasses: ["Exporter", "StrippedExporter", "ChunkExporter"]
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJsFor:",
+category: 'committing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._defaultCommitPathJs();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJsFor:",{aPackage:aPackage},smalltalk.LegacyPackageHandler)})},
+args: ["aPackage"],
+source: "commitPathJsFor: aPackage\x0a\x09^self class defaultCommitPathJs",
+messageSends: ["defaultCommitPathJs", "class"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathStFor:",
+category: 'committing',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._class())._defaultCommitPathSt();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathStFor:",{aPackage:aPackage},smalltalk.LegacyPackageHandler)})},
+args: ["aPackage"],
+source: "commitPathStFor: aPackage\x0a\x09^self class defaultCommitPathSt",
+messageSends: ["defaultCommitPathSt", "class"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -925,7 +1266,7 @@ var url;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 url=_st(_st(_st("/".__comma(aString)).__comma("/js/")).__comma(packageName)).__comma(".js");
-_st(jQuery)._ajax_options_(url,smalltalk.HashedCollection._from_(["type".__minus_gt("GET"),"dataType".__minus_gt("script"),"complete".__minus_gt((function(jqXHR,textStatus){
+self._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(url),"type".__minus_gt("GET"),"dataType".__minus_gt("script"),"complete".__minus_gt((function(jqXHR,textStatus){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(jqXHR)._readyState()).__eq((4));
 if(smalltalk.assert($1)){
@@ -933,15 +1274,15 @@ return self._setupPackageNamed_prefix_(packageName,aString);
 };
 }, function($ctx2) {$ctx2.fillBlock({jqXHR:jqXHR,textStatus:textStatus},$ctx1,1)})})),"error".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(window)._alert_("Could not load package at: ".__comma(url));
+return self._alert_("Could not load package at: ".__comma(url));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}))]));
-return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"loadPackage:prefix:",{packageName:packageName,aString:aString,url:url},smalltalk.LegacyPackageHandler)})},
 args: ["packageName", "aString"],
-source: "loadPackage: packageName prefix: aString\x0a\x09| url |\x0a\x09url := '/', aString, '/js/', packageName, '.js'.\x0a\x09jQuery\x0a\x09\x09ajax: url\x0a\x09\x09options: #{\x0a\x09\x09\x09'type' -> 'GET'.\x0a\x09\x09\x09'dataType' -> 'script'.\x0a\x09\x09\x09'complete' -> [ :jqXHR :textStatus |\x0a\x09\x09\x09\x09jqXHR readyState = 4\x0a\x09\x09\x09\x09\x09ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].\x0a\x09\x09\x09'error' -> [ window alert: 'Could not load package at: ', url ]\x0a\x09\x09}",
-messageSends: [",", "ajax:options:", "->", "ifTrue:", "=", "readyState", "setupPackageNamed:prefix:", "alert:"],
+source: "loadPackage: packageName prefix: aString\x0a\x09| url |\x0a\x09url := '/', aString, '/js/', packageName, '.js'.\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> url.\x0a\x09\x09\x09'type' -> 'GET'.\x0a\x09\x09\x09'dataType' -> 'script'.\x0a\x09\x09\x09'complete' -> [ :jqXHR :textStatus |\x0a\x09\x09\x09\x09jqXHR readyState = 4\x0a\x09\x09\x09\x09\x09ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].\x0a\x09\x09\x09'error' -> [ self alert: 'Could not load package at: ', url ]\x0a\x09\x09}",
+messageSends: [",", "ajax:", "->", "ifTrue:", "=", "readyState", "setupPackageNamed:prefix:", "alert:"],
 referencedClasses: []
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -954,13 +1295,13 @@ _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._loadPackage_prefix_(each,aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.LegacyPackageHandler)})},
 args: ["aCollection", "aString"],
 source: "loadPackages: aCollection prefix: aString\x0a\x09aCollection do: [ :each |\x0a\x09\x09self loadPackage: each prefix: aString ]",
 messageSends: ["do:", "loadPackage:prefix:"],
 referencedClasses: []
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -975,14 +1316,134 @@ $1=_st($Package())._named_(packageName);
 _st($1)._setupClasses();
 _st($1)._commitPathJs_(_st("/".__comma(aString)).__comma("/js"));
 $2=_st($1)._commitPathSt_(_st("/".__comma(aString)).__comma("/st"));
-return self}, function($ctx1) {$ctx1.fill(self,"setupPackageNamed:prefix:",{packageName:packageName,aString:aString},smalltalk.PackageHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupPackageNamed:prefix:",{packageName:packageName,aString:aString},smalltalk.LegacyPackageHandler)})},
 args: ["packageName", "aString"],
 source: "setupPackageNamed: packageName prefix: aString\x0a\x0a\x09(Package named: packageName)\x0a\x09\x09setupClasses;\x0a\x09\x09commitPathJs: '/', aString, '/js';\x0a\x09\x09commitPathSt: '/', aString, '/st'",
 messageSends: ["setupClasses", "named:", "commitPathJs:", ",", "commitPathSt:"],
 referencedClasses: ["Package"]
 }),
-smalltalk.PackageHandler);
+smalltalk.LegacyPackageHandler);
 
+
+smalltalk.LegacyPackageHandler.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathsFromLoader",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var commitPath = typeof amber !== 'undefined' && amber.commitPath;
+		if (!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "commitPathsFromLoader\x0a\x09<\x0a\x09\x09var commitPath = typeof amber !== 'undefined' && amber.commitPath;\x0a\x09\x09if (!commitPath) return;\x0a\x09\x09if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);\x0a\x09\x09if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathJs",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultCommitPathJs"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@defaultCommitPathJs"]="js";
+$1=self["@defaultCommitPathJs"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "defaultCommitPathJs\x0a\x09^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathJs:",
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathJs"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathJs:",{aString:aString},smalltalk.LegacyPackageHandler.klass)})},
+args: ["aString"],
+source: "defaultCommitPathJs: aString\x0a\x09defaultCommitPathJs := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathSt",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@defaultCommitPathSt"];
+if(($receiver = $2) == nil || $receiver == undefined){
+self["@defaultCommitPathSt"]="st";
+$1=self["@defaultCommitPathSt"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "defaultCommitPathSt\x0a\x09^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultCommitPathSt:",
+category: 'commit paths',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathSt"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"defaultCommitPathSt:",{aString:aString},smalltalk.LegacyPackageHandler.klass)})},
+args: ["aString"],
+source: "defaultCommitPathSt: aString\x0a\x09defaultCommitPathSt := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.LegacyPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
+self._registerFor_("unknown");
+self._commitPathsFromLoader();
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "initialize\x0a\x09super initialize.\x0a\x09self registerFor: 'unknown'.\x0a\x09self commitPathsFromLoader",
+messageSends: ["initialize", "registerFor:", "commitPathsFromLoader"],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -994,13 +1455,238 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(self._new())._loadPackages_prefix_(aCollection,aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.PackageHandler.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"loadPackages:prefix:",{aCollection:aCollection,aString:aString},smalltalk.LegacyPackageHandler.klass)})},
 args: ["aCollection", "aString"],
 source: "loadPackages: aCollection prefix: aString\x0a\x09^ self new loadPackages: aCollection prefix: aString",
 messageSends: ["loadPackages:prefix:", "new"],
 referencedClasses: []
 }),
-smalltalk.PackageHandler.klass);
+smalltalk.LegacyPackageHandler.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "resetCommitPaths",
+category: 'commit paths',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@defaultCommitPathJs"]=nil;
+self["@defaultCommitPathSt"]=nil;
+return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.LegacyPackageHandler.klass)})},
+args: [],
+source: "resetCommitPaths\x0a\x09defaultCommitPathJs := nil.\x0a\x09defaultCommitPathSt := nil",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.LegacyPackageHandler.klass);
+
+
+smalltalk.addClass('PluggableExporter', smalltalk.Object, ['recipe'], 'Importer-Exporter');
+smalltalk.PluggableExporter.comment="I am an engine for exporting structured data on a Stream.\x0a\x0aMy instances are created using\x0a  PluggableExporter newUsing: recipe,\x0awhere recipe is structured description of the exporting algorithm.\x0a\x0aThe actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.\x0a\x0a\x0aI am used to export amber packages, so I have a convenience method\x0a`exportPackage: aPackage on: aStream`\x0awhich exports `aPackage` using the `recipe`\x0a(it is otherwise no special, so it may be renamed to export:on:)";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportAllPackages",
+category: 'fileOut',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(pkg){
+return smalltalk.withContext(function($ctx3) {
+return self._exportPackage_on_(pkg,stream);
+}, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exportAllPackages",{},smalltalk.PluggableExporter)})},
+args: [],
+source: "exportAllPackages\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09self exportPackage: pkg on: stream]]",
+messageSends: ["streamContents:", "do:", "packages", "current", "exportPackage:on:"],
+referencedClasses: ["String", "Smalltalk"]
+}),
+smalltalk.PluggableExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "exportPackage:on:",
+category: 'fileOut',
+fn: function (aPackage,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._interpreter())._interpret_for_on_(self._recipe(),aPackage,aStream);
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},smalltalk.PluggableExporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackage: aPackage on: aStream\x0a\x09self interpreter interpret: self recipe for: aPackage on: aStream",
+messageSends: ["interpret:for:on:", "interpreter", "recipe"],
+referencedClasses: []
+}),
+smalltalk.PluggableExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpreter",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $RecipeInterpreter(){return smalltalk.RecipeInterpreter||(typeof RecipeInterpreter=="undefined"?nil:RecipeInterpreter)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($RecipeInterpreter())._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.PluggableExporter)})},
+args: [],
+source: "interpreter\x0a\x09^ RecipeInterpreter new",
+messageSends: ["new"],
+referencedClasses: ["RecipeInterpreter"]
+}),
+smalltalk.PluggableExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@recipe"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.PluggableExporter)})},
+args: [],
+source: "recipe\x0a\x09^recipe",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PluggableExporter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recipe:",
+category: 'accessing',
+fn: function (anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@recipe"]=anArray;
+return self}, function($ctx1) {$ctx1.fill(self,"recipe:",{anArray:anArray},smalltalk.PluggableExporter)})},
+args: ["anArray"],
+source: "recipe: anArray\x0a\x09recipe := anArray",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PluggableExporter);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forRecipe:",
+category: 'instance creation',
+fn: function (aRecipe){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._recipe_(aRecipe);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"forRecipe:",{aRecipe:aRecipe},smalltalk.PluggableExporter.klass)})},
+args: ["aRecipe"],
+source: "forRecipe: aRecipe\x0a\x09^self new recipe: aRecipe; yourself",
+messageSends: ["recipe:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.PluggableExporter.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownClassesOfPackage:",
+category: 'convenience',
+fn: function (package_){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(package_)._sortedClasses())._asSet();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownClassesOfPackage:",{package_:package_},smalltalk.PluggableExporter.klass)})},
+args: ["package"],
+source: "ownClassesOfPackage: package\x0a\x09\x22Export classes in dependency order.\x0a\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09^package sortedClasses asSet",
+messageSends: ["asSet", "sortedClasses"],
+referencedClasses: []
+}),
+smalltalk.PluggableExporter.klass);
+
+
+smalltalk.addClass('RecipeInterpreter', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.RecipeInterpreter.comment="I am an interpreter for export recipes.\x0a\x0a## Recipe format\x0a\x0aRecipe is an array, which can contain two kinds of elements:\x0a\x0a - an assocation where the key is the receiver and the value is a two-arguments selector\x0a    In this case, `receiver perform: selector withArguments: { data. stream }` is called.\x0a\x09This essentially defines one step of export process.\x0a\x09The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods\x0a\x09that just format appropriate aspect of data into a stream; like a class or a singleton,\x0a\x09so that the recipe itself can be decoupled from data.\x0a\x0a - a subarray, where first element is special and the rest is recursive recipe.\x0a\x0a    `subarray first` must be an association similar to one above,\x0a\x09with key being the 'repository' receiver, but value is one-arg selector.\x0a\x09In this case, `receiver perform: selector withArguments: { data }` should create a collection.\x0a\x09Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.\x0a\x09  collection do: [ :each | self export: each using: sa allButFirst on: stream ]";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:for:on:",
+category: 'interpreting',
+fn: function (aRecipe,anObject,aStream){
+var self=this;
+var recipeStream;
+return smalltalk.withContext(function($ctx1) { 
+recipeStream=_st(aRecipe)._readStream();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(recipeStream)._atEnd();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._interpretStep_for_on_(_st(recipeStream)._next(),anObject,aStream);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpret:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,recipeStream:recipeStream},smalltalk.RecipeInterpreter)})},
+args: ["aRecipe", "anObject", "aStream"],
+source: "interpret: aRecipe for: anObject on: aStream\x0a\x09| recipeStream |\x0a\x09\x0a\x09recipeStream := aRecipe readStream.\x0a\x09\x0a\x09[ recipeStream atEnd ] whileFalse: [\x0a\x09\x09self \x0a\x09\x09\x09interpretStep: recipeStream next\x0a\x09\x09\x09for: anObject\x0a\x09\x09\x09on: aStream ]",
+messageSends: ["readStream", "whileFalse:", "atEnd", "interpretStep:for:on:", "next"],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpretStep:for:on:",
+category: 'interpreting',
+fn: function (aRecipeStep,anObject,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(aRecipeStep)._value()).__eq_eq(aRecipeStep);
+if(smalltalk.assert($1)){
+$2=self._interpretSubRecipe_for_on_(aRecipeStep,anObject,aStream);
+return $2;
+};
+_st(_st(aRecipeStep)._key())._perform_withArguments_(_st(aRecipeStep)._value(),[anObject,aStream]);
+return self}, function($ctx1) {$ctx1.fill(self,"interpretStep:for:on:",{aRecipeStep:aRecipeStep,anObject:anObject,aStream:aStream},smalltalk.RecipeInterpreter)})},
+args: ["aRecipeStep", "anObject", "aStream"],
+source: "interpretStep: aRecipeStep for: anObject on: aStream\x0a\x09aRecipeStep value == aRecipeStep ifTrue: [ \x0a\x09\x09^ self interpretSubRecipe: aRecipeStep for: anObject on: aStream ].\x0a\x09\x09\x09\x0a\x09aRecipeStep key perform: aRecipeStep value withArguments: { anObject. aStream }",
+messageSends: ["ifTrue:", "==", "value", "interpretSubRecipe:for:on:", "perform:withArguments:", "key"],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpretSubRecipe:for:on:",
+category: 'interpreting',
+fn: function (aRecipe,anObject,aStream){
+var self=this;
+var selection;
+return smalltalk.withContext(function($ctx1) { 
+selection=_st(_st(_st(aRecipe)._first())._key())._perform_withArguments_(_st(_st(aRecipe)._first())._value(),[anObject]);
+_st(selection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._interpret_for_on_(_st(aRecipe)._allButFirst(),each,aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpretSubRecipe:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,selection:selection},smalltalk.RecipeInterpreter)})},
+args: ["aRecipe", "anObject", "aStream"],
+source: "interpretSubRecipe: aRecipe for: anObject on: aStream\x0a\x09| selection |\x0a\x09selection := aRecipe first key \x0a\x09\x09perform: aRecipe first value \x0a\x09\x09withArguments: { anObject }.\x0a\x09selection do: [ :each |\x09\x0a\x09\x09self interpret: aRecipe allButFirst for: each on: aStream ]",
+messageSends: ["perform:withArguments:", "key", "first", "value", "do:", "interpret:for:on:", "allButFirst"],
+referencedClasses: []
+}),
+smalltalk.RecipeInterpreter);
 
 
 smalltalk.addMethod(
@@ -1009,16 +1695,156 @@ selector: "commit",
 category: '*Importer-Exporter',
 fn: function (){
 var self=this;
-function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($PackageHandler())._new())._commit_(self);
+$1=_st(self._transport())._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
 args: [],
-source: "commit\x0a\x09^ PackageHandler new commit: self",
-messageSends: ["commit:", "new"],
+source: "commit\x0a\x09^ self transport commit: self",
+messageSends: ["commit:", "transport"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJs",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_ifAbsentPut_("commitPathJs",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._transport())._commitPathJsFor_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
+args: [],
+source: "commitPathJs\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsentPut: [self transport commitPathJsFor: self]",
+messageSends: ["at:ifAbsentPut:", "ifNil:", "commitPathJsFor:", "transport"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathJs:",
+category: '*Importer-Exporter',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_put_("commitPathJs",aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathJs:",{aString:aString},smalltalk.Package)})},
+args: ["aString"],
+source: "commitPathJs: aString\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs put: aString",
+messageSends: ["at:put:", "ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathSt",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_ifAbsentPut_("commitPathSt",(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._transport())._commitPathStFor_(self);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
+args: [],
+source: "commitPathSt\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsentPut: [self transport commitPathStFor: self]",
+messageSends: ["at:ifAbsentPut:", "ifNil:", "commitPathStFor:", "transport"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commitPathSt:",
+category: '*Importer-Exporter',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1;
+$3=self["@extension"];
+if(($receiver = $3) == nil || $receiver == undefined){
+self["@extension"]=smalltalk.HashedCollection._from_([]);
+$2=self["@extension"];
+} else {
+$2=$3;
+};
+$1=_st($2)._at_put_("commitPathSt",aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commitPathSt:",{aString:aString},smalltalk.Package)})},
+args: ["aString"],
+source: "commitPathSt: aString\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString",
+messageSends: ["at:put:", "ifNil:"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transport",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($PackageHandler())._for_(self._transportType());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
+args: [],
+source: "transport\x0a\x09^ PackageHandler for: self transportType",
+messageSends: ["for:", "transportType"],
 referencedClasses: ["PackageHandler"]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transportType",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (self.transport && self.transport.type) || 'unknown';;
+return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
+args: [],
+source: "transportType\x0a\x09<return (self.transport && self.transport.type) || 'unknown';>",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.Package);
 

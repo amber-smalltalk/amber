@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Transcript');
+
 smalltalk.addClass('HLTranscript', smalltalk.HLWidget, ['textarea'], 'Helios-Transcript');
 smalltalk.addMethod(
 smalltalk.method({
@@ -170,6 +171,5 @@ _st(self._transcripts())._remove_(aTranscript);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister:",{aTranscript:aTranscript},smalltalk.HLTranscriptHandler.klass)})},
 messageSends: ["remove:", "transcripts"]}),
 smalltalk.HLTranscriptHandler.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

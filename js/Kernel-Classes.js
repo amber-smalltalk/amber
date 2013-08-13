@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Classes');
+
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.Behavior.comment="I am the superclass of all class objects.\x0a\x0aI define the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0a\x0aMy instances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aI also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy.";
 smalltalk.addMethod(
@@ -225,13 +226,10 @@ category: 'private',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-	;
+smalltalk.removeMethod(aMethod,self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "basicRemoveCompiledMethod: aMethod\x0a\x09<\x0a\x09\x09smalltalk.removeMethod(aMethod)\x0a\x09\x09smalltalk.init(self);\x0a\x09>",
+source: "basicRemoveCompiledMethod: aMethod\x0a\x09<smalltalk.removeMethod(aMethod,self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2143,6 +2141,5 @@ messageSends: ["theClass:", "new", "level:", "getNodesFrom:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.ClassSorterNode.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

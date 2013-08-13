@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Browser');
+
 smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget', 'bottomDiv'], 'Helios-Browser');
 smalltalk.HLBrowser.comment="I render a system browser with 4 panes (Packages, Classes, Protocols, Methods) and a source area.";
 smalltalk.addMethod(
@@ -858,7 +859,7 @@ return _st(self._announcer())._announce_(_st($HLShowInstanceToggled())._new());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"showInstance:",{aBoolean:aBoolean},smalltalk.HLBrowserModel)})},
 args: ["aBoolean"],
-source: "showInstance: aBoolean\x0a\x0a\x09self withChangesDo: [\x0a\x09\x09showInstance := aBoolean.\x0a\x0a    \x09self selectedClass ifNotNil: [\x0a    \x09\x09self selectedClass: (aBoolean\x0a    \x09\x09\x09ifTrue: [self selectedClass theNonMetaClass ]\x0a\x09    \x09  \x09ifFalse: [ self selectedClass theMetaClass ]) ].\x0a    \x0a\x09\x09self announcer announce: HLShowInstanceToggled new ] ",
+source: "showInstance: aBoolean\x0a\x0a\x09self withChangesDo: [\x0a\x09\x09showInstance := aBoolean.\x0a\x0a    \x09self selectedClass ifNotNil: [\x0a    \x09\x09self selectedClass: (aBoolean\x0a    \x09\x09\x09ifTrue: [self selectedClass theNonMetaClass ]\x0a\x09    \x09  \x09ifFalse: [ self selectedClass theMetaClass ]) ].\x0a    \x0a\x09\x09self announcer announce: HLShowInstanceToggled new ]",
 messageSends: ["withChangesDo:", "ifNotNil:", "selectedClass", "selectedClass:", "ifTrue:ifFalse:", "theNonMetaClass", "theMetaClass", "announce:", "announcer", "new"],
 referencedClasses: ["HLShowInstanceToggled"]
 }),
@@ -2935,7 +2936,7 @@ $1;
 _st(self._model())._selectedMethod_(self._methodForSelector_(aSelector));
 return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aSelector:aSelector},smalltalk.HLMethodsListWidget)})},
 args: ["aSelector"],
-source: "selectItem: aSelector\x0a\x09aSelector ifNil: [ ^ self model selectedMethod: nil ].\x0a\x0a   \x09self model selectedMethod: (self methodForSelector: aSelector)\x0a    ",
+source: "selectItem: aSelector\x0a\x09aSelector ifNil: [ ^ self model selectedMethod: nil ].\x0a\x0a   \x09self model selectedMethod: (self methodForSelector: aSelector)",
 messageSends: ["ifNil:", "selectedMethod:", "model", "methodForSelector:"],
 referencedClasses: []
 }),
@@ -3892,6 +3893,5 @@ messageSends: ["shouldNotImplement"],
 referencedClasses: []
 }),
 smalltalk.HLSelectorsCache.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

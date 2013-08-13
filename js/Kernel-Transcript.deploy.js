@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Transcript');
+
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(
 smalltalk.method({
@@ -149,6 +150,5 @@ _st(self._current())._show_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"show:",{anObject:anObject},smalltalk.Transcript.klass)})},
 messageSends: ["show:", "current"]}),
 smalltalk.Transcript.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

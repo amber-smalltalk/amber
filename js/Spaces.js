@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
+
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.ObjectSpace.comment="I am a connection to another Smalltalk environment.\x0aThe implementation creates an iframe on the same location as the window, and connect to the Amber environment.\x0a\x0a\x0a\x0a## Usage example:\x0a\x0a\x09| space |\x0a\x09\x0a\x09space := ObjectSpace new.\x0a\x09space do: [ smalltalk ] \x22Answers aSmalltalk\x22\x0a\x09(space do: [ smalltalk ]) == smalltalk \x22Answers false\x22\x0a\x09\x0a\x09space release \x22Remove the object space environment\x22";
 smalltalk.addMethod(
@@ -26,13 +27,13 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_("body"))._append_("<iframe style=\x22display: none;\x22></iframe>");
-self["@frame"]=_st(_st(_st(window)._jQuery_("iframe"))._get())._last();
+_st("body"._asJQuery())._append_("<iframe style=\x22display: none;\x22></iframe>");
+self["@frame"]=_st(_st("iframe"._asJQuery())._get())._last();
 _st(_st(self["@frame"])._contentWindow())._location_(_st(window)._location());
 return self}, function($ctx1) {$ctx1.fill(self,"create",{},smalltalk.ObjectSpace)})},
 args: [],
-source: "create\x0a\x09(window jQuery: 'body') append: '<iframe style=\x22display: none;\x22></iframe>'.\x0a\x09frame := (window jQuery: 'iframe') get last.\x0a\x09frame contentWindow location: window location",
-messageSends: ["append:", "jQuery:", "last", "get", "location:", "contentWindow", "location"],
+source: "create\x0a\x09'body' asJQuery append: '<iframe style=\x22display: none;\x22></iframe>'.\x0a\x09frame := 'iframe' asJQuery get last.\x0a\x09frame contentWindow location: window location",
+messageSends: ["append:", "asJQuery", "last", "get", "location:", "contentWindow", "location"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpace);
@@ -52,12 +53,12 @@ return $2;
 } else {
 $1;
 };
-_st(_st(window)._jQuery_(self["@frame"]))._remove();
+_st(_st(self["@frame"])._asJQuery())._remove();
 self._release();
 return self}, function($ctx1) {$ctx1.fill(self,"destroy",{},smalltalk.ObjectSpace)})},
 args: [],
-source: "destroy\x0a\x09frame ifNil: [ ^ self ].\x0a\x09(window jQuery: frame) remove.\x0a\x0a\x09self release",
-messageSends: ["ifNil:", "remove", "jQuery:", "release"],
+source: "destroy\x0a\x09frame ifNil: [ ^ self ].\x0a\x09frame asJQuery remove.\x0a\x0a\x09self release",
+messageSends: ["ifNil:", "remove", "asJQuery", "release"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpace);
@@ -162,11 +163,11 @@ category: 'events',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(self["@frame"]))._bind_do_("load",aBlock);
+_st(_st(self["@frame"])._asJQuery())._bind_do_("load",aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"whenReadyDo:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
 args: ["aBlock"],
-source: "whenReadyDo: aBlock\x0a\x09(window jQuery: frame)\x0a\x09\x09bind: 'load'\x0a\x09\x09do: aBlock",
-messageSends: ["bind:do:", "jQuery:"],
+source: "whenReadyDo: aBlock\x0a\x09frame asJQuery\x0a\x09\x09bind: 'load'\x0a\x09\x09do: aBlock",
+messageSends: ["bind:do:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpace);
@@ -333,7 +334,6 @@ messageSends: ["deny:", "isNil", "frame", "release", "assert:"],
 referencedClasses: []
 }),
 smalltalk.ObjectSpaceTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

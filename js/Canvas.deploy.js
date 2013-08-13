@@ -1,5 +1,73 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
+
+smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ajax:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(jQuery)._ajax_(anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ajax:",{anObject:anObject},smalltalk.BrowserInterface)})},
+messageSends: ["ajax:"]}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alert:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._alert_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"alert:",{aString:aString},smalltalk.BrowserInterface)})},
+messageSends: ["alert:"]}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "confirm:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._confirm_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"confirm:",{aString:aString},smalltalk.BrowserInterface)})},
+messageSends: ["confirm:"]}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isAvailable",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return typeof window !== "undefined" && typeof jQuery !== "undefined";
+return self}, function($ctx1) {$ctx1.fill(self,"isAvailable",{},smalltalk.BrowserInterface)})},
+messageSends: []}),
+smalltalk.BrowserInterface);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "prompt:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(window)._prompt_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"prompt:",{aString:aString},smalltalk.BrowserInterface)})},
+messageSends: ["prompt:"]}),
+smalltalk.BrowserInterface);
+
+
+smalltalk.BrowserInterface.klass.iVarNames = ['uiWorker','ajaxWorker'];
+
 smalltalk.addClass('HTMLCanvas', smalltalk.Object, ['root'], 'Canvas');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1909,10 +1977,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(window)._jQuery_(self._element());
+$1=_st(self._element())._asJQuery();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJQuery",{},smalltalk.TagBrush)})},
-messageSends: ["jQuery:", "element"]}),
+messageSends: ["asJQuery", "element"]}),
 smalltalk.TagBrush);
 
 smalltalk.addMethod(
@@ -2609,7 +2677,7 @@ messageSends: ["initializeFromString:canvas:", "new", "yourself"]}),
 smalltalk.StyleTag.klass);
 
 
-smalltalk.addClass('Widget', smalltalk.Object, [], 'Canvas');
+smalltalk.addClass('Widget', smalltalk.InterfacingObject, [], 'Canvas');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "appendToBrush:",
@@ -2654,7 +2722,6 @@ return "widget";
 }, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.Widget.klass)})},
 messageSends: []}),
 smalltalk.Widget.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
+
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1168,12 +1169,12 @@ selector: "setupEvents",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_("body"))._keydown_((function(event){
+_st("body"._asJQuery())._keydown_((function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._handleKeyDown_(event);
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},smalltalk.HLKeyBinder)})},
-messageSends: ["keydown:", "jQuery:", "handleKeyDown:"]}),
+messageSends: ["keydown:", "asJQuery", "handleKeyDown:"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(
@@ -1388,7 +1389,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(_st(window)._jQuery_("#helper"))._remove();
+_st("#helper"._asJQuery())._remove();
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(html)._div();
@@ -1398,10 +1399,10 @@ return $2;
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}))._appendToJQuery_("body"._asJQuery());
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(window)._jQuery_("#helper"))._fadeOut_((1000));
+return _st("#helper"._asJQuery())._fadeOut_((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))._valueWithTimeout_((2000));
 return self}, function($ctx1) {$ctx1.fill(self,"renderStart",{},smalltalk.HLKeyBinderHelper)})},
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "asJQuery", "valueWithTimeout:", "fadeOut:"]}),
+messageSends: ["remove", "asJQuery", "appendToJQuery:", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "valueWithTimeout:", "fadeOut:"]}),
 smalltalk.HLKeyBinderHelper);
 
 smalltalk.addMethod(
@@ -1687,6 +1688,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"forWidget:",{aWidget:aWidget},smalltalk.HLRepeatingKeyBindingHandler.klass)})},
 messageSends: ["widget:", "new", "yourself"]}),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

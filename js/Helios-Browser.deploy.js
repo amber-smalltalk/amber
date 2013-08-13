@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Browser');
+
 smalltalk.addClass('HLBrowser', smalltalk.HLWidget, ['model', 'packagesListWidget', 'classesListWidget', 'protocolsListWidget', 'methodsListWidget', 'sourceWidget', 'bottomDiv'], 'Helios-Browser');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2985,6 +2986,5 @@ self._shouldNotImplement();
 return self}, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.HLSelectorsCache.klass)})},
 messageSends: ["shouldNotImplement"]}),
 smalltalk.HLSelectorsCache.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

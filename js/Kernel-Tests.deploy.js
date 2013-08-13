@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2288,6 +2289,165 @@ smalltalk.JavaScriptExceptionTest);
 
 
 
+smalltalk.addClass('LegacyPackageHandlerTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setUp",
+fn: function (){
+var self=this;
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self["@backUpCommitPathJs"]=_st($LegacyPackageHandler())._defaultCommitPathJs();
+self["@backUpCommitPathSt"]=_st($LegacyPackageHandler())._defaultCommitPathSt();
+_st($LegacyPackageHandler())._resetCommitPaths();
+self["@zorkPackage"]=_st(_st($Package())._new())._name_("Zork");
+$1=_st($Package())._new();
+_st($1)._name_("Grul");
+_st($1)._commitPathJs_("server/grul/js");
+_st($1)._commitPathSt_("grul/st");
+$2=_st($1)._yourself();
+self["@grulPackage"]=$2;
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.LegacyPackageHandlerTest)})},
+messageSends: ["defaultCommitPathJs", "defaultCommitPathSt", "resetCommitPaths", "name:", "new", "commitPathJs:", "commitPathSt:", "yourself"]}),
+smalltalk.LegacyPackageHandlerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tearDown",
+fn: function (){
+var self=this;
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=$LegacyPackageHandler();
+_st($1)._defaultCommitPathJs_(self["@backUpCommitPathJs"]);
+$2=_st($1)._defaultCommitPathSt_(self["@backUpCommitPathSt"]);
+return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.LegacyPackageHandlerTest)})},
+messageSends: ["defaultCommitPathJs:", "defaultCommitPathSt:"]}),
+smalltalk.LegacyPackageHandlerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testGrulCommitPathJsShouldBeServerGrulJs",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
+return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathJsShouldBeServerGrulJs",{},smalltalk.LegacyPackageHandlerTest)})},
+messageSends: ["assert:equals:", "commitPathJs"]}),
+smalltalk.LegacyPackageHandlerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testGrulCommitPathStShouldBeGrulSt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
+return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathStShouldBeGrulSt",{},smalltalk.LegacyPackageHandlerTest)})},
+messageSends: ["assert:equals:", "commitPathSt"]}),
+smalltalk.LegacyPackageHandlerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testZorkCommitPathJsShouldBeJs",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"js");
+return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathJsShouldBeJs",{},smalltalk.LegacyPackageHandlerTest)})},
+messageSends: ["assert:equals:", "commitPathJs"]}),
+smalltalk.LegacyPackageHandlerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testZorkCommitPathStShouldBeSt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"st");
+return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathStShouldBeSt",{},smalltalk.LegacyPackageHandlerTest)})},
+messageSends: ["assert:equals:", "commitPathSt"]}),
+smalltalk.LegacyPackageHandlerTest);
+
+
+
+smalltalk.addClass('LegacyPackageHandlerTestWithDefaultsChanged', smalltalk.LegacyPackageHandlerTest, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setUp",
+fn: function (){
+var self=this;
+function $LegacyPackageHandler(){return smalltalk.LegacyPackageHandler||(typeof LegacyPackageHandler=="undefined"?nil:LegacyPackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged.superclass.fn.prototype._setUp.apply(_st(self), []);
+$1=$LegacyPackageHandler();
+_st($1)._defaultCommitPathJs_("javascripts/");
+$2=_st($1)._defaultCommitPathSt_("smalltalk/");
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.LegacyPackageHandlerTestWithDefaultsChanged)})},
+messageSends: ["setUp", "defaultCommitPathJs:", "defaultCommitPathSt:"]}),
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testGrulCommitPathJsShouldBeServerGrulJs",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
+return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathJsShouldBeServerGrulJs",{},smalltalk.LegacyPackageHandlerTestWithDefaultsChanged)})},
+messageSends: ["assert:equals:", "commitPathJs"]}),
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testGrulCommitPathStShouldBeGrulSt",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
+return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathStShouldBeGrulSt",{},smalltalk.LegacyPackageHandlerTestWithDefaultsChanged)})},
+messageSends: ["assert:equals:", "commitPathSt"]}),
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testZorkCommitPathJsShouldBeJavascript",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"javascripts/");
+return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathJsShouldBeJavascript",{},smalltalk.LegacyPackageHandlerTestWithDefaultsChanged)})},
+messageSends: ["assert:equals:", "commitPathJs"]}),
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testZorkCommitPathStShouldBeSmalltalk",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"smalltalk/");
+return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathStShouldBeSmalltalk",{},smalltalk.LegacyPackageHandlerTestWithDefaultsChanged)})},
+messageSends: ["assert:equals:", "commitPathSt"]}),
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldInheritSelectors",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return false;
+}, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},smalltalk.LegacyPackageHandlerTestWithDefaultsChanged.klass)})},
+messageSends: []}),
+smalltalk.LegacyPackageHandlerTestWithDefaultsChanged.klass);
+
+
 smalltalk.addClass('MessageSendTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2328,6 +2488,343 @@ self._assert_equals_(_st(messageSend)._valueWithPossibleArguments_([(4)]),(6));
 return self}, function($ctx1) {$ctx1.fill(self,"testValueWithArguments",{messageSend:messageSend},smalltalk.MessageSendTest)})},
 messageSends: ["receiver:", "new", "selector:", "yourself", "assert:equals:", "value:", "valueWithPossibleArguments:"]}),
 smalltalk.MessageSendTest);
+
+
+
+smalltalk.addClass('MethodInheritanceTest', smalltalk.TestCase, ['receiverTop', 'receiverMiddle', 'receiverBottom', 'method', 'performBlock'], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "codeGeneratorClass",
+fn: function (){
+var self=this;
+function $CodeGenerator(){return smalltalk.CodeGenerator||(typeof CodeGenerator=="undefined"?nil:CodeGenerator)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$CodeGenerator();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.MethodInheritanceTest)})},
+messageSends: []}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "compiler",
+fn: function (){
+var self=this;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($Compiler())._new();
+_st($2)._codeGeneratorClass_(self._codeGeneratorClass());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compiler",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["codeGeneratorClass:", "new", "codeGeneratorClass", "yourself"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deinstallBottom",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._targetClassBottom())._removeCompiledMethod_(self["@method"]);
+return self}, function($ctx1) {$ctx1.fill(self,"deinstallBottom",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["removeCompiledMethod:", "targetClassBottom"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deinstallMiddle",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._targetClassMiddle())._removeCompiledMethod_(self["@method"]);
+return self}, function($ctx1) {$ctx1.fill(self,"deinstallMiddle",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["removeCompiledMethod:", "targetClassMiddle"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "deinstallTop",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._targetClassTop())._removeCompiledMethod_(self["@method"]);
+return self}, function($ctx1) {$ctx1.fill(self,"deinstallTop",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["removeCompiledMethod:", "targetClassTop"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installBottom:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassBottom(),"tests");
+return self}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},smalltalk.MethodInheritanceTest)})},
+messageSends: ["install:forClass:category:", "compiler", "targetClassBottom"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installMiddle:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassMiddle(),"tests");
+return self}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},smalltalk.MethodInheritanceTest)})},
+messageSends: ["install:forClass:category:", "compiler", "targetClassMiddle"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "installTop:",
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassTop(),"tests");
+return self}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},smalltalk.MethodInheritanceTest)})},
+messageSends: ["install:forClass:category:", "compiler", "targetClassTop"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setUp",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@receiverTop"]=_st(self._targetClassTop())._new();
+self["@receiverMiddle"]=_st(self._targetClassMiddle())._new();
+self["@receiverBottom"]=_st(self._targetClassBottom())._new();
+self["@method"]=nil;
+self["@performBlock"]=(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("performBlock not initialized");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["new", "targetClassTop", "targetClassMiddle", "targetClassBottom", "error:"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNU",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._shouldMNUTop();
+self._shouldMNUMiddle();
+self._shouldMNUBottom();
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNU",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["shouldMNUTop", "shouldMNUMiddle", "shouldMNUBottom"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNUBottom",
+fn: function (){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@performBlock"])._value_(self["@receiverBottom"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNUBottom",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["should:raise:", "value:"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNUMiddle",
+fn: function (){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNUMiddle",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["should:raise:", "value:"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldMNUTop",
+fn: function (){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self["@performBlock"])._value_(self["@receiverTop"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
+return self}, function($ctx1) {$ctx1.fill(self,"shouldMNUTop",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["should:raise:", "value:"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldReturn:",
+fn: function (anObject){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { 
+result=_st(self["@performBlock"])._value_(self["@receiverTop"]);
+self._assert_equals_(["top",anObject],["top",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+self._assert_equals_(["middle",anObject],["middle",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
+self._assert_equals_(["bottom",anObject],["bottom",result]);
+return self}, function($ctx1) {$ctx1.fill(self,"shouldReturn:",{anObject:anObject,result:result},smalltalk.MethodInheritanceTest)})},
+messageSends: ["value:", "assert:equals:"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldReturn:and:and:",
+fn: function (anObject,anObject2,anObject3){
+var self=this;
+var result;
+return smalltalk.withContext(function($ctx1) { 
+result=_st(self["@performBlock"])._value_(self["@receiverTop"]);
+self._assert_equals_(["top",anObject],["top",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverMiddle"]);
+self._assert_equals_(["middle",anObject2],["middle",result]);
+result=_st(self["@performBlock"])._value_(self["@receiverBottom"]);
+self._assert_equals_(["bottom",anObject3],["bottom",result]);
+return self}, function($ctx1) {$ctx1.fill(self,"shouldReturn:and:and:",{anObject:anObject,anObject2:anObject2,anObject3:anObject3,result:result},smalltalk.MethodInheritanceTest)})},
+messageSends: ["value:", "assert:equals:"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "targetClassBottom",
+fn: function (){
+var self=this;
+function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$JavaScriptException();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"targetClassBottom",{},smalltalk.MethodInheritanceTest)})},
+messageSends: []}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "targetClassMiddle",
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$Error();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"targetClassMiddle",{},smalltalk.MethodInheritanceTest)})},
+messageSends: []}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "targetClassTop",
+fn: function (){
+var self=this;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=$Object();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"targetClassTop",{},smalltalk.MethodInheritanceTest)})},
+messageSends: []}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tearDown",
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deinstallTop();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deinstallMiddle();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}))._on_do_($Error(),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._deinstallBottom();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}))._on_do_($Error(),(function(){
+return smalltalk.withContext(function($ctx2) {
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMNU11",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})});
+self._shouldMNU();
+self._installTop_("foo ^ false");
+self._installTop_("foo ^ true");
+self._deinstallTop();
+self._shouldMNU();
+return self}, function($ctx1) {$ctx1.fill(self,"testMNU11",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["foo", "shouldMNU", "installTop:", "deinstallTop"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testMNU22",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})});
+self._shouldMNU();
+self._installMiddle_("foo ^ false");
+self._installMiddle_("foo ^ true");
+self._deinstallMiddle();
+self._shouldMNU();
+return self}, function($ctx1) {$ctx1.fill(self,"testMNU22",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["foo", "shouldMNU", "installMiddle:", "deinstallMiddle"]}),
+smalltalk.MethodInheritanceTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testReturns1",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@performBlock"]=(function(x){
+return smalltalk.withContext(function($ctx2) {
+return _st(x)._foo();
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})});
+self._installTop_("foo ^ false");
+self._shouldReturn_(false);
+self._installTop_("foo ^ true");
+self._shouldReturn_(true);
+return self}, function($ctx1) {$ctx1.fill(self,"testReturns1",{},smalltalk.MethodInheritanceTest)})},
+messageSends: ["foo", "installTop:", "shouldReturn:"]}),
+smalltalk.MethodInheritanceTest);
 
 
 
@@ -2796,39 +3293,6 @@ smalltalk.ObjectMock);
 
 
 
-smalltalk.addClass('ObjectMock2', smalltalk.ObjectMock, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@foo"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock2)})},
-messageSends: []}),
-smalltalk.ObjectMock2);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "foo:",
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@foo"]=anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"foo:",{anObject:anObject},smalltalk.ObjectMock2)})},
-messageSends: []}),
-smalltalk.ObjectMock2);
-
-
-
-smalltalk.addClass('ObjectMock3', smalltalk.ObjectMock2, [], 'Kernel-Tests');
-
-
-smalltalk.addClass('ObjectMock4', smalltalk.ObjectMock3, [], 'Kernel-Tests');
-
-
 smalltalk.addClass('ObjectTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -3050,164 +3514,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},
 messageSends: ["new", "assert:", "==", "identityHash", "deny:"]}),
 smalltalk.ObjectTest);
 
-
-
-smalltalk.addClass('PackageTest', smalltalk.TestCase, ['zorkPackage', 'grulPackage', 'backUpCommitPathJs', 'backUpCommitPathSt'], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setUp",
-fn: function (){
-var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-self["@backUpCommitPathJs"]=_st($Package())._defaultCommitPathJs();
-self["@backUpCommitPathSt"]=_st($Package())._defaultCommitPathSt();
-_st($Package())._resetCommitPaths();
-self["@zorkPackage"]=_st(_st($Package())._new())._name_("Zork");
-$1=_st($Package())._new();
-_st($1)._name_("Grul");
-_st($1)._commitPathJs_("server/grul/js");
-_st($1)._commitPathSt_("grul/st");
-$2=_st($1)._yourself();
-self["@grulPackage"]=$2;
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.PackageTest)})},
-messageSends: ["defaultCommitPathJs", "defaultCommitPathSt", "resetCommitPaths", "name:", "new", "commitPathJs:", "commitPathSt:", "yourself"]}),
-smalltalk.PackageTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "tearDown",
-fn: function (){
-var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=$Package();
-_st($1)._defaultCommitPathJs_(self["@backUpCommitPathJs"]);
-$2=_st($1)._defaultCommitPathSt_(self["@backUpCommitPathSt"]);
-return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.PackageTest)})},
-messageSends: ["defaultCommitPathJs:", "defaultCommitPathSt:"]}),
-smalltalk.PackageTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testGrulCommitPathJsShouldBeServerGrulJs",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
-return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathJsShouldBeServerGrulJs",{},smalltalk.PackageTest)})},
-messageSends: ["assert:equals:", "commitPathJs"]}),
-smalltalk.PackageTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testGrulCommitPathStShouldBeGrulSt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
-return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathStShouldBeGrulSt",{},smalltalk.PackageTest)})},
-messageSends: ["assert:equals:", "commitPathSt"]}),
-smalltalk.PackageTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testZorkCommitPathJsShouldBeJs",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"js");
-return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathJsShouldBeJs",{},smalltalk.PackageTest)})},
-messageSends: ["assert:equals:", "commitPathJs"]}),
-smalltalk.PackageTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testZorkCommitPathStShouldBeSt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"st");
-return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathStShouldBeSt",{},smalltalk.PackageTest)})},
-messageSends: ["assert:equals:", "commitPathSt"]}),
-smalltalk.PackageTest);
-
-
-
-smalltalk.addClass('PackageWithDefaultCommitPathChangedTest', smalltalk.PackageTest, [], 'Kernel-Tests');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "setUp",
-fn: function (){
-var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-smalltalk.PackageWithDefaultCommitPathChangedTest.superclass.fn.prototype._setUp.apply(_st(self), []);
-$1=$Package();
-_st($1)._defaultCommitPathJs_("javascripts/");
-$2=_st($1)._defaultCommitPathSt_("smalltalk/");
-return self}, function($ctx1) {$ctx1.fill(self,"setUp",{},smalltalk.PackageWithDefaultCommitPathChangedTest)})},
-messageSends: ["setUp", "defaultCommitPathJs:", "defaultCommitPathSt:"]}),
-smalltalk.PackageWithDefaultCommitPathChangedTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testGrulCommitPathJsShouldBeServerGrulJs",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@grulPackage"])._commitPathJs(),"server/grul/js");
-return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathJsShouldBeServerGrulJs",{},smalltalk.PackageWithDefaultCommitPathChangedTest)})},
-messageSends: ["assert:equals:", "commitPathJs"]}),
-smalltalk.PackageWithDefaultCommitPathChangedTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testGrulCommitPathStShouldBeGrulSt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@grulPackage"])._commitPathSt(),"grul/st");
-return self}, function($ctx1) {$ctx1.fill(self,"testGrulCommitPathStShouldBeGrulSt",{},smalltalk.PackageWithDefaultCommitPathChangedTest)})},
-messageSends: ["assert:equals:", "commitPathSt"]}),
-smalltalk.PackageWithDefaultCommitPathChangedTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testZorkCommitPathJsShouldBeJavascript",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@zorkPackage"])._commitPathJs(),"javascripts/");
-return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathJsShouldBeJavascript",{},smalltalk.PackageWithDefaultCommitPathChangedTest)})},
-messageSends: ["assert:equals:", "commitPathJs"]}),
-smalltalk.PackageWithDefaultCommitPathChangedTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testZorkCommitPathStShouldBeSmalltalk",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(_st(self["@zorkPackage"])._commitPathSt(),"smalltalk/");
-return self}, function($ctx1) {$ctx1.fill(self,"testZorkCommitPathStShouldBeSmalltalk",{},smalltalk.PackageWithDefaultCommitPathChangedTest)})},
-messageSends: ["assert:equals:", "commitPathSt"]}),
-smalltalk.PackageWithDefaultCommitPathChangedTest);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "shouldInheritSelectors",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return false;
-}, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},smalltalk.PackageWithDefaultCommitPathChangedTest.klass)})},
-messageSends: []}),
-smalltalk.PackageWithDefaultCommitPathChangedTest.klass);
 
 
 smalltalk.addClass('PointTest', smalltalk.TestCase, [], 'Kernel-Tests');
@@ -3786,7 +4092,6 @@ self._deny_(nil._notNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsNil",{},smalltalk.UndefinedTest)})},
 messageSends: ["assert:", "isNil", "deny:", "notNil"]}),
 smalltalk.UndefinedTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

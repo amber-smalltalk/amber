@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
+
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
 smalltalk.LexicalScope.comment="I represent a lexical scope where variable names are associated with ScopeVars\x0aInstances are used for block scopes. Method scopes are instances of MethodLexicalScope.\x0a\x0aI am attached to a ScopeVar and method/block nodes.\x0aEach context (method/closure) get a fresh scope that inherits from its outer scope.";
 smalltalk.addMethod(
@@ -1838,6 +1839,5 @@ messageSends: ["theClass:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

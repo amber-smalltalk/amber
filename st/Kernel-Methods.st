@@ -690,12 +690,44 @@ constructor: aString value:anObject value: anObject2 value:anObject3
 !NativeFunction class methodsFor: 'testing'!
 
 exists: aString
+	^PlatformInterface existsGlobal: aString
+! !
+
+Object subclass: #Timeout
+	instanceVariableNames: 'rawTimeout'
+	package: 'Kernel-Methods'!
+!Timeout commentStamp!
+I am wrapping the returns from `set{Timeout,Interval}`.
+
+## Motivation
+
+Number suffices in browsers, but node.js returns an object.!
+
+!Timeout methodsFor: 'accessing'!
+
+rawTimeout: anObject
+	rawTimeout := anObject
+! !
+
+!Timeout methodsFor: 'timeout/interval'!
+
+clearInterval
 	<
-		if(aString in window) {
-			return true
-		} else {
-			return false
-		}
+		var interval = self["@rawTimeout"];
+		clearInterval(interval);
 	>
+!
+
+clearTimeout
+	<
+		var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+	>
+! !
+
+!Timeout class methodsFor: 'instance creation'!
+
+on: anObject
+	^self new rawTimeout: anObject; yourself
 ! !
 

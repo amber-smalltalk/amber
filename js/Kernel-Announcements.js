@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Announcements');
+
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.AnnouncementSubscription.comment="I am a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible.";
 smalltalk.addMethod(
@@ -760,6 +761,5 @@ smalltalk.ProtocolAdded.comment="I am emitted when a protocol is added to a clas
 
 smalltalk.addClass('ProtocolRemoved', smalltalk.ProtocolAnnouncement, [], 'Kernel-Announcements');
 smalltalk.ProtocolRemoved.comment="I am emitted when a protocol is removed from a class.";
-
 
 })(global_smalltalk,global_nil,global__st);

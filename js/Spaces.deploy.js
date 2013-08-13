@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
+
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.addMethod(
 smalltalk.method({
@@ -19,11 +20,11 @@ selector: "create",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_("body"))._append_("<iframe style=\x22display: none;\x22></iframe>");
-self["@frame"]=_st(_st(_st(window)._jQuery_("iframe"))._get())._last();
+_st("body"._asJQuery())._append_("<iframe style=\x22display: none;\x22></iframe>");
+self["@frame"]=_st(_st("iframe"._asJQuery())._get())._last();
 _st(_st(self["@frame"])._contentWindow())._location_(_st(window)._location());
 return self}, function($ctx1) {$ctx1.fill(self,"create",{},smalltalk.ObjectSpace)})},
-messageSends: ["append:", "jQuery:", "last", "get", "location:", "contentWindow", "location"]}),
+messageSends: ["append:", "asJQuery", "last", "get", "location:", "contentWindow", "location"]}),
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
@@ -40,10 +41,10 @@ return $2;
 } else {
 $1;
 };
-_st(_st(window)._jQuery_(self["@frame"]))._remove();
+_st(_st(self["@frame"])._asJQuery())._remove();
 self._release();
 return self}, function($ctx1) {$ctx1.fill(self,"destroy",{},smalltalk.ObjectSpace)})},
-messageSends: ["ifNil:", "remove", "jQuery:", "release"]}),
+messageSends: ["ifNil:", "remove", "asJQuery", "release"]}),
 smalltalk.ObjectSpace);
 
 smalltalk.addMethod(
@@ -120,9 +121,9 @@ selector: "whenReadyDo:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_(self["@frame"]))._bind_do_("load",aBlock);
+_st(_st(self["@frame"])._asJQuery())._bind_do_("load",aBlock);
 return self}, function($ctx1) {$ctx1.fill(self,"whenReadyDo:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
-messageSends: ["bind:do:", "jQuery:"]}),
+messageSends: ["bind:do:", "asJQuery"]}),
 smalltalk.ObjectSpace);
 
 
@@ -247,7 +248,6 @@ self._assert_(_st(_st(self["@space"])._frame())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testRelease",{},smalltalk.ObjectSpaceTest)})},
 messageSends: ["deny:", "isNil", "frame", "release", "assert:"]}),
 smalltalk.ObjectSpaceTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

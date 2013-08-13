@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Methods');
+
 smalltalk.addClass('BlockClosure', smalltalk.Object, [], 'Kernel-Methods');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1319,17 +1320,71 @@ smalltalk.method({
 selector: "exists:",
 fn: function (aString){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-
-		if(aString in window) {
-			return true
-		} else {
-			return false
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
-messageSends: []}),
+var $1;
+$1=_st($PlatformInterface())._existsGlobal_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
+messageSends: ["existsGlobal:"]}),
 smalltalk.NativeFunction.klass);
 
+
+smalltalk.addClass('Timeout', smalltalk.Object, ['rawTimeout'], 'Kernel-Methods');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "clearInterval",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var interval = self["@rawTimeout"];
+		clearInterval(interval);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"clearInterval",{},smalltalk.Timeout)})},
+messageSends: []}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "clearTimeout",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var timeout = self["@rawTimeout"];
+		clearTimeout(timeout);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"clearTimeout",{},smalltalk.Timeout)})},
+messageSends: []}),
+smalltalk.Timeout);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "rawTimeout:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@rawTimeout"]=anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"rawTimeout:",{anObject:anObject},smalltalk.Timeout)})},
+messageSends: []}),
+smalltalk.Timeout);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._rawTimeout_(anObject);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Timeout.klass)})},
+messageSends: ["rawTimeout:", "new", "yourself"]}),
+smalltalk.Timeout.klass);
 
 })(global_smalltalk,global_nil,global__st);

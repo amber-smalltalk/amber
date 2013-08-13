@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-References');
+
 smalltalk.addClass('HLMethodReference', smalltalk.Object, ['selector', 'methodClass'], 'Helios-References');
 smalltalk.addMethod(
 smalltalk.method({
@@ -554,7 +555,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
 args: ["aMethod"],
-source: "onMethodSelected: aMethod\x0a\x09aMethod ifNil: [ ^ self ].\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a\x09\x0a\x09self \x0a\x09\x09selectedItem: aMethod selector;\x0a\x09\x09activateItem: aMethod selector\x09",
+source: "onMethodSelected: aMethod\x0a\x09aMethod ifNil: [ ^ self ].\x0a\x09self items detect: [ :each | each = aMethod selector ] ifNone: [ ^ self ].\x0a\x09\x0a\x09self \x0a\x09\x09selectedItem: aMethod selector;\x0a\x09\x09activateItem: aMethod selector",
 messageSends: ["ifNil:", "detect:ifNone:", "items", "=", "selector", "selectedItem:", "activateItem:"],
 referencedClasses: []
 }),
@@ -1108,7 +1109,6 @@ messageSends: ["inject:into:", "classesAndMetaclasses", "new", ",", "methods"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);
-
 
 
 })(global_smalltalk,global_nil,global__st);

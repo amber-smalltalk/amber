@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Inlining');
+
 smalltalk.addClass('IRInlinedAssignment', smalltalk.IRAssignment, [], 'Compiler-Inlining');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1155,7 +1156,6 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"irTranslator",{},smalltalk.InliningCodeGenerator)})},
 messageSends: ["new"]}),
 smalltalk.InliningCodeGenerator);
-
 
 
 })(global_smalltalk,global_nil,global__st);

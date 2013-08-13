@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Tests');
+
 smalltalk.addClass('ASTVisitorTest', smalltalk.TestCase, [], 'Compiler-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -2017,7 +2018,6 @@ messageSends: ["parse:", "visit:", "assert:", "isTempVar", "binding", "receiver"
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzerTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Tools');
+
 smalltalk.addClass('HLToolCommand', smalltalk.HLModelCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1340,6 +1341,5 @@ return "Rename protocol...";
 }, function($ctx1) {$ctx1.fill(self,"menuLabel",{},smalltalk.HLRenameProtocolCommand.klass)})},
 messageSends: []}),
 smalltalk.HLRenameProtocolCommand.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

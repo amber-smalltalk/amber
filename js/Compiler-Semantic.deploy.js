@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
+
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope', 'blockIndex'], 'Compiler-Semantic');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1387,6 +1388,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aClass:aClass},smalltalk.SemanticAnalyzer.klass)})},
 messageSends: ["theClass:", "new", "yourself"]}),
 smalltalk.SemanticAnalyzer.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

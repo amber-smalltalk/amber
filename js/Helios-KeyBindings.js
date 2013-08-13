@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
+
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1539,14 +1540,14 @@ category: 'events',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(window)._jQuery_("body"))._keydown_((function(event){
+_st("body"._asJQuery())._keydown_((function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._handleKeyDown_(event);
 }, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupEvents",{},smalltalk.HLKeyBinder)})},
 args: [],
-source: "setupEvents\x0a\x09(window jQuery: 'body') keydown: [ :event | self handleKeyDown: event ]",
-messageSends: ["keydown:", "jQuery:", "handleKeyDown:"],
+source: "setupEvents\x0a\x09'body' asJQuery keydown: [ :event | self handleKeyDown: event ]",
+messageSends: ["keydown:", "asJQuery", "handleKeyDown:"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinder);
@@ -1829,7 +1830,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-_st(_st(window)._jQuery_("#helper"))._remove();
+_st("#helper"._asJQuery())._remove();
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(html)._div();
@@ -1839,12 +1840,12 @@ return $2;
 }, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,1)})}))._appendToJQuery_("body"._asJQuery());
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(window)._jQuery_("#helper"))._fadeOut_((1000));
+return _st("#helper"._asJQuery())._fadeOut_((1000));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))._valueWithTimeout_((2000));
 return self}, function($ctx1) {$ctx1.fill(self,"renderStart",{},smalltalk.HLKeyBinderHelper)})},
 args: [],
-source: "renderStart\x0a\x09(window jQuery: '#helper') remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[ (window jQuery: '#helper') fadeOut: 1000 ] \x0a\x09\x09valueWithTimeout: 2000",
-messageSends: ["remove", "jQuery:", "appendToJQuery:", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "asJQuery", "valueWithTimeout:", "fadeOut:"],
+source: "renderStart\x0a\x09'#helper' asJQuery remove.\x0a\x0a\x09[ :html |\x0a\x09\x09html div \x0a\x09\x09\x09id: 'helper';\x0a\x09\x09\x09with: 'Press ', self keyBinder activationKeyLabel, ' to start' ] appendToJQuery: 'body' asJQuery.\x0a\x09\x0a\x09[ '#helper' asJQuery fadeOut: 1000 ] \x0a\x09\x09valueWithTimeout: 2000",
+messageSends: ["remove", "asJQuery", "appendToJQuery:", "id:", "div", "with:", ",", "activationKeyLabel", "keyBinder", "valueWithTimeout:", "fadeOut:"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinderHelper);
@@ -2031,7 +2032,7 @@ self._handleKeyUp();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
 args: ["e"],
-source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ] ",
+source: "handleKeyUp: e\x0a\x09isKeyCurrentlyPressed\x0a\x09\x09ifTrue: [ self handleKeyUp ]",
 messageSends: ["ifTrue:", "handleKeyUp"],
 referencedClasses: []
 }),
@@ -2228,6 +2229,5 @@ messageSends: ["widget:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HLRepeatingKeyBindingHandler.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

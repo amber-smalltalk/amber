@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
+
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
 smalltalk.addMethod(
@@ -14,7 +15,6 @@ _st(console)._log_("0 tinyBenchmarks => ".__comma(result));
 return self}, function($ctx1) {$ctx1.fill(self,"main",{result:result},smalltalk.Benchfib.klass)})},
 messageSends: ["tinyBenchmarks", "log:", ","]}),
 smalltalk.Benchfib.klass);
-
 
 smalltalk.addMethod(
 smalltalk.method({

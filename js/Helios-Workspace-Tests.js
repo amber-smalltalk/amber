@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace-Tests');
+
 smalltalk.addClass('HLCodeWidgetTest', smalltalk.TestCase, [], 'Helios-Workspace-Tests');
 smalltalk.addMethod(
 smalltalk.method({
@@ -19,7 +20,6 @@ messageSends: ["assert:", "isKindOf:", "pcKeyMap", "macKeyMap"],
 referencedClasses: ["HLCodeWidget", "HashedCollection"]
 }),
 smalltalk.HLCodeWidgetTest);
-
 
 
 })(global_smalltalk,global_nil,global__st);

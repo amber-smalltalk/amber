@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-AST');
+
 smalltalk.addClass('Node', smalltalk.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1617,7 +1618,6 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},smalltalk.ClassReferenceNode)})},
 messageSends: ["visitClassReferenceNode:"]}),
 smalltalk.ClassReferenceNode);
-
 
 
 smalltalk.addMethod(

@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Browser');
+
 smalltalk.addClass('HLBrowserCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Browser');
 
 smalltalk.addMethod(
@@ -417,6 +418,5 @@ return "Instance side";
 }, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLToggleInstanceSideCommand.klass)})},
 messageSends: []}),
 smalltalk.HLToggleInstanceSideCommand.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

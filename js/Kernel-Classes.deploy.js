@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Classes');
+
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
 smalltalk.method({
@@ -178,10 +179,7 @@ selector: "basicRemoveCompiledMethod:",
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		smalltalk.removeMethod(aMethod)
-		smalltalk.init(self);
-	;
+smalltalk.removeMethod(aMethod,self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 messageSends: []}),
 smalltalk.Behavior);
@@ -1636,6 +1634,5 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:classes:level:",{aClass:aClass,aCollection:aCollection,anInteger:anInteger},smalltalk.ClassSorterNode.klass)})},
 messageSends: ["theClass:", "new", "level:", "getNodesFrom:", "yourself"]}),
 smalltalk.ClassSorterNode.klass);
-
 
 })(global_smalltalk,global_nil,global__st);

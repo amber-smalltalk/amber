@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace');
+
 smalltalk.addClass('HLCodeModel', smalltalk.Object, ['announcer', 'environment', 'receiver'], 'Helios-Workspace');
 smalltalk.addMethod(
 smalltalk.method({
@@ -353,7 +354,7 @@ $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},smalltalk.HLCodeWidget)})},
 args: [],
-source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result        ",
+source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result",
 messageSends: ["announce:", "announcer", "model", "on:", "doIt:", "currentLineOrSelection"],
 referencedClasses: ["HLDoItRequested", "HLDoItExecuted"]
 }),
@@ -916,9 +917,9 @@ var variables,classNames,pseudoVariables;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-variables=_st(_st(_st(_st(window)._jQuery_(_st(_st(anEditor)._display())._wrapper()))._find_("span.cm-variable"))._get())._collect_((function(each){
+variables=_st(_st(_st(_st(_st(_st(anEditor)._display())._wrapper())._asJQuery())._find_("span.cm-variable"))._get())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(window)._jQuery_(each))._html();
+return _st(_st(each)._asJQuery())._html();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 classNames=_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -935,8 +936,8 @@ return _st(each).__eq(_st(aToken)._string());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
 args: ["anEditor", "aToken"],
-source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := ((window jQuery: anEditor display wrapper) find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | (window jQuery: each) html ].\x0a\x09\x0a\x09classNames := Smalltalk current classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk current pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
-messageSends: ["collect:", "get", "find:", "jQuery:", "wrapper", "display", "html", "classes", "current", "name", "pseudoVariableNames", "reject:", "select:", "asArray", "asSet", ",", "includesSubString:", "string", "="],
+source: "variableHintFor: anEditor token: aToken\x0a\x09| variables classNames pseudoVariables |\x0a\x09\x0a\x09variables := (anEditor display wrapper asJQuery find: 'span.cm-variable') get\x0a\x09\x09collect: [ :each | each asJQuery html ].\x0a\x09\x0a\x09classNames := Smalltalk current classes collect: [ :each | each name ].\x0a\x09pseudoVariables := Smalltalk current pseudoVariableNames.\x0a\x09\x0a\x09^ ((variables, classNames, pseudoVariables) asSet asArray \x0a\x09\x09select: [ :each | each includesSubString: aToken string ])\x0a\x09\x09reject: [ :each | each = aToken string ]",
+messageSends: ["collect:", "get", "find:", "asJQuery", "wrapper", "display", "html", "classes", "current", "name", "pseudoVariableNames", "reject:", "select:", "asArray", "asSet", ",", "includesSubString:", "string", "="],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.HLCodeWidget);
@@ -2074,6 +2075,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HLWorkspace.klass);
-
 
 })(global_smalltalk,global_nil,global__st);
