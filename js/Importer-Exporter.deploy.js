@@ -697,6 +697,61 @@ messageSends: ["stream:", "new"]}),
 smalltalk.ChunkParser.klass);
 
 
+smalltalk.addClass('ExportRecipeInterpreter', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpret:for:on:",
+fn: function (aRecipe,anObject,aStream){
+var self=this;
+var recipeStream;
+return smalltalk.withContext(function($ctx1) { 
+recipeStream=_st(aRecipe)._readStream();
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(recipeStream)._atEnd();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._interpretStep_for_on_(_st(recipeStream)._next(),anObject,aStream);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpret:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,recipeStream:recipeStream},smalltalk.ExportRecipeInterpreter)})},
+messageSends: ["readStream", "whileFalse:", "atEnd", "interpretStep:for:on:", "next"]}),
+smalltalk.ExportRecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpretStep:for:on:",
+fn: function (aRecipeStep,anObject,aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(aRecipeStep)._value()).__eq_eq(aRecipeStep);
+if(smalltalk.assert($1)){
+$2=self._interpretSubRecipe_for_on_(aRecipeStep,anObject,aStream);
+return $2;
+};
+_st(_st(aRecipeStep)._key())._perform_withArguments_(_st(aRecipeStep)._value(),[anObject,aStream]);
+return self}, function($ctx1) {$ctx1.fill(self,"interpretStep:for:on:",{aRecipeStep:aRecipeStep,anObject:anObject,aStream:aStream},smalltalk.ExportRecipeInterpreter)})},
+messageSends: ["ifTrue:", "==", "value", "interpretSubRecipe:for:on:", "perform:withArguments:", "key"]}),
+smalltalk.ExportRecipeInterpreter);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "interpretSubRecipe:for:on:",
+fn: function (aRecipe,anObject,aStream){
+var self=this;
+var selection;
+return smalltalk.withContext(function($ctx1) { 
+selection=_st(_st(_st(aRecipe)._first())._key())._perform_withArguments_(_st(_st(aRecipe)._first())._value(),[anObject]);
+_st(selection)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._interpret_for_on_(_st(aRecipe)._allButFirst(),each,aStream);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"interpretSubRecipe:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,selection:selection},smalltalk.ExportRecipeInterpreter)})},
+messageSends: ["perform:withArguments:", "key", "first", "value", "do:", "interpret:for:on:", "allButFirst"]}),
+smalltalk.ExportRecipeInterpreter);
+
+
+
 smalltalk.addClass('Importer', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.addMethod(
 smalltalk.method({
@@ -1205,10 +1260,10 @@ smalltalk.method({
 selector: "interpreter",
 fn: function (){
 var self=this;
-function $RecipeInterpreter(){return smalltalk.RecipeInterpreter||(typeof RecipeInterpreter=="undefined"?nil:RecipeInterpreter)}
+function $ExportRecipeInterpreter(){return smalltalk.ExportRecipeInterpreter||(typeof ExportRecipeInterpreter=="undefined"?nil:ExportRecipeInterpreter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($RecipeInterpreter())._new();
+$1=_st($ExportRecipeInterpreter())._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.PluggableExporter)})},
 messageSends: ["new"]}),
@@ -1267,61 +1322,6 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ownClassesOfPackage:",{package_:package_},smalltalk.PluggableExporter.klass)})},
 messageSends: ["asSet", "sortedClasses"]}),
 smalltalk.PluggableExporter.klass);
-
-
-smalltalk.addClass('RecipeInterpreter', smalltalk.Object, [], 'Importer-Exporter');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpret:for:on:",
-fn: function (aRecipe,anObject,aStream){
-var self=this;
-var recipeStream;
-return smalltalk.withContext(function($ctx1) { 
-recipeStream=_st(aRecipe)._readStream();
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(recipeStream)._atEnd();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._interpretStep_for_on_(_st(recipeStream)._next(),anObject,aStream);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"interpret:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,recipeStream:recipeStream},smalltalk.RecipeInterpreter)})},
-messageSends: ["readStream", "whileFalse:", "atEnd", "interpretStep:for:on:", "next"]}),
-smalltalk.RecipeInterpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpretStep:for:on:",
-fn: function (aRecipeStep,anObject,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(aRecipeStep)._value()).__eq_eq(aRecipeStep);
-if(smalltalk.assert($1)){
-$2=self._interpretSubRecipe_for_on_(aRecipeStep,anObject,aStream);
-return $2;
-};
-_st(_st(aRecipeStep)._key())._perform_withArguments_(_st(aRecipeStep)._value(),[anObject,aStream]);
-return self}, function($ctx1) {$ctx1.fill(self,"interpretStep:for:on:",{aRecipeStep:aRecipeStep,anObject:anObject,aStream:aStream},smalltalk.RecipeInterpreter)})},
-messageSends: ["ifTrue:", "==", "value", "interpretSubRecipe:for:on:", "perform:withArguments:", "key"]}),
-smalltalk.RecipeInterpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpretSubRecipe:for:on:",
-fn: function (aRecipe,anObject,aStream){
-var self=this;
-var selection;
-return smalltalk.withContext(function($ctx1) { 
-selection=_st(_st(_st(aRecipe)._first())._key())._perform_withArguments_(_st(_st(aRecipe)._first())._value(),[anObject]);
-_st(selection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return self._interpret_for_on_(_st(aRecipe)._allButFirst(),each,aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"interpretSubRecipe:for:on:",{aRecipe:aRecipe,anObject:anObject,aStream:aStream,selection:selection},smalltalk.RecipeInterpreter)})},
-messageSends: ["perform:withArguments:", "key", "first", "value", "do:", "interpret:for:on:", "allButFirst"]}),
-smalltalk.RecipeInterpreter);
-
 
 smalltalk.addMethod(
 smalltalk.method({

@@ -418,6 +418,61 @@ on: aStream
 	^self new stream: aStream
 ! !
 
+Object subclass: #ExportRecipeInterpreter
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+!ExportRecipeInterpreter commentStamp!
+I am an interpreter for export recipes.
+
+## Recipe format
+
+Recipe is an array, which can contain two kinds of elements:
+
+ - an assocation where the key is the receiver and the value is a two-arguments selector
+    In this case, `receiver perform: selector withArguments: { data. stream }` is called.
+	This essentially defines one step of export process.
+	The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods
+	that just format appropriate aspect of data into a stream; like a class or a singleton,
+	so that the recipe itself can be decoupled from data.
+
+ - a subarray, where first element is special and the rest is recursive recipe.
+
+    `subarray first` must be an association similar to one above,
+	with key being the 'repository' receiver, but value is one-arg selector.
+	In this case, `receiver perform: selector withArguments: { data }` should create a collection.
+	Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.
+	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]!
+
+!ExportRecipeInterpreter methodsFor: 'interpreting'!
+
+interpret: aRecipe for: anObject on: aStream
+	| recipeStream |
+	
+	recipeStream := aRecipe readStream.
+	
+	[ recipeStream atEnd ] whileFalse: [
+		self 
+			interpretStep: recipeStream next
+			for: anObject
+			on: aStream ]
+!
+
+interpretStep: aRecipeStep for: anObject on: aStream
+	aRecipeStep value == aRecipeStep ifTrue: [ 
+		^ self interpretSubRecipe: aRecipeStep for: anObject on: aStream ].
+			
+	aRecipeStep key perform: aRecipeStep value withArguments: { anObject. aStream }
+!
+
+interpretSubRecipe: aRecipe for: anObject on: aStream
+	| selection |
+	selection := aRecipe first key 
+		perform: aRecipe first value 
+		withArguments: { anObject }.
+	selection do: [ :each |	
+		self interpret: aRecipe allButFirst for: each on: aStream ]
+! !
+
 Object subclass: #Importer
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -683,7 +738,7 @@ which exports `aPackage` using the `recipe`
 !PluggableExporter methodsFor: 'accessing'!
 
 interpreter
-	^ RecipeInterpreter new
+	^ ExportRecipeInterpreter new
 !
 
 recipe
@@ -720,61 +775,6 @@ ownClassesOfPackage: package
 
 forRecipe: aRecipe
 	^self new recipe: aRecipe; yourself
-! !
-
-Object subclass: #RecipeInterpreter
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!RecipeInterpreter commentStamp!
-I am an interpreter for export recipes.
-
-## Recipe format
-
-Recipe is an array, which can contain two kinds of elements:
-
- - an assocation where the key is the receiver and the value is a two-arguments selector
-    In this case, `receiver perform: selector withArguments: { data. stream }` is called.
-	This essentially defines one step of export process.
-	The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods
-	that just format appropriate aspect of data into a stream; like a class or a singleton,
-	so that the recipe itself can be decoupled from data.
-
- - a subarray, where first element is special and the rest is recursive recipe.
-
-    `subarray first` must be an association similar to one above,
-	with key being the 'repository' receiver, but value is one-arg selector.
-	In this case, `receiver perform: selector withArguments: { data }` should create a collection.
-	Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.
-	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]!
-
-!RecipeInterpreter methodsFor: 'interpreting'!
-
-interpret: aRecipe for: anObject on: aStream
-	| recipeStream |
-	
-	recipeStream := aRecipe readStream.
-	
-	[ recipeStream atEnd ] whileFalse: [
-		self 
-			interpretStep: recipeStream next
-			for: anObject
-			on: aStream ]
-!
-
-interpretStep: aRecipeStep for: anObject on: aStream
-	aRecipeStep value == aRecipeStep ifTrue: [ 
-		^ self interpretSubRecipe: aRecipeStep for: anObject on: aStream ].
-			
-	aRecipeStep key perform: aRecipeStep value withArguments: { anObject. aStream }
-!
-
-interpretSubRecipe: aRecipe for: anObject on: aStream
-	| selection |
-	selection := aRecipe first key 
-		perform: aRecipe first value 
-		withArguments: { anObject }.
-	selection do: [ :each |	
-		self interpret: aRecipe allButFirst for: each on: aStream ]
 ! !
 
 !Package methodsFor: '*Importer-Exporter'!
