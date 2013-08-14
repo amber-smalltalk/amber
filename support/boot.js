@@ -45,7 +45,7 @@ var global_smalltalk, global_nil, global__st;
 
 (function () {
 
-/* Reconfigurable micro composition system, https://github.com/herby/brikz */
+/* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
 function Brikz(api, apiKey, initKey) {
 	var brikz = this, backup = {};
