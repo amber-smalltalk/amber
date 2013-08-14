@@ -832,6 +832,10 @@ asJavascript
 	^'(', self printString, ')'
 !
 
+asNumber
+	^ self
+!
+
 asPoint
 	^Point x: self y: self
 !
@@ -842,6 +846,14 @@ asString
 
 atRandom
 	^(Random new next * self) truncated + 1
+!
+
+ceiling
+	<return Math.ceil(self);>
+!
+
+floor
+	<return Math.floor(self);>
 !
 
 rounded

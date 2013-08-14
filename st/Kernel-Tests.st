@@ -840,6 +840,12 @@ testAsArray
 	self assert: 'hello' asArray equals: #('h' 'e' 'l' 'l' 'o').
 !
 
+testAsNumber
+	self assert: '3' asNumber equals: 3.
+	self assert: '-3' asNumber equals: -3.
+	self assert: '-1.5' asNumber equals: -1.5.
+!
+
 testAt
 	self assert: ('hello' at: 1) equals: 'h'.
 	self assert: ('hello' at: 5) equals: 'o'.
@@ -1356,6 +1362,16 @@ testArithmetic
 	self assert: 1 + (2 * 3) equals: 7
 !
 
+testAsNumber
+	self assert: 3 asNumber equals: 3.
+!
+
+testCeiling
+	self assert: 1.2 ceiling equals: 2.
+	self assert: -1.2 ceiling equals: -1.
+	self assert: 1.0 ceiling equals: 1.
+!
+
 testComparison
 
 	self assert: 3 > 2.
@@ -1388,6 +1404,12 @@ testEquality
 	self deny: false = 0.
 	self deny: '' = 0.
 	self deny: 0 = ''
+!
+
+testFloor
+	self assert: 1.2 floor equals: 1.
+	self assert: -1.2 floor equals: -2.
+	self assert: 1.0 floor equals: 1.
 !
 
 testHexNumbers

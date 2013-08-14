@@ -812,9 +812,10 @@ function RuntimeBrik(brikz, st) {
 			this.lookupClass = lookupClass;
 		};
 
-		SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx) {
+		SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx, index) {
 			this.locals        = locals || {};
 			this.outerContext  = ctx;
+			this.index         = index || 0;
 		};
 
 		SmalltalkMethodContext.prototype.init = function() {

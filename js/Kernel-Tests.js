@@ -2192,6 +2192,24 @@ smalltalk.StringTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAsNumber",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("3"._asNumber(),(3));
+self._assert_equals_("-3"._asNumber(),(-3));
+self._assert_equals_("-1.5"._asNumber(),(-1.5));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.StringTest)})},
+args: [],
+source: "testAsNumber\x0a\x09self assert: '3' asNumber equals: 3.\x0a\x09self assert: '-3' asNumber equals: -3.\x0a\x09self assert: '-1.5' asNumber equals: -1.5.",
+messageSends: ["assert:equals:", "asNumber"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAt",
 category: 'tests',
 fn: function (){
@@ -3621,6 +3639,40 @@ smalltalk.NumberTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAsNumber",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((3)._asNumber(),(3));
+return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.NumberTest)})},
+args: [],
+source: "testAsNumber\x0a\x09self assert: 3 asNumber equals: 3.",
+messageSends: ["assert:equals:", "asNumber"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testCeiling",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((1.2)._ceiling(),(2));
+self._assert_equals_((-1.2)._ceiling(),(-1));
+self._assert_equals_((1)._ceiling(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},smalltalk.NumberTest)})},
+args: [],
+source: "testCeiling\x0a\x09self assert: 1.2 ceiling equals: 2.\x0a\x09self assert: -1.2 ceiling equals: -1.\x0a\x09self assert: 1.0 ceiling equals: 1.",
+messageSends: ["assert:equals:", "ceiling"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testComparison",
 category: 'tests',
 fn: function (){
@@ -3680,6 +3732,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.Numbe
 args: [],
 source: "testEquality\x0a\x09self assert: (1 = 1).\x0a\x09self assert: (0 = 0).\x0a\x09self deny: (1 = 0).\x0a\x0a\x09self assert: (1 yourself = 1).\x0a\x09self assert: (1 = 1 yourself).\x0a\x09self assert: (1 yourself = 1 yourself).\x0a\x09\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = 0.\x0a\x09self deny: 0 = ''",
 messageSends: ["assert:", "=", "deny:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testFloor",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((1.2)._floor(),(1));
+self._assert_equals_((-1.2)._floor(),(-2));
+self._assert_equals_((1)._floor(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testFloor",{},smalltalk.NumberTest)})},
+args: [],
+source: "testFloor\x0a\x09self assert: 1.2 floor equals: 1.\x0a\x09self assert: -1.2 floor equals: -2.\x0a\x09self assert: 1.0 floor equals: 1.",
+messageSends: ["assert:equals:", "floor"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
