@@ -36,7 +36,7 @@
 
 define("amber_vm/boot", [ './browser-compatibility' ], function () {
 
-/* Array extensions */
+/* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
 function Brikz(api, apiKey, initKey) {
 	var brikz = this, backup = {};
