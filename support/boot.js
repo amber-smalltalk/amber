@@ -113,6 +113,8 @@ function RootBrik(brikz, st) {
 	this.nil = new SmalltalkNil();
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Objects");
+		st.addPackage("Kernel-Infrastructure");
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
 		st.wrapClassName("Smalltalk", "Kernel-Infrastructure", Smalltalk, st.Object, false);
 		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
@@ -320,6 +322,7 @@ function ClassesBrik(brikz, st) {
 	inherits(SmalltalkMetaclass, SmalltalkBehavior);
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Classes");
 		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, st.Object, false);
 		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
@@ -424,7 +427,8 @@ function ClassesBrik(brikz, st) {
 	};
 
 	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
-		var pkg = st.addPackage(pkgName);
+		var pkg = st.packages[pkgName];
+		if (!pkg) { throw new Error("Missing package "+pkgName); }
 		if(st[className] && st[className].superclass == superclass) {
 //            st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames || [];
@@ -546,6 +550,7 @@ function MethodsBrik(brikz, st) {
 	inherits(SmalltalkMethod, SmalltalkObject);
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Methods");
 		st.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, st.Object, false);
 	};
 
@@ -698,11 +703,13 @@ function SmalltalkInitBrik(brikz, st) {
 	};
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Methods");
 		st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
 		st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
 		st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
 		st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
 
+		st.addPackage("Kernel-Collections");
 		st.addClass("Collection", st.Object, null, "Kernel-Collections");
 		st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
 		st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
@@ -711,6 +718,7 @@ function SmalltalkInitBrik(brikz, st) {
 		st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
 		st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
 
+		st.addPackage("Kernel-Exceptions");
 		st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
 
 		/* Alias definitions */
@@ -806,6 +814,7 @@ function RuntimeBrik(brikz, st) {
 	inherits(SmalltalkMethodContext, SmalltalkObject);
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Methods");
 		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
 
 		// Fallbacks
