@@ -861,20 +861,9 @@ function RuntimeBrik(brikz, st) {
 			try {
 				return inContext(worker, setup);
 			} catch(error) {
-				if(error.smalltalkError) {
-					handleError(error);
-				} else {
-					var errorWrapper = st.JavaScriptException._on_(error);
-					try {errorWrapper._signal();} catch(ex) {}
-					errorWrapper._context_(st.getThisContext());
-					handleError(errorWrapper);
-				}
-				// Reset the context stack in any case
-				st.thisContext = undefined;
-				// Throw the exception anyway, as we want to stop
-				// the execution to avoid infinite loops
-				// Update: do not throw the exception. It's really annoying.
-				// throw error;
+				handleError(error);
+			} finally {
+				st.thisContext = null;
 			}
 		}
 	};
@@ -886,11 +875,25 @@ function RuntimeBrik(brikz, st) {
 		return result;
 	}
 
+	function wrappedError(error) {
+		var errorWrapper = st.JavaScriptException._on_(error);
+		try { errorWrapper._signal(); } catch (ex) {}
+		errorWrapper._context_(st.getThisContext());
+		return errorWrapper;
+	}
+
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler
 		(See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
+		if (!error.smalltalkError) {
+			error = wrappedError(error);
+		}
 		st.ErrorHandler._current()._handleError_(error);
+		// Throw the exception anyway, as we want to stop
+		// the execution to avoid infinite loops
+		// Update: do not throw the exception. It's really annoying.
+		// throw error;
 	}
 
 	/* Handle thisContext pseudo variable */
