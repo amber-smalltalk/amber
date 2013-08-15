@@ -231,7 +231,7 @@ function ClassInitBrik(brikz, st) {
 	};
 
 	function copySuperclass(klass, superclass) {
-		var inheritedMethods = {};
+		var inheritedMethods = Object.create(null);
 		deinstallAllMethods(klass);
 		for (superclass = superclass || klass.superclass;
 			superclass && superclass !== nil;
@@ -246,8 +246,7 @@ function ClassInitBrik(brikz, st) {
 			var selector = method.selector;
 
 			//TODO: prepare klass methods into inheritedMethods to only test once
-			//TODO: Object.create(null) to ditch hasOwnProperty call (very slow)
-			if(klass.methods.hasOwnProperty(selector) || inheritedMethods.hasOwnProperty(selector)) {
+			if(klass.methods[selector] || inheritedMethods[selector]) {
 				return;
 			}
 
@@ -380,7 +379,7 @@ function ClassesBrik(brikz, st) {
 
 		org.setupClassOrganization(klass);
 		Object.defineProperty(klass, "methods", {
-			value: {},
+			value: Object.create(null),
 			enumerable: false, configurable: true, writable: true
 		});
 		Object.defineProperty(klass.fn.prototype, "klass", {
