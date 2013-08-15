@@ -284,13 +284,6 @@ function ManipulationBrik(brikz, st) {
 	}
 	this.installMethod = installMethod;
 
-	this.wireKlass = function (klass) {
-		Object.defineProperty(klass.fn.prototype, "klass", {
-			value: klass,
-			enumerable: false, configurable: true, writable: true
-		});
-	};
-
 	this.reinstallMethods = function (klass) {
 		var methods = klass.methods;
 		for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
@@ -302,7 +295,6 @@ function ManipulationBrik(brikz, st) {
 function ClassesBrik(brikz, st) {
 
 	var org = brikz.ensure("organize");
-	var manip = brikz.ensure("manipulation");
 	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkPackage() {}
@@ -391,7 +383,10 @@ function ClassesBrik(brikz, st) {
 			value: {},
 			enumerable: false, configurable: true, writable: true
 		});
-		manip.wireKlass(klass);
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
 	}
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
