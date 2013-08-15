@@ -179,7 +179,7 @@ function DNUBrik(brikz, st) {
 		this.selectors.push(string);
 		var selector = st.selector(string);
 		checker[selector] = true;
-		var method = {jsSelector: selector, fn: this.createHandler(selector)};
+		var method = {jsSelector: selector, fn: createHandler(selector)};
 		methods.push(method);
 		return method;
 	};
@@ -190,14 +190,12 @@ function DNUBrik(brikz, st) {
 
 	/* Dnu handler method */
 
-	this.createHandler = function (selector) {
-		var handler = function() {
+	function createHandler(selector) {
+		return function() {
 			var args = Array.prototype.slice.call(arguments);
 			return brikz.messageSend.messageNotUnderstood(this, selector, args);
 		};
-
-		return handler;
-	};
+	}
 
 	this.installHandlers = function (klass) {
 		for(var i=0; i<methods.length; i++) {
