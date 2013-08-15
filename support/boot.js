@@ -300,14 +300,14 @@ function ClassesBrik(brikz, st) {
 	function SmalltalkPackage() {}
 	function SmalltalkBehavior() {}
 	function SmalltalkClass() {}
-	function SmalltalkMetaclass() {
-		this.meta = true;
-	}
+	function SmalltalkMetaclass() {}
 
 	inherits(SmalltalkPackage, SmalltalkObject);
 	inherits(SmalltalkBehavior, SmalltalkObject);
 	inherits(SmalltalkClass, SmalltalkBehavior);
 	inherits(SmalltalkMetaclass, SmalltalkBehavior);
+
+	SmalltalkMetaclass.prototype.meta = true;
 
 	this.__init__ = function () {
 		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, st.Object, false);
