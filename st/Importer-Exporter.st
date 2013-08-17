@@ -712,7 +712,8 @@ AmdPackageHandler class instanceVariableNames: 'defaultNamespace'!
 !AmdPackageHandler class methodsFor: 'commit paths'!
 
 commitPathsFromLoader
-	"TODO"
+	(Smalltalk current at: '_amd_defaultNamespace')
+		ifNotNil: [ :namespace | self defaultNamespace: namespace ]
 !
 
 defaultNamespace

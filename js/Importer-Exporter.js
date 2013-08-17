@@ -1514,12 +1514,22 @@ selector: "commitPathsFromLoader",
 category: 'commit paths',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._current())._at_("_amd_defaultNamespace");
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+var namespace;
+namespace=$receiver;
+self._defaultNamespace_(namespace);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.AmdPackageHandler.klass)})},
 args: [],
-source: "commitPathsFromLoader\x0a\x09\x22TODO\x22",
-messageSends: [],
-referencedClasses: []
+source: "commitPathsFromLoader\x0a\x09(Smalltalk current at: '_amd_defaultNamespace')\x0a\x09\x09ifNotNil: [ :namespace | self defaultNamespace: namespace ]",
+messageSends: ["ifNotNil:", "defaultNamespace:", "at:", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler.klass);
 

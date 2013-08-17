@@ -1203,9 +1203,19 @@ smalltalk.method({
 selector: "commitPathsFromLoader",
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Smalltalk())._current())._at_("_amd_defaultNamespace");
+if(($receiver = $1) == nil || $receiver == undefined){
+$1;
+} else {
+var namespace;
+namespace=$receiver;
+self._defaultNamespace_(namespace);
+};
 return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.AmdPackageHandler.klass)})},
-messageSends: []}),
+messageSends: ["ifNotNil:", "defaultNamespace:", "at:", "current"]}),
 smalltalk.AmdPackageHandler.klass);
 
 smalltalk.addMethod(
