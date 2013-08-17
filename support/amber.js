@@ -29,11 +29,20 @@ require = function (require) {
         map: {
             '*': {
                 'css': 'requirejs/require-css-0.0.6/css'
+            },
+            'amber_set/full-devel-helios': {
+                'jquery-ui': 'jQuery/jquery-ui-1.8.24.custom.min'
             }
         },
         shim: {
             'jquery-ui': {
                 deps: [ 'jquery' ]
+            },
+            'bootstrap/js/bootstrap': {
+                deps: [ 'css!bootstrap/css/bootstrap' ]
+            },
+            'CodeMirror/codemirror': {
+                deps: [ 'css!CodeMirror/codemirror' ]
             },
             'jQuery/jquery.textarea': {
                 deps: [ 'jquery', 'jquery-ui' ]

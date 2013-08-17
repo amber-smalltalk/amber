@@ -1222,7 +1222,7 @@ defaultEnvironment
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	^ ((parent at: 'global_smalltalk')
+	^ (((parent at: 'requirejs') value: 'amber_vm/smalltalk')
 		at: 'Environment') new
 ! !
 

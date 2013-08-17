@@ -4,30 +4,25 @@
     <title>Helios IDE</title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="author" content="Nicolas Petton" />
-    <link rel="stylesheet" type="text/css" href='support/bootstrap/css/bootstrap.css' />
     <link type="image/x-icon" rel="shortcut icon" href="/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href='css/helios.css' />
   </head>
   <body id="helios">
     <div id="helper">Loading Helios...</div>
 
     <div id="includes">
-      <script type='text/javascript' src='support/jQuery/jquery-1.8.2.min.js'></script>
-      <script type='text/javascript' src='support/jQuery/jquery-ui-1.8.24.custom.min.js'></script>
-      <script type='text/javascript' src='support/bootstrap/js/bootstrap.js'></script>
-      <script type='text/javascript' src='support/showdown/showdown.js'></script>
       <script type='text/javascript' src='support/amber.js'></script>
+      <script type='text/javascript' src='support/requirejs/require.min.js'></script>
       <script type='text/javascript'>
-        loadAmber({packages: [
-          'Spaces', 'Helios-Core', 'Helios-Exceptions', 'Helios-Commands-Core',
-          'Helios-Commands-Tools', 'Helios-Commands-Browser', 'Helios-Layout', 'Helios-KeyBindings',
-          'Helios-Browser', 'Helios-Workspace', 'Helios-Transcript', 'Helios-Debugger',
-          'Helios-Inspector', 'Helios-References', 'Helios-Announcements', 'Helios-Workspace-Tests'
-        ]})
+          require(
+                  ["amber_vm/smalltalk", "amber_set/full-devel-helios"],
+                  function (smalltalk) {
+                      window.onbeforeunload = function() {
+                          return 'Do you want to close Amber? All uncommitted changes will be lost.';
+                      };
 
-        window.onbeforeunload = function() {
-          return 'Do you want to close Amber? All uncommitted changes will be lost.';
-        };
+                      smalltalk.initialize();
+                  }
+          );
       </script>
     </div>
   </body>
