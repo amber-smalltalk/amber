@@ -1029,16 +1029,17 @@ smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
 fn: function (aClass,className,aCollection,packageName){
 var self=this;
-var theClass;
+var theClass,thePackage;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 theClass=_st(_st($Smalltalk())._current())._at_(className);
+thePackage=self._createPackageNamed_(packageName);
 $1=theClass;
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(theClass)._package_(self._createPackageNamed_(packageName));
+_st(theClass)._package_(thePackage);
 $2=_st(_st(theClass)._superclass()).__eq_eq(aClass);
 if(! smalltalk.assert($2)){
 $3=self._migrateClassNamed_superclass_instanceVariableNames_package_(className,aClass,aCollection,packageName);
@@ -1047,8 +1048,8 @@ return $3;
 };
 $4=self._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,className,aCollection,packageName);
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,className:className,aCollection:aCollection,packageName:packageName,theClass:theClass},smalltalk.ClassBuilder)})},
-messageSends: ["at:", "current", "ifNotNil:", "package:", "createPackageNamed:", "ifFalse:", "migrateClassNamed:superclass:instanceVariableNames:package:", "==", "superclass", "basicAddSubclassOf:named:instanceVariableNames:package:"]}),
+}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,className:className,aCollection:aCollection,packageName:packageName,theClass:theClass,thePackage:thePackage},smalltalk.ClassBuilder)})},
+messageSends: ["at:", "current", "createPackageNamed:", "ifNotNil:", "package:", "ifFalse:", "migrateClassNamed:superclass:instanceVariableNames:package:", "==", "superclass", "basicAddSubclassOf:named:instanceVariableNames:package:"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
