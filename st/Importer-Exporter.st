@@ -468,7 +468,7 @@ nextChunk
 	^nil "a chunk needs to end with !!"
 ! !
 
-!ChunkParser class methodsFor: 'not yet classified'!
+!ChunkParser class methodsFor: 'instance creation'!
 
 on: aStream
 	^self new stream: aStream
@@ -849,8 +849,8 @@ Object subclass: #PluggableExporter
 I am an engine for exporting structured data on a Stream.
 
 My instances are created using
-  PluggableExporter newUsing: recipe,
-where recipe is structured description of the exporting algorithm.
+  PluggableExporter forRecipe: aRecipe,
+where recipe is structured description of the exporting algorithm (see `ExportRecipeInterpreter`).
 
 The actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.
 

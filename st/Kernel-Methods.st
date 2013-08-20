@@ -43,22 +43,18 @@ receiver
 !BlockClosure methodsFor: 'controlling'!
 
 whileFalse
-	"inlined in the Compiler"
 	self whileFalse: []
 !
 
 whileFalse: aBlock
-	"inlined in the Compiler"
 	<while(!!smalltalk.assert(self._value())) {aBlock._value()}>
 !
 
 whileTrue
-	"inlined in the Compiler"
 	self whileTrue: []
 !
 
 whileTrue: aBlock
-	"inlined in the Compiler"
 	<while(smalltalk.assert(self._value())) {aBlock._value()}>
 ! !
 
@@ -154,22 +150,18 @@ timeToRun
 !
 
 value
-	"inlined in the Compiler"
 	<return self();>
 !
 
 value: anArg
-	"inlined in the Compiler"
 	<return self(anArg);>
 !
 
 value: firstArg value: secondArg
-	"inlined in the Compiler"
 	<return self(firstArg, secondArg);>
 !
 
 value: firstArg value: secondArg value: thirdArg
-	"inlined in the Compiler"
 	<return self(firstArg, secondArg, thirdArg);>
 !
 

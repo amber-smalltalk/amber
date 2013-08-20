@@ -3,7 +3,7 @@ smalltalk.addPackage('Examples');
 smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber"};
 
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
-smalltalk.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter new appendToJQuery: 'body' asJQuery";
+smalltalk.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "decrease",
