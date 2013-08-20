@@ -1553,7 +1553,7 @@ smalltalk.LegacyPackageHandler.klass);
 
 
 smalltalk.addClass('PluggableExporter', smalltalk.Object, ['recipe'], 'Importer-Exporter');
-smalltalk.PluggableExporter.comment="I am an engine for exporting structured data on a Stream.\x0a\x0aMy instances are created using\x0a  PluggableExporter newUsing: recipe,\x0awhere recipe is structured description of the exporting algorithm.\x0a\x0aThe actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.\x0a\x0a\x0aI am used to export amber packages, so I have a convenience method\x0a`exportPackage: aPackage on: aStream`\x0awhich exports `aPackage` using the `recipe`\x0a(it is otherwise no special, so it may be renamed to export:on:)";
+smalltalk.PluggableExporter.comment="I am an engine for exporting structured data on a Stream.\x0a\x0aMy instances are created using\x0a  PluggableExporter forRecipe: aRecipe,\x0awhere recipe is structured description of the exporting algorithm (see `ExportRecipeInterpreter`).\x0a\x0aThe actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.\x0a\x0a\x0aI am used to export amber packages, so I have a convenience method\x0a`exportPackage: aPackage on: aStream`\x0awhich exports `aPackage` using the `recipe`\x0a(it is otherwise no special, so it may be renamed to export:on:)";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "exportAllPackages",
