@@ -841,7 +841,7 @@ smalltalk.ChunkParser);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "on:",
-category: 'not yet classified',
+category: 'instance creation',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 

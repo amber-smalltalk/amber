@@ -412,7 +412,7 @@ nextChunk
 	^nil "a chunk needs to end with !!"
 ! !
 
-!ChunkParser class methodsFor: 'not yet classified'!
+!ChunkParser class methodsFor: 'instance creation'!
 
 on: aStream
 	^self new stream: aStream
