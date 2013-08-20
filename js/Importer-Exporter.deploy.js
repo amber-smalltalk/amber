@@ -226,7 +226,7 @@ map=_st($Dictionary())._new();
 map;
 _st(aClass)._protocolsDo_((function(category,methods){
 return smalltalk.withContext(function($ctx4) {
-$1=_st(category)._match_("^\x5c*".__comma(name));
+$1=_st(category).__eq("*".__comma(name));
 if(smalltalk.assert($1)){
 return _st(map)._at_put_(category,methods);
 };
@@ -243,7 +243,7 @@ return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._
 $2=result;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},smalltalk.ChunkExporter)})},
-messageSends: ["name", "new", "do:", "protocolsDo:", "ifTrue:", "at:put:", "match:", ",", "addAll:", "collect:", "name:theClass:methods:", "at:", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"]}),
+messageSends: ["name", "new", "do:", "protocolsDo:", "ifTrue:", "at:put:", "=", ",", "addAll:", "collect:", "name:theClass:methods:", "at:", "sorted:", "<=", "keys", "class", "sortedClasses:", "classes", "current"]}),
 smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
@@ -536,14 +536,14 @@ return smalltalk.withContext(function($ctx4) {
 return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
 }, function($ctx4) {$ctx4.fillBlock({a:a,b:b},$ctx3)})})))._select_((function(method){
 return smalltalk.withContext(function($ctx4) {
-return _st(_st(method)._category())._match_("^\x5c*".__comma(name));
+return _st(_st(method)._category()).__eq("*".__comma(name));
 }, function($ctx4) {$ctx4.fillBlock({method:method},$ctx3)})})));
 }, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"extensionMethodsOfPackage:",{aPackage:aPackage,name:name,result:result},smalltalk.Exporter)})},
-messageSends: ["name", "new", "do:", "addAll:", "select:", "match:", ",", "category", "sorted:", "<=", "selector", "values", "methodDictionary", "class", "sortedClasses:", "classes", "current"]}),
+messageSends: ["name", "new", "do:", "addAll:", "select:", "=", ",", "category", "sorted:", "<=", "selector", "values", "methodDictionary", "class", "sortedClasses:", "classes", "current"]}),
 smalltalk.Exporter);
 
 smalltalk.addMethod(
