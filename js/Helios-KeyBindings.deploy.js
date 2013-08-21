@@ -1509,54 +1509,66 @@ messageSends: ["keyBinder:", "new", "yourself"]}),
 smalltalk.HLKeyBinderHelper.klass);
 
 
-smalltalk.addClass('HLRepeatingKeyBindingHandler', smalltalk.Object, ['repeatInterval', 'delay', 'interval', 'keyBindings', 'widget', 'isKeyCurrentlyPressed'], 'Helios-KeyBindings');
+smalltalk.addClass('HLRepeatedKeyDownHandler', smalltalk.Object, ['repeatInterval', 'delay', 'interval', 'keyBindings', 'widget', 'keyDown'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "bindKeys",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@widget"])._bindKeyDown_up_((function(e){
+_st(self._widget())._bindKeyDown_keyUp_((function(e){
 return smalltalk.withContext(function($ctx2) {
 return self._handleKeyDown_(e);
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}),(function(e){
 return smalltalk.withContext(function($ctx2) {
-return self._handleKeyUp_(e);
+return self._handleKeyUp();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"bindKeys",{},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["bindKeyDown:up:", "handleKeyDown:", "handleKeyUp:"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"bindKeys",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["bindKeyDown:keyUp:", "handleKeyDown:", "handleKeyUp", "widget"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "delayBeforeStartingRepeatWithAction:",
-fn: function (action){
+selector: "defaultRepeatInterval",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (70);
+}, function($ctx1) {$ctx1.fill(self,"defaultRepeatInterval",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: []}),
+smalltalk.HLRepeatedKeyDownHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "handleEvent:forKey:action:",
+fn: function (anEvent,anInteger,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st((function(){
+$1=_st(_st(_st(anEvent)._which()).__eq(anInteger))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-self["@interval"]=self._startRepeatingAction_(action);
-return self["@interval"];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"delayBeforeStartingRepeatWithAction:",{action:action},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["valueWithTimeout:", "startRepeatingAction:"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+return _st(self._isKeyDown())._not();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+if(smalltalk.assert($1)){
+self._whileKeyDownDo_(aBlock);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"handleEvent:forKey:action:",{anEvent:anEvent,anInteger:anInteger,aBlock:aBlock},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["ifTrue:", "whileKeyDownDo:", "and:", "not", "isKeyDown", "=", "which"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "handleKeyDown:",
-fn: function (e){
+fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@keyBindings"])._keysAndValuesDo_((function(key,action){
+_st(self._keyBindings())._keysAndValuesDo_((function(key,action){
 return smalltalk.withContext(function($ctx2) {
-return self._ifKey_wasPressedIn_thenDo_(key,e,action);
+return self._handleEvent_forKey_action_(anEvent,key,action);
 }, function($ctx2) {$ctx2.fillBlock({key:key,action:action},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["keysAndValuesDo:", "ifKey:wasPressedIn:thenDo:"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+return self}, function($ctx1) {$ctx1.fill(self,"handleKeyDown:",{anEvent:anEvent},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["keysAndValuesDo:", "handleEvent:forKey:action:", "keyBindings"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1564,71 +1576,65 @@ selector: "handleKeyUp",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-self["@isKeyCurrentlyPressed"]=false;
-$1=self["@interval"];
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-_st(self["@interval"])._clearInterval();
-};
-$2=self["@delay"];
+var $1,$2,$3;
+$1=self._isKeyDown();
+if(smalltalk.assert($1)){
+self["@keyDown"]=false;
+self["@keyDown"];
+$2=self["@interval"];
 if(($receiver = $2) == nil || $receiver == undefined){
 $2;
 } else {
+_st(self["@interval"])._clearInterval();
+};
+$3=self["@delay"];
+if(($receiver = $3) == nil || $receiver == undefined){
+$3;
+} else {
 _st(self["@delay"])._clearTimeout();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp",{},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["ifNotNil:", "clearInterval", "clearTimeout"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["ifTrue:", "ifNotNil:", "clearInterval", "clearTimeout", "isKeyDown"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "handleKeyUp:",
-fn: function (e){
+selector: "isKeyDown",
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@isKeyCurrentlyPressed"];
-if(smalltalk.assert($1)){
-self._handleKeyUp();
+var $2,$1;
+$2=self["@keyDown"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=false;
+} else {
+$1=$2;
 };
-return self}, function($ctx1) {$ctx1.fill(self,"handleKeyUp:",{e:e},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["ifTrue:", "handleKeyUp"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isKeyDown",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["ifNil:"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "ifKey:wasPressedIn:thenDo:",
-fn: function (key,e,action){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(e)._which()).__eq(key))._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(self["@isKeyCurrentlyPressed"]).__eq(false);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-if(smalltalk.assert($1)){
-self._whileTheKeyIsPressedDo_(action);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"ifKey:wasPressedIn:thenDo:",{key:key,e:e,action:action},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["ifTrue:", "whileTheKeyIsPressedDo:", "and:", "=", "which"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
+selector: "keyBindings",
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-smalltalk.HLRepeatingKeyBindingHandler.superclass.fn.prototype._initialize.apply(_st(self), []);
+var $2,$1;
+$2=self["@keyBindings"];
+if(($receiver = $2) == nil || $receiver == undefined){
 self["@keyBindings"]=_st($Dictionary())._new();
-self["@isKeyCurrentlyPressed"]=false;
-self["@repeatInterval"]=(70);
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["initialize", "new"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+$1=self["@keyBindings"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"keyBindings",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["ifNil:", "new"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1640,41 +1646,59 @@ var $1,$2;
 $1=self;
 _st($1)._unbindKeys();
 $2=_st($1)._bindKeys();
-return self}, function($ctx1) {$ctx1.fill(self,"rebindKeys",{},smalltalk.HLRepeatingKeyBindingHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"rebindKeys",{},smalltalk.HLRepeatedKeyDownHandler)})},
 messageSends: ["unbindKeys", "bindKeys"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+smalltalk.HLRepeatedKeyDownHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "repeatInterval",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@repeatInterval"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=self._defaultRepeatInterval();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"repeatInterval",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["ifNil:", "defaultRepeatInterval"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "repeatInterval:",
-fn: function (aMillisecondIntegerValue){
+fn: function (anInteger){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@repeatInterval"]=aMillisecondIntegerValue;
-return self}, function($ctx1) {$ctx1.fill(self,"repeatInterval:",{aMillisecondIntegerValue:aMillisecondIntegerValue},smalltalk.HLRepeatingKeyBindingHandler)})},
+self["@repeatInterval"]=anInteger;
+return self}, function($ctx1) {$ctx1.fill(self,"repeatInterval:",{anInteger:anInteger},smalltalk.HLRepeatedKeyDownHandler)})},
 messageSends: []}),
-smalltalk.HLRepeatingKeyBindingHandler);
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "startRepeatingAction:",
-fn: function (action){
+fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(self["@widget"])._hasFocus();
+$2=_st(self._widget())._hasFocus();
 if(smalltalk.assert($2)){
-return _st(action)._value();
+return _st(aBlock)._value();
 } else {
 return self._handleKeyUp();
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithInterval_(self["@repeatInterval"]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithInterval_(self._repeatInterval());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"startRepeatingAction:",{action:action},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["valueWithInterval:", "ifTrue:ifFalse:", "value", "handleKeyUp", "hasFocus"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+}, function($ctx1) {$ctx1.fill(self,"startRepeatingAction:",{aBlock:aBlock},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["valueWithInterval:", "repeatInterval", "ifTrue:ifFalse:", "value", "handleKeyUp", "hasFocus", "widget"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1682,34 +1706,51 @@ selector: "unbindKeys",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@widget"])._unbindKeyDownUp();
-return self}, function($ctx1) {$ctx1.fill(self,"unbindKeys",{},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["unbindKeyDownUp"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+_st(self._widget())._unbindKeyDownKeyUp();
+return self}, function($ctx1) {$ctx1.fill(self,"unbindKeys",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["unbindKeyDownKeyUp", "widget"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "whileKeyPressed:do:",
+selector: "whileKeyDown:do:",
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self["@keyBindings"])._at_put_(aKey,aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"whileKeyPressed:do:",{aKey:aKey,aBlock:aBlock},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["at:put:"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+_st(self._keyBindings())._at_put_(aKey,aBlock);
+return self}, function($ctx1) {$ctx1.fill(self,"whileKeyDown:do:",{aKey:aKey,aBlock:aBlock},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["at:put:", "keyBindings"]}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "whileTheKeyIsPressedDo:",
-fn: function (action){
+selector: "whileKeyDownDo:",
+fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@isKeyCurrentlyPressed"]=true;
-_st(action)._value();
-self["@delay"]=self._delayBeforeStartingRepeatWithAction_(action);
-return self}, function($ctx1) {$ctx1.fill(self,"whileTheKeyIsPressedDo:",{action:action},smalltalk.HLRepeatingKeyBindingHandler)})},
-messageSends: ["value", "delayBeforeStartingRepeatWithAction:"]}),
-smalltalk.HLRepeatingKeyBindingHandler);
+self["@keyDown"]=true;
+_st(aBlock)._value();
+self["@delay"]=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@interval"]=self._startRepeatingAction_(aBlock);
+return self["@interval"];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithTimeout_((300));
+return self}, function($ctx1) {$ctx1.fill(self,"whileKeyDownDo:",{aBlock:aBlock},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: ["value", "valueWithTimeout:", "startRepeatingAction:"]}),
+smalltalk.HLRepeatedKeyDownHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "widget",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@widget"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"widget",{},smalltalk.HLRepeatedKeyDownHandler)})},
+messageSends: []}),
+smalltalk.HLRepeatedKeyDownHandler);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1718,14 +1759,14 @@ fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@widget"]=aWidget;
-return self}, function($ctx1) {$ctx1.fill(self,"widget:",{aWidget:aWidget},smalltalk.HLRepeatingKeyBindingHandler)})},
+return self}, function($ctx1) {$ctx1.fill(self,"widget:",{aWidget:aWidget},smalltalk.HLRepeatedKeyDownHandler)})},
 messageSends: []}),
-smalltalk.HLRepeatingKeyBindingHandler);
+smalltalk.HLRepeatedKeyDownHandler);
 
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "forWidget:",
+selector: "on:",
 fn: function (aWidget){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1735,8 +1776,8 @@ _st($2)._widget_(aWidget);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"forWidget:",{aWidget:aWidget},smalltalk.HLRepeatingKeyBindingHandler.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"on:",{aWidget:aWidget},smalltalk.HLRepeatedKeyDownHandler.klass)})},
 messageSends: ["widget:", "new", "yourself"]}),
-smalltalk.HLRepeatingKeyBindingHandler.klass);
+smalltalk.HLRepeatedKeyDownHandler.klass);
 
 })(global_smalltalk,global_nil,global__st);

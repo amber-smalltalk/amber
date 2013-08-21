@@ -612,7 +612,7 @@ unregister
 
 !HLWidget methodsFor: 'keybindings'!
 
-bindKeyDown: keyDownBlock up: keyUpBlock
+bindKeyDown: keyDownBlock keyUp: keyUpBlock
 	self wrapper asJQuery
 		keydown: keyDownBlock;
 		keyup: keyUpBlock
@@ -625,7 +625,7 @@ registerBindings
 registerBindingsOn: aBindingGroup
 !
 
-unbindKeyDownUp
+unbindKeyDownKeyUp
 	self wrapper asJQuery
 		unbind: 'keydown';
 		unbind: 'keyup'
@@ -854,9 +854,9 @@ defaultItems
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings 
-	(HLRepeatingKeyBindingHandler forWidget: self)
-		whileKeyPressed: 38 do: [ self activatePreviousListItem ];
-		whileKeyPressed: 40 do: [ self activateNextListItem ];
+	(HLRepeatedKeyDownHandler on: self)
+		whileKeyDown: 38 do: [ self activatePreviousListItem ];
+		whileKeyDown: 40 do: [ self activateNextListItem ];
 		rebindKeys
 ! !
 

@@ -1146,7 +1146,7 @@ smalltalk.HLTabWidget.klass);
 smalltalk.addClass('HLWidget', smalltalk.Widget, ['wrapper'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "bindKeyDown:up:",
+selector: "bindKeyDown:keyUp:",
 fn: function (keyDownBlock,keyUpBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1154,7 +1154,7 @@ var $1,$2;
 $1=_st(self._wrapper())._asJQuery();
 _st($1)._keydown_(keyDownBlock);
 $2=_st($1)._keyup_(keyUpBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"bindKeyDown:up:",{keyDownBlock:keyDownBlock,keyUpBlock:keyUpBlock},smalltalk.HLWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"bindKeyDown:keyUp:",{keyDownBlock:keyDownBlock,keyUpBlock:keyUpBlock},smalltalk.HLWidget)})},
 messageSends: ["keydown:", "asJQuery", "wrapper", "keyup:"]}),
 smalltalk.HLWidget);
 
@@ -1328,7 +1328,7 @@ smalltalk.HLWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "unbindKeyDownUp",
+selector: "unbindKeyDownKeyUp",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1336,7 +1336,7 @@ var $1,$2;
 $1=_st(self._wrapper())._asJQuery();
 _st($1)._unbind_("keydown");
 $2=_st($1)._unbind_("keyup");
-return self}, function($ctx1) {$ctx1.fill(self,"unbindKeyDownUp",{},smalltalk.HLWidget)})},
+return self}, function($ctx1) {$ctx1.fill(self,"unbindKeyDownKeyUp",{},smalltalk.HLWidget)})},
 messageSends: ["unbind:", "asJQuery", "wrapper"]}),
 smalltalk.HLWidget);
 
@@ -1914,21 +1914,21 @@ smalltalk.method({
 selector: "setupKeyBindings",
 fn: function (){
 var self=this;
-function $HLRepeatingKeyBindingHandler(){return smalltalk.HLRepeatingKeyBindingHandler||(typeof HLRepeatingKeyBindingHandler=="undefined"?nil:HLRepeatingKeyBindingHandler)}
+function $HLRepeatedKeyDownHandler(){return smalltalk.HLRepeatedKeyDownHandler||(typeof HLRepeatedKeyDownHandler=="undefined"?nil:HLRepeatedKeyDownHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st($HLRepeatingKeyBindingHandler())._forWidget_(self);
-_st($1)._whileKeyPressed_do_((38),(function(){
+$1=_st($HLRepeatedKeyDownHandler())._on_(self);
+_st($1)._whileKeyDown_do_((38),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._activatePreviousListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st($1)._whileKeyPressed_do_((40),(function(){
+_st($1)._whileKeyDown_do_((40),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._activateNextListItem();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=_st($1)._rebindKeys();
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLListWidget)})},
-messageSends: ["whileKeyPressed:do:", "activatePreviousListItem", "forWidget:", "activateNextListItem", "rebindKeys"]}),
+messageSends: ["whileKeyDown:do:", "activatePreviousListItem", "on:", "activateNextListItem", "rebindKeys"]}),
 smalltalk.HLListWidget);
 
 
