@@ -109,34 +109,6 @@ smalltalk.HLBinding);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderActionFor:html:",
-fn: function (aBinder,html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
-$1=_st(html)._span();
-_st($1)._class_("command");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._span();
-_st($3)._class_("label");
-$4=_st($3)._with_(_st(self._shortcut())._asLowercase());
-$4;
-$5=_st(html)._a();
-_st($5)._class_("action");
-_st($5)._with_(self._displayLabel());
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(aBinder)._applyBinding_(self);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-return $6;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderActionFor:html:",{aBinder:aBinder,html:html},smalltalk.HLBinding)})},
-messageSends: ["class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:"]}),
-smalltalk.HLBinding);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderOn:html:",
 fn: function (aBindingHelper,html){
 var self=this;

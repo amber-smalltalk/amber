@@ -154,39 +154,6 @@ smalltalk.HLBinding);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderActionFor:html:",
-category: 'rendering',
-fn: function (aBinder,html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
-$1=_st(html)._span();
-_st($1)._class_("command");
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._span();
-_st($3)._class_("label");
-$4=_st($3)._with_(_st(self._shortcut())._asLowercase());
-$4;
-$5=_st(html)._a();
-_st($5)._class_("action");
-_st($5)._with_(self._displayLabel());
-$6=_st($5)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(aBinder)._applyBinding_(self);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-return $6;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderActionFor:html:",{aBinder:aBinder,html:html},smalltalk.HLBinding)})},
-args: ["aBinder", "html"],
-source: "renderActionFor: aBinder html: html\x0a\x09html span class: 'command'; with: [\x0a\x09\x09html span \x0a\x09\x09\x09class: 'label'; \x0a\x09\x09\x09with: self shortcut asLowercase.\x0a  \x09\x09html a \x0a        \x09class: 'action'; \x0a            with: self displayLabel;\x0a  \x09\x09\x09onClick: [ aBinder applyBinding: self ] ]",
-messageSends: ["class:", "span", "with:", "asLowercase", "shortcut", "a", "displayLabel", "onClick:", "applyBinding:"],
-referencedClasses: []
-}),
-smalltalk.HLBinding);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderOn:html:",
 category: 'rendering',
 fn: function (aBindingHelper,html){

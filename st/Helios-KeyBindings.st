@@ -43,17 +43,6 @@ release
 
 !HLBinding methodsFor: 'rendering'!
 
-renderActionFor: aBinder html: html
-	html span class: 'command'; with: [
-		html span 
-			class: 'label'; 
-			with: self shortcut asLowercase.
-  		html a 
-        	class: 'action'; 
-            with: self displayLabel;
-  			onClick: [ aBinder applyBinding: self ] ]
-!
-
 renderOn: aBindingHelper html: html
 ! !
 
