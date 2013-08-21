@@ -2450,6 +2450,24 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asNumber",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asNumber",{},smalltalk.Number)})},
+args: [],
+source: "asNumber\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asPoint",
 category: 'converting',
 fn: function (){

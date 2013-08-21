@@ -289,7 +289,7 @@ return smalltalk.withContext(function($ctx1) {
 return self();;
 return self}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.BlockClosure)})},
 args: [],
-source: "value\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self();>",
+source: "value\x0a\x09<return self();>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -305,7 +305,7 @@ return smalltalk.withContext(function($ctx1) {
 return self(anArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:",{anArg:anArg},smalltalk.BlockClosure)})},
 args: ["anArg"],
-source: "value: anArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(anArg);>",
+source: "value: anArg\x0a\x09<return self(anArg);>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -321,7 +321,7 @@ return smalltalk.withContext(function($ctx1) {
 return self(firstArg, secondArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:value:",{firstArg:firstArg,secondArg:secondArg},smalltalk.BlockClosure)})},
 args: ["firstArg", "secondArg"],
-source: "value: firstArg value: secondArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg);>",
+source: "value: firstArg value: secondArg\x0a\x09<return self(firstArg, secondArg);>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -337,7 +337,7 @@ return smalltalk.withContext(function($ctx1) {
 return self(firstArg, secondArg, thirdArg);;
 return self}, function($ctx1) {$ctx1.fill(self,"value:value:value:",{firstArg:firstArg,secondArg:secondArg,thirdArg:thirdArg},smalltalk.BlockClosure)})},
 args: ["firstArg", "secondArg", "thirdArg"],
-source: "value: firstArg value: secondArg value: thirdArg\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
+source: "value: firstArg value: secondArg value: thirdArg\x0a\x09<return self(firstArg, secondArg, thirdArg);>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -409,7 +409,7 @@ return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse",{},smalltalk.BlockClosure)})},
 args: [],
-source: "whileFalse\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileFalse: []",
+source: "whileFalse\x0a\x09self whileFalse: []",
 messageSends: ["whileFalse:"],
 referencedClasses: []
 }),
@@ -425,7 +425,7 @@ return smalltalk.withContext(function($ctx1) {
 while(!smalltalk.assert(self._value())) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileFalse:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["aBlock"],
-source: "whileFalse: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(!smalltalk.assert(self._value())) {aBlock._value()}>",
+source: "whileFalse: aBlock\x0a\x09<while(!smalltalk.assert(self._value())) {aBlock._value()}>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -443,7 +443,7 @@ return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue",{},smalltalk.BlockClosure)})},
 args: [],
-source: "whileTrue\x0a\x09\x22inlined in the Compiler\x22\x0a\x09self whileTrue: []",
+source: "whileTrue\x0a\x09self whileTrue: []",
 messageSends: ["whileTrue:"],
 referencedClasses: []
 }),
@@ -459,7 +459,7 @@ return smalltalk.withContext(function($ctx1) {
 while(smalltalk.assert(self._value())) {aBlock._value()};
 return self}, function($ctx1) {$ctx1.fill(self,"whileTrue:",{aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["aBlock"],
-source: "whileTrue: aBlock\x0a\x09\x22inlined in the Compiler\x22\x0a\x09<while(smalltalk.assert(self._value())) {aBlock._value()}>",
+source: "whileTrue: aBlock\x0a\x09<while(smalltalk.assert(self._value())) {aBlock._value()}>",
 messageSends: [],
 referencedClasses: []
 }),

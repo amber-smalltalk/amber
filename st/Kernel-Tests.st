@@ -844,6 +844,12 @@ testAsArray
 	self assert: 'hello' asArray equals: #('h' 'e' 'l' 'l' 'o').
 !
 
+testAsNumber
+	self assert: '3' asNumber equals: 3.
+	self assert: '-3' asNumber equals: -3.
+	self assert: '-1.5' asNumber equals: -1.5.
+!
+
 testAt
 	self assert: ('hello' at: 1) equals: 'h'.
 	self assert: ('hello' at: 5) equals: 'o'.
@@ -1358,6 +1364,10 @@ testArithmetic
 	"Simple parenthesis and execution order"
 	self assert: 1 + 2 * 3 equals: 9.
 	self assert: 1 + (2 * 3) equals: 7
+!
+
+testAsNumber
+	self assert: 3 asNumber equals: 3.
 !
 
 testCeiling

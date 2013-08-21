@@ -45,7 +45,7 @@ var global_smalltalk, global_nil, global__st;
 
 (function () {
 
-/* Reconfigurable micro composition system, https://github.com/herby/brikz */
+/* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
 function Brikz(api, apiKey, initKey) {
 	var brikz = this, backup = {};
@@ -113,6 +113,8 @@ function RootBrik(brikz, st) {
 	this.nil = new SmalltalkNil();
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Objects");
+		st.addPackage("Kernel-Infrastructure");
 		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
 		st.wrapClassName("Smalltalk", "Kernel-Infrastructure", Smalltalk, st.Object, false);
 		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
@@ -179,7 +181,7 @@ function DNUBrik(brikz, st) {
 		this.selectors.push(string);
 		var selector = st.selector(string);
 		checker[selector] = true;
-		var method = {jsSelector: selector, fn: this.createHandler(selector)};
+		var method = {jsSelector: selector, fn: createHandler(selector)};
 		methods.push(method);
 		return method;
 	};
@@ -190,14 +192,12 @@ function DNUBrik(brikz, st) {
 
 	/* Dnu handler method */
 
-	this.createHandler = function (selector) {
-		var handler = function() {
+	function createHandler(selector) {
+		return function() {
 			var args = Array.prototype.slice.call(arguments);
 			return brikz.messageSend.messageNotUnderstood(this, selector, args);
 		};
-
-		return handler;
-	};
+	}
 
 	this.installHandlers = function (klass) {
 		for(var i=0; i<methods.length; i++) {
@@ -233,7 +233,7 @@ function ClassInitBrik(brikz, st) {
 	};
 
 	function copySuperclass(klass, superclass) {
-		var inheritedMethods = {};
+		var inheritedMethods = Object.create(null);
 		deinstallAllMethods(klass);
 		for (superclass = superclass || klass.superclass;
 			superclass && superclass !== nil;
@@ -248,8 +248,7 @@ function ClassInitBrik(brikz, st) {
 			var selector = method.selector;
 
 			//TODO: prepare klass methods into inheritedMethods to only test once
-			//TODO: Object.create(null) to ditch hasOwnProperty call (very slow)
-			if(klass.methods.hasOwnProperty(selector) || inheritedMethods.hasOwnProperty(selector)) {
+			if(klass.methods[selector] || inheritedMethods[selector]) {
 				return;
 			}
 
@@ -286,13 +285,6 @@ function ManipulationBrik(brikz, st) {
 	}
 	this.installMethod = installMethod;
 
-	this.wireKlass = function (klass) {
-		Object.defineProperty(klass.fn.prototype, "klass", {
-			value: klass,
-			enumerable: false, configurable: true, writable: true
-		});
-	};
-
 	this.reinstallMethods = function (klass) {
 		var methods = klass.methods;
 		for(var keys = Object.keys(methods), i=0; i<keys.length; i++) {
@@ -304,22 +296,22 @@ function ManipulationBrik(brikz, st) {
 function ClassesBrik(brikz, st) {
 
 	var org = brikz.ensure("organize");
-	var manip = brikz.ensure("manipulation");
 	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkPackage() {}
 	function SmalltalkBehavior() {}
 	function SmalltalkClass() {}
-	function SmalltalkMetaclass() {
-		this.meta = true;
-	}
+	function SmalltalkMetaclass() {}
 
 	inherits(SmalltalkPackage, SmalltalkObject);
 	inherits(SmalltalkBehavior, SmalltalkObject);
 	inherits(SmalltalkClass, SmalltalkBehavior);
 	inherits(SmalltalkMetaclass, SmalltalkBehavior);
 
+	SmalltalkMetaclass.prototype.meta = true;
+
 	this.__init__ = function () {
+		st.addPackage("Kernel-Classes");
 		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, st.Object, false);
 		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
@@ -390,10 +382,13 @@ function ClassesBrik(brikz, st) {
 
 		org.setupClassOrganization(klass);
 		Object.defineProperty(klass, "methods", {
-			value: {},
+			value: Object.create(null),
 			enumerable: false, configurable: true, writable: true
 		});
-		manip.wireKlass(klass);
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
 	}
 
 	/* Add a package to the smalltalk.packages object, creating a new one if needed.
@@ -424,7 +419,8 @@ function ClassesBrik(brikz, st) {
 	};
 
 	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
-		var pkg = st.addPackage(pkgName);
+		var pkg = st.packages[pkgName];
+		if (!pkg) { throw new Error("Missing package "+pkgName); }
 		if(st[className] && st[className].superclass == superclass) {
 //            st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames || [];
@@ -546,6 +542,7 @@ function MethodsBrik(brikz, st) {
 	inherits(SmalltalkMethod, SmalltalkObject);
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Methods");
 		st.wrapClassName("CompiledMethod", "Kernel-Methods", SmalltalkMethod, st.Object, false);
 	};
 
@@ -698,11 +695,13 @@ function SmalltalkInitBrik(brikz, st) {
 	};
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Methods");
 		st.wrapClassName("Number", "Kernel-Objects", Number, st.Object);
 		st.wrapClassName("BlockClosure", "Kernel-Methods", Function, st.Object);
 		st.wrapClassName("Boolean", "Kernel-Objects", Boolean, st.Object);
 		st.wrapClassName("Date", "Kernel-Objects", Date, st.Object);
 
+		st.addPackage("Kernel-Collections");
 		st.addClass("Collection", st.Object, null, "Kernel-Collections");
 		st.addClass("IndexableCollection", st.Collection, null, "Kernel-Collections");
 		st.addClass("SequenceableCollection", st.IndexableCollection, null, "Kernel-Collections");
@@ -711,6 +710,7 @@ function SmalltalkInitBrik(brikz, st) {
 		st.wrapClassName("Array", "Kernel-Collections", Array, st.SequenceableCollection);
 		st.wrapClassName("RegularExpression", "Kernel-Collections", RegExp, st.Object);
 
+		st.addPackage("Kernel-Exceptions");
 		st.wrapClassName("Error", "Kernel-Exceptions", Error, st.Object);
 
 		/* Alias definitions */
@@ -806,6 +806,7 @@ function RuntimeBrik(brikz, st) {
 	inherits(SmalltalkMethodContext, SmalltalkObject);
 
 	this.__init__ = function () {
+		st.addPackage("Kernel-Methods");
 		st.wrapClassName("MethodContext", "Kernel-Methods", SmalltalkMethodContext, st.Object, false);
 
 		// Fallbacks
@@ -861,20 +862,9 @@ function RuntimeBrik(brikz, st) {
 			try {
 				return inContext(worker, setup);
 			} catch(error) {
-				if(error.smalltalkError) {
-					handleError(error);
-				} else {
-					var errorWrapper = st.JavaScriptException._on_(error);
-					try {errorWrapper._signal();} catch(ex) {}
-					errorWrapper._context_(st.getThisContext());
-					handleError(errorWrapper);
-				}
-				// Reset the context stack in any case
-				st.thisContext = undefined;
-				// Throw the exception anyway, as we want to stop
-				// the execution to avoid infinite loops
-				// Update: do not throw the exception. It's really annoying.
-				// throw error;
+				handleError(error);
+			} finally {
+				st.thisContext = null;
 			}
 		}
 	};
@@ -886,11 +876,25 @@ function RuntimeBrik(brikz, st) {
 		return result;
 	}
 
+	function wrappedError(error) {
+		var errorWrapper = st.JavaScriptException._on_(error);
+		try { errorWrapper._signal(); } catch (ex) {}
+		errorWrapper._context_(st.getThisContext());
+		return errorWrapper;
+	}
+
 	/* Handles Smalltalk errors. Triggers the registered ErrorHandler
 		(See the Smalltalk class ErrorHandler and its subclasses */
 
 	function handleError(error) {
+		if (!error.smalltalkError) {
+			error = wrappedError(error);
+		}
 		st.ErrorHandler._current()._handleError_(error);
+		// Throw the exception anyway, as we want to stop
+		// the execution to avoid infinite loops
+		// Update: do not throw the exception. It's really annoying.
+		// throw error;
 	}
 
 	/* Handle thisContext pseudo variable */

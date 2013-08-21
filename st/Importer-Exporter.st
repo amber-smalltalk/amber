@@ -58,7 +58,7 @@ extensionCategoriesOfPackage: aPackage
 		{each. each class} do: [:aClass |
 			map := Dictionary new.
 			aClass protocolsDo: [:category :methods |
-				(category match: '^\*', name) ifTrue: [ map at: category put: methods ]].
+				category = ('*', name) ifTrue: [ map at: category put: methods ]].
 			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
 				MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].
 	^result
@@ -201,7 +201,7 @@ extensionMethodsOfPackage: aPackage
 		{each. each class} do: [:aClass |
 			result addAll: (((aClass methodDictionary values)
 				sorted: [:a :b | a selector <= b selector])
-				select: [:method | method category match: '^\*', name]) ]].
+				select: [:method | method category = ('*', name)]) ]].
 	^result
 !
 
@@ -412,7 +412,7 @@ nextChunk
 	^nil "a chunk needs to end with !!"
 ! !
 
-!ChunkParser class methodsFor: 'not yet classified'!
+!ChunkParser class methodsFor: 'instance creation'!
 
 on: aStream
 	^self new stream: aStream
@@ -724,8 +724,8 @@ Object subclass: #PluggableExporter
 I am an engine for exporting structured data on a Stream.
 
 My instances are created using
-  PluggableExporter newUsing: recipe,
-where recipe is structured description of the exporting algorithm.
+  PluggableExporter forRecipe: aRecipe,
+where recipe is structured description of the exporting algorithm (see `ExportRecipeInterpreter`).
 
 The actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.
 

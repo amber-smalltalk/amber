@@ -832,6 +832,10 @@ asJavascript
 	^'(', self printString, ')'
 !
 
+asNumber
+	^ self
+!
+
 asPoint
 	^Point x: self y: self
 !

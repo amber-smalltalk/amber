@@ -471,12 +471,13 @@ instanceVariableNamesFor: aString
 !ClassBuilder methodsFor: 'class definition'!
 
 addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName
-	| theClass |
+	| theClass thePackage |
 	
 	theClass := Smalltalk current at: className.
+	thePackage := self createPackageNamed: packageName.
 	
 	theClass ifNotNil: [
-		theClass package: (self createPackageNamed: packageName).
+		theClass package: thePackage.
 		theClass superclass == aClass ifFalse: [
 			^ self
 				migrateClassNamed: className
@@ -484,11 +485,11 @@ addSubclassOf: aClass named: className instanceVariableNames: aCollection packag
 				instanceVariableNames: aCollection
 				package: packageName ] ].
 		
-		^ self
-			basicAddSubclassOf: aClass
-			named: className
-			instanceVariableNames: aCollection
-			package: packageName
+	^ self
+		basicAddSubclassOf: aClass
+		named: className
+		instanceVariableNames: aCollection
+		package: packageName
 !
 
 class: aClass instanceVariableNames: ivarNames
