@@ -8,8 +8,13 @@ selector: "applyOn:",
 fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._isFinal();
+if(smalltalk.assert($1)){
+_st(aKeyBinder)._deactivate();
+};
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBinding)})},
-messageSends: []}),
+messageSends: ["ifTrue:", "deactivate", "isFinal"]}),
 smalltalk.HLBinding);
 
 smalltalk.addMethod(
@@ -203,8 +208,9 @@ _st(aKeyBinder)._selectBinding_(self._inputBinding());
 } else {
 _st(self._command())._execute();
 };
+smalltalk.HLBindingAction.superclass.fn.prototype._applyOn_.apply(_st(self), [aKeyBinder]);
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingAction)})},
-messageSends: ["ifTrue:ifFalse:", "selectBinding:", "inputBinding", "execute", "command", "isInputRequired"]}),
+messageSends: ["ifTrue:ifFalse:", "selectBinding:", "inputBinding", "execute", "command", "isInputRequired", "applyOn:"]}),
 smalltalk.HLBindingAction);
 
 smalltalk.addMethod(
@@ -901,7 +907,7 @@ selector: "applyBinding:",
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=_st(aBinding)._isActive();
 if(! smalltalk.assert($1)){
 $2=self;
@@ -909,12 +915,8 @@ return $2;
 };
 self._selectBinding_(aBinding);
 _st(aBinding)._applyOn_(self);
-$3=_st(aBinding)._isFinal();
-if(smalltalk.assert($3)){
-self._deactivate();
-};
 return self}, function($ctx1) {$ctx1.fill(self,"applyBinding:",{aBinding:aBinding},smalltalk.HLKeyBinder)})},
-messageSends: ["ifFalse:", "isActive", "selectBinding:", "applyOn:", "ifTrue:", "deactivate", "isFinal"]}),
+messageSends: ["ifFalse:", "isActive", "selectBinding:", "applyOn:"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(

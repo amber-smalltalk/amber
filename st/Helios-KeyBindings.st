@@ -36,6 +36,7 @@ shortcut
 !HLBinding methodsFor: 'actions'!
 
 applyOn: aKeyBinder
+	self isFinal ifTrue: [ aKeyBinder deactivate ]
 !
 
 release
@@ -110,7 +111,8 @@ inputBinding
 applyOn: aKeyBinder
 	self command isInputRequired
 		ifTrue: [ aKeyBinder selectBinding: self inputBinding ]
-		ifFalse: [ self command execute ]
+		ifFalse: [ self command execute ].
+	super applyOn: aKeyBinder
 ! !
 
 !HLBindingAction methodsFor: 'testing'!
@@ -198,6 +200,11 @@ isActive
 HLBinding subclass: #HLBindingInput
 	instanceVariableNames: 'input callback status wrapper binder ghostText isFinal message messageTag inputCompletion defaultValue'
 	package: 'Helios-KeyBindings'!
+!HLBindingInput commentStamp!
+This class should be refactored the following way:
+
+- It shouldn't be a binding but a widget
+- the binder helper should display the widget if the BindingAction requires an input before evaluating it.!
 
 !HLBindingInput methodsFor: 'accessing'!
 
@@ -346,7 +353,15 @@ Object subclass: #HLKeyBinder
 	instanceVariableNames: 'modifierKey helper bindings selectedBinding'
 	package: 'Helios-KeyBindings'!
 !HLKeyBinder commentStamp!
-My current instance keeps keybindings for Helios actions.!
+My `current` instance holds keybindings for Helios actions and evaluate them.
+
+Bindings can be nested by groups. The `bindings` instance variable holds the root of the key bindings tree.
+
+Bindings are instances of a concrete subclass of `HLBinding`.
+
+I am always either in 'active' or 'inactive' state. In active state I capture key down events and my `helper` widget is displayed at the bottom of the window. My `selectedBinding`, if any, is displayed by the helper.
+
+Bindings are evaluated through `applyBinding:`. If a binding is final (not a group of other bindings), evaluating it will result in deactivating the binder, and hiding the `helper` widget.!
 
 !HLKeyBinder methodsFor: 'accessing'!
 
@@ -386,9 +401,7 @@ applyBinding: aBinding
 	aBinding isActive ifFalse: [ ^ self ].
 	
 	self selectBinding: aBinding.
-    aBinding applyOn: self.
-	
-	aBinding isFinal ifTrue: [ self deactivate ]
+    aBinding applyOn: self
 !
 
 deactivate

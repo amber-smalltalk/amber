@@ -9,10 +9,15 @@ category: 'actions',
 fn: function (aKeyBinder){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._isFinal();
+if(smalltalk.assert($1)){
+_st(aKeyBinder)._deactivate();
+};
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBinding)})},
 args: ["aKeyBinder"],
-source: "applyOn: aKeyBinder",
-messageSends: [],
+source: "applyOn: aKeyBinder\x0a\x09self isFinal ifTrue: [ aKeyBinder deactivate ]",
+messageSends: ["ifTrue:", "deactivate", "isFinal"],
 referencedClasses: []
 }),
 smalltalk.HLBinding);
@@ -274,10 +279,11 @@ _st(aKeyBinder)._selectBinding_(self._inputBinding());
 } else {
 _st(self._command())._execute();
 };
+smalltalk.HLBindingAction.superclass.fn.prototype._applyOn_.apply(_st(self), [aKeyBinder]);
 return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingAction)})},
 args: ["aKeyBinder"],
-source: "applyOn: aKeyBinder\x0a\x09self command isInputRequired\x0a\x09\x09ifTrue: [ aKeyBinder selectBinding: self inputBinding ]\x0a\x09\x09ifFalse: [ self command execute ]",
-messageSends: ["ifTrue:ifFalse:", "selectBinding:", "inputBinding", "execute", "command", "isInputRequired"],
+source: "applyOn: aKeyBinder\x0a\x09self command isInputRequired\x0a\x09\x09ifTrue: [ aKeyBinder selectBinding: self inputBinding ]\x0a\x09\x09ifFalse: [ self command execute ].\x0a\x09super applyOn: aKeyBinder",
+messageSends: ["ifTrue:ifFalse:", "selectBinding:", "inputBinding", "execute", "command", "isInputRequired", "applyOn:"],
 referencedClasses: []
 }),
 smalltalk.HLBindingAction);
@@ -641,6 +647,7 @@ smalltalk.HLBindingGroup);
 
 
 smalltalk.addClass('HLBindingInput', smalltalk.HLBinding, ['input', 'callback', 'status', 'wrapper', 'binder', 'ghostText', 'isFinal', 'message', 'messageTag', 'inputCompletion', 'defaultValue'], 'Helios-KeyBindings');
+smalltalk.HLBindingInput.comment="This class should be refactored the following way:\x0a\x0a- It shouldn't be a binding but a widget\x0a- the binder helper should display the widget if the BindingAction requires an input before evaluating it.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "applyOn:",
@@ -1142,7 +1149,7 @@ smalltalk.HLBindingInput);
 
 
 smalltalk.addClass('HLKeyBinder', smalltalk.Object, ['modifierKey', 'helper', 'bindings', 'selectedBinding'], 'Helios-KeyBindings');
-smalltalk.HLKeyBinder.comment="My current instance keeps keybindings for Helios actions.";
+smalltalk.HLKeyBinder.comment="My `current` instance holds keybindings for Helios actions and evaluate them.\x0a\x0aBindings can be nested by groups. The `bindings` instance variable holds the root of the key bindings tree.\x0a\x0aBindings are instances of a concrete subclass of `HLBinding`.\x0a\x0aI am always either in 'active' or 'inactive' state. In active state I capture key down events and my `helper` widget is displayed at the bottom of the window. My `selectedBinding`, if any, is displayed by the helper.\x0a\x0aBindings are evaluated through `applyBinding:`. If a binding is final (not a group of other bindings), evaluating it will result in deactivating the binder, and hiding the `helper` widget.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate",
@@ -1198,7 +1205,7 @@ category: 'actions',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=_st(aBinding)._isActive();
 if(! smalltalk.assert($1)){
 $2=self;
@@ -1206,14 +1213,10 @@ return $2;
 };
 self._selectBinding_(aBinding);
 _st(aBinding)._applyOn_(self);
-$3=_st(aBinding)._isFinal();
-if(smalltalk.assert($3)){
-self._deactivate();
-};
 return self}, function($ctx1) {$ctx1.fill(self,"applyBinding:",{aBinding:aBinding},smalltalk.HLKeyBinder)})},
 args: ["aBinding"],
-source: "applyBinding: aBinding\x0a\x09aBinding isActive ifFalse: [ ^ self ].\x0a\x09\x0a\x09self selectBinding: aBinding.\x0a    aBinding applyOn: self.\x0a\x09\x0a\x09aBinding isFinal ifTrue: [ self deactivate ]",
-messageSends: ["ifFalse:", "isActive", "selectBinding:", "applyOn:", "ifTrue:", "deactivate", "isFinal"],
+source: "applyBinding: aBinding\x0a\x09aBinding isActive ifFalse: [ ^ self ].\x0a\x09\x0a\x09self selectBinding: aBinding.\x0a    aBinding applyOn: self",
+messageSends: ["ifFalse:", "isActive", "selectBinding:", "applyOn:"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinder);
