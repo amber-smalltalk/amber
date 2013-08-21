@@ -840,6 +840,60 @@ referencedClasses: []
 smalltalk.HLOpenWorkspaceCommand.klass);
 
 
+smalltalk.addClass('HLSwitchTabCommand', smalltalk.HLCommand, [], 'Helios-Commands-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "execute",
+category: 'executing',
+fn: function (){
+var self=this;
+function $HLBrowser(){return smalltalk.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($HLBrowser())._openAsTab();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLSwitchTabCommand)})},
+args: [],
+source: "execute\x0a\x09^ HLBrowser openAsTab",
+messageSends: ["openAsTab"],
+referencedClasses: ["HLBrowser"]
+}),
+smalltalk.HLSwitchTabCommand);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "key",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "s";
+}, function($ctx1) {$ctx1.fill(self,"key",{},smalltalk.HLSwitchTabCommand.klass)})},
+args: [],
+source: "key\x0a\x09^ 's'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLSwitchTabCommand.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "label",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "Switch";
+}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.HLSwitchTabCommand.klass)})},
+args: [],
+source: "label\x0a\x09^ 'Switch'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLSwitchTabCommand.klass);
+
+
 smalltalk.addClass('HLViewCommand', smalltalk.HLCommand, [], 'Helios-Commands-Core');
 
 smalltalk.addMethod(

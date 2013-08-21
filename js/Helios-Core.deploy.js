@@ -2333,7 +2333,7 @@ messageSends: ["model:", "new", "yourself"]}),
 smalltalk.HLToolListWidget.klass);
 
 
-smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'keyBinder', 'environment', 'history'], 'Helios-Core');
+smalltalk.addClass('HLManager', smalltalk.HLWidget, ['tabs', 'activeTab', 'environment', 'history'], 'Helios-Core');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activate:",
@@ -2541,17 +2541,11 @@ fn: function (){
 var self=this;
 function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@keyBinder"];
-if(($receiver = $2) == nil || $receiver == undefined){
-self["@keyBinder"]=_st($HLKeyBinder())._new();
-$1=self["@keyBinder"];
-} else {
-$1=$2;
-};
+var $1;
+$1=_st($HLKeyBinder())._current();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keyBinder",{},smalltalk.HLManager)})},
-messageSends: ["ifNil:", "new"]}),
+messageSends: ["current"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(

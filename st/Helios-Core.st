@@ -1090,7 +1090,7 @@ on: aModel
 ! !
 
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab keyBinder environment history'
+	instanceVariableNames: 'tabs activeTab environment history'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
@@ -1118,7 +1118,7 @@ history: aCollection
 !
 
 keyBinder
-	^ keyBinder ifNil: [ keyBinder := HLKeyBinder new ]
+	^ HLKeyBinder current
 !
 
 tabs

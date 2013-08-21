@@ -345,6 +345,8 @@ isFinal: aBoolean
 Object subclass: #HLKeyBinder
 	instanceVariableNames: 'modifierKey helper bindings selectedBinding'
 	package: 'Helios-KeyBindings'!
+!HLKeyBinder commentStamp!
+My current instance keeps keybindings for Helios actions.!
 
 !HLKeyBinder methodsFor: 'accessing'!
 
@@ -412,8 +414,8 @@ defaultBindings
 	| group |
 	
 	group := HLBindingGroup new
-		addGroupKey: 86 labelled: 'View';
 		add: HLCloseTabCommand new asBinding;
+		add: HLSwitchTabCommand new asBinding;
 		yourself.
 		
 	HLOpenCommand registerConcreteClassesOn: group.
@@ -485,9 +487,25 @@ systemIsMac
 	^ navigator platform match: 'Mac'
 ! !
 
+HLKeyBinder class instanceVariableNames: 'current'!
+
+!HLKeyBinder class methodsFor: 'instance creation'!
+
+current
+	^ current ifNil: [ current := super new ]
+!
+
+new
+	self shouldNotImplement
+! !
+
 HLWidget subclass: #HLKeyBinderHelper
 	instanceVariableNames: 'keyBinder'
 	package: 'Helios-KeyBindings'!
+!HLKeyBinderHelper commentStamp!
+I am the widget responsible for displaying active keybindings in a bar at the bottom of the window. Each keybinding is an instance of `HLBinding`. 
+
+Rendering is done through a double dispatch, see `#renderSelectedBindingOn:`.!
 
 !HLKeyBinderHelper methodsFor: 'accessing'!
 
@@ -527,22 +545,23 @@ showCog
 	'#cog-helper' asJQuery show
 ! !
 
-!HLKeyBinderHelper methodsFor: 'keyBindings'!
-
-registerBindings
-	"Do nothing"
-! !
-
 !HLKeyBinderHelper methodsFor: 'rendering'!
+
+renderBindingActionFor: aBinding on: html
+	html span class: 'command'; with: [
+		html span 
+			class: 'label'; 
+			with: aBinding shortcut asLowercase.
+  		html a 
+        	class: 'action'; 
+            with: aBinding displayLabel;
+  			onClick: [ self keyBinder applyBinding: aBinding ] ]
+!
 
 renderBindingGroup: aBindingGroup on: html
 	(aBindingGroup activeBindings 
     	sorted: [ :a :b | a key < b key ])
-        do: [ :each | each renderActionFor: self keyBinder html: html ]
-!
-
-renderBindingOn: html
-	self selectedBinding renderOn: self html: html
+        do: [ :each | self renderBindingActionFor: each on: html ]
 !
 
 renderCloseOn: html
@@ -566,15 +585,19 @@ renderCog
 renderContentOn: html
 	html div class: self cssClass; with: [
       	self 
-        	renderSelectionOn:html;
-          	renderBindingOn: html;
+        	renderLabelOn:html;
+          	renderSelectedBindingOn: html;
 			renderCloseOn: html ]
 !
 
-renderSelectionOn: html
+renderLabelOn: html
 		html span 
         	class: 'selected'; 
             with: (self selectedBinding label ifNil: [ 'Action' ])
+!
+
+renderSelectedBindingOn: html
+	self selectedBinding renderOn: self html: html
 !
 
 renderStart

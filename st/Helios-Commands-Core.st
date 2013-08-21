@@ -273,6 +273,26 @@ label
 	^ 'Workspace'
 ! !
 
+HLCommand subclass: #HLSwitchTabCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
+
+!HLSwitchTabCommand methodsFor: 'executing'!
+
+execute
+	^ HLBrowser openAsTab
+! !
+
+!HLSwitchTabCommand class methodsFor: 'accessing'!
+
+key
+	^ 's'
+!
+
+label
+	^ 'Switch'
+! !
+
 HLCommand subclass: #HLViewCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Core'!
