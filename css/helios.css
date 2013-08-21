@@ -35,7 +35,7 @@ html[xmlns] .clearfix {
   overflow: hidden;
   height: 100%;
   width: 100%;
-  /*background: #fff*/;
+  background: #fff;
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
@@ -513,6 +513,9 @@ html[xmlns] .clearfix {
 }
 #helios .key_helper .command {
   padding: 0 2px;
+}
+#helios #binding-helper-main {
+  display: inline;
 }
 #helios .key_helper .label {
   padding: 1px 4px;

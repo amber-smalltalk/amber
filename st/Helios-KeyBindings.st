@@ -36,7 +36,6 @@ shortcut
 !HLBinding methodsFor: 'actions'!
 
 applyOn: aKeyBinder
-	self isFinal ifTrue: [ aKeyBinder deactivate ]
 !
 
 release
@@ -62,12 +61,6 @@ renderOn: aBindingHelper html: html
 
 isActive
 	^ self subclassResponsibility
-!
-
-isFinal
-	" Answer true if the receiver is the final binding of a sequence "
-	
-	^ false
 ! !
 
 !HLBinding class methodsFor: 'instance creation'!
@@ -93,6 +86,10 @@ command: aCommand
 	command := aCommand
 !
 
+input: aString
+	self command input: aString
+!
+
 inputBinding
 	^ HLBindingInput new
 		label: self command inputLabel;
@@ -104,25 +101,37 @@ inputBinding
 				input: val;
 				execute ];
 		yourself
+!
+
+inputWidget
+	^ HLBindingActionInputWidget new
+		ghostText: self command displayLabel;
+		defaultValue: self command defaultInput;
+		inputCompletion: self command inputCompletion;
+		callback: [ :value | 
+			self 
+				input: value;
+				executeCommand ];
+		yourself
 ! !
 
 !HLBindingAction methodsFor: 'actions'!
 
 applyOn: aKeyBinder
 	self command isInputRequired
-		ifTrue: [ aKeyBinder selectBinding: self inputBinding ]
-		ifFalse: [ self command execute ].
-	super applyOn: aKeyBinder
+		ifTrue: [ aKeyBinder helper showWidget: self inputWidget ]
+		ifFalse: [ self executeCommand ]
+!
+
+executeCommand
+	self command execute.
+	HLKeyBinder current deactivate
 ! !
 
 !HLBindingAction methodsFor: 'testing'!
 
 isActive
 	^ self command isActive
-!
-
-isFinal
-	^ self command isInputRequired not
 ! !
 
 HLBinding subclass: #HLBindingGroup
@@ -197,20 +206,13 @@ isActive
 	^ self activeBindings notEmpty
 ! !
 
-HLBinding subclass: #HLBindingInput
-	instanceVariableNames: 'input callback status wrapper binder ghostText isFinal message messageTag inputCompletion defaultValue'
+HLWidget subclass: #HLBindingActionInputWidget
+	instanceVariableNames: 'input callback status wrapper ghostText message inputCompletion defaultValue messageTag'
 	package: 'Helios-KeyBindings'!
-!HLBindingInput commentStamp!
-This class should be refactored the following way:
+!HLBindingActionInputWidget commentStamp!
+My instances are built when a `HLBindingAction` that requires user input is applied.!
 
-- It shouldn't be a binding but a widget
-- the binder helper should display the widget if the BindingAction requires an input before evaluating it.!
-
-!HLBindingInput methodsFor: 'accessing'!
-
-atKey: aKey
-	aKey = 13 ifFalse: [ ^ nil ]
-!
+!HLBindingActionInputWidget methodsFor: 'accessing'!
 
 callback
 	^ callback ifNil: [ callback := [ :value | ] ]
@@ -264,12 +266,7 @@ status: aStatus
 	status := aStatus
 ! !
 
-!HLBindingInput methodsFor: 'actions'!
-
-applyOn: aKeyBinder
-	self isFinal: true.
-	self evaluate: self input asJQuery val
-!
+!HLBindingActionInputWidget methodsFor: 'actions'!
 
 clearStatus
 	self status: 'info'.
@@ -282,36 +279,27 @@ errorStatus
 	self refresh
 !
 
-evaluate: aString
-	
+evaluate: aString	
 	[ self callback value: aString ]
-	on: Error
-	do: [:ex |
-		self input asJQuery 
-			one: 'keydown' 
-			do: [ self clearStatus ].
-		self message: ex messageText.
-		self errorStatus.
-		self isFinal: false ].
+		on: Error
+		do: [:ex |
+			self input asJQuery 
+				one: 'keydown' 
+				do: [ self clearStatus ].
+			self message: ex messageText.
+			self errorStatus ]
 !
-
-release
-	status := nil.
-	wrapper := nil.
-	binder := nil
-! !
-
-!HLBindingInput methodsFor: 'rendering'!
 
 refresh
 	wrapper ifNil: [ ^ self ].
     
 	wrapper class: self status.
 	messageTag contents: self message
-!
+! !
 
-renderOn: aBinder html: html
-	binder := aBinder.
+!HLBindingActionInputWidget methodsFor: 'rendering'!
+
+renderOn: html
 	wrapper ifNil: [ wrapper := html span ].
 
 	wrapper 
@@ -320,6 +308,9 @@ renderOn: aBinder html: html
 			input := html input
 				placeholder: self ghostText;
 				value: self defaultValue;
+				onKeyDown: [ :event | 
+					event which = 13 ifTrue: [
+						self evaluate: input asJQuery val ] ]
 				yourself.
 			input asJQuery 
 				typeahead: #{ 'source' -> self inputCompletion }.
@@ -333,20 +324,6 @@ renderOn: aBinder html: html
 	evaluate the command would give it the focus otherwise"
 	
 	[ input asJQuery focus ] valueWithTimeout: 10
-! !
-
-!HLBindingInput methodsFor: 'testing'!
-
-isActive
-	^ true
-!
-
-isFinal
-	^ isFinal ifNil: [ isFinal := super isFinal ]
-!
-
-isFinal: aBoolean
-	isFinal := aBoolean
 ! !
 
 Object subclass: #HLKeyBinder
@@ -484,7 +461,7 @@ setupEvents
 
 initialize
 	super initialize.
-	helper := HLKeyBinderHelper on: self.
+	helper := HLKeyBinderHelperWidget on: self.
 	helper 	
 		renderStart;
 		renderCog
@@ -512,15 +489,15 @@ new
 	self shouldNotImplement
 ! !
 
-HLWidget subclass: #HLKeyBinderHelper
+HLWidget subclass: #HLKeyBinderHelperWidget
 	instanceVariableNames: 'keyBinder'
 	package: 'Helios-KeyBindings'!
-!HLKeyBinderHelper commentStamp!
+!HLKeyBinderHelperWidget commentStamp!
 I am the widget responsible for displaying active keybindings in a bar at the bottom of the window. Each keybinding is an instance of `HLBinding`. 
 
 Rendering is done through a double dispatch, see `#renderSelectedBindingOn:`.!
 
-!HLKeyBinderHelper methodsFor: 'accessing'!
+!HLKeyBinderHelperWidget methodsFor: 'accessing'!
 
 cssClass
 	^ 'key_helper'
@@ -534,11 +511,15 @@ keyBinder: aKeyBinder
 	keyBinder := aKeyBinder
 !
 
+mainId
+	^ 'binding-helper-main'
+!
+
 selectedBinding
 	^ self keyBinder selectedBinding
 ! !
 
-!HLKeyBinderHelper methodsFor: 'actions'!
+!HLKeyBinderHelperWidget methodsFor: 'actions'!
 
 hide
 	('.', self cssClass) asJQuery remove.
@@ -556,9 +537,17 @@ show
 
 showCog
 	'#cog-helper' asJQuery show
+!
+
+showWidget: aWidget
+	"Some actions need to display more info to the user or request input.
+	This method is the right place for that"
+	
+	('#', self mainId) asJQuery empty.
+	aWidget appendToJQuery: ('#', self mainId) asJQuery
 ! !
 
-!HLKeyBinderHelper methodsFor: 'rendering'!
+!HLKeyBinderHelperWidget methodsFor: 'rendering'!
 
 renderBindingActionFor: aBinding on: html
 	html span class: 'command'; with: [
@@ -597,10 +586,11 @@ renderCog
 
 renderContentOn: html
 	html div class: self cssClass; with: [
-      	self 
-        	renderLabelOn:html;
-          	renderSelectedBindingOn: html;
-			renderCloseOn: html ]
+      	self renderLabelOn:html.
+		html div
+			id: self mainId;
+			with: [ self renderSelectedBindingOn: html ].
+		self renderCloseOn: html ]
 !
 
 renderLabelOn: html
@@ -625,7 +615,7 @@ renderStart
 		valueWithTimeout: 2000
 ! !
 
-!HLKeyBinderHelper class methodsFor: 'instance creation'!
+!HLKeyBinderHelperWidget class methodsFor: 'instance creation'!
 
 on: aKeyBinder
 	^ self new
