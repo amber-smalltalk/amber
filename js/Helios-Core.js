@@ -3167,12 +3167,11 @@ var $1,$2;
 $1=_st($HLConfirmationWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._cancelBlock_(aBlock);
-$2=_st($1)._yourself();
-_st($2)._appendToJQuery_("body"._asJQuery());
+$2=_st($1)._show();
 return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifFalse:",{aString:aString,aBlock:aBlock},smalltalk.HLManager)})},
 args: ["aString", "aBlock"],
-source: "confirm: aString ifFalse: aBlock\x0a\x09(HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09cancelBlock: aBlock;\x0a\x09\x09yourself)\x0a\x09\x09\x09appendToJQuery: 'body' asJQuery",
-messageSends: ["appendToJQuery:", "asJQuery", "confirmationString:", "new", "cancelBlock:", "yourself"],
+source: "confirm: aString ifFalse: aBlock\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09cancelBlock: aBlock;\x0a\x09\x09show",
+messageSends: ["confirmationString:", "new", "cancelBlock:", "show"],
 referencedClasses: ["HLConfirmationWidget"]
 }),
 smalltalk.HLManager);
@@ -3189,12 +3188,11 @@ var $1,$2;
 $1=_st($HLConfirmationWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._actionBlock_(aBlock);
-$2=_st($1)._yourself();
-_st($2)._appendToJQuery_("body"._asJQuery());
+$2=_st($1)._show();
 return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifTrue:",{aString:aString,aBlock:aBlock},smalltalk.HLManager)})},
 args: ["aString", "aBlock"],
-source: "confirm: aString ifTrue: aBlock\x0a\x09(HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09actionBlock: aBlock;\x0a\x09\x09yourself)\x0a\x09\x09\x09appendToJQuery: 'body' asJQuery",
-messageSends: ["appendToJQuery:", "asJQuery", "confirmationString:", "new", "actionBlock:", "yourself"],
+source: "confirm: aString ifTrue: aBlock\x0a\x09HLConfirmationWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09actionBlock: aBlock;\x0a\x09\x09show",
+messageSends: ["confirmationString:", "new", "actionBlock:", "show"],
 referencedClasses: ["HLConfirmationWidget"]
 }),
 smalltalk.HLManager);
@@ -3657,12 +3655,11 @@ $1=_st($HLRequestWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._actionBlock_(aBlock);
 _st($1)._value_(valueString);
-$2=_st($1)._yourself();
-_st($2)._appendToJQuery_("body"._asJQuery());
+$2=_st($1)._show();
 return self}, function($ctx1) {$ctx1.fill(self,"request:value:do:",{aString:aString,valueString:valueString,aBlock:aBlock},smalltalk.HLManager)})},
 args: ["aString", "valueString", "aBlock"],
-source: "request: aString value: valueString do: aBlock\x0a\x09(HLRequestWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09actionBlock: aBlock;\x0a\x09\x09value: valueString;\x0a\x09\x09yourself)\x0a\x09\x09\x09appendToJQuery: 'body' asJQuery",
-messageSends: ["appendToJQuery:", "asJQuery", "confirmationString:", "new", "actionBlock:", "value:", "yourself"],
+source: "request: aString value: valueString do: aBlock\x0a\x09HLRequestWidget new\x0a\x09\x09confirmationString: aString;\x0a\x09\x09actionBlock: aBlock;\x0a\x09\x09value: valueString;\x0a\x09\x09show",
+messageSends: ["confirmationString:", "new", "actionBlock:", "value:", "show"],
 referencedClasses: ["HLRequestWidget"]
 }),
 smalltalk.HLManager);
@@ -3934,6 +3931,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.H
 args: [],
 source: "setupKeyBindings\x0a\x09'.dialog' asJQuery keyup: [ :e |\x0a\x09\x09e keyCode = 27 ifTrue: [ self cancel ] ]",
 messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "show",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._appendToJQuery_("body"._asJQuery());
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.HLModalWidget)})},
+args: [],
+source: "show\x0a\x09self appendToJQuery: 'body' asJQuery",
+messageSends: ["appendToJQuery:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HLModalWidget);
@@ -4431,21 +4444,6 @@ smalltalk.HLProgressWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderButtonsOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLProgressWidget)})},
-args: ["html"],
-source: "renderButtonsOn: html",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.HLProgressWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderMainOn:",
 category: 'rendering',
 fn: function (html){
@@ -4510,6 +4508,26 @@ messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
 smalltalk.HLProgressWidget.klass);
+
+
+smalltalk.addClass('HLTabSelectionWidget', smalltalk.HLModalWidget, [], 'Helios-Core');
+smalltalk.HLTabSelectionWidget.comment="I am used to select or create tabs.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(html)._with_("hello");
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLTabSelectionWidget)})},
+args: ["html"],
+source: "renderMainOn: html\x0a\x09html with: 'hello'",
+messageSends: ["with:"],
+referencedClasses: []
+}),
+smalltalk.HLTabSelectionWidget);
+
 
 
 smalltalk.addClass('HLProgressBarWidget', smalltalk.HLWidget, ['label', 'parent', 'workBlock', 'collection', 'bar'], 'Helios-Core');

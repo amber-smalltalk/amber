@@ -2,16 +2,17 @@
 smalltalk.addPackage('Helios-KeyBindings');
 
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
+smalltalk.HLBinding.comment="I am the abstract representation of a keybinding in Helios. My instances hold a key (integer value) and a label. \x0a\x0aBindings are built into a tree of keys, so pressing a key may result in more key choices (for example, to open a workspace, 'o' is pressed first then 'w' is pressed).\x0a\x0aBinding action handling and selection is handled by the `current` instance of `HLKeyBinder`.\x0a\x0aSubclasses implement specific behavior like evaluating actions or (sub-)grouping other bindings.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "applyOn:",
+selector: "apply",
 category: 'actions',
-fn: function (aKeyBinder){
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBinding)})},
-args: ["aKeyBinder"],
-source: "applyOn: aKeyBinder\x0a\x09",
+return self}, function($ctx1) {$ctx1.fill(self,"apply",{},smalltalk.HLBinding)})},
+args: [],
+source: "apply\x0a\x09",
 messageSends: [],
 referencedClasses: []
 }),
@@ -27,7 +28,7 @@ return smalltalk.withContext(function($ctx1) {
 return nil;
 }, function($ctx1) {$ctx1.fill(self,"atKey:",{aKey:aKey},smalltalk.HLBinding)})},
 args: ["aKey"],
-source: "atKey: aKey\x0a\x09^ nil",
+source: "atKey: aKey\x0a\x09\x22Answer the sub-binding at key aKey.\x0a\x09Always answer nil here. See HLBindingGroup for more.\x22\x0a\x09\x0a\x09^ nil",
 messageSends: [],
 referencedClasses: []
 }),
@@ -211,25 +212,27 @@ smalltalk.HLBinding.klass);
 
 
 smalltalk.addClass('HLBindingAction', smalltalk.HLBinding, ['command'], 'Helios-KeyBindings');
+smalltalk.HLBindingAction.comment="My instances are the leafs of the binding tree. They evaluate actions through commands, instances of concrete subclasses of `HLCommand`.\x0a\x0aThe `#apply` methods is used to evaluate the `command`. If the command requires user input, an `inputWidget` will be displayed to the user.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "applyOn:",
+selector: "apply",
 category: 'actions',
-fn: function (aKeyBinder){
+fn: function (){
 var self=this;
+function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._command())._isInputRequired();
 if(smalltalk.assert($1)){
-_st(_st(aKeyBinder)._helper())._showWidget_(self._inputWidget());
+_st(_st(_st($HLKeyBinder())._current())._helper())._showWidget_(self._inputWidget());
 } else {
 self._executeCommand();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingAction)})},
-args: ["aKeyBinder"],
-source: "applyOn: aKeyBinder\x0a\x09self command isInputRequired\x0a\x09\x09ifTrue: [ aKeyBinder helper showWidget: self inputWidget ]\x0a\x09\x09ifFalse: [ self executeCommand ]",
-messageSends: ["ifTrue:ifFalse:", "showWidget:", "inputWidget", "helper", "executeCommand", "isInputRequired", "command"],
-referencedClasses: []
+return self}, function($ctx1) {$ctx1.fill(self,"apply",{},smalltalk.HLBindingAction)})},
+args: [],
+source: "apply\x0a\x09self command isInputRequired\x0a\x09\x09ifTrue: [ HLKeyBinder current helper showWidget: self inputWidget ]\x0a\x09\x09ifFalse: [ self executeCommand ]",
+messageSends: ["ifTrue:ifFalse:", "showWidget:", "inputWidget", "helper", "current", "executeCommand", "isInputRequired", "command"],
+referencedClasses: ["HLKeyBinder"]
 }),
 smalltalk.HLBindingAction);
 
@@ -385,6 +388,7 @@ smalltalk.HLBindingAction);
 
 
 smalltalk.addClass('HLBindingGroup', smalltalk.HLBinding, ['bindings'], 'Helios-KeyBindings');
+smalltalk.HLBindingGroup.comment="My instances hold other bindings, either actions or groups, and do not have actions by themselves.\x0a\x0aChildren are accessed with `atKey:` and added with the `add*` methods.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activeBindings",
@@ -409,7 +413,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "add:",
-category: 'accessing',
+category: 'adding',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -427,7 +431,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addActionKey:labelled:callback:",
-category: 'accessing',
+category: 'adding',
 fn: function (anInteger,aString,aBlock){
 var self=this;
 function $HLBindingAction(){return smalltalk.HLBindingAction||(typeof HLBindingAction=="undefined"?nil:HLBindingAction)}
@@ -448,7 +452,7 @@ smalltalk.HLBindingGroup);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "addGroupKey:labelled:",
-category: 'accessing',
+category: 'add',
 fn: function (anInteger,aString){
 var self=this;
 function $HLBindingGroup(){return smalltalk.HLBindingGroup||(typeof HLBindingGroup=="undefined"?nil:HLBindingGroup)}
@@ -1097,11 +1101,11 @@ $2=self;
 return $2;
 };
 self._selectBinding_(aBinding);
-_st(aBinding)._applyOn_(self);
+_st(aBinding)._apply();
 return self}, function($ctx1) {$ctx1.fill(self,"applyBinding:",{aBinding:aBinding},smalltalk.HLKeyBinder)})},
 args: ["aBinding"],
-source: "applyBinding: aBinding\x0a\x09aBinding isActive ifFalse: [ ^ self ].\x0a\x09\x0a\x09self selectBinding: aBinding.\x0a    aBinding applyOn: self",
-messageSends: ["ifFalse:", "isActive", "selectBinding:", "applyOn:"],
+source: "applyBinding: aBinding\x0a\x09aBinding isActive ifFalse: [ ^ self ].\x0a\x09\x0a\x09self selectBinding: aBinding.\x0a    aBinding apply",
+messageSends: ["ifFalse:", "isActive", "selectBinding:", "apply"],
 referencedClasses: []
 }),
 smalltalk.HLKeyBinder);

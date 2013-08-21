@@ -1149,19 +1149,17 @@ addToHistory: aTab
 !
 
 confirm: aString ifFalse: aBlock
-	(HLConfirmationWidget new
+	HLConfirmationWidget new
 		confirmationString: aString;
 		cancelBlock: aBlock;
-		yourself)
-			appendToJQuery: 'body' asJQuery
+		show
 !
 
 confirm: aString ifTrue: aBlock
-	(HLConfirmationWidget new
+	HLConfirmationWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
-		yourself)
-			appendToJQuery: 'body' asJQuery
+		show
 !
 
 registerErrorHandler: anErrorHandler
@@ -1204,12 +1202,11 @@ request: aString do: aBlock
 !
 
 request: aString value: valueString do: aBlock
-	(HLRequestWidget new
+	HLRequestWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
 		value: valueString;
-		yourself)
-			appendToJQuery: 'body' asJQuery
+		show
 ! !
 
 !HLManager methodsFor: 'defaults'!
@@ -1360,6 +1357,10 @@ remove
 		'#overlay' asJQuery remove.
 		'.dialog' asJQuery remove
 	] valueWithTimeout: 300
+!
+
+show
+	self appendToJQuery: 'body' asJQuery
 ! !
 
 !HLModalWidget methodsFor: 'rendering'!
@@ -1569,9 +1570,6 @@ show
 
 !HLProgressWidget methodsFor: 'rendering'!
 
-renderButtonsOn: html
-!
-
 renderMainOn: html
 	self progressBars do: [ :each |
 		html with: each ]
@@ -1589,6 +1587,18 @@ HLProgressWidget class instanceVariableNames: 'default'!
 
 default
 	^ default ifNil: [ default := self new ]
+! !
+
+HLModalWidget subclass: #HLTabSelectionWidget
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+!HLTabSelectionWidget commentStamp!
+I am used to select or create tabs.!
+
+!HLTabSelectionWidget methodsFor: 'rendering'!
+
+renderMainOn: html
+	html with: 'hello'
 ! !
 
 HLWidget subclass: #HLProgressBarWidget

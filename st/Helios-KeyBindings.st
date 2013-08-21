@@ -2,10 +2,21 @@ Smalltalk current createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
 	instanceVariableNames: 'key label'
 	package: 'Helios-KeyBindings'!
+!HLBinding commentStamp!
+I am the abstract representation of a keybinding in Helios. My instances hold a key (integer value) and a label. 
+
+Bindings are built into a tree of keys, so pressing a key may result in more key choices (for example, to open a workspace, 'o' is pressed first then 'w' is pressed).
+
+Binding action handling and selection is handled by the `current` instance of `HLKeyBinder`.
+
+Subclasses implement specific behavior like evaluating actions or (sub-)grouping other bindings.!
 
 !HLBinding methodsFor: 'accessing'!
 
 atKey: aKey
+	"Answer the sub-binding at key aKey.
+	Always answer nil here. See HLBindingGroup for more."
+	
 	^ nil
 !
 
@@ -35,7 +46,7 @@ shortcut
 
 !HLBinding methodsFor: 'actions'!
 
-applyOn: aKeyBinder
+apply
 !
 
 release
@@ -64,6 +75,10 @@ on: anInteger labelled: aString
 HLBinding subclass: #HLBindingAction
 	instanceVariableNames: 'command'
 	package: 'Helios-KeyBindings'!
+!HLBindingAction commentStamp!
+My instances are the leafs of the binding tree. They evaluate actions through commands, instances of concrete subclasses of `HLCommand`.
+
+The `#apply` methods is used to evaluate the `command`. If the command requires user input, an `inputWidget` will be displayed to the user.!
 
 !HLBindingAction methodsFor: 'accessing'!
 
@@ -106,9 +121,9 @@ inputWidget
 
 !HLBindingAction methodsFor: 'actions'!
 
-applyOn: aKeyBinder
+apply
 	self command isInputRequired
-		ifTrue: [ aKeyBinder helper showWidget: self inputWidget ]
+		ifTrue: [ HLKeyBinder current helper showWidget: self inputWidget ]
 		ifFalse: [ self executeCommand ]
 !
 
@@ -126,25 +141,15 @@ isActive
 HLBinding subclass: #HLBindingGroup
 	instanceVariableNames: 'bindings'
 	package: 'Helios-KeyBindings'!
+!HLBindingGroup commentStamp!
+My instances hold other bindings, either actions or groups, and do not have actions by themselves.
+
+Children are accessed with `atKey:` and added with the `add*` methods.!
 
 !HLBindingGroup methodsFor: 'accessing'!
 
 activeBindings
 	^ self bindings select: [ :each | each isActive ]
-!
-
-add: aBinding
-	^ self bindings add: aBinding
-!
-
-addActionKey: anInteger labelled: aString callback: aBlock
-	self add: ((HLBindingAction on: anInteger labelled: aString)
-    	callback: aBlock;
-        yourself)
-!
-
-addGroupKey: anInteger labelled: aString
-	self add: (HLBindingGroup on: anInteger labelled: aString)
 !
 
 at: aString
@@ -180,6 +185,24 @@ displayLabel
 
 release
 	self bindings do: [ :each | each release ]
+! !
+
+!HLBindingGroup methodsFor: 'add'!
+
+addGroupKey: anInteger labelled: aString
+	self add: (HLBindingGroup on: anInteger labelled: aString)
+! !
+
+!HLBindingGroup methodsFor: 'adding'!
+
+add: aBinding
+	^ self bindings add: aBinding
+!
+
+addActionKey: anInteger labelled: aString callback: aBlock
+	self add: ((HLBindingAction on: anInteger labelled: aString)
+    	callback: aBlock;
+        yourself)
 ! !
 
 !HLBindingGroup methodsFor: 'rendering'!
@@ -367,7 +390,7 @@ applyBinding: aBinding
 	aBinding isActive ifFalse: [ ^ self ].
 	
 	self selectBinding: aBinding.
-    aBinding applyOn: self
+    aBinding apply
 !
 
 deactivate

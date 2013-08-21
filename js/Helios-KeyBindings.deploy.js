@@ -4,11 +4,11 @@ smalltalk.addPackage('Helios-KeyBindings');
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "applyOn:",
-fn: function (aKeyBinder){
+selector: "apply",
+fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBinding)})},
+return self}, function($ctx1) {$ctx1.fill(self,"apply",{},smalltalk.HLBinding)})},
 messageSends: []}),
 smalltalk.HLBinding);
 
@@ -153,19 +153,20 @@ smalltalk.HLBinding.klass);
 smalltalk.addClass('HLBindingAction', smalltalk.HLBinding, ['command'], 'Helios-KeyBindings');
 smalltalk.addMethod(
 smalltalk.method({
-selector: "applyOn:",
-fn: function (aKeyBinder){
+selector: "apply",
+fn: function (){
 var self=this;
+function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(self._command())._isInputRequired();
 if(smalltalk.assert($1)){
-_st(_st(aKeyBinder)._helper())._showWidget_(self._inputWidget());
+_st(_st(_st($HLKeyBinder())._current())._helper())._showWidget_(self._inputWidget());
 } else {
 self._executeCommand();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"applyOn:",{aKeyBinder:aKeyBinder},smalltalk.HLBindingAction)})},
-messageSends: ["ifTrue:ifFalse:", "showWidget:", "inputWidget", "helper", "executeCommand", "isInputRequired", "command"]}),
+return self}, function($ctx1) {$ctx1.fill(self,"apply",{},smalltalk.HLBindingAction)})},
+messageSends: ["ifTrue:ifFalse:", "showWidget:", "inputWidget", "helper", "current", "executeCommand", "isInputRequired", "command"]}),
 smalltalk.HLBindingAction);
 
 smalltalk.addMethod(
@@ -829,9 +830,9 @@ $2=self;
 return $2;
 };
 self._selectBinding_(aBinding);
-_st(aBinding)._applyOn_(self);
+_st(aBinding)._apply();
 return self}, function($ctx1) {$ctx1.fill(self,"applyBinding:",{aBinding:aBinding},smalltalk.HLKeyBinder)})},
-messageSends: ["ifFalse:", "isActive", "selectBinding:", "applyOn:"]}),
+messageSends: ["ifFalse:", "isActive", "selectBinding:", "apply"]}),
 smalltalk.HLKeyBinder);
 
 smalltalk.addMethod(

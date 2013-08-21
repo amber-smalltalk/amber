@@ -2400,10 +2400,9 @@ var $1,$2;
 $1=_st($HLConfirmationWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._cancelBlock_(aBlock);
-$2=_st($1)._yourself();
-_st($2)._appendToJQuery_("body"._asJQuery());
+$2=_st($1)._show();
 return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifFalse:",{aString:aString,aBlock:aBlock},smalltalk.HLManager)})},
-messageSends: ["appendToJQuery:", "asJQuery", "confirmationString:", "new", "cancelBlock:", "yourself"]}),
+messageSends: ["confirmationString:", "new", "cancelBlock:", "show"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -2417,10 +2416,9 @@ var $1,$2;
 $1=_st($HLConfirmationWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._actionBlock_(aBlock);
-$2=_st($1)._yourself();
-_st($2)._appendToJQuery_("body"._asJQuery());
+$2=_st($1)._show();
 return self}, function($ctx1) {$ctx1.fill(self,"confirm:ifTrue:",{aString:aString,aBlock:aBlock},smalltalk.HLManager)})},
-messageSends: ["appendToJQuery:", "asJQuery", "confirmationString:", "new", "actionBlock:", "yourself"]}),
+messageSends: ["confirmationString:", "new", "actionBlock:", "show"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -2790,10 +2788,9 @@ $1=_st($HLRequestWidget())._new();
 _st($1)._confirmationString_(aString);
 _st($1)._actionBlock_(aBlock);
 _st($1)._value_(valueString);
-$2=_st($1)._yourself();
-_st($2)._appendToJQuery_("body"._asJQuery());
+$2=_st($1)._show();
 return self}, function($ctx1) {$ctx1.fill(self,"request:value:do:",{aString:aString,valueString:valueString,aBlock:aBlock},smalltalk.HLManager)})},
-messageSends: ["appendToJQuery:", "asJQuery", "confirmationString:", "new", "actionBlock:", "value:", "yourself"]}),
+messageSends: ["confirmationString:", "new", "actionBlock:", "value:", "show"]}),
 smalltalk.HLManager);
 
 smalltalk.addMethod(
@@ -2999,6 +2996,17 @@ return self._cancel();
 }, function($ctx2) {$ctx2.fillBlock({e:e},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupKeyBindings",{},smalltalk.HLModalWidget)})},
 messageSends: ["keyup:", "ifTrue:", "cancel", "=", "keyCode", "asJQuery"]}),
+smalltalk.HLModalWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "show",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._appendToJQuery_("body"._asJQuery());
+return self}, function($ctx1) {$ctx1.fill(self,"show",{},smalltalk.HLModalWidget)})},
+messageSends: ["appendToJQuery:", "asJQuery"]}),
 smalltalk.HLModalWidget);
 
 
@@ -3376,16 +3384,6 @@ smalltalk.HLProgressWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderButtonsOn:",
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLProgressWidget)})},
-messageSends: []}),
-smalltalk.HLProgressWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderMainOn:",
 fn: function (html){
 var self=this;
@@ -3435,6 +3433,20 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.HLProgressWidget.klass)})},
 messageSends: ["ifNil:", "new"]}),
 smalltalk.HLProgressWidget.klass);
+
+
+smalltalk.addClass('HLTabSelectionWidget', smalltalk.HLModalWidget, [], 'Helios-Core');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderMainOn:",
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(html)._with_("hello");
+return self}, function($ctx1) {$ctx1.fill(self,"renderMainOn:",{html:html},smalltalk.HLTabSelectionWidget)})},
+messageSends: ["with:"]}),
+smalltalk.HLTabSelectionWidget);
+
 
 
 smalltalk.addClass('HLProgressBarWidget', smalltalk.HLWidget, ['label', 'parent', 'workBlock', 'collection', 'bar'], 'Helios-Core');
