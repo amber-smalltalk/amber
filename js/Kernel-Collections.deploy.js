@@ -3299,6 +3299,19 @@ smalltalk.String.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "esc",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._fromCharCode_((27));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"esc",{},smalltalk.String.klass)})},
+messageSends: ["fromCharCode:"]}),
+smalltalk.String.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "fromCharCode:",
 fn: function (anInteger){
 var self=this;
