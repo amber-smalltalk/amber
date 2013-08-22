@@ -514,7 +514,7 @@ html[xmlns] .clearfix {
 #helios .key_helper .command {
   padding: 0 2px;
 }
-#helios #binding-helper-main {
+#helios .key_helper #binding-helper-main {
   display: inline;
 }
 #helios .key_helper .label {
@@ -566,12 +566,12 @@ html[xmlns] .clearfix {
   color: #B91010;
   font-weight: bold;
 }
-#helios .typeahead.dropdown-menu {
+#helios .key_helper .typeahead.dropdown-menu {
   position: fixed !important;
   top: auto !important;
   bottom: 30px !important;
 }
-#helios #cog-helper {
+#helios .key_helper #cog-helper {
   position: fixed;
   bottom: 2px;
   right: 2px;
@@ -583,7 +583,7 @@ html[xmlns] .clearfix {
   -o-transition: all .5s;
   -ms-transition: all .5s;
 }
-#helios #cog-helper:hover {
+#helios .key_helper #cog-helper:hover {
   opacity: 1;
 }
 #helios #helper {
@@ -632,24 +632,31 @@ html[xmlns] .clearfix {
   -moz-transition: top .5s;
   -o-transition: top .5s;
 }
-#helios .confirmation.large,
-#helios .dialog.large {
+#helios .confirmation .title,
+#helios .dialog .title {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+#helios .confirmation .large,
+#helios .dialog .large {
   width: 400px;
   margin-left: -220px;
+}
+#helios .confirmation .large textarea,
+#helios .dialog .large textarea {
+  width: 385px;
+  height: 200px;
 }
 #helios .confirmation textarea,
 #helios .dialog textarea {
   display: block;
   width: 235px;
 }
-#helios .confirmation.large textarea,
-#helios .dialog.large textarea {
-  width: 385px;
-  height: 200px;
-}
+#helios .confirmation .progress,
 #helios .dialog .progress {
   height: 5px;
 }
+#helios .confirmation .progress .bar,
 #helios .dialog .progress .bar {
   background-color: #e9eaf5;
   background-image: -webkit-linear-gradient(top, #b1bdd5, #8999b8);
