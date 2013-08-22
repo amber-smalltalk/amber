@@ -621,13 +621,59 @@ smalltalk.method({
 selector: "execute",
 fn: function (){
 var self=this;
-function $HLBrowser(){return smalltalk.HLBrowser||(typeof HLBrowser=="undefined"?nil:HLBrowser)}
+var activeTab;
+function $HLTabSelectionWidget(){return smalltalk.HLTabSelectionWidget||(typeof HLTabSelectionWidget=="undefined"?nil:HLTabSelectionWidget)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+activeTab=self._selectedTab();
+$2=_st($HLTabSelectionWidget())._new();
+_st($2)._tabs_(self._tabs());
+_st($2)._selectedTab_(self._selectedTab());
+_st($2)._selectCallback_((function(tab){
+return smalltalk.withContext(function($ctx2) {
+return _st(tab)._activate();
+}, function($ctx2) {$ctx2.fillBlock({tab:tab},$ctx1)})}));
+_st($2)._confirmCallback_((function(tab){
+return smalltalk.withContext(function($ctx2) {
+return _st(tab)._focus();
+}, function($ctx2) {$ctx2.fillBlock({tab:tab},$ctx1)})}));
+_st($2)._cancelCallback_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(activeTab)._activate();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$3=_st($2)._show();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"execute",{activeTab:activeTab},smalltalk.HLSwitchTabCommand)})},
+messageSends: ["selectedTab", "tabs:", "tabs", "new", "selectedTab:", "selectCallback:", "activate", "confirmCallback:", "focus", "cancelCallback:", "show"]}),
+smalltalk.HLSwitchTabCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectedTab",
+fn: function (){
+var self=this;
+function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($HLBrowser())._openAsTab();
+$1=_st(_st($HLManager())._current())._activeTab();
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLSwitchTabCommand)})},
-messageSends: ["openAsTab"]}),
+}, function($ctx1) {$ctx1.fill(self,"selectedTab",{},smalltalk.HLSwitchTabCommand)})},
+messageSends: ["activeTab", "current"]}),
+smalltalk.HLSwitchTabCommand);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tabs",
+fn: function (){
+var self=this;
+function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($HLManager())._current())._tabs();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"tabs",{},smalltalk.HLSwitchTabCommand)})},
+messageSends: ["tabs", "current"]}),
 smalltalk.HLSwitchTabCommand);
 
 
