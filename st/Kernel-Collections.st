@@ -1476,6 +1476,10 @@ crlf
 	<return '\r\n'>
 !
 
+esc
+	^ self fromCharCode: 27
+!
+
 lf
 	<return '\n'>
 !

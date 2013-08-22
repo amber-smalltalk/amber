@@ -612,7 +612,7 @@ unregister
 
 !HLWidget methodsFor: 'keybindings'!
 
-bindKeyDown: keyDownBlock up: keyUpBlock
+bindKeyDown: keyDownBlock keyUp: keyUpBlock
 	self wrapper asJQuery
 		keydown: keyDownBlock;
 		keyup: keyUpBlock
@@ -625,7 +625,7 @@ registerBindings
 registerBindingsOn: aBindingGroup
 !
 
-unbindKeyDownUp
+unbindKeyDownKeyUp
 	self wrapper asJQuery
 		unbind: 'keydown';
 		unbind: 'keyup'
@@ -854,9 +854,9 @@ defaultItems
 !HLListWidget methodsFor: 'events'!
 
 setupKeyBindings 
-	(HLRepeatingKeyBindingHandler forWidget: self)
-		whileKeyPressed: 38 do: [ self activatePreviousListItem ];
-		whileKeyPressed: 40 do: [ self activateNextListItem ];
+	(HLRepeatedKeyDownHandler on: self)
+		whileKeyDown: 38 do: [ self activatePreviousListItem ];
+		whileKeyDown: 40 do: [ self activateNextListItem ];
 		rebindKeys
 ! !
 
@@ -1089,8 +1089,39 @@ on: aModel
         yourself
 ! !
 
+HLListWidget subclass: #HLTabListWidget
+	instanceVariableNames: 'callback'
+	package: 'Helios-Core'!
+!HLTabListWidget commentStamp!
+I am a widget used to display a list of helios tabs.
+
+When a tab is selected, `callback` is evaluated with the selected tab as argument.!
+
+!HLTabListWidget methodsFor: 'accessing'!
+
+callback
+	^ callback ifNil: [ [] ]
+!
+
+callback: aBlock
+	callback := aBlock
+! !
+
+!HLTabListWidget methodsFor: 'actions'!
+
+selectItem: aTab
+	super selectItem: aTab.
+	self callback value: aTab
+! !
+
+!HLTabListWidget methodsFor: 'rendering'!
+
+renderItemLabel: aTab on: html
+	html with: aTab label
+! !
+
 HLWidget subclass: #HLManager
-	instanceVariableNames: 'tabs activeTab keyBinder environment history'
+	instanceVariableNames: 'tabs activeTab environment history'
 	package: 'Helios-Core'!
 
 !HLManager methodsFor: 'accessing'!
@@ -1118,7 +1149,7 @@ history: aCollection
 !
 
 keyBinder
-	^ keyBinder ifNil: [ keyBinder := HLKeyBinder new ]
+	^ HLKeyBinder current
 !
 
 tabs
@@ -1149,19 +1180,17 @@ addToHistory: aTab
 !
 
 confirm: aString ifFalse: aBlock
-	(HLConfirmationWidget new
+	HLConfirmationWidget new
 		confirmationString: aString;
 		cancelBlock: aBlock;
-		yourself)
-			appendToJQuery: 'body' asJQuery
+		show
 !
 
 confirm: aString ifTrue: aBlock
-	(HLConfirmationWidget new
+	HLConfirmationWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
-		yourself)
-			appendToJQuery: 'body' asJQuery
+		show
 !
 
 registerErrorHandler: anErrorHandler
@@ -1204,12 +1233,11 @@ request: aString do: aBlock
 !
 
 request: aString value: valueString do: aBlock
-	(HLRequestWidget new
+	HLRequestWidget new
 		confirmationString: aString;
 		actionBlock: aBlock;
 		value: valueString;
-		yourself)
-			appendToJQuery: 'body' asJQuery
+		show
 ! !
 
 !HLManager methodsFor: 'defaults'!
@@ -1356,17 +1384,45 @@ cancel
 	self remove
 !
 
+confirm
+	"Override in subclasses"
+	self remove
+!
+
 remove
 	'.dialog' asJQuery removeClass: 'active'.
 	[ 
 		'#overlay' asJQuery remove.
 		'.dialog' asJQuery remove
 	] valueWithTimeout: 300
+!
+
+show
+	self appendToJQuery: 'body' asJQuery
 ! !
 
 !HLModalWidget methodsFor: 'rendering'!
 
+hasButtons
+	^ true
+!
+
 renderButtonsOn: html
+	| confirmButton |
+	
+	html div 
+		class: 'buttons';
+		with: [
+			html button
+				class: 'button';
+				with: 'Cancel';
+				onClick: [ self cancel ].
+			confirmButton := html button
+				class: 'button default';
+				with: 'Confirm';
+				onClick: [ self confirm ] ].
+
+	confirmButton asJQuery focus
 !
 
 renderContentOn: html
@@ -1376,9 +1432,9 @@ renderContentOn: html
 	html div 
 		class: 'dialog ', self cssClass;
 		with: [
-			self
-				renderMainOn: html;
-				renderButtonsOn: html ].
+			self renderMainOn: html.
+			self hasButtons ifTrue: [ 
+				self renderButtonsOn: html ] ].
 
 	'.dialog' asJQuery addClass: 'active'.
 	self setupKeyBindings
@@ -1389,7 +1445,7 @@ renderMainOn: html
 
 setupKeyBindings
 	'.dialog' asJQuery keyup: [ :e |
-		e keyCode = 27 ifTrue: [ self cancel ] ]
+		e keyCode = String esc asciiValue ifTrue: [ self cancel ] ]
 ! !
 
 HLModalWidget subclass: #HLConfirmationWidget
@@ -1430,41 +1486,15 @@ confirmationString: aString
 
 cancel
 	self cancelBlock value.
-	self remove
+	super cancel
 !
 
 confirm
-	self actionBlock value.
-	self remove
-!
-
-remove
-	'.dialog' asJQuery removeClass: 'active'.
-	[ 
-		'#overlay' asJQuery remove.
-		'.dialog' asJQuery remove
-	] valueWithTimeout: 300
+	super confirm.
+	self actionBlock value
 ! !
 
 !HLConfirmationWidget methodsFor: 'rendering'!
-
-renderButtonsOn: html
-	| confirmButton |
-	
-	html div 
-		class: 'buttons';
-		with: [
-			html button
-				class: 'button';
-				with: 'Cancel';
-				onClick: [ self cancel ].
-			confirmButton := html button
-				class: 'button default';
-				with: 'Confirm';
-				onClick: [ self confirm ] ].
-
-	confirmButton asJQuery focus
-!
 
 renderMainOn: html
 	html span with: self confirmationString
@@ -1495,8 +1525,8 @@ value: aString
 !HLRequestWidget methodsFor: 'actions'!
 
 confirm
-	self actionBlock value: input asJQuery val.
-	self remove
+	super confirm.
+	self actionBlock value: input asJQuery val
 ! !
 
 !HLRequestWidget methodsFor: 'rendering'!
@@ -1566,13 +1596,10 @@ removeProgressBar: aProgressBar
 show
 	self isVisible ifFalse: [
 		visible := true.
-		self appendToJQuery: 'body' asJQuery ]
+		super show ]
 ! !
 
 !HLProgressWidget methodsFor: 'rendering'!
-
-renderButtonsOn: html
-!
 
 renderMainOn: html
 	self progressBars do: [ :each |
@@ -1580,6 +1607,10 @@ renderMainOn: html
 ! !
 
 !HLProgressWidget methodsFor: 'testing'!
+
+hasButtons
+	^ false
+!
 
 isVisible
 	^ visible ifNil: [ false ]
@@ -1591,6 +1622,119 @@ HLProgressWidget class instanceVariableNames: 'default'!
 
 default
 	^ default ifNil: [ default := self new ]
+! !
+
+HLModalWidget subclass: #HLTabSelectionWidget
+	instanceVariableNames: 'tabs tabList selectedTab selectCallback cancelCallback confirmCallback'
+	package: 'Helios-Core'!
+!HLTabSelectionWidget commentStamp!
+I am a modal window used to select or create tabs.!
+
+!HLTabSelectionWidget methodsFor: 'accessing'!
+
+cancelCallback
+	^ cancelCallback ifNil: [ [] ]
+!
+
+cancelCallback: aBlock
+	cancelCallback := aBlock
+!
+
+confirmCallback
+	^ confirmCallback ifNil: [ [] ]
+!
+
+confirmCallback: aBlock
+	confirmCallback := aBlock
+!
+
+selectCallback
+	^ selectCallback ifNil: [ [] ]
+!
+
+selectCallback: aBlock
+	selectCallback := aBlock
+!
+
+selectedTab
+	^ selectedTab
+!
+
+selectedTab: aTab
+	selectedTab := aTab
+!
+
+tabs
+	^ tabs ifNil: [ #() ]
+!
+
+tabs: aCollection
+	tabs := aCollection
+! !
+
+!HLTabSelectionWidget methodsFor: 'actions'!
+
+cancel
+	super cancel.
+	self cancelCallback value
+!
+
+confirm
+	super confirm.
+	self confirmCallback value: self selectedTab
+!
+
+selectTab: aTab
+	self selectedTab: aTab.
+	self selectCallback value: aTab
+!
+
+setupKeyBindings
+	super setupKeyBindings.
+	'.dialog' asJQuery keyup: [ :e |
+		e keyCode = String cr asciiValue ifTrue: [ self confirm ] ]
+! !
+
+!HLTabSelectionWidget methodsFor: 'rendering'!
+
+renderContentOn: html
+	super renderContentOn: html.
+	self tabList focus
+!
+
+renderMainOn: html
+	html div 
+		class: 'title'; 
+		with: 'Tab selection'.
+	
+	html with: self tabList
+!
+
+renderTab: aTab on: html
+	html 
+		span 
+			class: aTab cssClass;
+			with: aTab label
+!
+
+renderTabsOn: html
+	self tabs do: [ :each |
+		html li with: [ 
+			html a 
+				with: [ 
+					self renderTab: each on: html ];
+				onClick: [ self selectTab: each ] ] ]
+!
+
+tabList
+	tabList ifNil: [ 
+		tabList := HLTabListWidget new.
+		tabList
+			callback: [ :tab | self selectTab: tab. tabList focus ];
+			selectedItem: self selectedTab;
+			items: self tabs ].
+	
+	^ tabList
 ! !
 
 HLWidget subclass: #HLProgressBarWidget

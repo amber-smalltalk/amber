@@ -6,8 +6,8 @@ TestCase subclass: #HLCodeWidgetTest
 !HLCodeWidgetTest methodsFor: 'tests'!
 
 testKeyMap
-"Key maps are a collection of associations."
-self assert: ( HLCodeWidget pcKeyMap isKindOf: HashedCollection ).
-self assert: ( HLCodeWidget macKeyMap isKindOf: HashedCollection ).
+	"Key maps are a collection of associations."
+	self assert: (HLCodeWidget pcKeyMap isKindOf: HashedCollection).
+	self assert: (HLCodeWidget macKeyMap isKindOf: HashedCollection)
 ! !
 

@@ -1049,7 +1049,7 @@ return $3;
 $4=self._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,className,aCollection,packageName);
 return $4;
 }, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,className:className,aCollection:aCollection,packageName:packageName,theClass:theClass,thePackage:thePackage},smalltalk.ClassBuilder)})},
-messageSends: ["at:", "current", "createPackageNamed:", "ifNotNil:", "package:", "ifFalse:", "migrateClassNamed:superclass:instanceVariableNames:package:", "==", "superclass", "basicAddSubclassOf:named:instanceVariableNames:package:"]}),
+messageSends: ["at:", "current", "createPackageNamed:", "ifNotNil:", "package:", "ifFalse:", "==", "superclass", "migrateClassNamed:superclass:instanceVariableNames:package:", "basicAddSubclassOf:named:instanceVariableNames:package:"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
