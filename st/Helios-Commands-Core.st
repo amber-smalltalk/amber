@@ -273,6 +273,46 @@ label
 	^ 'Workspace'
 ! !
 
+HLCommand subclass: #HLSwitchTabCommand
+	instanceVariableNames: ''
+	package: 'Helios-Commands-Core'!
+
+!HLSwitchTabCommand methodsFor: 'accessing'!
+
+selectedTab
+	^ HLManager current activeTab
+!
+
+tabs
+	^ HLManager current tabs
+! !
+
+!HLSwitchTabCommand methodsFor: 'executing'!
+
+execute
+	| activeTab |
+	
+	activeTab := self selectedTab.
+	
+	^ HLTabSelectionWidget new
+		tabs: self tabs;
+		selectedTab: self selectedTab;
+		selectCallback: [ :tab | tab activate ];
+		confirmCallback: [ :tab | tab focus ];
+		cancelCallback: [ activeTab activate ];
+		show
+! !
+
+!HLSwitchTabCommand class methodsFor: 'accessing'!
+
+key
+	^ 's'
+!
+
+label
+	^ 'Switch'
+! !
+
 HLCommand subclass: #HLViewCommand
 	instanceVariableNames: ''
 	package: 'Helios-Commands-Core'!

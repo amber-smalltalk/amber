@@ -16,7 +16,7 @@ self._assert_(_st(_st($HLCodeWidget())._pcKeyMap())._isKindOf_($HashedCollection
 self._assert_(_st(_st($HLCodeWidget())._macKeyMap())._isKindOf_($HashedCollection()));
 return self}, function($ctx1) {$ctx1.fill(self,"testKeyMap",{},smalltalk.HLCodeWidgetTest)})},
 args: [],
-source: "testKeyMap\x0a\x22Key maps are a collection of associations.\x22\x0aself assert: ( HLCodeWidget pcKeyMap isKindOf: HashedCollection ).\x0aself assert: ( HLCodeWidget macKeyMap isKindOf: HashedCollection ).",
+source: "testKeyMap\x0a\x09\x22Key maps are a collection of associations.\x22\x0a\x09self assert: (HLCodeWidget pcKeyMap isKindOf: HashedCollection).\x0a\x09self assert: (HLCodeWidget macKeyMap isKindOf: HashedCollection)",
 messageSends: ["assert:", "isKindOf:", "pcKeyMap", "macKeyMap"],
 referencedClasses: ["HashedCollection", "HLCodeWidget"]
 }),

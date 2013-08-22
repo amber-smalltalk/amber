@@ -2,10 +2,21 @@ Smalltalk current createPackage: 'Helios-KeyBindings'!
 Object subclass: #HLBinding
 	instanceVariableNames: 'key label'
 	package: 'Helios-KeyBindings'!
+!HLBinding commentStamp!
+I am the abstract representation of a keybinding in Helios. My instances hold a key (integer value) and a label. 
+
+Bindings are built into a tree of keys, so pressing a key may result in more key choices (for example, to open a workspace, 'o' is pressed first then 'w' is pressed).
+
+Binding action handling and selection is handled by the `current` instance of `HLKeyBinder`.
+
+Subclasses implement specific behavior like evaluating actions or (sub-)grouping other bindings.!
 
 !HLBinding methodsFor: 'accessing'!
 
 atKey: aKey
+	"Answer the sub-binding at key aKey.
+	Always answer nil here. See HLBindingGroup for more."
+	
 	^ nil
 !
 
@@ -35,24 +46,13 @@ shortcut
 
 !HLBinding methodsFor: 'actions'!
 
-applyOn: aKeyBinder
+apply
 !
 
 release
 ! !
 
 !HLBinding methodsFor: 'rendering'!
-
-renderActionFor: aBinder html: html
-	html span class: 'command'; with: [
-		html span 
-			class: 'label'; 
-			with: self shortcut asLowercase.
-  		html a 
-        	class: 'action'; 
-            with: self displayLabel;
-  			onClick: [ aBinder applyBinding: self ] ]
-!
 
 renderOn: aBindingHelper html: html
 ! !
@@ -61,12 +61,6 @@ renderOn: aBindingHelper html: html
 
 isActive
 	^ self subclassResponsibility
-!
-
-isFinal
-	" Answer true if the receiver is the final binding of a sequence "
-	
-	^ false
 ! !
 
 !HLBinding class methodsFor: 'instance creation'!
@@ -81,6 +75,10 @@ on: anInteger labelled: aString
 HLBinding subclass: #HLBindingAction
 	instanceVariableNames: 'command'
 	package: 'Helios-KeyBindings'!
+!HLBindingAction commentStamp!
+My instances are the leafs of the binding tree. They evaluate actions through commands, instances of concrete subclasses of `HLCommand`.
+
+The `#apply` methods is used to evaluate the `command`. If the command requires user input, an `inputWidget` will be displayed to the user.!
 
 !HLBindingAction methodsFor: 'accessing'!
 
@@ -90,6 +88,10 @@ command
 
 command: aCommand
 	command := aCommand
+!
+
+input: aString
+	self command input: aString
 !
 
 inputBinding
@@ -103,48 +105,51 @@ inputBinding
 				input: val;
 				execute ];
 		yourself
+!
+
+inputWidget
+	^ HLBindingActionInputWidget new
+		ghostText: self command displayLabel;
+		defaultValue: self command defaultInput;
+		inputCompletion: self command inputCompletion;
+		callback: [ :value | 
+			self 
+				input: value;
+				executeCommand ];
+		yourself
 ! !
 
 !HLBindingAction methodsFor: 'actions'!
 
-applyOn: aKeyBinder
+apply
 	self command isInputRequired
-		ifTrue: [ aKeyBinder selectBinding: self inputBinding ]
-		ifFalse: [ self command execute ]
+		ifTrue: [ HLKeyBinder current helper showWidget: self inputWidget ]
+		ifFalse: [ self executeCommand ]
+!
+
+executeCommand
+	self command execute.
+	HLKeyBinder current deactivate
 ! !
 
 !HLBindingAction methodsFor: 'testing'!
 
 isActive
 	^ self command isActive
-!
-
-isFinal
-	^ self command isInputRequired not
 ! !
 
 HLBinding subclass: #HLBindingGroup
 	instanceVariableNames: 'bindings'
 	package: 'Helios-KeyBindings'!
+!HLBindingGroup commentStamp!
+My instances hold other bindings, either actions or groups, and do not have actions by themselves.
+
+Children are accessed with `atKey:` and added with the `add*` methods.!
 
 !HLBindingGroup methodsFor: 'accessing'!
 
 activeBindings
 	^ self bindings select: [ :each | each isActive ]
-!
-
-add: aBinding
-	^ self bindings add: aBinding
-!
-
-addActionKey: anInteger labelled: aString callback: aBlock
-	self add: ((HLBindingAction on: anInteger labelled: aString)
-    	callback: aBlock;
-        yourself)
-!
-
-addGroupKey: anInteger labelled: aString
-	self add: (HLBindingGroup on: anInteger labelled: aString)
 !
 
 at: aString
@@ -182,6 +187,24 @@ release
 	self bindings do: [ :each | each release ]
 ! !
 
+!HLBindingGroup methodsFor: 'add'!
+
+addGroupKey: anInteger labelled: aString
+	self add: (HLBindingGroup on: anInteger labelled: aString)
+! !
+
+!HLBindingGroup methodsFor: 'adding'!
+
+add: aBinding
+	^ self bindings add: aBinding
+!
+
+addActionKey: anInteger labelled: aString callback: aBlock
+	self add: ((HLBindingAction on: anInteger labelled: aString)
+    	callback: aBlock;
+        yourself)
+! !
+
 !HLBindingGroup methodsFor: 'rendering'!
 
 renderOn: aBindingHelper html: html
@@ -195,15 +218,13 @@ isActive
 	^ self activeBindings notEmpty
 ! !
 
-HLBinding subclass: #HLBindingInput
-	instanceVariableNames: 'input callback status wrapper binder ghostText isFinal message messageTag inputCompletion defaultValue'
+HLWidget subclass: #HLBindingActionInputWidget
+	instanceVariableNames: 'input callback status wrapper ghostText message inputCompletion defaultValue messageTag'
 	package: 'Helios-KeyBindings'!
+!HLBindingActionInputWidget commentStamp!
+My instances are built when a `HLBindingAction` that requires user input is applied.!
 
-!HLBindingInput methodsFor: 'accessing'!
-
-atKey: aKey
-	aKey = 13 ifFalse: [ ^ nil ]
-!
+!HLBindingActionInputWidget methodsFor: 'accessing'!
 
 callback
 	^ callback ifNil: [ callback := [ :value | ] ]
@@ -257,12 +278,7 @@ status: aStatus
 	status := aStatus
 ! !
 
-!HLBindingInput methodsFor: 'actions'!
-
-applyOn: aKeyBinder
-	self isFinal: true.
-	self evaluate: self input asJQuery val
-!
+!HLBindingActionInputWidget methodsFor: 'actions'!
 
 clearStatus
 	self status: 'info'.
@@ -275,36 +291,27 @@ errorStatus
 	self refresh
 !
 
-evaluate: aString
-	
+evaluate: aString	
 	[ self callback value: aString ]
-	on: Error
-	do: [:ex |
-		self input asJQuery 
-			one: 'keydown' 
-			do: [ self clearStatus ].
-		self message: ex messageText.
-		self errorStatus.
-		self isFinal: false ].
+		on: Error
+		do: [:ex |
+			self input asJQuery 
+				one: 'keydown' 
+				do: [ self clearStatus ].
+			self message: ex messageText.
+			self errorStatus ]
 !
-
-release
-	status := nil.
-	wrapper := nil.
-	binder := nil
-! !
-
-!HLBindingInput methodsFor: 'rendering'!
 
 refresh
 	wrapper ifNil: [ ^ self ].
     
 	wrapper class: self status.
 	messageTag contents: self message
-!
+! !
 
-renderOn: aBinder html: html
-	binder := aBinder.
+!HLBindingActionInputWidget methodsFor: 'rendering'!
+
+renderOn: html
 	wrapper ifNil: [ wrapper := html span ].
 
 	wrapper 
@@ -313,6 +320,9 @@ renderOn: aBinder html: html
 			input := html input
 				placeholder: self ghostText;
 				value: self defaultValue;
+				onKeyDown: [ :event | 
+					event which = 13 ifTrue: [
+						self evaluate: input asJQuery val ] ]
 				yourself.
 			input asJQuery 
 				typeahead: #{ 'source' -> self inputCompletion }.
@@ -328,23 +338,19 @@ renderOn: aBinder html: html
 	[ input asJQuery focus ] valueWithTimeout: 10
 ! !
 
-!HLBindingInput methodsFor: 'testing'!
-
-isActive
-	^ true
-!
-
-isFinal
-	^ isFinal ifNil: [ isFinal := super isFinal ]
-!
-
-isFinal: aBoolean
-	isFinal := aBoolean
-! !
-
 Object subclass: #HLKeyBinder
 	instanceVariableNames: 'modifierKey helper bindings selectedBinding'
 	package: 'Helios-KeyBindings'!
+!HLKeyBinder commentStamp!
+My `current` instance holds keybindings for Helios actions and evaluate them.
+
+Bindings can be nested by groups. The `bindings` instance variable holds the root of the key bindings tree.
+
+Bindings are instances of a concrete subclass of `HLBinding`.
+
+I am always either in 'active' or 'inactive' state. In active state I capture key down events and my `helper` widget is displayed at the bottom of the window. My `selectedBinding`, if any, is displayed by the helper.
+
+Bindings are evaluated through `applyBinding:`. If a binding is final (not a group of other bindings), evaluating it will result in deactivating the binder, and hiding the `helper` widget.!
 
 !HLKeyBinder methodsFor: 'accessing'!
 
@@ -384,9 +390,7 @@ applyBinding: aBinding
 	aBinding isActive ifFalse: [ ^ self ].
 	
 	self selectBinding: aBinding.
-    aBinding applyOn: self.
-	
-	aBinding isFinal ifTrue: [ self deactivate ]
+    aBinding apply
 !
 
 deactivate
@@ -412,8 +416,8 @@ defaultBindings
 	| group |
 	
 	group := HLBindingGroup new
-		addGroupKey: 86 labelled: 'View';
 		add: HLCloseTabCommand new asBinding;
+		add: HLSwitchTabCommand new asBinding;
 		yourself.
 		
 	HLOpenCommand registerConcreteClassesOn: group.
@@ -469,7 +473,7 @@ setupEvents
 
 initialize
 	super initialize.
-	helper := HLKeyBinderHelper on: self.
+	helper := HLKeyBinderHelperWidget on: self.
 	helper 	
 		renderStart;
 		renderCog
@@ -485,11 +489,27 @@ systemIsMac
 	^ navigator platform match: 'Mac'
 ! !
 
-HLWidget subclass: #HLKeyBinderHelper
+HLKeyBinder class instanceVariableNames: 'current'!
+
+!HLKeyBinder class methodsFor: 'instance creation'!
+
+current
+	^ current ifNil: [ current := super new ]
+!
+
+new
+	self shouldNotImplement
+! !
+
+HLWidget subclass: #HLKeyBinderHelperWidget
 	instanceVariableNames: 'keyBinder'
 	package: 'Helios-KeyBindings'!
+!HLKeyBinderHelperWidget commentStamp!
+I am the widget responsible for displaying active keybindings in a bar at the bottom of the window. Each keybinding is an instance of `HLBinding`. 
 
-!HLKeyBinderHelper methodsFor: 'accessing'!
+Rendering is done through a double dispatch, see `#renderSelectedBindingOn:`.!
+
+!HLKeyBinderHelperWidget methodsFor: 'accessing'!
 
 cssClass
 	^ 'key_helper'
@@ -503,11 +523,15 @@ keyBinder: aKeyBinder
 	keyBinder := aKeyBinder
 !
 
+mainId
+	^ 'binding-helper-main'
+!
+
 selectedBinding
 	^ self keyBinder selectedBinding
 ! !
 
-!HLKeyBinderHelper methodsFor: 'actions'!
+!HLKeyBinderHelperWidget methodsFor: 'actions'!
 
 hide
 	('.', self cssClass) asJQuery remove.
@@ -525,24 +549,33 @@ show
 
 showCog
 	'#cog-helper' asJQuery show
+!
+
+showWidget: aWidget
+	"Some actions need to display more info to the user or request input.
+	This method is the right place for that"
+	
+	('#', self mainId) asJQuery empty.
+	aWidget appendToJQuery: ('#', self mainId) asJQuery
 ! !
 
-!HLKeyBinderHelper methodsFor: 'keyBindings'!
+!HLKeyBinderHelperWidget methodsFor: 'rendering'!
 
-registerBindings
-	"Do nothing"
-! !
-
-!HLKeyBinderHelper methodsFor: 'rendering'!
+renderBindingActionFor: aBinding on: html
+	html span class: 'command'; with: [
+		html span 
+			class: 'label'; 
+			with: aBinding shortcut asLowercase.
+  		html a 
+        	class: 'action'; 
+            with: aBinding displayLabel;
+  			onClick: [ self keyBinder applyBinding: aBinding ] ]
+!
 
 renderBindingGroup: aBindingGroup on: html
 	(aBindingGroup activeBindings 
     	sorted: [ :a :b | a key < b key ])
-        do: [ :each | each renderActionFor: self keyBinder html: html ]
-!
-
-renderBindingOn: html
-	self selectedBinding renderOn: self html: html
+        do: [ :each | self renderBindingActionFor: each on: html ]
 !
 
 renderCloseOn: html
@@ -565,16 +598,21 @@ renderCog
 
 renderContentOn: html
 	html div class: self cssClass; with: [
-      	self 
-        	renderSelectionOn:html;
-          	renderBindingOn: html;
-			renderCloseOn: html ]
+      	self renderLabelOn:html.
+		html div
+			id: self mainId;
+			with: [ self renderSelectedBindingOn: html ].
+		self renderCloseOn: html ]
 !
 
-renderSelectionOn: html
+renderLabelOn: html
 		html span 
         	class: 'selected'; 
             with: (self selectedBinding label ifNil: [ 'Action' ])
+!
+
+renderSelectedBindingOn: html
+	self selectedBinding renderOn: self html: html
 !
 
 renderStart
@@ -589,7 +627,7 @@ renderStart
 		valueWithTimeout: 2000
 ! !
 
-!HLKeyBinderHelper class methodsFor: 'instance creation'!
+!HLKeyBinderHelperWidget class methodsFor: 'instance creation'!
 
 on: aKeyBinder
 	^ self new
@@ -597,100 +635,115 @@ on: aKeyBinder
         yourself
 ! !
 
-Object subclass: #HLRepeatingKeyBindingHandler
-	instanceVariableNames: 'repeatInterval delay interval keyBindings widget isKeyCurrentlyPressed'
+Object subclass: #HLRepeatedKeyDownHandler
+	instanceVariableNames: 'repeatInterval delay interval keyBindings widget keyDown'
 	package: 'Helios-KeyBindings'!
-!HLRepeatingKeyBindingHandler commentStamp!
+!HLRepeatedKeyDownHandler commentStamp!
+I am responsible for handling repeated key down actions for widgets.
+
 ##Usage
 
-    (HLRepeatingKeyBindingHandler forWidget: aWidget)
-        whileKeyPressed: keyCode do: [xxxx];
-        whileKeyPressed: anotherKey do: [yyy];
-        rebind
+    (self on: aWidget)
+        whileKeyDown: 38 do: aBlock;
+        whileKeyDown: 40 do: anotherBlock;
+        bindKeys
 
-Performs an action on a key press, waits for 300 ms and then preforms the action every repeatInterval ms until the button is released!
+I perform an action block on a key press, wait for 300 ms and then preform the same action block every `repeatInterval` milliseconds until the key is released.!
 
-!HLRepeatingKeyBindingHandler methodsFor: 'accessing'!
+!HLRepeatedKeyDownHandler methodsFor: 'accessing'!
 
-repeatInterval: aMillisecondIntegerValue 
-	repeatInterval := aMillisecondIntegerValue
+keyBindings
+	^ keyBindings ifNil: [ keyBindings := Dictionary new ]
 !
 
-whileKeyPressed: aKey do: aBlock
-	keyBindings at: aKey put: aBlock
+repeatInterval
+	^ repeatInterval ifNil: [ self defaultRepeatInterval ]
+!
+
+repeatInterval: anInteger
+	repeatInterval := anInteger
+!
+
+widget
+	^ widget
 !
 
 widget: aWidget
 	widget := aWidget
 ! !
 
-!HLRepeatingKeyBindingHandler methodsFor: 'actions'!
+!HLRepeatedKeyDownHandler methodsFor: 'actions'!
+
+startRepeatingAction: aBlock
+	^ [ (self widget hasFocus)
+		ifTrue: [ aBlock value ]
+		ifFalse: [ self handleKeyUp ] ] valueWithInterval: self repeatInterval
+!
+
+whileKeyDown: aKey do: aBlock
+	self keyBindings at: aKey put: aBlock
+! !
+
+!HLRepeatedKeyDownHandler methodsFor: 'binding'!
 
 bindKeys
-	widget bindKeyDown: [ :e | self handleKeyDown: e ] up: [ :e | self handleKeyUp: e ]
-!
-
-delayBeforeStartingRepeatWithAction: action
-	^ [ interval := self startRepeatingAction: action ] valueWithTimeout: 300
-!
-
-handleKeyUp
-	isKeyCurrentlyPressed := false.
-	interval ifNotNil: [ interval clearInterval ].
-	delay ifNotNil: [ delay clearTimeout ]
+	self widget 
+		bindKeyDown: [ :e | self handleKeyDown: e ] 
+		keyUp: [ :e | self handleKeyUp ]
 !
 
 rebindKeys
-	self unbindKeys;
+	self 
+		unbindKeys;
 		bindKeys
 !
 
-startRepeatingAction: action
-	^ [ (widget hasFocus)
-		ifTrue: [ action value ]
-		ifFalse: [ self handleKeyUp ] ] valueWithInterval: repeatInterval
-!
-
 unbindKeys
-	widget unbindKeyDownUp
+	self widget unbindKeyDownKeyUp
 ! !
 
-!HLRepeatingKeyBindingHandler methodsFor: 'events-processing'!
+!HLRepeatedKeyDownHandler methodsFor: 'defaults'!
 
-handleKeyDown: e
-	 keyBindings keysAndValuesDo: [ :key :action | 
-		self ifKey: key wasPressedIn: e thenDo: action ]
-!
-
-handleKeyUp: e
-	isKeyCurrentlyPressed
-		ifTrue: [ self handleKeyUp ]
-!
-
-ifKey: key wasPressedIn: e thenDo: action
-	(e which = key and: [ isKeyCurrentlyPressed = false ])
-		ifTrue: [  self whileTheKeyIsPressedDo: action ]
-!
-
-whileTheKeyIsPressedDo: action
-	isKeyCurrentlyPressed := true.
-	action value.
-	delay := self delayBeforeStartingRepeatWithAction: action
+defaultRepeatInterval
+	^ 70
 ! !
 
-!HLRepeatingKeyBindingHandler methodsFor: 'initialization'!
+!HLRepeatedKeyDownHandler methodsFor: 'events handling'!
 
-initialize 
-	super initialize.
-	keyBindings := Dictionary new.
-	isKeyCurrentlyPressed := false.
-	repeatInterval := 70.
+handleEvent: anEvent forKey: anInteger action: aBlock
+	(anEvent which = anInteger and: [ self isKeyDown not ])
+		ifTrue: [ self whileKeyDownDo: aBlock ]
+!
+
+handleKeyDown: anEvent
+	self keyBindings keysAndValuesDo: [ :key :action | 
+		self handleEvent: anEvent forKey: key action: action ]
+!
+
+handleKeyUp
+	self isKeyDown ifTrue: [
+		keyDown := false.
+		interval ifNotNil: [ interval clearInterval ].
+		delay ifNotNil: [ delay clearTimeout ] ]
+!
+
+whileKeyDownDo: aBlock
+	keyDown := true.
+	aBlock value.
+	delay := [ interval := self startRepeatingAction: aBlock ] 
+		valueWithTimeout: 300
 ! !
 
-!HLRepeatingKeyBindingHandler class methodsFor: 'instance-creation'!
+!HLRepeatedKeyDownHandler methodsFor: 'testing'!
 
-forWidget: aWidget
-	^self new
+isKeyDown
+	^ keyDown ifNil: [ false ]
+! !
+
+!HLRepeatedKeyDownHandler class methodsFor: 'instance creation'!
+
+on: aWidget
+	^ self new
 		widget: aWidget;
 		yourself
 ! !
