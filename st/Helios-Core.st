@@ -1117,7 +1117,9 @@ selectItem: aTab
 !HLTabListWidget methodsFor: 'rendering'!
 
 renderItemLabel: aTab on: html
-	html with: aTab label
+	html span
+		class: aTab cssClass;
+		with: aTab label
 ! !
 
 HLWidget subclass: #HLManager

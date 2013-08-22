@@ -2371,9 +2371,12 @@ selector: "renderItemLabel:on:",
 fn: function (aTab,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st(aTab)._label());
+var $1,$2;
+$1=_st(html)._span();
+_st($1)._class_(_st(aTab)._cssClass());
+$2=_st($1)._with_(_st(aTab)._label());
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aTab:aTab,html:html},smalltalk.HLTabListWidget)})},
-messageSends: ["with:", "label"]}),
+messageSends: ["class:", "cssClass", "span", "with:", "label"]}),
 smalltalk.HLTabListWidget);
 
 smalltalk.addMethod(

@@ -3129,11 +3129,14 @@ category: 'rendering',
 fn: function (aTab,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st(aTab)._label());
+var $1,$2;
+$1=_st(html)._span();
+_st($1)._class_(_st(aTab)._cssClass());
+$2=_st($1)._with_(_st(aTab)._label());
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aTab:aTab,html:html},smalltalk.HLTabListWidget)})},
 args: ["aTab", "html"],
-source: "renderItemLabel: aTab on: html\x0a\x09html with: aTab label",
-messageSends: ["with:", "label"],
+source: "renderItemLabel: aTab on: html\x0a\x09html span\x0a\x09\x09class: aTab cssClass;\x0a\x09\x09with: aTab label",
+messageSends: ["class:", "cssClass", "span", "with:", "label"],
 referencedClasses: []
 }),
 smalltalk.HLTabListWidget);

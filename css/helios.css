@@ -35,7 +35,6 @@ html[xmlns] .clearfix {
   overflow: hidden;
   height: 100%;
   width: 100%;
-  background: #fff;
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
@@ -111,7 +110,8 @@ html[xmlns] .clearfix {
   font-size: 11px;
   line-height: 16px;
 }
-#helios .navbar-fixed-top a span {
+#helios .navbar-fixed-top a span,
+#helios .dialog .nav a span {
   padding: 1px;
   padding-left: 18px;
   background-position: center left;
@@ -127,22 +127,28 @@ html[xmlns] .clearfix {
   background-position: center left;
   margin-top: 2px;
 }
-#helios .navbar-fixed-top a span.references {
+#helios .navbar-fixed-top a span.references,
+#helios .dialog .nav a span.references {
   background-image: url('../images/references.png');
 }
-#helios .navbar-fixed-top a span.browser {
+#helios .navbar-fixed-top a span.browser,
+#helios .dialog .nav a span.browser {
   background-image: url('../images/browser.png');
 }
-#helios .navbar-fixed-top a span.sunit {
+#helios .navbar-fixed-top a span.sunit,
+#helios .dialog .nav a span.sunit {
   background-image: url('../images/sunit.png');
 }
-#helios .navbar-fixed-top a span.workspace {
+#helios .navbar-fixed-top a span.workspace,
+#helios .dialog .nav a span.workspace {
   background-image: url('../images/workspace.png');
 }
-#helios .navbar-fixed-top a span.debugger {
+#helios .navbar-fixed-top a span.debugger,
+#helios .dialog .nav a span.debugger {
   background-image: url('../images/debugger.png');
 }
-#helios .navbar-fixed-top a span.inspector {
+#helios .navbar-fixed-top a span.inspector,
+#helios .dialog .nav a span.inspector {
   background-image: url('../images/inspector.png');
 }
 #helios .navbar-fixed-top .navbar-inner {
@@ -631,6 +637,24 @@ html[xmlns] .clearfix {
   -webkit-transition: top .5s;
   -moz-transition: top .5s;
   -o-transition: top .5s;
+}
+#helios .confirmation .hl_widget:focus,
+#helios .dialog .hl_widget:focus {
+  outline: 0 none;
+}
+#helios .confirmation .hl_widget .form-actions,
+#helios .dialog .hl_widget .form-actions {
+  padding: 0;
+  border: 0;
+}
+#helios .confirmation .nav,
+#helios .dialog .nav {
+  border: 1px solid #999;
+}
+#helios .confirmation .nav span,
+#helios .dialog .nav span {
+  font-size: 11px;
+  font-weight: normal;
 }
 #helios .confirmation .title,
 #helios .dialog .title {
