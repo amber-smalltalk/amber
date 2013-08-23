@@ -199,6 +199,15 @@ select: aBlock
 		(aBlock value: each) ifTrue: [
 		stream nextPut: each]].
 	^stream contents
+!
+
+select: selectBlock thenCollect: collectBlock
+	| stream |
+	stream := self class new writeStream.
+	self do: [:each |
+		(selectBlock value: each) ifTrue: [
+		stream nextPut: (collectBlock value: each)]].
+	^stream contents
 ! !
 
 !Collection methodsFor: 'error handling'!
@@ -864,11 +873,6 @@ shallowCopy
 
 !SequenceableCollection methodsFor: 'enumerating'!
 
-collect: aBlock
-	"Optimized version"
-	<return self.map(function(each) {return aBlock._value_(each)})>
-!
-
 detect: aBlock ifNone: anotherBlock
 	<
 		for(var i = 0; i < self.length; i++)
@@ -1011,8 +1015,27 @@ reversed
 
 !Array methodsFor: 'enumerating'!
 
+collect: aBlock
+	"Optimized version"
+	<return self.map(function(each) {return aBlock._value_(each)})>
+!
+
 join: aString
 	<return self.join(aString)>
+!
+
+select: aBlock
+	"Optimized version"
+	
+	<
+		var result = self.klass._new();
+		for(var i=0; i<self.length; i++) {
+			if(aBlock._value_(self[i])) {
+				result.push(self[i]);
+			}
+		}
+		return result;
+	>
 !
 
 sort

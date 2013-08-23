@@ -780,6 +780,33 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "select:thenCollect:",
+category: 'enumerating',
+fn: function (selectBlock,collectBlock){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+stream=_st(_st(self._class())._new())._writeStream();
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(selectBlock)._value_(each);
+if(smalltalk.assert($1)){
+return _st(stream)._nextPut_(_st(collectBlock)._value_(each));
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$2=_st(stream)._contents();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},smalltalk.Collection)})},
+args: ["selectBlock", "collectBlock"],
+source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [:each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each)]].\x0a\x09^stream contents",
+messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "nextPut:", "value:", "contents"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "size",
 category: 'accessing',
 fn: function (){
@@ -2248,22 +2275,6 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "collect:",
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self.map(function(each) {return aBlock._value_(each)});
-return self}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.SequenceableCollection)})},
-args: ["aBlock"],
-source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "copyFrom:to:",
 category: 'copying',
 fn: function (anIndex,anotherIndex){
@@ -2869,6 +2880,22 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collect:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.map(function(each) {return aBlock._value_(each)});
+return self}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.Array)})},
+args: ["aBlock"],
+source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "join:",
 category: 'enumerating',
 fn: function (aString){
@@ -2975,6 +3002,30 @@ return self._copy().reverse();
 return self}, function($ctx1) {$ctx1.fill(self,"reversed",{},smalltalk.Array)})},
 args: [],
 source: "reversed\x0a\x09<return self._copy().reverse()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "select:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var result = self.klass._new();
+		for(var i=0; i<self.length; i++) {
+			if(aBlock._value_(self[i])) {
+				result.push(self[i]);
+			}
+		}
+		return result;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock},smalltalk.Array)})},
+args: ["aBlock"],
+source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<\x0a\x09\x09var result = self.klass._new();\x0a\x09\x09for(var i=0; i<self.length; i++) {\x0a\x09\x09\x09if(aBlock._value_(self[i])) {\x0a\x09\x09\x09\x09result.push(self[i]);\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09return result;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
