@@ -189,7 +189,7 @@ intersection: aCollection
 !
 
 reject: aBlock
-	^self select: [:each | (aBlock value: each) = false]
+	^ self select: [ :each | (aBlock value: each) = false ]
 !
 
 select: aBlock
@@ -198,6 +198,15 @@ select: aBlock
 	self do: [:each |
 		(aBlock value: each) ifTrue: [
 		stream nextPut: each]].
+	^stream contents
+!
+
+select: selectBlock thenCollect: collectBlock
+	| stream |
+	stream := self class new writeStream.
+	self do: [:each |
+		(selectBlock value: each) ifTrue: [
+		stream nextPut: (collectBlock value: each)]].
 	^stream contents
 ! !
 
@@ -442,7 +451,11 @@ size
 !
 
 values
-	^self keys collect: [:each | self at: each]
+	<
+		return self._keys().map(function(key){
+			return self._at_(key);
+		});
+	>
 ! !
 
 !HashedCollection methodsFor: 'adding/removing'!
@@ -559,7 +572,7 @@ select: aBlock
 !
 
 valuesDo: aBlock
-	self keysAndValuesDo: [ :key :value | aBlock value: value ]
+	self values do: [ :value | aBlock value: value ]
 !
 
 withIndexDo: aBlock
@@ -646,18 +659,21 @@ at: aKey put: aValue
 !
 
 indexOf: anObject ifAbsent: aBlock
-
 	| index |
-	index := values indexOf: anObject ifAbsent: [0].
-	^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
+	index := values 
+		indexOf: anObject 
+		ifAbsent: [ 0 ].
+	^ index = 0 
+		ifTrue: [ aBlock value ] 
+		ifFalse: [ keys at: index ]
 !
 
 keys
-	^keys copy
+	^ keys copy
 !
 
 values
-	^values copy
+	^ values
 ! !
 
 !Dictionary methodsFor: 'adding/removing'!
@@ -682,25 +698,25 @@ removeKey: aKey ifAbsent: aBlock
 !Dictionary methodsFor: 'converting'!
 
 asHashedCollection
-	^HashedCollection from: self associations
+	^ HashedCollection from: self associations
 !
 
 asJSON
-	^self asHashedCollection asJSON
+	^ self asHashedCollection asJSON
 ! !
 
 !Dictionary methodsFor: 'enumerating'!
 
 keysAndValuesDo: aBlock
-	^keys with: values do: aBlock
+	^ keys with: values do: aBlock
 !
 
 keysDo: aBlock
-	^keys do: aBlock
+	^ keys do: aBlock
 !
 
 valuesDo: aBlock
-	^values do: aBlock
+	^ values do: aBlock
 ! !
 
 !Dictionary methodsFor: 'initialization'!
@@ -999,8 +1015,27 @@ reversed
 
 !Array methodsFor: 'enumerating'!
 
+collect: aBlock
+	"Optimized version"
+	<return self.map(function(each) {return aBlock._value_(each)})>
+!
+
 join: aString
 	<return self.join(aString)>
+!
+
+select: aBlock
+	"Optimized version"
+	
+	<
+		var result = self.klass._new();
+		for(var i=0; i<self.length; i++) {
+			if(aBlock._value_(self[i])) {
+				result.push(self[i]);
+			}
+		}
+		return result;
+	>
 !
 
 sort

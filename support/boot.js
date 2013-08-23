@@ -308,6 +308,7 @@ function ClassesBrik(brikz, st) {
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
 
 		st.Object.klass.superclass = st.Class;
+		addSubclass(st.Object.klass);
 
 		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
 	};
@@ -340,7 +341,10 @@ function ClassesBrik(brikz, st) {
 		spec = spec || {};
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
+
 		that.fn = spec.fn || inherits(function () {}, spec.superclass.fn);
+		that.subclasses = [];
+
 		setupClass(that, spec);
 
 		that.className = spec.className;
@@ -411,7 +415,11 @@ function ClassesBrik(brikz, st) {
 
 	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
 		var pkg = st.packages[pkgName];
-		if (!pkg) { throw new Error("Missing package "+pkgName); }
+
+		if (!pkg) { 
+			throw new Error("Missing package "+pkgName); 
+		}
+
 		if(st[className] && st[className].superclass == superclass) {
 //            st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames || [];
@@ -433,6 +441,8 @@ function ClassesBrik(brikz, st) {
 				fn: fn,
 				wrapped: wrapped
 			});
+
+			addSubclass(st[className]);
 		}
 
 		classes.addElement(st[className]);
@@ -442,8 +452,21 @@ function ClassesBrik(brikz, st) {
 	st.removeClass = function(klass) {
 		org.removeOrganizationElement(klass.pkg, klass);
 		classes.removeElement(klass);
+		removeSubclass(klass);
 		delete st[klass.className];
 	};
+
+	function addSubclass(klass) {
+		if(klass.superclass) {
+			klass.superclass.subclasses.addElement(klass);
+		}
+	}
+
+	function removeSubclass(klass) {
+		if(klass.superclass) {
+			klass.superclass.subclasses.removeElement(klass);
+		}
+	}
 
 	/* Create a new class wrapping a JavaScript constructor, and add it to the
 	 global smalltalk object. Package is lazily created if it does not exist with given name. */
@@ -485,36 +508,10 @@ function ClassesBrik(brikz, st) {
 		return packages;
 	};
 
-	/* Answer the direct subclasses of klass. */
-
-	st.subclasses = function(klass) {
-		var subclasses = [];
-		var classes = st.classes();
-		for(var i=0; i < classes.length; i++) {
-			var c = classes[i];
-			if(c.fn) {
-				//Classes
-				if(c.superclass === klass) {
-					subclasses.push(c);
-				}
-				c = c.klass;
-				//Metaclasses
-				if(c && c.superclass === klass) {
-					subclasses.push(c);
-				}
-			}
-		}
-		return subclasses;
-	};
-
+	// Still used, but could go away now that subclasses are stored
+	// into classes directly.
 	st.allSubclasses = function(klass) {
-		var result, subclasses;
-		result = subclasses = st.subclasses(klass);
-		subclasses.forEach(function(subclass) {
-			result.push.apply(result, st.allSubclasses(subclass));
-		});
-
-		return result;
+		return klass._allSubclasses();
 	};
 
 }
