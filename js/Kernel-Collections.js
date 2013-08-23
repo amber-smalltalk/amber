@@ -1728,16 +1728,15 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._keys())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return self._at_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.HashedCollection)})},
+
+		return self._keys().map(function(key){
+			return self[key];
+		});
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.HashedCollection)})},
 args: [],
-source: "values\x0a\x09^self keys collect: [:each | self at: each]",
-messageSends: ["collect:", "at:", "keys"],
+source: "values\x0a\x09<\x0a\x09\x09return self._keys().map(function(key){\x0a\x09\x09\x09return self[key];\x0a\x09\x09});\x0a\x09>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1749,14 +1748,14 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._keysAndValuesDo_((function(key,value){
+_st(self._values())._do_((function(value){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aBlock"],
-source: "valuesDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value ]",
-messageSends: ["keysAndValuesDo:", "value:"],
+source: "valuesDo: aBlock\x0a\x09self values do: [ :value | aBlock value: value ]",
+messageSends: ["do:", "value:", "values"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1867,7 +1866,7 @@ $1=_st($HashedCollection())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
 args: [],
-source: "asHashedCollection\x0a\x09^HashedCollection from: self associations",
+source: "asHashedCollection\x0a\x09^ HashedCollection from: self associations",
 messageSends: ["from:", "associations"],
 referencedClasses: ["HashedCollection"]
 }),
@@ -1885,7 +1884,7 @@ $1=_st(self._asHashedCollection())._asJSON();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Dictionary)})},
 args: [],
-source: "asJSON\x0a\x09^self asHashedCollection asJSON",
+source: "asJSON\x0a\x09^ self asHashedCollection asJSON",
 messageSends: ["asJSON", "asHashedCollection"],
 referencedClasses: []
 }),
@@ -1973,7 +1972,7 @@ $1=_st(self["@keys"])._at_(index);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},smalltalk.Dictionary)})},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x0a\x09| index |\x0a\x09index := values indexOf: anObject ifAbsent: [0].\x0a\x09^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]",
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := values \x0a\x09\x09indexOf: anObject \x0a\x09\x09ifAbsent: [ 0 ].\x0a\x09^ index = 0 \x0a\x09\x09ifTrue: [ aBlock value ] \x0a\x09\x09ifFalse: [ keys at: index ]",
 messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "value", "at:", "="],
 referencedClasses: []
 }),
@@ -2009,7 +2008,7 @@ $1=_st(self["@keys"])._copy();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.Dictionary)})},
 args: [],
-source: "keys\x0a\x09^keys copy",
+source: "keys\x0a\x09^ keys copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
@@ -2027,7 +2026,7 @@ $1=_st(self["@keys"])._with_do_(self["@values"],aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
 args: ["aBlock"],
-source: "keysAndValuesDo: aBlock\x0a\x09^keys with: values do: aBlock",
+source: "keysAndValuesDo: aBlock\x0a\x09^ keys with: values do: aBlock",
 messageSends: ["with:do:"],
 referencedClasses: []
 }),
@@ -2045,7 +2044,7 @@ $1=_st(self["@keys"])._do_(aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
 args: ["aBlock"],
-source: "keysDo: aBlock\x0a\x09^keys do: aBlock",
+source: "keysDo: aBlock\x0a\x09^ keys do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),
@@ -2110,12 +2109,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@values"])._copy();
+$1=self["@values"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.Dictionary)})},
 args: [],
-source: "values\x0a\x09^values copy",
-messageSends: ["copy"],
+source: "values\x0a\x09^ values",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -2132,7 +2131,7 @@ $1=_st(self["@values"])._do_(aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
 args: ["aBlock"],
-source: "valuesDo: aBlock\x0a\x09^values do: aBlock",
+source: "valuesDo: aBlock\x0a\x09^ values do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),

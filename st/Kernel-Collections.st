@@ -442,7 +442,11 @@ size
 !
 
 values
-	^self keys collect: [:each | self at: each]
+	<
+		return self._keys().map(function(key){
+			return self[key];
+		});
+	>
 ! !
 
 !HashedCollection methodsFor: 'adding/removing'!
@@ -559,7 +563,7 @@ select: aBlock
 !
 
 valuesDo: aBlock
-	self keysAndValuesDo: [ :key :value | aBlock value: value ]
+	self values do: [ :value | aBlock value: value ]
 !
 
 withIndexDo: aBlock
@@ -646,18 +650,21 @@ at: aKey put: aValue
 !
 
 indexOf: anObject ifAbsent: aBlock
-
 	| index |
-	index := values indexOf: anObject ifAbsent: [0].
-	^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]
+	index := values 
+		indexOf: anObject 
+		ifAbsent: [ 0 ].
+	^ index = 0 
+		ifTrue: [ aBlock value ] 
+		ifFalse: [ keys at: index ]
 !
 
 keys
-	^keys copy
+	^ keys copy
 !
 
 values
-	^values copy
+	^ values
 ! !
 
 !Dictionary methodsFor: 'adding/removing'!
@@ -682,25 +689,25 @@ removeKey: aKey ifAbsent: aBlock
 !Dictionary methodsFor: 'converting'!
 
 asHashedCollection
-	^HashedCollection from: self associations
+	^ HashedCollection from: self associations
 !
 
 asJSON
-	^self asHashedCollection asJSON
+	^ self asHashedCollection asJSON
 ! !
 
 !Dictionary methodsFor: 'enumerating'!
 
 keysAndValuesDo: aBlock
-	^keys with: values do: aBlock
+	^ keys with: values do: aBlock
 !
 
 keysDo: aBlock
-	^keys do: aBlock
+	^ keys do: aBlock
 !
 
 valuesDo: aBlock
-	^values do: aBlock
+	^ values do: aBlock
 ! !
 
 !Dictionary methodsFor: 'initialization'!
