@@ -81,13 +81,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
-$1=_st(self._allSuperclasses())._inject_into_(self._selectors(),(function(soFar,aBehavior){
+$1=_st(self._allSuperclasses())._inject_into_(self._selectors(),(function(acc,each){
 return smalltalk.withContext(function($ctx2) {
-$2=soFar;
-_st($2)._addAll_(_st(aBehavior)._selectors());
+$2=acc;
+_st($2)._addAll_(_st(each)._selectors());
 $3=_st($2)._yourself();
 return $3;
-}, function($ctx2) {$ctx2.fillBlock({soFar:soFar,aBehavior:aBehavior},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"allSelectors",{},smalltalk.Behavior)})},
 messageSends: ["inject:into:", "selectors", "addAll:", "yourself", "allSuperclasses"]}),
@@ -98,18 +98,24 @@ smalltalk.method({
 selector: "allSubclasses",
 fn: function (){
 var self=this;
-var result;
+var subclasses,index;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-result=self._subclasses();
-_st(self._subclasses())._do_((function(each){
+subclasses=self._subclasses();
+index=(1);
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(result)._addAll_(_st(each)._allSubclasses());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-$1=result;
+return _st(index).__gt(_st(subclasses)._size());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+_st(subclasses)._addAll_(_st(_st(subclasses)._at_(index))._subclasses());
+index=_st(index).__plus((1));
+return index;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$1=subclasses;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"allSubclasses",{result:result},smalltalk.Behavior)})},
-messageSends: ["subclasses", "do:", "addAll:", "allSubclasses"]}),
+}, function($ctx1) {$ctx1.fill(self,"allSubclasses",{subclasses:subclasses,index:index},smalltalk.Behavior)})},
+messageSends: ["subclasses", "whileFalse:", "addAll:", "at:", "+", ">", "size"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
@@ -118,13 +124,12 @@ selector: "allSubclassesDo:",
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._subclasses())._do_((function(each){
+_st(self._allSubclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-_st(aBlock)._value_(each);
-return _st(each)._allSubclassesDo_(aBlock);
+return _st(aBlock)._value_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock},smalltalk.Behavior)})},
-messageSends: ["do:", "value:", "allSubclassesDo:", "subclasses"]}),
+messageSends: ["do:", "value:", "allSubclasses"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
@@ -645,9 +650,9 @@ selector: "subclasses",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return smalltalk.subclasses(self);
+self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"subclasses",{},smalltalk.Behavior)})},
-messageSends: []}),
+messageSends: ["subclassResponsibility"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
@@ -903,6 +908,17 @@ return $1;
 messageSends: ["superclass:subclass:instanceVariableNames:package:", "asString", "new"]}),
 smalltalk.Class);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "subclasses",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.subclasses._copy();
+return self}, function($ctx1) {$ctx1.fill(self,"subclasses",{},smalltalk.Class)})},
+messageSends: []}),
+smalltalk.Class);
+
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
@@ -993,6 +1009,25 @@ _st($1)._nextPutAll_(_st(self._instanceClass())._name());
 $2=_st($1)._nextPutAll_(" class");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Metaclass)})},
 messageSends: ["nextPutAll:", "name", "instanceClass"]}),
+smalltalk.Metaclass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "subclasses",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self._instanceClass())._subclasses())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._isMetaclass())._not();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._collect_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._theMetaClass();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"subclasses",{},smalltalk.Metaclass)})},
+messageSends: ["collect:", "theMetaClass", "select:", "not", "isMetaclass", "subclasses", "instanceClass"]}),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
