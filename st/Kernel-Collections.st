@@ -189,7 +189,7 @@ intersection: aCollection
 !
 
 reject: aBlock
-	^self select: [:each | (aBlock value: each) = false]
+	^ self select: [ :each | (aBlock value: each) = false ]
 !
 
 select: aBlock
@@ -863,6 +863,11 @@ shallowCopy
 ! !
 
 !SequenceableCollection methodsFor: 'enumerating'!
+
+collect: aBlock
+	"Optimized version"
+	<return self.map(function(each) {return aBlock._value_(each)})>
+!
 
 detect: aBlock ifNone: anotherBlock
 	<

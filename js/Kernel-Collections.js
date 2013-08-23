@@ -708,7 +708,7 @@ return _st(_st(aBlock)._value_(each)).__eq(false);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"reject:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "reject: aBlock\x0a\x09^self select: [:each | (aBlock value: each) = false]",
+source: "reject: aBlock\x0a\x09^ self select: [ :each | (aBlock value: each) = false ]",
 messageSends: ["select:", "=", "value:"],
 referencedClasses: []
 }),
@@ -2242,6 +2242,22 @@ return $1;
 args: [],
 source: "atRandom\x0a\x09^ self at: self size atRandom",
 messageSends: ["at:", "atRandom", "size"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collect:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.map(function(each) {return aBlock._value_(each)});
+return self}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.SequenceableCollection)})},
+args: ["aBlock"],
+source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
