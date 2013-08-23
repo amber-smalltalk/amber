@@ -1327,7 +1327,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		return self._keys().map(function(key){
-			return self[key];
+			return self._at_(key);
 		});
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.HashedCollection)})},

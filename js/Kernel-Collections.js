@@ -1757,12 +1757,12 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		return self._keys().map(function(key){
-			return self[key];
+			return self._at_(key);
 		});
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.HashedCollection)})},
 args: [],
-source: "values\x0a\x09<\x0a\x09\x09return self._keys().map(function(key){\x0a\x09\x09\x09return self[key];\x0a\x09\x09});\x0a\x09>",
+source: "values\x0a\x09<\x0a\x09\x09return self._keys().map(function(key){\x0a\x09\x09\x09return self._at_(key);\x0a\x09\x09});\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

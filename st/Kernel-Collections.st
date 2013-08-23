@@ -453,7 +453,7 @@ size
 values
 	<
 		return self._keys().map(function(key){
-			return self[key];
+			return self._at_(key);
 		});
 	>
 ! !
