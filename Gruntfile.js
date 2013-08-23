@@ -3,8 +3,6 @@ module.exports = function(grunt) {
   grunt.loadTasks('./grunt/tasks');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
-//  grunt.loadNpmTasks('grunt-image-embed');
-//  grunt.loadNpmTasks('grunt-contrib-mincss');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
 
@@ -115,64 +113,6 @@ module.exports = function(grunt) {
       repl: ['repl/*.js'],
       tests: ['test/*.js'],
       grunt: ['grunt.js', 'grunt/**/*.js']
-    },
-/*
-    concat: {
-      deploy: {
-        src: ['tmp/amber-compiled.deploy.js'],
-        dest: 'dist/amber-<%= pkg.version %>.deploy.js'
-      },
-
-      css: {
-        src: [
-          'css/amber.css',
-          'js/lib/CodeMirror/codemirror.css',
-          'js/lib/CodeMirror/amber.css'
-        ],
-        dest: 'tmp/amber.css'
-      },
-
-      dev: {
-        src: [
-          'js/lib/jQuery/jquery-ui-1.8.16.custom.min.js',
-          'js/lib/jQuery/jquery.textarea.js',
-          'js/lib/CodeMirror/codemirror.js',
-          'js/lib/CodeMirror/smalltalk.js',
-          'tmp/amber-compiled.js',
-          'tmp/css.js'
-        ],
-        dest: 'dist/amber-<%= pkg.version %>.js'
-      }
-    },
-
-    imageEmbed: {
-      dev: {
-        src: ['tmp/amber.css'],
-        dest: 'tmp/amber-images.css',
-        options: {baseDir: 'public'}
-      }
-    },
-
-    mincss: {
-      dev: {
-        src: ['tmp/amber-images.css'],
-        dest: 'tmp/amber.min.css'
-      }
-    },
-
-    css2js: {
-      dev: {
-        src: 'tmp/amber.min.css',
-        dest: 'tmp/css.js'
-      }
-    },
-
-    min: {
-      deploy: {
-        src: 'dist/amber-<%= pkg.version %>.deploy.js',
-        dest: 'dist/amber-<%= pkg.version %>.deploy.min.js'
-      }
     }
-*/
   });
 };
