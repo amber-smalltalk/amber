@@ -539,14 +539,10 @@ function ClassesBrik(brikz, st) {
 	// 	return subclasses;
 	// };
 
+	// Still used, but could go away now that subclasses are stored
+	// into classes directly.
 	st.allSubclasses = function(klass) {
-		var result, subclasses;
-		result = subclasses = klass.subclasses;
-		subclasses.forEach(function(subclass) {
-			result.push.apply(result, st.allSubclasses(subclass));
-		});
-
-		return result;
+		return klass._allSubclasses();
 	};
 
 }
