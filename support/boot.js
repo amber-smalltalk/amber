@@ -517,28 +517,6 @@ function ClassesBrik(brikz, st) {
 		return packages;
 	};
 
-	/* Answer the direct subclasses of klass. */
-
-	// st.subclasses = function(klass) {
-	// 	var subclasses = [];
-	// 	var classes = st.classes();
-	// 	for(var i=0; i < classes.length; i++) {
-	// 		var c = classes[i];
-	// 		if(c.fn) {
-	// 			//Classes
-	// 			if(c.superclass === klass) {
-	// 				subclasses.push(c);
-	// 			}
-	// 			c = c.klass;
-	// 			//Metaclasses
-	// 			if(c && c.superclass === klass) {
-	// 				subclasses.push(c);
-	// 			}
-	// 		}
-	// 	}
-	// 	return subclasses;
-	// };
-
 	// Still used, but could go away now that subclasses are stored
 	// into classes directly.
 	st.allSubclasses = function(klass) {
