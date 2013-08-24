@@ -607,7 +607,7 @@ AmberC.prototype.compose_js_files = function() {
 	});
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
-		fileStream.write('smalltalk.' + defaults.main + '._main()');
+		fileStream.write('global_smalltalk.' + defaults.main + '._main()');
 	}
 
 	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
