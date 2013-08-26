@@ -237,6 +237,7 @@ recipe
 	^{
 		self -> #exportPackagePrologueOf:on:.
 		self -> #exportPackageDefinitionOf:on:.
+		self -> #exportPackageTransportOf:on:.
 		{
 			PluggableExporter -> #ownClassesOfPackage:.
 			self -> #exportDefinitionOf:on:.
@@ -329,6 +330,19 @@ exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: '(function(smalltalk,nil,_st){';
 		lf
+!
+
+exportPackageTransportOf: aPackage on: aStream
+	| json |
+	json := aPackage transportJson.
+	json = 'null' ifFalse: [
+		aStream
+			nextPutAll: 'smalltalk.packages[';
+			nextPutAll: aPackage name asJavascript;
+			nextPutAll: '].transport = ';
+			nextPutAll: json;
+			nextPutAll: ';';
+			lf ]
 ! !
 
 Exporter subclass: #StrippedExporter
@@ -801,6 +815,10 @@ commitPathSt: aString
 
 transport
 	^ PackageHandler for: self transportType
+!
+
+transportJson
+	<return JSON.stringify(self.transport || null);>
 !
 
 transportType

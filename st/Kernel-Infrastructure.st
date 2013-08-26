@@ -484,6 +484,10 @@ name: aString
 
 organization
 	^ self basicAt: 'organization'
+!
+
+withDefaultTransport
+	<return self.withDefaultTransport()>
 ! !
 
 !Package methodsFor: 'classes'!
@@ -831,9 +835,9 @@ globalJsVariables
 
 !Smalltalk methodsFor: 'packages'!
 
-createPackage: packageName
-	"Create and bind a new package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
+createDefaultPackage: packageName
+	"Create and bind a new package with given name and default transport type and return it."
+	^ (self createPackage: packageName) withDefaultTransport
 !
 
 deletePackage: packageName
@@ -886,6 +890,11 @@ renamePackage: packageName to: newName
 
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
+!
+
+createPackage: packageName
+	"Create and bind a new bare package with given name and return it."
+	<return smalltalk.addPackage(packageName)>
 !
 
 createPackage: packageName properties: aDict

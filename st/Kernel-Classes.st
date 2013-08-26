@@ -685,7 +685,7 @@ basicSwapClassNames: aClass with: anotherClass
 
 createPackageNamed: aString
 	^ Package named: aString ifAbsent: [
-		Smalltalk current createPackage: aString ]
+		Smalltalk current createDefaultPackage: aString ]
 !
 
 rawRenameClass: aClass to: aString

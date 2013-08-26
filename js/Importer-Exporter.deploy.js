@@ -496,6 +496,30 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "exportPackageTransportOf:on:",
+fn: function (aPackage,aStream){
+var self=this;
+var json;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+json=_st(aPackage)._transportJson();
+$1=_st(json).__eq("null");
+if(! smalltalk.assert($1)){
+$2=aStream;
+_st($2)._nextPutAll_("smalltalk.packages[");
+_st($2)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
+_st($2)._nextPutAll_("].transport = ");
+_st($2)._nextPutAll_(json);
+_st($2)._nextPutAll_(";");
+$3=_st($2)._lf();
+$3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream,json:json},smalltalk.Exporter)})},
+messageSends: ["transportJson", "ifFalse:", "nextPutAll:", "asJavascript", "name", "lf", "="]}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "extensionMethodsOfPackage:",
 fn: function (aPackage){
 var self=this;
@@ -566,7 +590,7 @@ var self=this;
 function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=[self.__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportPackageEpilogueOf:on:")];
+$1=[self.__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),self.__minus_gt("exportPackageTransportOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportPackageEpilogueOf:on:")];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter)})},
 messageSends: ["->"]}),
@@ -1434,6 +1458,17 @@ $1=_st($PackageHandler())._for_(self._transportType());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
 messageSends: ["for:", "transportType"]}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transportJson",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return JSON.stringify(self.transport || null);;
+return self}, function($ctx1) {$ctx1.fill(self,"transportJson",{},smalltalk.Package)})},
+messageSends: []}),
 smalltalk.Package);
 
 smalltalk.addMethod(
