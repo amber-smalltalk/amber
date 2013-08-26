@@ -2362,23 +2362,6 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "do:displayingProgress:",
-category: 'enumerating',
-fn: function (aBlock,aString){
-var self=this;
-function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($ProgressHandler())._current())._do_on_displaying_(aBlock,self,aString);
-return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},smalltalk.SequenceableCollection)})},
-args: ["aBlock", "aString"],
-source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler current\x0a\x09\x09do: aBlock on: self displaying: aString",
-messageSends: ["do:on:displaying:", "current"],
-referencedClasses: ["ProgressHandler"]
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "first",
 category: 'accessing',
 fn: function (){
@@ -3630,6 +3613,29 @@ return self}, function($ctx1) {$ctx1.fill(self,"asLowercase",{},smalltalk.String
 args: [],
 source: "asLowercase\x0a\x09<return self.toLowerCase()>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asMutator",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self._last()).__eq(":");
+if(! smalltalk.assert($1)){
+$2=self.__comma(":");
+return $2;
+};
+$3=self;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"asMutator",{},smalltalk.String)})},
+args: [],
+source: "asMutator\x0a\x09\x22Answer a setter selector. For example,\x0a\x09#name asMutator returns #name:\x22\x0a\x0a\x09self last = ':' ifFalse: [  ^ self, ':' ].\x0a\x09^ self",
+messageSends: ["ifFalse:", ",", "=", "last"],
 referencedClasses: []
 }),
 smalltalk.String);

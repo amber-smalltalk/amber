@@ -922,6 +922,13 @@ current
 	<return smalltalk>
 ! !
 
+!SequenceableCollection methodsFor: '*Kernel-Infrastructure'!
+
+do: aBlock displayingProgress: aString
+	ProgressHandler current
+		do: aBlock on: self displaying: aString
+! !
+
 !String methodsFor: '*Kernel-Infrastructure'!
 
 asJavaScriptSelector

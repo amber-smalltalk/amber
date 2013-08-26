@@ -886,11 +886,6 @@ do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
 !
 
-do: aBlock displayingProgress: aString
-	ProgressHandler current
-		do: aBlock on: self displaying: aString
-!
-
 with: anotherCollection do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], anotherCollection[i]);}>
 !
@@ -1272,6 +1267,14 @@ asJavascript
 
 asLowercase
 	<return self.toLowerCase()>
+!
+
+asMutator
+	"Answer a setter selector. For example,
+	#name asMutator returns #name:"
+
+	self last = ':' ifFalse: [  ^ self, ':' ].
+	^ self
 !
 
 asNumber

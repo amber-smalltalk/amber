@@ -1786,18 +1786,6 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "do:displayingProgress:",
-fn: function (aBlock,aString){
-var self=this;
-function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($ProgressHandler())._current())._do_on_displaying_(aBlock,self,aString);
-return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},smalltalk.SequenceableCollection)})},
-messageSends: ["do:on:displaying:", "current"]}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "first",
 fn: function (){
 var self=this;
@@ -2708,6 +2696,24 @@ return smalltalk.withContext(function($ctx1) {
 return self.toLowerCase();
 return self}, function($ctx1) {$ctx1.fill(self,"asLowercase",{},smalltalk.String)})},
 messageSends: []}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asMutator",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self._last()).__eq(":");
+if(! smalltalk.assert($1)){
+$2=self.__comma(":");
+return $2;
+};
+$3=self;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"asMutator",{},smalltalk.String)})},
+messageSends: ["ifFalse:", ",", "=", "last"]}),
 smalltalk.String);
 
 smalltalk.addMethod(
