@@ -23,7 +23,7 @@
     "url": "git://github.com/amber-smalltalk/amber.git#0.11.0"
   },
   "engines": {
-    "node": "0.8.x"
+    "node": ">=0.8.0"
   },
   "bin": {
     "amber": "./bin/amber",
