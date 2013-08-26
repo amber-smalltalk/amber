@@ -8,7 +8,7 @@ define([
     'css!CodeMirror/theme/ambiance',
     'css!CodeMirror/addon/hint/show-hint',
     'css!CodeMirror/amber',
-    'css!../../css/amber',
+    'css!amber_css/amber',
     'amber/Kernel-Objects',
     'amber/Kernel-Classes',
     'amber/Kernel-Methods',
