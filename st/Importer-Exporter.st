@@ -644,11 +644,11 @@ PackageHandler class instanceVariableNames: 'registry'!
 !PackageHandler class methodsFor: 'accessing'!
 
 classRegisteredFor: aString
-	^registry at: aString
+	^ registry at: aString
 !
 
 for: aString
-	^(self classRegisteredFor: aString) new
+	^ (self classRegisteredFor: aString) new
 ! !
 
 !PackageHandler class methodsFor: 'initialization'!

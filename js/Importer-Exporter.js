@@ -1316,7 +1316,7 @@ $1=_st(self["@registry"])._at_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classRegisteredFor:",{aString:aString},smalltalk.PackageHandler.klass)})},
 args: ["aString"],
-source: "classRegisteredFor: aString\x0a\x09^registry at: aString",
+source: "classRegisteredFor: aString\x0a\x09^ registry at: aString",
 messageSends: ["at:"],
 referencedClasses: []
 }),
@@ -1334,7 +1334,7 @@ $1=_st(self._classRegisteredFor_(aString))._new();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"for:",{aString:aString},smalltalk.PackageHandler.klass)})},
 args: ["aString"],
-source: "for: aString\x0a\x09^(self classRegisteredFor: aString) new",
+source: "for: aString\x0a\x09^ (self classRegisteredFor: aString) new",
 messageSends: ["new", "classRegisteredFor:"],
 referencedClasses: []
 }),
