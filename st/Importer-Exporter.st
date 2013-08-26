@@ -898,15 +898,15 @@ forRecipe: aRecipe
 !Package methodsFor: '*Importer-Exporter'!
 
 amdNamespace
-<return (self.transport && self.transport.amdNamespace) || nil>
+	<return (self.transport && self.transport.amdNamespace) || nil>
 !
 
 amdNamespace: aString
-<
-	if (!!self.transport) { self.transport = { type: 'amd' }; }
-	if (self.transport.type !!== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
-	self.transport.amdNamespace = aString;
->
+	<
+		if (!!self.transport) { self.transport = { type: 'amd' }; }
+		if (self.transport.type !!== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
+		self.transport.amdNamespace = aString;
+	>
 !
 
 commit

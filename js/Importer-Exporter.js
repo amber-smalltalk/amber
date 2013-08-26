@@ -2022,7 +2022,7 @@ return smalltalk.withContext(function($ctx1) {
 return (self.transport && self.transport.amdNamespace) || nil;
 return self}, function($ctx1) {$ctx1.fill(self,"amdNamespace",{},smalltalk.Package)})},
 args: [],
-source: "amdNamespace\x0a<return (self.transport && self.transport.amdNamespace) || nil>",
+source: "amdNamespace\x0a\x09<return (self.transport && self.transport.amdNamespace) || nil>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2036,12 +2036,13 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-	if (!self.transport) { self.transport = { type: 'amd' }; }
-	if (self.transport.type !== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
-	self.transport.amdNamespace = aString;;
+		if (!self.transport) { self.transport = { type: 'amd' }; }
+		if (self.transport.type !== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
+		self.transport.amdNamespace = aString;
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"amdNamespace:",{aString:aString},smalltalk.Package)})},
 args: ["aString"],
-source: "amdNamespace: aString\x0a<\x0a\x09if (!self.transport) { self.transport = { type: 'amd' }; }\x0a\x09if (self.transport.type !== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not \x22amd\x22.'); }\x0a\x09self.transport.amdNamespace = aString;\x0a>",
+source: "amdNamespace: aString\x0a\x09<\x0a\x09\x09if (!self.transport) { self.transport = { type: 'amd' }; }\x0a\x09\x09if (self.transport.type !== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not \x22amd\x22.'); }\x0a\x09\x09self.transport.amdNamespace = aString;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

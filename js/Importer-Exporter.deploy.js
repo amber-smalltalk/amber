@@ -1593,9 +1593,10 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-	if (!self.transport) { self.transport = { type: 'amd' }; }
-	if (self.transport.type !== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
-	self.transport.amdNamespace = aString;;
+		if (!self.transport) { self.transport = { type: 'amd' }; }
+		if (self.transport.type !== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
+		self.transport.amdNamespace = aString;
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"amdNamespace:",{aString:aString},smalltalk.Package)})},
 messageSends: []}),
 smalltalk.Package);
