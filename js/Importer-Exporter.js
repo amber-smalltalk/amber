@@ -2055,12 +2055,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._transport())._commit_(self);
+$1=_st(self._handler())._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
 args: [],
-source: "commit\x0a\x09^ self transport commit: self",
-messageSends: ["commit:", "transport"],
+source: "commit\x0a\x09^ self handler commit: self",
+messageSends: ["commit:", "handler"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -2082,13 +2082,13 @@ $2=$3;
 };
 $1=_st($2)._at_ifAbsent_("commitPathJs",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._transport())._commitPathJsFor_(self);
+return _st(self._handler())._commitPathJsFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
 args: [],
-source: "commitPathJs\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [self transport commitPathJsFor: self]",
-messageSends: ["at:ifAbsent:", "commitPathJsFor:", "transport", "ifNil:"],
+source: "commitPathJs\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [ self handler commitPathJsFor: self ]",
+messageSends: ["at:ifAbsent:", "commitPathJsFor:", "handler", "ifNil:"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -2135,13 +2135,13 @@ $2=$3;
 };
 $1=_st($2)._at_ifAbsent_("commitPathSt",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._transport())._commitPathStFor_(self);
+return _st(self._handler())._commitPathStFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
 args: [],
-source: "commitPathSt\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [self transport commitPathStFor: self]",
-messageSends: ["at:ifAbsent:", "commitPathStFor:", "transport", "ifNil:"],
+source: "commitPathSt\x0a\x09^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [ self handler commitPathStFor: self ]",
+messageSends: ["at:ifAbsent:", "commitPathStFor:", "handler", "ifNil:"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -2173,7 +2173,7 @@ smalltalk.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "transport",
+selector: "handler",
 category: '*Importer-Exporter',
 fn: function (){
 var self=this;
@@ -2182,9 +2182,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PackageHandler())._for_(self._transportType());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"handler",{},smalltalk.Package)})},
 args: [],
-source: "transport\x0a\x09^ PackageHandler for: self transportType",
+source: "handler\x0a\x09^ PackageHandler for: self transportType",
 messageSends: ["for:", "transportType"],
 referencedClasses: ["PackageHandler"]
 }),

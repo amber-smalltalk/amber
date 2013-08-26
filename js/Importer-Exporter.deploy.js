@@ -1607,10 +1607,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._transport())._commit_(self);
+$1=_st(self._handler())._commit_(self);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
-messageSends: ["commit:", "transport"]}),
+messageSends: ["commit:", "handler"]}),
 smalltalk.Package);
 
 smalltalk.addMethod(
@@ -1629,11 +1629,11 @@ $2=$3;
 };
 $1=_st($2)._at_ifAbsent_("commitPathJs",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._transport())._commitPathJsFor_(self);
+return _st(self._handler())._commitPathJsFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathJs",{},smalltalk.Package)})},
-messageSends: ["at:ifAbsent:", "commitPathJsFor:", "transport", "ifNil:"]}),
+messageSends: ["at:ifAbsent:", "commitPathJsFor:", "handler", "ifNil:"]}),
 smalltalk.Package);
 
 smalltalk.addMethod(
@@ -1672,11 +1672,11 @@ $2=$3;
 };
 $1=_st($2)._at_ifAbsent_("commitPathSt",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._transport())._commitPathStFor_(self);
+return _st(self._handler())._commitPathStFor_(self);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commitPathSt",{},smalltalk.Package)})},
-messageSends: ["at:ifAbsent:", "commitPathStFor:", "transport", "ifNil:"]}),
+messageSends: ["at:ifAbsent:", "commitPathStFor:", "handler", "ifNil:"]}),
 smalltalk.Package);
 
 smalltalk.addMethod(
@@ -1701,7 +1701,7 @@ smalltalk.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "transport",
+selector: "handler",
 fn: function (){
 var self=this;
 function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
@@ -1709,7 +1709,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($PackageHandler())._for_(self._transportType());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
+}, function($ctx1) {$ctx1.fill(self,"handler",{},smalltalk.Package)})},
 messageSends: ["for:", "transportType"]}),
 smalltalk.Package);
 

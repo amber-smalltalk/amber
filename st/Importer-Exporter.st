@@ -910,11 +910,11 @@ amdNamespace: aString
 !
 
 commit
-	^ self transport commit: self
+	^ self handler commit: self
 !
 
 commitPathJs
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [self transport commitPathJsFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [ self handler commitPathJsFor: self ]
 !
 
 commitPathJs: aString
@@ -922,14 +922,14 @@ commitPathJs: aString
 !
 
 commitPathSt
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [self transport commitPathStFor: self]
+	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [ self handler commitPathStFor: self ]
 !
 
 commitPathSt: aString
 	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
 !
 
-transport
+handler
 	^ PackageHandler for: self transportType
 !
 
