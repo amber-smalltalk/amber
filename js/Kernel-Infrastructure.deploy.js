@@ -1396,10 +1396,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._basicAt_("getAMDRequire"))._value();
+$1=self._basicAt_("amdRequire");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
-messageSends: ["value", "basicAt:"]}),
+messageSends: ["basicAt:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
@@ -1507,10 +1507,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._basicAt_("getDefaultAMDNamespace"))._value();
+$1=self._basicAt_("defaultAMDNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace",{},smalltalk.Smalltalk)})},
-messageSends: ["value", "basicAt:"]}),
+messageSends: ["basicAt:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
@@ -1519,9 +1519,9 @@ selector: "defaultAMDNamespace:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._basicAt_("getDefaultAMDNamespace"))._value_(aString);
+self._basicAt_put_("defaultAMDNamespace",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace:",{aString:aString},smalltalk.Smalltalk)})},
-messageSends: ["value:", "basicAt:"]}),
+messageSends: ["basicAt:put:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(

@@ -1848,12 +1848,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._basicAt_("getAMDRequire"))._value();
+$1=self._basicAt_("amdRequire");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
 args: [],
-source: "amdRequire\x0a\x09^ (self basicAt: 'getAMDRequire') value",
-messageSends: ["value", "basicAt:"],
+source: "amdRequire\x0a\x09^ self basicAt: 'amdRequire'",
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -1999,12 +1999,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._basicAt_("getDefaultAMDNamespace"))._value();
+$1=self._basicAt_("defaultAMDNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace",{},smalltalk.Smalltalk)})},
 args: [],
-source: "defaultAMDNamespace\x0a\x09^ (self basicAt: 'getDefaultAMDNamespace') value",
-messageSends: ["value", "basicAt:"],
+source: "defaultAMDNamespace\x0a\x09^ self basicAt: 'defaultAMDNamespace'",
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2016,11 +2016,11 @@ category: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._basicAt_("getDefaultAMDNamespace"))._value_(aString);
+self._basicAt_put_("defaultAMDNamespace",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "defaultAMDNamespace: aString\x0a\x09(self basicAt: 'getDefaultAMDNamespace') value: aString",
-messageSends: ["value:", "basicAt:"],
+source: "defaultAMDNamespace: aString\x0a\x09self basicAt: 'defaultAMDNamespace' put: aString",
+messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

@@ -783,15 +783,15 @@ version
 !Smalltalk methodsFor: 'accessing amd'!
 
 amdRequire
-	^ (self basicAt: 'getAMDRequire') value
+	^ self basicAt: 'amdRequire'
 !
 
 defaultAMDNamespace
-	^ (self basicAt: 'getDefaultAMDNamespace') value
+	^ self basicAt: 'defaultAMDNamespace'
 !
 
 defaultAMDNamespace: aString
-	(self basicAt: 'getDefaultAMDNamespace') value: aString
+	self basicAt: 'defaultAMDNamespace' put: aString
 ! !
 
 !Smalltalk methodsFor: 'classes'!
