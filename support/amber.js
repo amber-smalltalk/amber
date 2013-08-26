@@ -21,6 +21,7 @@ require = function (require) {
         paths: {
             'amber_set': '.',
             'amber_vm': '.',
+            'amber_css': '../css',
             'amber': '../js',
             'amber/_source': '../st',
             'jquery': 'jQuery/jquery-1.8.2.min',
