@@ -55,34 +55,7 @@ require = function (require) {
             },
             'ensure-console': {
                 exports: 'console'
-            },
-            'amber/Kernel-Objects.deploy': {
-                deps: []
-            },
-            'amber/Kernel-Classes.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
-            'amber/Kernel-Methods.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
-            'amber/Kernel-Collections.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
-            'amber/Kernel-Infrastructure.deploy': {
-                deps: [ './Kernel-Collections.deploy' ]
-            },
-            'amber/Kernel-Exceptions.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
-            'amber/Kernel-Transcript.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
-            'amber/Kernel-Announcements.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
-            'amber/Canvas.deploy': {
-                deps: [ './Kernel-Objects.deploy' ]
-            },
+            }
         }
     };
 
