@@ -1067,6 +1067,17 @@ return $1;
 messageSends: ["sortedClasses:", "classes", "class"]}),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withDefaultTransport",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.withDefaultTransport();
+return self}, function($ctx1) {$ctx1.fill(self,"withDefaultTransport",{},smalltalk.Package)})},
+messageSends: []}),
+smalltalk.Package);
+
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
@@ -1432,6 +1443,19 @@ return smalltalk.withContext(function($ctx1) {
 return self.classes();
 return self}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Smalltalk)})},
 messageSends: []}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createDefaultPackage:",
+fn: function (packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._createPackage_(packageName))._withDefaultTransport();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"createDefaultPackage:",{packageName:packageName},smalltalk.Smalltalk)})},
+messageSends: ["withDefaultTransport", "createPackage:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(

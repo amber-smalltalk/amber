@@ -634,6 +634,35 @@ smalltalk.Exporter);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "exportPackageTransportOf:on:",
+category: 'output',
+fn: function (aPackage,aStream){
+var self=this;
+var json;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+json=_st(aPackage)._transportJson();
+$1=_st(json).__eq("null");
+if(! smalltalk.assert($1)){
+$2=aStream;
+_st($2)._nextPutAll_("smalltalk.packages[");
+_st($2)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
+_st($2)._nextPutAll_("].transport = ");
+_st($2)._nextPutAll_(json);
+_st($2)._nextPutAll_(";");
+$3=_st($2)._lf();
+$3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream,json:json},smalltalk.Exporter)})},
+args: ["aPackage", "aStream"],
+source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09| json |\x0a\x09json := aPackage transportJson.\x0a\x09json = 'null' ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09\x09nextPutAll: json;\x0a\x09\x09\x09nextPutAll: ';';\x0a\x09\x09\x09lf ]",
+messageSends: ["transportJson", "ifFalse:", "nextPutAll:", "asJavascript", "name", "lf", "="],
+referencedClasses: []
+}),
+smalltalk.Exporter);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "extensionMethodsOfPackage:",
 category: 'accessing',
 fn: function (aPackage){
@@ -720,11 +749,11 @@ var self=this;
 function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=[self.__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportPackageEpilogueOf:on:")];
+$1=[self.__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),self.__minus_gt("exportPackageTransportOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportPackageEpilogueOf:on:")];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter)})},
 args: [],
-source: "recipe\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09^{\x0a\x09\x09self -> #exportPackagePrologueOf:on:.\x0a\x09\x09self -> #exportPackageDefinitionOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09PluggableExporter -> #ownClassesOfPackage:.\x0a\x09\x09\x09self -> #exportDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09\x09self -> #exportMetaDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfMetaClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: } }.\x0a\x09\x09{\x0a\x09\x09\x09self -> #extensionMethodsOfPackage:.\x0a\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09self -> #exportPackageEpilogueOf:on:\x0a\x09}",
+source: "recipe\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09^{\x0a\x09\x09self -> #exportPackagePrologueOf:on:.\x0a\x09\x09self -> #exportPackageDefinitionOf:on:.\x0a\x09\x09self -> #exportPackageTransportOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09PluggableExporter -> #ownClassesOfPackage:.\x0a\x09\x09\x09self -> #exportDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09\x09self -> #exportMetaDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfMetaClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: } }.\x0a\x09\x09{\x0a\x09\x09\x09self -> #extensionMethodsOfPackage:.\x0a\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09self -> #exportPackageEpilogueOf:on:\x0a\x09}",
 messageSends: ["->"],
 referencedClasses: ["PluggableExporter"]
 }),

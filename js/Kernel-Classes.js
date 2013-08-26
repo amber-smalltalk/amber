@@ -1629,13 +1629,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Package())._named_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._current())._createPackage_(aString);
+return _st(_st($Smalltalk())._current())._createDefaultPackage_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPackageNamed:",{aString:aString},smalltalk.ClassBuilder)})},
 args: ["aString"],
-source: "createPackageNamed: aString\x0a\x09^ Package named: aString ifAbsent: [\x0a\x09\x09Smalltalk current createPackage: aString ]",
-messageSends: ["named:ifAbsent:", "createPackage:", "current"],
+source: "createPackageNamed: aString\x0a\x09^ Package named: aString ifAbsent: [\x0a\x09\x09Smalltalk current createDefaultPackage: aString ]",
+messageSends: ["named:ifAbsent:", "createDefaultPackage:", "current"],
 referencedClasses: ["Smalltalk", "Package"]
 }),
 smalltalk.ClassBuilder);

@@ -1244,11 +1244,11 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Package())._named_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._current())._createPackage_(aString);
+return _st(_st($Smalltalk())._current())._createDefaultPackage_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPackageNamed:",{aString:aString},smalltalk.ClassBuilder)})},
-messageSends: ["named:ifAbsent:", "createPackage:", "current"]}),
+messageSends: ["named:ifAbsent:", "createDefaultPackage:", "current"]}),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(

@@ -405,6 +405,16 @@ function ClassesBrik(brikz, st) {
 		return st.packages[pkgName];
 	};
 
+	SmalltalkPackage.prototype.withDefaultTransport = function () {
+		if (this.transport) {
+			throw new Error("Cannot set default transport; transport already set");
+		}
+		if (st._defaultTransportType) {
+			this.transport = { type: st._defaultTransportType };
+		}
+		return this;
+	};
+
 	/* Add a class to the smalltalk object, creating a new one if needed.
 	 A Package is lazily created if it does not exist with given name. */
 
