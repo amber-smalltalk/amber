@@ -1,6 +1,6 @@
 {
   "name": "amber",
-  "version": "0.11.0",
+  "version": "0.12.0-pre",
   "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
   "homepage": "http://amber-lang.net",
   "keywords": [
