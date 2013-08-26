@@ -234,11 +234,8 @@ classNameFor: aClass
 amdRecipe
 	"Export a given package with amd transport type."
 
-	| legacy result |
-	legacy := self recipe.
-	result := (legacy copyFrom: 1 to: 2),
-	{ AmdExporter -> #exportPackageTransportOf:on: },
-	(legacy copyFrom: 3 to: legacy size).
+	| result |
+	result := self recipe.
 	result first key: AmdExporter.
 	result last key: AmdExporter.
 	^result
@@ -417,16 +414,6 @@ exportPackagePrologueOf: aPackage on: aStream
 		nextPutAll: '", ';
 		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
 		nextPutAll: ', function(smalltalk,nil,_st){';
-		lf
-!
-
-exportPackageTransportOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'smalltalk.packages[';
-		nextPutAll: aPackage name asJavascript;
-		nextPutAll: '].transport = ';
-		nextPutAll: aPackage transportJson;
-		nextPutAll: ';';
 		lf
 ! !
 

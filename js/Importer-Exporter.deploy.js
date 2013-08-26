@@ -329,18 +329,17 @@ smalltalk.method({
 selector: "amdRecipe",
 fn: function (){
 var self=this;
-var legacy,result;
+var result;
 function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-legacy=self._recipe();
-result=_st(_st(_st(legacy)._copyFrom_to_((1),(2))).__comma([_st($AmdExporter()).__minus_gt("exportPackageTransportOf:on:")])).__comma(_st(legacy)._copyFrom_to_((3),_st(legacy)._size()));
+result=self._recipe();
 _st(_st(result)._first())._key_($AmdExporter());
 _st(_st(result)._last())._key_($AmdExporter());
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{legacy:legacy,result:result},smalltalk.Exporter)})},
-messageSends: ["recipe", ",", "copyFrom:to:", "size", "->", "key:", "first", "last"]}),
+}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{result:result},smalltalk.Exporter)})},
+messageSends: ["recipe", "key:", "first", "last"]}),
 smalltalk.Exporter);
 
 smalltalk.addMethod(
@@ -738,24 +737,6 @@ _st($1)._nextPutAll_(", function(smalltalk,nil,_st){");
 $5=_st($1)._lf();
 return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
 messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"]}),
-smalltalk.AmdExporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageTransportOf:on:",
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.packages[");
-_st($1)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
-_st($1)._nextPutAll_("].transport = ");
-_st($1)._nextPutAll_(_st(aPackage)._transportJson());
-_st($1)._nextPutAll_(";");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-messageSends: ["nextPutAll:", "asJavascript", "name", "transportJson", "lf"]}),
 smalltalk.AmdExporter.klass);
 
 

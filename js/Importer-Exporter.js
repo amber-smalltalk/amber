@@ -408,20 +408,19 @@ selector: "amdRecipe",
 category: 'fileOut',
 fn: function (){
 var self=this;
-var legacy,result;
+var result;
 function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-legacy=self._recipe();
-result=_st(_st(_st(legacy)._copyFrom_to_((1),(2))).__comma([_st($AmdExporter()).__minus_gt("exportPackageTransportOf:on:")])).__comma(_st(legacy)._copyFrom_to_((3),_st(legacy)._size()));
+result=self._recipe();
 _st(_st(result)._first())._key_($AmdExporter());
 _st(_st(result)._last())._key_($AmdExporter());
 $1=result;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{legacy:legacy,result:result},smalltalk.Exporter)})},
+}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{result:result},smalltalk.Exporter)})},
 args: [],
-source: "amdRecipe\x0a\x09\x22Export a given package with amd transport type.\x22\x0a\x0a\x09| legacy result |\x0a\x09legacy := self recipe.\x0a\x09result := (legacy copyFrom: 1 to: 2),\x0a\x09{ AmdExporter -> #exportPackageTransportOf:on: },\x0a\x09(legacy copyFrom: 3 to: legacy size).\x0a\x09result first key: AmdExporter.\x0a\x09result last key: AmdExporter.\x0a\x09^result",
-messageSends: ["recipe", ",", "copyFrom:to:", "size", "->", "key:", "first", "last"],
+source: "amdRecipe\x0a\x09\x22Export a given package with amd transport type.\x22\x0a\x0a\x09| result |\x0a\x09result := self recipe.\x0a\x09result first key: AmdExporter.\x0a\x09result last key: AmdExporter.\x0a\x09^result",
+messageSends: ["recipe", "key:", "first", "last"],
 referencedClasses: ["AmdExporter"]
 }),
 smalltalk.Exporter);
@@ -905,29 +904,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"exportPackagePrologueOf:on:",{aP
 args: ["aPackage", "aStream"],
 source: "exportPackagePrologueOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'define(\x22';\x0a\x09\x09nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); \x22ifNil: only for LegacyPH, it should not happen with AmdPH\x22\x0a\x09\x09nextPutAll: '/';\x0a\x09\x09nextPutAll: aPackage name;\x0a\x09\x09nextPutAll: '\x22, ';\x0a\x09\x09nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;\x0a\x09\x09nextPutAll: ', function(smalltalk,nil,_st){';\x0a\x09\x09lf",
 messageSends: ["nextPutAll:", "ifNil:", "amdNamespace", "name", "asJavascript", ",", "amdNamesOfPackages:", "loadDependencies", "lf"],
-referencedClasses: []
-}),
-smalltalk.AmdExporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackageTransportOf:on:",
-category: 'exporting-output',
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aStream;
-_st($1)._nextPutAll_("smalltalk.packages[");
-_st($1)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
-_st($1)._nextPutAll_("].transport = ");
-_st($1)._nextPutAll_(_st(aPackage)._transportJson());
-_st($1)._nextPutAll_(";");
-$2=_st($1)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.AmdExporter.klass)})},
-args: ["aPackage", "aStream"],
-source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transportJson;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
-messageSends: ["nextPutAll:", "asJavascript", "name", "transportJson", "lf"],
 referencedClasses: []
 }),
 smalltalk.AmdExporter.klass);
