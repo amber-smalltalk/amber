@@ -886,11 +886,6 @@ do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
 !
 
-do: aBlock displayingProgress: aString
-	ProgressHandler current
-		do: aBlock on: self displaying: aString
-!
-
 with: anotherCollection do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], anotherCollection[i]);}>
 !
