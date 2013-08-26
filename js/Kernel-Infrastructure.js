@@ -1842,6 +1842,24 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "amdRequire",
+category: 'accessing amd',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._basicAt_("getAMDRequire"))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
+args: [],
+source: "amdRequire\x0a\x09^ (self basicAt: 'getAMDRequire') value",
+messageSends: ["value", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSmalltalkException:",
 category: 'error handling',
 fn: function (anObject){
@@ -1969,6 +1987,40 @@ return $2;
 args: ["packageName", "aDict"],
 source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
 messageSends: ["deprecatedAPI", "ifFalse:", "error:", "isEmpty", "createPackage:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultAMDNamespace",
+category: 'accessing amd',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._basicAt_("getDefaultAMDNamespace"))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace",{},smalltalk.Smalltalk)})},
+args: [],
+source: "defaultAMDNamespace\x0a\x09^ (self basicAt: 'getDefaultAMDNamespace') value",
+messageSends: ["value", "basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultAMDNamespace:",
+category: 'accessing amd',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._basicAt_("getDefaultAMDNamespace"))._value_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace:",{aString:aString},smalltalk.Smalltalk)})},
+args: ["aString"],
+source: "defaultAMDNamespace: aString\x0a\x09(self basicAt: 'getDefaultAMDNamespace') value: aString",
+messageSends: ["value:", "basicAt:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

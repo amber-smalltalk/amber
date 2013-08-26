@@ -1479,7 +1479,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"namespaceFor:",{aPackage:aPackage},smalltalk.AmdPackageHandler)})},
 args: ["aPackage"],
-source: "namespaceFor: aPackage\x0a\x09^aPackage amdNamespace\x0a\x09\x09ifNil: [ aPackage amdNamespace: self class defaultNamespace; amdNamespace ]",
+source: "namespaceFor: aPackage\x0a\x09^ aPackage amdNamespace\x0a\x09\x09ifNil: [ aPackage amdNamespace: self class defaultNamespace; amdNamespace ]",
 messageSends: ["ifNil:", "amdNamespace:", "defaultNamespace", "class", "amdNamespace"],
 referencedClasses: []
 }),
@@ -1493,50 +1493,24 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st($Smalltalk())._current())._at_("_amd_require");
-if(($receiver = $1) == nil || $receiver == undefined){
-self._error_("AMD loader not present");
+var $2,$1;
+$2=_st(_st($Smalltalk())._current())._amdRequire();
+if(($receiver = $2) == nil || $receiver == undefined){
+$1=self._error_("AMD loader not present");
 } else {
 var require;
 require=$receiver;
-$2=_st(_st(require)._basicAt_("toUrl"))._value_(aString);
-return $2;
+$1=_st(_st(require)._basicAt_("toUrl"))._value_(aString);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},smalltalk.AmdPackageHandler)})},
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"toUrl:",{aString:aString},smalltalk.AmdPackageHandler)})},
 args: ["aString"],
-source: "toUrl: aString\x0a\x09(Smalltalk current at: '_amd_require')\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require | ^(require basicAt: 'toUrl') value: aString ]",
-messageSends: ["ifNil:ifNotNil:", "error:", "value:", "basicAt:", "at:", "current"],
+source: "toUrl: aString\x0a\x09^ Smalltalk current amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]",
+messageSends: ["ifNil:ifNotNil:", "error:", "value:", "basicAt:", "amdRequire", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler);
 
-
-smalltalk.AmdPackageHandler.klass.iVarNames = ['defaultNamespace'];
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commitPathsFromLoader",
-category: 'commit paths',
-fn: function (){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st($Smalltalk())._current())._at_("_amd_defaultNamespace");
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
-} else {
-var namespace;
-namespace=$receiver;
-self._defaultNamespace_(namespace);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"commitPathsFromLoader",{},smalltalk.AmdPackageHandler.klass)})},
-args: [],
-source: "commitPathsFromLoader\x0a\x09(Smalltalk current at: '_amd_defaultNamespace')\x0a\x09\x09ifNotNil: [ :namespace | self defaultNamespace: namespace ]",
-messageSends: ["ifNotNil:", "defaultNamespace:", "at:", "current"],
-referencedClasses: ["Smalltalk"]
-}),
-smalltalk.AmdPackageHandler.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -1544,20 +1518,16 @@ selector: "defaultNamespace",
 category: 'commit paths',
 fn: function (){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@defaultNamespace"];
-if(($receiver = $2) == nil || $receiver == undefined){
-$1=self._error_("AMD default namespace not set.");
-} else {
-$1=$2;
-};
+var $1;
+$1=_st(_st($Smalltalk())._current())._defaultAMDNamespace();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultNamespace",{},smalltalk.AmdPackageHandler.klass)})},
 args: [],
-source: "defaultNamespace\x0a\x09^ defaultNamespace ifNil: [ self error: 'AMD default namespace not set.' ]",
-messageSends: ["ifNil:", "error:"],
-referencedClasses: []
+source: "defaultNamespace\x0a\x09^ Smalltalk current defaultAMDNamespace",
+messageSends: ["defaultAMDNamespace", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler.klass);
 
@@ -1567,13 +1537,14 @@ selector: "defaultNamespace:",
 category: 'commit paths',
 fn: function (aString){
 var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-self["@defaultNamespace"]=aString;
+_st(_st($Smalltalk())._current())._defaultAMDNamespace_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},smalltalk.AmdPackageHandler.klass)})},
 args: ["aString"],
-source: "defaultNamespace: aString\x0a\x09defaultNamespace := aString",
-messageSends: [],
-referencedClasses: []
+source: "defaultNamespace: aString\x0a\x09Smalltalk current defaultAMDNamespace: aString",
+messageSends: ["defaultAMDNamespace:", "current"],
+referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AmdPackageHandler.klass);
 
@@ -1586,11 +1557,10 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 smalltalk.AmdPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 self._registerFor_("amd");
-self._commitPathsFromLoader();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.AmdPackageHandler.klass)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self registerFor: 'amd'.\x0a\x09self commitPathsFromLoader",
-messageSends: ["initialize", "registerFor:", "commitPathsFromLoader"],
+source: "initialize\x0a\x09super initialize.\x0a\x09self registerFor: 'amd'",
+messageSends: ["initialize", "registerFor:"],
 referencedClasses: []
 }),
 smalltalk.AmdPackageHandler.klass);

@@ -780,6 +780,20 @@ version
 	^ '0.11.0'
 ! !
 
+!Smalltalk methodsFor: 'accessing amd'!
+
+amdRequire
+	^ (self basicAt: 'getAMDRequire') value
+!
+
+defaultAMDNamespace
+	^ (self basicAt: 'getDefaultAMDNamespace') value
+!
+
+defaultAMDNamespace: aString
+	(self basicAt: 'getDefaultAMDNamespace') value: aString
+! !
+
 !Smalltalk methodsFor: 'classes'!
 
 classes

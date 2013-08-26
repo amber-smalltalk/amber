@@ -696,33 +696,26 @@ commitPathStFor: aPackage
 !
 
 namespaceFor: aPackage
-	^aPackage amdNamespace
+	^ aPackage amdNamespace
 		ifNil: [ aPackage amdNamespace: self class defaultNamespace; amdNamespace ]
 ! !
 
 !AmdPackageHandler methodsFor: 'private'!
 
 toUrl: aString
-	(Smalltalk current at: '_amd_require')
+	^ Smalltalk current amdRequire
 		ifNil: [ self error: 'AMD loader not present' ]
-		ifNotNil: [ :require | ^(require basicAt: 'toUrl') value: aString ]
+		ifNotNil: [ :require | (require basicAt: 'toUrl') value: aString ]
 ! !
-
-AmdPackageHandler class instanceVariableNames: 'defaultNamespace'!
 
 !AmdPackageHandler class methodsFor: 'commit paths'!
 
-commitPathsFromLoader
-	(Smalltalk current at: '_amd_defaultNamespace')
-		ifNotNil: [ :namespace | self defaultNamespace: namespace ]
-!
-
 defaultNamespace
-	^ defaultNamespace ifNil: [ self error: 'AMD default namespace not set.' ]
+	^ Smalltalk current defaultAMDNamespace
 !
 
 defaultNamespace: aString
-	defaultNamespace := aString
+	Smalltalk current defaultAMDNamespace: aString
 !
 
 resetCommitPaths
@@ -733,8 +726,7 @@ resetCommitPaths
 
 initialize
 	super initialize.
-	self registerFor: 'amd'.
-	self commitPathsFromLoader
+	self registerFor: 'amd'
 ! !
 
 PackageHandler subclass: #LegacyPackageHandler
