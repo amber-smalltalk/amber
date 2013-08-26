@@ -1274,6 +1274,14 @@ asLowercase
 	<return self.toLowerCase()>
 !
 
+asMutator
+	"Answer a setter selector. For example,
+	#name asMutator returns #name:"
+
+	self last = ':' ifFalse: [  ^ self, ':' ].
+	^ self
+!
+
 asNumber
 	<return Number(self)>
 !

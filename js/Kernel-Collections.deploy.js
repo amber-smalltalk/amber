@@ -2711,6 +2711,24 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asMutator",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self._last()).__eq(":");
+if(! smalltalk.assert($1)){
+$2=self.__comma(":");
+return $2;
+};
+$3=self;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"asMutator",{},smalltalk.String)})},
+messageSends: ["ifFalse:", ",", "=", "last"]}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asNumber",
 fn: function (){
 var self=this;
