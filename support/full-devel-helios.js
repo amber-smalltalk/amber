@@ -10,7 +10,7 @@ define([
     'css!CodeMirror/theme/ambiance',
     'css!CodeMirror/addon/hint/show-hint',
     'css!CodeMirror/amber',
-    'css!../../css/helios',
+    'css!amber_css/helios',
     'amber/Kernel-Objects',
     'amber/Kernel-Classes',
     'amber/Kernel-Methods',
