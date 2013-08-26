@@ -1419,6 +1419,22 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "withDefaultTransport",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.withDefaultTransport();
+return self}, function($ctx1) {$ctx1.fill(self,"withDefaultTransport",{},smalltalk.Package)})},
+args: [],
+source: "withDefaultTransport\x0a\x09<return self.withDefaultTransport()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
@@ -1901,15 +1917,33 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "createPackage:",
+selector: "createDefaultPackage:",
 category: 'packages',
+fn: function (packageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._createPackage_(packageName))._withDefaultTransport();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"createDefaultPackage:",{packageName:packageName},smalltalk.Smalltalk)})},
+args: ["packageName"],
+source: "createDefaultPackage: packageName\x0a\x09\x22Create and bind a new package with given name and default transport type and return it.\x22\x0a\x09^ (self createPackage: packageName) withDefaultTransport",
+messageSends: ["withDefaultTransport", "createPackage:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createPackage:",
+category: 'private',
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return smalltalk.addPackage(packageName);
 return self}, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
-source: "createPackage: packageName\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
+source: "createPackage: packageName\x0a\x09\x22Create and bind a new bare package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
 messageSends: [],
 referencedClasses: []
 }),
