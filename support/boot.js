@@ -406,11 +406,12 @@ function ClassesBrik(brikz, st) {
 	};
 
 	SmalltalkPackage.prototype.withDefaultTransport = function () {
+		var defaultTransportType = st.getDefaultTransportType();
 		if (this.transport) {
 			throw new Error("Cannot set default transport; transport already set");
 		}
-		if (st._defaultTransportType) {
-			this.transport = { type: st._defaultTransportType };
+		if (st.defaultTransportType) {
+			this.transport = { type: defaultTransportType };
 		}
 		return this;
 	};
@@ -590,7 +591,7 @@ function MethodsBrik(brikz, st) {
 				installNewDnuHandler(dnuHandler);
 			}
 		}
-	}
+	};
 
 	function propagateMethodChange(klass) {
 		// If already initialized (else it will be done later anyway),
@@ -1051,6 +1052,38 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
+/* Adds AMD and requirejs related methods to the smalltalk object */
+function AMDBrik(brikz, st) {
+	var amdRequre;
+	var defaultTransportType = "amd";
+	var defaultAMDNamespace = "amber";
+
+	st.setAMDRequire = function(req) {
+		amdRequre = req;
+	};
+
+	st.getAMDRequire = function() {
+		return amdRequre;
+	};
+
+	st.setDefaultTransportType = function(type) {
+		defaultTransportType = type;
+	};
+
+	st.getDefaultTransportType = function() {
+		return defaultTransportType;
+	};
+
+	st.setDefaultAMDNamespace = function(name) {
+		defaultAMDNamespace = name;
+	};
+
+	st.getDefaultAMDNamespace = function() {
+		return defaultAMDNamespace;
+	};
+}
+
+
 /* Making smalltalk that can load */
 
 brikz.root = RootBrik;
@@ -1063,6 +1096,7 @@ brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.stInit = SmalltalkInitBrik;
 brikz.augments = AugmentsBrik;
+brikz.amdBrik = AMDBrik;
 
 brikz.rebuild();
 

@@ -1,10 +1,9 @@
 define("amber_vm/smalltalk", ["require", "module", "./boot"], function (require, module, boot) {
     var smalltalk = boot.smalltalk;
-    smalltalk._amd_require = require;
-    smalltalk._defaultTransportType = "amd";
+	smalltalk.setAMDRequire(require);
     var config = module.config && module.config();
     if (config) {
-        smalltalk._amd_defaultNamespace = config.defaultNamespace;
+		smalltalk.setDefaultAMDNamespace(config.defaultNamespace);
     }
     return  smalltalk;
 });
