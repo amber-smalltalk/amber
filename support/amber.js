@@ -8,7 +8,7 @@ var require;
 require = function (require) {
     var scripts = document.getElementsByTagName("script");
     var src = scripts[ scripts.length - 1 ].src;
-    var home = resolveViaDOM(src).replace(/\/[^\/]+$/, "");
+    var home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
 
     function resolveViaDOM(url) {
         var a = document.createElement("a");
@@ -17,41 +17,41 @@ require = function (require) {
     }
 
     var config = {
-        baseUrl: home,
         paths: {
-            'amber': '.',
-            'amber_vm': '.',
-            'amber_css': '../css',
-            'amber_core': '../js',
-            'amber_core/_source': '../st',
-            'jquery': 'jQuery/jquery-1.8.2.min',
-            'jquery-ui': 'jQuery/jquery-ui-1.8.16.custom.min'
+            'amber': home+'/support',
+            'amber_vm': home+'/support',
+            'amber_css': home+'/css',
+            'amber_lib': home+'/support',
+            'amber_core': home+'/js',
+            'amber_core/_source': home+'/st',
+            'jquery': home+'/support/jQuery/jquery-1.8.2.min',
+            'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.16.custom.min'
         },
         map: {
             '*': {
-                'css': 'requirejs/require-css-0.0.6/css'
+                'css': 'amber_lib/requirejs/require-css-0.0.6/css'
             },
-            'amber_set/full-devel-helios': {
-                'jquery-ui': 'jQuery/jquery-ui-1.8.24.custom.min'
+            'amber/helios': {
+                'jquery-ui': 'amber_lib/jQuery/jquery-ui-1.8.24.custom.min'
             }
         },
         shim: {
             'jquery-ui': {
                 deps: [ 'jquery' ]
             },
-            'bootstrap/js/bootstrap': {
-                deps: [ 'css!bootstrap/css/bootstrap' ]
+            'amber_lib/bootstrap/js/bootstrap': {
+                deps: [ 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
-            'CodeMirror/codemirror': {
-                deps: [ 'css!CodeMirror/codemirror' ]
+            'amber_lib/CodeMirror/codemirror': {
+                deps: [ 'css!amber_lib/CodeMirror/codemirror' ]
             },
-            'jQuery/jquery.textarea': {
+            'amber_lib/jQuery/jquery.textarea': {
                 deps: [ 'jquery', 'jquery-ui' ]
             },
-            'CodeMirror/smalltalk': {
+            'amber_lib/CodeMirror/smalltalk': {
                 deps: [ './codemirror' ]
             },
-            'CodeMirror/addon/hint/show-hint': {
+            'amber_lib/CodeMirror/addon/hint/show-hint': {
                 deps: [ '../../codemirror' ]
             },
             'ensure-console': {
