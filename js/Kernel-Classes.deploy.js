@@ -304,6 +304,17 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "constructor",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.fn;
+return self}, function($ctx1) {$ctx1.fill(self,"constructor",{},smalltalk.Behavior)})},
+messageSends: []}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "definition",
 fn: function (){
 var self=this;
@@ -542,6 +553,23 @@ $1=self._basicAt_("organization");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"organization",{},smalltalk.Behavior)})},
 messageSends: ["basicAt:"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownMethods",
+fn: function (){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._ownProtocols())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
+return smalltalk.withContext(function($ctx2) {
+return _st(acc).__comma(self._methodsInProtocol_(each));
+}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownMethods",{},smalltalk.Behavior)})},
+messageSends: ["inject:into:", "new", ",", "methodsInProtocol:", "ownProtocols"]}),
 smalltalk.Behavior);
 
 smalltalk.addMethod(

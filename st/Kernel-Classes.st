@@ -143,6 +143,15 @@ organization
 	^ self basicAt: 'organization'
 !
 
+ownMethods
+	"Answer the methods of the receiver that are not package extensions"
+
+	^ (self ownProtocols 
+		inject: OrderedCollection new
+		into: [ :acc :each | acc, (self methodsInProtocol: each) ])
+			sorted: [ :a :b | a selector <= b selector ]
+!
+
 ownProtocols
 	"Answer the protocols of the receiver that are not package extensions"
 
