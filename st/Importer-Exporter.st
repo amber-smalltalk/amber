@@ -455,7 +455,7 @@ nextChunk
 		- A chunk on top level with a preceding empty chunk is an instruction chunk:
 			- The object created by the expression then takes over reading chunks.
 
-	This metod returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
+	This method returns next chunk as a String (trimmed), empty String (all whitespace) or nil."
 
 	| char result chunk |
 	result := '' writeStream.
