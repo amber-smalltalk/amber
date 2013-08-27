@@ -22,8 +22,8 @@ require = function (require) {
             'amber_set': '.',
             'amber_vm': '.',
             'amber_css': '../css',
-            'amber': '../js',
-            'amber/_source': '../st',
+            'amber_core': '../js',
+            'amber_core/_source': '../st',
             'jquery': 'jQuery/jquery-1.8.2.min',
             'jquery-ui': 'jQuery/jquery-ui-1.8.16.custom.min'
         },

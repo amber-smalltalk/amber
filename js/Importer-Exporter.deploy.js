@@ -724,7 +724,7 @@ _st($1)._nextPutAll_("define(\x22");
 $2=$1;
 $4=_st(aPackage)._amdNamespace();
 if(($receiver = $4) == nil || $receiver == undefined){
-$3="amber";
+$3="amber_core";
 } else {
 $3=$4;
 };

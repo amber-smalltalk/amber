@@ -1056,7 +1056,7 @@ function SelectorConversionBrik(brikz, st) {
 function AMDBrik(brikz, st) {
 	st.amdRequire = null;
 	st.defaultTransportType = "amd";
-	st.defaultAMDNamespace = "amber";
+	st.defaultAMDNamespace = "amber_core";
 }
 
 
