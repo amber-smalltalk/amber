@@ -502,44 +502,6 @@ amdNamesOfPackages: anArray
 		collect: [ :each | each amdNamespace, '/', each name ]
 ! !
 
-Exporter subclass: #StrippedExporter
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!StrippedExporter commentStamp!
-I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
-
-!StrippedExporter methodsFor: 'output'!
-
-exportDefinitionOf: aClass on: aStream
-	aStream
-		lf;
-		nextPutAll: 'smalltalk.addClass(';
-		nextPutAll: '''', (self classNameFor: aClass), ''', ';
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
-		nextPutAll: ', ['.
-	aClass instanceVariableNames
-		do: [:each | aStream nextPutAll: '''', each, '''']
-		separatedBy: [aStream nextPutAll: ', '].
-	aStream
-		nextPutAll: '], ''';
-		nextPutAll: aClass category, '''';
-		nextPutAll: ');'.
-	aStream lf
-!
-
-exportMethod: aMethod on: aStream
-	aStream
-		nextPutAll: 'smalltalk.addMethod(';lf;
-		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
-		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
-		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;
-		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
-		nextPutAll: ');';lf;lf
-! !
-
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
 	package: 'Importer-Exporter'!
