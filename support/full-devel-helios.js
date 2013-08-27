@@ -1,4 +1,5 @@
 define([
+    'amber_vm/smalltalk',
     'jquery',
     'jquery-ui',
     'jQuery/jquery.textarea',
@@ -52,4 +53,4 @@ define([
     'amber_core/Helios-References',
     'amber_core/Helios-Announcements',
     'amber_core/Helios-Workspace-Tests'
-], {});
+], function (smalltalk) { return smalltalk; });

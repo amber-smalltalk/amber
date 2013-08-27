@@ -1,4 +1,5 @@
 define([
+    'amber_vm/smalltalk',
     'jquery',
     'jquery-ui',
     'jQuery/jquery.textarea',
@@ -34,4 +35,4 @@ define([
     'amber_core/Benchfib',
     'amber_core/Kernel-Tests',
     'amber_core/SUnit-Tests'
-], {});
+], function (smalltalk) { return smalltalk; });
