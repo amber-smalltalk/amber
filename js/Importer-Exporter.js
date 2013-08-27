@@ -1572,11 +1572,11 @@ category: 'commit paths',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@defaultNamespace"]=nil;
+self._defaultNamespace_(nil);
 return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.AmdPackageHandler.klass)})},
 args: [],
-source: "resetCommitPaths\x0a\x09defaultNamespace := nil",
-messageSends: [],
+source: "resetCommitPaths\x0a\x09self defaultNamespace: nil",
+messageSends: ["defaultNamespace:"],
 referencedClasses: []
 }),
 smalltalk.AmdPackageHandler.klass);

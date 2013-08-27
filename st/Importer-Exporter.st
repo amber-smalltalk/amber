@@ -719,7 +719,7 @@ defaultNamespace: aString
 !
 
 resetCommitPaths
-	defaultNamespace := nil
+	self defaultNamespace: nil
 ! !
 
 !AmdPackageHandler class methodsFor: 'initialization'!

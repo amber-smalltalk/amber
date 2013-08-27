@@ -1246,9 +1246,9 @@ selector: "resetCommitPaths",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@defaultNamespace"]=nil;
+self._defaultNamespace_(nil);
 return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.AmdPackageHandler.klass)})},
-messageSends: []}),
+messageSends: ["defaultNamespace:"]}),
 smalltalk.AmdPackageHandler.klass);
 
 
