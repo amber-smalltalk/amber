@@ -1,6 +1,13 @@
-/* Amber package loading
- usage example:
- TODO
+/* Amber package loading.
+  Load this script as well as require.js (works in any order;
+    either defines 'require', thus passing config, if loaded prior require.js;
+    or calls require.config, if loaded post require.js).
+  Usage example:
+    require(['amber/devel'], function(smalltalk) {
+        smallralk.initialize();
+
+        smalltalk.Browser._open();
+    });
  */
 
 var require;
