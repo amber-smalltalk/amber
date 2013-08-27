@@ -1054,9 +1054,11 @@ function SelectorConversionBrik(brikz, st) {
 
 /* Adds AMD and requirejs related methods to the smalltalk object */
 function AMDBrik(brikz, st) {
-	st.amdRequire = null;
-	st.defaultTransportType = "amd";
-	st.defaultAMDNamespace = "amber_core";
+	this.__init__ = function () {
+		st.amdRequire = st.amdRequire || null;
+		st.defaultTransportType = st.defaultTransportType || "amd";
+		st.defaultAMDNamespace = st.defaultAMDNamespace || "amber_core";
+	};
 }
 
 
