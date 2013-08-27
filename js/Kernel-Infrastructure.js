@@ -1218,12 +1218,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._organization())._elements();
+$1=_st(_st(_st(self._organization())._elements())._asSet())._asArray();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Package)})},
 args: [],
-source: "classes\x0a\x09^ self organization elements",
-messageSends: ["elements", "organization"],
+source: "classes\x0a\x09^ self organization elements asSet asArray",
+messageSends: ["asArray", "asSet", "elements", "organization"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -1414,7 +1414,7 @@ $1=_st(self._class())._sortedClasses_(self._classes());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses",{},smalltalk.Package)})},
 args: [],
-source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^self class sortedClasses: self classes",
+source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^ self class sortedClasses: self classes",
 messageSends: ["sortedClasses:", "classes", "class"],
 referencedClasses: []
 }),

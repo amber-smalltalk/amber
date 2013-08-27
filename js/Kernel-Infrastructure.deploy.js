@@ -914,10 +914,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._organization())._elements();
+$1=_st(_st(_st(self._organization())._elements())._asSet())._asArray();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Package)})},
-messageSends: ["elements", "organization"]}),
+messageSends: ["asArray", "asSet", "elements", "organization"]}),
 smalltalk.Package);
 
 smalltalk.addMethod(

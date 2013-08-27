@@ -493,7 +493,7 @@ withDefaultTransport
 !Package methodsFor: 'classes'!
 
 classes
-	^ self organization elements
+	^ self organization elements asSet asArray
 !
 
 setupClasses
@@ -505,7 +505,7 @@ setupClasses
 sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
-	^self class sortedClasses: self classes
+	^ self class sortedClasses: self classes
 ! !
 
 !Package methodsFor: 'dependencies'!
