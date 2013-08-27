@@ -1,6 +1,6 @@
-define("amber/Compiler-AST", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Methods"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-AST", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-AST');
-smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Compiler-AST"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Node', smalltalk.Object, ['parent', 'position', 'nodes', 'shouldBeInlined', 'shouldBeAliased'], 'Compiler-AST');
 smalltalk.addMethod(

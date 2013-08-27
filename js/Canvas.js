@@ -1,6 +1,6 @@
-define("amber/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure", "amber/Kernel-Methods", "amber/Kernel-Collections"], function(smalltalk,nil,_st){
+define("amber_core/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
-smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
 smalltalk.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";

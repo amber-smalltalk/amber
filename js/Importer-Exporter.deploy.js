@@ -1,6 +1,6 @@
-define("amber/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure"], function(smalltalk,nil,_st){
+define("amber_core/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Importer-Exporter');
-smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AbstractExporter', smalltalk.Object, [], 'Importer-Exporter');
 smalltalk.addMethod(
@@ -724,7 +724,7 @@ _st($1)._nextPutAll_("define(\x22");
 $2=$1;
 $4=_st(aPackage)._amdNamespace();
 if(($receiver = $4) == nil || $receiver == undefined){
-$3="amber";
+$3="amber_core";
 } else {
 $3=$4;
 };
@@ -1246,9 +1246,9 @@ selector: "resetCommitPaths",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@defaultNamespace"]=nil;
+self._defaultNamespace_(nil);
 return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.AmdPackageHandler.klass)})},
-messageSends: []}),
+messageSends: ["defaultNamespace:"]}),
 smalltalk.AmdPackageHandler.klass);
 
 

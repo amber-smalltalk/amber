@@ -1,6 +1,6 @@
-define("amber/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure", "amber/Canvas"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
-smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
 smalltalk.addMethod(

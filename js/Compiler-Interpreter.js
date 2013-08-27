@@ -1,6 +1,6 @@
-define("amber/Compiler-Interpreter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Interpreter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Compiler-AST"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
 smalltalk.AIContext.comment="I am like a `MethodContext`, used by the `ASTInterpreter`.\x0aUnlike a `MethodContext`, my instances are not read-only.\x0a\x0aWhen debugging, my instances are created by copying the current `MethodContext` (thisContext)";
@@ -1334,7 +1334,7 @@ return $6;
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},smalltalk.ASTInterpreter)})},
 args: ["aMessage", "anObject", "aBoolean"],
-source: "sendMessage: aMessage to: anObject superSend: aBoolean\x0a\x09| method |\x0a\x09\x0a\x09aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].\x0a\x09anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x0a\x09method := anObject class superclass methodDictionary\x0a\x09\x09at: aMessage selector\x0a\x09\x09ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x09\x0a\x09^ method fn applyTo: anObject arguments: aMessage arguments\x0a\x09\x09\x0a\x09\x0a\x09",
+source: "sendMessage: aMessage to: anObject superSend: aBoolean\x0a\x09| method |\x0a\x09\x0a\x09aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].\x0a\x09anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x0a\x09method := anObject class superclass methodDictionary\x0a\x09\x09at: aMessage selector\x0a\x09\x09ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].\x0a\x09\x09\x0a\x09^ method fn applyTo: anObject arguments: aMessage arguments",
 messageSends: ["ifFalse:", "sendTo:", "ifNil:", "messageNotUnderstood:receiver:", "superclass", "class", "at:ifAbsent:", "selector", "methodDictionary", "applyTo:arguments:", "arguments", "fn"],
 referencedClasses: []
 }),
@@ -1662,7 +1662,6 @@ messageSends: ["visitSendNode:", "ifFalse:", "pc:", "+", "pc", "shouldBeInlined"
 referencedClasses: []
 }),
 smalltalk.ASTPCNodeVisitor);
-
 
 
 smalltalk.addMethod(

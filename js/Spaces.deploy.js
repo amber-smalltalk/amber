@@ -1,6 +1,6 @@
-define("amber/Spaces", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Exceptions", "amber/SUnit"], function(smalltalk,nil,_st){
+define("amber_core/Spaces", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/SUnit"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Spaces');
-smalltalk.packages["Spaces"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Spaces"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ObjectSpace', smalltalk.Object, ['frame'], 'Spaces');
 smalltalk.addMethod(

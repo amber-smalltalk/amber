@@ -1,6 +1,6 @@
-define("amber/Kernel-Classes", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Classes", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Classes');
-smalltalk.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Kernel-Classes"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
 smalltalk.addMethod(
