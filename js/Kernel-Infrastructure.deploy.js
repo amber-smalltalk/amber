@@ -1764,7 +1764,7 @@ selector: "version",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "0.11.0";
+return "0.12.0-pre";
 }, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);
