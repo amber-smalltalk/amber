@@ -408,7 +408,7 @@ exportPackageEpilogueOf: aPackage on: aStream
 exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'define("';
-		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
+		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber_core' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
@@ -719,7 +719,7 @@ defaultNamespace: aString
 !
 
 resetCommitPaths
-	defaultNamespace := nil
+	self defaultNamespace: nil
 ! !
 
 !AmdPackageHandler class methodsFor: 'initialization'!

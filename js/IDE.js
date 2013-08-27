@@ -1,6 +1,6 @@
-define("amber/IDE", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Canvas", "amber/Kernel-Exceptions", "amber/Kernel-Objects", "amber/Kernel-Collections", "amber/Kernel-Methods"], function(smalltalk,nil,_st){
+define("amber_core/IDE", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Canvas", "amber_core/Kernel-Exceptions", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections", "amber_core/Kernel-Methods"], function(smalltalk,nil,_st){
 smalltalk.addPackage('IDE');
-smalltalk.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["IDE"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ClassesList', smalltalk.Widget, ['browser', 'ul', 'nodes'], 'IDE');
 smalltalk.addMethod(

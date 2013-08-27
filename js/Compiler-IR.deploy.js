@@ -1,6 +1,6 @@
-define("amber/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Compiler-Core", "amber/Kernel-Objects", "amber/Kernel-Methods", "amber/Kernel-Collections"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
-smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.addMethod(

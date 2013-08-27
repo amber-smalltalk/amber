@@ -1,6 +1,6 @@
-define("amber/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Compiler-Core"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
-smalltalk.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('LexicalScope', smalltalk.Object, ['node', 'instruction', 'temps', 'args', 'outerScope'], 'Compiler-Semantic');
 smalltalk.addMethod(

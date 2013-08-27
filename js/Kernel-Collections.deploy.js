@@ -1,6 +1,6 @@
-define("amber/Kernel-Collections", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Collections", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Collections');
-smalltalk.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.addMethod(

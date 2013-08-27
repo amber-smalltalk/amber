@@ -1,6 +1,6 @@
-define("amber/Kernel-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Transcript');
-smalltalk.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.addMethod(

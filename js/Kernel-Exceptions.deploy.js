@@ -1,6 +1,6 @@
-define("amber/Kernel-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Exceptions');
-smalltalk.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.addMethod(

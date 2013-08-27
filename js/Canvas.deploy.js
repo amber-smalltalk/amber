@@ -1,6 +1,6 @@
-define("amber/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Kernel-Infrastructure", "amber/Kernel-Methods", "amber/Kernel-Collections"], function(smalltalk,nil,_st){
+define("amber_core/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
-smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
 smalltalk.addMethod(

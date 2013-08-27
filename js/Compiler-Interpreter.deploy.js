@@ -1,6 +1,6 @@
-define("amber/Compiler-Interpreter", ["amber_vm/smalltalk","amber_vm/nil","amber_vm/_st"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Interpreter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Compiler-AST"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
-smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AIContext', smalltalk.NodeVisitor, ['methodContext', 'outerContext', 'pc', 'locals', 'method'], 'Compiler-Interpreter');
 smalltalk.addMethod(
@@ -1257,7 +1257,6 @@ self["@currentNode"];
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
 messageSends: ["visitSendNode:", "ifFalse:", "pc:", "+", "pc", "shouldBeInlined", "=", "context"]}),
 smalltalk.ASTPCNodeVisitor);
-
 
 
 smalltalk.addMethod(

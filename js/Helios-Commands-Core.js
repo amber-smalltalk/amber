@@ -1,6 +1,6 @@
-define("amber/Helios-Commands-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Commands-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Core');
-smalltalk.packages["Helios-Commands-Core"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Helios-Commands-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLCommand', smalltalk.Object, ['input'], 'Helios-Commands-Core');
 smalltalk.addMethod(
