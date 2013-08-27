@@ -11,16 +11,10 @@
 
 <body>
 <script type='text/javascript'>
-    require.config({
-        config: {
-            'amber_vm/smalltalk': {
-                defaultNamespace: 'amber_core'
-            }
-        }
-    });
     require(
-        ["amber_vm/smalltalk", "amber_set/full-devel"],
+        ["amber/devel"],
         function (smalltalk) {
+            smalltalk.defaultAMDNamespace = "amber_core";
             smalltalk.initialize();
 
             smalltalk.Browser._open()

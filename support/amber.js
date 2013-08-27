@@ -19,7 +19,7 @@ require = function (require) {
     var config = {
         baseUrl: home,
         paths: {
-            'amber_set': '.',
+            'amber': '.',
             'amber_vm': '.',
             'amber_css': '../css',
             'amber_core': '../js',
