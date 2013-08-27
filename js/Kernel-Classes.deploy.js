@@ -546,6 +546,22 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "ownProtocols",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._protocols())._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._match_("^\x5c*");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownProtocols",{},smalltalk.Behavior)})},
+messageSends: ["reject:", "match:", "protocols"]}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "protocols",
 fn: function (){
 var self=this;

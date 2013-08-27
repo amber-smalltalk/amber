@@ -143,6 +143,13 @@ organization
 	^ self basicAt: 'organization'
 !
 
+ownProtocols
+	"Answer the protocols of the receiver that are not package extensions"
+
+	^ self protocols reject: [ :each |
+		each match: '^\*' ]
+!
+
 protocols
 	^ self organization elements sorted
 !
