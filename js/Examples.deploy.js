@@ -1,6 +1,6 @@
-define("amber/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Canvas"], function(smalltalk,nil,_st){
+define("amber_core/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
-smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.addMethod(

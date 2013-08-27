@@ -1,6 +1,6 @@
-define("amber/Helios-KeyBindings", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects", "amber/Helios-Core"], function(smalltalk,nil,_st){
+define("amber_core/Helios-KeyBindings", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
-smalltalk.packages["Helios-KeyBindings"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Helios-KeyBindings"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.HLBinding.comment="I am the abstract representation of a keybinding in Helios. My instances hold a key (integer value) and a label. \x0a\x0aBindings are built into a tree of keys, so pressing a key may result in more key choices (for example, to open a workspace, 'o' is pressed first then 'w' is pressed).\x0a\x0aBinding action handling and selection is handled by the `current` instance of `HLKeyBinder`.\x0a\x0aSubclasses implement specific behavior like evaluating actions or (sub-)grouping other bindings.";
@@ -13,7 +13,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self}, function($ctx1) {$ctx1.fill(self,"apply",{},smalltalk.HLBinding)})},
 args: [],
-source: "apply\x0a\x09",
+source: "apply",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1791,7 +1791,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._selectedBinding())._renderOn_html_(self,html);
 return self}, function($ctx1) {$ctx1.fill(self,"renderSelectedBindingOn:",{html:html},smalltalk.HLKeyBinderHelperWidget)})},
 args: ["html"],
-source: "renderSelectedBindingOn: html\x0a\x09self selectedBinding renderOn: self html: html\x0a\x09",
+source: "renderSelectedBindingOn: html\x0a\x09self selectedBinding renderOn: self html: html",
 messageSends: ["renderOn:html:", "selectedBinding"],
 referencedClasses: []
 }),
