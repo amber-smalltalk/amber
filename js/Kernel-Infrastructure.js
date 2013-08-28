@@ -1993,7 +1993,7 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultAMDNamespace",
+selector: "defaultAmdNamespace",
 category: 'accessing amd',
 fn: function (){
 var self=this;
@@ -2001,9 +2001,9 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self._basicAt_("defaultAMDNamespace");
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace",{},smalltalk.Smalltalk)})},
+}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},smalltalk.Smalltalk)})},
 args: [],
-source: "defaultAMDNamespace\x0a\x09^ self basicAt: 'defaultAMDNamespace'",
+source: "defaultAmdNamespace\x0a\x09^ self basicAt: 'defaultAMDNamespace'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
@@ -2011,15 +2011,15 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultAMDNamespace:",
+selector: "defaultAmdNamespace:",
 category: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._basicAt_put_("defaultAMDNamespace",aString);
-return self}, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace:",{aString:aString},smalltalk.Smalltalk)})},
+return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "defaultAMDNamespace: aString\x0a\x09self basicAt: 'defaultAMDNamespace' put: aString",
+source: "defaultAmdNamespace: aString\x0a\x09self basicAt: 'defaultAMDNamespace' put: aString",
 messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),

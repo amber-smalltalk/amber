@@ -786,12 +786,12 @@ amdRequire
 	^ self basicAt: 'amdRequire'
 !
 
-defaultAMDNamespace
-	^ self basicAt: 'defaultAMDNamespace'
+defaultAmdNamespace: aString
+	self basicAt: 'defaultAMDNamespace' put: aString
 !
 
-defaultAMDNamespace: aString
-	self basicAt: 'defaultAMDNamespace' put: aString
+defaultAmdNamespace
+	^ self basicAt: 'defaultAMDNamespace'
 ! !
 
 !Smalltalk methodsFor: 'classes'!
