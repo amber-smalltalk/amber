@@ -1396,10 +1396,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._basicAt_("amdRequire");
+$1=self._at_("amdRequire");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
-messageSends: ["basicAt:"]}),
+messageSends: ["at:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
@@ -1431,9 +1431,24 @@ selector: "at:",
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
-messageSends: []}),
+var $1;
+$1=self._basicAt_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
+messageSends: ["basicAt:"]}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:put:",
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._basicAt_put_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.Smalltalk)})},
+messageSends: ["basicAt:put:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
@@ -1507,10 +1522,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._basicAt_("defaultAMDNamespace");
+$1=self._at_("defaultAMDNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace",{},smalltalk.Smalltalk)})},
-messageSends: ["basicAt:"]}),
+messageSends: ["at:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
@@ -1740,11 +1755,11 @@ $1;
 } else {
 self._error_("Already exists a package called: ".__comma(newName));
 };
-_st(self._basicAt_("packages"))._at_put_(newName,pkg);
+_st(self._at_("packages"))._at_put_(newName,pkg);
 _st(pkg)._name_(newName);
 self._deletePackage_(packageName);
 return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},smalltalk.Smalltalk)})},
-messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "basicAt:", "name:", "deletePackage:"]}),
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"]}),
 smalltalk.Smalltalk);
 
 smalltalk.addMethod(
@@ -1770,7 +1785,6 @@ messageSends: []}),
 smalltalk.Smalltalk);
 
 
-smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
