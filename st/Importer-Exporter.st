@@ -360,16 +360,13 @@ exportPackagePrologueOf: aPackage on: aStream
 !
 
 exportPackageTransportOf: aPackage on: aStream
-	| json |
-	json := aPackage transportJson.
-	json = 'null' ifFalse: [
-		aStream
-			nextPutAll: 'smalltalk.packages[';
-			nextPutAll: aPackage name asJavascript;
-			nextPutAll: '].transport = ';
-			nextPutAll: json;
-			nextPutAll: ';';
-			lf ]
+	aStream
+		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: aPackage name asJavascript;
+		nextPutAll: '].transport = ';
+		nextPutAll: aPackage transport asJSONString;
+		nextPutAll: ';';
+		lf
 ! !
 
 Exporter subclass: #AmdExporter
@@ -738,6 +735,12 @@ commit
 	self commitHandler commit: self package
 ! !
 
+!PackageTransport methodsFor: 'converting'!
+
+asJSON
+	^ #{ 'type' -> self type }
+! !
+
 !PackageTransport methodsFor: 'factory'!
 
 commitHandler
@@ -758,13 +761,13 @@ classRegisteredFor: aString
 	^ registry at: aString
 !
 
-for: aString
-	^ (self classRegisteredFor: aString) new
-!
-
 type
 	"Override in subclasses"
 	^ nil
+!
+
+defaultType
+	^ AmdPackageTransport type
 ! !
 
 !PackageTransport class methodsFor: 'initialization'!
@@ -773,6 +776,20 @@ initialize
 	super initialize.
 	registry := #{}.
 	self register
+! !
+
+!PackageTransport class methodsFor: 'instance creation'!
+
+for: aString
+	^ (self classRegisteredFor: aString) new
+!
+
+fromJson: anObject
+	anObject ifNil: [ ^ self for: self defaultType ].
+	
+	^ (self for: anObject type)
+		setupFromJson: anObject;
+		yourself
 ! !
 
 !PackageTransport class methodsFor: 'registration'!
@@ -808,6 +825,14 @@ namespace: aString
 	namespace := aString
 ! !
 
+!AmdPackageTransport methodsFor: 'converting'!
+
+asJSON
+	^ super asJSON
+		at: 'amdNamespace' put: self namespace;
+		yourself
+! !
+
 !AmdPackageTransport methodsFor: 'defaults'!
 
 defaultNamespace
@@ -838,24 +863,5 @@ namespace: aString
 
 commit
 	^ self transport commit
-!
-
-transportJson
-	<return JSON.stringify(self.transport || null);>
-!
-
-transportType
-	<return (self.transport && self.transport.type) || 'unknown';>
-!
-
-transport
-	^ (PackageTransport for: self transportType)
-		setupFromJson: self basicTransport;
-		package: self;
-		yourself
-!
-
-basicTransport
-	<return self.transport>
 ! !
 

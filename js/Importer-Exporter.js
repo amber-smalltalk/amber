@@ -790,25 +790,19 @@ selector: "exportPackageTransportOf:on:",
 category: 'output',
 fn: function (aPackage,aStream){
 var self=this;
-var json;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-json=_st(aPackage)._transportJson();
-$1=_st(json).__eq("null");
-if(! smalltalk.assert($1)){
-$2=aStream;
-_st($2)._nextPutAll_("smalltalk.packages[");
-_st($2)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
-_st($2)._nextPutAll_("].transport = ");
-_st($2)._nextPutAll_(json);
-_st($2)._nextPutAll_(";");
-$3=_st($2)._lf();
-$3;
-};
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream,json:json},smalltalk.Exporter)})},
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_("smalltalk.packages[");
+_st($1)._nextPutAll_(_st(_st(aPackage)._name())._asJavascript());
+_st($1)._nextPutAll_("].transport = ");
+_st($1)._nextPutAll_(_st(_st(aPackage)._transport())._asJSONString());
+_st($1)._nextPutAll_(";");
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"exportPackageTransportOf:on:",{aPackage:aPackage,aStream:aStream},smalltalk.Exporter)})},
 args: ["aPackage", "aStream"],
-source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09| json |\x0a\x09json := aPackage transportJson.\x0a\x09json = 'null' ifFalse: [\x0a\x09\x09aStream\x0a\x09\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09\x09nextPutAll: json;\x0a\x09\x09\x09nextPutAll: ';';\x0a\x09\x09\x09lf ]",
-messageSends: ["transportJson", "ifFalse:", "nextPutAll:", "asJavascript", "name", "lf", "="],
+source: "exportPackageTransportOf: aPackage on: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: 'smalltalk.packages[';\x0a\x09\x09nextPutAll: aPackage name asJavascript;\x0a\x09\x09nextPutAll: '].transport = ';\x0a\x09\x09nextPutAll: aPackage transport asJSONString;\x0a\x09\x09nextPutAll: ';';\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "asJavascript", "name", "asJSONString", "transport", "lf"],
 referencedClasses: []
 }),
 smalltalk.Exporter);
@@ -1714,6 +1708,24 @@ smalltalk.addClass('PackageTransport', smalltalk.Object, ['package'], 'Importer-
 smalltalk.PackageTransport.comment="I represent the transport mechanism used to commit a package.\x0a\x0aMy concrete subclasses have a `#handler` to which committing is delegated.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJSON",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=smalltalk.HashedCollection._from_(["type".__minus_gt(self._type())]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.PackageTransport)})},
+args: [],
+source: "asJSON\x0a\x09^ #{ 'type' -> self type }",
+messageSends: ["->", "type"],
+referencedClasses: []
+}),
+smalltalk.PackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "commit",
 category: 'committing',
 fn: function (){
@@ -1851,8 +1863,27 @@ smalltalk.PackageTransport.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "for:",
+selector: "defaultType",
 category: 'accessing',
+fn: function (){
+var self=this;
+function $AmdPackageTransport(){return smalltalk.AmdPackageTransport||(typeof AmdPackageTransport=="undefined"?nil:AmdPackageTransport)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($AmdPackageTransport())._type();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultType",{},smalltalk.PackageTransport.klass)})},
+args: [],
+source: "defaultType\x0a\x09^ AmdPackageTransport type",
+messageSends: ["type"],
+referencedClasses: ["AmdPackageTransport"]
+}),
+smalltalk.PackageTransport.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "for:",
+category: 'instance creation',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1863,6 +1894,34 @@ return $1;
 args: ["aString"],
 source: "for: aString\x0a\x09^ (self classRegisteredFor: aString) new",
 messageSends: ["new", "classRegisteredFor:"],
+referencedClasses: []
+}),
+smalltalk.PackageTransport.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "fromJson:",
+category: 'instance creation',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$5,$3;
+$1=anObject;
+if(($receiver = $1) == nil || $receiver == undefined){
+$2=self._for_(self._defaultType());
+return $2;
+} else {
+$1;
+};
+$4=self._for_(_st(anObject)._type());
+_st($4)._setupFromJson_(anObject);
+$5=_st($4)._yourself();
+$3=$5;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"fromJson:",{anObject:anObject},smalltalk.PackageTransport.klass)})},
+args: ["anObject"],
+source: "fromJson: anObject\x0a\x09anObject ifNil: [ ^ self for: self defaultType ].\x0a\x09\x0a\x09^ (self for: anObject type)\x0a\x09\x09setupFromJson: anObject;\x0a\x09\x09yourself",
+messageSends: ["ifNil:", "for:", "defaultType", "setupFromJson:", "type", "yourself"],
 referencedClasses: []
 }),
 smalltalk.PackageTransport.klass);
@@ -1943,6 +2002,27 @@ smalltalk.PackageTransport.klass);
 
 smalltalk.addClass('AmdPackageTransport', smalltalk.PackageTransport, ['namespace'], 'Importer-Exporter');
 smalltalk.AmdPackageTransport.comment="I am the default transport for committing packages.\x0a\x0aSee `AmdExporter` and `AmdPackageHandler`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asJSON",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=smalltalk.AmdPackageTransport.superclass.fn.prototype._asJSON.apply(_st(self), []);
+_st($2)._at_put_("amdNamespace",self._namespace());
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.AmdPackageTransport)})},
+args: [],
+source: "asJSON\x0a\x09^ super asJSON\x0a\x09\x09at: 'amdNamespace' put: self namespace;\x0a\x09\x09yourself",
+messageSends: ["at:put:", "namespace", "asJSON", "yourself"],
+referencedClasses: []
+}),
+smalltalk.AmdPackageTransport);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitHandlerClass",
@@ -2088,77 +2168,6 @@ return $1;
 args: [],
 source: "commit\x0a\x09^ self transport commit",
 messageSends: ["commit", "transport"],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "transportJson",
-category: '*Importer-Exporter',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return JSON.stringify(self.transport || null);;
-return self}, function($ctx1) {$ctx1.fill(self,"transportJson",{},smalltalk.Package)})},
-args: [],
-source: "transportJson\x0a\x09<return JSON.stringify(self.transport || null);>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "transportType",
-category: '*Importer-Exporter',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return (self.transport && self.transport.type) || 'unknown';;
-return self}, function($ctx1) {$ctx1.fill(self,"transportType",{},smalltalk.Package)})},
-args: [],
-source: "transportType\x0a\x09<return (self.transport && self.transport.type) || 'unknown';>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "transport",
-category: '*Importer-Exporter',
-fn: function (){
-var self=this;
-function $PackageTransport(){return smalltalk.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st($PackageTransport())._for_(self._transportType());
-_st($2)._setupFromJson_(self._basicTransport());
-_st($2)._package_(self);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
-args: [],
-source: "transport\x0a\x09^ (PackageTransport for: self transportType)\x0a\x09\x09setupFromJson: self basicTransport;\x0a\x09\x09package: self;\x0a\x09\x09yourself",
-messageSends: ["setupFromJson:", "basicTransport", "for:", "transportType", "package:", "yourself"],
-referencedClasses: ["PackageTransport"]
-}),
-smalltalk.Package);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "basicTransport",
-category: '*Importer-Exporter',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self.transport;
-return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},smalltalk.Package)})},
-args: [],
-source: "basicTransport\x0a\x09<return self.transport>",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
