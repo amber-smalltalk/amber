@@ -789,112 +789,6 @@ initialize
 	self registerFor: AMDPackageTransport type
 ! !
 
-PackageHandler subclass: #LegacyPackageHandler
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-!LegacyPackageHandler commentStamp!
-I am responsible for handling package loading and committing.
-
-I should not be used directly. Instead, use the corresponding `Package` methods.!
-
-!LegacyPackageHandler methodsFor: 'committing'!
-
-commitChannels
-	^{ 
-		[ :pkg | Exporter default recipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
-		[ :pkg | StrippedExporter default recipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
-		[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
-	}
-!
-
-commitPathJsFor: aPackage
-	^self class defaultCommitPathJs
-!
-
-commitPathStFor: aPackage
-	^self class defaultCommitPathSt
-! !
-
-!LegacyPackageHandler methodsFor: 'loading'!
-
-loadPackage: packageName prefix: aString
-	| url |
-	url := '/', aString, '/js/', packageName, '.js'.
-	self
-		ajax: #{
-			'url' -> url.
-			'type' -> 'GET'.
-			'dataType' -> 'script'.
-			'complete' -> [ :jqXHR :textStatus |
-				jqXHR readyState = 4
-					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
-			'error' -> [ self alert: 'Could not load package at: ', url ]
-		}
-!
-
-loadPackages: aCollection prefix: aString
-	aCollection do: [ :each |
-		self loadPackage: each prefix: aString ]
-! !
-
-!LegacyPackageHandler methodsFor: 'private'!
-
-setupPackageNamed: packageName prefix: aString
-
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
-! !
-
-LegacyPackageHandler class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
-
-!LegacyPackageHandler class methodsFor: 'commit paths'!
-
-commitPathsFromLoader
-	<
-		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
-		if (!!commitPath) return;
-		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
-		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
-	>
-!
-
-defaultCommitPathJs
-	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
-!
-
-defaultCommitPathJs: aString
-	defaultCommitPathJs := aString
-!
-
-defaultCommitPathSt
-	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
-!
-
-defaultCommitPathSt: aString
-	defaultCommitPathSt := aString
-!
-
-resetCommitPaths
-	defaultCommitPathJs := nil.
-	defaultCommitPathSt := nil
-! !
-
-!LegacyPackageHandler class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	self registerFor: 'unknown'.
-	self commitPathsFromLoader
-! !
-
-!LegacyPackageHandler class methodsFor: 'loading'!
-
-loadPackages: aCollection prefix: aString
-	^ self new loadPackages: aCollection prefix: aString
-! !
-
 Object subclass: #PackageTransport
 	instanceVariableNames: 'package'
 	package: 'Importer-Exporter'!
@@ -1077,36 +971,8 @@ forRecipe: aRecipe
 
 !Package methodsFor: '*Importer-Exporter'!
 
-amdNamespace
-	<return (self.transport && self.transport.amdNamespace) || nil>
-!
-
-amdNamespace: aString
-	<
-		if (!!self.transport) { self.transport = { type: 'amd' }; }
-		if (self.transport.type !!== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
-		self.transport.amdNamespace = aString;
-	>
-!
-
 commit
 	^ self transport commit
-!
-
-commitPathJs
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [ self handler commitPathJsFor: self ]
-!
-
-commitPathJs: aString
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs put: aString
-!
-
-commitPathSt
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [ self handler commitPathStFor: self ]
-!
-
-commitPathSt: aString
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
 !
 
 transportJson
