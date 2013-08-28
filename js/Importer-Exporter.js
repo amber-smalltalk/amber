@@ -946,6 +946,7 @@ smalltalk.Exporter);
 
 
 smalltalk.addClass('AmdExporter', smalltalk.Exporter, [], 'Importer-Exporter');
+smalltalk.AmdExporter.comment="I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "amdNamesOfPackages:",

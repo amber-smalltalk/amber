@@ -444,6 +444,8 @@ exportPackage: aPackage on: aStream
 Exporter subclass: #AmdExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!AmdExporter commentStamp!
+I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.!
 
 !AmdExporter methodsFor: 'output'!
 
