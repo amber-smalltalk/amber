@@ -63,14 +63,6 @@ exportPackage: aPackage on: aStream
 	self subclassResponsibility
 ! !
 
-AbstractExporter class instanceVariableNames: 'default'!
-
-!AbstractExporter class methodsFor: 'instance creation'!
-
-default
-	^ default ifNil: [ default := self new ]
-! !
-
 AbstractExporter subclass: #ChunkExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -442,7 +434,7 @@ exportPackageTransportOf: aPackage on: aStream
 ! !
 
 Exporter subclass: #AmdExporter
-	instanceVariableNames: ''
+	instanceVariableNames: 'namespace'
 	package: 'Importer-Exporter'!
 !AmdExporter commentStamp!
 I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.!
@@ -458,7 +450,7 @@ exportPackageEpilogueOf: aPackage on: aStream
 exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'define("';
-		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
+		nextPutAll: (self amdNamespaceOfPackage: aPackage);
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
@@ -471,37 +463,14 @@ exportPackagePrologueOf: aPackage on: aStream
 
 amdNamesOfPackages: anArray
 	^ (anArray
-		select: [ :each | each amdNamespace notNil ])
-		collect: [ :each | each amdNamespace, '/', each name ]
-! !
-
-!AmdExporter class methodsFor: 'exporting-output'!
-
-exportPackageEpilogueOf: aPackage on: aStream
-	aStream
-		nextPutAll: '});';
-		lf
+		select: [ :each | (self amdNamespaceOfPackage: each) notNil ])
+		collect: [ :each | (self amdNamespaceOfPackage: each), '/', each name ]
 !
 
-exportPackagePrologueOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'define("';
-		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
-		nextPutAll: '/';
-		nextPutAll: aPackage name;
-		nextPutAll: '", ';
-		nextPutAll: (#('amber_vm/smalltalk' 'amber_vm/nil' 'amber_vm/_st'), (self amdNamesOfPackages: aPackage loadDependencies)) asJavascript;
-		nextPutAll: ', function(smalltalk,nil,_st){';
-		lf
-! !
-
-!AmdExporter class methodsFor: 'private'!
-
-amdNamesOfPackages: anArray
-	| deps depNames |
-	^(anArray
-		select: [ :each | each amdNamespace notNil ])
-		collect: [ :each | each amdNamespace, '/', each name ]
+amdNamespaceOfPackage: aPackage
+	^ (aPackage transport type = 'amd')
+		ifTrue: [ aPackage transport namespace ]
+		ifFalse: [ nil ]
 ! !
 
 Object subclass: #ChunkParser
@@ -743,11 +712,11 @@ oldCommit: aPackage
 !PackageHandler methodsFor: 'factory'!
 
 chunkExporter
-	^ self chunkExporterClass default
+	^ self chunkExporterClass new
 !
 
 exporter
-	^ self exporterClass default
+	^ self exporterClass new
 ! !
 
 !PackageHandler methodsFor: 'private'!
@@ -760,35 +729,6 @@ ajaxPutAt: aURL data: aString
 			'data' -> aString.
 			'contentType' -> 'text/plain;charset=UTF-8'.
 			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
-! !
-
-PackageHandler class instanceVariableNames: 'registry'!
-
-!PackageHandler class methodsFor: 'accessing'!
-
-classRegisteredFor: aString
-	^ registry at: aString
-!
-
-for: aString
-	^ (self classRegisteredFor: aString) new
-! !
-
-!PackageHandler class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	registry := #{}
-! !
-
-!PackageHandler class methodsFor: 'registry'!
-
-register: aClass for: aString
-	registry at: aString put: aClass
-!
-
-registerFor: aString
-	PackageHandler register: self for: aString
 ! !
 
 PackageHandler subclass: #AmdPackageHandler
@@ -817,8 +757,7 @@ exporterClass
 !AmdPackageHandler methodsFor: 'committing'!
 
 namespaceFor: aPackage
-	^ aPackage amdNamespace
-		ifNil: [ aPackage amdNamespace: self class defaultNamespace; amdNamespace ]
+	^ aPackage transport namespace
 ! !
 
 !AmdPackageHandler methodsFor: 'private'!
@@ -957,24 +896,79 @@ loadPackages: aCollection prefix: aString
 ! !
 
 Object subclass: #PackageTransport
-	instanceVariableNames: ''
+	instanceVariableNames: 'package'
 	package: 'Importer-Exporter'!
 
 !PackageTransport methodsFor: 'accessing'!
 
-type
-	^ self class type
+commitHandlerClass
+	self subclassResponsibility
 !
 
-commitHandler
-	^ PackageHandler for: self type
+package
+	^ package
+!
+
+package: aPackage
+	package := aPackage
+!
+
+type
+	^ self class type
 ! !
 
+!PackageTransport methodsFor: 'committing'!
+
+commit
+	self commitHandler commit: self package
+! !
+
+!PackageTransport methodsFor: 'factory'!
+
+commitHandler
+	^ self commitHandlerClass new
+! !
+
+!PackageTransport methodsFor: 'initialization'!
+
+setupFromJson: anObject
+	"no op. override if needed in subclasses"
+! !
+
+PackageTransport class instanceVariableNames: 'registry'!
+
 !PackageTransport class methodsFor: 'accessing'!
+
+classRegisteredFor: aString
+	^ registry at: aString
+!
+
+for: aString
+	^ (self classRegisteredFor: aString) new
+!
 
 type
 	"Override in subclasses"
 	^ nil
+! !
+
+!PackageTransport class methodsFor: 'initialization'!
+
+initialize
+	super initialize.
+	registry := #{}.
+	self register
+! !
+
+!PackageTransport class methodsFor: 'registration'!
+
+register
+	PackageTransport register: self
+!
+
+register: aClass
+	aClass type ifNotNil: [
+		registry at: aClass type put: aClass ]
 ! !
 
 PackageTransport subclass: #AmdPackageTransport
@@ -982,6 +976,10 @@ PackageTransport subclass: #AmdPackageTransport
 	package: 'Importer-Exporter'!
 
 !AmdPackageTransport methodsFor: 'accessing'!
+
+commitHandlerClass
+	^ AmdPackageHandler
+!
 
 namespace
 	^ namespace ifNil: [ self defaultNamespace ]
@@ -995,6 +993,12 @@ namespace: aString
 
 defaultNamespace
 	^ Smalltalk current defaultAmdNamespace
+! !
+
+!AmdPackageTransport methodsFor: 'initialization'!
+
+setupFromJson: anObject
+	self namespace: (anObject at: 'amdNamespace')
 ! !
 
 !AmdPackageTransport class methodsFor: 'accessing'!
@@ -1086,7 +1090,7 @@ amdNamespace: aString
 !
 
 commit
-	^ self handler commit: self
+	^ self transport commit
 !
 
 commitPathJs
@@ -1105,15 +1109,22 @@ commitPathSt: aString
 	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
 !
 
-handler
-	^ PackageHandler for: self transportType
-!
-
 transportJson
 	<return JSON.stringify(self.transport || null);>
 !
 
 transportType
 	<return (self.transport && self.transport.type) || 'unknown';>
+!
+
+transport
+	^ (PackageTransport for: self transportType)
+		setupFromJson: self basicTransport;
+		package: self;
+		yourself
+!
+
+basicTransport
+	<return self.transport>
 ! !
 
