@@ -1848,12 +1848,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._basicAt_("amdRequire");
+$1=self._at_("amdRequire");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
 args: [],
-source: "amdRequire\x0a\x09^ self basicAt: 'amdRequire'",
-messageSends: ["basicAt:"],
+source: "amdRequire\x0a\x09^ self at: 'amdRequire'",
+messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -1893,11 +1893,31 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
+var $1;
+$1=self._basicAt_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "at: aString\x0a\x09<return self[aString]>",
-messageSends: [],
+source: "at: aString\x0a\x09^ self basicAt: aString",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:put:",
+category: 'accessing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._basicAt_put_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.Smalltalk)})},
+args: ["aString", "anObject"],
+source: "at: aString put: anObject\x0a\x09^ self basicAt: aString put: anObject",
+messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -1955,7 +1975,7 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "createPackage:",
-category: 'private',
+category: 'packages',
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1999,12 +2019,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._basicAt_("defaultAMDNamespace");
+$1=self._at_("defaultAMDNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAMDNamespace",{},smalltalk.Smalltalk)})},
 args: [],
-source: "defaultAMDNamespace\x0a\x09^ self basicAt: 'defaultAMDNamespace'",
-messageSends: ["basicAt:"],
+source: "defaultAMDNamespace\x0a\x09^ self at: 'defaultAMDNamespace'",
+messageSends: ["at:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2028,7 +2048,7 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deleteClass:",
-category: 'classes',
+category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2062,7 +2082,7 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deletePackage:",
-category: 'packages',
+category: 'private',
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2210,7 +2230,7 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVariableNames",
-category: 'packages',
+category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2312,13 +2332,13 @@ $1;
 } else {
 self._error_("Already exists a package called: ".__comma(newName));
 };
-_st(self._basicAt_("packages"))._at_put_(newName,pkg);
+_st(self._at_("packages"))._at_put_(newName,pkg);
 _st(pkg)._name_(newName);
 self._deletePackage_(packageName);
 return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},smalltalk.Smalltalk)})},
 args: ["packageName", "newName"],
-source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].\x0a\x09(self basicAt: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
-messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "basicAt:", "name:", "deletePackage:"],
+source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].\x0a\x09(self at: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2356,7 +2376,6 @@ referencedClasses: []
 smalltalk.Smalltalk);
 
 
-smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
