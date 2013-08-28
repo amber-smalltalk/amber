@@ -474,6 +474,12 @@ You can fetch a package from the server:
 
 !Package methodsFor: 'accessing'!
 
+basicTransport
+	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+	
+	<return self.transport>
+!
+
 name
 	<return self.pkgName>
 !
@@ -491,12 +497,6 @@ transport
 		transport := (PackageTransport fromJson: self basicTransport)
 			package: self;
 			yourself ]
-!
-
-basicTransport
-	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
-	
-	<return self.transport>
 !
 
 transport: aPackageTransport
@@ -746,7 +746,11 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 !Smalltalk methodsFor: 'accessing'!
 
 at: aString
-	<return self[aString]>
+	^ self basicAt: aString
+!
+
+at: aString put: anObject
+	^ self basicAt: aString put: anObject
 !
 
 parse: aString
@@ -759,6 +763,10 @@ parse: aString
 	^ result
 		source: aString;
 		yourself
+!
+
+pseudoVariableNames
+	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
 !
 
 readJSObject: anObject
@@ -779,27 +787,21 @@ version
 !Smalltalk methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self basicAt: 'amdRequire'
+	^ self at: 'amdRequire'
 !
 
 defaultAmdNamespace
-	^ self basicAt: 'defaultAMDNamespace'
+	^ self at: 'defaultAMDNamespace'
 !
 
 defaultAmdNamespace: aString
-	self basicAt: 'defaultAMDNamespace' put: aString
+	self at: 'defaultAMDNamespace' put: aString
 ! !
 
 !Smalltalk methodsFor: 'classes'!
 
 classes
 	<return self.classes()>
-!
-
-deleteClass: aClass
-	"Deletes a class by deleting its binding only. Use #removeClass instead"
-	
-	<self.removeClass(aClass)>
 !
 
 removeClass: aClass
@@ -845,11 +847,9 @@ globalJsVariables
 
 !Smalltalk methodsFor: 'packages'!
 
-deletePackage: packageName
-	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
-	To remove a package, use #removePackage instead."
-
-	<delete smalltalk.packages[packageName]>
+createPackage: packageName
+	"Create and bind a new bare package with given name and return it."
+	<return smalltalk.addPackage(packageName)>
 !
 
 packageAt: packageName
@@ -864,10 +864,6 @@ packages
 	"Return all Package instances in the system."
 
 	<return self.packages.all()>
-!
-
-pseudoVariableNames
-	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
 !
 
 removePackage: packageName
@@ -886,7 +882,7 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	(self basicAt: 'packages') at: newName put: pkg.
+	(self at: 'packages') at: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
 ! !
@@ -897,17 +893,25 @@ basicParse: aString
 	<return smalltalk.parser.parse(aString)>
 !
 
-createPackage: packageName
-	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
-!
-
 createPackage: packageName properties: aDict
 	"Needed to import .st files: they begin with this call."
 	self deprecatedAPI.
 	
 	aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
 	^ self createPackage: packageName
+!
+
+deleteClass: aClass
+	"Deletes a class by deleting its binding only. Use #removeClass instead"
+	
+	<self.removeClass(aClass)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+	<delete self.packages[packageName]>
 ! !
 
 !Smalltalk methodsFor: 'testing'!
@@ -918,8 +922,6 @@ isSmalltalkObject: anObject
 	
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
-
-Smalltalk class instanceVariableNames: 'current'!
 
 !Smalltalk class methodsFor: 'accessing'!
 
