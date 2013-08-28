@@ -1837,6 +1837,7 @@ smalltalk.AmdPackageHandler.klass);
 
 
 smalltalk.addClass('PackageTransport', smalltalk.Object, ['package'], 'Importer-Exporter');
+smalltalk.PackageTransport.comment="I represent the transport mechanism used to commit a package.\x0a\x0aMy concrete subclasses have a `#handler` to which committing is delegated.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commit",
@@ -2067,6 +2068,7 @@ smalltalk.PackageTransport.klass);
 
 
 smalltalk.addClass('AmdPackageTransport', smalltalk.PackageTransport, ['namespace'], 'Importer-Exporter');
+smalltalk.AmdPackageTransport.comment="I am the default transport for committing packages.\x0a\x0aSee `AmdExporter` and `AmdPackageHandler`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "commitHandlerClass",

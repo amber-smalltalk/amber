@@ -792,6 +792,10 @@ initialize
 Object subclass: #PackageTransport
 	instanceVariableNames: 'package'
 	package: 'Importer-Exporter'!
+!PackageTransport commentStamp!
+I represent the transport mechanism used to commit a package.
+
+My concrete subclasses have a `#handler` to which committing is delegated.!
 
 !PackageTransport methodsFor: 'accessing'!
 
@@ -868,6 +872,10 @@ register: aClass
 PackageTransport subclass: #AmdPackageTransport
 	instanceVariableNames: 'namespace'
 	package: 'Importer-Exporter'!
+!AmdPackageTransport commentStamp!
+I am the default transport for committing packages.
+
+See `AmdExporter` and `AmdPackageHandler`.!
 
 !AmdPackageTransport methodsFor: 'accessing'!
 
