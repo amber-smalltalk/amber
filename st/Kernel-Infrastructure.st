@@ -346,7 +346,16 @@ keysAndValuesDo: aBlock
 !JSObjectProxy methodsFor: 'printing'!
 
 printOn: aStream
-	aStream nextPutAll: self jsObject toString
+	aStream nextPutAll: self printString
+!
+
+printString
+	<
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!

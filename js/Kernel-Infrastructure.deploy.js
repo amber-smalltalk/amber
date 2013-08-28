@@ -774,9 +774,25 @@ selector: "printOn:",
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aStream)._nextPutAll_(_st(self._jsObject())._toString());
+_st(aStream)._nextPutAll_(self._printString());
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)})},
-messageSends: ["nextPutAll:", "toString", "jsObject"]}),
+messageSends: ["nextPutAll:", "printString"]}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printString",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
+messageSends: []}),
 smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(

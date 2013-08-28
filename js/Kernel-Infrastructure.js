@@ -1029,11 +1029,32 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aStream)._nextPutAll_(_st(self._jsObject())._toString());
+_st(aStream)._nextPutAll_(self._printString());
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)})},
 args: ["aStream"],
-source: "printOn: aStream\x0a\x09aStream nextPutAll: self jsObject toString",
-messageSends: ["nextPutAll:", "toString", "jsObject"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self printString",
+messageSends: ["nextPutAll:", "printString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
+args: [],
+source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
