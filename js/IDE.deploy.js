@@ -4009,11 +4009,12 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=self._new();
 _st($2)._inspect_(anObject);
+_st($2)._open();
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector.klass)})},
-messageSends: ["inspect:", "new", "yourself"]}),
+messageSends: ["inspect:", "new", "open", "yourself"]}),
 smalltalk.Inspector.klass);
 
 smalltalk.addMethod(
