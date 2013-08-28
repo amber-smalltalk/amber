@@ -151,7 +151,7 @@ function print_usage() {
 	console.log('');
 	console.log('  -n amd_namespace');
 	console.log('     Export packages with <amd_namespace> as the require.js namespace.');
-	console.log('     Default value is "amber".');
+	console.log('     Default value is "amber_core".');
 	console.log('');
 	console.log('  -o');
 	console.log('     Optimize each .js file using the Google closure compiler.');

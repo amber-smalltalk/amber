@@ -1,6 +1,6 @@
-define("amber/Kernel-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/SUnit", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/SUnit", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Tests');
-smalltalk.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(

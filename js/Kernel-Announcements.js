@@ -1,6 +1,6 @@
-define("amber/Kernel-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Kernel-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Announcements');
-smalltalk.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Kernel-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AnnouncementSubscription', smalltalk.Object, ['valuable', 'announcementClass'], 'Kernel-Announcements');
 smalltalk.AnnouncementSubscription.comment="I am a single entry in a subscription registry of an `Announcer`.\x0aSeveral subscriptions by the same object is possible.";

@@ -1,6 +1,6 @@
-define("amber/Test", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_core/Test", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Test');
-smalltalk.packages["Test"].transport = {"type":"amd","amdNamespace":"amber"};
+smalltalk.packages["Test"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('NodeTestRunner', smalltalk.Object, [], 'Test');
 

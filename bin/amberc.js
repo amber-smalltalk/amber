@@ -154,7 +154,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'stFiles': [],
 		'jsFiles': [],
 		'jsGlobals': [],
-		'amd_namespace': 'amber',
+		'amd_namespace': 'amber_core',
 		'closure': false,
 		'closure_full': false,
 		'closure_options': ' --language_in=ECMASCRIPT5 ',
@@ -185,7 +185,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	}
 
 	if (configuration.amd_namespace.length == 0) {
-		configuration.amd_namespace = 'amber';
+		configuration.amd_namespace = 'amber_core';
 	}
 
 	console.ambercLog = console.log;
