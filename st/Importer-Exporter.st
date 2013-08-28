@@ -703,18 +703,7 @@ defaultNamespace
 !
 
 defaultNamespace: aString
-	Smalltalk current defaultAMDNamespace: aString
-!
-
-resetCommitPaths
-	defaultNamespace := nil
-! !
-
-!AmdPackageHandler class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	self registerFor: AMDPackageTransport type
+	Smalltalk current defaultAmdNamespace: aString
 ! !
 
 Object subclass: #PackageTransport

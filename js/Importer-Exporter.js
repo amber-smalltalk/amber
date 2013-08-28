@@ -1700,46 +1700,12 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($Smalltalk())._current())._defaultAMDNamespace_(aString);
+_st(_st($Smalltalk())._current())._defaultAmdNamespace_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultNamespace:",{aString:aString},smalltalk.AmdPackageHandler.klass)})},
 args: ["aString"],
-source: "defaultNamespace: aString\x0a\x09Smalltalk current defaultAMDNamespace: aString",
-messageSends: ["defaultAMDNamespace:", "current"],
+source: "defaultNamespace: aString\x0a\x09Smalltalk current defaultAmdNamespace: aString",
+messageSends: ["defaultAmdNamespace:", "current"],
 referencedClasses: ["Smalltalk"]
-}),
-smalltalk.AmdPackageHandler.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
-var self=this;
-function $AMDPackageTransport(){return smalltalk.AMDPackageTransport||(typeof AMDPackageTransport=="undefined"?nil:AMDPackageTransport)}
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.AmdPackageHandler.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-self._registerFor_(_st($AMDPackageTransport())._type());
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.AmdPackageHandler.klass)})},
-args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09self registerFor: AMDPackageTransport type",
-messageSends: ["initialize", "registerFor:", "type"],
-referencedClasses: ["AMDPackageTransport"]
-}),
-smalltalk.AmdPackageHandler.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resetCommitPaths",
-category: 'commit paths',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@defaultNamespace"]=nil;
-return self}, function($ctx1) {$ctx1.fill(self,"resetCommitPaths",{},smalltalk.AmdPackageHandler.klass)})},
-args: [],
-source: "resetCommitPaths\x0a\x09defaultNamespace := nil",
-messageSends: [],
-referencedClasses: []
 }),
 smalltalk.AmdPackageHandler.klass);
 
