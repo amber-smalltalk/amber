@@ -121,31 +121,6 @@ ownMethodProtocolsOfClass: aClass
 		ExportMethodProtocol name: each theClass: aClass ]
 ! !
 
-!ChunkExporter methodsFor: 'fileOut'!
-
-recipe
-	"Export a given package."
-
-	| exportCategoryRecipe |
-	exportCategoryRecipe := {
-		self -> #exportCategoryPrologueOf:on:.
-		{
-			self -> #methodsOfCategory:.
-			self -> #exportMethod:on: }.
-		self -> #exportCategoryEpilogueOf:on: }.
-
-	^{
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
-			self -> #exportMetaDefinitionOf:on:.
-			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
-		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
-	}
-! !
-
 !ChunkExporter methodsFor: 'output'!
 
 exportCategoryEpilogueOf: aCategory on: aStream
@@ -283,42 +258,6 @@ classNameFor: aClass
 			aClass isNil
 				ifTrue: [ 'nil' ]
 				ifFalse: [ aClass name ] ]
-! !
-
-!Exporter methodsFor: 'fileOut'!
-
-amdRecipe
-	"Export a given package with amd transport type."
-
-	| result |
-	result := self recipe.
-	result first key: AmdExporter.
-	result last key: AmdExporter.
-	^result
-!
-
-recipe
-	"Export a given package."
-
-	^{
-		self -> #exportPackagePrologueOf:on:.
-		self -> #exportPackageDefinitionOf:on:.
-		self -> #exportPackageTransportOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfClass:.
-				self -> #exportMethod:on: }.
-			self -> #exportMetaDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfMetaClass:.
-				self -> #exportMethod:on: } }.
-		{
-			self -> #extensionMethodsOfPackage:.
-			self -> #exportMethod:on: }.
-		self -> #exportPackageEpilogueOf:on:
-	}
 ! !
 
 !Exporter methodsFor: 'output'!
@@ -696,17 +635,6 @@ commitStFileFor: aPackage
 	self 
 		ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'
 		data: (self chunkContentsFor: aPackage)
-!
-
-oldCommit: aPackage
-	
-	self commitChannels
-		do: [ :commitStrategyFactory || fileContents commitStrategy |
-			commitStrategy := commitStrategyFactory value: aPackage.
-			fileContents := String streamContents: [ :stream |
-				(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].
-			self ajaxPutAt: commitStrategy value data: fileContents ]
-		displayingProgress: 'Committing package ', aPackage name
 ! !
 
 !PackageHandler methodsFor: 'factory'!
@@ -915,66 +843,6 @@ namespace: aString
 	^ self new
 		namespace: aString;
 		yourself
-! !
-
-Object subclass: #PluggableExporter
-	instanceVariableNames: 'recipe'
-	package: 'Importer-Exporter'!
-!PluggableExporter commentStamp!
-I am an engine for exporting structured data on a Stream.
-
-My instances are created using
-  PluggableExporter forRecipe: aRecipe,
-where recipe is structured description of the exporting algorithm (see `ExportRecipeInterpreter`).
-
-The actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.
-
-
-I am used to export amber packages, so I have a convenience method
-`exportPackage: aPackage on: aStream`
-which exports `aPackage` using the `recipe`
-(it is otherwise no special, so it may be renamed to export:on:)!
-
-!PluggableExporter methodsFor: 'accessing'!
-
-interpreter
-	^ ExportRecipeInterpreter new
-!
-
-recipe
-	^recipe
-!
-
-recipe: anArray
-	recipe := anArray
-! !
-
-!PluggableExporter methodsFor: 'fileOut'!
-
-exportAllPackages
-	"Export all packages in the system."
-
-	^String streamContents: [:stream |
-		Smalltalk current packages do: [:pkg |
-		self exportPackage: pkg on: stream]]
-!
-
-exportPackage: aPackage on: aStream
-	self interpreter interpret: self recipe for: aPackage on: aStream
-! !
-
-!PluggableExporter class methodsFor: 'convenience'!
-
-ownClassesOfPackage: package
-	"Export classes in dependency order.
-	Update (issue #171): Remove duplicates for export"
-	^package sortedClasses asSet
-! !
-
-!PluggableExporter class methodsFor: 'instance creation'!
-
-forRecipe: aRecipe
-	^self new recipe: aRecipe; yourself
 ! !
 
 !Package methodsFor: '*Importer-Exporter'!

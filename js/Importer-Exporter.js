@@ -536,54 +536,10 @@ referencedClasses: ["ExportMethodProtocol"]
 }),
 smalltalk.ChunkExporter);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-category: 'fileOut',
-fn: function (){
-var self=this;
-var exportCategoryRecipe;
-function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-exportCategoryRecipe=[self.__minus_gt("exportCategoryPrologueOf:on:"),[self.__minus_gt("methodsOfCategory:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportCategoryEpilogueOf:on:")];
-$1=[self.__minus_gt("exportPackageDefinitionOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),_st([self.__minus_gt("ownCategoriesOfClass:")]).__comma(exportCategoryRecipe),self.__minus_gt("exportMetaDefinitionOf:on:"),_st([self.__minus_gt("ownCategoriesOfMetaClass:")]).__comma(exportCategoryRecipe)],_st([self.__minus_gt("extensionCategoriesOfPackage:")]).__comma(exportCategoryRecipe)];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{exportCategoryRecipe:exportCategoryRecipe},smalltalk.ChunkExporter)})},
-args: [],
-source: "recipe\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09| exportCategoryRecipe |\x0a\x09exportCategoryRecipe := {\x0a\x09\x09self -> #exportCategoryPrologueOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09self -> #methodsOfCategory:.\x0a\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09self -> #exportCategoryEpilogueOf:on: }.\x0a\x0a\x09^{\x0a\x09\x09self -> #exportPackageDefinitionOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09PluggableExporter -> #ownClassesOfPackage:.\x0a\x09\x09\x09self -> #exportDefinitionOf:on:.\x0a\x09\x09\x09{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.\x0a\x09\x09\x09self -> #exportMetaDefinitionOf:on:.\x0a\x09\x09\x09{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.\x0a\x09\x09{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe\x0a\x09}",
-messageSends: ["->", ","],
-referencedClasses: ["PluggableExporter"]
-}),
-smalltalk.ChunkExporter);
-
 
 
 smalltalk.addClass('Exporter', smalltalk.AbstractExporter, [], 'Importer-Exporter');
 smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "amdRecipe",
-category: 'fileOut',
-fn: function (){
-var self=this;
-var result;
-function $AmdExporter(){return smalltalk.AmdExporter||(typeof AmdExporter=="undefined"?nil:AmdExporter)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-result=self._recipe();
-_st(_st(result)._first())._key_($AmdExporter());
-_st(_st(result)._last())._key_($AmdExporter());
-$1=result;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"amdRecipe",{result:result},smalltalk.Exporter)})},
-args: [],
-source: "amdRecipe\x0a\x09\x22Export a given package with amd transport type.\x22\x0a\x0a\x09| result |\x0a\x09result := self recipe.\x0a\x09result first key: AmdExporter.\x0a\x09result last key: AmdExporter.\x0a\x09^result",
-messageSends: ["recipe", "key:", "first", "last"],
-referencedClasses: ["AmdExporter"]
-}),
-smalltalk.Exporter);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classNameFor:",
@@ -896,25 +852,6 @@ args: ["aClass"],
 source: "ownMethodsOfMetaClass: aClass\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^self ownMethodsOfClass: aClass class",
 messageSends: ["ownMethodsOfClass:", "class"],
 referencedClasses: []
-}),
-smalltalk.Exporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-category: 'fileOut',
-fn: function (){
-var self=this;
-function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=[self.__minus_gt("exportPackagePrologueOf:on:"),self.__minus_gt("exportPackageDefinitionOf:on:"),self.__minus_gt("exportPackageTransportOf:on:"),[_st($PluggableExporter()).__minus_gt("ownClassesOfPackage:"),self.__minus_gt("exportDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfClass:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportMetaDefinitionOf:on:"),[self.__minus_gt("ownMethodsOfMetaClass:"),self.__minus_gt("exportMethod:on:")]],[self.__minus_gt("extensionMethodsOfPackage:"),self.__minus_gt("exportMethod:on:")],self.__minus_gt("exportPackageEpilogueOf:on:")];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.Exporter)})},
-args: [],
-source: "recipe\x0a\x09\x22Export a given package.\x22\x0a\x0a\x09^{\x0a\x09\x09self -> #exportPackagePrologueOf:on:.\x0a\x09\x09self -> #exportPackageDefinitionOf:on:.\x0a\x09\x09self -> #exportPackageTransportOf:on:.\x0a\x09\x09{\x0a\x09\x09\x09PluggableExporter -> #ownClassesOfPackage:.\x0a\x09\x09\x09self -> #exportDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09\x09self -> #exportMetaDefinitionOf:on:.\x0a\x09\x09\x09{\x0a\x09\x09\x09\x09self -> #ownMethodsOfMetaClass:.\x0a\x09\x09\x09\x09self -> #exportMethod:on: } }.\x0a\x09\x09{\x0a\x09\x09\x09self -> #extensionMethodsOfPackage:.\x0a\x09\x09\x09self -> #exportMethod:on: }.\x0a\x09\x09self -> #exportPackageEpilogueOf:on:\x0a\x09}",
-messageSends: ["->"],
-referencedClasses: ["PluggableExporter"]
 }),
 smalltalk.Exporter);
 
@@ -1632,35 +1569,6 @@ referencedClasses: ["Exporter"]
 }),
 smalltalk.PackageHandler);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "oldCommit:",
-category: 'committing',
-fn: function (aPackage){
-var self=this;
-function $PluggableExporter(){return smalltalk.PluggableExporter||(typeof PluggableExporter=="undefined"?nil:PluggableExporter)}
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-_st(self._commitChannels())._do_displayingProgress_((function(commitStrategyFactory){
-var fileContents,commitStrategy;
-return smalltalk.withContext(function($ctx2) {
-commitStrategy=_st(commitStrategyFactory)._value_(aPackage);
-commitStrategy;
-fileContents=_st($String())._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st($PluggableExporter())._forRecipe_(_st(commitStrategy)._key()))._exportPackage_on_(aPackage,stream);
-}, function($ctx3) {$ctx3.fillBlock({stream:stream},$ctx2)})}));
-fileContents;
-return self._ajaxPutAt_data_(_st(commitStrategy)._value(),fileContents);
-}, function($ctx2) {$ctx2.fillBlock({commitStrategyFactory:commitStrategyFactory,fileContents:fileContents,commitStrategy:commitStrategy},$ctx1)})}),"Committing package ".__comma(_st(aPackage)._name()));
-return self}, function($ctx1) {$ctx1.fill(self,"oldCommit:",{aPackage:aPackage},smalltalk.PackageHandler)})},
-args: ["aPackage"],
-source: "oldCommit: aPackage\x0a\x09\x0a\x09self commitChannels\x0a\x09\x09do: [ :commitStrategyFactory || fileContents commitStrategy |\x0a\x09\x09\x09commitStrategy := commitStrategyFactory value: aPackage.\x0a\x09\x09\x09fileContents := String streamContents: [ :stream |\x0a\x09\x09\x09\x09(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].\x0a\x09\x09\x09self ajaxPutAt: commitStrategy value data: fileContents ]\x0a\x09\x09displayingProgress: 'Committing package ', aPackage name",
-messageSends: ["do:displayingProgress:", "value:", "streamContents:", "exportPackage:on:", "forRecipe:", "key", "ajaxPutAt:data:", "value", ",", "name", "commitChannels"],
-referencedClasses: ["PluggableExporter", "String"]
-}),
-smalltalk.PackageHandler);
-
 
 
 smalltalk.addClass('AmdPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
@@ -2199,144 +2107,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.AmdPackageTransport.klass);
-
-
-smalltalk.addClass('PluggableExporter', smalltalk.Object, ['recipe'], 'Importer-Exporter');
-smalltalk.PluggableExporter.comment="I am an engine for exporting structured data on a Stream.\x0a\x0aMy instances are created using\x0a  PluggableExporter forRecipe: aRecipe,\x0awhere recipe is structured description of the exporting algorithm (see `ExportRecipeInterpreter`).\x0a\x0aThe actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.\x0a\x0a\x0aI am used to export amber packages, so I have a convenience method\x0a`exportPackage: aPackage on: aStream`\x0awhich exports `aPackage` using the `recipe`\x0a(it is otherwise no special, so it may be renamed to export:on:)";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportAllPackages",
-category: 'fileOut',
-fn: function (){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($String())._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st($Smalltalk())._current())._packages())._do_((function(pkg){
-return smalltalk.withContext(function($ctx3) {
-return self._exportPackage_on_(pkg,stream);
-}, function($ctx3) {$ctx3.fillBlock({pkg:pkg},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"exportAllPackages",{},smalltalk.PluggableExporter)})},
-args: [],
-source: "exportAllPackages\x0a\x09\x22Export all packages in the system.\x22\x0a\x0a\x09^String streamContents: [:stream |\x0a\x09\x09Smalltalk current packages do: [:pkg |\x0a\x09\x09self exportPackage: pkg on: stream]]",
-messageSends: ["streamContents:", "do:", "exportPackage:on:", "packages", "current"],
-referencedClasses: ["Smalltalk", "String"]
-}),
-smalltalk.PluggableExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "exportPackage:on:",
-category: 'fileOut',
-fn: function (aPackage,aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._interpreter())._interpret_for_on_(self._recipe(),aPackage,aStream);
-return self}, function($ctx1) {$ctx1.fill(self,"exportPackage:on:",{aPackage:aPackage,aStream:aStream},smalltalk.PluggableExporter)})},
-args: ["aPackage", "aStream"],
-source: "exportPackage: aPackage on: aStream\x0a\x09self interpreter interpret: self recipe for: aPackage on: aStream",
-messageSends: ["interpret:for:on:", "recipe", "interpreter"],
-referencedClasses: []
-}),
-smalltalk.PluggableExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter",
-category: 'accessing',
-fn: function (){
-var self=this;
-function $ExportRecipeInterpreter(){return smalltalk.ExportRecipeInterpreter||(typeof ExportRecipeInterpreter=="undefined"?nil:ExportRecipeInterpreter)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($ExportRecipeInterpreter())._new();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter",{},smalltalk.PluggableExporter)})},
-args: [],
-source: "interpreter\x0a\x09^ ExportRecipeInterpreter new",
-messageSends: ["new"],
-referencedClasses: ["ExportRecipeInterpreter"]
-}),
-smalltalk.PluggableExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@recipe"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"recipe",{},smalltalk.PluggableExporter)})},
-args: [],
-source: "recipe\x0a\x09^recipe",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.PluggableExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "recipe:",
-category: 'accessing',
-fn: function (anArray){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@recipe"]=anArray;
-return self}, function($ctx1) {$ctx1.fill(self,"recipe:",{anArray:anArray},smalltalk.PluggableExporter)})},
-args: ["anArray"],
-source: "recipe: anArray\x0a\x09recipe := anArray",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.PluggableExporter);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "forRecipe:",
-category: 'instance creation',
-fn: function (aRecipe){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._recipe_(aRecipe);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"forRecipe:",{aRecipe:aRecipe},smalltalk.PluggableExporter.klass)})},
-args: ["aRecipe"],
-source: "forRecipe: aRecipe\x0a\x09^self new recipe: aRecipe; yourself",
-messageSends: ["recipe:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.PluggableExporter.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "ownClassesOfPackage:",
-category: 'convenience',
-fn: function (package_){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(package_)._sortedClasses())._asSet();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"ownClassesOfPackage:",{package_:package_},smalltalk.PluggableExporter.klass)})},
-args: ["package"],
-source: "ownClassesOfPackage: package\x0a\x09\x22Export classes in dependency order.\x0a\x09Update (issue #171): Remove duplicates for export\x22\x0a\x09^package sortedClasses asSet",
-messageSends: ["asSet", "sortedClasses"],
-referencedClasses: []
-}),
-smalltalk.PluggableExporter.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
