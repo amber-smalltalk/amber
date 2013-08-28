@@ -2068,7 +2068,7 @@ run: aCollection
 
 selectAllCategories
 	self packages do: [:each |
-		(selectedCategories includes: each) ifFalse: [
+		(self selectedCategories includes: each) ifFalse: [
 			self selectedCategories add: each]].
 	self
 		updateCategoriesList;
@@ -2082,6 +2082,11 @@ selectAllClasses
 	self
 		updateCategoriesList;
 		updateClassesList
+!
+
+selectDefaultTests
+	self selectedCategories isEmpty & self selectedClasses isEmpty
+		ifTrue: [ self selectAllCategories; selectAllClasses ]
 !
 
 toggleCategory: aCategory
@@ -2130,9 +2135,10 @@ printTotal
 
 renderBoxOn: html
 	self
-	renderCategoriesOn: html;
-	renderClassesOn: html;
-	renderResultsOn: html
+		renderCategoriesOn: html;
+		renderClassesOn: html;
+		renderResultsOn: html;
+		selectDefaultTests
 !
 
 renderButtonsOn: html

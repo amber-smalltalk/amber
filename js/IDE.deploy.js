@@ -4848,9 +4848,10 @@ var $1,$2;
 $1=self;
 _st($1)._renderCategoriesOn_(html);
 _st($1)._renderClassesOn_(html);
-$2=_st($1)._renderResultsOn_(html);
+_st($1)._renderResultsOn_(html);
+$2=_st($1)._selectDefaultTests();
 return self}, function($ctx1) {$ctx1.fill(self,"renderBoxOn:",{html:html},smalltalk.TestRunner)})},
-messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:"]}),
+messageSends: ["renderCategoriesOn:", "renderClassesOn:", "renderResultsOn:", "selectDefaultTests"]}),
 smalltalk.TestRunner);
 
 smalltalk.addMethod(
@@ -5001,7 +5002,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3;
 _st(self._packages())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(self["@selectedCategories"])._includes_(each);
+$1=_st(self._selectedCategories())._includes_(each);
 if(! smalltalk.assert($1)){
 return _st(self._selectedCategories())._add_(each);
 };
@@ -5032,6 +5033,24 @@ _st($2)._updateCategoriesList();
 $3=_st($2)._updateClassesList();
 return self}, function($ctx1) {$ctx1.fill(self,"selectAllClasses",{},smalltalk.TestRunner)})},
 messageSends: ["do:", "ifFalse:", "add:", "selectedClasses", "includes:", "classes", "updateCategoriesList", "updateClassesList"]}),
+smalltalk.TestRunner);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectDefaultTests",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(_st(self._selectedCategories())._isEmpty()).__and(_st(self._selectedClasses())._isEmpty());
+if(smalltalk.assert($1)){
+$2=self;
+_st($2)._selectAllCategories();
+$3=_st($2)._selectAllClasses();
+$3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"selectDefaultTests",{},smalltalk.TestRunner)})},
+messageSends: ["ifTrue:", "selectAllCategories", "selectAllClasses", "&", "isEmpty", "selectedClasses", "selectedCategories"]}),
 smalltalk.TestRunner);
 
 smalltalk.addMethod(
