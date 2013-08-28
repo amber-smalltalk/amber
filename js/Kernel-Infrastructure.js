@@ -1208,8 +1208,24 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastr
 smalltalk.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, ['transport'], 'Kernel-Infrastructure');
 smalltalk.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "basicTransport",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.transport;
+return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},smalltalk.Package)})},
+args: [],
+source: "basicTransport\x0a\x09\x22Answer the transport literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.transport>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
@@ -1422,15 +1438,43 @@ smalltalk.Package);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "withDefaultTransport",
+selector: "transport",
 category: 'accessing',
 fn: function (){
 var self=this;
+function $PackageTransport(){return smalltalk.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 return smalltalk.withContext(function($ctx1) { 
-return self.withDefaultTransport();
-return self}, function($ctx1) {$ctx1.fill(self,"withDefaultTransport",{},smalltalk.Package)})},
+var $2,$3,$4,$1;
+$2=self["@transport"];
+if(($receiver = $2) == nil || $receiver == undefined){
+$3=_st($PackageTransport())._fromJson_(self._basicTransport());
+_st($3)._package_(self);
+$4=_st($3)._yourself();
+self["@transport"]=$4;
+$1=self["@transport"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
 args: [],
-source: "withDefaultTransport\x0a\x09<return self.withDefaultTransport()>",
+source: "transport\x0a\x09^ transport ifNil: [ \x0a\x09\x09transport := (PackageTransport fromJson: self basicTransport)\x0a\x09\x09\x09package: self;\x0a\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "package:", "fromJson:", "basicTransport", "yourself"],
+referencedClasses: ["PackageTransport"]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transport:",
+category: 'accessing',
+fn: function (aPackageTransport){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@transport"]=aPackageTransport;
+return self}, function($ctx1) {$ctx1.fill(self,"transport:",{aPackageTransport:aPackageTransport},smalltalk.Package)})},
+args: ["aPackageTransport"],
+source: "transport: aPackageTransport\x0a\x09transport := aPackageTransport",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1891,24 +1935,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Smalltalk)
 args: [],
 source: "classes\x0a\x09<return self.classes()>",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Smalltalk);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "createDefaultPackage:",
-category: 'packages',
-fn: function (packageName){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._createPackage_(packageName))._withDefaultTransport();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"createDefaultPackage:",{packageName:packageName},smalltalk.Smalltalk)})},
-args: ["packageName"],
-source: "createDefaultPackage: packageName\x0a\x09\x22Create and bind a new package with given name and default transport type and return it.\x22\x0a\x09^ (self createPackage: packageName) withDefaultTransport",
-messageSends: ["withDefaultTransport", "createPackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);

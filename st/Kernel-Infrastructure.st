@@ -452,7 +452,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'extension'
+	instanceVariableNames: 'transport'
 	package: 'Kernel-Infrastructure'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -486,8 +486,21 @@ organization
 	^ self basicAt: 'organization'
 !
 
-withDefaultTransport
-	<return self.withDefaultTransport()>
+transport
+	^ transport ifNil: [ 
+		transport := (PackageTransport fromJson: self basicTransport)
+			package: self;
+			yourself ]
+!
+
+basicTransport
+	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+	
+	<return self.transport>
+!
+
+transport: aPackageTransport
+	transport := aPackageTransport
 ! !
 
 !Package methodsFor: 'classes'!
@@ -831,11 +844,6 @@ globalJsVariables
 ! !
 
 !Smalltalk methodsFor: 'packages'!
-
-createDefaultPackage: packageName
-	"Create and bind a new package with given name and default transport type and return it."
-	^ (self createPackage: packageName) withDefaultTransport
-!
 
 deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
