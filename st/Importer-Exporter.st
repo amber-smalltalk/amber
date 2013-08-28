@@ -530,51 +530,6 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #MethodCategory
-	instanceVariableNames: 'methods name theClass'
-	package: 'Importer-Exporter'!
-!MethodCategory commentStamp!
-I am an abstraction for a method category in a class / metaclass.
-
-I know of my class, name and methods.
-I am used when exporting a package.!
-
-!MethodCategory methodsFor: 'accessing'!
-
-methods
-	^methods
-!
-
-methods: aCollection
-	methods := aCollection
-!
-
-name
-	^name
-!
-
-name: aString
-	name := aString
-!
-
-theClass
-	^theClass
-!
-
-theClass: aClass
-	theClass := aClass
-! !
-
-!MethodCategory class methodsFor: 'not yet classified'!
-
-name: aString theClass: aClass methods: anArray
-	^self new
-		name: aString;
-		theClass: aClass;
-		methods: anArray;
-		yourself
-! !
-
 InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
