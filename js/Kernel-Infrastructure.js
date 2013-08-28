@@ -1440,45 +1440,6 @@ smalltalk.Package);
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
 smalltalk.method({
-selector: "load:",
-category: 'loading-storing',
-fn: function (aPackageName){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._deprecatedAPI();
-self._load_prefix_(aPackageName,_st(self._defaultCommitPathJs()).__comma("/"));
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},smalltalk.Package.klass)})},
-args: ["aPackageName"],
-source: "load: aPackageName\x0a\x09self deprecatedAPI.\x0a\x09self load: aPackageName prefix: self defaultCommitPathJs, '/'",
-messageSends: ["deprecatedAPI", "load:prefix:", ",", "defaultCommitPathJs"],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "load:prefix:",
-category: 'loading-storing',
-fn: function (aPackageName,aPrefix){
-var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-return smalltalk.withContext(function($ctx1) { 
-self._deprecatedAPI();
-_st($PlatformInterface())._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(_st(_st(aPrefix).__comma(aPackageName)).__comma(".js")),"dataType".__minus_gt("script"),"success".__minus_gt((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($Package())._named_(aPackageName))._setupClasses();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
-return self}, function($ctx1) {$ctx1.fill(self,"load:prefix:",{aPackageName:aPackageName,aPrefix:aPrefix},smalltalk.Package.klass)})},
-args: ["aPackageName", "aPrefix"],
-source: "load: aPackageName prefix: aPrefix\x0a\x09self deprecatedAPI.\x0a\x09PlatformInterface ajax: #{\x0a\x09\x09'url' -> (aPrefix , aPackageName , '.js').\x0a\x09\x09'dataType' -> 'script'.\x0a\x09\x09'success' -> [\x0a\x09\x09\x09(Package named: aPackageName) setupClasses ]\x0a\x09}",
-messageSends: ["deprecatedAPI", "ajax:", "->", ",", "setupClasses", "named:"],
-referencedClasses: ["Package", "PlatformInterface"]
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "named:",
 category: 'accessing',
 fn: function (aPackageName){
