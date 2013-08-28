@@ -66,9 +66,6 @@ function handle_options(optionsArray, amber_dir) {
 				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
 				defaults.closure_full = true;
 				break;
-			case '-d':
-				defaults.deploy = true;
-				break;
 			case '-D':
 				defaults.output_dir = optionsArray.shift();
 				break;
@@ -165,10 +162,6 @@ function print_usage() {
 	console.log('     Using Closure compiler found at ~/compiler.jar');
 	console.log('');
 	console.log('  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS');
-	console.log('');
-	console.log('  -d');
-	console.log('     Additionally export code for deploy - stripped from source etc.');
-	console.log('     Uses suffix ".deploy.js" in addition to any explicit suffic set by -s.');
 	console.log('');
 	console.log('  -D');
 	console.log('     Specifies the output directory for all generated .js files.');
