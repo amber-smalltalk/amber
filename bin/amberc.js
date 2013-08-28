@@ -530,7 +530,7 @@ AmberC.prototype.category_export = function() {
 		var smalltalk = defaults.smalltalk;
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
-		packageObject._amdNamespace_(defaults.amd_namespace);
+		packageObject._transport()._namespace_(defaults.amd_namespace);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
 			smalltalk.AmdExporter._default()._exportPackage_on_(packageObject, stream); }), function(err) {
 				callback(null, null);
