@@ -11,6 +11,17 @@ Use `#exportPackage:on:` to export a given package on a Stream.!
 
 !AbstractExporter methodsFor: 'accessing'!
 
+extensionMethodsOfPackage: aPackage
+	| result |
+	
+	result := OrderedCollection new.
+	
+	(self extensionProtocolsOfPackage: aPackage) do: [ :each |
+		result addAll: each methods ].
+		
+	^ result
+!
+
 extensionProtocolsOfPackage: aPackage
 	| extensionName result |
 	
@@ -27,17 +38,6 @@ extensionProtocolsOfPackage: aPackage
 				result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].
 
 	^result
-!
-
-extensionMethodsOfPackage: aPackage
-	| result |
-	
-	result := OrderedCollection new.
-	
-	(self extensionProtocolsOfPackage: aPackage) do: [ :each |
-		result addAll: each methods ].
-		
-	^ result
 ! !
 
 !AbstractExporter methodsFor: 'convenience'!
@@ -205,34 +205,6 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '!!'
 !
 
-exportPackageDefinitionOf: aPackage on: aStream
-	aStream
-		nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!!';
-		lf
-!
-
-exportProtocolEpilogueOf: aProtocol on: aStream
-	aStream nextPutAll: ' !!'; lf; lf
-!
-
-exportProtocolPrologueOf: aProtocol on: aStream
-	aStream
-		nextPutAll: '!!', (self classNameFor: aProtocol theClass);
-		nextPutAll: ' methodsFor: ''', aProtocol name, '''!!'
-!
-
-exportProtocol: aProtocol on: aStream
-	self exportProtocolPrologueOf: aProtocol on: aStream.
-	aProtocol methods do: [ :method | 
-		self exportMethod: method on: aStream ].
-	self exportProtocolEpilogueOf: aProtocol on: aStream
-!
-
-exportProtocols: aCollection on: aStream
-	aCollection do: [ :each |
-		self exportProtocol: each on: aStream ]
-!
-
 exportPackage: aPackage on: aStream
 
 	self exportPackageDefinitionOf: aPackage on: aStream.
@@ -253,6 +225,34 @@ exportPackage: aPackage on: aStream
 	self 
 		exportProtocols: (self extensionProtocolsOfPackage: aPackage)
 		on: aStream
+!
+
+exportPackageDefinitionOf: aPackage on: aStream
+	aStream
+		nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!!';
+		lf
+!
+
+exportProtocol: aProtocol on: aStream
+	self exportProtocolPrologueOf: aProtocol on: aStream.
+	aProtocol methods do: [ :method | 
+		self exportMethod: method on: aStream ].
+	self exportProtocolEpilogueOf: aProtocol on: aStream
+!
+
+exportProtocolEpilogueOf: aProtocol on: aStream
+	aStream nextPutAll: ' !!'; lf; lf
+!
+
+exportProtocolPrologueOf: aProtocol on: aStream
+	aStream
+		nextPutAll: '!!', (self classNameFor: aProtocol theClass);
+		nextPutAll: ' methodsFor: ''', aProtocol name, '''!!'
+!
+
+exportProtocols: aCollection on: aStream
+	aCollection do: [ :each |
+		self exportProtocol: each on: aStream ]
 ! !
 
 AbstractExporter subclass: #Exporter
@@ -387,6 +387,28 @@ exportMethod: aMethod on: aStream
 		nextPutAll: ');';lf;lf
 !
 
+exportPackage: aPackage on: aStream
+	
+	self 
+		exportPackagePrologueOf: aPackage on: aStream;
+		exportPackageDefinitionOf: aPackage on: aStream;
+		exportPackageTransportOf: aPackage on: aStream.
+	
+	aPackage sortedClasses do: [ :each |
+		self exportDefinitionOf: each on: aStream.
+		each ownMethods do: [ :method |
+			self exportMethod: method on: aStream ].
+			
+		self exportMetaDefinitionOf: each on: aStream.
+		each class ownMethods do: [ :method |
+			self exportMethod: method on: aStream ] ].
+			
+	(self extensionMethodsOfPackage: aPackage) do: [ :each |
+		self exportMethod: each on: aStream ].
+		
+	self exportPackageEpilogueOf: aPackage on: aStream
+!
+
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addPackage(';
@@ -417,28 +439,6 @@ exportPackageTransportOf: aPackage on: aStream
 			nextPutAll: json;
 			nextPutAll: ';';
 			lf ]
-!
-
-exportPackage: aPackage on: aStream
-	
-	self 
-		exportPackagePrologueOf: aPackage on: aStream;
-		exportPackageDefinitionOf: aPackage on: aStream;
-		exportPackageTransportOf: aPackage on: aStream.
-	
-	aPackage sortedClasses do: [ :each |
-		self exportDefinitionOf: each on: aStream.
-		each ownMethods do: [ :method |
-			self exportMethod: method on: aStream ].
-			
-		self exportMetaDefinitionOf: each on: aStream.
-		each class ownMethods do: [ :method |
-			self exportMethod: method on: aStream ] ].
-			
-	(self extensionMethodsOfPackage: aPackage) do: [ :each |
-		self exportMethod: each on: aStream ].
-		
-	self exportPackageEpilogueOf: aPackage on: aStream
 ! !
 
 Exporter subclass: #AmdExporter
@@ -576,16 +576,16 @@ name: aString
 	name := aString
 !
 
+sortedMethods
+	^ self methods sorted: [ :a :b | a selector <= b selector ]
+!
+
 theClass
 	^theClass
 !
 
 theClass: aClass
 	theClass := aClass
-!
-
-sortedMethods
-	^ self methods sorted: [ :a :b | a selector <= b selector ]
 ! !
 
 !ExportMethodProtocol class methodsFor: 'instance creation'!
@@ -680,6 +680,15 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 
 !PackageHandler methodsFor: 'accessing'!
 
+chunkContentsFor: aPackage
+	^ String streamContents: [ :str |
+		self chunkExporter exportPackage: aPackage on: str ]
+!
+
+chunkExporterClass
+	^ ChunkExporter
+!
+
 commitPathJsFor: aPackage
 	self subclassResponsibility
 !
@@ -688,22 +697,13 @@ commitPathStFor: aPackage
 	self subclassResponsibility
 !
 
-exporterClass
-	^ Exporter
-!
-
-chunkExporterClass
-	^ ChunkExporter
-!
-
-chunkContentsFor: aPackage
-	^ String streamContents: [ :str |
-		self chunkExporter exportPackage: aPackage on: str ]
-!
-
 contentsFor: aPackage
 	^ String streamContents: [ :str |
 		self exporter exportPackage: aPackage on: str ]
+!
+
+exporterClass
+	^ Exporter
 ! !
 
 !PackageHandler methodsFor: 'committing'!
@@ -717,6 +717,18 @@ commit: aPackage
 		displayingProgress: 'Committing package ', aPackage name
 !
 
+commitJsFileFor: aPackage
+	self 
+		ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'
+		data: (self contentsFor: aPackage)
+!
+
+commitStFileFor: aPackage
+	self 
+		ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'
+		data: (self chunkContentsFor: aPackage)
+!
+
 oldCommit: aPackage
 	
 	self commitChannels
@@ -726,18 +738,6 @@ oldCommit: aPackage
 				(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].
 			self ajaxPutAt: commitStrategy value data: fileContents ]
 		displayingProgress: 'Committing package ', aPackage name
-!
-
-commitStFileFor: aPackage
-	self 
-		ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'
-		data: (self chunkContentsFor: aPackage)
-!
-
-commitJsFileFor: aPackage
-	self 
-		ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'
-		data: (self contentsFor: aPackage)
 ! !
 
 !PackageHandler methodsFor: 'factory'!
@@ -832,7 +832,7 @@ toUrl: aString
 !AmdPackageHandler class methodsFor: 'commit paths'!
 
 defaultNamespace
-	^ Smalltalk current defaultAMDNamespace
+	^ Smalltalk current defaultAmdNamespace
 !
 
 defaultNamespace: aString
@@ -847,7 +847,7 @@ resetCommitPaths
 
 initialize
 	super initialize.
-	self registerFor: 'amd'
+	self registerFor: AMDPackageTransport type
 ! !
 
 PackageHandler subclass: #LegacyPackageHandler
@@ -954,6 +954,61 @@ initialize
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
+! !
+
+Object subclass: #PackageTransport
+	instanceVariableNames: ''
+	package: 'Importer-Exporter'!
+
+!PackageTransport methodsFor: 'accessing'!
+
+type
+	^ self class type
+!
+
+commitHandler
+	^ PackageHandler for: self type
+! !
+
+!PackageTransport class methodsFor: 'accessing'!
+
+type
+	"Override in subclasses"
+	^ nil
+! !
+
+PackageTransport subclass: #AmdPackageTransport
+	instanceVariableNames: 'namespace'
+	package: 'Importer-Exporter'!
+
+!AmdPackageTransport methodsFor: 'accessing'!
+
+namespace
+	^ namespace ifNil: [ self defaultNamespace ]
+!
+
+namespace: aString
+	namespace := aString
+! !
+
+!AmdPackageTransport methodsFor: 'defaults'!
+
+defaultNamespace
+	^ Smalltalk current defaultAmdNamespace
+! !
+
+!AmdPackageTransport class methodsFor: 'accessing'!
+
+type
+	^ 'amd'
+! !
+
+!AmdPackageTransport class methodsFor: 'instance creation'!
+
+namespace: aString
+	^ self new
+		namespace: aString;
+		yourself
 ! !
 
 Object subclass: #PluggableExporter
