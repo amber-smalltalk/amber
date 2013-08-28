@@ -3,7 +3,7 @@ smalltalk.addPackage('Kernel-Infrastructure');
 smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
-smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript.";
+smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe possible inspectors are Transcript and Inspector - the default is the Inspector";
 
 smalltalk.InspectorHandler.klass.iVarNames = ['inspector'];
 smalltalk.addMethod(
@@ -30,12 +30,12 @@ selector: "inspector",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@inspector"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@inspector"]=$Transcript();
+self["@inspector"]=$Inspector();
 $1=self["@inspector"];
 } else {
 $1=$2;
@@ -43,9 +43,9 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspector",{},smalltalk.InspectorHandler.klass)})},
 args: [],
-source: "inspector\x0a\x09^ inspector ifNil: [ inspector := Transcript ]",
+source: "inspector\x0a\x09^ inspector ifNil: [ inspector := Inspector ]",
 messageSends: ["ifNil:"],
-referencedClasses: ["Transcript"]
+referencedClasses: ["Inspector"]
 }),
 smalltalk.InspectorHandler.klass);
 

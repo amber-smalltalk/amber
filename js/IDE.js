@@ -5020,13 +5020,14 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=self._new();
 _st($2)._inspect_(anObject);
+_st($2)._open();
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector.klass)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09^self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
-messageSends: ["inspect:", "new", "yourself"],
+source: "inspect: anObject\x0a\x09^self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open;\x0a\x09\x09yourself",
+messageSends: ["inspect:", "new", "open", "yourself"],
 referencedClasses: []
 }),
 smalltalk.Inspector.klass);

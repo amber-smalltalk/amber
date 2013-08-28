@@ -7,14 +7,14 @@ I am responsible for inspecting object.
 
 My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
 
-The default inspector object is the transcript.!
+The possible inspectors are Transcript and Inspector - the default is the Inspector!
 
 InspectorHandler class instanceVariableNames: 'inspector'!
 
 !InspectorHandler class methodsFor: 'accessing'!
 
 inspector
-	^ inspector ifNil: [ inspector := Transcript ]
+	^ inspector ifNil: [ inspector := Inspector ]
 ! !
 
 !InspectorHandler class methodsFor: 'registration'!

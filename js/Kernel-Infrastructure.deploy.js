@@ -23,12 +23,12 @@ smalltalk.method({
 selector: "inspector",
 fn: function (){
 var self=this;
-function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@inspector"];
 if(($receiver = $2) == nil || $receiver == undefined){
-self["@inspector"]=$Transcript();
+self["@inspector"]=$Inspector();
 $1=self["@inspector"];
 } else {
 $1=$2;
