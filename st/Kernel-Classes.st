@@ -143,6 +143,22 @@ organization
 	^ self basicAt: 'organization'
 !
 
+ownMethods
+	"Answer the methods of the receiver that are not package extensions"
+
+	^ (self ownProtocols 
+		inject: OrderedCollection new
+		into: [ :acc :each | acc, (self methodsInProtocol: each) ])
+			sorted: [ :a :b | a selector <= b selector ]
+!
+
+ownProtocols
+	"Answer the protocols of the receiver that are not package extensions"
+
+	^ self protocols reject: [ :each |
+		each match: '^\*' ]
+!
+
 protocols
 	^ self organization elements sorted
 !
@@ -685,7 +701,7 @@ basicSwapClassNames: aClass with: anotherClass
 
 createPackageNamed: aString
 	^ Package named: aString ifAbsent: [
-		Smalltalk current createDefaultPackage: aString ]
+		Smalltalk current createPackage: aString ]
 !
 
 rawRenameClass: aClass to: aString
