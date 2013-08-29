@@ -461,7 +461,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'extension'
+	instanceVariableNames: 'transport'
 	package: 'Kernel-Infrastructure'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -483,6 +483,12 @@ You can fetch a package from the server:
 
 !Package methodsFor: 'accessing'!
 
+basicTransport
+	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+	
+	<return self.transport>
+!
+
 name
 	<return self.pkgName>
 !
@@ -495,14 +501,21 @@ organization
 	^ self basicAt: 'organization'
 !
 
-withDefaultTransport
-	<return self.withDefaultTransport()>
+transport
+	^ transport ifNil: [ 
+		transport := (PackageTransport fromJson: self basicTransport)
+			package: self;
+			yourself ]
+!
+
+transport: aPackageTransport
+	transport := aPackageTransport
 ! !
 
 !Package methodsFor: 'classes'!
 
 classes
-	^ self organization elements
+	^ self organization elements asSet asArray
 !
 
 setupClasses
@@ -514,7 +527,7 @@ setupClasses
 sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
-	^self class sortedClasses: self classes
+	^ self class sortedClasses: self classes
 ! !
 
 !Package methodsFor: 'dependencies'!
@@ -571,23 +584,6 @@ named: aPackageName
 named: aPackageName ifAbsent: aBlock
 
 	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
-! !
-
-!Package class methodsFor: 'loading-storing'!
-
-load: aPackageName
-	self deprecatedAPI.
-	self load: aPackageName prefix: self defaultCommitPathJs, '/'
-!
-
-load: aPackageName prefix: aPrefix
-	self deprecatedAPI.
-	PlatformInterface ajax: #{
-		'url' -> (aPrefix , aPackageName , '.js').
-		'dataType' -> 'script'.
-		'success' -> [
-			(Package named: aPackageName) setupClasses ]
-	}
 ! !
 
 !Package class methodsFor: 'sorting'!
@@ -759,7 +755,11 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 !Smalltalk methodsFor: 'accessing'!
 
 at: aString
-	<return self[aString]>
+	^ self basicAt: aString
+!
+
+at: aString put: anObject
+	^ self basicAt: aString put: anObject
 !
 
 parse: aString
@@ -772,6 +772,10 @@ parse: aString
 	^ result
 		source: aString;
 		yourself
+!
+
+pseudoVariableNames
+	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
 !
 
 readJSObject: anObject
@@ -792,27 +796,21 @@ version
 !Smalltalk methodsFor: 'accessing amd'!
 
 amdRequire
-	^ self basicAt: 'amdRequire'
+	^ self at: 'amdRequire'
 !
 
-defaultAMDNamespace
-	^ self basicAt: 'defaultAMDNamespace'
+defaultAmdNamespace
+	^ self at: 'defaultAMDNamespace'
 !
 
-defaultAMDNamespace: aString
-	self basicAt: 'defaultAMDNamespace' put: aString
+defaultAmdNamespace: aString
+	self at: 'defaultAMDNamespace' put: aString
 ! !
 
 !Smalltalk methodsFor: 'classes'!
 
 classes
 	<return self.classes()>
-!
-
-deleteClass: aClass
-	"Deletes a class by deleting its binding only. Use #removeClass instead"
-	
-	<self.removeClass(aClass)>
 !
 
 removeClass: aClass
@@ -858,16 +856,9 @@ globalJsVariables
 
 !Smalltalk methodsFor: 'packages'!
 
-createDefaultPackage: packageName
-	"Create and bind a new package with given name and default transport type and return it."
-	^ (self createPackage: packageName) withDefaultTransport
-!
-
-deletePackage: packageName
-	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
-	To remove a package, use #removePackage instead."
-
-	<delete smalltalk.packages[packageName]>
+createPackage: packageName
+	"Create and bind a new bare package with given name and return it."
+	<return smalltalk.addPackage(packageName)>
 !
 
 packageAt: packageName
@@ -882,10 +873,6 @@ packages
 	"Return all Package instances in the system."
 
 	<return self.packages.all()>
-!
-
-pseudoVariableNames
-	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
 !
 
 removePackage: packageName
@@ -904,7 +891,7 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	(self basicAt: 'packages') at: newName put: pkg.
+	(self at: 'packages') at: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
 ! !
@@ -915,17 +902,25 @@ basicParse: aString
 	<return smalltalk.parser.parse(aString)>
 !
 
-createPackage: packageName
-	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
-!
-
 createPackage: packageName properties: aDict
 	"Needed to import .st files: they begin with this call."
 	self deprecatedAPI.
 	
 	aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
 	^ self createPackage: packageName
+!
+
+deleteClass: aClass
+	"Deletes a class by deleting its binding only. Use #removeClass instead"
+	
+	<self.removeClass(aClass)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+	<delete self.packages[packageName]>
 ! !
 
 !Smalltalk methodsFor: 'testing'!
@@ -936,8 +931,6 @@ isSmalltalkObject: anObject
 	
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
-
-Smalltalk class instanceVariableNames: 'current'!
 
 !Smalltalk class methodsFor: 'accessing'!
 

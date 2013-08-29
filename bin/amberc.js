@@ -156,13 +156,11 @@ var createDefaults = function(amber_dir, finished_callback){
 		'jsGlobals': [],
 		'amd_namespace': 'amber_core',
 		'closure': false,
-		'closure_parts': false,
 		'closure_full': false,
 		'closure_options': ' --language_in=ECMASCRIPT5 ',
 		'suffix': '',
 		'loadsuffix': '',
 		'suffix_used': '',
-		'deploy': false,
 		'libraries': [],
 		'compile': [],
 		'compiled': [],
@@ -184,10 +182,6 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	console.time('Compile Time');
 	if (undefined !== finished_callback) {
 		configuration.finished_callback = finished_callback;
-	}
-
-	if (configuration.closure || configuration.closure_parts || configuration.closure_full) {
-		configuration.deploy = true;
 	}
 
 	if (configuration.amd_namespace.length == 0) {
@@ -241,7 +235,6 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 			if (null !== error) {
 				console.warn('java is not installed but is needed for running the Closure compiler (-O, -A or -o flags).');
 				defaults.closure = false;
-				defaults.closure_parts = false;
 				defaults.closure_full = false;
 				callback();
 				return;
@@ -250,7 +243,6 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 				if (!exists) {
 					console.warn('Can not find Closure compiler at: ' + self.closure_jar);
 					defaults.closure = false;
-					defaults.closure_parts = false;
 					defaults.closure_full = false;
 				} else {
 					console.warn('Closure compiler found at: ' + self.closure_jar);
@@ -535,25 +527,14 @@ AmberC.prototype.category_export = function() {
 		var jsFile = category + defaults.suffix_used + '.js';
 		jsFile = path.join(jsFilePath, jsFile);
 		defaults.compiled.push(jsFile);
-		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
-		jsFileDeploy = path.join(jsFilePath, jsFileDeploy);
-
-		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
-			+ ' category ' + category + ' as ' + jsFile
-			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
 		var smalltalk = defaults.smalltalk;
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
-		packageObject._amdNamespace_(defaults.amd_namespace);
+		packageObject._transport()._namespace_(defaults.amd_namespace);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-			pluggableExporter._forRecipe_(smalltalk.Exporter._default()._amdRecipe())._exportPackage_on_(packageObject, stream); }), function(err) {
-			if (defaults.deploy) {
-				fs.writeFile(jsFileDeploy, smalltalk.String._streamContents_(function (stream) {
-					pluggableExporter._forRecipe_(smalltalk.StrippedExporter._default()._amdRecipe())._exportPackage_on_(packageObject, stream); }), callback);
-			} else {
+			smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream); }), function(err) {
 				callback(null, null);
-			}
-		});
+			});
 	}, function(err, result){
 		self.verify();
 	});
@@ -569,12 +550,6 @@ AmberC.prototype.verify = function() {
 	var self = this;
 	// copy array
 	var compiledFiles = this.defaults.compiled.slice(0);
-	// append deploy files if necessary
-	if (true === this.defaults.deploy) {
-		this.defaults.compiled.forEach(function(file) {
-			compiledFiles.push(file.replace(/\.js/g, '.deploy.js'));
-		});
-	}
 
 	async_map(compiledFiles,
 		function(file, callback) {
@@ -615,11 +590,7 @@ AmberC.prototype.compose_js_files = function() {
 
 	if (0 !== defaults.compiled.length) {
 		var compiledFiles = defaults.compiled.slice(0);
-		if (true === defaults.deploy) {
-			compiledFiles = compiledFiles.map(function(file) {
-				return file.replace(/\.js$/g, '.deploy.js');
-			});
-		}
+
 		console.log('Collecting compiled files: ' + compiledFiles);
 		program_files.push.apply(program_files, compiledFiles);
 	}
@@ -681,7 +652,7 @@ AmberC.prototype.compose_js_files = function() {
 
 /**
  * Optimize created JavaScript files with Google Closure compiler depending
- * on the flags: defaults.closure_parts, defaults.closure_full.
+ * on the flag: defaults.closure_full.
  */
 AmberC.prototype.optimize = function() {
 	var defaults = this.defaults;
@@ -694,15 +665,6 @@ AmberC.prototype.optimize = function() {
 		}
 	});
 
-	if (defaults.closure_parts) {
-		console.log('Compiling all js files using Google closure compiler.');
-		defaults.compiled.forEach(function(file) {
-			var deployFile = file.replace(/\.js$/g, '.deploy.js');
-			console.log('Compiling ' + deployFile + ' file using Google closure compiler.');
-			var minifiedName = deployFile.replace(/\.js$/g, '.min.js');
-			self.closure_compile(deployFile, minifiedName, optimization_done.add());
-		});
-	}
 	if (defaults.closure_full && (undefined !== defaults.program)) {
 		var programFile = defaults.program;
 		if (undefined !== defaults.output_dir) {

@@ -21,7 +21,6 @@ module.exports = function(grunt) {
          output_name: 'helloWorld',             // optional
          amd_namespace: 'MyNamespace',          // optional (default: 'amber')
          main_file: 'myMain.js',                // optional
-         deploy: true,                          // optional
          output_suffix: 'mySuffix',             // optional
          library_suffix: '-0.9'                 // optional
        },
@@ -73,9 +72,6 @@ module.exports = function(grunt) {
     var mainFile = data.main_file;
     if (undefined !== mainFile) {
       configuration.mainfile = mainFile;
-    }
-    if (true === data.deploy) {
-      configuration.deploy = true;
     }
     var outputSuffix = data.output_suffix;
     if (undefined !== outputSuffix) {

@@ -712,6 +712,52 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "ownMethods",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._ownProtocols())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
+return smalltalk.withContext(function($ctx2) {
+return _st(acc).__comma(self._methodsInProtocol_(each));
+}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1)})})))._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownMethods",{},smalltalk.Behavior)})},
+args: [],
+source: "ownMethods\x0a\x09\x22Answer the methods of the receiver that are not package extensions\x22\x0a\x0a\x09^ (self ownProtocols \x0a\x09\x09inject: OrderedCollection new\x0a\x09\x09into: [ :acc :each | acc, (self methodsInProtocol: each) ])\x0a\x09\x09\x09sorted: [ :a :b | a selector <= b selector ]",
+messageSends: ["sorted:", "<=", "selector", "inject:into:", "new", ",", "methodsInProtocol:", "ownProtocols"],
+referencedClasses: ["OrderedCollection"]
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ownProtocols",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._protocols())._reject_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._match_("^\x5c*");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ownProtocols",{},smalltalk.Behavior)})},
+args: [],
+source: "ownProtocols\x0a\x09\x22Answer the protocols of the receiver that are not package extensions\x22\x0a\x0a\x09^ self protocols reject: [ :each |\x0a\x09\x09each match: '^\x5c*' ]",
+messageSends: ["reject:", "match:", "protocols"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "protocols",
 category: 'accessing',
 fn: function (){
@@ -1629,13 +1675,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st($Package())._named_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st($Smalltalk())._current())._createDefaultPackage_(aString);
+return _st(_st($Smalltalk())._current())._createPackage_(aString);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPackageNamed:",{aString:aString},smalltalk.ClassBuilder)})},
 args: ["aString"],
-source: "createPackageNamed: aString\x0a\x09^ Package named: aString ifAbsent: [\x0a\x09\x09Smalltalk current createDefaultPackage: aString ]",
-messageSends: ["named:ifAbsent:", "createDefaultPackage:", "current"],
+source: "createPackageNamed: aString\x0a\x09^ Package named: aString ifAbsent: [\x0a\x09\x09Smalltalk current createPackage: aString ]",
+messageSends: ["named:ifAbsent:", "createPackage:", "current"],
 referencedClasses: ["Smalltalk", "Package"]
 }),
 smalltalk.ClassBuilder);

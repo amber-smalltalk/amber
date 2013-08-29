@@ -3,7 +3,42 @@ Object subclass: #AbstractExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
 !AbstractExporter commentStamp!
-I am an abstract exporter for Amber source code.!
+I am an abstract exporter for Amber source code.
+
+## API
+
+Use `#exportPackage:on:` to export a given package on a Stream.!
+
+!AbstractExporter methodsFor: 'accessing'!
+
+extensionMethodsOfPackage: aPackage
+	| result |
+	
+	result := OrderedCollection new.
+	
+	(self extensionProtocolsOfPackage: aPackage) do: [ :each |
+		result addAll: each methods ].
+		
+	^ result
+!
+
+extensionProtocolsOfPackage: aPackage
+	| extensionName result |
+	
+	extensionName := '*', aPackage name.
+	result := OrderedCollection new.
+	
+	"The classes must be loaded since it is extensions only.
+	Therefore sorting (dependency resolution) does not matter here.
+	Not sorting improves the speed by a number of magnitude."
+	
+	Smalltalk current classes do: [ :each |
+		{each. each class} do: [ :behavior |
+			(behavior protocols includes: extensionName) ifTrue: [
+				result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].
+
+	^result
+! !
 
 !AbstractExporter methodsFor: 'convenience'!
 
@@ -22,20 +57,10 @@ classNameFor: aClass
 				ifFalse: [ aClass name ] ]
 ! !
 
-!AbstractExporter methodsFor: 'fileOut'!
+!AbstractExporter methodsFor: 'output'!
 
-recipe
-	"Recipe to export a given package."
-
+exportPackage: aPackage on: aStream
 	self subclassResponsibility
-! !
-
-AbstractExporter class instanceVariableNames: 'default'!
-
-!AbstractExporter class methodsFor: 'instance creation'!
-
-default
-	^ default ifNil: [ default := self new ]
 ! !
 
 AbstractExporter subclass: #ChunkExporter
@@ -54,64 +79,46 @@ extensionCategoriesOfPackage: aPackage
 	| name map result |
 	name := aPackage name.
 	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass |
+	(Package sortedClasses: Smalltalk current classes) do: [ :each |
+		{each. each class} do: [ :aClass |
 			map := Dictionary new.
-			aClass protocolsDo: [:category :methods |
-				category = ('*', name) ifTrue: [ map at: category put: methods ]].
-			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [:category |
-				MethodCategory name: category theClass: aClass methods: (map at: category)]) ]].
+			aClass protocolsDo: [ :category :methods |
+				category = ('*', name) ifTrue: [ map at: category put: methods ] ].
+			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [ :category |
+				MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].
 	^result
 !
 
 methodsOfCategory: aCategory
 	"Issue #143: sort methods alphabetically"
 
-	^(aCategory methods) sorted: [:a :b | a selector <= b selector]
+	^(aCategory methods) sorted: [ :a :b | a selector <= b selector ]
 !
 
 ownCategoriesOfClass: aClass
-	"Answer the protocols of aClassthat are not package extensions"
+	"Answer the protocols of aClass that are not package extensions"
 	
 	"Issue #143: sort protocol alphabetically"
 
 	| map |
 	map := Dictionary new.
-	aClass protocolsDo: [:category :methods |
-		(category match: '^\*') ifFalse: [ map at: category put: methods ]].
-	^(map keys sorted: [:a :b | a <= b ]) collect: [:category |
-		MethodCategory name: category theClass: aClass methods: (map at: category) ]
+	aClass protocolsDo: [ :each :methods |
+		(each match: '^\*') ifFalse: [ map at: each put: methods ] ].
+	^(map keys sorted: [:a :b | a <= b ]) collect: [ :each |
+		MethodCategory name: each theClass: aClass methods: (map at: each) ]
 !
 
 ownCategoriesOfMetaClass: aClass
 	"Issue #143: sort protocol alphabetically"
 
 	^self ownCategoriesOfClass: aClass class
-! !
+!
 
-!ChunkExporter methodsFor: 'fileOut'!
-
-recipe
-	"Export a given package."
-
-	| exportCategoryRecipe |
-	exportCategoryRecipe := {
-		self -> #exportCategoryPrologueOf:on:.
-		{
-			self -> #methodsOfCategory:.
-			self -> #exportMethod:on: }.
-		self -> #exportCategoryEpilogueOf:on: }.
-
-	^{
-		self -> #exportPackageDefinitionOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{ self -> #ownCategoriesOfClass: }, exportCategoryRecipe.
-			self -> #exportMetaDefinitionOf:on:.
-			{ self -> #ownCategoriesOfMetaClass: }, exportCategoryRecipe }.
-		{ self -> #extensionCategoriesOfPackage: }, exportCategoryRecipe
-	}
+ownMethodProtocolsOfClass: aClass
+	"Answer a collection of ExportMethodProtocol object of aClass that are not package extensions"
+	
+	^ aClass ownProtocols collect: [ :each |
+		ExportMethodProtocol name: each theClass: aClass ]
 ! !
 
 !ChunkExporter methodsFor: 'output'!
@@ -165,12 +172,54 @@ exportMethod: aMethod on: aStream
 		nextPutAll: '!!'
 !
 
-exportPackageDefinitionOf: aPackage on: aStream
-	"Chunk format."
+exportPackage: aPackage on: aStream
 
+	self exportPackageDefinitionOf: aPackage on: aStream.
+	
+	aPackage sortedClasses do: [ :each |
+		self exportDefinitionOf: each on: aStream.
+		
+		self 
+			exportProtocols: (self ownMethodProtocolsOfClass: each)
+			on: aStream.
+			
+		self exportMetaDefinitionOf: each on: aStream.
+		
+		self 
+			exportProtocols: (self ownMethodProtocolsOfClass: each class)
+			on: aStream ].
+			
+	self 
+		exportProtocols: (self extensionProtocolsOfPackage: aPackage)
+		on: aStream
+!
+
+exportPackageDefinitionOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'Smalltalk current createPackage: ''', aPackage name, '''!!';
 		lf
+!
+
+exportProtocol: aProtocol on: aStream
+	self exportProtocolPrologueOf: aProtocol on: aStream.
+	aProtocol methods do: [ :method | 
+		self exportMethod: method on: aStream ].
+	self exportProtocolEpilogueOf: aProtocol on: aStream
+!
+
+exportProtocolEpilogueOf: aProtocol on: aStream
+	aStream nextPutAll: ' !!'; lf; lf
+!
+
+exportProtocolPrologueOf: aProtocol on: aStream
+	aStream
+		nextPutAll: '!!', (self classNameFor: aProtocol theClass);
+		nextPutAll: ' methodsFor: ''', aProtocol name, '''!!'
+!
+
+exportProtocols: aCollection on: aStream
+	aCollection do: [ :each |
+		self exportProtocol: each on: aStream ]
 ! !
 
 AbstractExporter subclass: #Exporter
@@ -183,27 +232,9 @@ The generated output is enough to reconstruct the exported data, including Small
 
 ## Use case
 
-I am typically used to save code outside of the Amber runtime (committing to disk, etc.).
-
-## API
-
-Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
+I am typically used to save code outside of the Amber runtime (committing to disk, etc.).!
 
 !Exporter methodsFor: 'accessing'!
-
-extensionMethodsOfPackage: aPackage
-	"Issue #143: sort classes and methods alphabetically"
-
-	| name result |
-	name := aPackage name.
-	result := OrderedCollection new.
-	(Package sortedClasses: Smalltalk current classes) do: [:each |
-		{each. each class} do: [:aClass |
-			result addAll: (((aClass methodDictionary values)
-				sorted: [:a :b | a selector <= b selector])
-				select: [:method | method category = ('*', name)]) ]].
-	^result
-!
 
 ownMethodsOfClass: aClass
 	"Issue #143: sort methods alphabetically"
@@ -227,42 +258,6 @@ classNameFor: aClass
 			aClass isNil
 				ifTrue: [ 'nil' ]
 				ifFalse: [ aClass name ] ]
-! !
-
-!Exporter methodsFor: 'fileOut'!
-
-amdRecipe
-	"Export a given package with amd transport type."
-
-	| result |
-	result := self recipe.
-	result first key: AmdExporter.
-	result last key: AmdExporter.
-	^result
-!
-
-recipe
-	"Export a given package."
-
-	^{
-		self -> #exportPackagePrologueOf:on:.
-		self -> #exportPackageDefinitionOf:on:.
-		self -> #exportPackageTransportOf:on:.
-		{
-			PluggableExporter -> #ownClassesOfPackage:.
-			self -> #exportDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfClass:.
-				self -> #exportMethod:on: }.
-			self -> #exportMetaDefinitionOf:on:.
-			{
-				self -> #ownMethodsOfMetaClass:.
-				self -> #exportMethod:on: } }.
-		{
-			self -> #extensionMethodsOfPackage:.
-			self -> #exportMethod:on: }.
-		self -> #exportPackageEpilogueOf:on:
-	}
 ! !
 
 !Exporter methodsFor: 'output'!
@@ -323,6 +318,28 @@ exportMethod: aMethod on: aStream
 		nextPutAll: ');';lf;lf
 !
 
+exportPackage: aPackage on: aStream
+	
+	self 
+		exportPackagePrologueOf: aPackage on: aStream;
+		exportPackageDefinitionOf: aPackage on: aStream;
+		exportPackageTransportOf: aPackage on: aStream.
+	
+	aPackage sortedClasses do: [ :each |
+		self exportDefinitionOf: each on: aStream.
+		each ownMethods do: [ :method |
+			self exportMethod: method on: aStream ].
+			
+		self exportMetaDefinitionOf: each on: aStream.
+		each class ownMethods do: [ :method |
+			self exportMethod: method on: aStream ] ].
+			
+	(self extensionMethodsOfPackage: aPackage) do: [ :each |
+		self exportMethod: each on: aStream ].
+		
+	self exportPackageEpilogueOf: aPackage on: aStream
+!
+
 exportPackageDefinitionOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addPackage(';
@@ -343,61 +360,22 @@ exportPackagePrologueOf: aPackage on: aStream
 !
 
 exportPackageTransportOf: aPackage on: aStream
-	| json |
-	json := aPackage transportJson.
-	json = 'null' ifFalse: [
-		aStream
-			nextPutAll: 'smalltalk.packages[';
-			nextPutAll: aPackage name asJavascript;
-			nextPutAll: '].transport = ';
-			nextPutAll: json;
-			nextPutAll: ';';
-			lf ]
+	aStream
+		nextPutAll: 'smalltalk.packages[';
+		nextPutAll: aPackage name asJavascript;
+		nextPutAll: '].transport = ';
+		nextPutAll: aPackage transport asJSONString;
+		nextPutAll: ';';
+		lf
 ! !
 
-Exporter subclass: #StrippedExporter
-	instanceVariableNames: ''
+Exporter subclass: #AmdExporter
+	instanceVariableNames: 'namespace'
 	package: 'Importer-Exporter'!
-!StrippedExporter commentStamp!
-I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
+!AmdExporter commentStamp!
+I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.!
 
-!StrippedExporter methodsFor: 'output'!
-
-exportDefinitionOf: aClass on: aStream
-	aStream
-		lf;
-		nextPutAll: 'smalltalk.addClass(';
-		nextPutAll: '''', (self classNameFor: aClass), ''', ';
-		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
-		nextPutAll: ', ['.
-	aClass instanceVariableNames
-		do: [:each | aStream nextPutAll: '''', each, '''']
-		separatedBy: [aStream nextPutAll: ', '].
-	aStream
-		nextPutAll: '], ''';
-		nextPutAll: aClass category, '''';
-		nextPutAll: ');'.
-	aStream lf
-!
-
-exportMethod: aMethod on: aStream
-	aStream
-		nextPutAll: 'smalltalk.addMethod(';lf;
-		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
-		nextPutAll: 'smalltalk.method({';lf;
-		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
-		nextPutAll: 'messageSends: ', aMethod messageSends asJavascript;
-		nextPutAll: '}),';lf;
-		nextPutAll: 'smalltalk.', (self classNameFor: aMethod methodClass);
-		nextPutAll: ');';lf;lf
-! !
-
-Object subclass: #AmdExporter
-	instanceVariableNames: ''
-	package: 'Importer-Exporter'!
-
-!AmdExporter class methodsFor: 'exporting-output'!
+!AmdExporter methodsFor: 'output'!
 
 exportPackageEpilogueOf: aPackage on: aStream
 	aStream
@@ -408,7 +386,7 @@ exportPackageEpilogueOf: aPackage on: aStream
 exportPackagePrologueOf: aPackage on: aStream
 	aStream
 		nextPutAll: 'define("';
-		nextPutAll: (aPackage amdNamespace ifNil: [ 'amber_core' ]); "ifNil: only for LegacyPH, it should not happen with AmdPH"
+		nextPutAll: (self amdNamespaceOfPackage: aPackage);
 		nextPutAll: '/';
 		nextPutAll: aPackage name;
 		nextPutAll: '", ';
@@ -417,13 +395,18 @@ exportPackagePrologueOf: aPackage on: aStream
 		lf
 ! !
 
-!AmdExporter class methodsFor: 'private'!
+!AmdExporter methodsFor: 'private'!
 
 amdNamesOfPackages: anArray
-	| deps depNames |
-	^(anArray
-		select: [ :each | each amdNamespace notNil ])
-		collect: [ :each | each amdNamespace, '/', each name ]
+	^ (anArray
+		select: [ :each | (self amdNamespaceOfPackage: each) notNil ])
+		collect: [ :each | (self amdNamespaceOfPackage: each), '/', each name ]
+!
+
+amdNamespaceOfPackage: aPackage
+	^ (aPackage transport type = 'amd')
+		ifTrue: [ aPackage transport namespace ]
+		ifFalse: [ nil ]
 ! !
 
 Object subclass: #ChunkParser
@@ -475,59 +458,48 @@ on: aStream
 	^self new stream: aStream
 ! !
 
-Object subclass: #ExportRecipeInterpreter
-	instanceVariableNames: ''
+Object subclass: #ExportMethodProtocol
+	instanceVariableNames: 'name theClass'
 	package: 'Importer-Exporter'!
-!ExportRecipeInterpreter commentStamp!
-I am an interpreter for export recipes.
+!ExportMethodProtocol commentStamp!
+I am an abstraction for a method protocol in a class / metaclass.
 
-## Recipe format
+I know of my class, name and methods.
+I am used when exporting a package.!
 
-Recipe is an array, which can contain two kinds of elements:
+!ExportMethodProtocol methodsFor: 'accessing'!
 
- - an assocation where the key is the receiver and the value is a two-arguments selector
-    In this case, `receiver perform: selector withArguments: { data. stream }` is called.
-	This essentially defines one step of export process.
-	The key (eg. receiver) is presumed to be some kind of 'repository' of the exporting methods
-	that just format appropriate aspect of data into a stream; like a class or a singleton,
-	so that the recipe itself can be decoupled from data.
-
- - a subarray, where first element is special and the rest is recursive recipe.
-
-    `subarray first` must be an association similar to one above,
-	with key being the 'repository' receiver, but value is one-arg selector.
-	In this case, `receiver perform: selector withArguments: { data }` should create a collection.
-	Then, the sub-recipe (`subarray allButFirst`) is applied to every element of a collection, eg.
-	  collection do: [ :each | self export: each using: sa allButFirst on: stream ]!
-
-!ExportRecipeInterpreter methodsFor: 'interpreting'!
-
-interpret: aRecipe for: anObject on: aStream
-	| recipeStream |
-	
-	recipeStream := aRecipe readStream.
-	
-	[ recipeStream atEnd ] whileFalse: [
-		self 
-			interpretStep: recipeStream next
-			for: anObject
-			on: aStream ]
+methods
+	^ self theClass methodsInProtocol: self name
 !
 
-interpretStep: aRecipeStep for: anObject on: aStream
-	aRecipeStep value == aRecipeStep ifTrue: [ 
-		^ self interpretSubRecipe: aRecipeStep for: anObject on: aStream ].
-			
-	aRecipeStep key perform: aRecipeStep value withArguments: { anObject. aStream }
+name
+	^name
 !
 
-interpretSubRecipe: aRecipe for: anObject on: aStream
-	| selection |
-	selection := aRecipe first key 
-		perform: aRecipe first value 
-		withArguments: { anObject }.
-	selection do: [ :each |	
-		self interpret: aRecipe allButFirst for: each on: aStream ]
+name: aString
+	name := aString
+!
+
+sortedMethods
+	^ self methods sorted: [ :a :b | a selector <= b selector ]
+!
+
+theClass
+	^theClass
+!
+
+theClass: aClass
+	theClass := aClass
+! !
+
+!ExportMethodProtocol class methodsFor: 'instance creation'!
+
+name: aString theClass: aClass
+	^self new
+		name: aString;
+		theClass: aClass;
+		yourself
 ! !
 
 Object subclass: #Importer
@@ -558,51 +530,6 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #MethodCategory
-	instanceVariableNames: 'methods name theClass'
-	package: 'Importer-Exporter'!
-!MethodCategory commentStamp!
-I am an abstraction for a method category in a class / metaclass.
-
-I know of my class, name and methods.
-I am used when exporting a package.!
-
-!MethodCategory methodsFor: 'accessing'!
-
-methods
-	^methods
-!
-
-methods: aCollection
-	methods := aCollection
-!
-
-name
-	^name
-!
-
-name: aString
-	name := aString
-!
-
-theClass
-	^theClass
-!
-
-theClass: aClass
-	theClass := aClass
-! !
-
-!MethodCategory class methodsFor: 'not yet classified'!
-
-name: aString theClass: aClass methods: anArray
-	^self new
-		name: aString;
-		theClass: aClass;
-		methods: anArray;
-		yourself
-! !
-
 InterfacingObject subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -611,20 +538,65 @@ I am responsible for handling package loading and committing.
 
 I should not be used directly. Instead, use the corresponding `Package` methods.!
 
+!PackageHandler methodsFor: 'accessing'!
+
+chunkContentsFor: aPackage
+	^ String streamContents: [ :str |
+		self chunkExporter exportPackage: aPackage on: str ]
+!
+
+chunkExporterClass
+	^ ChunkExporter
+!
+
+commitPathJsFor: aPackage
+	self subclassResponsibility
+!
+
+commitPathStFor: aPackage
+	self subclassResponsibility
+!
+
+contentsFor: aPackage
+	^ String streamContents: [ :str |
+		self exporter exportPackage: aPackage on: str ]
+!
+
+exporterClass
+	^ Exporter
+! !
+
 !PackageHandler methodsFor: 'committing'!
 
 commit: aPackage
-	self commitChannels
-		do: [ :commitStrategyFactory || fileContents commitStrategy |
-			commitStrategy := commitStrategyFactory value: aPackage.
-			fileContents := String streamContents: [ :stream |
-				(PluggableExporter forRecipe: commitStrategy key) exportPackage: aPackage on: stream ].
-			self ajaxPutAt: commitStrategy value data: fileContents ]
+	{
+		[ self commitStFileFor: aPackage ].
+		[ self commitJsFileFor: aPackage ]
+	}
+		do: [ :each | each value ]
 		displayingProgress: 'Committing package ', aPackage name
 !
 
-commitChannels
-	self subclassResponsibility
+commitJsFileFor: aPackage
+	self 
+		ajaxPutAt: (self commitPathJsFor: aPackage), '/', aPackage name, '.js'
+		data: (self contentsFor: aPackage)
+!
+
+commitStFileFor: aPackage
+	self 
+		ajaxPutAt: (self commitPathStFor: aPackage), '/', aPackage name, '.st'
+		data: (self chunkContentsFor: aPackage)
+! !
+
+!PackageHandler methodsFor: 'factory'!
+
+chunkExporter
+	^ self chunkExporterClass new
+!
+
+exporter
+	^ self exporterClass new
 ! !
 
 !PackageHandler methodsFor: 'private'!
@@ -639,35 +611,6 @@ ajaxPutAt: aURL data: aString
 			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
-PackageHandler class instanceVariableNames: 'registry'!
-
-!PackageHandler class methodsFor: 'accessing'!
-
-classRegisteredFor: aString
-	^ registry at: aString
-!
-
-for: aString
-	^ (self classRegisteredFor: aString) new
-! !
-
-!PackageHandler class methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	registry := #{}
-! !
-
-!PackageHandler class methodsFor: 'registry'!
-
-register: aClass for: aString
-	registry at: aString put: aClass
-!
-
-registerFor: aString
-	PackageHandler register: self for: aString
-! !
-
 PackageHandler subclass: #AmdPackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
@@ -676,15 +619,7 @@ I am responsible for handling package loading and committing.
 
 I should not be used directly. Instead, use the corresponding `Package` methods.!
 
-!AmdPackageHandler methodsFor: 'committing'!
-
-commitChannels
-	^{ 
-		[ :pkg | Exporter default amdRecipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
-		[ :pkg | StrippedExporter default amdRecipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
-		[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
-	}
-!
+!AmdPackageHandler methodsFor: 'accessing'!
 
 commitPathJsFor: aPackage
 	^self toUrl: (self namespaceFor: aPackage)
@@ -695,9 +630,14 @@ commitPathStFor: aPackage
 	^self toUrl: (self namespaceFor: aPackage), '/_source'.
 !
 
+exporterClass
+	^ AmdExporter
+! !
+
+!AmdPackageHandler methodsFor: 'committing'!
+
 namespaceFor: aPackage
-	^ aPackage amdNamespace
-		ifNil: [ aPackage amdNamespace: self class defaultNamespace; amdNamespace ]
+	^ aPackage transport namespace
 ! !
 
 !AmdPackageHandler methodsFor: 'private'!
@@ -711,233 +651,172 @@ toUrl: aString
 !AmdPackageHandler class methodsFor: 'commit paths'!
 
 defaultNamespace
-	^ Smalltalk current defaultAMDNamespace
+	^ Smalltalk current defaultAmdNamespace
 !
 
 defaultNamespace: aString
-	Smalltalk current defaultAMDNamespace: aString
-!
-
-resetCommitPaths
-	self defaultNamespace: nil
+	Smalltalk current defaultAmdNamespace: aString
 ! !
 
-!AmdPackageHandler class methodsFor: 'initialization'!
+Object subclass: #PackageTransport
+	instanceVariableNames: 'package'
+	package: 'Importer-Exporter'!
+!PackageTransport commentStamp!
+I represent the transport mechanism used to commit a package.
+
+My concrete subclasses have a `#handler` to which committing is delegated.!
+
+!PackageTransport methodsFor: 'accessing'!
+
+commitHandlerClass
+	self subclassResponsibility
+!
+
+package
+	^ package
+!
+
+package: aPackage
+	package := aPackage
+!
+
+type
+	^ self class type
+! !
+
+!PackageTransport methodsFor: 'committing'!
+
+commit
+	self commitHandler commit: self package
+! !
+
+!PackageTransport methodsFor: 'converting'!
+
+asJSON
+	^ #{ 'type' -> self type }
+! !
+
+!PackageTransport methodsFor: 'factory'!
+
+commitHandler
+	^ self commitHandlerClass new
+! !
+
+!PackageTransport methodsFor: 'initialization'!
+
+setupFromJson: anObject
+	"no op. override if needed in subclasses"
+! !
+
+PackageTransport class instanceVariableNames: 'registry'!
+
+!PackageTransport class methodsFor: 'accessing'!
+
+classRegisteredFor: aString
+	^ registry at: aString
+!
+
+type
+	"Override in subclasses"
+	^ nil
+!
+
+defaultType
+	^ AmdPackageTransport type
+! !
+
+!PackageTransport class methodsFor: 'initialization'!
 
 initialize
 	super initialize.
-	self registerFor: 'amd'
+	registry := #{}.
+	self register
 ! !
 
-PackageHandler subclass: #LegacyPackageHandler
-	instanceVariableNames: ''
+!PackageTransport class methodsFor: 'instance creation'!
+
+for: aString
+	^ (self classRegisteredFor: aString) new
+!
+
+fromJson: anObject
+	anObject ifNil: [ ^ self for: self defaultType ].
+	
+	^ (self for: anObject type)
+		setupFromJson: anObject;
+		yourself
+! !
+
+!PackageTransport class methodsFor: 'registration'!
+
+register
+	PackageTransport register: self
+!
+
+register: aClass
+	aClass type ifNotNil: [
+		registry at: aClass type put: aClass ]
+! !
+
+PackageTransport subclass: #AmdPackageTransport
+	instanceVariableNames: 'namespace'
 	package: 'Importer-Exporter'!
-!LegacyPackageHandler commentStamp!
-I am responsible for handling package loading and committing.
+!AmdPackageTransport commentStamp!
+I am the default transport for committing packages.
 
-I should not be used directly. Instead, use the corresponding `Package` methods.!
+See `AmdExporter` and `AmdPackageHandler`.!
 
-!LegacyPackageHandler methodsFor: 'committing'!
+!AmdPackageTransport methodsFor: 'accessing'!
 
-commitChannels
-	^{ 
-		[ :pkg | Exporter default recipe -> (pkg commitPathJs, '/', pkg name, '.js') ].
-		[ :pkg | StrippedExporter default recipe -> (pkg commitPathJs, '/', pkg name, '.deploy.js') ].
-		[ :pkg | ChunkExporter default recipe -> (pkg commitPathSt, '/', pkg name, '.st') ]
-	}
+commitHandlerClass
+	^ AmdPackageHandler
 !
 
-commitPathJsFor: aPackage
-	^self class defaultCommitPathJs
+namespace
+	^ namespace ifNil: [ self defaultNamespace ]
 !
 
-commitPathStFor: aPackage
-	^self class defaultCommitPathSt
+namespace: aString
+	namespace := aString
 ! !
 
-!LegacyPackageHandler methodsFor: 'loading'!
+!AmdPackageTransport methodsFor: 'converting'!
 
-loadPackage: packageName prefix: aString
-	| url |
-	url := '/', aString, '/js/', packageName, '.js'.
-	self
-		ajax: #{
-			'url' -> url.
-			'type' -> 'GET'.
-			'dataType' -> 'script'.
-			'complete' -> [ :jqXHR :textStatus |
-				jqXHR readyState = 4
-					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
-			'error' -> [ self alert: 'Could not load package at: ', url ]
-		}
-!
-
-loadPackages: aCollection prefix: aString
-	aCollection do: [ :each |
-		self loadPackage: each prefix: aString ]
+asJSON
+	^ super asJSON
+		at: 'amdNamespace' put: self namespace;
+		yourself
 ! !
 
-!LegacyPackageHandler methodsFor: 'private'!
+!AmdPackageTransport methodsFor: 'defaults'!
 
-setupPackageNamed: packageName prefix: aString
-
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
+defaultNamespace
+	^ Smalltalk current defaultAmdNamespace
 ! !
 
-LegacyPackageHandler class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
+!AmdPackageTransport methodsFor: 'initialization'!
 
-!LegacyPackageHandler class methodsFor: 'commit paths'!
-
-commitPathsFromLoader
-	<
-		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
-		if (!!commitPath) return;
-		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
-		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
-	>
-!
-
-defaultCommitPathJs
-	^ defaultCommitPathJs ifNil: [ defaultCommitPathJs := 'js']
-!
-
-defaultCommitPathJs: aString
-	defaultCommitPathJs := aString
-!
-
-defaultCommitPathSt
-	^ defaultCommitPathSt ifNil: [ defaultCommitPathSt := 'st']
-!
-
-defaultCommitPathSt: aString
-	defaultCommitPathSt := aString
-!
-
-resetCommitPaths
-	defaultCommitPathJs := nil.
-	defaultCommitPathSt := nil
+setupFromJson: anObject
+	self namespace: (anObject at: 'amdNamespace')
 ! !
 
-!LegacyPackageHandler class methodsFor: 'initialization'!
+!AmdPackageTransport class methodsFor: 'accessing'!
 
-initialize
-	super initialize.
-	self registerFor: 'unknown'.
-	self commitPathsFromLoader
+type
+	^ 'amd'
 ! !
 
-!LegacyPackageHandler class methodsFor: 'loading'!
+!AmdPackageTransport class methodsFor: 'instance creation'!
 
-loadPackages: aCollection prefix: aString
-	^ self new loadPackages: aCollection prefix: aString
-! !
-
-Object subclass: #PluggableExporter
-	instanceVariableNames: 'recipe'
-	package: 'Importer-Exporter'!
-!PluggableExporter commentStamp!
-I am an engine for exporting structured data on a Stream.
-
-My instances are created using
-  PluggableExporter forRecipe: aRecipe,
-where recipe is structured description of the exporting algorithm (see `ExportRecipeInterpreter`).
-
-The actual exporting is done by interpreting the recipe using a `RecipeInterpreter`.
-
-
-I am used to export amber packages, so I have a convenience method
-`exportPackage: aPackage on: aStream`
-which exports `aPackage` using the `recipe`
-(it is otherwise no special, so it may be renamed to export:on:)!
-
-!PluggableExporter methodsFor: 'accessing'!
-
-interpreter
-	^ ExportRecipeInterpreter new
-!
-
-recipe
-	^recipe
-!
-
-recipe: anArray
-	recipe := anArray
-! !
-
-!PluggableExporter methodsFor: 'fileOut'!
-
-exportAllPackages
-	"Export all packages in the system."
-
-	^String streamContents: [:stream |
-		Smalltalk current packages do: [:pkg |
-		self exportPackage: pkg on: stream]]
-!
-
-exportPackage: aPackage on: aStream
-	self interpreter interpret: self recipe for: aPackage on: aStream
-! !
-
-!PluggableExporter class methodsFor: 'convenience'!
-
-ownClassesOfPackage: package
-	"Export classes in dependency order.
-	Update (issue #171): Remove duplicates for export"
-	^package sortedClasses asSet
-! !
-
-!PluggableExporter class methodsFor: 'instance creation'!
-
-forRecipe: aRecipe
-	^self new recipe: aRecipe; yourself
+namespace: aString
+	^ self new
+		namespace: aString;
+		yourself
 ! !
 
 !Package methodsFor: '*Importer-Exporter'!
 
-amdNamespace
-	<return (self.transport && self.transport.amdNamespace) || nil>
-!
-
-amdNamespace: aString
-	<
-		if (!!self.transport) { self.transport = { type: 'amd' }; }
-		if (self.transport.type !!== 'amd') { throw new Error('Package '+self._name()+' has transport type '+self.transport.type+', not "amd".'); }
-		self.transport.amdNamespace = aString;
-	>
-!
-
 commit
-	^ self handler commit: self
-!
-
-commitPathJs
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs ifAbsent: [ self handler commitPathJsFor: self ]
-!
-
-commitPathJs: aString
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathJs put: aString
-!
-
-commitPathSt
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt ifAbsent: [ self handler commitPathStFor: self ]
-!
-
-commitPathSt: aString
-	^ (extension ifNil: [ extension := #{} ]) at: #commitPathSt put: aString
-!
-
-handler
-	^ PackageHandler for: self transportType
-!
-
-transportJson
-	<return JSON.stringify(self.transport || null);>
-!
-
-transportType
-	<return (self.transport && self.transport.type) || 'unknown';>
+	^ self transport commit
 ! !
 
