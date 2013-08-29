@@ -84,7 +84,7 @@ main
 
 	args := process argv.
 	"Remove the first args which contain the path to the node executable and the script file."
-	args removeFrom: 1 to: 3.
+	args removeFrom: 1 to: 2.
 	
 	(args isEmpty)
 		ifTrue: [self help: nil]
