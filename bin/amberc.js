@@ -608,6 +608,7 @@ AmberC.prototype.compose_js_files = function() {
 	});
 
 	var builder = createConcatenator();
+	builder.add('#!/usr/bin/env node');
 	builder.start();
 
 	program_files.forEach(function(file) {
