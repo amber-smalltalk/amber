@@ -1,1 +1,1 @@
-@node "%~dp0\..\cli\js\amber-cli.js" %*
+@node "%~dp0\amber-cli.js" %*
