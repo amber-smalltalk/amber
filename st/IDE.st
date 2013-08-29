@@ -1732,6 +1732,7 @@ updateVariablesList
 inspect: anObject
 	^self new
 		inspect: anObject;
+		open;
 		yourself
 !
 
