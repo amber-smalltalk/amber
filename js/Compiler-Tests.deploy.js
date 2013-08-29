@@ -614,9 +614,9 @@ selector: "testGlobalVar",
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ window document title"),_st(_st(window)._document())._title());
+self._assert_equals_(self._interpret_("foo ^ console"),console);
 return self}, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},smalltalk.InterpreterTest)})},
-messageSends: ["assert:equals:", "interpret:", "title", "document"]}),
+messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.InterpreterTest);
 
 smalltalk.addMethod(

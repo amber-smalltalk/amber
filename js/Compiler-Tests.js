@@ -815,11 +815,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ window document title"),_st(_st(window)._document())._title());
+self._assert_equals_(self._interpret_("foo ^ console"),console);
 return self}, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},smalltalk.InterpreterTest)})},
 args: [],
-source: "testGlobalVar\x0a\x09self assert: (self interpret: 'foo ^ window document title') equals: window document title",
-messageSends: ["assert:equals:", "interpret:", "title", "document"],
+source: "testGlobalVar\x0a\x09self assert: (self interpret: 'foo ^ console') equals: console",
+messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
 smalltalk.InterpreterTest);

@@ -355,7 +355,7 @@ testDynamicDictionary
 !
 
 testGlobalVar
-	self assert: (self interpret: 'foo ^ window document title') equals: window document title
+	self assert: (self interpret: 'foo ^ console') equals: console
 !
 
 testInlinedJSStatement
