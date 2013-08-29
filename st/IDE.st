@@ -454,6 +454,7 @@ removeTab: aWidget
 
 initialize
 	super initialize.
+	InspectorHandler register: Inspector.
 	opened := true.
 	[:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
 	'body' asJQuery
