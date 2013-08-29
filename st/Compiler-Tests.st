@@ -331,6 +331,11 @@ testBinarySend
 	self assert: (self interpret: 'foo ^ 2+3+4') equals: 9
 !
 
+testBlockEvaluation
+	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 asString, ''2'' ]') equals: '12'.
+	self assert: (self interpret: 'foo ^ #(1 2 3) collect: [ :each | each + 3 ]') equals: #(4 5 6).
+!
+
 testBlockLiteral
 	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
 	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.

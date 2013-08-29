@@ -1304,7 +1304,7 @@ var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 function $IRSendInliner(){return smalltalk.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(_st(_st(aNode)._receiver())._value()).__eq("super");
 if(smalltalk.assert($1)){
 _st(aNode)._superSend_(true);
@@ -1318,18 +1318,25 @@ _st(_st(self._superSends())._at_(_st(aNode)._selector()))._add_(aNode);
 $2=_st(_st($IRSendInliner())._inlinedSelectors())._includes_(_st(aNode)._selector());
 if(smalltalk.assert($2)){
 _st(aNode)._shouldBeInlined_(true);
+_st(_st(aNode)._arguments())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(each)._isBlockNode();
+if(smalltalk.assert($3)){
+return _st(each)._shouldBeInlined_(true);
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,5)})}));
 _st(_st(aNode)._receiver())._shouldBeAliased_(true);
 };
 };
 _st(self._messageSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st($Set())._new();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}));
 _st(_st(self._messageSends())._at_(_st(aNode)._selector()))._add_(aNode);
 _st(aNode)._index_(_st(_st(self._messageSends())._at_(_st(aNode)._selector()))._size());
 smalltalk.SemanticAnalyzer.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
-messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "at:ifAbsentPut:", "superSends", "selector", "new", "add:", "at:", "ifTrue:", "includes:", "inlinedSelectors", "shouldBeInlined:", "shouldBeAliased:", "messageSends", "index:", "size", "visitSendNode:"]}),
+messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "at:ifAbsentPut:", "superSends", "selector", "new", "add:", "at:", "ifTrue:", "includes:", "inlinedSelectors", "shouldBeInlined:", "do:", "arguments", "isBlockNode", "shouldBeAliased:", "messageSends", "index:", "size", "visitSendNode:"]}),
 smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(

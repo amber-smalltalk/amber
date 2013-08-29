@@ -1,5 +1,6 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
+
 smalltalk.addClass('AIBlockClosure', smalltalk.BlockClosure, ['node', 'outerContext'], 'Compiler-Interpreter');
 smalltalk.AIBlockClosure.comment="I am a special `BlockClosure` subclass used by an interpreter to interpret a block node.\x0a\x0aWhile I am polymorphic with `BlockClosure`, some methods such as `#new` will raise interpretation errors. Unlike a `BlockClosure`, my instance are not JavaScript functions.\x0a\x0aEvaluating an instance will result in interpreting the `node` instance variable (instance of `BlockNode`).";
 smalltalk.addMethod(
@@ -2240,16 +2241,27 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._blockIndex()).__gt_eq(_st(self._context())._index());
-if(! smalltalk.assert($1)){
+var $1,$3,$4,$2,$5;
+$1=_st(aNode)._shouldBeInlined();
+$2=(function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(self._blockIndex()).__gt_eq(_st(self._context())._index());
+$4=(function(){
+return smalltalk.withContext(function($ctx3) {
 self._increaseBlockIndex();
-smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
-};
+return smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})});
+return _st($3)._ifFalse_($4);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+$5=(function(){
+return smalltalk.withContext(function($ctx2) {
+return smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})});
+_st($1)._ifFalse_ifTrue_($2,$5);
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
 args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09self blockIndex >= self context index ifFalse: [\x0a\x09\x09self increaseBlockIndex.\x0a\x09\x09super visitBlockNode: aNode ]",
-messageSends: ["ifFalse:", ">=", "blockIndex", "index", "context", "increaseBlockIndex", "visitBlockNode:"],
+source: "visitBlockNode: aNode\x0a\x09aNode shouldBeInlined \x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self blockIndex >= self context index ifFalse: [\x0a\x09\x09\x09\x09self increaseBlockIndex.\x0a\x09\x09\x09\x09super visitBlockNode: aNode ] ]\x0a\x09\x09ifTrue: [ super visitBlockNode: aNode ]",
+messageSends: ["ifFalse:ifTrue:", "shouldBeInlined", "ifFalse:", ">=", "blockIndex", "index", "context", "increaseBlockIndex", "visitBlockNode:"],
 referencedClasses: []
 }),
 smalltalk.ASTPCNodeVisitor);
@@ -2277,20 +2289,26 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$3,$5,$6,$4,$2;
 smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 $1=_st(self._pc()).__eq(_st(self._context())._pc());
-if(! smalltalk.assert($1)){
-$2=_st(aNode)._shouldBeInlined();
-if(! smalltalk.assert($2)){
-$3=_st(self._blockIndex()).__eq(_st(self._context())._index());
-if(smalltalk.assert($3)){
+$2=(function(){
+return smalltalk.withContext(function($ctx2) {
+$3=_st(aNode)._shouldBeInlined();
+$4=(function(){
+return smalltalk.withContext(function($ctx3) {
+$5=_st(self._blockIndex()).__eq(_st(self._context())._index());
+$6=(function(){
+return smalltalk.withContext(function($ctx4) {
 self._pc_(_st(self._pc()).__plus((1)));
 self["@currentNode"]=aNode;
-self["@currentNode"];
-};
-};
-};
+return self["@currentNode"];
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})});
+return _st($5)._ifTrue_($6);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})});
+return _st($3)._ifFalse_($4);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+_st($1)._ifFalse_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
 args: ["aNode"],
 source: "visitSendNode: aNode\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self pc = self context pc ifFalse: [\x0a\x09\x09aNode shouldBeInlined ifFalse: [\x0a\x09\x09\x09self blockIndex = self context index ifTrue: [\x0a\x09\x09\x09\x09self pc: self pc + 1.\x0a\x09\x09\x09\x09currentNode := aNode ] ] ]",
@@ -3095,6 +3113,26 @@ referencedClasses: []
 }),
 smalltalk.Interpreter);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "xxxDoIt",
+category: 'xxxDoIt',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._step();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.Interpreter)})},
+args: [],
+source: "xxxDoIt ^[self step] value",
+messageSends: ["value", "step"],
+referencedClasses: []
+}),
+smalltalk.Interpreter);
 
 
 smalltalk.addMethod(

@@ -814,9 +814,12 @@ useInlinings: aBoolean
 !ASTPCNodeVisitor methodsFor: 'visiting'!
 
 visitBlockNode: aNode
-	self blockIndex >= self context index ifFalse: [
-		self increaseBlockIndex.
-		super visitBlockNode: aNode ]
+	aNode shouldBeInlined 
+		ifFalse: [
+			self blockIndex >= self context index ifFalse: [
+				self increaseBlockIndex.
+				super visitBlockNode: aNode ] ]
+		ifTrue: [ super visitBlockNode: aNode ]
 !
 
 visitJSStatementNode: aNode
@@ -1107,6 +1110,11 @@ visitVariableNode: aNode
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
+! !
+
+!Interpreter methodsFor: 'xxxDoIt'!
+
+xxxDoIt ^[self step] value
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!

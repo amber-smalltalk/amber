@@ -566,6 +566,8 @@ visitSendNode: aNode
 		
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
 			aNode shouldBeInlined: true.
+			aNode arguments do: [ :each |
+				each isBlockNode ifTrue: [ each shouldBeInlined: true ] ].
 			aNode receiver shouldBeAliased: true ] ].
 
 	self messageSends at: aNode selector ifAbsentPut: [ Set new ].

@@ -551,6 +551,18 @@ smalltalk.InterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testBlockEvaluation",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo ^ true ifTrue: [ 1 asString, '2' ]"),"12");
+self._assert_equals_(self._interpret_("foo ^ #(1 2 3) collect: [ :each | each + 3 ]"),[(4), (5), (6)]);
+return self}, function($ctx1) {$ctx1.fill(self,"testBlockEvaluation",{},smalltalk.InterpreterTest)})},
+messageSends: ["assert:equals:", "interpret:"]}),
+smalltalk.InterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testBlockLiteral",
 fn: function (){
 var self=this;
