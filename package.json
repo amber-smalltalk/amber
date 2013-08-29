@@ -27,8 +27,7 @@
   },
   "bin": {
     "amber": "./bin/amber",
-    "amberc": "./bin/amberc",
-    "ambers": "./bin/server"
+    "amberc": "./bin/amberc"
   },
   "scripts": {
     "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"
