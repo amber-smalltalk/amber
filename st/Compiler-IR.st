@@ -1219,12 +1219,6 @@ nextPutSequenceWith: aBlock
 		nextPutAll: '};'; lf"
 !
 
-nextPutStatement: anInteger with: aBlock
-	stream nextPutAll: 'case ', anInteger asString, ':'; lf.
-	self nextPutStatementWith: aBlock.
-	stream nextPutAll: 'smalltalk.thisContext.pc=', (anInteger + 1) asString, ';'; lf
-!
-
 nextPutStatementWith: aBlock
 	aBlock value.
 	stream nextPutAll: ';'; lf
