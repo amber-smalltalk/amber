@@ -35617,9 +35617,9 @@ smalltalk.parser = (function(){
   return result;
 })();
 });
-define("amber_core/AmberCli", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
+define("amber_cli/AmberCli", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('AmberCli');
-smalltalk.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_core"};
+smalltalk.packages["AmberCli"].transport = {"type":"amd","amdNamespace":"amber_cli"};
 
 smalltalk.addClass('AmberCli', smalltalk.Object, [], 'AmberCli');
 smalltalk.AmberCli.comment="I am the Amber CLI (CommandLine Interface) tool which runs on Node.js.\x0a\x0aMy responsibility is to start different Amber programs like the FileServer or the Repl.\x0aWhich program to start is determined by the first commandline parameters passed to the AmberCli executable.\x0aUse `help` to get a list of all available options.\x0aAny further commandline parameters are passed to the specific program.\x0a\x0a## Commands\x0a\x0aNew commands can be added by creating a class side method in the `commands` protocol which takes one parameter.\x0aThis parameter is an array of all commandline options + values passed on to the program.\x0aAny `camelCaseCommand` is transformed into a commandline parameter of the form `camel-case-command` and vice versa.";
@@ -37389,7 +37389,7 @@ smalltalk.Repl.klass);
 
 });
 
-define("amber_vm/_init", ["amber_vm/smalltalk","amber_vm/smalltalk","amber_vm/nil","amber_vm/_st","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber_vm/parser","amber_core/AmberCli"], function (smalltalk) {
+define("amber_vm/_init", ["amber_vm/smalltalk","amber_vm/smalltalk","amber_vm/nil","amber_vm/_st","amber_core/Kernel-Objects","amber_core/Kernel-Classes","amber_core/Kernel-Methods","amber_core/Kernel-Collections","amber_core/Kernel-Infrastructure","amber_core/Kernel-Exceptions","amber_core/Kernel-Transcript","amber_core/Kernel-Announcements","amber_core/Compiler-Exceptions","amber_core/Compiler-Core","amber_core/Compiler-AST","amber_core/Compiler-IR","amber_core/Compiler-Inlining","amber_core/Compiler-Semantic","amber_core/Compiler-Interpreter","amber_vm/parser","amber_cli/AmberCli"], function (smalltalk) {
 smalltalk.initialize();
 smalltalk.AmberCli._main();
 });
