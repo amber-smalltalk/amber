@@ -630,6 +630,17 @@ PlatformInterface class instanceVariableNames: 'worker'!
 
 setWorker: anObject
 	worker := anObject
+!
+
+globalAt: aString
+<
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !!/^[\\w_]+$/.test(aString))\n'+
+	'	return undefined;\n'+
+	'try { return eval(aString); } catch (ex) {}\n'+
+	'return undefined;');
+	return f(aString);
+>
 ! !
 
 !PlatformInterface class methodsFor: 'actions'!

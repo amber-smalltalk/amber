@@ -336,7 +336,7 @@ interpretClassReferenceNode: aNode continue: aBlock
 		continue: aBlock 
 		value: (Smalltalk current 
 			at: aNode value
-			ifAbsent: [ window at: aNode value ])
+			ifAbsent: [ PlatformInterface globalAt: aNode value ])
 !
 
 interpretDynamicArrayNode: aNode continue: aBlock
@@ -404,7 +404,7 @@ interpretVariableNode: aNode continue: aBlock
 			ifTrue: [ self context receiver instVarAt: aNode value ]
 			ifFalse: [ self context 
 				localAt: aNode value 
-				ifAbsent: [ window at: aNode value ]])
+				ifAbsent: [ PlatformInterface globalAt: aNode value ]])
 ! !
 
 !ASTInterpreter methodsFor: 'private'!

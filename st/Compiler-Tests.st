@@ -195,13 +195,6 @@ testInstVarAssignment
 		equals: 2
 !
 
-testJSGlobalVarAccess
-	"Capital letter variables are treated differently."
-	
-	self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.
-	self assert: (self interpret: 'foo ^ document title isString') equals: true.
-!
-
 testNonlocalReturn
 	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
 !
@@ -234,8 +227,11 @@ testThisContext
 	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
 !
 
-testClassRefVarAccess
+testVariableAccess
 	self assert: (self interpret: 'foo ^ Object') equals: Object.
+	self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.
+	self assert: (self interpret: 'foo ^ eval class') equals: BlockClosure.
+	self assert: (self interpret: 'foo ^ NonExistingVar') equals: nil.
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest

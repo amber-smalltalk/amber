@@ -392,23 +392,6 @@ smalltalk.ASTInterpreterTest);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "testClassRefVarAccess",
-category: 'tests',
-fn: function (){
-var self=this;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ Object"),$Object());
-return self}, function($ctx1) {$ctx1.fill(self,"testClassRefVarAccess",{},smalltalk.ASTInterpreterTest)})},
-args: [],
-source: "testClassRefVarAccess\x0a\x09self assert: (self interpret: 'foo ^ Object') equals: Object.",
-messageSends: ["assert:equals:", "interpret:"],
-referencedClasses: ["Object"]
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "testDynamicArray",
 category: 'tests',
 fn: function (){
@@ -486,23 +469,6 @@ args: [],
 source: "testInstVarAssignment\x0a\x09self\x0a\x09\x09assert: (self\x0a\x09\x09\x09interpret: 'foo: anInteger x := anInteger. ^ x'\x0a\x09\x09\x09receiver: Point new\x0a\x09\x09\x09withArguments: #{'anInteger' -> 2})\x0a\x09\x09equals: 2",
 messageSends: ["assert:equals:", "interpret:receiver:withArguments:", "new", "->"],
 referencedClasses: ["Point"]
-}),
-smalltalk.ASTInterpreterTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testJSGlobalVarAccess",
-category: 'tests',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ Math cos: 0"),(1));
-self._assert_equals_(self._interpret_("foo ^ document title isString"),true);
-return self}, function($ctx1) {$ctx1.fill(self,"testJSGlobalVarAccess",{},smalltalk.ASTInterpreterTest)})},
-args: [],
-source: "testJSGlobalVarAccess\x0a\x09\x22Capital letter variables are treated differently.\x22\x0a\x09\x0a\x09self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.\x0a\x09self assert: (self interpret: 'foo ^ document title isString') equals: true.",
-messageSends: ["assert:equals:", "interpret:"],
-referencedClasses: []
 }),
 smalltalk.ASTInterpreterTest);
 
@@ -586,6 +552,27 @@ args: [],
 source: "testThisContext\x0a\x09self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.\x0a\x09self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.\x0a\x09self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')",
 messageSends: ["assert:", "isNil", "outerContext", "interpret:", "notNil"],
 referencedClasses: []
+}),
+smalltalk.ASTInterpreterTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testVariableAccess",
+category: 'tests',
+fn: function (){
+var self=this;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+function $BlockClosure(){return smalltalk.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_(self._interpret_("foo ^ Object"),$Object());
+self._assert_equals_(self._interpret_("foo ^ Math cos: 0"),(1));
+self._assert_equals_(self._interpret_("foo ^ eval class"),$BlockClosure());
+self._assert_equals_(self._interpret_("foo ^ NonExistingVar"),nil);
+return self}, function($ctx1) {$ctx1.fill(self,"testVariableAccess",{},smalltalk.ASTInterpreterTest)})},
+args: [],
+source: "testVariableAccess\x0a\x09self assert: (self interpret: 'foo ^ Object') equals: Object.\x0a\x09self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.\x0a\x09self assert: (self interpret: 'foo ^ eval class') equals: BlockClosure.\x0a\x09self assert: (self interpret: 'foo ^ NonExistingVar') equals: nil.",
+messageSends: ["assert:equals:", "interpret:"],
+referencedClasses: ["Object", "BlockClosure"]
 }),
 smalltalk.ASTInterpreterTest);
 

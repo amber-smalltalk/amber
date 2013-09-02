@@ -1684,6 +1684,28 @@ smalltalk.PlatformInterface.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "globalAt:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !/^[\\w_]+$/.test(aString))\n'+
+	'	return undefined;\n'+
+	'try { return eval(aString); } catch (ex) {}\n'+
+	'return undefined;');
+	return f(aString);;
+return self}, function($ctx1) {$ctx1.fill(self,"globalAt:",{aString:aString},smalltalk.PlatformInterface.klass)})},
+args: ["aString"],
+source: "globalAt: aString\x0a<\x0a\x09var f = new Function('aString',\x0a\x09'if (/^[0-9]/.test(aString) || !/^[\x5c\x5cw_]+$/.test(aString))\x5cn'+\x0a\x09'\x09return undefined;\x5cn'+\x0a\x09'try { return eval(aString); } catch (ex) {}\x5cn'+\x0a\x09'return undefined;');\x0a\x09return f(aString);\x0a>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PlatformInterface.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
