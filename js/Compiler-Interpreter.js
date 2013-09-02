@@ -141,6 +141,24 @@ smalltalk.AIContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "localAt:ifAbsent:",
+category: 'accessing',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._locals())._at_ifAbsent_(aString,aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.AIContext)})},
+args: ["aString", "aBlock"],
+source: "localAt: aString ifAbsent: aBlock\x0a\x09^ self locals at: aString ifAbsent: aBlock",
+messageSends: ["at:ifAbsent:", "locals"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "localAt:put:",
 category: 'accessing',
 fn: function (aString,anObject){
@@ -1046,11 +1064,14 @@ fn: function (aNode,aBlock){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-self._continue_value_(aBlock,_st(_st($Smalltalk())._current())._at_(_st(aNode)._value()));
+self._continue_value_(aBlock,_st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(window)._at_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"interpretClassReferenceNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 args: ["aNode", "aBlock"],
-source: "interpretClassReferenceNode: aNode continue: aBlock\x0a\x09self continue: aBlock value: (Smalltalk current at: aNode value)",
-messageSends: ["continue:value:", "at:", "value", "current"],
+source: "interpretClassReferenceNode: aNode continue: aBlock\x0a\x09self \x0a\x09\x09continue: aBlock \x0a\x09\x09value: (Smalltalk current \x0a\x09\x09\x09at: aNode value\x0a\x09\x09\x09ifAbsent: [ window at: aNode value ])",
+messageSends: ["continue:value:", "at:ifAbsent:", "value", "at:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.ASTInterpreter);
@@ -1249,13 +1270,16 @@ $4=_st(_st(aNode)._binding())._isInstanceVar();
 if(smalltalk.assert($4)){
 $3=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
 } else {
-$3=_st(self._context())._localAt_(_st(aNode)._value());
+$3=_st(self._context())._localAt_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(window)._at_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 };
 _st($1)._continue_value_($2,$3);
 return self}, function($ctx1) {$ctx1.fill(self,"interpretVariableNode:continue:",{aNode:aNode,aBlock:aBlock},smalltalk.ASTInterpreter)})},
 args: ["aNode", "aBlock"],
-source: "interpretVariableNode: aNode continue: aBlock\x0a\x09self\x0a\x09\x09continue: aBlock\x0a\x09\x09value: (aNode binding isInstanceVar\x0a\x09\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09\x09ifFalse: [ self context localAt: aNode value ])",
-messageSends: ["continue:value:", "ifTrue:ifFalse:", "instVarAt:", "value", "receiver", "context", "localAt:", "isInstanceVar", "binding"],
+source: "interpretVariableNode: aNode continue: aBlock\x0a\x09self\x0a\x09\x09continue: aBlock\x0a\x09\x09value: (aNode binding isInstanceVar\x0a\x09\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09\x09ifFalse: [ self context \x0a\x09\x09\x09\x09localAt: aNode value \x0a\x09\x09\x09\x09ifAbsent: [ window at: aNode value ]])",
+messageSends: ["continue:value:", "ifTrue:ifFalse:", "instVarAt:", "value", "receiver", "context", "localAt:ifAbsent:", "at:", "isInstanceVar", "binding"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);

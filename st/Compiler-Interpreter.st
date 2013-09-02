@@ -65,6 +65,10 @@ receiver: anObject
 selector
 	^ self method
 		ifNotNil: [ self method selector ]
+!
+
+localAt: aString ifAbsent: aBlock
+	^ self locals at: aString ifAbsent: aBlock
 ! !
 
 !AIContext methodsFor: 'converting'!
@@ -328,7 +332,11 @@ interpretCascadeNode: aNode continue: aBlock
 !
 
 interpretClassReferenceNode: aNode continue: aBlock
-	self continue: aBlock value: (Smalltalk current at: aNode value)
+	self 
+		continue: aBlock 
+		value: (Smalltalk current 
+			at: aNode value
+			ifAbsent: [ window at: aNode value ])
 !
 
 interpretDynamicArrayNode: aNode continue: aBlock
@@ -394,7 +402,9 @@ interpretVariableNode: aNode continue: aBlock
 		continue: aBlock
 		value: (aNode binding isInstanceVar
 			ifTrue: [ self context receiver instVarAt: aNode value ]
-			ifFalse: [ self context localAt: aNode value ])
+			ifFalse: [ self context 
+				localAt: aNode value 
+				ifAbsent: [ window at: aNode value ]])
 ! !
 
 !ASTInterpreter methodsFor: 'private'!
