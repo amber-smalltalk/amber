@@ -1,6 +1,7 @@
 #!/bin/sh
 cd `dirname "$0"`/..
-pwd
+echo git reset --hard
+echo git checkout master
 echo -n "Which version are you going to publish [0 to skip]? "
 VER=`head -n 1`
 if [ "$VER" = "0" ]; then :; else
