@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 var define = (function amdefine(module, requireFn) {
     'use strict';
     var defineCache = {},

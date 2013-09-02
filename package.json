@@ -26,9 +26,8 @@
     "node": ">=0.8.0"
   },
   "bin": {
-    "amber": "./bin/amber",
-    "amberc": "./bin/amberc",
-    "ambers": "./bin/server"
+    "amber": "./bin/amber-cli.js",
+    "amberc": "./bin/amberc"
   },
   "scripts": {
     "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"

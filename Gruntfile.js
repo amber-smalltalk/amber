@@ -98,7 +98,7 @@ module.exports = function(grunt) {
             'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser'
         ],
         main_class: 'AmberCli',
-        output_name: 'amber-cli',
+        output_name: '../../bin/amber-cli',
         amd_namespace: 'amber_cli'
       }
     },
