@@ -1069,12 +1069,15 @@ selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
+function $Inspector(){return smalltalk.Inspector||(typeof Inspector=="undefined"?nil:Inspector)}
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
 function $IDETranscript(){return smalltalk.IDETranscript||(typeof IDETranscript=="undefined"?nil:IDETranscript)}
 function $Workspace(){return smalltalk.Workspace||(typeof Workspace=="undefined"?nil:Workspace)}
 function $TestRunner(){return smalltalk.TestRunner||(typeof TestRunner=="undefined"?nil:TestRunner)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6;
 smalltalk.TabManager.superclass.fn.prototype._initialize.apply(_st(self), []);
+_st($InspectorHandler())._register_($Inspector());
 self["@opened"]=true;
 _st((function(html){
 return smalltalk.withContext(function($ctx2) {
@@ -1101,9 +1104,9 @@ return self._updatePosition();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TabManager)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09opened := true.\x0a\x09[:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.\x0a\x09'body' asJQuery\x0a\x09addClass: 'amberBody'.\x0a\x09self appendToJQuery: '#amber' asJQuery.\x0a\x09self\x0a\x09addTab: IDETranscript current;\x0a\x09addTab: Workspace new;\x0a\x09addTab: TestRunner new.\x0a\x09self selectTab: self tabs last.\x0a\x09self\x0a\x09onResize: [self updateBodyMargin; updatePosition];\x0a\x09onWindowResize: [self updatePosition]",
-messageSends: ["initialize", "appendToJQuery:", "asJQuery", "id:", "div", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"],
-referencedClasses: ["IDETranscript", "Workspace", "TestRunner"]
+source: "initialize\x0a\x09super initialize.\x0a\x09InspectorHandler register: Inspector.\x0a\x09opened := true.\x0a\x09[:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.\x0a\x09'body' asJQuery\x0a\x09addClass: 'amberBody'.\x0a\x09self appendToJQuery: '#amber' asJQuery.\x0a\x09self\x0a\x09addTab: IDETranscript current;\x0a\x09addTab: Workspace new;\x0a\x09addTab: TestRunner new.\x0a\x09self selectTab: self tabs last.\x0a\x09self\x0a\x09onResize: [self updateBodyMargin; updatePosition];\x0a\x09onWindowResize: [self updatePosition]",
+messageSends: ["initialize", "register:", "appendToJQuery:", "asJQuery", "id:", "div", "addClass:", "addTab:", "current", "new", "selectTab:", "last", "tabs", "onResize:", "updateBodyMargin", "updatePosition", "onWindowResize:"],
+referencedClasses: ["Inspector", "InspectorHandler", "IDETranscript", "Workspace", "TestRunner"]
 }),
 smalltalk.TabManager);
 
@@ -5020,13 +5023,14 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$3,$1;
 $2=self._new();
 _st($2)._inspect_(anObject);
+_st($2)._open();
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.Inspector.klass)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09^self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09yourself",
-messageSends: ["inspect:", "new", "yourself"],
+source: "inspect: anObject\x0a\x09^self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09open;\x0a\x09\x09yourself",
+messageSends: ["inspect:", "new", "open", "yourself"],
 referencedClasses: []
 }),
 smalltalk.Inspector.klass);
@@ -6805,6 +6809,36 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
+_st(variables)._at_put_("#year",self._year());
+_st(variables)._at_put_("#month",self._month());
+_st(variables)._at_put_("#day",self._day());
+_st(variables)._at_put_("#hours",self._hours());
+_st(variables)._at_put_("#minutes",self._minutes());
+_st(variables)._at_put_("#seconds",self._seconds());
+_st(variables)._at_put_("#milliseconds",self._milliseconds());
+$1=anInspector;
+_st($1)._setLabel_(self._printString());
+$2=_st($1)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Date)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#year' put: self year.\x0a\x09variables at: '#month' put: self month.\x0a\x09variables at: '#day' put: self day.\x0a\x09variables at: '#hours' put: self hours.\x0a\x09variables at: '#minutes' put: self minutes.\x0a\x09variables at: '#seconds' put: self seconds.\x0a\x09variables at: '#milliseconds' put: self milliseconds.\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "year", "month", "day", "hours", "minutes", "seconds", "milliseconds", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.Date);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
 self._withIndexDo_((function(each,i){
 return smalltalk.withContext(function($ctx2) {
 return _st(variables)._at_put_(i,each);
@@ -6819,34 +6853,6 @@ messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "se
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.Collection);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
-_st(variables)._at_put_("#keys",self._keys());
-self._keysAndValuesDo_((function(key,value){
-return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
-$1=anInspector;
-_st($1)._setLabel_(self._printString());
-$2=_st($1)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.HashedCollection)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#keys' put: self keys.\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09\x09variables at: key put: value].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -6887,63 +6893,6 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
-_st(self["@elements"])._withIndexDo_((function(each,i){
-return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(i,each);
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1)})}));
-$1=anInspector;
-_st($1)._setLabel_(self._printString());
-$2=_st($1)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Set)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09elements withIndexDo: [:each :i |\x0a\x09\x09variables at: i put: each].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.Set);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
-_st(variables)._at_put_("#year",self._year());
-_st(variables)._at_put_("#month",self._month());
-_st(variables)._at_put_("#day",self._day());
-_st(variables)._at_put_("#hours",self._hours());
-_st(variables)._at_put_("#minutes",self._minutes());
-_st(variables)._at_put_("#seconds",self._seconds());
-_st(variables)._at_put_("#milliseconds",self._milliseconds());
-$1=anInspector;
-_st($1)._setLabel_(self._printString());
-$2=_st($1)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Date)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#year' put: self year.\x0a\x09variables at: '#month' put: self month.\x0a\x09variables at: '#day' put: self day.\x0a\x09variables at: '#hours' put: self hours.\x0a\x09variables at: '#minutes' put: self minutes.\x0a\x09variables at: '#seconds' put: self seconds.\x0a\x09variables at: '#milliseconds' put: self milliseconds.\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "year", "month", "day", "hours", "minutes", "seconds", "milliseconds", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.Date);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
 _st(variables)._at_put_("#home",self._home());
 _st(variables)._at_put_("#receiver",self._receiver());
 _st(variables)._at_put_("#selector",self._selector());
@@ -6962,5 +6911,60 @@ messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:",
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+_st(variables)._at_put_("#keys",self._keys());
+self._keysAndValuesDo_((function(key,value){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(key,value);
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
+$1=anInspector;
+_st($1)._setLabel_(self._printString());
+$2=_st($1)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.HashedCollection)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#keys' put: self keys.\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09\x09variables at: key put: value].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "keys", "keysAndValuesDo:", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+_st(self["@elements"])._withIndexDo_((function(each,i){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(i,each);
+}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1)})}));
+$1=anInspector;
+_st($1)._setLabel_(self._printString());
+$2=_st($1)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.Set)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09elements withIndexDo: [:each :i |\x0a\x09\x09variables at: i put: each].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.Set);
 
 });

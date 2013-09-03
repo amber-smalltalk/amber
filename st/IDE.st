@@ -454,6 +454,7 @@ removeTab: aWidget
 
 initialize
 	super initialize.
+	InspectorHandler register: Inspector.
 	opened := true.
 	[:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
 	'body' asJQuery
@@ -1731,6 +1732,7 @@ updateVariablesList
 inspect: anObject
 	^self new
 		inspect: anObject;
+		open;
 		yourself
 !
 
@@ -2296,6 +2298,24 @@ renderButtonsOn: html
 	onClick: [self clearWorkspace]
 ! !
 
+!Date methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#year' put: self year.
+	variables at: '#month' put: self month.
+	variables at: '#day' put: self day.
+	variables at: '#hours' put: self hours.
+	variables at: '#minutes' put: self minutes.
+	variables at: '#seconds' put: self seconds.
+	variables at: '#milliseconds' put: self milliseconds.
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
 !Collection methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2304,6 +2324,34 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	self withIndexDo: [:each :i |
 		variables at: i put: each].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
+!String methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| label |
+	super inspectOn: anInspector.
+	self printString size > 30
+		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
+		ifFalse: [label := self printString].
+	anInspector setLabel: label
+! !
+
+!MethodContext methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	variables at: '#temps' put: self temps.
+	self class instanceVariableNames do: [:each |
+		variables at: each put: (self instVarAt: each)].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
@@ -2323,17 +2371,6 @@ inspectOn: anInspector
 		setVariables: variables
 ! !
 
-!String methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| label |
-	super inspectOn: anInspector.
-	self printString size > 30
-		ifTrue: [label := (self printString copyFrom: 1 to: 30), '...''']
-		ifFalse: [label := self printString].
-	anInspector setLabel: label
-! !
-
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2342,41 +2379,6 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	elements withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!Date methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!MethodContext methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#home' put: self home.
-	variables at: '#receiver' put: self receiver.
-	variables at: '#selector' put: self selector.
-	variables at: '#temps' put: self temps.
-	self class instanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
