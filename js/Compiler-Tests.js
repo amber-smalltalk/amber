@@ -814,13 +814,16 @@ selector: "testGlobalVar",
 category: 'tests',
 fn: function (){
 var self=this;
+function $BlockClosure(){return smalltalk.BlockClosure||(typeof BlockClosure=="undefined"?nil:BlockClosure)}
 return smalltalk.withContext(function($ctx1) { 
-self._assert_equals_(self._interpret_("foo ^ console"),console);
+self._assert_equals_(self._interpret_("foo ^ eval class"),$BlockClosure());
+self._assert_equals_(self._interpret_("foo ^ Math cos: 0"),(1));
+self._assert_equals_(self._interpret_("foo ^ NonExistingVar"),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testGlobalVar",{},smalltalk.InterpreterTest)})},
 args: [],
-source: "testGlobalVar\x0a\x09self assert: (self interpret: 'foo ^ console') equals: console",
+source: "testGlobalVar\x0a\x09self assert: (self interpret: 'foo ^ eval class') equals: BlockClosure.\x0a\x09self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.\x0a\x09self assert: (self interpret: 'foo ^ NonExistingVar') equals: nil.",
 messageSends: ["assert:equals:", "interpret:"],
-referencedClasses: []
+referencedClasses: ["BlockClosure"]
 }),
 smalltalk.InterpreterTest);
 

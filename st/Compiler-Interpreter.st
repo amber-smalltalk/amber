@@ -1044,7 +1044,9 @@ visitBlockNode: aNode
 !
 
 visitClassReferenceNode: aNode
-	self push: (Smalltalk current at: aNode value)
+	self push: (Smalltalk current 
+		at: aNode value 
+		ifAbsent: [ PlatformInterface globals at: aNode value ])
 !
 
 visitDynamicArrayNode: aNode
@@ -1105,16 +1107,11 @@ visitValueNode: aNode
 
 visitVariableNode: aNode
 	aNode binding isUnknownVar ifTrue: [
-		^ self push: (window at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].
+		^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].
 		
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
-! !
-
-!Interpreter methodsFor: 'xxxDoIt'!
-
-xxxDoIt ^[self step] value
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!
