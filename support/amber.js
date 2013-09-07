@@ -32,14 +32,11 @@ require = function (require) {
             'amber_core': home+'/js',
             'amber_core/_source': home+'/st',
             'jquery': home+'/support/jQuery/jquery-1.8.2.min',
-            'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.16.custom.min'
+            'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.24.custom.min'
         },
         map: {
             '*': {
                 'css': 'amber_lib/requirejs/require-css-0.0.6/css'
-            },
-            'amber/helios': {
-                'jquery-ui': 'amber_lib/jQuery/jquery-ui-1.8.24.custom.min'
             }
         },
         shim: {
