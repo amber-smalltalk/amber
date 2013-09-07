@@ -1336,7 +1336,7 @@ function AMDBrik(brikz, st) {
 	this.__init__ = function () {
 		st.amdRequire = st.amdRequire || null;
 		st.defaultTransportType = st.defaultTransportType || "amd";
-		st.defaultAMDNamespace = st.defaultAMDNamespace || "amber_core";
+		st.defaultAmdNamespace = st.defaultAmdNamespace || "amber_core";
 	};
 }
 
@@ -1377,7 +1377,7 @@ define("amber_vm/smalltalk", ["require", "module", "./boot"], function (require,
 	smalltalk.amdRequire = require;
 //    var config = module.config && module.config();
 //    if (config) {
-//		smalltalk.defaultAMDNamespace = config.defaultNamespace;
+//		smalltalk.defaultAmdNamespace = config.defaultNamespace;
 //    }
     return  smalltalk;
 });
@@ -17037,11 +17037,11 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._at_("defaultAMDNamespace");
+$1=self._at_("defaultAmdNamespace");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},smalltalk.Smalltalk)})},
 args: [],
-source: "defaultAmdNamespace\x0a\x09^ self at: 'defaultAMDNamespace'",
+source: "defaultAmdNamespace\x0a\x09^ self at: 'defaultAmdNamespace'",
 messageSends: ["at:"],
 referencedClasses: []
 }),
@@ -17054,10 +17054,10 @@ category: 'accessing amd',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._at_put_("defaultAMDNamespace",aString);
+self._at_put_("defaultAmdNamespace",aString);
 return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "defaultAmdNamespace: aString\x0a\x09self at: 'defaultAMDNamespace' put: aString",
+source: "defaultAmdNamespace: aString\x0a\x09self at: 'defaultAmdNamespace' put: aString",
 messageSends: ["at:put:"],
 referencedClasses: []
 }),

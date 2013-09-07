@@ -3,7 +3,7 @@ define("amber_vm/smalltalk", ["require", "module", "./boot"], function (require,
 	smalltalk.amdRequire = require;
 //    var config = module.config && module.config();
 //    if (config) {
-//		smalltalk.defaultAMDNamespace = config.defaultNamespace;
+//		smalltalk.defaultAmdNamespace = config.defaultNamespace;
 //    }
     return  smalltalk;
 });
