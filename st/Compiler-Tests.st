@@ -225,6 +225,13 @@ testThisContext
 	self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.
 	self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.
 	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
+!
+
+testVariableAccess
+	self assert: (self interpret: 'foo ^ Object') equals: Object.
+	self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.
+	self assert: (self interpret: 'foo ^ eval class') equals: BlockClosure.
+	self assert: (self interpret: 'foo ^ NonExistingVar') equals: nil.
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest

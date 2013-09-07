@@ -630,6 +630,17 @@ PlatformInterface class instanceVariableNames: 'worker'!
 
 setWorker: anObject
 	worker := anObject
+!
+
+globalAt: aString
+<
+	var f = new Function('aString',
+	'if (/^[0-9]/.test(aString) || !!/^[\\w_]+$/.test(aString))\n'+
+	'	return undefined;\n'+
+	'try { return eval(aString); } catch (ex) {}\n'+
+	'return undefined;');
+	return f(aString);
+>
 ! !
 
 !PlatformInterface class methodsFor: 'actions'!
@@ -791,6 +802,12 @@ version
 	"Answer the version string of Amber"
 	
 	^ '0.12.0-pre'
+!
+
+at: aKey ifAbsent: aBlock
+	^(self includesKey: aKey)
+		ifTrue: [self basicAt: aKey]
+		ifFalse: aBlock
 ! !
 
 !Smalltalk methodsFor: 'accessing amd'!
@@ -924,6 +941,10 @@ deletePackage: packageName
 ! !
 
 !Smalltalk methodsFor: 'testing'!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
+!
 
 isSmalltalkObject: anObject
 	"Consider anObject a Smalltalk object if it has a 'klass' property.
