@@ -732,6 +732,7 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._assert_equals_(self._interpret_("foo | a | a := 2. ^ a"),(2));
+self._assert_equals_(self._interpret_("foo | a | a := nil. ^ a"),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{},smalltalk.InterpreterTest)})},
 messageSends: ["assert:equals:", "interpret:"]}),
 smalltalk.InterpreterTest);

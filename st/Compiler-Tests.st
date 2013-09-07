@@ -423,7 +423,8 @@ testSuper
 !
 
 testTempAssignment
-	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2.
+	self assert: (self interpret: 'foo | a | a := nil. ^ a') equals: nil.
 !
 
 testThisContext

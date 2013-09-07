@@ -983,9 +983,10 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._assert_equals_(self._interpret_("foo | a | a := 2. ^ a"),(2));
+self._assert_equals_(self._interpret_("foo | a | a := nil. ^ a"),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testTempAssignment",{},smalltalk.InterpreterTest)})},
 args: [],
-source: "testTempAssignment\x0a\x09self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2",
+source: "testTempAssignment\x0a\x09self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2.\x0a\x09self assert: (self interpret: 'foo | a | a := nil. ^ a') equals: nil.",
 messageSends: ["assert:equals:", "interpret:"],
 referencedClasses: []
 }),
