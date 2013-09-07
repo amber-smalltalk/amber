@@ -388,7 +388,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope theClass classReferences messageSends superSends blockIndex'
+	instanceVariableNames: 'currentScope blockIndex theClass classReferences messageSends superSends'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -507,7 +507,7 @@ visitBlockNode: aNode
 	aNode scope: currentScope.
 	currentScope node: aNode.
 	currentScope blockIndex: self nextBlockIndex.
-	
+
 	aNode parameters do: [ :each |
 		self validateVariableScope: each.
 		currentScope addArg: each ].
@@ -519,7 +519,7 @@ visitBlockNode: aNode
 visitCascadeNode: aNode
 	super visitCascadeNode: aNode.
 	aNode nodes first superSend ifTrue: [
-		aNode nodes do: [ :each | each superSend: true ]]
+		aNode nodes do: [ :each | each superSend: true ] ]
 !
 
 visitClassReferenceNode: aNode
@@ -566,8 +566,6 @@ visitSendNode: aNode
 		
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
 			aNode shouldBeInlined: true.
-			aNode arguments do: [ :each |
-				each isBlockNode ifTrue: [ each shouldBeInlined: true ] ].
 			aNode receiver shouldBeAliased: true ] ].
 
 	self messageSends at: aNode selector ifAbsentPut: [ Set new ].

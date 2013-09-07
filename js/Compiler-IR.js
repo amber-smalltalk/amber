@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Compiler-IR", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Compiler-Core", "amber_core/Kernel-Objects", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-IR');
+smalltalk.packages["Compiler-IR"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('IRASTTranslator', smalltalk.NodeVisitor, ['source', 'theClass', 'method', 'sequence', 'nextAlias'], 'Compiler-IR');
 smalltalk.IRASTTranslator.comment="I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.";
@@ -3564,29 +3565,6 @@ smalltalk.JSStream);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "nextPutStatement:with:",
-category: 'streaming',
-fn: function (anInteger,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=self["@stream"];
-_st($1)._nextPutAll_(_st("case ".__comma(_st(anInteger)._asString())).__comma(":"));
-$2=_st($1)._lf();
-self._nextPutStatementWith_(aBlock);
-$3=self["@stream"];
-_st($3)._nextPutAll_(_st("smalltalk.thisContext.pc=".__comma(_st(_st(anInteger).__plus((1)))._asString())).__comma(";"));
-$4=_st($3)._lf();
-return self}, function($ctx1) {$ctx1.fill(self,"nextPutStatement:with:",{anInteger:anInteger,aBlock:aBlock},smalltalk.JSStream)})},
-args: ["anInteger", "aBlock"],
-source: "nextPutStatement: anInteger with: aBlock\x0a\x09stream nextPutAll: 'case ', anInteger asString, ':'; lf.\x0a\x09self nextPutStatementWith: aBlock.\x0a\x09stream nextPutAll: 'smalltalk.thisContext.pc=', (anInteger + 1) asString, ';'; lf",
-messageSends: ["nextPutAll:", ",", "asString", "lf", "nextPutStatementWith:", "+"],
-referencedClasses: []
-}),
-smalltalk.JSStream);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "nextPutStatementWith:",
 category: 'streaming',
 fn: function (aBlock){
@@ -3682,4 +3660,4 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.String);
 
-})(global_smalltalk,global_nil,global__st);
+});

@@ -1,37 +1,41 @@
 {
-    "name": "amber",
-    "version": "0.11.0",
-    "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
-    "homepage": "http://amber-lang.net",
-    "keywords": [ "javascript", "smalltalk", "language", "compiler", "web" ],
-    "author": {
-        "name": "Nicolas Petton",
-        "email": "petton.nicolas@gmail.com",
-        "url": "http://www.nicolas-petton.fr"
-    },
-    "license": {
-        "type": "MIT"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/amber-smalltalk/amber.git#0.11.0"
-    },
-    "engines": {
-        "node": "0.8.x"
-    },
-    "bin": {
-        "amber": "./bin/amber",
-        "amberc": "./bin/amberc",
-        "ambers": "./bin/server"
-    },
-    "scripts": {
-        "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"
-    },
-    "devDependencies": {
-        "pegjs": "~0.7.0",
-        "grunt": "~0.4.0",
-        "grunt-contrib-jshint": "~0.3.0",
-        "grunt-image-embed": "~0.1.3",
-        "grunt-contrib-mincss": "~0.3.2"
-    }
+  "name": "amber",
+  "version": "0.12.0-pre",
+  "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
+  "homepage": "http://amber-lang.net",
+  "keywords": [
+    "javascript",
+    "smalltalk",
+    "language",
+    "compiler",
+    "web"
+  ],
+  "author": {
+    "name": "Nicolas Petton",
+    "email": "petton.nicolas@gmail.com",
+    "url": "http://www.nicolas-petton.fr"
+  },
+  "license": {
+    "type": "MIT"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amber-smalltalk/amber.git"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "bin": {
+    "amber": "./bin/amber-cli.js",
+    "amberc": "./bin/amberc"
+  },
+  "scripts": {
+    "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"
+  },
+  "devDependencies": {
+    "pegjs": "~0.7.0",
+    "grunt": "~0.4.0",
+    "grunt-contrib-jshint": "~0.3.0",
+    "amdefine": "0.0.8"
+  }
 }

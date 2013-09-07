@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Benchfib", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Benchfib');
+smalltalk.packages["Benchfib"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Benchfib', smalltalk.Object, [], 'Benchfib');
 
@@ -251,4 +252,4 @@ referencedClasses: ["Date"]
 }),
 smalltalk.Number);
 
-})(global_smalltalk,global_nil,global__st);
+});

@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Compiler-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Core');
+smalltalk.packages["Compiler-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('AbstractCodeGenerator', smalltalk.Object, ['currentClass', 'source'], 'Compiler-Core');
 smalltalk.AbstractCodeGenerator.comment="I am the abstract super class of all code generators and provide their common API.";
@@ -26,7 +27,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
 args: ["aClass"],
 source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [aClass instanceClass name, '.klass']\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: ['nil']\x0a\x09\x09\x09ifFalse: [aClass name]]",
-messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
+messageSends: ["ifTrue:ifFalse:", ",", "name", "instanceClass", "isNil", "isMetaclass"],
 referencedClasses: []
 }),
 smalltalk.AbstractCodeGenerator);
@@ -119,7 +120,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
 args: ["aString"],
 source: "safeVariableNameFor: aString\x0a\x09^(Smalltalk current reservedWords includes: aString)\x0a\x09\x09ifTrue: [aString, '_']\x0a\x09\x09ifFalse: [aString]",
-messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", "current", ","],
+messageSends: ["ifTrue:ifFalse:", ",", "includes:", "reservedWords", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.AbstractCodeGenerator);
@@ -187,7 +188,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,ir:ir,stream:stream},smalltalk.CodeGenerator)})},
 args: ["aNode"],
 source: "compileNode: aNode\x0a\x09| ir stream |\x0a\x09self semanticAnalyzer visit: aNode.\x0a\x09ir := self translator visit: aNode.\x0a\x09^ self irTranslator\x0a\x09\x09currentClass: self currentClass;\x0a\x09\x09visit: ir;\x0a\x09\x09contents",
-messageSends: ["visit:", "semanticAnalyzer", "translator", "currentClass:", "irTranslator", "currentClass", "contents"],
+messageSends: ["visit:", "semanticAnalyzer", "translator", "currentClass:", "currentClass", "irTranslator", "contents"],
 referencedClasses: []
 }),
 smalltalk.CodeGenerator);
@@ -248,7 +249,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"translator",{},smalltalk.CodeGenerator)})},
 args: [],
 source: "translator\x0a\x09^ IRASTTranslator new\x0a\x09\x09source: self source;\x0a\x09\x09theClass: self currentClass;\x0a\x09\x09yourself",
-messageSends: ["source:", "new", "source", "theClass:", "currentClass", "yourself"],
+messageSends: ["source:", "source", "new", "theClass:", "currentClass", "yourself"],
 referencedClasses: ["IRASTTranslator"]
 }),
 smalltalk.CodeGenerator);
@@ -508,7 +509,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},smalltalk.Compiler)})},
 args: ["aString", "aBehavior", "anotherString"],
 source: "install: aString forClass: aBehavior category: anotherString\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a\x09\x09forClass: aBehavior\x0a\x09\x09category: anotherString",
-messageSends: ["installMethod:forClass:category:", "new", "eval:", "compile:forClass:"],
+messageSends: ["installMethod:forClass:category:", "eval:", "compile:forClass:", "new"],
 referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Compiler);
@@ -561,7 +562,7 @@ var $1;
 _st(_st(_st(aClass)._methodDictionary())._values())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Recompiling ".__comma(_st(aClass)._name()));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),"Recompiling ".__comma(_st(aClass)._name()));
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
 self._recompile_(_st(aClass)._class());
@@ -569,7 +570,7 @@ self._recompile_(_st(aClass)._class());
 return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},smalltalk.Compiler)})},
 args: ["aClass"],
 source: "recompile: aClass\x0a\x09aClass methodDictionary values\x0a\x09\x09do: [ :each | self install: each source forClass: aClass category: each category ]\x0a\x09\x09displayingProgress: 'Recompiling ', aClass name.\x0a\x09\x22self setupClass: aClass.\x22\x0a\x09aClass isMetaclass ifFalse: [ self recompile: aClass class ]",
-messageSends: ["do:displayingProgress:", "values", "methodDictionary", "install:forClass:category:", "source", "category", ",", "name", "ifFalse:", "isMetaclass", "recompile:", "class"],
+messageSends: ["do:displayingProgress:", "install:forClass:category:", "source", "category", ",", "name", "values", "methodDictionary", "ifFalse:", "recompile:", "class", "isMetaclass"],
 referencedClasses: []
 }),
 smalltalk.Compiler);
@@ -585,11 +586,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(_st($Smalltalk())._current())._classes())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._recompile_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Compiling all classes...");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),"Compiling all classes...");
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler)})},
 args: [],
 source: "recompileAll\x0a\x09Smalltalk current classes \x0a\x09\x09do: [:each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
-messageSends: ["do:displayingProgress:", "classes", "current", "recompile:"],
+messageSends: ["do:displayingProgress:", "recompile:", "classes", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler);
@@ -695,11 +696,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._recompile_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler.klass)})},
 args: [],
 source: "recompileAll\x0a\x09Smalltalk current classes do: [:each |\x0a\x09\x09self recompile: each]",
-messageSends: ["do:", "classes", "current", "recompile:"],
+messageSends: ["do:", "recompile:", "classes", "current"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Compiler.klass);
@@ -740,7 +741,7 @@ var $1;
 $1=_st(aCollection)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._visit_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitAll:",{aCollection:aCollection},smalltalk.NodeVisitor)})},
 args: ["aCollection"],
@@ -1021,4 +1022,4 @@ referencedClasses: []
 smalltalk.NodeVisitor);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

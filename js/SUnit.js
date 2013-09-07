@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/SUnit", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions"], function(smalltalk,nil,_st){
 smalltalk.addPackage('SUnit');
+smalltalk.packages["SUnit"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ResultAnnouncement', smalltalk.Object, ['result'], 'SUnit');
 smalltalk.ResultAnnouncement.comment="I get signaled when a `TestCase` has been run.\x0a\x0aMy instances hold the result (instance of `TestResult`) of the test run.";
@@ -1234,4 +1235,4 @@ referencedClasses: []
 }),
 smalltalk.TestSuiteRunner.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

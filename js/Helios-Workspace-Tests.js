@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Workspace-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/SUnit"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Workspace-Tests');
+smalltalk.packages["Helios-Workspace-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLCodeWidgetTest', smalltalk.TestCase, [], 'Helios-Workspace-Tests');
 smalltalk.addMethod(
@@ -22,4 +23,4 @@ referencedClasses: ["HLCodeWidget", "HashedCollection"]
 smalltalk.HLCodeWidgetTest);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

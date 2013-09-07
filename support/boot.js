@@ -33,17 +33,8 @@
    |
    ==================================================================== */
 
-/* Global Smalltalk objects. */
-// The globals below all begin with `global_' prefix.
-// This prefix is to advice developers to avoid their usage,
-// instead using local versions smalltalk, nil, _st that are
-// provided by appropriate wrappers to each package.
-// The plan is to use different module loader (and slightly change the wrappers)
-// so that these globals are hidden completely inside the exports/imports of the module loader.
-// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
-var global_smalltalk, global_nil, global__st;
 
-(function () {
+define("amber_vm/boot", [ './browser-compatibility' ], function () {
 
 /* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
@@ -317,6 +308,7 @@ function ClassesBrik(brikz, st) {
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
 
 		st.Object.klass.superclass = st.Class;
+		addSubclass(st.Object.klass);
 
 		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
 	};
@@ -349,7 +341,10 @@ function ClassesBrik(brikz, st) {
 		spec = spec || {};
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
+
 		that.fn = spec.fn || inherits(function () {}, spec.superclass.fn);
+		that.subclasses = [];
+
 		setupClass(that, spec);
 
 		that.className = spec.className;
@@ -410,6 +405,17 @@ function ClassesBrik(brikz, st) {
 		return st.packages[pkgName];
 	};
 
+	SmalltalkPackage.prototype.withDefaultTransport = function () {
+		var defaultTransportType = st.getDefaultTransportType();
+		if (this.transport) {
+			throw new Error("Cannot set default transport; transport already set");
+		}
+		if (defaultTransportType) {
+			this.transport = { type: defaultTransportType };
+		}
+		return this;
+	};
+
 	/* Add a class to the smalltalk object, creating a new one if needed.
 	 A Package is lazily created if it does not exist with given name. */
 
@@ -420,7 +426,11 @@ function ClassesBrik(brikz, st) {
 
 	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
 		var pkg = st.packages[pkgName];
-		if (!pkg) { throw new Error("Missing package "+pkgName); }
+
+		if (!pkg) { 
+			throw new Error("Missing package "+pkgName); 
+		}
+
 		if(st[className] && st[className].superclass == superclass) {
 //            st[className].superclass = superclass;
 			st[className].iVarNames = iVarNames || [];
@@ -442,6 +452,8 @@ function ClassesBrik(brikz, st) {
 				fn: fn,
 				wrapped: wrapped
 			});
+
+			addSubclass(st[className]);
 		}
 
 		classes.addElement(st[className]);
@@ -451,8 +463,21 @@ function ClassesBrik(brikz, st) {
 	st.removeClass = function(klass) {
 		org.removeOrganizationElement(klass.pkg, klass);
 		classes.removeElement(klass);
+		removeSubclass(klass);
 		delete st[klass.className];
 	};
+
+	function addSubclass(klass) {
+		if(klass.superclass) {
+			klass.superclass.subclasses.addElement(klass);
+		}
+	}
+
+	function removeSubclass(klass) {
+		if(klass.superclass) {
+			klass.superclass.subclasses.removeElement(klass);
+		}
+	}
 
 	/* Create a new class wrapping a JavaScript constructor, and add it to the
 	 global smalltalk object. Package is lazily created if it does not exist with given name. */
@@ -494,36 +519,10 @@ function ClassesBrik(brikz, st) {
 		return packages;
 	};
 
-	/* Answer the direct subclasses of klass. */
-
-	st.subclasses = function(klass) {
-		var subclasses = [];
-		var classes = st.classes();
-		for(var i=0; i < classes.length; i++) {
-			var c = classes[i];
-			if(c.fn) {
-				//Classes
-				if(c.superclass === klass) {
-					subclasses.push(c);
-				}
-				c = c.klass;
-				//Metaclasses
-				if(c && c.superclass === klass) {
-					subclasses.push(c);
-				}
-			}
-		}
-		return subclasses;
-	};
-
+	// Still used, but could go away now that subclasses are stored
+	// into classes directly.
 	st.allSubclasses = function(klass) {
-		var result, subclasses;
-		result = subclasses = st.subclasses(klass);
-		subclasses.forEach(function(subclass) {
-			result.push.apply(result, st.allSubclasses(subclass));
-		});
-
-		return result;
+		return klass._allSubclasses();
 	};
 
 }
@@ -592,7 +591,7 @@ function MethodsBrik(brikz, st) {
 				installNewDnuHandler(dnuHandler);
 			}
 		}
-	}
+	};
 
 	function propagateMethodChange(klass) {
 		// If already initialized (else it will be done later anyway),
@@ -717,17 +716,6 @@ function SmalltalkInitBrik(brikz, st) {
 
 		st.alias(st.Array, "OrderedCollection");
 		st.alias(st.Date, "Time");
-
-		/*
-		 * Answer the smalltalk representation of o.
-		 * Used in message sends
-		 */
-
-		st._st = function (o) {
-			if(o == null) {return nil;}
-			if(o.klass) {return o;}
-			return st.JSObjectProxy._on_(o);
-		};
 
 	};
 }
@@ -1053,6 +1041,16 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
+/* Adds AMD and requirejs related methods to the smalltalk object */
+function AMDBrik(brikz, st) {
+	this.__init__ = function () {
+		st.amdRequire = st.amdRequire || null;
+		st.defaultTransportType = st.defaultTransportType || "amd";
+		st.defaultAmdNamespace = st.defaultAmdNamespace || "amber_core";
+	};
+}
+
+
 /* Making smalltalk that can load */
 
 brikz.root = RootBrik;
@@ -1065,6 +1063,7 @@ brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.stInit = SmalltalkInitBrik;
 brikz.augments = AugmentsBrik;
+brikz.amdBrik = AMDBrik;
 
 brikz.rebuild();
 
@@ -1078,9 +1077,5 @@ function runnable () {
 	brikz.rebuild();
 };
 
-global_smalltalk = api;
-global_nil = brikz.root.nil;
-global__st = api._st;
-api._st = null;
-
-})();
+return { smalltalk: api, nil: brikz.root.nil };
+});

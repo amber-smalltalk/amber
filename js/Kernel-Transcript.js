@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Kernel-Transcript", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Transcript');
+smalltalk.packages["Kernel-Transcript"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('ConsoleTranscript', smalltalk.Object, ['textarea'], 'Kernel-Transcript');
 smalltalk.ConsoleTranscript.comment="I am a specific transcript emitting to the JavaScript console.\x0a\x0aIf no other transcript is registered, I am the default.";
@@ -218,4 +219,4 @@ referencedClasses: []
 }),
 smalltalk.Transcript.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

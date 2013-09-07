@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-KeyBindings", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-KeyBindings');
+smalltalk.packages["Helios-KeyBindings"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLBinding', smalltalk.Object, ['key', 'label'], 'Helios-KeyBindings');
 smalltalk.HLBinding.comment="I am the abstract representation of a keybinding in Helios. My instances hold a key (integer value) and a label. \x0a\x0aBindings are built into a tree of keys, so pressing a key may result in more key choices (for example, to open a workspace, 'o' is pressed first then 'w' is pressed).\x0a\x0aBinding action handling and selection is handled by the `current` instance of `HLKeyBinder`.\x0a\x0aSubclasses implement specific behavior like evaluating actions or (sub-)grouping other bindings.";
@@ -2272,4 +2273,4 @@ referencedClasses: []
 }),
 smalltalk.HLRepeatedKeyDownHandler.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

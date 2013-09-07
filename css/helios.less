@@ -44,7 +44,6 @@ html[xmlns] .clearfix {
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
-	background: #fff;
     }
 
     .CodeMirror-hints {
@@ -133,7 +132,8 @@ html[xmlns] .clearfix {
 	line-height: 16px;
     }
 
-    .navbar-fixed-top a span {
+    .navbar-fixed-top a span,
+    .dialog .nav a span {
 	padding: 1px;
 	padding-left: 18px;
 	background-position: center left;
@@ -151,27 +151,31 @@ html[xmlns] .clearfix {
 	margin-top: 2px;
     }
 
-    .navbar-fixed-top a span.references {
-	background-image: url('../images/references.png')
-    }
+    .navbar-fixed-top a,
+    .dialog .nav a {
 
-    .navbar-fixed-top a span.browser {
-	background-image: url('../images/browser.png')
-    }
+	span.references {
+	    background-image: url('../images/references.png')
+	}
 
-    .navbar-fixed-top a span.sunit {
-	background-image: url('../images/sunit.png')
-    }
+	span.browser {
+	    background-image: url('../images/browser.png')
+	}
 
-    .navbar-fixed-top a span.workspace {
-	background-image: url('../images/workspace.png')
-    }
+	span.sunit {
+	    background-image: url('../images/sunit.png')
+	}
 
-    .navbar-fixed-top a span.debugger {
-	background-image: url('../images/debugger.png')
-    }
-    .navbar-fixed-top a span.inspector {
-	background-image: url('../images/inspector.png')
+	span.workspace {
+	    background-image: url('../images/workspace.png')
+	}
+
+	span.debugger {
+	    background-image: url('../images/debugger.png')
+	}
+	span.inspector {
+	    background-image: url('../images/inspector.png')
+	}
     }
 
 
@@ -732,6 +736,27 @@ html[xmlns] .clearfix {
 	-moz-transition: top .5s;
 	-o-transition: top .5s;
 
+	.hl_widget {
+	
+	    &:focus {
+		outline: 0 none;
+	    }
+
+	    .form-actions {
+		padding: 0;
+		border: 0;
+	    }
+	}
+
+	.nav {
+	    border: 1px solid #999;
+
+	    span {
+		font-size: 11px;
+		font-weight: normal;
+	    }
+	}
+
 	.title {
 	    font-size: 16px;
 	    margin-bottom: 15px;
@@ -751,7 +776,6 @@ html[xmlns] .clearfix {
 	    display: block;
 	    width: 235px;
 	}
-
 
 	.progress {
 	    height: 5px;

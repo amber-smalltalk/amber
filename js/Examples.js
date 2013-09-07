@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Examples", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Examples');
+smalltalk.packages["Examples"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Counter', smalltalk.Widget, ['count', 'header'], 'Examples');
 smalltalk.Counter.comment="This is a trivial Widget example mimicking the classic Counter example in Seaside.\x0aIn order to play with it, just evaluate the doit below in a workspace.\x0aThen take a look in the HTML document above the IDE.\x0a\x0a\x09\x09Counter tryExample";
@@ -109,4 +110,4 @@ referencedClasses: []
 }),
 smalltalk.Counter.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

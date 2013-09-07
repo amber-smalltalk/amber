@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Commands-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Helios-Commands-Tools"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Browser');
+smalltalk.packages["Helios-Commands-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLBrowserCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Browser');
 
@@ -589,4 +590,4 @@ referencedClasses: []
 }),
 smalltalk.HLToggleInstanceSideCommand.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

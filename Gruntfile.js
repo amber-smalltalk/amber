@@ -3,8 +3,6 @@ module.exports = function(grunt) {
   grunt.loadTasks('./grunt/tasks');
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
-//  grunt.loadNpmTasks('grunt-image-embed');
-//  grunt.loadNpmTasks('grunt-contrib-mincss');
 
   grunt.registerTask('default', ['peg', 'amberc:all']);
 
@@ -35,9 +33,9 @@ module.exports = function(grunt) {
       all: {
         output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
-              'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
+              'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
               'st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st',
+              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st',
               'st/Canvas.st', 'st/SUnit.st', 'st/IDE.st',
               'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st',
               'st/Helios-Core.st', 'st/Helios-Exceptions.st', 'st/Helios-Announcements.st',
@@ -48,32 +46,27 @@ module.exports = function(grunt) {
               'st/Helios-Workspace-Tests.st',
               'st/Benchfib.st', 'st/Examples.st', 'st/Spaces.st'
               ],
-        jsGlobals: ['navigator'],
-        deploy: true
+        jsGlobals: ['navigator']
       },
       amber_kernel: {
         output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
-              'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st'],
-        deploy: true
+              'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st']
       },
       amber_compiler: {
         output_dir : 'js',
         src: ['st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st'],
-        output_name: 'Compiler',
-        deploy: true
+              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st'],
+        output_name: 'Compiler'
       },
       amber_canvas: {
         output_dir : 'js',
-        src: ['st/Canvas.st', 'st/SUnit.st'],
-        deploy: true
+        src: ['st/Canvas.st', 'st/SUnit.st']
       },
       amber_IDE: {
         output_dir : 'js',
         src: ['st/IDE.st'],
-        libraries: ['Canvas'],
-        deploy: true
+        libraries: ['Canvas']
       },
       amber_tests: {
         output_dir : 'js',
@@ -105,7 +98,8 @@ module.exports = function(grunt) {
             'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser'
         ],
         main_class: 'AmberCli',
-        output_name: 'amber-cli'
+        output_name: '../../bin/amber-cli',
+        amd_namespace: 'amber_cli'
       }
     },
 
@@ -115,64 +109,6 @@ module.exports = function(grunt) {
       repl: ['repl/*.js'],
       tests: ['test/*.js'],
       grunt: ['grunt.js', 'grunt/**/*.js']
-    },
-/*
-    concat: {
-      deploy: {
-        src: ['tmp/amber-compiled.deploy.js'],
-        dest: 'dist/amber-<%= pkg.version %>.deploy.js'
-      },
-
-      css: {
-        src: [
-          'css/amber.css',
-          'js/lib/CodeMirror/codemirror.css',
-          'js/lib/CodeMirror/amber.css'
-        ],
-        dest: 'tmp/amber.css'
-      },
-
-      dev: {
-        src: [
-          'js/lib/jQuery/jquery-ui-1.8.16.custom.min.js',
-          'js/lib/jQuery/jquery.textarea.js',
-          'js/lib/CodeMirror/codemirror.js',
-          'js/lib/CodeMirror/smalltalk.js',
-          'tmp/amber-compiled.js',
-          'tmp/css.js'
-        ],
-        dest: 'dist/amber-<%= pkg.version %>.js'
-      }
-    },
-
-    imageEmbed: {
-      dev: {
-        src: ['tmp/amber.css'],
-        dest: 'tmp/amber-images.css',
-        options: {baseDir: 'public'}
-      }
-    },
-
-    mincss: {
-      dev: {
-        src: ['tmp/amber-images.css'],
-        dest: 'tmp/amber.min.css'
-      }
-    },
-
-    css2js: {
-      dev: {
-        src: 'tmp/amber.min.css',
-        dest: 'tmp/css.js'
-      }
-    },
-
-    min: {
-      deploy: {
-        src: 'dist/amber-<%= pkg.version %>.deploy.js',
-        dest: 'dist/amber-<%= pkg.version %>.deploy.min.js'
-      }
     }
-*/
   });
 };

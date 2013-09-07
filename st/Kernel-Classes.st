@@ -27,17 +27,23 @@ allInstanceVariableNames
 !
 
 allSelectors
-	^self allSuperclasses
+	^ self allSuperclasses
 		inject: self selectors
-		into: [ :soFar :aBehavior | soFar addAll: aBehavior selectors; yourself ]
+		into: [ :acc :each | acc addAll: each selectors; yourself ]
 !
 
 allSubclasses
-	| result |
-	result := self subclasses.
-	self subclasses do: [:each |
-		result addAll: each allSubclasses].
-	^result
+	"Answer an collection of the receiver's and the receiver's descendent's subclasses. "
+
+	| subclasses index |
+	
+	subclasses := self subclasses.
+	index := 1.
+	[ index > subclasses size ]
+		whileFalse: [ subclasses addAll: (subclasses at: index) subclasses.
+			index := index + 1 ].
+
+	^ subclasses
 !
 
 allSuperclasses
@@ -137,6 +143,22 @@ organization
 	^ self basicAt: 'organization'
 !
 
+ownMethods
+	"Answer the methods of the receiver that are not package extensions"
+
+	^ (self ownProtocols 
+		inject: OrderedCollection new
+		into: [ :acc :each | acc, (self methodsInProtocol: each) ])
+			sorted: [ :a :b | a selector <= b selector ]
+!
+
+ownProtocols
+	"Answer the protocols of the receiver that are not package extensions"
+
+	^ self protocols reject: [ :each |
+		each match: '^\*' ]
+!
+
 protocols
 	^ self organization elements sorted
 !
@@ -150,7 +172,7 @@ selectors
 !
 
 subclasses
-	<return smalltalk.subclasses(self)>
+	self subclassResponsibility
 !
 
 superclass
@@ -232,9 +254,8 @@ removeCompiledMethod: aMethod
 allSubclassesDo: aBlock
 	"Evaluate the argument, aBlock, for each of the receiver's subclasses."
 
-	self subclasses do: [ :each |
-    	aBlock value: each.
-        each allSubclassesDo: aBlock ].
+	self allSubclasses do: [ :each |
+    	aBlock value: each ]
 !
 
 protocolsDo: aBlock
@@ -353,6 +374,10 @@ package: aPackage
 
 rename: aString
 	ClassBuilder new renameClass: self to: aString
+!
+
+subclasses
+	<return self.subclasses._copy()>
 ! !
 
 !Class methodsFor: 'class creation'!
@@ -424,6 +449,12 @@ instanceClass
 instanceVariableNames: aCollection
 	ClassBuilder new
 		class: self instanceVariableNames: aCollection
+!
+
+subclasses
+	^ (self instanceClass subclasses 
+		select: [ :each | each isMetaclass not ])
+		collect: [ :each | each theMetaClass ]
 !
 
 theMetaClass

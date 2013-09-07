@@ -18,12 +18,11 @@ module.exports = function(grunt) {
          libraries: 'Canvas',                   // optional
          jsGlobals: ['global1', 'global2'],     // optional
          main_class: 'HelloWorld',              // optional
-         output_name: 'helloWorld',            // optional
-         init: 'myInit',                       // optional
-         main_file: 'myMain.js',               // optional
-         deploy: true,                         // optional
-         output_suffix: 'mySuffix',            // optional
-         library_suffix: '-0.9'                // optional
+         output_name: 'helloWorld',             // optional
+         amd_namespace: 'MyNamespace',          // optional (default: 'amber')
+         main_file: 'myMain.js',                // optional
+         output_suffix: 'mySuffix',             // optional
+         library_suffix: '-0.9'                 // optional
        },
      },
 
@@ -49,8 +48,7 @@ module.exports = function(grunt) {
     // generate the amberc configuration out of the given target properties
     var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
 
-    // run the compiler
-    // change back to the old working directory and call the async callback once finished
+    // run the compiler and call the async callback once finished
     var self = this;
     compiler.main(configuration, function(){
       // signal that task has finished
@@ -67,10 +65,6 @@ module.exports = function(grunt) {
     if (undefined !== libraries) {
       configuration.load = libraries;
     }
-    var initFile = data.init;
-    if (undefined !== initFile) {
-      configuration.init = initFile;
-    }
     var mainClass = data.main_class;
     if (undefined !== mainClass) {
       configuration.main = mainClass;
@@ -78,9 +72,6 @@ module.exports = function(grunt) {
     var mainFile = data.main_file;
     if (undefined !== mainFile) {
       configuration.mainfile = mainFile;
-    }
-    if (true === data.deploy) {
-      configuration.deploy = true;
     }
     var outputSuffix = data.output_suffix;
     if (undefined !== outputSuffix) {
@@ -109,6 +100,10 @@ module.exports = function(grunt) {
     var outputName = data.output_name;
     if (undefined !== outputName) {
       configuration.program = outputName;
+    }
+    var amdNamespace = data.amd_namespace;
+    if (undefined !== amdNamespace) {
+      configuration.amd_namespace = amdNamespace;
     }
     if (undefined !== data.output_dir) {
       configuration.output_dir = data.output_dir;

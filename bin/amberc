@@ -44,14 +44,14 @@ function handle_options(optionsArray, amber_dir) {
 			case '-g':
 				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
 				break;
-			case '-i':
-				defaults.init = optionsArray.shift();
-				break;
 			case '-m':
 				defaults.main = optionsArray.shift();
 				break;
 			case '-M':
 				defaults.mainfile = optionsArray.shift();
+				break;
+			case '-n':
+				defaults.amd_namespace = optionsArray.shift();
 				break;
 			case '-o':
 				defaults.closure = true;
@@ -65,9 +65,6 @@ function handle_options(optionsArray, amber_dir) {
 				defaults.closure = true;
 				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
 				defaults.closure_full = true;
-				break;
-			case '-d':
-				defaults.deploy = true;
 				break;
 			case '-D':
 				defaults.output_dir = optionsArray.shift();
@@ -146,14 +143,15 @@ function print_usage() {
 	console.log('     Comma separated list of JS global variable names.');
 	console.log('     The names are added to a list containing "window", "document" and others.');
 	console.log('');
-	console.log('  -i init_file');
-	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
-	console.log('');
 	console.log('  -m main_class');
 	console.log('     Add a call to the class method main_class>>main at the end of <Program>.');
 	console.log('');
 	console.log('  -M main_file');
 	console.log('     Add <main_file> at the end of <Program.js> acting as #main.');
+	console.log('');
+	console.log('  -n amd_namespace');
+	console.log('     Export packages with <amd_namespace> as the require.js namespace.');
+	console.log('     Default value is "amber_core".');
 	console.log('');
 	console.log('  -o');
 	console.log('     Optimize each .js file using the Google closure compiler.');
@@ -164,10 +162,6 @@ function print_usage() {
 	console.log('     Using Closure compiler found at ~/compiler.jar');
 	console.log('');
 	console.log('  -A Same as -O but use --compilation_level ADVANCED_OPTIMIZATIONS');
-	console.log('');
-	console.log('  -d');
-	console.log('     Additionally export code for deploy - stripped from source etc.');
-	console.log('     Uses suffix ".deploy.js" in addition to any explicit suffic set by -s.');
 	console.log('');
 	console.log('  -D');
 	console.log('     Specifies the output directory for all generated .js files.');

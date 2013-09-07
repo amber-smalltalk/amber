@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Kernel-Collections", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Collections');
+smalltalk.packages["Kernel-Collections"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Association', smalltalk.Object, ['key', 'value'], 'Kernel-Collections');
 smalltalk.Association.comment="I represent a pair of associated objects, a key and a value. My instances can serve as entries in a dictionary.\x0a\x0aInstances can be created with the class-side method `#key:value:`";
@@ -16,13 +17,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(_st(self._key()).__eq(_st(anAssociation)._key()))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self._value()).__eq(_st(anAssociation)._value());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"=",{anAssociation:anAssociation},smalltalk.Association)})},
 args: ["anAssociation"],
 source: "= anAssociation\x0a\x09^self class = anAssociation class and: [\x0a\x09\x09self key = anAssociation key and: [\x0a\x09\x09self value = anAssociation value]]",
-messageSends: ["and:", "=", "class", "key", "value"],
+messageSends: ["and:", "=", "value", "key", "class"],
 referencedClasses: []
 }),
 smalltalk.Association);
@@ -187,7 +188,7 @@ var $1;
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=aCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"addAll:",{aCollection:aCollection},smalltalk.Collection)})},
@@ -228,12 +229,12 @@ var $1;
 $1=_st(self._asArray())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._asJSON();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Collection)})},
 args: [],
 source: "asJSON\x0a\x09^self asArray collect: [:each | each asJSON]",
-messageSends: ["collect:", "asArray", "asJSON"],
+messageSends: ["collect:", "asJSON", "asArray"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -288,7 +289,7 @@ stream=_st(_st(self._class())._new())._writeStream();
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(stream)._nextPut_(_st(aBlock)._value_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=_st(stream)._contents();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,stream:stream},smalltalk.Collection)})},
@@ -315,7 +316,7 @@ $1=_st(aBlock)._value_(each);
 if(smalltalk.assert($1)){
 throw $early=[true];
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return false;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -380,7 +381,7 @@ var $1;
 $1=self._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aCollection)._includes_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"copyWithoutAll:",{aCollection:aCollection},smalltalk.Collection)})},
 args: ["aCollection"],
@@ -401,7 +402,7 @@ var $1;
 $1=self._detect_ifNone_(aBlock,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"detect:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
@@ -455,12 +456,12 @@ actionBeforeElement=(function(){
 return smalltalk.withContext(function($ctx2) {
 actionBeforeElement=anotherBlock;
 return actionBeforeElement;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})});
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 _st(actionBeforeElement)._value();
 return _st(aBlock)._value_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"do:separatedBy:",{aBlock:aBlock,anotherBlock:anotherBlock,actionBeforeElement:actionBeforeElement},smalltalk.Collection)})},
 args: ["aBlock", "anotherBlock"],
 source: "do: aBlock separatedBy: anotherBlock\x0a\x09| actionBeforeElement |\x0a\x09actionBeforeElement := [actionBeforeElement := anotherBlock].\x0a\x09self do: [:each |\x0a\x09\x09actionBeforeElement value.\x0a\x09\x09aBlock value: each]",
@@ -503,7 +504,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
 source: "ifEmpty: aBlock\x0a\x09\x22Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs:\x0a\x09\x09(myProtocol ifEmpty: ['As yet unclassified'])\x22\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ self ]",
-messageSends: ["ifTrue:ifFalse:", "isEmpty", "value"],
+messageSends: ["ifTrue:ifFalse:", "value", "isEmpty"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -540,10 +541,10 @@ sentinel=_st($Object())._new();
 $1=_st(self._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__tild_eq(sentinel);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))).__tild_eq(sentinel);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,sentinel:sentinel},smalltalk.Collection)})},
 args: ["anObject"],
@@ -567,7 +568,7 @@ self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 result=_st(aBlock)._value_value_(result,each);
 return result;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inject:into:",{anObject:anObject,aBlock:aBlock,result:result},smalltalk.Collection)})},
@@ -595,17 +596,17 @@ return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(set)._includes_(each))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(_st(outputSet)._includes_(each))._not();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 if(smalltalk.assert($1)){
 return _st(outputSet)._add_(each);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=_st(self._class())._withAll_(_st(outputSet)._asArray());
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"intersection:",{aCollection:aCollection,set:set,outputSet:outputSet},smalltalk.Collection)})},
 args: ["aCollection"],
 source: "intersection: aCollection\x0a\x09\x22Answer the set theoretic intersection of two collections.\x22\x0a\x0a\x09| set outputSet |\x0a\x09\x0a\x09set := self asSet.\x0a\x09outputSet := Set new.\x0a\x09\x0a\x09aCollection do: [ :each |\x0a\x09\x09((set includes: each) and: [(outputSet includes: each) not])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09outputSet add: each]].\x0a\x09\x09\x0a\x09^ self class withAll: outputSet asArray",
-messageSends: ["asSet", "new", "do:", "ifTrue:", "and:", "includes:", "not", "add:", "withAll:", "class", "asArray"],
+messageSends: ["asSet", "new", "do:", "ifTrue:", "add:", "and:", "not", "includes:", "withAll:", "asArray", "class"],
 referencedClasses: ["Set"]
 }),
 smalltalk.Collection);
@@ -663,13 +664,13 @@ if(smalltalk.assert($1)){
 tally=_st(tally).__plus((1));
 return tally;
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=tally;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"occurrencesOf:",{anObject:anObject,tally:tally},smalltalk.Collection)})},
 args: ["anObject"],
 source: "occurrencesOf: anObject\x0a\x09\x22Answer how many of the receiver's elements are equal to anObject.\x22\x0a\x0a\x09| tally |\x0a\x09tally := 0.\x0a\x09self do: [:each | anObject = each ifTrue: [tally := tally + 1]].\x0a\x09^tally",
-messageSends: ["do:", "ifTrue:", "=", "+"],
+messageSends: ["do:", "ifTrue:", "+", "="],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -684,7 +685,7 @@ return smalltalk.withContext(function($ctx1) {
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._putOn_(aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"putOn:",{aStream:aStream},smalltalk.Collection)})},
 args: ["aStream"],
 source: "putOn: aStream\x0a\x09self do: [ :each | each putOn: aStream ]",
@@ -704,11 +705,11 @@ var $1;
 $1=self._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(aBlock)._value_(each)).__eq(false);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"reject:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "reject: aBlock\x0a\x09^self select: [:each | (aBlock value: each) = false]",
+source: "reject: aBlock\x0a\x09^ self select: [ :each | (aBlock value: each) = false ]",
 messageSends: ["select:", "=", "value:"],
 referencedClasses: []
 }),
@@ -725,7 +726,7 @@ var $1;
 $1=self._remove_ifAbsent_(anObject,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.Collection)})},
 args: ["anObject"],
@@ -767,13 +768,40 @@ $1=_st(aBlock)._value_(each);
 if(smalltalk.assert($1)){
 return _st(stream)._nextPut_(each);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=_st(stream)._contents();
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,stream:stream},smalltalk.Collection)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [:each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: each]].\x0a\x09^stream contents",
-messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "nextPut:", "contents"],
+messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "nextPut:", "value:", "contents"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "select:thenCollect:",
+category: 'enumerating',
+fn: function (selectBlock,collectBlock){
+var self=this;
+var stream;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+stream=_st(_st(self._class())._new())._writeStream();
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(selectBlock)._value_(each);
+if(smalltalk.assert($1)){
+return _st(stream)._nextPut_(_st(collectBlock)._value_(each));
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+$2=_st(stream)._contents();
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},smalltalk.Collection)})},
+args: ["selectBlock", "collectBlock"],
+source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [:each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each)]].\x0a\x09^stream contents",
+messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "nextPut:", "value:", "contents"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -930,7 +958,7 @@ var $1;
 $1=self._at_ifAbsent_(anIndex,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:",{anIndex:anIndex},smalltalk.IndexableCollection)})},
 args: ["anIndex"],
@@ -967,7 +995,7 @@ var $1;
 $1=self._at_ifPresent_ifAbsent_(anIndex,aBlock,(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{anIndex:anIndex,aBlock:aBlock},smalltalk.IndexableCollection)})},
 args: ["anIndex", "aBlock"],
@@ -1020,7 +1048,7 @@ var $1;
 $1=self._indexOf_ifAbsent_(anObject,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:",{anObject:anObject},smalltalk.IndexableCollection)})},
 args: ["anObject"],
@@ -1056,7 +1084,7 @@ return smalltalk.withContext(function($ctx1) {
 self._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(each,_st(anotherCollection)._at_(index));
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"with:do:",{anotherCollection:anotherCollection,aBlock:aBlock},smalltalk.IndexableCollection)})},
 args: ["anotherCollection", "aBlock"],
 source: "with: anotherCollection do: aBlock\x0a\x09\x22Calls aBlock with every value from self\x0a\x09and with indetically-indexed value from anotherCollection\x22\x0a\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09aBlock value: each value: (anotherCollection at: index) ]",
@@ -1194,7 +1222,7 @@ c=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(c)._at_put_(key,_st(value)._asJSON());
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $1=c;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{c:c},smalltalk.HashedCollection)})},
@@ -1218,7 +1246,7 @@ associations=[];
 self._associationsDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(associations)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=associations;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"associations",{associations:associations},smalltalk.HashedCollection)})},
@@ -1240,7 +1268,7 @@ return smalltalk.withContext(function($ctx1) {
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(_st($Association())._key_value_(key,value));
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"associationsDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aBlock"],
 source: "associationsDo: aBlock\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09\x09aBlock value: (Association key: key value: value)]",
@@ -1261,12 +1289,12 @@ $2=self._includesKey_(aKey);
 $1=_st($2)._ifTrue_ifFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._basicAt_(aKey);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aKey", "aBlock"],
 source: "at: aKey ifAbsent: aBlock\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifTrue: [self basicAt: aKey]\x0a\x09\x09ifFalse: aBlock",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "basicAt:"],
+messageSends: ["ifTrue:ifFalse:", "basicAt:", "includesKey:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1282,7 +1310,7 @@ var $1;
 $1=self._at_ifAbsent_(aKey,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._at_put_(aKey,_st(aBlock)._value());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifAbsentPut:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aKey", "aBlock"],
@@ -1304,12 +1332,12 @@ $2=self._includesKey_(aKey);
 $1=_st($2)._ifTrue_ifFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(self._at_(aKey));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),anotherBlock);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),anotherBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aKey:aKey,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.HashedCollection)})},
 args: ["aKey", "aBlock", "anotherBlock"],
 source: "at: aKey ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22Lookup the given key in the receiver.\x0a\x09If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,\x0a\x09otherwise answer the value of absentBlock.\x22\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifTrue: [ aBlock value: (self at: aKey) ]\x0a\x09\x09ifFalse: anotherBlock",
-messageSends: ["ifTrue:ifFalse:", "includesKey:", "value:", "at:"],
+messageSends: ["ifTrue:ifFalse:", "value:", "at:", "includesKey:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1345,7 +1373,7 @@ newDict=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(newDict)._at_put_(key,_st(aBlock)._value_(value));
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $1=newDict;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock,newDict:newDict},smalltalk.HashedCollection)})},
@@ -1369,7 +1397,7 @@ copy=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(copy)._at_put_(key,_st(value)._deepCopy());
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $1=copy;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{copy:copy},smalltalk.HashedCollection)})},
@@ -1459,12 +1487,12 @@ var $1;
 $1=_st(self._keys())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._at_(each)).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),aBlock);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["anObject", "aBlock"],
 source: "indexOf: anObject ifAbsent: aBlock\x0a\x0a\x09^ self keys detect: [ :each | (self at: each) = anObject ] ifNone: aBlock",
-messageSends: ["detect:ifNone:", "keys", "=", "at:"],
+messageSends: ["detect:ifNone:", "=", "at:", "keys"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1480,7 +1508,7 @@ var $1;
 $1=self._keyAtValue_ifAbsent_(anObject,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._errorNotFound();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keyAtValue:",{anObject:anObject},smalltalk.HashedCollection)})},
 args: ["anObject"],
@@ -1543,7 +1571,7 @@ return smalltalk.withContext(function($ctx1) {
 self._keysDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(each,self._at_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aBlock"],
 source: "keysAndValuesDo: aBlock\x0a\x09self keysDo: [:each |\x0a\x09\x09aBlock value: each value: (self at: each)]",
@@ -1580,10 +1608,10 @@ _st(aStream)._nextPutAll_(" (");
 _st(self._associations())._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._printOn_(aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(" , ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.HashedCollection)})},
 args: ["aStream"],
@@ -1647,7 +1675,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"removeKey:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aKey", "aBlock"],
 source: "removeKey: aKey ifAbsent: aBlock\x0a\x09^(self includesKey: aKey)\x0a\x09\x09ifFalse: [aBlock value]\x0a\x09\x09ifTrue: [self basicDelete: aKey]",
-messageSends: ["ifFalse:ifTrue:", "includesKey:", "value", "basicDelete:"],
+messageSends: ["ifFalse:ifTrue:", "value", "basicDelete:", "includesKey:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1668,13 +1696,13 @@ $1=_st(aBlock)._value_(value);
 if(smalltalk.assert($1)){
 return _st(newDict)._at_put_(key,value);
 };
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $2=newDict;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,newDict:newDict},smalltalk.HashedCollection)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09| newDict |\x0a\x09newDict := self class new.\x0a\x09self keysAndValuesDo: [:key :value |\x0a\x09\x09(aBlock value: value) ifTrue: [newDict at: key put: value]].\x0a\x09^newDict",
-messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "value:", "at:put:"],
+messageSends: ["new", "class", "keysAndValuesDo:", "ifTrue:", "at:put:", "value:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1692,7 +1720,7 @@ copy=_st(self._class())._new();
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(copy)._at_put_(key,value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 $1=copy;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shallowCopy",{copy:copy},smalltalk.HashedCollection)})},
@@ -1728,16 +1756,15 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._keys())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return self._at_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.HashedCollection)})},
+
+		return self._keys().map(function(key){
+			return self._at_(key);
+		});
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.HashedCollection)})},
 args: [],
-source: "values\x0a\x09^self keys collect: [:each | self at: each]",
-messageSends: ["collect:", "keys", "at:"],
+source: "values\x0a\x09<\x0a\x09\x09return self._keys().map(function(key){\x0a\x09\x09\x09return self._at_(key);\x0a\x09\x09});\x0a\x09>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1749,14 +1776,14 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._keysAndValuesDo_((function(key,value){
+_st(self._values())._do_((function(value){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(value);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aBlock"],
-source: "valuesDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value ]",
-messageSends: ["keysAndValuesDo:", "value:"],
+source: "valuesDo: aBlock\x0a\x09self values do: [ :value | aBlock value: value ]",
+messageSends: ["do:", "value:", "values"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -1771,7 +1798,7 @@ return smalltalk.withContext(function($ctx1) {
 self._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_value_(value,key);
-}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.HashedCollection)})},
 args: ["aBlock"],
 source: "withIndexDo: aBlock\x0a\x09self keysAndValuesDo: [ :key :value | aBlock value: value value: key ]",
@@ -1794,7 +1821,7 @@ newCollection=self._new();
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._add_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=newCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"from:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
@@ -1840,13 +1867,13 @@ newCollection=self._new();
 _st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._at_put_(_st(aCollection)._at_(each),_st(aCollection)._at_(_st(each).__plus((1))));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=newCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
 source: "newFromPairs: aCollection\x0a\x09\x22Accept an array of elements where every two elements form an \x0a\x09association - the odd element being the key, and the even element the value.\x22\x0a\x09\x0a\x09| newCollection |\x0a\x09\x0a\x09aCollection size even ifFalse: [ \x0a\x09\x09self error: '#newFromPairs only accepts arrays of an even length' ].\x0a\x09\x09\x0a\x09newCollection := self new.\x0a\x09( 1 to: aCollection size by: 2 ) do: [ :each | \x0a\x09\x09newCollection at: (aCollection at: each) put: (aCollection at: each + 1) ].\x0a\x09\x09\x0a\x09^ newCollection",
-messageSends: ["ifFalse:", "even", "size", "error:", "new", "do:", "to:by:", "at:put:", "at:", "+"],
+messageSends: ["ifFalse:", "error:", "even", "size", "new", "do:", "at:put:", "at:", "+", "to:by:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection.klass);
@@ -1867,7 +1894,7 @@ $1=_st($HashedCollection())._from_(self._associations());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asHashedCollection",{},smalltalk.Dictionary)})},
 args: [],
-source: "asHashedCollection\x0a\x09^HashedCollection from: self associations",
+source: "asHashedCollection\x0a\x09^ HashedCollection from: self associations",
 messageSends: ["from:", "associations"],
 referencedClasses: ["HashedCollection"]
 }),
@@ -1885,7 +1912,7 @@ $1=_st(self._asHashedCollection())._asJSON();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.Dictionary)})},
 args: [],
-source: "asJSON\x0a\x09^self asHashedCollection asJSON",
+source: "asJSON\x0a\x09^ self asHashedCollection asJSON",
 messageSends: ["asJSON", "asHashedCollection"],
 referencedClasses: []
 }),
@@ -1963,7 +1990,7 @@ var $2,$1;
 index=_st(self["@values"])._indexOf_ifAbsent_(anObject,(function(){
 return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=_st(index).__eq((0));
 if(smalltalk.assert($2)){
 $1=_st(aBlock)._value();
@@ -1973,8 +2000,8 @@ $1=_st(self["@keys"])._at_(index);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock,index:index},smalltalk.Dictionary)})},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x0a\x09| index |\x0a\x09index := values indexOf: anObject ifAbsent: [0].\x0a\x09^ index = 0 ifTrue: [ aBlock value ] ifFalse: [ keys at: index ]",
-messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "=", "value", "at:"],
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09| index |\x0a\x09index := values \x0a\x09\x09indexOf: anObject \x0a\x09\x09ifAbsent: [ 0 ].\x0a\x09^ index = 0 \x0a\x09\x09ifTrue: [ aBlock value ] \x0a\x09\x09ifFalse: [ keys at: index ]",
+messageSends: ["indexOf:ifAbsent:", "ifTrue:ifFalse:", "value", "at:", "="],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -2009,7 +2036,7 @@ $1=_st(self["@keys"])._copy();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.Dictionary)})},
 args: [],
-source: "keys\x0a\x09^keys copy",
+source: "keys\x0a\x09^ keys copy",
 messageSends: ["copy"],
 referencedClasses: []
 }),
@@ -2027,7 +2054,7 @@ $1=_st(self["@keys"])._with_do_(self["@values"],aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
 args: ["aBlock"],
-source: "keysAndValuesDo: aBlock\x0a\x09^keys with: values do: aBlock",
+source: "keysAndValuesDo: aBlock\x0a\x09^ keys with: values do: aBlock",
 messageSends: ["with:do:"],
 referencedClasses: []
 }),
@@ -2045,7 +2072,7 @@ $1=_st(self["@keys"])._do_(aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keysDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
 args: ["aBlock"],
-source: "keysDo: aBlock\x0a\x09^keys do: aBlock",
+source: "keysDo: aBlock\x0a\x09^ keys do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),
@@ -2110,12 +2137,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@values"])._copy();
+$1=self["@values"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"values",{},smalltalk.Dictionary)})},
 args: [],
-source: "values\x0a\x09^values copy",
-messageSends: ["copy"],
+source: "values\x0a\x09^ values",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -2132,7 +2159,7 @@ $1=_st(self["@values"])._do_(aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valuesDo:",{aBlock:aBlock},smalltalk.Dictionary)})},
 args: ["aBlock"],
-source: "valuesDo: aBlock\x0a\x09^values do: aBlock",
+source: "valuesDo: aBlock\x0a\x09^ values do: aBlock",
 messageSends: ["do:"],
 referencedClasses: []
 }),
@@ -2155,7 +2182,7 @@ try {
 $1=_st(_st(self._class()).__eq(_st(aCollection)._class()))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._size()).__eq(_st(aCollection)._size());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 if(! smalltalk.assert($1)){
 return false;
 };
@@ -2165,14 +2192,14 @@ $2=_st(_st(aCollection)._at_(i)).__eq(each);
 if(! smalltalk.assert($2)){
 throw $early=[false];
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1)})}));
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"=",{aCollection:aCollection},smalltalk.SequenceableCollection)})},
 args: ["aCollection"],
 source: "= aCollection\x0a\x09(self class = aCollection class and: [\x0a\x09\x09self size = aCollection size]) ifFalse: [^false].\x0a\x09self withIndexDo: [:each :i |\x0a\x09\x09\x09\x09(aCollection at: i) = each ifFalse: [^false]].\x0a\x09^true",
-messageSends: ["ifFalse:", "and:", "=", "class", "size", "withIndexDo:", "at:"],
+messageSends: ["ifFalse:", "and:", "=", "size", "class", "withIndexDo:", "at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2261,13 +2288,13 @@ newCollection=_st(self._class())._new_(_st(range)._size());
 _st(range)._withIndexDo_((function(each,i){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._at_put_(i,self._at_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1)})}));
 $1=newCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"copyFrom:to:",{anIndex:anIndex,anotherIndex:anotherIndex,range:range,newCollection:newCollection},smalltalk.SequenceableCollection)})},
 args: ["anIndex", "anotherIndex"],
 source: "copyFrom: anIndex to: anotherIndex\x0a\x09| range newCollection |\x0a\x09range := anIndex to: anotherIndex.\x0a\x09newCollection := self class new: range size.\x0a\x09range withIndexDo: [:each :i |\x0a\x09\x09newCollection at: i put: (self at: each)].\x0a\x09^newCollection",
-messageSends: ["to:", "new:", "class", "size", "withIndexDo:", "at:put:", "at:"],
+messageSends: ["to:", "new:", "size", "class", "withIndexDo:", "at:put:", "at:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2285,13 +2312,13 @@ newCollection=_st(self._class())._new_(self._size());
 self._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._at_put_(index,_st(each)._deepCopy());
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1)})}));
 $1=newCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"deepCopy",{newCollection:newCollection},smalltalk.SequenceableCollection)})},
 args: [],
 source: "deepCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [:each :index |\x0a\x09\x09newCollection at: index put: each deepCopy].\x0a\x09^newCollection",
-messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:", "deepCopy"],
+messageSends: ["new:", "size", "class", "withIndexDo:", "at:put:", "deepCopy"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2330,23 +2357,6 @@ args: ["aBlock"],
 source: "do: aBlock\x0a\x09<for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.SequenceableCollection);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "do:displayingProgress:",
-category: 'enumerating',
-fn: function (aBlock,aString){
-var self=this;
-function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
-return smalltalk.withContext(function($ctx1) { 
-_st(_st($ProgressHandler())._current())._do_on_displaying_(aBlock,self,aString);
-return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},smalltalk.SequenceableCollection)})},
-args: ["aBlock", "aString"],
-source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler current\x0a\x09\x09do: aBlock on: self displaying: aString",
-messageSends: ["do:on:displaying:", "current"],
-referencedClasses: ["ProgressHandler"]
 }),
 smalltalk.SequenceableCollection);
 
@@ -2415,7 +2425,7 @@ var $1;
 $1=_st(self._indexOf_ifAbsent_(anObject,(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})})))._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.SequenceableCollection)})},
 args: ["anObject"],
@@ -2457,7 +2467,7 @@ var $1;
 $1=self._indexOf_startingAt_ifAbsent_(anObject,start,(function(){
 return smalltalk.withContext(function($ctx2) {
 return (0);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:",{anObject:anObject,start:start},smalltalk.SequenceableCollection)})},
 args: ["anObject", "start"],
@@ -2549,11 +2559,13 @@ category: 'adding/removing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.SequenceableCollection)})},
+var $1;
+$1=self._remove_(self._last());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"removeLast",{},smalltalk.SequenceableCollection)})},
 args: [],
-source: "removeLast\x0a\x09self subclassResponsibility",
-messageSends: ["subclassResponsibility"],
+source: "removeLast\x0a\x09^ self remove: self last",
+messageSends: ["remove:", "last"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2605,13 +2617,13 @@ newCollection=_st(self._class())._new_(self._size());
 self._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._at_put_(index,each);
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1)})}));
 $1=newCollection;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shallowCopy",{newCollection:newCollection},smalltalk.SequenceableCollection)})},
 args: [],
 source: "shallowCopy\x0a\x09| newCollection |\x0a\x09newCollection := self class new: self size.\x0a\x09self withIndexDo: [ :each :index |\x0a\x09\x09newCollection at: index put: each].\x0a\x09^newCollection",
-messageSends: ["new:", "class", "size", "withIndexDo:", "at:put:"],
+messageSends: ["new:", "size", "class", "withIndexDo:", "at:put:"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection);
@@ -2756,7 +2768,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"streamContents:",{aBlock:aBlock,stream:stream},smalltalk.SequenceableCollection.klass)})},
 args: ["aBlock"],
 source: "streamContents: aBlock\x0a\x09| stream |\x0a\x09stream := (self streamClass on: self new).\x0a\x09aBlock value: stream.\x0a\x09^ stream contents",
-messageSends: ["on:", "streamClass", "new", "value:", "contents"],
+messageSends: ["on:", "new", "streamClass", "value:", "contents"],
 referencedClasses: []
 }),
 smalltalk.SequenceableCollection.klass);
@@ -2807,7 +2819,7 @@ var $1;
 $1=_st("[".__comma(_st(self._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._asJavascript();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._join_(", "))).__comma("]");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._join_(", "))).__comma("]");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Array)})},
 args: [],
@@ -2870,6 +2882,22 @@ smalltalk.Array);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "collect:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.map(function(each) {return aBlock._value_(each)});
+return self}, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.Array)})},
+args: ["aBlock"],
+source: "collect: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09<return self.map(function(each) {return aBlock._value_(each)})>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "join:",
 category: 'enumerating',
 fn: function (aString){
@@ -2896,10 +2924,10 @@ _st(aStream)._nextPutAll_(" (");
 self._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._printOn_(aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(" ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Array)})},
 args: ["aStream"],
@@ -2992,6 +3020,30 @@ return self._copy().reverse();
 return self}, function($ctx1) {$ctx1.fill(self,"reversed",{},smalltalk.Array)})},
 args: [],
 source: "reversed\x0a\x09<return self._copy().reverse()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "select:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var result = self.klass._new();
+		for(var i=0; i<self.length; i++) {
+			if(aBlock._value_(self[i])) {
+				result.push(self[i]);
+			}
+		}
+		return result;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock},smalltalk.Array)})},
+args: ["aBlock"],
+source: "select: aBlock\x0a\x09\x22Optimized version\x22\x0a\x09\x0a\x09<\x0a\x09\x09var result = self.klass._new();\x0a\x09\x09for(var i=0; i<self.length; i++) {\x0a\x09\x09\x09if(aBlock._value_(self[i])) {\x0a\x09\x09\x09\x09result.push(self[i]);\x0a\x09\x09\x09}\x0a\x09\x09}\x0a\x09\x09return result;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3186,7 +3238,7 @@ return smalltalk.withContext(function($ctx2) {
 _st(instance)._at_put_(index,each);
 index=_st(index).__plus((1));
 return index;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=instance;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"withAll:",{aCollection:aCollection,instance:instance,index:index},smalltalk.Array.klass)})},
@@ -3247,7 +3299,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asLowercase",{},smalltalk.CharacterArray)})},
 args: [],
 source: "asLowercase\x0a\x09^self class fromString: self asString asLowercase",
-messageSends: ["fromString:", "class", "asLowercase", "asString"],
+messageSends: ["fromString:", "asLowercase", "asString", "class"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
@@ -3319,7 +3371,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asUppercase",{},smalltalk.CharacterArray)})},
 args: [],
 source: "asUppercase\x0a\x09^self class fromString: self asString asUppercase",
-messageSends: ["fromString:", "class", "asUppercase", "asString"],
+messageSends: ["fromString:", "asUppercase", "asString", "class"],
 referencedClasses: []
 }),
 smalltalk.CharacterArray);
@@ -3390,15 +3442,15 @@ smalltalk.CharacterArray);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "remove:ifAbsent:",
-category: 'adding',
-fn: function (anObject,aBlock){
+selector: "remove:",
+category: 'adding/removing',
+fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._errorReadOnly();
-return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.CharacterArray)})},
-args: ["anObject", "aBlock"],
-source: "remove: anObject ifAbsent: aBlock\x0a\x09self errorReadOnly",
+return self}, function($ctx1) {$ctx1.fill(self,"remove:",{anObject:anObject},smalltalk.CharacterArray)})},
+args: ["anObject"],
+source: "remove: anObject\x0a\x09self errorReadOnly",
 messageSends: ["errorReadOnly"],
 referencedClasses: []
 }),
@@ -3595,6 +3647,29 @@ return self}, function($ctx1) {$ctx1.fill(self,"asLowercase",{},smalltalk.String
 args: [],
 source: "asLowercase\x0a\x09<return self.toLowerCase()>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asMutator",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=_st(self._last()).__eq(":");
+if(! smalltalk.assert($1)){
+$2=self.__comma(":");
+return $2;
+};
+$3=self;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"asMutator",{},smalltalk.String)})},
+args: [],
+source: "asMutator\x0a\x09\x22Answer a setter selector. For example,\x0a\x09#name asMutator returns #name:\x22\x0a\x0a\x09self last = ':' ifFalse: [  ^ self, ':' ].\x0a\x09^ self",
+messageSends: ["ifFalse:", ",", "=", "last"],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -3799,7 +3874,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"crlfSanitized",{},smalltalk.String)})},
 args: [],
 source: "crlfSanitized\x0a\x09^self lines join: String lf",
-messageSends: ["join:", "lines", "lf"],
+messageSends: ["join:", "lf", "lines"],
 referencedClasses: ["String"]
 }),
 smalltalk.String);
@@ -3913,12 +3988,12 @@ var $1;
 $1=_st(_st(self._size()).__eq((1)))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return "aeiou"._includes_(self._asLowercase());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isVowel",{},smalltalk.String)})},
 args: [],
 source: "isVowel\x0a\x09\x22Answer true if the receiver is a one character string containing a voyel\x22\x0a\x09\x0a\x09^ self size = 1 and: [ 'aeiou' includes: self asLowercase ]",
-messageSends: ["and:", "=", "size", "includes:", "asLowercase"],
+messageSends: ["and:", "includes:", "asLowercase", "=", "size"],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -3937,11 +4012,11 @@ return smalltalk.withContext(function($ctx2) {
 return _st(aCollection)._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(stream)._nextPutAll_(_st(each)._asString());
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}),(function(){
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(stream)._nextPutAll_(self);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"join:",{aCollection:aCollection},smalltalk.String)})},
 args: ["aCollection"],
@@ -3972,12 +4047,12 @@ nextLF=self._indexOf_startingAt_(lf,(1));
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(start).__lt_eq(sz);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(_st(nextLF).__eq((0)))._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(nextCR).__eq((0));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 if(smalltalk.assert($1)){
 _st(aBlock)._value_value_value_(start,sz,sz);
 $2=self;
@@ -3988,8 +4063,8 @@ return smalltalk.withContext(function($ctx3) {
 return _st((0).__lt(nextLF))._and_((function(){
 return smalltalk.withContext(function($ctx4) {
 return _st(nextLF).__lt(nextCR);
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3,6)})}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 if(smalltalk.assert($3)){
 _st(aBlock)._value_value_value_(start,_st(nextLF).__minus((1)),nextLF);
 start=(1).__plus(nextLF);
@@ -4014,13 +4089,13 @@ nextCR=self._indexOf_startingAt_(cr,start);
 return nextCR;
 };
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"lineIndicesDo:",{aBlock:aBlock,cr:cr,lf:lf,start:start,sz:sz,nextLF:nextLF,nextCR:nextCR},smalltalk.String)})},
 args: ["aBlock"],
 source: "lineIndicesDo: aBlock\x0a\x09\x22execute aBlock with 3 arguments for each line:\x0a\x09- start index of line\x0a\x09- end index of line without line delimiter\x0a\x09- end index of line including line delimiter(s) CR, LF or CRLF\x22\x0a\x09\x0a\x09| cr lf start sz nextLF nextCR |\x0a\x09start := 1.\x0a\x09sz := self size.\x0a\x09cr := String cr.\x0a\x09nextCR := self indexOf: cr startingAt: 1.\x0a\x09lf := String lf.\x0a\x09nextLF := self indexOf: lf startingAt: 1.\x0a\x09[ start <= sz ] whileTrue: [\x0a\x09\x09(nextLF = 0 and: [ nextCR = 0 ])\x0a\x09\x09\x09ifTrue: [ \x22No more CR, nor LF, the string is over\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: sz value: sz.\x0a\x09\x09\x09\x09\x09^self ].\x0a\x09\x09(nextCR = 0 or: [ 0 < nextLF and: [ nextLF < nextCR ] ])\x0a\x09\x09\x09ifTrue: [ \x22Found a LF\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextLF - 1 value: nextLF.\x0a\x09\x09\x09\x09\x09start := 1 + nextLF.\x0a\x09\x09\x09\x09\x09nextLF := self indexOf: lf startingAt: start ]\x0a\x09\x09\x09ifFalse: [ 1 + nextCR = nextLF\x0a\x09\x09\x09\x09ifTrue: [ \x22Found a CR-LF pair\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextCR - 1 value: nextLF.\x0a\x09\x09\x09\x09\x09start := 1 + nextLF.\x0a\x09\x09\x09\x09\x09nextCR := self indexOf: cr startingAt: start.\x0a\x09\x09\x09\x09\x09nextLF := self indexOf: lf startingAt: start ]\x0a\x09\x09\x09\x09ifFalse: [ \x22Found a CR\x22\x0a\x09\x09\x09\x09\x09aBlock value: start value: nextCR - 1 value: nextCR.\x0a\x09\x09\x09\x09\x09start := 1 + nextCR.\x0a\x09\x09\x09\x09\x09nextCR := self indexOf: cr startingAt: start ]]]",
-messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", "<=", "ifTrue:", "and:", "=", "value:value:value:", "ifTrue:ifFalse:", "or:", "<", "-", "+"],
+messageSends: ["size", "cr", "indexOf:startingAt:", "lf", "whileTrue:", "ifTrue:", "value:value:value:", "and:", "=", "ifTrue:ifFalse:", "-", "+", "or:", "<", "<="],
 referencedClasses: ["String"]
 }),
 smalltalk.String);
@@ -4045,14 +4120,14 @@ if(smalltalk.assert($1)){
 $2=self._copyFrom_to_(start,endWithoutDelimiters);
 throw $early=[$2];
 };
-}, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1)})}));
 return nil;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"lineNumber:",{anIndex:anIndex,lineCount:lineCount},smalltalk.String)})},
 args: ["anIndex"],
 source: "lineNumber: anIndex\x0a\x09\x22Answer a string containing the characters in the given line number.\x22\x0a\x0a\x09| lineCount |\x0a\x09lineCount := 0.\x0a\x09self lineIndicesDo: [:start :endWithoutDelimiters :end |\x0a\x09\x09(lineCount := lineCount + 1) = anIndex ifTrue: [^self copyFrom: start to: endWithoutDelimiters]].\x0a\x09^nil",
-messageSends: ["lineIndicesDo:", "ifTrue:", "=", "+", "copyFrom:to:"],
+messageSends: ["lineIndicesDo:", "ifTrue:", "copyFrom:to:", "=", "+"],
 referencedClasses: []
 }),
 smalltalk.String);
@@ -4071,7 +4146,7 @@ lines=_st($Array())._new();
 self._linesDo_((function(aLine){
 return smalltalk.withContext(function($ctx2) {
 return _st(lines)._add_(aLine);
-}, function($ctx2) {$ctx2.fillBlock({aLine:aLine},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({aLine:aLine},$ctx1)})}));
 $1=lines;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"lines",{lines:lines},smalltalk.String)})},
@@ -4092,7 +4167,7 @@ return smalltalk.withContext(function($ctx1) {
 self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(self._copyFrom_to_(start,endWithoutDelimiters));
-}, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"linesDo:",{aBlock:aBlock},smalltalk.String)})},
 args: ["aBlock"],
 source: "linesDo: aBlock\x0a\x09\x22Execute aBlock with each line in this string. The terminating line\x0a\x09delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock\x22\x0a\x0a\x09self lineIndicesDo: [:start :endWithoutDelimiters :end |\x0a\x09\x09aBlock value: (self copyFrom: start to: endWithoutDelimiters)]",
@@ -4559,7 +4634,7 @@ return smalltalk.withContext(function($ctx2) {
 result=self._random();
 result;
 return _st(aString)._includesSubString_(result);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileTrue();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileTrue();
 $1=result;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"randomNotIn:",{aString:aString,result:result},smalltalk.String.klass)})},
@@ -4664,7 +4739,7 @@ $3=_st(aCollection)._includes_(each);
 if(! smalltalk.assert($3)){
 throw $early=[false];
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -4732,7 +4807,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"collect:",{aBlock:aBlock},smalltalk.Set)})},
 args: ["aBlock"],
 source: "collect: aBlock\x0a\x09^self class withAll: (elements collect: aBlock)",
-messageSends: ["withAll:", "class", "collect:"],
+messageSends: ["withAll:", "collect:", "class"],
 referencedClasses: []
 }),
 smalltalk.Set);
@@ -4818,10 +4893,10 @@ _st(aStream)._nextPutAll_(" (");
 self._do_separatedBy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._printOn_(aStream);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aStream)._nextPutAll_(" ");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Set)})},
 args: ["aStream"],
@@ -4879,13 +4954,13 @@ $1=_st(aBlock)._value_(each);
 if(smalltalk.assert($1)){
 return _st(collection)._add_(each);
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $2=collection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:",{aBlock:aBlock,collection:collection},smalltalk.Set)})},
 args: ["aBlock"],
 source: "select: aBlock\x0a\x09| collection |\x0a\x09collection := self class new.\x0a\x09self do: [:each |\x0a\x09\x09(aBlock value: each) ifTrue: [\x0a\x09\x09\x09collection add: each]].\x0a\x09^collection",
-messageSends: ["new", "class", "do:", "ifTrue:", "value:", "add:"],
+messageSends: ["new", "class", "do:", "ifTrue:", "add:", "value:"],
 referencedClasses: []
 }),
 smalltalk.Set);
@@ -4943,7 +5018,7 @@ var $1;
 $1=self._nextIfAbsent_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Cannot read from empty Queue.");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Queue)})},
 args: [],
@@ -4986,7 +5061,7 @@ self["@readIndex"];
 self["@write"]=_st($OrderedCollection())._new();
 self["@write"];
 return _st(self["@read"])._first();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 _st(self["@read"])._at_put_(self["@readIndex"],nil);
 self["@readIndex"]=_st(self["@readIndex"]).__plus((1));
 $4=result;
@@ -4996,7 +5071,7 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"nextIfAbsent:",{aBlock:aBlock,result:result},smalltalk.Queue)})},
 args: ["aBlock"],
 source: "nextIfAbsent: aBlock\x0a\x09| result |\x0a\x09result := read at: readIndex ifAbsent: [\x0a\x09\x09write isEmpty ifTrue: [\x0a\x09\x09\x09readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].\x0a\x09\x09\x09^aBlock value ].\x0a\x09\x09read := write.\x0a\x09\x09readIndex := 1.\x0a\x09\x09write := OrderedCollection new.\x0a\x09\x09read first ].\x0a\x09read at: readIndex put: nil.\x0a\x09readIndex := readIndex + 1.\x0a\x09^result",
-messageSends: ["at:ifAbsent:", "ifTrue:", "isEmpty", ">", "value", "new", "first", "at:put:", "+"],
+messageSends: ["at:ifAbsent:", "ifTrue:", ">", "value", "isEmpty", "new", "first", "at:put:", "+"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.Queue);
@@ -5136,7 +5211,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"atEnd",{},smalltalk.Stream)})},
 args: [],
 source: "atEnd\x0a\x09^self position = self size",
-messageSends: ["=", "position", "size"],
+messageSends: ["=", "size", "position"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5205,7 +5280,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"contents",{},smalltalk.Stream)})},
 args: [],
 source: "contents\x0a\x09^self collection\x0a\x09\x09copyFrom: 1\x0a\x09\x09to: self streamSize",
-messageSends: ["copyFrom:to:", "collection", "streamSize"],
+messageSends: ["copyFrom:to:", "streamSize", "collection"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5220,14 +5295,14 @@ return smalltalk.withContext(function($ctx1) {
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._atEnd();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(aBlock)._value_(self._next());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.Stream)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09[self atEnd] whileFalse: [aBlock value: self next]",
-messageSends: ["whileFalse:", "atEnd", "value:", "next"],
+messageSends: ["whileFalse:", "value:", "next", "atEnd"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5284,7 +5359,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Stream)})},
 args: [],
 source: "next\x0a\x09^self atEnd\x0a\x09\x09ifTrue: [nil]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self position: self position + 1.\x0a\x09\x09\x09collection at: self position]",
-messageSends: ["ifTrue:ifFalse:", "atEnd", "position:", "+", "position", "at:"],
+messageSends: ["ifTrue:ifFalse:", "position:", "+", "position", "at:", "atEnd"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5305,13 +5380,13 @@ $1=self._atEnd();
 if(! smalltalk.assert($1)){
 return _st(tempCollection)._add_(self._next());
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=tempCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},smalltalk.Stream)})},
 args: ["anInteger"],
 source: "next: anInteger\x0a\x09| tempCollection |\x0a\x09tempCollection := self collection class new.\x0a\x09anInteger timesRepeat: [\x0a\x09\x09self atEnd ifFalse: [\x0a\x09\x09tempCollection add: self next]].\x0a\x09^tempCollection",
-messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", "add:", "next"],
+messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "add:", "next", "atEnd"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5344,7 +5419,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._nextPut_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aCollection:aCollection},smalltalk.Stream)})},
 args: ["aCollection"],
 source: "nextPutAll: aCollection\x0a\x09aCollection do: [:each |\x0a\x09\x09self nextPut: each]",
@@ -5385,7 +5460,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"peek",{},smalltalk.Stream)})},
 args: [],
 source: "peek\x0a\x09^self atEnd ifFalse: [\x0a\x09\x09self collection at: self position + 1]",
-messageSends: ["ifFalse:", "atEnd", "at:", "collection", "+", "position"],
+messageSends: ["ifFalse:", "at:", "+", "position", "collection", "atEnd"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5540,7 +5615,7 @@ self._position_(_st(_st(self._position()).__plus(anInteger))._min_max_(self._siz
 return self}, function($ctx1) {$ctx1.fill(self,"skip:",{anInteger:anInteger},smalltalk.Stream)})},
 args: ["anInteger"],
 source: "skip: anInteger\x0a\x09self position: ((self position + anInteger) min: self size max: 0)",
-messageSends: ["position:", "min:max:", "+", "position", "size"],
+messageSends: ["position:", "min:max:", "size", "+", "position"],
 referencedClasses: []
 }),
 smalltalk.Stream);
@@ -5679,13 +5754,13 @@ if(! smalltalk.assert($1)){
 tempCollection=_st(tempCollection).__comma(self._next());
 return tempCollection;
 };
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 $2=tempCollection;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"next:",{anInteger:anInteger,tempCollection:tempCollection},smalltalk.StringStream)})},
 args: ["anInteger"],
 source: "next: anInteger\x0a\x09| tempCollection |\x0a\x09tempCollection := self collection class new.\x0a\x09anInteger timesRepeat: [\x0a\x09\x09self atEnd ifFalse: [\x0a\x09\x09tempCollection := tempCollection, self next]].\x0a\x09^tempCollection",
-messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", "atEnd", ",", "next"],
+messageSends: ["new", "class", "collection", "timesRepeat:", "ifFalse:", ",", "next", "atEnd"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
@@ -5730,7 +5805,7 @@ self._setStreamSize_(_st(self._streamSize())._max_(self._position()));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
 args: ["aString"],
 source: "nextPutAll: aString\x0a\x09| pre post |\x0a\x09self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [\x0a\x09\x09pre := self collection copyFrom: 1 to: self position.\x0a\x09\x09post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.\x0a\x09\x09self setCollection: pre, aString, post\x0a\x09].\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",
-messageSends: ["ifTrue:ifFalse:", "atEnd", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "position:", "setStreamSize:", "max:", "streamSize"],
+messageSends: ["ifTrue:ifFalse:", "setCollection:", ",", "collection", "copyFrom:to:", "position", "+", "size", "atEnd", "position:", "setStreamSize:", "max:", "streamSize"],
 referencedClasses: []
 }),
 smalltalk.StringStream);
@@ -5787,4 +5862,4 @@ referencedClasses: ["String"]
 smalltalk.StringStream);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

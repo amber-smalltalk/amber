@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-References", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Helios-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-References');
+smalltalk.packages["Helios-References"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLMethodReference', smalltalk.Object, ['selector', 'methodClass'], 'Helios-References');
 smalltalk.addMethod(
@@ -1111,4 +1112,4 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.HLReferencesModel);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

@@ -74,9 +74,7 @@ valueWithPossibleArguments: aCollection
 		proceed.
 		
 	outerContext interpreter
-		returnValue: context interpreter returnValue.
-		
-	console log: context interpreter returnValue.
+		setNonLocalReturnFromContext: context.
 		
 	^ context interpreter pop
 ! !
@@ -814,7 +812,8 @@ useInlinings: aBoolean
 !ASTPCNodeVisitor methodsFor: 'visiting'!
 
 visitBlockNode: aNode
-	aNode shouldBeInlined 
+	"Inlined send node. Assume that the block is inlined"
+	(aNode parent isSendNode and: [ aNode parent shouldBeInlined ])
 		ifFalse: [
 			self blockIndex >= self context index ifFalse: [
 				self increaseBlockIndex.
@@ -837,7 +836,7 @@ visitSendNode: aNode
 ! !
 
 NodeVisitor subclass: #Interpreter
-	instanceVariableNames: 'node context stack returnValue'
+	instanceVariableNames: 'node context stack returnValue returned'
 	package: 'Compiler-Interpreter'!
 
 !Interpreter methodsFor: 'accessing'!
@@ -861,7 +860,9 @@ node: aNode
 !
 
 result
-	^ self returnValue ifNil: [ self context receiver ]
+	^ self hasReturned 
+		ifTrue: [ self returnValue ] 
+		ifFalse: [ self context receiver ]
 !
 
 returnValue
@@ -919,6 +920,12 @@ stepOver
 	
 	[ self node isSteppingNode ] whileFalse: [ 
 		self step ]
+!
+
+setNonLocalReturnFromContext: aContext
+	aContext interpreter hasReturned ifTrue: [
+		returned := true.
+		self returnValue: aContext interpreter returnValue ]
 ! !
 
 !Interpreter methodsFor: 'private'!
@@ -1006,17 +1013,17 @@ push: anObject
 !Interpreter methodsFor: 'testing'!
 
 atEnd
-	^ self shouldReturn or: [ self node isNil ]
+	^ self hasReturned or: [ self node isNil ]
 !
 
-shouldReturn
-	^ self returnValue notNil
+hasReturned
+	^ returned ifNil: [ false ]
 ! !
 
 !Interpreter methodsFor: 'visiting'!
 
 visit: aNode
-	self shouldReturn ifFalse: [ super visit: aNode ]
+	self hasReturned ifFalse: [ super visit: aNode ]
 !
 
 visitAssignmentNode: aNode
@@ -1070,6 +1077,7 @@ visitDynamicDictionaryNode: aNode
 !
 
 visitJSStatementNode: aNode
+	returned := true.
 	self returnValue: (self eval: aNode source)
 !
 
@@ -1078,6 +1086,7 @@ visitNode: aNode
 !
 
 visitReturnNode: aNode
+	returned := true.
 	self returnValue: self pop
 !
 
