@@ -1,5 +1,6 @@
 define([
     'amber_vm/smalltalk',
+    './helpers',
     'amber_core/Kernel-Objects',
     'amber_core/Kernel-Classes',
     'amber_core/Kernel-Methods',
