@@ -8,6 +8,8 @@
 
         smalltalk.Browser._open();
     });
+  For detailed explanation of amber loading, see:
+  https://github.com/amber-smalltalk/amber/wiki/How-to-load-amber
  */
 
 var require;
@@ -67,6 +69,11 @@ require = function (require) {
         }
     };
 
+    // This is to allow both alternatives of loading:
+    // before require.js as well as after require.js
+    // See http://requirejs.org/docs/api.html#config for details
+    // of usage of 'require' global to allow to pre-define configuration
+    // before require.js is loaded.
     if (require) {
         require.config(config);
         return require;
