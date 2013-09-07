@@ -1057,7 +1057,7 @@ function AMDBrik(brikz, st) {
 	this.__init__ = function () {
 		st.amdRequire = st.amdRequire || null;
 		st.defaultTransportType = st.defaultTransportType || "amd";
-		st.defaultAMDNamespace = st.defaultAMDNamespace || "amber_core";
+		st.defaultAmdNamespace = st.defaultAmdNamespace || "amber_core";
 	};
 }
 
