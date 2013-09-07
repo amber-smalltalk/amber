@@ -1228,15 +1228,29 @@ smalltalk.method({
 selector: "existsGlobal:",
 fn: function (aString){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+return true;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return false;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
+messageSends: ["at:ifPresent:ifAbsent:", "globals"]}),
+smalltalk.PlatformInterface.klass);
 
-	var f = new Function('aString',
-	'if (/^[0-9]/.test(aString) || !/^[\\w_]+$/.test(aString))\n'+
-	'	return false;\n'+
-	'try { eval(aString); return true; } catch (ex) {}\n'+
-	'return false;');
-	return f(aString);;
-return self}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
+smalltalk.addMethod(
+smalltalk.method({
+selector: "globals",
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (new Function('return this'))();;
+return self}, function($ctx1) {$ctx1.fill(self,"globals",{},smalltalk.PlatformInterface.klass)})},
 messageSends: []}),
 smalltalk.PlatformInterface.klass);
 
@@ -1413,6 +1427,24 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "at:ifAbsent:",
+fn: function (aKey,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._includesKey_(aKey);
+$3=(function(){
+return smalltalk.withContext(function($ctx2) {
+return self._at_(aKey);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+$1=_st($2)._ifTrue_ifFalse_($3,aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.Smalltalk)})},
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:"]}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "basicParse:",
 fn: function (aString){
 var self=this;
@@ -1505,6 +1537,17 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 return self.globalJsVariables;
 return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
+messageSends: []}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "includesKey:",
+fn: function (aKey){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.hasOwnProperty(aKey);
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.Smalltalk)})},
 messageSends: []}),
 smalltalk.Smalltalk);
 

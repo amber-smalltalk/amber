@@ -2226,10 +2226,14 @@ selector: "visitClassReferenceNode:",
 fn: function (aNode){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-self._push_(_st(_st($Smalltalk())._current())._at_(_st(aNode)._value()));
+self._push_(_st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.Interpreter)})},
-messageSends: ["push:", "at:", "current", "value"]}),
+messageSends: ["push:", "at:ifAbsent:", "current", "value", "at:", "globals"]}),
 smalltalk.Interpreter);
 
 smalltalk.addMethod(
@@ -2344,42 +2348,37 @@ smalltalk.method({
 selector: "visitVariableNode:",
 fn: function (aNode){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1,$3,$2,$4,$6,$7,$8,$5;
+var $early={};
+try {
 $1=_st(_st(aNode)._binding())._isUnknownVar();
-if(smalltalk.assert($1)){
-$2=self._push_(_st(window)._at_ifAbsent_(_st(aNode)._value(),(function(){
+$2=(function(){
 return smalltalk.withContext(function($ctx2) {
+$3=self._push_(_st(_st($PlatformInterface())._globals())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx3) {
 return self._error_("Unknown variable");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})));
-return $2;
-};
-$3=self;
-$5=_st(_st(aNode)._binding())._isInstanceVar();
-if(smalltalk.assert($5)){
-$4=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
-} else {
-$4=_st(self._context())._localAt_(_st(aNode)._value());
-};
-_st($3)._push_($4);
-return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.Interpreter)})},
-messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"]}),
-smalltalk.Interpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
+throw $early=[$3];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+_st($1)._ifTrue_($2);
+$4=self;
+$6=_st(_st(aNode)._binding())._isInstanceVar();
+$7=(function(){
 return smalltalk.withContext(function($ctx2) {
-return self._step();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.Interpreter)})},
-messageSends: ["value", "step"]}),
+return _st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})});
+$8=(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._context())._localAt_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})});
+$5=_st($6)._ifTrue_ifFalse_($7,$8);
+_st($4)._push_($5);
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.Interpreter)})},
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"]}),
 smalltalk.Interpreter);
 
 

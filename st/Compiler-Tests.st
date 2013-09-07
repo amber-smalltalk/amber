@@ -355,7 +355,9 @@ testDynamicDictionary
 !
 
 testGlobalVar
-	self assert: (self interpret: 'foo ^ console') equals: console
+	self assert: (self interpret: 'foo ^ eval class') equals: BlockClosure.
+	self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.
+	self assert: (self interpret: 'foo ^ NonExistingVar') equals: nil.
 !
 
 testInlinedJSStatement
@@ -421,7 +423,8 @@ testSuper
 !
 
 testTempAssignment
-	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2.
+	self assert: (self interpret: 'foo | a | a := nil. ^ a') equals: nil.
 !
 
 testThisContext

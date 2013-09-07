@@ -619,6 +619,10 @@ PlatformInterface class instanceVariableNames: 'worker'!
 
 !PlatformInterface class methodsFor: 'accessing'!
 
+globals
+	<return (new Function('return this'))();>
+!
+
 setWorker: anObject
 	worker := anObject
 ! !
@@ -644,14 +648,10 @@ confirm: aString
 !
 
 existsGlobal: aString
-<
-	var f = new Function('aString',
-	'if (/^[0-9]/.test(aString) || !!/^[\\w_]+$/.test(aString))\n'+
-	'	return false;\n'+
-	'try { eval(aString); return true; } catch (ex) {}\n'+
-	'return false;');
-	return f(aString);
->
+	^ PlatformInterface globals 
+		at: aString 
+		ifPresent: [ true ] 
+		ifAbsent: [ false ]
 !
 
 prompt: aString
@@ -747,6 +747,16 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 
 at: aString
 	<return self[aString]>
+!
+
+at: aKey ifAbsent: aBlock
+	^ (self includesKey: aKey)
+		ifTrue: [self at: aKey]
+		ifFalse: aBlock
+!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
 !
 
 parse: aString

@@ -2929,13 +2929,17 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-self._push_(_st(_st($Smalltalk())._current())._at_(_st(aNode)._value()));
+self._push_(_st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.Interpreter)})},
 args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09self push: (Smalltalk current at: aNode value)",
-messageSends: ["push:", "at:", "current", "value"],
-referencedClasses: ["Smalltalk"]
+source: "visitClassReferenceNode: aNode\x0a\x09self push: (Smalltalk current \x0a\x09\x09at: aNode value \x0a\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ])",
+messageSends: ["push:", "at:ifAbsent:", "current", "value", "at:", "globals"],
+referencedClasses: ["Smalltalk", "PlatformInterface"]
 }),
 smalltalk.Interpreter);
 
@@ -3087,50 +3091,40 @@ selector: "visitVariableNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1,$3,$2,$4,$6,$7,$8,$5;
+var $early={};
+try {
 $1=_st(_st(aNode)._binding())._isUnknownVar();
-if(smalltalk.assert($1)){
-$2=self._push_(_st(window)._at_ifAbsent_(_st(aNode)._value(),(function(){
+$2=(function(){
 return smalltalk.withContext(function($ctx2) {
+$3=self._push_(_st(_st($PlatformInterface())._globals())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx3) {
 return self._error_("Unknown variable");
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})));
-return $2;
-};
-$3=self;
-$5=_st(_st(aNode)._binding())._isInstanceVar();
-if(smalltalk.assert($5)){
-$4=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
-} else {
-$4=_st(self._context())._localAt_(_st(aNode)._value());
-};
-_st($3)._push_($4);
-return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.Interpreter)})},
-args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (window at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
-messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"],
-referencedClasses: []
-}),
-smalltalk.Interpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-category: 'xxxDoIt',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st((function(){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})));
+throw $early=[$3];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
+_st($1)._ifTrue_($2);
+$4=self;
+$6=_st(_st(aNode)._binding())._isInstanceVar();
+$7=(function(){
 return smalltalk.withContext(function($ctx2) {
-return self._step();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.Interpreter)})},
-args: [],
-source: "xxxDoIt ^[self step] value",
-messageSends: ["value", "step"],
-referencedClasses: []
+return _st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})});
+$8=(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._context())._localAt_(_st(aNode)._value());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})});
+$5=_st($6)._ifTrue_ifFalse_($7,$8);
+_st($4)._push_($5);
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.Interpreter)})},
+args: ["aNode"],
+source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"],
+referencedClasses: ["PlatformInterface"]
 }),
 smalltalk.Interpreter);
 
