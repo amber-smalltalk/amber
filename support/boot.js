@@ -717,17 +717,6 @@ function SmalltalkInitBrik(brikz, st) {
 		st.alias(st.Array, "OrderedCollection");
 		st.alias(st.Date, "Time");
 
-		/*
-		 * Answer the smalltalk representation of o.
-		 * Used in message sends
-		 */
-
-		st._st = function (o) {
-			if(o == null) {return nil;}
-			if(o.klass) {return o;}
-			return st.JSObjectProxy._on_(o);
-		};
-
 	};
 }
 
@@ -1088,7 +1077,5 @@ function runnable () {
 	brikz.rebuild();
 };
 
-var result = { smalltalk: api, nil: brikz.root.nil, _st: api._st };
-api._st = null;
-return result;
+return { smalltalk: api, nil: brikz.root.nil };
 });
