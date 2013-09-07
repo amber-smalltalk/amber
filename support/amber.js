@@ -33,6 +33,7 @@ require = function (require) {
             'amber_lib': home+'/support',
             'amber_core': home+'/js',
             'amber_core/_source': home+'/st',
+            'amber_html': home,
             'jquery': home+'/support/jQuery/jquery-1.8.2.min',
             'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.24.custom.min'
         },

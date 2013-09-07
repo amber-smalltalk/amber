@@ -1,5 +1,6 @@
 define([
     'amber_vm/smalltalk',
+    './helpers',
     'jquery',
     'jquery-ui',
     'amber_lib/jQuery/jquery.textarea',
