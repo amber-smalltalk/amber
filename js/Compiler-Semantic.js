@@ -17,7 +17,7 @@ _st(_st(self._args())._at_(aString))._scope_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addArg:",{aString:aString},smalltalk.LexicalScope)})},
 args: ["aString"],
 source: "addArg: aString\x0a\x09self args at: aString put: (ArgVar on: aString).\x0a\x09(self args at: aString) scope: self",
-messageSends: ["at:put:", "on:", "args", "scope:", "at:"],
+messageSends: ["at:put:", "args", "on:", "scope:", "at:"],
 referencedClasses: ["ArgVar"]
 }),
 smalltalk.LexicalScope);
@@ -35,7 +35,7 @@ _st(_st(self._temps())._at_(aString))._scope_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addTemp:",{aString:aString},smalltalk.LexicalScope)})},
 args: ["aString"],
 source: "addTemp: aString\x0a\x09self temps at: aString put: (TempVar on: aString).\x0a\x09(self temps at: aString) scope: self",
-messageSends: ["at:put:", "on:", "temps", "scope:", "at:"],
+messageSends: ["at:put:", "temps", "on:", "scope:", "at:"],
 referencedClasses: ["TempVar"]
 }),
 smalltalk.LexicalScope);
@@ -71,7 +71,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"allVariableNames",{},smalltalk.LexicalScope)})},
 args: [],
 source: "allVariableNames\x0a\x09^ self args keys, self temps keys",
-messageSends: [",", "keys", "temps", "args"],
+messageSends: [",", "keys", "args", "temps"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -116,14 +116,14 @@ return smalltalk.withContext(function($ctx3) {
 return _st(self._temps())._at_ifAbsent_(_st(aStringOrNode)._value(),(function(){
 return smalltalk.withContext(function($ctx4) {
 return nil;
-}, function($ctx4) {$ctx4.fillBlock({},$ctx3)})}));
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx4) {$ctx4.fillBlock({},$ctx3,3)})}));
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindingFor:",{aStringOrNode:aStringOrNode},smalltalk.LexicalScope)})},
 args: ["aStringOrNode"],
 source: "bindingFor: aStringOrNode\x0a\x09^ self pseudoVars at: aStringOrNode value ifAbsent: [\x0a\x09\x09self args at: aStringOrNode value ifAbsent: [\x0a\x09\x09\x09self temps at: aStringOrNode value ifAbsent: [ nil ]]]",
-messageSends: ["at:ifAbsent:", "value", "temps", "args", "pseudoVars"],
+messageSends: ["at:ifAbsent:", "pseudoVars", "value", "args", "temps"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -178,12 +178,12 @@ var $1;
 $1=_st(self._isInlined())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._outerScope())._canInlineNonLocalReturns();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"canInlineNonLocalReturns",{},smalltalk.LexicalScope)})},
 args: [],
 source: "canInlineNonLocalReturns\x0a\x09^ self isInlined and: [ self outerScope canInlineNonLocalReturns ]",
-messageSends: ["and:", "canInlineNonLocalReturns", "outerScope", "isInlined"],
+messageSends: ["and:", "isInlined", "canInlineNonLocalReturns", "outerScope"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -251,12 +251,12 @@ var $1;
 $1=_st(_st(self._instruction())._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._instruction())._isInlined();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isInlined",{},smalltalk.LexicalScope)})},
 args: [],
 source: "isInlined\x0a\x09^ self instruction notNil and: [\x0a\x09\x09self instruction isInlined ]",
-messageSends: ["and:", "isInlined", "instruction", "notNil"],
+messageSends: ["and:", "notNil", "instruction", "isInlined"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -304,7 +304,7 @@ return $3;
 }, function($ctx1) {$ctx1.fill(self,"lookupVariable:",{aNode:aNode,lookup:lookup},smalltalk.LexicalScope)})},
 args: ["aNode"],
 source: "lookupVariable: aNode\x0a\x09| lookup |\x0a\x09lookup := (self bindingFor: aNode).\x0a\x09lookup ifNil: [\x0a\x09\x09lookup := self outerScope ifNotNil: [\x0a\x09\x09\x09(self outerScope lookupVariable: aNode) ]].\x0a\x09^ lookup",
-messageSends: ["bindingFor:", "ifNil:", "ifNotNil:", "lookupVariable:", "outerScope"],
+messageSends: ["bindingFor:", "ifNil:", "ifNotNil:", "outerScope", "lookupVariable:"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -327,7 +327,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodScope",{},smalltalk.LexicalScope)})},
 args: [],
 source: "methodScope\x0a\x09^ self outerScope ifNotNil: [\x0a\x09\x09self outerScope methodScope ]",
-messageSends: ["ifNotNil:", "methodScope", "outerScope"],
+messageSends: ["ifNotNil:", "outerScope", "methodScope"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -442,7 +442,7 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"scopeLevel",{},smalltalk.LexicalScope)})},
 args: [],
 source: "scopeLevel\x0a\x09self outerScope ifNil: [ ^ 1 ].\x0a\x09self isInlined ifTrue: [ ^ self outerScope scopeLevel ].\x0a\x09\x0a\x09^ self outerScope scopeLevel + 1",
-messageSends: ["ifNil:", "outerScope", "ifTrue:", "scopeLevel", "isInlined", "+"],
+messageSends: ["ifNil:", "outerScope", "ifTrue:", "isInlined", "scopeLevel", "+"],
 referencedClasses: []
 }),
 smalltalk.LexicalScope);
@@ -489,7 +489,7 @@ _st(_st(self._iVars())._at_(aString))._scope_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"addIVar:",{aString:aString},smalltalk.MethodLexicalScope)})},
 args: ["aString"],
 source: "addIVar: aString\x0a\x09self iVars at: aString put: (InstanceVar on: aString).\x0a\x09(self iVars at: aString) scope: self",
-messageSends: ["at:put:", "on:", "iVars", "scope:", "at:"],
+messageSends: ["at:put:", "iVars", "on:", "scope:", "at:"],
 referencedClasses: ["InstanceVar"]
 }),
 smalltalk.MethodLexicalScope);
@@ -523,7 +523,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"allVariableNames",{},smalltalk.MethodLexicalScope)})},
 args: [],
 source: "allVariableNames\x0a\x09^ super allVariableNames, self iVars keys",
-messageSends: [",", "keys", "iVars", "allVariableNames"],
+messageSends: [",", "allVariableNames", "keys", "iVars"],
 referencedClasses: []
 }),
 smalltalk.MethodLexicalScope);
@@ -541,7 +541,7 @@ if(($receiver = $2) == nil || $receiver == undefined){
 $1=_st(self._iVars())._at_ifAbsent_(_st(aNode)._value(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 } else {
 $1=$2;
 };
@@ -549,7 +549,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindingFor:",{aNode:aNode},smalltalk.MethodLexicalScope)})},
 args: ["aNode"],
 source: "bindingFor: aNode\x0a\x09^ (super bindingFor: aNode) ifNil: [\x0a\x09\x09self iVars at: aNode value ifAbsent: [ nil ]]",
-messageSends: ["ifNil:", "at:ifAbsent:", "value", "iVars", "bindingFor:"],
+messageSends: ["ifNil:", "bindingFor:", "at:ifAbsent:", "iVars", "value"],
 referencedClasses: []
 }),
 smalltalk.MethodLexicalScope);
@@ -736,8 +736,8 @@ category: 'accessing',
 fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-function $PseudoVar(){return smalltalk.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $PseudoVar(){return smalltalk.PseudoVar||(typeof PseudoVar=="undefined"?nil:PseudoVar)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 $1=self["@pseudoVars"];
@@ -750,7 +750,7 @@ $2=_st($PseudoVar())._on_(each);
 _st($2)._scope_(self._methodScope());
 $3=_st($2)._yourself();
 return _st(self["@pseudoVars"])._at_put_(each,$3);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 } else {
 $1;
 };
@@ -759,8 +759,8 @@ return $4;
 }, function($ctx1) {$ctx1.fill(self,"pseudoVars",{},smalltalk.MethodLexicalScope)})},
 args: [],
 source: "pseudoVars\x0a\x09pseudoVars ifNil: [\x0a\x09\x09pseudoVars := Dictionary new.\x0a\x09\x09Smalltalk current pseudoVariableNames do: [ :each |\x0a\x09\x09\x09pseudoVars at: each put: ((PseudoVar on: each)\x0a\x09\x09\x09\x09scope: self methodScope;\x0a\x09\x09\x09\x09yourself) ]].\x0a\x09^ pseudoVars",
-messageSends: ["ifNil:", "new", "do:", "at:put:", "scope:", "methodScope", "on:", "yourself", "pseudoVariableNames", "current"],
-referencedClasses: ["Dictionary", "PseudoVar", "Smalltalk"]
+messageSends: ["ifNil:", "new", "do:", "pseudoVariableNames", "current", "at:put:", "scope:", "on:", "methodScope", "yourself"],
+referencedClasses: ["Dictionary", "Smalltalk", "PseudoVar"]
 }),
 smalltalk.MethodLexicalScope);
 
@@ -773,7 +773,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._nonLocalReturns())._remove_ifAbsent_(aScope,(function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeNonLocalReturn:",{aScope:aScope},smalltalk.MethodLexicalScope)})},
 args: ["aScope"],
 source: "removeNonLocalReturn: aScope\x0a\x09self nonLocalReturns remove: aScope ifAbsent: []",
@@ -1005,7 +1005,7 @@ var $1,$2,$3;
 $1=_st(self._isArgVar())._or_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isPseudoVar();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(smalltalk.assert($1)){
 $2=_st($InvalidAssignmentError())._new();
 _st($2)._variableName_(self._name());
@@ -1015,7 +1015,7 @@ $3;
 return self}, function($ctx1) {$ctx1.fill(self,"validateAssignment",{},smalltalk.ScopeVar)})},
 args: [],
 source: "validateAssignment\x0a\x09(self isArgVar or: [ self isPseudoVar ]) ifTrue: [\x0a\x09\x09InvalidAssignmentError new\x0a\x09\x09\x09variableName: self name;\x0a\x09\x09\x09signal]",
-messageSends: ["ifTrue:", "variableName:", "name", "new", "signal", "or:", "isPseudoVar", "isArgVar"],
+messageSends: ["ifTrue:", "or:", "isArgVar", "isPseudoVar", "variableName:", "new", "name", "signal"],
 referencedClasses: ["InvalidAssignmentError"]
 }),
 smalltalk.ScopeVar);
@@ -1309,15 +1309,15 @@ category: 'error handling',
 fn: function (aNode){
 var self=this;
 var identifier;
-function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $UnknownVariableError(){return smalltalk.UnknownVariableError||(typeof UnknownVariableError=="undefined"?nil:UnknownVariableError)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 identifier=_st(aNode)._value();
 $1=_st(_st(_st(_st(_st($Smalltalk())._current())._globalJsVariables())._includes_(identifier))._not())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isVariableGloballyUndefined_(identifier);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(smalltalk.assert($1)){
 $2=_st($UnknownVariableError())._new();
 _st($2)._variableName_(_st(aNode)._value());
@@ -1329,8 +1329,8 @@ _st(_st(_st(self["@currentScope"])._methodScope())._unknownVariables())._add_(_s
 return self}, function($ctx1) {$ctx1.fill(self,"errorUnknownVariable:",{aNode:aNode,identifier:identifier},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
 source: "errorUnknownVariable: aNode\x0a\x09\x22Throw an error if the variable is undeclared in the global JS scope (i.e. window).\x0a\x09We allow all variables listed by Smalltalk>>#globalJsVariables.\x0a\x09This list includes: `jQuery`, `window`, `document`,  `process` and `global`\x0a\x09for nodejs and browser environments.\x0a\x09\x0a\x09This is only to make sure compilation works on both browser-based and nodejs environments.\x0a\x09The ideal solution would be to use a pragma instead\x22\x0a\x0a\x09| identifier |\x0a\x09identifier := aNode value.\x0a\x09\x0a\x09((Smalltalk current globalJsVariables includes: identifier) not\x0a\x09\x09and: [ self isVariableGloballyUndefined: identifier ])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09UnknownVariableError new\x0a\x09\x09\x09\x09\x09variableName: aNode value;\x0a\x09\x09\x09\x09\x09signal ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09currentScope methodScope unknownVariables add: aNode value ]",
-messageSends: ["value", "ifTrue:ifFalse:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope", "and:", "isVariableGloballyUndefined:", "not", "includes:", "globalJsVariables", "current"],
-referencedClasses: ["UnknownVariableError", "Smalltalk"]
+messageSends: ["value", "ifTrue:ifFalse:", "and:", "not", "includes:", "globalJsVariables", "current", "isVariableGloballyUndefined:", "variableName:", "new", "signal", "add:", "unknownVariables", "methodScope"],
+referencedClasses: ["Smalltalk", "UnknownVariableError"]
 }),
 smalltalk.SemanticAnalyzer);
 
@@ -1576,7 +1576,7 @@ self._errorShadowingVariable_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"validateVariableScope:",{aString:aString},smalltalk.SemanticAnalyzer)})},
 args: ["aString"],
 source: "validateVariableScope: aString\x0a\x09\x22Validate the variable scope in by doing a recursive lookup, up to the method scope\x22\x0a\x0a\x09(currentScope lookupVariable: aString) ifNotNil: [\x0a\x09\x09self errorShadowingVariable: aString ]",
-messageSends: ["ifNotNil:", "errorShadowingVariable:", "lookupVariable:"],
+messageSends: ["ifNotNil:", "lookupVariable:", "errorShadowingVariable:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1613,7 +1613,7 @@ _st(_st(aNode)._parameters())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 self._validateVariableScope_(each);
 return _st(self["@currentScope"])._addArg_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,0)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 smalltalk.SemanticAnalyzer.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
 self._popScope();
 return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
@@ -1665,7 +1665,7 @@ _st(aNode)._binding_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
 source: "visitClassReferenceNode: aNode\x0a\x09self classReferences add: aNode value.\x0a\x09aNode binding: (ClassRefVar new name: aNode value; yourself)",
-messageSends: ["add:", "value", "classReferences", "binding:", "name:", "new", "yourself"],
+messageSends: ["add:", "classReferences", "value", "binding:", "name:", "new", "yourself"],
 referencedClasses: ["ClassRefVar"]
 }),
 smalltalk.SemanticAnalyzer);
@@ -1684,12 +1684,12 @@ _st(self["@currentScope"])._node_(aNode);
 _st(_st(self._theClass())._allInstanceVariableNames())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@currentScope"])._addIVar_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 _st(_st(aNode)._arguments())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 self._validateVariableScope_(each);
 return _st(self["@currentScope"])._addArg_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 smalltalk.SemanticAnalyzer.superclass.fn.prototype._visitMethodNode_.apply(_st(self), [aNode]);
 $1=aNode;
 _st($1)._classReferences_(self._classReferences());
@@ -1699,7 +1699,7 @@ self._popScope();
 return self}, function($ctx1) {$ctx1.fill(self,"visitMethodNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
 source: "visitMethodNode: aNode\x0a\x09self pushScope: self newMethodScope.\x0a\x09aNode scope: currentScope.\x0a\x09currentScope node: aNode.\x0a\x0a\x09self theClass allInstanceVariableNames do: [:each |\x0a\x09\x09currentScope addIVar: each ].\x0a\x09aNode arguments do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addArg: each ].\x0a\x0a\x09super visitMethodNode: aNode.\x0a\x0a\x09aNode\x0a\x09\x09classReferences: self classReferences;\x0a\x09\x09messageSends: self messageSends keys;\x0a\x09\x09superSends: self superSends keys.\x0a\x09self popScope",
-messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "addIVar:", "allInstanceVariableNames", "theClass", "validateVariableScope:", "addArg:", "arguments", "visitMethodNode:", "classReferences:", "classReferences", "messageSends:", "keys", "messageSends", "superSends:", "superSends", "popScope"],
+messageSends: ["pushScope:", "newMethodScope", "scope:", "node:", "do:", "allInstanceVariableNames", "theClass", "addIVar:", "arguments", "validateVariableScope:", "addArg:", "visitMethodNode:", "classReferences:", "classReferences", "messageSends:", "keys", "messageSends", "superSends:", "superSends", "popScope"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1723,7 +1723,7 @@ smalltalk.SemanticAnalyzer.superclass.fn.prototype._visitReturnNode_.apply(_st(s
 return self}, function($ctx1) {$ctx1.fill(self,"visitReturnNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
 source: "visitReturnNode: aNode\x0a\x09aNode scope: currentScope.\x0a\x09currentScope isMethodScope\x0a\x09\x09ifTrue: [ currentScope localReturn: true ]\x0a\x09\x09ifFalse: [ currentScope methodScope addNonLocalReturn: currentScope ].\x0a\x09super visitReturnNode: aNode",
-messageSends: ["scope:", "ifTrue:ifFalse:", "localReturn:", "addNonLocalReturn:", "methodScope", "isMethodScope", "visitReturnNode:"],
+messageSends: ["scope:", "ifTrue:ifFalse:", "isMethodScope", "localReturn:", "addNonLocalReturn:", "methodScope", "visitReturnNode:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1780,12 +1780,12 @@ _st(_st(aNode)._temps())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 self._validateVariableScope_(each);
 return _st(self["@currentScope"])._addTemp_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 smalltalk.SemanticAnalyzer.superclass.fn.prototype._visitSequenceNode_.apply(_st(self), [aNode]);
 return self}, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
 source: "visitSequenceNode: aNode\x0a\x09aNode temps do: [ :each |\x0a\x09\x09self validateVariableScope: each.\x0a\x09\x09currentScope addTemp: each ].\x0a\x0a\x09super visitSequenceNode: aNode",
-messageSends: ["do:", "validateVariableScope:", "addTemp:", "temps", "visitSequenceNode:"],
+messageSends: ["do:", "temps", "validateVariableScope:", "addTemp:", "visitSequenceNode:"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer);
@@ -1814,7 +1814,7 @@ _st($1)._binding_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
 source: "visitVariableNode: aNode\x0a\x09\x22Bind a ScopeVar to aNode by doing a lookup in the current scope.\x0a\x09If no ScopeVar is found, bind a UnknowVar and throw an error\x22\x0a\x0a\x09aNode binding: ((currentScope lookupVariable: aNode) ifNil: [\x0a\x09\x09self errorUnknownVariable: aNode.\x0a\x09\x09UnknownVar new name: aNode value; yourself ])",
-messageSends: ["binding:", "ifNil:", "errorUnknownVariable:", "name:", "value", "new", "yourself", "lookupVariable:"],
+messageSends: ["binding:", "ifNil:", "lookupVariable:", "errorUnknownVariable:", "name:", "new", "value", "yourself"],
 referencedClasses: ["UnknownVar"]
 }),
 smalltalk.SemanticAnalyzer);
