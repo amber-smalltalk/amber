@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Interpreter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Methods", "amber_core/Kernel-Objects", "amber_core/Kernel-Exceptions", "amber_core/Compiler-Core", "amber_core/Compiler-AST"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Interpreter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Methods", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Exceptions", "amber_core/Compiler-AST"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Interpreter');
 smalltalk.packages["Compiler-Interpreter"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -538,12 +538,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._outerContext())._notNil();
+$1=_st(self._selector())._isNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.AIContext)})},
 args: [],
-source: "isBlockContext\x0a\x09\x22Block context have an outer context.\x22\x0a\x09\x0a\x09^ self outerContext notNil",
-messageSends: ["notNil", "outerContext"],
+source: "isBlockContext\x0a\x09\x22Block context have an outer context.\x22\x0a\x09\x0a\x09^ self selector isNil",
+messageSends: ["isNil", "selector"],
 referencedClasses: []
 }),
 smalltalk.AIContext);

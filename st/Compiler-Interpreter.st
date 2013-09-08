@@ -284,7 +284,7 @@ setupInterpreter: anInterpreter
 isBlockContext
 	"Block context have an outer context."
 	
-	^ self outerContext notNil
+	^ self selector isNil
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
