@@ -796,19 +796,11 @@ visitSendNode: aNode
 
 !Node methodsFor: '*Compiler-Interpreter'!
 
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretNode: self continue: aBlock
-!
-
 isSteppingNode
 	^ false
 ! !
 
 !AssignmentNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretAssignmentNode: self continue: aBlock
-!
 
 isSteppingNode
 	^ true
@@ -816,25 +808,11 @@ isSteppingNode
 
 !BlockNode methodsFor: '*Compiler-Interpreter'!
 
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretBlockNode: self continue: aBlock
-!
-
 isSteppingNode
 	^ true
 ! !
 
-!CascadeNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretCascadeNode: self continue: aBlock
-! !
-
 !DynamicArrayNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretDynamicArrayNode: self continue: aBlock
-!
 
 isSteppingNode
 	^ true
@@ -842,73 +820,19 @@ isSteppingNode
 
 !DynamicDictionaryNode methodsFor: '*Compiler-Interpreter'!
 
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretDynamicDictionaryNode: self continue: aBlock
-!
-
 isSteppingNode
 	^ true
 ! !
 
 !JSStatementNode methodsFor: '*Compiler-Interpreter'!
 
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretJSStatementNode: self continue: aBlock
-!
-
 isSteppingNode
 	^ true
-! !
-
-!MethodNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretMethodNode: self continue: aBlock
-! !
-
-!ReturnNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretReturnNode: self continue: aBlock
 ! !
 
 !SendNode methodsFor: '*Compiler-Interpreter'!
 
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretSendNode: self continue: aBlock
-!
-
 isSteppingNode
 	^ true
-! !
-
-!SequenceNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretSequenceNode: self continue: aBlock
-! !
-
-!BlockSequenceNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretBlockSequenceNode: self continue: aBlock
-! !
-
-!ValueNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretValueNode: self continue: aBlock
-! !
-
-!VariableNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretVariableNode: self continue: aBlock
-! !
-
-!ClassReferenceNode methodsFor: '*Compiler-Interpreter'!
-
-interpreter: anInterpreter continue: aBlock
-	^ anInterpreter interpretClassReferenceNode: self continue: aBlock
 ! !
 

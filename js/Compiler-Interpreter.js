@@ -2318,24 +2318,6 @@ smalltalk.ASTPCNodeVisitor);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.Node)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretNode: self continue: aBlock",
-messageSends: ["interpretNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.Node);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "isSteppingNode",
 category: '*Compiler-Interpreter',
 fn: function (){
@@ -2349,24 +2331,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Node);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretAssignmentNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.AssignmentNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretAssignmentNode: self continue: aBlock",
-messageSends: ["interpretAssignmentNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2386,24 +2350,6 @@ smalltalk.AssignmentNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretBlockNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.BlockNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretBlockNode: self continue: aBlock",
-messageSends: ["interpretBlockNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.BlockNode);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "isSteppingNode",
 category: '*Compiler-Interpreter',
 fn: function (){
@@ -2417,42 +2363,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.BlockNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretCascadeNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.CascadeNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretCascadeNode: self continue: aBlock",
-messageSends: ["interpretCascadeNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.CascadeNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretDynamicArrayNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.DynamicArrayNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretDynamicArrayNode: self continue: aBlock",
-messageSends: ["interpretDynamicArrayNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.DynamicArrayNode);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2472,24 +2382,6 @@ smalltalk.DynamicArrayNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretDynamicDictionaryNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.DynamicDictionaryNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretDynamicDictionaryNode: self continue: aBlock",
-messageSends: ["interpretDynamicDictionaryNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.DynamicDictionaryNode);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "isSteppingNode",
 category: '*Compiler-Interpreter',
 fn: function (){
@@ -2503,24 +2395,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.DynamicDictionaryNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretJSStatementNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.JSStatementNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretJSStatementNode: self continue: aBlock",
-messageSends: ["interpretJSStatementNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.JSStatementNode);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2540,60 +2414,6 @@ smalltalk.JSStatementNode);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretMethodNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.MethodNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretMethodNode: self continue: aBlock",
-messageSends: ["interpretMethodNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.MethodNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretReturnNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.ReturnNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretReturnNode: self continue: aBlock",
-messageSends: ["interpretReturnNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.ReturnNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretSendNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.SendNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretSendNode: self continue: aBlock",
-messageSends: ["interpretSendNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.SendNode);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "isSteppingNode",
 category: '*Compiler-Interpreter',
 fn: function (){
@@ -2607,95 +2427,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.SendNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretSequenceNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.SequenceNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretSequenceNode: self continue: aBlock",
-messageSends: ["interpretSequenceNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.SequenceNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretBlockSequenceNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.BlockSequenceNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretBlockSequenceNode: self continue: aBlock",
-messageSends: ["interpretBlockSequenceNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.BlockSequenceNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretValueNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.ValueNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretValueNode: self continue: aBlock",
-messageSends: ["interpretValueNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.ValueNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretVariableNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.VariableNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretVariableNode: self continue: aBlock",
-messageSends: ["interpretVariableNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.VariableNode);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "interpreter:continue:",
-category: '*Compiler-Interpreter',
-fn: function (anInterpreter,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anInterpreter)._interpretClassReferenceNode_continue_(self,aBlock);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"interpreter:continue:",{anInterpreter:anInterpreter,aBlock:aBlock},smalltalk.ClassReferenceNode)})},
-args: ["anInterpreter", "aBlock"],
-source: "interpreter: anInterpreter continue: aBlock\x0a\x09^ anInterpreter interpretClassReferenceNode: self continue: aBlock",
-messageSends: ["interpretClassReferenceNode:continue:"],
-referencedClasses: []
-}),
-smalltalk.ClassReferenceNode);
 
 });
