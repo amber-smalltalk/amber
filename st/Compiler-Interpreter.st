@@ -210,7 +210,7 @@ initializeFromMethodContext: aMethodContext
 !
 
 initializeInterpreter
-	interpreter := Interpreter new
+	interpreter := ASTInterpreter new
 		context: self;
 		yourself.
 	ast ifNotNil: [ interpreter node: self retrieveNode ].
@@ -426,420 +426,11 @@ context: aContext
 		yourself
 ! !
 
-Object subclass: #ASTInterpreter
-	instanceVariableNames: 'currentNode nextNode context shouldReturn result'
-	package: 'Compiler-Interpreter'!
-!ASTInterpreter commentStamp!
-I am like a `NodeVisitor`, interpreting nodes one after each other.
-I am built using Continuation Passing Style for stepping purposes.
-
-## Usage example:
-
-	| ast interpreter |
-	ast := Smalltalk current parse: 'foo 1+2+4'.
-	(SemanticAnalyzer on: Object) visit: ast.
-
-	ASTInterpreter new
-		interpret: ast nodes first;
-		result "Answers 7"!
-
-!ASTInterpreter methodsFor: 'accessing'!
-
-context
-	^ context ifNil: [ context := AIContext new ]
-!
-
-context: anAIContext
-	context := anAIContext
-!
-
-currentNode
-	^ currentNode
-!
-
-nextNode
-	^ nextNode ifNil: [ self currentNode ]
-!
-
-nextNode: aNode
-	nextNode := aNode
-!
-
-result
-	^ result
-! !
-
-!ASTInterpreter methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	shouldReturn := false
-! !
-
-!ASTInterpreter methodsFor: 'interpreting'!
-
-interpret: aNode
-	shouldReturn := false.
-	self interpret: aNode continue: [ :value |
-		result := value ]
-!
-
-interpret: aNode continue: aBlock
-	shouldReturn ifTrue: [ ^ self ].
-
-	aNode isNode
-		ifTrue: [
-			currentNode := aNode.
-			self interpretNode: aNode continue: [ :value |
-				self continue: aBlock value: value ] ]
-		ifFalse: [ self continue: aBlock value: aNode ]
-!
-
-interpretAssignmentNode: aNode continue: aBlock
-	self interpret: aNode right continue: [ :value |
-		self
-			continue: aBlock
-			value: (self assign: aNode left to: value) ]
-!
-
-interpretBlockNode: aNode continue: aBlock
-	self
-		continue: aBlock
-		value: [ 
-			self withBlockContext: [ 
-				self interpret: aNode nodes first; result ] ]
-!
-
-interpretBlockSequenceNode: aNode continue: aBlock
-	self interpretSequenceNode: aNode continue: aBlock
-!
-
-interpretCascadeNode: aNode continue: aBlock
-	"TODO: Handle super sends"
-	
-	self interpret: aNode receiver continue: [ :receiver |
-		"Only interpret the receiver once"
-		aNode nodes do: [ :each | each receiver: receiver ].
-
-		self
-			interpretAll: aNode nodes allButLast
-			continue: [
-				self
-					interpret: aNode nodes last
-					continue: [ :val | self continue: aBlock value: val ] ] ]
-!
-
-interpretClassReferenceNode: aNode continue: aBlock
-	self continue: aBlock value: (Smalltalk current at: aNode value)
-!
-
-interpretDynamicArrayNode: aNode continue: aBlock
-	self interpretAll: aNode nodes continue: [ :array |
-		self
-			continue: aBlock
-			value: array ]
-!
-
-interpretDynamicDictionaryNode: aNode continue: aBlock
-	self interpretAll: aNode nodes continue: [ :array | | hashedCollection |
-		hashedCollection := HashedCollection new.
-		array do: [ :each | hashedCollection add: each ].
-		self
-			continue: aBlock
-			value: hashedCollection ]
-!
-
-interpretJSStatementNode: aNode continue: aBlock
-	shouldReturn := true.
-	self continue: aBlock value: (self eval: aNode source)
-!
-
-interpretMethodNode: aNode continue: aBlock
-	self interpretAll: aNode nodes continue: [ :array |
-		self continue: aBlock value: array first ]
-!
-
-interpretNode: aNode continue: aBlock
-	aNode interpreter: self continue: aBlock
-!
-
-interpretReturnNode: aNode continue: aBlock
-	self interpret: aNode nodes first continue: [ :value |
-		shouldReturn := true.
-		self continue: aBlock value: value ]
-!
-
-interpretSendNode: aNode continue: aBlock
-	self interpret: aNode receiver continue: [ :receiver |
-		self interpretAll: aNode arguments continue: [ :args |
-			self
-				messageFromSendNode: aNode
-				arguments: args
-				do: [ :message |
-					self context pc: self context pc + 1.
-					self
-						continue: aBlock
-						value: (self sendMessage: message to: receiver superSend: aNode superSend) ] ] ]
-!
-
-interpretSequenceNode: aNode continue: aBlock
-	self interpretAll: aNode nodes continue: [ :array |
-		self continue: aBlock value: array last ]
-!
-
-interpretValueNode: aNode continue: aBlock
-	self continue: aBlock value: aNode value
-!
-
-interpretVariableNode: aNode continue: aBlock
-	self
-		continue: aBlock
-		value: (aNode binding isInstanceVar
-			ifTrue: [ self context receiver instVarAt: aNode value ]
-			ifFalse: [ self context localAt: aNode value ])
-! !
-
-!ASTInterpreter methodsFor: 'private'!
-
-assign: aNode to: anObject
-	^ aNode binding isInstanceVar
-		ifTrue: [ self context receiver instVarAt: aNode value put: anObject ]
-		ifFalse: [ self context localAt: aNode value put: anObject ]
-!
-
-continue: aBlock value: anObject
-	result := anObject.
-	aBlock value: anObject
-!
-
-eval: aString
-	"Evaluate aString as JS source inside an JS function.
-	aString is not sandboxed."
-	
-	| source function |
-	
-	source := String streamContents: [ :str |
-		str nextPutAll: '(function('.
-		self context locals keys
-			do: [ :each | str nextPutAll: each ]
-			separatedBy: [ str nextPutAll: ',' ].
-		str
-			nextPutAll: '){ return (function() {';
-			nextPutAll: aString;
-			nextPutAll: '})() })' ].
-			
-	function := Compiler new eval: source.
-	
-	^ function valueWithPossibleArguments: self context locals values
-!
-
-interpretAll: aCollection continue: aBlock
-	self
-		interpretAll: aCollection
-		continue: aBlock
-		result: OrderedCollection new
-!
-
-interpretAll: nodes continue: aBlock result: aCollection
-	nodes isEmpty
-		ifTrue: [ self continue: aBlock value: aCollection ]
-		ifFalse: [
-			self interpret: nodes first continue: [:value |
-				self
-					interpretAll: nodes allButFirst
-					continue: aBlock
-					result: aCollection, { value } ] ]
-!
-
-messageFromSendNode: aSendNode arguments: aCollection do: aBlock
-	self
-		continue: aBlock
-		value: (Message new
-			selector: aSendNode selector;
-			arguments: aCollection;
-			yourself)
-!
-
-sendMessage: aMessage to: anObject superSend: aBoolean
-	| method |
-	
-	aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].
-	anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
-	
-	method := anObject class superclass methodDictionary
-		at: aMessage selector
-		ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
-		
-	^ method fn applyTo: anObject arguments: aMessage arguments
-!
-
-withBlockContext: aBlock
-	"Evaluate aBlock with a BlockContext:
-	- a context is pushed before aBlock evaluation.
-	- the context is poped after aBlock evaluation
-	- the result of aBlock evaluation is answered"
-	
-	| blockResult |
-			
-	self context: (AIContext new
-		outerContext: self context;
-		yourself).
-	
-	blockResult := aBlock value.
-	
-	self context: self context outerContext.
-	^ blockResult
-! !
-
-!ASTInterpreter methodsFor: 'testing'!
-
-shouldReturn
-	^ shouldReturn ifNil: [ false ]
-! !
-
-ASTInterpreter subclass: #ASTSteppingInterpreter
-	instanceVariableNames: 'continuation nextNode'
-	package: 'Compiler-Interpreter'!
-!ASTSteppingInterpreter commentStamp!
-I am an interpreter with stepping capabilities. The higher level `ASTDebugger` class should be used as a debugger model, as it provides convenience methods for debugging.
-
-## API
-
-Use `#step` to actually interpret the next node. Interpretation stops at each node evaluation, weither it's a message node or not.
-
-
-## Usage example:
-
-	| ast interpreter |
-	ast := Smalltalk current parse: 'foo 1+2+4'.
-	(SemanticAnalyzer on: Object) visit: ast.
-
-	interpreter := ASTSteppingInterpreter new
-		interpret: ast nodes first;
-		yourself.
-		
-	interpreter step; step.
-	interpreter step; step.
-	interpreter result."Answers 1"
-	interpreter step.
-	interpreter result. "Answers 3"
-	interpreter step.
-	interpreter result. "Answers 7"!
-
-!ASTSteppingInterpreter methodsFor: 'accessing'!
-
-nextNode
-	^ nextNode
-! !
-
-!ASTSteppingInterpreter methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	continuation := []
-! !
-
-!ASTSteppingInterpreter methodsFor: 'interpreting'!
-
-interpret: aNode continue: aBlock
-	nextNode := aNode.
-	continuation := [
-		super interpret: aNode continue: aBlock ]
-! !
-
-!ASTSteppingInterpreter methodsFor: 'stepping'!
-
-step
-	continuation value
-! !
-
-!ASTSteppingInterpreter methodsFor: 'testing'!
-
-atEnd
-	^ self shouldReturn or: [ self nextNode == self currentNode ]
-! !
-
-NodeVisitor subclass: #ASTPCNodeVisitor
-	instanceVariableNames: 'useInlinings pc context blockIndex currentNode'
-	package: 'Compiler-Interpreter'!
-!ASTPCNodeVisitor commentStamp!
-I visit an AST until I get to the current pc node and answer it.
-
-## API
-
-My instances must be filled with a context object using `#context:`.
-
-After visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`!
-
-!ASTPCNodeVisitor methodsFor: 'accessing'!
-
-blockIndex
-	^ blockIndex ifNil: [ blockIndex := 0 ]
-!
-
-context
-	^ context
-!
-
-context: aContext
-	context := aContext
-!
-
-currentNode
-	^ currentNode
-!
-
-increaseBlockIndex
-	blockIndex := self blockIndex + 1
-!
-
-pc
-	^ pc ifNil: [ 0 ]
-!
-
-pc: anInteger
-	pc := anInteger
-!
-
-useInlinings
-	^ useInlinings ifNil: [ true ]
-!
-
-useInlinings: aBoolean
-	useInlinings := aBoolean
-! !
-
-!ASTPCNodeVisitor methodsFor: 'visiting'!
-
-visitBlockNode: aNode
-	"Inlined send node. Assume that the block is inlined"
-	(aNode parent isSendNode and: [ aNode parent shouldBeInlined ])
-		ifFalse: [
-			self blockIndex >= self context index ifFalse: [
-				self increaseBlockIndex.
-				super visitBlockNode: aNode ] ]
-		ifTrue: [ super visitBlockNode: aNode ]
-!
-
-visitJSStatementNode: aNode
-	currentNode := aNode
-!
-
-visitSendNode: aNode
-	super visitSendNode: aNode.
-	
-	self pc = self context pc ifFalse: [
-		aNode shouldBeInlined ifFalse: [
-			self blockIndex = self context index ifTrue: [
-				self pc: self pc + 1.
-				currentNode := aNode ] ] ]
-! !
-
-NodeVisitor subclass: #Interpreter
+NodeVisitor subclass: #ASTInterpreter
 	instanceVariableNames: 'node context stack returnValue returned'
 	package: 'Compiler-Interpreter'!
 
-!Interpreter methodsFor: 'accessing'!
+!ASTInterpreter methodsFor: 'accessing'!
 
 context
 	^ context
@@ -877,7 +468,7 @@ stack
 	^ stack ifNil: [ stack := OrderedCollection new ]
 ! !
 
-!Interpreter methodsFor: 'interpreting'!
+!ASTInterpreter methodsFor: 'interpreting'!
 
 interpret
 	"Interpret the next node to be evaluated"
@@ -905,6 +496,12 @@ restart
 	self node: self context ast nextChild
 !
 
+setNonLocalReturnFromContext: aContext
+	aContext interpreter hasReturned ifTrue: [
+		returned := true.
+		self returnValue: aContext interpreter returnValue ]
+!
+
 skip
 	self next
 !
@@ -920,15 +517,9 @@ stepOver
 	
 	[ self node isSteppingNode ] whileFalse: [ 
 		self step ]
-!
-
-setNonLocalReturnFromContext: aContext
-	aContext interpreter hasReturned ifTrue: [
-		returned := true.
-		self returnValue: aContext interpreter returnValue ]
 ! !
 
-!Interpreter methodsFor: 'private'!
+!ASTInterpreter methodsFor: 'private'!
 
 assign: aNode to: anObject
 	aNode binding isInstanceVar
@@ -984,7 +575,7 @@ sendMessage: aMessage to: anObject superSend: aBoolean
 	^ method sendTo: anObject arguments: aMessage arguments
 ! !
 
-!Interpreter methodsFor: 'stack'!
+!ASTInterpreter methodsFor: 'stack'!
 
 peek
 	"Peek the top object of the context stack"
@@ -1010,7 +601,7 @@ push: anObject
 	^ self stack add: anObject
 ! !
 
-!Interpreter methodsFor: 'testing'!
+!ASTInterpreter methodsFor: 'testing'!
 
 atEnd
 	^ self hasReturned or: [ self node isNil ]
@@ -1020,7 +611,7 @@ hasReturned
 	^ returned ifNil: [ false ]
 ! !
 
-!Interpreter methodsFor: 'visiting'!
+!ASTInterpreter methodsFor: 'visiting'!
 
 visit: aNode
 	self hasReturned ifFalse: [ super visit: aNode ]
@@ -1121,6 +712,82 @@ visitVariableNode: aNode
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
+! !
+
+NodeVisitor subclass: #ASTPCNodeVisitor
+	instanceVariableNames: 'useInlinings pc context blockIndex currentNode'
+	package: 'Compiler-Interpreter'!
+!ASTPCNodeVisitor commentStamp!
+I visit an AST until I get to the current pc node and answer it.
+
+## API
+
+My instances must be filled with a context object using `#context:`.
+
+After visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`!
+
+!ASTPCNodeVisitor methodsFor: 'accessing'!
+
+blockIndex
+	^ blockIndex ifNil: [ blockIndex := 0 ]
+!
+
+context
+	^ context
+!
+
+context: aContext
+	context := aContext
+!
+
+currentNode
+	^ currentNode
+!
+
+increaseBlockIndex
+	blockIndex := self blockIndex + 1
+!
+
+pc
+	^ pc ifNil: [ 0 ]
+!
+
+pc: anInteger
+	pc := anInteger
+!
+
+useInlinings
+	^ useInlinings ifNil: [ true ]
+!
+
+useInlinings: aBoolean
+	useInlinings := aBoolean
+! !
+
+!ASTPCNodeVisitor methodsFor: 'visiting'!
+
+visitBlockNode: aNode
+	"Inlined send node. Assume that the block is inlined"
+	(aNode parent isSendNode and: [ aNode parent shouldBeInlined ])
+		ifFalse: [
+			self blockIndex >= self context index ifFalse: [
+				self increaseBlockIndex.
+				super visitBlockNode: aNode ] ]
+		ifTrue: [ super visitBlockNode: aNode ]
+!
+
+visitJSStatementNode: aNode
+	currentNode := aNode
+!
+
+visitSendNode: aNode
+	super visitSendNode: aNode.
+	
+	self pc = self context pc ifFalse: [
+		aNode shouldBeInlined ifFalse: [
+			self blockIndex = self context index ifTrue: [
+				self pc: self pc + 1.
+				currentNode := aNode ] ] ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!
