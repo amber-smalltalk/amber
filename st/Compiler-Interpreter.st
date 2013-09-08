@@ -415,6 +415,19 @@ context: aContext
 NodeVisitor subclass: #ASTInterpreter
 	instanceVariableNames: 'node context stack returnValue returned'
 	package: 'Compiler-Interpreter'!
+!ASTInterpreter commentStamp!
+I visit an AST, interpreting (evaluating) nodes one after the other, using a small stack machine.
+
+## API
+
+While my instances should be used from within an `ASTDebugger`, which provides a more high level interface,
+you can use methods from the `interpreting` protocol:
+
+- `#step` evaluates the current `node` only
+- `#stepOver` evaluates the AST from the current `node` up to the next stepping node (most likely the next send node)
+- `#proceed` evaluates eagerly the AST
+- `#restart` select the first node of the AST
+- `#skip` skips the current node, moving to the next one if any!
 
 !ASTInterpreter methodsFor: 'accessing'!
 
