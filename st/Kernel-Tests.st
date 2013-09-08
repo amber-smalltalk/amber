@@ -1,4 +1,27 @@
 Smalltalk current createPackage: 'Kernel-Tests'!
+TestCase subclass: #AnnouncementSubscriptionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AnnouncementSubscriptionTest methodsFor: 'tests'!
+
+testHandlesAnnouncement
+	| subscription announcementClass1 announcementClass2 classBuilder |
+	
+	classBuilder := ClassBuilder new.
+	announcementClass1 := classBuilder basicAddSubclassOf: SystemAnnouncement named: 'TestAnnouncement1' instanceVariableNames: #() package: 'Kernel-Tests'.
+	
+	subscription := AnnouncementSubscription new announcementClass: SystemAnnouncement.
+	"Test whether the same class triggers the announcement"
+	self assert: (subscription handlesAnnouncement: SystemAnnouncement) equals: true.
+	"Test whether a subclass triggers the announcement"
+	self assert: (subscription handlesAnnouncement: announcementClass1) equals: true.
+	"Test whether an unrelated class does not trigger the announcement"
+	self assert: (subscription handlesAnnouncement: Object) equals: false.
+	
+	classBuilder basicRemoveClass: announcementClass1.
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
