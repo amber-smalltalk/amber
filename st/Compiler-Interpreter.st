@@ -387,7 +387,7 @@ proceed
 !
 
 restart
-	self shouldBeImplemented
+	self interpreter restart
 !
 
 stepInto

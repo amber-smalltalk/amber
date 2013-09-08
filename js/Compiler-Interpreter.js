@@ -1140,11 +1140,11 @@ category: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._shouldBeImplemented();
+_st(self._interpreter())._restart();
 return self}, function($ctx1) {$ctx1.fill(self,"restart",{},smalltalk.ASTDebugger)})},
 args: [],
-source: "restart\x0a\x09self shouldBeImplemented",
-messageSends: ["shouldBeImplemented"],
+source: "restart\x0a\x09self interpreter restart",
+messageSends: ["restart", "interpreter"],
 referencedClasses: []
 }),
 smalltalk.ASTDebugger);
