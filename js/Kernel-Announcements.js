@@ -109,12 +109,12 @@ return false;
 } else {
 var class_;
 class_=$receiver;
-$1=_st(class_)._includesBehavior_(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()));
+$1=_st(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
 args: ["anAnnouncement"],
-source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk current at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]",
+source: "handlesAnnouncement: anAnnouncement\x0a\x09\x22anAnnouncement might be announced from within another Amber environment\x22\x0a\x09\x0a\x09^ (Smalltalk current at: self announcementClass name)\x0a\x09\x09ifNil: [ ^ false ]\x0a\x09\x09ifNotNil: [ :class |\x0a\x09\x09(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]",
 messageSends: ["ifNil:ifNotNil:", "at:", "current", "name", "announcementClass", "includesBehavior:", "theNonMetaClass", "class"],
 referencedClasses: ["Smalltalk"]
 }),

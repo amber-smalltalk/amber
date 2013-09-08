@@ -55,7 +55,7 @@ handlesAnnouncement: anAnnouncement
 	^ (Smalltalk current at: self announcementClass name)
 		ifNil: [ ^ false ]
 		ifNotNil: [ :class |
-		class includesBehavior: (Smalltalk current at: anAnnouncement class theNonMetaClass name) ]
+		(Smalltalk current at: anAnnouncement class theNonMetaClass name) includesBehavior: class ]
 ! !
 
 Object subclass: #Announcer
