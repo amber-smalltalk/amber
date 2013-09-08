@@ -370,7 +370,7 @@ initializeInterpreter
 		context: self context;
 		visit: ast;
 		currentNode.
-	self interpreter interpret: next
+	self interpreter node: next
 !
 
 initializeWithContext: aContext
@@ -390,25 +390,12 @@ restart
 	self shouldBeImplemented
 !
 
-step
-	"The ASTSteppingInterpreter stops at each node interpretation.
-	One step will interpret nodes until:
-	- we get at the end
-	- the next node is a stepping node (send, assignment, etc.)"
-	
-	[ (self interpreter nextNode notNil and: [ self interpreter nextNode stopOnStepping ])
-		or: [ self interpreter atEnd not ] ]
-			whileFalse: [
-				self interpreter step.
-				self step ]
-!
-
 stepInto
 	self shouldBeImplemented
 !
 
 stepOver
-	self step
+	self interpreter stepOver
 ! !
 
 !ASTDebugger methodsFor: 'testing'!

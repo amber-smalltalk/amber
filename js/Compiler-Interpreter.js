@@ -1015,11 +1015,11 @@ _st($1)._context_(self._context());
 _st($1)._visit_(ast);
 $2=_st($1)._currentNode();
 next=$2;
-_st(self._interpreter())._interpret_(next);
+_st(self._interpreter())._node_(next);
 return self}, function($ctx1) {$ctx1.fill(self,"initializeInterpreter",{ast:ast,next:next},smalltalk.ASTDebugger)})},
 args: [],
-source: "initializeInterpreter\x0a\x09| ast next |\x0a\x09ast := self buildAST.\x0a\x09next := ASTPCNodeVisitor new\x0a\x09\x09context: self context;\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode.\x0a\x09self interpreter interpret: next",
-messageSends: ["buildAST", "context:", "new", "context", "visit:", "currentNode", "interpret:", "interpreter"],
+source: "initializeInterpreter\x0a\x09| ast next |\x0a\x09ast := self buildAST.\x0a\x09next := ASTPCNodeVisitor new\x0a\x09\x09context: self context;\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode.\x0a\x09self interpreter node: next",
+messageSends: ["buildAST", "context:", "new", "context", "visit:", "currentNode", "node:", "interpreter"],
 referencedClasses: ["ASTPCNodeVisitor"]
 }),
 smalltalk.ASTDebugger);
@@ -1151,35 +1151,6 @@ smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "step",
-category: 'stepping',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(self._interpreter())._nextNode())._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(self._interpreter())._nextNode())._stopOnStepping();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})})))._or_((function(){
-return smalltalk.withContext(function($ctx3) {
-return _st(_st(self._interpreter())._atEnd())._not();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {
-_st(self._interpreter())._step();
-return self._step();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"step",{},smalltalk.ASTDebugger)})},
-args: [],
-source: "step\x0a\x09\x22The ASTSteppingInterpreter stops at each node interpretation.\x0a\x09One step will interpret nodes until:\x0a\x09- we get at the end\x0a\x09- the next node is a stepping node (send, assignment, etc.)\x22\x0a\x09\x0a\x09[ (self interpreter nextNode notNil and: [ self interpreter nextNode stopOnStepping ])\x0a\x09\x09or: [ self interpreter atEnd not ] ]\x0a\x09\x09\x09whileFalse: [\x0a\x09\x09\x09\x09self interpreter step.\x0a\x09\x09\x09\x09self step ]",
-messageSends: ["whileFalse:", "or:", "and:", "notNil", "nextNode", "interpreter", "stopOnStepping", "not", "atEnd", "step"],
-referencedClasses: []
-}),
-smalltalk.ASTDebugger);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "stepInto",
 category: 'stepping',
 fn: function (){
@@ -1201,11 +1172,11 @@ category: 'stepping',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._step();
+_st(self._interpreter())._stepOver();
 return self}, function($ctx1) {$ctx1.fill(self,"stepOver",{},smalltalk.ASTDebugger)})},
 args: [],
-source: "stepOver\x0a\x09self step",
-messageSends: ["step"],
+source: "stepOver\x0a\x09self interpreter stepOver",
+messageSends: ["stepOver", "interpreter"],
 referencedClasses: []
 }),
 smalltalk.ASTDebugger);
