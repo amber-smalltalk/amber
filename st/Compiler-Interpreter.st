@@ -344,7 +344,7 @@ nextNode
 !ASTDebugger methodsFor: 'defaults'!
 
 defaultInterpreterClass
-	^ ASTSteppingInterpreter
+	^ ASTInterpreter
 ! !
 
 !ASTDebugger methodsFor: 'initialization'!

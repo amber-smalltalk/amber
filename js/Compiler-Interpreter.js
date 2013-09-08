@@ -986,16 +986,16 @@ selector: "defaultInterpreterClass",
 category: 'defaults',
 fn: function (){
 var self=this;
-function $ASTSteppingInterpreter(){return smalltalk.ASTSteppingInterpreter||(typeof ASTSteppingInterpreter=="undefined"?nil:ASTSteppingInterpreter)}
+function $ASTInterpreter(){return smalltalk.ASTInterpreter||(typeof ASTInterpreter=="undefined"?nil:ASTInterpreter)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=$ASTSteppingInterpreter();
+$1=$ASTInterpreter();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInterpreterClass",{},smalltalk.ASTDebugger)})},
 args: [],
-source: "defaultInterpreterClass\x0a\x09^ ASTSteppingInterpreter",
+source: "defaultInterpreterClass\x0a\x09^ ASTInterpreter",
 messageSends: [],
-referencedClasses: ["ASTSteppingInterpreter"]
+referencedClasses: ["ASTInterpreter"]
 }),
 smalltalk.ASTDebugger);
 
