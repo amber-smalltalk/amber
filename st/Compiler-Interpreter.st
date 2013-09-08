@@ -125,9 +125,8 @@ localAt: aString
 	"Lookup the local value up to the method context"
 
 	^ self locals at: aString ifAbsent: [ 
-		self isBlockContext 
-			ifTrue: [ nil ]
-			ifFalse: [ self outerContext localAt: aString ] ]
+		self outerContext ifNotNil: [ :context | 
+			context localAt: aString ] ]
 !
 
 localAt: aString put: anObject
@@ -283,9 +282,9 @@ setupInterpreter: anInterpreter
 !AIContext methodsFor: 'testing'!
 
 isBlockContext
-	"Block context do not have selectors."
+	"Block context have an outer context."
 	
-	^ self selector isNil
+	^ self outerContext notNil
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
@@ -658,11 +657,16 @@ visitDynamicArrayNode: aNode
 !
 
 visitDynamicDictionaryNode: aNode
-	| hashedCollection |
+	| associations hashedCollection |
 	
+	associations := OrderedCollection new.
 	hashedCollection := HashedCollection new.
+	
 	aNode nodes do: [ :each | 
-		hashedCollection add: self pop ].
+		associations add: self pop ].
+	
+	associations reversed do: [ :each |
+		hashedCollection add: each ].
 	
 	self push: hashedCollection
 !

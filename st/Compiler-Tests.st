@@ -1,16 +1,16 @@
 Smalltalk current createPackage: 'Compiler-Tests'!
-TestCase subclass: #ASTVisitorTest
+TestCase subclass: #ASTParsingTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
-!ASTVisitorTest methodsFor: 'convenience'!
+!ASTParsingTest methodsFor: 'convenience'!
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
 	^ aNode
 ! !
 
-!ASTVisitorTest methodsFor: 'parsing'!
+!ASTParsingTest methodsFor: 'parsing'!
 
 parse: aString
 	^ Smalltalk current parse: aString
@@ -20,7 +20,7 @@ parse: aString forClass: aClass
 	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
-ASTVisitorTest subclass: #ASTPCNodeVisitorTest
+ASTParsingTest subclass: #ASTPCNodeVisitorTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
@@ -91,194 +91,7 @@ testPC
 		currentNode) isJSStatementNode
 ! !
 
-ASTVisitorTest subclass: #AbstractASTInterpreterTest
-	instanceVariableNames: ''
-	package: 'Compiler-Tests'!
-
-!AbstractASTInterpreterTest methodsFor: 'accessing'!
-
-interpreter
-	^ self subclassResponsibility
-! !
-
-!AbstractASTInterpreterTest methodsFor: 'interpreting'!
-
-interpret: aString
-	^ self
-		interpret: aString
-		withArguments: Dictionary new
-!
-
-interpret: aString receiver: anObject withArguments: aDictionary
-	"The food is a methodNode. Interpret the sequenceNode only"
-	
-	| ctx |
-	
-	ctx := AIContext new.
-	ctx receiver: anObject.
-	aDictionary keysAndValuesDo: [ :key :value |
-		ctx localAt: key put: value ].
-	
-	^ self interpreter
-		context: ctx;
-		interpret: (self parse: aString forClass: anObject class)
-			nodes first;
-		result
-!
-
-interpret: aString withArguments: aDictionary
-	^ self
-		interpret: aString
-		receiver: Object new
-		withArguments: aDictionary
-! !
-
-AbstractASTInterpreterTest subclass: #ASTInterpreterTest
-	instanceVariableNames: ''
-	package: 'Compiler-Tests'!
-
-!ASTInterpreterTest methodsFor: 'accessing'!
-
-interpreter
-	^ ASTInterpreter new
-! !
-
-!ASTInterpreterTest methodsFor: 'interpreting'!
-
-interpret: aString receiver: anObject withArguments: aDictionary
-	"The food is a methodNode. Interpret the sequenceNode only"
-	
-	| ctx interpreter |
-	
-	interpreter := self interpreter.
-	
-	ctx := AIContext new
-		receiver: anObject;
-		interpreter: interpreter;
-		yourself.
-	aDictionary keysAndValuesDo: [ :key :value |
-		ctx localAt: key put: value ].
-	
-	^ interpreter
-		context: ctx;
-		interpret: (self parse: aString forClass: anObject class) nextChild;
-		proceed;
-		result
-! !
-
-!ASTInterpreterTest methodsFor: 'tests'!
-
-testBinarySend
-	self assert: (self interpret: 'foo ^ 2+3+4') equals: 9
-!
-
-testBlockEvaluation
-	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 asString, ''2'' ]') equals: '12'.
-	self assert: (self interpret: 'foo ^ #(1 2 3) collect: [ :each | each + 3 ]') equals: #(4 5 6).
-!
-
-testBlockLiteral
-	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
-	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
-	self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
-!
-
-testCascade
-	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
-!
-
-testDynamicArray
-	self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)
-!
-
-testDynamicDictionary
-	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
-!
-
-testGlobalVar
-	self assert: (self interpret: 'foo ^ eval class') equals: BlockClosure.
-	self assert: (self interpret: 'foo ^ Math cos: 0') equals: 1.
-	self assert: (self interpret: 'foo ^ NonExistingVar') equals: nil.
-!
-
-testInlinedJSStatement
-	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
-	
-	self
-		assert: (self
-			interpret: 'foo: anInteger <return 2 + anInteger>'
-			withArguments: #{ 'anInteger' -> 3})
-		equals: 5
-!
-
-testInstVarAccess
-	self
-		assert: (self
-			interpret: 'foo ^ x'
-			receiver: 2@3
-			withArguments: #{})
-		equals: 2
-!
-
-testInstVarAssignment
-	self
-		assert: (self
-			interpret: 'foo: anInteger x := anInteger. ^ x'
-			receiver: Point new
-			withArguments: #{'anInteger' -> 2})
-		equals: 2
-!
-
-testKeywordSend
-	self assert: (self interpret: 'foo ^ Point x: 1 y: 2') equals: 1@2
-!
-
-testMultipleSequences
-	self assert: (self interpret: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6') equals: 30
-!
-
-testNestedSends
-	self assert: (self interpret: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString') equals: (Point x: (2@3) y: 4) asString
-!
-
-testNonlocalReturn
-	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
-!
-
-testReceiver
-	self
-		assert: (self
-			interpret: 'foo ^ self'
-			receiver: 2@3
-			withArguments: #{})
-		equals: 2@3
-!
-
-testSuper
-	self 
-		assert: (self 
-			interpret: 'foo ^ super isBoolean' 
-			receiver: true 
-			withArguments: Dictionary new) 
-		equals: false
-!
-
-testTempAssignment
-	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2.
-	self assert: (self interpret: 'foo | a | a := nil. ^ a') equals: nil.
-!
-
-testThisContext
-	self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.
-	self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.
-	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
-!
-
-testUnarySend
-	self assert: (self interpret: 'foo ^ 1 asString') equals: '1'
-! !
-
-TestCase subclass: #CodeGeneratorTest
+ASTParsingTest subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!
 
@@ -286,10 +99,6 @@ TestCase subclass: #CodeGeneratorTest
 
 codeGeneratorClass
 	^ CodeGenerator
-!
-
-targetClass
-	^ DoIt
 ! !
 
 !CodeGeneratorTest methodsFor: 'factory'!
@@ -303,7 +112,7 @@ compiler
 !CodeGeneratorTest methodsFor: 'initialization'!
 
 setUp
-	receiver := self targetClass new
+	receiver := DoIt new
 !
 
 tearDown
@@ -313,12 +122,20 @@ tearDown
 !CodeGeneratorTest methodsFor: 'testing'!
 
 should: aString return: anObject
+	^ self 
+		should: aString 
+		receiver: receiver 
+		return: anObject
+!
+
+should: aString receiver: anObject return: aResult
 	| method result |
 
-	method := self compiler install: aString forClass: self targetClass category: 'tests'.
+	receiver := anObject.
+	method := self compiler install: aString forClass: anObject class category: 'tests'.
 	result := receiver perform: method selector.
-	self targetClass removeCompiledMethod: method.
-	self assert: anObject equals: result
+	anObject class removeCompiledMethod: method.
+	self assert: aResult equals: result
 ! !
 
 !CodeGeneratorTest methodsFor: 'tests'!
@@ -524,6 +341,35 @@ testifTrueIfFalse
 	
 	self should: 'foo ^ false ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 1.
 	self should: 'foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 2.
+!
+
+testGlobalVar
+	self should: 'foo ^ eval class' return: BlockClosure.
+	self should: 'foo ^ Math cos: 0' return: 1.
+	self should: 'foo ^ NonExistingVar' return: nil
+!
+
+testJSStatement
+	self should: 'foo <return 2+3>' return: 5
+!
+
+testMultipleSequences
+	self should: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6' return: 30
+!
+
+testNestedSends
+	self should: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString' return: (Point x: (2@3) y: 4) asString
+!
+
+testSuperSend
+	self 
+		should: 'foo ^ super isBoolean' 
+		receiver: true
+		return: false
+!
+
+testThisContext
+	self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true
 ! !
 
 CodeGeneratorTest subclass: #InliningCodeGeneratorTest
@@ -534,6 +380,65 @@ CodeGeneratorTest subclass: #InliningCodeGeneratorTest
 
 codeGeneratorClass
 	^ InliningCodeGenerator
+! !
+
+CodeGeneratorTest subclass: #InterpreterTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!InterpreterTest methodsFor: 'parsing'!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
+!
+
+analyze: aNode forClass: aClass
+	(SemanticAnalyzer on: aClass) visit: aNode.
+	^ aNode
+!
+
+parse: aString
+	^ Smalltalk current parse: aString
+! !
+
+!InterpreterTest methodsFor: 'private'!
+
+interpret: aString receiver: anObject withArguments: aDictionary
+	"The food is a methodNode. Interpret the sequenceNode only"
+	
+	| ctx interpreter |
+	
+	interpreter := ASTInterpreter new.
+	
+	ctx := AIContext new
+		receiver: anObject;
+		interpreter: interpreter;
+		yourself.
+	aDictionary keysAndValuesDo: [ :key :value |
+		ctx localAt: key put: value ].
+	
+	^ interpreter
+		context: ctx;
+		interpret: (self parse: aString forClass: anObject class) nextChild;
+		proceed;
+		result
+! !
+
+!InterpreterTest methodsFor: 'testing'!
+
+should: aString return: anObject
+	^ self 
+		should: aString
+		receiver: receiver
+		return: anObject
+!
+
+should: aString receiver: anObject return: aResult
+	receiver := anObject.
+	
+	^ self 
+		assert: (self interpret: aString receiver: receiver withArguments: #{})
+		equals: aResult
 ! !
 
 TestCase subclass: #ScopeVarTest
