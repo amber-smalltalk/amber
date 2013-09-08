@@ -75,14 +75,14 @@ selector: "interpreterError",
 category: 'error handling',
 fn: function (){
 var self=this;
-function $AIInterpreterError(){return smalltalk.AIInterpreterError||(typeof AIInterpreterError=="undefined"?nil:AIInterpreterError)}
+function $ASTInterpreterError(){return smalltalk.ASTInterpreterError||(typeof ASTInterpreterError=="undefined"?nil:ASTInterpreterError)}
 return smalltalk.withContext(function($ctx1) { 
-_st($AIInterpreterError())._signal_("Method cannot be interpreted by the interpreter.");
+_st($ASTInterpreterError())._signal_("Method cannot be interpreted by the interpreter.");
 return self}, function($ctx1) {$ctx1.fill(self,"interpreterError",{},smalltalk.AIBlockClosure)})},
 args: [],
-source: "interpreterError\x0a\x09AIInterpreterError signal: 'Method cannot be interpreted by the interpreter.'",
+source: "interpreterError\x0a\x09ASTInterpreterError signal: 'Method cannot be interpreted by the interpreter.'",
 messageSends: ["signal:"],
-referencedClasses: ["AIInterpreterError"]
+referencedClasses: ["ASTInterpreterError"]
 }),
 smalltalk.AIBlockClosure);
 
@@ -897,10 +897,6 @@ messageSends: ["initializeFromMethodContext:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.AIContext.klass);
-
-
-smalltalk.addClass('AIInterpreterError', smalltalk.Error, [], 'Compiler-Interpreter');
-smalltalk.AIInterpreterError.comment="I get signaled when an AST interpreter is unable to interpret a node.";
 
 
 smalltalk.addClass('ASTDebugger', smalltalk.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
@@ -2039,6 +2035,10 @@ referencedClasses: ["PlatformInterface"]
 }),
 smalltalk.ASTInterpreter);
 
+
+
+smalltalk.addClass('ASTInterpreterError', smalltalk.Error, [], 'Compiler-Interpreter');
+smalltalk.ASTInterpreterError.comment="I get signaled when an AST interpreter is unable to interpret a node.";
 
 
 smalltalk.addClass('ASTPCNodeVisitor', smalltalk.NodeVisitor, ['useInlinings', 'pc', 'context', 'blockIndex', 'currentNode'], 'Compiler-Interpreter');

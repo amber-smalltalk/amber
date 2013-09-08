@@ -30,7 +30,7 @@ currySelf
 !AIBlockClosure methodsFor: 'error handling'!
 
 interpreterError
-	AIInterpreterError signal: 'Method cannot be interpreted by the interpreter.'
+	ASTInterpreterError signal: 'Method cannot be interpreted by the interpreter.'
 ! !
 
 !AIBlockClosure methodsFor: 'evaluating'!
@@ -294,12 +294,6 @@ fromMethodContext: aMethodContext
 		initializeFromMethodContext: aMethodContext;
 		yourself
 ! !
-
-Error subclass: #AIInterpreterError
-	instanceVariableNames: ''
-	package: 'Compiler-Interpreter'!
-!AIInterpreterError commentStamp!
-I get signaled when an AST interpreter is unable to interpret a node.!
 
 Object subclass: #ASTDebugger
 	instanceVariableNames: 'interpreter context'
@@ -717,6 +711,12 @@ visitVariableNode: aNode
 		ifTrue: [ self context receiver instVarAt: aNode value ]
 		ifFalse: [ self context localAt: aNode value ])
 ! !
+
+Error subclass: #ASTInterpreterError
+	instanceVariableNames: ''
+	package: 'Compiler-Interpreter'!
+!ASTInterpreterError commentStamp!
+I get signaled when an AST interpreter is unable to interpret a node.!
 
 NodeVisitor subclass: #ASTPCNodeVisitor
 	instanceVariableNames: 'useInlinings pc context blockIndex currentNode'
