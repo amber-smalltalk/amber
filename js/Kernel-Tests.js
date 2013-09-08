@@ -2,6 +2,36 @@ define("amber_core/Kernel-Tests", ["amber_vm/smalltalk", "amber_vm/nil", "amber_
 smalltalk.addPackage('Kernel-Tests');
 smalltalk.packages["Kernel-Tests"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+smalltalk.addClass('AnnouncementSubscriptionTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testHandlesAnnouncement",
+category: 'tests',
+fn: function (){
+var self=this;
+var subscription,announcementClass1,announcementClass2,classBuilder;
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $SystemAnnouncement(){return smalltalk.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+classBuilder=_st($ClassBuilder())._new();
+announcementClass1=_st(classBuilder)._basicAddSubclassOf_named_instanceVariableNames_package_($SystemAnnouncement(),"TestAnnouncement1",[],"Kernel-Tests");
+subscription=_st(_st($AnnouncementSubscription())._new())._announcementClass_($SystemAnnouncement());
+self._assert_equals_(_st(subscription)._handlesAnnouncement_($SystemAnnouncement()),true);
+self._assert_equals_(_st(subscription)._handlesAnnouncement_(announcementClass1),true);
+self._assert_equals_(_st(subscription)._handlesAnnouncement_($Object()),false);
+_st(classBuilder)._basicRemoveClass_(announcementClass1);
+return self}, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},smalltalk.AnnouncementSubscriptionTest)})},
+args: [],
+source: "testHandlesAnnouncement\x0a\x09| subscription announcementClass1 announcementClass2 classBuilder |\x0a\x09\x0a\x09classBuilder := ClassBuilder new.\x0a\x09announcementClass1 := classBuilder basicAddSubclassOf: SystemAnnouncement named: 'TestAnnouncement1' instanceVariableNames: #() package: 'Kernel-Tests'.\x0a\x09\x0a\x09subscription := AnnouncementSubscription new announcementClass: SystemAnnouncement.\x0a\x09\x22Test whether the same class triggers the announcement\x22\x0a\x09self assert: (subscription handlesAnnouncement: SystemAnnouncement) equals: true.\x0a\x09\x22Test whether a subclass triggers the announcement\x22\x0a\x09self assert: (subscription handlesAnnouncement: announcementClass1) equals: true.\x0a\x09\x22Test whether an unrelated class does not trigger the announcement\x22\x0a\x09self assert: (subscription handlesAnnouncement: Object) equals: false.\x0a\x09\x0a\x09classBuilder basicRemoveClass: announcementClass1.",
+messageSends: ["new", "basicAddSubclassOf:named:instanceVariableNames:package:", "announcementClass:", "assert:equals:", "handlesAnnouncement:", "basicRemoveClass:"],
+referencedClasses: ["ClassBuilder", "SystemAnnouncement", "AnnouncementSubscription", "Object"]
+}),
+smalltalk.AnnouncementSubscriptionTest);
+
+
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
