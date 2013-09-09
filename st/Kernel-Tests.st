@@ -999,7 +999,7 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
@@ -1521,7 +1521,7 @@ TestCase subclass: #ObjectTest
 !ObjectTest methodsFor: 'tests'!
 
 notDefined
-	<return undefined;>
+	<return void 0;>
 !
 
 testBasicAccess

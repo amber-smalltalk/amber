@@ -5474,7 +5474,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@position"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@position"]=(0);
 $1=self["@position"];
 } else {

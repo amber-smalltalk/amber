@@ -104,7 +104,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=_st(_st($Smalltalk())._current())._at_(_st(self._announcementClass())._name());
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 return false;
 } else {
 var class_;
@@ -296,7 +296,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=smalltalk.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {

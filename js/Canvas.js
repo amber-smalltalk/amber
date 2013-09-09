@@ -1121,7 +1121,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 smalltalk.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
 $1=self["@root"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self["@root"]=_st($TagBrush())._fromString_canvas_("div",self);
 self["@root"];
 } else {
@@ -2403,7 +2403,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@snippets"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@snippets"]=smalltalk.HashedCollection._from_([]);
 $1=self["@snippets"];
 } else {
@@ -2465,7 +2465,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=self["@current"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=smalltalk.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);
 _st($2)._initializeFromJQuery_(_st(document)._asJQuery());
 $3=_st($2)._yourself();

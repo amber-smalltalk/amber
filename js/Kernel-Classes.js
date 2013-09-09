@@ -44,7 +44,7 @@ _st(self._organization())._addElement_(_st(aMethod)._protocol());
 };
 self._basicAddCompiledMethod_(aMethod);
 $2=oldMethod;
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($MethodAdded())._new();
 _st($3)._method_(aMethod);
 $4=_st($3)._yourself();
@@ -76,7 +76,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 result=_st(self._instanceVariableNames())._copy();
 $1=self._superclass();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(result)._addAll_(_st(self._superclass())._allInstanceVariableNames());
@@ -174,7 +174,7 @@ function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof Ordere
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$5,$3;
 $1=self._superclass();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=[];
 return $2;
 } else {
@@ -274,7 +274,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._basicAt_("comment");
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -452,7 +452,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self._superclass();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 return false;
 } else {
 $1;
@@ -1008,7 +1008,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._package();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="Unclassified";
 } else {
 $1=_st(self._package())._name();
@@ -1453,7 +1453,7 @@ var $1,$2,$3,$4;
 theClass=_st(_st($Smalltalk())._current())._at_(className);
 thePackage=self._createPackageNamed_(packageName);
 $1=theClass;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(theClass)._package_(thePackage);
@@ -1889,7 +1889,7 @@ $2=aClass;
 $3=className;
 $4=self._instanceVariableNamesFor_(ivarNames);
 $6=packageName;
-if(($receiver = $6) == nil || $receiver == undefined){
+if(($receiver = $6) == nil || $receiver == null){
 $5="unclassified";
 } else {
 $5=$6;

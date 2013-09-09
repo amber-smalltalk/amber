@@ -91,7 +91,7 @@ function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -116,7 +116,7 @@ function $HLCodeModel(){return smalltalk.HLCodeModel||(typeof HLCodeModel=="unde
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@code"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@code"]=_st($HLCodeModel())._on_(self._environment());
 $1=self["@code"];
 } else {
@@ -141,7 +141,7 @@ function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st(_st($HLManager())._current())._environment();
 } else {
 $1=$2;
@@ -250,7 +250,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._inspectee())._printString();
 } else {
 $1=$2;
@@ -355,7 +355,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@selection"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -413,7 +413,7 @@ function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefin
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@variables"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st($Dictionary())._new();
 } else {
 $1=$2;
@@ -477,7 +477,7 @@ function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -726,7 +726,7 @@ function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="u
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLCodeWidget())._new();
 _st($3)._model_(_st(self["@model"])._code());
 _st($3)._receiver_(_st(self["@model"])._inspectee());
@@ -755,7 +755,7 @@ function $HLInspectorDisplayWidget(){return smalltalk.HLInspectorDisplayWidget||
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@displayWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLInspectorDisplayWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -872,7 +872,7 @@ function $HLInspectorModel(){return smalltalk.HLInspectorModel||(typeof HLInspec
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self._model_(_st($HLInspectorModel())._new());
 $1=self["@model"];
 } else {
@@ -1208,7 +1208,7 @@ function $HLInspectorVariablesWidget(){return smalltalk.HLInspectorVariablesWidg
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@variablesWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLInspectorVariablesWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -1313,7 +1313,7 @@ function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof Ordere
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@inspectors"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@inspectors"]=_st($OrderedCollection())._new();
 $1=self["@inspectors"];
 } else {

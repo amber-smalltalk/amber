@@ -249,7 +249,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._parent();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
 } else {
 var node;
@@ -303,7 +303,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@nodes"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@nodes"]=_st($Array())._new();
 $1=self["@nodes"];
 } else {
@@ -381,9 +381,9 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$1;
 $2=self["@position"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=self._parent();
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 $1=$3;
 } else {
 var node;
@@ -447,7 +447,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@shouldBeAliased"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
 $1=$2;
@@ -486,7 +486,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@shouldBeInlined"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
 $1=$2;
@@ -773,7 +773,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@parameters"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@parameters"]=_st($Array())._new();
 $1=self["@parameters"];
 } else {
@@ -1022,7 +1022,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@source"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -1083,7 +1083,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=[];
 } else {
 $1=$2;
@@ -1456,7 +1456,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@arguments"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@arguments"]=[];
 $1=self["@arguments"];
 } else {
@@ -1600,7 +1600,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$5,$3;
 $1=self._receiver();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=_st(self._arguments())._copy();
 return $2;
 } else {
@@ -1717,7 +1717,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@superSend"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
 $1=$2;
@@ -1760,7 +1760,7 @@ $2=_st($SendNode())._new();
 _st($2)._position_(self._position());
 $3=$2;
 $5=self._receiver();
-if(($receiver = $5) == nil || $receiver == undefined){
+if(($receiver = $5) == nil || $receiver == null){
 $4=anObject;
 } else {
 $4=_st(self._receiver())._valueForReceiver_(anObject);
@@ -1868,7 +1868,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@temps"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=[];
 } else {
 $1=$2;
@@ -2096,7 +2096,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@assigned"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
 $1=$2;
