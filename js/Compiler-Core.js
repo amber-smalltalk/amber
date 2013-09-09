@@ -134,7 +134,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@source"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -268,7 +268,7 @@ function $InliningCodeGenerator(){return smalltalk.InliningCodeGenerator||(typeo
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@codeGeneratorClass"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=$InliningCodeGenerator();
 } else {
 $1=$2;
@@ -604,7 +604,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@source"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;

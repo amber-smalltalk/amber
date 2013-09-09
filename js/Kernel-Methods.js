@@ -495,7 +495,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._basicAt_("category");
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultCategory();
 } else {
 $1=$2;
@@ -528,7 +528,7 @@ _st($1)._oldProtocol_(oldProtocol);
 $2=_st($1)._yourself();
 _st(_st($SystemAnnouncer())._current())._announce_($2);
 $3=self._methodClass();
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 $3;
 } else {
 _st(_st(self._methodClass())._organization())._addElement_(aString);
@@ -655,7 +655,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 superclass=_st(self._methodClass())._superclass();
 $1=superclass;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 return false;
 } else {
 $1;
@@ -819,7 +819,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._basicAt_("source");
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -979,7 +979,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@maxPoolSize"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultMaxPoolSize();
 } else {
 $1=$2;
@@ -1020,7 +1020,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@default"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@default"]=self._new();
 $1=self["@default"];
 } else {
@@ -1548,7 +1548,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._methodContext();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
 } else {
 $1=_st(_st(_st(self._methodContext())._receiver())._class())._lookupSelector_(_st(self._methodContext())._selector());
@@ -1576,7 +1576,7 @@ $2=self;
 return $2;
 };
 $4=self._outerContext();
-if(($receiver = $4) == nil || $receiver == undefined){
+if(($receiver = $4) == nil || $receiver == null){
 $3=$4;
 } else {
 var outer;

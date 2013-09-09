@@ -99,7 +99,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@nodes"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self["@nodes"]=self._getNodes();
 self["@nodes"];
 } else {
@@ -558,7 +558,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 result=self._eval_(self._currentLineOrSelection());
 $1=self._onDoIt();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(self._onDoIt())._value();
@@ -831,7 +831,7 @@ function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@receiver"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st($DoIt())._new();
 } else {
 $1=$2;
@@ -1472,7 +1472,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@tabs"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@tabs"]=_st($Array())._new();
 $1=self["@tabs"];
 } else {
@@ -1549,7 +1549,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=smalltalk.TabManager.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
@@ -1995,7 +1995,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4,$5,$6,$7;
 stream=""._writeStream();
 $1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=self._classDeclarationTemplate();
 return $2;
 } else {
@@ -2082,7 +2082,7 @@ function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:P
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@selectedPackage"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(_st($Package())._named_(self["@selectedPackage"]))._commit();
@@ -2109,7 +2109,7 @@ currentEditLine=_st(_st(self["@sourceArea"])._editor())._getCursor();
 $1=_st(self["@selectedTab"]).__eq("comment");
 if(smalltalk.assert($1)){
 $2=self["@selectedClass"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $2;
 } else {
 self._compileClassComment();
@@ -2212,7 +2212,7 @@ var $early={};
 try {
 source=_st(self["@sourceArea"])._val();
 $1=self["@selectedProtocol"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self["@selectedProtocol"]=_st(self["@selectedMethod"])._category();
 self["@selectedProtocol"];
 } else {
@@ -2317,7 +2317,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@saveButton"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(self["@saveButton"])._at_put_("disabled",true);
@@ -2430,7 +2430,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@selectedClass"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="Browser (nil)";
 } else {
 $1="Browser: ".__comma(_st(self["@selectedClass"])._name());
@@ -2455,7 +2455,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4;
 stream=""._writeStream();
 $1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 $2=stream;
@@ -2491,7 +2491,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@selectedMethod"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._dummyMethodSource();
 } else {
 $1=_st(self["@selectedMethod"])._source();
@@ -2520,7 +2520,7 @@ $2=[];
 return $2;
 };
 $3=self["@selectedClass"];
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 $3;
 } else {
 $4=_st(self["@selectedTab"]).__eq("instance");
@@ -2532,9 +2532,9 @@ klass=_st(self["@selectedClass"])._class();
 klass;
 };
 $7=self["@selectedProtocol"];
-if(($receiver = $7) == nil || $receiver == undefined){
+if(($receiver = $7) == nil || $receiver == null){
 $8=klass;
-if(($receiver = $8) == nil || $receiver == undefined){
+if(($receiver = $8) == nil || $receiver == null){
 $6=[];
 } else {
 $6=_st(_st(klass)._methodDictionary())._values();
@@ -2598,7 +2598,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4,$5,$6,$7,$8;
 $1=self["@selectedClass"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 $2=_st(self["@selectedTab"]).__eq("comment");
@@ -2746,7 +2746,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 newName=self._prompt_("Rename package ".__comma(self["@selectedPackage"]));
 $1=newName;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 $2=_st(newName)._notEmpty();
@@ -3296,7 +3296,7 @@ $2=self._declarationSource();
 return $2;
 };
 $5=self["@selectedClass"];
-if(($receiver = $5) == nil || $receiver == undefined){
+if(($receiver = $5) == nil || $receiver == null){
 $4="";
 } else {
 $4=self._classCommentSource();
@@ -3607,7 +3607,7 @@ var $1,$2,$3;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $2;
 } else {
 _st(self["@saveButton"])._at_put_("disabled",true);
@@ -3616,7 +3616,7 @@ self["@unsavedChanges"]=false;
 self["@unsavedChanges"];
 } else {
 $3=self["@saveButton"];
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 $3;
 } else {
 _st(self["@saveButton"])._removeAt_("disabled");
@@ -4074,7 +4074,7 @@ return smalltalk.withContext(function($ctx2) {
 return self._selectContext_(aContext);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $4=_st(aContext)._outerContext();
-if(($receiver = $4) == nil || $receiver == undefined){
+if(($receiver = $4) == nil || $receiver == null){
 $4;
 } else {
 self._renderContext_on_(_st(aContext)._outerContext(),html);
@@ -4196,7 +4196,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._method();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="Method doesn't exist!";
 } else {
 $1=_st(self._method())._source();
@@ -4274,7 +4274,7 @@ var $1,$2,$3;
 $1=_st(_st(self["@sourceArea"])._val()).__eq(self._source());
 if(smalltalk.assert($1)){
 $2=self["@saveButton"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $2;
 } else {
 _st(self["@saveButton"])._at_put_("disabled",true);
@@ -4283,7 +4283,7 @@ self["@unsavedChanges"]=false;
 self["@unsavedChanges"];
 } else {
 $3=self["@saveButton"];
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 $3;
 } else {
 _st(self["@saveButton"])._removeAt_("disabled");
@@ -4339,7 +4339,7 @@ return _st(li)._class_("selected");
 }, function($ctx3) {$ctx3.fillBlock({key:key,value:value},$ctx2,4)})}));
 }, function($ctx2) {$ctx2.fillBlock({html:html,li:li},$ctx1,1)})}));
 $7=self["@selectedVariable"];
-if(($receiver = $7) == nil || $receiver == undefined){
+if(($receiver = $7) == nil || $receiver == null){
 _st(self["@inspectButton"])._at_put_("disabled",true);
 } else {
 _st(self["@inspectButton"])._removeAt_("disabled");
@@ -4475,7 +4475,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@textarea"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self._open();
 } else {
 $1;
@@ -4500,7 +4500,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=smalltalk.IDETranscript.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
@@ -4629,7 +4629,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="Inspector (nil)";
 } else {
 $1=$2;
@@ -5067,7 +5067,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@percent"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=(0);
 } else {
 $1=$2;
@@ -5209,7 +5209,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@implementors"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@implementors"]=_st($Array())._new();
 $1=self["@implementors"];
 } else {
@@ -5267,7 +5267,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@matches"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@matches"]=_st($Array())._new();
 $1=self["@matches"];
 } else {
@@ -5325,7 +5325,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@referencedClasses"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@referencedClasses"]=_st($Array())._new();
 $1=self["@referencedClasses"];
 } else {
@@ -5615,7 +5615,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@senders"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@senders"]=_st($Array())._new();
 $1=self["@senders"];
 } else {
@@ -5650,7 +5650,7 @@ return self["@timer"];
 $2=_st($1)._onKeyDown_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=self["@timer"];
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 return $3;
 } else {
 return _st(self["@timer"])._clearTimeout();
@@ -6072,7 +6072,7 @@ function $ProgressBar(){return smalltalk.ProgressBar||(typeof ProgressBar=="unde
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@progressBar"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@progressBar"]=_st($ProgressBar())._new();
 $1=self["@progressBar"];
 } else {
@@ -6348,7 +6348,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@selectedCategories"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@selectedCategories"]=_st($Array())._new();
 $1=self["@selectedCategories"];
 } else {
@@ -6373,7 +6373,7 @@ function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@selectedClasses"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@selectedClasses"]=_st($Array())._new();
 $1=self["@selectedClasses"];
 } else {
