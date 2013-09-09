@@ -232,7 +232,8 @@ arguments
 !
 
 ast
-	self isBlockContext ifTrue: [ ^ self outerContext ast ].
+	self isBlockContext ifTrue: [ 
+		^ self outerContext ifNotNil: [ :context | context ast ] ].
 
 	ast ifNil: [ self initializeAST ].
 	^ ast
@@ -264,10 +265,11 @@ receiver: anObject
 !
 
 retrieveNode
-	^ ASTPCNodeVisitor new
-		context: self;
-		visit: self ast;
-		currentNode
+	^ self ast ifNotNil: [
+		ASTPCNodeVisitor new
+			context: self;
+			visit: self ast;
+			currentNode ]
 !
 
 setupInterpreter: anInterpreter
