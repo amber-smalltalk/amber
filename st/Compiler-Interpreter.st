@@ -94,8 +94,8 @@ forContext: aContext node: aNode
 		yourself
 ! !
 
-Object subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals method index ast interpreter'
+MethodContext subclass: #AIContext
+	instanceVariableNames: 'outerContext innerContext pc locals selector index ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -140,18 +140,8 @@ locals
 !
 
 method
-	^ method
-!
-
-method: aCompiledMethod
-	method := aCompiledMethod
-!
-
-methodContext
-	self isBlockContext ifFalse: [ ^ self ].
-	
-	^ self outerContext ifNotNil: [ :outer |
-		outer methodContext ]
+	^ self methodContext ifNotNil: [
+		self methodContext receiver class lookupSelector: self methodContext selector ]
 !
 
 outerContext
@@ -164,16 +154,11 @@ outerContext: anAIContext
 !
 
 selector
-	^ self method ifNotNil: [ 
-		self method selector ]
-! !
+	^ selector
+!
 
-!AIContext methodsFor: 'converting'!
-
-asString
-	^self isBlockContext
-		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
-		ifFalse: [ self receiver class name, ' >> ', self selector ]
+selector: aString
+	selector := aString
 ! !
 
 !AIContext methodsFor: 'factory'!
@@ -198,7 +183,7 @@ initializeFromMethodContext: aMethodContext
 		pc: aMethodContext pc;
 		index: aMethodContext index;
 		receiver: aMethodContext receiver;
-		method: aMethodContext method.
+		selector: aMethodContext selector.
 		
 	aMethodContext outerContext ifNotNil: [ :outer |
 		"If the method context is nil, the block was defined in JS, so ignore it"
@@ -279,14 +264,6 @@ setupInterpreter: anInterpreter
 		anInterpreter push: each ].
 		
 	anInterpreter push: (self innerContext receiver)
-! !
-
-!AIContext methodsFor: 'testing'!
-
-isBlockContext
-	"Block context have an outer context."
-	
-	^ self selector isNil
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
