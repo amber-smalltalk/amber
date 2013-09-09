@@ -544,7 +544,7 @@ $1=_st(self._selector())._isNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isBlockContext",{},smalltalk.AIContext)})},
 args: [],
-source: "isBlockContext\x0a\x09\x22Block context have an outer context.\x22\x0a\x09\x0a\x09^ self selector isNil",
+source: "isBlockContext\x0a\x09\x22Block context have no selector.\x22\x0a\x09\x0a\x09^ self selector isNil",
 messageSends: ["isNil", "selector"],
 referencedClasses: []
 }),

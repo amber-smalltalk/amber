@@ -284,7 +284,7 @@ setupInterpreter: anInterpreter
 !AIContext methodsFor: 'testing'!
 
 isBlockContext
-	"Block context have an outer context."
+	"Block context have no selector."
 	
 	^ self selector isNil
 ! !
