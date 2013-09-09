@@ -211,8 +211,8 @@ initializeFromMethodContext: aMethodContext
 initializeInterpreter
 	interpreter := ASTInterpreter new
 		context: self;
+		node: self retrieveNode;
 		yourself.
-	ast ifNotNil: [ interpreter node: self retrieveNode ].
 	
 	(self innerContext notNil and: [ 
 		self innerContext isBlockContext not ]) ifTrue: [
