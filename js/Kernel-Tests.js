@@ -755,7 +755,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@theClass"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(_st($Smalltalk())._current())._removeClass_(self["@theClass"]);
@@ -4210,7 +4210,7 @@ var $1,$4,$3,$2,$5,$7,$6,$8,$10,$9,$11,$13,$12;
 self._deny_(_st(_st($Object())._new())._isNil());
 $1=self;
 $4=_st($Object())._new();
-if(($receiver = $4) == nil || $receiver == undefined){
+if(($receiver = $4) == nil || $receiver == null){
 $3=true;
 } else {
 $3=$4;
@@ -4219,7 +4219,7 @@ $2=_st($3).__eq(true);
 _st($1)._deny_($2);
 $5=self;
 $7=_st($Object())._new();
-if(($receiver = $7) == nil || $receiver == undefined){
+if(($receiver = $7) == nil || $receiver == null){
 $6=$7;
 } else {
 $6=true;
@@ -4227,7 +4227,7 @@ $6=true;
 _st($5)._assert_equals_($6,true);
 $8=self;
 $10=_st($Object())._new();
-if(($receiver = $10) == nil || $receiver == undefined){
+if(($receiver = $10) == nil || $receiver == null){
 $9=false;
 } else {
 $9=true;
@@ -4235,7 +4235,7 @@ $9=true;
 _st($8)._assert_equals_($9,true);
 $11=self;
 $13=_st($Object())._new();
-if(($receiver = $13) == nil || $receiver == undefined){
+if(($receiver = $13) == nil || $receiver == null){
 $12=false;
 } else {
 $12=true;
@@ -5027,14 +5027,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9;
 $1=self;
-if(($receiver = nil) == nil || $receiver == undefined){
+if(($receiver = nil) == nil || $receiver == null){
 $2=true;
 } else {
 $2=nil;
 };
 _st($1)._assert_equals_($2,true);
 $3=self;
-if(($receiver = nil) == nil || $receiver == undefined){
+if(($receiver = nil) == nil || $receiver == null){
 $5=nil;
 } else {
 $5=true;
@@ -5042,14 +5042,14 @@ $5=true;
 $4=_st($5).__eq(true);
 _st($3)._deny_($4);
 $6=self;
-if(($receiver = nil) == nil || $receiver == undefined){
+if(($receiver = nil) == nil || $receiver == null){
 $7=true;
 } else {
 $7=false;
 };
 _st($6)._assert_equals_($7,true);
 $8=self;
-if(($receiver = nil) == nil || $receiver == undefined){
+if(($receiver = nil) == nil || $receiver == null){
 $10=false;
 } else {
 $10=true;

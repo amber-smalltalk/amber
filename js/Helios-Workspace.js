@@ -13,7 +13,7 @@ function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -75,7 +75,7 @@ function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st(_st($HLManager())._current())._environment();
 } else {
 $1=$2;
@@ -130,7 +130,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@receiver"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@receiver"]=self._defaultReceiver();
 $1=self["@receiver"];
 } else {
@@ -283,7 +283,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 _st(self["@editor"])._setValue_(aString);
 $1=self["@state"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 self._updateState();
@@ -501,7 +501,7 @@ function $HLCodeModel(){return smalltalk.HLCodeModel||(typeof HLCodeModel=="unde
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@model"]=_st($HLCodeModel())._new();
 $1=self["@model"];
 } else {
@@ -1225,7 +1225,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@methodContents"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -1463,7 +1463,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 class_=_st(anAnnouncement)._item();
 $1=class_;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=self._contents_("");
 return $2;
 } else {
@@ -1526,7 +1526,7 @@ $2=self;
 return $2;
 };
 $3=_st(self._browserModel())._selectedMethod();
-if(($receiver = $3) == nil || $receiver == undefined){
+if(($receiver = $3) == nil || $receiver == null){
 $4=self;
 return $4;
 } else {
@@ -1557,7 +1557,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2;
 method=_st(anAnnouncement)._item();
 $1=method;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=self._contents_("");
 return $2;
 } else {
@@ -1621,7 +1621,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(self._browserModel())._selectedClass();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=self._contents_("");
 return $2;
 } else {
@@ -1661,7 +1661,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=_st(self._browserModel())._selectedClass();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=self._contents_("");
 return $2;
 } else {
@@ -1890,7 +1890,7 @@ function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="u
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@codeWidget"]=_st($HLCodeWidget())._new();
 $1=self["@codeWidget"];
 } else {
@@ -1980,7 +1980,7 @@ function $HLTranscript(){return smalltalk.HLTranscript||(typeof HLTranscript=="u
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@transcript"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@transcript"]=_st($HLTranscript())._new();
 $1=self["@transcript"];
 } else {
