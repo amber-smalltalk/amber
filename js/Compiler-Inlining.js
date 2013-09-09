@@ -605,14 +605,14 @@ _st(self._stream())._nextPutIf_with_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self._stream())._nextPutAll_("($receiver = ");
 self._visit_(_st(_st(anIRInlinedIfNil)._instructions())._first());
-return _st(self._stream())._nextPutAll_(") == nil || $receiver == undefined");
+return _st(self._stream())._nextPutAll_(") == nil || $receiver == null");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._visit_(_st(_st(anIRInlinedIfNil)._instructions())._last());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNil:",{anIRInlinedIfNil:anIRInlinedIfNil},smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfNil"],
-source: "visitIRInlinedIfNil: anIRInlinedIfNil\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '($receiver = '.\x0a\x09\x09self visit: anIRInlinedIfNil instructions first.\x0a\x09\x09self stream nextPutAll: ') == nil || $receiver == undefined' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNil instructions last ]",
+source: "visitIRInlinedIfNil: anIRInlinedIfNil\x0a\x09self stream nextPutIf: [\x0a\x09\x09self stream nextPutAll: '($receiver = '.\x0a\x09\x09self visit: anIRInlinedIfNil instructions first.\x0a\x09\x09self stream nextPutAll: ') == nil || $receiver == null' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNil instructions last ]",
 messageSends: ["nextPutIf:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "last"],
 referencedClasses: []
 }),
@@ -629,7 +629,7 @@ _st(self._stream())._nextPutIfElse_with_with_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self._stream())._nextPutAll_("($receiver = ");
 self._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._first());
-return _st(self._stream())._nextPutAll_(") == nil || $receiver == undefined");
+return _st(self._stream())._nextPutAll_(") == nil || $receiver == null");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._second());
@@ -639,7 +639,7 @@ return self._visit_(_st(_st(anIRInlinedIfNilIfNotNil)._instructions())._third())
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRInlinedIfNilIfNotNil:",{anIRInlinedIfNilIfNotNil:anIRInlinedIfNilIfNotNil},smalltalk.IRInliningJSTranslator)})},
 args: ["anIRInlinedIfNilIfNotNil"],
-source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '($receiver = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == nil || $receiver == undefined' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
+source: "visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil\x0a\x09self stream\x0a\x09\x09nextPutIfElse: [\x0a\x09\x09\x09self stream nextPutAll: '($receiver = '.\x0a\x09\x09\x09self visit: anIRInlinedIfNilIfNotNil instructions first.\x0a\x09\x09\x09self stream nextPutAll: ') == nil || $receiver == null' ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]\x0a\x09\x09with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]",
 messageSends: ["nextPutIfElse:with:with:", "stream", "nextPutAll:", "visit:", "first", "instructions", "second", "third"],
 referencedClasses: []
 }),
