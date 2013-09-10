@@ -2643,20 +2643,17 @@ selector: "appendBlock:",
 category: 'adding',
 fn: function (aBlock){
 var self=this;
-var root,fragment;
-function $DocumentFragmentTag(){return smalltalk.DocumentFragmentTag||(typeof DocumentFragmentTag=="undefined"?nil:DocumentFragmentTag)}
+var root;
 return smalltalk.withContext(function($ctx1) { 
 root=_st(self["@canvas"])._root();
-fragment=_st($DocumentFragmentTag())._canvas_(self["@canvas"]);
-_st(self["@canvas"])._root_(fragment);
+_st(self["@canvas"])._root_(self);
 _st(aBlock)._value_(self["@canvas"]);
-self._appendDocumentFragment_(fragment);
 _st(self["@canvas"])._root_(root);
-return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root,fragment:fragment},smalltalk.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},smalltalk.TagBrush)})},
 args: ["aBlock"],
-source: "appendBlock: aBlock\x0a\x09| root fragment |\x0a\x09root := canvas root.\x0a\x09fragment := DocumentFragmentTag canvas: canvas.\x0a\x09canvas root: fragment.\x0a\x09aBlock value: canvas.\x0a\x09self appendDocumentFragment: fragment.\x0a\x09canvas root: root",
-messageSends: ["root", "canvas:", "root:", "value:", "appendDocumentFragment:"],
-referencedClasses: ["DocumentFragmentTag"]
+source: "appendBlock: aBlock\x0a\x09| root |\x0a\x09root := canvas root.\x0a\x09canvas root: self.\x0a\x09aBlock value: canvas.\x0a\x09canvas root: root",
+messageSends: ["root", "root:", "value:"],
+referencedClasses: []
 }),
 smalltalk.TagBrush);
 

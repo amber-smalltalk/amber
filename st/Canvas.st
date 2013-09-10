@@ -763,12 +763,10 @@ append: anObject
 !
 
 appendBlock: aBlock
-	| root fragment |
+	| root |
 	root := canvas root.
-	fragment := DocumentFragmentTag canvas: canvas.
-	canvas root: fragment.
+	canvas root: self.
 	aBlock value: canvas.
-	self appendDocumentFragment: fragment.
 	canvas root: root
 !
 
