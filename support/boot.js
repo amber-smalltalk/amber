@@ -851,7 +851,6 @@ function RuntimeBrik(brikz, st) {
 				return inContext(worker, setup);
 			} catch(error) {
 				handleError(error);
-			} finally {
 				st.thisContext = null;
 			}
 		}
