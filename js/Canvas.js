@@ -2643,17 +2643,20 @@ selector: "appendBlock:",
 category: 'adding',
 fn: function (aBlock){
 var self=this;
-var root;
+var root,fragment;
+function $DocumentFragmentTag(){return smalltalk.DocumentFragmentTag||(typeof DocumentFragmentTag=="undefined"?nil:DocumentFragmentTag)}
 return smalltalk.withContext(function($ctx1) { 
 root=_st(self["@canvas"])._root();
-_st(self["@canvas"])._root_(self);
+fragment=_st($DocumentFragmentTag())._canvas_(self["@canvas"]);
+_st(self["@canvas"])._root_(fragment);
 _st(aBlock)._value_(self["@canvas"]);
+self._appendDocumentFragment_(fragment);
 _st(self["@canvas"])._root_(root);
-return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},smalltalk.TagBrush)})},
+return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root,fragment:fragment},smalltalk.TagBrush)})},
 args: ["aBlock"],
-source: "appendBlock: aBlock\x0a\x09| root |\x0a\x09root := canvas root.\x0a\x09canvas root: self.\x0a\x09aBlock value: canvas.\x0a\x09canvas root: root",
-messageSends: ["root", "root:", "value:"],
-referencedClasses: []
+source: "appendBlock: aBlock\x0a\x09| root fragment |\x0a\x09root := canvas root.\x0a\x09fragment := DocumentFragmentTag canvas: canvas.\x0a\x09canvas root: fragment.\x0a\x09aBlock value: canvas.\x0a\x09self appendDocumentFragment: fragment.\x0a\x09canvas root: root",
+messageSends: ["root", "canvas:", "root:", "value:", "appendDocumentFragment:"],
+referencedClasses: ["DocumentFragmentTag"]
 }),
 smalltalk.TagBrush);
 
@@ -2673,6 +2676,22 @@ var element=self['@element'];
 return self}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},smalltalk.TagBrush)})},
 args: ["anElement"],
 source: "appendChild: anElement\x0a\x09\x22In IE7 and IE8 appendChild fails on several node types. So we need to check\x22\x0a\x09<var element=self['@element'];\x0a\x09if (null == element.canHaveChildren || element.canHaveChildren) {\x0a\x09\x09element.appendChild(anElement);\x0a\x09} else {\x0a\x09\x09element.text = String(element.text) + anElement.innerHTML;\x0a\x09} >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "appendDocumentFragment:",
+category: 'private',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var element=self['@element'].appendChild(anElement["@element"]);
+return self}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},smalltalk.TagBrush)})},
+args: ["anElement"],
+source: "appendDocumentFragment: anElement\x0a\x09<var element=self['@element'].appendChild(anElement[\x22@element\x22])>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3647,7 +3666,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},smalltalk.TagBrush.klass)})},
 args: ["aJQuery", "aCanvas"],
-source: "fromJQuery: aJQuery canvas: aCanvas\x0a\x09^self new\x0a\x09initializeFromJQuery: aJQuery canvas: aCanvas;\x0a\x09yourself",
+source: "fromJQuery: aJQuery canvas: aCanvas\x0a\x09^self new\x0a\x09\x09initializeFromJQuery: aJQuery canvas: aCanvas;\x0a\x09\x09yourself",
 messageSends: ["initializeFromJQuery:canvas:", "new", "yourself"],
 referencedClasses: []
 }),
@@ -3675,7 +3694,64 @@ referencedClasses: []
 smalltalk.TagBrush.klass);
 
 
-smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
+smalltalk.addClass('DocumentFragmentTag', smalltalk.TagBrush, [], 'Canvas');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createDocumentFragment",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return document.createDocumentFragment();
+return self}, function($ctx1) {$ctx1.fill(self,"createDocumentFragment",{},smalltalk.DocumentFragmentTag)})},
+args: [],
+source: "createDocumentFragment\x0a\x09<return document.createDocumentFragment()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.DocumentFragmentTag);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeFromCanvas:",
+category: 'initialization',
+fn: function (aCanvas){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@canvas"]=aCanvas;
+self["@element"]=self._createDocumentFragment();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromCanvas:",{aCanvas:aCanvas},smalltalk.DocumentFragmentTag)})},
+args: ["aCanvas"],
+source: "initializeFromCanvas: aCanvas\x0a\x09canvas := aCanvas.\x0a\x09element := self createDocumentFragment",
+messageSends: ["createDocumentFragment"],
+referencedClasses: []
+}),
+smalltalk.DocumentFragmentTag);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canvas:",
+category: 'instance creation',
+fn: function (aCanvas){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._initializeFromCanvas_(aCanvas);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"canvas:",{aCanvas:aCanvas},smalltalk.DocumentFragmentTag.klass)})},
+args: ["aCanvas"],
+source: "canvas: aCanvas\x0a\x09^ self new\x0a\x09\x09initializeFromCanvas: aCanvas;\x0a\x09\x09yourself",
+messageSends: ["initializeFromCanvas:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.DocumentFragmentTag.klass);
+
+
+smalltalk.addClass('StyleTag', smalltalk.TagBrush, [], 'Canvas');
 smalltalk.StyleTag.comment="I'm a `<style>` tag use to inline CSS or load a stylesheet.\x0a\x0a## Motivation\x0a\x0aThe need for a specific class comes from Internet Explorer compatibility issues.";
 smalltalk.addMethod(
 smalltalk.method({
