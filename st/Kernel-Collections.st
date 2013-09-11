@@ -978,6 +978,10 @@ add: anObject
 	<self.push(anObject); return anObject;>
 !
 
+addFirst: anObject
+	<self.unshift(anObject); return anObject;>
+!
+
 remove: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
@@ -996,10 +1000,6 @@ removeFrom: aNumber to: anotherNumber
 
 removeIndex: anInteger
 	<self.splice(anInteger - 1, 1)>
-!
-
-addFirst: anObject
-	<self.unshift(anObject); return anObject;>
 !
 
 removeLast

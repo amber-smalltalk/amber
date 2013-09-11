@@ -2194,28 +2194,6 @@ referencedClasses: []
 smalltalk.VariableNode);
 
 
-
-smalltalk.addClass('ClassReferenceNode', smalltalk.VariableNode, [], 'Compiler-AST');
-smalltalk.ClassReferenceNode.comment="I represent an class reference node.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "accept:",
-category: 'visiting',
-fn: function (aVisitor){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(aVisitor)._visitClassReferenceNode_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},smalltalk.ClassReferenceNode)})},
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitClassReferenceNode: self",
-messageSends: ["visitClassReferenceNode:"],
-referencedClasses: []
-}),
-smalltalk.ClassReferenceNode);
-
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "isNode",

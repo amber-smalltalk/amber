@@ -522,11 +522,6 @@ visitCascadeNode: aNode
 		aNode nodes do: [ :each | each superSend: true ] ]
 !
 
-visitClassReferenceNode: aNode
-	self classReferences add: aNode value.
-	aNode binding: (ClassRefVar new name: aNode value; yourself)
-!
-
 visitMethodNode: aNode
 	self pushScope: self newMethodScope.
 	aNode scope: currentScope.
@@ -586,11 +581,21 @@ visitSequenceNode: aNode
 
 visitVariableNode: aNode
 	"Bind a ScopeVar to aNode by doing a lookup in the current scope.
-	If no ScopeVar is found, bind a UnknowVar and throw an error"
+	If no ScopeVar is found, bind a UnknowVar and throw an error."
 
-	aNode binding: ((currentScope lookupVariable: aNode) ifNil: [
-		self errorUnknownVariable: aNode.
-		UnknownVar new name: aNode value; yourself ])
+	| binding |
+	binding := currentScope lookupVariable: aNode.
+	
+	binding ifNil: [
+		aNode value beginsWithCapital
+			ifTrue: [ "Capital letter variables might be globals."
+				binding := ClassRefVar new name: aNode value; yourself.
+				self classReferences add: aNode value]
+			ifFalse: [
+				self errorUnknownVariable: aNode.
+				binding := UnknownVar new name: aNode value; yourself ] ].
+		
+	aNode binding: binding.
 ! !
 
 !SemanticAnalyzer class methodsFor: 'instance creation'!
@@ -599,5 +604,11 @@ on: aClass
 	^ self new
 		theClass: aClass;
 		yourself
+! !
+
+!String methodsFor: '*Compiler-Semantic'!
+
+beginsWithCapital
+	^ self first asUppercase == self first
 ! !
 

@@ -121,13 +121,6 @@ tearDown
 
 !CodeGeneratorTest methodsFor: 'testing'!
 
-should: aString return: anObject
-	^ self 
-		should: aString 
-		receiver: receiver 
-		return: anObject
-!
-
 should: aString receiver: anObject return: aResult
 	| method result |
 
@@ -136,6 +129,13 @@ should: aString receiver: anObject return: aResult
 	result := receiver perform: method selector.
 	anObject class removeCompiledMethod: method.
 	self assert: aResult equals: result
+!
+
+should: aString return: anObject
+	^ self 
+		should: aString 
+		receiver: receiver 
+		return: anObject
 ! !
 
 !CodeGeneratorTest methodsFor: 'tests'!
@@ -180,6 +180,12 @@ testDynamicDictionaryElementsOrdered
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
+testGlobalVar
+	self should: 'foo ^ eval class' return: BlockClosure.
+	self should: 'foo ^ Math cos: 0' return: 1.
+	self should: 'foo ^ NonExistingVar' return: nil
+!
+
 testInnerTemporalDependentElementsOrdered
 	self should: 'foo
 	| x |
@@ -201,6 +207,10 @@ testInnerTemporalDependentElementsOrdered
 	x := 1.
 	^ #{ ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
 ' return: #{'foo'->1. 'bar'->2}.
+!
+
+testJSStatement
+	self should: 'foo <return 2+3>' return: 5
 !
 
 testLiterals
@@ -233,6 +243,10 @@ testMessageSends
 	self should: 'foo ^ 1 to: 5 by: 2' return: #(1 3 5)
 !
 
+testMultipleSequences
+	self should: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6' return: 30
+!
+
 testMutableLiterals
 	"Mutable literals must be aliased in cascades.
 	See https://github.com/amber-smalltalk/amber/issues/428"
@@ -248,6 +262,10 @@ testNestedIfTrue
 
 	self should: 'foo true ifTrue: [ false ifFalse: [ ^ 1 ] ]' return: 1.
 	self should: 'foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]' return: receiver.
+!
+
+testNestedSends
+	self should: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString' return: (Point x: (2@3) y: 4) asString
 !
 
 testNonLocalReturn
@@ -274,6 +292,17 @@ testSendReceiverAndArgumentsOrdered
 	x := Array.
 	^ x with: x with: (true ifTrue: [ x := 2 ])
 ' return: {Array. 2}.
+!
+
+testSuperSend
+	self 
+		should: 'foo ^ super isBoolean' 
+		receiver: true
+		return: false
+!
+
+testThisContext
+	self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true
 !
 
 testifFalse
@@ -343,33 +372,14 @@ testifTrueIfFalse
 	self should: 'foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 2.
 !
 
-testGlobalVar
-	self should: 'foo ^ eval class' return: BlockClosure.
-	self should: 'foo ^ Math cos: 0' return: 1.
-	self should: 'foo ^ NonExistingVar' return: nil
-!
-
-testJSStatement
-	self should: 'foo <return 2+3>' return: 5
-!
-
-testMultipleSequences
-	self should: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6' return: 30
-!
-
-testNestedSends
-	self should: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString' return: (Point x: (2@3) y: 4) asString
-!
-
-testSuperSend
-	self 
-		should: 'foo ^ super isBoolean' 
-		receiver: true
-		return: false
-!
-
-testThisContext
-	self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true
+testTempVariables
+	self should: 'foo | a | ^ a' return: nil.
+	self should: 'foo | AVariable | ^ AVariable' return: nil.
+	self should: 'foo | a b c | ^ c' return: nil.
+	self should: 'foo | a | [ | d | ^ d ] value' return: nil.
+	
+	self should: 'foo | a | a:= 1. ^ a' return: 1.
+	self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.
 ! !
 
 CodeGeneratorTest subclass: #InliningCodeGeneratorTest
@@ -388,10 +398,6 @@ CodeGeneratorTest subclass: #InterpreterTest
 
 !InterpreterTest methodsFor: 'parsing'!
 
-parse: aString forClass: aClass
-	^ self analyze: (self parse: aString) forClass: aClass
-!
-
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
 	^ aNode
@@ -399,6 +405,10 @@ analyze: aNode forClass: aClass
 
 parse: aString
 	^ Smalltalk current parse: aString
+!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
 !InterpreterTest methodsFor: 'private'!
@@ -426,19 +436,19 @@ interpret: aString receiver: anObject withArguments: aDictionary
 
 !InterpreterTest methodsFor: 'testing'!
 
-should: aString return: anObject
-	^ self 
-		should: aString
-		receiver: receiver
-		return: anObject
-!
-
 should: aString receiver: anObject return: aResult
 	receiver := anObject.
 	
 	^ self 
 		assert: (self interpret: aString receiver: receiver withArguments: #{})
 		equals: aResult
+!
+
+should: aString return: anObject
+	^ self 
+		should: aString
+		receiver: receiver
+		return: anObject
 ! !
 
 TestCase subclass: #ScopeVarTest
@@ -449,10 +459,12 @@ TestCase subclass: #ScopeVarTest
 
 testClassRefVar
 	| node |
-	node := ClassReferenceNode new
+	node := VariableNode new
 		value: 'Object';
 		yourself.
-	SemanticAnalyzer new visit: node.
+	SemanticAnalyzer new 
+		pushScope: MethodLexicalScope new;
+		visit: node.
 	self assert: node binding isClassRefVar
 !
 

@@ -42,7 +42,6 @@ smalltalk.parser = (function(){
         "comments": parse_comments,
         "ws": parse_ws,
         "identifier": parse_identifier,
-        "varIdentifier": parse_varIdentifier,
         "keyword": parse_keyword,
         "selector": parse_selector,
         "className": parse_className,
@@ -63,8 +62,6 @@ smalltalk.parser = (function(){
         "runtimeLiteral": parse_runtimeLiteral,
         "literal": parse_literal,
         "variable": parse_variable,
-        "classReference": parse_classReference,
-        "reference": parse_reference,
         "keywordPair": parse_keywordPair,
         "binarySelector": parse_binarySelector,
         "keywordPattern": parse_keywordPattern,
@@ -416,75 +413,6 @@ smalltalk.parser = (function(){
           result0 = null;
           if (reportFailures === 0) {
             matchFailed("[a-zA-Z]");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9]");
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9]");
-              }
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_varIdentifier() {
-        var cacheKey = "varIdentifier@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[a-z]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[a-z]");
           }
         }
         if (result0 !== null) {
@@ -1815,7 +1743,7 @@ smalltalk.parser = (function(){
         var pos0;
         
         pos0 = clone(pos);
-        result0 = parse_varIdentifier();
+        result0 = parse_identifier();
         if (result0 !== null) {
           result0 = (function(offset, line, column, identifier) {
                              return smalltalk.VariableNode._new()
@@ -1825,59 +1753,6 @@ smalltalk.parser = (function(){
         }
         if (result0 === null) {
           pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_classReference() {
-        var cacheKey = "classReference@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        var pos0;
-        
-        pos0 = clone(pos);
-        result0 = parse_className();
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, className) {
-                             return smalltalk.ClassReferenceNode._new()
-                                    ._position_((line).__at(column))
-                                    ._value_(className);
-                         })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_reference() {
-        var cacheKey = "reference@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_variable();
-        if (result0 === null) {
-          result0 = parse_classReference();
         }
         
         cache[cacheKey] = {
@@ -3210,7 +3085,7 @@ smalltalk.parser = (function(){
         
         result0 = parse_literal();
         if (result0 === null) {
-          result0 = parse_reference();
+          result0 = parse_variable();
           if (result0 === null) {
             result0 = parse_subexpression();
           }

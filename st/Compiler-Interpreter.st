@@ -159,6 +159,15 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+localAt: aString ifAbsent: aBlock
+	"Lookup the local value up to the method context"
+
+	^ self locals at: aString ifAbsent: [ 
+		self outerContext 
+			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
+			ifNil: [aBlock value] ]
 ! !
 
 !AIContext methodsFor: 'factory'!
@@ -613,12 +622,6 @@ visitBlockNode: aNode
 	self push: block
 !
 
-visitClassReferenceNode: aNode
-	self push: (Smalltalk current 
-		at: aNode value 
-		ifAbsent: [ PlatformInterface globals at: aNode value ])
-!
-
 visitDynamicArrayNode: aNode
 	| array |
 	
@@ -688,7 +691,14 @@ visitVariableNode: aNode
 		
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
-		ifFalse: [ self context localAt: aNode value ])
+		ifFalse: [ self context 
+			localAt: aNode value
+			ifAbsent: [
+				aNode value beginsWithCapital
+					ifTrue: [
+						Smalltalk current 
+							at: aNode value 
+							ifAbsent: [ PlatformInterface globals at: aNode value ]]]])
 ! !
 
 Error subclass: #ASTInterpreterError
