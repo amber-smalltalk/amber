@@ -61,7 +61,7 @@ return smalltalk.withContext(function($ctx2) {
 inspectedContext=_st(inspectedContext)._outerContext();
 inspectedContext;
 $1=inspectedContext;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 return $1;
 } else {
 return _st(variables)._addAll_(_st(inspectedContext)._locals());
@@ -113,7 +113,7 @@ function $HLDebuggerCodeWidget(){return smalltalk.HLDebuggerCodeWidget||(typeof 
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLDebuggerCodeWidget())._new();
 _st($3)._browserModel_(self._model());
 $4=_st($3)._yourself();
@@ -175,7 +175,7 @@ function $HLInspectorWidget(){return smalltalk.HLInspectorWidget||(typeof HLInsp
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@inspectorWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@inspectorWidget"]=_st($HLInspectorWidget())._new();
 $1=self["@inspectorWidget"];
 } else {
@@ -200,7 +200,7 @@ function $HLDebuggerModel(){return smalltalk.HLDebuggerModel||(typeof HLDebugger
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@model"]=_st($HLDebuggerModel())._new();
 $1=self["@model"];
 } else {
@@ -297,7 +297,7 @@ function $HLStackListWidget(){return smalltalk.HLStackListWidget||(typeof HLStac
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@stackListWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLStackListWidget())._on_(self._model());
 _st($3)._next_(self._codeWidget());
 $4=_st($3)._yourself();
@@ -484,7 +484,7 @@ var token;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=aNode;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 token=_st(self._editor())._getTokenAt_(smalltalk.HashedCollection._from_(["line".__minus_gt(_st(_st(_st(aNode)._position())._x()).__minus((1))),"ch".__minus_gt(_st(_st(aNode)._position())._y())]));
@@ -572,7 +572,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@currentContext"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self._currentContext_(self._rootContext());
 } else {
 $1;
@@ -875,7 +875,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@items"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@items"]=_st(self._model())._contexts();
 $1=self["@items"];
 } else {

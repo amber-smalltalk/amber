@@ -1521,7 +1521,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=_st(_st($Smalltalk())._current())._amdRequire();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("AMD loader not present");
 } else {
 var require;
@@ -1778,7 +1778,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$4,$5,$3;
 $1=anObject;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=self._for_(self._defaultType());
 return $2;
 } else {
@@ -1841,7 +1841,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(aClass)._type();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(self["@registry"])._at_put_(_st(aClass)._type(),aClass);
@@ -1941,7 +1941,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@namespace"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultNamespace();
 } else {
 $1=$2;

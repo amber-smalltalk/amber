@@ -457,7 +457,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(anError)._context();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 self._logErrorContext_(_st(anError)._context());
@@ -496,7 +496,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=_st(aContext)._home();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 self._logContext_(_st(aContext)._home());
@@ -535,11 +535,11 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=aContext;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 $2=_st(aContext)._home();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $2;
 } else {
 self._logContext_(_st(aContext)._home());
@@ -564,7 +564,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=self._new();
 $1=self["@current"];
 } else {

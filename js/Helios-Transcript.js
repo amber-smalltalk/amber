@@ -86,7 +86,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
 $1=self["@textarea"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
@@ -204,7 +204,7 @@ function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof Ordere
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@transcripts"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@transcripts"]=_st($OrderedCollection())._new();
 $1=self["@transcripts"];
 } else {
