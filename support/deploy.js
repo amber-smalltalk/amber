@@ -1,6 +1,7 @@
 define([
     'amber_vm/smalltalk',
     './helpers',
+    'jquery',
     'amber_core/Kernel-Objects',
     'amber_core/Kernel-Classes',
     'amber_core/Kernel-Methods',
