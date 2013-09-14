@@ -1,5 +1,87 @@
-13th March 2013 - Release 0.10
-==============================
+ 2013 - Release 0.12.0
+===============================
+
+Some numbers about this release:
+
+*  commits
+*  committers
+* increasing the number of core committers to 
+*  unit tests added to the kernel
+*  unit tests in total
+
+Commits
+https://github.com/amber-smalltalk/amber/compare/0.11.0...0.12.0
+Issues
+https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=8&page=1&sort=updated&state=closed
+
+* Helios IDE, release candidate
+* Use of require [1] to load amber packages in the browser
+* Restructuring of boot.js, use of the brickz[2] reconfigurable micro composition system
+* Enhanced REPL
+
+[1] http://requirejs.org/
+[2] https://github.com/amber-smalltalk/brikz
+
+For API related changes see the file API-CHANGES.txt.
+
+
+
+
+09th July 2013 - Release 0.11.0
+===============================
+
+Three months have passed and we are happy to announce the release
+of Amber 0.11.0!
+
+Some numbers about this release:
+
+* 494 commits
+* 13 committers
+* increasing the number of core committers to 25
+* 50 unit tests added to the kernel
+* 313 unit tests in total
+
+Since the last release 60 issues were closed, bringing us to 499
+issues closed.
+
+This release includes a lot of bug fixes, improvements to the
+CLI, as well as a preview of the next IDE, named Helios. Amber
+now also uses a CI server [1].
+
+To try the Helios, the new IDE, open the helios.html page, or
+evaluate in any other amber page `amber.loadHelios()`.
+
+The compiler also received some improvements, especially
+regarding message send optimisations and super sends.
+
+Here's the list of commits and closed issues: 
+https://github.com/amber-smalltalk/amber/compare/0.10.0...0.11.0
+https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=6&page=1&sort=updated&state=closed
+
+There is a lot more to come with Helios, a stepping debugger
+based on the AST is in progress and currently in the 'debugger'
+branch on GitHub.
+
+* Installing Amber from NPM
+
+To install amber from NPM, run
+    
+    npm install amber
+
+
+* Migration from Amber 0.10.0
+
+Amber compiled code should be compatible with Amber 0.10.0, but
+recompiling is needed in order to get contexts working:
+
+    Compiler new recompile: (Package named: 'MyPackage') classes.
+    (Package named: 'MyPackage') commit
+
+For API related changes see the file API-CHANGES.txt.
+
+
+13th March 2013 - Release 0.10.0
+================================
 
 Here's a summary of change since the 0.9.1 release:
 
