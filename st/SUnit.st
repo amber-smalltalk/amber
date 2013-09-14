@@ -2,6 +2,10 @@ Smalltalk current createPackage: 'SUnit'!
 Object subclass: #ResultAnnouncement
 	instanceVariableNames: 'result'
 	package: 'SUnit'!
+!ResultAnnouncement commentStamp!
+I get signaled when a `TestCase` has been run.
+
+My instances hold the result (instance of `TestResult`) of the test run.!
 
 !ResultAnnouncement methodsFor: 'accessing'!
 
@@ -17,9 +21,11 @@ Object subclass: #TestCase
 	instanceVariableNames: 'testSelector asyncTimeout context'
 	package: 'SUnit'!
 !TestCase commentStamp!
-A TestCase is an implementation of the command pattern to run a test.
+I am an implementation of the command pattern to run a test.
 
-`TestCase` instances are created with the class method `#selector:`,
+## API
+
+My instances are created with the class method `#selector:`,
 passing the symbol that names the method to be executed when the test case runs.
 
 When you discover a new fixture, subclass `TestCase` and create a `#test...` method for the first test.
@@ -113,7 +119,7 @@ assert: aBoolean description: aString
 !
 
 assert: actual equals: expected
-	^ self assert: (actual = expected) description: 'Expected: ', expected asString, ' but was: ', actual asString
+	^ self assert: (actual = expected) description: 'Expected: ', expected printString, ' but was: ', actual printString
 !
 
 deny: aBoolean
@@ -168,6 +174,12 @@ testSelectors
 	^self methodDictionary keys select: [:each | each match: '^test']
 ! !
 
+!TestCase class methodsFor: 'helios'!
+
+heliosClass
+	^ 'test'
+! !
+
 !TestCase class methodsFor: 'testing'!
 
 isAbstract
@@ -182,11 +194,9 @@ Object subclass: #TestContext
 	instanceVariableNames: 'testCase'
 	package: 'SUnit'!
 !TestContext commentStamp!
-TestContext governs running a particular test case.
+I govern running a particular test case.
 
-It's main added value is `#execute:` method which runs a block
-as a part of test case (restores context, nilling it afterwards,
-cleaning/calling tearDown as appropriate for sync/async scenario).!
+My main added value is `#execute:` method which runs a block as a part of test case (restores context, nilling it afterwards, cleaning/calling `#tearDown` as appropriate for sync/async scenario).!
 
 !TestContext methodsFor: 'accessing'!
 
@@ -232,12 +242,10 @@ TestContext subclass: #ReportingTestContext
 	instanceVariableNames: 'finished result'
 	package: 'SUnit'!
 !ReportingTestContext commentStamp!
-ReportingTestContext adds `TestResult` reporting
-to `TestContext`.
+I add `TestResult` reporting to `TestContext`.
 
 Errors are caught and save into a `TestResult`,
-When test case is finished (which can be later for async tests),
-a callback block is executed; this is used by a `TestSuiteRunner`.!
+When test case is finished (which can be later for async tests), a callback block is executed; this is used by a `TestSuiteRunner`.!
 
 !ReportingTestContext methodsFor: 'accessing'!
 
@@ -284,21 +292,21 @@ Error subclass: #TestFailure
 	instanceVariableNames: ''
 	package: 'SUnit'!
 !TestFailure commentStamp!
+I am raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.
+
 The test framework distinguishes between failures and errors.
 A failure is an event whose possibiity is explicitly anticipated and checked for in an assertion,
-whereas an error is an unanticipated problem like a division by 0 or an index out of bounds.
-
-TestFailure is raised when the boolean parameter of an #`assert:` or `#deny:` call is the opposite of what the assertion claims.!
+whereas an error is an unanticipated problem like a division by 0 or an index out of bounds.!
 
 Object subclass: #TestResult
 	instanceVariableNames: 'timestamp runs errors failures total'
 	package: 'SUnit'!
 !TestResult commentStamp!
-A TestResult implements the collecting parameter pattern for running a bunch of tests.
+I implement the collecting parameter pattern for running a bunch of tests.
 
-A TestResult holds tests that have run, sorted into the result categories of passed, failures and errors.
+My instances hold tests that have run, sorted into the result categories of passed, failures and errors.
 
-TestResult is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce!
+`TestResult` is an interesting object to subclass or substitute. `#runCase:` is the external protocol you need to reproduce!
 
 !TestResult methodsFor: 'accessing'!
 
@@ -377,6 +385,13 @@ runCase: aTestCase
 Object subclass: #TestSuiteRunner
 	instanceVariableNames: 'suite result announcer runNextTest'
 	package: 'SUnit'!
+!TestSuiteRunner commentStamp!
+I am responsible for running a collection (`suite`) of tests.
+
+## API
+
+Instances should be created using the class-side `#on:` method, taking a collection of tests to run as parameter.
+To run the test suite, use `#run`.!
 
 !TestSuiteRunner methodsFor: 'accessing'!
 

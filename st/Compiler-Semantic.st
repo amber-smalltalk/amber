@@ -306,7 +306,11 @@ I am an class reference variable!
 !ClassRefVar methodsFor: 'accessing'!
 
 alias
-	^ '(smalltalk.', self name, ' || ', self name, ')'
+	"Fixes issue #190.
+	A function is created in the method definition, answering the class or nil.
+	See JSStream >> #nextPutClassRefFunction:"
+	
+	^ '$', self name, '()'
 ! !
 
 !ClassRefVar methodsFor: 'testing'!
@@ -413,7 +417,8 @@ errorShadowingVariable: aString
 
 errorUnknownVariable: aNode
 	"Throw an error if the variable is undeclared in the global JS scope (i.e. window).
-	We allow four variable names in addition: `jQuery`, `window`, `process` and `global`
+	We allow all variables listed by Smalltalk>>#globalJsVariables.
+	This list includes: `jQuery`, `window`, `document`,  `process` and `global`
 	for nodejs and browser environments.
 	
 	This is only to make sure compilation works on both browser-based and nodejs environments.
@@ -422,7 +427,7 @@ errorUnknownVariable: aNode
 	| identifier |
 	identifier := aNode value.
 	
-	((#('jQuery' 'window' 'document' 'process' 'global') includes: identifier) not
+	((Smalltalk current globalJsVariables includes: identifier) not
 		and: [ self isVariableGloballyUndefined: identifier ])
 			ifTrue: [
 				UnknownVariableError new

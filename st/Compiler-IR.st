@@ -3,8 +3,7 @@ NodeVisitor subclass: #IRASTTranslator
 	instanceVariableNames: 'source theClass method sequence nextAlias'
 	package: 'Compiler-IR'!
 !IRASTTranslator commentStamp!
-I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.
-I rely on a builder object, instance of IRBuilder.!
+I am the AST (abstract syntax tree) visitor responsible for building the intermediate representation graph.!
 
 !IRASTTranslator methodsFor: 'accessing'!
 
@@ -167,14 +166,14 @@ visitDynamicDictionaryNode: aNode
 
 visitJSStatementNode: aNode
 	^ IRVerbatim new
-		source: aNode source;
+		source: aNode source crlfSanitized;
 		yourself
 !
 
 visitMethodNode: aNode
 
 	self method: (IRMethod new
-		source: self source;
+		source: self source crlfSanitized;
 		theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;
@@ -342,6 +341,10 @@ isTempDeclaration
 
 isVariable
 	^ false
+!
+
+needsBoxingAsReceiver
+	^ true
 ! !
 
 !IRInstruction methodsFor: 'visiting'!
@@ -585,9 +588,9 @@ IRReturn subclass: #IRNonLocalReturn
 	package: 'Compiler-IR'!
 !IRNonLocalReturn commentStamp!
 I am a non local return instruction.
-Non local returns are handled using a try/catch JS statement.
+Non local returns are handled using a try/catch JavaScript statement.
 
-See IRNonLocalReturnHandling class!
+See `IRNonLocalReturnHandling` class.!
 
 !IRNonLocalReturn methodsFor: 'testing'!
 
@@ -649,12 +652,6 @@ index
 
 index: anInteger
 	index := anInteger
-!
-
-javascriptSelector
-	^ self classSend
-		ifNil: [ self selector asSelector ]
-		ifNotNil: [ self selector asSuperSelector ]
 !
 
 selector
@@ -719,6 +716,12 @@ value: aString
 	value := aString
 ! !
 
+!IRValue methodsFor: 'testing'!
+
+needsBoxingAsReceiver
+	^ false
+! !
+
 !IRValue methodsFor: 'visiting'!
 
 accept: aVisitor
@@ -745,6 +748,10 @@ variable: aScopeVariable
 
 isVariable
 	^ true
+!
+
+needsBoxingAsReceiver
+	^ self variable isPseudoVar not
 ! !
 
 !IRVariable methodsFor: 'visiting'!
@@ -861,13 +868,21 @@ visitIRVerbatim: anIRVerbatim
 ! !
 
 IRVisitor subclass: #IRJSTranslator
-	instanceVariableNames: 'stream'
+	instanceVariableNames: 'stream currentClass'
 	package: 'Compiler-IR'!
 
 !IRJSTranslator methodsFor: 'accessing'!
 
 contents
 	^ self stream contents
+!
+
+currentClass
+	^ currentClass
+!
+
+currentClass: aClass
+	currentClass := aClass
 !
 
 stream
@@ -913,7 +928,7 @@ visitIRDynamicArray: anIRDynamicArray
 !
 
 visitIRDynamicDictionary: anIRDynamicDictionary
-	self stream nextPutAll: 'smalltalk.HashedCollection._fromPairs_(['.
+	self stream nextPutAll: 'smalltalk.HashedCollection._from_(['.
 		anIRDynamicDictionary instructions
 			do: [ :each | self visit: each ]
 			separatedBy: [self stream nextPutAll: ',' ].
@@ -928,6 +943,7 @@ visitIRMethod: anIRMethod
 			nextPutFunctionWith: [
 				self stream nextPutVars: (anIRMethod tempDeclarations collect: [ :each |
 					each name asVariableName ]).
+				anIRMethod classReferences do: [ :each | self stream nextPutClassRefFunction: each ].
 				self stream nextPutContextFor: anIRMethod during: [
 				anIRMethod internalVariables notEmpty ifTrue: [
 					self stream nextPutVars: (anIRMethod internalVariables asArray collect: [ :each |
@@ -952,25 +968,8 @@ visitIRReturn: anIRReturn
 
 visitIRSend: anIRSend
 	anIRSend classSend
-		ifNil: [
-			self stream nextPutAll: '_st('.
-			self visit: anIRSend instructions first.
-			self stream nextPutAll: ').', anIRSend selector asSelector, '('.
-			anIRSend instructions allButFirst
-				do: [ :each | self visit: each ]
-				separatedBy: [ self stream nextPutAll: ',' ].
-			self stream nextPutAll: ')' ]
-		ifNotNil: [
-			self stream
-				nextPutAll: anIRSend classSend asJavascript, '.fn.prototype.';
-				nextPutAll: anIRSend selector asSelector, '.apply(';
-				nextPutAll: '_st('.
-			self visit: anIRSend instructions first.
-			self stream nextPutAll: '), ['.
-			anIRSend instructions allButFirst
-				do: [ :each | self visit: each ]
-				separatedBy: [ self stream nextPutAll: ',' ].
-			self stream nextPutAll: '])' ]
+		ifNil: [ self visitSend: anIRSend ]
+		ifNotNil: [ self visitSuperSend: anIRSend ]
 !
 
 visitIRSequence: anIRSequence
@@ -998,6 +997,37 @@ visitIRVariable: anIRVariable
 visitIRVerbatim: anIRVerbatim
 	self stream nextPutStatementWith: [
 		self stream nextPutAll: anIRVerbatim source ]
+!
+
+visitReceiver: anIRInstruction
+	anIRInstruction needsBoxingAsReceiver ifFalse: [ ^ self visit: anIRInstruction ].
+	
+	self stream nextPutAll: '_st('.
+	self visit: anIRInstruction.
+	self stream nextPutAll: ')'
+!
+
+visitSend: anIRSend
+	self visitReceiver: anIRSend instructions first.
+	self stream nextPutAll: '.', anIRSend selector asSelector, '('.
+	anIRSend instructions allButFirst
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	self stream nextPutAll: ')'
+!
+
+visitSuperSend: anIRSend
+	self stream
+		nextPutAll: self currentClass asJavascript;
+		nextPutAll: '.superclass.fn.prototype.';
+		nextPutAll: anIRSend selector asSelector, '.apply(';
+		nextPutAll: '_st('.
+	self visit: anIRSend instructions first.
+	self stream nextPutAll: '), ['.
+	anIRSend instructions allButFirst
+		do: [ :each | self visit: each ]
+		separatedBy: [ self stream nextPutAll: ',' ].
+	self stream nextPutAll: '])'
 ! !
 
 Object subclass: #JSStream
@@ -1037,8 +1067,7 @@ nextPutAssignment
 
 nextPutBlockContextFor: anIRClosure during: aBlock
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {';
-		nextPutAll: String cr.
+		nextPutAll: 'return smalltalk.withContext(function(', anIRClosure scope alias, ') {'; lf.
 	
 	aBlock value.
 	
@@ -1056,7 +1085,24 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 	
 	self
 		nextPutAll: '},';
-		nextPutAll: anIRClosure method scope alias, ')})'
+		nextPutAll: anIRClosure scope outerScope alias, ')})'
+!
+
+nextPutClassRefFunction: aString
+	"Creates an inner function $aString into method and called as `$Foo()`whenever the global is accessed.
+	This ensures that undefined global access will answer `nil`"
+	
+	stream
+		nextPutAll: 'function $';
+		nextPutAll: aString;
+		nextPutAll: '(){return smalltalk.';
+		nextPutAll: aString;
+		nextPutAll: '||(typeof ';
+		nextPutAll: aString;
+		nextPutAll: '=="undefined"?nil:';
+		nextPutAll: aString;
+		nextPutAll: ')}';
+		lf
 !
 
 nextPutClosureWith: aBlock arguments: anArray
@@ -1071,8 +1117,7 @@ nextPutClosureWith: aBlock arguments: anArray
 
 nextPutContextFor: aMethod during: aBlock
 	self
-		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { ';
-		nextPutAll: String cr.
+		nextPutAll: 'return smalltalk.withContext(function(', aMethod scope alias, ') { '; lf.
 	aBlock value.
 	
 	self
@@ -1125,7 +1170,7 @@ nextPutIfElse: aBlock with: ifBlock with: elseBlock
 nextPutMethodDeclaration: aMethod with: aBlock
 	stream
 		nextPutAll: 'smalltalk.method({'; lf;
-		nextPutAll: 'selector: "', aMethod selector, '",'; lf;
+		nextPutAll: 'selector: ', aMethod selector asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf.
 	aBlock value.
 	stream
@@ -1183,10 +1228,6 @@ nextPutStatement: anInteger with: aBlock
 nextPutStatementWith: aBlock
 	aBlock value.
 	stream nextPutAll: ';'; lf
-!
-
-nextPutVar: aString
-	stream nextPutAll: 'var ', aString, ';'; lf
 !
 
 nextPutVars: aCollection

@@ -1,14 +1,20 @@
 Smalltalk current createPackage: 'Compiler-Interpreter'!
 NodeVisitor subclass: #AIContext
-	instanceVariableNames: 'outerContext pc locals method'
+	instanceVariableNames: 'methodContext outerContext pc locals method'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
-AIContext is like a `MethodContext`, used by the `ASTInterpreter`.
-Unlike a `MethodContext`, it is not read-only.
+I am like a `MethodContext`, used by the `ASTInterpreter`.
+Unlike a `MethodContext`, my instances are not read-only.
 
-When debugging, `AIContext` instances are created by copying the current `MethodContext` (thisContext)!
+When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+home
+	^ self isBlockContext 
+		ifTrue: [ self outerContext methodContext ]
+		ifFalse: [ self ]
+!
 
 localAt: aString
 	^ self locals at: aString ifAbsent: [ nil ]
@@ -19,7 +25,9 @@ localAt: aString put: anObject
 !
 
 locals
-	^ locals ifNil: [ locals := Dictionary new ]
+	locals ifNil: [ self initializeLocals ].
+	
+	^ locals
 !
 
 method
@@ -55,20 +63,41 @@ receiver: anObject
 !
 
 selector
-	^ self metod
+	^ self method
 		ifNotNil: [ self method selector ]
+! !
+
+!AIContext methodsFor: 'converting'!
+
+asString
+	^ methodContext asString
 ! !
 
 !AIContext methodsFor: 'initialization'!
 
 initializeFromMethodContext: aMethodContext
+	methodContext := aMethodContext.
+	
 	self pc: aMethodContext pc.
 	self receiver: aMethodContext receiver.
 	self method: aMethodContext method.
-	aMethodContext outerContext ifNotNil: [
-		self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
-	aMethodContext locals keysAndValuesDo: [ :key :value |
-		self locals at: key put: value ]
+	aMethodContext outerContext ifNotNil: [ :outer |
+		"If the method context is nil, the block was defined in JS, so ignore it"
+		outer methodContext ifNotNil: [
+			self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].
+			aMethodContext locals keysAndValuesDo: [ :key :value |
+				self locals at: key put: value ] ]
+!
+
+initializeLocals
+	locals := Dictionary new.
+	locals at: 'thisContext' put: self.
+! !
+
+!AIContext methodsFor: 'testing'!
+
+isBlockContext
+	^ methodContext isBlockContext
 ! !
 
 !AIContext class methodsFor: 'instance creation'!
@@ -83,13 +112,15 @@ Object subclass: #ASTDebugger
 	instanceVariableNames: 'interpreter context'
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
-ASTDebugger is a debugger to Amber.
-It uses an AST interpreter to step through the code.
+I am a stepping debugger interface for Amber code.
+I internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.
 
-ASTDebugger instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
+My instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
 They hold an `AIContext` instance internally, recursive copy of the `MethodContext`.
 
-Use the methods of the 'stepping' protocol to do stepping.!
+## API
+
+Use the methods of the `'stepping'` protocol to do stepping.!
 
 !ASTDebugger methodsFor: 'accessing'!
 
@@ -98,7 +129,7 @@ context
 !
 
 context: aContext
-	context := AIContext new.
+	context := aContext
 !
 
 interpreter
@@ -111,6 +142,10 @@ interpreter: anInterpreter
 
 method
 	^ self context method
+!
+
+nextNode
+	^ self interpreter nextNode
 ! !
 
 !ASTDebugger methodsFor: 'defaults'!
@@ -136,23 +171,29 @@ buildAST
 !
 
 initializeInterpreter
-	self interpreter interpret: self buildAST nodes first
+	| ast next |
+	ast := self buildAST.
+	next := ASTPCNodeVisitor new
+		context: self context;
+		visit: ast;
+		currentNode.
+	self interpreter interpret: next
 !
 
-initializeWithContext: aMethodContext
+initializeWithContext: aContext
 	"TODO: do we need to handle block contexts?"
 	
-	self context: (AIContext fromMethodContext: aMethodContext).
+	self context: aContext.
 	self initializeInterpreter
 ! !
 
 !ASTDebugger methodsFor: 'stepping'!
 
-restart
+proceed
 	self shouldBeImplemented
 !
 
-resume
+restart
 	self shouldBeImplemented
 !
 
@@ -177,11 +218,17 @@ stepOver
 	self step
 ! !
 
+!ASTDebugger methodsFor: 'testing'!
+
+atEnd
+	^ self interpreter atEnd
+! !
+
 !ASTDebugger class methodsFor: 'instance creation'!
 
-context: aMethodContext
+context: aContext
 	^ self new
-		initializeWithContext: aMethodContext;
+		initializeWithContext: aContext;
 		yourself
 ! !
 
@@ -189,10 +236,10 @@ Object subclass: #ASTInterpreter
 	instanceVariableNames: 'currentNode context shouldReturn result'
 	package: 'Compiler-Interpreter'!
 !ASTInterpreter commentStamp!
-ASTIntepreter is like a `NodeVisitor`, interpreting nodes one after each other.
-It is built using Continuation Passing Style for stepping purposes.
+I am like a `NodeVisitor`, interpreting nodes one after each other.
+I am built using Continuation Passing Style for stepping purposes.
 
-Usage example:
+## Usage example:
 
 	| ast interpreter |
 	ast := Smalltalk current parse: 'foo 1+2+4'.
@@ -254,11 +301,11 @@ interpretAssignmentNode: aNode continue: aBlock
 !
 
 interpretBlockNode: aNode continue: aBlock
-	"TODO: Context should be set"
-	
 	self
 		continue: aBlock
-		value: [ self interpret: aNode nodes first; result ]
+		value: [ 
+			self withBlockContext: [ 
+				self interpret: aNode nodes first; result ] ]
 !
 
 interpretBlockSequenceNode: aNode continue: aBlock
@@ -321,8 +368,6 @@ interpretReturnNode: aNode continue: aBlock
 !
 
 interpretSendNode: aNode continue: aBlock
-	"TODO: Handle super sends"
-	
 	self interpret: aNode receiver continue: [ :receiver |
 		self interpretAll: aNode arguments continue: [ :args |
 			self
@@ -332,7 +377,7 @@ interpretSendNode: aNode continue: aBlock
 					self context pc: self context pc + 1.
 					self
 						continue: aBlock
-						value: (message sendTo: receiver) ] ] ]
+						value: (self sendMessage: message to: receiver superSend: aNode superSend) ] ] ]
 !
 
 interpretSequenceNode: aNode continue: aBlock
@@ -411,6 +456,37 @@ messageFromSendNode: aSendNode arguments: aCollection do: aBlock
 			selector: aSendNode selector;
 			arguments: aCollection;
 			yourself)
+!
+
+sendMessage: aMessage to: anObject superSend: aBoolean
+	| method |
+	
+	aBoolean ifFalse: [ ^ aMessage sendTo: anObject ].
+	anObject class superclass ifNil: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
+	
+	method := anObject class superclass methodDictionary
+		at: aMessage selector
+		ifAbsent: [ ^ self messageNotUnderstood: aMessage receiver: anObject ].
+		
+	^ method fn applyTo: anObject arguments: aMessage arguments
+!
+
+withBlockContext: aBlock
+	"Evaluate aBlock with a BlockContext:
+	- a context is pushed before aBlock evaluation.
+	- the context is poped after aBlock evaluation
+	- the result of aBlock evaluation is answered"
+	
+	| blockResult |
+			
+	self context: (AIContext new
+		outerContext: self context;
+		yourself).
+	
+	blockResult := aBlock value.
+	
+	self context: self context outerContext.
+	^ blockResult
 ! !
 
 !ASTInterpreter methodsFor: 'testing'!
@@ -423,10 +499,14 @@ ASTInterpreter subclass: #ASTSteppingInterpreter
 	instanceVariableNames: 'continuation nextNode'
 	package: 'Compiler-Interpreter'!
 !ASTSteppingInterpreter commentStamp!
-ASTSteppingInterpreter is an interpreter with stepping capabilities.
-Use `#step` to actually interpret the next node.
+I am an interpreter with stepping capabilities. The higher level `ASTDebugger` class should be used as a debugger model, as it provides convenience methods for debugging.
 
-Usage example:
+## API
+
+Use `#step` to actually interpret the next node. Interpretation stops at each node evaluation, weither it's a message node or not.
+
+
+## Usage example:
 
 	| ast interpreter |
 	ast := Smalltalk current parse: 'foo 1+2+4'.
@@ -436,13 +516,13 @@ Usage example:
 		interpret: ast nodes first;
 		yourself.
 		
-	debugger step; step.
-	debugger step; step.
-	debugger result."Answers 1"
-	debugger step.
-	debugger result. "Answers 3"
-	debugger step.
-	debugger result. "Answers 7"!
+	interpreter step; step.
+	interpreter step; step.
+	interpreter result."Answers 1"
+	interpreter step.
+	interpreter result. "Answers 3"
+	interpreter step.
+	interpreter result. "Answers 7"!
 
 !ASTSteppingInterpreter methodsFor: 'accessing'!
 
@@ -475,6 +555,63 @@ step
 
 atEnd
 	^ self shouldReturn or: [ self nextNode == self currentNode ]
+! !
+
+NodeVisitor subclass: #ASTPCNodeVisitor
+	instanceVariableNames: 'useInlinings pc context currentNode'
+	package: 'Compiler-Interpreter'!
+!ASTPCNodeVisitor commentStamp!
+I visit an AST until I get to the current pc node and answer it.
+
+## API
+
+My instances must be filled with a context object using `#context:`.
+
+After visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`!
+
+!ASTPCNodeVisitor methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: aContext
+	context := aContext
+!
+
+currentNode
+	^ currentNode
+!
+
+pc
+	^ pc ifNil: [ 0 ]
+!
+
+pc: anInteger
+	pc := anInteger
+!
+
+useInlinings
+	^ useInlinings ifNil: [ true ]
+!
+
+useInlinings: aBoolean
+	useInlinings := aBoolean
+! !
+
+!ASTPCNodeVisitor methodsFor: 'visiting'!
+
+visitJSStatementNode: aNode
+	currentNode := aNode
+!
+
+visitSendNode: aNode
+	super visitSendNode: aNode.
+	
+	self pc = self context pc ifFalse: [
+		aNode shouldBeInlined ifFalse: [ 
+			self pc: self pc + 1.
+			currentNode := aNode ] ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!

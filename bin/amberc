@@ -41,6 +41,9 @@ function handle_options(optionsArray, amber_dir) {
 			case '-l':
 				defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
 				break;
+			case '-g':
+				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
+				break;
 			case '-i':
 				defaults.init = optionsArray.shift();
 				break;
@@ -66,6 +69,9 @@ function handle_options(optionsArray, amber_dir) {
 			case '-d':
 				defaults.deploy = true;
 				break;
+			case '-D':
+				defaults.output_dir = optionsArray.shift();
+				break;
 			case '-s':
 				defaults.suffix = optionsArray.shift();
 				defaults.suffix_used = defaults.suffix;
@@ -74,10 +80,13 @@ function handle_options(optionsArray, amber_dir) {
 				defaults.loadsuffix = optionsArray.shift();
 				defaults.suffix_used = defaults.suffix;
 				break;
+			case '-v':
+				defaults.verbose = true;
+				break;
 			case '-h':
 			case '--help':
 			case '?':
-				this.usage();
+				print_usage();
 				break;
 			default:
 				var fileSuffix = path.extname(currentItem);
@@ -133,6 +142,10 @@ function print_usage() {
 	console.log('     Add listed JavaScript libraries in listed order.');
 	console.log('     Libraries are not separated by spaces or end with .js.');
 	console.log('');
+	console.log('  -g jsGlobal1,jsGlobal2');
+	console.log('     Comma separated list of JS global variable names.');
+	console.log('     The names are added to a list containing "window", "document" and others.');
+	console.log('');
 	console.log('  -i init_file');
 	console.log('     Add library initializer <init_file> instead of default $AMBER/js/init.js ');
 	console.log('');
@@ -155,6 +168,11 @@ function print_usage() {
 	console.log('  -d');
 	console.log('     Additionally export code for deploy - stripped from source etc.');
 	console.log('     Uses suffix ".deploy.js" in addition to any explicit suffic set by -s.');
+	console.log('');
+	console.log('  -D');
+	console.log('     Specifies the output directory for all generated .js files.');
+	console.log('     The hierarchy of the input files is not maintaned.');
+	console.log('     If this option is omitted all generated .js files are placed next to their input files');
 	console.log('');
 	console.log('  -s suffix');
 	console.log('     Add <suffix> to compiled .js files. File.st is then compiled into');

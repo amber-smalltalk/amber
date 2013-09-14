@@ -2,6 +2,14 @@ Smalltalk current createPackage: 'Importer-Exporter'!
 Object subclass: #ChunkParser
 	instanceVariableNames: 'stream'
 	package: 'Importer-Exporter'!
+!ChunkParser commentStamp!
+I am responsible for parsing aStream contents in the chunk format.
+
+## API
+
+    ChunkParser new
+        stream: aStream;
+        nextChunk!
 
 !ChunkParser methodsFor: 'accessing'!
 
@@ -43,6 +51,18 @@ on: aStream
 Object subclass: #Exporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!Exporter commentStamp!
+I am responsible for outputting Amber code into a JavaScript string.
+
+The generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.
+
+## Use case
+
+I am typically used to save code outside of the Amber runtime (committing to disk, etc.).
+
+## API
+
+Use `#exportAll`, `#exportClass:` or `#exportPackage:` methods.!
 
 !Exporter methodsFor: 'fileOut'!
 
@@ -109,7 +129,8 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: 'smalltalk.';
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
-		nextPutAll: aClass comment asJavascript].
+		nextPutAll: aClass comment asJavascript;
+		nextPutAll: ';'].
 	aStream lf
 !
 
@@ -127,7 +148,7 @@ exportMetaDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'category: ''', aMethod category, ''',';lf;
@@ -174,8 +195,12 @@ exportPackageExtensionsOf: package on: aStream
 Exporter subclass: #ChunkExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!ChunkExporter commentStamp!
+I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.
 
-!ChunkExporter methodsFor: 'not yet classified'!
+I do not output any compiled code.!
+
+!ChunkExporter methodsFor: 'private'!
 
 chunkEscape: aString
 	"Replace all occurrences of !! with !!!! and trim at both ends."
@@ -288,6 +313,8 @@ exportPackageExtensionsOf: package on: aStream
 Exporter subclass: #StrippedExporter
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!StrippedExporter commentStamp!
+I export Amber code into a JavaScript string, but without any optional associated data like the Amber source code.!
 
 !StrippedExporter methodsFor: 'private'!
 
@@ -310,7 +337,7 @@ exportDefinitionOf: aClass on: aStream
 exportMethod: aMethod of: aClass on: aStream
 	aStream
 		nextPutAll: 'smalltalk.addMethod(';lf;
-		nextPutAll: aMethod selector asSelector asJavascript, ',';lf;
+		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
@@ -323,6 +350,12 @@ exportMethod: aMethod of: aClass on: aStream
 Object subclass: #Importer
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!Importer commentStamp!
+I can import Amber code from a string in the chunk format.
+
+## API
+
+    Importer new import: aString!
 
 !Importer methodsFor: 'fileIn'!
 
@@ -342,19 +375,29 @@ import: aStream
 									result scanFrom: parser]]]
 ! !
 
-Object subclass: #PackageLoader
+Object subclass: #PackageHandler
 	instanceVariableNames: ''
 	package: 'Importer-Exporter'!
+!PackageHandler commentStamp!
+I am responsible for handling package loading and committing.
 
-!PackageLoader methodsFor: 'laoding'!
+I should not be used directly. Instead, use the corresponding `Package` methods.!
 
-initializePackageNamed: packageName prefix: aString
+!PackageHandler methodsFor: 'committing'!
 
-	(Package named: packageName)
-		setupClasses;
-		commitPathJs: '/', aString, '/js';
-		commitPathSt: '/', aString, '/st'
-!
+commit: aPackage
+	{ 
+		Exporter -> (aPackage commitPathJs, '/', aPackage name, '.js').
+		StrippedExporter -> (aPackage commitPathJs, '/', aPackage name, '.deploy.js').
+		ChunkExporter -> (aPackage commitPathSt, '/', aPackage name, '.st')
+	} 
+		do: [ :commitStrategy|| fileContents |
+			fileContents := (commitStrategy key new exportPackage: aPackage name).
+			self ajaxPutAt: commitStrategy value data: fileContents ]
+		displayingProgress: 'Committing package ', aPackage name
+! !
+
+!PackageHandler methodsFor: 'loading'!
 
 loadPackage: packageName prefix: aString
 	| url |
@@ -366,7 +409,7 @@ loadPackage: packageName prefix: aString
 			'dataType' -> 'script'.
 			'complete' -> [ :jqXHR :textStatus |
 				jqXHR readyState = 4
-					ifTrue: [ self initializePackageNamed: packageName prefix: aString ] ].
+					ifTrue: [ self setupPackageNamed: packageName prefix: aString ] ].
 			'error' -> [ window alert: 'Could not load package at: ', url ]
 		}
 !
@@ -376,9 +419,35 @@ loadPackages: aCollection prefix: aString
 		self loadPackage: each prefix: aString ]
 ! !
 
-!PackageLoader class methodsFor: 'not yet classified'!
+!PackageHandler methodsFor: 'private'!
+
+ajaxPutAt: aURL data: aString
+	jQuery
+		ajax: aURL 
+		options: #{ 
+			'type' -> 'PUT'.
+			'data' -> aString.
+			'contentType' -> 'text/plain;charset=UTF-8'.
+			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+!
+
+setupPackageNamed: packageName prefix: aString
+
+	(Package named: packageName)
+		setupClasses;
+		commitPathJs: '/', aString, '/js';
+		commitPathSt: '/', aString, '/st'
+! !
+
+!PackageHandler class methodsFor: 'loading'!
 
 loadPackages: aCollection prefix: aString
 	^ self new loadPackages: aCollection prefix: aString
+! !
+
+!Package methodsFor: '*Importer-Exporter'!
+
+commit
+	^ PackageHandler new commit: self
 ! !
 

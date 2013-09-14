@@ -1,37 +1,59 @@
 smalltalk.addPackage('Kernel-Classes');
 smalltalk.addClass('Behavior', smalltalk.Object, [], 'Kernel-Classes');
-smalltalk.Behavior.comment="Behavior is the superclass of all class objects.\x0a\x0aIt defines the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0aInstances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aBehavior also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy."
+smalltalk.Behavior.comment="I am the superclass of all class objects.\x0a\x0aI define the protocol for creating instances of a class with `#basicNew` and `#new` (see `boot.js` for class constructors details).\x0a\x0aMy instances know about the subclass/superclass relationships between classes, contain the description that instances are created from,\x0aand hold the method dictionary that's associated with each class.\x0a\x0aI also provides methods for compiling methods, examining the method dictionary, and iterating over the class hierarchy.";
 smalltalk.addMethod(
-"_addCompiledMethod_",
+smalltalk.method({
+selector: ">>",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._methodAt_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,">>",{aString:aString},smalltalk.Behavior)})},
+args: ["aString"],
+source: ">> aString\x0a\x09^ self methodAt: aString",
+messageSends: ["methodAt:"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "addCompiledMethod:",
 category: 'compiling',
 fn: function (aMethod){
 var self=this;
 var oldMethod,announcement;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5,$6;
-oldMethod=_st(_st(self)._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
-return smalltalk.withContext(function($ctx2) {return nil;
+function $MethodAdded(){return smalltalk.MethodAdded||(typeof MethodAdded=="undefined"?nil:MethodAdded)}
+function $MethodModified(){return smalltalk.MethodModified||(typeof MethodModified=="undefined"?nil:MethodModified)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6;
+oldMethod=_st(self._methodDictionary())._at_ifAbsent_(_st(aMethod)._selector(),(function(){
+return smalltalk.withContext(function($ctx2) {
+return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=_st(_st(self)._protocols())._includes_(_st(aMethod)._protocol());
+$1=_st(self._protocols())._includes_(_st(aMethod)._protocol());
 if(! smalltalk.assert($1)){
-_st(_st(self)._organization())._addElement_(_st(aMethod)._protocol());
+_st(self._organization())._addElement_(_st(aMethod)._protocol());
 };
-_st(self)._basicAddCompiledMethod_(aMethod);
+self._basicAddCompiledMethod_(aMethod);
 $2=oldMethod;
 if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st((smalltalk.MethodAdded || MethodAdded))._new();
+$3=_st($MethodAdded())._new();
 _st($3)._method_(aMethod);
 $4=_st($3)._yourself();
 announcement=$4;
 } else {
-$5=_st((smalltalk.MethodModified || MethodModified))._new();
+$5=_st($MethodModified())._new();
 _st($5)._oldMethod_(oldMethod);
 _st($5)._method_(aMethod);
 $6=_st($5)._yourself();
 announcement=$6;
 };
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_(announcement);
+_st(_st($SystemAnnouncer())._current())._announce_(announcement);
 return self}, function($ctx1) {$ctx1.fill(self,"addCompiledMethod:",{aMethod:aMethod,oldMethod:oldMethod,announcement:announcement},smalltalk.Behavior)})},
 args: ["aMethod"],
 source: "addCompiledMethod: aMethod\x0a\x09| oldMethod announcement |\x0a\x09\x0a\x09oldMethod := self methodDictionary\x0a\x09\x09at: aMethod selector\x0a\x09\x09ifAbsent: [ nil ].\x0a\x09\x0a\x09(self protocols includes: aMethod protocol)\x0a\x09\x09ifFalse: [ self organization addElement: aMethod protocol ].\x0a\x0a\x09self basicAddCompiledMethod: aMethod.\x0a\x09\x0a\x09announcement := oldMethod\x0a\x09\x09ifNil: [\x0a\x09\x09\x09MethodAdded new\x0a\x09\x09\x09\x09\x09method: aMethod;\x0a\x09\x09\x09\x09\x09yourself ]\x0a\x09\x09ifNotNil: [\x0a\x09\x09\x09MethodModified new\x0a\x09\x09\x09\x09\x09oldMethod: oldMethod;\x0a\x09\x09\x09\x09\x09method: aMethod;\x0a\x09\x09\x09\x09\x09yourself ].\x0a\x09\x09\x09\x09\x09\x0a\x09\x09\x09\x09\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09\x09\x09announce: announcement",
@@ -41,20 +63,20 @@ referencedClasses: ["MethodAdded", "MethodModified", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allInstanceVariableNames",
 smalltalk.method({
 selector: "allInstanceVariableNames",
 category: 'accessing',
 fn: function (){
 var self=this;
 var result;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-result=_st(_st(self)._instanceVariableNames())._copy();
-$1=_st(self)._superclass();
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+result=_st(self._instanceVariableNames())._copy();
+$1=self._superclass();
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
-_st(result)._addAll_(_st(_st(self)._superclass())._allInstanceVariableNames());
+_st(result)._addAll_(_st(self._superclass())._allInstanceVariableNames());
 };
 $2=result;
 return $2;
@@ -67,15 +89,16 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSelectors",
 smalltalk.method({
 selector: "allSelectors",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$1=_st(_st(self)._allSuperclasses())._inject_into_(_st(self)._selectors(),(function(soFar,aBehavior){
-return smalltalk.withContext(function($ctx2) {$2=soFar;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$1=_st(self._allSuperclasses())._inject_into_(self._selectors(),(function(soFar,aBehavior){
+return smalltalk.withContext(function($ctx2) {
+$2=soFar;
 _st($2)._addAll_(_st(aBehavior)._selectors());
 $3=_st($2)._yourself();
 return $3;
@@ -90,17 +113,18 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSubclasses",
 smalltalk.method({
 selector: "allSubclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
 var result;
-return smalltalk.withContext(function($ctx1) { var $1;
-result=_st(self)._subclasses();
-_st(_st(self)._subclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(result)._addAll_(_st(each)._allSubclasses());
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+result=self._subclasses();
+_st(self._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(result)._addAll_(_st(each)._allSubclasses());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 $1=result;
 return $1;
@@ -113,24 +137,46 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_allSuperclasses",
+smalltalk.method({
+selector: "allSubclassesDo:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._subclasses())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+_st(aBlock)._value_(each);
+return _st(each)._allSubclassesDo_(aBlock);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"allSubclassesDo:",{aBlock:aBlock},smalltalk.Behavior)})},
+args: ["aBlock"],
+source: "allSubclassesDo: aBlock\x0a\x09\x22Evaluate the argument, aBlock, for each of the receiver's subclasses.\x22\x0a\x0a\x09self subclasses do: [ :each |\x0a    \x09aBlock value: each.\x0a        each allSubclassesDo: aBlock ].",
+messageSends: ["do:", "value:", "allSubclassesDo:", "subclasses"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "allSuperclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$3,$4,$2;
-$1=_st(self)._superclass();
+function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$4,$5,$3;
+$1=self._superclass();
 if(($receiver = $1) == nil || $receiver == undefined){
-return [];
+$2=[];
+return $2;
 } else {
 $1;
 };
-$3=_st((smalltalk.OrderedCollection || OrderedCollection))._with_(_st(self)._superclass());
-_st($3)._addAll_(_st(_st(self)._superclass())._allSuperclasses());
-$4=_st($3)._yourself();
-$2=$4;
-return $2;
+$4=_st($OrderedCollection())._with_(self._superclass());
+_st($4)._addAll_(_st(self._superclass())._allSuperclasses());
+$5=_st($4)._yourself();
+$3=$5;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"allSuperclasses",{},smalltalk.Behavior)})},
 args: [],
 source: "allSuperclasses\x0a\x09\x0a\x09self superclass ifNil: [ ^ #() ].\x0a\x09\x0a\x09^ (OrderedCollection with: self superclass)\x0a\x09\x09addAll: self superclass allSuperclasses;\x0a\x09\x09yourself",
@@ -140,29 +186,29 @@ referencedClasses: ["OrderedCollection"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicAddCompiledMethod_",
 smalltalk.method({
 selector: "basicAddCompiledMethod:",
 category: 'private',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.addMethod(aMethod, self);
 return self}, function($ctx1) {$ctx1.fill(self,"basicAddCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 args: ["aMethod"],
-source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod.selector._asSelector(), aMethod, self)>",
+source: "basicAddCompiledMethod: aMethod\x0a\x09<smalltalk.addMethod(aMethod, self)>",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicNew",
 smalltalk.method({
 selector: "basicNew",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return new self.fn();
+return smalltalk.withContext(function($ctx1) { 
+return new self.fn();
 return self}, function($ctx1) {$ctx1.fill(self,"basicNew",{},smalltalk.Behavior)})},
 args: [],
 source: "basicNew\x0a\x09<return new self.fn()>",
@@ -172,13 +218,13 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_basicRemoveCompiledMethod_",
 smalltalk.method({
 selector: "basicRemoveCompiledMethod:",
 category: 'private',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		smalltalk.removeMethod(aMethod)
 		smalltalk.init(self);
 	;
@@ -191,17 +237,19 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_canUnderstand_",
 smalltalk.method({
 selector: "canUnderstand:",
 category: 'testing',
 fn: function (aSelector){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(_st(self)._methodDictionary())._keys())._includes_(_st(aSelector)._asString()))._or_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(self)._superclass())._notNil())._and_((function(){
-return smalltalk.withContext(function($ctx3) {return _st(_st(self)._superclass())._canUnderstand_(aSelector);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(_st(self._methodDictionary())._keys())._includes_(_st(aSelector)._asString()))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self._superclass())._notNil())._and_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(self._superclass())._canUnderstand_(aSelector);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"canUnderstand:",{aSelector:aSelector},smalltalk.Behavior)})},
@@ -213,14 +261,14 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_comment",
 smalltalk.method({
 selector: "comment",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._basicAt_("comment");
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._basicAt_("comment");
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="";
 } else {
@@ -236,18 +284,20 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_comment_",
 smalltalk.method({
 selector: "comment:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(self)._basicAt_put_("comment",aString);
-$1=_st((smalltalk.ClassCommentChanged || ClassCommentChanged))._new();
+function $ClassCommentChanged(){return smalltalk.ClassCommentChanged||(typeof ClassCommentChanged=="undefined"?nil:ClassCommentChanged)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self._basicAt_put_("comment",aString);
+$1=_st($ClassCommentChanged())._new();
 _st($1)._theClass_(self);
 $2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+_st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"comment:",{aString:aString},smalltalk.Behavior)})},
 args: ["aString"],
 source: "comment: aString\x0a\x09self basicAt: 'comment' put: aString.\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassCommentChanged new\x0a\x09\x09\x09theClass: self;\x0a\x09\x09\x09yourself)",
@@ -257,14 +307,15 @@ referencedClasses: ["ClassCommentChanged", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_commentStamp",
 smalltalk.method({
 selector: "commentStamp",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.ClassCommentReader || ClassCommentReader))._new();
+function $ClassCommentReader(){return smalltalk.ClassCommentReader||(typeof ClassCommentReader=="undefined"?nil:ClassCommentReader)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($ClassCommentReader())._new();
 _st($2)._class_(self);
 $3=_st($2)._yourself();
 $1=$3;
@@ -278,14 +329,14 @@ referencedClasses: ["ClassCommentReader"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_commentStamp_prior_",
 smalltalk.method({
 selector: "commentStamp:prior:",
 category: 'accessing',
 fn: function (aStamp,prior){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._commentStamp();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._commentStamp();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"commentStamp:prior:",{aStamp:aStamp,prior:prior},smalltalk.Behavior)})},
 args: ["aStamp", "prior"],
@@ -296,45 +347,50 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_compile_",
 smalltalk.method({
 selector: "compile:",
 category: 'compiling',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._compile_category_(aString,"");
-return self}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},smalltalk.Behavior)})},
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._compile_category_(aString,"");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},smalltalk.Behavior)})},
 args: ["aString"],
-source: "compile: aString\x0a\x09self compile: aString category: ''",
+source: "compile: aString\x0a\x09^ self compile: aString category: ''",
 messageSends: ["compile:category:"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_compile_category_",
 smalltalk.method({
 selector: "compile:category:",
 category: 'compiling',
 fn: function (aString,anotherString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(aString,self,anotherString);
-return self}, function($ctx1) {$ctx1.fill(self,"compile:category:",{aString:aString,anotherString:anotherString},smalltalk.Behavior)})},
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Compiler())._new())._install_forClass_category_(aString,self,anotherString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"compile:category:",{aString:aString,anotherString:anotherString},smalltalk.Behavior)})},
 args: ["aString", "anotherString"],
-source: "compile: aString category: anotherString\x0a\x09Compiler new\x0a\x09\x09install: aString\x0a\x09\x09forClass: self\x0a\x09\x09category: anotherString",
+source: "compile: aString category: anotherString\x0a\x09^ Compiler new\x0a\x09\x09install: aString\x0a\x09\x09forClass: self\x0a\x09\x09category: anotherString",
 messageSends: ["install:forClass:category:", "new"],
 referencedClasses: ["Compiler"]
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return "";
+return smalltalk.withContext(function($ctx1) { 
+return "";
 }, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.Behavior)})},
 args: [],
 source: "definition\x0a\x09^ ''",
@@ -344,49 +400,79 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_includesSelector_",
 smalltalk.method({
-selector: "includesSelector:",
+selector: "includesBehavior:",
 category: 'testing',
-fn: function (aSymbol){
+fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._methodDictionary())._includesKey_(_st(aSymbol)._asString());
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__eq_eq(aClass))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._inheritsFrom_(aClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includesSelector:",{aSymbol:aSymbol},smalltalk.Behavior)})},
-args: ["aSymbol"],
-source: "includesSelector: aSymbol\x0a\x09^ self methodDictionary includesKey: aSymbol asString",
-messageSends: ["includesKey:", "asString", "methodDictionary"],
+}, function($ctx1) {$ctx1.fill(self,"includesBehavior:",{aClass:aClass},smalltalk.Behavior)})},
+args: ["aClass"],
+source: "includesBehavior: aClass\x0a\x09^ self == aClass or: [\x0a\x09\x09\x09self inheritsFrom: aClass ]",
+messageSends: ["or:", "inheritsFrom:", "=="],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_inheritsFrom_",
+smalltalk.method({
+selector: "includesSelector:",
+category: 'testing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._methodDictionary())._includesKey_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"includesSelector:",{aString:aString},smalltalk.Behavior)})},
+args: ["aString"],
+source: "includesSelector: aString\x0a\x09^ self methodDictionary includesKey: aString",
+messageSends: ["includesKey:", "methodDictionary"],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "inheritsFrom:",
 category: 'testing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(aClass)._allSubclasses())._includes_(self);
-return $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._superclass();
+if(($receiver = $1) == nil || $receiver == undefined){
+return false;
+} else {
+$1;
+};
+$2=_st(_st(aClass).__eq_eq(self._superclass()))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._superclass())._inheritsFrom_(aClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"inheritsFrom:",{aClass:aClass},smalltalk.Behavior)})},
 args: ["aClass"],
-source: "inheritsFrom: aClass\x0a\x09^aClass allSubclasses includes: self",
-messageSends: ["includes:", "allSubclasses"],
+source: "inheritsFrom: aClass\x0a\x09self superclass ifNil: [ ^ false ].\x0a\x0a\x09^ aClass == self superclass or: [ \x0a\x09\x09self superclass inheritsFrom: aClass ]",
+messageSends: ["ifNil:", "superclass", "or:", "inheritsFrom:", "=="],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_instanceVariableNames",
 smalltalk.method({
 selector: "instanceVariableNames",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.iVarNames;
+return smalltalk.withContext(function($ctx1) { 
+return self.iVarNames;
 return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames",{},smalltalk.Behavior)})},
 args: [],
 source: "instanceVariableNames\x0a\x09<return self.iVarNames>",
@@ -396,21 +482,39 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_lookupSelector_",
+smalltalk.method({
+selector: "isBehavior",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return true;
+}, function($ctx1) {$ctx1.fill(self,"isBehavior",{},smalltalk.Behavior)})},
+args: [],
+source: "isBehavior\x0a\x09^ true",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "lookupSelector:",
 category: 'accessing',
 fn: function (selector){
 var self=this;
 var lookupClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 var $early={};
 try {
 lookupClass=self;
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(lookupClass).__eq(nil);
+return smalltalk.withContext(function($ctx2) {
+return _st(lookupClass).__eq(nil);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {$1=_st(lookupClass)._includesSelector_(selector);
+return smalltalk.withContext(function($ctx2) {
+$1=_st(lookupClass)._includesSelector_(selector);
 if(smalltalk.assert($1)){
 $2=_st(lookupClass)._methodAt_(selector);
 throw $early=[$2];
@@ -430,31 +534,31 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodAt_",
 smalltalk.method({
 selector: "methodAt:",
 category: 'accessing',
-fn: function (aSymbol){
+fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._methodDictionary())._at_(_st(aSymbol)._asString());
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._methodDictionary())._at_(aString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodAt:",{aSymbol:aSymbol},smalltalk.Behavior)})},
-args: ["aSymbol"],
-source: "methodAt: aSymbol\x0a\x09^ self methodDictionary at: aSymbol asString",
-messageSends: ["at:", "asString", "methodDictionary"],
+}, function($ctx1) {$ctx1.fill(self,"methodAt:",{aString:aString},smalltalk.Behavior)})},
+args: ["aString"],
+source: "methodAt: aString\x0a\x09^ self methodDictionary at: aString",
+messageSends: ["at:", "methodDictionary"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodDictionary",
 smalltalk.method({
 selector: "methodDictionary",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var dict = smalltalk.HashedCollection._new();
+return smalltalk.withContext(function($ctx1) { 
+var dict = smalltalk.HashedCollection._new();
 	var methods = self.methods;
 	for(var i in methods) {
 		if(methods[i].selector) {
@@ -471,14 +575,14 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methods",
 smalltalk.method({
 selector: "methods",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._methodDictionary())._values();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._methodDictionary())._values();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methods",{},smalltalk.Behavior)})},
 args: [],
@@ -489,14 +593,15 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsFor_",
 smalltalk.method({
 selector: "methodsFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.ClassCategoryReader || ClassCategoryReader))._new();
+function $ClassCategoryReader(){return smalltalk.ClassCategoryReader||(typeof ClassCategoryReader=="undefined"?nil:ClassCategoryReader)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($ClassCategoryReader())._new();
 _st($2)._class_category_(self,aString);
 $3=_st($2)._yourself();
 $1=$3;
@@ -510,14 +615,14 @@ referencedClasses: ["ClassCategoryReader"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsFor_stamp_",
 smalltalk.method({
 selector: "methodsFor:stamp:",
 category: 'accessing',
 fn: function (aString,aStamp){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._methodsFor_(aString);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._methodsFor_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsFor:stamp:",{aString:aString,aStamp:aStamp},smalltalk.Behavior)})},
 args: ["aString", "aStamp"],
@@ -528,15 +633,16 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_methodsInProtocol_",
 smalltalk.method({
 selector: "methodsInProtocol:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._methodDictionary())._values())._select_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._protocol()).__eq(aString);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._methodDictionary())._values())._select_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:",{aString:aString},smalltalk.Behavior)})},
@@ -548,13 +654,13 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_name",
 smalltalk.method({
 selector: "name",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.className || nil;
+return smalltalk.withContext(function($ctx1) { 
+return self.className || nil;
 return self}, function($ctx1) {$ctx1.fill(self,"name",{},smalltalk.Behavior)})},
 args: [],
 source: "name\x0a\x09<return self.className || nil>",
@@ -564,14 +670,14 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_new",
 smalltalk.method({
 selector: "new",
 category: 'instance creation',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._basicNew())._initialize();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._basicNew())._initialize();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"new",{},smalltalk.Behavior)})},
 args: [],
@@ -582,14 +688,14 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_organization",
 smalltalk.method({
 selector: "organization",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._basicAt_("organization");
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._basicAt_("organization");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"organization",{},smalltalk.Behavior)})},
 args: [],
@@ -600,14 +706,14 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_protocols",
 smalltalk.method({
 selector: "protocols",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._organization())._elements())._sorted();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._organization())._elements())._sorted();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"protocols",{},smalltalk.Behavior)})},
 args: [],
@@ -618,21 +724,26 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_protocolsDo_",
 smalltalk.method({
 selector: "protocolsDo:",
-category: 'accessing',
+category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 var methodsByCategory;
-return smalltalk.withContext(function($ctx1) { methodsByCategory=_st((smalltalk.HashedCollection || HashedCollection))._new();
-_st(_st(_st(self)._methodDictionary())._values())._do_((function(m){
-return smalltalk.withContext(function($ctx2) {return _st(_st(methodsByCategory)._at_ifAbsentPut_(_st(m)._category(),(function(){
-return smalltalk.withContext(function($ctx3) {return _st((smalltalk.Array || Array))._new();
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})})))._add_(m);
+function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+methodsByCategory=_st($HashedCollection())._new();
+_st(_st(self._methodDictionary())._values())._do_((function(m){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(methodsByCategory)._at_ifAbsentPut_(_st(m)._category(),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st($Array())._new();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})})))._add_(m);
 }, function($ctx2) {$ctx2.fillBlock({m:m},$ctx1)})}));
-_st(_st(self)._protocols())._do_((function(category){
-return smalltalk.withContext(function($ctx2) {return _st(aBlock)._value_value_(category,_st(methodsByCategory)._at_(category));
+_st(self._protocols())._do_((function(category){
+return smalltalk.withContext(function($ctx2) {
+return _st(aBlock)._value_value_(category,_st(methodsByCategory)._at_(category));
 }, function($ctx2) {$ctx2.fillBlock({category:category},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"protocolsDo:",{aBlock:aBlock,methodsByCategory:methodsByCategory},smalltalk.Behavior)})},
 args: ["aBlock"],
@@ -643,13 +754,13 @@ referencedClasses: ["HashedCollection", "Array"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_prototype",
 smalltalk.method({
 selector: "prototype",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.fn.prototype;
+return smalltalk.withContext(function($ctx1) { 
+return self.fn.prototype;
 return self}, function($ctx1) {$ctx1.fill(self,"prototype",{},smalltalk.Behavior)})},
 args: [],
 source: "prototype\x0a\x09<return self.fn.prototype>",
@@ -659,23 +770,46 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_removeCompiledMethod_",
+smalltalk.method({
+selector: "recompile",
+category: 'compiling',
+fn: function (){
+var self=this;
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($Compiler())._new())._recompile_(self);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"recompile",{},smalltalk.Behavior)})},
+args: [],
+source: "recompile\x0a\x09^ Compiler new recompile: self",
+messageSends: ["recompile:", "new"],
+referencedClasses: ["Compiler"]
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "removeCompiledMethod:",
 category: 'compiling',
 fn: function (aMethod){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(self)._basicRemoveCompiledMethod_(aMethod);
-_st(_st(self)._methods())._detect_ifNone_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st(each)._protocol()).__eq(_st(aMethod)._protocol());
+function $MethodRemoved(){return smalltalk.MethodRemoved||(typeof MethodRemoved=="undefined"?nil:MethodRemoved)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self._basicRemoveCompiledMethod_(aMethod);
+_st(self._methods())._detect_ifNone_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(each)._protocol()).__eq(_st(aMethod)._protocol());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {return _st(_st(self)._organization())._removeElement_(_st(aMethod)._protocol());
+return smalltalk.withContext(function($ctx2) {
+return _st(self._organization())._removeElement_(_st(aMethod)._protocol());
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=_st((smalltalk.MethodRemoved || MethodRemoved))._new();
+$1=_st($MethodRemoved())._new();
 _st($1)._method_(aMethod);
 $2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
+_st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"removeCompiledMethod:",{aMethod:aMethod},smalltalk.Behavior)})},
 args: ["aMethod"],
 source: "removeCompiledMethod: aMethod\x0a\x09self basicRemoveCompiledMethod: aMethod.\x0a\x09\x0a\x09self methods\x0a\x09\x09detect: [ :each | each protocol = aMethod protocol ]\x0a\x09\x09ifNone: [ self organization removeElement: aMethod protocol ].\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (MethodRemoved new\x0a\x09\x09\x09method: aMethod;\x0a\x09\x09\x09yourself)",
@@ -685,14 +819,14 @@ referencedClasses: ["MethodRemoved", "SystemAnnouncer"]
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_selectors",
 smalltalk.method({
 selector: "selectors",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(self)._methodDictionary())._keys();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._methodDictionary())._keys();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectors",{},smalltalk.Behavior)})},
 args: [],
@@ -703,13 +837,13 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_subclasses",
 smalltalk.method({
 selector: "subclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return smalltalk.subclasses(self);
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.subclasses(self);
 return self}, function($ctx1) {$ctx1.fill(self,"subclasses",{},smalltalk.Behavior)})},
 args: [],
 source: "subclasses\x0a\x09<return smalltalk.subclasses(self)>",
@@ -719,13 +853,13 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_superclass",
 smalltalk.method({
 selector: "superclass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.superclass || nil;
+return smalltalk.withContext(function($ctx1) { 
+return self.superclass || nil;
 return self}, function($ctx1) {$ctx1.fill(self,"superclass",{},smalltalk.Behavior)})},
 args: [],
 source: "superclass\x0a\x09<return self.superclass || nil>",
@@ -735,14 +869,14 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_theMetaClass",
 smalltalk.method({
 selector: "theMetaClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._class();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._class();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},smalltalk.Behavior)})},
 args: [],
@@ -753,13 +887,13 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_theNonMetaClass",
 smalltalk.method({
 selector: "theNonMetaClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theNonMetaClass",{},smalltalk.Behavior)})},
@@ -771,15 +905,16 @@ referencedClasses: []
 smalltalk.Behavior);
 
 smalltalk.addMethod(
-"_withAllSubclasses",
 smalltalk.method({
 selector: "withAllSubclasses",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st((smalltalk.Array || Array))._with_(self);
-_st($2)._addAll_(_st(self)._allSubclasses());
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($Array())._with_(self);
+_st($2)._addAll_(self._allSubclasses());
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -794,16 +929,16 @@ smalltalk.Behavior);
 
 
 smalltalk.addClass('Class', smalltalk.Behavior, [], 'Kernel-Classes');
-smalltalk.Class.comment="Class is __the__ class object.\x0a\x0aInstances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder`"
+smalltalk.Class.comment="I am __the__ class object.\x0a\x0aMy instances are the classes of the system.\x0aClass creation is done throught a `ClassBuilder` instance.";
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st("smalltalk.").__comma(_st(self)._name());
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1="smalltalk.".__comma(self._name());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Class)})},
 args: [],
@@ -814,18 +949,18 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_category",
 smalltalk.method({
 selector: "category",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$1;
-$2=_st(self)._package();
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._package();
 if(($receiver = $2) == nil || $receiver == undefined){
 $1="Unclassified";
 } else {
-$1=_st(_st(self)._package())._name();
+$1=_st(self._package())._name();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.Class)})},
@@ -837,30 +972,34 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$4,$5,$1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {$2=stream;
-_st($2)._nextPutAll_(_st(_st(self)._superclass())._asString());
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$4,$5,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+$2=stream;
+_st($2)._nextPutAll_(_st(self._superclass())._asString());
 _st($2)._nextPutAll_(" subclass: #");
-_st($2)._nextPutAll_(_st(self)._name());
-_st($2)._nextPutAll_(_st(_st((smalltalk.String || String))._lf()).__comma(_st((smalltalk.String || String))._tab()));
+_st($2)._nextPutAll_(self._name());
+_st($2)._nextPutAll_(_st(_st($String())._lf()).__comma(_st($String())._tab()));
 $3=_st($2)._nextPutAll_("instanceVariableNames: '");
 $3;
-_st(_st(self)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(each);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(" ");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+_st(self._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(stream)._nextPutAll_(each);
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(stream)._nextPutAll_(" ");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 $4=stream;
-_st($4)._nextPutAll_(_st(_st("'").__comma(_st((smalltalk.String || String))._lf())).__comma(_st((smalltalk.String || String))._tab()));
+_st($4)._nextPutAll_(_st("'".__comma(_st($String())._lf())).__comma(_st($String())._tab()));
 _st($4)._nextPutAll_("package: '");
-_st($4)._nextPutAll_(_st(self)._category());
+_st($4)._nextPutAll_(self._category());
 $5=_st($4)._nextPutAll_("'");
 return $5;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
@@ -874,13 +1013,13 @@ referencedClasses: ["String"]
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_isClass",
 smalltalk.method({
 selector: "isClass",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { 
+return true;
 }, function($ctx1) {$ctx1.fill(self,"isClass",{},smalltalk.Class)})},
 args: [],
 source: "isClass\x0a\x09^true",
@@ -890,63 +1029,81 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_package",
 smalltalk.method({
 selector: "package",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.pkg;
-return self}, function($ctx1) {$ctx1.fill(self,"package",{},smalltalk.Class)})},
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._basicAt_("pkg");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"package",{},smalltalk.Class)})},
 args: [],
-source: "package\x0a\x09<return self.pkg>",
-messageSends: [],
+source: "package\x0a\x09^ self basicAt: 'pkg'",
+messageSends: ["basicAt:"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_package_",
 smalltalk.method({
 selector: "package:",
 category: 'accessing',
 fn: function (aPackage){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self.pkg = aPackage;
-return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage},smalltalk.Class)})},
+var oldPackage;
+function $ClassMoved(){return smalltalk.ClassMoved||(typeof ClassMoved=="undefined"?nil:ClassMoved)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+$1=_st(self._package()).__eq(aPackage);
+if(smalltalk.assert($1)){
+$2=self;
+return $2;
+};
+oldPackage=self._package();
+self._basicAt_put_("pkg",aPackage);
+_st(_st(oldPackage)._organization())._removeElement_(self);
+_st(_st(aPackage)._organization())._addElement_(self);
+$3=_st($ClassMoved())._new();
+_st($3)._theClass_(self);
+_st($3)._oldPackage_(oldPackage);
+$4=_st($3)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($4);
+return self}, function($ctx1) {$ctx1.fill(self,"package:",{aPackage:aPackage,oldPackage:oldPackage},smalltalk.Class)})},
 args: ["aPackage"],
-source: "package: aPackage\x0a\x09<self.pkg = aPackage>",
-messageSends: [],
-referencedClasses: []
+source: "package: aPackage\x0a\x09| oldPackage |\x0a\x09\x0a\x09self package = aPackage ifTrue: [ ^ self ].\x0a\x09\x0a\x09oldPackage := self package.\x0a\x09\x0a\x09self basicAt: 'pkg' put: aPackage.\x0a\x09oldPackage organization removeElement: self.\x0a\x09aPackage organization addElement: self.\x0a\x0a\x09SystemAnnouncer current announce: (ClassMoved new\x0a\x09\x09theClass: self;\x0a\x09\x09oldPackage: oldPackage;\x0a\x09\x09yourself)",
+messageSends: ["ifTrue:", "=", "package", "basicAt:put:", "removeElement:", "organization", "addElement:", "announce:", "theClass:", "new", "oldPackage:", "yourself", "current"],
+referencedClasses: ["ClassMoved", "SystemAnnouncer"]
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_printString",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._name();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Class)})},
-args: [],
-source: "printString\x0a\x09^self name",
-messageSends: ["name"],
+return smalltalk.withContext(function($ctx1) { 
+_st(aStream)._nextPutAll_(self._name());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Class)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self name",
+messageSends: ["nextPutAll:", "name"],
 referencedClasses: []
 }),
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_rename_",
 smalltalk.method({
 selector: "rename:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._renameClass_to_(self,aString);
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($ClassBuilder())._new())._renameClass_to_(self,aString);
 return self}, function($ctx1) {$ctx1.fill(self,"rename:",{aString:aString},smalltalk.Class)})},
 args: ["aString"],
 source: "rename: aString\x0a\x09ClassBuilder new renameClass: self to: aString",
@@ -956,14 +1113,14 @@ referencedClasses: ["ClassBuilder"]
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:",
 category: 'class creation',
 fn: function (aString,anotherString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._subclass_instanceVariableNames_package_(aString,anotherString,nil);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._subclass_instanceVariableNames_package_(aString,anotherString,nil);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:",{aString:aString,anotherString:anotherString},smalltalk.Class)})},
 args: ["aString", "anotherString"],
@@ -974,15 +1131,15 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_category_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:category:",
 category: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-_st(self)._deprecatedAPI();
-$1=_st(self)._subclass_instanceVariableNames_package_(aString,aString2,aString3);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._deprecatedAPI();
+$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:category:",{aString:aString,aString2:aString2,aString3:aString3},smalltalk.Class)})},
 args: ["aString", "aString2", "aString3"],
@@ -993,14 +1150,14 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_classVariableNames_poolDictionaries_category_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",
 category: 'class creation',
 fn: function (aString,aString2,classVars,pools,aString3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._subclass_instanceVariableNames_package_(aString,aString2,aString3);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._subclass_instanceVariableNames_package_(aString,aString2,aString3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:classVariableNames:poolDictionaries:category:",{aString:aString,aString2:aString2,classVars:classVars,pools:pools,aString3:aString3},smalltalk.Class)})},
 args: ["aString", "aString2", "classVars", "pools", "aString3"],
@@ -1011,14 +1168,15 @@ referencedClasses: []
 smalltalk.Class);
 
 smalltalk.addMethod(
-"_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "subclass:instanceVariableNames:package:",
 category: 'class creation',
 fn: function (aString,aString2,aString3){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st($ClassBuilder())._new())._superclass_subclass_instanceVariableNames_package_(self,_st(aString)._asString(),aString2,aString3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclass:instanceVariableNames:package:",{aString:aString,aString2:aString2,aString3:aString3},smalltalk.Class)})},
 args: ["aString", "aString2", "aString3"],
@@ -1031,16 +1189,16 @@ smalltalk.Class);
 
 
 smalltalk.addClass('Metaclass', smalltalk.Behavior, [], 'Kernel-Classes');
-smalltalk.Metaclass.comment="Metaclass is the root of the class hierarchy.\x0a\x0aMetaclass instances are metaclasses, one for each real class.\x0aMetaclass instances have a single instance, which they hold onto, which is the class that they are the metaclass of."
+smalltalk.Metaclass.comment="I am the root of the class hierarchy.\x0a\x0aMy instances are metaclasses, one for each real class, and have a single instance, which they hold onto: the class that they are the metaclass of.";
 smalltalk.addMethod(
-"_asJavascript",
 smalltalk.method({
 selector: "asJavascript",
 category: 'converting',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st("smalltalk.").__comma(_st(_st(self)._instanceClass())._name())).__comma(".klass");
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st("smalltalk.".__comma(_st(self._instanceClass())._name())).__comma(".klass");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Metaclass)})},
 args: [],
@@ -1051,43 +1209,46 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_definition",
 smalltalk.method({
 selector: "definition",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$1=_st((smalltalk.String || String))._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {$2=stream;
-_st($2)._nextPutAll_(_st(self)._asString());
-_st($2)._nextPutAll_(" class ");
-$3=_st($2)._nextPutAll_("instanceVariableNames: '");
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+$2=stream;
+_st($2)._nextPutAll_(self._asString());
+$3=_st($2)._nextPutAll_(" instanceVariableNames: '");
 $3;
-_st(_st(self)._instanceVariableNames())._do_separatedBy_((function(each){
-return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(each);
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx1)})}),(function(){
-return smalltalk.withContext(function($ctx3) {return _st(stream)._nextPutAll_(" ");
-}, function($ctx3) {$ctx3.fillBlock({},$ctx1)})}));
+_st(self._instanceVariableNames())._do_separatedBy_((function(each){
+return smalltalk.withContext(function($ctx3) {
+return _st(stream)._nextPutAll_(each);
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(stream)._nextPutAll_(" ");
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2)})}));
 return _st(stream)._nextPutAll_("'");
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.Metaclass)})},
 args: [],
-source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: self asString;\x0a\x09\x09\x09nextPutAll: ' class ';\x0a\x09\x09\x09nextPutAll: 'instanceVariableNames: '''.\x0a\x09\x09self instanceVariableNames\x0a\x09\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09\x09stream nextPutAll: '''' ]",
+source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream\x0a\x09\x09\x09nextPutAll: self asString;\x0a\x09\x09\x09nextPutAll: ' instanceVariableNames: '''.\x0a\x09\x09self instanceVariableNames\x0a\x09\x09\x09do: [ :each | stream nextPutAll: each ]\x0a\x09\x09\x09separatedBy: [ stream nextPutAll: ' ' ].\x0a\x09\x09stream nextPutAll: '''' ]",
 messageSends: ["streamContents:", "nextPutAll:", "asString", "do:separatedBy:", "instanceVariableNames"],
 referencedClasses: ["String"]
 }),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_instanceClass",
 smalltalk.method({
 selector: "instanceClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return self.instanceClass;
+return smalltalk.withContext(function($ctx1) { 
+return self.instanceClass;
 return self}, function($ctx1) {$ctx1.fill(self,"instanceClass",{},smalltalk.Metaclass)})},
 args: [],
 source: "instanceClass\x0a\x09<return self.instanceClass>",
@@ -1097,13 +1258,14 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_instanceVariableNames_",
 smalltalk.method({
 selector: "instanceVariableNames:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._class_instanceVariableNames_(self,aCollection);
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($ClassBuilder())._new())._class_instanceVariableNames_(self,aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"instanceVariableNames:",{aCollection:aCollection},smalltalk.Metaclass)})},
 args: ["aCollection"],
 source: "instanceVariableNames: aCollection\x0a\x09ClassBuilder new\x0a\x09\x09class: self instanceVariableNames: aCollection",
@@ -1113,13 +1275,13 @@ referencedClasses: ["ClassBuilder"]
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_isMetaclass",
 smalltalk.method({
 selector: "isMetaclass",
 category: 'testing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { return true;
+return smalltalk.withContext(function($ctx1) { 
+return true;
 }, function($ctx1) {$ctx1.fill(self,"isMetaclass",{},smalltalk.Metaclass)})},
 args: [],
 source: "isMetaclass\x0a\x09^true",
@@ -1129,31 +1291,32 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_printString",
 smalltalk.method({
-selector: "printString",
+selector: "printOn:",
 category: 'printing',
-fn: function (){
+fn: function (aStream){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(_st(_st(self)._instanceClass())._name()).__comma(" class");
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Metaclass)})},
-args: [],
-source: "printString\x0a\x09^self instanceClass name, ' class'",
-messageSends: [",", "name", "instanceClass"],
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=aStream;
+_st($1)._nextPutAll_(_st(self._instanceClass())._name());
+$2=_st($1)._nextPutAll_(" class");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Metaclass)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream\x0a\x09\x09nextPutAll: self instanceClass name;\x0a\x09\x09nextPutAll: ' class'",
+messageSends: ["nextPutAll:", "name", "instanceClass"],
 referencedClasses: []
 }),
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_theMetaClass",
 smalltalk.method({
 selector: "theMetaClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theMetaClass",{},smalltalk.Metaclass)})},
@@ -1165,14 +1328,14 @@ referencedClasses: []
 smalltalk.Metaclass);
 
 smalltalk.addMethod(
-"_theNonMetaClass",
 smalltalk.method({
 selector: "theNonMetaClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._instanceClass();
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._instanceClass();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theNonMetaClass",{},smalltalk.Metaclass)})},
 args: [],
@@ -1185,45 +1348,47 @@ smalltalk.Metaclass);
 
 
 smalltalk.addClass('ClassBuilder', smalltalk.Object, [], 'Kernel-Classes');
-smalltalk.ClassBuilder.comment="ClassBuilder is responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using ClassBuilder directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`."
+smalltalk.ClassBuilder.comment="I am responsible for compiling new classes or modifying existing classes in the system.\x0a\x0aRather than using me directly to compile a class, use `Class >> subclass:instanceVariableNames:package:`.";
 smalltalk.addMethod(
-"_addSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "addSubclassOf:named:instanceVariableNames:package:",
 category: 'class definition',
-fn: function (aClass,aString,aCollection,packageName){
+fn: function (aClass,className,aCollection,packageName){
 var self=this;
 var theClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4;
-theClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4;
+theClass=_st(_st($Smalltalk())._current())._at_(className);
 $1=theClass;
 if(($receiver = $1) == nil || $receiver == undefined){
 $1;
 } else {
+_st(theClass)._package_(self._createPackageNamed_(packageName));
 $2=_st(_st(theClass)._superclass()).__eq_eq(aClass);
 if(! smalltalk.assert($2)){
-$3=_st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(aString,aClass,aCollection,packageName);
+$3=self._migrateClassNamed_superclass_instanceVariableNames_package_(className,aClass,aCollection,packageName);
 return $3;
 };
 };
-$4=_st(self)._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,aString,aCollection,packageName);
+$4=self._basicAddSubclassOf_named_instanceVariableNames_package_(aClass,className,aCollection,packageName);
 return $4;
-}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,aString:aString,aCollection:aCollection,packageName:packageName,theClass:theClass},smalltalk.ClassBuilder)})},
-args: ["aClass", "aString", "aCollection", "packageName"],
-source: "addSubclassOf: aClass named: aString instanceVariableNames: aCollection package: packageName\x0a\x09| theClass |\x0a\x09\x0a\x09theClass := Smalltalk current at: aString.\x0a\x09\x0a\x09theClass ifNotNil: [\x0a\x09\x09theClass superclass == aClass ifFalse: [\x0a\x09\x09\x09^ self\x0a\x09\x09\x09\x09migrateClassNamed: aString\x0a\x09\x09\x09\x09superclass: aClass\x0a\x09\x09\x09\x09instanceVariableNames: aCollection\x0a\x09\x09\x09\x09package: packageName ] ].\x0a\x0a\x09^ self\x0a\x09\x09basicAddSubclassOf: aClass\x0a\x09\x09named: aString\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName",
-messageSends: ["at:", "current", "ifNotNil:", "ifFalse:", "migrateClassNamed:superclass:instanceVariableNames:package:", "==", "superclass", "basicAddSubclassOf:named:instanceVariableNames:package:"],
+}, function($ctx1) {$ctx1.fill(self,"addSubclassOf:named:instanceVariableNames:package:",{aClass:aClass,className:className,aCollection:aCollection,packageName:packageName,theClass:theClass},smalltalk.ClassBuilder)})},
+args: ["aClass", "className", "aCollection", "packageName"],
+source: "addSubclassOf: aClass named: className instanceVariableNames: aCollection package: packageName\x0a\x09| theClass |\x0a\x09\x0a\x09theClass := Smalltalk current at: className.\x0a\x09\x0a\x09theClass ifNotNil: [\x0a\x09\x09theClass package: (self createPackageNamed: packageName).\x0a\x09\x09theClass superclass == aClass ifFalse: [\x0a\x09\x09\x09^ self\x0a\x09\x09\x09\x09migrateClassNamed: className\x0a\x09\x09\x09\x09superclass: aClass\x0a\x09\x09\x09\x09instanceVariableNames: aCollection\x0a\x09\x09\x09\x09package: packageName ] ].\x0a\x09\x09\x0a\x09\x09^ self\x0a\x09\x09\x09basicAddSubclassOf: aClass\x0a\x09\x09\x09named: className\x0a\x09\x09\x09instanceVariableNames: aCollection\x0a\x09\x09\x09package: packageName",
+messageSends: ["at:", "current", "ifNotNil:", "package:", "createPackageNamed:", "ifFalse:", "migrateClassNamed:superclass:instanceVariableNames:package:", "==", "superclass", "basicAddSubclassOf:named:instanceVariableNames:package:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicAddSubclassOf_named_instanceVariableNames_package_",
 smalltalk.method({
 selector: "basicAddSubclassOf:named:instanceVariableNames:package:",
 category: 'private',
 fn: function (aClass,aString,aCollection,packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		smalltalk.addClass(aString, aClass, aCollection, packageName);
 		return smalltalk[aString]
 	;
@@ -1236,13 +1401,13 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicClass_instanceVariableNames_",
 smalltalk.method({
 selector: "basicClass:instanceVariableNames:",
 category: 'private',
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self)._basicClass_instanceVariables_(aClass,_st(self)._instanceVariableNamesFor_(aString));
+return smalltalk.withContext(function($ctx1) { 
+self._basicClass_instanceVariables_(aClass,self._instanceVariableNamesFor_(aString));
 return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariableNames:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
 args: ["aClass", "aString"],
 source: "basicClass: aClass instanceVariableNames: aString\x0a\x09self basicClass: aClass instanceVariables: (self instanceVariableNamesFor: aString)",
@@ -1252,16 +1417,16 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicClass_instanceVariables_",
 smalltalk.method({
 selector: "basicClass:instanceVariables:",
 category: 'private',
 fn: function (aClass,aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
-_st(self)._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
+self._error_(_st(_st(aClass)._name()).__comma(" is not a metaclass"));
 };
 _st(aClass)._basicAt_put_("iVarNames",aCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"basicClass:instanceVariables:",{aClass:aClass,aCollection:aCollection},smalltalk.ClassBuilder)})},
@@ -1273,13 +1438,13 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicRemoveClass_",
 smalltalk.method({
 selector: "basicRemoveClass:",
 category: 'private',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.removeClass(aClass);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.removeClass(aClass);
 return self}, function($ctx1) {$ctx1.fill(self,"basicRemoveClass:",{aClass:aClass},smalltalk.ClassBuilder)})},
 args: ["aClass"],
 source: "basicRemoveClass: aClass\x0a\x09<smalltalk.removeClass(aClass)>",
@@ -1289,13 +1454,13 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicRenameClass_to_",
 smalltalk.method({
 selector: "basicRenameClass:to:",
 category: 'private',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		smalltalk[aString] = aClass;
 		delete smalltalk[aClass.className];
 		aClass.className = aString;
@@ -1309,13 +1474,13 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_basicSwapClassNames_with_",
 smalltalk.method({
 selector: "basicSwapClassNames:with:",
 category: 'private',
 fn: function (aClass,anotherClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		var tmp = aClass.className;
 		aClass.className = anotherClass.className;
 		anotherClass.className = tmp;
@@ -1329,64 +1494,75 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_class_instanceVariableNames_",
 smalltalk.method({
 selector: "class:instanceVariableNames:",
 category: 'class definition',
-fn: function (aClass,aString){
+fn: function (aClass,ivarNames){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(self)._basicClass_instanceVariableNames_(aClass,aString);
-_st(self)._setupClass_(aClass);
-$1=_st((smalltalk.ClassDefinitionChanged || ClassDefinitionChanged))._new();
+function $ClassDefinitionChanged(){return smalltalk.ClassDefinitionChanged||(typeof ClassDefinitionChanged=="undefined"?nil:ClassDefinitionChanged)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self._basicClass_instanceVariableNames_(aClass,ivarNames);
+self._setupClass_(aClass);
+$1=_st($ClassDefinitionChanged())._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"class:instanceVariableNames:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
-args: ["aClass", "aString"],
-source: "class: aClass instanceVariableNames: aString\x0a\x09self basicClass: aClass instanceVariableNames: aString.\x0a\x09self setupClass: aClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassDefinitionChanged new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"class:instanceVariableNames:",{aClass:aClass,ivarNames:ivarNames},smalltalk.ClassBuilder)})},
+args: ["aClass", "ivarNames"],
+source: "class: aClass instanceVariableNames: ivarNames\x0a\x09self basicClass: aClass instanceVariableNames: ivarNames.\x0a\x09self setupClass: aClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassDefinitionChanged new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
 messageSends: ["basicClass:instanceVariableNames:", "setupClass:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassDefinitionChanged", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_copyClass_named_",
 smalltalk.method({
 selector: "copyClass:named:",
 category: 'copying',
-fn: function (aClass,aString){
+fn: function (aClass,className){
 var self=this;
 var newClass;
-return smalltalk.withContext(function($ctx1) { var $1;
-newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),aString,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
-_st(self)._copyClass_to_(aClass,newClass);
-$1=newClass;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"copyClass:named:",{aClass:aClass,aString:aString,newClass:newClass},smalltalk.ClassBuilder)})},
-args: ["aClass", "aString"],
-source: "copyClass: aClass named: aString\x0a\x09| newClass |\x0a\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: aString\x0a\x09\x09instanceVariableNames: aClass instanceVariableNames\x0a\x09\x09package: aClass package name.\x0a\x0a\x09self copyClass: aClass to: newClass.\x0a\x09\x0a\x09^newClass",
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "copyClass:to:"],
-referencedClasses: []
+function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+newClass=self._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),className,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+self._copyClass_to_(aClass,newClass);
+$1=_st($ClassAdded())._new();
+_st($1)._theClass_(newClass);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+$3=newClass;
+return $3;
+}, function($ctx1) {$ctx1.fill(self,"copyClass:named:",{aClass:aClass,className:className,newClass:newClass},smalltalk.ClassBuilder)})},
+args: ["aClass", "className"],
+source: "copyClass: aClass named: className\x0a\x09| newClass |\x0a\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass superclass\x0a\x09\x09named: className\x0a\x09\x09instanceVariableNames: aClass instanceVariableNames\x0a\x09\x09package: aClass package name.\x0a\x0a\x09self copyClass: aClass to: newClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassAdded new\x0a\x09\x09\x09theClass: newClass;\x0a\x09\x09\x09yourself).\x0a\x09\x0a\x09^newClass",
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "instanceVariableNames", "name", "package", "copyClass:to:", "announce:", "theClass:", "new", "yourself", "current"],
+referencedClasses: ["ClassAdded", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_copyClass_to_",
 smalltalk.method({
 selector: "copyClass:to:",
 category: 'copying',
 fn: function (aClass,anotherClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(anotherClass)._comment_(_st(aClass)._comment());
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+_st(anotherClass)._comment_(_st(aClass)._comment());
 _st(_st(_st(aClass)._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),anotherClass,_st(each)._category());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($Compiler())._new())._install_forClass_category_(_st(each)._source(),anotherClass,_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._basicClass_instanceVariables_(_st(anotherClass)._class(),_st(_st(aClass)._class())._instanceVariableNames());
+self._basicClass_instanceVariables_(_st(anotherClass)._class(),_st(_st(aClass)._class())._instanceVariableNames());
 _st(_st(_st(_st(aClass)._class())._methodDictionary())._values())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._category());
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($Compiler())._new())._install_forClass_category_(_st(each)._source(),_st(anotherClass)._class(),_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._setupClass_(anotherClass);
+self._setupClass_(anotherClass);
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,anotherClass:anotherClass},smalltalk.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
 source: "copyClass: aClass to: anotherClass\x0a\x0a\x09anotherClass comment: aClass comment.\x0a\x0a\x09aClass methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass category: each category ].\x0a\x0a\x09self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.\x0a\x0a\x09aClass class methodDictionary values do: [ :each |\x0a\x09\x09Compiler new install: each source forClass: anotherClass class category: each category ].\x0a\x0a\x09self setupClass: anotherClass",
@@ -1396,16 +1572,39 @@ referencedClasses: ["Compiler"]
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_installMethod_forClass_category_",
+smalltalk.method({
+selector: "createPackageNamed:",
+category: 'private',
+fn: function (aString){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Package())._named_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($Smalltalk())._current())._createPackage_(aString);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"createPackageNamed:",{aString:aString},smalltalk.ClassBuilder)})},
+args: ["aString"],
+source: "createPackageNamed: aString\x0a\x09^ Package named: aString ifAbsent: [\x0a\x09\x09Smalltalk current createPackage: aString ]",
+messageSends: ["named:ifAbsent:", "createPackage:", "current"],
+referencedClasses: ["Smalltalk", "Package"]
+}),
+smalltalk.ClassBuilder);
+
+smalltalk.addMethod(
 smalltalk.method({
 selector: "installMethod:forClass:category:",
 category: 'method definition',
 fn: function (aCompiledMethod,aBehavior,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(aCompiledMethod)._category_(aString);
 _st(aBehavior)._addCompiledMethod_(aCompiledMethod);
-_st(self)._setupClass_(aBehavior);
+self._setupClass_(aBehavior);
 $1=aCompiledMethod;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"installMethod:forClass:category:",{aCompiledMethod:aCompiledMethod,aBehavior:aBehavior,aString:aString},smalltalk.ClassBuilder)})},
@@ -1417,15 +1616,16 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_instanceVariableNamesFor_",
 smalltalk.method({
 selector: "instanceVariableNamesFor:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=_st(_st(aString)._tokenize_(" "))._reject_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(each)._isEmpty();
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._isEmpty();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aString:aString},smalltalk.ClassBuilder)})},
@@ -1437,39 +1637,46 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_migrateClass_superclass_",
 smalltalk.method({
 selector: "migrateClass:superclass:",
 category: 'class migration',
 fn: function (aClass,anotherClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(console)._log_(_st(aClass)._name());
-_st(self)._migrateClassNamed_superclass_instanceVariableNames_package_(_st(aClass)._name(),anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
-return self}, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass},smalltalk.ClassBuilder)})},
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._migrateClassNamed_superclass_instanceVariableNames_package_(_st(aClass)._name(),anotherClass,_st(aClass)._instanceVariableNames(),_st(_st(aClass)._package())._name());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"migrateClass:superclass:",{aClass:aClass,anotherClass:anotherClass},smalltalk.ClassBuilder)})},
 args: ["aClass", "anotherClass"],
-source: "migrateClass: aClass superclass: anotherClass\x0a\x09console log: aClass name.\x0a\x09self\x0a\x09\x09migrateClassNamed: aClass name\x0a\x09\x09superclass: anotherClass\x0a\x09\x09instanceVariableNames: aClass instanceVariableNames\x0a\x09\x09package: aClass package name",
-messageSends: ["log:", "name", "migrateClassNamed:superclass:instanceVariableNames:package:", "instanceVariableNames", "package"],
+source: "migrateClass: aClass superclass: anotherClass\x0a\x09^ self\x0a\x09\x09migrateClassNamed: aClass name\x0a\x09\x09superclass: anotherClass\x0a\x09\x09instanceVariableNames: aClass instanceVariableNames\x0a\x09\x09package: aClass package name",
+messageSends: ["migrateClassNamed:superclass:instanceVariableNames:package:", "name", "instanceVariableNames", "package"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_migrateClassNamed_superclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "migrateClassNamed:superclass:instanceVariableNames:package:",
 category: 'class migration',
-fn: function (aString,aClass,aCollection,packageName){
+fn: function (className,aClass,aCollection,packageName){
 var self=this;
 var oldClass,newClass,tmp;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$5;
-tmp=_st("new*").__comma(aString);
-oldClass=_st(_st((smalltalk.Smalltalk || Smalltalk))._current())._at_(aString);
-newClass=_st(self)._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
-_st(self)._basicSwapClassNames_with_(oldClass,newClass);
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $ClassMigrated(){return smalltalk.ClassMigrated||(typeof ClassMigrated=="undefined"?nil:ClassMigrated)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7;
+tmp="new*".__comma(className);
+oldClass=_st(_st($Smalltalk())._current())._at_(className);
+newClass=self._addSubclassOf_named_instanceVariableNames_package_(aClass,tmp,aCollection,packageName);
+self._basicSwapClassNames_with_(oldClass,newClass);
 _st((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._copyClass_to_(oldClass,newClass);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_((smalltalk.Error || Error),(function(exception){
-return smalltalk.withContext(function($ctx2) {$1=self;
+return smalltalk.withContext(function($ctx2) {
+return self._copyClass_to_(oldClass,newClass);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(exception){
+return smalltalk.withContext(function($ctx2) {
+$1=self;
 _st($1)._basicSwapClassNames_with_(oldClass,newClass);
 $2=_st($1)._basicRemoveClass_(newClass);
 $2;
@@ -1477,29 +1684,35 @@ return _st(exception)._signal();
 }, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
 $3=self;
 _st($3)._rawRenameClass_to_(oldClass,tmp);
-$4=_st($3)._rawRenameClass_to_(newClass,aString);
-_st(_st(oldClass)._subclasses())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st(self)._migrateClass_superclass_(each,newClass);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
-_st(self)._basicRemoveClass_(oldClass);
-$5=newClass;
-return $5;
-}, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{aString:aString,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp},smalltalk.ClassBuilder)})},
-args: ["aString", "aClass", "aCollection", "packageName"],
-source: "migrateClassNamed: aString superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', aString.\x0a\x09oldClass := Smalltalk current at: aString.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: aString.\x0a\x0a\x09oldClass subclasses do: [ :each |\x0a\x09\x09self migrateClass: each superclass: newClass ].\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09^newClass",
-messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:", "rawRenameClass:to:", "do:", "migrateClass:superclass:", "subclasses"],
-referencedClasses: ["Smalltalk", "Error"]
+$4=_st($3)._rawRenameClass_to_(newClass,className);
+_st(_st(oldClass)._subclasses())._do_displayingProgress_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._migrateClass_superclass_(each,newClass);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}),_st("Recompiling ".__comma(_st(newClass)._name())).__comma("..."));
+self._basicRemoveClass_(oldClass);
+$5=_st($ClassMigrated())._new();
+_st($5)._theClass_(newClass);
+_st($5)._oldClass_(oldClass);
+$6=_st($5)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($6);
+$7=newClass;
+return $7;
+}, function($ctx1) {$ctx1.fill(self,"migrateClassNamed:superclass:instanceVariableNames:package:",{className:className,aClass:aClass,aCollection:aCollection,packageName:packageName,oldClass:oldClass,newClass:newClass,tmp:tmp},smalltalk.ClassBuilder)})},
+args: ["className", "aClass", "aCollection", "packageName"],
+source: "migrateClassNamed: className superclass: aClass instanceVariableNames: aCollection package: packageName\x0a\x09| oldClass newClass tmp |\x0a\x09\x0a\x09tmp := 'new*', className.\x0a\x09oldClass := Smalltalk current at: className.\x0a\x09\x0a\x09newClass := self\x0a\x09\x09addSubclassOf: aClass\x0a\x09\x09named: tmp\x0a\x09\x09instanceVariableNames: aCollection\x0a\x09\x09package: packageName.\x0a\x0a\x09self basicSwapClassNames: oldClass with: newClass.\x0a\x0a\x09[ self copyClass: oldClass to: newClass ]\x0a\x09\x09on: Error\x0a\x09\x09do: [ :exception |\x0a\x09\x09\x09self\x0a\x09\x09\x09\x09basicSwapClassNames: oldClass with: newClass;\x0a\x09\x09\x09\x09basicRemoveClass: newClass.\x0a\x09\x09\x09exception signal ].\x0a\x0a\x09self\x0a\x09\x09rawRenameClass: oldClass to: tmp;\x0a\x09\x09rawRenameClass: newClass to: className.\x0a\x0a\x09oldClass subclasses \x0a\x09\x09do: [ :each | self migrateClass: each superclass: newClass ]\x0a\x09\x09displayingProgress: 'Recompiling ', newClass name, '...'.\x0a\x0a\x09self basicRemoveClass: oldClass.\x0a\x09\x0a\x09SystemAnnouncer current announce: (ClassMigrated new\x0a\x09\x09theClass: newClass;\x0a\x09\x09oldClass: oldClass;\x0a\x09\x09yourself).\x0a\x09\x0a\x09^newClass",
+messageSends: [",", "at:", "current", "addSubclassOf:named:instanceVariableNames:package:", "basicSwapClassNames:with:", "on:do:", "basicRemoveClass:", "signal", "copyClass:to:", "rawRenameClass:to:", "do:displayingProgress:", "migrateClass:superclass:", "name", "subclasses", "announce:", "theClass:", "new", "oldClass:", "yourself"],
+referencedClasses: ["Smalltalk", "Error", "ClassMigrated", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_rawRenameClass_to_",
 smalltalk.method({
 selector: "rawRenameClass:to:",
 category: 'private',
 fn: function (aClass,aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+
 		smalltalk[aString] = aClass;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"rawRenameClass:to:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
@@ -1511,34 +1724,37 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_renameClass_to_",
 smalltalk.method({
 selector: "renameClass:to:",
 category: 'class migration',
-fn: function (aClass,aString){
+fn: function (aClass,className){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1,$2;
-_st(self)._basicRenameClass_to_(aClass,aString);
-$1=_st((smalltalk.ClassRenamed || ClassRenamed))._new();
+function $ClassRenamed(){return smalltalk.ClassRenamed||(typeof ClassRenamed=="undefined"?nil:ClassRenamed)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+self._basicRenameClass_to_(aClass,className);
+_st(aClass)._recompile();
+$1=_st($ClassRenamed())._new();
 _st($1)._theClass_(aClass);
 $2=_st($1)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
-args: ["aClass", "aString"],
-source: "renameClass: aClass to: aString\x0a\x09self basicRenameClass: aClass to: aString.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRenamed new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
-messageSends: ["basicRenameClass:to:", "announce:", "theClass:", "new", "yourself", "current"],
+_st(_st($SystemAnnouncer())._current())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,className:className},smalltalk.ClassBuilder)})},
+args: ["aClass", "className"],
+source: "renameClass: aClass to: className\x0a\x09self basicRenameClass: aClass to: className.\x0a\x09\x0a\x09\x22Recompile the class to fix potential issues with super sends\x22\x0a\x09aClass recompile.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRenamed new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
+messageSends: ["basicRenameClass:to:", "recompile", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassRenamed", "SystemAnnouncer"]
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_setupClass_",
 smalltalk.method({
 selector: "setupClass:",
 category: 'public',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.init(aClass);;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.init(aClass);;
 return self}, function($ctx1) {$ctx1.fill(self,"setupClass:",{aClass:aClass},smalltalk.ClassBuilder)})},
 args: ["aClass"],
 source: "setupClass: aClass\x0a\x09<smalltalk.init(aClass);>",
@@ -1548,53 +1764,55 @@ referencedClasses: []
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_superclass_subclass_",
 smalltalk.method({
 selector: "superclass:subclass:",
 category: 'class definition',
-fn: function (aClass,aString){
+fn: function (aClass,className){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
-$1=_st(self)._superclass_subclass_instanceVariableNames_package_(aClass,aString,"",nil);
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._superclass_subclass_instanceVariableNames_package_(aClass,className,"",nil);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"superclass:subclass:",{aClass:aClass,aString:aString},smalltalk.ClassBuilder)})},
-args: ["aClass", "aString"],
-source: "superclass: aClass subclass: aString\x0a\x09^self superclass: aClass subclass: aString instanceVariableNames: '' package: nil",
+}, function($ctx1) {$ctx1.fill(self,"superclass:subclass:",{aClass:aClass,className:className},smalltalk.ClassBuilder)})},
+args: ["aClass", "className"],
+source: "superclass: aClass subclass: className\x0a\x09^self superclass: aClass subclass: className instanceVariableNames: '' package: nil",
 messageSends: ["superclass:subclass:instanceVariableNames:package:"],
 referencedClasses: []
 }),
 smalltalk.ClassBuilder);
 
 smalltalk.addMethod(
-"_superclass_subclass_instanceVariableNames_package_",
 smalltalk.method({
 selector: "superclass:subclass:instanceVariableNames:package:",
 category: 'class definition',
-fn: function (aClass,aString,aString2,aString3){
+fn: function (aClass,className,ivarNames,packageName){
 var self=this;
 var newClass;
-return smalltalk.withContext(function($ctx1) { var $1,$2,$3,$4,$6,$5,$7,$8,$9;
+function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$6,$5,$7,$8,$9;
 $1=self;
 $2=aClass;
-$3=aString;
-$4=_st(self)._instanceVariableNamesFor_(aString2);
-$6=aString3;
+$3=className;
+$4=self._instanceVariableNamesFor_(ivarNames);
+$6=packageName;
 if(($receiver = $6) == nil || $receiver == undefined){
 $5="unclassified";
 } else {
 $5=$6;
 };
 newClass=_st($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$4,$5);
-_st(self)._setupClass_(newClass);
-$7=_st((smalltalk.ClassAdded || ClassAdded))._new();
+self._setupClass_(newClass);
+$7=_st($ClassAdded())._new();
 _st($7)._theClass_(newClass);
 $8=_st($7)._yourself();
-_st(_st((smalltalk.SystemAnnouncer || SystemAnnouncer))._current())._announce_($8);
+_st(_st($SystemAnnouncer())._current())._announce_($8);
 $9=newClass;
 return $9;
-}, function($ctx1) {$ctx1.fill(self,"superclass:subclass:instanceVariableNames:package:",{aClass:aClass,aString:aString,aString2:aString2,aString3:aString3,newClass:newClass},smalltalk.ClassBuilder)})},
-args: ["aClass", "aString", "aString2", "aString3"],
-source: "superclass: aClass subclass: aString instanceVariableNames: aString2 package: aString3\x0a\x09| newClass |\x0a\x09\x0a\x09newClass := self addSubclassOf: aClass\x0a\x09\x09named: aString instanceVariableNames: (self instanceVariableNamesFor: aString2)\x0a\x09\x09package: (aString3 ifNil: ['unclassified']).\x0a\x09self setupClass: newClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassAdded new\x0a\x09\x09\x09theClass: newClass;\x0a\x09\x09\x09yourself).\x0a\x09\x0a\x09^newClass",
+}, function($ctx1) {$ctx1.fill(self,"superclass:subclass:instanceVariableNames:package:",{aClass:aClass,className:className,ivarNames:ivarNames,packageName:packageName,newClass:newClass},smalltalk.ClassBuilder)})},
+args: ["aClass", "className", "ivarNames", "packageName"],
+source: "superclass: aClass subclass: className instanceVariableNames: ivarNames package: packageName\x0a\x09| newClass |\x0a\x09\x0a\x09newClass := self addSubclassOf: aClass\x0a\x09\x09named: className instanceVariableNames: (self instanceVariableNamesFor: ivarNames)\x0a\x09\x09package: (packageName ifNil: ['unclassified']).\x0a\x09self setupClass: newClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassAdded new\x0a\x09\x09\x09theClass: newClass;\x0a\x09\x09\x09yourself).\x0a\x09\x0a\x09^newClass",
 messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "instanceVariableNamesFor:", "ifNil:", "setupClass:", "announce:", "theClass:", "new", "yourself", "current"],
 referencedClasses: ["ClassAdded", "SystemAnnouncer"]
 }),
@@ -1603,15 +1821,15 @@ smalltalk.ClassBuilder);
 
 
 smalltalk.addClass('ClassCategoryReader', smalltalk.Object, ['class', 'category'], 'Kernel-Classes');
-smalltalk.ClassCategoryReader.comment="ClassCategoryReader represents a mechanism for retrieving class descriptions stored on a file."
+smalltalk.ClassCategoryReader.comment="I provide a mechanism for retrieving class descriptions stored on a file in the Smalltalk chunk format.";
 smalltalk.addMethod(
-"_class_category_",
 smalltalk.method({
 selector: "class:category:",
 category: 'accessing',
 fn: function (aClass,aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@class"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@class"]=aClass;
 self["@category"]=aString;
 return self}, function($ctx1) {$ctx1.fill(self,"class:category:",{aClass:aClass,aString:aString},smalltalk.ClassCategoryReader)})},
 args: ["aClass", "aString"],
@@ -1622,13 +1840,14 @@ referencedClasses: []
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_compileMethod_",
 smalltalk.method({
 selector: "compileMethod:",
 category: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(_st((smalltalk.Compiler || Compiler))._new())._install_forClass_category_(aString,self["@class"],self["@category"]);
+function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($Compiler())._new())._install_forClass_category_(aString,self["@class"],self["@category"]);
 return self}, function($ctx1) {$ctx1.fill(self,"compileMethod:",{aString:aString},smalltalk.ClassCategoryReader)})},
 args: ["aString"],
 source: "compileMethod: aString\x0a\x09Compiler new install: aString forClass: class category: category",
@@ -1638,13 +1857,13 @@ referencedClasses: ["Compiler"]
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ClassCategoryReader.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ClassCategoryReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",
@@ -1654,21 +1873,24 @@ referencedClasses: []
 smalltalk.ClassCategoryReader);
 
 smalltalk.addMethod(
-"_scanFrom_",
 smalltalk.method({
 selector: "scanFrom:",
 category: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
 var chunk;
-return smalltalk.withContext(function($ctx1) { _st((function(){
-return smalltalk.withContext(function($ctx2) {chunk=_st(aChunkParser)._nextChunk();
+function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+return smalltalk.withContext(function($ctx1) { 
+_st((function(){
+return smalltalk.withContext(function($ctx2) {
+chunk=_st(aChunkParser)._nextChunk();
 chunk;
 return _st(chunk)._isEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._whileFalse_((function(){
-return smalltalk.withContext(function($ctx2) {return _st(self)._compileMethod_(chunk);
+return smalltalk.withContext(function($ctx2) {
+return self._compileMethod_(chunk);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st(_st((smalltalk.ClassBuilder || ClassBuilder))._new())._setupClass_(self["@class"]);
+_st(_st($ClassBuilder())._new())._setupClass_(self["@class"]);
 return self}, function($ctx1) {$ctx1.fill(self,"scanFrom:",{aChunkParser:aChunkParser,chunk:chunk},smalltalk.ClassCategoryReader)})},
 args: ["aChunkParser"],
 source: "scanFrom: aChunkParser\x0a\x09| chunk |\x0a\x09[chunk := aChunkParser nextChunk.\x0a\x09chunk isEmpty] whileFalse: [\x0a\x09\x09self compileMethod: chunk].\x0a\x09ClassBuilder new setupClass: class",
@@ -1680,15 +1902,15 @@ smalltalk.ClassCategoryReader);
 
 
 smalltalk.addClass('ClassCommentReader', smalltalk.Object, ['class'], 'Kernel-Classes');
-smalltalk.ClassCommentReader.comment="ClassCommentReader represents a mechanism for retrieving class comments stored on a file.\x0aSee `ClassCategoryReader` too."
+smalltalk.ClassCommentReader.comment="I provide a mechanism for retrieving class comments stored on a file.\x0a\x0aSee also `ClassCategoryReader`.";
 smalltalk.addMethod(
-"_class_",
 smalltalk.method({
 selector: "class:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@class"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@class"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"class:",{aClass:aClass},smalltalk.ClassCommentReader)})},
 args: ["aClass"],
 source: "class: aClass\x0a\x09class := aClass",
@@ -1698,13 +1920,13 @@ referencedClasses: []
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_initialize",
 smalltalk.method({
 selector: "initialize",
 category: 'initialization',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { smalltalk.Object.fn.prototype._initialize.apply(_st(self), []);
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.ClassCommentReader.superclass.fn.prototype._initialize.apply(_st(self), []);
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ClassCommentReader)})},
 args: [],
 source: "initialize\x0a\x09super initialize.",
@@ -1714,18 +1936,18 @@ referencedClasses: []
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_scanFrom_",
 smalltalk.method({
 selector: "scanFrom:",
 category: 'fileIn',
 fn: function (aChunkParser){
 var self=this;
 var chunk;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 chunk=_st(aChunkParser)._nextChunk();
 $1=_st(chunk)._isEmpty();
 if(! smalltalk.assert($1)){
-_st(self)._setComment_(chunk);
+self._setComment_(chunk);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"scanFrom:",{aChunkParser:aChunkParser,chunk:chunk},smalltalk.ClassCommentReader)})},
 args: ["aChunkParser"],
@@ -1736,13 +1958,13 @@ referencedClasses: []
 smalltalk.ClassCommentReader);
 
 smalltalk.addMethod(
-"_setComment_",
 smalltalk.method({
 selector: "setComment:",
 category: 'private',
 fn: function (aString){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(self["@class"])._comment_(aString);
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@class"])._comment_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"setComment:",{aString:aString},smalltalk.ClassCommentReader)})},
 args: ["aString"],
 source: "setComment: aString\x0a\x09class comment: aString",
@@ -1754,19 +1976,22 @@ smalltalk.ClassCommentReader);
 
 
 smalltalk.addClass('ClassSorterNode', smalltalk.Object, ['theClass', 'level', 'nodes'], 'Kernel-Classes');
+smalltalk.ClassSorterNode.comment="I provide an algorithm for sorting classes alphabetically.\x0a\x0aSee [Issue #143](https://github.com/amber-smalltalk/amber/issues/143) on GitHub.";
 smalltalk.addMethod(
-"_getNodesFrom_",
 smalltalk.method({
 selector: "getNodesFrom:",
 category: 'accessing',
 fn: function (aCollection){
 var self=this;
 var children,others;
-return smalltalk.withContext(function($ctx1) { var $1;
+function $ClassSorterNode(){return smalltalk.ClassSorterNode||(typeof ClassSorterNode=="undefined"?nil:ClassSorterNode)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 children=[];
 others=[];
 _st(aCollection)._do_((function(each){
-return smalltalk.withContext(function($ctx2) {$1=_st(_st(each)._superclass()).__eq(_st(self)._theClass());
+return smalltalk.withContext(function($ctx2) {
+$1=_st(_st(each)._superclass()).__eq(self._theClass());
 if(smalltalk.assert($1)){
 return _st(children)._add_(each);
 } else {
@@ -1774,7 +1999,8 @@ return _st(others)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 self["@nodes"]=_st(children)._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {return _st((smalltalk.ClassSorterNode || ClassSorterNode))._on_classes_level_(each,others,_st(_st(self)._level()).__plus((1)));
+return smalltalk.withContext(function($ctx2) {
+return _st($ClassSorterNode())._on_classes_level_(each,others,_st(self._level()).__plus((1)));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"getNodesFrom:",{aCollection:aCollection,children:children,others:others},smalltalk.ClassSorterNode)})},
 args: ["aCollection"],
@@ -1785,13 +2011,13 @@ referencedClasses: ["ClassSorterNode"]
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_level",
 smalltalk.method({
 selector: "level",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@level"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"level",{},smalltalk.ClassSorterNode)})},
@@ -1803,13 +2029,13 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_level_",
 smalltalk.method({
 selector: "level:",
 category: 'accessing',
 fn: function (anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@level"]=anInteger;
+return smalltalk.withContext(function($ctx1) { 
+self["@level"]=anInteger;
 return self}, function($ctx1) {$ctx1.fill(self,"level:",{anInteger:anInteger},smalltalk.ClassSorterNode)})},
 args: ["anInteger"],
 source: "level: anInteger\x0a\x09level := anInteger",
@@ -1819,13 +2045,13 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_nodes",
 smalltalk.method({
 selector: "nodes",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@nodes"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.ClassSorterNode)})},
@@ -1837,13 +2063,13 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_theClass",
 smalltalk.method({
 selector: "theClass",
 category: 'accessing',
 fn: function (){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $1;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
 $1=self["@theClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.ClassSorterNode)})},
@@ -1855,13 +2081,13 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_theClass_",
 smalltalk.method({
 selector: "theClass:",
 category: 'accessing',
 fn: function (aClass){
 var self=this;
-return smalltalk.withContext(function($ctx1) { self["@theClass"]=aClass;
+return smalltalk.withContext(function($ctx1) { 
+self["@theClass"]=aClass;
 return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.ClassSorterNode)})},
 args: ["aClass"],
 source: "theClass: aClass\x0a\x09theClass := aClass",
@@ -1871,17 +2097,19 @@ referencedClasses: []
 smalltalk.ClassSorterNode);
 
 smalltalk.addMethod(
-"_traverseClassesWith_",
 smalltalk.method({
 selector: "traverseClassesWith:",
 category: 'visiting',
 fn: function (aCollection){
 var self=this;
-return smalltalk.withContext(function($ctx1) { _st(aCollection)._add_(_st(self)._theClass());
-_st(_st(_st(self)._nodes())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {return _st(_st(_st(a)._theClass())._name()).__lt_eq(_st(_st(b)._theClass())._name());
+return smalltalk.withContext(function($ctx1) { 
+_st(aCollection)._add_(self._theClass());
+_st(_st(self._nodes())._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(a)._theClass())._name()).__lt_eq(_st(_st(b)._theClass())._name());
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})})))._do_((function(aNode){
-return smalltalk.withContext(function($ctx2) {return _st(aNode)._traverseClassesWith_(aCollection);
+return smalltalk.withContext(function($ctx2) {
+return _st(aNode)._traverseClassesWith_(aCollection);
 }, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"traverseClassesWith:",{aCollection:aCollection},smalltalk.ClassSorterNode)})},
 args: ["aCollection"],
@@ -1893,14 +2121,14 @@ smalltalk.ClassSorterNode);
 
 
 smalltalk.addMethod(
-"_on_classes_level_",
 smalltalk.method({
 selector: "on:classes:level:",
 category: 'instance creation',
 fn: function (aClass,aCollection,anInteger){
 var self=this;
-return smalltalk.withContext(function($ctx1) { var $2,$3,$1;
-$2=_st(self)._new();
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
 _st($2)._theClass_(aClass);
 _st($2)._level_(anInteger);
 _st($2)._getNodesFrom_(aCollection);

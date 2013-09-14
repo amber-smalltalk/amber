@@ -1,0 +1,83 @@
+0.11.0:
+
+* AnnouncementSubscription use #valuable: instead of #block: (deprecated)
+* AbstractCodeGenerator inherits from Object, not NodeVisitor
+* Object>>printString
+* replace >>printString with >>printOn:
+* replace >>storeString with >>printString
+* PackageLoader is now PackageHandler (>>commit: >>setupPackagenamed:prefix: >>ajaxPutAt:data:
+* Package>>fetch: is now Package>>load:
+* Package>>fetch:prefix: is now Package>>load:prefix:
+* Queue>>front replaced by Queue>>next
+* Queue>>frontIfAbsent: replaced by Queue>>nextIfAbsent:
+* Queue>>back: replaced by Queue>>nextPut:
+* smalltalk.addMethod() does not use explicit JS selector
+* JSObjectProxy>>canForwardMessage: replaced by use of JSObjectProxy>>lookupProperty: with asJavaScriptSelector
+* JSObjectProxy>>forwardMessage: replaced by explicit JSObjectProxy>>forwardMessage:withArguments:
+* String>>asJavaScriptSelector moved to Kernel-Objects package
+
++ Object>>asString
++ Object>>putOn:
++ String>>isVowel
++ Collection>>putOn:
++ CharacterArray>>putOn:
++ Stream>><<
++ Stream>>write
++ SequenceableCollection>>newStream
++ SequenceableCollection>>readStream
++ SequenceableCollection>>stream
++ SequenceableCollection>>streamClass
++ SequenceableCollection>>writeStream
++ Collection>>isImmutable
++ Stream>>nextPutString:
++ StringStream>>nextPutString:
++ JSStream>>nextPutClassRefFunction:
++ String>>crlfSanitized
++ inlined Block now also responds to >>value:
++ Parser: split literal into runtimeLiteral and parseTimeLiteral
++ Parser: write #(4 #(5 6 #()) 7) as #(4 (5 6 ()) 7)
++ Parser: write #(#on:do: #Object) as #(on:do: Object)
++ Parser: Symbols for binarie selectores
++ Package>>commit
++ AIContext>>initializeLocals
++ ASTInterpreter>>withBlockContext:
++ smalltalk.allSelectors()
++ Object>>isCompiledMethod
++ Object>>isPackage
++ Object>>isBehavior
++ ClassMoved Announcemen class
++ Behavior>>includesBehavior:
++ Environment>>classes
++ Environment>>allSelectors
++ Environment>>removeProtocol:
++ Environment>>renameProtocol:to:in:
++ CompiledMethod>>protocol:
++ Smalltalk>>globalJsVariables
++ Smalltalk>>addGlobalJsVariable:
++ Smalltalk>>deleteGlobalJsVariable:
+
+
+- Object>>storeOn:
+- Object>>log:block:
+- Object>>printNl
+- Compiler-IR.st >>javascriptSelector
+- Compiler-IR.st >>nextPutVar:
+- Kernel-Collections.st >>asSuperSelector
+- Collection>>readStream
+- Collection>>stream
+- Collection>>streamClass
+- Collection>>writeStream
+- Symbol class (replaced with String)
+- IRInlinedNonLocalReturn class
+- IRInlinedSend>>nonLocalReturnInliner
+- IRNonLocalReturnInliner class
+- Package>>dependencies
+- Package>>dependencies:
+- Package>>properties
+- Package>>jsProperties
+- Package>>jsProperties:
+- Package>>propertiesAsJSON
+- Package>>propertyAt:
+- Package>>propertyAt:ifAbsent:
+- Package>>propertyAt:put:
+- Browser>>ajaxPutAt:data:
