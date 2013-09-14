@@ -2,6 +2,22 @@ Smalltalk current createPackage: 'Canvas'!
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Canvas'!
+!HTMLCanvas commentStamp!
+I am a canvas for building HTML.
+
+I provide the `#tag:` method to create a `TagBrush` (wrapping a DOM element) and convenience methods in the `tags` protocol.
+
+## API
+
+My instances are used as the argument of the `#renderOn:` method of `Widget` objects.
+
+The `#with:` method is used to compose HTML, nesting tags. `#with:` can take a `TagBrush`, a `String`, a `BlockClosure` or a `Widget` as argument.
+
+## Usage example:
+
+    aCanvas a 
+        with: [ aCanvas span with: 'click me' ];
+        onClick: [ window alert: 'clicked!!' ]!
 
 !HTMLCanvas methodsFor: 'accessing'!
 
@@ -520,11 +536,11 @@ Object subclass: #HTMLSnippet
 	instanceVariableNames: 'snippets'
 	package: 'Canvas'!
 !HTMLSnippet commentStamp!
-HTMLSnippet instance is the registry of html snippets.
-HTMLSnippet current is the public singleton instance.
+My sole instance is the registry of html snippets.
+`HTMLSnippet current` is the public singleton instance.
 
-At the beginning, it scans the document for any html elements
-with 'data-snippet="foo"' attribute and takes them off the document,
+On startup, it scans the document for any html elements
+with `'data-snippet="foo"'` attribute and takes them off the document,
 remembering them in the store under the specified name.
 It also install method #foo into HTMLCanvas dynamically.
 
@@ -532,30 +548,30 @@ Every html snippet should mark a 'caret', a place where contents
 can be inserted, by 'data-snippet="*"' (a special name for caret).
 For example:
 
-<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>
+`<li data-snippet='menuelement' class='...'><a data-snippet='*'></a></li>`
 
 defines a list element with a link inside; the link itself is marked as a caret.
 
 You can later issue
 
-html menuelement href: '/foo'; with: 'A foo'
+`html menuelement href: '/foo'; with: 'A foo'`
 
 to insert the whole snippet and directly manipulate the caret, so it renders:
 
-<li class='...'><a href='/foo'>A foo</a></li>
+`<li class='...'><a href='/foo'>A foo</a></li>`
 
 For a self-careting tags (not very useful, but you do not need to fill class etc.
 you can use
 
-<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>
+`<div class='lots of classes' attr1='one' attr2='two' data-snippet='*bar'></div>`
 
 and in code later do:
 
-html bar with: [ xxx ]
+`html bar with: [ xxx ]`
 
 to render
 
-<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>!
+`<div class='lots of classes' attr1='one' attr2='two'>...added by xxx...</div>`!
 
 !HTMLSnippet methodsFor: 'accessing'!
 
@@ -650,6 +666,40 @@ new
 Object subclass: #TagBrush
 	instanceVariableNames: 'canvas element'
 	package: 'Canvas'!
+!TagBrush commentStamp!
+I am a brush for building a single DOM element (which I hold onto).
+
+All tags but `<style>` are instances of me (see the `StyleBrush` class).
+
+## API
+
+1. Nesting
+
+    Use `#with:` to nest tags. `#with:` can take aString, `TagBrush` instance, a `Widget` or block closure as parameter.
+
+    Example: `aTag with: aString with: aCanvas div`
+
+2. Events
+
+    The `events` protocol contains all methods related to events (delegating event handling to jQuery).
+
+    Example: `aTag onClick: [ window alert: 'clicked' ]`
+
+3. Attributes
+
+    The `attribute` protocol contains methods for attribute manipulation (delegating to jQuery too).
+
+    Example: `aTag at: 'value' put: 'hello world'`
+
+4. Raw access and jQuery
+
+    The `#element` method can be used to access to JavaScript DOM element object.
+
+    Example: `aTag element cssStyle`
+
+    Use `#asJQuery` to access to the receiver converted into a jQuery object.
+
+    Example: `aTag asJQuery css: 'color' value: 'red'`!
 
 !TagBrush methodsFor: 'accessing'!
 
@@ -966,9 +1016,11 @@ TagBrush subclass: #StyleTag
 	instanceVariableNames: 'canvas element'
 	package: 'Canvas'!
 !StyleTag commentStamp!
-I'm a <style> tag use to inline CSS or load a stylesheet.
+I'm a `<style>` tag use to inline CSS or load a stylesheet.
 
-For inlining handle IE compatibility problems.!
+## Motivation
+
+The need for a specific class comes from Internet Explorer compatibility issues.!
 
 !StyleTag methodsFor: 'adding'!
 
@@ -989,6 +1041,18 @@ canvas: aCanvas
 Object subclass: #Widget
 	instanceVariableNames: ''
 	package: 'Canvas'!
+!Widget commentStamp!
+I am a presenter building HTML. Subclasses are typically reusable components.
+
+## API
+
+Use `#renderContentOn:` to build HTML. (See `HTMLCanvas` and `TagBrush` classes for more about building HTML).
+
+To add a widget to the page, the convenience method `#appendToJQuery:` is very useful.
+
+Exemple: 
+
+    Counter new appendToJQuery: 'body' asJQuery!
 
 !Widget methodsFor: 'adding'!
 
@@ -1004,6 +1068,12 @@ appendToJQuery: aJQuery
 
 renderOn: html
 	self
+! !
+
+!Widget class methodsFor: 'helios'!
+
+heliosClass
+	^ 'widget'
 ! !
 
 !Object methodsFor: '*Canvas'!

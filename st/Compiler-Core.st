@@ -1,4 +1,87 @@
 Smalltalk current createPackage: 'Compiler-Core'!
+Object subclass: #AbstractCodeGenerator
+	instanceVariableNames: 'currentClass source'
+	package: 'Compiler-Core'!
+!AbstractCodeGenerator commentStamp!
+I am the abstract super class of all code generators and provide their common API.!
+
+!AbstractCodeGenerator methodsFor: 'accessing'!
+
+classNameFor: aClass
+	^aClass isMetaclass
+		ifTrue: [aClass instanceClass name, '.klass']
+		ifFalse: [
+		aClass isNil
+			ifTrue: ['nil']
+			ifFalse: [aClass name]]
+!
+
+currentClass
+	^currentClass
+!
+
+currentClass: aClass
+	currentClass := aClass
+!
+
+pseudoVariables
+	^ Smalltalk current pseudoVariableNames
+!
+
+safeVariableNameFor: aString
+	^(Smalltalk current reservedWords includes: aString)
+		ifTrue: [aString, '_']
+		ifFalse: [aString]
+!
+
+source
+	^source ifNil: ['']
+!
+
+source: aString
+	source := aString
+! !
+
+!AbstractCodeGenerator methodsFor: 'compiling'!
+
+compileNode: aNode
+	self subclassResponsibility
+! !
+
+AbstractCodeGenerator subclass: #CodeGenerator
+	instanceVariableNames: ''
+	package: 'Compiler-Core'!
+!CodeGenerator commentStamp!
+I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.
+See `InliningCodeGenerator` for an optimized JavaScript code generation.!
+
+!CodeGenerator methodsFor: 'compiling'!
+
+compileNode: aNode
+	| ir stream |
+	self semanticAnalyzer visit: aNode.
+	ir := self translator visit: aNode.
+	^ self irTranslator
+		currentClass: self currentClass;
+		visit: ir;
+		contents
+!
+
+irTranslator
+	^ IRJSTranslator new
+!
+
+semanticAnalyzer
+	^ SemanticAnalyzer on: self currentClass
+!
+
+translator
+	^ IRASTTranslator new
+		source: self source;
+		theClass: self currentClass;
+		yourself
+! !
+
 Object subclass: #Compiler
 	instanceVariableNames: 'currentClass source unknownVariables codeGeneratorClass'
 	package: 'Compiler-Core'!
@@ -113,17 +196,17 @@ parseExpression: aString
 !
 
 recompile: aClass
-	aClass methodDictionary do: [:each |
-		console log: aClass name, ' >> ', each selector.
-		self install: each source forClass: aClass category: each category].
+	aClass methodDictionary values
+		do: [ :each | self install: each source forClass: aClass category: each category ]
+		displayingProgress: 'Recompiling ', aClass name.
 	"self setupClass: aClass."
-	aClass isMetaclass ifFalse: [self recompile: aClass class]
+	aClass isMetaclass ifFalse: [ self recompile: aClass class ]
 !
 
 recompileAll
-	Smalltalk current classes do: [:each |
-		Transcript show: each; cr.
-		[self recompile: each] valueWithTimeout: 100]
+	Smalltalk current classes 
+		do: [:each | self recompile: each ]
+		displayingProgress: 'Compiling all classes...'
 ! !
 
 !Compiler class methodsFor: 'compiling'!
@@ -217,87 +300,5 @@ visitValueNode: aNode
 
 visitVariableNode: aNode
 	^ self visitNode: aNode
-! !
-
-NodeVisitor subclass: #AbstractCodeGenerator
-	instanceVariableNames: 'currentClass source'
-	package: 'Compiler-Core'!
-!AbstractCodeGenerator commentStamp!
-I am the abstract super class of all code generators and provide their common API.!
-
-!AbstractCodeGenerator methodsFor: 'accessing'!
-
-classNameFor: aClass
-	^aClass isMetaclass
-		ifTrue: [aClass instanceClass name, '.klass']
-		ifFalse: [
-		aClass isNil
-			ifTrue: ['nil']
-			ifFalse: [aClass name]]
-!
-
-currentClass
-	^currentClass
-!
-
-currentClass: aClass
-	currentClass := aClass
-!
-
-pseudoVariables
-	^#('self' 'super' 'true' 'false' 'nil' 'thisContext')
-!
-
-safeVariableNameFor: aString
-	^(Smalltalk current reservedWords includes: aString)
-		ifTrue: [aString, '_']
-		ifFalse: [aString]
-!
-
-source
-	^source ifNil: ['']
-!
-
-source: aString
-	source := aString
-! !
-
-!AbstractCodeGenerator methodsFor: 'compiling'!
-
-compileNode: aNode
-	self subclassResponsibility
-! !
-
-AbstractCodeGenerator subclass: #CodeGenerator
-	instanceVariableNames: ''
-	package: 'Compiler-Core'!
-!CodeGenerator commentStamp!
-I am a basic code generator. I generate a valid JavaScript output, but no not perform any inlining.
-See `InliningCodeGenerator` for an optimized JavaScript code generation.!
-
-!CodeGenerator methodsFor: 'compiling'!
-
-compileNode: aNode
-	| ir stream |
-	self semanticAnalyzer visit: aNode.
-	ir := self translator visit: aNode.
-	^ self irTranslator
-		visit: ir;
-		contents
-!
-
-irTranslator
-	^ IRJSTranslator new
-!
-
-semanticAnalyzer
-	^ SemanticAnalyzer on: self currentClass
-!
-
-translator
-	^ IRASTTranslator new
-		source: self source;
-		theClass: self currentClass;
-		yourself
 ! !
 

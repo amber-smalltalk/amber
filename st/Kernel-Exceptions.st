@@ -36,6 +36,12 @@ initialize
 
 !Error methodsFor: 'signaling'!
 
+resignal
+	"Resignal the receiver without changing its exception context"
+	
+	<throw(self)>
+!
+
 signal
 	<self.context = smalltalk.getThisContext(); self.smalltalkError = true; throw(self)>
 !
@@ -49,6 +55,12 @@ signal: aString
 
 isSmalltalkError
 	<return self.smalltalkError === true>
+! !
+
+!Error class methodsFor: 'helios'!
+
+heliosClass
+	^ 'exception'
 ! !
 
 !Error class methodsFor: 'instance creation'!
@@ -153,10 +165,10 @@ Object subclass: #ErrorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Exceptions'!
 !ErrorHandler commentStamp!
-ErrorHandler is used to manage Smalltalk errors.
+I am used to manage Smalltalk errors.
 See `boot.js` `handleError()` function.
 
-Subclasses of `ErrorHandler` can register themselves as the current handler with
+Subclasses can register themselves as the current handler with
 `ErrorHandler class >> register`.
 
 Subclasses may override `#handleError:` to perform an action on the thrown exception.
@@ -178,7 +190,7 @@ log: aString
 logContext: aContext
 	aContext home ifNotNil: [
 		self logContext: aContext home].
-	self log: aContext receiver asString, '>>', aContext selector asString
+	self log: aContext asString
 !
 
 logError: anError

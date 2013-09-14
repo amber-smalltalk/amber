@@ -53,24 +53,6 @@ accept: aVisitor
 	^ aVisitor visitIRInlinedReturn: self
 ! !
 
-IRInlinedReturn subclass: #IRInlinedNonLocalReturn
-	instanceVariableNames: ''
-	package: 'Compiler-Inlining'!
-!IRInlinedNonLocalReturn commentStamp!
-I represent an inlined non local return instruction.!
-
-!IRInlinedNonLocalReturn methodsFor: 'testing'!
-
-isInlined
-	^ true
-! !
-
-!IRInlinedNonLocalReturn methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitIRInlinedNonLocalReturn: self
-! !
-
 IRSend subclass: #IRInlinedSend
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
@@ -92,6 +74,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfFalse
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfFalse commentStamp!
+I represent an inlined `#ifFalse:` message send instruction.!
 
 !IRInlinedIfFalse methodsFor: 'visiting'!
 
@@ -102,6 +86,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfNilIfNotNil
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfNilIfNotNil commentStamp!
+I represent an inlined `#ifNil:ifNotNil:` message send instruction.!
 
 !IRInlinedIfNilIfNotNil methodsFor: 'visiting'!
 
@@ -112,6 +98,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfTrue
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfTrue commentStamp!
+I represent an inlined `#ifTrue:` message send instruction.!
 
 !IRInlinedIfTrue methodsFor: 'visiting'!
 
@@ -122,6 +110,8 @@ accept: aVisitor
 IRInlinedSend subclass: #IRInlinedIfTrueIfFalse
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
+!IRInlinedIfTrueIfFalse commentStamp!
+I represent an inlined `#ifTrue:ifFalse:` message send instruction.!
 
 !IRInlinedIfTrueIfFalse methodsFor: 'visiting'!
 
@@ -159,12 +149,6 @@ Message selectors that can be inlined are answered by `IRSendInliner >> #inlined
 
 assignmentInliner
 	^ IRAssignmentInliner new
-		translator: self;
-		yourself
-!
-
-nonLocalReturnInliner
-	^ IRNonLocalReturnInliner new
 		translator: self;
 		yourself
 !
@@ -225,9 +209,7 @@ visitIRAssignment: anIRAssignment
 !
 
 visitIRNonLocalReturn: anIRNonLocalReturn
-	^ (self shouldInlineReturn: anIRNonLocalReturn)
-		ifTrue: [ self nonLocalReturnInliner inlineReturn: anIRNonLocalReturn ]
-		ifFalse: [ self transformNonLocalReturn: anIRNonLocalReturn ]
+	^ self transformNonLocalReturn: anIRNonLocalReturn
 !
 
 visitIRReturn: anIRReturn
@@ -255,6 +237,8 @@ visitIRInlinedAssignment: anIRInlinedAssignment
 !
 
 visitIRInlinedClosure: anIRInlinedClosure
+	self stream nextPutVars: (anIRInlinedClosure tempDeclarations collect: [ :each |
+		each name asVariableName ]).
 	anIRInlinedClosure instructions do: [ :each |
 		self visit: each ]
 !
@@ -415,12 +399,21 @@ inlineClosure: anIRClosure
 	inlinedClosure scope: anIRClosure scope.
 
 	"Add the possible temp declarations"
-	anIRClosure instructions do: [ :each |
-		each isSequence ifFalse: [
-			inlinedClosure add: each ]].
+	anIRClosure tempDeclarations do: [ :each |
+			inlinedClosure add: each ].
 
 	"Add a block sequence"
 	sequence := self inlinedSequence.
+
+	"Map the closure arguments to the receiver of the message send"
+	anIRClosure arguments do: [ :each |
+		inlinedClosure add: (IRTempDeclaration new name: each; yourself).
+		sequence add: (IRAssignment new
+			add: (IRVariable new variable: (AliasVar new scope: inlinedClosure scope; name: each; yourself));
+			add: (IRVariable new variable: (AliasVar new scope: inlinedClosure scope; name: '$receiver'; yourself));
+			yourself) ].
+			
+	"To ensure the correct order of the closure instructions: first the temps then the sequence"
 	inlinedClosure add: sequence.
 
 	"Get all the statements"
@@ -465,14 +458,10 @@ inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
 	| inlinedClosure1 inlinedClosure2 |
 
 	anIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
-	anIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
-
 	anotherIRInstruction isClosure ifFalse: [ self inliningError: 'Message argument should be a block' ].
-	anotherIRInstruction arguments size = 0 ifFalse: [ self inliningError: 'Inlined block should have zero argument' ].
 
 	inlinedClosure1 := self translator visit: (self inlineClosure: anIRInstruction).
 	inlinedClosure2 := self translator visit: (self inlineClosure: anotherIRInstruction).
-
 
 	inlinedSend
 		add: self send instructions first;
@@ -486,7 +475,7 @@ inlinedSend: inlinedSend with: anIRInstruction with: anotherIRInstruction
 !IRSendInliner class methodsFor: 'accessing'!
 
 inlinedSelectors
-	^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:' 'ifNotNil:' 'ifNil:ifNotNil:' 'ifNotNil:ifNil')
+	^ #('ifTrue:' 'ifFalse:' 'ifTrue:ifFalse:' 'ifFalse:ifTrue:' 'ifNil:' 'ifNotNil:' 'ifNil:ifNotNil:' 'ifNotNil:ifNil:')
 !
 
 shouldInline: anIRInstruction
@@ -553,34 +542,6 @@ inlineClosure: anIRClosure
 	^ inlinedClosure
 ! !
 
-IRSendInliner subclass: #IRNonLocalReturnInliner
-	instanceVariableNames: ''
-	package: 'Compiler-Inlining'!
-
-!IRNonLocalReturnInliner methodsFor: 'factory'!
-
-inlinedReturn
-	^ IRInlinedNonLocalReturn new
-! !
-
-!IRNonLocalReturnInliner methodsFor: 'inlining'!
-
-inlineClosure: anIRClosure
-	"| inlinedClosure statements |
-
-	inlinedClosure := super inlineClosure: anIRClosure.
-	statements := inlinedClosure instructions last instructions.
-	
-	statements ifNotEmpty: [
-		statements last replaceWith: (IRNonLocalReturn new
-			add: statements last copy;
-			yourself) ].
-
-	^ inlinedClosure"
-
-	^ super inlineCLosure: anIRClosure
-! !
-
 IRSendInliner subclass: #IRReturnInliner
 	instanceVariableNames: ''
 	package: 'Compiler-Inlining'!
@@ -636,6 +597,7 @@ compileNode: aNode
 	self inliner visit: ir.
 
 	^ self irTranslator
+		currentClass: self currentClass;
 		visit: ir;
 		contents
 !

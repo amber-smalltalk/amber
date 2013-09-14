@@ -11,7 +11,7 @@ amber = (function() {
 
 	var scripts = document.getElementsByTagName("script");
 	var src     = scripts[ scripts.length - 1 ].src;
-	var home    = src.split("/").slice(0, -2).join("/") + "/";
+	var home    = resolveViaDOM(src).replace(/[^\/]+\/[^\/]+$/, "");
 
 	var debug;
 	var deploy;
@@ -21,6 +21,12 @@ amber = (function() {
 	var loadJS;
 	var nocache = '';
 
+	function resolveViaDOM(url) {
+		var a = document.createElement("a");
+		a.href = url;
+		return a.href;
+	}
+	
 	that.load = function(obj) {
 		spec = obj || {};
 
@@ -32,7 +38,7 @@ amber = (function() {
 		// When debug is turned on, logs are written to the console,
 		// and the user will be prompted before they leave the page.
 		if (debug) {
-			window.onbeforeunload = function(){ return 'You will loose all code that you have not committed'; }
+			window.onbeforeunload = function(){ return 'You will loose all code that you have not committed'; };
 		}
 
 		// Allow loading default Amber files from a different location
@@ -146,7 +152,7 @@ amber = (function() {
 	}
 
 	function buildJSURL(name, prefix, urlHome) {
-		prefix = prefix || '';
+		prefix = prefix ? prefix + '/' : '';
 		urlHome = urlHome || home;
 
 		var parts = name.match(/^(.*\/)([^/]*)$/);
@@ -159,7 +165,7 @@ amber = (function() {
 			name = name + nocache;
 		}
 
-		return urlHome + prefix + '/' + name;
+		return urlHome + prefix + name;
 	}
 
 	function loadCSS(name, prefix) {
@@ -179,11 +185,11 @@ amber = (function() {
 
 	function loadDependencies() {
 		if (typeof jQuery == 'undefined') {
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-1.8.2.min.js'));
+			addJSToLoad('js/lib/jQuery/jquery-1.8.2.min.js');
 		}
 
-		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {      
-			writeScriptTag(buildJSURL('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js'));
+		if ((typeof jQuery == 'undefined') || (typeof jQuery.ui == 'undefined')) {
+			addJSToLoad('js/lib/jQuery/jquery-ui-1.8.16.custom.min.js');
 		}
 	}
 
@@ -191,20 +197,23 @@ amber = (function() {
 		addJSToLoad('js/lib/jQuery/jquery.textarea.js');
 		addJSToLoad('js/lib/CodeMirror/codemirror.js');
 		addJSToLoad('js/lib/CodeMirror/smalltalk.js');
+		addJSToLoad('js/lib/CodeMirror/addon/hint/show-hint.js');
 		loadCSS('lib/CodeMirror/codemirror.css', 'js');
+		loadCSS('lib/CodeMirror/theme/ambiance.css', 'js');
+		loadCSS('lib/CodeMirror/addon/hint/show-hint.css', 'js');
 		loadCSS('lib/CodeMirror/amber.css', 'js');
 	}
 
 	// This will be called after JS files have been loaded
 	function initializeSmalltalk() {
 		that.smalltalkReady = function() {
-            if (spec.ready) {
-                spec.ready();
-            }
-            evaluateSmalltalkScripts();
-        };
+			if (spec.ready) {
+				spec.ready();
+			}
+			evaluateSmalltalkScripts();
+		};
 
-        loadAllJS();
+		loadAllJS();
 	}
 
 	/*
@@ -235,11 +244,17 @@ amber = (function() {
 	}
 
 	function loadJSViaJQuery(url, callback) {
+		// The order of loading is as specified, but order of execution may get wrong
+		// (observed when loading amber in testing environment using zombiejs).
+		// jQuery's getScript/get/ajax does not give any guarantee as to the order of execution.
+		// The callback is called after the file is fully load, but it may not have been executed.
+		// When given a small timeout between ending previous loading and start of next loading,
+		// it is very probable that the time window is used to actually start executing the script.
 		$.ajax({
 			dataType: "script",
 			url: url,
 			cache: deploy,
-			success: callback
+			success: function () { setTimeout(callback, 5); }
 		});
 	}
 
@@ -253,7 +268,7 @@ amber = (function() {
 			jQuery('script[type="text/smalltalk"]').each(function(i, elt) {
 				smalltalk.Compiler._new()._evaluateExpression_(jQuery(elt).html());
 			});
-		})
+		});
 	}
 
 	var localPackages;
@@ -288,12 +303,46 @@ amber = (function() {
 		}
 	}
 
+	that.loadHelios = function() {
+		loadCSS('helios_frame.css');
+		var frame = jQuery('<div id="helios"><iframe frameborder=0 src="' + home + 'helios.html"></iframe></div>');
+	
+		jQuery('body').append(frame);
+		jQuery(frame).resizable({
+			handles: 'n',
+			start: onResizeStart,
+			stop: onResizeStop,
+			resize: onResize
+		});
+	
+		function onResize() {
+			jQuery('#helios')
+				.css('top', '')
+				.css('width', '100%')
+				.css('bottom', '0px');
+		}
+	
+		function onResizeStart() {
+			jQuery('#helios').append('<div class="overlay"></div>');
+		}
+	
+		function onResizeStop() {
+			jQuery('#helios').find('.overlay').remove();
+		}
+	};
+
+	that.popupHelios = function() {
+		window.open(home + 'helios.html', "Helios", "menubar=no, status=no, scrollbars=no, menubar=no, width=1000, height=600");
+	};
+
 	return that;
 })();
 
-window.loadAmber = amber.load;
+window.loadAmber  = amber.load;
+window.loadHelios = amber.loadHelios;
+window.popupHelios = amber.popupHelios;
 
 // Backward compatibility
 function toggleAmberIDE () {
-    return smalltalk.TabManager._toggleAmberIDE();
+	return smalltalk.TabManager._toggleAmberIDE();
 }

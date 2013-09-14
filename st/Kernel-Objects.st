@@ -3,11 +3,11 @@ nil subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Object commentStamp!
-*Object is the root of the Smalltalk class system*. All classes in the system are subclasses of Object.
+**I am the root of the Smalltalk class system**. All classes in the system are subclasses of me.
 
-Object provides default behavior common to all normal objects, such as:
+I provide default behavior common to all normal objects, such as:
 
-- access
+- accessing
 - copying
 - comparison
 - error handling
@@ -16,11 +16,11 @@ Object provides default behavior common to all normal objects, such as:
 
 Also utility messages that all objects should respond to are defined here.
 
-Object has no instance variable.
+I have no instance variable.
 
 ##Access
 
-Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `Object >> instanceVariableNames` answers a collection of all instance variable names.
+Instance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `#instanceVariableNames` answers a collection of all instance variable names.
 Accessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.
 
 ##Copying
@@ -30,7 +30,7 @@ The hook method `#postCopy` can be overriden in subclasses to copy fields as nec
 
 ##Comparison
 
-Objects understand equality `#=` and identity `#==` comparison.
+I understand equality `#=` and identity `#==` comparison.
 
 ##Error handling
 
@@ -67,12 +67,12 @@ identityHash
 	>
 !
 
-instVarAt: aSymbol
-	<return self['@'+aSymbol._asString()]>
+instVarAt: aString
+	< return self['@'+aString] >
 !
 
-instVarAt: aSymbol put: anObject
-	<self['@' + aSymbol._asString()] = anObject>
+instVarAt: aString put: anObject
+	< self['@' + aString] = anObject >
 !
 
 size
@@ -207,7 +207,7 @@ throw: anObject
 !
 
 try: aBlock catch: anotherBlock
-	<try{return aBlock()} catch(e) {return anotherBlock(e)}>
+	<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>
 ! !
 
 !Object methodsFor: 'initialization'!
@@ -215,50 +215,62 @@ try: aBlock catch: anotherBlock
 initialize
 ! !
 
+!Object methodsFor: 'inspecting'!
+
+inspect
+	InspectorHandler inspect: self
+!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	self class allInstanceVariableNames do: [:each |
+		variables at: each put: (self instVarAt: each)].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
 !Object methodsFor: 'message handling'!
 
-basicPerform: aSymbol
-	^self basicPerform: aSymbol withArguments: #()
+basicPerform: aString
+	^self basicPerform: aString withArguments: #()
 !
 
-basicPerform: aSymbol withArguments: aCollection
-	<return self[aSymbol].apply(self, aCollection);>
+basicPerform: aString withArguments: aCollection
+	<return self[aString].apply(self, aCollection);>
 !
 
-perform: aSymbol
-	^self perform: aSymbol withArguments: #()
+perform: aString
+	^self perform: aString withArguments: #()
 !
 
-perform: aSymbol withArguments: aCollection
-	<return smalltalk.send(self, aSymbol._asSelector(), aCollection)>
+perform: aString withArguments: aCollection
+	<return smalltalk.send(self, aString._asSelector(), aCollection)>
 ! !
 
 !Object methodsFor: 'printing'!
 
-log: aString block: aBlock
-
-	| result |
-	console log: aString, ' time: ', (Date millisecondsToRun: [result := aBlock value]) printString.
-	^result
-!
-
-printNl
-	<console.log(self)>
+printOn: aStream
+	"Append to the aStream, a string representing the receiver."
+	
+	aStream nextPutAll: (self class name first isVowel
+		ifTrue: [ 'an ' ]
+		ifFalse: [ 'a ' ]).
+	aStream nextPutAll: self class name
 !
 
 printString
-	^'a ', self class name
-!
+	"Answer a String representation of the receiver."
 
-storeOn: aStream
-	aStream nextPutAll: self printString
-!
+	^ String streamContents: [ :stream | self printOn: stream ]
+! !
 
-storeString
-	"Answer a String representation of the receiver from which the receiver
-	can be reconstructed."
+!Object methodsFor: 'streaming'!
 
-	^ String streamContents: [:s | self storeOn: s]
+putOn: aStream
+	aStream nextPut: self
 ! !
 
 !Object methodsFor: 'testing'!
@@ -270,17 +282,21 @@ ifNil: aBlock
 
 ifNil: aBlock ifNotNil: anotherBlock
 	"inlined in the Compiler"
-	^anotherBlock value
+	^anotherBlock value: self
 !
 
 ifNotNil: aBlock
 	"inlined in the Compiler"
-	^aBlock value
+	^aBlock value: self
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
-	^aBlock value
+	^aBlock value: self
+!
+
+isBehavior
+	^ false
 !
 
 isBoolean
@@ -289,6 +305,14 @@ isBoolean
 
 isClass
 	^false
+!
+
+isCompiledMethod
+	^ false
+!
+
+isImmutable
+	^ false
 !
 
 isKindOf: aClass
@@ -313,6 +337,10 @@ isNumber
 	^false
 !
 
+isPackage
+	^ false
+!
+
 isParseFailure
 	^false
 !
@@ -333,6 +361,15 @@ respondsTo: aSelector
 	^self class canUnderstand: aSelector
 ! !
 
+!Object class methodsFor: 'helios'!
+
+heliosClass
+	"Should be an Helios extension. Unfortunately, since helios can browse remote
+	environments, we can't extend base classes"
+	
+	^ 'class'
+! !
+
 !Object class methodsFor: 'initialization'!
 
 initialize
@@ -343,10 +380,15 @@ Object subclass: #Boolean
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Boolean commentStamp!
-Boolean wraps the JavaScript `Boolean()` constructor. The `true` and `false` objects are the JavaScript boolean objects.
+I define the protocol for logic testing operations and conditional control structures for the logical values (see the `controlling` protocol).
 
-Boolean defines the protocol for logic testing operations and conditional control structures for the logical values.
-Boolean instances are weither `true` or `false`.!
+I have two instances, `true` and `false`.
+
+I am directly mapped to JavaScript Boolean. The `true` and `false` objects are the JavaScript boolean objects.
+
+## Usage Example:
+
+    aBoolean not ifTrue: [ ... ] ifFalse: [ ... ]!
 
 !Boolean methodsFor: 'comparing'!
 
@@ -400,9 +442,9 @@ ifTrue: aBlock ifFalse: anotherBlock
 	"inlined in the Compiler"
 	<
 		if(self == true) {
-		return aBlock();
+		return aBlock._value();
 		} else {
-		return anotherBlock();
+		return anotherBlock._value();
 		}
 	>
 !
@@ -429,8 +471,16 @@ or: aBlock
 
 !Boolean methodsFor: 'converting'!
 
+asBit
+	^ self ifTrue: [ 1 ] ifFalse: [ 0 ]
+!
+
 asJSON
 	^self
+!
+
+asString
+	< return self.toString() >
 ! !
 
 !Boolean methodsFor: 'copying'!
@@ -445,13 +495,17 @@ shallowCopy
 
 !Boolean methodsFor: 'printing'!
 
-printString
-	<return self.toString()>
+printOn: aStream
+	aStream nextPutAll: self asString
 ! !
 
 !Boolean methodsFor: 'testing'!
 
 isBoolean
+	^ true
+!
+
+isImmutable
 	^ true
 ! !
 
@@ -459,10 +513,18 @@ Object subclass: #Date
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Date commentStamp!
-The Date class is used to work with dates and times. Therefore `Date today` and `Date now` are both valid in
+I am used to work with both dates and times. Therefore `Date today` and `Date now` are both valid in
 Amber and answer the same date object.
 
-Date wraps the `Date()` JavaScript constructor, and Smalltalk date objects are JavaScript date objects.!
+Date directly maps to the `Date()` JavaScript constructor, and Amber date objects are JavaScript date objects.
+
+## API
+
+The class-side `instance creation` protocol contains some convenience methods for creating date/time objects such as `#fromSeconds:`.
+
+Arithmetic and comparison is supported (see the `comparing` and `arithmetic` protocols).
+
+The `converting` protocol provides convenience methods for various convertions (to numbers, strings, etc.).!
 
 !Date methodsFor: 'accessing'!
 
@@ -602,8 +664,14 @@ asTimeString
 
 !Date methodsFor: 'printing'!
 
-printString
-	^self asString
+printOn: aStream
+	aStream nextPutAll: self asString
+! !
+
+!Date class methodsFor: 'helios'!
+
+heliosClass
+	^ 'magnitude'
 ! !
 
 !Date class methodsFor: 'instance creation'!
@@ -640,14 +708,228 @@ today
 	^self new
 ! !
 
+Object subclass: #Environment
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!Environment commentStamp!
+I provide an unified entry point to manipulate Amber packages, classes and methods.
+
+Typical use cases include IDEs, remote access and restricting browsing.!
+
+!Environment methodsFor: 'accessing'!
+
+allSelectors
+	^ (Smalltalk current at: 'allSelectors') value
+!
+
+availableClassNames
+	^ Smalltalk current classes 
+		collect: [ :each | each name ]
+!
+
+availablePackageNames
+	^ Smalltalk current packages 
+		collect: [ :each | each name ]
+!
+
+availableProtocolsFor: aClass
+	| protocols |
+	
+	protocols := aClass protocols.
+	aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].
+	^ protocols asSet asArray
+!
+
+classBuilder
+	^ ClassBuilder new
+!
+
+classNamed: aString
+	^ (Smalltalk current at: aString asSymbol)
+		ifNil: [ self error: 'Invalid class name' ]
+!
+
+classes
+	^ Smalltalk current classes
+!
+
+packages
+	^ Smalltalk current packages
+!
+
+systemAnnouncer
+	^ (Smalltalk current at: #SystemAnnouncer) current
+! !
+
+!Environment methodsFor: 'actions'!
+
+commitPackage: aPackage
+	aPackage commit
+!
+
+copyClass: aClass to: aClassName
+	(Smalltalk current at: aClassName)
+		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
+		
+	ClassBuilder new copyClass: aClass named: aClassName
+!
+
+eval: aString on: aReceiver
+	| compiler |
+	compiler := Compiler new.
+	[ compiler parseExpression: aString ] on: Error do: [ :ex |
+		^ window alert: ex messageText ].
+	^ compiler evaluateExpression: aString on: aReceiver
+!
+
+inspect: anObject
+	InspectorHandler inspector inspect: anObject
+!
+
+moveClass: aClass toPackage: aPackageName
+	| package |
+	
+	package := Package named: aPackageName.
+	package ifNil: [ self error: 'Invalid package name' ].
+	package == aClass package ifTrue: [ ^ self ].
+	
+	aClass package: package
+!
+
+moveMethod: aMethod toClass: aClassName
+	| destinationClass |
+	
+	destinationClass := Smalltalk current at: aClassName asSymbol.
+	destinationClass ifNil: [ self error: 'Invalid class name' ].
+	destinationClass == aMethod methodClass ifTrue: [ ^ self ].
+	
+	destinationClass 
+		compile: aMethod source
+		category: aMethod protocol.
+	aMethod methodClass 
+		removeCompiledMethod: aMethod
+!
+
+moveMethod: aMethod toProtocol: aProtocol
+	aMethod category: aProtocol
+!
+
+registerErrorHandler: anErrorHandler
+	ErrorHandler setCurrent: anErrorHandler
+!
+
+registerInspector: anInspector
+	InspectorHandler register: anInspector
+!
+
+registerProgressHandler: aProgressHandler
+	ProgressHandler setCurrent: aProgressHandler
+!
+
+removeClass: aClass
+	Smalltalk current removeClass: aClass
+!
+
+removeMethod: aMethod
+	aMethod methodClass removeCompiledMethod: aMethod
+!
+
+removeProtocol: aString from: aClass
+	(aClass methods
+		select: [ :each | each protocol = aString ])
+		do: [ :each | aClass removeCompiledMethod: each ]
+!
+
+renameClass: aClass to: aClassName
+	(Smalltalk current at: aClassName)
+		ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].
+		
+	ClassBuilder new renameClass: aClass to: aClassName
+!
+
+renameProtocol: aString to: anotherString in: aClass
+	(aClass methods
+		select: [ :each | each protocol = aString ])
+		do: [ :each | each protocol: anotherString ]
+!
+
+setClassCommentOf: aClass to: aString
+	aClass comment: aString
+! !
+
+!Environment methodsFor: 'compiling'!
+
+addInstVarNamed: aString to: aClass
+	self classBuilder
+		addSubclassOf: aClass superclass 
+		named: aClass name 
+		instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)
+		package: aClass package name
+!
+
+compileClassComment: aString for: aClass
+	aClass comment: aString
+!
+
+compileClassDefinition: aString
+	self eval: aString on: DoIt new
+!
+
+compileMethod: sourceCode for: class protocol: protocol
+	^ class
+		compile: sourceCode
+		category: protocol
+! !
+
+!Environment methodsFor: 'error handling'!
+
+evaluate: aBlock on: anErrorClass do: exceptionBlock
+	"Evaluate a block and catch exceptions happening on the environment stack"
+	
+	self try: aBlock catch: [ :exception | 
+		(exception isKindOf: (self classNamed: anErrorClass name))
+			ifTrue: [ exceptionBlock value: exception ]
+ 			ifFalse: [ exception signal ] ]
+! !
+
+Object subclass: #InspectorHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!InspectorHandler commentStamp!
+I am responsible for inspecting object.
+
+My class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.
+
+The default inspector object is the transcript.!
+
+InspectorHandler class instanceVariableNames: 'inspector'!
+
+!InspectorHandler class methodsFor: 'accessing'!
+
+inspector
+	^ inspector ifNil: [ inspector := Transcript ]
+! !
+
+!InspectorHandler class methodsFor: 'registration'!
+
+inspect: anObject
+	^ self inspector inspect: anObject
+!
+
+register: anInspector
+	inspector := anInspector
+! !
+
 Object subclass: #JSObjectProxy
 	instanceVariableNames: 'jsObject'
 	package: 'Kernel-Objects'!
 !JSObjectProxy commentStamp!
-JSObjectProxy handles sending messages to JavaScript object, therefore accessing JavaScript objects from Amber is transparent.
-JSOjbectProxy makes intensive use of `#doesNotUnderstand:`.
+I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.
+My instances make intensive use of `#doesNotUnderstand:`.
 
-## Examples
+My instances are automatically created by Amber whenever a message is sent to a JavaScript object.
+
+## Usage examples
 
 JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
 
@@ -655,7 +937,7 @@ JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent
 	window inspect.
 	(window jQuery: 'body') append: 'hello world'
 
-Smalltalk messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.
+Amber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.
 
 ## Message conversion rules
 
@@ -668,40 +950,37 @@ __Note:__ For keyword-based messages, only the first keyword is kept: `window fo
 
 !JSObjectProxy methodsFor: 'accessing'!
 
-at: aSymbol
-	<return self['@jsObject'][aSymbol._asString()]>
+at: aString
+	<return self['@jsObject'][aString]>
 !
 
-at: aSymbol ifAbsent: aBlock
-	"return the aSymbol property or evaluate aBlock if the property is not defined on the object"
+at: aString ifAbsent: aBlock
+	"return the aString property or evaluate aBlock if the property is not defined on the object"
 	<
-		var obj = self['@jsObject'],
-			symbol = aSymbol._asString();
-		return symbol in obj ? obj[symbol] : aBlock();
+		var obj = self['@jsObject'];
+		return aString in obj ? obj[aString] : aBlock._value();
 	>
 !
 
-at: aSymbol ifPresent: aBlock
+at: aString ifPresent: aBlock
 	"return the evaluation of aBlock with the value if the property is defined or return nil"
 	<
-		var obj = self['@jsObject'],
-			symbol = aSymbol._asString();
-		return symbol in obj ? aBlock(obj[symbol]) : nil;
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock._value_(obj[aString]) : nil;
 	>
 !
 
-at: aSymbol ifPresent: aBlock ifAbsent: anotherBlock
+at: aString ifPresent: aBlock ifAbsent: anotherBlock
 	"return the evaluation of aBlock with the value if the property is defined
 	or return value of anotherBlock"
 	<
-		var obj = self['@jsObject'],
-			symbol = aSymbol._asString();
-		return symbol in obj ? aBlock(obj[symbol]) : anotherBlock();
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
 	>
 !
 
-at: aSymbol put: anObject
-	<self['@jsObject'][aSymbol._asString()] = anObject>
+at: aString put: anObject
+	<self['@jsObject'][aString] = anObject>
 !
 
 jsObject
@@ -712,10 +991,20 @@ jsObject: aJSObject
 	jsObject := aJSObject
 !
 
+lookupProperty: aString
+	"Looks up a property in JS object.
+	Answer the property if it is present, or nil if it is not present."
+	
+	<return aString in self._jsObject() ? aString : nil>
+!
+
 value
 	"if attribute 'value' exists on the JS object return it,
 	otherwise return the result of Object>>value."
-	^ self at: 'value' ifAbsent: [super value]
+	
+	^ self 
+		at: 'value' 
+		ifAbsent: [ super value ]
 ! !
 
 !JSObjectProxy methodsFor: 'enumerating'!
@@ -724,9 +1013,15 @@ keysAndValuesDo: aBlock
 	<
 		var o = self['@jsObject'];
 		for(var i in o) {
-			aBlock(i, o[i]);
+			aBlock._value_value_(i, o[i]);
 		}
 	>
+! !
+
+!JSObjectProxy methodsFor: 'printing'!
+
+printOn: aStream
+	aStream nextPutAll: self jsObject toString
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!
@@ -740,15 +1035,17 @@ addObjectVariablesTo: aDictionary
 !
 
 doesNotUnderstand: aMessage
-	
-	^ (self canForwardMessage: aMessage)
-		ifTrue: [ self forwardMessage: aMessage ]
-		ifFalse: [ ^ super doesNotUnderstand: aMessage ]
+	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
+		ifNil: [ super doesNotUnderstand: aMessage ]
+		ifNotNil: [ :jsSelector | 
+			self 
+				forwardMessage: jsSelector 
+				withArguments: aMessage arguments ]
 !
 
-forwardMessage: aMessage
+forwardMessage: aString withArguments: anArray
 	<
-		return smalltalk.send(self._jsObject(), aMessage._selector()._asJavaScriptSelector(), aMessage._arguments());
+		return smalltalk.send(self._jsObject(), aString, anArray);
 	>
 !
 
@@ -759,23 +1056,6 @@ inspectOn: anInspector
 	anInspector setLabel: self printString.
 	self addObjectVariablesTo: variables.
 	anInspector setVariables: variables
-!
-
-printString
-	^self jsObject toString
-! !
-
-!JSObjectProxy methodsFor: 'testing'!
-
-canForwardMessage: aMessage
-	<
-		var jsSelector = aMessage._selector()._asJavaScriptSelector();
-		if(jsSelector in self._jsObject()) {
-			return true
-		} else {
-			return false;
-		}
-	>
 ! !
 
 !JSObjectProxy class methodsFor: 'instance creation'!
@@ -790,13 +1070,14 @@ Object subclass: #Number
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Number commentStamp!
-Number holds the most general methods for dealing with numbers.
-Number is directly mapped to JavaScript Number.
+I am the Amber representation for all numbers.
+I am directly mapped to JavaScript Number.
 
-Most arithmetic methods like `#+` `#/` `#-` `#max:` are directly inlined into javascript.
+## API
 
-##Enumerating
-A Number can be used to evaluate a Block a fixed number of times:
+I provide all necessary methods for arithmetic operations, comparison, conversion and so on with numbers.
+
+My instances can also be used to evaluate a block a fixed number of times:
 
 	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
 	
@@ -830,10 +1111,6 @@ identityHash
 / aNumber
 	"Inlined in the Compiler"
 	<return self / aNumber>
-!
-
-\\ aNumber
-	<return self % aNumber>
 !
 
 \\ aNumber
@@ -918,7 +1195,7 @@ asPoint
 !
 
 asString
-	^self printString
+	< return String(self) >
 !
 
 atRandom
@@ -1019,18 +1296,22 @@ to: stop do: aBlock
 
 !Number methodsFor: 'printing'!
 
-printShowingDecimalPlaces: placesDesired
-	<return self.toFixed(placesDesired)>
+printOn: aStream
+	aStream nextPutAll: self asString
 !
 
-printString
-	<return String(self)>
+printShowingDecimalPlaces: placesDesired
+	<return self.toFixed(placesDesired)>
 ! !
 
 !Number methodsFor: 'testing'!
 
 even
 	^ 0 = (self \\ 2)
+!
+
+isImmutable
+	^ true
 !
 
 isNumber
@@ -1057,6 +1338,12 @@ positive
 	^ self >= 0
 ! !
 
+!Number class methodsFor: 'helios'!
+
+heliosClass
+	^ 'magnitude'
+! !
+
 !Number class methodsFor: 'instance creation'!
 
 pi
@@ -1066,6 +1353,12 @@ pi
 Object subclass: #Organizer
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!Organizer commentStamp!
+I represent categorization information. 
+
+## API
+
+Use `#addElement:` and `#removeElement:` to manipulate instances.!
 
 !Organizer methodsFor: 'accessing'!
 
@@ -1084,6 +1377,8 @@ removeElement: anObject
 Organizer subclass: #ClassOrganizer
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!ClassOrganizer commentStamp!
+I am an organizer specific to classes. I hold method categorization information for classes.!
 
 !ClassOrganizer methodsFor: 'accessing'!
 
@@ -1112,29 +1407,29 @@ theClass
 Organizer subclass: #PackageOrganizer
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!PackageOrganizer commentStamp!
+I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
 	instanceVariableNames: 'commitPathJs commitPathSt'
 	package: 'Kernel-Objects'!
 !Package commentStamp!
-A Package is similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
+I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
 
-A Package has a name, an Array of "requires", a comment and a Dictionary with other optional key value attributes. A Package can also be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
-Packages are manipulated through "Smalltalk current", like for example finding one based on a name:
+Each package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.
 
-	Smalltalk current packageAt: 'Kernel'
+## API
 
-...but you can also use:
+Packages are manipulated through "Smalltalk current", like for example finding one based on a name or with `Package class >> #name` directly:
 
-	Package named: 'Kernel'
+    Smalltalk current packageAt: 'Kernel'
+    Package named: 'Kernel'
 
-A Package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a Package supports "class extensions" so a Package
-can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows. This can easily be seen in for example class
-String where the method category "*IDE" defines #inspectOn: which thus is a method belonging to the IDE package.
+A package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports "class extensions" so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.
 
 You can fetch a package from the server:
 
-	Package fetch: 'Additional-Examples'!
+	Package load: 'Additional-Examples'!
 
 !Package methodsFor: 'accessing'!
 
@@ -1154,14 +1449,6 @@ commitPathSt: aString
 	commitPathSt := aString
 !
 
-dependencies
-	^self propertyAt: 'dependencies' ifAbsent: [#()]
-!
-
-dependencies: anArray
-	^self propertyAt: 'dependencies' put: anArray
-!
-
 name
 	<return self.pkgName>
 !
@@ -1172,10 +1459,6 @@ name: aString
 
 organization
 	^ self basicAt: 'organization'
-!
-
-properties
-	^Smalltalk current readJSObject: (self basicAt: 'properties')
 ! !
 
 !Package methodsFor: 'classes'!
@@ -1198,39 +1481,18 @@ sortedClasses
 
 !Package methodsFor: 'printing'!
 
-printString
-	^self name
+printOn: aStream
+	super printOn: aStream.
+	aStream 
+		nextPutAll: ' (';
+		nextPutAll: self name;
+		nextPutAll: ')'
 ! !
 
-!Package methodsFor: 'private'!
+!Package methodsFor: 'testing'!
 
-jsProperties
-	<return self.properties>
-!
-
-jsProperties: aJSObject
-	<return self.properties = aJSObject>
-!
-
-propertiesAsJSON
-	<return JSON.stringify(self.properties)>
-! !
-
-!Package methodsFor: 'properties'!
-
-propertyAt: key
-
-	<return self.properties[key]>
-!
-
-propertyAt: key ifAbsent: block
-
-	^(self propertyAt: key) ifNil: [block value]
-!
-
-propertyAt: key put: value
-
-	<return self.properties[key] = value>
+isPackage
+	^ true
 ! !
 
 Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
@@ -1250,12 +1512,12 @@ named: aPackageName ifAbsent: aBlock
 !Package class methodsFor: 'commit paths'!
 
 commitPathsFromLoader
-<
-	var cp = typeof amber !!== 'undefined' && amber.commitPath;
-	if (!!cp) return;
-	if (cp.js) self._defaultCommitPathJs_(cp.js);
-	if (cp.st) self._defaultCommitPathSt_(cp.st);
->
+	<
+		var commitPath = typeof amber !!== 'undefined' && amber.commitPath;
+		if (!!commitPath) return;
+		if (commitPath.js) self._defaultCommitPathJs_(commitPath.js);
+		if (commitPath.st) self._defaultCommitPathSt_(commitPath.st);
+	>
 !
 
 defaultCommitPathJs
@@ -1288,11 +1550,11 @@ initialize
 
 !Package class methodsFor: 'loading-storing'!
 
-fetch: aPackageName
-	self fetch: aPackageName prefix: self defaultCommitPathJs, '/'
+load: aPackageName
+	self load: aPackageName prefix: self defaultCommitPathJs, '/'
 !
 
-fetch: aPackageName prefix: aPrefix
+load: aPackageName prefix: aPrefix
 	jQuery
 		getScript: (aPrefix , aPackageName , '.js')
 		onSuccess: [
@@ -1324,8 +1586,11 @@ Object subclass: #Point
 	instanceVariableNames: 'x y'
 	package: 'Kernel-Objects'!
 !Point commentStamp!
-A `Point` represents an x-y pair of numbers usually designating a geometric coordinate.
-Points are traditionally created using the binary `#@` message to a number:
+I represent an x-y pair of numbers usually designating a geometric coordinate.
+
+## API
+
+Instances are traditionally created using the binary `#@` message to a number:
 
 	100@120
 
@@ -1337,11 +1602,9 @@ Points can then be arithmetically manipulated:
 
 	(100@100) * 2
 
-**NOTE:** Creating a Point with a negative y-value will need a space after `@` in order to avoid a parsing error:
+**NOTE:** Creating a point with a negative y-value will need a space after `@` in order to avoid a parsing error:
 
-	100@ -100 "but 100@-100 would not parse"
-
-Amber does not have much behavior in this class out-of-the-box.!
+	100@ -100 "but 100@-100 would not parse"!
 
 !Point methodsFor: 'accessing'!
 
@@ -1392,16 +1655,17 @@ asPoint
 
 !Point methodsFor: 'printing'!
 
-printString
+printOn: aStream
 	"Print receiver in classic x@y notation."
 
-	^String streamContents: [:stream |
-		stream nextPutAll: x printString, '@'.
-		(y notNil and: [y negative])
-			ifTrue: [
-				"Avoid ambiguous @- construct"
-				stream space].
-		stream nextPutAll: y printString]
+	x printOn: aStream.
+	
+	aStream nextPutAll: '@'.
+	(y notNil and: [y negative]) ifTrue: [
+			"Avoid ambiguous @- construct"
+			aStream space ].
+	
+	y printOn: aStream
 ! !
 
 !Point methodsFor: 'transforming'!
@@ -1409,6 +1673,12 @@ printString
 translateBy: delta
 	"Answer a Point translated by delta (an instance of Point)."
 	^(delta x + x) @ (delta y + y)
+! !
+
+!Point class methodsFor: 'helios'!
+
+heliosClass
+	^ 'magnitude'
 ! !
 
 !Point class methodsFor: 'instance creation'!
@@ -1420,11 +1690,54 @@ x: aNumber y: anotherNumber
 		yourself
 ! !
 
+Object subclass: #ProgressHandler
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+!ProgressHandler commentStamp!
+I am used to manage progress in collection iterations, see `SequenceableCollection >> #do:displayingProgress:`.
+
+Subclasses of can register themselves as the current handler with
+`ProgressHandler class >> register`.
+
+The default behavior is to simply iterate over the collection.!
+
+!ProgressHandler methodsFor: 'progress handling'!
+
+do: aBlock on: aCollection displaying: aString
+	aCollection do: aBlock
+! !
+
+ProgressHandler class instanceVariableNames: 'current'!
+
+!ProgressHandler class methodsFor: 'accessing'!
+
+current
+	^current ifNil: [ current := self new ]
+!
+
+setCurrent: anHandler
+	current := anHandler
+! !
+
+!ProgressHandler class methodsFor: 'initialization'!
+
+initialize
+	self register
+!
+
+register
+	ProgressHandler setCurrent: self new
+! !
+
 Object subclass: #Random
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Random commentStamp!
-`Random` is a random number generator and is implemented as a trivial wrapper around javascript `Math.random()` and is used like this:
+I an used to generate a random number and I am implemented as a trivial wrapper around javascript `Math.random()`.
+
+## API
+
+The typical use case it to use the `#next` method like the following:
 
 	Random new next
 
@@ -1432,11 +1745,11 @@ This will return a float x where x < 1 and x > 0. If you want a random integer f
 
 	10 atRandom
 
-...and if you want a random number in a specific interval this also works:
+A random number in a specific interval can be obtained with the following:
 
 	(3 to: 7) atRandom
 
-...but be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
+Be aware that `#to:` does not create an Interval as in other Smalltalk implementations but in fact an `Array` of numbers, so it's better to use:
 
 	5 atRandom + 2
 
@@ -1444,7 +1757,7 @@ Since `#atRandom` is implemented in `SequencableCollection` you can easy pick an
 
 	#('a' 'b' 'c') atRandom
 
-...or perhaps a letter from a `String`:
+As well as letter from a `String`:
 
 	'abc' atRandom
 
@@ -1464,8 +1777,11 @@ Object subclass: #Smalltalk
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Smalltalk commentStamp!
-Smalltalk has only one instance, accessed with `Smalltalk current`.
-It represents the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+I represent the global JavaScript variable `smalltalk` declared in `js/boot.js`.
+
+## API
+
+I have only one instance, accessed with class-side method `#current`.
 
 The `smalltalk` object holds all class and packages defined in the system.
 
@@ -1474,32 +1790,36 @@ The `smalltalk` object holds all class and packages defined in the system.
 Classes can be accessed using the following methods:
 
 - `#classes` answers the full list of Smalltalk classes in the system
-- `#at:` answers a specific class of `nil`
+- `#at:` answers a specific class or `nil`
 
 ## Packages
 
 Packages can be accessed using the following methods:
 
 - `#packages` answers the full list of packages
-- `#packageAt:` answers a specific class of `nil`
-
-__note:__ classes and packages are accessed using strings, not symbols
+- `#packageAt:` answers a specific package or `nil`
 
 ## Parsing
 
-The `#parse:` method is used to parse Smalltalk source code.
-It requires the `Compiler` package and the `js/parser.js` parser file in order to work!
+The `#parse:` method is used to parse Amber source code.
+It requires the `Compiler` package and the `js/parser.js` parser file in order to work.!
 
 !Smalltalk methodsFor: 'accessing'!
 
-at: aSymbol
-	<return self[aSymbol._asString()]>
+at: aString
+	<return self[aString]>
 !
 
 parse: aString
 	| result |
-	self try: [result := self basicParse: aString] catch: [:ex | (self parseError: ex parsing: aString) signal].
-	^result
+	
+	self 
+		try: [result := self basicParse: aString] 
+		catch: [:ex | (self parseError: ex parsing: aString) signal].
+		
+	^ result
+		source: aString;
+		yourself
 !
 
 readJSObject: anObject
@@ -1514,7 +1834,7 @@ reservedWords
 version
 	"Answer the version string of Amber"
 	
-	^ '0.10'
+	^ '0.11.0'
 ! !
 
 !Smalltalk methodsFor: 'classes'!
@@ -1553,6 +1873,21 @@ asSmalltalkException: anObject
 
 parseError: anException parsing: aString
 	^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')
+! !
+
+!Smalltalk methodsFor: 'globals'!
+
+addGlobalJsVariable: aString
+	self globalJsVariables add: aString
+!
+
+deleteGlobalJsVariable: aString
+	self globalJsVariables remove: aString ifAbsent:[]
+!
+
+globalJsVariables
+	"Array of global JavaScript variables"
+	<return self.globalJsVariables>
 ! !
 
 !Smalltalk methodsFor: 'packages'!
@@ -1643,7 +1978,9 @@ Object subclass: #Timeout
 	instanceVariableNames: 'rawTimeout'
 	package: 'Kernel-Objects'!
 !Timeout commentStamp!
-I am wrapping the returns from set{Timeout,Interval}.
+I am wrapping the returns from `set{Timeout,Interval}`.
+
+## Motivation
 
 Number suffices in browsers, but node.js returns an object.!
 
@@ -1679,9 +2016,11 @@ Object subclass: #UndefinedObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !UndefinedObject commentStamp!
-UndefinedObject describes the behavior of its sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
+I describe the behavior of my sole instance, `nil`. `nil` represents a prior value for variables that have not been initialized, or for results which are meaningless.
 
-`nil` is the Smalltalk representation of the `undefined` JavaScript object.!
+`nil` is the Smalltalk equivalent of the `undefined` JavaScript object.
+
+__note:__ When sending messages to the `undefined` JavaScript object, it will be replaced by `nil`.!
 
 !UndefinedObject methodsFor: 'class creation'!
 
@@ -1718,8 +2057,8 @@ shallowCopy
 
 !UndefinedObject methodsFor: 'printing'!
 
-printString
-	^'nil'
+printOn: aStream
+	aStream nextPutAll: 'nil'
 ! !
 
 !UndefinedObject methodsFor: 'testing'!
@@ -1744,6 +2083,10 @@ ifNotNil: aBlock ifNil: anotherBlock
 	^anotherBlock value
 !
 
+isImmutable
+	^ true
+!
+
 isNil
 	^true
 !
@@ -1756,5 +2099,12 @@ notNil
 
 new
 		self error: 'You cannot create new instances of UndefinedObject. Use nil'
+! !
+
+!String methodsFor: '*Kernel-Objects'!
+
+asJavaScriptSelector
+	"Return first keyword of the selector, without trailing colon."
+	^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
 ! !
 

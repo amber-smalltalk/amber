@@ -1,5 +1,97 @@
 Smalltalk current createPackage: 'Compiler-Tests'!
-TestCase subclass: #AbstractASTInterpreterTest
+TestCase subclass: #ASTVisitorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTVisitorTest methodsFor: 'convenience'!
+
+analyze: aNode forClass: aClass
+	(SemanticAnalyzer on: aClass) visit: aNode.
+	^ aNode
+! !
+
+!ASTVisitorTest methodsFor: 'parsing'!
+
+parse: aString
+	^ Smalltalk current parse: aString
+!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
+! !
+
+ASTVisitorTest subclass: #ASTPCNodeVisitorTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!ASTPCNodeVisitorTest methodsFor: 'factory'!
+
+astPCNodeVisitor
+	^ self astPCNodeVisitorForPC: 0
+!
+
+astPCNodeVisitorForPC: anInteger
+	^ ASTPCNodeVisitor new
+		pc: 0;
+		context: (AIContext new 
+			pc: anInteger; 
+			yourself);
+		yourself
+! !
+
+!ASTPCNodeVisitorTest methodsFor: 'tests'!
+
+testJSStatementNode
+	| ast visitor |
+	
+	ast := self parse: 'foo <consolee.log(1)>' forClass: Object.
+	self assert: (self astPCNodeVisitor
+		visit: ast;
+		currentNode) isJSStatementNode
+!
+
+testMessageSend
+	| ast |
+	
+	ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForPC: 2)
+		visit: ast;
+		currentNode) selector equals: 'yourself'
+!
+
+testMessageSendWithInlining
+	| ast |
+	
+	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForPC: 2)
+		visit: ast;
+		currentNode) selector equals: 'yourself'.
+		
+	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForPC: 3)
+		visit: ast;
+		currentNode) selector equals: 'asBoolean'
+!
+
+testNoMessageSend
+	| ast |
+	
+	ast := self parse: 'foo ^ self' forClass: Object.
+	self assert: (self astPCNodeVisitor
+		visit: ast;
+		currentNode) isNil
+!
+
+testPC
+	| ast visitor |
+	
+	ast := self parse: 'foo <console.log(1)>' forClass: Object.
+	self assert: (self astPCNodeVisitor
+		visit: ast;
+		currentNode) isJSStatementNode
+! !
+
+ASTVisitorTest subclass: #AbstractASTInterpreterTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
@@ -10,11 +102,6 @@ interpreter
 ! !
 
 !AbstractASTInterpreterTest methodsFor: 'interpreting'!
-
-analyze: aNode forClass: aClass
-	(SemanticAnalyzer on: aClass) visit: aNode.
-	^ aNode
-!
 
 interpret: aString
 	^ self
@@ -44,16 +131,6 @@ interpret: aString withArguments: aDictionary
 		interpret: aString
 		receiver: Object new
 		withArguments: aDictionary
-! !
-
-!AbstractASTInterpreterTest methodsFor: 'parsing'!
-
-parse: aString
-	^ Smalltalk current parse: aString
-!
-
-parse: aString forClass: aClass
-	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTInterpreterTest
@@ -131,8 +208,23 @@ testReceiver
 		equals: 2@3
 !
 
+testSuper
+	self 
+		assert: (self 
+			interpret: 'foo ^ super isBoolean' 
+			receiver: true 
+			withArguments: Dictionary new) 
+		equals: false
+!
+
 testTempAssignment
 	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
+!
+
+testThisContext
+	self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.
+	self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.
+	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
 ! !
 
 AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest
@@ -252,6 +344,12 @@ testAssignment
 	self should: 'foo | a | ^ a := true ifTrue: [ 1 ]' return: 1
 !
 
+testBackslashSelectors
+	
+	self should: '\ arg ^ 4' return: 4.
+	self should: '\\ arg ^ 42' return: 42
+!
+
 testBlockReturn
 	self should: 'foo ^ #(1 2 3) collect: [ :each | true ifTrue: [ each + 1 ] ]' return: #(2 3 4).
 	self should: 'foo ^ #(1 2 3) collect: [ :each | false ifFalse: [ each + 1 ] ]' return: #(2 3 4).
@@ -332,6 +430,15 @@ testMessageSends
 	self should: 'foo ^ 1 to: 5 by: 2' return: #(1 3 5)
 !
 
+testMutableLiterals
+	"Mutable literals must be aliased in cascades.
+	See https://github.com/amber-smalltalk/amber/issues/428"
+	
+	self 
+		should: 'foo ^ #( 1 2 ) at: 1 put: 3; yourself' 
+		return: #(3 2)
+!
+
 testNestedIfTrue
 	self should: 'foo ^ true ifTrue: [ false ifFalse: [ 1 ] ]' return: 1.
 	self should: 'foo ^ true ifTrue: [ false ifTrue: [ 1 ] ]' return: nil.
@@ -345,6 +452,11 @@ testNonLocalReturn
 	self should: 'foo [ ^ 1 + 1 ] value' return: 2.
 	self should: 'foo | a b | a := 1. b := 2. [ ^ a + b ] value. self halt' return: 3.
 	self should: 'foo [ :x | ^ x + x ] value: 4. ^ 2' return: 8
+!
+
+testPascalCaseGlobal
+	self should: 'foo ^Object' return: (smalltalk at: 'Object').
+	self should: 'foo ^NonExistent' return: nil
 !
 
 testSendReceiverAndArgumentsOrdered
@@ -399,6 +511,17 @@ testifNotNil
 
 	self should: 'foo 1 ifNotNil: [ ^ 2 ]' return: 2.
 	self should: 'foo nil ifNotNil: [ ^ 2 ]' return: receiver.
+!
+
+testifNotNilWithArgument
+	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ]' return: 3.
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ]' return: nil.
+	
+	self should: 'foo ^ 1 ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 3.
+	self should: 'foo ^ nil ifNil: [ 5 ] ifNotNil: [ :val | val + 2 ]' return: 5.
+	
+	self should: 'foo ^ 1 ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 3.
+	self should: 'foo ^ nil ifNotNil: [ :val | val + 2 ] ifNil: [ 5 ]' return: 5
 !
 
 testifTrue

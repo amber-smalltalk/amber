@@ -804,16 +804,8 @@ cancelChanges
 !
 
 commitPackage
-	selectedPackage ifNotNil: [ |package|
-		package := Package named: selectedPackage.
-		{ Exporter -> (package commitPathJs, '/', selectedPackage, '.js').
-			StrippedExporter -> (package commitPathJs, '/', selectedPackage, '.deploy.js').
-			ChunkExporter -> (package commitPathSt, '/', selectedPackage, '.st')
-		} do: [:commitStrategy| |fileContents|
-			fileContents := (commitStrategy key new exportPackage: selectedPackage).
-			self ajaxPutAt: commitStrategy value data: fileContents
-		]
-	]
+	selectedPackage ifNotNil: [
+		(Package named: selectedPackage) commit ]
 !
 
 compile
@@ -1050,16 +1042,6 @@ initialize
 	selectedTab := #instance.
 	selectedPackage := self packages first.
 	unsavedChanges := false
-! !
-
-!Browser methodsFor: 'network'!
-
-ajaxPutAt: aURL data: aString
-	jQuery
-		ajax: aURL options: #{ 'type' -> 'PUT'.
-								'data' -> aString.
-								'contentType' -> 'text/plain;charset=UTF-8'.
-								'error' -> [:xhr | window alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
 !Browser methodsFor: 'rendering'!
@@ -1744,6 +1726,12 @@ updateVariablesList
 
 !Inspector class methodsFor: 'instance creation'!
 
+inspect: anObject
+	^self new
+		inspect: anObject;
+		yourself
+!
+
 on: anObject
 	^self new
 		inspect: anObject;
@@ -2304,25 +2292,6 @@ renderButtonsOn: html
 	html button
 	with: 'Clear workspace';
 	onClick: [self clearWorkspace]
-! !
-
-!Object methodsFor: '*IDE'!
-
-inspect
-	Inspector new
-		inspect: self;
-		open
-!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	self class allInstanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
 ! !
 
 !Collection methodsFor: '*IDE'!

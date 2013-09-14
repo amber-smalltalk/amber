@@ -27,12 +27,26 @@ Amber is released under the MIT license. All contributions made for inclusion ar
 Building Amber
 --------------
 
-Since 0.10.0 Amber uses [Grunt.js](http://gruntjs.com/) as build system.
-To compile Amber on the commandline execute the following commands:
+Amber uses [Grunt.js](http://gruntjs.com/) as build system since version `0.10.0`.
 
-#    cd ${Amber_DIR}
-#    npm install
-#    ./node_modules/grunt/bin/grunt
+If you already have Grunt.js v0.3.x installed locally run the following (otherwise ignore these lines):
+
+    cd ${Amber_DIR}
+    npm uninstall grunt
+
+To install Grunt.js v0.4.x on the commandline execute the following commands:
+    
+    npm install -g grunt-cli grunt-init
+    cd ${Amber_DIR}
+    npm install
+
+And finally, compile Amber using the following command:
+
+    cd ${Amber_DIR}
+    grunt
+
+For Windows support check the [Grunt.js on Windows](http://gruntjs.com/frequently-asked-questions#does-grunt-work-on-windows) page.
+
 
 More infos
 ----------
