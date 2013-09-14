@@ -35,7 +35,7 @@ module.exports = function(grunt) {
     var options = this.options({
       amber_dir: undefined,
       closure_jar: '',
-      verbose: false
+      verbose: grunt.option('verbose') || false
     });
     this.data.verbose = options.verbose;
 
