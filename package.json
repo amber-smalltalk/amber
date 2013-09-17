@@ -36,6 +36,7 @@
     "pegjs": "~0.7.0",
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.3.0",
-    "amdefine": "0.0.8"
+    "amdefine": "0.0.8",
+    "requirejs": "~2.1.8"
   }
 }
