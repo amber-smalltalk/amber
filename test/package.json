@@ -1,0 +1,40 @@
+{
+  "name": "amber-test",
+  "version": "0.0.0",
+  "description": "Testing for amber.",
+  "homepage": "http://amber-lang.net",
+  "keywords": [
+    "javascript",
+    "smalltalk",
+    "language",
+    "compiler",
+    "web"
+  ],
+  "author": {
+    "name": "Nicolas Petton",
+    "email": "petton.nicolas@gmail.com",
+    "url": "http://www.nicolas-petton.fr"
+  },
+  "license": {
+    "type": "MIT"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/amber-smalltalk/amber.git"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": ">=0.4.1",
+    "grunt-cli": "0.1.9",
+    "grunt-contrib-jshint": "~0.3.0",
+    "amdefine": "0.0.8",
+    "grunt-newer": ">=0.5.1",
+    "grunt-contrib-watch": ">=0.5.3"
+  }
+}

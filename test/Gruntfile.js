@@ -1,8 +1,9 @@
 module.exports = function(grunt) {
+
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadTasks('../grunt/tasks/');
-
-  grunt.registerTask('default', ['amberc:amber_test_runner','nodetest:all']);
-
+  grunt.loadNpmTasks('grunt-newer');  
+  grunt.registerTask('default', ['watch']);
   grunt.registerMultiTask('nodetest', 'Run a sub-gruntfile.', function() {
     var path = require('path');
     grunt.util.async.forEachSeries(this.filesSrc, function(nodefile, next) {
@@ -20,8 +21,11 @@ module.exports = function(grunt) {
       });
     }, this.async());
   });
+
+
+  var srcFiles = "Test.st";
   
-  grunt.initConfig({
+  grunt.config.init({
     nodetest: {
         all: {
             files: {src:['amber_test_runner.js']} 
@@ -30,18 +34,24 @@ module.exports = function(grunt) {
     amberc: {
         options: {
             amber_dir: '../',
-            closure_jar: '',
-            verbose: true
+            closure_jar: ''
         },
 
-        amber_test_runner: {            
+        all: {            
             libraries: [
                 'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
                 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser',
                 'SUnit', 'Importer-Exporter',
                 'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
             output_name: 'amber_test_runner',                                         
-            src: ['Test.st']
+            src: [srcFiles]
         }
-    }});
+    },
+    watch: {
+        all: {
+            files: srcFiles,
+            tasks:['any-newer:amberc:all','nodetest:all']
+        }
+    }
+    });
 };
