@@ -30,16 +30,17 @@ require = function (require) {
             'amber': home+'/support',
             'amber_vm': home+'/support',
             'amber_css': home+'/css',
-            'amber_lib': home+'/support',
+            'amber_lib': home+'/bower_components',
+            'amber_inc': home+'/support',
             'amber_core': home+'/js',
             'amber_core/_source': home+'/st',
             'amber_html': home,
-            'jquery': home+'/support/jQuery/jquery-1.8.2.min',
+            'jquery': home+'/bower_components/jquery/jquery.min',
             'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.24.custom.min'
         },
         map: {
             '*': {
-                'css': 'amber_lib/requirejs/require-css-0.0.6/css'
+                'css': 'amber_lib/require-css/css'
             }
         },
         shim: {
@@ -50,16 +51,16 @@ require = function (require) {
                 deps: [ 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
             'amber_lib/CodeMirror/codemirror': {
-                deps: [ 'css!amber_lib/CodeMirror/codemirror' ]
+                deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]
             },
-            'amber_lib/jQuery/jquery.textarea': {
+            'amber_lib/jquery-tabby/jquery.textarea': {
                 deps: [ 'jquery', 'jquery-ui' ]
             },
-            'amber_lib/CodeMirror/smalltalk': {
-                deps: [ './codemirror' ]
+            'amber_inc/CodeMirror/smalltalk': {
+                deps: [ 'amber_lib/codemirror/lib/codemirror' ]
             },
-            'amber_lib/CodeMirror/addon/hint/show-hint': {
-                deps: [ '../../codemirror' ]
+            'amber_lib/codemirror/addon/hint/show-hint': {
+                deps: [ '../../lib/codemirror' ]
             },
             'ensure-console': {
                 exports: 'console'
