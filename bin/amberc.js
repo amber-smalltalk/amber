@@ -128,9 +128,8 @@ var path = require('path'),
  * amber_dir: points to the location of an amber installation
  * closure_jar: location of compiler.jar (can be left undefined)
  */
-function AmberC(amber_dir, closure_jar) {
+function AmberC(amber_dir) {
 	this.amber_dir = amber_dir;
-	this.closure_jar = closure_jar || '';
 	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
@@ -155,8 +154,6 @@ var createDefaults = function(amber_dir, finished_callback){
 		'jsFiles': [],
 		'jsGlobals': [],
 		'amd_namespace': 'amber_core',
-		'closure': false,
-		'closure_options': ' --language_in=ECMASCRIPT5 ',
 		'suffix': '',
 		'loadsuffix': '',
 		'suffix_used': '',
@@ -195,10 +192,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	if (this.check_configuration_ok(configuration)) {
 		this.defaults = configuration;
 		this.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
-		var self = this;
-		this.check_for_closure_compiler(function(){
-			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
-		});
+		this.collect_files(this.defaults.stFiles, this.defaults.jsFiles)
 	}
 };
 
@@ -215,42 +209,6 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
 	}
 	return true;
-};
-
-
-/**
- * Checks if the java executable exists and afterwards,
- * if compiler.jar exists at the path stored in this.closure_jar.
- * All closure related entries are set to false upon failure.
- *
- * callback gets called in any case.
- */
-AmberC.prototype.check_for_closure_compiler = function(callback) {
-	var defaults = this.defaults;
-	var self = this;
-	if (defaults.closure) {
-		exec('which java', function(error, stdout, stderr) {
-			// stdout contains path to java executable
-			if (null !== error) {
-				console.warn('java is not installed but is needed for running the Closure compiler (-O, -A or -o flags).');
-				defaults.closure = false;
-				callback();
-				return;
-			}
-			fs.exists(self.closure_jar, function(exists) {
-				if (!exists) {
-					console.warn('Can not find Closure compiler at: ' + self.closure_jar);
-					defaults.closure = false;
-				} else {
-					console.warn('Closure compiler found at: ' + self.closure_jar);
-				}
-				callback();
-				return;
-			});
-		});
-	} else {
-		callback();
-	}
 };
 
 
@@ -540,7 +498,7 @@ AmberC.prototype.category_export = function() {
 
 /**
  * Verify if all .st files have been compiled.
- * Followed by compose_js_files() and optimize().
+ * Followed by compose_js_files().
  */
 AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
@@ -572,7 +530,6 @@ AmberC.prototype.compose_js_files = function() {
 	var self = this;
 	var programFile = defaults.program;
 	if (undefined === programFile) {
-		self.optimize();
 		return;
 	}
 	if (undefined !== defaults.output_dir) {
@@ -601,7 +558,7 @@ AmberC.prototype.compose_js_files = function() {
 	});
 
 	fileStream.on('close', function(){
-		self.optimize();
+		return;
 	});
 
 	var builder = createConcatenator();
@@ -647,59 +604,6 @@ AmberC.prototype.compose_js_files = function() {
 	fileStream.end();
 };
 
-
-/**
- * Optimize created JavaScript files with Google Closure compiler depending
- * on the flag: defaults.closure.
- */
-AmberC.prototype.optimize = function() {
-	var defaults = this.defaults;
-	var self = this;
-	var optimization_done = new Combo(function() {
-		console.log = console.ambercLog;
-		console.timeEnd('Compile Time');
-		if (undefined !== defaults.finished_callback) {
-			defaults.finished_callback();
-		}
-	});
-
-	if (defaults.closure && (undefined !== defaults.program)) {
-		var programFile = defaults.program;
-		if (undefined !== defaults.output_dir) {
-			programFile = path.join(defaults.output_dir, programFile);
-		}
-		console.log('Compiling ' + programFile + '.js file using Google closure compiler.');
-		self.closure_compile(programFile + '.js', programFile + '.min.js', optimization_done.add());
-	}
-
-	always_resolve(optimization_done.add());
-};
-
-
-/**
- * Compile sourceFile into minifiedFile with Google Closure compiler.
- * callback gets executed once finished.
- */
-AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) {
-	// exec is asynchronous
-	var self = this;
-	exec(
-		'java -jar ' +
-		self.closure_jar + ' ' +
-		self.defaults.closure_options +
-		' --js '+ sourceFile +
-		' --js_output_file '+ minifiedFile,
-		function (error, stdout, stderr) {
-			if (error) {
-				console.log(stderr);
-			} else {
-				console.log(stdout);
-				console.log('Minified: '+ minifiedFile);
-			}
-			callback();
-		}
-	);
-};
 
 module.exports.Compiler = AmberC;
 module.exports.createDefaults = createDefaults;
