@@ -9,7 +9,6 @@ module.exports = function(grunt) {
      amberc: {
        _config: {
          amber_dir: process.cwd(),     // REQUIRED
-         closure_jar: '',              // optional
          verbose: true                 // optional
        },
        helloWorld: {
@@ -34,7 +33,6 @@ module.exports = function(grunt) {
 
     var options = this.options({
       amber_dir: undefined,
-      closure_jar: '',
       verbose: grunt.option('verbose') || false
     });
     this.data.verbose = options.verbose;
@@ -43,7 +41,7 @@ module.exports = function(grunt) {
     var done = this.async();
 
     // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'), grunt.config('amberc.options.closure_jar'));
+    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
 
     // generate the amberc configuration out of the given target properties
     var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
