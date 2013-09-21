@@ -54,17 +54,13 @@ function handle_options(optionsArray, amber_dir) {
 				defaults.amd_namespace = optionsArray.shift();
 				break;
 			case '-o':
-				defaults.closure = true;
-				defaults.closure_parts = true;
-				break;
+				// leave this for compatibility
 			case '-O':
 				defaults.closure = true;
-				defaults.closure_full = true;
 				break;
 			case '-A':
 				defaults.closure = true;
 				defaults.closure_options = defaults.closure_options + ' --compilation_level ADVANCED_OPTIMIZATIONS';
-				defaults.closure_full = true;
 				break;
 			case '-D':
 				defaults.output_dir = optionsArray.shift();
@@ -152,10 +148,6 @@ function print_usage() {
 	console.log('  -n amd_namespace');
 	console.log('     Export packages with <amd_namespace> as the require.js namespace.');
 	console.log('     Default value is "amber_core".');
-	console.log('');
-	console.log('  -o');
-	console.log('     Optimize each .js file using the Google closure compiler.');
-	console.log('     Using Closure compiler found at ~/compiler.jar');
 	console.log('');
 	console.log('  -O');
 	console.log('     Optimize final <Program>.js using the Google closure compiler.');
