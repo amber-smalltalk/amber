@@ -156,7 +156,6 @@ var createDefaults = function(amber_dir, finished_callback){
 		'jsGlobals': [],
 		'amd_namespace': 'amber_core',
 		'closure': false,
-		'closure_full': false,
 		'closure_options': ' --language_in=ECMASCRIPT5 ',
 		'suffix': '',
 		'loadsuffix': '',
@@ -235,7 +234,6 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 			if (null !== error) {
 				console.warn('java is not installed but is needed for running the Closure compiler (-O, -A or -o flags).');
 				defaults.closure = false;
-				defaults.closure_full = false;
 				callback();
 				return;
 			}
@@ -243,7 +241,6 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
 				if (!exists) {
 					console.warn('Can not find Closure compiler at: ' + self.closure_jar);
 					defaults.closure = false;
-					defaults.closure_full = false;
 				} else {
 					console.warn('Closure compiler found at: ' + self.closure_jar);
 				}
@@ -653,7 +650,7 @@ AmberC.prototype.compose_js_files = function() {
 
 /**
  * Optimize created JavaScript files with Google Closure compiler depending
- * on the flag: defaults.closure_full.
+ * on the flag: defaults.closure.
  */
 AmberC.prototype.optimize = function() {
 	var defaults = this.defaults;
@@ -666,7 +663,7 @@ AmberC.prototype.optimize = function() {
 		}
 	});
 
-	if (defaults.closure_full && (undefined !== defaults.program)) {
+	if (defaults.closure && (undefined !== defaults.program)) {
 		var programFile = defaults.program;
 		if (undefined !== defaults.output_dir) {
 			programFile = path.join(defaults.output_dir, programFile);
