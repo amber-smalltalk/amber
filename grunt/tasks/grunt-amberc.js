@@ -35,9 +35,9 @@ module.exports = function(grunt) {
     var options = this.options({
       amber_dir: undefined,
       closure_jar: '',
-      verbose: grunt.option('verbose') || false
+      verbose: false
     });
-    this.data.verbose = options.verbose;
+
 
     // mark task as async task
     var done = this.async();
@@ -46,20 +46,20 @@ module.exports = function(grunt) {
     var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'), grunt.config('amberc.options.closure_jar'));
 
     // generate the amberc configuration out of the given target properties
-    var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
+    var configuration = generateCompilerConfiguration(this.data, options, grunt.config('amberc.options.amber_dir'));
     if (typeof(configuration.test_return) == 'function') {
-        // When test_return is a function call overide the compile.main(configuration) function.
+        // When test_return is a function call to preempt compile.main(configuration) function.
         // Call test_return(configuration) with the configuration passed to compiler.main()
-        // override means we never really call compiler.main().
+        // preempt means we never really call compiler.main().
         grunt.util.hooker.hook(compiler,"main", {
-            post: function(result) {
-                if (typeof(arguments[1]) !== 'undefined') {
-                    configuration.test_return(arguments[1]);
+            pre: function() {
+                if (typeof(arguments[0]) !== 'undefined') {
+                    configuration.test_return(arguments[0]);
                 }
-                if (typeof(arguments[2]) === 'function') {
-                    arguments[2]();
+                if (typeof(arguments[1]) === 'function') {
+                    arguments[1]();
                 }
-                return grunt.util.hooker.override();
+                return grunt.util.hooker.preempt();
             }
         });
     }
@@ -71,7 +71,7 @@ module.exports = function(grunt) {
     });
   });
   
-  function generateCompilerConfiguration(data, amber_dir) {
+  function generateCompilerConfiguration(data, options, amber_dir) {
     var configuration = amberc.createDefaults(amber_dir);
     var parameters = [];
     configuration.test_return = data.test_return;
@@ -126,7 +126,7 @@ module.exports = function(grunt) {
     if (undefined !== data.jsGlobals) {
       configuration.jsGlobals.push.apply(configuration.jsGlobals, data.jsGlobals);
     }
-    configuration.verbose = data.verbose;
+    configuration.verbose = data.verbose || options.verbose;
     return configuration;
   }
 };
