@@ -5,11 +5,17 @@ module.exports = function(grunt) {
   var amberc = require('../../bin/amberc.js');
 
   /**
-     Full config looks like this:
+     A full example entry for a Gruntfile.js is available below.
+     Please note that the verbose level is either specified globally
+     or on a target specific level.
+     However, it can additionally be triggered on the commandline by
+     adding the '-v' or '--verbose' flag.
+
+     Example Gruntfile.js entry:
+
      amberc: {
-       _config: {
+       options: {
          amber_dir: process.cwd(),     // REQUIRED
-         closure_jar: '',              // optional
          verbose: true                 // optional
        },
        helloWorld: {
@@ -22,7 +28,10 @@ module.exports = function(grunt) {
          amd_namespace: 'MyNamespace',          // optional (default: 'amber')
          main_file: 'myMain.js',                // optional
          output_suffix: 'mySuffix',             // optional
-         library_suffix: '-0.9'                 // optional
+         library_suffix: '-0.9',                 // optional
+         options: {
+           verbose: true
+         }
        },
      },
 
@@ -34,7 +43,6 @@ module.exports = function(grunt) {
 
     var options = this.options({
       amber_dir: undefined,
-      closure_jar: '',
       verbose: grunt.option('verbose') || false
     });
     this.data.verbose = options.verbose;
@@ -43,7 +51,7 @@ module.exports = function(grunt) {
     var done = this.async();
 
     // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'), grunt.config('amberc.options.closure_jar'));
+    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
 
     // generate the amberc configuration out of the given target properties
     var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
