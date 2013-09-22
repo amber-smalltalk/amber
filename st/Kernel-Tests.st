@@ -1301,6 +1301,8 @@ testArithmetic
 	self assert: -2 - 1 equals: -3.
 	self assert: 12 / 2 equals: 6.
 	self assert: 3 * 4 equals: 12.
+	self assert: 7 // 2 equals: 3.
+	self assert: 7 \\ 2 equals: 1.
 
 	"Simple parenthesis and execution order"
 	self assert: 1 + 2 * 3 equals: 9.
@@ -1496,6 +1498,36 @@ testTruncated
 	self assert: 3 truncated equals: 3.
 	self assert: 3.212 truncated equals: 3.
 	self assert: 3.51 truncated equals: 3
+!
+
+testTrigonometry
+	self assert: 0 cos equals: 1.
+	self assert: 0 sin equals: 0.
+	self assert: 0 tan equals: 0.
+	self assert: 1 arcCos equals: 0.
+	self assert: 0 arcSin equals: 0.
+	self assert: 0 arcTan equals: 0.
+!
+
+testLog
+	self assert: 10000 log equals: 4.
+	self assert: (512 log: 2) equals: 9.
+	self assert: Number e ln equals: 1.
+!
+
+testRaisedTo
+	self assert: (2 raisedTo: 4) equals: 16.
+	self assert: (2 raisedTo: 0) equals: 1.
+	self assert: (2 raisedTo: -3) equals: 0.125.
+	self assert: (4 raisedTo: 0.5) equals: 2.
+	
+	self assert: 2 ** 4 equals: 16.
+!
+
+testSign
+	self assert: 5 sign equals: 1.
+	self assert: 0 sign equals: 0.
+	self assert: -1.4 sign equals: -1.
 ! !
 
 Object subclass: #ObjectMock

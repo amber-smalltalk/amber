@@ -775,12 +775,8 @@ negated
 	^0 - self
 !
 
-sqrt
-	<return Math.sqrt(self)>
-!
-
-squared
-	^self * self
+// aNumber
+	^(self / aNumber) floor
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -948,6 +944,68 @@ to: stop do: aBlock
 			nextValue := nextValue + 1]
 ! !
 
+!Number methodsFor: 'mathematical functions'!
+
+sqrt
+	<return Math.sqrt(self)>
+!
+
+squared
+	^self * self
+!
+
+cos
+	<return Math.cos(self);>
+!
+
+sin
+	<return Math.sin(self);>
+!
+
+tan
+	<return Math.tan(self);>
+!
+
+arcCos
+	<return Math.acos(self);>
+!
+
+arcSin
+	<return Math.asin(self);>
+!
+
+arcTan
+	<return Math.atan(self);>
+!
+
+log
+	<return Math.log(self) / Math.log(10);>
+!
+
+log: aNumber
+	<return Math.log(self) / Math.log(aNumber);>
+!
+
+raisedTo: exponent
+	<return Math.pow(self, exponent);>
+!
+
+sign
+	self isZero 
+		ifTrue: [ ^ 0 ].
+	self positive
+		ifTrue: [ ^ 1 ]
+		ifFalse: [ ^ -1 ].
+!
+
+** exponent
+	^self raisedTo: exponent
+!
+
+ln
+	^self log: self class e
+! !
+
 !Number methodsFor: 'printing'!
 
 printOn: aStream
@@ -1002,6 +1060,10 @@ heliosClass
 
 pi
 	<return Math.PI>
+!
+
+e
+	<return Math.E;>
 ! !
 
 Object subclass: #Point
