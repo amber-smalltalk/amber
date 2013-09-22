@@ -979,7 +979,7 @@ arcTan
 !
 
 log
-	<return Math.log(self) / Math.log(10);>
+	<return Math.log(self) / Math.LN10;>
 !
 
 log: aNumber
@@ -1003,7 +1003,7 @@ sign
 !
 
 ln
-	^self log: self class e
+	<return Math.log(self);>
 ! !
 
 !Number methodsFor: 'printing'!

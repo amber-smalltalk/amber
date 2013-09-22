@@ -2782,13 +2782,11 @@ category: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._log_(_st(self._class())._e());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"ln",{},smalltalk.Number)})},
+return Math.log(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"ln",{},smalltalk.Number)})},
 args: [],
-source: "ln\x0a\x09^self log: self class e",
-messageSends: ["log:", "e", "class"],
+source: "ln\x0a\x09<return Math.log(self);>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2800,10 +2798,10 @@ category: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return Math.log(self) / Math.log(10);;
+return Math.log(self) / Math.LN10;;
 return self}, function($ctx1) {$ctx1.fill(self,"log",{},smalltalk.Number)})},
 args: [],
-source: "log\x0a\x09<return Math.log(self) / Math.log(10);>",
+source: "log\x0a\x09<return Math.log(self) / Math.LN10;>",
 messageSends: [],
 referencedClasses: []
 }),
