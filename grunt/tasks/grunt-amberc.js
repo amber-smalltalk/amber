@@ -5,9 +5,16 @@ module.exports = function(grunt) {
   var amberc = require('../../bin/amberc.js');
 
   /**
-     Full config looks like this:
+     A full example entry for a Gruntfile.js is available below.
+     Please note that the verbose level is either specified globally
+     or on a target specific level.
+     However, it can additionally be triggered on the commandline by
+     adding the '-v' or '--verbose' flag.
+
+     Example Gruntfile.js entry:
+
      amberc: {
-       _config: {
+       options: {
          amber_dir: process.cwd(),     // REQUIRED
          verbose: true                 // optional
        },
@@ -21,7 +28,10 @@ module.exports = function(grunt) {
          amd_namespace: 'MyNamespace',          // optional (default: 'amber')
          main_file: 'myMain.js',                // optional
          output_suffix: 'mySuffix',             // optional
-         library_suffix: '-0.9'                 // optional
+         library_suffix: '-0.9',                 // optional
+         options: {
+           verbose: true
+         }
        },
      },
 
