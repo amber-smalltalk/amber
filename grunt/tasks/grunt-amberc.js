@@ -47,7 +47,22 @@ module.exports = function(grunt) {
 
     // generate the amberc configuration out of the given target properties
     var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
-
+    if (typeof(configuration.test_return) == 'function') {
+        // When test_return is a function call to preempt compile.main(configuration) function.
+        // Call test_return(configuration) with the configuration passed to compiler.main()
+        // preempt means we never really call compiler.main().
+        grunt.util.hooker.hook(compiler,"main", {
+            pre: function() {
+                if (typeof(arguments[0]) !== 'undefined') {
+                    configuration.test_return(arguments[0]);
+                }
+                if (typeof(arguments[1]) === 'function') {
+                    arguments[1]();
+                }
+                return grunt.util.hooker.preempt();
+            }
+        });
+    }
     // run the compiler and call the async callback once finished
     var self = this;
     compiler.main(configuration, function(){
@@ -60,7 +75,7 @@ module.exports = function(grunt) {
   function generateCompilerConfiguration(data, amber_dir) {
     var configuration = amberc.createDefaults(amber_dir);
     var parameters = [];
-
+    configuration.test_return = data.test_return;
     var libraries = data.libraries;
     if (undefined !== libraries) {
       configuration.load = libraries;
