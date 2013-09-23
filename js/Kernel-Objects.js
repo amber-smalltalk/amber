@@ -2231,6 +2231,24 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "**",
+category: 'mathematical functions',
+fn: function (exponent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._raisedTo_(exponent);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"**",{exponent:exponent},smalltalk.Number)})},
+args: ["exponent"],
+source: "** exponent\x0a\x09^self raisedTo: exponent",
+messageSends: ["raisedTo:"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "+",
 category: 'arithmetic',
 fn: function (aNumber){
@@ -2273,6 +2291,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"/",{aNumber:aNumber},smalltalk.N
 args: ["aNumber"],
 source: "/ aNumber\x0a\x09\x22Inlined in the Compiler\x22\x0a\x09<return self / aNumber>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "//",
+category: 'arithmetic',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self.__slash(aNumber))._floor();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"//",{aNumber:aNumber},smalltalk.Number)})},
+args: ["aNumber"],
+source: "// aNumber\x0a\x09^(self / aNumber) floor",
+messageSends: ["floor", "/"],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2408,6 +2444,54 @@ return Math.abs(self);;
 return self}, function($ctx1) {$ctx1.fill(self,"abs",{},smalltalk.Number)})},
 args: [],
 source: "abs\x0a\x09<return Math.abs(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "arcCos",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.acos(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"arcCos",{},smalltalk.Number)})},
+args: [],
+source: "arcCos\x0a\x09<return Math.acos(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "arcSin",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.asin(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"arcSin",{},smalltalk.Number)})},
+args: [],
+source: "arcSin\x0a\x09<return Math.asin(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "arcTan",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.atan(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"arcTan",{},smalltalk.Number)})},
+args: [],
+source: "arcTan\x0a\x09<return Math.atan(self);>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2557,6 +2641,22 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cos",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.cos(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"cos",{},smalltalk.Number)})},
+args: [],
+source: "cos\x0a\x09<return Math.cos(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "deepCopy",
 category: 'copying',
 fn: function (){
@@ -2671,6 +2771,54 @@ return $1;
 args: [],
 source: "isZero\x0a\x09^self = 0",
 messageSends: ["="],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ln",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.log(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"ln",{},smalltalk.Number)})},
+args: [],
+source: "ln\x0a\x09<return Math.log(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "log",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.log(self) / Math.LN10;;
+return self}, function($ctx1) {$ctx1.fill(self,"log",{},smalltalk.Number)})},
+args: [],
+source: "log\x0a\x09<return Math.log(self) / Math.LN10;>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "log:",
+category: 'mathematical functions',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.log(self) / Math.log(aNumber);;
+return self}, function($ctx1) {$ctx1.fill(self,"log:",{aNumber:aNumber},smalltalk.Number)})},
+args: ["aNumber"],
+source: "log: aNumber\x0a\x09<return Math.log(self) / Math.log(aNumber);>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -2813,6 +2961,22 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "raisedTo:",
+category: 'mathematical functions',
+fn: function (exponent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.pow(self, exponent);;
+return self}, function($ctx1) {$ctx1.fill(self,"raisedTo:",{exponent:exponent},smalltalk.Number)})},
+args: ["exponent"],
+source: "raisedTo: exponent\x0a\x09<return Math.pow(self, exponent);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "rounded",
 category: 'converting',
 fn: function (){
@@ -2829,8 +2993,50 @@ smalltalk.Number);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "sign",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._isZero();
+if(smalltalk.assert($1)){
+return (0);
+};
+$2=self._positive();
+if(smalltalk.assert($2)){
+return (1);
+} else {
+return (-1);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"sign",{},smalltalk.Number)})},
+args: [],
+source: "sign\x0a\x09self isZero \x0a\x09\x09ifTrue: [ ^ 0 ].\x0a\x09self positive\x0a\x09\x09ifTrue: [ ^ 1 ]\x0a\x09\x09ifFalse: [ ^ -1 ].",
+messageSends: ["ifTrue:", "isZero", "ifTrue:ifFalse:", "positive"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sin",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.sin(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"sin",{},smalltalk.Number)})},
+args: [],
+source: "sin\x0a\x09<return Math.sin(self);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "sqrt",
-category: 'arithmetic',
+category: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2846,7 +3052,7 @@ smalltalk.Number);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "squared",
-category: 'arithmetic',
+category: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2857,6 +3063,22 @@ return $1;
 args: [],
 source: "squared\x0a\x09^self * self",
 messageSends: ["*"],
+referencedClasses: []
+}),
+smalltalk.Number);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tan",
+category: 'mathematical functions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.tan(self);;
+return self}, function($ctx1) {$ctx1.fill(self,"tan",{},smalltalk.Number)})},
+args: [],
+source: "tan\x0a\x09<return Math.tan(self);>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Number);
@@ -3080,6 +3302,22 @@ referencedClasses: []
 }),
 smalltalk.Number);
 
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "e",
+category: 'instance creation',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Math.E;;
+return self}, function($ctx1) {$ctx1.fill(self,"e",{},smalltalk.Number.klass)})},
+args: [],
+source: "e\x0a\x09<return Math.E;>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
