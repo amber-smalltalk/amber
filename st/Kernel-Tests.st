@@ -967,6 +967,14 @@ testStreamContents
 				nextPutAll: 'hello'; space;
 				nextPutAll: 'world' ])
 		equals: 'hello world'
+!
+
+testCapitalized
+	self assert: 'test' capitalized equals: 'Test'.
+	self assert: 'Test' capitalized equals: 'Test'.
+	self assert: '' capitalized equals: ''.
+	self assert: 'Test' isCapitalized equals: true.
+	self assert: 'test' isCapitalized equals: false.
 ! !
 
 !StringTest class methodsFor: 'accessing'!

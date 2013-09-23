@@ -1315,6 +1315,10 @@ crlfSanitized
 
 reversed
 	<return self.split("").reverse().join("")>
+!
+
+capitalized
+	^ (self copyFrom: 1 to: 1) asUppercase, (self copyFrom: 2 to: self size)
 ! !
 
 !String methodsFor: 'copying'!
@@ -1500,6 +1504,10 @@ isVowel
 	"Answer true if the receiver is a one character string containing a voyel"
 	
 	^ self size = 1 and: [ 'aeiou' includes: self asLowercase ]
+!
+
+isCapitalized
+	^ self first asUppercase == self first
 ! !
 
 !String class methodsFor: 'accessing'!

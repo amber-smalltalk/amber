@@ -587,7 +587,7 @@ visitVariableNode: aNode
 	binding := currentScope lookupVariable: aNode.
 	
 	binding ifNil: [
-		aNode value beginsWithCapital
+		aNode value isCapitalized
 			ifTrue: [ "Capital letter variables might be globals."
 				binding := ClassRefVar new name: aNode value; yourself.
 				self classReferences add: aNode value]
@@ -604,11 +604,5 @@ on: aClass
 	^ self new
 		theClass: aClass;
 		yourself
-! !
-
-!String methodsFor: '*Compiler-Semantic'!
-
-beginsWithCapital
-	^ self first asUppercase == self first
 ! !
 

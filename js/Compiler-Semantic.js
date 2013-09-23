@@ -1,4 +1,4 @@
-define("amber_core/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
 smalltalk.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -1782,7 +1782,7 @@ var $1,$2,$3,$4,$5,$6;
 binding=_st(self["@currentScope"])._lookupVariable_(aNode);
 $1=binding;
 if(($receiver = $1) == nil || $receiver == null){
-$2=_st(_st(aNode)._value())._beginsWithCapital();
+$2=_st(_st(aNode)._value())._isCapitalized();
 if(smalltalk.assert($2)){
 $3=_st($ClassRefVar())._new();
 _st($3)._name_(_st(aNode)._value());
@@ -1804,8 +1804,8 @@ $1;
 _st(aNode)._binding_(binding);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode,binding:binding},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09\x22Bind a ScopeVar to aNode by doing a lookup in the current scope.\x0a\x09If no ScopeVar is found, bind a UnknowVar and throw an error.\x22\x0a\x0a\x09| binding |\x0a\x09binding := currentScope lookupVariable: aNode.\x0a\x09\x0a\x09binding ifNil: [\x0a\x09\x09aNode value beginsWithCapital\x0a\x09\x09\x09ifTrue: [ \x22Capital letter variables might be globals.\x22\x0a\x09\x09\x09\x09binding := ClassRefVar new name: aNode value; yourself.\x0a\x09\x09\x09\x09self classReferences add: aNode value]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09self errorUnknownVariable: aNode.\x0a\x09\x09\x09\x09binding := UnknownVar new name: aNode value; yourself ] ].\x0a\x09\x09\x0a\x09aNode binding: binding.",
-messageSends: ["lookupVariable:", "ifNil:", "ifTrue:ifFalse:", "beginsWithCapital", "value", "name:", "new", "yourself", "add:", "classReferences", "errorUnknownVariable:", "binding:"],
+source: "visitVariableNode: aNode\x0a\x09\x22Bind a ScopeVar to aNode by doing a lookup in the current scope.\x0a\x09If no ScopeVar is found, bind a UnknowVar and throw an error.\x22\x0a\x0a\x09| binding |\x0a\x09binding := currentScope lookupVariable: aNode.\x0a\x09\x0a\x09binding ifNil: [\x0a\x09\x09aNode value isCapitalized\x0a\x09\x09\x09ifTrue: [ \x22Capital letter variables might be globals.\x22\x0a\x09\x09\x09\x09binding := ClassRefVar new name: aNode value; yourself.\x0a\x09\x09\x09\x09self classReferences add: aNode value]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09self errorUnknownVariable: aNode.\x0a\x09\x09\x09\x09binding := UnknownVar new name: aNode value; yourself ] ].\x0a\x09\x09\x0a\x09aNode binding: binding.",
+messageSends: ["lookupVariable:", "ifNil:", "ifTrue:ifFalse:", "isCapitalized", "value", "name:", "new", "yourself", "add:", "classReferences", "errorUnknownVariable:", "binding:"],
 referencedClasses: ["ClassRefVar", "UnknownVar"]
 }),
 smalltalk.SemanticAnalyzer);
@@ -1831,23 +1831,5 @@ messageSends: ["theClass:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "beginsWithCapital",
-category: '*Compiler-Semantic',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._first())._asUppercase()).__eq_eq(self._first());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"beginsWithCapital",{},smalltalk.String)})},
-args: [],
-source: "beginsWithCapital\x0a\x09^ self first asUppercase == self first",
-messageSends: ["==", "asUppercase", "first"],
-referencedClasses: []
-}),
-smalltalk.String);
 
 });

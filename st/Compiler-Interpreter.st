@@ -129,6 +129,15 @@ localAt: aString
 			context localAt: aString ] ]
 !
 
+localAt: aString ifAbsent: aBlock
+	"Lookup the local value up to the method context"
+
+	^ self locals at: aString ifAbsent: [ 
+		self outerContext 
+			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
+			ifNil: [aBlock value] ]
+!
+
 localAt: aString put: anObject
 	self locals at: aString put: anObject
 !
@@ -159,15 +168,6 @@ selector
 
 selector: aString
 	selector := aString
-!
-
-localAt: aString ifAbsent: aBlock
-	"Lookup the local value up to the method context"
-
-	^ self locals at: aString ifAbsent: [ 
-		self outerContext 
-			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [aBlock value] ]
 ! !
 
 !AIContext methodsFor: 'factory'!
@@ -694,7 +694,7 @@ visitVariableNode: aNode
 		ifFalse: [ self context 
 			localAt: aNode value
 			ifAbsent: [
-				aNode value beginsWithCapital
+				aNode value isCapitalized
 					ifTrue: [
 						Smalltalk current 
 							at: aNode value 
