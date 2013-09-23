@@ -3478,12 +3478,14 @@ self._assert_equals_((2).__minus((1)),(1));
 self._assert_equals_((-2).__minus((1)),(-3));
 self._assert_equals_((12).__slash((2)),(6));
 self._assert_equals_((3).__star((4)),(12));
+self._assert_equals_((7).__slash_slash((2)),(3));
+self._assert_equals_((7).__backslash_backslash((2)),(1));
 self._assert_equals_(_st((1).__plus((2))).__star((3)),(9));
 self._assert_equals_((1).__plus((2).__star((3))),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},smalltalk.NumberTest)})},
 args: [],
-source: "testArithmetic\x0a\x09\x0a\x09\x22We rely on JS here, so we won't test complex behavior, just check if\x0a\x09message sends are corrects\x22\x0a\x0a\x09self assert: 1.5 + 1 equals: 2.5.\x0a\x09self assert: 2 - 1 equals: 1.\x0a\x09self assert: -2 - 1 equals: -3.\x0a\x09self assert: 12 / 2 equals: 6.\x0a\x09self assert: 3 * 4 equals: 12.\x0a\x0a\x09\x22Simple parenthesis and execution order\x22\x0a\x09self assert: 1 + 2 * 3 equals: 9.\x0a\x09self assert: 1 + (2 * 3) equals: 7",
-messageSends: ["assert:equals:", "+", "-", "/", "*"],
+source: "testArithmetic\x0a\x09\x0a\x09\x22We rely on JS here, so we won't test complex behavior, just check if\x0a\x09message sends are corrects\x22\x0a\x0a\x09self assert: 1.5 + 1 equals: 2.5.\x0a\x09self assert: 2 - 1 equals: 1.\x0a\x09self assert: -2 - 1 equals: -3.\x0a\x09self assert: 12 / 2 equals: 6.\x0a\x09self assert: 3 * 4 equals: 12.\x0a\x09self assert: 7 // 2 equals: 3.\x0a\x09self assert: 7 \x5c\x5c 2 equals: 1.\x0a\x0a\x09\x22Simple parenthesis and execution order\x22\x0a\x09self assert: 1 + 2 * 3 equals: 9.\x0a\x09self assert: 1 + (2 * 3) equals: 7",
+messageSends: ["assert:equals:", "+", "-", "/", "*", "//", "\x5c\x5c"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
@@ -3831,6 +3833,25 @@ smalltalk.NumberTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testLog",
+category: 'tests',
+fn: function (){
+var self=this;
+function $Number(){return smalltalk.Number||(typeof Number=="undefined"?nil:Number)}
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((10000)._log(),(4));
+self._assert_equals_((512)._log_((2)),(9));
+self._assert_equals_(_st(_st($Number())._e())._ln(),(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testLog",{},smalltalk.NumberTest)})},
+args: [],
+source: "testLog\x0a\x09self assert: 10000 log equals: 4.\x0a\x09self assert: (512 log: 2) equals: 9.\x0a\x09self assert: Number e ln equals: 1.",
+messageSends: ["assert:equals:", "log", "log:", "ln", "e"],
+referencedClasses: ["Number"]
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testMinMax",
 category: 'tests',
 fn: function (){
@@ -3893,6 +3914,26 @@ smalltalk.NumberTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testRaisedTo",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((2)._raisedTo_((4)),(16));
+self._assert_equals_((2)._raisedTo_((0)),(1));
+self._assert_equals_((2)._raisedTo_((-3)),(0.125));
+self._assert_equals_((4)._raisedTo_((0.5)),(2));
+self._assert_equals_((2).__star_star((4)),(16));
+return self}, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},smalltalk.NumberTest)})},
+args: [],
+source: "testRaisedTo\x0a\x09self assert: (2 raisedTo: 4) equals: 16.\x0a\x09self assert: (2 raisedTo: 0) equals: 1.\x0a\x09self assert: (2 raisedTo: -3) equals: 0.125.\x0a\x09self assert: (4 raisedTo: 0.5) equals: 2.\x0a\x09\x0a\x09self assert: 2 ** 4 equals: 16.",
+messageSends: ["assert:equals:", "raisedTo:", "**"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testRounded",
 category: 'tests',
 fn: function (){
@@ -3905,6 +3946,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"testRounded",{},smalltalk.Number
 args: [],
 source: "testRounded\x0a\x09\x0a\x09self assert: 3 rounded equals: 3.\x0a\x09self assert: 3.212 rounded equals: 3.\x0a\x09self assert: 3.51 rounded equals: 4",
 messageSends: ["assert:equals:", "rounded"],
+referencedClasses: []
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testSign",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((5)._sign(),(1));
+self._assert_equals_((0)._sign(),(0));
+self._assert_equals_((-1.4)._sign(),(-1));
+return self}, function($ctx1) {$ctx1.fill(self,"testSign",{},smalltalk.NumberTest)})},
+args: [],
+source: "testSign\x0a\x09self assert: 5 sign equals: 1.\x0a\x09self assert: 0 sign equals: 0.\x0a\x09self assert: -1.4 sign equals: -1.",
+messageSends: ["assert:equals:", "sign"],
 referencedClasses: []
 }),
 smalltalk.NumberTest);
@@ -4005,6 +4064,27 @@ args: [],
 source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [1 to: 4 by: 0] raise: Error",
 messageSends: ["assert:equals:", "to:by:", "should:raise:"],
 referencedClasses: ["Error"]
+}),
+smalltalk.NumberTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testTrigonometry",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_((0)._cos(),(1));
+self._assert_equals_((0)._sin(),(0));
+self._assert_equals_((0)._tan(),(0));
+self._assert_equals_((1)._arcCos(),(0));
+self._assert_equals_((0)._arcSin(),(0));
+self._assert_equals_((0)._arcTan(),(0));
+return self}, function($ctx1) {$ctx1.fill(self,"testTrigonometry",{},smalltalk.NumberTest)})},
+args: [],
+source: "testTrigonometry\x0a\x09self assert: 0 cos equals: 1.\x0a\x09self assert: 0 sin equals: 0.\x0a\x09self assert: 0 tan equals: 0.\x0a\x09self assert: 1 arcCos equals: 0.\x0a\x09self assert: 0 arcSin equals: 0.\x0a\x09self assert: 0 arcTan equals: 0.",
+messageSends: ["assert:equals:", "cos", "sin", "tan", "arcCos", "arcSin", "arcTan"],
+referencedClasses: []
 }),
 smalltalk.NumberTest);
 

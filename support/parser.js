@@ -49,6 +49,7 @@ smalltalk.parser = (function(){
         "symbol": parse_symbol,
         "bareSymbol": parse_bareSymbol,
         "number": parse_number,
+        "numberExp": parse_numberExp,
         "hex": parse_hex,
         "float": parse_float,
         "integer": parse_integer,
@@ -875,11 +876,14 @@ smalltalk.parser = (function(){
         var pos0;
         
         pos0 = clone(pos);
-        result0 = parse_hex();
+        result0 = parse_numberExp();
         if (result0 === null) {
-          result0 = parse_float();
+          result0 = parse_hex();
           if (result0 === null) {
-            result0 = parse_integer();
+            result0 = parse_float();
+            if (result0 === null) {
+              result0 = parse_integer();
+            }
           }
         }
         if (result0 !== null) {
@@ -888,6 +892,63 @@ smalltalk.parser = (function(){
                                     ._position_((line).__at(column))
                                     ._value_(n);
                          })(pos0.offset, pos0.line, pos0.column, result0);
+        }
+        if (result0 === null) {
+          pos = clone(pos0);
+        }
+        
+        cache[cacheKey] = {
+          nextPos: clone(pos),
+          result:  result0
+        };
+        return result0;
+      }
+      
+      function parse_numberExp() {
+        var cacheKey = "numberExp@" + pos.offset;
+        var cachedResult = cache[cacheKey];
+        if (cachedResult) {
+          pos = clone(cachedResult.nextPos);
+          return cachedResult.result;
+        }
+        
+        var result0, result1, result2;
+        var pos0, pos1;
+        
+        pos0 = clone(pos);
+        pos1 = clone(pos);
+        result0 = parse_float();
+        if (result0 === null) {
+          result0 = parse_integer();
+        }
+        if (result0 !== null) {
+          if (input.charCodeAt(pos.offset) === 101) {
+            result1 = "e";
+            advance(pos, 1);
+          } else {
+            result1 = null;
+            if (reportFailures === 0) {
+              matchFailed("\"e\"");
+            }
+          }
+          if (result1 !== null) {
+            result2 = parse_integer();
+            if (result2 !== null) {
+              result0 = [result0, result1, result2];
+            } else {
+              result0 = null;
+              pos = clone(pos1);
+            }
+          } else {
+            result0 = null;
+            pos = clone(pos1);
+          }
+        } else {
+          result0 = null;
+          pos = clone(pos1);
+        }
+        if (result0 !== null) {
+          result0 = (function(offset, line, column, n) {return parseFloat(n.join(""));})(pos0.offset, pos0.line, pos0.column, result0);
         }
         if (result0 === null) {
           pos = clone(pos0);

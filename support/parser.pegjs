@@ -20,14 +20,16 @@ bareSymbol         = val:(selector / binarySelector / node:string {return node._
                              ._position_((line).__at(column))
                              ._value_(val);
                   }
-number         = n:(hex / float / integer) {
+number         = n:(numberExp / hex / float / integer) {
                      return smalltalk.ValueNode._new()
                             ._position_((line).__at(column))
                             ._value_(n);
                  }
+numberExp      = n:((float / integer) "e" integer) {return parseFloat(n.join(""));}
 hex            = neg:[-]? "16r" num:[0-9a-fA-F]+ {return parseInt((neg + num.join("")), 16);}
 float          = neg:[-]?digits:[0-9]+ "." dec:[0-9]+ {return parseFloat((neg + digits.join("") + "." + dec.join("")), 10);}
 integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10));}
+
 literalArray   = "#(" rest:literalArrayRest {return rest;}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
 literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value();})* ws ")" {

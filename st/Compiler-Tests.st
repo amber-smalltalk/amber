@@ -222,7 +222,8 @@ testLiterals
 	self should: 'foo ^ false' return: false.
 	self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.
 	self should: 'foo ^ #hello' return: #hello.
-	self should: 'foo ^ -123.456' return: -123.456
+	self should: 'foo ^ -123.456' return: -123.456.
+	self should: 'foo ^ -2.5e4' return: -25000.
 !
 
 testLocalReturn
@@ -301,6 +302,16 @@ testSuperSend
 		return: false
 !
 
+testTempVariables
+	self should: 'foo | a | ^ a' return: nil.
+	self should: 'foo | AVariable | ^ AVariable' return: nil.
+	self should: 'foo | a b c | ^ c' return: nil.
+	self should: 'foo | a | [ | d | ^ d ] value' return: nil.
+	
+	self should: 'foo | a | a:= 1. ^ a' return: 1.
+	self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.
+!
+
 testThisContext
 	self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true
 !
@@ -370,16 +381,6 @@ testifTrueIfFalse
 	
 	self should: 'foo ^ false ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 1.
 	self should: 'foo ^ true ifTrue: [ 2 ] ifFalse: [ 1 ]' return: 2.
-!
-
-testTempVariables
-	self should: 'foo | a | ^ a' return: nil.
-	self should: 'foo | AVariable | ^ AVariable' return: nil.
-	self should: 'foo | a b c | ^ c' return: nil.
-	self should: 'foo | a | [ | d | ^ d ] value' return: nil.
-	
-	self should: 'foo | a | a:= 1. ^ a' return: 1.
-	self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.
 ! !
 
 CodeGeneratorTest subclass: #InliningCodeGeneratorTest
