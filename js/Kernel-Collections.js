@@ -3835,13 +3835,18 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._copyFrom_to_((1),(1)))._asUppercase()).__comma(self._copyFrom_to_((2),self._size()));
+var $2,$1;
+$2=self._isEmpty();
+if(smalltalk.assert($2)){
+$1=self;
+} else {
+$1=_st(_st(self._first())._asUppercase()).__comma(self._allButFirst());
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"capitalized",{},smalltalk.String)})},
 args: [],
-source: "capitalized\x0a\x09^ (self copyFrom: 1 to: 1) asUppercase, (self copyFrom: 2 to: self size)",
-messageSends: [",", "asUppercase", "copyFrom:to:", "size"],
+source: "capitalized\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self first asUppercase, self allButFirst ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", ",", "asUppercase", "first", "allButFirst"],
 referencedClasses: []
 }),
 smalltalk.String);
