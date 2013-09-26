@@ -681,18 +681,6 @@ accept: aVisitor
 	^ aVisitor visitVariableNode: self
 ! !
 
-VariableNode subclass: #ClassReferenceNode
-	instanceVariableNames: ''
-	package: 'Compiler-AST'!
-!ClassReferenceNode commentStamp!
-I represent an class reference node.!
-
-!ClassReferenceNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitClassReferenceNode: self
-! !
-
 !Object methodsFor: '*Compiler-AST'!
 
 isNode

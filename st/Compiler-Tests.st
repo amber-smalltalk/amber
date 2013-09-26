@@ -302,6 +302,16 @@ testSuperSend
 		return: false
 !
 
+testTempVariables
+	self should: 'foo | a | ^ a' return: nil.
+	self should: 'foo | AVariable | ^ AVariable' return: nil.
+	self should: 'foo | a b c | ^ c' return: nil.
+	self should: 'foo | a | [ | d | ^ d ] value' return: nil.
+	
+	self should: 'foo | a | a:= 1. ^ a' return: 1.
+	self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.
+!
+
 testThisContext
 	self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true
 !
@@ -450,10 +460,12 @@ TestCase subclass: #ScopeVarTest
 
 testClassRefVar
 	| node |
-	node := ClassReferenceNode new
+	node := VariableNode new
 		value: 'Object';
 		yourself.
-	SemanticAnalyzer new visit: node.
+	SemanticAnalyzer new 
+		pushScope: MethodLexicalScope new;
+		visit: node.
 	self assert: node binding isClassRefVar
 !
 

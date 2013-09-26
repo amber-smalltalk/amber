@@ -704,6 +704,27 @@ smalltalk.CodeGeneratorTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testTempVariables",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._should_return_("foo | a | ^ a",nil);
+self._should_return_("foo | AVariable | ^ AVariable",nil);
+self._should_return_("foo | a b c | ^ c",nil);
+self._should_return_("foo | a | [ | d | ^ d ] value",nil);
+self._should_return_("foo | a | a:= 1. ^ a",(1));
+self._should_return_("foo | AVariable | AVariable := 1. ^ AVariable",(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testTempVariables",{},smalltalk.CodeGeneratorTest)})},
+args: [],
+source: "testTempVariables\x0a\x09self should: 'foo | a | ^ a' return: nil.\x0a\x09self should: 'foo | AVariable | ^ AVariable' return: nil.\x0a\x09self should: 'foo | a b c | ^ c' return: nil.\x0a\x09self should: 'foo | a | [ | d | ^ d ] value' return: nil.\x0a\x09\x0a\x09self should: 'foo | a | a:= 1. ^ a' return: 1.\x0a\x09self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.\x09",
+messageSends: ["should:return:"],
+referencedClasses: []
+}),
+smalltalk.CodeGeneratorTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testThisContext",
 category: 'tests',
 fn: function (){
@@ -1037,21 +1058,24 @@ category: 'tests',
 fn: function (){
 var self=this;
 var node;
-function $ClassReferenceNode(){return smalltalk.ClassReferenceNode||(typeof ClassReferenceNode=="undefined"?nil:ClassReferenceNode)}
+function $VariableNode(){return smalltalk.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
+function $MethodLexicalScope(){return smalltalk.MethodLexicalScope||(typeof MethodLexicalScope=="undefined"?nil:MethodLexicalScope)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st($ClassReferenceNode())._new();
+var $1,$2,$3,$4;
+$1=_st($VariableNode())._new();
 _st($1)._value_("Object");
 $2=_st($1)._yourself();
 node=$2;
-_st(_st($SemanticAnalyzer())._new())._visit_(node);
+$3=_st($SemanticAnalyzer())._new();
+_st($3)._pushScope_(_st($MethodLexicalScope())._new());
+$4=_st($3)._visit_(node);
 self._assert_(_st(_st(node)._binding())._isClassRefVar());
 return self}, function($ctx1) {$ctx1.fill(self,"testClassRefVar",{node:node},smalltalk.ScopeVarTest)})},
 args: [],
-source: "testClassRefVar\x0a\x09| node |\x0a\x09node := ClassReferenceNode new\x0a\x09\x09value: 'Object';\x0a\x09\x09yourself.\x0a\x09SemanticAnalyzer new visit: node.\x0a\x09self assert: node binding isClassRefVar",
-messageSends: ["value:", "new", "yourself", "visit:", "assert:", "isClassRefVar", "binding"],
-referencedClasses: ["ClassReferenceNode", "SemanticAnalyzer"]
+source: "testClassRefVar\x0a\x09| node |\x0a\x09node := VariableNode new\x0a\x09\x09value: 'Object';\x0a\x09\x09yourself.\x0a\x09SemanticAnalyzer new \x0a\x09\x09pushScope: MethodLexicalScope new;\x0a\x09\x09visit: node.\x0a\x09self assert: node binding isClassRefVar",
+messageSends: ["value:", "new", "yourself", "pushScope:", "visit:", "assert:", "isClassRefVar", "binding"],
+referencedClasses: ["VariableNode", "SemanticAnalyzer", "MethodLexicalScope"]
 }),
 smalltalk.ScopeVarTest);
 

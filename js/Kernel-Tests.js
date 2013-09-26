@@ -2301,6 +2301,26 @@ smalltalk.StringTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testCapitalized",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("test"._capitalized(),"Test");
+self._assert_equals_("Test"._capitalized(),"Test");
+self._assert_equals_(""._capitalized(),"");
+self._assert_equals_("Test"._isCapitalized(),true);
+self._assert_equals_("test"._isCapitalized(),false);
+return self}, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},smalltalk.StringTest)})},
+args: [],
+source: "testCapitalized\x0a\x09self assert: 'test' capitalized equals: 'Test'.\x0a\x09self assert: 'Test' capitalized equals: 'Test'.\x0a\x09self assert: '' capitalized equals: ''.\x0a\x09self assert: 'Test' isCapitalized equals: true.\x0a\x09self assert: 'test' isCapitalized equals: false.",
+messageSends: ["assert:equals:", "capitalized", "isCapitalized"],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testCollect",
 category: 'tests',
 fn: function (){

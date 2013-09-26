@@ -1130,7 +1130,6 @@ function RuntimeBrik(brikz, st) {
 				return inContext(worker, setup);
 			} catch(error) {
 				handleError(error);
-			} finally {
 				st.thisContext = null;
 			}
 		}
@@ -20250,24 +20249,6 @@ smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "visitClassReferenceNode:",
-category: 'visiting',
-fn: function (aNode){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._visitVariableNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.NodeVisitor)})},
-args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09^ self visitVariableNode: aNode",
-messageSends: ["visitVariableNode:"],
-referencedClasses: []
-}),
-smalltalk.NodeVisitor);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
 fn: function (aNode){
@@ -22643,28 +22624,6 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.VariableNode);
-
-
-
-smalltalk.addClass('ClassReferenceNode', smalltalk.VariableNode, [], 'Compiler-AST');
-smalltalk.ClassReferenceNode.comment="I represent an class reference node.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "accept:",
-category: 'visiting',
-fn: function (aVisitor){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(aVisitor)._visitClassReferenceNode_(self);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"accept:",{aVisitor:aVisitor},smalltalk.ClassReferenceNode)})},
-args: ["aVisitor"],
-source: "accept: aVisitor\x0a\x09^ aVisitor visitClassReferenceNode: self",
-messageSends: ["visitClassReferenceNode:"],
-referencedClasses: []
-}),
-smalltalk.ClassReferenceNode);
 
 
 smalltalk.addMethod(
@@ -27880,7 +27839,7 @@ smalltalk.InliningCodeGenerator);
 
 });
 
-define("amber_core/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Compiler-Core"], function(smalltalk,nil,_st){
+define("amber_core/Compiler-Semantic", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Compiler-Core", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Compiler-Semantic');
 smalltalk.packages["Compiler-Semantic"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
@@ -29532,28 +29491,6 @@ smalltalk.SemanticAnalyzer);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "visitClassReferenceNode:",
-category: 'visiting',
-fn: function (aNode){
-var self=this;
-function $ClassRefVar(){return smalltalk.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-_st(self._classReferences())._add_(_st(aNode)._value());
-$1=_st($ClassRefVar())._new();
-_st($1)._name_(_st(aNode)._value());
-$2=_st($1)._yourself();
-_st(aNode)._binding_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
-args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09self classReferences add: aNode value.\x0a\x09aNode binding: (ClassRefVar new name: aNode value; yourself)",
-messageSends: ["add:", "classReferences", "value", "binding:", "name:", "new", "yourself"],
-referencedClasses: ["ClassRefVar"]
-}),
-smalltalk.SemanticAnalyzer);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "visitMethodNode:",
 category: 'visiting',
 fn: function (aNode){
@@ -29678,26 +29615,39 @@ selector: "visitVariableNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+var binding;
+function $ClassRefVar(){return smalltalk.ClassRefVar||(typeof ClassRefVar=="undefined"?nil:ClassRefVar)}
 function $UnknownVar(){return smalltalk.UnknownVar||(typeof UnknownVar=="undefined"?nil:UnknownVar)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$2;
-$1=aNode;
-$3=_st(self["@currentScope"])._lookupVariable_(aNode);
-if(($receiver = $3) == nil || $receiver == null){
-self._errorUnknownVariable_(aNode);
-$4=_st($UnknownVar())._new();
-_st($4)._name_(_st(aNode)._value());
-$5=_st($4)._yourself();
-$2=$5;
+var $1,$2,$3,$4,$5,$6;
+binding=_st(self["@currentScope"])._lookupVariable_(aNode);
+$1=binding;
+if(($receiver = $1) == nil || $receiver == null){
+$2=_st(_st(aNode)._value())._beginsWithCapital();
+if(smalltalk.assert($2)){
+$3=_st($ClassRefVar())._new();
+_st($3)._name_(_st(aNode)._value());
+$4=_st($3)._yourself();
+binding=$4;
+binding;
+_st(self._classReferences())._add_(_st(aNode)._value());
 } else {
-$2=$3;
+self._errorUnknownVariable_(aNode);
+$5=_st($UnknownVar())._new();
+_st($5)._name_(_st(aNode)._value());
+$6=_st($5)._yourself();
+binding=$6;
+binding;
 };
-_st($1)._binding_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
+} else {
+$1;
+};
+_st(aNode)._binding_(binding);
+return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode,binding:binding},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09\x22Bind a ScopeVar to aNode by doing a lookup in the current scope.\x0a\x09If no ScopeVar is found, bind a UnknowVar and throw an error\x22\x0a\x0a\x09aNode binding: ((currentScope lookupVariable: aNode) ifNil: [\x0a\x09\x09self errorUnknownVariable: aNode.\x0a\x09\x09UnknownVar new name: aNode value; yourself ])",
-messageSends: ["binding:", "ifNil:", "lookupVariable:", "errorUnknownVariable:", "name:", "new", "value", "yourself"],
-referencedClasses: ["UnknownVar"]
+source: "visitVariableNode: aNode\x0a\x09\x22Bind a ScopeVar to aNode by doing a lookup in the current scope.\x0a\x09If no ScopeVar is found, bind a UnknowVar and throw an error.\x22\x0a\x0a\x09| binding |\x0a\x09binding := currentScope lookupVariable: aNode.\x0a\x09\x0a\x09binding ifNil: [\x0a\x09\x09aNode value beginsWithCapital\x0a\x09\x09\x09ifTrue: [ \x22Capital letter variables might be globals.\x22\x0a\x09\x09\x09\x09binding := ClassRefVar new name: aNode value; yourself.\x0a\x09\x09\x09\x09self classReferences add: aNode value]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09self errorUnknownVariable: aNode.\x0a\x09\x09\x09\x09binding := UnknownVar new name: aNode value; yourself ] ].\x0a\x09\x09\x0a\x09aNode binding: binding.",
+messageSends: ["lookupVariable:", "ifNil:", "ifTrue:ifFalse:", "beginsWithCapital", "value", "name:", "new", "yourself", "add:", "classReferences", "errorUnknownVariable:", "binding:"],
+referencedClasses: ["ClassRefVar", "UnknownVar"]
 }),
 smalltalk.SemanticAnalyzer);
 
@@ -29722,6 +29672,24 @@ messageSends: ["theClass:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.SemanticAnalyzer.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "beginsWithCapital",
+category: '*Compiler-Semantic',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._first())._asUppercase()).__eq_eq(self._first());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"beginsWithCapital",{},smalltalk.String)})},
+args: [],
+source: "beginsWithCapital\x0a\x09^ self first asUppercase == self first",
+messageSends: ["==", "asUppercase", "first"],
+referencedClasses: []
+}),
+smalltalk.String);
 
 });
 
@@ -30260,6 +30228,34 @@ return $1;
 args: ["aString"],
 source: "localAt: aString\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext ifNotNil: [ :context | \x0a\x09\x09\x09context localAt: aString ] ]",
 messageSends: ["at:ifAbsent:", "locals", "ifNotNil:", "outerContext", "localAt:"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "localAt:ifAbsent:",
+category: 'accessing',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$1=_st(self._locals())._at_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+$2=self._outerContext();
+if(($receiver = $2) == nil || $receiver == null){
+return _st(aBlock)._value();
+} else {
+var context;
+context=$receiver;
+return _st(context)._localAt_ifAbsent_(aString,aBlock);
+};
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.AIContext)})},
+args: ["aString", "aBlock"],
+source: "localAt: aString ifAbsent: aBlock\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext \x0a\x09\x09\x09ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]\x0a\x09\x09\x09ifNil: [aBlock value] ]",
+messageSends: ["at:ifAbsent:", "locals", "ifNotNil:ifNil:", "outerContext", "localAt:ifAbsent:", "value"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -31496,27 +31492,6 @@ smalltalk.ASTInterpreter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "visitClassReferenceNode:",
-category: 'visiting',
-fn: function (aNode){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-return smalltalk.withContext(function($ctx1) { 
-self._push_(_st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.ASTInterpreter)})},
-args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09self push: (Smalltalk current \x0a\x09\x09at: aNode value \x0a\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ])",
-messageSends: ["push:", "at:ifAbsent:", "current", "value", "at:", "globals"],
-referencedClasses: ["Smalltalk", "PlatformInterface"]
-}),
-smalltalk.ASTInterpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
 fn: function (aNode){
@@ -31672,8 +31647,9 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1,$2,$3,$5,$6,$4;
 $1=_st(_st(aNode)._binding())._isUnknownVar();
 if(smalltalk.assert($1)){
 $2=self._push_(_st(_st($PlatformInterface())._globals())._at_ifAbsent_(_st(aNode)._value(),(function(){
@@ -31687,14 +31663,23 @@ $5=_st(_st(aNode)._binding())._isInstanceVar();
 if(smalltalk.assert($5)){
 $4=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
 } else {
-$4=_st(self._context())._localAt_(_st(aNode)._value());
+$4=_st(self._context())._localAt_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+$6=_st(_st(aNode)._value())._beginsWithCapital();
+if(smalltalk.assert($6)){
+return _st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,7)})}));
+};
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
 };
 _st($3)._push_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
-messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"],
-referencedClasses: ["PlatformInterface"]
+source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context \x0a\x09\x09\x09localAt: aNode value\x0a\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09aNode value beginsWithCapital\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09Smalltalk current \x0a\x09\x09\x09\x09\x09\x09\x09at: aNode value \x0a\x09\x09\x09\x09\x09\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ]]]])",
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:ifAbsent:", "beginsWithCapital", "current", "at:"],
+referencedClasses: ["PlatformInterface", "Smalltalk"]
 }),
 smalltalk.ASTInterpreter);
 
@@ -32109,7 +32094,6 @@ smalltalk.parser = (function(){
         "comments": parse_comments,
         "ws": parse_ws,
         "identifier": parse_identifier,
-        "varIdentifier": parse_varIdentifier,
         "keyword": parse_keyword,
         "selector": parse_selector,
         "className": parse_className,
@@ -32130,8 +32114,6 @@ smalltalk.parser = (function(){
         "runtimeLiteral": parse_runtimeLiteral,
         "literal": parse_literal,
         "variable": parse_variable,
-        "classReference": parse_classReference,
-        "reference": parse_reference,
         "keywordPair": parse_keywordPair,
         "binarySelector": parse_binarySelector,
         "keywordPattern": parse_keywordPattern,
@@ -32483,75 +32465,6 @@ smalltalk.parser = (function(){
           result0 = null;
           if (reportFailures === 0) {
             matchFailed("[a-zA-Z]");
-          }
-        }
-        if (result0 !== null) {
-          result1 = [];
-          if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-            result2 = input.charAt(pos.offset);
-            advance(pos, 1);
-          } else {
-            result2 = null;
-            if (reportFailures === 0) {
-              matchFailed("[a-zA-Z0-9]");
-            }
-          }
-          while (result2 !== null) {
-            result1.push(result2);
-            if (/^[a-zA-Z0-9]/.test(input.charAt(pos.offset))) {
-              result2 = input.charAt(pos.offset);
-              advance(pos, 1);
-            } else {
-              result2 = null;
-              if (reportFailures === 0) {
-                matchFailed("[a-zA-Z0-9]");
-              }
-            }
-          }
-          if (result1 !== null) {
-            result0 = [result0, result1];
-          } else {
-            result0 = null;
-            pos = clone(pos1);
-          }
-        } else {
-          result0 = null;
-          pos = clone(pos1);
-        }
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, first, others) {return first + others.join("");})(pos0.offset, pos0.line, pos0.column, result0[0], result0[1]);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_varIdentifier() {
-        var cacheKey = "varIdentifier@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0, result1, result2;
-        var pos0, pos1;
-        
-        pos0 = clone(pos);
-        pos1 = clone(pos);
-        if (/^[a-z]/.test(input.charAt(pos.offset))) {
-          result0 = input.charAt(pos.offset);
-          advance(pos, 1);
-        } else {
-          result0 = null;
-          if (reportFailures === 0) {
-            matchFailed("[a-z]");
           }
         }
         if (result0 !== null) {
@@ -33882,7 +33795,7 @@ smalltalk.parser = (function(){
         var pos0;
         
         pos0 = clone(pos);
-        result0 = parse_varIdentifier();
+        result0 = parse_identifier();
         if (result0 !== null) {
           result0 = (function(offset, line, column, identifier) {
                              return smalltalk.VariableNode._new()
@@ -33892,59 +33805,6 @@ smalltalk.parser = (function(){
         }
         if (result0 === null) {
           pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_classReference() {
-        var cacheKey = "classReference@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        var pos0;
-        
-        pos0 = clone(pos);
-        result0 = parse_className();
-        if (result0 !== null) {
-          result0 = (function(offset, line, column, className) {
-                             return smalltalk.ClassReferenceNode._new()
-                                    ._position_((line).__at(column))
-                                    ._value_(className);
-                         })(pos0.offset, pos0.line, pos0.column, result0);
-        }
-        if (result0 === null) {
-          pos = clone(pos0);
-        }
-        
-        cache[cacheKey] = {
-          nextPos: clone(pos),
-          result:  result0
-        };
-        return result0;
-      }
-      
-      function parse_reference() {
-        var cacheKey = "reference@" + pos.offset;
-        var cachedResult = cache[cacheKey];
-        if (cachedResult) {
-          pos = clone(cachedResult.nextPos);
-          return cachedResult.result;
-        }
-        
-        var result0;
-        
-        result0 = parse_variable();
-        if (result0 === null) {
-          result0 = parse_classReference();
         }
         
         cache[cacheKey] = {
@@ -35277,7 +35137,7 @@ smalltalk.parser = (function(){
         
         result0 = parse_literal();
         if (result0 === null) {
-          result0 = parse_reference();
+          result0 = parse_variable();
           if (result0 === null) {
             result0 = parse_subexpression();
           }
