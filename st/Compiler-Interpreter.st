@@ -129,6 +129,15 @@ localAt: aString
 			context localAt: aString ] ]
 !
 
+localAt: aString ifAbsent: aBlock
+	"Lookup the local value up to the method context"
+
+	^ self locals at: aString ifAbsent: [ 
+		self outerContext 
+			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
+			ifNil: [aBlock value] ]
+!
+
 localAt: aString put: anObject
 	self locals at: aString put: anObject
 !
@@ -613,12 +622,6 @@ visitBlockNode: aNode
 	self push: block
 !
 
-visitClassReferenceNode: aNode
-	self push: (Smalltalk current 
-		at: aNode value 
-		ifAbsent: [ PlatformInterface globals at: aNode value ])
-!
-
 visitDynamicArrayNode: aNode
 	| array |
 	
@@ -688,7 +691,14 @@ visitVariableNode: aNode
 		
 	self push: (aNode binding isInstanceVar
 		ifTrue: [ self context receiver instVarAt: aNode value ]
-		ifFalse: [ self context localAt: aNode value ])
+		ifFalse: [ self context 
+			localAt: aNode value
+			ifAbsent: [
+				aNode value isCapitalized
+					ifTrue: [
+						Smalltalk current 
+							at: aNode value 
+							ifAbsent: [ PlatformInterface globals at: aNode value ]]]])
 ! !
 
 Error subclass: #ASTInterpreterError

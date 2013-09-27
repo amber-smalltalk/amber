@@ -539,6 +539,34 @@ smalltalk.AIContext);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "localAt:ifAbsent:",
+category: 'accessing',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$1=_st(self._locals())._at_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+$2=self._outerContext();
+if(($receiver = $2) == nil || $receiver == null){
+return _st(aBlock)._value();
+} else {
+var context;
+context=$receiver;
+return _st(context)._localAt_ifAbsent_(aString,aBlock);
+};
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.AIContext)})},
+args: ["aString", "aBlock"],
+source: "localAt: aString ifAbsent: aBlock\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext \x0a\x09\x09\x09ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]\x0a\x09\x09\x09ifNil: [aBlock value] ]",
+messageSends: ["at:ifAbsent:", "locals", "ifNotNil:ifNil:", "outerContext", "localAt:ifAbsent:", "value"],
+referencedClasses: []
+}),
+smalltalk.AIContext);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "localAt:put:",
 category: 'accessing',
 fn: function (aString,anObject){
@@ -1769,27 +1797,6 @@ smalltalk.ASTInterpreter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "visitClassReferenceNode:",
-category: 'visiting',
-fn: function (aNode){
-var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
-function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-return smalltalk.withContext(function($ctx1) { 
-self._push_(_st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.ASTInterpreter)})},
-args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09self push: (Smalltalk current \x0a\x09\x09at: aNode value \x0a\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ])",
-messageSends: ["push:", "at:ifAbsent:", "current", "value", "at:", "globals"],
-referencedClasses: ["Smalltalk", "PlatformInterface"]
-}),
-smalltalk.ASTInterpreter);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
 fn: function (aNode){
@@ -1945,8 +1952,9 @@ category: 'visiting',
 fn: function (aNode){
 var self=this;
 function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1,$2,$3,$5,$6,$4;
 $1=_st(_st(aNode)._binding())._isUnknownVar();
 if(smalltalk.assert($1)){
 $2=self._push_(_st(_st($PlatformInterface())._globals())._at_ifAbsent_(_st(aNode)._value(),(function(){
@@ -1960,14 +1968,23 @@ $5=_st(_st(aNode)._binding())._isInstanceVar();
 if(smalltalk.assert($5)){
 $4=_st(_st(self._context())._receiver())._instVarAt_(_st(aNode)._value());
 } else {
-$4=_st(self._context())._localAt_(_st(aNode)._value());
+$4=_st(self._context())._localAt_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx2) {
+$6=_st(_st(aNode)._value())._isCapitalized();
+if(smalltalk.assert($6)){
+return _st(_st($Smalltalk())._current())._at_ifAbsent_(_st(aNode)._value(),(function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,7)})}));
+};
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
 };
 _st($3)._push_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context localAt: aNode value ])",
-messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:"],
-referencedClasses: ["PlatformInterface"]
+source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context \x0a\x09\x09\x09localAt: aNode value\x0a\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09aNode value isCapitalized\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09Smalltalk current \x0a\x09\x09\x09\x09\x09\x09\x09at: aNode value \x0a\x09\x09\x09\x09\x09\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ]]]])",
+messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:ifAbsent:", "isCapitalized", "current", "at:"],
+referencedClasses: ["PlatformInterface", "Smalltalk"]
 }),
 smalltalk.ASTInterpreter);
 

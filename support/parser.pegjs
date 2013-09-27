@@ -4,7 +4,6 @@ separator      = [ \t\v\f\u00A0\uFEFF\n\r\u2028\u2029]+
 comments       = (["][^"]*["])+
 ws             = (separator / comments)*
 identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
-varIdentifier  = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("");}
 keyword        = first:identifier last:[:] {return first + last;}
 selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("");}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
@@ -61,18 +60,13 @@ runtimeLiteral        = dynamicDictionary / dynamicArray / block
 literal        = runtimeLiteral / parseTimeLiteral
 
 
-variable       = identifier:varIdentifier {
+variable       = identifier:identifier {
                      return smalltalk.VariableNode._new()
                             ._position_((line).__at(column))
                             ._value_(identifier);
                  }
-classReference = className:className {
-                     return smalltalk.ClassReferenceNode._new()
-                            ._position_((line).__at(column))
-                            ._value_(className);
-                 }
 
-reference      = variable / classReference
+reference      = variable
 
 keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg};}
 
