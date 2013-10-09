@@ -825,24 +825,6 @@ smalltalk.NodeVisitor);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "visitClassReferenceNode:",
-category: 'visiting',
-fn: function (aNode){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._visitVariableNode_(aNode);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"visitClassReferenceNode:",{aNode:aNode},smalltalk.NodeVisitor)})},
-args: ["aNode"],
-source: "visitClassReferenceNode: aNode\x0a\x09^ self visitVariableNode: aNode",
-messageSends: ["visitVariableNode:"],
-referencedClasses: []
-}),
-smalltalk.NodeVisitor);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "visitDynamicArrayNode:",
 category: 'visiting',
 fn: function (aNode){

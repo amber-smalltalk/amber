@@ -5,14 +5,23 @@ module.exports = function(grunt) {
   var amberc = require('../../bin/amberc.js');
 
   /**
-     Full config looks like this:
+     A full example entry for a Gruntfile.js is available below.
+     Please note that the verbose level is either specified globally
+     or on a target specific level.
+     However, it can additionally be triggered on the commandline by
+     adding the '-v' or '--verbose' flag.
+
+     Example Gruntfile.js entry:
+
      amberc: {
-       _config: {
+       options: {
          amber_dir: process.cwd(),     // REQUIRED
-         closure_jar: '',              // optional
          verbose: true                 // optional
        },
        helloWorld: {
+         options: {                             // the 'options' object is optional
+           verbose: true
+         },
          src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
          output_dir: 'projects/HelloWorld/js',  // optional
          libraries: 'Canvas',                   // optional
@@ -28,25 +37,27 @@ module.exports = function(grunt) {
 
    */
   grunt.registerMultiTask('amberc', 'Compile Smalltalk files with the amberc compiler', function() {
-    // mark required properties
-    this.requiresConfig('amberc.options.amber_dir');
-    this.requiresConfig(['amberc', this.target, 'src']);
+    // mark task as async task
+    var done = this.async();
 
     var options = this.options({
       amber_dir: undefined,
-      closure_jar: '',
       verbose: grunt.option('verbose') || false
     });
     this.data.verbose = options.verbose;
 
-    // mark task as async task
-    var done = this.async();
+    // mark required properties
+    this.requiresConfig('amberc.options.amber_dir');
+    // raise error on missing source files
+    if (this.filesSrc.length === 0) {
+        grunt.fail.fatal('No source files to compile or link.');
+    }
 
     // create and initialize amberc
-    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'), grunt.config('amberc.options.closure_jar'));
+    var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
 
     // generate the amberc configuration out of the given target properties
-    var configuration = generateCompilerConfiguration(this.data, grunt.config('amberc.options.amber_dir'));
+    var configuration = generateCompilerConfiguration(this.data, this.filesSrc, grunt.config('amberc.options.amber_dir'));
 
     // run the compiler and call the async callback once finished
     var self = this;
@@ -57,7 +68,7 @@ module.exports = function(grunt) {
   });
 
 
-  function generateCompilerConfiguration(data, amber_dir) {
+  function generateCompilerConfiguration(data, sourceFiles, amber_dir) {
     var configuration = amberc.createDefaults(amber_dir);
     var parameters = [];
 
@@ -83,7 +94,6 @@ module.exports = function(grunt) {
       configuration.loadsuffix = librarySuffix;
       configuration.suffix_used = librarySuffix;
     }
-    var sourceFiles = data.src;
     if (undefined !== sourceFiles) {
       sourceFiles.forEach(function(currentItem){
         var fileSuffix = path.extname(currentItem);

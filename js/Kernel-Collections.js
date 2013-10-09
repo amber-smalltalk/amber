@@ -3830,6 +3830,29 @@ smalltalk.String);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "capitalized",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._isEmpty();
+if(smalltalk.assert($2)){
+$1=self;
+} else {
+$1=_st(_st(self._first())._asUppercase()).__comma(self._allButFirst());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"capitalized",{},smalltalk.String)})},
+args: [],
+source: "capitalized\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ self ]\x0a\x09\x09ifFalse: [ self first asUppercase, self allButFirst ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", ",", "asUppercase", "first", "allButFirst"],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "charCodeAt:",
 category: 'accessing',
 fn: function (anInteger){
@@ -3941,6 +3964,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"includesSubString:",{subString:s
 args: ["subString"],
 source: "includesSubString: subString\x0a\x09< return self.indexOf(subString) != -1 >",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isCapitalized",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._first())._asUppercase()).__eq_eq(self._first());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isCapitalized",{},smalltalk.String)})},
+args: [],
+source: "isCapitalized\x0a\x09^ self first asUppercase == self first",
+messageSends: ["==", "asUppercase", "first"],
 referencedClasses: []
 }),
 smalltalk.String);
