@@ -645,15 +645,18 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self._methodDictionary())._values())._select_((function(each){
+$1=_st(_st(_st(self._methodDictionary())._values())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsInProtocol:",{aString:aString},smalltalk.Behavior)})},
 args: ["aString"],
-source: "methodsInProtocol: aString\x0a\x09^ self methodDictionary values select: [ :each | each protocol = aString ]",
-messageSends: ["select:", "values", "methodDictionary", "=", "protocol"],
+source: "methodsInProtocol: aString\x0a\x09^ (self methodDictionary values select: [ :each | each protocol = aString ])\x0a\x09\x09\x09sorted: [ :a :b | a selector <= b selector ]",
+messageSends: ["sorted:", "select:", "values", "methodDictionary", "=", "protocol", "<=", "selector"],
 referencedClasses: []
 }),
 smalltalk.Behavior);
