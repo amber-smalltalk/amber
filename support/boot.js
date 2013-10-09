@@ -523,18 +523,6 @@ function ClassesBrik(brikz, st) {
 		return wrappedClasses;
 	};
 
-	/* Answer all registered Packages as Array */
-	// TODO: Remove this hack
-
-	st.packages.all = function() {
-		var packages = [];
-		for(var i in st.packages) {
-			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
-			packages.push(st.packages[i]);
-		}
-		return packages;
-	};
-
 	// Still used, but could go away now that subclasses are stored
 	// into classes directly.
 	st.allSubclasses = function(klass) {

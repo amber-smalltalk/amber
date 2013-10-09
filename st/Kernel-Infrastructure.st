@@ -758,14 +758,14 @@ at: aString
 	^ self basicAt: aString
 !
 
-at: aString put: anObject
-	^ self basicAt: aString put: anObject
-!
-
 at: aKey ifAbsent: aBlock
 	^ (self includesKey: aKey)
 		ifTrue: [self at: aKey]
 		ifFalse: aBlock
+!
+
+at: aString put: anObject
+	^ self basicAt: aString put: anObject
 !
 
 includesKey: aKey
@@ -882,7 +882,13 @@ packageAt: packageName ifAbsent: aBlock
 packages
 	"Return all Package instances in the system."
 
-	<return self.packages.all()>
+	<
+		var packages = [];
+		for(var key in self.packages) {
+			packages.push(self.packages[key]);
+		}
+		return packages;
+	>
 !
 
 removePackage: packageName
