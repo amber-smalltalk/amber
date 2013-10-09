@@ -582,7 +582,7 @@ displayLabel
 !HLRenameClassCommand methodsFor: 'defaults'!
 
 defaultInput
-	^ self model selectedClass name
+	^ self model selectedClass theNonMetaClass name
 ! !
 
 !HLRenameClassCommand methodsFor: 'executing'!
