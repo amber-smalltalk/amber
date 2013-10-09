@@ -504,6 +504,38 @@ smalltalk.Behavior);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "javascriptConstructor",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.fn;
+return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor",{},smalltalk.Behavior)})},
+args: [],
+source: "javascriptConstructor\x0a\x09\x22Answer the JS constructor used to instantiate. See boot.js\x22\x0a\x09\x0a\x09<return self.fn>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "javascriptConstructor:",
+category: 'accessing',
+fn: function (aJavaScriptFunction){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.setClassConstructor(self, aJavaScriptFunction);;
+return self}, function($ctx1) {$ctx1.fill(self,"javascriptConstructor:",{aJavaScriptFunction:aJavaScriptFunction},smalltalk.Behavior)})},
+args: ["aJavaScriptFunction"],
+source: "javascriptConstructor: aJavaScriptFunction\x0a\x09\x22Set the JS constructor used to instantiate.\x0a\x09See the JS counter-part in boot.js `smalltalk.setClassConstructor'\x22\x0a\x09\x0a\x09<smalltalk.setClassConstructor(self, aJavaScriptFunction);>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Behavior);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "lookupSelector:",
 category: 'accessing',
 fn: function (selector){

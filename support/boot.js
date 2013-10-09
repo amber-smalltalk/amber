@@ -490,6 +490,22 @@ function ClassesBrik(brikz, st) {
 		}
 	};
 
+	/* Manually set the constructor of an existing Smalltalk klass, making it a wrapped class. */
+
+	st.setClassConstructor = function(klass, constructor) {
+		wrappedClasses.addElement(klass);
+		klass.wrapped = true;
+		klass.fn = constructor;
+
+		// The fn property changed. We need to add back the klass property to the prototype
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
+
+		st.initClass(klass);
+	};
+
 	/* Create an alias for an existing class */
 
 	st.alias = function(klass, alias) {
