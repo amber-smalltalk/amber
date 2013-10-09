@@ -38,7 +38,7 @@ html[xmlns] .clearfix {
 }
 #helios .CodeMirror-hints {
   border-radius: 0;
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, "Lucida Console", "Ubuntu Mono", Courier, monospace;
   font-size: 11px;
   line-height: 1em;
   padding: 0;
