@@ -8,6 +8,7 @@ define([
     'amber_inc/CodeMirror/smalltalk',
     'amber_lib/codemirror/addon/hint/show-hint',
     'css!amber_lib/codemirror/theme/ambiance',
+	'css!amber_lib/codemirror/lib/codemirror',
     'css!amber_lib/codemirror/addon/hint/show-hint',
     'css!amber_inc/CodeMirror/amber',
     'css!amber_css/amber',

@@ -11,6 +11,7 @@ define([
     'amber_lib/codemirror/addon/hint/show-hint',
     'css!amber_lib/codemirror/theme/ambiance',
     'css!amber_lib/codemirror/addon/hint/show-hint',
+    'css!amber_lib/codemirror/lib/codemirror',
     'css!amber_inc/CodeMirror/amber',
     'css!amber_css/helios',
     'amber_core/Kernel-Objects',
