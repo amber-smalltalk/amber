@@ -884,6 +884,14 @@ testAtPut
 	self should: ['hello' at: 1 put: 'a'] raise: Error
 !
 
+testCapitalized
+	self assert: 'test' capitalized equals: 'Test'.
+	self assert: 'Test' capitalized equals: 'Test'.
+	self assert: '' capitalized equals: ''.
+	self assert: 'Test' isCapitalized equals: true.
+	self assert: 'test' isCapitalized equals: false.
+!
+
 testCollect
 	| newCollection |
 	newCollection := 'hheelllloo'.
@@ -931,6 +939,11 @@ testIdentity
 	self deny: '' == 0
 !
 
+testIdentityHash
+	self assert: 'foo' identityHash equals: 'foo' identityHash.
+	self deny: ('foo' identityHash = 'bar' identityHash)
+!
+
 testIncludesSubString
 	self assert: ('amber' includesSubString: 'ber').
 	self deny: ('amber' includesSubString: 'zork').
@@ -967,14 +980,6 @@ testStreamContents
 				nextPutAll: 'hello'; space;
 				nextPutAll: 'world' ])
 		equals: 'hello world'
-!
-
-testCapitalized
-	self assert: 'test' capitalized equals: 'Test'.
-	self assert: 'Test' capitalized equals: 'Test'.
-	self assert: '' capitalized equals: ''.
-	self assert: 'Test' isCapitalized equals: true.
-	self assert: 'test' isCapitalized equals: false.
 ! !
 
 !StringTest class methodsFor: 'accessing'!
@@ -1435,6 +1440,12 @@ testInvalidHexNumbers
 	self should: [16rABcdEfZ] raise: MessageNotUnderstood.
 !
 
+testLog
+	self assert: 10000 log equals: 4.
+	self assert: (512 log: 2) equals: 9.
+	self assert: Number e ln equals: 1.
+!
+
 testMinMax
 	
 	self assert: (2 max: 5) equals: 5.
@@ -1462,11 +1473,26 @@ testPrintShowingDecimalPlaces
 	self assert: (0 printShowingDecimalPlaces: 2) equals: '0.00'.
 !
 
+testRaisedTo
+	self assert: (2 raisedTo: 4) equals: 16.
+	self assert: (2 raisedTo: 0) equals: 1.
+	self assert: (2 raisedTo: -3) equals: 0.125.
+	self assert: (4 raisedTo: 0.5) equals: 2.
+	
+	self assert: 2 ** 4 equals: 16.
+!
+
 testRounded
 	
 	self assert: 3 rounded equals: 3.
 	self assert: 3.212 rounded equals: 3.
 	self assert: 3.51 rounded equals: 4
+!
+
+testSign
+	self assert: 5 sign equals: 1.
+	self assert: 0 sign equals: 0.
+	self assert: -1.4 sign equals: -1.
 !
 
 testSqrt
@@ -1501,13 +1527,6 @@ testToBy
 	self should: [1 to: 4 by: 0] raise: Error
 !
 
-testTruncated
-	
-	self assert: 3 truncated equals: 3.
-	self assert: 3.212 truncated equals: 3.
-	self assert: 3.51 truncated equals: 3
-!
-
 testTrigonometry
 	self assert: 0 cos equals: 1.
 	self assert: 0 sin equals: 0.
@@ -1517,25 +1536,11 @@ testTrigonometry
 	self assert: 0 arcTan equals: 0.
 !
 
-testLog
-	self assert: 10000 log equals: 4.
-	self assert: (512 log: 2) equals: 9.
-	self assert: Number e ln equals: 1.
-!
-
-testRaisedTo
-	self assert: (2 raisedTo: 4) equals: 16.
-	self assert: (2 raisedTo: 0) equals: 1.
-	self assert: (2 raisedTo: -3) equals: 0.125.
-	self assert: (4 raisedTo: 0.5) equals: 2.
+testTruncated
 	
-	self assert: 2 ** 4 equals: 16.
-!
-
-testSign
-	self assert: 5 sign equals: 1.
-	self assert: 0 sign equals: 0.
-	self assert: -1.4 sign equals: -1.
+	self assert: 3 truncated equals: 3.
+	self assert: 3.212 truncated equals: 3.
+	self assert: 3.51 truncated equals: 3
 ! !
 
 Object subclass: #ObjectMock

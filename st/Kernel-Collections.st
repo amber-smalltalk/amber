@@ -1218,6 +1218,10 @@ escaped
 	<return escape(self)>
 !
 
+identityHash
+	^ self
+!
+
 size
 	<return self.length>
 !

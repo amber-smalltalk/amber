@@ -2428,6 +2428,23 @@ smalltalk.StringTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testIdentityHash",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._assert_equals_("foo"._identityHash(),"foo"._identityHash());
+self._deny_(_st("foo"._identityHash()).__eq("bar"._identityHash()));
+return self}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},smalltalk.StringTest)})},
+args: [],
+source: "testIdentityHash\x0a\x09self assert: 'foo' identityHash equals: 'foo' identityHash.\x0a\x09self deny: ('foo' identityHash = 'bar' identityHash)",
+messageSends: ["assert:equals:", "identityHash", "deny:", "="],
+referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testIncludesSubString",
 category: 'tests',
 fn: function (){
