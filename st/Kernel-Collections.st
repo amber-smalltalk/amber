@@ -1219,7 +1219,7 @@ escaped
 !
 
 identityHash
-	^ self
+	^ self, 's'
 !
 
 size

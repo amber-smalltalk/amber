@@ -3960,12 +3960,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self;
+$1=self.__comma("s");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.String)})},
 args: [],
-source: "identityHash\x0a\x09^ self",
-messageSends: [],
+source: "identityHash\x0a\x09^ self, 's'",
+messageSends: [","],
 referencedClasses: []
 }),
 smalltalk.String);
