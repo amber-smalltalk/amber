@@ -442,27 +442,6 @@ smalltalk.ChunkExporter);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "methodsOfCategory:",
-category: 'accessing',
-fn: function (aCategory){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(aCategory)._methods())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"methodsOfCategory:",{aCategory:aCategory},smalltalk.ChunkExporter)})},
-args: ["aCategory"],
-source: "methodsOfCategory: aCategory\x0a\x09\x22Issue #143: sort methods alphabetically\x22\x0a\x0a\x09^(aCategory methods) sorted: [ :a :b | a selector <= b selector ]",
-messageSends: ["sorted:", "methods", "<=", "selector"],
-referencedClasses: []
-}),
-smalltalk.ChunkExporter);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "ownCategoriesOfClass:",
 category: 'accessing',
 fn: function (aClass){
@@ -1036,12 +1015,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._theClass())._methodsInProtocol_(self._name());
+$1=_st(_st(self._theClass())._methodsInProtocol_(self._name()))._sorted_((function(a,b){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methods",{},smalltalk.ExportMethodProtocol)})},
 args: [],
-source: "methods\x0a\x09^ self theClass methodsInProtocol: self name",
-messageSends: ["methodsInProtocol:", "theClass", "name"],
+source: "methods\x0a\x09^ (self theClass methodsInProtocol: self name)\x0a\x09\x09sorted: [ :a :b | a selector <= b selector ]",
+messageSends: ["sorted:", "methodsInProtocol:", "theClass", "name", "<=", "selector"],
 referencedClasses: []
 }),
 smalltalk.ExportMethodProtocol);
@@ -1076,27 +1058,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"name:",{aString:aString},smallta
 args: ["aString"],
 source: "name: aString\x0a\x09name := aString",
 messageSends: [],
-referencedClasses: []
-}),
-smalltalk.ExportMethodProtocol);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "sortedMethods",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._methods())._sorted_((function(a,b){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st(a)._selector()).__lt_eq(_st(b)._selector());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"sortedMethods",{},smalltalk.ExportMethodProtocol)})},
-args: [],
-source: "sortedMethods\x0a\x09^ self methods sorted: [ :a :b | a selector <= b selector ]",
-messageSends: ["sorted:", "methods", "<=", "selector"],
 referencedClasses: []
 }),
 smalltalk.ExportMethodProtocol);

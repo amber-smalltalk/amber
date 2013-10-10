@@ -89,12 +89,6 @@ extensionCategoriesOfPackage: aPackage
 	^result
 !
 
-methodsOfCategory: aCategory
-	"Issue #143: sort methods alphabetically"
-
-	^(aCategory methods) sorted: [ :a :b | a selector <= b selector ]
-!
-
 ownCategoriesOfClass: aClass
 	"Answer the protocols of aClass that are not package extensions"
 	
@@ -470,7 +464,8 @@ I am used when exporting a package.!
 !ExportMethodProtocol methodsFor: 'accessing'!
 
 methods
-	^ self theClass methodsInProtocol: self name
+	^ (self theClass methodsInProtocol: self name)
+		sorted: [ :a :b | a selector <= b selector ]
 !
 
 name
@@ -479,10 +474,6 @@ name
 
 name: aString
 	name := aString
-!
-
-sortedMethods
-	^ self methods sorted: [ :a :b | a selector <= b selector ]
 !
 
 theClass
@@ -716,13 +707,13 @@ classRegisteredFor: aString
 	^ registry at: aString
 !
 
+defaultType
+	^ AmdPackageTransport type
+!
+
 type
 	"Override in subclasses"
 	^ nil
-!
-
-defaultType
-	^ AmdPackageTransport type
 ! !
 
 !PackageTransport class methodsFor: 'initialization'!

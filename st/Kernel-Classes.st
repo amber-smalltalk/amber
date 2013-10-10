@@ -145,8 +145,7 @@ methodsFor: aString stamp: aStamp
 !
 
 methodsInProtocol: aString
-	^ (self methodDictionary values select: [ :each | each protocol = aString ])
-			sorted: [ :a :b | a selector <= b selector ]
+	^ self methodDictionary values select: [ :each | each protocol = aString ]
 !
 
 name
