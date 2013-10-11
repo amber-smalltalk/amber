@@ -1041,13 +1041,15 @@ $2=self._parent();
 if(($receiver = $2) == nil || $receiver == null){
 $1=$2;
 } else {
-$1=_st(self["@parent"]).__or(_st(self["@parent"])._scope());
+var node;
+node=$receiver;
+$1=_st(node)._scope();
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"scope",{},smalltalk.IRInstruction)})},
 args: [],
-source: "scope\x0a\x09^ self parent ifNotNil: [ parent | \x0a\x09\x09parent scope ]",
-messageSends: ["ifNotNil:", "parent", "|", "scope"],
+source: "scope\x0a\x09^ self parent ifNotNil: [ :node | \x0a\x09\x09node scope ]",
+messageSends: ["ifNotNil:", "parent", "scope"],
 referencedClasses: []
 }),
 smalltalk.IRInstruction);
@@ -2943,17 +2945,21 @@ category: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(anIRSend)._classSend();
-if(($receiver = $1) == nil || $receiver == null){
+var $1,$2;
+$1=_st(_st(anIRSend)._index()).__gt((1));
+if(smalltalk.assert($1)){
+_st(self._stream())._nextPutSendIndexFor_(anIRSend);
+};
+$2=_st(anIRSend)._classSend();
+if(($receiver = $2) == nil || $receiver == null){
 self._visitSend_(anIRSend);
 } else {
 self._visitSuperSend_(anIRSend);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},smalltalk.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitIRSend: anIRSend\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ]",
-messageSends: ["ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:"],
+source: "visitIRSend: anIRSend\x0a\x09anIRSend index > 1 ifTrue: [ \x0a\x09\x09self stream nextPutSendIndexFor: anIRSend ].\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ]",
+messageSends: ["ifTrue:", ">", "index", "nextPutSendIndexFor:", "stream", "ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:"],
 referencedClasses: []
 }),
 smalltalk.IRJSTranslator);

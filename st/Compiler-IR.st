@@ -276,8 +276,8 @@ parent: anIRInstruction
 !
 
 scope
-	^ self parent ifNotNil: [ parent | 
-		parent scope ]
+	^ self parent ifNotNil: [ :node | 
+		node scope ]
 ! !
 
 !IRInstruction methodsFor: 'building'!
@@ -972,6 +972,8 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
+	anIRSend index > 1 ifTrue: [ 
+		self stream nextPutSendIndexFor: anIRSend ].
 	anIRSend classSend
 		ifNil: [ self visitSend: anIRSend ]
 		ifNotNil: [ self visitSuperSend: anIRSend ]
