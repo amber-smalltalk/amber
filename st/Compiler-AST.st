@@ -16,6 +16,10 @@ addNode: aNode
 	aNode parent: self
 !
 
+method
+	^ self parent ifNotNil: [ :node | node method ]
+!
+
 nextChild
 	"Answer the next node after aNode.
 	Recurse into the possible children of the receiver to answer the next node to be evaluated"
@@ -363,6 +367,10 @@ extent
 
 messageSends
 	^ self sendIndexes keys
+!
+
+method
+	^ self
 !
 
 scope

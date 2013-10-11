@@ -1715,38 +1715,51 @@ var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 function $IRSendInliner(){return smalltalk.IRSendInliner||(typeof IRSendInliner=="undefined"?nil:IRSendInliner)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$4,$5,$3,$7,$8,$6,$9,$11,$12,$10,$15,$16,$14,$13,$17,$20,$21,$19,$18;
 $1=_st(_st(_st(aNode)._receiver())._value()).__eq("super");
 if(smalltalk.assert($1)){
 _st(aNode)._superSend_(true);
-_st(_st(aNode)._receiver())._value_("self");
+$2=_st(aNode)._receiver();
+_st($2)._value_("self");
 _st(self._superSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st($Set())._new();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-_st(_st(self._superSends())._at_(_st(aNode)._selector()))._add_(aNode);
+$4=self._superSends();
+$5=_st(aNode)._selector();
+$3=_st($4)._at_($5);
+_st($3)._add_(aNode);
 } else {
-$2=_st(_st($IRSendInliner())._inlinedSelectors())._includes_(_st(aNode)._selector());
-if(smalltalk.assert($2)){
+$7=_st($IRSendInliner())._inlinedSelectors();
+$8=_st(aNode)._selector();
+$6=_st($7)._includes_($8);
+if(smalltalk.assert($6)){
 _st(aNode)._shouldBeInlined_(true);
-_st(_st(aNode)._receiver())._shouldBeAliased_(true);
+$9=_st(aNode)._receiver();
+_st($9)._shouldBeAliased_(true);
 };
 };
-_st(self._messageSends())._at_ifAbsentPut_(_st(aNode)._selector(),(function(){
+$11=self._messageSends();
+$12=_st(aNode)._selector();
+$10=_st($11)._at_ifAbsentPut_($12,(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st($Set())._new();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
-_st(_st(self._messageSends())._at_(_st(aNode)._selector()))._add_(aNode);
-_st(aNode)._index_(_st(_st(self._messageSends())._at_(_st(aNode)._selector()))._size());
-$3=_st(_st(aNode)._index()).__gt((1));
-if(smalltalk.assert($3)){
-_st(aNode)._shouldBeAliased_(true);
-};
+$15=self._messageSends();
+$16=_st(aNode)._selector();
+$14=_st($15)._at_($16);
+$13=_st($14)._add_(aNode);
+$17=aNode;
+$20=self._messageSends();
+$21=_st(aNode)._selector();
+$19=_st($20)._at_($21);
+$18=_st($19)._size();
+_st($17)._index_($18);
 smalltalk.SemanticAnalyzer.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.SemanticAnalyzer)})},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a\x09\x09\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver shouldBeAliased: true ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x09aNode index > 1 ifTrue: [ aNode shouldBeAliased: true ].\x0a\x0a\x09super visitSendNode: aNode",
-messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "at:ifAbsentPut:", "superSends", "selector", "new", "add:", "at:", "ifTrue:", "includes:", "inlinedSelectors", "shouldBeInlined:", "shouldBeAliased:", "messageSends", "index:", "size", ">", "index", "visitSendNode:"],
+source: "visitSendNode: aNode\x0a\x0a\x09aNode receiver value = 'super'\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09aNode superSend: true.\x0a\x09\x09\x09aNode receiver value: 'self'.\x0a\x09\x09\x09self superSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09\x09\x09(self superSends at: aNode selector) add: aNode ]\x0a\x09\x09\x0a\x09\x09ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [\x0a\x09\x09\x09aNode shouldBeInlined: true.\x0a\x09\x09\x09aNode receiver shouldBeAliased: true ] ].\x0a\x0a\x09self messageSends at: aNode selector ifAbsentPut: [ Set new ].\x0a\x09(self messageSends at: aNode selector) add: aNode.\x0a\x0a\x09aNode index: (self messageSends at: aNode selector) size.\x0a\x0a\x09super visitSendNode: aNode",
+messageSends: ["ifTrue:ifFalse:", "=", "value", "receiver", "superSend:", "value:", "at:ifAbsentPut:", "superSends", "selector", "new", "add:", "at:", "ifTrue:", "includes:", "inlinedSelectors", "shouldBeInlined:", "shouldBeAliased:", "messageSends", "index:", "size", "visitSendNode:"],
 referencedClasses: ["Set", "IRSendInliner"]
 }),
 smalltalk.SemanticAnalyzer);

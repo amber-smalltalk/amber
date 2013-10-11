@@ -219,6 +219,31 @@ smalltalk.Node);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "method",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._parent();
+if(($receiver = $2) == nil || $receiver == null){
+$1=$2;
+} else {
+var node;
+node=$receiver;
+$1=_st(node)._method();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.Node)})},
+args: [],
+source: "method\x0a\x09^ self parent ifNotNil: [ :node | node method ]",
+messageSends: ["ifNotNil:", "parent", "method"],
+referencedClasses: []
+}),
+smalltalk.Node);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "nextChild",
 category: 'accessing',
 fn: function (){
@@ -1179,6 +1204,22 @@ return $1;
 args: [],
 source: "messageSends\x0a\x09^ self sendIndexes keys",
 messageSends: ["keys", "sendIndexes"],
+referencedClasses: []
+}),
+smalltalk.MethodNode);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "method",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self;
+}, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodNode)})},
+args: [],
+source: "method\x0a\x09^ self",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MethodNode);

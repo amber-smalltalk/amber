@@ -567,7 +567,6 @@ visitSendNode: aNode
 	(self messageSends at: aNode selector) add: aNode.
 
 	aNode index: (self messageSends at: aNode selector) size.
-	aNode index > 1 ifTrue: [ aNode shouldBeAliased: true ].
 
 	super visitSendNode: aNode
 !
