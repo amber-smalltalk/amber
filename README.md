@@ -35,10 +35,19 @@ If you already have Grunt.js v0.3.x installed locally run the following (otherwi
     npm uninstall grunt
 
 To install Grunt.js v0.4.x on the commandline execute the following commands:
-    
+
     npm install -g grunt-cli grunt-init
+
+Amber depends on some web libraries to work in browser, using bower to manage these dependencies.
+To install bower, run:
+
+    npm install -g bower
+
+To get all dependencies, run:
+
     cd ${Amber_DIR}
-    npm install
+    bower install   # dependencies for the web
+    npm install     # dependencies for the cli development
 
 And finally, compile Amber using the following command:
 
