@@ -3572,6 +3572,29 @@ smalltalk.JSStream);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "nextPutSendIndexFor:",
+category: 'streaming',
+fn: function (anIRSend){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self;
+_st($1)._nextPutAll_(_st(_st(anIRSend)._scope())._alias());
+_st($1)._nextPutAll_(".sendIdx[\x22");
+_st($1)._nextPutAll_(_st(anIRSend)._selector());
+_st($1)._nextPutAll_("\x22]=");
+_st($1)._nextPutAll_(_st(_st(anIRSend)._index())._asString());
+$2=_st($1)._lf();
+return self}, function($ctx1) {$ctx1.fill(self,"nextPutSendIndexFor:",{anIRSend:anIRSend},smalltalk.JSStream)})},
+args: ["anIRSend"],
+source: "nextPutSendIndexFor: anIRSend\x0a\x09self \x0a\x09\x09nextPutAll: anIRSend scope alias;\x0a\x09\x09nextPutAll: '.sendIdx[\x22';\x0a\x09\x09nextPutAll: anIRSend selector;\x0a\x09\x09nextPutAll: '\x22]=';\x0a\x09\x09nextPutAll: anIRSend index asString;\x0a\x09\x09lf",
+messageSends: ["nextPutAll:", "alias", "scope", "selector", "asString", "index", "lf"],
+referencedClasses: []
+}),
+smalltalk.JSStream);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "nextPutSequenceWith:",
 category: 'streaming',
 fn: function (aBlock){

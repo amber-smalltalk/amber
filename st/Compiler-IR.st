@@ -1216,6 +1216,16 @@ nextPutReturnWith: aBlock
 	aBlock value
 !
 
+nextPutSendIndexFor: anIRSend
+	self 
+		nextPutAll: anIRSend scope alias;
+		nextPutAll: '.sendIdx["';
+		nextPutAll: anIRSend selector;
+		nextPutAll: '"]=';
+		nextPutAll: anIRSend index asString;
+		lf
+!
+
 nextPutSequenceWith: aBlock
 	"stream
 		nextPutAll: 'switch(smalltalk.thisContext.pc){'; lf."
