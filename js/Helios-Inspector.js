@@ -797,11 +797,10 @@ category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 _st(self._model())._inspect_on_(anObject,self);
-$1=self;
-_st($1)._refreshVariablesWidget();
-$2=_st($1)._refreshDisplayWidget();
+self._refreshVariablesWidget();
+$1=self._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLInspectorWidget)})},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09self model inspect: anObject on: self.\x0a    \x0a\x09self \x0a    \x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
@@ -894,13 +893,12 @@ category: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 self["@model"]=aModel;
 _st(self._codeWidget())._model_(_st(aModel)._code());
-$1=self;
-_st($1)._observeCodeWidget();
-_st($1)._observeVariablesWidget();
-$2=_st($1)._observeModel();
+self._observeCodeWidget();
+self._observeVariablesWidget();
+$1=self._observeModel();
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLInspectorWidget)})},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel. \x0a    self codeWidget model: aModel code.\x0a    \x0a    self \x0a        observeCodeWidget;\x0a    \x09observeVariablesWidget;\x0a        observeModel",
@@ -1123,7 +1121,13 @@ var self=this;
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget()));
+var $1,$3,$4,$2;
+$1=html;
+$3=$HLHorizontalSplitter();
+$4=_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget());
+$2=_st($3)._with_with_($4,self._codeWidget());
+$ctx1.sendIdx["with:with:"]=1;
+_st($1)._with_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a   \x09html with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            with: self variablesWidget\x0a            with: self displayWidget)\x0a        with: self codeWidget)",
@@ -1239,8 +1243,21 @@ function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="unde
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget())));
-_st(self._variablesWidget())._focus();
+var $2,$4,$6,$8,$9,$7,$5,$3,$1,$10;
+$2=html;
+$4=$HLContainer();
+$6=$HLHorizontalSplitter();
+$8=$HLVerticalSplitter();
+$9=self._variablesWidget();
+$ctx1.sendIdx["variablesWidget"]=1;
+$7=_st($8)._with_with_($9,self._displayWidget());
+$5=_st($6)._with_with_($7,self._codeWidget());
+$ctx1.sendIdx["with:with:"]=1;
+$3=_st($4)._with_($5);
+$1=_st($2)._with_($3);
+$ctx1.sendIdx["with:"]=1;
+$10=self._variablesWidget();
+_st($10)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspector)})},
 args: ["html"],
 source: "renderContentOn: html\x0a   \x09html with: (HLContainer with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            with: self variablesWidget\x0a            with: self displayWidget)\x0a        with: self codeWidget)).\x0a\x09\x0a\x09self variablesWidget focus",

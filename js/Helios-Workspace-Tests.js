@@ -12,8 +12,13 @@ var self=this;
 function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-self._assert_(_st(_st($HLCodeWidget())._pcKeyMap())._isKindOf_($HashedCollection()));
-self._assert_(_st(_st($HLCodeWidget())._macKeyMap())._isKindOf_($HashedCollection()));
+var $2,$1,$4,$3;
+$2=_st(_st($HLCodeWidget())._pcKeyMap())._isKindOf_($HashedCollection());
+$ctx1.sendIdx["isKindOf:"]=1;
+$1=self._assert_($2);
+$ctx1.sendIdx["assert:"]=1;
+$4=_st(_st($HLCodeWidget())._macKeyMap())._isKindOf_($HashedCollection());
+$3=self._assert_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"testKeyMap",{},smalltalk.HLCodeWidgetTest)})},
 args: [],
 source: "testKeyMap\x0a\x09\x22Key maps are a collection of associations.\x22\x0a\x09self assert: (HLCodeWidget pcKeyMap isKindOf: HashedCollection).\x0a\x09self assert: (HLCodeWidget macKeyMap isKindOf: HashedCollection)",

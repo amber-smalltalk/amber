@@ -28,8 +28,13 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st("body"._asJQuery())._append_("<iframe style=\x22display: none;\x22></iframe>");
-self["@frame"]=_st(_st("iframe"._asJQuery())._get())._last();
+var $1,$3,$2;
+$1="body"._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+_st($1)._append_("<iframe style=\x22display: none;\x22></iframe>");
+$3="iframe"._asJQuery();
+$2=_st($3)._get();
+self["@frame"]=_st($2)._last();
 _st(_st(self["@frame"])._contentWindow())._location_(_st(window)._location());
 return self}, function($ctx1) {$ctx1.fill(self,"create",{},smalltalk.ObjectSpace)})},
 args: [],
@@ -46,11 +51,10 @@ category: 'releasing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=self["@frame"];
 if(($receiver = $1) == nil || $receiver == null){
-$2=self;
-return $2;
+return self;
 } else {
 $1;
 };
@@ -72,13 +76,17 @@ fn: function (aBlock){
 var self=this;
 function $ObjectSpaceConnectionError(){return smalltalk.ObjectSpaceConnectionError||(typeof ObjectSpaceConnectionError=="undefined"?nil:ObjectSpaceConnectionError)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$4,$6,$5,$3;
 $1=self._isConnected();
 if(! smalltalk.assert($1)){
 $2=_st($ObjectSpaceConnectionError())._signal();
 return $2;
 };
-$3=_st(_st(self["@frame"])._contentWindow())._eval_(_st("(".__comma(_st(aBlock)._compiledSource())).__comma(")()"));
+$4=_st(self["@frame"])._contentWindow();
+$6="(".__comma(_st(aBlock)._compiledSource());
+$5=_st($6).__comma(")()");
+$ctx1.sendIdx[","]=1;
+$3=_st($4)._eval_($5);
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
 args: ["aBlock"],
@@ -280,8 +288,10 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._assert_(_st(_st(self["@space"])._frame())._notNil());
-self._assert_(_st(self["@space"])._isConnected());
+var $1,$2;
+$1=self._assert_(_st(_st(self["@space"])._frame())._notNil());
+$ctx1.sendIdx["assert:"]=1;
+$2=self._assert_(_st(self["@space"])._isConnected());
 return self}, function($ctx1) {$ctx1.fill(self,"testCreate",{},smalltalk.ObjectSpaceTest)})},
 args: [],
 source: "testCreate\x0a\x0a\x09self assert: space frame notNil.\x0a\x09self assert: space isConnected",
@@ -299,6 +309,7 @@ var self=this;
 var result;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3;
 _st(self["@space"])._whenReadyDo_((function(){
 return smalltalk.withContext(function($ctx2) {
 result=_st(self["@space"])._do_((function(){
@@ -306,8 +317,14 @@ return smalltalk.withContext(function($ctx3) {
 return smalltalk;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 result;
-self._assert_equals_(_st(_st(result)._class())._name(),"Smalltalk");
-self._deny_(_st(_st(result)._class()).__eq($Smalltalk()));
+$2=_st(result)._class();
+$ctx2.sendIdx["class"]=1;
+$1=_st($2)._name();
+self._assert_equals_($1,"Smalltalk");
+$4=_st(result)._class();
+$3=_st($4).__eq($Smalltalk());
+self._deny_($3);
+$ctx2.sendIdx["deny:"]=1;
 return self._deny_(_st(result).__eq_eq(smalltalk));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testEvaluation",{result:result},smalltalk.ObjectSpaceTest)})},
@@ -325,9 +342,16 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._deny_(_st(_st(self["@space"])._frame())._isNil());
+var $2,$1,$4,$3;
+$2=_st(self["@space"])._frame();
+$ctx1.sendIdx["frame"]=1;
+$1=_st($2)._isNil();
+$ctx1.sendIdx["isNil"]=1;
+self._deny_($1);
 _st(self["@space"])._release();
-self._assert_(_st(_st(self["@space"])._frame())._isNil());
+$4=_st(self["@space"])._frame();
+$3=_st($4)._isNil();
+self._assert_($3);
 return self}, function($ctx1) {$ctx1.fill(self,"testRelease",{},smalltalk.ObjectSpaceTest)})},
 args: [],
 source: "testRelease\x0a\x0a\x09self deny: space frame isNil.\x0a\x0a\x09space release.\x0a\x09\x0a\x09self assert: space frame isNil",

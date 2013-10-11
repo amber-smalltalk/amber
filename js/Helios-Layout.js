@@ -169,24 +169,33 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
+var $1,$3,$4,$5,$6,$7,$2;
 $1=_st(html)._div();
+$ctx1.sendIdx["div"]=1;
 _st($1)._class_(self._panesCssClass());
+$ctx1.sendIdx["class:"]=1;
 $2=_st($1)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 $3=_st(html)._div();
+$ctx2.sendIdx["div"]=2;
 _st($3)._class_("pane");
+$ctx2.sendIdx["class:"]=2;
 $4=_st($3)._with_(self._firstWidget());
+$ctx2.sendIdx["with:"]=2;
 self["@firstPane"]=$4;
 self["@firstPane"];
-self["@splitter"]=_st(_st(html)._div())._class_(self._cssClass());
-self["@splitter"];
 $5=_st(html)._div();
-_st($5)._class_("pane");
-$6=_st($5)._with_(self._secondWidget());
-self["@secondPane"]=$6;
+$ctx2.sendIdx["div"]=3;
+self["@splitter"]=_st($5)._class_(self._cssClass());
+$ctx2.sendIdx["class:"]=3;
+self["@splitter"];
+$6=_st(html)._div();
+_st($6)._class_("pane");
+$7=_st($6)._with_(self._secondWidget());
+self["@secondPane"]=$7;
 return self["@secondPane"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
 self._setupSplitter();
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLSplitter)})},
 args: ["html"],
@@ -345,14 +354,46 @@ fn: function (anInteger){
 var self=this;
 var container,size,offset,percentage;
 return smalltalk.withContext(function($ctx1) { 
-container=_st(_st(self["@firstPane"])._asJQuery())._parent();
-offset=_st(_st(_st(self["@firstPane"])._asJQuery())._offset())._top();
+var $1,$3,$2,$6,$7,$5,$4,$9,$11,$10,$8,$13,$16,$15,$14,$12,$18,$21,$20,$19,$17;
+$1=_st(self["@firstPane"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+container=_st($1)._parent();
+$3=_st(self["@firstPane"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=2;
+$2=_st($3)._offset();
+offset=_st($2)._top();
 size=_st(container)._height();
-percentage=_st(_st(_st(size).__minus(_st(anInteger).__minus(offset))).__slash(size)).__star((100));
+$6=size;
+$7=_st(anInteger).__minus(offset);
+$ctx1.sendIdx["-"]=2;
+$5=_st($6).__minus($7);
+$ctx1.sendIdx["-"]=1;
+$4=_st($5).__slash(size);
+percentage=_st($4).__star((100));
 percentage=(80)._min_(_st(percentage)._max_((20)));
-_st(_st(self["@firstPane"])._asJQuery())._css_put_("bottom",_st(_st(percentage)._asString()).__comma("%"));
-_st(_st(self["@splitter"])._asJQuery())._css_put_("top",_st(_st((100).__minus(percentage))._asString()).__comma("%"));
-_st(_st(self["@secondPane"])._asJQuery())._css_put_("top",_st(_st((100).__minus(percentage))._asString()).__comma("%"));
+$9=_st(self["@firstPane"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=3;
+$11=_st(percentage)._asString();
+$ctx1.sendIdx["asString"]=1;
+$10=_st($11).__comma("%");
+$ctx1.sendIdx[","]=1;
+$8=_st($9)._css_put_("bottom",$10);
+$ctx1.sendIdx["css:put:"]=1;
+$13=_st(self["@splitter"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=4;
+$16=(100).__minus(percentage);
+$ctx1.sendIdx["-"]=3;
+$15=_st($16)._asString();
+$ctx1.sendIdx["asString"]=2;
+$14=_st($15).__comma("%");
+$ctx1.sendIdx[","]=2;
+$12=_st($13)._css_put_("top",$14);
+$ctx1.sendIdx["css:put:"]=2;
+$18=_st(self["@secondPane"])._asJQuery();
+$21=(100).__minus(percentage);
+$20=_st($21)._asString();
+$19=_st($20).__comma("%");
+$17=_st($18)._css_put_("top",$19);
 return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,size:size,offset:offset,percentage:percentage},smalltalk.HLHorizontalSplitter)})},
 args: ["anInteger"],
 source: "resize: anInteger\x0a\x09| container size offset percentage |\x0a    \x0a    container := firstPane asJQuery parent.\x0a\x09offset := firstPane asJQuery offset top.\x0a    size := container height.\x0a\x09\x0a\x09percentage := (size - (anInteger - offset)) / size * 100.\x0a\x09percentage := 80 min: (percentage max: 20).\x0a\x09\x0a    firstPane asJQuery css: 'bottom' put: percentage asString, '%'.\x0a\x09\x0a\x09splitter asJQuery css: 'top' put: (100 - percentage) asString, '%'.\x0a\x09secondPane asJQuery css: 'top' put: (100 - percentage) asString, '%'",
@@ -368,13 +409,28 @@ category: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._from_(["axis".__minus_gt("y"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
+var $1,$3,$6,$5,$4,$7,$8,$9,$2;
+$1=_st(self["@splitter"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+$3="axis".__minus_gt("y");
+$ctx1.sendIdx["->"]=1;
+$6=_st(self["@splitter"])._asJQuery();
+$5=_st($6)._parent();
+$4="containment".__minus_gt($5);
+$ctx1.sendIdx["->"]=2;
+$7="helper".__minus_gt("clone");
+$ctx1.sendIdx["->"]=3;
+$8="start".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})})),"drag".__minus_gt((function(e,ui){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}));
+$ctx1.sendIdx["->"]=4;
+$9="drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._top());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]));
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}));
+$2=smalltalk.HashedCollection._from_([$3,$4,$7,$8,$9]);
+_st($1)._draggable_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.HLHorizontalSplitter)})},
 args: [],
 source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'y'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: ui offset top ] }",
@@ -462,14 +518,46 @@ fn: function (anInteger){
 var self=this;
 var container,size,offset,percentage;
 return smalltalk.withContext(function($ctx1) { 
-container=_st(_st(self["@firstPane"])._asJQuery())._parent();
-offset=_st(_st(_st(self["@firstPane"])._asJQuery())._offset())._left();
+var $1,$3,$2,$6,$7,$5,$4,$9,$11,$10,$8,$13,$16,$15,$14,$12,$18,$21,$20,$19,$17;
+$1=_st(self["@firstPane"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+container=_st($1)._parent();
+$3=_st(self["@firstPane"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=2;
+$2=_st($3)._offset();
+offset=_st($2)._left();
 size=_st(container)._width();
-percentage=_st(_st(_st(size).__minus(_st(anInteger).__minus(offset))).__slash(size)).__star((100));
+$6=size;
+$7=_st(anInteger).__minus(offset);
+$ctx1.sendIdx["-"]=2;
+$5=_st($6).__minus($7);
+$ctx1.sendIdx["-"]=1;
+$4=_st($5).__slash(size);
+percentage=_st($4).__star((100));
 percentage=(80)._min_(_st(percentage)._max_((20)));
-_st(_st(self["@firstPane"])._asJQuery())._css_put_("right",_st(_st(percentage)._asString()).__comma("%"));
-_st(_st(self["@splitter"])._asJQuery())._css_put_("left",_st(_st((100).__minus(percentage))._asString()).__comma("%"));
-_st(_st(self["@secondPane"])._asJQuery())._css_put_("left",_st(_st((100).__minus(percentage))._asString()).__comma("%"));
+$9=_st(self["@firstPane"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=3;
+$11=_st(percentage)._asString();
+$ctx1.sendIdx["asString"]=1;
+$10=_st($11).__comma("%");
+$ctx1.sendIdx[","]=1;
+$8=_st($9)._css_put_("right",$10);
+$ctx1.sendIdx["css:put:"]=1;
+$13=_st(self["@splitter"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=4;
+$16=(100).__minus(percentage);
+$ctx1.sendIdx["-"]=3;
+$15=_st($16)._asString();
+$ctx1.sendIdx["asString"]=2;
+$14=_st($15).__comma("%");
+$ctx1.sendIdx[","]=2;
+$12=_st($13)._css_put_("left",$14);
+$ctx1.sendIdx["css:put:"]=2;
+$18=_st(self["@secondPane"])._asJQuery();
+$21=(100).__minus(percentage);
+$20=_st($21)._asString();
+$19=_st($20).__comma("%");
+$17=_st($18)._css_put_("left",$19);
 return self}, function($ctx1) {$ctx1.fill(self,"resize:",{anInteger:anInteger,container:container,size:size,offset:offset,percentage:percentage},smalltalk.HLVerticalSplitter)})},
 args: ["anInteger"],
 source: "resize: anInteger\x0a\x09| container size offset percentage |\x0a    \x0a    container := firstPane asJQuery parent.\x0a\x09offset := firstPane asJQuery offset left.\x0a    size := container width.\x0a\x09\x0a\x09percentage := (size - (anInteger - offset)) / size * 100.\x0a\x09percentage := 80 min: (percentage max: 20).\x0a\x09\x0a    firstPane asJQuery css: 'right' put: percentage asString, '%'.\x0a\x09\x0a\x09splitter asJQuery css: 'left' put: (100 - percentage) asString, '%'.\x0a\x09secondPane asJQuery css: 'left' put: (100 - percentage) asString, '%'",
@@ -485,13 +573,28 @@ category: 'rendering',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self["@splitter"])._asJQuery())._draggable_(smalltalk.HashedCollection._from_(["axis".__minus_gt("x"),"containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent()),"helper".__minus_gt("clone"),"start".__minus_gt((function(e,ui){
+var $1,$3,$6,$5,$4,$7,$8,$9,$2;
+$1=_st(self["@splitter"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+$3="axis".__minus_gt("x");
+$ctx1.sendIdx["->"]=1;
+$6=_st(self["@splitter"])._asJQuery();
+$5=_st($6)._parent();
+$4="containment".__minus_gt($5);
+$ctx1.sendIdx["->"]=2;
+$7="helper".__minus_gt("clone");
+$ctx1.sendIdx["->"]=3;
+$8="start".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._startResizing_(_st(ui)._helper());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})})),"drag".__minus_gt((function(e,ui){
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,1)})}));
+$ctx1.sendIdx["->"]=4;
+$9="drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._left());
-}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]));
+}, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}));
+$2=smalltalk.HashedCollection._from_([$3,$4,$7,$8,$9]);
+_st($1)._draggable_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.HLVerticalSplitter)})},
 args: [],
 source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a        'start' -> [ :e :ui | self startResizing: ui helper ].\x0a        'drag' -> [ :e :ui | self resize: (ui offset left) ] }",

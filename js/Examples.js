@@ -71,14 +71,18 @@ return smalltalk.withContext(function($ctx1) {
 var $1,$2,$3,$4,$5,$6;
 $1=_st(html)._h1();
 _st($1)._with_(_st(self["@count"])._asString());
+$ctx1.sendIdx["with:"]=1;
 $2=_st($1)._yourself();
 self["@header"]=$2;
 $3=_st(html)._button();
+$ctx1.sendIdx["button"]=1;
 _st($3)._with_("++");
+$ctx1.sendIdx["with:"]=2;
 $4=_st($3)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._increase();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["onClick:"]=1;
 $5=_st(html)._button();
 _st($5)._with_("--");
 $6=_st($5)._onClick_((function(){
