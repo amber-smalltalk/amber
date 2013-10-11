@@ -596,16 +596,21 @@ fn: function (aNode){
 var self=this;
 function $IRSequence(){return smalltalk.IRSequence||(typeof IRSequence=="undefined"?nil:IRSequence)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$3,$1;
 $1=self._withSequence_do_(_st($IRSequence())._new(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(aNode)._nodes())._do_((function(each){
 var instruction;
 return smalltalk.withContext(function($ctx3) {
+$2=_st(each)._shouldBeAliased();
+if(smalltalk.assert($2)){
+instruction=self._alias_(each);
+} else {
 instruction=self._visit_(each);
+};
 instruction;
-$2=_st(instruction)._isVariable();
-if(! smalltalk.assert($2)){
+$3=_st(instruction)._isVariable();
+if(! smalltalk.assert($3)){
 return _st(self._sequence())._add_(instruction);
 };
 }, function($ctx3) {$ctx3.fillBlock({each:each,instruction:instruction},$ctx2,2)})}));
@@ -613,8 +618,8 @@ return _st(self._sequence())._add_(instruction);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"visitSequenceNode:",{aNode:aNode},smalltalk.IRASTTranslator)})},
 args: ["aNode"],
-source: "visitSequenceNode: aNode\x0a\x09^ self\x0a\x09\x09withSequence: IRSequence new\x0a\x09\x09do: [\x0a\x09\x09\x09aNode nodes do: [ :each | | instruction |\x0a\x09\x09\x09\x09instruction := self visit: each.\x0a\x09\x09\x09\x09instruction isVariable ifFalse: [\x0a\x09\x09\x09\x09\x09self sequence add: instruction ]]]",
-messageSends: ["withSequence:do:", "new", "do:", "nodes", "visit:", "ifFalse:", "isVariable", "add:", "sequence"],
+source: "visitSequenceNode: aNode\x0a\x09^ self\x0a\x09\x09withSequence: IRSequence new\x0a\x09\x09do: [\x0a\x09\x09\x09aNode nodes do: [ :each | | instruction |\x0a\x09\x09\x09\x09instruction := each shouldBeAliased\x0a\x09\x09\x09\x09\x09ifTrue: [ self alias: each ]\x0a\x09\x09\x09\x09\x09ifFalse: [ self visit: each ].\x0a\x09\x09\x09\x09instruction isVariable ifFalse: [\x0a\x09\x09\x09\x09\x09self sequence add: instruction ]]]",
+messageSends: ["withSequence:do:", "new", "do:", "nodes", "ifTrue:ifFalse:", "shouldBeAliased", "alias:", "visit:", "ifFalse:", "isVariable", "add:", "sequence"],
 referencedClasses: ["IRSequence"]
 }),
 smalltalk.IRASTTranslator);
@@ -3011,7 +3016,7 @@ self._visitSuperSend_(anIRSend);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},smalltalk.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitIRSend: anIRSend\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ].\x0a\x09\x22anIRSend index > 1 ifTrue: [ \x0a\x09\x09self stream nextPutSendIndexFor: anIRSend ].\x22",
+source: "visitIRSend: anIRSend\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ].\x0a\x09\x09\x0a\x22\x09(anIRSend method sendIndexes at: anIRSend selector) size > 1 \x0a\x09\x09ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]\x22",
 messageSends: ["ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:"],
 referencedClasses: []
 }),
@@ -3638,16 +3643,17 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self;
+_st($1)._nextPutAll_(";");
+_st($1)._lf();
 _st($1)._nextPutAll_(_st(_st(anIRSend)._scope())._alias());
 _st($1)._nextPutAll_(".sendIdx[\x22");
 _st($1)._nextPutAll_(_st(anIRSend)._selector());
 _st($1)._nextPutAll_("\x22]=");
-_st($1)._nextPutAll_(_st(_st(anIRSend)._index())._asString());
-$2=_st($1)._nextPutAll_(";");
+$2=_st($1)._nextPutAll_(_st(_st(anIRSend)._index())._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutSendIndexFor:",{anIRSend:anIRSend},smalltalk.JSStream)})},
 args: ["anIRSend"],
-source: "nextPutSendIndexFor: anIRSend\x0a\x09self \x0a\x09\x09nextPutAll: anIRSend scope alias;\x0a\x09\x09nextPutAll: '.sendIdx[\x22';\x0a\x09\x09nextPutAll: anIRSend selector;\x0a\x09\x09nextPutAll: '\x22]=';\x0a\x09\x09nextPutAll: anIRSend index asString;\x0a\x09\x09nextPutAll: ';'",
-messageSends: ["nextPutAll:", "alias", "scope", "selector", "asString", "index"],
+source: "nextPutSendIndexFor: anIRSend\x0a\x09self \x0a\x09\x09nextPutAll: ';'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias;\x0a\x09\x09nextPutAll: '.sendIdx[\x22';\x0a\x09\x09nextPutAll: anIRSend selector;\x0a\x09\x09nextPutAll: '\x22]=';\x0a\x09\x09nextPutAll: anIRSend index asString",
+messageSends: ["nextPutAll:", "lf", "alias", "scope", "selector", "asString", "index"],
 referencedClasses: []
 }),
 smalltalk.JSStream);

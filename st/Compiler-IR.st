@@ -233,7 +233,9 @@ visitSequenceNode: aNode
 		withSequence: IRSequence new
 		do: [
 			aNode nodes do: [ :each | | instruction |
-				instruction := self visit: each.
+				instruction := each shouldBeAliased
+					ifTrue: [ self alias: each ]
+					ifFalse: [ self visit: each ].
 				instruction isVariable ifFalse: [
 					self sequence add: instruction ]]]
 !
@@ -985,8 +987,9 @@ visitIRSend: anIRSend
 	anIRSend classSend
 		ifNil: [ self visitSend: anIRSend ]
 		ifNotNil: [ self visitSuperSend: anIRSend ].
-	"anIRSend index > 1 ifTrue: [ 
-		self stream nextPutSendIndexFor: anIRSend ]."
+		
+"	(anIRSend method sendIndexes at: anIRSend selector) size > 1 
+		ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]"
 !
 
 visitIRSequence: anIRSequence
@@ -1230,12 +1233,12 @@ nextPutReturnWith: aBlock
 
 nextPutSendIndexFor: anIRSend
 	self 
+		nextPutAll: ';'; lf;
 		nextPutAll: anIRSend scope alias;
 		nextPutAll: '.sendIdx["';
 		nextPutAll: anIRSend selector;
 		nextPutAll: '"]=';
-		nextPutAll: anIRSend index asString;
-		nextPutAll: ';'
+		nextPutAll: anIRSend index asString
 !
 
 nextPutSequenceWith: aBlock
