@@ -676,7 +676,7 @@ binding: aScopeVar
 !VariableNode methodsFor: 'testing'!
 
 isImmutable
-	^false
+	^ self binding isPseudoVar
 ! !
 
 !VariableNode methodsFor: 'visiting'!

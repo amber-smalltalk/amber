@@ -2202,11 +2202,13 @@ category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return false;
+var $1;
+$1=_st(self._binding())._isPseudoVar();
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"isImmutable",{},smalltalk.VariableNode)})},
 args: [],
-source: "isImmutable\x0a\x09^false",
-messageSends: [],
+source: "isImmutable\x0a\x09^ self binding isPseudoVar",
+messageSends: ["isPseudoVar", "binding"],
 referencedClasses: []
 }),
 smalltalk.VariableNode);
