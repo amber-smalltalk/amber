@@ -792,7 +792,6 @@ function RuntimeBrik(brikz, st) {
 	function SmalltalkMethodContext(home, setup) {
 		this.homeContext = home;
 		this.setup       = setup || function() {};
-		this.pc          = 0;
 	}
 
 	inherits(SmalltalkMethodContext, SmalltalkObject);
@@ -806,6 +805,7 @@ function RuntimeBrik(brikz, st) {
 		SmalltalkMethodContext.prototype.receiver = null;
 		SmalltalkMethodContext.prototype.selector = null;
 		SmalltalkMethodContext.prototype.lookupClass = null;
+		SmalltalkMethodContext.prototype.sendIdx = {};
 
 		SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 			this.receiver    = receiver;
@@ -848,7 +848,6 @@ function RuntimeBrik(brikz, st) {
 
 	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
-            st.thisContext.pc++;
 			return inContext(worker, setup);
 		} else {
 			try {

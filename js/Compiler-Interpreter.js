@@ -359,7 +359,6 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3,$4;
 $1=self;
-_st($1)._pc_(_st(aMethodContext)._pc());
 _st($1)._index_(_st(aMethodContext)._index());
 _st($1)._receiver_(_st(aMethodContext)._receiver());
 $2=_st($1)._selector_(_st(aMethodContext)._selector());
@@ -382,8 +381,8 @@ return _st(self._locals())._at_put_(key,value);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext)})},
 args: ["aMethodContext"],
-source: "initializeFromMethodContext: aMethodContext\x0a\x0a\x09self \x0a\x09\x09pc: aMethodContext pc;\x0a\x09\x09index: aMethodContext index;\x0a\x09\x09receiver: aMethodContext receiver;\x0a\x09\x09selector: aMethodContext selector.\x0a\x09\x09\x0a\x09aMethodContext outerContext ifNotNil: [ :outer |\x0a\x09\x09\x22If the method context is nil, the block was defined in JS, so ignore it\x22\x0a\x09\x09outer methodContext ifNotNil: [\x0a\x09\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09\x09\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09self locals at: key put: value ] ]",
-messageSends: ["pc:", "pc", "index:", "index", "receiver:", "receiver", "selector:", "selector", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"],
+source: "initializeFromMethodContext: aMethodContext\x0a\x0a\x09self\x0a\x09\x09index: aMethodContext index;\x0a\x09\x09receiver: aMethodContext receiver;\x0a\x09\x09selector: aMethodContext selector.\x0a\x09\x09\x0a\x09aMethodContext outerContext ifNotNil: [ :outer |\x0a\x09\x09\x22If the method context is nil, the block was defined in JS, so ignore it\x22\x0a\x09\x09outer methodContext ifNotNil: [\x0a\x09\x09\x09self outerContext: (self class fromMethodContext: aMethodContext outerContext) ].\x0a\x09\x09\x09aMethodContext locals keysAndValuesDo: [ :key :value |\x0a\x09\x09\x09\x09self locals at: key put: value ] ]",
+messageSends: ["index:", "index", "receiver:", "receiver", "selector:", "selector", "ifNotNil:", "outerContext", "methodContext", "outerContext:", "fromMethodContext:", "class", "keysAndValuesDo:", "locals", "at:put:"],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -680,46 +679,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"outerContext:",{anAIContext:anAI
 args: ["anAIContext"],
 source: "outerContext: anAIContext\x0a\x09outerContext := anAIContext.\x0a\x09outerContext innerContext: self",
 messageSends: ["innerContext:"],
-referencedClasses: []
-}),
-smalltalk.AIContext);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "pc",
-category: 'interpreting',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@pc"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@pc"]=(0);
-$1=self["@pc"];
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"pc",{},smalltalk.AIContext)})},
-args: [],
-source: "pc\x0a\x09^ pc ifNil: [ pc := 0 ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.AIContext);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "pc:",
-category: 'interpreting',
-fn: function (anInteger){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@pc"]=anInteger;
-return self}, function($ctx1) {$ctx1.fill(self,"pc:",{anInteger:anInteger},smalltalk.AIContext)})},
-args: ["anInteger"],
-source: "pc: anInteger\x0a\x09pc := anInteger",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.AIContext);
@@ -1911,7 +1870,6 @@ return self._pop();
 receiver=self._pop();
 message=self._messageFromSendNode_arguments_(aNode,_st(args)._reversed());
 result=self._sendMessage_to_superSend_(message,receiver,_st(aNode)._superSend());
-_st(self._context())._pc_(_st(_st(self._context())._pc()).__plus((1)));
 $1=_st(_st(aNode)._isCascadeSendNode())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(aNode)._isLastChild())._not();
@@ -1923,8 +1881,8 @@ self._push_(result);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,receiver:receiver,args:args,message:message,result:result},smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self pop.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09self context pc: self context pc + 1.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifTrue: [ self push: receiver ]\x0a\x09\x09ifFalse: [ self push: result ]",
-messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "pc:", "context", "+", "pc", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"],
+source: "visitSendNode: aNode\x0a\x09| receiver args message result |\x0a\x09\x0a\x09args := aNode arguments collect: [ :each | self pop ].\x0a\x09receiver := self pop.\x0a\x09\x0a\x09message := self\x0a\x09\x09messageFromSendNode: aNode\x0a\x09\x09arguments: args reversed.\x0a\x09\x0a\x09result := self sendMessage: message to: receiver superSend: aNode superSend.\x0a\x09\x0a\x09\x22For cascade sends, push the reciever if the send is not the last one\x22\x0a\x09(aNode isCascadeSendNode and: [ aNode isLastChild not ])\x0a\x09\x09ifTrue: [ self push: receiver ]\x0a\x09\x09ifFalse: [ self push: result ]",
+messageSends: ["collect:", "arguments", "pop", "messageFromSendNode:arguments:", "reversed", "sendMessage:to:superSend:", "superSend", "ifTrue:ifFalse:", "and:", "isCascadeSendNode", "not", "isLastChild", "push:"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);

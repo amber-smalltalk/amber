@@ -188,8 +188,7 @@ initializeAST
 
 initializeFromMethodContext: aMethodContext
 
-	self 
-		pc: aMethodContext pc;
+	self
 		index: aMethodContext index;
 		receiver: aMethodContext receiver;
 		selector: aMethodContext selector.
@@ -240,14 +239,6 @@ interpreter
 
 interpreter: anInterpreter
 	interpreter := anInterpreter
-!
-
-pc
-	^ pc ifNil: [ pc := 0 ]
-!
-
-pc: anInteger
-	pc := anInteger
 !
 
 receiver
@@ -672,8 +663,6 @@ visitSendNode: aNode
 		arguments: args reversed.
 	
 	result := self sendMessage: message to: receiver superSend: aNode superSend.
-	
-	self context pc: self context pc + 1.
 	
 	"For cascade sends, push the reciever if the send is not the last one"
 	(aNode isCascadeSendNode and: [ aNode isLastChild not ])

@@ -1610,22 +1610,6 @@ smalltalk.MethodContext);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "pc",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self.pc;
-return self}, function($ctx1) {$ctx1.fill(self,"pc",{},smalltalk.MethodContext)})},
-args: [],
-source: "pc\x0a\x09<return self.pc>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.MethodContext);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "printOn:",
 category: 'printing',
 fn: function (aStream){
@@ -1678,6 +1662,38 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.MethodContext)})},
 args: [],
 source: "selector\x0a\x09<\x0a\x09\x09if(self.selector) {\x0a\x09\x09\x09return smalltalk.convertSelector(self.selector);\x0a\x09\x09} else {\x0a\x09\x09\x09return nil;\x0a\x09\x09}\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sendIndexAt:",
+category: 'accessing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.sendIdx[aSelector] || 0;
+return self}, function($ctx1) {$ctx1.fill(self,"sendIndexAt:",{aSelector:aSelector},smalltalk.MethodContext)})},
+args: ["aSelector"],
+source: "sendIndexAt: aSelector\x0a\x09<return self.sendIdx[aSelector] || 0>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "sendIndexes",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.sendIdx;
+return self}, function($ctx1) {$ctx1.fill(self,"sendIndexes",{},smalltalk.MethodContext)})},
+args: [],
+source: "sendIndexes\x0a\x09<return self.sendIdx>",
 messageSends: [],
 referencedClasses: []
 }),
