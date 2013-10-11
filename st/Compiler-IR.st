@@ -177,7 +177,7 @@ visitMethodNode: aNode
 		theClass: self theClass;
 		arguments: aNode arguments;
 		selector: aNode selector;
-		messageSends: aNode messageSends;
+		sendIndexes: aNode sendIndexes;
 		superSends: aNode superSends;
 		classReferences: aNode classReferences;
 		scope: aNode scope;
@@ -463,7 +463,7 @@ accept: aVisitor
 ! !
 
 IRClosureInstruction subclass: #IRMethod
-	instanceVariableNames: 'theClass source selector classReferences messageSends superSends internalVariables'
+	instanceVariableNames: 'theClass source selector classReferences sendIndexes superSends internalVariables'
 	package: 'Compiler-IR'!
 !IRMethod commentStamp!
 I am a method instruction!
@@ -487,11 +487,7 @@ isMethod
 !
 
 messageSends
-	^ messageSends
-!
-
-messageSends: aCollection
-	messageSends := aCollection
+	^ self sendIndexes keys
 !
 
 method
@@ -504,6 +500,14 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+sendIndexes
+	^ sendIndexes
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
 !
 
 source
@@ -541,6 +545,12 @@ IRScopedInstruction subclass: #IRReturn
 	package: 'Compiler-IR'!
 !IRReturn commentStamp!
 I am a local return instruction.!
+
+!IRReturn methodsFor: 'accessing'!
+
+scope
+	^ scope ifNil: [ self parent scope ]
+! !
 
 !IRReturn methodsFor: 'testing'!
 
@@ -972,11 +982,11 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
-	anIRSend index > 1 ifTrue: [ 
-		self stream nextPutSendIndexFor: anIRSend ].
 	anIRSend classSend
 		ifNil: [ self visitSend: anIRSend ]
-		ifNotNil: [ self visitSuperSend: anIRSend ]
+		ifNotNil: [ self visitSuperSend: anIRSend ].
+	"anIRSend index > 1 ifTrue: [ 
+		self stream nextPutSendIndexFor: anIRSend ]."
 !
 
 visitIRSequence: anIRSequence
@@ -1225,7 +1235,7 @@ nextPutSendIndexFor: anIRSend
 		nextPutAll: anIRSend selector;
 		nextPutAll: '"]=';
 		nextPutAll: anIRSend index asString;
-		lf
+		nextPutAll: ';'
 !
 
 nextPutSequenceWith: aBlock

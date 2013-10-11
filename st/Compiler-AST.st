@@ -332,7 +332,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
+	instanceVariableNames: 'selector arguments source scope classReferences sendIndexes superSends'
 	package: 'Compiler-AST'!
 !MethodNode commentStamp!
 I represent an method node.
@@ -362,11 +362,7 @@ extent
 !
 
 messageSends
-	^ messageSends
-!
-
-messageSends: aCollection
-	messageSends := aCollection
+	^ self sendIndexes keys
 !
 
 scope
@@ -383,6 +379,14 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+sendIndexes
+	^ sendIndexes
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
 !
 
 source
