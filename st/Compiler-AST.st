@@ -543,6 +543,11 @@ isSendNode
 	^ true
 !
 
+shouldBeAliased
+	^ super shouldBeAliased or: [
+		(self method sendIndexes at: self selector) size > 1 ]
+!
+
 stopOnStepping
 	^ true
 ! !

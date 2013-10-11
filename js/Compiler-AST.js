@@ -1753,6 +1753,27 @@ smalltalk.SendNode);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "shouldBeAliased",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(smalltalk.SendNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(_st(_st(self._method())._sendIndexes())._at_(self._selector()))._size()).__gt((1));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{},smalltalk.SendNode)})},
+args: [],
+source: "shouldBeAliased\x0a\x09^ super shouldBeAliased or: [\x0a\x09\x09(self method sendIndexes at: self selector) size > 1 ]",
+messageSends: ["or:", "shouldBeAliased", ">", "size", "at:", "sendIndexes", "method", "selector"],
+referencedClasses: []
+}),
+smalltalk.SendNode);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "stopOnStepping",
 category: 'testing',
 fn: function (){
