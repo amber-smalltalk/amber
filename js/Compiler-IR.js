@@ -1029,6 +1029,29 @@ referencedClasses: []
 }),
 smalltalk.IRInstruction);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scope",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._parent();
+if(($receiver = $2) == nil || $receiver == null){
+$1=$2;
+} else {
+$1=_st(self["@parent"]).__or(_st(self["@parent"])._scope());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"scope",{},smalltalk.IRInstruction)})},
+args: [],
+source: "scope\x0a\x09^ self parent ifNotNil: [ parent | \x0a\x09\x09parent scope ]",
+messageSends: ["ifNotNil:", "parent", "|", "scope"],
+referencedClasses: []
+}),
+smalltalk.IRInstruction);
+
 
 smalltalk.addMethod(
 smalltalk.method({

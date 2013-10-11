@@ -273,6 +273,11 @@ parent
 
 parent: anIRInstruction
 	parent := anIRInstruction
+!
+
+scope
+	^ self parent ifNotNil: [ parent | 
+		parent scope ]
 ! !
 
 !IRInstruction methodsFor: 'building'!
