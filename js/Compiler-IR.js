@@ -353,29 +353,47 @@ selector: "visitCascadeNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
-var alias;
+var alias,receiver;
 function $VariableNode(){return smalltalk.VariableNode||(typeof VariableNode=="undefined"?nil:VariableNode)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(aNode)._receiver())._isImmutable();
-if(! smalltalk.assert($1)){
-alias=self._alias_(_st(aNode)._receiver());
+var $2,$1,$3,$5,$4,$8,$7,$6,$11,$10,$9;
+$2=_st(aNode)._receiver();
+$ctx1.sendIdx["receiver"]=1;
+$1=_st($2)._isImmutable();
+if(smalltalk.assert($1)){
+receiver=_st(aNode)._receiver();
+$ctx1.sendIdx["receiver"]=2;
+receiver;
+} else {
+$3=_st(aNode)._receiver();
+alias=self._alias_($3);
+$ctx1.sendIdx["alias:"]=1;
 alias;
-_st(_st(aNode)._nodes())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._receiver_(_st(_st($VariableNode())._new())._binding_(_st(alias)._variable()));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+receiver=_st(_st($VariableNode())._new())._binding_(_st(alias)._variable());
+receiver;
 };
-_st(_st(_st(aNode)._nodes())._allButLast())._do_((function(each){
+$5=_st(aNode)._nodes();
+$ctx1.sendIdx["nodes"]=1;
+$4=_st($5)._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each)._receiver_(receiver);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
+$ctx1.sendIdx["do:"]=1;
+$8=_st(aNode)._nodes();
+$ctx1.sendIdx["nodes"]=2;
+$7=_st($8)._allButLast();
+$6=_st($7)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._sequence())._add_(self._visit_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
-$2=self._alias_(_st(_st(aNode)._nodes())._last());
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode,alias:alias},smalltalk.IRASTTranslator)})},
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
+$11=_st(aNode)._nodes();
+$10=_st($11)._last();
+$9=self._alias_($10);
+return $9;
+}, function($ctx1) {$ctx1.fill(self,"visitCascadeNode:",{aNode:aNode,alias:alias,receiver:receiver},smalltalk.IRASTTranslator)})},
 args: ["aNode"],
-source: "visitCascadeNode: aNode\x0a\x09| alias |\x0a\x0a\x09aNode receiver isImmutable ifFalse: [\x0a\x09\x09alias := self alias: aNode receiver.\x0a\x09\x09aNode nodes do: [ :each |\x0a\x09\x09\x09each receiver: (VariableNode new binding: alias variable) ]].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self alias: aNode nodes last",
-messageSends: ["ifFalse:", "isImmutable", "receiver", "alias:", "do:", "nodes", "receiver:", "binding:", "new", "variable", "allButLast", "add:", "sequence", "visit:", "last"],
+source: "visitCascadeNode: aNode\x0a\x09| alias receiver |\x0a\x0a\x09aNode receiver isImmutable \x0a\x09\x09ifTrue: [ receiver := aNode receiver ]\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09alias := self alias: aNode receiver.\x0a\x09\x09\x09receiver := VariableNode new binding: alias variable ].\x0a\x09\x0a\x09aNode nodes do: [ :each |\x0a\x09\x09\x09each receiver: receiver ].\x0a\x0a\x09aNode nodes allButLast do: [ :each |\x0a\x09\x09self sequence add: (self visit: each) ].\x0a\x0a\x09^ self alias: aNode nodes last",
+messageSends: ["ifTrue:ifFalse:", "isImmutable", "receiver", "alias:", "binding:", "new", "variable", "do:", "nodes", "receiver:", "allButLast", "add:", "sequence", "visit:", "last"],
 referencedClasses: ["VariableNode"]
 }),
 smalltalk.IRASTTranslator);
@@ -3006,18 +3024,27 @@ selector: "visitIRSend:",
 category: 'visiting',
 fn: function (anIRSend){
 var self=this;
+var sends;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
+sends=_st(_st(_st(_st(anIRSend)._method())._sendIndexes())._at_(_st(anIRSend)._selector()))._size();
 $1=_st(anIRSend)._classSend();
 if(($receiver = $1) == nil || $receiver == null){
 self._visitSend_(anIRSend);
 } else {
 self._visitSuperSend_(anIRSend);
 };
-return self}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend},smalltalk.IRJSTranslator)})},
+$2=_st(_st(sends).__gt((1)))._and_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(anIRSend)._index()).__lt(sends);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+if(smalltalk.assert($2)){
+_st(self._stream())._nextPutSendIndexFor_(anIRSend);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"visitIRSend:",{anIRSend:anIRSend,sends:sends},smalltalk.IRJSTranslator)})},
 args: ["anIRSend"],
-source: "visitIRSend: anIRSend\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ].\x0a\x09\x09\x0a\x22\x09(anIRSend method sendIndexes at: anIRSend selector) size > 1 \x0a\x09\x09ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]\x22",
-messageSends: ["ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:"],
+source: "visitIRSend: anIRSend\x0a\x09| sends |\x0a\x09sends := (anIRSend method sendIndexes at: anIRSend selector) size.\x0a\x09\x0a\x09anIRSend classSend\x0a\x09\x09ifNil: [ self visitSend: anIRSend ]\x0a\x09\x09ifNotNil: [ self visitSuperSend: anIRSend ].\x0a\x09\x09\x0a\x09(sends > 1 and: [ anIRSend index < sends ])\x0a\x09\x09ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]",
+messageSends: ["size", "at:", "sendIndexes", "method", "selector", "ifNil:ifNotNil:", "classSend", "visitSend:", "visitSuperSend:", "ifTrue:", "and:", ">", "<", "index", "nextPutSendIndexFor:", "stream"],
 referencedClasses: []
 }),
 smalltalk.IRJSTranslator);

@@ -137,12 +137,16 @@ visitBlockSequenceNode: aNode
 !
 
 visitCascadeNode: aNode
-	| alias |
+	| alias receiver |
 
-	aNode receiver isImmutable ifFalse: [
-		alias := self alias: aNode receiver.
-		aNode nodes do: [ :each |
-			each receiver: (VariableNode new binding: alias variable) ]].
+	aNode receiver isImmutable 
+		ifTrue: [ receiver := aNode receiver ]
+		ifFalse: [
+			alias := self alias: aNode receiver.
+			receiver := VariableNode new binding: alias variable ].
+	
+	aNode nodes do: [ :each |
+			each receiver: receiver ].
 
 	aNode nodes allButLast do: [ :each |
 		self sequence add: (self visit: each) ].
@@ -984,12 +988,15 @@ visitIRReturn: anIRReturn
 !
 
 visitIRSend: anIRSend
+	| sends |
+	sends := (anIRSend method sendIndexes at: anIRSend selector) size.
+	
 	anIRSend classSend
 		ifNil: [ self visitSend: anIRSend ]
 		ifNotNil: [ self visitSuperSend: anIRSend ].
 		
-"	(anIRSend method sendIndexes at: anIRSend selector) size > 1 
-		ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]"
+	(sends > 1 and: [ anIRSend index < sends ])
+		ifTrue: [ self stream nextPutSendIndexFor: anIRSend ]
 !
 
 visitIRSequence: anIRSequence
