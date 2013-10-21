@@ -99,8 +99,8 @@ function handle_options(optionsArray, amber_dir) {
 
 // print available flags
 function print_usage() {
-	console.log('Usage: amberc [-l lib1,lib2...] [-i init_file] [-m main_class] [-M main_file]');
-	console.log('          [-o] [-O|-A] [-d] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]');
+	console.log('Usage: amberc [-l lib1,lib2...] [-g jsGlobal1,jsGlobla2] [-m main_class] [-M main_file]');
+	console.log('          [-n namespace] [-D output_dir] [-v] [-s suffix] [-S suffix] [file1 [file2 ...]] [Program]');
 	console.log('');
 	console.log('   amberc compiles Amber files - either separately or into a complete runnable');
 	console.log('   program. If no .st files are listed only a linking stage is performed.');
@@ -120,6 +120,7 @@ function print_usage() {
 	console.log('   If no <Program> is specified each given .st file will be compiled into');
 	console.log('   a matching .js file. Otherwise a <Program>.js file is linked together based on');
 	console.log('   the given options:');
+	console.log('');
 	console.log('  -l library1,library2');
 	console.log('     Add listed JavaScript libraries in listed order.');
 	console.log('     Libraries are not separated by spaces or end with .js.');
@@ -137,6 +138,9 @@ function print_usage() {
 	console.log('  -n amd_namespace');
 	console.log('     Export packages with <amd_namespace> as the require.js namespace.');
 	console.log('     Default value is "amber_core".');
+	console.log('');
+	console.log('  -v');
+	console.log('     Produce a more verbose output.');
 	console.log('');
 	console.log('  -D');
 	console.log('     Specifies the output directory for all generated .js files.');
@@ -164,9 +168,8 @@ function print_usage() {
 	console.log('        amberc -m Hello Hello.st Program');
 	console.log('');
 	console.log('     Compile Cat1.st and Cat2.st files into corresponding .js files.');
-	console.log('     Link them with myboot.js and myKernel.js and add myinit.js as custom');
-	console.log('     initializer file. Add main.js last which contains the startup code');
-	console.log('      and merge everything into a complete program named Program.js:');
+	console.log('     Link them with myboot.js and myKernel.js');
+	console.log('     and merge everything into a complete program named Program.js:');
 	console.log('');
-	console.log('        amberc -M main.js -i myinit.js myboot.js myKernel.js Cat1.st Cat2.st Program');
+	console.log('        amberc -M main.js myboot.js myKernel.js Cat1.st Cat2.st Program');
 };
