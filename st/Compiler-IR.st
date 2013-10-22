@@ -1242,9 +1242,9 @@ nextPutSendIndexFor: anIRSend
 	self 
 		nextPutAll: ';'; lf;
 		nextPutAll: anIRSend scope alias;
-		nextPutAll: '.sendIdx["';
-		nextPutAll: anIRSend selector;
-		nextPutAll: '"]=';
+		nextPutAll: '.sendIdx[';
+		nextPutAll: anIRSend selector asJavascript;
+		nextPutAll: ']=';
 		nextPutAll: anIRSend index asString
 !
 

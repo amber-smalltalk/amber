@@ -4032,17 +4032,17 @@ $ctx1.sendIdx["nextPutAll:"]=1;
 self._lf();
 self._nextPutAll_(_st(_st(anIRSend)._scope())._alias());
 $ctx1.sendIdx["nextPutAll:"]=2;
-self._nextPutAll_(".sendIdx[\x22");
+self._nextPutAll_(".sendIdx[");
 $ctx1.sendIdx["nextPutAll:"]=3;
-self._nextPutAll_(_st(anIRSend)._selector());
+self._nextPutAll_(_st(_st(anIRSend)._selector())._asJavascript());
 $ctx1.sendIdx["nextPutAll:"]=4;
-self._nextPutAll_("\x22]=");
+self._nextPutAll_("]=");
 $ctx1.sendIdx["nextPutAll:"]=5;
 $1=self._nextPutAll_(_st(_st(anIRSend)._index())._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutSendIndexFor:",{anIRSend:anIRSend},smalltalk.JSStream)})},
 args: ["anIRSend"],
-source: "nextPutSendIndexFor: anIRSend\x0a\x09self \x0a\x09\x09nextPutAll: ';'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias;\x0a\x09\x09nextPutAll: '.sendIdx[\x22';\x0a\x09\x09nextPutAll: anIRSend selector;\x0a\x09\x09nextPutAll: '\x22]=';\x0a\x09\x09nextPutAll: anIRSend index asString",
-messageSends: ["nextPutAll:", "lf", "alias", "scope", "selector", "asString", "index"],
+source: "nextPutSendIndexFor: anIRSend\x0a\x09self \x0a\x09\x09nextPutAll: ';'; lf;\x0a\x09\x09nextPutAll: anIRSend scope alias;\x0a\x09\x09nextPutAll: '.sendIdx[';\x0a\x09\x09nextPutAll: anIRSend selector asJavascript;\x0a\x09\x09nextPutAll: ']=';\x0a\x09\x09nextPutAll: anIRSend index asString",
+messageSends: ["nextPutAll:", "lf", "alias", "scope", "asJavascript", "selector", "asString", "index"],
 referencedClasses: []
 }),
 smalltalk.JSStream);
