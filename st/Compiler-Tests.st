@@ -27,14 +27,16 @@ ASTParsingTest subclass: #ASTPCNodeVisitorTest
 !ASTPCNodeVisitorTest methodsFor: 'factory'!
 
 astPCNodeVisitor
-	^ self astPCNodeVisitorForPC: 0
+	^ ASTPCNodeVisitor new
+		context: (AIContext new
+			yourself);
+		yourself
 !
 
-astPCNodeVisitorForPC: anInteger
+astPCNodeVisitorForSelector: aString
 	^ ASTPCNodeVisitor new
-		pc: 0;
-		context: (AIContext new 
-			pc: anInteger; 
+		selector: aString;
+		context: (AIContext new
 			yourself);
 		yourself
 ! !
@@ -54,7 +56,7 @@ testMessageSend
 	| ast |
 	
 	ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 2)
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
 		visit: ast;
 		currentNode) selector equals: 'yourself'
 !
@@ -63,12 +65,12 @@ testMessageSendWithInlining
 	| ast |
 	
 	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 2)
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
 		visit: ast;
 		currentNode) selector equals: 'yourself'.
 		
 	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 3)
+	self assert: ((self astPCNodeVisitorForSelector: 'asBoolean')
 		visit: ast;
 		currentNode) selector equals: 'asBoolean'
 !

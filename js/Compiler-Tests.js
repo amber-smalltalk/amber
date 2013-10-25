@@ -69,46 +69,53 @@ selector: "astPCNodeVisitor",
 category: 'factory',
 fn: function (){
 var self=this;
+function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
+function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._astPCNodeVisitorForPC_((0));
+var $2,$3,$5,$4,$6,$1;
+$2=_st($ASTPCNodeVisitor())._new();
+$ctx1.sendIdx["new"]=1;
+$3=$2;
+$5=_st($AIContext())._new();
+$4=_st($5)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+_st($3)._context_($4);
+$6=_st($2)._yourself();
+$1=$6;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitor",{},smalltalk.ASTPCNodeVisitorTest)})},
 args: [],
-source: "astPCNodeVisitor\x0a\x09^ self astPCNodeVisitorForPC: 0",
-messageSends: ["astPCNodeVisitorForPC:"],
-referencedClasses: []
+source: "astPCNodeVisitor\x0a\x09^ ASTPCNodeVisitor new\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
+messageSends: ["context:", "new", "yourself"],
+referencedClasses: ["ASTPCNodeVisitor", "AIContext"]
 }),
 smalltalk.ASTPCNodeVisitorTest);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "astPCNodeVisitorForPC:",
+selector: "astPCNodeVisitorForSelector:",
 category: 'factory',
-fn: function (anInteger){
+fn: function (aString){
 var self=this;
 function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 function $AIContext(){return smalltalk.AIContext||(typeof AIContext=="undefined"?nil:AIContext)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$5,$6,$4,$7,$1;
+var $2,$3,$5,$4,$6,$1;
 $2=_st($ASTPCNodeVisitor())._new();
 $ctx1.sendIdx["new"]=1;
-_st($2)._pc_((0));
-$ctx1.sendIdx["pc:"]=1;
+_st($2)._selector_(aString);
 $3=$2;
 $5=_st($AIContext())._new();
-_st($5)._pc_(anInteger);
-$6=_st($5)._yourself();
+$4=_st($5)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$4=$6;
 _st($3)._context_($4);
-$7=_st($2)._yourself();
-$1=$7;
+$6=_st($2)._yourself();
+$1=$6;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForPC:",{anInteger:anInteger},smalltalk.ASTPCNodeVisitorTest)})},
-args: ["anInteger"],
-source: "astPCNodeVisitorForPC: anInteger\x0a\x09^ ASTPCNodeVisitor new\x0a\x09\x09pc: 0;\x0a\x09\x09context: (AIContext new \x0a\x09\x09\x09pc: anInteger; \x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
-messageSends: ["pc:", "new", "context:", "yourself"],
+}, function($ctx1) {$ctx1.fill(self,"astPCNodeVisitorForSelector:",{aString:aString},smalltalk.ASTPCNodeVisitorTest)})},
+args: ["aString"],
+source: "astPCNodeVisitorForSelector: aString\x0a\x09^ ASTPCNodeVisitor new\x0a\x09\x09selector: aString;\x0a\x09\x09context: (AIContext new\x0a\x09\x09\x09yourself);\x0a\x09\x09yourself",
+messageSends: ["selector:", "new", "context:", "yourself"],
 referencedClasses: ["ASTPCNodeVisitor", "AIContext"]
 }),
 smalltalk.ASTPCNodeVisitorTest);
@@ -147,14 +154,14 @@ function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Obje
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 ast=self._parse_forClass_("foo self asString yourself. ^ self asBoolean",$Object());
-$1=self._astPCNodeVisitorForPC_((2));
+$1=self._astPCNodeVisitorForSelector_("yourself");
 _st($1)._visit_(ast);
 $2=_st($1)._currentNode();
 self._assert_equals_(_st($2)._selector(),"yourself");
 return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{ast:ast},smalltalk.ASTPCNodeVisitorTest)})},
 args: [],
-source: "testMessageSend\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForPC: 2)\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'",
-messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForPC:", "currentNode"],
+source: "testMessageSend\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'yourself')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'",
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"],
 referencedClasses: ["Object"]
 }),
 smalltalk.ASTPCNodeVisitorTest);
@@ -171,8 +178,8 @@ return smalltalk.withContext(function($ctx1) {
 var $4,$5,$3,$2,$1,$9,$10,$8,$7,$6;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
 $ctx1.sendIdx["parse:forClass:"]=1;
-$4=self._astPCNodeVisitorForPC_((2));
-$ctx1.sendIdx["astPCNodeVisitorForPC:"]=1;
+$4=self._astPCNodeVisitorForSelector_("yourself");
+$ctx1.sendIdx["astPCNodeVisitorForSelector:"]=1;
 _st($4)._visit_(ast);
 $ctx1.sendIdx["visit:"]=1;
 $5=_st($4)._currentNode();
@@ -183,7 +190,7 @@ $ctx1.sendIdx["selector"]=1;
 $1=self._assert_equals_($2,"yourself");
 $ctx1.sendIdx["assert:equals:"]=1;
 ast=self._parse_forClass_("foo true ifTrue: [ self asString yourself ]. ^ self asBoolean",$Object());
-$9=self._astPCNodeVisitorForPC_((3));
+$9=self._astPCNodeVisitorForSelector_("asBoolean");
 _st($9)._visit_(ast);
 $10=_st($9)._currentNode();
 $8=$10;
@@ -191,8 +198,8 @@ $7=_st($8)._selector();
 $6=self._assert_equals_($7,"asBoolean");
 return self}, function($ctx1) {$ctx1.fill(self,"testMessageSendWithInlining",{ast:ast},smalltalk.ASTPCNodeVisitorTest)})},
 args: [],
-source: "testMessageSendWithInlining\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForPC: 2)\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'.\x0a\x09\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForPC: 3)\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'asBoolean'",
-messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForPC:", "currentNode"],
+source: "testMessageSendWithInlining\x0a\x09| ast |\x0a\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'yourself')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'yourself'.\x0a\x09\x09\x0a\x09ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.\x0a\x09self assert: ((self astPCNodeVisitorForSelector: 'asBoolean')\x0a\x09\x09visit: ast;\x0a\x09\x09currentNode) selector equals: 'asBoolean'",
+messageSends: ["parse:forClass:", "assert:equals:", "selector", "visit:", "astPCNodeVisitorForSelector:", "currentNode"],
 referencedClasses: ["Object"]
 }),
 smalltalk.ASTPCNodeVisitorTest);

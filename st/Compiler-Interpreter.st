@@ -95,7 +95,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -168,6 +168,18 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+sendIndexAt: aString
+	^ self sendIndexes at: aString ifAbsent: [ 0 ]
+!
+
+sendIndexes
+	^ sendIndexes ifNil: [ Dictionary new ]
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
 ! !
 
 !AIContext methodsFor: 'factory'!
@@ -190,6 +202,7 @@ initializeFromMethodContext: aMethodContext
 
 	self
 		index: aMethodContext index;
+		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
 		selector: aMethodContext selector.
 		
@@ -204,7 +217,6 @@ initializeFromMethodContext: aMethodContext
 initializeInterpreter
 	interpreter := ASTInterpreter new
 		context: self;
-		node: self retrieveNode;
 		yourself.
 	
 	(self innerContext notNil and: [ 
@@ -249,17 +261,19 @@ receiver: anObject
 	self localAt: 'self' put: anObject
 !
 
-retrieveNode
-	^ self ast ifNotNil: [
-		ASTPCNodeVisitor new
+setupInterpreter: anInterpreter
+	| currentNode |
+	
+	"Retrieve the current node"
+	currentNode := ASTPCNodeVisitor new
+			selector: self innerContext selector;
 			context: self;
 			visit: self ast;
-			currentNode ]
-!
-
-setupInterpreter: anInterpreter
-	"Push the send args and receiver to the interpreter stack"
+			currentNode.
 	
+	anInterpreter node: currentNode.
+
+	"Push the send args and receiver to the interpreter stack"	
 	self innerContext arguments reversed do: [ :each | 
 		anInterpreter push: each ].
 		
@@ -697,22 +711,18 @@ Error subclass: #ASTInterpreterError
 I get signaled when an AST interpreter is unable to interpret a node.!
 
 NodeVisitor subclass: #ASTPCNodeVisitor
-	instanceVariableNames: 'useInlinings pc context blockIndex currentNode'
+	instanceVariableNames: 'context index selector currentNode'
 	package: 'Compiler-Interpreter'!
 !ASTPCNodeVisitor commentStamp!
-I visit an AST until I get to the current pc node and answer it.
+I visit an AST until I get to the current node for the `context` and answer it.
 
 ## API
 
 My instances must be filled with a context object using `#context:`.
 
-After visiting the AST the current node corresponding to the `pc` is answered by `#currentNode`!
+After visiting the AST the current node is answered by `#currentNode`!
 
 !ASTPCNodeVisitor methodsFor: 'accessing'!
-
-blockIndex
-	^ blockIndex ifNil: [ blockIndex := 0 ]
-!
 
 context
 	^ context
@@ -726,24 +736,20 @@ currentNode
 	^ currentNode
 !
 
-increaseBlockIndex
-	blockIndex := self blockIndex + 1
+increaseIndex
+	index := self index + 1
 !
 
-pc
-	^ pc ifNil: [ 0 ]
+index
+	^ index ifNil: [ index := 0 ]
 !
 
-pc: anInteger
-	pc := anInteger
+selector
+	^ selector
 !
 
-useInlinings
-	^ useInlinings ifNil: [ true ]
-!
-
-useInlinings: aBoolean
-	useInlinings := aBoolean
+selector: aString
+	selector := aString
 ! !
 
 !ASTPCNodeVisitor methodsFor: 'visiting'!
@@ -759,17 +765,19 @@ visitBlockNode: aNode
 !
 
 visitJSStatementNode: aNode
+	"If a JSStatementNode is encountered, it always is the current node.
+	Stop visiting the AST there"
+	
 	currentNode := aNode
 !
 
 visitSendNode: aNode
 	super visitSendNode: aNode.
 	
-	self pc = self context pc ifFalse: [
-		aNode shouldBeInlined ifFalse: [
-			self blockIndex = self context index ifTrue: [
-				self pc: self pc + 1.
-				currentNode := aNode ] ] ]
+	self selector = aNode selector ifTrue: [
+		(self context sendIndexAt: self selector) < self index 
+			ifTrue: [ self increaseIndex ]
+			ifFalse: [ currentNode := aNode ] ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!
