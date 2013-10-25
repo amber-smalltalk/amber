@@ -355,10 +355,15 @@ category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._model())._showComment())._and_((function(){
+var $3,$2,$5,$4,$1;
+$3=self._model();
+$ctx1.sendIdx["model"]=1;
+$2=_st($3)._showComment();
+$1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._model())._selectedClass())._notNil();
+$5=self._model();
+$4=_st($5)._selectedClass();
+return _st($4)._notNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
@@ -446,7 +451,13 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._showComment_(_st(_st(self._model())._showComment())._not());
+var $1,$4,$3,$2;
+$1=self._model();
+$ctx1.sendIdx["model"]=1;
+$4=self._model();
+$3=_st($4)._showComment();
+$2=_st($3)._not();
+_st($1)._showComment_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
 args: [],
 source: "execute\x0a\x09self model showComment: self model showComment not",

@@ -16,6 +16,10 @@ addNode: aNode
 	aNode parent: self
 !
 
+method
+	^ self parent ifNotNil: [ :node | node method ]
+!
+
 nextChild
 	"Answer the next node after aNode.
 	Recurse into the possible children of the receiver to answer the next node to be evaluated"
@@ -332,7 +336,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
+	instanceVariableNames: 'selector arguments source scope classReferences sendIndexes superSends'
 	package: 'Compiler-AST'!
 !MethodNode commentStamp!
 I represent an method node.
@@ -362,11 +366,11 @@ extent
 !
 
 messageSends
-	^ messageSends
+	^ self sendIndexes keys
 !
 
-messageSends: aCollection
-	messageSends := aCollection
+method
+	^ self
 !
 
 scope
@@ -383,6 +387,14 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+sendIndexes
+	^ sendIndexes
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
 !
 
 source
@@ -531,6 +543,11 @@ isSendNode
 	^ true
 !
 
+shouldBeAliased
+	^ super shouldBeAliased or: [
+		(self method sendIndexes at: self selector) size > 1 ]
+!
+
 stopOnStepping
 	^ true
 ! !
@@ -672,7 +689,7 @@ binding: aScopeVar
 !VariableNode methodsFor: 'testing'!
 
 isImmutable
-	^false
+	^ self binding isPseudoVar
 ! !
 
 !VariableNode methodsFor: 'visiting'!

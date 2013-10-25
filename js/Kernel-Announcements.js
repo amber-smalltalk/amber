@@ -102,14 +102,22 @@ fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st($Smalltalk())._current())._at_(_st(self._announcementClass())._name());
+var $3,$4,$2,$6,$7,$5,$1;
+$3=_st($Smalltalk())._current();
+$ctx1.sendIdx["current"]=1;
+$4=_st(self._announcementClass())._name();
+$ctx1.sendIdx["name"]=1;
+$2=_st($3)._at_($4);
+$ctx1.sendIdx["at:"]=1;
 if(($receiver = $2) == nil || $receiver == null){
 return false;
 } else {
 var class_;
 class_=$receiver;
-$1=_st(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
+$6=_st($Smalltalk())._current();
+$7=_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name();
+$5=_st($6)._at_($7);
+$1=_st($5)._includesBehavior_(class_);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
@@ -244,16 +252,22 @@ var self=this;
 function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st($AnnouncementSubscription())._new();
-$2=_st($MessageSend())._new();
-_st($2)._receiver_(anObject);
-_st($2)._selector_(aSelector);
-$3=_st($2)._yourself();
-_st($1)._valuable_($3);
-_st($1)._announcementClass_(aClass);
-$4=_st($1)._yourself();
-_st(self["@subscriptions"])._add_($4);
+var $1,$3,$4,$6,$7,$5,$8,$2;
+$1=self["@subscriptions"];
+$3=_st($AnnouncementSubscription())._new();
+$ctx1.sendIdx["new"]=1;
+$4=$3;
+$6=_st($MessageSend())._new();
+_st($6)._receiver_(anObject);
+_st($6)._selector_(aSelector);
+$7=_st($6)._yourself();
+$ctx1.sendIdx["yourself"]=1;
+$5=$7;
+_st($4)._valuable_($5);
+_st($3)._announcementClass_(aClass);
+$8=_st($3)._yourself();
+$2=$8;
+_st($1)._add_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"on:send:to:",{aClass:aClass,aSelector:aSelector,anObject:anObject},smalltalk.Announcer)})},
 args: ["aClass", "aSelector", "anObject"],
 source: "on: aClass send: aSelector to: anObject\x0a\x09subscriptions add: (AnnouncementSubscription new\x0a\x09\x09valuable: (MessageSend new\x0a\x09\x09\x09receiver: anObject;\x0a\x09\x09\x09selector: aSelector;\x0a\x09\x09\x09yourself);\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself)",

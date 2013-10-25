@@ -755,6 +755,10 @@ identityHash
 	<return self / aNumber>
 !
 
+// aNumber
+	^(self / aNumber) floor
+!
+
 \\ aNumber
 	<return self % aNumber>
 !
@@ -773,10 +777,6 @@ min: aNumber
 
 negated
 	^0 - self
-!
-
-// aNumber
-	^(self / aNumber) floor
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -946,24 +946,8 @@ to: stop do: aBlock
 
 !Number methodsFor: 'mathematical functions'!
 
-sqrt
-	<return Math.sqrt(self)>
-!
-
-squared
-	^self * self
-!
-
-cos
-	<return Math.cos(self);>
-!
-
-sin
-	<return Math.sin(self);>
-!
-
-tan
-	<return Math.tan(self);>
+** exponent
+	^self raisedTo: exponent
 !
 
 arcCos
@@ -976,6 +960,14 @@ arcSin
 
 arcTan
 	<return Math.atan(self);>
+!
+
+cos
+	<return Math.cos(self);>
+!
+
+ln
+	<return Math.log(self);>
 !
 
 log
@@ -998,12 +990,20 @@ sign
 		ifFalse: [ ^ -1 ].
 !
 
-** exponent
-	^self raisedTo: exponent
+sin
+	<return Math.sin(self);>
 !
 
-ln
-	<return Math.log(self);>
+sqrt
+	<return Math.sqrt(self)>
+!
+
+squared
+	^self * self
+!
+
+tan
+	<return Math.tan(self);>
 ! !
 
 !Number methodsFor: 'printing'!
@@ -1058,12 +1058,12 @@ heliosClass
 
 !Number class methodsFor: 'instance creation'!
 
-pi
-	<return Math.PI>
-!
-
 e
 	<return Math.E;>
+!
+
+pi
+	<return Math.PI>
 ! !
 
 Object subclass: #Point

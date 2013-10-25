@@ -580,10 +580,6 @@ outerContext
 	<return self.outerContext || self.homeContext>
 !
 
-pc
-	<return self.pc>
-!
-
 receiver
 	<return self.receiver>
 !
@@ -596,6 +592,14 @@ selector
 			return nil;
 		}
 	>
+!
+
+sendIndexAt: aSelector
+	<return self.sendIdx[aSelector] || 0>
+!
+
+sendIndexes
+	<return self.sendIdx>
 !
 
 temps

@@ -537,7 +537,7 @@ visitMethodNode: aNode
 
 	aNode
 		classReferences: self classReferences;
-		messageSends: self messageSends keys;
+		sendIndexes: self messageSends;
 		superSends: self superSends keys.
 	self popScope
 !
