@@ -754,16 +754,6 @@ selector: aString
 
 !ASTPCNodeVisitor methodsFor: 'visiting'!
 
-visitBlockNode: aNode
-	"Inlined send node. Assume that the block is inlined"
-	(aNode parent isSendNode and: [ aNode parent shouldBeInlined ])
-		ifFalse: [
-			self blockIndex >= self context index ifFalse: [
-				self increaseBlockIndex.
-				super visitBlockNode: aNode ] ]
-		ifTrue: [ super visitBlockNode: aNode ]
-!
-
 visitJSStatementNode: aNode
 	"If a JSStatementNode is encountered, it always is the current node.
 	Stop visiting the AST there"

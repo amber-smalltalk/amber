@@ -2234,40 +2234,6 @@ smalltalk.ASTPCNodeVisitor);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "visitBlockNode:",
-category: 'visiting',
-fn: function (aNode){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$1,$5;
-$3=_st(aNode)._parent();
-$ctx1.sendIdx["parent"]=1;
-$2=_st($3)._isSendNode();
-$1=_st($2)._and_((function(){
-return smalltalk.withContext(function($ctx2) {
-$4=_st(aNode)._parent();
-return _st($4)._shouldBeInlined();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($1)){
-smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
-} else {
-$5=_st(self._blockIndex()).__gt_eq(_st(self._context())._index());
-if(! smalltalk.assert($5)){
-self._increaseBlockIndex();
-smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitBlockNode_.apply(_st(self), [aNode]);
-$ctx1.sendIdx["visitBlockNode:"]=1;
-};
-};
-return self}, function($ctx1) {$ctx1.fill(self,"visitBlockNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
-args: ["aNode"],
-source: "visitBlockNode: aNode\x0a\x09\x22Inlined send node. Assume that the block is inlined\x22\x0a\x09(aNode parent isSendNode and: [ aNode parent shouldBeInlined ])\x0a\x09\x09ifFalse: [\x0a\x09\x09\x09self blockIndex >= self context index ifFalse: [\x0a\x09\x09\x09\x09self increaseBlockIndex.\x0a\x09\x09\x09\x09super visitBlockNode: aNode ] ]\x0a\x09\x09ifTrue: [ super visitBlockNode: aNode ]",
-messageSends: ["ifFalse:ifTrue:", "and:", "isSendNode", "parent", "shouldBeInlined", "ifFalse:", ">=", "blockIndex", "index", "context", "increaseBlockIndex", "visitBlockNode:"],
-referencedClasses: []
-}),
-smalltalk.ASTPCNodeVisitor);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "visitJSStatementNode:",
 category: 'visiting',
 fn: function (aNode){

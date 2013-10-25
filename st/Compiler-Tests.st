@@ -61,6 +61,15 @@ testMessageSend
 		currentNode) selector equals: 'yourself'
 !
 
+testMessageSendWithBlocks
+	| ast |
+	
+	ast := self parse: 'foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
+		visit: ast;
+		currentNode) selector equals: 'yourself'
+!
+
 testMessageSendWithInlining
 	| ast |
 	
