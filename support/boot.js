@@ -790,6 +790,7 @@ function RuntimeBrik(brikz, st) {
 	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkMethodContext(home, setup) {
+		this.sendIdx     = {};
 		this.homeContext = home;
 		this.setup       = setup || function() {};
 	}
@@ -805,7 +806,6 @@ function RuntimeBrik(brikz, st) {
 		SmalltalkMethodContext.prototype.receiver = null;
 		SmalltalkMethodContext.prototype.selector = null;
 		SmalltalkMethodContext.prototype.lookupClass = null;
-		SmalltalkMethodContext.prototype.sendIdx = {};
 
 		SmalltalkMethodContext.prototype.fill = function(receiver, selector, locals, lookupClass) {
 			this.receiver    = receiver;

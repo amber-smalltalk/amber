@@ -762,12 +762,15 @@ visitJSStatementNode: aNode
 !
 
 visitSendNode: aNode
+	| sendIndex |
+	sendIndex := self context sendIndexAt: self selector.
+	
 	super visitSendNode: aNode.
 	
 	self selector = aNode selector ifTrue: [
-		(self context sendIndexAt: self selector) < self index 
-			ifTrue: [ self increaseIndex ]
-			ifFalse: [ currentNode := aNode ] ]
+		self index < sendIndex ifFalse: [ 
+			self index > sendIndex ifFalse: [ currentNode := aNode ] ].
+		self increaseIndex ]
 ! !
 
 !Node methodsFor: '*Compiler-Interpreter'!

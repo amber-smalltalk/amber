@@ -2254,30 +2254,36 @@ selector: "visitSendNode:",
 category: 'visiting',
 fn: function (aNode){
 var self=this;
+var sendIndex;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$6,$7,$5,$4;
-smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+var $1,$2,$4,$5,$3,$7,$6,$9,$8;
+$1=self._context();
 $2=self._selector();
 $ctx1.sendIdx["selector"]=1;
-$3=_st(aNode)._selector();
+sendIndex=_st($1)._sendIndexAt_($2);
+smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
+$4=self._selector();
 $ctx1.sendIdx["selector"]=2;
-$1=_st($2).__eq($3);
-if(smalltalk.assert($1)){
-$6=self._context();
-$7=self._selector();
-$5=_st($6)._sendIndexAt_($7);
-$4=_st($5).__lt(self._index());
-if(smalltalk.assert($4)){
-self._increaseIndex();
-} else {
+$5=_st(aNode)._selector();
+$3=_st($4).__eq($5);
+if(smalltalk.assert($3)){
+$7=self._index();
+$ctx1.sendIdx["index"]=1;
+$6=_st($7).__lt(sendIndex);
+if(! smalltalk.assert($6)){
+$9=self._index();
+$8=_st($9).__gt(sendIndex);
+if(! smalltalk.assert($8)){
 self["@currentNode"]=aNode;
 self["@currentNode"];
 };
 };
-return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode},smalltalk.ASTPCNodeVisitor)})},
+self._increaseIndex();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"visitSendNode:",{aNode:aNode,sendIndex:sendIndex},smalltalk.ASTPCNodeVisitor)})},
 args: ["aNode"],
-source: "visitSendNode: aNode\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self selector = aNode selector ifTrue: [\x0a\x09\x09(self context sendIndexAt: self selector) < self index \x0a\x09\x09\x09ifTrue: [ self increaseIndex ]\x0a\x09\x09\x09ifFalse: [ currentNode := aNode ] ]",
-messageSends: ["visitSendNode:", "ifTrue:", "=", "selector", "ifTrue:ifFalse:", "<", "sendIndexAt:", "context", "index", "increaseIndex"],
+source: "visitSendNode: aNode\x0a\x09| sendIndex |\x0a\x09sendIndex := self context sendIndexAt: self selector.\x0a\x09\x0a\x09super visitSendNode: aNode.\x0a\x09\x0a\x09self selector = aNode selector ifTrue: [\x0a\x09\x09self index < sendIndex ifFalse: [ \x0a\x09\x09\x09self index > sendIndex ifFalse: [ currentNode := aNode ] ].\x0a\x09\x09self increaseIndex ]",
+messageSends: ["sendIndexAt:", "context", "selector", "visitSendNode:", "ifTrue:", "=", "ifFalse:", "<", "index", ">", "increaseIndex"],
 referencedClasses: []
 }),
 smalltalk.ASTPCNodeVisitor);
