@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Moka-Views", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Moka-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Moka-Views');
+smalltalk.packages["Moka-Views"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('MKButtonView', smalltalk.MKAspectView, ['default', 'label'], 'Moka-Views');
 smalltalk.MKButtonView.comment="I am a push button view. My default controller is `MKButtonController`.\x0a\x0aMy controller must answer to `#onPressed`.\x0a\x0a## API\x0a\x0a- Instances can be set a `default` button\x0a- Use `#label:` to set the label string";
@@ -10,16 +11,18 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$1;
 $2=self._isDefault();
-_st($2)._ifTrue_("default");
-$3=_st($2)._ifFalse_("");
-$1=$3;
+if(smalltalk.assert($2)){
+$1="default";
+} else {
+$1="";
+};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.MKButtonView)})},
 args: [],
-source: "cssClass\x0a\x09^ self isDefault \x0a\x09\x09ifTrue: 'default';\x0a\x09\x09ifFalse: ''",
-messageSends: ["ifTrue:", "isDefault", "ifFalse:"],
+source: "cssClass\x0a\x09^ self isDefault \x0a\x09\x09ifTrue: [ 'default' ]\x0a\x09\x09ifFalse: [ '' ]",
+messageSends: ["ifTrue:ifFalse:", "isDefault"],
 referencedClasses: []
 }),
 smalltalk.MKButtonView);
@@ -102,7 +105,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._default();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
 $1=$2;
@@ -125,7 +128,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultLabel();
 } else {
 $1=$2;
@@ -185,11 +188,11 @@ _st($1)._with_(self._label());
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._pressed();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKButtonView)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html button\x0a\x09\x09class: self cssClass;\x0a\x09\x09with: self label;\x0a\x09\x09onClick: [ self pressed ]",
-messageSends: ["class:", "cssClass", "button", "with:", "label", "onClick:", "pressed"],
+messageSends: ["class:", "button", "cssClass", "with:", "label", "onClick:", "pressed"],
 referencedClasses: []
 }),
 smalltalk.MKButtonView);
@@ -207,7 +210,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._aspectValue();
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
 $1=$2;
@@ -230,7 +233,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -271,7 +274,7 @@ _st(self._controller())._onToggled_(_st(self._checked())._not());
 return self}, function($ctx1) {$ctx1.fill(self,"pressed",{},smalltalk.MKCheckboxView)})},
 args: [],
 source: "pressed\x0a\x09self controller onToggled: self checked not",
-messageSends: ["onToggled:", "not", "checked", "controller"],
+messageSends: ["onToggled:", "controller", "not", "checked"],
 referencedClasses: []
 }),
 smalltalk.MKCheckboxView);
@@ -291,7 +294,7 @@ _st($1)._value_(self._label());
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._pressed();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKCheckboxView)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09at: 'checked' put: self checked;\x0a\x09\x09value: self label;\x0a\x09\x09onClick: [ self pressed ]",
@@ -315,7 +318,7 @@ _st(self._controller())._onEnterPressed_(self._value());
 return self}, function($ctx1) {$ctx1.fill(self,"enterPressed",{},smalltalk.MKInputView)})},
 args: [],
 source: "enterPressed\x0a\x09self controller onEnterPressed: self value",
-messageSends: ["onEnterPressed:", "value", "controller"],
+messageSends: ["onEnterPressed:", "controller", "value"],
 referencedClasses: []
 }),
 smalltalk.MKInputView);
@@ -336,7 +339,7 @@ self._enterPressed();
 return self}, function($ctx1) {$ctx1.fill(self,"keyDown:",{anEvent:anEvent},smalltalk.MKInputView)})},
 args: ["anEvent"],
 source: "keyDown: anEvent\x0a\x09anEvent which = String cr asciiValue ifTrue: [\x0a\x09\x09self enterPressed ]",
-messageSends: ["ifTrue:", "enterPressed", "=", "asciiValue", "cr", "which"],
+messageSends: ["ifTrue:", "=", "which", "asciiValue", "cr", "enterPressed"],
 referencedClasses: ["String"]
 }),
 smalltalk.MKInputView);
@@ -354,13 +357,13 @@ _st($1)._value_(self._aspectValue());
 _st($1)._onKeyDown_((function(event){
 return smalltalk.withContext(function($ctx2) {
 return self._keyDown_(event);
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
 $2=_st($1)._yourself();
 self["@input"]=$2;
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKInputView)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09input := html input\x0a\x09\x09value: self aspectValue;\x0a\x09\x09onKeyDown: [ :event |\x0a\x09\x09\x09self keyDown: event ];\x0a\x09\x09yourself",
-messageSends: ["value:", "aspectValue", "input", "onKeyDown:", "keyDown:", "yourself"],
+messageSends: ["value:", "input", "aspectValue", "onKeyDown:", "keyDown:", "yourself"],
 referencedClasses: []
 }),
 smalltalk.MKInputView);
@@ -384,4 +387,4 @@ referencedClasses: []
 smalltalk.MKInputView);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

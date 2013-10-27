@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Moka-Controllers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Moka-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Moka-Controllers');
+smalltalk.packages["Moka-Controllers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('MKButtonController', smalltalk.MKAspectController, [], 'Moka-Controllers');
 smalltalk.MKButtonController.comment="I am the default controller for `MKButtonView`.";
@@ -60,4 +61,4 @@ referencedClasses: []
 smalltalk.MKInputController);
 
 
-})(global_smalltalk,global_nil,global__st);
+});

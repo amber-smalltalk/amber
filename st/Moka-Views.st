@@ -16,8 +16,8 @@ My controller must answer to `#onPressed`.
 
 cssClass
 	^ self isDefault 
-		ifTrue: 'default';
-		ifFalse: ''
+		ifTrue: [ 'default' ]
+		ifFalse: [ '' ]
 !
 
 default

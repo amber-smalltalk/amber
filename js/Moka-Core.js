@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Moka-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Moka-Core');
+smalltalk.packages["Moka-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('MKController', smalltalk.Object, ['view', 'model'], 'Moka-Core');
 smalltalk.MKController.comment="I implement the Controller part of the MVC pattern in Moka.\x0a\x0aI hold onto my `model` and `view`, set with `MKView >> controller:`.";
@@ -116,17 +117,20 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3;
 $1=self._aspect();
-if(($receiver = $1) == nil || $receiver == undefined){
+$ctx1.sendIdx["aspect"]=1;
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-_st(self._model())._perform_(self._aspect());
+$2=self._model();
+$3=self._aspect();
+_st($2)._perform_($3);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"performAction",{},smalltalk.MKAspectController)})},
 args: [],
 source: "performAction\x0a\x09self aspect ifNotNil: [\x0a\x09\x09self model \x0a\x09\x09\x09perform: self aspect ]",
-messageSends: ["ifNotNil:", "perform:", "aspect", "model"],
+messageSends: ["ifNotNil:", "aspect", "perform:", "model"],
 referencedClasses: []
 }),
 smalltalk.MKAspectController);
@@ -138,17 +142,21 @@ category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$4,$3;
 $1=self._aspect();
-if(($receiver = $1) == nil || $receiver == undefined){
+$ctx1.sendIdx["aspect"]=1;
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-_st(self._model())._perform_withArguments_(_st(self._aspect())._asMutator(),[anObject]);
+$2=self._model();
+$4=self._aspect();
+$3=_st($4)._asMutator();
+_st($2)._perform_withArguments_($3,[anObject]);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"performActionWith:",{anObject:anObject},smalltalk.MKAspectController)})},
 args: ["anObject"],
 source: "performActionWith: anObject\x0a\x09self aspect ifNotNil: [\x0a\x09\x09self model \x0a\x09\x09\x09perform: self aspect asMutator\x0a\x09\x09\x09withArguments: { anObject } ]",
-messageSends: ["ifNotNil:", "perform:withArguments:", "asMutator", "aspect", "model"],
+messageSends: ["ifNotNil:", "aspect", "perform:withArguments:", "model", "asMutator"],
 referencedClasses: []
 }),
 smalltalk.MKAspectController);
@@ -312,7 +320,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self["@controller"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self._controller_(self._defaultController());
 } else {
 $1;
@@ -480,7 +488,7 @@ self["@wrapper"]=$2;
 _st(self["@wrapper"])._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._renderContentOn_(html);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.MKView)})},
 args: ["html"],
 source: "renderOn: html\x0a\x09\x22Basic rendering method.\x0a\x09Wraps the content with a `wrapper` div for updating the receiver.\x0a\x09\x0a\x09Do not override this method, but `#renderContentOn:`\x22\x0a\x09\x0a\x09wrapper := html div\x0a\x09\x09class: 'moka_view';\x0a\x09\x09yourself.\x0a\x09wrapper with: [ self renderContentOn: html ]",
@@ -496,18 +504,22 @@ category: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3,$4;
 $1=self["@wrapper"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self._error_("The view has not been rendered yet");
 } else {
 $1;
 };
-_st(_st(self["@wrapper"])._asJQuery())._empty();
-_st((function(html){
+$2=_st(self["@wrapper"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+_st($2)._empty();
+$3=(function(html){
 return smalltalk.withContext(function($ctx2) {
 return self._renderContentOn_(html);
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1)})}))._appendToJQuery_(_st(self["@wrapper"])._asJQuery());
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,2)})});
+$4=_st(self["@wrapper"])._asJQuery();
+_st($3)._appendToJQuery_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"update",{},smalltalk.MKView)})},
 args: [],
 source: "update\x0a\x09\x22Update the view's content.\x22\x0a\x09\x0a\x09wrapper ifNil: [ self error: 'The view has not been rendered yet' ].\x0a\x09\x0a\x09wrapper asJQuery empty.\x0a\x09[ :html | self renderContentOn: html ] \x0a\x09\x09appendToJQuery: wrapper asJQuery",
@@ -610,7 +622,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"aspectValue",{},smalltalk.MKAspectView)})},
 args: [],
 source: "aspectValue\x0a\x09^ self model perform: self aspect",
-messageSends: ["perform:", "aspect", "model"],
+messageSends: ["perform:", "model", "aspect"],
 referencedClasses: []
 }),
 smalltalk.MKAspectView);
@@ -640,15 +652,18 @@ category: 'updating',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(anAnnouncement)._aspect()).__eq(self._aspect());
+var $2,$3,$1;
+$2=_st(anAnnouncement)._aspect();
+$ctx1.sendIdx["aspect"]=1;
+$3=self._aspect();
+$1=_st($2).__eq($3);
 if(smalltalk.assert($1)){
 self._update();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"update:",{anAnnouncement:anAnnouncement},smalltalk.MKAspectView)})},
 args: ["anAnnouncement"],
 source: "update: anAnnouncement\x0a\x09anAnnouncement aspect = self aspect\x0a\x09\x09ifTrue: [ self update ]",
-messageSends: ["ifTrue:", "update", "=", "aspect"],
+messageSends: ["ifTrue:", "=", "aspect", "update"],
 referencedClasses: []
 }),
 smalltalk.MKAspectView);
@@ -675,4 +690,4 @@ referencedClasses: []
 }),
 smalltalk.MKAspectView.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});
