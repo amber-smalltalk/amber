@@ -1,16 +1,16 @@
 Smalltalk current createPackage: 'Compiler-Tests'!
-TestCase subclass: #ASTVisitorTest
+TestCase subclass: #ASTParsingTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
-!ASTVisitorTest methodsFor: 'convenience'!
+!ASTParsingTest methodsFor: 'convenience'!
 
 analyze: aNode forClass: aClass
 	(SemanticAnalyzer on: aClass) visit: aNode.
 	^ aNode
 ! !
 
-!ASTVisitorTest methodsFor: 'parsing'!
+!ASTParsingTest methodsFor: 'parsing'!
 
 parse: aString
 	^ Smalltalk current parse: aString
@@ -20,21 +20,23 @@ parse: aString forClass: aClass
 	^ self analyze: (self parse: aString) forClass: aClass
 ! !
 
-ASTVisitorTest subclass: #ASTPCNodeVisitorTest
+ASTParsingTest subclass: #ASTPCNodeVisitorTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
 
 !ASTPCNodeVisitorTest methodsFor: 'factory'!
 
 astPCNodeVisitor
-	^ self astPCNodeVisitorForPC: 0
+	^ ASTPCNodeVisitor new
+		context: (AIContext new
+			yourself);
+		yourself
 !
 
-astPCNodeVisitorForPC: anInteger
+astPCNodeVisitorForSelector: aString
 	^ ASTPCNodeVisitor new
-		pc: 0;
-		context: (AIContext new 
-			pc: anInteger; 
+		selector: aString;
+		context: (AIContext new
 			yourself);
 		yourself
 ! !
@@ -54,7 +56,16 @@ testMessageSend
 	| ast |
 	
 	ast := self parse: 'foo self asString yourself. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 2)
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
+		visit: ast;
+		currentNode) selector equals: 'yourself'
+!
+
+testMessageSendWithBlocks
+	| ast |
+	
+	ast := self parse: 'foo true ifTrue: [ [ self asString yourself ] value.  ]. ^ self asBoolean' forClass: Object.
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
 		visit: ast;
 		currentNode) selector equals: 'yourself'
 !
@@ -63,12 +74,12 @@ testMessageSendWithInlining
 	| ast |
 	
 	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 2)
+	self assert: ((self astPCNodeVisitorForSelector: 'yourself')
 		visit: ast;
 		currentNode) selector equals: 'yourself'.
 		
 	ast := self parse: 'foo true ifTrue: [ self asString yourself ]. ^ self asBoolean' forClass: Object.
-	self assert: ((self astPCNodeVisitorForPC: 3)
+	self assert: ((self astPCNodeVisitorForSelector: 'asBoolean')
 		visit: ast;
 		currentNode) selector equals: 'asBoolean'
 !
@@ -91,208 +102,7 @@ testPC
 		currentNode) isJSStatementNode
 ! !
 
-ASTVisitorTest subclass: #AbstractASTInterpreterTest
-	instanceVariableNames: ''
-	package: 'Compiler-Tests'!
-
-!AbstractASTInterpreterTest methodsFor: 'accessing'!
-
-interpreter
-	^ self subclassResponsibility
-! !
-
-!AbstractASTInterpreterTest methodsFor: 'interpreting'!
-
-interpret: aString
-	^ self
-		interpret: aString
-		withArguments: Dictionary new
-!
-
-interpret: aString receiver: anObject withArguments: aDictionary
-	"The food is a methodNode. Interpret the sequenceNode only"
-	
-	| ctx |
-	
-	ctx := AIContext new.
-	ctx receiver: anObject.
-	aDictionary keysAndValuesDo: [ :key :value |
-		ctx localAt: key put: value ].
-	
-	^ self interpreter
-		context: ctx;
-		interpret: (self parse: aString forClass: anObject class)
-			nodes first;
-		result
-!
-
-interpret: aString withArguments: aDictionary
-	^ self
-		interpret: aString
-		receiver: Object new
-		withArguments: aDictionary
-! !
-
-AbstractASTInterpreterTest subclass: #ASTInterpreterTest
-	instanceVariableNames: ''
-	package: 'Compiler-Tests'!
-
-!ASTInterpreterTest methodsFor: 'accessing'!
-
-interpreter
-	^ ASTInterpreter new
-! !
-
-!ASTInterpreterTest methodsFor: 'tests'!
-
-testBinarySend
-	self assert: (self interpret: 'foo 2+3+4') equals: 9
-!
-
-testBlockLiteral
-	self assert: (self interpret: 'foo ^ true ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 1.
-	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ] ifFalse: [ 2 ]') equals: 1.
-	self assert: (self interpret: 'foo ^ false ifTrue: [ 1 ] ifFalse: [ 2 ]') equals: 2
-!
-
-testCascade
-	self assert: (self interpret: 'foo ^ OrderedCollection new add: 2; add: 3; yourself') equals: (OrderedCollection with: 2 with: 3)
-!
-
-testDynamicArray
-	self assert: (self interpret: 'foo ^ {1+1. 2+2}') equals: #(2 4)
-!
-
-testDynamicDictionary
-	self assert: (self interpret: 'foo ^ #{1->1. 2->3}') equals: #{1->1. 2->3}
-!
-
-testInlinedJSStatement
-	self assert: (self interpret: 'foo <return 2+3>') equals: 5.
-	
-	self
-		assert: (self
-			interpret: 'foo: anInteger <return 2 + anInteger>'
-			withArguments: #{ 'anInteger' -> 3})
-		equals: 5
-!
-
-testInstVarAccess
-	self
-		assert: (self
-			interpret: 'foo ^ x'
-			receiver: 2@3
-			withArguments: #{})
-		equals: 2
-!
-
-testInstVarAssignment
-	self
-		assert: (self
-			interpret: 'foo: anInteger x := anInteger. ^ x'
-			receiver: Point new
-			withArguments: #{'anInteger' -> 2})
-		equals: 2
-!
-
-testNonlocalReturn
-	self assert: (self interpret: 'foo true ifTrue: [ ^ 1 ]. ^2') equals: 1
-!
-
-testReceiver
-	self
-		assert: (self
-			interpret: 'foo ^ self'
-			receiver: 2@3
-			withArguments: #{})
-		equals: 2@3
-!
-
-testSuper
-	self 
-		assert: (self 
-			interpret: 'foo ^ super isBoolean' 
-			receiver: true 
-			withArguments: Dictionary new) 
-		equals: false
-!
-
-testTempAssignment
-	self assert: (self interpret: 'foo | a | a := 2. ^ a') equals: 2
-!
-
-testThisContext
-	self assert: (self interpret: 'foo ^ thisContext') outerContext isNil.
-	self assert: (self interpret: 'foo ^ [ thisContext ] value') outerContext notNil.
-	self assert: (self interpret: 'foo ^ [ thisContext ] value outerContext == thisContext')
-! !
-
-AbstractASTInterpreterTest subclass: #ASTSteppingInterpreterTest
-	instanceVariableNames: 'interpreter'
-	package: 'Compiler-Tests'!
-
-!ASTSteppingInterpreterTest methodsFor: 'accessing'!
-
-interpreter
-	^ interpreter ifNil: [ interpreter := ASTSteppingInterpreter new ]
-! !
-
-!ASTSteppingInterpreterTest methodsFor: 'tests'!
-
-testAtEnd
-	self interpret: 'foo 1 + 2'.
-	self deny: self interpreter atEnd.
-
-	self interpreter step.
-	self deny: self interpreter atEnd.
-	
-	self interpreter step.
-	self deny: self interpreter atEnd.
-	
-	self interpreter step.
-	self deny: self interpreter atEnd.
-	
-	self interpreter step.
-	self assert: self interpreter atEnd
-!
-
-testMessageSend
-	self interpret: 'foo 1 + 2'.
-	
-	"SequenceNode"
-	self interpreter step.
-	
-	"SendNode"
-	self interpreter step.
-	
-	"ValueNode"
-	self interpreter step.
-	self assert: self interpreter currentNode value equals: 1.
-	
-	"ValueNode"
-	self interpreter step.
-	self assert: self interpreter currentNode value equals: 2.
-	
-	"Result"
-	self interpreter step.
-	self assert: self interpreter result equals: 3
-!
-
-testSimpleStepping
-	self interpret: 'foo 1'.
-	
-	"SequenceNode"
-	self interpreter step.
-	
-	self assert: self interpreter result isNil.
-	
-	"ValueNode"
-	self interpreter step.
-	
-	self assert: self interpreter result equals: 1
-! !
-
-TestCase subclass: #CodeGeneratorTest
+ASTParsingTest subclass: #CodeGeneratorTest
 	instanceVariableNames: 'receiver'
 	package: 'Compiler-Tests'!
 
@@ -300,10 +110,6 @@ TestCase subclass: #CodeGeneratorTest
 
 codeGeneratorClass
 	^ CodeGenerator
-!
-
-targetClass
-	^ DoIt
 ! !
 
 !CodeGeneratorTest methodsFor: 'factory'!
@@ -317,7 +123,7 @@ compiler
 !CodeGeneratorTest methodsFor: 'initialization'!
 
 setUp
-	receiver := self targetClass new
+	receiver := DoIt new
 !
 
 tearDown
@@ -326,13 +132,21 @@ tearDown
 
 !CodeGeneratorTest methodsFor: 'testing'!
 
-should: aString return: anObject
+should: aString receiver: anObject return: aResult
 	| method result |
 
-	method := self compiler install: aString forClass: self targetClass category: 'tests'.
+	receiver := anObject.
+	method := self compiler install: aString forClass: anObject class category: 'tests'.
 	result := receiver perform: method selector.
-	self targetClass removeCompiledMethod: method.
-	self assert: anObject equals: result
+	anObject class removeCompiledMethod: method.
+	self assert: aResult equals: result
+!
+
+should: aString return: anObject
+	^ self 
+		should: aString 
+		receiver: receiver 
+		return: anObject
 ! !
 
 !CodeGeneratorTest methodsFor: 'tests'!
@@ -377,6 +191,12 @@ testDynamicDictionaryElementsOrdered
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
+testGlobalVar
+	self should: 'foo ^ eval class' return: BlockClosure.
+	self should: 'foo ^ Math cos: 0' return: 1.
+	self should: 'foo ^ NonExistingVar' return: nil
+!
+
 testInnerTemporalDependentElementsOrdered
 	self should: 'foo
 	| x |
@@ -400,6 +220,10 @@ testInnerTemporalDependentElementsOrdered
 ' return: #{'foo'->1. 'bar'->2}.
 !
 
+testJSStatement
+	self should: 'foo <return 2+3>' return: 5
+!
+
 testLiterals
 	self should: 'foo ^ 1' return: 1.
 	self should: 'foo ^ ''hello''' return: 'hello'.
@@ -409,7 +233,8 @@ testLiterals
 	self should: 'foo ^ false' return: false.
 	self should: 'foo ^ #{1->2. 3->4}' return: #{1->2. 3->4}.
 	self should: 'foo ^ #hello' return: #hello.
-	self should: 'foo ^ -123.456' return: -123.456
+	self should: 'foo ^ -123.456' return: -123.456.
+	self should: 'foo ^ -2.5e4' return: -25000.
 !
 
 testLocalReturn
@@ -430,6 +255,10 @@ testMessageSends
 	self should: 'foo ^ 1 to: 5 by: 2' return: #(1 3 5)
 !
 
+testMultipleSequences
+	self should: 'foo | a b c | a := 2. b := 3. c := a + b. ^ c * 6' return: 30
+!
+
 testMutableLiterals
 	"Mutable literals must be aliased in cascades.
 	See https://github.com/amber-smalltalk/amber/issues/428"
@@ -445,6 +274,10 @@ testNestedIfTrue
 
 	self should: 'foo true ifTrue: [ false ifFalse: [ ^ 1 ] ]' return: 1.
 	self should: 'foo true ifTrue: [ false ifTrue: [ ^ 1 ] ]' return: receiver.
+!
+
+testNestedSends
+	self should: 'foo ^ (Point x: (Point x: 2 y: 3) y: 4) asString' return: (Point x: (2@3) y: 4) asString
 !
 
 testNonLocalReturn
@@ -471,6 +304,27 @@ testSendReceiverAndArgumentsOrdered
 	x := Array.
 	^ x with: x with: (true ifTrue: [ x := 2 ])
 ' return: {Array. 2}.
+!
+
+testSuperSend
+	self 
+		should: 'foo ^ super isBoolean' 
+		receiver: true
+		return: false
+!
+
+testTempVariables
+	self should: 'foo | a | ^ a' return: nil.
+	self should: 'foo | AVariable | ^ AVariable' return: nil.
+	self should: 'foo | a b c | ^ c' return: nil.
+	self should: 'foo | a | [ | d | ^ d ] value' return: nil.
+	
+	self should: 'foo | a | a:= 1. ^ a' return: 1.
+	self should: 'foo | AVariable | AVariable := 1. ^ AVariable' return: 1.
+!
+
+testThisContext
+	self should: 'foo ^ [ thisContext ] value outerContext == thisContext' return: true
 !
 
 testifFalse
@@ -550,6 +404,65 @@ codeGeneratorClass
 	^ InliningCodeGenerator
 ! !
 
+CodeGeneratorTest subclass: #InterpreterTest
+	instanceVariableNames: ''
+	package: 'Compiler-Tests'!
+
+!InterpreterTest methodsFor: 'parsing'!
+
+analyze: aNode forClass: aClass
+	(SemanticAnalyzer on: aClass) visit: aNode.
+	^ aNode
+!
+
+parse: aString
+	^ Smalltalk current parse: aString
+!
+
+parse: aString forClass: aClass
+	^ self analyze: (self parse: aString) forClass: aClass
+! !
+
+!InterpreterTest methodsFor: 'private'!
+
+interpret: aString receiver: anObject withArguments: aDictionary
+	"The food is a methodNode. Interpret the sequenceNode only"
+	
+	| ctx interpreter |
+	
+	interpreter := ASTInterpreter new.
+	
+	ctx := AIContext new
+		receiver: anObject;
+		interpreter: interpreter;
+		yourself.
+	aDictionary keysAndValuesDo: [ :key :value |
+		ctx localAt: key put: value ].
+	
+	^ interpreter
+		context: ctx;
+		interpret: (self parse: aString forClass: anObject class) nextChild;
+		proceed;
+		result
+! !
+
+!InterpreterTest methodsFor: 'testing'!
+
+should: aString receiver: anObject return: aResult
+	receiver := anObject.
+	
+	^ self 
+		assert: (self interpret: aString receiver: receiver withArguments: #{})
+		equals: aResult
+!
+
+should: aString return: anObject
+	^ self 
+		should: aString
+		receiver: receiver
+		return: anObject
+! !
+
 TestCase subclass: #ScopeVarTest
 	instanceVariableNames: ''
 	package: 'Compiler-Tests'!
@@ -558,10 +471,12 @@ TestCase subclass: #ScopeVarTest
 
 testClassRefVar
 	| node |
-	node := ClassReferenceNode new
+	node := VariableNode new
 		value: 'Object';
 		yourself.
-	SemanticAnalyzer new visit: node.
+	SemanticAnalyzer new 
+		pushScope: MethodLexicalScope new;
+		visit: node.
 	self assert: node binding isClassRefVar
 !
 

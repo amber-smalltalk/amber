@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Inspector", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Helios-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Inspector');
+smalltalk.packages["Helios-Inspector"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLInspectorDisplayWidget', smalltalk.HLNavigationListWidget, ['model'], 'Helios-Inspector');
 smalltalk.addMethod(
@@ -47,7 +48,7 @@ _st(_st(html)._div())._with_(self._selectionDisplayString());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorDisplayWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09\x0a    html div with: self selectionDisplayString",
-messageSends: ["with:", "selectionDisplayString", "div"],
+messageSends: ["with:", "div", "selectionDisplayString"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorDisplayWidget);
@@ -72,7 +73,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectionDisplayString",{selection:selection},smalltalk.HLInspectorDisplayWidget)})},
 args: [],
 source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables keys includes: selection)\x0a    \x09ifTrue:[(model instVarObjectAt: selection) printString]\x0a      \x09ifFalse:['']",
-messageSends: ["selection", "ifTrue:ifFalse:", "printString", "instVarObjectAt:", "includes:", "keys", "variables"],
+messageSends: ["selection", "ifTrue:ifFalse:", "includes:", "keys", "variables", "printString", "instVarObjectAt:"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorDisplayWidget);
@@ -90,7 +91,7 @@ function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -115,7 +116,7 @@ function $HLCodeModel(){return smalltalk.HLCodeModel||(typeof HLCodeModel=="unde
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@code"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@code"]=_st($HLCodeModel())._on_(self._environment());
 $1=self["@code"];
 } else {
@@ -140,7 +141,7 @@ function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st(_st($HLManager())._current())._environment();
 } else {
 $1=$2;
@@ -249,7 +250,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@label"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st(self._inspectee())._printString();
 } else {
 $1=$2;
@@ -354,7 +355,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@selection"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
 $1=$2;
@@ -381,7 +382,7 @@ _st(self._announcer())._announce_(_st($HLInstanceVariableSelected())._on_(self["
 return self}, function($ctx1) {$ctx1.fill(self,"selection:",{anObject:anObject},smalltalk.HLInspectorModel)})},
 args: ["anObject"],
 source: "selection: anObject\x0a\x09selection := anObject.\x0a\x0a\x09self announcer announce: (HLInstanceVariableSelected on: selection)",
-messageSends: ["announce:", "on:", "announcer"],
+messageSends: ["announce:", "announcer", "on:"],
 referencedClasses: ["HLInstanceVariableSelected"]
 }),
 smalltalk.HLInspectorModel);
@@ -412,7 +413,7 @@ function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefin
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@variables"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=_st($Dictionary())._new();
 } else {
 $1=$2;
@@ -476,7 +477,7 @@ function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
@@ -577,7 +578,7 @@ smalltalk.HLInspectorVariablesWidget.superclass.fn.prototype._refresh.apply(_st(
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLInspectorVariablesWidget)})},
 args: [],
 source: "refresh\x0a\x09self variables = self items ifFalse: [\x0a\x09\x09self resetItems.\x0a    \x09super refresh ]",
-messageSends: ["ifFalse:", "resetItems", "refresh", "=", "items", "variables"],
+messageSends: ["ifFalse:", "=", "variables", "items", "resetItems", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorVariablesWidget);
@@ -597,12 +598,12 @@ _st($1)._with_("Dive");
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._announcer())._announce_(_st($HLDiveRequested())._new());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self["@diveButton"]=$2;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLInspectorVariablesWidget)})},
 args: ["html"],
 source: "renderButtonsOn: html\x0a\x09diveButton := html button \x0a\x09\x09class: 'btn';\x0a\x09\x09with: 'Dive'; \x0a\x09\x09onClick: [ self announcer announce: HLDiveRequested new ]",
-messageSends: ["class:", "button", "with:", "onClick:", "announce:", "new", "announcer"],
+messageSends: ["class:", "button", "with:", "onClick:", "announce:", "announcer", "new"],
 referencedClasses: ["HLDiveRequested"]
 }),
 smalltalk.HLInspectorVariablesWidget);
@@ -725,7 +726,7 @@ function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="u
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLCodeWidget())._new();
 _st($3)._model_(_st(self["@model"])._code());
 _st($3)._receiver_(_st(self["@model"])._inspectee());
@@ -739,7 +740,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "codeWidget\x0a\x09^ codeWidget ifNil: [\x0a\x09\x09codeWidget := HLCodeWidget new\x0a    \x09\x09model: model code;\x0a        \x09receiver: model inspectee;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "code", "new", "receiver:", "inspectee", "yourself"],
+messageSends: ["ifNil:", "model:", "new", "code", "receiver:", "inspectee", "yourself"],
 referencedClasses: ["HLCodeWidget"]
 }),
 smalltalk.HLInspectorWidget);
@@ -754,7 +755,7 @@ function $HLInspectorDisplayWidget(){return smalltalk.HLInspectorDisplayWidget||
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@displayWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLInspectorDisplayWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -767,7 +768,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"displayWidget",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "displayWidget\x0a\x09^ displayWidget ifNil: [\x0a\x09\x09displayWidget := HLInspectorDisplayWidget new\x0a    \x09\x09model: self model;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "model", "new", "yourself"],
+messageSends: ["ifNil:", "model:", "new", "model", "yourself"],
 referencedClasses: ["HLInspectorDisplayWidget"]
 }),
 smalltalk.HLInspectorWidget);
@@ -796,11 +797,10 @@ category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 _st(self._model())._inspect_on_(anObject,self);
-$1=self;
-_st($1)._refreshVariablesWidget();
-$2=_st($1)._refreshDisplayWidget();
+self._refreshVariablesWidget();
+$1=self._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLInspectorWidget)})},
 args: ["anObject"],
 source: "inspect: anObject\x0a\x09self model inspect: anObject on: self.\x0a    \x0a\x09self \x0a    \x09refreshVariablesWidget;\x0a\x09\x09refreshDisplayWidget",
@@ -871,7 +871,7 @@ function $HLInspectorModel(){return smalltalk.HLInspectorModel||(typeof HLInspec
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@model"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self._model_(_st($HLInspectorModel())._new());
 $1=self["@model"];
 } else {
@@ -893,17 +893,16 @@ category: 'accessing',
 fn: function (aModel){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 self["@model"]=aModel;
 _st(self._codeWidget())._model_(_st(aModel)._code());
-$1=self;
-_st($1)._observeCodeWidget();
-_st($1)._observeVariablesWidget();
-$2=_st($1)._observeModel();
+self._observeCodeWidget();
+self._observeVariablesWidget();
+$1=self._observeModel();
 return self}, function($ctx1) {$ctx1.fill(self,"model:",{aModel:aModel},smalltalk.HLInspectorWidget)})},
 args: ["aModel"],
 source: "model: aModel\x0a\x09model := aModel. \x0a    self codeWidget model: aModel code.\x0a    \x0a    self \x0a        observeCodeWidget;\x0a    \x09observeVariablesWidget;\x0a        observeModel",
-messageSends: ["model:", "code", "codeWidget", "observeCodeWidget", "observeVariablesWidget", "observeModel"],
+messageSends: ["model:", "codeWidget", "code", "observeCodeWidget", "observeVariablesWidget", "observeModel"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorWidget);
@@ -919,11 +918,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self._codeWidget())._announcer())._on_do_($HLDoItExecuted(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onDoneIt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeCodeWidget",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "observeCodeWidget\x0a\x09self codeWidget announcer \x0a    \x09on: HLDoItExecuted \x0a        do: [ self onDoneIt ]",
-messageSends: ["on:do:", "onDoneIt", "announcer", "codeWidget"],
+messageSends: ["on:do:", "announcer", "codeWidget", "onDoneIt"],
 referencedClasses: ["HLDoItExecuted"]
 }),
 smalltalk.HLInspectorWidget);
@@ -956,11 +955,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(self._variablesWidget())._announcer())._on_do_($HLDiveRequested(),(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._onDive();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"observeVariablesWidget",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "observeVariablesWidget\x0a\x09self variablesWidget announcer \x0a        on: HLDiveRequested do:[ self onDive ]",
-messageSends: ["on:do:", "onDive", "announcer", "variablesWidget"],
+messageSends: ["on:do:", "announcer", "variablesWidget", "onDive"],
 referencedClasses: ["HLDiveRequested"]
 }),
 smalltalk.HLInspectorWidget);
@@ -980,7 +979,7 @@ $2=_st($1)._openAsTab();
 return self}, function($ctx1) {$ctx1.fill(self,"onDive",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "onDive\x0a\x0a\x09HLInspector new \x0a\x09\x09inspect: self model selectedInstVarObject;\x0a\x09\x09openAsTab",
-messageSends: ["inspect:", "selectedInstVarObject", "model", "new", "openAsTab"],
+messageSends: ["inspect:", "new", "selectedInstVarObject", "model", "openAsTab"],
 referencedClasses: ["HLInspector"]
 }),
 smalltalk.HLInspectorWidget);
@@ -1028,7 +1027,7 @@ self._refreshDisplayWidget();
 return self}, function($ctx1) {$ctx1.fill(self,"onInstanceVariableSelected",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "onInstanceVariableSelected\x0a\x09self codeWidget receiver: self model selectedInstVarObject.\x0a\x09self refreshDisplayWidget",
-messageSends: ["receiver:", "selectedInstVarObject", "model", "codeWidget", "refreshDisplayWidget"],
+messageSends: ["receiver:", "codeWidget", "selectedInstVarObject", "model", "refreshDisplayWidget"],
 referencedClasses: []
 }),
 smalltalk.HLInspectorWidget);
@@ -1119,15 +1118,21 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget()));
+var $1,$3,$4,$2;
+$1=html;
+$3=$HLHorizontalSplitter();
+$4=_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget());
+$2=_st($3)._with_with_($4,self._codeWidget());
+$ctx1.sendIdx["with:with:"]=1;
+_st($1)._with_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspectorWidget)})},
 args: ["html"],
 source: "renderContentOn: html\x0a   \x09html with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            with: self variablesWidget\x0a            with: self displayWidget)\x0a        with: self codeWidget)",
 messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget"],
-referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter"]
+referencedClasses: ["HLHorizontalSplitter", "HLVerticalSplitter"]
 }),
 smalltalk.HLInspectorWidget);
 
@@ -1207,7 +1212,7 @@ function $HLInspectorVariablesWidget(){return smalltalk.HLInspectorVariablesWidg
 return smalltalk.withContext(function($ctx1) { 
 var $2,$3,$4,$1;
 $2=self["@variablesWidget"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $3=_st($HLInspectorVariablesWidget())._new();
 _st($3)._model_(self._model());
 $4=_st($3)._yourself();
@@ -1220,7 +1225,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"variablesWidget",{},smalltalk.HLInspectorWidget)})},
 args: [],
 source: "variablesWidget\x0a\x09^ variablesWidget ifNil: [\x0a\x09\x09variablesWidget := HLInspectorVariablesWidget new\x0a    \x09\x09model: self model;\x0a        \x09yourself ]",
-messageSends: ["ifNil:", "model:", "model", "new", "yourself"],
+messageSends: ["ifNil:", "model:", "new", "model", "yourself"],
 referencedClasses: ["HLInspectorVariablesWidget"]
 }),
 smalltalk.HLInspectorWidget);
@@ -1234,17 +1239,30 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
-function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
+function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
+function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(_st($HLVerticalSplitter())._with_with_(self._variablesWidget(),self._displayWidget()),self._codeWidget())));
-_st(self._variablesWidget())._focus();
+var $2,$4,$6,$8,$9,$7,$5,$3,$1,$10;
+$2=html;
+$4=$HLContainer();
+$6=$HLHorizontalSplitter();
+$8=$HLVerticalSplitter();
+$9=self._variablesWidget();
+$ctx1.sendIdx["variablesWidget"]=1;
+$7=_st($8)._with_with_($9,self._displayWidget());
+$5=_st($6)._with_with_($7,self._codeWidget());
+$ctx1.sendIdx["with:with:"]=1;
+$3=_st($4)._with_($5);
+$1=_st($2)._with_($3);
+$ctx1.sendIdx["with:"]=1;
+$10=self._variablesWidget();
+_st($10)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLInspector)})},
 args: ["html"],
 source: "renderContentOn: html\x0a   \x09html with: (HLContainer with: (HLHorizontalSplitter\x0a    \x09with: (HLVerticalSplitter \x0a            with: self variablesWidget\x0a            with: self displayWidget)\x0a        with: self codeWidget)).\x0a\x09\x0a\x09self variablesWidget focus",
 messageSends: ["with:", "with:with:", "variablesWidget", "displayWidget", "codeWidget", "focus"],
-referencedClasses: ["HLVerticalSplitter", "HLHorizontalSplitter", "HLContainer"]
+referencedClasses: ["HLContainer", "HLHorizontalSplitter", "HLVerticalSplitter"]
 }),
 smalltalk.HLInspector);
 
@@ -1312,7 +1330,7 @@ function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof Ordere
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@inspectors"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@inspectors"]=_st($OrderedCollection())._new();
 $1=self["@inspectors"];
 } else {
@@ -1419,14 +1437,14 @@ return smalltalk.withContext(function($ctx2) {
 return _st(self._inspectors())._do_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each)._refresh();
-}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2)})}));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._valueWithInterval_((500));
+}, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._valueWithInterval_((500));
 return self}, function($ctx1) {$ctx1.fill(self,"watchChanges",{},smalltalk.HLInspector.klass)})},
 args: [],
 source: "watchChanges\x0a\x09[ self inspectors do: [ :each | each refresh ] ]\x0a\x09\x09valueWithInterval: 500",
-messageSends: ["valueWithInterval:", "do:", "refresh", "inspectors"],
+messageSends: ["valueWithInterval:", "do:", "inspectors", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLInspector.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

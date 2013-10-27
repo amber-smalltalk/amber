@@ -1247,13 +1247,15 @@ request: aString value: valueString do: aBlock
 defaultEnvironment
 	"If helios is loaded from within a frame, answer the parent window environment"
 	
-	| parent |
+	| parent parentSmalltalk |
 	
 	parent := window opener ifNil: [ window parent ].
 	parent ifNil: [ ^ Environment new ].
 	
-	^ ((parent at: 'global_smalltalk')
-		at: 'Environment') new
+	parentSmalltalk := (parent at: 'requirejs') value: 'amber_vm/smalltalk'.
+	parentSmalltalk ifNil: [ ^ Environment new ].
+	
+	^ (parentSmalltalk at: 'Environment') new
 ! !
 
 !HLManager methodsFor: 'initialization'!
@@ -1343,8 +1345,7 @@ current
 !HLManager class methodsFor: 'initialization'!
 
 initialize
-	self current appendToJQuery: 'body' asJQuery.
-	self clearKeydownEvent
+	self current appendToJQuery: 'body' asJQuery
 ! !
 
 !HLManager class methodsFor: 'instance creation'!
@@ -1353,17 +1354,6 @@ new
 	"Use current instead"
 
 	self shouldNotImplement
-! !
-
-!HLManager class methodsFor: 'private'!
-
-clearKeydownEvent
-	"Prevent default keydown event with arrow key from scrolling the parent page
-	when helios is run inside a frame."
-	
-	'body' asJQuery keydown: [ :e | 
-		(e keyCode >= 37 and: [ e keyCode <= 40 ])
-			ifTrue: [ false ] ]
 ! !
 
 HLWidget subclass: #HLModalWidget

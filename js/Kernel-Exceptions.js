@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Kernel-Exceptions", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Exceptions');
+smalltalk.packages["Kernel-Exceptions"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('Error', smalltalk.Object, ['messageText'], 'Kernel-Exceptions');
 smalltalk.Error.comment="From the ANSI standard:\x0a\x0aThis protocol describes the behavior of instances of class `Error`.\x0aThese are used to represent error conditions that prevent the normal continuation of processing.\x0aActual error exceptions used by an application may be subclasses of this class.\x0aAs `Error` is explicitly specified to be subclassable, conforming implementations must implement its behavior in a non-fragile manner.";
@@ -360,13 +361,15 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
+var $2,$1;
+$2=_st(_st(self._receiver())._asString()).__comma(" does not understand #");
+$1=_st($2).__comma(_st(self._message())._selector());
+$ctx1.sendIdx[","]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
 args: [],
 source: "messageText\x0a\x09^self receiver asString, ' does not understand #', self message selector",
-messageSends: [",", "selector", "message", "asString", "receiver"],
+messageSends: [",", "asString", "receiver", "selector", "message"],
 referencedClasses: []
 }),
 smalltalk.MessageNotUnderstood);
@@ -454,18 +457,20 @@ category: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 $1=_st(anError)._context();
-if(($receiver = $1) == nil || $receiver == undefined){
+$ctx1.sendIdx["context"]=1;
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-self._logErrorContext_(_st(anError)._context());
+$2=_st(anError)._context();
+self._logErrorContext_($2);
 };
 self._logError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler)})},
 args: ["anError"],
 source: "handleError: anError\x0a\x09anError context ifNotNil: [self logErrorContext: anError context].\x0a\x09self logError: anError",
-messageSends: ["ifNotNil:", "logErrorContext:", "context", "logError:"],
+messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
@@ -493,18 +498,20 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 $1=_st(aContext)._home();
-if(($receiver = $1) == nil || $receiver == undefined){
+$ctx1.sendIdx["home"]=1;
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-self._logContext_(_st(aContext)._home());
+$2=_st(aContext)._home();
+self._logContext_($2);
 };
 self._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
 source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext asString",
-messageSends: ["ifNotNil:", "logContext:", "home", "log:", "asString"],
+messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
@@ -532,22 +539,24 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aContext;
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
+var $2,$3,$4,$1;
+$2=aContext;
+if(($receiver = $2) == nil || $receiver == null){
+$1=$2;
 } else {
-$2=_st(aContext)._home();
-if(($receiver = $2) == nil || $receiver == undefined){
-$2;
+$3=_st(aContext)._home();
+$ctx1.sendIdx["home"]=1;
+if(($receiver = $3) == nil || $receiver == null){
+$1=$3;
 } else {
-self._logContext_(_st(aContext)._home());
+$4=_st(aContext)._home();
+$1=self._logContext_($4);
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
 source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home]]",
-messageSends: ["ifNotNil:", "logContext:", "home"],
+messageSends: ["ifNotNil:", "home", "logContext:"],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler);
@@ -563,7 +572,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=self._new();
 $1=self["@current"];
 } else {
@@ -627,4 +636,4 @@ referencedClasses: []
 }),
 smalltalk.ErrorHandler.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

@@ -454,6 +454,7 @@ removeTab: aWidget
 
 initialize
 	super initialize.
+	InspectorHandler register: Inspector.
 	opened := true.
 	[:html | html div id: 'amber'] appendToJQuery: 'body' asJQuery.
 	'body' asJQuery
@@ -1731,6 +1732,7 @@ updateVariablesList
 inspect: anObject
 	^self new
 		inspect: anObject;
+		open;
 		yourself
 !
 
@@ -2296,6 +2298,24 @@ renderButtonsOn: html
 	onClick: [self clearWorkspace]
 ! !
 
+!Date methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#year' put: self year.
+	variables at: '#month' put: self month.
+	variables at: '#day' put: self day.
+	variables at: '#hours' put: self hours.
+	variables at: '#minutes' put: self minutes.
+	variables at: '#seconds' put: self seconds.
+	variables at: '#milliseconds' put: self milliseconds.
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
 !Collection methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2304,20 +2324,6 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	self withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!HashedCollection methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#keys' put: self keys.
-	self keysAndValuesDo: [:key :value |
-		variables at: key put: value].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
@@ -2334,6 +2340,20 @@ inspectOn: anInspector
 	anInspector setLabel: label
 ! !
 
+!HashedCollection methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#keys' put: self keys.
+	self keysAndValuesDo: [:key :value |
+		variables at: key put: value].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
 !Set methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2342,24 +2362,6 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	elements withIndexDo: [:each :i |
 		variables at: i put: each].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!Date methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#year' put: self year.
-	variables at: '#month' put: self month.
-	variables at: '#day' put: self day.
-	variables at: '#hours' put: self hours.
-	variables at: '#minutes' put: self minutes.
-	variables at: '#seconds' put: self seconds.
-	variables at: '#milliseconds' put: self milliseconds.
 	anInspector
 		setLabel: self printString;
 		setVariables: variables

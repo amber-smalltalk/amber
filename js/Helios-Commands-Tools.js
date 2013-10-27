@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Commands-Tools", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Helios-Commands-Core"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Tools');
+smalltalk.packages["Helios-Commands-Tools"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLToolCommand', smalltalk.HLModelCommand, [], 'Helios-Commands-Tools');
 smalltalk.addMethod(
@@ -239,7 +240,7 @@ _st(self._model())._copyClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLCopyClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model copyClassTo: self input",
-messageSends: ["copyClassTo:", "input", "model"],
+messageSends: ["copyClassTo:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLCopyClassCommand);
@@ -391,7 +392,7 @@ _st(self._model())._openClassNamed_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLFindClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model openClassNamed: self input",
-messageSends: ["openClassNamed:", "input", "model"],
+messageSends: ["openClassNamed:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLFindClassCommand);
@@ -506,11 +507,14 @@ category: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=_st(self._model())._selectedMethod();
-if(($receiver = $2) == nil || $receiver == undefined){
-$3=_st(self._model())._selectedClass();
-if(($receiver = $3) == nil || $receiver == undefined){
+var $3,$2,$5,$4,$1;
+$3=self._model();
+$ctx1.sendIdx["model"]=1;
+$2=_st($3)._selectedMethod();
+if(($receiver = $2) == nil || $receiver == null){
+$5=self._model();
+$4=_st($5)._selectedClass();
+if(($receiver = $4) == nil || $receiver == null){
 $1="";
 } else {
 var class_;
@@ -526,7 +530,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
 source: "defaultInput\x0a\x09^ self model selectedMethod \x0a\x09\x09ifNil: [\x0a\x09\x09\x09self model selectedClass\x0a\x09\x09\x09\x09ifNil: [ '' ]\x0a\x09\x09\x09\x09ifNotNil: [ :class | class name ] ]\x0a\x09\x09ifNotNil: [ :method | method selector ]",
-messageSends: ["ifNil:ifNotNil:", "name", "selectedClass", "model", "selector", "selectedMethod"],
+messageSends: ["ifNil:ifNotNil:", "selectedMethod", "model", "selectedClass", "name", "selector"],
 referencedClasses: []
 }),
 smalltalk.HLFindReferencesCommand);
@@ -574,13 +578,18 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._model())._availableClassNames()).__comma(_st(self._model())._allSelectors());
+var $3,$2,$5,$4,$1;
+$3=self._model();
+$ctx1.sendIdx["model"]=1;
+$2=_st($3)._availableClassNames();
+$5=self._model();
+$4=_st($5)._allSelectors();
+$1=_st($2).__comma($4);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindReferencesCommand)})},
 args: [],
 source: "inputCompletion\x0a\x09^ self model availableClassNames, self model allSelectors",
-messageSends: [",", "allSelectors", "model", "availableClassNames"],
+messageSends: [",", "availableClassNames", "model", "allSelectors"],
 referencedClasses: []
 }),
 smalltalk.HLFindReferencesCommand);
@@ -783,7 +792,7 @@ _st(self._model())._moveClassToPackage_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveClassToPackageCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveClassToPackage: self input",
-messageSends: ["moveClassToPackage:", "input", "model"],
+messageSends: ["moveClassToPackage:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLMoveClassToPackageCommand);
@@ -985,7 +994,7 @@ _st(self._model())._moveMethodToClass_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToClass: self input",
-messageSends: ["moveMethodToClass:", "input", "model"],
+messageSends: ["moveMethodToClass:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLMoveMethodToClassCommand);
@@ -1118,7 +1127,7 @@ _st(self._model())._moveMethodToProtocol_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLMoveMethodToProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model moveMethodToProtocol: self input",
-messageSends: ["moveMethodToProtocol:", "input", "model"],
+messageSends: ["moveMethodToProtocol:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLMoveMethodToProtocolCommand);
@@ -1621,12 +1630,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(self._model())._selectedClass())._name();
+$1=_st(_st(_st(self._model())._selectedClass())._theNonMetaClass())._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultInput",{},smalltalk.HLRenameClassCommand)})},
 args: [],
-source: "defaultInput\x0a\x09^ self model selectedClass name",
-messageSends: ["name", "selectedClass", "model"],
+source: "defaultInput\x0a\x09^ self model selectedClass theNonMetaClass name",
+messageSends: ["name", "theNonMetaClass", "selectedClass", "model"],
 referencedClasses: []
 }),
 smalltalk.HLRenameClassCommand);
@@ -1658,7 +1667,7 @@ _st(self._model())._renameClassTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameClassCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameClassTo: self input",
-messageSends: ["renameClassTo:", "input", "model"],
+messageSends: ["renameClassTo:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLRenameClassCommand);
@@ -1809,7 +1818,7 @@ _st(self._model())._renameProtocolTo_(self._input());
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLRenameProtocolCommand)})},
 args: [],
 source: "execute\x0a\x09self model renameProtocolTo: self input",
-messageSends: ["renameProtocolTo:", "input", "model"],
+messageSends: ["renameProtocolTo:", "model", "input"],
 referencedClasses: []
 }),
 smalltalk.HLRenameProtocolCommand);
@@ -1897,4 +1906,4 @@ referencedClasses: []
 }),
 smalltalk.HLRenameProtocolCommand.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

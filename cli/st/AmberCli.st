@@ -84,7 +84,7 @@ main
 
 	args := process argv.
 	"Remove the first args which contain the path to the node executable and the script file."
-	args removeFrom: 1 to: 3.
+	args removeFrom: 1 to: 2.
 	
 	(args isEmpty)
 		ifTrue: [self help: nil]
@@ -903,12 +903,12 @@ My runtime requirement is a functional Node.js executable with working Readline 
 
 !Repl methodsFor: 'accessing'!
 
-prompt
-	^'amber >> '
-!
-
 commands
 	^ commands
+!
+
+prompt
+	^'amber >> '
 ! !
 
 !Repl methodsFor: 'actions'!
@@ -955,14 +955,14 @@ initialize
 	self setupCommands
 !
 
-setupHotkeys
-	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self onKeyPress: key]].
-!
-
 setupCommands
 	commands := Dictionary from: {
 		{':q'} -> [process exit].
 		{''} -> [interface prompt]}
+!
+
+setupHotkeys
+	process stdin on: 'keypress' do: [:s :key | key ifNotNil: [self onKeyPress: key]].
 ! !
 
 !Repl methodsFor: 'private'!
@@ -985,6 +985,14 @@ assignNewVariable: buffer do: aBlock
 		session := self addVariableNamed: varName to: session.
 		value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.
 		aBlock value: varName value: value]
+!
+
+clearScreen
+	| esc cls |
+	esc := String fromCharCode: 27.
+	cls := esc, '[2J', esc, '[0;0f'.
+	process stdout write: cls.
+	interface prompt
 !
 
 encapsulateVariable: aString withValue: anObject in: aClass
@@ -1031,14 +1039,6 @@ nextResultName
 onKeyPress: key
 	(key ctrl and: [key name = 'l'])
 		ifTrue: [self clearScreen]
-!
-
-clearScreen
-	| esc cls |
-	esc := String fromCharCode: 27.
-	cls := esc, '[2J', esc, '[0;0f'.
-	process stdout write: cls.
-	interface prompt
 !
 
 parseAssignment: aString do: aBlock

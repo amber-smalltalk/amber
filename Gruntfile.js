@@ -33,9 +33,9 @@ module.exports = function(grunt) {
       all: {
         output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
-              'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
+              'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
               'st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st',
+              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st',
               'st/Canvas.st', 'st/SUnit.st', 'st/IDE.st',
               'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st',
               'st/Helios-Core.st', 'st/Helios-Exceptions.st', 'st/Helios-Announcements.st',
@@ -46,32 +46,27 @@ module.exports = function(grunt) {
               'st/Helios-Workspace-Tests.st',
               'st/Benchfib.st', 'st/Examples.st', 'st/Spaces.st'
               ],
-        jsGlobals: ['navigator'],
-        deploy: true
+        jsGlobals: ['navigator']
       },
       amber_kernel: {
         output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
-              'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st'],
-        deploy: true
+              'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st']
       },
       amber_compiler: {
         output_dir : 'js',
         src: ['st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st'],
-        output_name: 'Compiler',
-        deploy: true
+              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st'],
+        output_name: 'Compiler'
       },
       amber_canvas: {
         output_dir : 'js',
-        src: ['st/Canvas.st', 'st/SUnit.st'],
-        deploy: true
+        src: ['st/Canvas.st', 'st/SUnit.st']
       },
       amber_IDE: {
         output_dir : 'js',
         src: ['st/IDE.st'],
-        libraries: ['Canvas'],
-        deploy: true
+        libraries: ['Canvas']
       },
       amber_tests: {
         output_dir : 'js',
@@ -103,7 +98,8 @@ module.exports = function(grunt) {
             'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser'
         ],
         main_class: 'AmberCli',
-        output_name: 'amber-cli'
+        output_name: '../../bin/amber-cli',
+        amd_namespace: 'amber_cli'
       }
     },
 

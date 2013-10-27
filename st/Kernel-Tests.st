@@ -1,4 +1,27 @@
 Smalltalk current createPackage: 'Kernel-Tests'!
+TestCase subclass: #AnnouncementSubscriptionTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AnnouncementSubscriptionTest methodsFor: 'tests'!
+
+testHandlesAnnouncement
+	| subscription announcementClass1 announcementClass2 classBuilder |
+	
+	classBuilder := ClassBuilder new.
+	announcementClass1 := classBuilder basicAddSubclassOf: SystemAnnouncement named: 'TestAnnouncement1' instanceVariableNames: #() package: 'Kernel-Tests'.
+	
+	subscription := AnnouncementSubscription new announcementClass: SystemAnnouncement.
+	"Test whether the same class triggers the announcement"
+	self assert: (subscription handlesAnnouncement: SystemAnnouncement) equals: true.
+	"Test whether a subclass triggers the announcement"
+	self assert: (subscription handlesAnnouncement: announcementClass1) equals: true.
+	"Test whether an unrelated class does not trigger the announcement"
+	self assert: (subscription handlesAnnouncement: Object) equals: false.
+	
+	classBuilder basicRemoveClass: announcementClass1.
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -760,6 +783,10 @@ SequenceableCollectionTest subclass: #ArrayTest
 
 !ArrayTest methodsFor: 'tests'!
 
+testAddFirst
+	self assert: (#(2 3 4 5) addFirst: 1; yourself) equals: #(1 2 3 4 5)
+!
+
 testAtIfAbsent
 	| array |
 	array := #('hello' 'world').
@@ -857,6 +884,14 @@ testAtPut
 	self should: ['hello' at: 1 put: 'a'] raise: Error
 !
 
+testCapitalized
+	self assert: 'test' capitalized equals: 'Test'.
+	self assert: 'Test' capitalized equals: 'Test'.
+	self assert: '' capitalized equals: ''.
+	self assert: 'Test' isCapitalized equals: true.
+	self assert: 'test' isCapitalized equals: false.
+!
+
 testCollect
 	| newCollection |
 	newCollection := 'hheelllloo'.
@@ -902,6 +937,11 @@ testIdentity
 
 	"test JS falsy value"
 	self deny: '' == 0
+!
+
+testIdentityHash
+	self assert: 'foo' identityHash equals: 'foo' identityHash.
+	self deny: ('foo' identityHash = 'bar' identityHash)
 !
 
 testIncludesSubString
@@ -972,7 +1012,7 @@ TestCase subclass: #JSObjectProxyTest
 !JSObjectProxyTest methodsFor: 'accessing'!
 
 jsObject
-	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': undefined}>
+	<return jsObject = {a: 1, b: function() {return 2;}, c: function(object) {return object;}, d: '', 'e': null, 'f': void 0}>
 ! !
 
 !JSObjectProxyTest methodsFor: 'tests'!
@@ -1081,88 +1121,6 @@ testCatchingException
 
 testRaisingException
 	self should: [ self throwException ] raise: JavaScriptException
-! !
-
-TestCase subclass: #LegacyPackageHandlerTest
-	instanceVariableNames: 'zorkPackage grulPackage backUpCommitPathJs backUpCommitPathSt'
-	package: 'Kernel-Tests'!
-
-!LegacyPackageHandlerTest methodsFor: 'running'!
-
-setUp
-	backUpCommitPathJs := LegacyPackageHandler defaultCommitPathJs.
-	backUpCommitPathSt := LegacyPackageHandler defaultCommitPathSt.
-
-	LegacyPackageHandler resetCommitPaths.
-
-	zorkPackage := Package new name: 'Zork'.
-	grulPackage := Package new
-					name: 'Grul';
-					commitPathJs: 'server/grul/js';
-					commitPathSt: 'grul/st';
-					yourself
-!
-
-tearDown
-	LegacyPackageHandler
-		defaultCommitPathJs: backUpCommitPathJs;
-		defaultCommitPathSt: backUpCommitPathSt
-! !
-
-!LegacyPackageHandlerTest methodsFor: 'tests'!
-
-testGrulCommitPathJsShouldBeServerGrulJs
-	self assert: grulPackage commitPathJs equals: 'server/grul/js'
-!
-
-testGrulCommitPathStShouldBeGrulSt
-	self assert: grulPackage commitPathSt equals: 'grul/st'
-!
-
-testZorkCommitPathJsShouldBeJs
-	self assert: zorkPackage commitPathJs equals: 'js'
-!
-
-testZorkCommitPathStShouldBeSt
-	self assert: zorkPackage commitPathSt equals: 'st'
-! !
-
-LegacyPackageHandlerTest subclass: #LegacyPackageHandlerTestWithDefaultsChanged
-	instanceVariableNames: ''
-	package: 'Kernel-Tests'!
-
-!LegacyPackageHandlerTestWithDefaultsChanged methodsFor: 'running'!
-
-setUp
-	super setUp.
-
-	LegacyPackageHandler
-		defaultCommitPathJs: 'javascripts/';
-		defaultCommitPathSt: 'smalltalk/'.
-! !
-
-!LegacyPackageHandlerTestWithDefaultsChanged methodsFor: 'tests'!
-
-testGrulCommitPathJsShouldBeServerGrulJs
-	self assert: grulPackage commitPathJs equals: 'server/grul/js'
-!
-
-testGrulCommitPathStShouldBeGrulSt
-	self assert: grulPackage commitPathSt equals: 'grul/st'
-!
-
-testZorkCommitPathJsShouldBeJavascript
-	self assert: zorkPackage commitPathJs equals: 'javascripts/'
-!
-
-testZorkCommitPathStShouldBeSmalltalk
-	self assert: zorkPackage commitPathSt equals: 'smalltalk/'
-! !
-
-!LegacyPackageHandlerTestWithDefaultsChanged class methodsFor: 'accessing'!
-
-shouldInheritSelectors
-	^ false
 ! !
 
 TestCase subclass: #MessageSendTest
@@ -1356,6 +1314,8 @@ testArithmetic
 	self assert: -2 - 1 equals: -3.
 	self assert: 12 / 2 equals: 6.
 	self assert: 3 * 4 equals: 12.
+	self assert: 7 // 2 equals: 3.
+	self assert: 7 \\ 2 equals: 1.
 
 	"Simple parenthesis and execution order"
 	self assert: 1 + 2 * 3 equals: 9.
@@ -1480,6 +1440,12 @@ testInvalidHexNumbers
 	self should: [16rABcdEfZ] raise: MessageNotUnderstood.
 !
 
+testLog
+	self assert: 10000 log equals: 4.
+	self assert: (512 log: 2) equals: 9.
+	self assert: Number e ln equals: 1.
+!
+
 testMinMax
 	
 	self assert: (2 max: 5) equals: 5.
@@ -1507,11 +1473,26 @@ testPrintShowingDecimalPlaces
 	self assert: (0 printShowingDecimalPlaces: 2) equals: '0.00'.
 !
 
+testRaisedTo
+	self assert: (2 raisedTo: 4) equals: 16.
+	self assert: (2 raisedTo: 0) equals: 1.
+	self assert: (2 raisedTo: -3) equals: 0.125.
+	self assert: (4 raisedTo: 0.5) equals: 2.
+	
+	self assert: 2 ** 4 equals: 16.
+!
+
 testRounded
 	
 	self assert: 3 rounded equals: 3.
 	self assert: 3.212 rounded equals: 3.
 	self assert: 3.51 rounded equals: 4
+!
+
+testSign
+	self assert: 5 sign equals: 1.
+	self assert: 0 sign equals: 0.
+	self assert: -1.4 sign equals: -1.
 !
 
 testSqrt
@@ -1546,6 +1527,15 @@ testToBy
 	self should: [1 to: 4 by: 0] raise: Error
 !
 
+testTrigonometry
+	self assert: 0 cos equals: 1.
+	self assert: 0 sin equals: 0.
+	self assert: 0 tan equals: 0.
+	self assert: 1 arcCos equals: 0.
+	self assert: 0 arcSin equals: 0.
+	self assert: 0 arcTan equals: 0.
+!
+
 testTruncated
 	
 	self assert: 3 truncated equals: 3.
@@ -1576,7 +1566,7 @@ TestCase subclass: #ObjectTest
 !ObjectTest methodsFor: 'tests'!
 
 notDefined
-	<return undefined;>
+	<return void 0;>
 !
 
 testBasicAccess

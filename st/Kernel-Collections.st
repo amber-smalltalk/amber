@@ -825,7 +825,7 @@ addLast: anObject
 !
 
 removeLast
-	self remove: self last
+	^ self remove: self last
 ! !
 
 !SequenceableCollection methodsFor: 'comparing'!
@@ -884,11 +884,6 @@ detect: aBlock ifNone: anotherBlock
 
 do: aBlock
 	<for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
-!
-
-do: aBlock displayingProgress: aString
-	ProgressHandler current
-		do: aBlock on: self displaying: aString
 !
 
 with: anotherCollection do: aBlock
@@ -983,6 +978,10 @@ add: anObject
 	<self.push(anObject); return anObject;>
 !
 
+addFirst: anObject
+	<self.unshift(anObject); return anObject;>
+!
+
 remove: anObject ifAbsent: aBlock
 	<
 		for(var i=0;i<self.length;i++) {
@@ -1001,6 +1000,10 @@ removeFrom: aNumber to: anotherNumber
 
 removeIndex: anInteger
 	<self.splice(anInteger - 1, 1)>
+!
+
+removeLast
+	<return self.pop();>
 ! !
 
 !Array methodsFor: 'converting'!
@@ -1215,6 +1218,10 @@ escaped
 	<return escape(self)>
 !
 
+identityHash
+	^ self, 's'
+!
+
 size
 	<return self.length>
 !
@@ -1304,6 +1311,12 @@ asSymbol
 
 asUppercase
 	<return self.toUpperCase()>
+!
+
+capitalized
+	^ self isEmpty
+		ifTrue: [ self ]
+		ifFalse: [ self first asUppercase, self allButFirst ]
 !
 
 crlfSanitized
@@ -1483,6 +1496,10 @@ tokenize: aString
 
 includesSubString: subString
 	< return self.indexOf(subString) !!= -1 >
+!
+
+isCapitalized
+	^ self first asUppercase == self first
 !
 
 isImmutable

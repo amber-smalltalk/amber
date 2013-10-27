@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Canvas", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Kernel-Methods", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Canvas');
+smalltalk.packages["Canvas"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('BrowserInterface', smalltalk.Object, [], 'Canvas');
 smalltalk.BrowserInterface.comment="I am platform interface class that tries to use window and jQuery; that is, one for browser environment.\x0a\x0a## API\x0a\x0a    self isAvailable. \x22true if window and jQuery exist\x22.\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
@@ -626,17 +627,24 @@ fn: function (aString){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-result=_st(_st("<span />"._asJQuery())._html_(_st("&".__comma(aString)).__comma(";")))._text();
-$1=_st(_st(result)._size()).__eq((1));
-if(! smalltalk.assert($1)){
-self._error_("Not an HTML entity: ".__comma(aString));
+var $2,$4,$3,$1,$5,$6;
+$2="<span />"._asJQuery();
+$4="&".__comma(aString);
+$ctx1.sendIdx[","]=2;
+$3=_st($4).__comma(";");
+$ctx1.sendIdx[","]=1;
+$1=_st($2)._html_($3);
+result=_st($1)._text();
+$5=_st(_st(result)._size()).__eq((1));
+if(! smalltalk.assert($5)){
+$6="Not an HTML entity: ".__comma(aString);
+self._error_($6);
 };
 self._with_(result);
 return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},smalltalk.HTMLCanvas)})},
 args: ["aString"],
 source: "entity: aString\x0a\x09\x22Adds a character representing html entity, eg.\x0a\x09html entity: 'copy'\x0a\x09adds a copyright sign.\x0a\x09If a name does not represent valid HTML entity, error is raised.\x22\x0a\x09| result |\x0a\x09result := ('<span />' asJQuery html: '&', aString, ';') text.\x0a\x09result size = 1 ifFalse: [ self error: 'Not an HTML entity: ', aString ].\x0a\x09self with: result",
-messageSends: ["text", "html:", ",", "asJQuery", "ifFalse:", "error:", "=", "size", "with:"],
+messageSends: ["text", "html:", "asJQuery", ",", "ifFalse:", "=", "size", "error:", "with:"],
 referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
@@ -1120,7 +1128,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 smalltalk.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
 $1=self["@root"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self["@root"]=_st($TagBrush())._fromString_canvas_("div",self);
 self["@root"];
 } else {
@@ -1699,17 +1707,19 @@ var self=this;
 var clone,caret;
 function $TagBrush(){return smalltalk.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 clone=_st(_st(anElement)._asJQuery())._clone();
-self._with_(_st($TagBrush())._fromJQuery_canvas_(clone,self));
+$1=_st($TagBrush())._fromJQuery_canvas_(clone,self);
+$ctx1.sendIdx["fromJQuery:canvas:"]=1;
+self._with_($1);
 caret=_st(clone)._find_("[data-snippet=\x22*\x22]");
-$1=_st(_st(caret)._toArray())._isEmpty();
-if(smalltalk.assert($1)){
+$2=_st(_st(caret)._toArray())._isEmpty();
+if(smalltalk.assert($2)){
 caret=clone;
 caret;
 };
-$2=_st($TagBrush())._fromJQuery_canvas_(_st(caret)._removeAttr_("data-snippet"),self);
-return $2;
+$3=_st($TagBrush())._fromJQuery_canvas_(_st(caret)._removeAttr_("data-snippet"),self);
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"snippet:",{anElement:anElement,clone:clone,caret:caret},smalltalk.HTMLCanvas)})},
 args: ["anElement"],
 source: "snippet: anElement\x0a\x09\x22Adds clone of anElement, finds [data-snippet=\x22\x22*\x22\x22] subelement\x0a\x09and returns TagBrush as if that subelement was just added.\x0a\x09\x0a\x09Rarely needed to use directly, use `html foo` dynamically installed method\x0a\x09for a snippet named foo.\x22\x0a\x09\x0a\x09| clone caret |\x0a\x09\x0a\x09clone := anElement asJQuery clone.\x0a\x09self with: (TagBrush fromJQuery: clone canvas: self).\x0a\x09caret := clone find: '[data-snippet=\x22*\x22]'.\x0a\x09caret toArray isEmpty ifTrue: [ caret := clone ].\x0a\x09^TagBrush fromJQuery: (caret removeAttr: 'data-snippet') canvas: self",
@@ -2198,8 +2208,11 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(jQuery)._at_("browser"))._at_("msie"))._notNil();
+var $3,$2,$1;
+$3=_st(jQuery)._at_("browser");
+$2=_st($3)._at_("msie");
+$ctx1.sendIdx["at:"]=1;
+$1=_st($2)._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isMSIE",{},smalltalk.HTMLCanvas.klass)})},
 args: [],
@@ -2216,8 +2229,11 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(jQuery)._at_("browser"))._at_("mozilla"))._notNil();
+var $3,$2,$1;
+$3=_st(jQuery)._at_("browser");
+$2=_st($3)._at_("mozilla");
+$ctx1.sendIdx["at:"]=1;
+$1=_st($2)._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isMozilla",{},smalltalk.HTMLCanvas.klass)})},
 args: [],
@@ -2234,8 +2250,11 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(jQuery)._at_("browser"))._at_("opera"))._notNil();
+var $3,$2,$1;
+$3=_st(jQuery)._at_("browser");
+$2=_st($3)._at_("opera");
+$ctx1.sendIdx["at:"]=1;
+$1=_st($2)._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isOpera",{},smalltalk.HTMLCanvas.klass)})},
 args: [],
@@ -2252,8 +2271,11 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(jQuery)._at_("browser"))._at_("webkit"))._notNil();
+var $3,$2,$1;
+$3=_st(jQuery)._at_("browser");
+$2=_st($3)._at_("webkit");
+$ctx1.sendIdx["at:"]=1;
+$1=_st($2)._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isWebkit",{},smalltalk.HTMLCanvas.klass)})},
 args: [],
@@ -2298,11 +2320,11 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._snippetsFromJQuery_(aJQuery))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._installSnippetFromJQuery_(_st(each)._asJQuery());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromJQuery:",{aJQuery:aJQuery},smalltalk.HTMLSnippet)})},
 args: ["aJQuery"],
 source: "initializeFromJQuery: aJQuery\x0a\x09\x22Finds and takes out all snippets out of aJQuery.\x0a\x09Installs it into self.\x22\x0a\x09\x0a\x09(self snippetsFromJQuery: aJQuery) do: [ :each |\x0a\x09\x09self installSnippetFromJQuery: each asJQuery ]",
-messageSends: ["do:", "installSnippetFromJQuery:", "asJQuery", "snippetsFromJQuery:"],
+messageSends: ["do:", "snippetsFromJQuery:", "installSnippetFromJQuery:", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet);
@@ -2332,7 +2354,7 @@ self._snippetAt_install_(name,_st(_st(element)._detach())._get_((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"installSnippetFromJQuery:",{element:element,name:name},smalltalk.HTMLSnippet)})},
 args: ["element"],
 source: "installSnippetFromJQuery: element\x0a\x09| name |\x0a\x09name := element attr: 'data-snippet'.\x0a\x09name = '*' ifFalse: [\x0a\x09\x09('^\x5c*' asRegexp test: name)\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09name := name allButFirst.\x0a\x09\x09\x09\x09element attr: 'data-snippet' put: '*' ]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09element removeAttr: 'data-snippet' ].\x0a\x09\x09self snippetAt: name install: (element detach get: 0) ]",
-messageSends: ["attr:", "ifFalse:", "ifTrue:ifFalse:", "allButFirst", "attr:put:", "removeAttr:", "test:", "asRegexp", "snippetAt:install:", "get:", "detach", "="],
+messageSends: ["attr:", "ifFalse:", "=", "ifTrue:ifFalse:", "test:", "asRegexp", "allButFirst", "attr:put:", "removeAttr:", "snippetAt:install:", "get:", "detach"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet);
@@ -2361,18 +2383,18 @@ selector: "snippetAt:compile:",
 category: 'method generation',
 fn: function (aString,anElement){
 var self=this;
-function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
+function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
 _st(_st($ClassBuilder())._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
 return smalltalk.withContext(function($ctx2) {
 return _st(htmlReceiver)._snippet_(anElement);
-}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
+}, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1,1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
 return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},smalltalk.HTMLSnippet)})},
 args: ["aString", "anElement"],
 source: "snippetAt: aString compile: anElement\x0a\x09\x22Method generation for the snippet.\x0a\x09The selector is aString, the method block uses anElement\x22\x0a\x09\x0a\x09ClassBuilder new\x0a\x09\x09installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]\x0a\x09\x09\x09currySelf asCompiledMethod: aString)\x0a\x09\x09forClass: HTMLCanvas\x0a\x09\x09category: '**snippets'",
-messageSends: ["installMethod:forClass:category:", "asCompiledMethod:", "currySelf", "snippet:", "new"],
-referencedClasses: ["HTMLCanvas", "ClassBuilder"]
+messageSends: ["installMethod:forClass:category:", "new", "asCompiledMethod:", "currySelf", "snippet:"],
+referencedClasses: ["ClassBuilder", "HTMLCanvas"]
 }),
 smalltalk.HTMLSnippet);
 
@@ -2402,7 +2424,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@snippets"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@snippets"]=smalltalk.HashedCollection._from_([]);
 $1=self["@snippets"];
 } else {
@@ -2464,7 +2486,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=self["@current"];
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $2=smalltalk.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);
 _st($2)._initializeFromJQuery_(_st(document)._asJQuery());
 $3=_st($2)._yourself();
@@ -2476,7 +2498,7 @@ $1;
 return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "ensureCurrent\x0a\x09current ifNil: [\x0a\x09\x09current := super new\x0a\x09\x09\x09initializeFromJQuery: document asJQuery;\x0a\x09\x09\x09yourself ]",
-messageSends: ["ifNil:", "initializeFromJQuery:", "asJQuery", "new", "yourself"],
+messageSends: ["ifNil:", "initializeFromJQuery:", "new", "asJQuery", "yourself"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet.klass);
@@ -2497,7 +2519,7 @@ self._ensureCurrent();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HTMLSnippet.klass)})},
 args: [],
 source: "initialize\x0a\x09super initialize.\x0a\x09self isDOMAvailable ifTrue: [\x0a\x09\x09self ensureCurrent ]",
-messageSends: ["initialize", "ifTrue:", "ensureCurrent", "isDOMAvailable"],
+messageSends: ["initialize", "ifTrue:", "isDOMAvailable", "ensureCurrent"],
 referencedClasses: []
 }),
 smalltalk.HTMLSnippet.klass);
@@ -2644,10 +2666,12 @@ fn: function (aBlock){
 var self=this;
 var root;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 root=_st(self["@canvas"])._root();
-_st(self["@canvas"])._root_(self);
+$1=_st(self["@canvas"])._root_(self);
+$ctx1.sendIdx["root:"]=1;
 _st(aBlock)._value_(self["@canvas"]);
-_st(self["@canvas"])._root_(root);
+$2=_st(self["@canvas"])._root_(root);
 return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},smalltalk.TagBrush)})},
 args: ["aBlock"],
 source: "appendBlock: aBlock\x0a\x09| root |\x0a\x09root := canvas root.\x0a\x09canvas root: self.\x0a\x09aBlock value: canvas.\x0a\x09canvas root: root",
@@ -2672,6 +2696,22 @@ var element=self['@element'];
 return self}, function($ctx1) {$ctx1.fill(self,"appendChild:",{anElement:anElement},smalltalk.TagBrush)})},
 args: ["anElement"],
 source: "appendChild: anElement\x0a\x09\x22In IE7 and IE8 appendChild fails on several node types. So we need to check\x22\x0a\x09<var element=self['@element'];\x0a\x09if (null == element.canHaveChildren || element.canHaveChildren) {\x0a\x09\x09element.appendChild(anElement);\x0a\x09} else {\x0a\x09\x09element.text = String(element.text) + anElement.innerHTML;\x0a\x09} >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "appendDocumentFragment:",
+category: 'private',
+fn: function (anElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var element=self['@element'].appendChild(anElement["@element"]);
+return self}, function($ctx1) {$ctx1.fill(self,"appendDocumentFragment:",{anElement:anElement},smalltalk.TagBrush)})},
+args: ["anElement"],
+source: "appendDocumentFragment: anElement\x0a\x09<var element=self['@element'].appendChild(anElement[\x22@element\x22])>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2798,10 +2838,9 @@ category: 'adding',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self;
-_st($1)._empty();
-$2=_st($1)._append_(anObject);
+var $1;
+self._empty();
+$1=self._append_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"contents:",{anObject:anObject},smalltalk.TagBrush)})},
 args: ["anObject"],
 source: "contents: anObject\x0a\x09self\x0a\x09empty;\x0a\x09append: anObject",
@@ -3646,7 +3685,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fromJQuery:canvas:",{aJQuery:aJQuery,aCanvas:aCanvas},smalltalk.TagBrush.klass)})},
 args: ["aJQuery", "aCanvas"],
-source: "fromJQuery: aJQuery canvas: aCanvas\x0a\x09^self new\x0a\x09initializeFromJQuery: aJQuery canvas: aCanvas;\x0a\x09yourself",
+source: "fromJQuery: aJQuery canvas: aCanvas\x0a\x09^self new\x0a\x09\x09initializeFromJQuery: aJQuery canvas: aCanvas;\x0a\x09\x09yourself",
 messageSends: ["initializeFromJQuery:canvas:", "new", "yourself"],
 referencedClasses: []
 }),
@@ -3674,7 +3713,64 @@ referencedClasses: []
 smalltalk.TagBrush.klass);
 
 
-smalltalk.addClass('StyleTag', smalltalk.TagBrush, ['canvas', 'element'], 'Canvas');
+smalltalk.addClass('DocumentFragmentTag', smalltalk.TagBrush, [], 'Canvas');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "createDocumentFragment",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return document.createDocumentFragment();
+return self}, function($ctx1) {$ctx1.fill(self,"createDocumentFragment",{},smalltalk.DocumentFragmentTag)})},
+args: [],
+source: "createDocumentFragment\x0a\x09<return document.createDocumentFragment()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.DocumentFragmentTag);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initializeFromCanvas:",
+category: 'initialization',
+fn: function (aCanvas){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@canvas"]=aCanvas;
+self["@element"]=self._createDocumentFragment();
+return self}, function($ctx1) {$ctx1.fill(self,"initializeFromCanvas:",{aCanvas:aCanvas},smalltalk.DocumentFragmentTag)})},
+args: ["aCanvas"],
+source: "initializeFromCanvas: aCanvas\x0a\x09canvas := aCanvas.\x0a\x09element := self createDocumentFragment",
+messageSends: ["createDocumentFragment"],
+referencedClasses: []
+}),
+smalltalk.DocumentFragmentTag);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "canvas:",
+category: 'instance creation',
+fn: function (aCanvas){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._initializeFromCanvas_(aCanvas);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"canvas:",{aCanvas:aCanvas},smalltalk.DocumentFragmentTag.klass)})},
+args: ["aCanvas"],
+source: "canvas: aCanvas\x0a\x09^ self new\x0a\x09\x09initializeFromCanvas: aCanvas;\x0a\x09\x09yourself",
+messageSends: ["initializeFromCanvas:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.DocumentFragmentTag.klass);
+
+
+smalltalk.addClass('StyleTag', smalltalk.TagBrush, [], 'Canvas');
 smalltalk.StyleTag.comment="I'm a `<style>` tag use to inline CSS or load a stylesheet.\x0a\x0a## Motivation\x0a\x0aThe need for a specific class comes from Internet Explorer compatibility issues.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -3694,7 +3790,7 @@ smalltalk.StyleTag.superclass.fn.prototype._with_.apply(_st(self), [aString]);
 return self}, function($ctx1) {$ctx1.fill(self,"with:",{aString:aString},smalltalk.StyleTag)})},
 args: ["aString"],
 source: "with: aString\x0a\x09HTMLCanvas isMSIE\x0a\x09\x09ifTrue: [self element styleSheet cssText: aString ]\x0a\x09\x09ifFalse: [super with: aString ].",
-messageSends: ["ifTrue:ifFalse:", "cssText:", "styleSheet", "element", "with:", "isMSIE"],
+messageSends: ["ifTrue:ifFalse:", "isMSIE", "cssText:", "styleSheet", "element", "with:"],
 referencedClasses: ["HTMLCanvas"]
 }),
 smalltalk.StyleTag);
@@ -3868,7 +3964,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSnippet",{},smalltalk.CharacterArray)})},
 args: [],
 source: "asSnippet\x0a\x09^ HTMLSnippet current snippetAt: self asString",
-messageSends: ["snippetAt:", "asString", "current"],
+messageSends: ["snippetAt:", "current", "asString"],
 referencedClasses: ["HTMLSnippet"]
 }),
 smalltalk.CharacterArray);
@@ -3937,4 +4033,4 @@ referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
 
-})(global_smalltalk,global_nil,global__st);
+});

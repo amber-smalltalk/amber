@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Commands-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Core');
+smalltalk.packages["Helios-Commands-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLCommand', smalltalk.Object, ['input'], 'Helios-Commands-Core');
 smalltalk.addMethod(
@@ -42,7 +43,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBinding",{},smalltalk.HLCommand)})},
 args: [],
 source: "asBinding\x0a\x09^ self isBindingGroup\x0a\x09\x09ifTrue: [ self asGroupBinding ]\x0a\x09\x09ifFalse: [ self asActionBinding ]",
-messageSends: ["ifTrue:ifFalse:", "asGroupBinding", "asActionBinding", "isBindingGroup"],
+messageSends: ["ifTrue:ifFalse:", "isBindingGroup", "asGroupBinding", "asActionBinding"],
 referencedClasses: []
 }),
 smalltalk.HLCommand);
@@ -381,13 +382,13 @@ _st(classes)._add_(self);
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(classes)._addAll_(_st(each)._concreteClasses());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 $2=classes;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"concreteClasses",{classes:classes},smalltalk.HLCommand.klass)})},
 args: [],
 source: "concreteClasses\x0a\x09| classes |\x0a\x09\x0a\x09classes := OrderedCollection new.\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ classes add: self ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each | \x0a\x09\x09classes addAll: each concreteClasses ].\x0a\x09\x09\x0a\x09^ classes",
-messageSends: ["new", "ifTrue:", "add:", "isConcrete", "do:", "addAll:", "concreteClasses", "subclasses"],
+messageSends: ["new", "ifTrue:", "isConcrete", "add:", "do:", "subclasses", "addAll:", "concreteClasses"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLCommand.klass);
@@ -512,11 +513,11 @@ newBinding;
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_(newBinding);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:",{aBinding:aBinding,newBinding:newBinding},smalltalk.HLCommand.klass)})},
 args: ["aBinding"],
 source: "registerConcreteClassesOn: aBinding\x0a\x09| newBinding |\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ newBinding := self registerOn: aBinding ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each | each registerConcreteClassesOn: newBinding ]",
-messageSends: ["ifTrue:ifFalse:", "registerOn:", "isConcrete", "do:", "registerConcreteClassesOn:", "subclasses"],
+messageSends: ["ifTrue:ifFalse:", "isConcrete", "registerOn:", "do:", "subclasses", "registerConcreteClassesOn:"],
 referencedClasses: []
 }),
 smalltalk.HLCommand.klass);
@@ -658,7 +659,7 @@ var $1;
 $1=_st(self._isConcrete())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isValidFor_(aModel);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(smalltalk.assert($1)){
 newBinding=self._registerOn_for_(aBinding,aModel);
 newBinding;
@@ -669,11 +670,11 @@ newBinding;
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._registerConcreteClassesOn_for_(newBinding,aModel);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"registerConcreteClassesOn:for:",{aBinding:aBinding,aModel:aModel,newBinding:newBinding},smalltalk.HLModelCommand.klass)})},
 args: ["aBinding", "aModel"],
 source: "registerConcreteClassesOn: aBinding for: aModel\x0a\x09| newBinding |\x0a\x09\x0a\x09(self isConcrete and: [ self isValidFor: aModel ])\x0a\x09\x09ifTrue: [ newBinding := self registerOn: aBinding for: aModel ]\x0a\x09\x09ifFalse: [ newBinding := aBinding ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each |\x0a\x09\x09each registerConcreteClassesOn: newBinding for: aModel ]",
-messageSends: ["ifTrue:ifFalse:", "registerOn:for:", "and:", "isValidFor:", "isConcrete", "do:", "registerConcreteClassesOn:for:", "subclasses"],
+messageSends: ["ifTrue:ifFalse:", "and:", "isConcrete", "isValidFor:", "registerOn:for:", "do:", "subclasses", "registerConcreteClassesOn:for:"],
 referencedClasses: []
 }),
 smalltalk.HLModelCommand.klass);
@@ -850,30 +851,34 @@ var self=this;
 var activeTab;
 function $HLTabSelectionWidget(){return smalltalk.HLTabSelectionWidget||(typeof HLTabSelectionWidget=="undefined"?nil:HLTabSelectionWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$3,$4,$5,$1;
 activeTab=self._selectedTab();
+$ctx1.sendIdx["selectedTab"]=1;
 $2=_st($HLTabSelectionWidget())._new();
 _st($2)._tabs_(self._tabs());
-_st($2)._selectedTab_(self._selectedTab());
+$3=$2;
+$4=self._selectedTab();
+_st($3)._selectedTab_($4);
 _st($2)._selectCallback_((function(tab){
 return smalltalk.withContext(function($ctx2) {
 return _st(tab)._activate();
-}, function($ctx2) {$ctx2.fillBlock({tab:tab},$ctx1)})}));
+$ctx2.sendIdx["activate"]=1;
+}, function($ctx2) {$ctx2.fillBlock({tab:tab},$ctx1,1)})}));
 _st($2)._confirmCallback_((function(tab){
 return smalltalk.withContext(function($ctx2) {
 return _st(tab)._focus();
-}, function($ctx2) {$ctx2.fillBlock({tab:tab},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({tab:tab},$ctx1,2)})}));
 _st($2)._cancelCallback_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(activeTab)._activate();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$3=_st($2)._show();
-$1=$3;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$5=_st($2)._show();
+$1=$5;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"execute",{activeTab:activeTab},smalltalk.HLSwitchTabCommand)})},
 args: [],
 source: "execute\x0a\x09| activeTab |\x0a\x09\x0a\x09activeTab := self selectedTab.\x0a\x09\x0a\x09^ HLTabSelectionWidget new\x0a\x09\x09tabs: self tabs;\x0a\x09\x09selectedTab: self selectedTab;\x0a\x09\x09selectCallback: [ :tab | tab activate ];\x0a\x09\x09confirmCallback: [ :tab | tab focus ];\x0a\x09\x09cancelCallback: [ activeTab activate ];\x0a\x09\x09show",
-messageSends: ["selectedTab", "tabs:", "tabs", "new", "selectedTab:", "selectCallback:", "activate", "confirmCallback:", "focus", "cancelCallback:", "show"],
+messageSends: ["selectedTab", "tabs:", "new", "tabs", "selectedTab:", "selectCallback:", "activate", "confirmCallback:", "focus", "cancelCallback:", "show"],
 referencedClasses: ["HLTabSelectionWidget"]
 }),
 smalltalk.HLSwitchTabCommand);
@@ -968,4 +973,4 @@ referencedClasses: []
 }),
 smalltalk.HLViewCommand.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

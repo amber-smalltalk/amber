@@ -76,8 +76,22 @@ HLCodeHandled subclass: #HLPrintItRequested
 !HLPrintItRequested commentStamp!
 I am emitted by a `HLCodeWidget` before an object is printed.!
 
-HLAnnouncement subclass: #HLDebuggerContextSelected
+HLAnnouncement subclass: #HLDebuggerAnnouncement
 	instanceVariableNames: 'context'
+	package: 'Helios-Announcements'!
+
+!HLDebuggerAnnouncement methodsFor: 'accessing'!
+
+context
+	^ context
+!
+
+context: aContext
+	context := aContext
+! !
+
+HLDebuggerAnnouncement subclass: #HLDebuggerContextSelected
+	instanceVariableNames: ''
 	package: 'Helios-Announcements'!
 
 !HLDebuggerContextSelected methodsFor: 'accessing'!
@@ -89,6 +103,14 @@ context
 context: aContext
 	context := aContext
 ! !
+
+HLDebuggerAnnouncement subclass: #HLDebuggerStepped
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
+
+HLDebuggerAnnouncement subclass: #HLDebuggerWhere
+	instanceVariableNames: ''
+	package: 'Helios-Announcements'!
 
 HLAnnouncement subclass: #HLDiveRequested
 	instanceVariableNames: ''

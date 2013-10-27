@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Commands-Browser", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Helios-Commands-Tools"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Commands-Browser');
+smalltalk.packages["Helios-Commands-Browser"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLBrowserCommand', smalltalk.HLToolCommand, [], 'Helios-Commands-Browser');
 
@@ -354,16 +355,21 @@ category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._model())._showComment())._and_((function(){
+var $3,$2,$5,$4,$1;
+$3=self._model();
+$ctx1.sendIdx["model"]=1;
+$2=_st($3)._showComment();
+$1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(self._model())._selectedClass())._notNil();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+$5=self._model();
+$4=_st($5)._selectedClass();
+return _st($4)._notNil();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isActive",{},smalltalk.HLEditCommentCommand)})},
 args: [],
 source: "isActive\x0a\x09^ self model showComment and: [ self model selectedClass notNil ]",
-messageSends: ["and:", "notNil", "selectedClass", "model", "showComment"],
+messageSends: ["and:", "showComment", "model", "notNil", "selectedClass"],
 referencedClasses: []
 }),
 smalltalk.HLEditCommentCommand);
@@ -445,11 +451,17 @@ category: 'executing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._model())._showComment_(_st(_st(self._model())._showComment())._not());
+var $1,$4,$3,$2;
+$1=self._model();
+$ctx1.sendIdx["model"]=1;
+$4=self._model();
+$3=_st($4)._showComment();
+$2=_st($3)._not();
+_st($1)._showComment_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"execute",{},smalltalk.HLToggleClassCommentCommand)})},
 args: [],
 source: "execute\x0a\x09self model showComment: self model showComment not",
-messageSends: ["showComment:", "not", "showComment", "model"],
+messageSends: ["showComment:", "model", "not", "showComment"],
 referencedClasses: []
 }),
 smalltalk.HLToggleClassCommentCommand);
@@ -589,4 +601,4 @@ referencedClasses: []
 }),
 smalltalk.HLToggleInstanceSideCommand.klass);
 
-})(global_smalltalk,global_nil,global__st);
+});

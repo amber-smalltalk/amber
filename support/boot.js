@@ -33,17 +33,8 @@
    |
    ==================================================================== */
 
-/* Global Smalltalk objects. */
-// The globals below all begin with `global_' prefix.
-// This prefix is to advice developers to avoid their usage,
-// instead using local versions smalltalk, nil, _st that are
-// provided by appropriate wrappers to each package.
-// The plan is to use different module loader (and slightly change the wrappers)
-// so that these globals are hidden completely inside the exports/imports of the module loader.
-// DO NOT USE DIRECTLY! CAN DISAPPEAR AT ANY TIME.
-var global_smalltalk, global_nil, global__st;
 
-(function () {
+define("amber_vm/boot", [ './browser-compatibility' ], function () {
 
 /* Reconfigurable micro composition system, https://github.com/amber-smalltalk/brikz */
 
@@ -414,6 +405,17 @@ function ClassesBrik(brikz, st) {
 		return st.packages[pkgName];
 	};
 
+	SmalltalkPackage.prototype.withDefaultTransport = function () {
+		var defaultTransportType = st.getDefaultTransportType();
+		if (this.transport) {
+			throw new Error("Cannot set default transport; transport already set");
+		}
+		if (defaultTransportType) {
+			this.transport = { type: defaultTransportType };
+		}
+		return this;
+	};
+
 	/* Add a class to the smalltalk object, creating a new one if needed.
 	 A Package is lazily created if it does not exist with given name. */
 
@@ -488,6 +490,22 @@ function ClassesBrik(brikz, st) {
 		}
 	};
 
+	/* Manually set the constructor of an existing Smalltalk klass, making it a wrapped class. */
+
+	st.setClassConstructor = function(klass, constructor) {
+		wrappedClasses.addElement(klass);
+		klass.wrapped = true;
+		klass.fn = constructor;
+
+		// The fn property changed. We need to add back the klass property to the prototype
+		Object.defineProperty(klass.fn.prototype, "klass", {
+			value: klass,
+			enumerable: false, configurable: true, writable: true
+		});
+
+		st.initClass(klass);
+	};
+
 	/* Create an alias for an existing class */
 
 	st.alias = function(klass, alias) {
@@ -503,18 +521,6 @@ function ClassesBrik(brikz, st) {
 
 	st.wrappedClasses = function() {
 		return wrappedClasses;
-	};
-
-	/* Answer all registered Packages as Array */
-	// TODO: Remove this hack
-
-	st.packages.all = function() {
-		var packages = [];
-		for(var i in st.packages) {
-			if(!st.packages.hasOwnProperty(i) || typeof(st.packages[i]) === "function") continue;
-			packages.push(st.packages[i]);
-		}
-		return packages;
 	};
 
 	// Still used, but could go away now that subclasses are stored
@@ -589,7 +595,7 @@ function MethodsBrik(brikz, st) {
 				installNewDnuHandler(dnuHandler);
 			}
 		}
-	}
+	};
 
 	function propagateMethodChange(klass) {
 		// If already initialized (else it will be done later anyway),
@@ -715,17 +721,6 @@ function SmalltalkInitBrik(brikz, st) {
 		st.alias(st.Array, "OrderedCollection");
 		st.alias(st.Date, "Time");
 
-		/*
-		 * Answer the smalltalk representation of o.
-		 * Used in message sends
-		 */
-
-		st._st = function (o) {
-			if(o == null) {return nil;}
-			if(o.klass) {return o;}
-			return st.JSObjectProxy._on_(o);
-		};
-
 	};
 }
 
@@ -795,9 +790,9 @@ function RuntimeBrik(brikz, st) {
 	var nil = brikz.ensure("root").nil;
 
 	function SmalltalkMethodContext(home, setup) {
+		this.sendIdx     = {};
 		this.homeContext = home;
 		this.setup       = setup || function() {};
-		this.pc          = 0;
 	}
 
 	inherits(SmalltalkMethodContext, SmalltalkObject);
@@ -853,14 +848,12 @@ function RuntimeBrik(brikz, st) {
 
 	st.withContext = function(worker, setup) {
 		if(st.thisContext) {
-			st.thisContext.pc++;
 			return inContext(worker, setup);
 		} else {
 			try {
 				return inContext(worker, setup);
 			} catch(error) {
 				handleError(error);
-			} finally {
 				st.thisContext = null;
 			}
 		}
@@ -1050,6 +1043,16 @@ function SelectorConversionBrik(brikz, st) {
 	}
 }
 
+/* Adds AMD and requirejs related methods to the smalltalk object */
+function AMDBrik(brikz, st) {
+	this.__init__ = function () {
+		st.amdRequire = st.amdRequire || null;
+		st.defaultTransportType = st.defaultTransportType || "amd";
+		st.defaultAmdNamespace = st.defaultAmdNamespace || "amber_core";
+	};
+}
+
+
 /* Making smalltalk that can load */
 
 brikz.root = RootBrik;
@@ -1062,6 +1065,7 @@ brikz.classes = ClassesBrik;
 brikz.methods = MethodsBrik;
 brikz.stInit = SmalltalkInitBrik;
 brikz.augments = AugmentsBrik;
+brikz.amdBrik = AMDBrik;
 
 brikz.rebuild();
 
@@ -1075,9 +1079,5 @@ function runnable () {
 	brikz.rebuild();
 };
 
-global_smalltalk = api;
-global_nil = brikz.root.nil;
-global__st = api._st;
-api._st = null;
-
-})();
+return { smalltalk: api, nil: brikz.root.nil };
+});

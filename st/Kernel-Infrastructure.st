@@ -346,7 +346,16 @@ keysAndValuesDo: aBlock
 !JSObjectProxy methodsFor: 'printing'!
 
 printOn: aStream
-	aStream nextPutAll: self jsObject toString
+	aStream nextPutAll: self printString
+!
+
+printString
+	<
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	>
 ! !
 
 !JSObjectProxy methodsFor: 'proxy'!
@@ -452,7 +461,7 @@ Organizer subclass: #PackageOrganizer
 I am an organizer specific to packages. I hold classes categorization information.!
 
 Object subclass: #Package
-	instanceVariableNames: 'extension'
+	instanceVariableNames: 'transport'
 	package: 'Kernel-Infrastructure'!
 !Package commentStamp!
 I am similar to a "class category" typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.
@@ -474,6 +483,12 @@ You can fetch a package from the server:
 
 !Package methodsFor: 'accessing'!
 
+basicTransport
+	"Answer the transport literal JavaScript object as setup in the JavaScript file, if any"
+	
+	<return self.transport>
+!
+
 name
 	<return self.pkgName>
 !
@@ -484,12 +499,23 @@ name: aString
 
 organization
 	^ self basicAt: 'organization'
+!
+
+transport
+	^ transport ifNil: [ 
+		transport := (PackageTransport fromJson: self basicTransport)
+			package: self;
+			yourself ]
+!
+
+transport: aPackageTransport
+	transport := aPackageTransport
 ! !
 
 !Package methodsFor: 'classes'!
 
 classes
-	^ self organization elements
+	^ self organization elements asSet asArray
 !
 
 setupClasses
@@ -501,7 +527,7 @@ setupClasses
 sortedClasses
 	"Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)."
 
-	^self class sortedClasses: self classes
+	^ self class sortedClasses: self classes
 ! !
 
 !Package methodsFor: 'dependencies'!
@@ -560,23 +586,6 @@ named: aPackageName ifAbsent: aBlock
 	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
 ! !
 
-!Package class methodsFor: 'loading-storing'!
-
-load: aPackageName
-	self deprecatedAPI.
-	self load: aPackageName prefix: self defaultCommitPathJs, '/'
-!
-
-load: aPackageName prefix: aPrefix
-	self deprecatedAPI.
-	PlatformInterface ajax: #{
-		'url' -> (aPrefix , aPackageName , '.js').
-		'dataType' -> 'script'.
-		'success' -> [
-			(Package named: aPackageName) setupClasses ]
-	}
-! !
-
 !Package class methodsFor: 'sorting'!
 
 sortedClasses: classes
@@ -619,6 +628,10 @@ PlatformInterface class instanceVariableNames: 'worker'!
 
 !PlatformInterface class methodsFor: 'accessing'!
 
+globals
+	<return (new Function('return this'))();>
+!
+
 setWorker: anObject
 	worker := anObject
 ! !
@@ -644,14 +657,10 @@ confirm: aString
 !
 
 existsGlobal: aString
-<
-	var f = new Function('aString',
-	'if (/^[0-9]/.test(aString) || !!/^[\\w_]+$/.test(aString))\n'+
-	'	return false;\n'+
-	'try { eval(aString); return true; } catch (ex) {}\n'+
-	'return false;');
-	return f(aString);
->
+	^ PlatformInterface globals 
+		at: aString 
+		ifPresent: [ true ] 
+		ifAbsent: [ false ]
 !
 
 prompt: aString
@@ -746,7 +755,21 @@ It requires the `Compiler` package and the `js/parser.js` parser file in order t
 !Smalltalk methodsFor: 'accessing'!
 
 at: aString
-	<return self[aString]>
+	^ self basicAt: aString
+!
+
+at: aKey ifAbsent: aBlock
+	^ (self includesKey: aKey)
+		ifTrue: [self at: aKey]
+		ifFalse: aBlock
+!
+
+at: aString put: anObject
+	^ self basicAt: aString put: anObject
+!
+
+includesKey: aKey
+	<return self.hasOwnProperty(aKey)>
 !
 
 parse: aString
@@ -761,6 +784,10 @@ parse: aString
 		yourself
 !
 
+pseudoVariableNames
+	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
+!
+
 readJSObject: anObject
 	<return self.readJSObject(anObject)>
 !
@@ -773,19 +800,27 @@ reservedWords
 version
 	"Answer the version string of Amber"
 	
-	^ '0.11.0'
+	^ '0.12.0-pre'
+! !
+
+!Smalltalk methodsFor: 'accessing amd'!
+
+amdRequire
+	^ self at: 'amdRequire'
+!
+
+defaultAmdNamespace
+	^ self at: 'defaultAmdNamespace'
+!
+
+defaultAmdNamespace: aString
+	self at: 'defaultAmdNamespace' put: aString
 ! !
 
 !Smalltalk methodsFor: 'classes'!
 
 classes
 	<return self.classes()>
-!
-
-deleteClass: aClass
-	"Deletes a class by deleting its binding only. Use #removeClass instead"
-	
-	<self.removeClass(aClass)>
 !
 
 removeClass: aClass
@@ -832,15 +867,8 @@ globalJsVariables
 !Smalltalk methodsFor: 'packages'!
 
 createPackage: packageName
-	"Create and bind a new package with given name and return it."
+	"Create and bind a new bare package with given name and return it."
 	<return smalltalk.addPackage(packageName)>
-!
-
-deletePackage: packageName
-	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
-	To remove a package, use #removePackage instead."
-
-	<delete smalltalk.packages[packageName]>
 !
 
 packageAt: packageName
@@ -854,11 +882,13 @@ packageAt: packageName ifAbsent: aBlock
 packages
 	"Return all Package instances in the system."
 
-	<return self.packages.all()>
-!
-
-pseudoVariableNames
-	^ #('self' 'super' 'nil' 'true' 'false' 'thisContext')
+	<
+		var packages = [];
+		for(var key in self.packages) {
+			packages.push(self.packages[key]);
+		}
+		return packages;
+	>
 !
 
 removePackage: packageName
@@ -877,7 +907,7 @@ renamePackage: packageName to: newName
 	| pkg |
 	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
 	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
-	(self basicAt: 'packages') at: newName put: pkg.
+	(self at: 'packages') at: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
 ! !
@@ -894,6 +924,19 @@ createPackage: packageName properties: aDict
 	
 	aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].
 	^ self createPackage: packageName
+!
+
+deleteClass: aClass
+	"Deletes a class by deleting its binding only. Use #removeClass instead"
+	
+	<self.removeClass(aClass)>
+!
+
+deletePackage: packageName
+	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
+	To remove a package, use #removePackage instead."
+
+	<delete self.packages[packageName]>
 ! !
 
 !Smalltalk methodsFor: 'testing'!
@@ -905,12 +948,17 @@ isSmalltalkObject: anObject
 	<return typeof anObject.klass !!== 'undefined'>
 ! !
 
-Smalltalk class instanceVariableNames: 'current'!
-
 !Smalltalk class methodsFor: 'accessing'!
 
 current
 	<return smalltalk>
+! !
+
+!SequenceableCollection methodsFor: '*Kernel-Infrastructure'!
+
+do: aBlock displayingProgress: aString
+	ProgressHandler current
+		do: aBlock on: self displaying: aString
 ! !
 
 !String methodsFor: '*Kernel-Infrastructure'!

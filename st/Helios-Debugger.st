@@ -88,6 +88,11 @@ observeModel
 	self model announcer 
 		on: HLDebuggerContextSelected
 		send: #onContextSelected:
+		to: self.
+		
+	self model announcer 
+		on: HLDebuggerStepped
+		send: #onContextSelected:
 		to: self
 !
 
@@ -139,7 +144,7 @@ on: aMethodContext
 ! !
 
 HLBrowserCodeWidget subclass: #HLDebuggerCodeWidget
-	instanceVariableNames: 'highlightedNode'
+	instanceVariableNames: ''
 	package: 'Helios-Debugger'!
 
 !HLDebuggerCodeWidget methodsFor: 'accessing'!
@@ -153,14 +158,6 @@ editorOptions
 	^ super editorOptions
 		at: 'gutters' put: #('CodeMirror-linenumbers' 'stops');
 		yourself
-!
-
-highlightedNode
-	^ highlightedNode
-!
-
-highlightedNode: aNode
-	highlightedNode := aNode
 ! !
 
 !HLDebuggerCodeWidget methodsFor: 'actions'!
@@ -173,47 +170,29 @@ addStopAt: anInteger
 !
 
 clearHighlight
-	editor clearGutter: 'stops'.
-	self highlightedNode ifNotNil: [ :node |
-		editor 
-			removeLineClass: node position x - 1
-			where: 'background'
-			class: 'highlighted' ]
+	self editor clearGutter: 'stops'
 !
 
 highlight
-	| anchor head selection |
-	
-	head := #{
-		'line' -> (self highlightedNode position x - 1).
-		'ch' -> (self highlightedNode position y - 1)
-	}.
-	
-	anchor := #{
-		'line' -> (self highlightedNode extent x - 1).
-		'ch' -> (self highlightedNode extent y - 1)
-	}.
-	
-	editor setSelection: head to: anchor
-!
-
-highlightLine: anInteger
-	editor 
-		addLineClass: anInteger
-		where: 'background'
-		class: 'highlighted'
+	self highlightNode: self browserModel nextNode
 !
 
 highlightNode: aNode
-	| line |
+	| token |
+	
 	aNode ifNotNil: [
-		line := aNode position x - 1.
-		self 
-			clearHighlight; 
-			addStopAt: line;
-			highlightLine: line;
-			highlightedNode: aNode
-		]
+		token := self editor getTokenAt: #{ 
+			'line' -> (aNode position x - 1). 
+			'ch' -> aNode position y 
+		}.
+
+		self
+			clearHighlight;
+			addStopAt: aNode position x - 1.
+
+		self editor 
+			setSelection: #{ 'line' -> (aNode position x - 1). 'ch' -> token start }
+			to: #{ 'line' -> (aNode position x - 1). 'ch' -> token end } ]
 !
 
 observeBrowserModel
@@ -222,17 +201,27 @@ observeBrowserModel
 	self browserModel announcer 
 		on: HLDebuggerContextSelected
 		send: #onContextSelected
+		to: self.
+	
+	self browserModel announcer 
+		on: HLDebuggerStepped
+		send: #onContextSelected
+		to: self.
+	
+	self browserModel announcer 
+		on: HLDebuggerWhere
+		send: #onContextSelected
 		to: self
 ! !
 
 !HLDebuggerCodeWidget methodsFor: 'reactions'!
 
 onContextSelected
-	self highlightNode: self browserModel nextNode
+	self highlight
 ! !
 
 HLToolModel subclass: #HLDebuggerModel
-	instanceVariableNames: 'rootContext currentContext contexts interpreter'
+	instanceVariableNames: 'rootContext currentContext contexts'
 	package: 'Helios-Debugger'!
 !HLDebuggerModel commentStamp!
 I am a model for Helios debugging.
@@ -254,22 +243,41 @@ currentContext: aContext
 	self withChangesDo: [ 
 		self selectedMethod: aContext method.
 		currentContext := aContext.
-		interpreter := ASTDebugger context: aContext.
 		self announcer announce: (HLDebuggerContextSelected new
 			context: aContext;
 			yourself) ]
 !
 
 interpreter
-	^ interpreter
+	^ self currentContext interpreter
 !
 
 nextNode
-	^ self interpreter nextNode
+	^ self interpreter node
 !
 
 rootContext
 	^ rootContext
+! !
+
+!HLDebuggerModel methodsFor: 'actions'!
+
+restart
+	self interpreter restart.
+	self announcer announce: (HLDebuggerStepped new
+		context: self currentContext;
+		yourself)
+!
+
+stepOver
+	self interpreter stepOver.
+	self announcer announce: (HLDebuggerStepped new
+		context: self currentContext;
+		yourself)
+!
+
+where
+	self announcer announce: HLDebuggerWhere new
 ! !
 
 !HLDebuggerModel methodsFor: 'initialization'!
@@ -348,7 +356,39 @@ label
 
 !HLStackListWidget methodsFor: 'actions'!
 
+restart
+	self model restart
+!
+
 selectItem: aContext
    	self model currentContext: aContext
+!
+
+stepOver
+	self model stepOver
+!
+
+where
+	self model where
+! !
+
+!HLStackListWidget methodsFor: 'rendering'!
+
+renderButtonsOn: html
+	html div 
+		class: 'debugger_bar'; 
+		with: [
+			html button 
+				class: 'btn restart';
+				with: 'Restart';
+				onClick: [ self restart ].
+			html button 
+				class: 'btn where';
+				with: 'Where';
+				onClick: [ self where ].
+			html button 
+				class: 'btn stepOver';
+				with: 'Step over';
+				onClick: [ self stepOver ] ]
 ! !
 

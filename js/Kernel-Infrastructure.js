@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Kernel-Infrastructure", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Collections"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Kernel-Infrastructure');
+smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript.";
@@ -33,7 +34,7 @@ function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefin
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@inspector"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@inspector"]=$Transcript();
 $1=self["@inspector"];
 } else {
@@ -66,7 +67,7 @@ smalltalk.InspectorHandler.klass);
 
 
 smalltalk.addClass('InterfacingObject', smalltalk.Object, [], 'Kernel-Infrastructure');
-smalltalk.InterfacingObject.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
+smalltalk.InterfacingObject.comment="I am superclass of all object that interface with user or environment. `Widget` and a few other classes are subclasses of me. I delegate all of the above APIs to `PlatformInterface`.\x0a\x0a## API\x0a\x0a    self alert: 'Hey, there is a problem'.\x0a    self confirm: 'Affirmative?'.\x0a    self prompt: 'Your name:'.\x0a\x0a    self ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "ajax:",
@@ -154,15 +155,21 @@ category: 'compiling',
 fn: function (aString,aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(_st(aClass)._instanceVariableNames())._copy();
-_st($1)._add_(aString);
-$2=_st($1)._yourself();
-_st(self._classBuilder())._addSubclassOf_named_instanceVariableNames_package_(_st(aClass)._superclass(),_st(aClass)._name(),$2,_st(_st(aClass)._package())._name());
+var $1,$2,$3,$5,$6,$4,$7;
+$1=self._classBuilder();
+$2=_st(aClass)._superclass();
+$3=_st(aClass)._name();
+$ctx1.sendIdx["name"]=1;
+$5=_st(_st(aClass)._instanceVariableNames())._copy();
+_st($5)._add_(aString);
+$6=_st($5)._yourself();
+$4=$6;
+$7=_st(_st(aClass)._package())._name();
+_st($1)._addSubclassOf_named_instanceVariableNames_package_($2,$3,$4,$7);
 return self}, function($ctx1) {$ctx1.fill(self,"addInstVarNamed:to:",{aString:aString,aClass:aClass},smalltalk.Environment)})},
 args: ["aString", "aClass"],
 source: "addInstVarNamed: aString to: aClass\x0a\x09self classBuilder\x0a\x09\x09addSubclassOf: aClass superclass \x0a\x09\x09named: aClass name \x0a\x09\x09instanceVariableNames: (aClass instanceVariableNames copy add: aString; yourself)\x0a\x09\x09package: aClass package name",
-messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package", "classBuilder"],
+messageSends: ["addSubclassOf:named:instanceVariableNames:package:", "classBuilder", "superclass", "name", "add:", "copy", "instanceVariableNames", "yourself", "package"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -198,12 +205,12 @@ var $1;
 $1=_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._name();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"availableClassNames",{},smalltalk.Environment)})},
 args: [],
 source: "availableClassNames\x0a\x09^ Smalltalk current classes \x0a\x09\x09collect: [ :each | each name ]",
-messageSends: ["collect:", "name", "classes", "current"],
+messageSends: ["collect:", "classes", "current", "name"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
@@ -220,12 +227,12 @@ var $1;
 $1=_st(_st(_st($Smalltalk())._current())._packages())._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._name();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"availablePackageNames",{},smalltalk.Environment)})},
 args: [],
 source: "availablePackageNames\x0a\x09^ Smalltalk current packages \x0a\x09\x09collect: [ :each | each name ]",
-messageSends: ["collect:", "name", "packages", "current"],
+messageSends: ["collect:", "packages", "current", "name"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
@@ -238,20 +245,24 @@ fn: function (aClass){
 var self=this;
 var protocols;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$4,$3,$5;
 protocols=_st(aClass)._protocols();
 $1=_st(aClass)._superclass();
-if(($receiver = $1) == nil || $receiver == undefined){
+$ctx1.sendIdx["superclass"]=1;
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-_st(protocols)._addAll_(self._availableProtocolsFor_(_st(aClass)._superclass()));
+$2=protocols;
+$4=_st(aClass)._superclass();
+$3=self._availableProtocolsFor_($4);
+_st($2)._addAll_($3);
 };
-$2=_st(_st(protocols)._asSet())._asArray();
-return $2;
+$5=_st(_st(protocols)._asSet())._asArray();
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"availableProtocolsFor:",{aClass:aClass,protocols:protocols},smalltalk.Environment)})},
 args: ["aClass"],
 source: "availableProtocolsFor: aClass\x0a\x09| protocols |\x0a\x09\x0a\x09protocols := aClass protocols.\x0a\x09aClass superclass ifNotNil: [ protocols addAll: (self availableProtocolsFor: aClass superclass) ].\x0a\x09^ protocols asSet asArray",
-messageSends: ["protocols", "ifNotNil:", "addAll:", "availableProtocolsFor:", "superclass", "asArray", "asSet"],
+messageSends: ["protocols", "ifNotNil:", "superclass", "addAll:", "availableProtocolsFor:", "asArray", "asSet"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -285,7 +296,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=_st(_st($Smalltalk())._current())._at_(_st(aString)._asSymbol());
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("Invalid class name");
 } else {
 $1=$2;
@@ -294,7 +305,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},smalltalk.Environment)})},
 args: ["aString"],
 source: "classNamed: aString\x0a\x09^ (Smalltalk current at: aString asSymbol)\x0a\x09\x09ifNil: [ self error: 'Invalid class name' ]",
-messageSends: ["ifNil:", "error:", "at:", "asSymbol", "current"],
+messageSends: ["ifNil:", "at:", "current", "asSymbol", "error:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
@@ -394,18 +405,21 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$3,$2;
 $1=_st(_st($Smalltalk())._current())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-self._error_(_st("A class named ".__comma(aClassName)).__comma(" already exists"));
+$3="A class named ".__comma(aClassName);
+$2=_st($3).__comma(" already exists");
+$ctx1.sendIdx[","]=1;
+self._error_($2);
 };
 _st(_st($ClassBuilder())._new())._copyClass_named_(aClass,aClassName);
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},smalltalk.Environment)})},
 args: ["aClass", "aClassName"],
 source: "copyClass: aClass to: aClassName\x0a\x09(Smalltalk current at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new copyClass: aClass named: aClassName",
-messageSends: ["ifNotNil:", "error:", ",", "at:", "current", "copyClass:named:", "new"],
+messageSends: ["ifNotNil:", "at:", "current", "error:", ",", "copyClass:named:", "new"],
 referencedClasses: ["Smalltalk", "ClassBuilder"]
 }),
 smalltalk.Environment);
@@ -427,11 +441,11 @@ compiler=_st($Compiler())._new();
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(compiler)._parseExpression_(aString);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))._on_do_($Error(),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 $1=self._alert_(_st(ex)._messageText());
 throw $early=[$1];
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
 $2=_st(compiler)._evaluateExpression_on_(aString,aReceiver);
 return $2;
 }
@@ -439,7 +453,7 @@ catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"eval:on:",{aString:aString,aReceiver:aReceiver,compiler:compiler},smalltalk.Environment)})},
 args: ["aString", "aReceiver"],
 source: "eval: aString on: aReceiver\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09[ compiler parseExpression: aString ] on: Error do: [ :ex |\x0a\x09\x09^ self alert: ex messageText ].\x0a\x09^ compiler evaluateExpression: aString on: aReceiver",
-messageSends: ["new", "on:do:", "alert:", "messageText", "parseExpression:", "evaluateExpression:on:"],
+messageSends: ["new", "on:do:", "parseExpression:", "alert:", "messageText", "evaluateExpression:on:"],
 referencedClasses: ["Compiler", "Error"]
 }),
 smalltalk.Environment);
@@ -460,11 +474,11 @@ return _st(exceptionBlock)._value_(exception);
 } else {
 return _st(exception)._signal();
 };
-}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({exception:exception},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"evaluate:on:do:",{aBlock:aBlock,anErrorClass:anErrorClass,exceptionBlock:exceptionBlock},smalltalk.Environment)})},
 args: ["aBlock", "anErrorClass", "exceptionBlock"],
 source: "evaluate: aBlock on: anErrorClass do: exceptionBlock\x0a\x09\x22Evaluate a block and catch exceptions happening on the environment stack\x22\x0a\x09\x0a\x09self try: aBlock catch: [ :exception | \x0a\x09\x09(exception isKindOf: (self classNamed: anErrorClass name))\x0a\x09\x09\x09ifTrue: [ exceptionBlock value: exception ]\x0a \x09\x09\x09ifFalse: [ exception signal ] ]",
-messageSends: ["try:catch:", "ifTrue:ifFalse:", "value:", "signal", "isKindOf:", "classNamed:", "name"],
+messageSends: ["try:catch:", "ifTrue:ifFalse:", "isKindOf:", "classNamed:", "name", "value:", "signal"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -495,18 +509,17 @@ var self=this;
 var package_;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 package_=_st($Package())._named_(aPackageName);
 $1=package_;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self._error_("Invalid package name");
 } else {
 $1;
 };
 $2=_st(package_).__eq_eq(_st(aClass)._package());
 if(smalltalk.assert($2)){
-$3=self;
-return $3;
+return self;
 };
 _st(aClass)._package_(package_);
 return self}, function($ctx1) {$ctx1.fill(self,"moveClass:toPackage:",{aClass:aClass,aPackageName:aPackageName,package_:package_},smalltalk.Environment)})},
@@ -526,25 +539,28 @@ var self=this;
 var destinationClass;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$3,$4,$2,$5;
 destinationClass=_st(_st($Smalltalk())._current())._at_(_st(aClassName)._asSymbol());
 $1=destinationClass;
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 self._error_("Invalid class name");
 } else {
 $1;
 };
-$2=_st(destinationClass).__eq_eq(_st(aMethod)._methodClass());
+$3=destinationClass;
+$4=_st(aMethod)._methodClass();
+$ctx1.sendIdx["methodClass"]=1;
+$2=_st($3).__eq_eq($4);
 if(smalltalk.assert($2)){
-$3=self;
-return $3;
+return self;
 };
 _st(destinationClass)._compile_category_(_st(aMethod)._source(),_st(aMethod)._protocol());
-_st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
+$5=_st(aMethod)._methodClass();
+_st($5)._removeCompiledMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.Environment)})},
 args: ["aMethod", "aClassName"],
 source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := Smalltalk current at: aClassName asSymbol.\x0a\x09destinationClass ifNil: [ self error: 'Invalid class name' ].\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09category: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
-messageSends: ["at:", "asSymbol", "current", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "compile:category:", "source", "protocol", "removeCompiledMethod:"],
+messageSends: ["at:", "current", "asSymbol", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "compile:category:", "source", "protocol", "removeCompiledMethod:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
@@ -678,14 +694,14 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(_st(aClass)._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(aClass)._removeCompiledMethod_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"removeProtocol:from:",{aString:aString,aClass:aClass},smalltalk.Environment)})},
 args: ["aString", "aClass"],
 source: "removeProtocol: aString from: aClass\x0a\x09(aClass methods\x0a\x09\x09select: [ :each | each protocol = aString ])\x0a\x09\x09do: [ :each | aClass removeCompiledMethod: each ]",
-messageSends: ["do:", "removeCompiledMethod:", "select:", "=", "protocol", "methods"],
+messageSends: ["do:", "select:", "methods", "=", "protocol", "removeCompiledMethod:"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -699,18 +715,21 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$3,$2;
 $1=_st(_st($Smalltalk())._current())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-self._error_(_st("A class named ".__comma(aClassName)).__comma(" already exists"));
+$3="A class named ".__comma(aClassName);
+$2=_st($3).__comma(" already exists");
+$ctx1.sendIdx[","]=1;
+self._error_($2);
 };
 _st(_st($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
 return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},smalltalk.Environment)})},
 args: ["aClass", "aClassName"],
 source: "renameClass: aClass to: aClassName\x0a\x09(Smalltalk current at: aClassName)\x0a\x09\x09ifNotNil: [ self error: 'A class named ', aClassName, ' already exists' ].\x0a\x09\x09\x0a\x09ClassBuilder new renameClass: aClass to: aClassName",
-messageSends: ["ifNotNil:", "error:", ",", "at:", "current", "renameClass:to:", "new"],
+messageSends: ["ifNotNil:", "at:", "current", "error:", ",", "renameClass:to:", "new"],
 referencedClasses: ["Smalltalk", "ClassBuilder"]
 }),
 smalltalk.Environment);
@@ -725,14 +744,14 @@ return smalltalk.withContext(function($ctx1) {
 _st(_st(_st(aClass)._methods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocol()).__eq(aString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._do_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._protocol_(anotherString);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renameProtocol:to:in:",{aString:aString,anotherString:anotherString,aClass:aClass},smalltalk.Environment)})},
 args: ["aString", "anotherString", "aClass"],
 source: "renameProtocol: aString to: anotherString in: aClass\x0a\x09(aClass methods\x0a\x09\x09select: [ :each | each protocol = aString ])\x0a\x09\x09do: [ :each | each protocol: anotherString ]",
-messageSends: ["do:", "protocol:", "select:", "=", "protocol", "methods"],
+messageSends: ["do:", "select:", "methods", "=", "protocol", "protocol:"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -761,8 +780,11 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st($Smalltalk())._current())._at_("SystemAnnouncer"))._current();
+var $3,$2,$1;
+$3=_st($Smalltalk())._current();
+$2=_st($3)._at_("SystemAnnouncer");
+$1=_st($2)._current();
+$ctx1.sendIdx["current"]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"systemAnnouncer",{},smalltalk.Environment)})},
 args: [],
@@ -894,7 +916,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=smalltalk.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
 var jsSelector;
@@ -905,7 +927,7 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
 args: ["aMessage"],
 source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-messageSends: ["ifNil:ifNotNil:", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments", "lookupProperty:", "asJavaScriptSelector", "selector"],
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptSelector", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -1028,11 +1050,32 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aStream)._nextPutAll_(_st(self._jsObject())._toString());
+_st(aStream)._nextPutAll_(self._printString());
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)})},
 args: ["aStream"],
-source: "printOn: aStream\x0a\x09aStream nextPutAll: self jsObject toString",
-messageSends: ["nextPutAll:", "toString", "jsObject"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self printString",
+messageSends: ["nextPutAll:", "printString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
+args: [],
+source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxy);
@@ -1048,7 +1091,7 @@ var $1;
 $1=self._at_ifAbsent_("value",(function(){
 return smalltalk.withContext(function($ctx2) {
 return smalltalk.JSObjectProxy.superclass.fn.prototype._value.apply(_st(self), []);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.JSObjectProxy)})},
 args: [],
@@ -1143,8 +1186,8 @@ selector: "addElement:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-function $ProtocolAdded(){return smalltalk.ProtocolAdded||(typeof ProtocolAdded=="undefined"?nil:ProtocolAdded)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $ProtocolAdded(){return smalltalk.ProtocolAdded||(typeof ProtocolAdded=="undefined"?nil:ProtocolAdded)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 smalltalk.ClassOrganizer.superclass.fn.prototype._addElement_.apply(_st(self), [aString]);
@@ -1156,8 +1199,8 @@ _st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"addElement:",{aString:aString},smalltalk.ClassOrganizer)})},
 args: ["aString"],
 source: "addElement: aString\x0a\x09super addElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolAdded new\x0a\x09\x09protocol: aString;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09yourself)",
-messageSends: ["addElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"],
-referencedClasses: ["ProtocolAdded", "SystemAnnouncer"]
+messageSends: ["addElement:", "announce:", "current", "protocol:", "new", "theClass:", "theClass", "yourself"],
+referencedClasses: ["SystemAnnouncer", "ProtocolAdded"]
 }),
 smalltalk.ClassOrganizer);
 
@@ -1167,8 +1210,8 @@ selector: "removeElement:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-function $ProtocolRemoved(){return smalltalk.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $ProtocolRemoved(){return smalltalk.ProtocolRemoved||(typeof ProtocolRemoved=="undefined"?nil:ProtocolRemoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 smalltalk.ClassOrganizer.superclass.fn.prototype._removeElement_.apply(_st(self), [aString]);
@@ -1180,8 +1223,8 @@ _st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"removeElement:",{aString:aString},smalltalk.ClassOrganizer)})},
 args: ["aString"],
 source: "removeElement: aString\x0a\x09super removeElement: aString.\x0a\x0a\x09SystemAnnouncer current announce: (ProtocolRemoved new\x0a\x09\x09protocol: aString;\x0a\x09\x09theClass: self theClass;\x0a\x09\x09yourself)",
-messageSends: ["removeElement:", "announce:", "protocol:", "new", "theClass:", "theClass", "yourself", "current"],
-referencedClasses: ["ProtocolRemoved", "SystemAnnouncer"]
+messageSends: ["removeElement:", "announce:", "current", "protocol:", "new", "theClass:", "theClass", "yourself"],
+referencedClasses: ["SystemAnnouncer", "ProtocolRemoved"]
 }),
 smalltalk.ClassOrganizer);
 
@@ -1207,8 +1250,24 @@ smalltalk.addClass('PackageOrganizer', smalltalk.Organizer, [], 'Kernel-Infrastr
 smalltalk.PackageOrganizer.comment="I am an organizer specific to packages. I hold classes categorization information.";
 
 
-smalltalk.addClass('Package', smalltalk.Object, ['extension'], 'Kernel-Infrastructure');
+smalltalk.addClass('Package', smalltalk.Object, ['transport'], 'Kernel-Infrastructure');
 smalltalk.Package.comment="I am similar to a \x22class category\x22 typically found in other Smalltalks like Pharo or Squeak. Amber does not have class categories anymore, it had in the beginning but now each class in the system knows which package it belongs to.\x0a\x0aEach package has a name and can be queried for its classes, but it will then resort to a reverse scan of all classes to find them.\x0a\x0a## API\x0a\x0aPackages are manipulated through \x22Smalltalk current\x22, like for example finding one based on a name or with `Package class >> #name` directly:\x0a\x0a    Smalltalk current packageAt: 'Kernel'\x0a    Package named: 'Kernel'\x0a\x0aA package differs slightly from a Monticello package which can span multiple class categories using a naming convention based on hyphenation. But just as in Monticello a package supports \x22class extensions\x22 so a package can define behaviors in foreign classes using a naming convention for method categories where the category starts with an asterisk and then the name of the owning package follows.\x0a\x0aYou can fetch a package from the server:\x0a\x0a\x09Package load: 'Additional-Examples'";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "basicTransport",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.transport;
+return self}, function($ctx1) {$ctx1.fill(self,"basicTransport",{},smalltalk.Package)})},
+args: [],
+source: "basicTransport\x0a\x09\x22Answer the transport literal JavaScript object as setup in the JavaScript file, if any\x22\x0a\x09\x0a\x09<return self.transport>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Package);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "classes",
@@ -1217,12 +1276,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._organization())._elements();
+$1=_st(_st(_st(self._organization())._elements())._asSet())._asArray();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classes",{},smalltalk.Package)})},
 args: [],
-source: "classes\x0a\x09^ self organization elements",
-messageSends: ["elements", "organization"],
+source: "classes\x0a\x09^ self organization elements asSet asArray",
+messageSends: ["asArray", "asSet", "elements", "organization"],
 referencedClasses: []
 }),
 smalltalk.Package);
@@ -1256,10 +1315,10 @@ classes=self._loadDependencyClasses();
 $2=_st(_st(classes)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._package();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._asSet();
 _st($2)._remove_ifAbsent_(self,(function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
@@ -1280,26 +1339,32 @@ var self=this;
 var starCategoryName;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $4,$3,$2,$5,$7,$6,$8,$1;
 starCategoryName="*".__comma(self._name());
-$2=_st(_st(self._classes())._collect_((function(each){
+$4=self._classes();
+$ctx1.sendIdx["classes"]=1;
+$3=_st($4)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._superclass();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})))._asSet();
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$2=_st($3)._asSet();
 _st($2)._remove_ifAbsent_(nil,(function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-_st($2)._addAll_(_st(_st(_st($Smalltalk())._current())._classes())._select_((function(each){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$5=$2;
+$7=_st(_st($Smalltalk())._current())._classes();
+$6=_st($7)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._protocols())._includes_(starCategoryName);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})})));
-$3=_st($2)._yourself();
-$1=$3;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
+_st($5)._addAll_($6);
+$8=_st($2)._yourself();
+$1=$8;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"loadDependencyClasses",{starCategoryName:starCategoryName},smalltalk.Package)})},
 args: [],
 source: "loadDependencyClasses\x0a\x09\x22Returns classes needed at the time of loading a package.\x0a\x09These are all that are used to subclass\x0a\x09and to define an extension method\x22\x0a\x09\x0a\x09| starCategoryName |\x0a\x09starCategoryName := '*', self name.\x0a\x09^(self classes collect: [ :each | each superclass ]) asSet\x0a\x09\x09remove: nil ifAbsent: [];\x0a\x09\x09addAll: (Smalltalk current classes select: [ :each | each protocols includes: starCategoryName ]);\x0a\x09\x09yourself",
-messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "superclass", "classes", "addAll:", "select:", "includes:", "protocols", "current", "yourself"],
+messageSends: [",", "name", "remove:ifAbsent:", "asSet", "collect:", "classes", "superclass", "addAll:", "select:", "current", "includes:", "protocols", "yourself"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Package);
@@ -1365,7 +1430,9 @@ var $1,$2;
 smalltalk.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
 $1=aStream;
 _st($1)._nextPutAll_(" (");
+$ctx1.sendIdx["nextPutAll:"]=1;
 _st($1)._nextPutAll_(self._name());
+$ctx1.sendIdx["nextPutAll:"]=2;
 $2=_st($1)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Package)})},
 args: ["aStream"],
@@ -1388,15 +1455,16 @@ $1=self._classes();
 _st($1)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st($ClassBuilder())._new())._setupClass_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["do:"]=1;
 $2=_st($1)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._initialize();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"setupClasses",{},smalltalk.Package)})},
 args: [],
 source: "setupClasses\x0a\x09self classes\x0a\x09\x09do: [ :each | ClassBuilder new setupClass: each ];\x0a\x09\x09do: [ :each | each initialize ]",
-messageSends: ["do:", "setupClass:", "new", "classes", "initialize"],
+messageSends: ["do:", "classes", "setupClass:", "new", "initialize"],
 referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Package);
@@ -1413,53 +1481,58 @@ $1=_st(self._class())._sortedClasses_(self._classes());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses",{},smalltalk.Package)})},
 args: [],
-source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^self class sortedClasses: self classes",
-messageSends: ["sortedClasses:", "classes", "class"],
+source: "sortedClasses\x0a\x09\x22Answer all classes in the receiver, sorted by superclass/subclasses and by class name for common subclasses (Issue #143).\x22\x0a\x0a\x09^ self class sortedClasses: self classes",
+messageSends: ["sortedClasses:", "class", "classes"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transport",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $PackageTransport(){return smalltalk.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$4,$1;
+$2=self["@transport"];
+if(($receiver = $2) == nil || $receiver == null){
+$3=_st($PackageTransport())._fromJson_(self._basicTransport());
+_st($3)._package_(self);
+$4=_st($3)._yourself();
+self["@transport"]=$4;
+$1=self["@transport"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
+args: [],
+source: "transport\x0a\x09^ transport ifNil: [ \x0a\x09\x09transport := (PackageTransport fromJson: self basicTransport)\x0a\x09\x09\x09package: self;\x0a\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "package:", "fromJson:", "basicTransport", "yourself"],
+referencedClasses: ["PackageTransport"]
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "transport:",
+category: 'accessing',
+fn: function (aPackageTransport){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@transport"]=aPackageTransport;
+return self}, function($ctx1) {$ctx1.fill(self,"transport:",{aPackageTransport:aPackageTransport},smalltalk.Package)})},
+args: ["aPackageTransport"],
+source: "transport: aPackageTransport\x0a\x09transport := aPackageTransport",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Package);
 
 
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
-smalltalk.addMethod(
-smalltalk.method({
-selector: "load:",
-category: 'loading-storing',
-fn: function (aPackageName){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._deprecatedAPI();
-self._load_prefix_(aPackageName,_st(self._defaultCommitPathJs()).__comma("/"));
-return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},smalltalk.Package.klass)})},
-args: ["aPackageName"],
-source: "load: aPackageName\x0a\x09self deprecatedAPI.\x0a\x09self load: aPackageName prefix: self defaultCommitPathJs, '/'",
-messageSends: ["deprecatedAPI", "load:prefix:", ",", "defaultCommitPathJs"],
-referencedClasses: []
-}),
-smalltalk.Package.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "load:prefix:",
-category: 'loading-storing',
-fn: function (aPackageName,aPrefix){
-var self=this;
-function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
-function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
-return smalltalk.withContext(function($ctx1) { 
-self._deprecatedAPI();
-_st($PlatformInterface())._ajax_(smalltalk.HashedCollection._from_(["url".__minus_gt(_st(_st(aPrefix).__comma(aPackageName)).__comma(".js")),"dataType".__minus_gt("script"),"success".__minus_gt((function(){
-return smalltalk.withContext(function($ctx2) {
-return _st(_st($Package())._named_(aPackageName))._setupClasses();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}))]));
-return self}, function($ctx1) {$ctx1.fill(self,"load:prefix:",{aPackageName:aPackageName,aPrefix:aPrefix},smalltalk.Package.klass)})},
-args: ["aPackageName", "aPrefix"],
-source: "load: aPackageName prefix: aPrefix\x0a\x09self deprecatedAPI.\x0a\x09PlatformInterface ajax: #{\x0a\x09\x09'url' -> (aPrefix , aPackageName , '.js').\x0a\x09\x09'dataType' -> 'script'.\x0a\x09\x09'success' -> [\x0a\x09\x09\x09(Package named: aPackageName) setupClasses ]\x0a\x09}",
-messageSends: ["deprecatedAPI", "ajax:", "->", ",", "setupClasses", "named:"],
-referencedClasses: ["Package", "PlatformInterface"]
-}),
-smalltalk.Package.klass);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "named:",
@@ -1508,44 +1581,52 @@ var children,others,nodes,expandedClasses;
 function $ClassSorterNode(){return smalltalk.ClassSorterNode||(typeof ClassSorterNode=="undefined"?nil:ClassSorterNode)}
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $2,$1,$4,$3,$6,$5,$7,$8;
 children=[];
 others=[];
-_st(classes)._do_((function(each){
+$1=_st(classes)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(classes)._includes_(_st(each)._superclass());
-if(smalltalk.assert($1)){
+$2=_st(classes)._includes_(_st(each)._superclass());
+if(smalltalk.assert($2)){
 return _st(others)._add_(each);
 } else {
 return _st(children)._add_(each);
+$ctx2.sendIdx["add:"]=1;
 };
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["do:"]=1;
 nodes=_st(children)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st($ClassSorterNode())._on_classes_level_(each,others,(0));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 nodes=_st(nodes)._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(a)._theClass())._name()).__lt_eq(_st(_st(b)._theClass())._name());
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1)})}));
+$4=_st(a)._theClass();
+$ctx2.sendIdx["theClass"]=1;
+$3=_st($4)._name();
+$ctx2.sendIdx["name"]=1;
+$6=_st(b)._theClass();
+$5=_st($6)._name();
+return _st($3).__lt_eq($5);
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,5)})}));
 expandedClasses=_st($Array())._new();
-_st(nodes)._do_((function(aNode){
+$7=_st(nodes)._do_((function(aNode){
 return smalltalk.withContext(function($ctx2) {
 return _st(aNode)._traverseClassesWith_(expandedClasses);
-}, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1)})}));
-$2=expandedClasses;
-return $2;
+}, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1,6)})}));
+$8=expandedClasses;
+return $8;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses:",{classes:classes,children:children,others:others,nodes:nodes,expandedClasses:expandedClasses},smalltalk.Package.klass)})},
 args: ["classes"],
 source: "sortedClasses: classes\x0a\x09\x22Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)\x22\x0a\x0a\x09| children others nodes expandedClasses |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [:each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [children add: each]\x0a\x09\x09\x09ifTrue: [others add: each]].\x0a\x09nodes := children collect: [:each |\x0a\x09\x09ClassSorterNode on: each classes: others level: 0].\x0a\x09nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].\x0a\x09expandedClasses := Array new.\x0a\x09nodes do: [:aNode |\x0a\x09\x09aNode traverseClassesWith: expandedClasses].\x0a\x09^expandedClasses",
-messageSends: ["do:", "ifFalse:ifTrue:", "add:", "includes:", "superclass", "collect:", "on:classes:level:", "sorted:", "<=", "name", "theClass", "new", "traverseClassesWith:"],
+messageSends: ["do:", "ifFalse:ifTrue:", "includes:", "superclass", "add:", "collect:", "on:classes:level:", "sorted:", "<=", "name", "theClass", "new", "traverseClassesWith:"],
 referencedClasses: ["ClassSorterNode", "Array"]
 }),
 smalltalk.Package.klass);
 
 
 smalltalk.addClass('PlatformInterface', smalltalk.Object, [], 'Kernel-Infrastructure');
-smalltalk.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.\x0a";
+smalltalk.PlatformInterface.comment="I am single entry point to UI and environment interface.\x0aMy `initialize` tries several options (for now, browser environment only) to set myself up.\x0a\x0a## API\x0a\x0a    PlatformInterface alert: 'Hey, there is a problem'.\x0a    PlatformInterface confirm: 'Affirmative?'.\x0a    PlatformInterface prompt: 'Your name:'.\x0a\x0a    PlatformInterface ajax: #{\x0a        'url' -> '/patch.js'. 'type' -> 'GET'. dataType->'script'\x0a    }.";
 
 smalltalk.PlatformInterface.klass.iVarNames = ['worker'];
 smalltalk.addMethod(
@@ -1557,7 +1638,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("ajax: not available");
 } else {
 $1=_st(self["@worker"])._ajax_(anObject);
@@ -1580,7 +1661,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("alert: not available");
 } else {
 $1=_st(self["@worker"])._alert_(aString);
@@ -1603,7 +1684,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("confirm: not available");
 } else {
 $1=_st(self["@worker"])._confirm_(aString);
@@ -1623,17 +1704,36 @@ selector: "existsGlobal:",
 category: 'actions',
 fn: function (aString){
 var self=this;
+function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 return smalltalk.withContext(function($ctx1) { 
-
-	var f = new Function('aString',
-	'if (/^[0-9]/.test(aString) || !/^[\\w_]+$/.test(aString))\n'+
-	'	return false;\n'+
-	'try { eval(aString); return true; } catch (ex) {}\n'+
-	'return false;');
-	return f(aString);;
-return self}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
+var $1;
+$1=_st(_st($PlatformInterface())._globals())._at_ifPresent_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+return true;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return false;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"existsGlobal:",{aString:aString},smalltalk.PlatformInterface.klass)})},
 args: ["aString"],
-source: "existsGlobal: aString\x0a<\x0a\x09var f = new Function('aString',\x0a\x09'if (/^[0-9]/.test(aString) || !/^[\x5c\x5cw_]+$/.test(aString))\x5cn'+\x0a\x09'\x09return false;\x5cn'+\x0a\x09'try { eval(aString); return true; } catch (ex) {}\x5cn'+\x0a\x09'return false;');\x0a\x09return f(aString);\x0a>",
+source: "existsGlobal: aString\x0a\x09^ PlatformInterface globals \x0a\x09\x09at: aString \x0a\x09\x09ifPresent: [ true ] \x0a\x09\x09ifAbsent: [ false ]",
+messageSends: ["at:ifPresent:ifAbsent:", "globals"],
+referencedClasses: ["PlatformInterface"]
+}),
+smalltalk.PlatformInterface.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "globals",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (new Function('return this'))();;
+return self}, function($ctx1) {$ctx1.fill(self,"globals",{},smalltalk.PlatformInterface.klass)})},
+args: [],
+source: "globals\x0a\x09<return (new Function('return this'))();>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1648,10 +1748,10 @@ var self=this;
 var candidate;
 function $BrowserInterface(){return smalltalk.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 smalltalk.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
 $1=$BrowserInterface();
-if(($receiver = $1) == nil || $receiver == undefined){
+if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
 candidate=_st($BrowserInterface())._new();
@@ -1659,14 +1759,13 @@ candidate;
 $2=_st(candidate)._isAvailable();
 if(smalltalk.assert($2)){
 self._setWorker_(candidate);
-$3=self;
-return $3;
+return self;
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{candidate:candidate},smalltalk.PlatformInterface.klass)})},
 args: [],
 source: "initialize\x0a\x09| candidate |\x0a\x09\x0a\x09super initialize.\x0a\x09\x0a\x09BrowserInterface ifNotNil: [\x0a\x09\x09candidate := BrowserInterface new.\x0a\x09\x09candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]\x0a\x09]",
-messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "setWorker:", "isAvailable"],
+messageSends: ["initialize", "ifNotNil:", "new", "ifTrue:", "isAvailable", "setWorker:"],
 referencedClasses: ["BrowserInterface"]
 }),
 smalltalk.PlatformInterface.klass);
@@ -1680,7 +1779,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("prompt: not available");
 } else {
 $1=_st(self["@worker"])._prompt_(aString);
@@ -1740,7 +1839,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=self["@current"];
-if(($receiver = $2) == nil || $receiver == undefined){
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=self._new();
 $1=self["@current"];
 } else {
@@ -1825,18 +1924,36 @@ smalltalk.Smalltalk);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "amdRequire",
+category: 'accessing amd',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_("amdRequire");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"amdRequire",{},smalltalk.Smalltalk)})},
+args: [],
+source: "amdRequire\x0a\x09^ self at: 'amdRequire'",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asSmalltalkException:",
 category: 'error handling',
 fn: function (anObject){
 var self=this;
-function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 return smalltalk.withContext(function($ctx1) { 
 var $2,$1;
 $2=_st(self._isSmalltalkObject_(anObject))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(anObject)._isKindOf_($Error());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(smalltalk.assert($2)){
 $1=anObject;
 } else {
@@ -1846,8 +1963,8 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"asSmalltalkException:",{anObject:anObject},smalltalk.Smalltalk)})},
 args: ["anObject"],
 source: "asSmalltalkException: anObject\x0a\x09\x22A JavaScript exception may be thrown.\x0a\x09We then need to convert it back to a Smalltalk object\x22\x0a\x09\x0a\x09^ ((self isSmalltalkObject: anObject) and: [ anObject isKindOf: Error ])\x0a\x09\x09ifTrue: [ anObject ]\x0a\x09\x09ifFalse: [ JavaScriptException on: anObject ]",
-messageSends: ["ifTrue:ifFalse:", "on:", "and:", "isKindOf:", "isSmalltalkObject:"],
-referencedClasses: ["JavaScriptException", "Error"]
+messageSends: ["ifTrue:ifFalse:", "and:", "isSmalltalkObject:", "isKindOf:", "on:"],
+referencedClasses: ["Error", "JavaScriptException"]
 }),
 smalltalk.Smalltalk);
 
@@ -1858,11 +1975,53 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self[aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
+var $1;
+$1=self._basicAt_(aString);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
-source: "at: aString\x0a\x09<return self[aString]>",
-messageSends: [],
+source: "at: aString\x0a\x09^ self basicAt: aString",
+messageSends: ["basicAt:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifAbsent:",
+category: 'accessing',
+fn: function (aKey,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._includesKey_(aKey);
+$1=_st($2)._ifTrue_ifFalse_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._at_(aKey);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aKey:aKey,aBlock:aBlock},smalltalk.Smalltalk)})},
+args: ["aKey", "aBlock"],
+source: "at: aKey ifAbsent: aBlock\x0a\x09^ (self includesKey: aKey)\x0a\x09\x09ifTrue: [self at: aKey]\x0a\x09\x09ifFalse: aBlock",
+messageSends: ["ifTrue:ifFalse:", "includesKey:", "at:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:put:",
+category: 'accessing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._basicAt_put_(aString,anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.Smalltalk)})},
+args: ["aString", "anObject"],
+source: "at: aString put: anObject\x0a\x09^ self basicAt: aString put: anObject",
+messageSends: ["basicAt:put:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -1909,7 +2068,7 @@ return smalltalk.withContext(function($ctx1) {
 return smalltalk.addPackage(packageName);
 return self}, function($ctx1) {$ctx1.fill(self,"createPackage:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
-source: "createPackage: packageName\x0a\x09\x22Create and bind a new package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
+source: "createPackage: packageName\x0a\x09\x22Create and bind a new bare package with given name and return it.\x22\x0a\x09<return smalltalk.addPackage(packageName)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1933,7 +2092,41 @@ return $2;
 }, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},smalltalk.Smalltalk)})},
 args: ["packageName", "aDict"],
 source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
-messageSends: ["deprecatedAPI", "ifFalse:", "error:", "isEmpty", "createPackage:"],
+messageSends: ["deprecatedAPI", "ifFalse:", "isEmpty", "error:", "createPackage:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultAmdNamespace",
+category: 'accessing amd',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_("defaultAmdNamespace");
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace",{},smalltalk.Smalltalk)})},
+args: [],
+source: "defaultAmdNamespace\x0a\x09^ self at: 'defaultAmdNamespace'",
+messageSends: ["at:"],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultAmdNamespace:",
+category: 'accessing amd',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._at_put_("defaultAmdNamespace",aString);
+return self}, function($ctx1) {$ctx1.fill(self,"defaultAmdNamespace:",{aString:aString},smalltalk.Smalltalk)})},
+args: ["aString"],
+source: "defaultAmdNamespace: aString\x0a\x09self at: 'defaultAmdNamespace' put: aString",
+messageSends: ["at:put:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -1941,7 +2134,7 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deleteClass:",
-category: 'classes',
+category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -1963,7 +2156,7 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(self._globalJsVariables())._remove_ifAbsent_(aString,(function(){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"deleteGlobalJsVariable:",{aString:aString},smalltalk.Smalltalk)})},
 args: ["aString"],
 source: "deleteGlobalJsVariable: aString\x0a\x09self globalJsVariables remove: aString ifAbsent:[]",
@@ -1975,14 +2168,14 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "deletePackage:",
-category: 'packages',
+category: 'private',
 fn: function (packageName){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-delete smalltalk.packages[packageName];
+delete self.packages[packageName];
 return self}, function($ctx1) {$ctx1.fill(self,"deletePackage:",{packageName:packageName},smalltalk.Smalltalk)})},
 args: ["packageName"],
-source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete smalltalk.packages[packageName]>",
+source: "deletePackage: packageName\x0a\x09\x22Deletes a package by deleting its binding, but does not check if it contains classes etc.\x0a\x09To remove a package, use #removePackage instead.\x22\x0a\x0a\x09<delete self.packages[packageName]>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1999,6 +2192,22 @@ return self.globalJsVariables;
 return self}, function($ctx1) {$ctx1.fill(self,"globalJsVariables",{},smalltalk.Smalltalk)})},
 args: [],
 source: "globalJsVariables\x0a\x09\x22Array of global JavaScript variables\x22\x0a\x09<return self.globalJsVariables>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Smalltalk);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "includesKey:",
+category: 'accessing',
+fn: function (aKey){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.hasOwnProperty(aKey);
+return self}, function($ctx1) {$ctx1.fill(self,"includesKey:",{aKey:aKey},smalltalk.Smalltalk)})},
+args: ["aKey"],
+source: "includesKey: aKey\x0a\x09<return self.hasOwnProperty(aKey)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2062,10 +2271,16 @@ category: 'packages',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self.packages.all();
+
+		var packages = [];
+		for(var key in self.packages) {
+			packages.push(self.packages[key]);
+		}
+		return packages;
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.Smalltalk)})},
 args: [],
-source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<return self.packages.all()>",
+source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09var packages = [];\x0a\x09\x09for(var key in self.packages) {\x0a\x09\x09\x09packages.push(self.packages[key]);\x0a\x09\x09}\x0a\x09\x09return packages;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2084,10 +2299,10 @@ self._try_catch_((function(){
 return smalltalk.withContext(function($ctx2) {
 result=self._basicParse_(aString);
 return result;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}),(function(ex){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),(function(ex){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._parseError_parsing_(ex,aString))._signal();
-}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})}));
 $2=result;
 _st($2)._source_(aString);
 $3=_st($2)._yourself();
@@ -2109,13 +2324,28 @@ fn: function (anException,aString){
 var self=this;
 function $ParseError(){return smalltalk.ParseError||(typeof ParseError=="undefined"?nil:ParseError)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st($ParseError())._new())._messageText_(_st(_st(_st(_st("Parse error on line ".__comma(_st(anException)._basicAt_("line"))).__comma(" column ")).__comma(_st(anException)._basicAt_("column"))).__comma(" : Unexpected character ")).__comma(_st(anException)._basicAt_("found")));
+var $2,$8,$7,$6,$9,$5,$4,$10,$3,$1;
+$2=_st($ParseError())._new();
+$8=_st(anException)._basicAt_("line");
+$ctx1.sendIdx["basicAt:"]=1;
+$7="Parse error on line ".__comma($8);
+$6=_st($7).__comma(" column ");
+$ctx1.sendIdx[","]=4;
+$9=_st(anException)._basicAt_("column");
+$ctx1.sendIdx["basicAt:"]=2;
+$5=_st($6).__comma($9);
+$ctx1.sendIdx[","]=3;
+$4=_st($5).__comma(" : Unexpected character ");
+$ctx1.sendIdx[","]=2;
+$10=_st(anException)._basicAt_("found");
+$3=_st($4).__comma($10);
+$ctx1.sendIdx[","]=1;
+$1=_st($2)._messageText_($3);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parseError:parsing:",{anException:anException,aString:aString},smalltalk.Smalltalk)})},
 args: ["anException", "aString"],
 source: "parseError: anException parsing: aString\x0a\x09^ ParseError new messageText: 'Parse error on line ', (anException basicAt: 'line') ,' column ' , (anException basicAt: 'column') ,' : Unexpected character ', (anException basicAt: 'found')",
-messageSends: ["messageText:", ",", "basicAt:", "new"],
+messageSends: ["messageText:", "new", ",", "basicAt:"],
 referencedClasses: ["ParseError"]
 }),
 smalltalk.Smalltalk);
@@ -2123,7 +2353,7 @@ smalltalk.Smalltalk);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "pseudoVariableNames",
-category: 'packages',
+category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2160,8 +2390,8 @@ selector: "removeClass:",
 category: 'classes',
 fn: function (aClass){
 var self=this;
-function $ClassRemoved(){return smalltalk.ClassRemoved||(typeof ClassRemoved=="undefined"?nil:ClassRemoved)}
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
+function $ClassRemoved(){return smalltalk.ClassRemoved||(typeof ClassRemoved=="undefined"?nil:ClassRemoved)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=_st(aClass)._isMetaclass();
@@ -2176,8 +2406,8 @@ _st(_st($SystemAnnouncer())._current())._announce_($3);
 return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.Smalltalk)})},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a\x09\x0a\x09self deleteClass: aClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRemoved new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
-messageSends: ["ifTrue:", "error:", ",", "asString", "isMetaclass", "deleteClass:", "announce:", "theClass:", "new", "yourself", "current"],
-referencedClasses: ["ClassRemoved", "SystemAnnouncer"]
+messageSends: ["ifTrue:", "isMetaclass", "error:", ",", "asString", "deleteClass:", "announce:", "current", "theClass:", "new", "yourself"],
+referencedClasses: ["SystemAnnouncer", "ClassRemoved"]
 }),
 smalltalk.Smalltalk);
 
@@ -2192,16 +2422,16 @@ return smalltalk.withContext(function($ctx1) {
 pkg=self._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._error_("Missing package: ".__comma(packageName));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 _st(_st(pkg)._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._removeClass_(each);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1)})}));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 self._deletePackage_(packageName);
 return self}, function($ctx1) {$ctx1.fill(self,"removePackage:",{packageName:packageName,pkg:pkg},smalltalk.Smalltalk)})},
 args: ["packageName"],
 source: "removePackage: packageName\x0a\x09\x22Removes a package and all its classes.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09pkg classes do: [:each |\x0a\x09\x09\x09self removeClass: each].\x0a\x09self deletePackage: packageName",
-messageSends: ["packageAt:ifAbsent:", "error:", ",", "do:", "removeClass:", "classes", "deletePackage:"],
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "do:", "classes", "removeClass:", "deletePackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2214,24 +2444,28 @@ fn: function (packageName,newName){
 var self=this;
 var pkg;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3;
 pkg=self._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) {
-return self._error_("Missing package: ".__comma(packageName));
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1)})}));
-$1=self._packageAt_(newName);
-if(($receiver = $1) == nil || $receiver == undefined){
-$1;
+$1="Missing package: ".__comma(packageName);
+$ctx2.sendIdx[","]=1;
+return self._error_($1);
+$ctx2.sendIdx["error:"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$2=self._packageAt_(newName);
+if(($receiver = $2) == nil || $receiver == null){
+$2;
 } else {
-self._error_("Already exists a package called: ".__comma(newName));
+$3="Already exists a package called: ".__comma(newName);
+self._error_($3);
 };
-_st(self._basicAt_("packages"))._at_put_(newName,pkg);
+_st(self._at_("packages"))._at_put_(newName,pkg);
 _st(pkg)._name_(newName);
 self._deletePackage_(packageName);
 return self}, function($ctx1) {$ctx1.fill(self,"renamePackage:to:",{packageName:packageName,newName:newName,pkg:pkg},smalltalk.Smalltalk)})},
 args: ["packageName", "newName"],
-source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].\x0a\x09(self basicAt: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
-messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "basicAt:", "name:", "deletePackage:"],
+source: "renamePackage: packageName to: newName\x0a\x09\x22Rename a package.\x22\x0a\x0a\x09| pkg |\x0a\x09pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].\x0a\x09(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].\x0a\x09(self at: 'packages') at: newName put: pkg.\x0a\x09pkg name: newName.\x0a\x09self deletePackage: packageName.",
+messageSends: ["packageAt:ifAbsent:", "error:", ",", "ifNotNil:", "packageAt:", "at:put:", "at:", "name:", "deletePackage:"],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
@@ -2259,17 +2493,16 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return "0.11.0";
+return "0.12.0-pre";
 }, function($ctx1) {$ctx1.fill(self,"version",{},smalltalk.Smalltalk)})},
 args: [],
-source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.11.0'",
+source: "version\x0a\x09\x22Answer the version string of Amber\x22\x0a\x09\x0a\x09^ '0.12.0-pre'",
 messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk);
 
 
-smalltalk.Smalltalk.klass.iVarNames = ['current'];
 smalltalk.addMethod(
 smalltalk.method({
 selector: "current",
@@ -2285,6 +2518,23 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Smalltalk.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "do:displayingProgress:",
+category: '*Kernel-Infrastructure',
+fn: function (aBlock,aString){
+var self=this;
+function $ProgressHandler(){return smalltalk.ProgressHandler||(typeof ProgressHandler=="undefined"?nil:ProgressHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st(_st($ProgressHandler())._current())._do_on_displaying_(aBlock,self,aString);
+return self}, function($ctx1) {$ctx1.fill(self,"do:displayingProgress:",{aBlock:aBlock,aString:aString},smalltalk.SequenceableCollection)})},
+args: ["aBlock", "aString"],
+source: "do: aBlock displayingProgress: aString\x0a\x09ProgressHandler current\x0a\x09\x09do: aBlock on: self displaying: aString",
+messageSends: ["do:on:displaying:", "current"],
+referencedClasses: ["ProgressHandler"]
+}),
+smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -2304,4 +2554,4 @@ referencedClasses: []
 }),
 smalltalk.String);
 
-})(global_smalltalk,global_nil,global__st);
+});

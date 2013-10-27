@@ -1034,6 +1034,10 @@ initializeFromString: aString canvas: aCanvas
 
 !TagBrush methodsFor: 'private'!
 
+appendDocumentFragment: anElement
+	<var element=self['@element'].appendChild(anElement["@element"])>
+!
+
 createElementFor: aString
 	<return document.createElement(String(aString))>
 !
@@ -1046,8 +1050,8 @@ createTextNodeFor: aString
 
 fromJQuery: aJQuery canvas: aCanvas
 	^self new
-	initializeFromJQuery: aJQuery canvas: aCanvas;
-	yourself
+		initializeFromJQuery: aJQuery canvas: aCanvas;
+		yourself
 !
 
 fromString: aString canvas: aCanvas
@@ -1056,8 +1060,33 @@ fromString: aString canvas: aCanvas
 	yourself
 ! !
 
+TagBrush subclass: #DocumentFragmentTag
+	instanceVariableNames: ''
+	package: 'Canvas'!
+
+!DocumentFragmentTag methodsFor: 'initialization'!
+
+initializeFromCanvas: aCanvas
+	canvas := aCanvas.
+	element := self createDocumentFragment
+! !
+
+!DocumentFragmentTag methodsFor: 'private'!
+
+createDocumentFragment
+	<return document.createDocumentFragment()>
+! !
+
+!DocumentFragmentTag class methodsFor: 'instance creation'!
+
+canvas: aCanvas
+	^ self new
+		initializeFromCanvas: aCanvas;
+		yourself
+! !
+
 TagBrush subclass: #StyleTag
-	instanceVariableNames: 'canvas element'
+	instanceVariableNames: ''
 	package: 'Canvas'!
 !StyleTag commentStamp!
 I'm a `<style>` tag use to inline CSS or load a stylesheet.

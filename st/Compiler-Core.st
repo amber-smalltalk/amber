@@ -258,10 +258,6 @@ visitCascadeNode: aNode
 	^ self visitNode: aNode
 !
 
-visitClassReferenceNode: aNode
-	^ self visitVariableNode: aNode
-!
-
 visitDynamicArrayNode: aNode
 	^ self visitNode: aNode
 !

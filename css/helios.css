@@ -49,8 +49,9 @@ html[xmlns] .clearfix {
   padding: 0 10px;
 }
 #helios .CodeMirror pre {
-  font-family: Menlo, Monaco, "Lucida Console", Courier, monospace;
+  font-family: Menlo, Monaco, "Lucida Console", "Ubuntu Mono", Courier, monospace;
   line-height: 16px;
+  font-size: 13px;
 }
 #helios .CodeMirror-gutter.stops {
   width: 20px;

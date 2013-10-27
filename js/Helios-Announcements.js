@@ -1,5 +1,6 @@
-(function(smalltalk,nil,_st){
+define("amber_core/Helios-Announcements", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Announcements');
+smalltalk.packages["Helios-Announcements"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('HLAboutToChange', smalltalk.Object, ['actionBlock'], 'Helios-Announcements');
 smalltalk.addMethod(
@@ -133,7 +134,44 @@ smalltalk.addClass('HLPrintItRequested', smalltalk.HLCodeHandled, [], 'Helios-An
 smalltalk.HLPrintItRequested.comment="I am emitted by a `HLCodeWidget` before an object is printed.";
 
 
-smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLAnnouncement, ['context'], 'Helios-Announcements');
+smalltalk.addClass('HLDebuggerAnnouncement', smalltalk.HLAnnouncement, ['context'], 'Helios-Announcements');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@context"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"context",{},smalltalk.HLDebuggerAnnouncement)})},
+args: [],
+source: "context\x0a\x09^ context",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerAnnouncement);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "context:",
+category: 'accessing',
+fn: function (aContext){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@context"]=aContext;
+return self}, function($ctx1) {$ctx1.fill(self,"context:",{aContext:aContext},smalltalk.HLDebuggerAnnouncement)})},
+args: ["aContext"],
+source: "context: aContext\x0a\x09context := aContext",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.HLDebuggerAnnouncement);
+
+
+
+smalltalk.addClass('HLDebuggerContextSelected', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "context",
@@ -168,6 +206,12 @@ referencedClasses: []
 }),
 smalltalk.HLDebuggerContextSelected);
 
+
+
+smalltalk.addClass('HLDebuggerStepped', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
+
+
+smalltalk.addClass('HLDebuggerWhere', smalltalk.HLDebuggerAnnouncement, [], 'Helios-Announcements');
 
 
 smalltalk.addClass('HLDiveRequested', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
@@ -534,4 +578,4 @@ smalltalk.addClass('HLShowInstanceToggled', smalltalk.HLAnnouncement, [], 'Helio
 
 smalltalk.addClass('HLSourceCodeSaved', smalltalk.HLAnnouncement, [], 'Helios-Announcements');
 
-})(global_smalltalk,global_nil,global__st);
+});

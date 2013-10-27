@@ -255,7 +255,7 @@ visitIRInlinedIfNil: anIRInlinedIfNil
 	self stream nextPutIf: [
 		self stream nextPutAll: '($receiver = '.
 		self visit: anIRInlinedIfNil instructions first.
-		self stream nextPutAll: ') == nil || $receiver == undefined' ]
+		self stream nextPutAll: ') == nil || $receiver == null' ]
 		with: [ self visit: anIRInlinedIfNil instructions last ]
 !
 
@@ -264,7 +264,7 @@ visitIRInlinedIfNilIfNotNil: anIRInlinedIfNilIfNotNil
 		nextPutIfElse: [
 			self stream nextPutAll: '($receiver = '.
 			self visit: anIRInlinedIfNilIfNotNil instructions first.
-			self stream nextPutAll: ') == nil || $receiver == undefined' ]
+			self stream nextPutAll: ') == nil || $receiver == null' ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions second ]
 		with: [ self visit: anIRInlinedIfNilIfNotNil instructions third ]
 !

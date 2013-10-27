@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Compiler-Semantic'!
 Object subclass: #LexicalScope
-	instanceVariableNames: 'node instruction temps args outerScope'
+	instanceVariableNames: 'node instruction temps args outerScope blockIndex'
 	package: 'Compiler-Semantic'!
 !LexicalScope commentStamp!
 I represent a lexical scope where variable names are associated with ScopeVars
@@ -27,6 +27,14 @@ bindingFor: aStringOrNode
 	^ self pseudoVars at: aStringOrNode value ifAbsent: [
 		self args at: aStringOrNode value ifAbsent: [
 			self temps at: aStringOrNode value ifAbsent: [ nil ]]]
+!
+
+blockIndex
+	^ blockIndex ifNil: [ 0 ]
+!
+
+blockIndex: anInteger 
+	blockIndex := anInteger
 !
 
 instruction
@@ -380,7 +388,7 @@ isUnknownVar
 ! !
 
 NodeVisitor subclass: #SemanticAnalyzer
-	instanceVariableNames: 'currentScope theClass classReferences messageSends superSends'
+	instanceVariableNames: 'currentScope blockIndex theClass classReferences messageSends superSends'
 	package: 'Compiler-Semantic'!
 !SemanticAnalyzer commentStamp!
 I semantically analyze the abstract syntax tree and annotate it with informations such as non local returns and variable scopes.!
@@ -453,6 +461,15 @@ newScopeOfClass: aLexicalScopeClass
 		yourself
 ! !
 
+!SemanticAnalyzer methodsFor: 'private'!
+
+nextBlockIndex
+	blockIndex ifNil: [ blockIndex := 0 ].
+	
+	blockIndex := blockIndex + 1.
+	^ blockIndex
+! !
+
 !SemanticAnalyzer methodsFor: 'scope'!
 
 popScope
@@ -489,7 +506,8 @@ visitBlockNode: aNode
 	self pushScope: self newBlockScope.
 	aNode scope: currentScope.
 	currentScope node: aNode.
-	
+	currentScope blockIndex: self nextBlockIndex.
+
 	aNode parameters do: [ :each |
 		self validateVariableScope: each.
 		currentScope addArg: each ].
@@ -499,17 +517,9 @@ visitBlockNode: aNode
 !
 
 visitCascadeNode: aNode
-	"Populate the receiver into all children"
-	aNode nodes do: [ :each |
-		each receiver: aNode receiver ].
 	super visitCascadeNode: aNode.
 	aNode nodes first superSend ifTrue: [
-		aNode nodes do: [ :each | each superSend: true ]]
-!
-
-visitClassReferenceNode: aNode
-	self classReferences add: aNode value.
-	aNode binding: (ClassRefVar new name: aNode value; yourself)
+		aNode nodes do: [ :each | each superSend: true ] ]
 !
 
 visitMethodNode: aNode
@@ -527,7 +537,7 @@ visitMethodNode: aNode
 
 	aNode
 		classReferences: self classReferences;
-		messageSends: self messageSends keys;
+		sendIndexes: self messageSends;
 		superSends: self superSends keys.
 	self popScope
 !
@@ -571,11 +581,21 @@ visitSequenceNode: aNode
 
 visitVariableNode: aNode
 	"Bind a ScopeVar to aNode by doing a lookup in the current scope.
-	If no ScopeVar is found, bind a UnknowVar and throw an error"
+	If no ScopeVar is found, bind a UnknowVar and throw an error."
 
-	aNode binding: ((currentScope lookupVariable: aNode) ifNil: [
-		self errorUnknownVariable: aNode.
-		UnknownVar new name: aNode value; yourself ])
+	| binding |
+	binding := currentScope lookupVariable: aNode.
+	
+	binding ifNil: [
+		aNode value isCapitalized
+			ifTrue: [ "Capital letter variables might be globals."
+				binding := ClassRefVar new name: aNode value; yourself.
+				self classReferences add: aNode value]
+			ifFalse: [
+				self errorUnknownVariable: aNode.
+				binding := UnknownVar new name: aNode value; yourself ] ].
+		
+	aNode binding: binding.
 ! !
 
 !SemanticAnalyzer class methodsFor: 'instance creation'!

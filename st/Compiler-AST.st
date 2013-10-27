@@ -16,12 +16,17 @@ addNode: aNode
 	aNode parent: self
 !
 
-extent
-	"Answer the line and column of the end position of the receiver in the source code"
+method
+	^ self parent ifNotNil: [ :node | node method ]
+!
+
+nextChild
+	"Answer the next node after aNode.
+	Recurse into the possible children of the receiver to answer the next node to be evaluated"
 	
-	^ self nextNode 
-		ifNil: [ self parent ifNotNil: [ :node | node extent ] ]
-		ifNotNil: [ :node | node position ]
+	^ self nodes isEmpty
+		ifTrue: [ self ]
+		ifFalse: [ self nodes first nextChild ]
 !
 
 nextNode
@@ -30,11 +35,16 @@ nextNode
 !
 
 nextNode: aNode
-	"Answer the next node after aNode"
+	"Answer the next node after aNode.
+	Recurse into the possible children of the next node to answer the next node to be evaluated"
 	
-	^ self nodes 
+	| next |
+	
+	next := self nodes 
 		at: (self nodes indexOf: aNode) + 1
-		ifAbsent: [ nil ]
+		ifAbsent: [ ^ self ].
+	
+	^ next nextChild
 !
 
 nodes
@@ -83,6 +93,13 @@ position: aPosition
 	position := aPosition
 ! !
 
+!Node methodsFor: 'copying'!
+
+postCopy
+	super postCopy.
+	self nodes do: [ :each | each parent: self ]
+! !
+
 !Node methodsFor: 'testing'!
 
 isAssignmentNode
@@ -97,12 +114,20 @@ isBlockSequenceNode
 	^false
 !
 
+isCascadeNode
+	^ false
+!
+
 isImmutable
 	^false
 !
 
 isJSStatementNode
 	^ false
+!
+
+isLastChild
+	^ self parent nodes last = self
 !
 
 isNode
@@ -149,7 +174,8 @@ left
 !
 
 left: aNode
-	left := aNode
+	left := aNode.
+	aNode parent: self
 !
 
 nodes
@@ -161,7 +187,8 @@ right
 !
 
 right: aNode
-	right := aNode
+	right := aNode.
+	aNode parent: self
 ! !
 
 !AssignmentNode methodsFor: 'testing'!
@@ -183,6 +210,18 @@ Node subclass: #BlockNode
 I represent an block closure node.!
 
 !BlockNode methodsFor: 'accessing'!
+
+nextChild
+	"Answer the receiver as we want to avoid eager evaluation"
+	
+	^ self
+!
+
+nextNode: aNode
+	"Answer the receiver as we want to avoid eager evaluation"
+	
+	^ self
+!
 
 parameters
 	^parameters ifNil: [parameters := Array new]
@@ -230,6 +269,12 @@ receiver
 
 receiver: aNode
 	receiver := aNode
+! !
+
+!CascadeNode methodsFor: 'testing'!
+
+isCascadeNode
+	^ true
 ! !
 
 !CascadeNode methodsFor: 'visiting'!
@@ -291,7 +336,7 @@ accept: aVisitor
 ! !
 
 Node subclass: #MethodNode
-	instanceVariableNames: 'selector arguments source scope classReferences messageSends superSends'
+	instanceVariableNames: 'selector arguments source scope classReferences sendIndexes superSends'
 	package: 'Compiler-AST'!
 !MethodNode commentStamp!
 I represent an method node.
@@ -321,11 +366,11 @@ extent
 !
 
 messageSends
-	^ messageSends
+	^ self sendIndexes keys
 !
 
-messageSends: aCollection
-	messageSends := aCollection
+method
+	^ self
 !
 
 scope
@@ -342,6 +387,14 @@ selector
 
 selector: aString
 	selector := aString
+!
+
+sendIndexes
+	^ sendIndexes
+!
+
+sendIndexes: aDictionary
+	sendIndexes := aDictionary
 !
 
 source
@@ -436,8 +489,10 @@ index: anInteger
 !
 
 nodes
-	^ (Array withAll: self arguments)
-		add: self receiver;
+	self receiver ifNil: [ ^ self arguments copy ].
+	
+	^ (Array with: self receiver)
+		addAll: self arguments;
 		yourself
 !
 
@@ -480,8 +535,17 @@ valueForReceiver: anObject
 
 !SendNode methodsFor: 'testing'!
 
+isCascadeSendNode
+	^ self parent isCascadeNode
+!
+
 isSendNode
 	^ true
+!
+
+shouldBeAliased
+	^ super shouldBeAliased or: [
+		(self method sendIndexes at: self selector) size > 1 ]
 !
 
 stopOnStepping
@@ -584,6 +648,11 @@ accept: aVisitor
 	^ aVisitor visitValueNode: self
 ! !
 
+!ValueNode methodsFor: 'xxxDoIt'!
+
+xxxDoIt ^[self stack] value
+! !
+
 ValueNode subclass: #VariableNode
 	instanceVariableNames: 'assigned binding'
 	package: 'Compiler-AST'!
@@ -620,25 +689,13 @@ binding: aScopeVar
 !VariableNode methodsFor: 'testing'!
 
 isImmutable
-	^false
+	^ self binding isPseudoVar
 ! !
 
 !VariableNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	^ aVisitor visitVariableNode: self
-! !
-
-VariableNode subclass: #ClassReferenceNode
-	instanceVariableNames: ''
-	package: 'Compiler-AST'!
-!ClassReferenceNode commentStamp!
-I represent an class reference node.!
-
-!ClassReferenceNode methodsFor: 'visiting'!
-
-accept: aVisitor
-	^ aVisitor visitClassReferenceNode: self
 ! !
 
 !Object methodsFor: '*Compiler-AST'!

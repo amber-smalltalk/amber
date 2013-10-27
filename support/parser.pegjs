@@ -4,7 +4,6 @@ separator      = [ \t\v\f\u00A0\uFEFF\n\r\u2028\u2029]+
 comments       = (["][^"]*["])+
 ws             = (separator / comments)*
 identifier     = first:[a-zA-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
-varIdentifier  = first:[a-z] others:[a-zA-Z0-9]* {return first + others.join("");}
 keyword        = first:identifier last:[:] {return first + last;}
 selector      = first:[a-zA-Z] others:[a-zA-Z0-9\:]* {return first + others.join("");}
 className      = first:[A-Z] others:[a-zA-Z0-9]* {return first + others.join("");}
@@ -21,14 +20,16 @@ bareSymbol         = val:(selector / binarySelector / node:string {return node._
                              ._position_((line).__at(column))
                              ._value_(val);
                   }
-number         = n:(hex / float / integer) {
+number         = n:(numberExp / hex / float / integer) {
                      return smalltalk.ValueNode._new()
                             ._position_((line).__at(column))
                             ._value_(n);
                  }
+numberExp      = n:((float / integer) "e" integer) {return parseFloat(n.join(""));}
 hex            = neg:[-]? "16r" num:[0-9a-fA-F]+ {return parseInt((neg + num.join("")), 16);}
 float          = neg:[-]?digits:[0-9]+ "." dec:[0-9]+ {return parseFloat((neg + digits.join("") + "." + dec.join("")), 10);}
 integer        = neg:[-]?digits:[0-9]+ {return (parseInt(neg+digits.join(""), 10));}
+
 literalArray   = "#(" rest:literalArrayRest {return rest;}
 bareLiteralArray   = "(" rest:literalArrayRest {return rest;}
 literalArrayRest   = ws lits:(lit:(parseTimeLiteral / bareLiteralArray / bareSymbol) ws {return lit._value();})* ws ")" {
@@ -59,18 +60,13 @@ runtimeLiteral        = dynamicDictionary / dynamicArray / block
 literal        = runtimeLiteral / parseTimeLiteral
 
 
-variable       = identifier:varIdentifier {
+variable       = identifier:identifier {
                      return smalltalk.VariableNode._new()
                             ._position_((line).__at(column))
                             ._value_(identifier);
                  }
-classReference = className:className {
-                     return smalltalk.ClassReferenceNode._new()
-                            ._position_((line).__at(column))
-                            ._value_(className);
-                 }
 
-reference      = variable / classReference
+reference      = variable
 
 keywordPair    = key:keyword ws arg:binarySend ws {return {key:key, arg: arg};}
 

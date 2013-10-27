@@ -43,31 +43,79 @@ function always_resolve(callback) {
 
 
 /**
+ * Helper for concatenating Amber generated AMD modules.
+ * The produced output can be exported and run as an independent program.
+ *
+ * var concatenator = createConcatenator();
+ * concatenator.start(); // write the required AMD define header
+ * concatenator.add(module1);
+ * concatenator.addId(module1_ID);
+ * //...
+ * concatenator.finish("//some last code");
+ * var concatenation = concatenator.toString();
+ * // The variable concatenation contains the concatenated result
+ * // which can either be stored in a file or interpreted with eval().
+ */
+function createConcatenator () {
+	return {
+		elements: [],
+		ids: [],
+		add: function () {
+			this.elements.push.apply(this.elements, arguments);
+		},
+		addId: function () {
+			this.ids.push.apply(this.ids, arguments);
+		},
+		forEach: function () {
+			this.elements.forEach.apply(this.elements, arguments);
+		},
+		start: function () {
+			this.add(
+				'var define = (' + require('amdefine') + ')(), requirejs = define.require;',
+				'define("amber_vm/browser-compatibility", [], {});'
+			);
+		},
+		finish: function (realWork) {
+			this.add(
+				'define("amber_vm/_init", ["amber_vm/smalltalk","' + this.ids.join('","') + '"], function (smalltalk) {',
+				'smalltalk.initialize();',
+				realWork,
+				'});',
+				'requirejs("amber_vm/_init");'
+			);
+		},
+		toString: function () {
+			return this.elements.join('\n');
+		}
+	};
+}
+
+/**
  * Combine several async functions and evaluate callback once all of them have finished.
  * Taken from: http://howtonode.org/control-flow
  */
 function Combo(callback) {
-  this.callback = callback;
-  this.items = 0;
-  this.results = [];
+	this.callback = callback;
+	this.items = 0;
+	this.results = [];
 }
 
 Combo.prototype = {
-  add: function () {
-	var self = this,
+	add: function () {
+		var self = this,
 		id = this.items;
-	this.items++;
-	return function () {
-	  self.check(id, arguments);
-	};
-  },
-  check: function (id, arguments) {
-	this.results[id] = Array.prototype.slice.call(arguments);
-	this.items--;
-	if (this.items == 0) {
-	  this.callback.apply(this, this.results);
+		this.items++;
+		return function () {
+			self.check(id, arguments);
+		};
+	},
+	check: function (id, arguments) {
+		this.results[id] = Array.prototype.slice.call(arguments);
+		this.items--;
+		if (this.items == 0) {
+			this.callback.apply(this, this.results);
+		}
 	}
-  }
 };
 
 var path = require('path'),
@@ -80,14 +128,13 @@ var path = require('path'),
  * amber_dir: points to the location of an amber installation
  * closure_jar: location of compiler.jar (can be left undefined)
  */
-function AmberC(amber_dir, closure_jar) {
+function AmberC(amber_dir) {
 	this.amber_dir = amber_dir;
-	this.closure_jar = closure_jar || '';
-	this.kernel_libraries = ['@boot', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
-	                         'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
-	                         'Kernel-Announcements'];
+	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
+							'Kernel-Announcements'];
 	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
-							  'Compiler-Core', 'Compiler-AST', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
+							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
 
@@ -101,20 +148,15 @@ var createDefaults = function(amber_dir, finished_callback){
 
 	return {
 		'load': [],
-		'init': path.join(amber_dir, 'support', 'init.js'),
 		'main': undefined,
 		'mainfile': undefined,
 		'stFiles': [],
 		'jsFiles': [],
 		'jsGlobals': [],
-		'closure': false,
-		'closure_parts': false,
-		'closure_full': false,
-		'closure_options': ' --language_in=ECMASCRIPT5 ',
+		'amd_namespace': 'amber_core',
 		'suffix': '',
 		'loadsuffix': '',
 		'suffix_used': '',
-		'deploy': false,
 		'libraries': [],
 		'compile': [],
 		'compiled': [],
@@ -138,8 +180,8 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		configuration.finished_callback = finished_callback;
 	}
 
-	if (configuration.closure || configuration.closure_parts || configuration.closure_full) {
-		configuration.deploy = true;
+	if (configuration.amd_namespace.length == 0) {
+		configuration.amd_namespace = 'amber_core';
 	}
 
 	console.ambercLog = console.log;
@@ -150,10 +192,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	if (this.check_configuration_ok(configuration)) {
 		this.defaults = configuration;
 		this.defaults.smalltalk = {}; // the evaluated compiler will be stored in this variable (see create_compiler)
-		var self = this;
-		this.check_for_closure_compiler(function(){
-			self.collect_files(self.defaults.stFiles, self.defaults.jsFiles)
-		});
+		this.collect_files(this.defaults.stFiles, this.defaults.jsFiles)
 	}
 };
 
@@ -165,54 +204,11 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 	if (undefined === configuration) {
 		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
 	}
-	if (undefined === configuration.init) {
-		throw new Error('AmberC.check_configuration_ok(): init value missing in configuration object');
-	}
 
 	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.lenght) {
 		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
 	}
 	return true;
-};
-
-
-/**
- * Checks if the java executable exists and afterwards,
- * if compiler.jar exists at the path stored in this.closure_jar.
- * All closure related entries are set to false upon failure.
- *
- * callback gets called in any case.
- */
-AmberC.prototype.check_for_closure_compiler = function(callback) {
-	var defaults = this.defaults;
-	var self = this;
-	if (defaults.closure) {
-		exec('which java', function(error, stdout, stderr) {
-			// stdout contains path to java executable
-			if (null !== error) {
-				console.warn('java is not installed but is needed for running the Closure compiler (-O, -A or -o flags).');
-				defaults.closure = false;
-				defaults.closure_parts = false;
-				defaults.closure_full = false;
-				callback();
-				return;
-			}
-			fs.exists(self.closure_jar, function(exists) {
-				if (!exists) {
-					console.warn('Can not find Closure compiler at: ' + self.closure_jar);
-					defaults.closure = false;
-					defaults.closure_parts = false;
-					defaults.closure_full = false;
-				} else {
-					console.warn('Closure compiler found at: ' + self.closure_jar);
-				}
-				callback();
-				return;
-			});
-		});
-	} else {
-		callback();
-	}
 };
 
 
@@ -224,8 +220,10 @@ AmberC.prototype.check_for_closure_compiler = function(callback) {
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
-    var special = filename[0] == "@";
-    if (special) { filename = filename.slice(1); }
+	var special = filename[0] == "@";
+	if (special) {
+		filename = filename.slice(1);
+	}
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
 	var amberJsFile = path.join(this.amber_dir, special?'support':'js', jsFile);
@@ -330,7 +328,7 @@ AmberC.prototype.resolve_libraries = function() {
 	// Resolve libraries listed in this.kernel_libraries
 	var self = this;
 	var all_resolved = new Combo(function(resolved_kernel_files, resolved_compiler_files) {
-		self.resolve_init(resolved_compiler_files[0]);
+		self.create_compiler(resolved_compiler_files[0]);
 	});
 	this.resolve_kernel(all_resolved.add());
 	this.resolve_compiler(all_resolved.add());
@@ -391,23 +389,6 @@ AmberC.prototype.resolve_compiler = function(callback) {
 
 
 /**
- * Resolves default.init and adds it to compilerFiles.
- * Followed by create_compiler().
- */
-AmberC.prototype.resolve_init = function(compilerFiles) {
-	// check and add init.js
-	var initFile = this.defaults.init;
-	if ('.js' !== path.extname(initFile)) {
-		initFile = this.resolve_js(initFile);
-		this.defaults.init = initFile;
-	}
-	compilerFiles.push(initFile);
-
-	this.create_compiler(compilerFiles);
-};
-
-
-/**
  * Read all .js files needed by compiler and eval() them.
  * The finished Compiler gets stored in defaults.smalltalk.
  * Followed by compile().
@@ -415,13 +396,23 @@ AmberC.prototype.resolve_init = function(compilerFiles) {
 AmberC.prototype.create_compiler = function(compilerFilesArray) {
 	var self = this;
 	var compiler_files = new Combo(function() {
-		var content = '(function() {';
+		var builder = createConcatenator();
+		builder.add('(function() {');
+		builder.start();
+
 		Array.prototype.slice.call(arguments).forEach(function(data) {
 			// data is an array where index 0 is the error code and index 1 contains the data
-			content += data[1];
+			builder.add(data[1]);
+			// matches and returns the "module_id" string in the AMD definition: define("module_id", ...)
+			var match = ('' + data[1]).match(/^define\("([^"]*)"/);
+			if (match) {
+				builder.addId(match[1]);
+			}
 		});
-		content = content + 'return global_smalltalk;})();';
-		self.defaults.smalltalk = eval(content);
+		// store the generated smalltalk env in self.defaults.smalltalk
+		builder.finish('self.defaults.smalltalk = smalltalk;');
+		builder.add('})();');
+		eval(builder.toString());
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
@@ -491,24 +482,14 @@ AmberC.prototype.category_export = function() {
 		var jsFile = category + defaults.suffix_used + '.js';
 		jsFile = path.join(jsFilePath, jsFile);
 		defaults.compiled.push(jsFile);
-		var jsFileDeploy = category + defaults.suffix_used + '.deploy.js';
-		jsFileDeploy = path.join(jsFilePath, jsFileDeploy);
-
-		console.log('Exporting ' + (defaults.deploy ? '(debug + deploy)' : '(debug)')
-			+ ' category ' + category + ' as ' + jsFile
-			+ (defaults.deploy ? ' and ' + jsFileDeploy : ''));
 		var smalltalk = defaults.smalltalk;
 		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
+		packageObject._transport()._namespace_(defaults.amd_namespace);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
-			pluggableExporter._forRecipe_(smalltalk.Exporter._default()._recipe())._exportPackage_on_(packageObject, stream); }), function(err) {
-			if (defaults.deploy) {
-				fs.writeFile(jsFileDeploy, smalltalk.String._streamContents_(function (stream) {
-					pluggableExporter._forRecipe_(smalltalk.StrippedExporter._default()._recipe())._exportPackage_on_(packageObject, stream); }), callback);
-			} else {
+			smalltalk.AmdExporter._new()._exportPackage_on_(packageObject, stream); }), function(err) {
 				callback(null, null);
-			}
-		});
+			});
 	}, function(err, result){
 		self.verify();
 	});
@@ -517,19 +498,13 @@ AmberC.prototype.category_export = function() {
 
 /**
  * Verify if all .st files have been compiled.
- * Followed by compose_js_files() and optimize().
+ * Followed by compose_js_files().
  */
 AmberC.prototype.verify = function() {
 	console.log('Verifying if all .st files were compiled');
 	var self = this;
 	// copy array
 	var compiledFiles = this.defaults.compiled.slice(0);
-	// append deploy files if necessary
-	if (true === this.defaults.deploy) {
-		this.defaults.compiled.forEach(function(file) {
-			compiledFiles.push(file.replace(/\.js/g, '.deploy.js'));
-		});
-	}
 
 	async_map(compiledFiles,
 		function(file, callback) {
@@ -555,7 +530,6 @@ AmberC.prototype.compose_js_files = function() {
 	var self = this;
 	var programFile = defaults.program;
 	if (undefined === programFile) {
-		self.optimize();
 		return;
 	}
 	if (undefined !== defaults.output_dir) {
@@ -570,18 +544,9 @@ AmberC.prototype.compose_js_files = function() {
 
 	if (0 !== defaults.compiled.length) {
 		var compiledFiles = defaults.compiled.slice(0);
-		if (true === defaults.deploy) {
-			compiledFiles = compiledFiles.map(function(file) {
-				return file.replace(/\.js$/g, '.deploy.js');
-			});
-		}
+
 		console.log('Collecting compiled files: ' + compiledFiles);
 		program_files.push.apply(program_files, compiledFiles);
-	}
-
-	if (undefined !== defaults.init) {
-		console.log('Adding initializer ' + defaults.init);
-		program_files.push(defaults.init);
 	}
 
 	console.ambercLog('Writing program file: %s.js', programFile);
@@ -593,94 +558,52 @@ AmberC.prototype.compose_js_files = function() {
 	});
 
 	fileStream.on('close', function(){
-		self.optimize();
+		return;
 	});
+
+	var builder = createConcatenator();
+	builder.add('#!/usr/bin/env node');
+	builder.start();
 
 	program_files.forEach(function(file) {
 		if(fs.existsSync(file)) {
 			console.log('Adding : ' + file);
-			fileStream.write(fs.readFileSync(file));
+			var buffer = fs.readFileSync(file);
+			// matches and returns the "module_id" string in the AMD define: define("module_id", ...)
+			var match = buffer.toString().match(/^define\("([^"]*)"/);
+			if (match /*&& match[1].slice(0,9) !== "amber_vm/"*/) {
+				builder.addId(match[1]);
+			}
+			builder.add(buffer);
 		} else {
 			fileStream.end();
 			throw(new Error('Can not find file ' + file));
 		}
 	});
+
+	var mainFunctionOrFile = '';
+
 	if (undefined !== defaults.main) {
 		console.log('Adding call to: %s>>main', defaults.main);
-		fileStream.write('global_smalltalk.' + defaults.main + '._main()');
+		mainFunctionOrFile += 'smalltalk.' + defaults.main + '._main();';
 	}
 
 	if (undefined !== defaults.mainfile && fs.existsSync(defaults.mainfile)) {
 		console.log('Adding main file: ' + defaults.mainfile);
-		fileStream.write(fs.readFileSync(defaults.mainfile));
+		mainFunctionOrFile += '\n' + fs.readFileSync(defaults.mainfile);
 	}
 
+	builder.finish(mainFunctionOrFile);
+
+	console.log('Writing...');
+	builder.forEach(function (element) {
+		fileStream.write(element);
+		fileStream.write('\n');
+	});
 	console.log('Done.');
 	fileStream.end();
 };
 
-
-/**
- * Optimize created JavaScript files with Google Closure compiler depending
- * on the flags: defaults.closure_parts, defaults.closure_full.
- */
-AmberC.prototype.optimize = function() {
-	var defaults = this.defaults;
-	var self = this;
-	var optimization_done = new Combo(function() {
-		console.log = console.ambercLog;
-		console.timeEnd('Compile Time');
-		if (undefined !== defaults.finished_callback) {
-			defaults.finished_callback();
-		}
-	});
-
-	if (defaults.closure_parts) {
-		console.log('Compiling all js files using Google closure compiler.');
-		defaults.compiled.forEach(function(file) {
-			var deployFile = file.replace(/\.js$/g, '.deploy.js');
-			console.log('Compiling ' + deployFile + ' file using Google closure compiler.');
-			var minifiedName = deployFile.replace(/\.js$/g, '.min.js');
-			self.closure_compile(deployFile, minifiedName, optimization_done.add());
-		});
-	}
-	if (defaults.closure_full && (undefined !== defaults.program)) {
-		var programFile = defaults.program;
-		if (undefined !== defaults.output_dir) {
-			programFile = path.join(defaults.output_dir, programFile);
-		}
-		console.log('Compiling ' + programFile + '.js file using Google closure compiler.');
-		self.closure_compile(programFile + '.js', programFile + '.min.js', optimization_done.add());
-	}
-
-	always_resolve(optimization_done.add());
-};
-
-
-/**
- * Compile sourceFile into minifiedFile with Google Closure compiler.
- * callback gets executed once finished.
- */
-AmberC.prototype.closure_compile = function(sourceFile, minifiedFile, callback) {
-	// exec is asynchronous
-	var self = this;
-	exec(
-		'java -jar ' +
-		self.closure_jar + ' ' +
-		self.defaults.closure_options +
-		' --js '+ sourceFile +
-		' --js_output_file '+ minifiedFile,
-		function (error, stdout, stderr) {
-			if (error) {
-				console.log(stderr);
-			} else {
-				console.log(stdout);
-				console.log('Minified: '+ minifiedFile);
-			}
-			callback();
-		}
-	);
-};
 
 module.exports.Compiler = AmberC;
 module.exports.createDefaults = createDefaults;

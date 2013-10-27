@@ -85,6 +85,19 @@ instanceVariableNames
 	<return self.iVarNames>
 !
 
+javascriptConstructor
+	"Answer the JS constructor used to instantiate. See boot.js"
+	
+	<return self.fn>
+!
+
+javascriptConstructor: aJavaScriptFunction
+	"Set the JS constructor used to instantiate.
+	See the JS counter-part in boot.js `smalltalk.setClassConstructor'"
+	
+	<smalltalk.setClassConstructor(self, aJavaScriptFunction);>
+!
+
 lookupSelector: selector
 	"Look up the given selector in my methodDictionary.
 	Return the corresponding method if found.
@@ -141,6 +154,22 @@ name
 
 organization
 	^ self basicAt: 'organization'
+!
+
+ownMethods
+	"Answer the methods of the receiver that are not package extensions"
+
+	^ (self ownProtocols 
+		inject: OrderedCollection new
+		into: [ :acc :each | acc, (self methodsInProtocol: each) ])
+			sorted: [ :a :b | a selector <= b selector ]
+!
+
+ownProtocols
+	"Answer the protocols of the receiver that are not package extensions"
+
+	^ self protocols reject: [ :each |
+		each match: '^\*' ]
 !
 
 protocols
