@@ -158,6 +158,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'loadsuffix': '',
 		'suffix_used': '',
 		'libraries': [],
+		'jsLibraryDirs': [],
 		'compile': [],
 		'compiled': [],
 		'program': undefined,
@@ -182,6 +183,10 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 
 	if (configuration.amd_namespace.length == 0) {
 		configuration.amd_namespace = 'amber_core';
+	}
+
+	if (undefined !== configuration.jsLibraryDirs) {
+		configuration.jsLibraryDirs.push(this.amber_dir);
 	}
 
 	console.ambercLog = console.log;
@@ -226,19 +231,26 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 	}
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(this.amber_dir, special?'support':'js', jsFile);
+	var defaults = this.defaults;
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {
 			callback(jsFile);
 		} else {
-			fs.exists(amberJsFile, function(exists) {
-				if (exists) {
-					callback(amberJsFile);
-				} else {
-					throw(new Error('JavaScript file not found: ' + jsFile));
+			var amberJsFile = '';
+			// check for specified .js file in any of the directories from jsLibraryDirs
+			var notFound = defaults.jsLibraryDirs.every(function(directory) {
+				amberJsFile = path.join(directory, special?'support':'js', jsFile);
+				if (fs.existsSync(amberJsFile)) {
+					return false;
 				}
+				return true;
 			});
+			if (notFound) {
+				throw(new Error('JavaScript file not found: ' + jsFile));
+			} else {
+				callback(amberJsFile);
+			}
 		}
 	});
 };
