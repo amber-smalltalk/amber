@@ -53,12 +53,6 @@ module.exports = function(grunt) {
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
               'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st']
       },
-      amber_compiler: {
-        output_dir : 'js',
-        src: ['st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st'],
-        output_name: 'Compiler'
-      },
       amber_canvas: {
         output_dir : 'js',
         src: ['st/Canvas.st', 'st/SUnit.st']
