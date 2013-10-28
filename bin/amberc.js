@@ -186,7 +186,8 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 	}
 
 	if (undefined !== configuration.jsLibraryDirs) {
-		configuration.jsLibraryDirs.push(this.amber_dir);
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'js'));
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
 	}
 
 	console.ambercLog = console.log;
@@ -240,7 +241,7 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 			var amberJsFile = '';
 			// check for specified .js file in any of the directories from jsLibraryDirs
 			var notFound = defaults.jsLibraryDirs.every(function(directory) {
-				amberJsFile = path.join(directory, special?'support':'js', jsFile);
+				amberJsFile = path.join(directory, jsFile);
 				if (fs.existsSync(amberJsFile)) {
 					return false;
 				}
