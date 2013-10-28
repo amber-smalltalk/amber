@@ -63,7 +63,7 @@ module.exports = function(grunt) {
     var compiler = new amberc.Compiler(grunt.config('amberc.options.amber_dir'));
 
     // generate the amberc configuration out of the given target properties
-    var configuration = generateCompilerConfiguration(this.data, this.filesSrc, grunt.config('amberc.options.amber_dir'));
+    var configuration = generateCompilerConfiguration(this.data, this.filesSrc);
 
     // run the compiler and call the async callback once finished
     var self = this;
@@ -74,8 +74,8 @@ module.exports = function(grunt) {
   });
 
 
-  function generateCompilerConfiguration(data, sourceFiles, amber_dir) {
-    var configuration = amberc.createDefaults(amber_dir);
+  function generateCompilerConfiguration(data, sourceFiles) {
+    var configuration = amberc.createDefaults();
     var parameters = [];
 
     var libraries = data.libraries;

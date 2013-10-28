@@ -144,7 +144,7 @@ function AmberC(amber_dir) {
 /**
  * Default values.
  */
-var createDefaults = function(amber_dir, finished_callback){
+var createDefaults = function(finished_callback){
 	return {
 		'load': [],
 		'main': undefined,

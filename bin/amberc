@@ -20,7 +20,7 @@ var amber_dir = path.normalize(path.join(path.dirname(process.argv[1]), '..'));
 
 var compiler = new amberc.Compiler(amber_dir);
 
-var configuration = handle_options(parameters, amber_dir);
+var configuration = handle_options(parameters);
 
 compiler.main(configuration);
 
@@ -29,10 +29,10 @@ compiler.main(configuration);
  * Process given program options and update defaults values.
  * Followed by check_for_closure_compiler() and then collect_files().
  */
-function handle_options(optionsArray, amber_dir) {
+function handle_options(optionsArray) {
 	var programName = [];
 	var currentItem = optionsArray.shift();
-	var defaults = amberc.createDefaults(amber_dir);
+	var defaults = amberc.createDefaults();
 
 	while(undefined !== currentItem) {
 		switch(currentItem) {
