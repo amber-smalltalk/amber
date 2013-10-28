@@ -126,7 +126,6 @@ var path = require('path'),
 /**
  * AmberC constructor function.
  * amber_dir: points to the location of an amber installation
- * closure_jar: location of compiler.jar (can be left undefined)
  */
 function AmberC(amber_dir) {
 	if (undefined === amber_dir || !fs.existsSync(amber_dir)) {
@@ -134,10 +133,10 @@ function AmberC(amber_dir) {
 	}
 
 	this.amber_dir = amber_dir;
-	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['boot', 'smalltalk', 'nil', '_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter', 'Compiler-Exceptions',
 							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
@@ -219,17 +218,16 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 
 
 /**
- * Check if the file given as parameter exists in the local directory or in $AMBER/js/.
- * '.js' is appended first.
+ * Check if the file given as parameter exists in any of the following directories:
+ *  1. current local directory
+ *  2. defauls.jsLibraryDirs
+ *  3. $AMBER/js/
+ *  3. $AMBER/support/
  *
  * @param filename name of a file without '.js' prefix
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
-	var special = filename[0] == "@";
-	if (special) {
-		filename = filename.slice(1);
-	}
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
 	var defaults = this.defaults;
