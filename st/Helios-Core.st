@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'Helios-Core'!
-Object subclass: #HLModel
+InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
 !HLModel commentStamp!
@@ -191,9 +191,7 @@ saveSourceCode
 !HLToolModel methodsFor: 'commands actions'!
 
 commitPackage
-	"self 
-		withHelperLabelled: 'Committing package ', self selectedPackage name, '...'
-		do: [ "self environment commitPackage: self selectedPackage" ]"
+	self environment commitPackage: self selectedPackage
 !
 
 copyClassTo: aClassName

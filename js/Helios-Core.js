@@ -1,8 +1,8 @@
-define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure", "amber_core/Canvas"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Infrastructure", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('HLModel', smalltalk.Object, ['announcer', 'environment'], 'Helios-Core');
+smalltalk.addClass('HLModel', smalltalk.InterfacingObject, ['announcer', 'environment'], 'Helios-Core');
 smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).";
 smalltalk.addMethod(
 smalltalk.method({
@@ -328,7 +328,7 @@ return smalltalk.withContext(function($ctx1) {
 _st(self._environment())._commitPackage_(self._selectedPackage());
 return self}, function($ctx1) {$ctx1.fill(self,"commitPackage",{},smalltalk.HLToolModel)})},
 args: [],
-source: "commitPackage\x0a\x09\x22self \x0a\x09\x09withHelperLabelled: 'Committing package ', self selectedPackage name, '...'\x0a\x09\x09do: [ \x22self environment commitPackage: self selectedPackage\x22 ]\x22",
+source: "commitPackage\x0a\x09self environment commitPackage: self selectedPackage",
 messageSends: ["commitPackage:", "environment", "selectedPackage"],
 referencedClasses: []
 }),

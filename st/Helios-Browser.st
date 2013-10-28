@@ -1133,6 +1133,11 @@ observeSystem
     self model systemAnnouncer 
 		on: ClassAdded 
 		send: #onClassAdded:
+		to: self.
+		
+	self model systemAnnouncer
+		on: PackageAdded
+		send: #onPackageAdded:
 		to: self
 !
 
@@ -1156,6 +1161,12 @@ onClassAdded: anAnnouncement
 		self 
 			initializeItems;
 			refresh ]
+!
+
+onPackageAdded: anAnnouncement
+	self 
+		initializeItems;
+		refresh
 !
 
 onPackageSelected: anAnnouncement

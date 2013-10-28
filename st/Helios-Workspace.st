@@ -550,6 +550,10 @@ observeBrowserModel
 		send: #onClassSelected:
 		to: self;
 		
+		on: HLPackageSelected 
+		send: #onPackageSelected:
+		to: self;
+		
     	on: HLProtocolSelected 
 		send: #onProtocolSelected: 
 		to: self;
@@ -648,6 +652,15 @@ onMethodSelected: anAnnouncement
 	
 	method ifNil: [ ^ self contents: '' ].
     self contents: method source
+!
+
+onPackageSelected: anAnnouncement
+	| package |
+	
+	package := anAnnouncement item.
+	
+	package ifNil: [ ^ self contents: '' ].
+    self contents: package definition
 !
 
 onParseError: anAnnouncement

@@ -3330,13 +3330,23 @@ category: 'actions',
 fn: function (){
 var self=this;
 function $ClassAdded(){return smalltalk.ClassAdded||(typeof ClassAdded=="undefined"?nil:ClassAdded)}
+function $PackageAdded(){return smalltalk.PackageAdded||(typeof PackageAdded=="undefined"?nil:PackageAdded)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(self._model())._systemAnnouncer())._on_send_to_($ClassAdded(),"onClassAdded:",self);
+var $3,$2,$1,$6,$5,$4;
+$3=self._model();
+$ctx1.sendIdx["model"]=1;
+$2=_st($3)._systemAnnouncer();
+$ctx1.sendIdx["systemAnnouncer"]=1;
+$1=_st($2)._on_send_to_($ClassAdded(),"onClassAdded:",self);
+$ctx1.sendIdx["on:send:to:"]=1;
+$6=self._model();
+$5=_st($6)._systemAnnouncer();
+$4=_st($5)._on_send_to_($PackageAdded(),"onPackageAdded:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeSystem",{},smalltalk.HLPackagesListWidget)})},
 args: [],
-source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self",
+source: "observeSystem\x0a    self model systemAnnouncer \x0a\x09\x09on: ClassAdded \x0a\x09\x09send: #onClassAdded:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model systemAnnouncer\x0a\x09\x09on: PackageAdded\x0a\x09\x09send: #onPackageAdded:\x0a\x09\x09to: self",
 messageSends: ["on:send:to:", "systemAnnouncer", "model"],
-referencedClasses: ["ClassAdded"]
+referencedClasses: ["ClassAdded", "PackageAdded"]
 }),
 smalltalk.HLPackagesListWidget);
 
@@ -3358,6 +3368,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"onClassAdded:",{anAnnouncement:a
 args: ["anAnnouncement"],
 source: "onClassAdded: anAnnouncement\x0a\x09\x22Amber doesn't have yet a global organizer for packages\x22\x0a\x09\x0a\x09(self items includes: anAnnouncement theClass package) ifFalse: [ \x0a\x09\x09self \x0a\x09\x09\x09initializeItems;\x0a\x09\x09\x09refresh ]",
 messageSends: ["ifFalse:", "includes:", "items", "package", "theClass", "initializeItems", "refresh"],
+referencedClasses: []
+}),
+smalltalk.HLPackagesListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onPackageAdded:",
+category: 'reactions',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+self._initializeItems();
+$1=self._refresh();
+return self}, function($ctx1) {$ctx1.fill(self,"onPackageAdded:",{anAnnouncement:anAnnouncement},smalltalk.HLPackagesListWidget)})},
+args: ["anAnnouncement"],
+source: "onPackageAdded: anAnnouncement\x0a\x09self \x0a\x09\x09initializeItems;\x0a\x09\x09refresh",
+messageSends: ["initializeItems", "refresh"],
 referencedClasses: []
 }),
 smalltalk.HLPackagesListWidget);
