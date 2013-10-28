@@ -82,14 +82,6 @@ module.exports = function(grunt) {
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         output_name: 'test/amber_test_runner'
       },
-      amber_dev: {
-        src: [
-              'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
-              'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
-              'Canvas.js', 'IDE.js', 'SUnit.js',
-              'Kernel-Tests.js', 'Compiler-Tests.js', 'SUnit-Tests.js'],
-        output_name: 'js/amber_dev'
-      },
       amber_cli: {
         output_dir: 'cli/js',
         src: ['cli/st/AmberCli.st'],
