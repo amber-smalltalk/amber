@@ -126,14 +126,17 @@ var path = require('path'),
 /**
  * AmberC constructor function.
  * amber_dir: points to the location of an amber installation
- * closure_jar: location of compiler.jar (can be left undefined)
  */
 function AmberC(amber_dir) {
+	if (undefined === amber_dir || !fs.existsSync(amber_dir)) {
+		throw new Error('amber_dir needs to be a valid directory');
+	}
+
 	this.amber_dir = amber_dir;
-	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
+	this.kernel_libraries = ['boot', 'smalltalk', 'nil', '_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
 							'Kernel-Announcements'];
-	this.compiler_libraries = this.kernel_libraries.concat(['@parser', 'Importer-Exporter', 'Compiler-Exceptions',
+	this.compiler_libraries = this.kernel_libraries.concat(['parser', 'Importer-Exporter', 'Compiler-Exceptions',
 							'Compiler-Core', 'Compiler-AST', 'Compiler-Exceptions', 'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic']);
 }
 
@@ -141,11 +144,7 @@ function AmberC(amber_dir) {
 /**
  * Default values.
  */
-var createDefaults = function(amber_dir, finished_callback){
-	if (undefined === amber_dir) {
-		throw new Error('createDefaults() function needs a valid amber_dir parameter');
-	}
-
+var createDefaults = function(finished_callback){
 	return {
 		'load': [],
 		'main': undefined,
@@ -158,6 +157,7 @@ var createDefaults = function(amber_dir, finished_callback){
 		'loadsuffix': '',
 		'suffix_used': '',
 		'libraries': [],
+		'jsLibraryDirs': [],
 		'compile': [],
 		'compiled': [],
 		'program': undefined,
@@ -182,6 +182,11 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 
 	if (configuration.amd_namespace.length == 0) {
 		configuration.amd_namespace = 'amber_core';
+	}
+
+	if (undefined !== configuration.jsLibraryDirs) {
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'js'));
+		configuration.jsLibraryDirs.push(path.join(this.amber_dir, 'support'));
 	}
 
 	console.ambercLog = console.log;
@@ -213,32 +218,38 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 
 
 /**
- * Check if the file given as parameter exists in the local directory or in $AMBER/js/.
- * '.js' is appended first.
+ * Check if the file given as parameter exists in any of the following directories:
+ *  1. current local directory
+ *  2. defauls.jsLibraryDirs
+ *  3. $AMBER/js/
+ *  3. $AMBER/support/
  *
  * @param filename name of a file without '.js' prefix
  * @param callback gets called on success with path to .js file as parameter
  */
 AmberC.prototype.resolve_js = function(filename, callback) {
-	var special = filename[0] == "@";
-	if (special) {
-		filename = filename.slice(1);
-	}
 	var baseName = path.basename(filename, '.js');
 	var jsFile = baseName + this.defaults.loadsuffix + '.js';
-	var amberJsFile = path.join(this.amber_dir, special?'support':'js', jsFile);
+	var defaults = this.defaults;
 	console.log('Resolving: ' + jsFile);
 	fs.exists(jsFile, function(exists) {
 		if (exists) {
 			callback(jsFile);
 		} else {
-			fs.exists(amberJsFile, function(exists) {
-				if (exists) {
-					callback(amberJsFile);
-				} else {
-					throw(new Error('JavaScript file not found: ' + jsFile));
+			var amberJsFile = '';
+			// check for specified .js file in any of the directories from jsLibraryDirs
+			var notFound = defaults.jsLibraryDirs.every(function(directory) {
+				amberJsFile = path.join(directory, jsFile);
+				if (fs.existsSync(amberJsFile)) {
+					return false;
 				}
+				return true;
 			});
+			if (notFound) {
+				throw(new Error('JavaScript file not found: ' + jsFile));
+			} else {
+				callback(amberJsFile);
+			}
 		}
 	});
 };
