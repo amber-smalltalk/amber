@@ -599,7 +599,7 @@ ajaxPutAt: aURL data: aString
 			'type' -> 'PUT'.
 			'data' -> aString.
 			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+			'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
 ! !
 
 PackageHandler subclass: #AmdPackageHandler
@@ -661,6 +661,10 @@ My concrete subclasses have a `#handler` to which committing is delegated.!
 
 commitHandlerClass
 	self subclassResponsibility
+!
+
+definition
+	^ ''
 !
 
 package
@@ -761,6 +765,14 @@ See `AmdExporter` and `AmdPackageHandler`.!
 
 commitHandlerClass
 	^ AmdPackageHandler
+!
+
+definition
+	^ String streamContents: [ :stream |
+		stream 
+			nextPutAll: self class name;
+			nextPutAll: ' namespace: ';
+			nextPutAll: '''', self namespace, '''' ]
 !
 
 namespace

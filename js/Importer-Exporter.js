@@ -1457,14 +1457,14 @@ $8=_st($9).__comma(_st(xhr)._responseText());
 $ctx2.sendIdx[","]=2;
 $7=_st($8).__comma("\x22");
 $ctx2.sendIdx[","]=1;
-return self._error_($7);
+return self._alert_($7);
 }, function($ctx2) {$ctx2.fillBlock({xhr:xhr},$ctx1,1)})}));
 $1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6]);
 self._ajax_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"ajaxPutAt:data:",{aURL:aURL,aString:aString},smalltalk.PackageHandler)})},
 args: ["aURL", "aString"],
-source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self error: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
-messageSends: ["ajax:", "->", "error:", ",", "responseText"],
+source: "ajaxPutAt: aURL data: aString\x0a\x09self\x0a\x09\x09ajax: #{\x0a\x09\x09\x09'url' -> aURL.\x0a\x09\x09\x09'type' -> 'PUT'.\x0a\x09\x09\x09'data' -> aString.\x0a\x09\x09\x09'contentType' -> 'text/plain;charset=UTF-8'.\x0a\x09\x09\x09'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: \x22' , (xhr responseText) , '\x22'] }",
+messageSends: ["ajax:", "->", "alert:", ",", "responseText"],
 referencedClasses: []
 }),
 smalltalk.PackageHandler);
@@ -1901,6 +1901,22 @@ smalltalk.PackageTransport);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "definition",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "";
+}, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.PackageTransport)})},
+args: [],
+source: "definition\x0a\x09^ ''",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "package",
 category: 'accessing',
 fn: function (){
@@ -2187,6 +2203,38 @@ args: [],
 source: "defaultNamespace\x0a\x09^ Smalltalk current defaultAmdNamespace",
 messageSends: ["defaultAmdNamespace", "current"],
 referencedClasses: ["Smalltalk"]
+}),
+smalltalk.AmdPackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "definition",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$4,$6,$5,$3,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+$2=stream;
+_st($2)._nextPutAll_(_st(self._class())._name());
+$ctx2.sendIdx["nextPutAll:"]=1;
+_st($2)._nextPutAll_(" namespace: ");
+$ctx2.sendIdx["nextPutAll:"]=2;
+$4=$2;
+$6="'".__comma(self._namespace());
+$5=_st($6).__comma("'");
+$ctx2.sendIdx[","]=1;
+$3=_st($4)._nextPutAll_($5);
+return $3;
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.AmdPackageTransport)})},
+args: [],
+source: "definition\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream \x0a\x09\x09\x09nextPutAll: self class name;\x0a\x09\x09\x09nextPutAll: ' namespace: ';\x0a\x09\x09\x09nextPutAll: '''', self namespace, '''' ]",
+messageSends: ["streamContents:", "nextPutAll:", "name", "class", ",", "namespace"],
+referencedClasses: ["String"]
 }),
 smalltalk.AmdPackageTransport);
 

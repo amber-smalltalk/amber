@@ -489,6 +489,18 @@ basicTransport
 	<return self.transport>
 !
 
+definition
+	^ String streamContents: [ :stream |
+		stream 
+			nextPutAll: self class name;
+			nextPutAll: String lf, String tab;
+			nextPutAll: ' named: ';
+			nextPutAll: '''', self name, '''';
+			nextPutAll: String lf, String tab;
+			nextPutAll:  ' transport: (';
+			nextPutAll: self transport definition, ')' ]
+!
+
 name
 	<return self.pkgName>
 !
@@ -509,7 +521,8 @@ transport
 !
 
 transport: aPackageTransport
-	transport := aPackageTransport
+	transport := aPackageTransport.
+	aPackageTransport package: self
 ! !
 
 !Package methodsFor: 'classes'!
@@ -577,13 +590,23 @@ Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 !Package class methodsFor: 'accessing'!
 
 named: aPackageName
-
-	^Smalltalk current packageAt: aPackageName
+	^ Smalltalk current 
+		packageAt: aPackageName
+		ifAbsent: [ 
+			Smalltalk current createPackage: aPackageName ]
 !
 
 named: aPackageName ifAbsent: aBlock
+	^ Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+!
 
-	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+named: aPackageName transport: aTransport
+	| package |
+	
+	package := self named: aPackageName.
+	package transport: aTransport.
+	
+	^ package
 ! !
 
 !Package class methodsFor: 'sorting'!
@@ -867,8 +890,16 @@ globalJsVariables
 !Smalltalk methodsFor: 'packages'!
 
 createPackage: packageName
-	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
+	| package announcement |
+	
+	package := self basicCreatePackage: packageName.
+	announcement := PackageAdded new
+		package: package;
+		yourself.
+		
+	SystemAnnouncer current announce: announcement.
+	
+	^ package
 !
 
 packageAt: packageName
@@ -913,6 +944,11 @@ renamePackage: packageName to: newName
 ! !
 
 !Smalltalk methodsFor: 'private'!
+
+basicCreatePackage: packageName
+	"Create and bind a new bare package with given name and return it."
+	<return smalltalk.addPackage(packageName)>
+!
 
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
