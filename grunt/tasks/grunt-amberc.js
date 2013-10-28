@@ -15,11 +15,15 @@ module.exports = function(grunt) {
 
      amberc: {
        options: {
-         amber_dir: process.cwd(),     // REQUIRED
-         verbose: true                 // optional
+         amber_dir: process.cwd(),                // REQUIRED
+         library_dirs: ['dir1', '/usr/local/js'], // optional
+         verbose: true                            // optional
        },
        helloWorld: {
-         options: {                             // the 'options' object is optional
+         // this 'options' object is optional as well as all parameters inside it
+         // they can be used to override the global 'options'
+         options: {
+           library_dirs: ['dir1', '/usr/local/js'], // optional
            verbose: true
          },
          src: ['projects/HelloWorld/st/HelloWorld.st'], // REQUIRED
@@ -42,9 +46,11 @@ module.exports = function(grunt) {
 
     var options = this.options({
       amber_dir: undefined,
+      library_dirs: [],
       verbose: grunt.option('verbose') || false
     });
     this.data.verbose = options.verbose;
+    this.data.library_dirs = options.library_dirs;
 
     // mark required properties
     this.requiresConfig('amberc.options.amber_dir');
@@ -75,6 +81,10 @@ module.exports = function(grunt) {
     var libraries = data.libraries;
     if (undefined !== libraries) {
       configuration.load = libraries;
+    }
+    var library_dirs = data.library_dirs;
+    if (undefined !== library_dirs) {
+      configuration.jsLibraryDirs = library_dirs;
     }
     var mainClass = data.main_class;
     if (undefined !== mainClass) {
