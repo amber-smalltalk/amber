@@ -403,11 +403,6 @@ testAsSet
 		self assert: (set includes: each) ]
 !
 
-testAssociation
-    self assert: #key:value: equals: 'key:value:'.
-    self deny: #key:value: =  'value:key:'
-!
-
 testCollect
 	| newCollection |
 	newCollection := #(1 2 3 4).
@@ -789,9 +784,10 @@ SequenceableCollectionTest subclass: #ArrayTest
 !ArrayTest methodsFor: 'tests'!
 
 testAdd 
-	| array | 
+	|array| 
 	array := #(1 2 3 4 5). 
 	array add:6 . 
+	
 	self assert: array equals: #(1 2 3 4 5 6).
 !
 
@@ -813,7 +809,7 @@ testAtIfAbsent
 testFirst
 	|array|
 	array := #(1 2 3 4 5).
-	self assert: (array first) = (array at:1)
+	self assert: (array first) equals: (array at:1)
 !
 
 testFirstN
@@ -823,7 +819,7 @@ testFirstN
 testFourth
 	|array|
 	array := #(1 2 3 4 5).
-	self assert: (array fourth) = (array at:4)
+	self assert: (array fourth) equals: (array at:4)
 !
 
 testIfEmpty
@@ -833,7 +829,8 @@ testIfEmpty
 testLast
 	|array|
 	array := #(1 2 3 4 5).
-	self assert: (array last) = (array at:5)
+	
+	self assert: (array last) equals: (array at:5)
 !
 
 testPrintString
@@ -856,6 +853,7 @@ testRemove
 	|array|
 	array := #(1 2 3 4 5). 
 	array remove:3.
+
 	self assert: array equals: #(1 2 4 5).
 	self should: [array remove:3] raise: Error.
 !
@@ -878,7 +876,8 @@ testRemoveLast
 	|array|
 	array := #(1 2). 
 	array removeLast.
-	self assert: array last = 1.
+	
+	self assert: array last equals: 1.
 !
 
 testReversed
@@ -888,10 +887,11 @@ testReversed
 !
 
 testSize
-		| array | 
-		array := #('hello' 'world'). 
-		self assert: array size = 2. 
-		self assert: Array new size = 0.
+	|array| 
+	array := #('hello' 'world'). 
+	
+	self assert: array size equals: 2. 
+	self assert: Array new size equals: 0.
 !
 
 testSort
@@ -904,7 +904,7 @@ testSort
 testThird
 	|array|
 	array := #(1 2 3 4 5).
-	self assert: (array third) = (array at:3)
+	self assert: (array third) equals: (array at:3)
 ! !
 
 !ArrayTest class methodsFor: 'accessing'!
@@ -1829,25 +1829,23 @@ TestCase subclass: #QueueTest
 !QueueTest methodsFor: 'not yet classified'!
 
 testNextIfAbsent
-	| queueVal |      
+	|queue|
+	queue:=  Queue new.
+	queue nextPut: 'index1'. 
 
-	queueVal:=  Queue new.
-	queueVal nextPut: 'index1'. 
-
-	self assert: (queueVal  nextIfAbsent:'empty') = 'index1'.
-	self deny: (queueVal  nextIfAbsent:'empty') = 'index1'.
+	self assert: (queue  nextIfAbsent:'empty') = 'index1'.
+	self deny: (queue  nextIfAbsent:'empty') = 'index1'.
 !
 
 testQueueNext
-	| collec |               
+	|queue|               
+	queue:=  Queue new.
+	queue     nextPut: 'index1' ;
+	nextPut: 'index2' . 
 
-	collec:=  Queue new.
-	collec     nextPut: 'index1' ;
-    nextPut: 'index2' . 
-
-	self assert: collec next = 'index1'.
-	self deny: collec next = 'index'.
-	self should:[ collec next ] raise: Error.
+	self assert: queue next = 'index1'.
+	self deny: queue next = 'index'.
+	self should:[ queue next ] raise: Error.
 ! !
 
 TestCase subclass: #RandomTest
@@ -1856,18 +1854,23 @@ TestCase subclass: #RandomTest
 
 !RandomTest methodsFor: 'tests'!
 
-testAtRandom
-|val|
-	10000 timesRepeat: [
-	val := 'abc' atRandom.
-	self assert: ((val = 'a') | (val = 'b') | (val = 'c' )).
-	].
-	
-	10000 timesRepeat: [
-		val := 10 atRandom.
+testAtRandomNumber
+	|val|	
+
+	100 timesRepeat: [
+		val := 10 atRandom.	
 		self assert: (val > 0).
 		self assert: (val <11)
 	]
+!
+
+testAtRandomSequenceableCollection
+	|val|
+	
+	100 timesRepeat: [
+		val := 'abc' atRandom.
+		self assert: ((val = 'a') | (val = 'b') | (val = 'c' )).
+	].
 !
 
 textNext
