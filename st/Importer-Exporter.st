@@ -791,6 +791,16 @@ setupFromJson: anObject
 	self namespace: (anObject at: 'amdNamespace')
 ! !
 
+!AmdPackageTransport methodsFor: 'printing'!
+
+printOn: aStream
+	super printOn: aStream.
+	aStream
+		nextPutAll: ' (AMD Namespace: ';
+		nextPutAll: self namespace;
+		nextPutAll: ')'
+! !
+
 !AmdPackageTransport class methodsFor: 'accessing'!
 
 type

@@ -2231,6 +2231,29 @@ smalltalk.AmdPackageTransport);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "printOn:",
+category: 'printing',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.AmdPackageTransport.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
+$1=aStream;
+_st($1)._nextPutAll_(" (AMD Namespace: ");
+$ctx1.sendIdx["nextPutAll:"]=1;
+_st($1)._nextPutAll_(self._namespace());
+$ctx1.sendIdx["nextPutAll:"]=2;
+$2=_st($1)._nextPutAll_(")");
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.AmdPackageTransport)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream\x0a\x09\x09nextPutAll: ' (AMD Namespace: ';\x0a\x09\x09nextPutAll: self namespace;\x0a\x09\x09nextPutAll: ')'",
+messageSends: ["printOn:", "nextPutAll:", "namespace"],
+referencedClasses: []
+}),
+smalltalk.AmdPackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "setupFromJson:",
 category: 'initialization',
 fn: function (anObject){
