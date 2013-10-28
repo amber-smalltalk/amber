@@ -39,6 +39,9 @@ function handle_options(optionsArray, amber_dir) {
 			case '-l':
 				defaults.load.push.apply(defaults.load, optionsArray.shift().split(','));
 				break;
+			case '-L':
+				defaults.jsLibraryDirs.push.apply(defaults.jsLibraryDirs, optionsArray.shift().split(','));
+				break;
 			case '-g':
 				defaults.jsGlobals.push.apply(defaults.jsGlobals, optionsArray.shift().split(','));
 				break;
@@ -124,6 +127,13 @@ function print_usage() {
 	console.log('  -l library1,library2');
 	console.log('     Add listed JavaScript libraries in listed order.');
 	console.log('     Libraries are not separated by spaces or end with .js.');
+	console.log('');
+	console.log('  -L directory1,directory2');
+	console.log('     Add listed directories to the library search path.');
+	console.log('     The order of processing is:');
+	console.log('     1. current directory');
+	console.log('     2. directories specified by -L');
+	console.log('     3. $AMBER');
 	console.log('');
 	console.log('  -g jsGlobal1,jsGlobal2');
 	console.log('     Comma separated list of JS global variable names.');
