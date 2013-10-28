@@ -129,6 +129,10 @@ var path = require('path'),
  * closure_jar: location of compiler.jar (can be left undefined)
  */
 function AmberC(amber_dir) {
+	if (undefined === amber_dir || !fs.existsSync(amber_dir)) {
+		throw new Error('amber_dir needs to be a valid directory');
+	}
+
 	this.amber_dir = amber_dir;
 	this.kernel_libraries = ['@boot', '@smalltalk', '@nil', '@_st', 'Kernel-Objects', 'Kernel-Classes', 'Kernel-Methods',
 							'Kernel-Collections', 'Kernel-Infrastructure', 'Kernel-Exceptions', 'Kernel-Transcript',
@@ -142,10 +146,6 @@ function AmberC(amber_dir) {
  * Default values.
  */
 var createDefaults = function(amber_dir, finished_callback){
-	if (undefined === amber_dir) {
-		throw new Error('createDefaults() function needs a valid amber_dir parameter');
-	}
-
 	return {
 		'load': [],
 		'main': undefined,
