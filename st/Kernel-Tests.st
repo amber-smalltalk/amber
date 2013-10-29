@@ -783,6 +783,14 @@ SequenceableCollectionTest subclass: #ArrayTest
 
 !ArrayTest methodsFor: 'tests'!
 
+testAdd 
+	|array| 
+	array := #(1 2 3 4 5). 
+	array add:6 . 
+	
+	self assert: array equals: #(1 2 3 4 5 6).
+!
+
 testAddFirst
 	self assert: (#(2 3 4 5) addFirst: 1; yourself) equals: #(1 2 3 4 5)
 !
@@ -798,12 +806,31 @@ testAtIfAbsent
 	self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.
 !
 
+testFirst
+	|array|
+	array := #(1 2 3 4 5).
+	self assert: (array first) equals: (array at:1)
+!
+
 testFirstN
 	self assert: ({1. 2. 3. 4. 5} first: 3) equals: {1. 2. 3}
 !
 
+testFourth
+	|array|
+	array := #(1 2 3 4 5).
+	self assert: (array fourth) equals: (array at:4)
+!
+
 testIfEmpty
 	self assert: ( '' ifEmpty: ['zork'] ) equals: 'zork'
+!
+
+testLast
+	|array|
+	array := #(1 2 3 4 5).
+	
+	self assert: (array last) equals: (array at:5)
 !
 
 testPrintString
@@ -822,6 +849,15 @@ testPrintString
 	self assert: array printString equals: 'an Array (''foo'' 3 3)'.
 !
 
+testRemove 
+	|array|
+	array := #(1 2 3 4 5). 
+	array remove:3.
+
+	self assert: array equals: #(1 2 4 5).
+	self should: [array remove:3] raise: Error.
+!
+
 testRemoveFromTo
 	
 	self assert: (#(1 2 3 4) removeFrom: 1 to: 3) equals: #(4).
@@ -834,6 +870,41 @@ testRemoveIndex
 	self assert: (#(1 2 3 4) removeIndex: 2) equals: #(1 3 4).
 	self assert: (#(1 2 3 4) removeIndex: 1) equals: #(2 3 4).
 	self assert: (#('hello') removeIndex: 1) equals: #()
+!
+
+testRemoveLast 
+	|array|
+	array := #(1 2). 
+	array removeLast.
+	
+	self assert: array last equals: 1.
+!
+
+testReversed
+	|array|
+	array := #(5 4 3 2 1). 
+	self assert: (array reversed) equals: #(1 2 3 4 5)
+!
+
+testSize
+	|array| 
+	array := #('hello' 'world'). 
+	
+	self assert: array size equals: 2. 
+	self assert: Array new size equals: 0.
+!
+
+testSort
+	|array|
+	array := #(3 1 4 5 2). 
+	array sort.
+	self assert: array equals: #(1 2 3 4 5)
+!
+
+testThird
+	|array|
+	array := #(1 2 3 4 5).
+	self assert: (array third) equals: (array at:3)
 ! !
 
 !ArrayTest class methodsFor: 'accessing'!
@@ -867,10 +938,26 @@ testAsArray
 	self assert: 'hello' asArray equals: #('h' 'e' 'l' 'l' 'o').
 !
 
+testAsLowerCase
+	self assert: 'JACKIE' asLowercase equals: 'jackie'.
+!
+
 testAsNumber
 	self assert: '3' asNumber equals: 3.
 	self assert: '-3' asNumber equals: -3.
 	self assert: '-1.5' asNumber equals: -1.5.
+!
+
+testAsUpperCase
+	self assert: 'jackie' asUppercase equals: 'JACKIE'.
+!
+
+testAsciiValue
+    |characterA characterU|
+    characterA := 'A'.
+    characterU := 'U'.
+    self assert: (characterA asciiValue) equals:65.
+    self assert: (characterU asciiValue) equals:85
 !
 
 testAt
@@ -892,6 +979,17 @@ testCapitalized
 	self assert: 'test' isCapitalized equals: false.
 !
 
+testCharCodeAt
+	|s|
+	s := 'jackie'.
+	self assert: ('jackie' charCodeAt:1) equals: 106.
+	self assert: ('jackie' charCodeAt:2) equals: 97.
+	self assert: ('jackie' charCodeAt:3) equals: 99.
+	self assert: ('jackie' charCodeAt:4) equals: 107.
+	self assert: ('jackie' charCodeAt:5) equals: 105.
+	self assert: ('jackie' charCodeAt:6) equals: 101.
+!
+
 testCollect
 	| newCollection |
 	newCollection := 'hheelllloo'.
@@ -899,6 +997,11 @@ testCollect
 		assertSameContents: (self collection collect: [ :each |
 			each, each ])
 		as: newCollection
+!
+
+testCopyFromTo
+	self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.
+	self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.
 !
 
 testCopyWithoutAll
@@ -955,8 +1058,20 @@ testIndexOf
 	self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'
 !
 
+testIsVowel
+    |vowel consonant|
+    vowel := 'u'.
+    consonant := 'z'.
+    self assert: vowel isVowel equals: true.
+    self assert: consonant isVowel equals: false
+!
+
 testJoin
 	self assert: (',' join: #('hello' 'world')) equals: 'hello,world'
+!
+
+testReversed
+	self assert: 'jackiechan' reversed equals: 'nahceikcaj'.
 !
 
 testSelect
@@ -980,6 +1095,15 @@ testStreamContents
 				nextPutAll: 'hello'; space;
 				nextPutAll: 'world' ])
 		equals: 'hello world'
+!
+
+testSubStrings
+	self assert: ('jackiechan' subStrings: 'ie') equals: #( 'jack' 'chan' ).
+!
+
+testTrim
+	self assert: '       jackie' trimLeft equals: 'jackie'.
+	self assert: 'jackie               ' trimRight equals: 'jackie'.
 ! !
 
 !StringTest class methodsFor: 'accessing'!
@@ -1683,6 +1807,14 @@ testEgality
 	self deny: 3@5 = (3@6)
 !
 
+testNew
+
+	self assert: (Point new x: 3)y  equals: nil.
+	self deny: (Point new x: 3)x = 0.
+	self assert: (Point new y: 4)x  equals: nil.
+	self deny: (Point new y: 4)y  = 0.
+!
+
 testTranslateBy
 	self assert: (3@3 translateBy: 0@1) equals: 3@4.
 	self assert: (3@3 translateBy: 0@1 negated) equals: 3@2.
@@ -1690,11 +1822,56 @@ testTranslateBy
 	self assert: (3@3 translateBy: 3 negated @0) equals: 0@3.
 ! !
 
+TestCase subclass: #QueueTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!QueueTest methodsFor: 'not yet classified'!
+
+testNextIfAbsent
+	|queue|
+	queue:=  Queue new.
+	queue nextPut: 'index1'. 
+
+	self assert: (queue  nextIfAbsent:'empty') = 'index1'.
+	self deny: (queue  nextIfAbsent:'empty') = 'index1'.
+!
+
+testQueueNext
+	|queue|               
+	queue:=  Queue new.
+	queue     nextPut: 'index1' ;
+	nextPut: 'index2' . 
+
+	self assert: queue next = 'index1'.
+	self deny: queue next = 'index'.
+	self should:[ queue next ] raise: Error.
+! !
+
 TestCase subclass: #RandomTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
 !RandomTest methodsFor: 'tests'!
+
+testAtRandomNumber
+	|val|	
+
+	100 timesRepeat: [
+		val := 10 atRandom.	
+		self assert: (val > 0).
+		self assert: (val <11)
+	]
+!
+
+testAtRandomSequenceableCollection
+	|val|
+	
+	100 timesRepeat: [
+		val := 'abc' atRandom.
+		self assert: ((val = 'a') | (val = 'b') | (val = 'c' )).
+	].
+!
 
 textNext
 
