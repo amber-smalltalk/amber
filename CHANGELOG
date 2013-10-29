@@ -1,29 +1,78 @@
  2013 - Release 0.12.0
 ===============================
 
-Some numbers about this release:
+After 3 months of work we are pleased to announce the 0.12.0 release of Amber.
+
+Besides the usual bug fixes a lot of new features have emerged.
+
+The biggest change is the switch to using RequireJS to specifying Amber package dependencies
+and for loading the packages as AMD modules.
+Amber is now additionally available as Bower [2] component.
+Bower is also used to manage required JavaScript libraries which don't have to be kept
+around in the repository anymore.
+
+The repository layout was restructured to provide a cleaner separation of different Amber parts:
+* Smalltalk code is located in 'st'
+* Compiled Amber packages are located in 'js'
+* Supporting JavaScript code is located in 'support'
+
+Together with the RequireJS changes the specifying their dependencies the Brickz [3]
+reconfigurable micro composition system was introduced.
+This is used for
+
+On the Smalltalk side support has been added for writing exponential numbers of the form 2e5.
+
+Helios (the new IDE) is progressing nicely and has seen a lot of improvements.
+One of the great parts is the new stepping debugger which is also making progress.
+To try Helios, open the helios.html page or
+evaluate in any other amber page `amber.loadHelios()`.
+
+The last enhancements target the commandline compiler which can be used as
+`amberc` (an executable script) or as a Grunt task.
+The following features have been added:
+ * generation of shebang line (#!/usr/bin/env node)
+ * specification of target namespace (`-n` flag; `amd_namespace` option in Grunt)
+ * specification of additional library directories (`-L` flag; `library_dirs` option in Grunt)
+The following features have been removed:
+ * creation of *.deploy.js files (`-d` flag; `deploy` option in Grunt)
+ * optimization passes via Closure compiler (`-o`/`-O` flags; `closure_jar` option in Grunt)
+   The same behavior can be achieved by using specific Grunt tasks
+
+Additionally, the Grunt task now handles the -v/--verbose flag which triggers the same behavior
+as the `verbose` option which can be specified in the Gruntfile.
+
+
+Some numbers about this release (starting from 0.11.0):
 
 *  commits
-*  committers
-* increasing the number of core committers to 
-*  unit tests added to the kernel
-*  unit tests in total
+* 9 committers
+* 66 unit tests added
+* 379 unit tests in total
 
-Commits
-https://github.com/amber-smalltalk/amber/compare/0.11.0...0.12.0
-Issues
-https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=8&page=1&sort=updated&state=closed
+Commits: https://github.com/amber-smalltalk/amber/compare/0.11.0...0.12.0
+Issues: https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=8&page=1&sort=updated&state=closed
 
-* Helios IDE, release candidate
-* Use of require [1] to load amber packages in the browser
-* Restructuring of boot.js, use of the brickz[2] reconfigurable micro composition system
-* Enhanced REPL
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+* Installing Amber from NPM
+
+To install Amber from NPM, run
+
+    npm install amber
+
+* Installing Amber from Bower
+
+To install Amber from Bower, run
+
+    bower install amber
+
+* Migration from Amber 0.11.0
+
 
 [1] http://requirejs.org/
-[2] https://github.com/amber-smalltalk/brikz
-
-For API related changes see the file API-CHANGES.txt.
-
+[2] http://bower.io/
+[3] https://github.com/amber-smalltalk/brikz
 
 
 
@@ -54,7 +103,7 @@ evaluate in any other amber page `amber.loadHelios()`.
 The compiler also received some improvements, especially
 regarding message send optimisations and super sends.
 
-Here's the list of commits and closed issues: 
+Here's the list of commits and closed issues:
 https://github.com/amber-smalltalk/amber/compare/0.10.0...0.11.0
 https://github.com/amber-smalltalk/amber/issues?direction=desc&milestone=6&page=1&sort=updated&state=closed
 
@@ -65,7 +114,7 @@ branch on GitHub.
 * Installing Amber from NPM
 
 To install amber from NPM, run
-    
+
     npm install amber
 
 
@@ -169,8 +218,8 @@ Example code and ports
 - Ported ProfStef interactive tutorial, available on Amber homepage but also in examples directory.
 - Included the ESUG presentation as an example also in the examples directory.
 - Several new examples running on Node.js and webOS included, all with Makefiles.
- 
- 
+
+
 Various other things
 
 - Issue tracker on github now used as primary source, closed a bunch of reported issues.
