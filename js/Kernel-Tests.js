@@ -3164,13 +3164,18 @@ fn: function (){
 var self=this;
 var characterA,characterU;
 return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$4,$3;
 characterA="A";
 characterU="U";
-self._assert_equals_(_st(characterA)._asciiValue(),(65));
-self._assert_equals_(_st(characterU)._asciiValue(),(85));
+$2=_st(characterA)._asciiValue();
+$ctx1.sendIdx["asciiValue"]=1;
+$1=self._assert_equals_($2,(65));
+$ctx1.sendIdx["assert:equals:"]=1;
+$4=_st(characterU)._asciiValue();
+$3=self._assert_equals_($4,(85));
 return self}, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},smalltalk.StringTest)})},
 args: [],
-source: "testAsciiValue\x0a    |characterA characterU|\x0a    characterA := 'A'.\x0a    characterU := 'U'.\x0a    self assert: (characterA asciiValue) equals:65.\x0a    self assert: (characterU asciiValue) equals:85",
+source: "testAsciiValue\x0a    | characterA characterU |\x0a    characterA := 'A'.\x0a    characterU := 'U'.\x0a    self assert: (characterA asciiValue) equals:65.\x0a    self assert: (characterU asciiValue) equals:85",
 messageSends: ["assert:equals:", "asciiValue"],
 referencedClasses: []
 }),
@@ -3262,18 +3267,33 @@ selector: "testCharCodeAt",
 category: 'tests',
 fn: function (){
 var self=this;
-var s;
 return smalltalk.withContext(function($ctx1) { 
-s="jackie";
-self._assert_equals_("jackie"._charCodeAt_((1)),(106));
-self._assert_equals_("jackie"._charCodeAt_((2)),(97));
-self._assert_equals_("jackie"._charCodeAt_((3)),(99));
-self._assert_equals_("jackie"._charCodeAt_((4)),(107));
-self._assert_equals_("jackie"._charCodeAt_((5)),(105));
-self._assert_equals_("jackie"._charCodeAt_((6)),(101));
-return self}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{s:s},smalltalk.StringTest)})},
+var $2,$1,$4,$3,$6,$5,$8,$7,$10,$9,$12,$11;
+$2="jackie"._charCodeAt_((1));
+$ctx1.sendIdx["charCodeAt:"]=1;
+$1=self._assert_equals_($2,(106));
+$ctx1.sendIdx["assert:equals:"]=1;
+$4="jackie"._charCodeAt_((2));
+$ctx1.sendIdx["charCodeAt:"]=2;
+$3=self._assert_equals_($4,(97));
+$ctx1.sendIdx["assert:equals:"]=2;
+$6="jackie"._charCodeAt_((3));
+$ctx1.sendIdx["charCodeAt:"]=3;
+$5=self._assert_equals_($6,(99));
+$ctx1.sendIdx["assert:equals:"]=3;
+$8="jackie"._charCodeAt_((4));
+$ctx1.sendIdx["charCodeAt:"]=4;
+$7=self._assert_equals_($8,(107));
+$ctx1.sendIdx["assert:equals:"]=4;
+$10="jackie"._charCodeAt_((5));
+$ctx1.sendIdx["charCodeAt:"]=5;
+$9=self._assert_equals_($10,(105));
+$ctx1.sendIdx["assert:equals:"]=5;
+$12="jackie"._charCodeAt_((6));
+$11=self._assert_equals_($12,(101));
+return self}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},smalltalk.StringTest)})},
 args: [],
-source: "testCharCodeAt\x0a\x09|s|\x0a\x09s := 'jackie'.\x0a\x09self assert: ('jackie' charCodeAt:1) equals: 106.\x0a\x09self assert: ('jackie' charCodeAt:2) equals: 97.\x0a\x09self assert: ('jackie' charCodeAt:3) equals: 99.\x0a\x09self assert: ('jackie' charCodeAt:4) equals: 107.\x0a\x09self assert: ('jackie' charCodeAt:5) equals: 105.\x0a\x09self assert: ('jackie' charCodeAt:6) equals: 101.",
+source: "testCharCodeAt\x0a\x09self assert: ('jackie' charCodeAt:1) equals: 106.\x0a\x09self assert: ('jackie' charCodeAt:2) equals: 97.\x0a\x09self assert: ('jackie' charCodeAt:3) equals: 99.\x0a\x09self assert: ('jackie' charCodeAt:4) equals: 107.\x0a\x09self assert: ('jackie' charCodeAt:5) equals: 105.\x0a\x09self assert: ('jackie' charCodeAt:6) equals: 101",
 messageSends: ["assert:equals:", "charCodeAt:"],
 referencedClasses: []
 }),

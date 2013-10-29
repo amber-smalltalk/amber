@@ -942,7 +942,7 @@ testAsUpperCase
 !
 
 testAsciiValue
-    |characterA characterU|
+    | characterA characterU |
     characterA := 'A'.
     characterU := 'U'.
     self assert: (characterA asciiValue) equals:65.
@@ -969,14 +969,12 @@ testCapitalized
 !
 
 testCharCodeAt
-	|s|
-	s := 'jackie'.
 	self assert: ('jackie' charCodeAt:1) equals: 106.
 	self assert: ('jackie' charCodeAt:2) equals: 97.
 	self assert: ('jackie' charCodeAt:3) equals: 99.
 	self assert: ('jackie' charCodeAt:4) equals: 107.
 	self assert: ('jackie' charCodeAt:5) equals: 105.
-	self assert: ('jackie' charCodeAt:6) equals: 101.
+	self assert: ('jackie' charCodeAt:6) equals: 101
 !
 
 testCollect
