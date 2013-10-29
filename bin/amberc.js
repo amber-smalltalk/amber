@@ -242,11 +242,11 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 				amberJsFile = path.join(directory, jsFile);
 				return fs.existsSync(amberJsFile);
 			});
-            if (found) {
-                callback(amberJsFile);
-            } else {
-                throw(new Error('JavaScript file not found: ' + jsFile));
-            }
+			if (found) {
+				callback(amberJsFile);
+			} else {
+				throw(new Error('JavaScript file not found: ' + jsFile));
+			}
 		}
 	});
 };
