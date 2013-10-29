@@ -74,6 +74,7 @@ module.exports = function(grunt) {
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
         'SUnit', 'Importer-Exporter',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
+        main_class: 'NodeTestRunner',
         output_name: 'test/amber_test_runner'
       },
       amber_cli: {

@@ -5,7 +5,7 @@ Object subclass: #NodeTestRunner
 
 !NodeTestRunner class methodsFor: 'not yet classified'!
 
-initialize
+main
 	self runTestSuite
 !
 
