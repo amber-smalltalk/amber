@@ -777,6 +777,28 @@ IndexableCollectionTest subclass: #SequenceableCollectionTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
+!SequenceableCollectionTest methodsFor: 'tests'!
+
+testFirst
+	self assert: (self collection first) equals: (self collection at: 1)
+!
+
+testFourth
+	self assert: (self collection fourth) equals: (self collection at: 4)
+!
+
+testLast
+	self assert: (self collection last) equals: (self collection at: self collection size)
+!
+
+testSecond
+	self assert: (self collection second) equals: (self collection at: 2)
+!
+
+testThird
+	self assert: (self collection third) equals: (self collection at: 3)
+! !
+
 SequenceableCollectionTest subclass: #ArrayTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -784,15 +806,15 @@ SequenceableCollectionTest subclass: #ArrayTest
 !ArrayTest methodsFor: 'tests'!
 
 testAdd 
-	|array| 
-	array := #(1 2 3 4 5). 
-	array add:6 . 
+	| array | 
+	array := self collection. 
+	array add: 6.
 	
-	self assert: array equals: #(1 2 3 4 5 6).
+	self assert: array last equals: 6
 !
 
 testAddFirst
-	self assert: (#(2 3 4 5) addFirst: 1; yourself) equals: #(1 2 3 4 5)
+	self assert: (self collection addFirst: 0; yourself) first equals: 0
 !
 
 testAtIfAbsent
@@ -806,31 +828,12 @@ testAtIfAbsent
 	self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.
 !
 
-testFirst
-	|array|
-	array := #(1 2 3 4 5).
-	self assert: (array first) equals: (array at:1)
-!
-
 testFirstN
 	self assert: ({1. 2. 3. 4. 5} first: 3) equals: {1. 2. 3}
 !
 
-testFourth
-	|array|
-	array := #(1 2 3 4 5).
-	self assert: (array fourth) equals: (array at:4)
-!
-
 testIfEmpty
 	self assert: ( '' ifEmpty: ['zork'] ) equals: 'zork'
-!
-
-testLast
-	|array|
-	array := #(1 2 3 4 5).
-	
-	self assert: (array last) equals: (array at:5)
 !
 
 testPrintString
@@ -850,12 +853,12 @@ testPrintString
 !
 
 testRemove 
-	|array|
+	| array |
 	array := #(1 2 3 4 5). 
-	array remove:3.
+	array remove: 3.
 
 	self assert: array equals: #(1 2 4 5).
-	self should: [array remove:3] raise: Error.
+	self should: [ array remove: 3 ] raise: Error
 !
 
 testRemoveFromTo
@@ -873,11 +876,11 @@ testRemoveIndex
 !
 
 testRemoveLast 
-	|array|
+	| array |
 	array := #(1 2). 
 	array removeLast.
 	
-	self assert: array last equals: 1.
+	self assert: array last equals: 1
 !
 
 testReversed
@@ -886,25 +889,11 @@ testReversed
 	self assert: (array reversed) equals: #(1 2 3 4 5)
 !
 
-testSize
-	|array| 
-	array := #('hello' 'world'). 
-	
-	self assert: array size equals: 2. 
-	self assert: Array new size equals: 0.
-!
-
 testSort
-	|array|
+	| array |
 	array := #(3 1 4 5 2). 
 	array sort.
 	self assert: array equals: #(1 2 3 4 5)
-!
-
-testThird
-	|array|
-	array := #(1 2 3 4 5).
-	self assert: (array third) equals: (array at:3)
 ! !
 
 !ArrayTest class methodsFor: 'accessing'!
@@ -1809,10 +1798,10 @@ testEgality
 
 testNew
 
-	self assert: (Point new x: 3)y  equals: nil.
-	self deny: (Point new x: 3)x = 0.
-	self assert: (Point new y: 4)x  equals: nil.
-	self deny: (Point new y: 4)y  = 0.
+	self assert: (Point new x: 3) y equals: nil.
+	self deny: (Point new x: 3) x = 0.
+	self assert: (Point new y: 4) x equals: nil.
+	self deny: (Point new y: 4) y = 0
 !
 
 testTranslateBy
@@ -1826,26 +1815,27 @@ TestCase subclass: #QueueTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
 
-!QueueTest methodsFor: 'not yet classified'!
+!QueueTest methodsFor: 'tests'!
 
 testNextIfAbsent
-	|queue|
-	queue:=  Queue new.
+	| queue |
+	queue := Queue new.
 	queue nextPut: 'index1'. 
 
-	self assert: (queue  nextIfAbsent:'empty') = 'index1'.
-	self deny: (queue  nextIfAbsent:'empty') = 'index1'.
+	self assert: (queue  nextIfAbsent: 'empty') = 'index1'.
+	self deny: (queue  nextIfAbsent: 'empty') = 'index1'
 !
 
 testQueueNext
-	|queue|               
-	queue:=  Queue new.
-	queue     nextPut: 'index1' ;
-	nextPut: 'index2' . 
+	| queue |               
+	queue := Queue new.
+	queue 
+		nextPut: 'index1';
+		nextPut: 'index2'.
 
 	self assert: queue next = 'index1'.
 	self deny: queue next = 'index'.
-	self should:[ queue next ] raise: Error.
+	self should: [ queue next ] raise: Error
 ! !
 
 TestCase subclass: #RandomTest
