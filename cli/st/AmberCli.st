@@ -1027,7 +1027,7 @@ instanceVariableNamesFor: aClass
 !
 
 isIdentifier: aString
-	^ aString match: '^[a-z_]\w+$' asRegexp
+	^ aString match: '^[a-z_]\w*$' asRegexp
 !
 
 isVariableDefined: aString
