@@ -32,13 +32,12 @@ fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@inspector"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@inspector"]) == nil || $receiver == null){
 self["@inspector"]=$Transcript();
 $1=self["@inspector"];
 } else {
-$1=$2;
+$1=self["@inspector"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspector",{},smalltalk.InspectorHandler.klass)})},
@@ -294,12 +293,11 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st($Smalltalk())._current())._at_(_st(aString)._asSymbol());
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = _st(_st($Smalltalk())._current())._at_(_st(aString)._asSymbol())) == nil || $receiver == null){
 $1=self._error_("Invalid class name");
 } else {
-$1=$2;
+$1=_st(_st($Smalltalk())._current())._at_(_st(aString)._asSymbol());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNamed:",{aString:aString},smalltalk.Environment)})},
@@ -405,15 +403,14 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=_st(_st($Smalltalk())._current())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == null){
-$1;
+var $2,$1;
+if(($receiver = _st(_st($Smalltalk())._current())._at_(aClassName)) == nil || $receiver == null){
+_st(_st($Smalltalk())._current())._at_(aClassName);
 } else {
-$3="A class named ".__comma(aClassName);
-$2=_st($3).__comma(" already exists");
+$2="A class named ".__comma(aClassName);
+$1=_st($2).__comma(" already exists");
 $ctx1.sendIdx[","]=1;
-self._error_($2);
+self._error_($1);
 };
 _st(_st($ClassBuilder())._new())._copyClass_named_(aClass,aClassName);
 return self}, function($ctx1) {$ctx1.fill(self,"copyClass:to:",{aClass:aClass,aClassName:aClassName},smalltalk.Environment)})},
@@ -465,11 +462,9 @@ category: 'error handling',
 fn: function (aBlock,anErrorClass,exceptionBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 self._try_catch_(aBlock,(function(exception){
 return smalltalk.withContext(function($ctx2) {
-$1=_st(exception)._isKindOf_(self._classNamed_(_st(anErrorClass)._name()));
-if(smalltalk.assert($1)){
+if(smalltalk.assert(_st(exception)._isKindOf_(self._classNamed_(_st(anErrorClass)._name())))){
 return _st(exceptionBlock)._value_(exception);
 } else {
 return _st(exception)._signal();
@@ -509,16 +504,13 @@ var self=this;
 var package_;
 function $Package(){return smalltalk.Package||(typeof Package=="undefined"?nil:Package)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 package_=_st($Package())._named_(aPackageName);
-$1=package_;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = package_) == nil || $receiver == null){
 self._error_("Invalid package name");
 } else {
-$1;
+package_;
 };
-$2=_st(package_).__eq_eq(_st(aClass)._package());
-if(smalltalk.assert($2)){
+if(smalltalk.assert(_st(package_).__eq_eq(_st(aClass)._package()))){
 return self;
 };
 _st(aClass)._package_(package_);
@@ -539,24 +531,23 @@ var self=this;
 var destinationClass;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2,$5;
+var $2,$3,$1,$4;
 destinationClass=_st(_st($Smalltalk())._current())._at_(_st(aClassName)._asSymbol());
-$1=destinationClass;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = destinationClass) == nil || $receiver == null){
 self._error_("Invalid class name");
 } else {
-$1;
+destinationClass;
 };
-$3=destinationClass;
-$4=_st(aMethod)._methodClass();
+$2=destinationClass;
+$3=_st(aMethod)._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
-$2=_st($3).__eq_eq($4);
-if(smalltalk.assert($2)){
+$1=_st($2).__eq_eq($3);
+if(smalltalk.assert($1)){
 return self;
 };
 _st(destinationClass)._compile_category_(_st(aMethod)._source(),_st(aMethod)._protocol());
-$5=_st(aMethod)._methodClass();
-_st($5)._removeCompiledMethod_(aMethod);
+$4=_st(aMethod)._methodClass();
+_st($4)._removeCompiledMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.Environment)})},
 args: ["aMethod", "aClassName"],
 source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := Smalltalk current at: aClassName asSymbol.\x0a\x09destinationClass ifNil: [ self error: 'Invalid class name' ].\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09category: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
@@ -715,15 +706,14 @@ var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=_st(_st($Smalltalk())._current())._at_(aClassName);
-if(($receiver = $1) == nil || $receiver == null){
-$1;
+var $2,$1;
+if(($receiver = _st(_st($Smalltalk())._current())._at_(aClassName)) == nil || $receiver == null){
+_st(_st($Smalltalk())._current())._at_(aClassName);
 } else {
-$3="A class named ".__comma(aClassName);
-$2=_st($3).__comma(" already exists");
+$2="A class named ".__comma(aClassName);
+$1=_st($2).__comma(" already exists");
 $ctx1.sendIdx[","]=1;
-self._error_($2);
+self._error_($1);
 };
 _st(_st($ClassBuilder())._new())._renameClass_to_(aClass,aClassName);
 return self}, function($ctx1) {$ctx1.fill(self,"renameClass:to:",{aClass:aClass,aClassName:aClassName},smalltalk.Environment)})},
@@ -914,9 +904,8 @@ category: 'proxy',
 fn: function (aMessage){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector())) == nil || $receiver == null){
 $1=smalltalk.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
 } else {
 var jsSelector;
@@ -1294,47 +1283,41 @@ fn: function (){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$7,$8,$6,$9,$12,$11,$10,$13,$15,$16,$14,$18,$19,$17,$1;
+var $2,$4,$5,$3,$8,$7,$6,$10,$11,$9,$13,$12,$1;
 $1=_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
-$2=stream;
-$3=$2;
-$4=_st(self._class())._name();
+$2=_st(self._class())._name();
 $ctx2.sendIdx["name"]=1;
-_st($3)._nextPutAll_($4);
+_st(stream)._nextPutAll_($2);
 $ctx2.sendIdx["nextPutAll:"]=1;
-$5=$2;
-$7=_st($String())._lf();
+$4=_st($String())._lf();
 $ctx2.sendIdx["lf"]=1;
-$8=_st($String())._tab();
+$5=_st($String())._tab();
 $ctx2.sendIdx["tab"]=1;
-$6=_st($7).__comma($8);
+$3=_st($4).__comma($5);
 $ctx2.sendIdx[","]=1;
-_st($5)._nextPutAll_($6);
+_st(stream)._nextPutAll_($3);
 $ctx2.sendIdx["nextPutAll:"]=2;
-_st($2)._nextPutAll_(" named: ");
+_st(stream)._nextPutAll_(" named: ");
 $ctx2.sendIdx["nextPutAll:"]=3;
-$9=$2;
-$12=self._name();
-$11="'".__comma($12);
+$8=self._name();
+$7="'".__comma($8);
 $ctx2.sendIdx[","]=3;
-$10=_st($11).__comma("'");
+$6=_st($7).__comma("'");
 $ctx2.sendIdx[","]=2;
-_st($9)._nextPutAll_($10);
+_st(stream)._nextPutAll_($6);
 $ctx2.sendIdx["nextPutAll:"]=4;
-$13=$2;
-$15=_st($String())._lf();
-$16=_st($String())._tab();
-$14=_st($15).__comma($16);
+$10=_st($String())._lf();
+$11=_st($String())._tab();
+$9=_st($10).__comma($11);
 $ctx2.sendIdx[","]=4;
-_st($13)._nextPutAll_($14);
+_st(stream)._nextPutAll_($9);
 $ctx2.sendIdx["nextPutAll:"]=5;
-_st($2)._nextPutAll_(" transport: (");
+_st(stream)._nextPutAll_(" transport: (");
 $ctx2.sendIdx["nextPutAll:"]=6;
-$18=$2;
-$19=_st(_st(self._transport())._definition()).__comma(")");
-$17=_st($18)._nextPutAll_($19);
-return $17;
+$13=_st(_st(self._transport())._definition()).__comma(")");
+$12=_st(stream)._nextPutAll_($13);
+return $12;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"definition",{},smalltalk.Package)})},
@@ -1485,14 +1468,13 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 smalltalk.Package.superclass.fn.prototype._printOn_.apply(_st(self), [aStream]);
-$1=aStream;
-_st($1)._nextPutAll_(" (");
+_st(aStream)._nextPutAll_(" (");
 $ctx1.sendIdx["nextPutAll:"]=1;
-_st($1)._nextPutAll_(self._name());
+_st(aStream)._nextPutAll_(self._name());
 $ctx1.sendIdx["nextPutAll:"]=2;
-$2=_st($1)._nextPutAll_(")");
+$1=_st(aStream)._nextPutAll_(")");
 return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Package)})},
 args: ["aStream"],
 source: "printOn: aStream\x0a\x09super printOn: aStream.\x0a\x09aStream \x0a\x09\x09nextPutAll: ' (';\x0a\x09\x09nextPutAll: self name;\x0a\x09\x09nextPutAll: ')'",
@@ -1554,16 +1536,15 @@ fn: function (){
 var self=this;
 function $PackageTransport(){return smalltalk.PackageTransport||(typeof PackageTransport=="undefined"?nil:PackageTransport)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2=self["@transport"];
-if(($receiver = $2) == nil || $receiver == null){
-$3=_st($PackageTransport())._fromJson_(self._basicTransport());
-_st($3)._package_(self);
-$4=_st($3)._yourself();
-self["@transport"]=$4;
+var $2,$3,$1;
+if(($receiver = self["@transport"]) == nil || $receiver == null){
+$2=_st($PackageTransport())._fromJson_(self._basicTransport());
+_st($2)._package_(self);
+$3=_st($2)._yourself();
+self["@transport"]=$3;
 $1=self["@transport"];
 } else {
-$1=$2;
+$1=self["@transport"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"transport",{},smalltalk.Package)})},
@@ -1668,13 +1649,12 @@ var children,others,nodes,expandedClasses;
 function $ClassSorterNode(){return smalltalk.ClassSorterNode||(typeof ClassSorterNode=="undefined"?nil:ClassSorterNode)}
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5,$7,$8;
+var $2,$1,$4,$3,$5;
 children=[];
 others=[];
-$1=_st(classes)._do_((function(each){
+_st(classes)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(classes)._includes_(_st(each)._superclass());
-if(smalltalk.assert($2)){
+if(smalltalk.assert(_st(classes)._includes_(_st(each)._superclass()))){
 return _st(others)._add_(each);
 } else {
 return _st(children)._add_(each);
@@ -1688,21 +1668,21 @@ return _st($ClassSorterNode())._on_classes_level_(each,others,(0));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 nodes=_st(nodes)._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
-$4=_st(a)._theClass();
+$2=_st(a)._theClass();
 $ctx2.sendIdx["theClass"]=1;
-$3=_st($4)._name();
+$1=_st($2)._name();
 $ctx2.sendIdx["name"]=1;
-$6=_st(b)._theClass();
-$5=_st($6)._name();
-return _st($3).__lt_eq($5);
+$4=_st(b)._theClass();
+$3=_st($4)._name();
+return _st($1).__lt_eq($3);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,5)})}));
 expandedClasses=_st($Array())._new();
-$7=_st(nodes)._do_((function(aNode){
+_st(nodes)._do_((function(aNode){
 return smalltalk.withContext(function($ctx2) {
 return _st(aNode)._traverseClassesWith_(expandedClasses);
 }, function($ctx2) {$ctx2.fillBlock({aNode:aNode},$ctx1,6)})}));
-$8=expandedClasses;
-return $8;
+$5=expandedClasses;
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"sortedClasses:",{classes:classes,children:children,others:others,nodes:nodes,expandedClasses:expandedClasses},smalltalk.Package.klass)})},
 args: ["classes"],
 source: "sortedClasses: classes\x0a\x09\x22Answer classes, sorted by superclass/subclasses and by class name for common subclasses (Issue #143)\x22\x0a\x0a\x09| children others nodes expandedClasses |\x0a\x09children := #().\x0a\x09others := #().\x0a\x09classes do: [:each |\x0a\x09\x09(classes includes: each superclass)\x0a\x09\x09\x09ifFalse: [children add: each]\x0a\x09\x09\x09ifTrue: [others add: each]].\x0a\x09nodes := children collect: [:each |\x0a\x09\x09ClassSorterNode on: each classes: others level: 0].\x0a\x09nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].\x0a\x09expandedClasses := Array new.\x0a\x09nodes do: [:aNode |\x0a\x09\x09aNode traverseClassesWith: expandedClasses].\x0a\x09^expandedClasses",
@@ -1723,9 +1703,8 @@ category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@worker"]) == nil || $receiver == null){
 $1=self._error_("ajax: not available");
 } else {
 $1=_st(self["@worker"])._ajax_(anObject);
@@ -1746,9 +1725,8 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@worker"]) == nil || $receiver == null){
 $1=self._error_("alert: not available");
 } else {
 $1=_st(self["@worker"])._alert_(aString);
@@ -1769,9 +1747,8 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@worker"]) == nil || $receiver == null){
 $1=self._error_("confirm: not available");
 } else {
 $1=_st(self["@worker"])._confirm_(aString);
@@ -1835,16 +1812,13 @@ var self=this;
 var candidate;
 function $BrowserInterface(){return smalltalk.BrowserInterface||(typeof BrowserInterface=="undefined"?nil:BrowserInterface)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 smalltalk.PlatformInterface.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-$1=$BrowserInterface();
-if(($receiver = $1) == nil || $receiver == null){
-$1;
+if(($receiver = $BrowserInterface()) == nil || $receiver == null){
+$BrowserInterface();
 } else {
 candidate=_st($BrowserInterface())._new();
 candidate;
-$2=_st(candidate)._isAvailable();
-if(smalltalk.assert($2)){
+if(smalltalk.assert(_st(candidate)._isAvailable())){
 self._setWorker_(candidate);
 return self;
 };
@@ -1864,9 +1838,8 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@worker"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@worker"]) == nil || $receiver == null){
 $1=self._error_("prompt: not available");
 } else {
 $1=_st(self["@worker"])._prompt_(aString);
@@ -1924,13 +1897,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@current"]) == nil || $receiver == null){
 self["@current"]=self._new();
 $1=self["@current"];
 } else {
-$1=$2;
+$1=self["@current"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ProgressHandler.klass)})},
@@ -2036,12 +2008,11 @@ var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $JavaScriptException(){return smalltalk.JavaScriptException||(typeof JavaScriptException=="undefined"?nil:JavaScriptException)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self._isSmalltalkObject_(anObject))._and_((function(){
+var $1;
+if(smalltalk.assert(_st(self._isSmalltalkObject_(anObject))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(anObject)._isKindOf_($Error());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-if(smalltalk.assert($2)){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))){
 $1=anObject;
 } else {
 $1=_st($JavaScriptException())._on_(anObject);
@@ -2080,9 +2051,8 @@ category: 'accessing',
 fn: function (aKey,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._includesKey_(aKey);
-$1=_st($2)._ifTrue_ifFalse_((function(){
+var $1;
+$1=_st(self._includesKey_(aKey))._ifTrue_ifFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._at_(aKey);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
@@ -2195,14 +2165,13 @@ category: 'private',
 fn: function (packageName,aDict){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 self._deprecatedAPI();
-$1=_st(aDict)._isEmpty();
-if(! smalltalk.assert($1)){
+if(! smalltalk.assert(_st(aDict)._isEmpty())){
 self._error_("createPackage:properties: called with nonempty properties");
 };
-$2=self._createPackage_(packageName);
-return $2;
+$1=self._createPackage_(packageName);
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"createPackage:properties:",{packageName:packageName,aDict:aDict},smalltalk.Smalltalk)})},
 args: ["packageName", "aDict"],
 source: "createPackage: packageName properties: aDict\x0a\x09\x22Needed to import .st files: they begin with this call.\x22\x0a\x09self deprecatedAPI.\x0a\x09\x0a\x09aDict isEmpty ifFalse: [ self error: 'createPackage:properties: called with nonempty properties' ].\x0a\x09^ self createPackage: packageName",
@@ -2366,9 +2335,8 @@ category: 'packages',
 fn: function (packageName,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._packageAt_(packageName);
-$1=_st($2)._ifNil_(aBlock);
+var $1;
+$1=_st(self._packageAt_(packageName))._ifNil_(aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"packageAt:ifAbsent:",{packageName:packageName,aBlock:aBlock},smalltalk.Smalltalk)})},
 args: ["packageName", "aBlock"],
@@ -2507,16 +2475,15 @@ var self=this;
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $ClassRemoved(){return smalltalk.ClassRemoved||(typeof ClassRemoved=="undefined"?nil:ClassRemoved)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(aClass)._isMetaclass();
-if(smalltalk.assert($1)){
+var $1,$2;
+if(smalltalk.assert(_st(aClass)._isMetaclass())){
 self._error_(_st(_st(aClass)._asString()).__comma(" is a Metaclass and cannot be removed!"));
 };
 self._deleteClass_(aClass);
-$2=_st($ClassRemoved())._new();
-_st($2)._theClass_(aClass);
-$3=_st($2)._yourself();
-_st(_st($SystemAnnouncer())._current())._announce_($3);
+$1=_st($ClassRemoved())._new();
+_st($1)._theClass_(aClass);
+$2=_st($1)._yourself();
+_st(_st($SystemAnnouncer())._current())._announce_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"removeClass:",{aClass:aClass},smalltalk.Smalltalk)})},
 args: ["aClass"],
 source: "removeClass: aClass\x0a\x09aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!'].\x0a\x09\x0a\x09self deleteClass: aClass.\x0a\x09\x0a\x09SystemAnnouncer current\x0a\x09\x09announce: (ClassRemoved new\x0a\x09\x09\x09theClass: aClass;\x0a\x09\x09\x09yourself)",
@@ -2558,7 +2525,7 @@ fn: function (packageName,newName){
 var self=this;
 var pkg;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 pkg=self._packageAt_ifAbsent_(packageName,(function(){
 return smalltalk.withContext(function($ctx2) {
 $1="Missing package: ".__comma(packageName);
@@ -2566,12 +2533,11 @@ $ctx2.sendIdx[","]=1;
 return self._error_($1);
 $ctx2.sendIdx["error:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$2=self._packageAt_(newName);
-if(($receiver = $2) == nil || $receiver == null){
-$2;
+if(($receiver = self._packageAt_(newName)) == nil || $receiver == null){
+self._packageAt_(newName);
 } else {
-$3="Already exists a package called: ".__comma(newName);
-self._error_($3);
+$2="Already exists a package called: ".__comma(newName);
+self._error_($2);
 };
 _st(self._at_("packages"))._at_put_(newName,pkg);
 _st(pkg)._name_(newName);

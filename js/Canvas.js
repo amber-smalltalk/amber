@@ -627,7 +627,7 @@ fn: function (aString){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1,$5,$6;
+var $2,$4,$3,$1,$5;
 $2="<span />"._asJQuery();
 $4="&".__comma(aString);
 $ctx1.sendIdx[","]=2;
@@ -635,10 +635,9 @@ $3=_st($4).__comma(";");
 $ctx1.sendIdx[","]=1;
 $1=_st($2)._html_($3);
 result=_st($1)._text();
-$5=_st(_st(result)._size()).__eq((1));
-if(! smalltalk.assert($5)){
-$6="Not an HTML entity: ".__comma(aString);
-self._error_($6);
+if(! smalltalk.assert(_st(_st(result)._size()).__eq((1)))){
+$5="Not an HTML entity: ".__comma(aString);
+self._error_($5);
 };
 self._with_(result);
 return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},smalltalk.HTMLCanvas)})},
@@ -1125,14 +1124,12 @@ fn: function (){
 var self=this;
 function $TagBrush(){return smalltalk.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 smalltalk.HTMLCanvas.superclass.fn.prototype._initialize.apply(_st(self), []);
-$1=self["@root"];
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = self["@root"]) == nil || $receiver == null){
 self["@root"]=_st($TagBrush())._fromString_canvas_("div",self);
 self["@root"];
 } else {
-$1;
+self["@root"];
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HTMLCanvas)})},
 args: [],
@@ -1707,19 +1704,18 @@ var self=this;
 var clone,caret;
 function $TagBrush(){return smalltalk.TagBrush||(typeof TagBrush=="undefined"?nil:TagBrush)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 clone=_st(_st(anElement)._asJQuery())._clone();
 $1=_st($TagBrush())._fromJQuery_canvas_(clone,self);
 $ctx1.sendIdx["fromJQuery:canvas:"]=1;
 self._with_($1);
 caret=_st(clone)._find_("[data-snippet=\x22*\x22]");
-$2=_st(_st(caret)._toArray())._isEmpty();
-if(smalltalk.assert($2)){
+if(smalltalk.assert(_st(_st(caret)._toArray())._isEmpty())){
 caret=clone;
 caret;
 };
-$3=_st($TagBrush())._fromJQuery_canvas_(_st(caret)._removeAttr_("data-snippet"),self);
-return $3;
+$2=_st($TagBrush())._fromJQuery_canvas_(_st(caret)._removeAttr_("data-snippet"),self);
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"snippet:",{anElement:anElement,clone:clone,caret:caret},smalltalk.HTMLCanvas)})},
 args: ["anElement"],
 source: "snippet: anElement\x0a\x09\x22Adds clone of anElement, finds [data-snippet=\x22\x22*\x22\x22] subelement\x0a\x09and returns TagBrush as if that subelement was just added.\x0a\x09\x0a\x09Rarely needed to use directly, use `html foo` dynamically installed method\x0a\x09for a snippet named foo.\x22\x0a\x09\x0a\x09| clone caret |\x0a\x09\x0a\x09clone := anElement asJQuery clone.\x0a\x09self with: (TagBrush fromJQuery: clone canvas: self).\x0a\x09caret := clone find: '[data-snippet=\x22*\x22]'.\x0a\x09caret toArray isEmpty ifTrue: [ caret := clone ].\x0a\x09^TagBrush fromJQuery: (caret removeAttr: 'data-snippet') canvas: self",
@@ -2337,12 +2333,9 @@ fn: function (element){
 var self=this;
 var name;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 name=_st(element)._attr_("data-snippet");
-$1=_st(name).__eq("*");
-if(! smalltalk.assert($1)){
-$2=_st("^\x5c*"._asRegexp())._test_(name);
-if(smalltalk.assert($2)){
+if(! smalltalk.assert(_st(name).__eq("*"))){
+if(smalltalk.assert(_st("^\x5c*"._asRegexp())._test_(name))){
 name=_st(name)._allButFirst();
 name;
 _st(element)._attr_put_("data-snippet","*");
@@ -2422,13 +2415,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@snippets"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@snippets"]) == nil || $receiver == null){
 self["@snippets"]=smalltalk.HashedCollection._from_([]);
 $1=self["@snippets"];
 } else {
-$1=$2;
+$1=self["@snippets"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"snippets",{},smalltalk.HTMLSnippet)})},
@@ -2484,16 +2476,15 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=self["@current"];
-if(($receiver = $1) == nil || $receiver == null){
-$2=smalltalk.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);
-_st($2)._initializeFromJQuery_(_st(document)._asJQuery());
-$3=_st($2)._yourself();
-self["@current"]=$3;
+var $1,$2;
+if(($receiver = self["@current"]) == nil || $receiver == null){
+$1=smalltalk.HTMLSnippet.klass.superclass.fn.prototype._new.apply(_st(self), []);
+_st($1)._initializeFromJQuery_(_st(document)._asJQuery());
+$2=_st($1)._yourself();
+self["@current"]=$2;
 self["@current"];
 } else {
-$1;
+self["@current"];
 };
 return self}, function($ctx1) {$ctx1.fill(self,"ensureCurrent",{},smalltalk.HTMLSnippet.klass)})},
 args: [],
@@ -2510,10 +2501,8 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 smalltalk.HTMLSnippet.klass.superclass.fn.prototype._initialize.apply(_st(self), []);
-$1=self._isDOMAvailable();
-if(smalltalk.assert($1)){
+if(smalltalk.assert(self._isDOMAvailable())){
 self._ensureCurrent();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.HTMLSnippet.klass)})},
@@ -2598,10 +2587,8 @@ category: 'adding',
 fn: function (aTagBrush){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 self._appendChild_(_st(aTagBrush)._element());
-$1=aTagBrush;
-return $1;
+return aTagBrush;
 }, function($ctx1) {$ctx1.fill(self,"addBrush:",{aTagBrush:aTagBrush},smalltalk.TagBrush)})},
 args: ["aTagBrush"],
 source: "addBrush: aTagBrush\x0a\x09self appendChild: aTagBrush element.\x0a\x09^aTagBrush",
@@ -2666,12 +2653,11 @@ fn: function (aBlock){
 var self=this;
 var root;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
 root=_st(self["@canvas"])._root();
-$1=_st(self["@canvas"])._root_(self);
+_st(self["@canvas"])._root_(self);
 $ctx1.sendIdx["root:"]=1;
 _st(aBlock)._value_(self["@canvas"]);
-$2=_st(self["@canvas"])._root_(root);
+_st(self["@canvas"])._root_(root);
 return self}, function($ctx1) {$ctx1.fill(self,"appendBlock:",{aBlock:aBlock,root:root},smalltalk.TagBrush)})},
 args: ["aBlock"],
 source: "appendBlock: aBlock\x0a\x09| root |\x0a\x09root := canvas root.\x0a\x09canvas root: self.\x0a\x09aBlock value: canvas.\x0a\x09canvas root: root",
@@ -3780,9 +3766,7 @@ fn: function (aString){
 var self=this;
 function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($HTMLCanvas())._isMSIE();
-if(smalltalk.assert($1)){
+if(smalltalk.assert(_st($HTMLCanvas())._isMSIE())){
 _st(_st(self._element())._styleSheet())._cssText_(aString);
 } else {
 smalltalk.StyleTag.superclass.fn.prototype._with_.apply(_st(self), [aString]);

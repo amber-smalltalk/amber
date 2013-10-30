@@ -11,13 +11,12 @@ fn: function (){
 var self=this;
 function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@announcer"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@announcer"]) == nil || $receiver == null){
 self["@announcer"]=_st($Announcer())._new();
 $1=self["@announcer"];
 } else {
-$1=$2;
+$1=self["@announcer"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLCodeModel)})},
@@ -73,12 +72,11 @@ fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@environment"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@environment"]) == nil || $receiver == null){
 $1=_st(_st($HLManager())._current())._environment();
 } else {
-$1=$2;
+$1=self["@environment"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"environment",{},smalltalk.HLCodeModel)})},
@@ -128,13 +126,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@receiver"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@receiver"]) == nil || $receiver == null){
 self["@receiver"]=self._defaultReceiver();
 $1=self["@receiver"];
 } else {
-$1=$2;
+$1=self["@receiver"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.HLCodeModel)})},
@@ -284,11 +281,9 @@ category: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 _st(self["@editor"])._setValue_(aString);
-$1=self["@state"];
-if(($receiver = $1) == nil || $receiver == null){
-$1;
+if(($receiver = self["@state"]) == nil || $receiver == null){
+self["@state"];
 } else {
 self._updateState();
 };
@@ -325,9 +320,8 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(self["@editor"])._somethingSelected();
-if(smalltalk.assert($2)){
+var $1;
+if(smalltalk.assert(_st(self["@editor"])._somethingSelected())){
 $1=self._selection();
 } else {
 $1=self._currentLine();
@@ -351,22 +345,22 @@ var result;
 function $HLDoItRequested(){return smalltalk.HLDoItRequested||(typeof HLDoItRequested=="undefined"?nil:HLDoItRequested)}
 function $HLDoItExecuted(){return smalltalk.HLDoItExecuted||(typeof HLDoItExecuted=="undefined"?nil:HLDoItExecuted)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$1,$7,$6,$8,$5,$9;
-$3=self._model();
+var $2,$1,$3,$5,$4,$6,$7;
+$2=self._model();
 $ctx1.sendIdx["model"]=1;
-$2=_st($3)._announcer();
+$1=_st($2)._announcer();
 $ctx1.sendIdx["announcer"]=1;
-$4=_st($HLDoItRequested())._on_(self["@model"]);
+$3=_st($HLDoItRequested())._on_(self["@model"]);
 $ctx1.sendIdx["on:"]=1;
-$1=_st($2)._announce_($4);
+_st($1)._announce_($3);
 $ctx1.sendIdx["announce:"]=1;
 result=_st(self["@model"])._doIt_(self._currentLineOrSelection());
-$7=self._model();
-$6=_st($7)._announcer();
-$8=_st($HLDoItExecuted())._on_(self["@model"]);
-$5=_st($6)._announce_($8);
-$9=result;
-return $9;
+$5=self._model();
+$4=_st($5)._announcer();
+$6=_st($HLDoItExecuted())._on_(self["@model"]);
+_st($4)._announce_($6);
+$7=result;
+return $7;
 }, function($ctx1) {$ctx1.fill(self,"doIt",{result:result},smalltalk.HLCodeWidget)})},
 args: [],
 source: "doIt\x0a\x09| result |\x0a\x0a\x09self model announcer announce: (HLDoItRequested on: model).\x0a\x09result := model doIt: self currentLineOrSelection.\x0a\x09self model announcer announce: (HLDoItExecuted on: model).\x0a\x0a\x09^ result",
@@ -513,18 +507,16 @@ fn: function (anEditor,aToken){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$1;
+var $2,$3,$1;
 $1=_st(_st(_st(_st(_st(_st($Smalltalk())._current())._at_("allSelectors"))._value())._asArray())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$2=each;
-$3=_st(aToken)._string();
+$2=_st(aToken)._string();
 $ctx2.sendIdx["string"]=1;
-return _st($2)._includesSubString_($3);
+return _st(each)._includesSubString_($2);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$4=each;
-$5=_st(aToken)._string();
-return _st($4).__eq($5);
+$3=_st(aToken)._string();
+return _st(each).__eq($3);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageHintFor:token:",{anEditor:anEditor,aToken:aToken},smalltalk.HLCodeWidget)})},
@@ -543,13 +535,12 @@ fn: function (){
 var self=this;
 function $HLCodeModel(){return smalltalk.HLCodeModel||(typeof HLCodeModel=="undefined"?nil:HLCodeModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@model"]) == nil || $receiver == null){
 self["@model"]=_st($HLCodeModel())._new();
 $1=self["@model"];
 } else {
-$1=$2;
+$1=self["@model"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLCodeWidget)})},
@@ -664,59 +655,59 @@ var self=this;
 var start,stop,currentLine;
 function $HashedCollection(){return smalltalk.HashedCollection||(typeof HashedCollection=="undefined"?nil:HashedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$6,$5,$3,$7,$8,$9,$10,$12,$13,$11,$14,$16,$19,$20,$18,$17,$15,$21,$25,$24,$23,$22,$26,$27,$28;
+var $1,$2,$4,$3,$5,$6,$7,$8,$10,$11,$9,$12,$15,$16,$14,$13,$17,$21,$20,$19,$18,$22,$23;
 $1=_st(self["@editor"])._getCursor_(false);
 $ctx1.sendIdx["getCursor:"]=1;
 currentLine=_st($1)._line();
 start=_st($HashedCollection())._new();
 $ctx1.sendIdx["new"]=1;
-$2=_st(start)._at_put_("line",currentLine);
+_st(start)._at_put_("line",currentLine);
 $ctx1.sendIdx["at:put:"]=1;
-$4=start;
-$6=_st(self["@editor"])._getCursor_(false);
+$2=start;
+$4=_st(self["@editor"])._getCursor_(false);
 $ctx1.sendIdx["getCursor:"]=2;
-$5=_st($6)._ch();
-$3=_st($4)._at_put_("ch",$5);
+$3=_st($4)._ch();
+_st($2)._at_put_("ch",$3);
 $ctx1.sendIdx["at:put:"]=2;
-$7=_st(self["@editor"])._getSelection();
+$5=_st(self["@editor"])._getSelection();
 $ctx1.sendIdx["getSelection"]=1;
-_st($7)._ifEmpty_((function(){
+_st($5)._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
-$8=start;
-$9=_st(_st(self["@editor"])._getLine_(currentLine))._size();
+$6=start;
+$7=_st(_st(self["@editor"])._getLine_(currentLine))._size();
 $ctx2.sendIdx["size"]=1;
-_st($8)._at_put_("ch",$9);
+_st($6)._at_put_("ch",$7);
 $ctx2.sendIdx["at:put:"]=3;
-$10=self["@editor"];
-$12="line".__minus_gt(currentLine);
+$8=self["@editor"];
+$10="line".__minus_gt(currentLine);
 $ctx2.sendIdx["->"]=1;
-$13="ch".__minus_gt((0));
-$11=smalltalk.HashedCollection._from_([$12,$13]);
-return _st($10)._setSelection_end_($11,start);
+$11="ch".__minus_gt((0));
+$9=smalltalk.HashedCollection._from_([$10,$11]);
+return _st($8)._setSelection_end_($9,start);
 $ctx2.sendIdx["setSelection:end:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 stop=_st($HashedCollection())._new();
-$14=_st(stop)._at_put_("line",currentLine);
+_st(stop)._at_put_("line",currentLine);
 $ctx1.sendIdx["at:put:"]=4;
-$16=stop;
-$19=_st(start)._at_("ch");
-$20=_st(aString)._size();
-$18=_st($19).__plus($20);
-$17=_st($18).__plus((2));
+$12=stop;
+$15=_st(start)._at_("ch");
+$16=_st(aString)._size();
+$14=_st($15).__plus($16);
+$13=_st($14).__plus((2));
 $ctx1.sendIdx["+"]=1;
-$15=_st($16)._at_put_("ch",$17);
-$21=self["@editor"];
-$25=_st(self["@editor"])._getSelection();
-$24=_st($25).__comma(" ");
-$23=_st($24).__comma(aString);
+_st($12)._at_put_("ch",$13);
+$17=self["@editor"];
+$21=_st(self["@editor"])._getSelection();
+$20=_st($21).__comma(" ");
+$19=_st($20).__comma(aString);
 $ctx1.sendIdx[","]=2;
-$22=_st($23).__comma(" ");
+$18=_st($19).__comma(" ");
 $ctx1.sendIdx[","]=1;
-_st($21)._replaceSelection_($22);
-$26=self["@editor"];
-$27=_st(self["@editor"])._getCursor_(true);
-_st($26)._setCursor_($27);
-$28=_st(self["@editor"])._setSelection_end_(stop,start);
+_st($17)._replaceSelection_($18);
+$22=self["@editor"];
+$23=_st(self["@editor"])._getCursor_(true);
+_st($22)._setCursor_($23);
+_st(self["@editor"])._setSelection_end_(stop,start);
 return self}, function($ctx1) {$ctx1.fill(self,"print:",{aString:aString,start:start,stop:stop,currentLine:currentLine},smalltalk.HLCodeWidget)})},
 args: ["aString"],
 source: "print: aString\x0a\x09| start stop currentLine |\x0a    currentLine := (editor getCursor: false) line.\x0a\x09start := HashedCollection new.\x0a\x09start at: 'line' put: currentLine.\x0a\x09start at: 'ch' put: (editor getCursor: false) ch.\x0a    (editor getSelection) ifEmpty: [\x0a    \x09\x22select current line if selection is empty\x22\x0a    \x09start at: 'ch' put: (editor getLine: currentLine) size.\x0a        editor setSelection: #{'line' -> currentLine. 'ch' -> 0} end: start.\x0a    ].\x0a\x09stop := HashedCollection new.\x0a\x09stop at: 'line' put: currentLine.\x0a\x09stop at: 'ch' put: ((start at: 'ch') + aString size + 2).\x0a\x0a\x09editor replaceSelection: (editor getSelection, ' ', aString, ' ').\x0a\x09editor setCursor: (editor getCursor: true).\x0a\x09editor setSelection: stop end: start",
@@ -988,15 +979,14 @@ category: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=self._hasModification();
-if(smalltalk.assert($1)){
-$2=_st(self["@state"])._asJQuery();
+var $1,$2;
+if(smalltalk.assert(self._hasModification())){
+$1=_st(self["@state"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
-_st($2)._addClass_("modified");
+_st($1)._addClass_("modified");
 } else {
-$3=_st(self["@state"])._asJQuery();
-_st($3)._removeClass_("modified");
+$2=_st(self["@state"])._asJQuery();
+_st($2)._removeClass_("modified");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"updateState",{},smalltalk.HLCodeWidget)})},
 args: [],
@@ -1015,7 +1005,7 @@ var self=this;
 var variables,classNames,pseudoVariables;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$6,$5,$7,$13,$12,$11,$10,$14,$15,$9,$16,$17,$8;
+var $3,$2,$1,$4,$6,$5,$7,$13,$12,$11,$10,$14,$9,$15,$8;
 $3=_st(_st(_st(anEditor)._display())._wrapper())._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 $2=_st($3)._find_("span.cm-variable");
@@ -1042,16 +1032,14 @@ $11=_st($12)._asSet();
 $10=_st($11)._asArray();
 $9=_st($10)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$14=each;
-$15=_st(aToken)._string();
+$14=_st(aToken)._string();
 $ctx2.sendIdx["string"]=1;
-return _st($14)._includesSubString_($15);
+return _st(each)._includesSubString_($14);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
 $8=_st($9)._reject_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$16=each;
-$17=_st(aToken)._string();
-return _st($16).__eq($17);
+$15=_st(aToken)._string();
+return _st(each).__eq($15);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return $8;
 }, function($ctx1) {$ctx1.fill(self,"variableHintFor:token:",{anEditor:anEditor,aToken:aToken,variables:variables,classNames:classNames,pseudoVariables:pseudoVariables},smalltalk.HLCodeWidget)})},
@@ -1073,7 +1061,7 @@ var cursor,token,completions;
 function $CodeMirror(){return smalltalk.CodeMirror||(typeof CodeMirror=="undefined"?nil:CodeMirror)}
 function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2,$5,$7,$10,$11,$9,$8,$14,$15,$13,$12,$6;
+var $1,$4,$3,$2,$6,$9,$10,$8,$7,$13,$14,$12,$11,$5;
 cursor=_st(anEditor)._getCursor();
 token=_st(anEditor)._getTokenAt_(cursor);
 $1=token;
@@ -1083,28 +1071,27 @@ $3=_st($4)._value_value_(_st(anEditor)._getMode(),_st(token)._at_("state"));
 $ctx1.sendIdx["value:value:"]=1;
 $2=_st($3)._state();
 _st($1)._at_put_("state",$2);
-$5=_st(_st(token)._type()).__eq("variable");
-if(smalltalk.assert($5)){
+if(smalltalk.assert(_st(_st(token)._type()).__eq("variable"))){
 completions=_st($HLCodeWidget())._variableHintFor_token_(anEditor,token);
 } else {
 completions=_st($HLCodeWidget())._messageHintFor_token_(anEditor,token);
 };
-$7="list".__minus_gt(completions);
+$6="list".__minus_gt(completions);
 $ctx1.sendIdx["->"]=1;
-$10=_st($CodeMirror())._basicAt_("Pos");
+$9=_st($CodeMirror())._basicAt_("Pos");
 $ctx1.sendIdx["basicAt:"]=2;
-$11=_st(cursor)._line();
+$10=_st(cursor)._line();
 $ctx1.sendIdx["line"]=1;
-$9=_st($10)._value_value_($11,_st(token)._end());
+$8=_st($9)._value_value_($10,_st(token)._end());
 $ctx1.sendIdx["value:value:"]=2;
-$8="from".__minus_gt($9);
+$7="from".__minus_gt($8);
 $ctx1.sendIdx["->"]=2;
-$14=_st($CodeMirror())._basicAt_("Pos");
-$15=_st(cursor)._line();
-$13=_st($14)._value_value_($15,_st(token)._start());
-$12="to".__minus_gt($13);
-$6=smalltalk.HashedCollection._from_([$7,$8,$12]);
-return $6;
+$13=_st($CodeMirror())._basicAt_("Pos");
+$14=_st(cursor)._line();
+$12=_st($13)._value_value_($14,_st(token)._start());
+$11="to".__minus_gt($12);
+$5=smalltalk.HashedCollection._from_([$6,$7,$11]);
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"hintFor:options:",{anEditor:anEditor,options:options,cursor:cursor,token:token,completions:completions},smalltalk.HLCodeWidget.klass)})},
 args: ["anEditor", "options"],
 source: "hintFor: anEditor options: options\x0a\x09| cursor token completions |\x0a\x09\x0a\x09cursor := anEditor getCursor.\x0a\x09token := anEditor getTokenAt: cursor.\x0a\x09token at: 'state' put: ((CodeMirror basicAt: 'innerMode')\x0a\x09\x09value: anEditor getMode value: (token at: 'state')) state.\x0a\x09\x0a\x09completions := token type = 'variable' \x0a\x09\x09ifTrue: [ HLCodeWidget variableHintFor: anEditor token: token ]\x0a\x09\x09ifFalse: [ HLCodeWidget messageHintFor: anEditor token: token ].\x0a\x09\x0a\x09^ #{\x0a\x09\x09'list' -> completions.\x0a\x09\x09'from' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token end).\x0a\x09\x09'to' -> ((CodeMirror basicAt: 'Pos') value: cursor line value: token start)\x0a\x09}",
@@ -1141,9 +1128,8 @@ fn: function (){
 var self=this;
 function $HLManager(){return smalltalk.HLManager||(typeof HLManager=="undefined"?nil:HLManager)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(_st($HLManager())._current())._keyBinder())._systemIsMac();
-if(smalltalk.assert($2)){
+var $1;
+if(smalltalk.assert(_st(_st(_st($HLManager())._current())._keyBinder())._systemIsMac())){
 $1=self._macKeyMap();
 } else {
 $1=self._pcKeyMap();
@@ -1473,12 +1459,11 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@methodContents"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@methodContents"]) == nil || $receiver == null){
 $1="";
 } else {
-$1=$2;
+$1=self["@methodContents"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodContents",{},smalltalk.HLNavigationCodeWidget)})},
@@ -1696,10 +1681,8 @@ var self=this;
 var block;
 function $HLChangeForbidden(){return smalltalk.HLChangeForbidden||(typeof HLChangeForbidden=="undefined"?nil:HLChangeForbidden)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 block=_st(anAnnouncement)._actionBlock();
-$1=self._hasModification();
-if(smalltalk.assert($1)){
+if(smalltalk.assert(self._hasModification())){
 self._confirm_ifTrue_("Changes have not been saved. Do you want to discard these changes?",(function(){
 return smalltalk.withContext(function($ctx2) {
 self._methodContents_(self._contents());
@@ -1723,17 +1706,16 @@ fn: function (anAnnouncement){
 var self=this;
 var class_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1;
 class_=_st(anAnnouncement)._item();
-$1=class_;
-if(($receiver = $1) == nil || $receiver == null){
-$2=self._contents_("");
+if(($receiver = class_) == nil || $receiver == null){
+$1=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
-return $2;
+return $1;
 } else {
-$1;
+class_;
 };
-$3=self._contents_(_st(class_)._definition());
+self._contents_(_st(class_)._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onClassSelected: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class:= anAnnouncement item.\x0a\x09\x0a\x09class ifNil: [ ^ self contents: '' ].\x0a    self contents: class definition",
@@ -1782,32 +1764,32 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1,$6,$5,$11,$10,$9,$12,$8,$7;
+var $3,$2,$1,$5,$4,$9,$8,$7,$10,$6;
 method=_st(anAnnouncement)._method();
-$4=self._browserModel();
+$3=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
-$3=_st($4)._selectedClass();
-$2=_st($3).__eq(_st(method)._methodClass());
+$2=_st($3)._selectedClass();
+$1=_st($2).__eq(_st(method)._methodClass());
 $ctx1.sendIdx["="]=1;
-if(! smalltalk.assert($2)){
+if(! smalltalk.assert($1)){
 return self;
 };
-$6=self._browserModel();
+$5=self._browserModel();
 $ctx1.sendIdx["browserModel"]=2;
-$5=_st($6)._selectedMethod();
+$4=_st($5)._selectedMethod();
 $ctx1.sendIdx["selectedMethod"]=1;
-if(($receiver = $5) == nil || $receiver == null){
+if(($receiver = $4) == nil || $receiver == null){
 return self;
 } else {
-$5;
+$4;
 };
-$11=self._browserModel();
-$10=_st($11)._selectedMethod();
-$9=_st($10)._selector();
+$9=self._browserModel();
+$8=_st($9)._selectedMethod();
+$7=_st($8)._selector();
 $ctx1.sendIdx["selector"]=1;
-$12=_st(method)._selector();
-$8=_st($9).__eq($12);
-if(! smalltalk.assert($8)){
+$10=_st(method)._selector();
+$6=_st($7).__eq($10);
+if(! smalltalk.assert($6)){
 return self;
 };
 self._refresh();
@@ -1827,17 +1809,16 @@ fn: function (anAnnouncement){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1;
 method=_st(anAnnouncement)._item();
-$1=method;
-if(($receiver = $1) == nil || $receiver == null){
-$2=self._contents_("");
+if(($receiver = method) == nil || $receiver == null){
+$1=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
-return $2;
+return $1;
 } else {
-$1;
+method;
 };
-$3=self._contents_(_st(method)._source());
+self._contents_(_st(method)._source());
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onMethodSelected: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement item.\x0a\x09\x0a\x09method ifNil: [ ^ self contents: '' ].\x0a    self contents: method source",
@@ -1854,17 +1835,16 @@ fn: function (anAnnouncement){
 var self=this;
 var package_;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1;
 package_=_st(anAnnouncement)._item();
-$1=package_;
-if(($receiver = $1) == nil || $receiver == null){
-$2=self._contents_("");
+if(($receiver = package_) == nil || $receiver == null){
+$1=self._contents_("");
 $ctx1.sendIdx["contents:"]=1;
-return $2;
+return $1;
 } else {
-$1;
+package_;
 };
-$3=self._contents_(_st(package_)._definition());
+self._contents_(_st(package_)._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,package_:package_},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09package ifNil: [ ^ self contents: '' ].\x0a    self contents: package definition",
@@ -1882,38 +1862,32 @@ var self=this;
 var lineIndex,newContents;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$6,$4,$8,$10,$12,$11,$9,$7;
+var $2,$1,$6,$5,$4,$3;
 lineIndex=(1);
 self._contents_(_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._contents())._linesDo_((function(each){
 return smalltalk.withContext(function($ctx3) {
-$1=_st(lineIndex).__eq(_st(anAnnouncement)._line());
-if(smalltalk.assert($1)){
-$2=stream;
-$3=$2;
-$5=each;
-$6=_st(anAnnouncement)._column();
+if(smalltalk.assert(_st(lineIndex).__eq(_st(anAnnouncement)._line()))){
+$2=_st(anAnnouncement)._column();
 $ctx3.sendIdx["column"]=1;
-$4=_st($5)._copyFrom_to_((1),$6);
+$1=_st(each)._copyFrom_to_((1),$2);
 $ctx3.sendIdx["copyFrom:to:"]=1;
-_st($3)._nextPutAll_($4);
+_st(stream)._nextPutAll_($1);
 $ctx3.sendIdx["nextPutAll:"]=1;
-_st($2)._nextPutAll_("<- ");
+_st(stream)._nextPutAll_("<- ");
 $ctx3.sendIdx["nextPutAll:"]=2;
-_st($2)._nextPutAll_(_st(anAnnouncement)._message());
+_st(stream)._nextPutAll_(_st(anAnnouncement)._message());
 $ctx3.sendIdx["nextPutAll:"]=3;
-_st($2)._nextPutAll_(" ");
+_st(stream)._nextPutAll_(" ");
 $ctx3.sendIdx["nextPutAll:"]=4;
-$8=$2;
-$10=each;
-$12=_st(anAnnouncement)._column();
-$11=_st($12).__plus((1));
+$6=_st(anAnnouncement)._column();
+$5=_st($6).__plus((1));
 $ctx3.sendIdx["+"]=1;
-$9=_st($10)._copyFrom_to_($11,_st(each)._size());
-$7=_st($8)._nextPutAll_($9);
+$4=_st(each)._copyFrom_to_($5,_st(each)._size());
+$3=_st(stream)._nextPutAll_($4);
 $ctx3.sendIdx["nextPutAll:"]=5;
-$7;
+$3;
 } else {
 _st(stream)._nextPutAll_(each);
 $ctx3.sendIdx["nextPutAll:"]=6;
@@ -1938,7 +1912,7 @@ category: 'reactions',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$7,$6,$5,$4;
+var $2,$1,$3,$6,$5,$4;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
@@ -1950,10 +1924,10 @@ return $3;
 } else {
 $1;
 };
-$7=self._browserModel();
-$6=_st($7)._selectedClass();
-$5=_st($6)._definition();
-$4=self._contents_($5);
+$6=self._browserModel();
+$5=_st($6)._selectedClass();
+$4=_st($5)._definition();
+self._contents_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
 source: "onProtocolSelected: anAnnouncement\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    self contents: self browserModel selectedClass definition",
@@ -1985,7 +1959,7 @@ category: 'reactions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$7,$6,$5,$4;
+var $2,$1,$3,$6,$5,$4;
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
 $1=_st($2)._selectedClass();
@@ -1997,10 +1971,10 @@ return $3;
 } else {
 $1;
 };
-$7=self._browserModel();
-$6=_st($7)._selectedClass();
-$5=_st($6)._definition();
-$4=self._contents_($5);
+$6=self._browserModel();
+$5=_st($6)._selectedClass();
+$4=_st($5)._definition();
+self._contents_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLBrowserCodeWidget)})},
 args: [],
 source: "onShowInstanceToggled\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: self browserModel selectedClass definition",
@@ -2051,17 +2025,16 @@ var self=this;
 var error;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 error=_st(anAnnouncement)._error();
 self._confirm_ifTrue_(_st($String())._streamContents_((function(stream){
 return smalltalk.withContext(function($ctx2) {
-$1=stream;
-_st($1)._nextPutAll_(_st(error)._messageText());
+_st(stream)._nextPutAll_(_st(error)._messageText());
 $ctx2.sendIdx["nextPutAll:"]=1;
-_st($1)._nextPutAll_(_st($String())._cr());
+_st(stream)._nextPutAll_(_st($String())._cr());
 $ctx2.sendIdx["nextPutAll:"]=2;
-$2=_st($1)._nextPutAll_("Would you like to define an instance variable?");
-return $2;
+$1=_st(stream)._nextPutAll_("Would you like to define an instance variable?");
+return $1;
 }, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})})),(function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._browserModel())._addInstVarNamed_(_st(error)._variableName());
@@ -2081,13 +2054,10 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
-$2=self._hasModification();
-if(smalltalk.assert($2)){
+if(smalltalk.assert(self._hasModification())){
 return self;
 };
-$4=self._hasFocus();
-if(smalltalk.assert($4)){
+if(smalltalk.assert(self._hasFocus())){
 return self;
 };
 self._contents_(_st(_st(self._browserModel())._selectedMethod())._source());
@@ -2146,16 +2116,16 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$6,$5,$4;
+var $2,$1,$4,$3;
 smalltalk.HLBrowserCodeWidget.superclass.fn.prototype._unregsiter.apply(_st(self), []);
-$3=self._browserModel();
+$2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
-$2=_st($3)._announcer();
-$1=_st($2)._unsubscribe_(self);
+$1=_st($2)._announcer();
+_st($1)._unsubscribe_(self);
 $ctx1.sendIdx["unsubscribe:"]=1;
-$6=self._browserModel();
-$5=_st($6)._systemAnnouncer();
-$4=_st($5)._unsubscribe_(self);
+$4=self._browserModel();
+$3=_st($4)._systemAnnouncer();
+_st($3)._unsubscribe_(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLBrowserCodeWidget)})},
 args: [],
 source: "unregister\x0a\x09super unregsiter.\x0a\x09\x0a\x09self browserModel announcer unsubscribe: self.\x0a\x09self browserModel systemAnnouncer unsubscribe: self",
@@ -2228,13 +2198,12 @@ fn: function (){
 var self=this;
 function $HLCodeWidget(){return smalltalk.HLCodeWidget||(typeof HLCodeWidget=="undefined"?nil:HLCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@codeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@codeWidget"]) == nil || $receiver == null){
 self["@codeWidget"]=_st($HLCodeWidget())._new();
 $1=self["@codeWidget"];
 } else {
-$1=$2;
+$1=self["@codeWidget"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLWorkspace)})},
@@ -2272,13 +2241,12 @@ var self=this;
 function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="undefined"?nil:HLContainer)}
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=html;
-$3=_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(self._codeWidget(),(function(canvas){
+var $1;
+$1=_st($HLContainer())._with_(_st($HLHorizontalSplitter())._with_with_(self._codeWidget(),(function(canvas){
 return smalltalk.withContext(function($ctx2) {
 return self._renderTranscriptOn_(canvas);
 }, function($ctx2) {$ctx2.fillBlock({canvas:canvas},$ctx1,1)})})));
-$1=_st($2)._with_($3);
+_st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLWorkspace)})},
 args: ["html"],
@@ -2325,13 +2293,12 @@ fn: function (){
 var self=this;
 function $HLTranscript(){return smalltalk.HLTranscript||(typeof HLTranscript=="undefined"?nil:HLTranscript)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@transcript"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@transcript"]) == nil || $receiver == null){
 self["@transcript"]=_st($HLTranscript())._new();
 $1=self["@transcript"];
 } else {
-$1=$2;
+$1=self["@transcript"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"transcript",{},smalltalk.HLWorkspace)})},
@@ -2349,10 +2316,9 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=smalltalk.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
+smalltalk.HLWorkspace.superclass.fn.prototype._unregister.apply(_st(self), []);
 $ctx1.sendIdx["unregister"]=1;
-$2=_st(self._transcript())._unregister();
+_st(self._transcript())._unregister();
 return self}, function($ctx1) {$ctx1.fill(self,"unregister",{},smalltalk.HLWorkspace)})},
 args: [],
 source: "unregister\x0a\x09super unregister.\x0a\x09self transcript unregister",

@@ -539,18 +539,17 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2=aContext;
-if(($receiver = $2) == nil || $receiver == null){
-$1=$2;
+var $1,$2;
+if(($receiver = aContext) == nil || $receiver == null){
+aContext;
 } else {
-$3=_st(aContext)._home();
+$1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
-if(($receiver = $3) == nil || $receiver == null){
-$1=$3;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
 } else {
-$4=_st(aContext)._home();
-$1=self._logContext_($4);
+$2=_st(aContext)._home();
+self._logContext_($2);
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
@@ -570,13 +569,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@current"]) == nil || $receiver == null){
 self["@current"]=self._new();
 $1=self["@current"];
 } else {
-$1=$2;
+$1=self["@current"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ErrorHandler.klass)})},

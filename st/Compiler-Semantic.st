@@ -246,6 +246,10 @@ isClassRefVar
 	^ false
 !
 
+isImmutable
+	^ false
+!
+
 isInstanceVar
 	^ false
 !
@@ -303,6 +307,10 @@ I am an argument of a method or block.!
 
 isArgVar
 	^ true
+!
+
+isImmutable
+	^ true
 ! !
 
 ScopeVar subclass: #ClassRefVar
@@ -324,6 +332,10 @@ alias
 !ClassRefVar methodsFor: 'testing'!
 
 isClassRefVar
+	^ true
+!
+
+isImmutable
 	^ true
 ! !
 
@@ -358,6 +370,10 @@ alias
 ! !
 
 !PseudoVar methodsFor: 'testing'!
+
+isImmutable
+	^ true
+!
 
 isPseudoVar
 	^ true
@@ -560,8 +576,7 @@ visitSendNode: aNode
 			(self superSends at: aNode selector) add: aNode ]
 		
 		ifFalse: [ (IRSendInliner inlinedSelectors includes: aNode selector) ifTrue: [
-			aNode shouldBeInlined: true.
-			aNode receiver shouldBeAliased: true ] ].
+			aNode shouldBeInlined: true ] ].
 
 	self messageSends at: aNode selector ifAbsentPut: [ Set new ].
 	(self messageSends at: aNode selector) add: aNode.

@@ -130,10 +130,10 @@ visitBlockSequenceNode: aNode
 		do: [
 			aNode nodes ifNotEmpty: [
 				aNode nodes allButLast do: [ :each |
-					self sequence add: (self visit: each) ].
+					self sequence add: (self visitOrAlias: each) ].
 				aNode nodes last isReturnNode
-					ifFalse: [ self sequence add: (IRBlockReturn new add: (self visit: aNode nodes last); yourself) ]
-					ifTrue: [ self sequence add: (self visit: aNode nodes last) ]]]
+					ifFalse: [ self sequence add: (IRBlockReturn new add: (self visitOrAlias: aNode nodes last); yourself) ]
+					ifTrue: [ self sequence add: (self visitOrAlias: aNode nodes last) ]]]
 !
 
 visitCascadeNode: aNode
@@ -203,6 +203,12 @@ visitMethodNode: aNode
 	^ self method
 !
 
+visitOrAlias: aNode
+	^ aNode shouldBeAliased
+		ifTrue: [ self alias: aNode ]
+		ifFalse: [ self visit: aNode ]
+!
+
 visitReturnNode: aNode
 	| return |
 	return := aNode nonLocalReturn
@@ -237,9 +243,7 @@ visitSequenceNode: aNode
 		withSequence: IRSequence new
 		do: [
 			aNode nodes do: [ :each | | instruction |
-				instruction := each shouldBeAliased
-					ifTrue: [ self alias: each ]
-					ifFalse: [ self visit: each ].
+				instruction := self visitOrAlias: each.
 				instruction isVariable ifFalse: [
 					self sequence add: instruction ]]]
 !

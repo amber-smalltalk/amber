@@ -157,14 +157,13 @@ fn: function (){
 var self=this;
 function $HLClassReferencesListWidget(){return smalltalk.HLClassReferencesListWidget||(typeof HLClassReferencesListWidget=="undefined"?nil:HLClassReferencesListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@classReferencesListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@classReferencesListWidget"]) == nil || $receiver == null){
 self["@classReferencesListWidget"]=_st($HLClassReferencesListWidget())._on_(self._model());
 self["@classReferencesListWidget"];
 $1=_st(self["@classReferencesListWidget"])._next_(self._regexpListWidget());
 } else {
-$1=$2;
+$1=self["@classReferencesListWidget"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classReferencesListWidget",{},smalltalk.HLReferences)})},
@@ -183,14 +182,13 @@ fn: function (){
 var self=this;
 function $HLImplementorsListWidget(){return smalltalk.HLImplementorsListWidget||(typeof HLImplementorsListWidget=="undefined"?nil:HLImplementorsListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@implementorsListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@implementorsListWidget"]) == nil || $receiver == null){
 self["@implementorsListWidget"]=_st($HLImplementorsListWidget())._on_(self._model());
 self["@implementorsListWidget"];
 $1=_st(self["@implementorsListWidget"])._next_(self._classReferencesListWidget());
 } else {
-$1=$2;
+$1=self["@implementorsListWidget"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"implementorsListWidget",{},smalltalk.HLReferences)})},
@@ -209,16 +207,15 @@ fn: function (){
 var self=this;
 function $HLReferencesModel(){return smalltalk.HLReferencesModel||(typeof HLReferencesModel=="undefined"?nil:HLReferencesModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2=self["@model"];
-if(($receiver = $2) == nil || $receiver == null){
-$3=_st($HLReferencesModel())._new();
-_st($3)._environment_(_st(self._manager())._environment());
-$4=_st($3)._yourself();
-self["@model"]=$4;
+var $2,$3,$1;
+if(($receiver = self["@model"]) == nil || $receiver == null){
+$2=_st($HLReferencesModel())._new();
+_st($2)._environment_(_st(self._manager())._environment());
+$3=_st($2)._yourself();
+self["@model"]=$3;
 $1=self["@model"];
 } else {
-$1=$2;
+$1=self["@model"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLReferences)})},
@@ -253,14 +250,13 @@ fn: function (){
 var self=this;
 function $HLRegexpListWidget(){return smalltalk.HLRegexpListWidget||(typeof HLRegexpListWidget=="undefined"?nil:HLRegexpListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@regexpListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@regexpListWidget"]) == nil || $receiver == null){
 self["@regexpListWidget"]=_st($HLRegexpListWidget())._on_(self._model());
 self["@regexpListWidget"];
 $1=_st(self["@regexpListWidget"])._next_(self._sourceCodeWidget());
 } else {
-$1=$2;
+$1=self["@regexpListWidget"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"regexpListWidget",{},smalltalk.HLReferences)})},
@@ -298,26 +294,21 @@ function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="unde
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$6,$8,$10,$11,$9,$12,$7,$5,$3,$1,$13;
-$2=html;
-$4=$HLContainer();
-$6=$HLHorizontalSplitter();
-$8=$HLVerticalSplitter();
-$10=$HLVerticalSplitter();
-$11=self._sendersListWidget();
+var $5,$4,$6,$3,$2,$1,$7;
+$5=self._sendersListWidget();
 $ctx1.sendIdx["sendersListWidget"]=1;
-$9=_st($10)._with_with_($11,self._implementorsListWidget());
+$4=_st($HLVerticalSplitter())._with_with_($5,self._implementorsListWidget());
 $ctx1.sendIdx["with:with:"]=3;
-$12=_st($HLVerticalSplitter())._with_with_(self._classReferencesListWidget(),self._regexpListWidget());
-$7=_st($8)._with_with_($9,$12);
+$6=_st($HLVerticalSplitter())._with_with_(self._classReferencesListWidget(),self._regexpListWidget());
+$3=_st($HLVerticalSplitter())._with_with_($4,$6);
 $ctx1.sendIdx["with:with:"]=2;
-$5=_st($6)._with_with_($7,self._sourceCodeWidget());
+$2=_st($HLHorizontalSplitter())._with_with_($3,self._sourceCodeWidget());
 $ctx1.sendIdx["with:with:"]=1;
-$3=_st($4)._with_($5);
-$1=_st($2)._with_($3);
+$1=_st($HLContainer())._with_($2);
+_st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
-$13=self._sendersListWidget();
-_st($13)._focus();
+$7=self._sendersListWidget();
+_st($7)._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLReferences)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self sendersListWidget\x0a                with: self implementorsListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self classReferencesListWidget\x0a                with: self regexpListWidget)) \x0a        with: self sourceCodeWidget)).\x0a\x09\x0a\x09self sendersListWidget focus",
@@ -350,14 +341,13 @@ fn: function (){
 var self=this;
 function $HLSendersListWidget(){return smalltalk.HLSendersListWidget||(typeof HLSendersListWidget=="undefined"?nil:HLSendersListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@sendersListWidget"];
-if(($receiver = $2) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@sendersListWidget"]) == nil || $receiver == null){
 self["@sendersListWidget"]=_st($HLSendersListWidget())._on_(self._model());
 self["@sendersListWidget"];
 $1=_st(self["@sendersListWidget"])._next_(self._implementorsListWidget());
 } else {
-$1=$2;
+$1=self["@sendersListWidget"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sendersListWidget",{},smalltalk.HLReferences)})},
@@ -376,16 +366,15 @@ fn: function (){
 var self=this;
 function $HLBrowserCodeWidget(){return smalltalk.HLBrowserCodeWidget||(typeof HLBrowserCodeWidget=="undefined"?nil:HLBrowserCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
-$2=self["@sourceCodeWidget"];
-if(($receiver = $2) == nil || $receiver == null){
-$3=_st($HLBrowserCodeWidget())._new();
-_st($3)._browserModel_(self._model());
-$4=_st($3)._yourself();
-self["@sourceCodeWidget"]=$4;
+var $2,$3,$1;
+if(($receiver = self["@sourceCodeWidget"]) == nil || $receiver == null){
+$2=_st($HLBrowserCodeWidget())._new();
+_st($2)._browserModel_(self._model());
+$3=_st($2)._yourself();
+self["@sourceCodeWidget"]=$3;
 $1=self["@sourceCodeWidget"];
 } else {
-$1=$2;
+$1=self["@sourceCodeWidget"];
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"sourceCodeWidget",{},smalltalk.HLReferences)})},
@@ -549,30 +538,28 @@ category: 'reactions',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$5;
+var $1,$2,$4,$3;
 var $early={};
 try {
-$1=aMethod;
-if(($receiver = $1) == nil || $receiver == null){
+if(($receiver = aMethod) == nil || $receiver == null){
 return self;
 } else {
-$1;
+aMethod;
 };
 _st(self._items())._detect_ifNone_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$2=each;
-$3=_st(aMethod)._selector();
+$1=_st(aMethod)._selector();
 $ctx2.sendIdx["selector"]=1;
-return _st($2).__eq($3);
+return _st(each).__eq($1);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 throw $early=[self];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$4=_st(aMethod)._selector();
+$2=_st(aMethod)._selector();
 $ctx1.sendIdx["selector"]=2;
-self._selectedItem_($4);
-$6=_st(aMethod)._selector();
-$5=self._activateItem_($6);
+self._selectedItem_($2);
+$4=_st(aMethod)._selector();
+$3=self._activateItem_($4);
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
@@ -606,12 +593,11 @@ category: 'rendering',
 fn: function (aMethod,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=html;
-$3=_st(_st(_st(aMethod)._methodClass())._name()).__comma(" >> #");
-$2=_st($3).__comma(_st(aMethod)._selector());
+var $2,$1;
+$2=_st(_st(_st(aMethod)._methodClass())._name()).__comma(" >> #");
+$1=_st($2).__comma(_st(aMethod)._selector());
 $ctx1.sendIdx[","]=1;
-_st($1)._with_($2);
+_st(html)._with_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aMethod:aMethod,html:html},smalltalk.HLReferencesListWidget)})},
 args: ["aMethod", "html"],
 source: "renderItemLabel: aMethod on: html\x0a\x09html with: aMethod methodClass name, ' >> #', aMethod selector",
@@ -856,21 +842,20 @@ var self=this;
 var references;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1;
 references=_st($OrderedCollection())._new();
-$1=_st(self._classesAndMetaclasses())._do_((function(each){
+_st(self._classesAndMetaclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(_st(each)._methodDictionary())._values())._do_((function(method){
 return smalltalk.withContext(function($ctx3) {
-$2=_st(_st(method)._referencedClasses())._includes_(aString);
-if(smalltalk.assert($2)){
+if(smalltalk.assert(_st(_st(method)._referencedClasses())._includes_(aString))){
 return _st(references)._add_(method);
 };
 }, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $ctx1.sendIdx["do:"]=1;
-$3=references;
-return $3;
+$1=references;
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"classReferencesOf:",{aString:aString,references:references},smalltalk.HLReferencesModel)})},
 args: ["aString"],
 source: "classReferencesOf: aString\x0a\x09\x22Answer all methods referencing the class named aString\x22\x0a\x09\x0a\x09| references |\x0a\x09\x0a\x09references := OrderedCollection new.\x0a\x09\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary values do: [ :method |\x0a\x09\x09\x09(method referencedClasses includes: aString) ifTrue: [\x0a\x09\x09\x09\x09references add: method ] ] ].\x0a\x09\x09\x09\x09\x0a\x09^ references",
@@ -904,15 +889,14 @@ category: 'cache',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self["@classesAndMetaclassesCache"];
-if(($receiver = $1) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@classesAndMetaclassesCache"]) == nil || $receiver == null){
 self._updateClassesAndMetaclassesCache();
 } else {
-$1;
+self["@classesAndMetaclassesCache"];
 };
-$2=self["@classesAndMetaclassesCache"];
-return $2;
+$1=self["@classesAndMetaclassesCache"];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"classesAndMetaclassesCache",{},smalltalk.HLReferencesModel)})},
 args: [],
 source: "classesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache ifNil: [ self updateClassesAndMetaclassesCache ].\x0a\x09\x0a\x09^ classesAndMetaclassesCache",
@@ -987,15 +971,14 @@ category: 'cache',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=self["@methodsCache"];
-if(($receiver = $1) == nil || $receiver == null){
+var $1;
+if(($receiver = self["@methodsCache"]) == nil || $receiver == null){
 self._updateMethodsCache();
 } else {
-$1;
+self["@methodsCache"];
 };
-$2=self["@methodsCache"];
-return $2;
+$1=self["@methodsCache"];
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodsCache",{},smalltalk.HLReferencesModel)})},
 args: [],
 source: "methodsCache\x0a\x09methodsCache ifNil: [ self updateMethodsCache ].\x0a\x09\x0a\x09^ methodsCache",
@@ -1100,15 +1083,14 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 self["@classesAndMetaclassesCache"]=_st(_st(self._environment())._classes())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
 return smalltalk.withContext(function($ctx2) {
-$1=acc;
-_st($1)._add_(each);
+_st(acc)._add_(each);
 $ctx2.sendIdx["add:"]=1;
-_st($1)._add_(_st(each)._class());
-$2=_st($1)._yourself();
-return $2;
+_st(acc)._add_(_st(each)._class());
+$1=_st(acc)._yourself();
+return $1;
 }, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateClassesAndMetaclassesCache",{},smalltalk.HLReferencesModel)})},
 args: [],

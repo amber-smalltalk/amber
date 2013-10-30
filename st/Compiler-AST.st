@@ -119,7 +119,7 @@ isCascadeNode
 !
 
 isImmutable
-	^false
+	^ false
 !
 
 isJSStatementNode
@@ -134,6 +134,14 @@ isNode
 	^ true
 !
 
+isReferenced
+	"Answer true if the receiver is referenced by other nodes.
+	Do not take sequences or assignments into account"
+	
+	^ (self parent isSequenceNode or: [
+		self parent isAssignmentNode ]) not
+!
+
 isReturnNode
 	^false
 !
@@ -142,8 +150,16 @@ isSendNode
 	^false
 !
 
+isSequenceNode
+	^ false
+!
+
 isValueNode
 	^false
+!
+
+isVariableNode
+	^ false
 !
 
 stopOnStepping
@@ -545,7 +561,8 @@ isSendNode
 
 shouldBeAliased
 	^ super shouldBeAliased or: [
-		(self method sendIndexes at: self selector) size > 1 ]
+		(self method sendIndexes at: self selector) size > 1 and: [
+			self isReferenced ] ]
 !
 
 stopOnStepping
@@ -582,7 +599,7 @@ temps: aCollection
 	temps := aCollection
 ! !
 
-!SequenceNode methodsFor: 'testing'!
+!SequenceNode methodsFor: 'converting'!
 
 asBlockSequenceNode
 	^BlockSequenceNode new
@@ -590,6 +607,12 @@ asBlockSequenceNode
 		nodes: self nodes;
 		temps: self temps;
 		yourself
+! !
+
+!SequenceNode methodsFor: 'testing'!
+
+isSequenceNode
+	^ true
 ! !
 
 !SequenceNode methodsFor: 'visiting'!
@@ -688,8 +711,16 @@ binding: aScopeVar
 
 !VariableNode methodsFor: 'testing'!
 
+isArgument
+	^ self binding isArgVar
+!
+
 isImmutable
-	^ self binding isPseudoVar
+	^ self binding isImmutable
+!
+
+isVariableNode
+	^ true
 ! !
 
 !VariableNode methodsFor: 'visiting'!
