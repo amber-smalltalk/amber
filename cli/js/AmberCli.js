@@ -1189,7 +1189,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearScreen",
-category: 'private',
+category: 'actions',
 fn: function (){
 var self=this;
 var esc,cls;
@@ -1558,7 +1558,7 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printWelcome",
-category: 'private',
+category: 'actions',
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}

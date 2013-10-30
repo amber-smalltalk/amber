@@ -913,6 +913,14 @@ prompt
 
 !Repl methodsFor: 'actions'!
 
+clearScreen
+	| esc cls |
+	esc := String fromCharCode: 27.
+	cls := esc, '[2J', esc, '[0;0f'.
+	process stdout write: cls.
+	interface prompt
+!
+
 close
 	process stdin destroy
 !
@@ -939,6 +947,11 @@ eval: buffer on: anObject
 			    ifTrue: [ErrorHandler new handleError: e]
 			    ifFalse: [process stdout write: e jsStack]]].
 	^ result
+!
+
+printWelcome
+	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
+	Transcript show: 'Type :q to exit.'; cr.
 !
 
 setPrompt
@@ -985,14 +998,6 @@ assignNewVariable: buffer do: aBlock
 		session := self addVariableNamed: varName to: session.
 		value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.
 		aBlock value: varName value: value]
-!
-
-clearScreen
-	| esc cls |
-	esc := String fromCharCode: 27.
-	cls := esc, '[2J', esc, '[0;0f'.
-	process stdout write: cls.
-	interface prompt
 !
 
 encapsulateVariable: aString withValue: anObject in: aClass
@@ -1054,11 +1059,6 @@ parseAssignment: aString do: aBlock
 presentResultNamed: varName withValue: value
 	Transcript show: varName, ': ', value class name, ' = ', value asString; cr.
 	interface prompt
-!
-
-printWelcome
-	Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.
-	Transcript show: 'Type :q to exit.'; cr.
 !
 
 processLine: buffer
