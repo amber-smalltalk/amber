@@ -944,8 +944,8 @@ eval: buffer on: anObject
 			result := Compiler new evaluateExpression: buffer on: anObject]
 		catch: [:e |
 			e isSmalltalkError
-			    ifTrue: [ErrorHandler new handleError: e]
-			    ifFalse: [process stdout write: e jsStack]]].
+			    ifTrue: [ e resignal ]
+			    ifFalse: [ process stdout write: e jsStack ]]].
 	^ result
 !
 
@@ -996,7 +996,9 @@ assignNewVariable: buffer do: aBlock
 	^ self parseAssignment: buffer do: [ :name :expr || varName value |
 		varName := name ifNil: [self nextResultName].
 		session := self addVariableNamed: varName to: session.
-		value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.
+		[ value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session ]
+			on: Error
+			do: [ :e | ErrorHandler new logError: e. value := nil].
 		aBlock value: varName value: value]
 !
 
@@ -1052,8 +1054,8 @@ parseAssignment: aString do: aBlock
 	| assignment |
 	assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].
 	^ (assignment size = 2 and: [self isIdentifier: assignment first])
-		ifTrue: [aBlock value: assignment first value: assignment last]
-		ifFalse: [aBlock value: nil value: nil]
+		ifTrue: [ aBlock value: assignment first value: assignment last ]
+		ifFalse: [ aBlock value: nil value: nil ]
 !
 
 presentResultNamed: varName withValue: value
