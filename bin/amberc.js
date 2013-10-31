@@ -238,17 +238,14 @@ AmberC.prototype.resolve_js = function(filename, callback) {
 		} else {
 			var amberJsFile = '';
 			// check for specified .js file in any of the directories from jsLibraryDirs
-			var notFound = defaults.jsLibraryDirs.every(function(directory) {
+			var found = defaults.jsLibraryDirs.some(function(directory) {
 				amberJsFile = path.join(directory, jsFile);
-				if (fs.existsSync(amberJsFile)) {
-					return false;
-				}
-				return true;
+				return fs.existsSync(amberJsFile);
 			});
-			if (notFound) {
-				throw(new Error('JavaScript file not found: ' + jsFile));
-			} else {
+			if (found) {
 				callback(amberJsFile);
+			} else {
+				throw(new Error('JavaScript file not found: ' + jsFile));
 			}
 		}
 	});

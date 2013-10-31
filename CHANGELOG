@@ -69,11 +69,34 @@ To install Amber from Bower, run
 
 * Migration from Amber 0.11.0
 
+First, you must change loading part. The proprietary loader is gone,
+you have to use requirejs for loading. New loader code is thouroughly
+explained in [4].
+
+After changing the loader part, you need to recompile all your `.st` files
+into new AMD `.js` files. During loader changes, you had to choose a namespace,
+this will be needed now.
+
+Go to your directory with `.st` files and issue this from the shell:
+
+```sh
+<path-to-amber>/bin/amberc -l SUnit,Canvas -n <the-namespace-you-have-chosen> -D <path-for-compiled-js-files> *.st
+```
+
+In windows, use `\` as path separator, the rest is identical.
+
+The `-l SUnit,Canvas` is just a general guess, if your code depends on more (or less) non-kernel packages from amber, list them here accordingly.
+
+This migrate scenario only covers simple deployments with your project's code and amber.
+If your project is more compilicated, using libraries and packages from multiple sources,
+it is hard to give general advices to migrate - you must do it library by library,
+giving each location its own namespace, and `-L` option of `amberc`
+comes handy when integrating; ask on the mailing list if problems arise.
 
 [1] http://requirejs.org/
 [2] http://bower.io/
 [3] https://github.com/amber-smalltalk/brikz
-
+[4] https://github.com/amber-smalltalk/amber/wiki/How-to-load-amber
 
 
 09th July 2013 - Release 0.11.0

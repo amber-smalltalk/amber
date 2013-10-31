@@ -1,6 +1,6 @@
 #!/bin/sh
 cd `dirname "$0"`/..
-echo git reset --hard
+echo rm -rf *
 echo git checkout master
 echo -n "Which version are you going to publish [0 to skip]? "
 VER=`head -n 1`
@@ -17,7 +17,7 @@ if [ "$VER" = "0" ]; then :; else
 fi
 echo -n "Which version are you going to work on? "
 VERF=`head -n 1`
-VER="${VER}-pre"
+VER="${VERF}-pre"
 echo "Setting version $VER"
 bin/setversion.sh "$VER"
 cp package.json package.json.bak
