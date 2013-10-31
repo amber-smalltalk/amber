@@ -293,16 +293,9 @@ allSelectors
 classReferencesOf: aString
 	"Answer all methods referencing the class named aString"
 	
-	| references |
-	
-	references := OrderedCollection new.
-	
-	self classesAndMetaclasses do: [ :each |
-		each methodDictionary values do: [ :method |
-			(method referencedClasses includes: aString) ifTrue: [
-				references add: method ] ] ].
-				
-	^ references
+	^self allMethods select: [ :each |
+		
+			(each referencedClasses includes: aString) ].
 !
 
 classesAndMetaclasses
@@ -362,20 +355,19 @@ updateCaches
 !
 
 updateClassesAndMetaclassesCache
-	classesAndMetaclassesCache := self environment classes 
-		inject: OrderedCollection new 
-		into: [ :acc :each |
-			acc 
+	classesAndMetaclassesCache := OrderedCollection new.
+	
+	self environment classes do: [:each |
+		classesAndMetaclassesCache
 				add: each; 
-				add: each class;
-				yourself ]
+				add: each class ]
 !
 
 updateMethodsCache
-	methodsCache := self classesAndMetaclasses
-		inject: OrderedCollection new
-		into: [ :acc :each |
-			acc, each methods ]
+	methodsCache := OrderedCollection new.
+	
+	self classesAndMetaclasses
+		do: [:each | methodsCache addAll: each methods ]
 ! !
 
 !HLReferencesModel methodsFor: 'testing'!
