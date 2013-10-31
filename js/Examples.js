@@ -91,7 +91,7 @@ return self._decrease();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.Counter)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09header := html h1\x0a\x09with: count asString;\x0a\x09yourself.\x0a\x09html button\x0a\x09with: '++';\x0a\x09onClick: [self increase].\x0a\x09html button\x0a\x09with: '--';\x0a\x09onClick: [self decrease]",
+source: "renderOn: html\x0a\x09header := html h1\x0a\x09\x09with: count asString;\x0a\x09\x09yourself.\x0a\x09html button\x0a\x09\x09with: '++';\x0a\x09\x09onClick: [self increase].\x0a\x09html button\x0a\x09\x09with: '--';\x0a\x09\x09onClick: [self decrease]",
 messageSends: ["with:", "h1", "asString", "yourself", "button", "onClick:", "increase", "decrease"],
 referencedClasses: []
 }),

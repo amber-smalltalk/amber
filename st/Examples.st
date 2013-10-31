@@ -32,14 +32,14 @@ initialize
 
 renderOn: html
 	header := html h1
-	with: count asString;
-	yourself.
+		with: count asString;
+		yourself.
 	html button
-	with: '++';
-	onClick: [self increase].
+		with: '++';
+		onClick: [self increase].
 	html button
-	with: '--';
-	onClick: [self decrease]
+		with: '--';
+		onClick: [self decrease]
 ! !
 
 !Counter class methodsFor: 'example'!
