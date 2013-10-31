@@ -106,6 +106,10 @@ classes
 	^ Smalltalk current classes
 !
 
+doItReceiver
+	^ DoIt new
+!
+
 packages
 	^ Smalltalk current packages
 !

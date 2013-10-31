@@ -33,16 +33,15 @@ selector: "defaultReceiver",
 category: 'defaults',
 fn: function (){
 var self=this;
-function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st($DoIt())._new();
+$1=_st(self._environment())._doItReceiver();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultReceiver",{},smalltalk.HLCodeModel)})},
 args: [],
-source: "defaultReceiver\x0a\x09^ DoIt new",
-messageSends: ["new"],
-referencedClasses: ["DoIt"]
+source: "defaultReceiver\x0a\x09^ self environment doItReceiver",
+messageSends: ["doItReceiver", "environment"],
+referencedClasses: []
 }),
 smalltalk.HLCodeModel);
 

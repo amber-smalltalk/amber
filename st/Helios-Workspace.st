@@ -39,7 +39,7 @@ inspect: anObject
 !HLCodeModel methodsFor: 'defaults'!
 
 defaultReceiver
-	^ DoIt new
+	^ self environment doItReceiver
 ! !
 
 !HLCodeModel class methodsFor: 'actions'!

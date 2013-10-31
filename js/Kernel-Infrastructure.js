@@ -423,6 +423,25 @@ smalltalk.Environment);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "doItReceiver",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($DoIt())._new();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"doItReceiver",{},smalltalk.Environment)})},
+args: [],
+source: "doItReceiver\x0a\x09^ DoIt new",
+messageSends: ["new"],
+referencedClasses: ["DoIt"]
+}),
+smalltalk.Environment);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "eval:on:",
 category: 'actions',
 fn: function (aString,aReceiver){
