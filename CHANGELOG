@@ -69,7 +69,7 @@ To install Amber from Bower, run
 
 * Migration from Amber 0.11.0
 
-First, you must change loading part. The proprietary loader is gone,
+First, you must change loading part. The custom loader is gone,
 you have to use requirejs for loading. New loader code is thouroughly
 explained in [4].
 
