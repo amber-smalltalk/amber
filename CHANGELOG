@@ -69,18 +69,17 @@ To install Amber from Bower, run
 
 * Migration from Amber 0.11.0
 
-First, you must change loading part. The custom loader is gone,
-you have to use requirejs for loading. New loader code is thouroughly
+First, the loading of JavaScript files must be adapted. The custom loader has been replaced with
+requirejs for loading files in the browser. New loader code is thouroughly
 explained in [4].
 
-After changing the loader part, you need to recompile all your `.st` files
-into new AMD `.js` files. During loader changes, you had to choose a namespace,
-this will be needed now.
+After updating the loader part, `.st` files need to be recompiled
+into new AMD `.js` files. During loader changes, a namespace was choosen and will be needed for recompilation.
 
 Go to your directory with `.st` files and issue this from the shell:
 
 ```sh
-<path-to-amber>/bin/amberc -l SUnit,Canvas -n <the-namespace-you-have-chosen> -D <path-for-compiled-js-files> *.st
+<path-to-amber>/bin/amberc -l SUnit,Canvas -n <chosen-namespace> -D <path-for-compiled-js-files> *.st
 ```
 
 In windows, use `\` as path separator, the rest is identical.
