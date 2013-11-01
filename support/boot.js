@@ -812,6 +812,9 @@ function RuntimeBrik(brikz, st) {
 			this.selector    = selector;
 			this.locals      = locals || {};
 			this.lookupClass = lookupClass;
+			if(this.homeContext) {
+				this.homeContext.evaluatedSelector = selector;
+			}
 		};
 
 		SmalltalkMethodContext.prototype.fillBlock = function(locals, ctx, index) {
@@ -942,7 +945,7 @@ function MessageSendBrik(brikz, st) {
 		/* Handles not understood messages. Also see the Amber counter-part
 		 Object>>doesNotUnderstand: */
 
-		return receiver._doesNotUnderstand_(
+		receiver._doesNotUnderstand_(
 			st.Message._new()
 				._selector_(st.convertSelector(selector))
 				._arguments_(args)

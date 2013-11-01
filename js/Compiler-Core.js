@@ -11,13 +11,15 @@ category: 'accessing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-if(smalltalk.assert(_st(aClass)._isMetaclass())){
-$2=_st(_st(aClass)._instanceClass())._name();
+var $2,$3,$4,$1;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$3=_st(_st(aClass)._instanceClass())._name();
 $ctx1.sendIdx["name"]=1;
-$1=_st($2).__comma(".klass");
+$1=_st($3).__comma(".klass");
 } else {
-if(smalltalk.assert(_st(aClass)._isNil())){
+$4=_st(aClass)._isNil();
+if(smalltalk.assert($4)){
 $1="nil";
 } else {
 $1=_st(aClass)._name();
@@ -109,8 +111,9 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(_st(_st(_st($Smalltalk())._current())._reservedWords())._includes_(aString))){
+var $2,$1;
+$2=_st(_st(_st($Smalltalk())._current())._reservedWords())._includes_(aString);
+if(smalltalk.assert($2)){
 $1=_st(aString).__comma("_");
 } else {
 $1=aString;
@@ -131,11 +134,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@source"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@source"];
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
-$1=self["@source"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.AbstractCodeGenerator)})},
@@ -266,11 +270,12 @@ fn: function (){
 var self=this;
 function $InliningCodeGenerator(){return smalltalk.InliningCodeGenerator||(typeof InliningCodeGenerator=="undefined"?nil:InliningCodeGenerator)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@codeGeneratorClass"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@codeGeneratorClass"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=$InliningCodeGenerator();
 } else {
-$1=self["@codeGeneratorClass"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.Compiler)})},
@@ -569,11 +574,13 @@ category: 'compiling',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(_st(_st(aClass)._methodDictionary())._values())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return self._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Recompiling ".__comma(_st(aClass)._name()));
-if(! smalltalk.assert(_st(aClass)._isMetaclass())){
+$1=_st(aClass)._isMetaclass();
+if(! smalltalk.assert($1)){
 self._recompile_(_st(aClass)._class());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},smalltalk.Compiler)})},
@@ -611,11 +618,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@source"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@source"];
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
-$1=self["@source"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.Compiler)})},

@@ -84,8 +84,10 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(($receiver = self["@textarea"]) == nil || $receiver == null){
-self["@textarea"];
+var $1;
+$1=self["@textarea"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
 } else {
 _st(_st(self["@textarea"])._asJQuery())._append_(_st(aString)._asString());
 };
@@ -200,12 +202,13 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@transcripts"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@transcripts"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@transcripts"]=_st($OrderedCollection())._new();
 $1=self["@transcripts"];
 } else {
-$1=self["@transcripts"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"transcripts",{},smalltalk.HLTranscriptHandler.klass)})},

@@ -46,7 +46,7 @@ var self=this;
 var variables,inspectedContext;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$6;
 variables=_st($Dictionary())._new();
 inspectedContext=self._context();
 $1=variables;
@@ -64,16 +64,17 @@ return _st(inspectedContext)._isBlockContext();
 return smalltalk.withContext(function($ctx2) {
 inspectedContext=_st(inspectedContext)._outerContext();
 inspectedContext;
-if(($receiver = inspectedContext) == nil || $receiver == null){
-return inspectedContext;
+$3=inspectedContext;
+if(($receiver = $3) == nil || $receiver == null){
+return $3;
 } else {
-$3=variables;
-$4=_st(inspectedContext)._locals();
-return _st($3)._addAll_($4);
+$4=variables;
+$5=_st(inspectedContext)._locals();
+return _st($4)._addAll_($5);
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 _st(anInspector)._setLabel_("Context");
-$5=_st(anInspector)._setVariables_(variables);
+$6=_st(anInspector)._setVariables_(variables);
 return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables,inspectedContext:inspectedContext},smalltalk.HLContextInspectorDecorator)})},
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables inspectedContext |\x0a\x09\x0a\x09variables := Dictionary new.\x0a\x09inspectedContext := self context.\x0a\x09\x0a\x09variables addAll: inspectedContext locals.\x0a\x09\x0a\x09[ inspectedContext notNil and: [ inspectedContext isBlockContext ] ] whileTrue: [\x0a\x09\x09inspectedContext := inspectedContext outerContext.\x0a\x09\x09inspectedContext ifNotNil: [\x0a\x09\x09\x09variables addAll: inspectedContext locals ] ].\x0a\x09\x0a\x09anInspector\x0a\x09\x09setLabel: 'Context';\x0a\x09\x09setVariables: variables",
@@ -115,15 +116,16 @@ fn: function (){
 var self=this;
 function $HLDebuggerCodeWidget(){return smalltalk.HLDebuggerCodeWidget||(typeof HLDebuggerCodeWidget=="undefined"?nil:HLDebuggerCodeWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-if(($receiver = self["@codeWidget"]) == nil || $receiver == null){
-$2=_st($HLDebuggerCodeWidget())._new();
-_st($2)._browserModel_(self._model());
-$3=_st($2)._yourself();
-self["@codeWidget"]=$3;
+var $2,$3,$4,$1;
+$2=self["@codeWidget"];
+if(($receiver = $2) == nil || $receiver == null){
+$3=_st($HLDebuggerCodeWidget())._new();
+_st($3)._browserModel_(self._model());
+$4=_st($3)._yourself();
+self["@codeWidget"]=$4;
 $1=self["@codeWidget"];
 } else {
-$1=self["@codeWidget"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeWidget",{},smalltalk.HLDebugger)})},
@@ -176,12 +178,13 @@ fn: function (){
 var self=this;
 function $HLInspectorWidget(){return smalltalk.HLInspectorWidget||(typeof HLInspectorWidget=="undefined"?nil:HLInspectorWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@inspectorWidget"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@inspectorWidget"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@inspectorWidget"]=_st($HLInspectorWidget())._new();
 $1=self["@inspectorWidget"];
 } else {
-$1=self["@inspectorWidget"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inspectorWidget",{},smalltalk.HLDebugger)})},
@@ -200,12 +203,13 @@ fn: function (){
 var self=this;
 function $HLDebuggerModel(){return smalltalk.HLDebuggerModel||(typeof HLDebuggerModel=="undefined"?nil:HLDebuggerModel)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@model"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@model"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@model"]=_st($HLDebuggerModel())._new();
 $1=self["@model"];
 } else {
-$1=self["@model"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"model",{},smalltalk.HLDebugger)})},
@@ -311,15 +315,16 @@ fn: function (){
 var self=this;
 function $HLStackListWidget(){return smalltalk.HLStackListWidget||(typeof HLStackListWidget=="undefined"?nil:HLStackListWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-if(($receiver = self["@stackListWidget"]) == nil || $receiver == null){
-$2=_st($HLStackListWidget())._on_(self._model());
-_st($2)._next_(self._codeWidget());
-$3=_st($2)._yourself();
-self["@stackListWidget"]=$3;
+var $2,$3,$4,$1;
+$2=self["@stackListWidget"];
+if(($receiver = $2) == nil || $receiver == null){
+$3=_st($HLStackListWidget())._on_(self._model());
+_st($3)._next_(self._codeWidget());
+$4=_st($3)._yourself();
+self["@stackListWidget"]=$4;
 $1=self["@stackListWidget"];
 } else {
-$1=self["@stackListWidget"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"stackListWidget",{},smalltalk.HLDebugger)})},
@@ -638,14 +643,15 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@currentContext"]) == nil || $receiver == null){
+var $1,$2;
+$1=self["@currentContext"];
+if(($receiver = $1) == nil || $receiver == null){
 self._currentContext_(self._rootContext());
 } else {
-self["@currentContext"];
+$1;
 };
-$1=self["@currentContext"];
-return $1;
+$2=self["@currentContext"];
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"currentContext",{},smalltalk.HLDebuggerModel)})},
 args: [],
 source: "currentContext\x0a\x09currentContext ifNil: [ self currentContext: self rootContext ].\x0a\x09^ currentContext",
@@ -940,12 +946,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@items"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@items"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@items"]=_st(self._model())._contexts();
 $1=self["@items"];
 } else {
-$1=self["@items"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"items",{},smalltalk.HLStackListWidget)})},

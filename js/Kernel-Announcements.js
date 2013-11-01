@@ -81,7 +81,9 @@ category: 'announcing',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(self._handlesAnnouncement_(anAnnouncement))){
+var $1;
+$1=self._handlesAnnouncement_(anAnnouncement);
+if(smalltalk.assert($1)){
 _st(self._valuable())._value_(anAnnouncement);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"deliver:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},
@@ -306,12 +308,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@current"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=smalltalk.SystemAnnouncer.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
-$1=self["@current"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.SystemAnnouncer.klass)})},

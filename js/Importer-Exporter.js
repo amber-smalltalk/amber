@@ -29,13 +29,15 @@ category: 'convenience',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-if(smalltalk.assert(_st(aClass)._isMetaclass())){
-$2=_st(_st(aClass)._instanceClass())._name();
+var $2,$3,$4,$1;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$3=_st(_st(aClass)._instanceClass())._name();
 $ctx1.sendIdx["name"]=1;
-$1=_st($2).__comma(" class");
+$1=_st($3).__comma(" class");
 } else {
-if(smalltalk.assert(_st(aClass)._isNil())){
+$4=_st(aClass)._isNil();
+if(smalltalk.assert($4)){
 $1="nil";
 } else {
 $1=_st(aClass)._name();
@@ -102,21 +104,22 @@ function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof Ordere
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ExportMethodProtocol(){return smalltalk.ExportMethodProtocol||(typeof ExportMethodProtocol=="undefined"?nil:ExportMethodProtocol)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 extensionName="*".__comma(_st(aPackage)._name());
 result=_st($OrderedCollection())._new();
 _st(_st(_st($Smalltalk())._current())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st([each,_st(each)._class()])._do_((function(behavior){
 return smalltalk.withContext(function($ctx3) {
-if(smalltalk.assert(_st(_st(behavior)._protocols())._includes_(extensionName))){
+$1=_st(_st(behavior)._protocols())._includes_(extensionName);
+if(smalltalk.assert($1)){
 return _st(result)._add_(_st($ExportMethodProtocol())._name_theClass_(extensionName,behavior));
 };
 }, function($ctx3) {$ctx3.fillBlock({behavior:behavior},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $ctx1.sendIdx["do:"]=1;
-$1=result;
-return $1;
+$2=result;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionProtocolsOfPackage:",{aPackage:aPackage,extensionName:extensionName,result:result},smalltalk.AbstractExporter)})},
 args: ["aPackage"],
 source: "extensionProtocolsOfPackage: aPackage\x0a\x09| extensionName result |\x0a\x09\x0a\x09extensionName := '*', aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09\x0a\x09\x22The classes must be loaded since it is extensions only.\x0a\x09Therefore sorting (dependency resolution) does not matter here.\x0a\x09Not sorting improves the speed by a number of magnitude.\x22\x0a\x09\x0a\x09Smalltalk current classes do: [ :each |\x0a\x09\x09{each. each class} do: [ :behavior |\x0a\x09\x09\x09(behavior protocols includes: extensionName) ifTrue: [\x0a\x09\x09\x09\x09result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].\x0a\x0a\x09^result",
@@ -468,7 +471,7 @@ function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $MethodCategory(){return smalltalk.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 name=_st(aPackage)._name();
 result=_st($OrderedCollection())._new();
 $ctx1.sendIdx["new"]=1;
@@ -480,7 +483,8 @@ map=_st($Dictionary())._new();
 map;
 _st(aClass)._protocolsDo_((function(category,methods){
 return smalltalk.withContext(function($ctx4) {
-if(smalltalk.assert(_st(category).__eq("*".__comma(name)))){
+$1=_st(category).__eq("*".__comma(name));
+if(smalltalk.assert($1)){
 return _st(map)._at_put_(category,methods);
 };
 }, function($ctx4) {$ctx4.fillBlock({category:category,methods:methods},$ctx3,3)})}));
@@ -494,8 +498,8 @@ return _st($MethodCategory())._name_theClass_methods_(category,aClass,_st(map)._
 }, function($ctx3) {$ctx3.fillBlock({aClass:aClass},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $ctx1.sendIdx["do:"]=1;
-$1=result;
-return $1;
+$2=result;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"extensionCategoriesOfPackage:",{aPackage:aPackage,name:name,map:map,result:result},smalltalk.ChunkExporter)})},
 args: ["aPackage"],
 source: "extensionCategoriesOfPackage: aPackage\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| name map result |\x0a\x09name := aPackage name.\x0a\x09result := OrderedCollection new.\x0a\x09(Package sortedClasses: Smalltalk current classes) do: [ :each |\x0a\x09\x09{each. each class} do: [ :aClass |\x0a\x09\x09\x09map := Dictionary new.\x0a\x09\x09\x09aClass protocolsDo: [ :category :methods |\x0a\x09\x09\x09\x09category = ('*', name) ifTrue: [ map at: category put: methods ] ].\x0a\x09\x09\x09result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [ :category |\x0a\x09\x09\x09\x09MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].\x0a\x09^result",
@@ -514,22 +518,23 @@ var map;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 function $MethodCategory(){return smalltalk.MethodCategory||(typeof MethodCategory=="undefined"?nil:MethodCategory)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 map=_st($Dictionary())._new();
 _st(aClass)._protocolsDo_((function(each,methods){
 return smalltalk.withContext(function($ctx2) {
-if(! smalltalk.assert(_st(each)._match_("^\x5c*"))){
+$1=_st(each)._match_("^\x5c*");
+if(! smalltalk.assert($1)){
 return _st(map)._at_put_(each,methods);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each,methods:methods},$ctx1,1)})}));
-$1=_st(_st(_st(map)._keys())._sorted_((function(a,b){
+$2=_st(_st(_st(map)._keys())._sorted_((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 return _st(a).__lt_eq(b);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})})))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st($MethodCategory())._name_theClass_methods_(each,aClass,_st(map)._at_(each));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
-return $1;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"ownCategoriesOfClass:",{aClass:aClass,map:map},smalltalk.ChunkExporter)})},
 args: ["aClass"],
 source: "ownCategoriesOfClass: aClass\x0a\x09\x22Answer the protocols of aClass that are not package extensions\x22\x0a\x09\x0a\x09\x22Issue #143: sort protocol alphabetically\x22\x0a\x0a\x09| map |\x0a\x09map := Dictionary new.\x0a\x09aClass protocolsDo: [ :each :methods |\x0a\x09\x09(each match: '^\x5c*') ifFalse: [ map at: each put: methods ] ].\x0a\x09^(map keys sorted: [:a :b | a <= b ]) collect: [ :each |\x0a\x09\x09MethodCategory name: each theClass: aClass methods: (map at: each) ]",
@@ -589,13 +594,15 @@ category: 'convenience',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-if(smalltalk.assert(_st(aClass)._isMetaclass())){
-$2=_st(_st(aClass)._instanceClass())._name();
+var $2,$3,$4,$1;
+$2=_st(aClass)._isMetaclass();
+if(smalltalk.assert($2)){
+$3=_st(_st(aClass)._instanceClass())._name();
 $ctx1.sendIdx["name"]=1;
-$1=_st($2).__comma(".klass");
+$1=_st($3).__comma(".klass");
 } else {
-if(smalltalk.assert(_st(aClass)._isNil())){
+$4=_st(aClass)._isNil();
+if(smalltalk.assert($4)){
 $1="nil";
 } else {
 $1=_st(aClass)._name();
@@ -1336,6 +1343,7 @@ var chunk,result,parser,lastEmpty;
 function $ChunkParser(){return smalltalk.ChunkParser||(typeof ChunkParser=="undefined"?nil:ChunkParser)}
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 parser=_st($ChunkParser())._on_(aStream);
 lastEmpty=false;
 _st((function(){
@@ -1345,13 +1353,15 @@ chunk;
 return _st(chunk)._isNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._whileFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
-if(smalltalk.assert(_st(chunk)._isEmpty())){
+$1=_st(chunk)._isEmpty();
+if(smalltalk.assert($1)){
 lastEmpty=true;
 return lastEmpty;
 } else {
 result=_st(_st($Compiler())._new())._evaluateExpression_(chunk);
 result;
-if(smalltalk.assert(lastEmpty)){
+$2=lastEmpty;
+if(smalltalk.assert($2)){
 lastEmpty=false;
 lastEmpty;
 return _st(result)._scanFrom_(parser);
@@ -1705,8 +1715,9 @@ fn: function (aString){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = _st(_st($Smalltalk())._current())._amdRequire()) == nil || $receiver == null){
+var $2,$1;
+$2=_st(_st($Smalltalk())._current())._amdRequire();
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._error_("AMD loader not present");
 } else {
 var require;
@@ -2171,11 +2182,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@namespace"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@namespace"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultNamespace();
 } else {
-$1=self["@namespace"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"namespace",{},smalltalk.AmdPackageTransport)})},

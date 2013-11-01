@@ -957,8 +957,10 @@ fn: function (){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-if(($receiver = self["@theClass"]) == nil || $receiver == null){
-self["@theClass"];
+var $1;
+$1=self["@theClass"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
 } else {
 _st(_st($Smalltalk())._current())._removeClass_(self["@theClass"]);
 self["@theClass"]=nil;

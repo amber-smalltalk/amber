@@ -637,8 +637,9 @@ category: 'testing',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(self._isMemberOf_(aClass))){
+var $2,$1;
+$2=self._isMemberOf_(aClass);
+if(smalltalk.assert($2)){
 $1=true;
 } else {
 $1=_st(self._class())._inheritsFrom_(aClass);
@@ -1232,8 +1233,9 @@ category: 'controlling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self.__eq(true))._ifTrue_ifFalse_(aBlock,(function(){
+var $2,$1;
+$2=self.__eq(true);
+$1=_st($2)._ifTrue_ifFalse_(aBlock,(function(){
 return smalltalk.withContext(function($ctx2) {
 return false;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -1453,8 +1455,9 @@ category: 'controlling',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self.__eq(true))._ifTrue_ifFalse_((function(){
+var $2,$1;
+$2=self.__eq(true);
+$1=_st($2)._ifTrue_ifFalse_((function(){
 return smalltalk.withContext(function($ctx2) {
 return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),aBlock);
@@ -3006,10 +3009,13 @@ category: 'mathematical functions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(self._isZero())){
+var $1,$2;
+$1=self._isZero();
+if(smalltalk.assert($1)){
 return (0);
 };
-if(smalltalk.assert(self._positive())){
+$2=self._positive();
+if(smalltalk.assert($2)){
 return (1);
 } else {
 return (-1);
@@ -3159,14 +3165,16 @@ var self=this;
 var array,value,pos;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2,$3;
 value=self;
 array=_st($Array())._new();
 pos=(1);
-if(smalltalk.assert(_st(step).__eq((0)))){
+$1=_st(step).__eq((0));
+if(smalltalk.assert($1)){
 self._error_("step must be non-zero");
 };
-if(smalltalk.assert(_st(step).__lt((0)))){
+$2=_st(step).__lt((0));
+if(smalltalk.assert($2)){
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(value).__gt_eq(stop);
@@ -3196,8 +3204,8 @@ value=_st(value).__plus(step);
 return value;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}));
 };
-$1=array;
-return $1;
+$3=array;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"to:by:",{stop:stop,step:step,array:array,value:value,pos:pos},smalltalk.Number)})},
 args: ["stop", "step"],
 source: "to: stop by: step\x0a\x09| array value pos |\x0a\x09value := self.\x0a\x09array := Array new.\x0a\x09pos := 1.\x0a\x09step = 0 ifTrue: [self error: 'step must be non-zero'].\x0a\x09step < 0\x0a\x09\x09ifTrue: [[ value >= stop ] whileTrue: [\x0a\x09\x09\x09\x09\x09array at: pos put: value.\x0a\x09\x09\x09\x09\x09pos := pos + 1.\x0a\x09\x09\x09\x09\x09value := value + step]]\x0a\x09\x09ifFalse: [[ value <= stop ] whileTrue: [\x0a\x09\x09\x09\x09\x09array at: pos put: value.\x0a\x09\x09\x09\x09pos := pos + 1.\x0a\x09\x09\x09\x09\x09value := value + step]].\x0a\x09^array",
@@ -3214,11 +3222,14 @@ fn: function (stop,step,aBlock){
 var self=this;
 var value;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 value=self;
-if(smalltalk.assert(_st(step).__eq((0)))){
+$1=_st(step).__eq((0));
+if(smalltalk.assert($1)){
 self._error_("step must be non-zero");
 };
-if(smalltalk.assert(_st(step).__lt((0)))){
+$2=_st(step).__lt((0));
+if(smalltalk.assert($2)){
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(value).__gt_eq(stop);
@@ -3548,13 +3559,15 @@ category: 'printing',
 fn: function (aStream){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(self["@x"])._printOn_(aStream);
 $ctx1.sendIdx["printOn:"]=1;
 _st(aStream)._nextPutAll_("@");
-if(smalltalk.assert(_st(_st(self["@y"])._notNil())._and_((function(){
+$1=_st(_st(self["@y"])._notNil())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@y"])._negative();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
 _st(aStream)._space();
 };
 _st(self["@y"])._printOn_(aStream);

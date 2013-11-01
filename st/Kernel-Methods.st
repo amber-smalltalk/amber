@@ -552,6 +552,10 @@ My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js
 
 !MethodContext methodsFor: 'accessing'!
 
+evaluatedSelector
+	<return self.evaluatedSelector>
+!
+
 home
 	<return self.homeContext>
 !

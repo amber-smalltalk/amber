@@ -365,7 +365,7 @@ var suite,runner,result,assertBlock;
 function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteRunner=="undefined"?nil:TestSuiteRunner)}
 function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$5;
+var $1,$2,$3,$4,$6,$5,$7;
 suite=["fakeError", "fakeErrorFailingInTearDown", "fakeFailure", "testPass"]._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._class())._selector_(each);
@@ -392,7 +392,8 @@ return smalltalk.withContext(function($ctx2) {
 $6=_st(ann)._result();
 $5=_st($6).__eq_eq(result);
 if(smalltalk.assert($5)){
-return _st(_st(_st(result)._runs()).__eq(_st(result)._total()))._ifTrue_(assertBlock);
+$7=_st(_st(result)._runs()).__eq(_st(result)._total());
+return _st($7)._ifTrue_(assertBlock);
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,3)})}));
 _st(runner)._run();
@@ -523,7 +524,7 @@ function $TestSuiteRunner(){return smalltalk.TestSuiteRunner||(typeof TestSuiteR
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 function $ResultAnnouncement(){return smalltalk.ResultAnnouncement||(typeof ResultAnnouncement=="undefined"?nil:ResultAnnouncement)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3;
+var $1,$2,$4,$3,$5;
 suite=["fakeTimeout", "fakeMultipleTimeoutFailing", "fakeMultipleTimeoutPassing", "testPass"]._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._class())._selector_(each);
@@ -547,7 +548,8 @@ return smalltalk.withContext(function($ctx2) {
 $4=_st(ann)._result();
 $3=_st($4).__eq_eq(result);
 if(smalltalk.assert($3)){
-return _st(_st(_st(result)._runs()).__eq(_st(result)._total()))._ifTrue_(assertBlock);
+$5=_st(_st(result)._runs()).__eq(_st(result)._total());
+return _st($5)._ifTrue_(assertBlock);
 };
 }, function($ctx2) {$ctx2.fillBlock({ann:ann},$ctx1,3)})}));
 _st(runner)._run();

@@ -472,8 +472,9 @@ category: 'visiting',
 fn: function (anIRAssignment){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(self._shouldInlineAssignment_(anIRAssignment))){
+var $2,$1;
+$2=self._shouldInlineAssignment_(anIRAssignment);
+if(smalltalk.assert($2)){
 $1=_st(self._assignmentInliner())._inlineAssignment_(anIRAssignment);
 } else {
 $1=smalltalk.IRInliner.superclass.fn.prototype._visitIRAssignment_.apply(_st(self), [anIRAssignment]);
@@ -512,8 +513,9 @@ category: 'visiting',
 fn: function (anIRReturn){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(self._shouldInlineReturn_(anIRReturn))){
+var $2,$1;
+$2=self._shouldInlineReturn_(anIRReturn);
+if(smalltalk.assert($2)){
 $1=_st(self._returnInliner())._inlineReturn_(anIRReturn);
 } else {
 $1=smalltalk.IRInliner.superclass.fn.prototype._visitIRReturn_.apply(_st(self), [anIRReturn]);
@@ -534,8 +536,9 @@ category: 'visiting',
 fn: function (anIRSend){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(self._shouldInlineSend_(anIRSend))){
+var $2,$1;
+$2=self._shouldInlineSend_(anIRSend);
+if(smalltalk.assert($2)){
 $1=_st(self._sendInliner())._inlineSend_(anIRSend);
 } else {
 $1=smalltalk.IRInliner.superclass.fn.prototype._visitIRSend_.apply(_st(self), [anIRSend]);
@@ -1224,24 +1227,26 @@ fn: function (inlinedSend,anIRInstruction){
 var self=this;
 var inlinedClosure;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$5;
-if(! smalltalk.assert(_st(anIRInstruction)._isClosure())){
+var $1,$2,$5,$4,$3,$6,$7;
+$1=_st(anIRInstruction)._isClosure();
+if(! smalltalk.assert($1)){
 self._inliningError_("Message argument should be a block");
 $ctx1.sendIdx["inliningError:"]=1;
 };
-if(! smalltalk.assert(_st(_st(_st(anIRInstruction)._arguments())._size()).__eq((0)))){
+$2=_st(_st(_st(anIRInstruction)._arguments())._size()).__eq((0));
+if(! smalltalk.assert($2)){
 self._inliningError_("Inlined block should have zero argument");
 };
 inlinedClosure=_st(self._translator())._visit_(self._inlineClosure_(anIRInstruction));
-$3=self._send();
-$ctx1.sendIdx["send"]=1;
-$2=_st($3)._instructions();
-$1=_st($2)._first();
-_st(inlinedSend)._add_($1);
-$ctx1.sendIdx["add:"]=1;
-$4=_st(inlinedSend)._add_(inlinedClosure);
 $5=self._send();
-_st($5)._replaceWith_(inlinedSend);
+$ctx1.sendIdx["send"]=1;
+$4=_st($5)._instructions();
+$3=_st($4)._first();
+_st(inlinedSend)._add_($3);
+$ctx1.sendIdx["add:"]=1;
+$6=_st(inlinedSend)._add_(inlinedClosure);
+$7=self._send();
+_st($7)._replaceWith_(inlinedSend);
 return inlinedSend;
 }, function($ctx1) {$ctx1.fill(self,"inlinedSend:with:",{inlinedSend:inlinedSend,anIRInstruction:anIRInstruction,inlinedClosure:inlinedClosure},smalltalk.IRSendInliner)})},
 args: ["inlinedSend", "anIRInstruction"],
@@ -1429,14 +1434,17 @@ category: 'accessing',
 fn: function (anIRInstruction){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 var $early={};
 try {
-if(! smalltalk.assert(_st(self._inlinedSelectors())._includes_(_st(anIRInstruction)._selector()))){
+$1=_st(self._inlinedSelectors())._includes_(_st(anIRInstruction)._selector());
+if(! smalltalk.assert($1)){
 return false;
 };
 _st(_st(_st(anIRInstruction)._instructions())._allButFirst())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-if(! smalltalk.assert(_st(each)._isClosure())){
+$2=_st(each)._isClosure();
+if(! smalltalk.assert($2)){
 throw $early=[false];
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));

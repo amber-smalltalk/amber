@@ -51,10 +51,12 @@ category: 'releasing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(($receiver = self["@frame"]) == nil || $receiver == null){
+var $1;
+$1=self["@frame"];
+if(($receiver = $1) == nil || $receiver == null){
 return self;
 } else {
-self["@frame"];
+$1;
 };
 _st(_st(self["@frame"])._asJQuery())._remove();
 self._release();
@@ -74,17 +76,18 @@ fn: function (aBlock){
 var self=this;
 function $ObjectSpaceConnectionError(){return smalltalk.ObjectSpaceConnectionError||(typeof ObjectSpaceConnectionError=="undefined"?nil:ObjectSpaceConnectionError)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$5,$4,$2;
-if(! smalltalk.assert(self._isConnected())){
-$1=_st($ObjectSpaceConnectionError())._signal();
-return $1;
-};
-$3=_st(self["@frame"])._contentWindow();
-$5="(".__comma(_st(aBlock)._compiledSource());
-$4=_st($5).__comma(")()");
-$ctx1.sendIdx[","]=1;
-$2=_st($3)._eval_($4);
+var $1,$2,$4,$6,$5,$3;
+$1=self._isConnected();
+if(! smalltalk.assert($1)){
+$2=_st($ObjectSpaceConnectionError())._signal();
 return $2;
+};
+$4=_st(self["@frame"])._contentWindow();
+$6="(".__comma(_st(aBlock)._compiledSource());
+$5=_st($6).__comma(")()");
+$ctx1.sendIdx[","]=1;
+$3=_st($4)._eval_($5);
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.ObjectSpace)})},
 args: ["aBlock"],
 source: "do: aBlock\x0a\x09self isConnected ifFalse: [ ^ ObjectSpaceConnectionError signal ].\x0a\x09^ frame contentWindow eval: '(', aBlock compiledSource, ')()'",

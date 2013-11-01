@@ -111,12 +111,13 @@ fn: function (aBlock){
 var self=this;
 var c;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 self._errorIfNotAsync_("#async");
 c=self["@context"];
 $1=(function(){
 return smalltalk.withContext(function($ctx2) {
-if(smalltalk.assert(self._isAsync())){
+$2=self._isAsync();
+if(smalltalk.assert($2)){
 return _st(c)._execute_(aBlock);
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})});
@@ -168,7 +169,9 @@ category: 'error handling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(! smalltalk.assert(self._isAsync())){
+var $1;
+$1=self._isAsync();
+if(! smalltalk.assert($1)){
 self._error_(_st(aString).__comma(" used without prior #timeout:"));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"errorIfNotAsync:",{aString:aString},smalltalk.TestCase)})},
@@ -401,8 +404,10 @@ category: 'async',
 fn: function (aNumber){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(($receiver = self["@asyncTimeout"]) == nil || $receiver == null){
-self["@asyncTimeout"];
+var $1;
+$1=self["@asyncTimeout"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
 } else {
 _st(self["@asyncTimeout"])._clearTimeout();
 };
@@ -428,13 +433,14 @@ fn: function (){
 var self=this;
 var selectors;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 selectors=self._testSelectors();
-if(smalltalk.assert(self._shouldInheritSelectors())){
+$1=self._shouldInheritSelectors();
+if(smalltalk.assert($1)){
 _st(selectors)._addAll_(_st(self._superclass())._allTestSelectors());
 };
-$1=selectors;
-return $1;
+$2=selectors;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},smalltalk.TestCase.klass)})},
 args: [],
 source: "allTestSelectors\x0a\x09| selectors |\x0a\x09selectors := self testSelectors.\x0a\x09self shouldInheritSelectors ifTrue: [\x0a\x09\x09selectors addAll: self superclass allTestSelectors].\x0a\x09^selectors",
@@ -586,7 +592,7 @@ fn: function (aBlock){
 var self=this;
 var failed;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 _st(self["@testCase"])._context_(self);
 $ctx1.sendIdx["context:"]=1;
 _st((function(){
@@ -599,15 +605,16 @@ return failed;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
 _st(self["@testCase"])._context_(nil);
-if(smalltalk.assert(_st(failed)._and_((function(){
+$1=_st(failed)._and_((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(self["@testCase"])._isAsync();
 $ctx3.sendIdx["isAsync"]=1;
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})})))){
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+if(smalltalk.assert($1)){
 _st(self["@testCase"])._finished();
 };
-$1=_st(self["@testCase"])._isAsync();
-if(! smalltalk.assert($1)){
+$2=_st(self["@testCase"])._isAsync();
+if(! smalltalk.assert($2)){
 return _st(self["@testCase"])._tearDown();
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
@@ -687,6 +694,7 @@ category: 'running',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._withErrorReporting_((function(){
@@ -695,7 +703,8 @@ return smalltalk.ReportingTestContext.superclass.fn.prototype._execute_.apply(_s
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._ensure_((function(){
 return smalltalk.withContext(function($ctx2) {
-if(! smalltalk.assert(_st(self["@testCase"])._isAsync())){
+$1=_st(self["@testCase"])._isAsync();
+if(! smalltalk.assert($1)){
 _st(self["@result"])._increaseRuns();
 return _st(self["@finished"])._value();
 };
@@ -1115,6 +1124,7 @@ var self=this;
 function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
 function $TestResult(){return smalltalk.TestResult||(typeof TestResult=="undefined"?nil:TestResult)}
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 smalltalk.TestSuiteRunner.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@announcer"]=_st($Announcer())._new();
 $ctx1.sendIdx["new"]=1;
@@ -1124,7 +1134,8 @@ var runs;
 return smalltalk.withContext(function($ctx2) {
 runs=_st(self["@result"])._runs();
 runs;
-if(smalltalk.assert(_st(runs).__lt(_st(self["@result"])._total()))){
+$1=_st(runs).__lt(_st(self["@result"])._total());
+if(smalltalk.assert($1)){
 return _st(self._contextOf_(_st(runs).__plus((1))))._start();
 };
 }, function($ctx2) {$ctx2.fillBlock({runs:runs},$ctx1,1)})});

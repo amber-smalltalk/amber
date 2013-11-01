@@ -29,18 +29,19 @@ category: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$6,$5,$2,$1;
-if(smalltalk.assert(self.__lt((2)))){
+var $2,$5,$4,$7,$6,$3,$1;
+$2=self.__lt((2));
+if(smalltalk.assert($2)){
 $1=(1);
 } else {
-$4=self.__minus((1));
+$5=self.__minus((1));
 $ctx1.sendIdx["-"]=1;
-$3=_st($4)._benchFib();
+$4=_st($5)._benchFib();
 $ctx1.sendIdx["benchFib"]=1;
-$6=self.__minus((2));
-$5=_st($6)._benchFib();
-$2=_st($3).__plus($5);
-$1=_st($2).__plus((1));
+$7=self.__minus((2));
+$6=_st($7)._benchFib();
+$3=_st($4).__plus($6);
+$1=_st($3).__plus((1));
 $ctx1.sendIdx["+"]=1;
 };
 return $1;
@@ -61,7 +62,7 @@ var self=this;
 var size,flags,prime,k,count;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 size=(8190);
 (1)._to_do_(self,(function(iter){
 return smalltalk.withContext(function($ctx2) {
@@ -75,7 +76,8 @@ return _st(flags)._add_(true);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 return (1)._to_do_(size,(function(i){
 return smalltalk.withContext(function($ctx3) {
-if(smalltalk.assert(_st(flags)._at_(i))){
+$1=_st(flags)._at_(i);
+if(smalltalk.assert($1)){
 prime=_st(i).__plus((1));
 $ctx3.sendIdx["+"]=1;
 prime;
@@ -98,8 +100,8 @@ return count;
 }, function($ctx3) {$ctx3.fillBlock({i:i},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({iter:iter},$ctx1,1)})}));
 $ctx1.sendIdx["to:do:"]=1;
-$1=count;
-return $1;
+$2=count;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"benchmark",{size:size,flags:flags,prime:prime,k:k,count:count},smalltalk.Number)})},
 args: [],
 source: "benchmark\x0a\x09\x22Handy bytecode-heavy benchmark\x22\x0a\x09\x22(500000 // time to run) = approx bytecodes per second\x22\x0a\x09\x225000000 // (Time millisecondsToRun: [10 benchmark]) * 1000\x22\x0a\x09\x223059000 on a Mac 8100/100\x22\x0a\x09| size flags prime k count |\x0a\x09size := 8190.\x0a\x091 to: self do:\x0a\x09\x09[:iter |\x0a\x09\x09count := 0.\x0a\x09\x09flags := Array new.\x0a\x09\x09size timesRepeat: [ flags add: true].\x0a\x09\x091 to: size do:\x0a\x09\x09\x09[:i | (flags at: i) ifTrue:\x0a\x09\x09\x09\x09[prime := i+1.\x0a\x09\x09\x09\x09k := i + prime.\x0a\x09\x09\x09\x09[k <= size] whileTrue:\x0a\x09\x09\x09\x09\x09[flags at: k put: false.\x0a\x09\x09\x09\x09\x09k := k + prime].\x0a\x09\x09\x09\x09count := count + 1]]].\x0a\x09^ count",

@@ -222,7 +222,9 @@ fn: function (){
 var self=this;
 function $HLKeyBinder(){return smalltalk.HLKeyBinder||(typeof HLKeyBinder=="undefined"?nil:HLKeyBinder)}
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(_st(self._command())._isInputRequired())){
+var $1;
+$1=_st(self._command())._isInputRequired();
+if(smalltalk.assert($1)){
 _st(_st(_st($HLKeyBinder())._current())._helper())._showWidget_(self._inputWidget());
 } else {
 self._executeCommand();
@@ -523,11 +525,13 @@ fn: function (aString,aBinding){
 var self=this;
 var binding;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 binding=self._at_(aString);
-if(($receiver = binding) == nil || $receiver == null){
+$1=binding;
+if(($receiver = $1) == nil || $receiver == null){
 return self;
 } else {
-binding;
+$1;
 };
 _st(binding)._add_(aBinding);
 return self}, function($ctx1) {$ctx1.fill(self,"at:add:",{aString:aString,aBinding:aBinding,binding:binding},smalltalk.HLBindingGroup)})},
@@ -570,12 +574,13 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@bindings"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@bindings"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@bindings"]=_st($OrderedCollection())._new();
 $1=self["@bindings"];
 } else {
-$1=self["@bindings"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindings",{},smalltalk.HLBindingGroup)})},
@@ -648,7 +653,9 @@ category: 'rendering',
 fn: function (aBindingHelper,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(self._isActive())){
+var $1;
+$1=self._isActive();
+if(smalltalk.assert($1)){
 _st(aBindingHelper)._renderBindingGroup_on_(self,html);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:html:",{aBindingHelper:aBindingHelper,html:html},smalltalk.HLBindingGroup)})},
@@ -670,14 +677,15 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@callback"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@callback"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@callback"]=(function(value){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({value:value},$ctx1,2)})});
 $1=self["@callback"];
 } else {
-$1=self["@callback"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"callback",{},smalltalk.HLBindingActionInputWidget)})},
@@ -729,11 +737,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@defaultValue"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@defaultValue"];
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
-$1=self["@defaultValue"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultValue",{},smalltalk.HLBindingActionInputWidget)})},
@@ -864,11 +873,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@inputCompletion"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@inputCompletion"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=[];
 } else {
-$1=self["@inputCompletion"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLBindingActionInputWidget)})},
@@ -902,12 +912,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@message"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@message"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@message"]="";
 $1=self["@message"];
 } else {
-$1=self["@message"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"message",{},smalltalk.HLBindingActionInputWidget)})},
@@ -941,10 +952,12 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(($receiver = self["@wrapper"]) == nil || $receiver == null){
+var $1;
+$1=self["@wrapper"];
+if(($receiver = $1) == nil || $receiver == null){
 return self;
 } else {
-self["@wrapper"];
+$1;
 };
 _st(self["@wrapper"])._class_(self._status());
 _st(self["@messageTag"])._contents_(self._message());
@@ -963,51 +976,53 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$5,$8,$7,$6,$4,$9,$10,$11,$2,$12;
-if(($receiver = self["@wrapper"]) == nil || $receiver == null){
+var $1,$2,$4,$6,$8,$10,$9,$7,$5,$11,$12,$13,$3,$14;
+$1=self["@wrapper"];
+if(($receiver = $1) == nil || $receiver == null){
 self["@wrapper"]=_st(html)._span();
 $ctx1.sendIdx["span"]=1;
 self["@wrapper"];
 } else {
-self["@wrapper"];
+$1;
 };
-$1=self["@wrapper"];
-_st($1)._class_(self._status());
+$2=self["@wrapper"];
+_st($2)._class_(self._status());
 $ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
+$3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._input();
-_st($3)._placeholder_(self._ghostText());
-_st($3)._value_(self._defaultValue());
-$5=$3;
-$6=_st((function(event){
+$4=_st(html)._input();
+_st($4)._placeholder_(self._ghostText());
+_st($4)._value_(self._defaultValue());
+$6=$4;
+$7=_st((function(event){
 return smalltalk.withContext(function($ctx3) {
-if(smalltalk.assert(_st(_st(event)._which()).__eq((13)))){
-$8=_st(self["@input"])._asJQuery();
+$8=_st(_st(event)._which()).__eq((13));
+if(smalltalk.assert($8)){
+$10=_st(self["@input"])._asJQuery();
 $ctx3.sendIdx["asJQuery"]=1;
-$7=_st($8)._val();
-return self._evaluate_($7);
+$9=_st($10)._val();
+return self._evaluate_($9);
 };
 }, function($ctx3) {$ctx3.fillBlock({event:event},$ctx2,3)})}))._yourself();
 $ctx2.sendIdx["yourself"]=1;
-$4=_st($5)._onKeyDown_($6);
-self["@input"]=$4;
+$5=_st($6)._onKeyDown_($7);
+self["@input"]=$5;
 self["@input"];
-$9=_st(self["@input"])._asJQuery();
+$11=_st(self["@input"])._asJQuery();
 $ctx2.sendIdx["asJQuery"]=2;
-_st($9)._typeahead_(smalltalk.HashedCollection._from_(["source".__minus_gt(self._inputCompletion())]));
-$10=_st(html)._span();
-_st($10)._class_("help-inline");
-_st($10)._with_(self._message());
-$11=_st($10)._yourself();
-self["@messageTag"]=$11;
+_st($11)._typeahead_(smalltalk.HashedCollection._from_(["source".__minus_gt(self._inputCompletion())]));
+$12=_st(html)._span();
+_st($12)._class_("help-inline");
+_st($12)._with_(self._message());
+$13=_st($12)._yourself();
+self["@messageTag"]=$13;
 return self["@messageTag"];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $ctx1.sendIdx["with:"]=1;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-$12=_st(self["@input"])._asJQuery();
-return _st($12)._focus();
+$14=_st(self["@input"])._asJQuery();
+return _st($14)._focus();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}))._valueWithTimeout_((10));
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.HLBindingActionInputWidget)})},
 args: ["html"],
@@ -1024,12 +1039,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@status"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@status"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@status"]="info";
 $1=self["@status"];
 } else {
-$1=self["@status"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"status",{},smalltalk.HLBindingActionInputWidget)})},
@@ -1115,7 +1131,9 @@ category: 'actions',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(! smalltalk.assert(_st(aBinding)._isActive())){
+var $1;
+$1=_st(aBinding)._isActive();
+if(! smalltalk.assert($1)){
 return self;
 };
 self._selectBinding_(aBinding);
@@ -1135,12 +1153,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@bindings"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@bindings"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@bindings"]=self._defaultBindings();
 $1=self["@bindings"];
 } else {
-$1=self["@bindings"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"bindings",{},smalltalk.HLKeyBinder)})},
@@ -1158,8 +1177,10 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(($receiver = self["@selectedBinding"]) == nil || $receiver == null){
-self["@selectedBinding"];
+var $1;
+$1=self["@selectedBinding"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
 } else {
 _st(self["@selectedBinding"])._release();
 };
@@ -1288,9 +1309,11 @@ fn: function (anEvent){
 var self=this;
 var binding;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 binding=_st(self._selectedBinding())._atKey_(_st(anEvent)._which());
-if(($receiver = binding) == nil || $receiver == null){
-binding;
+$1=binding;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
 } else {
 self._applyBinding_(binding);
 _st(anEvent)._preventDefault();
@@ -1311,8 +1334,11 @@ category: 'events',
 fn: function (event){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(_st(_st(event)._which()).__eq(self._activationKey()))){
-if(smalltalk.assert(_st(event)._ctrlKey())){
+var $1,$2;
+$1=_st(_st(event)._which()).__eq(self._activationKey());
+if(smalltalk.assert($1)){
+$2=_st(event)._ctrlKey();
+if(smalltalk.assert($2)){
 self._activate();
 _st(event)._preventDefault();
 return false;
@@ -1333,8 +1359,9 @@ category: 'events',
 fn: function (event){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(self._isActive())){
+var $2,$1;
+$2=self._isActive();
+if(smalltalk.assert($2)){
 $1=self._handleActiveKeyDown_(event);
 } else {
 $1=self._handleInactiveKeyDown_(event);
@@ -1413,7 +1440,9 @@ category: 'actions',
 fn: function (aBinding){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(_st(aBinding).__eq(self["@selectedBinding"]))){
+var $1;
+$1=_st(aBinding).__eq(self["@selectedBinding"]);
+if(smalltalk.assert($1)){
 return self;
 };
 self["@selectedBinding"]=aBinding;
@@ -1433,11 +1462,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@selectedBinding"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@selectedBinding"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._bindings();
 } else {
-$1=self["@selectedBinding"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectedBinding",{},smalltalk.HLKeyBinder)})},
@@ -1494,12 +1524,13 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@current"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@current"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@current"]=smalltalk.HLKeyBinder.klass.superclass.fn.prototype._new.apply(_st(self), []);
 $1=self["@current"];
 } else {
-$1=self["@current"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.HLKeyBinder.klass)})},
@@ -1794,14 +1825,15 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
+var $1,$3,$5,$4,$2;
 $1=_st(html)._span();
 _st($1)._class_("selected");
 $3=$1;
-if(($receiver = _st(self._selectedBinding())._label()) == nil || $receiver == null){
+$5=_st(self._selectedBinding())._label();
+if(($receiver = $5) == nil || $receiver == null){
 $4="Action";
 } else {
-$4=_st(self._selectedBinding())._label();
+$4=$5;
 };
 $2=_st($3)._with_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"renderLabelOn:",{html:html},smalltalk.HLKeyBinderHelperWidget)})},
@@ -2014,10 +2046,12 @@ category: 'events handling',
 fn: function (anEvent,anInteger,aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(_st(_st(_st(anEvent)._which()).__eq(anInteger))._and_((function(){
+var $1;
+$1=_st(_st(_st(anEvent)._which()).__eq(anInteger))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self._isKeyDown())._not();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
 self._whileKeyDownDo_(aBlock);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleEvent:forKey:action:",{anEvent:anEvent,anInteger:anInteger,aBlock:aBlock},smalltalk.HLRepeatedKeyDownHandler)})},
@@ -2054,16 +2088,20 @@ category: 'events handling',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(self._isKeyDown())){
+var $1,$2,$3;
+$1=self._isKeyDown();
+if(smalltalk.assert($1)){
 self["@keyDown"]=false;
 self["@keyDown"];
-if(($receiver = self["@interval"]) == nil || $receiver == null){
-self["@interval"];
+$2=self["@interval"];
+if(($receiver = $2) == nil || $receiver == null){
+$2;
 } else {
 _st(self["@interval"])._clearInterval();
 };
-if(($receiver = self["@delay"]) == nil || $receiver == null){
-self["@delay"];
+$3=self["@delay"];
+if(($receiver = $3) == nil || $receiver == null){
+$3;
 } else {
 _st(self["@delay"])._clearTimeout();
 };
@@ -2083,11 +2121,12 @@ category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@keyDown"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@keyDown"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=false;
 } else {
-$1=self["@keyDown"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isKeyDown",{},smalltalk.HLRepeatedKeyDownHandler)})},
@@ -2106,12 +2145,13 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@keyBindings"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@keyBindings"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@keyBindings"]=_st($Dictionary())._new();
 $1=self["@keyBindings"];
 } else {
-$1=self["@keyBindings"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"keyBindings",{},smalltalk.HLRepeatedKeyDownHandler)})},
@@ -2147,11 +2187,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@repeatInterval"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@repeatInterval"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultRepeatInterval();
 } else {
-$1=self["@repeatInterval"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"repeatInterval",{},smalltalk.HLRepeatedKeyDownHandler)})},
@@ -2185,10 +2226,11 @@ category: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
-if(smalltalk.assert(_st(self._widget())._hasFocus())){
+$2=_st(self._widget())._hasFocus();
+if(smalltalk.assert($2)){
 return _st(aBlock)._value();
 } else {
 return self._handleKeyUp();

@@ -95,7 +95,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -104,6 +104,14 @@ Unlike a `MethodContext`, my instances are not read-only.
 When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+evaluatedSelector
+	^ evaluatedSelector
+!
+
+evaluatedSelector: aString
+	evaluatedSelector := aString
+!
 
 index
 	^ index ifNil: [ 0 ]
@@ -201,6 +209,7 @@ initializeAST
 initializeFromMethodContext: aMethodContext
 
 	self
+		evaluatedSelector: aMethodContext evaluatedSelector;
 		index: aMethodContext index;
 		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
@@ -219,9 +228,8 @@ initializeInterpreter
 		context: self;
 		yourself.
 	
-	(self innerContext notNil and: [ 
-		self innerContext isBlockContext not ]) ifTrue: [
-			self setupInterpreter: interpreter ]
+	self innerContext ifNotNil: [
+		self setupInterpreter: interpreter ]
 !
 
 initializeLocals
@@ -266,7 +274,7 @@ setupInterpreter: anInterpreter
 	
 	"Retrieve the current node"
 	currentNode := ASTPCNodeVisitor new
-			selector: self innerContext selector;
+			selector: self evaluatedSelector;
 			context: self;
 			visit: self ast;
 			currentNode.

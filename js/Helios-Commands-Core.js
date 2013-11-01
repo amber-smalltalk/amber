@@ -32,8 +32,9 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(smalltalk.assert(self._isBindingGroup())){
+var $2,$1;
+$2=self._isBindingGroup();
+if(smalltalk.assert($2)){
 $1=self._asGroupBinding();
 } else {
 $1=self._asActionBinding();
@@ -372,17 +373,18 @@ var self=this;
 var classes;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $1,$2;
 classes=_st($OrderedCollection())._new();
-if(smalltalk.assert(self._isConcrete())){
+$1=self._isConcrete();
+if(smalltalk.assert($1)){
 _st(classes)._add_(self);
 };
 _st(self._subclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(classes)._addAll_(_st(each)._concreteClasses());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-$1=classes;
-return $1;
+$2=classes;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"concreteClasses",{classes:classes},smalltalk.HLCommand.klass)})},
 args: [],
 source: "concreteClasses\x0a\x09| classes |\x0a\x09\x0a\x09classes := OrderedCollection new.\x0a\x09\x0a\x09self isConcrete\x0a\x09\x09ifTrue: [ classes add: self ].\x0a\x09\x09\x0a\x09self subclasses do: [ :each | \x0a\x09\x09classes addAll: each concreteClasses ].\x0a\x09\x09\x0a\x09^ classes",
@@ -499,7 +501,9 @@ fn: function (aBinding){
 var self=this;
 var newBinding;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(self._isConcrete())){
+var $1;
+$1=self._isConcrete();
+if(smalltalk.assert($1)){
 newBinding=self._registerOn_(aBinding);
 newBinding;
 } else {
@@ -651,10 +655,12 @@ fn: function (aBinding,aModel){
 var self=this;
 var newBinding;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(_st(self._isConcrete())._and_((function(){
+var $1;
+$1=_st(self._isConcrete())._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._isValidFor_(aModel);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
 newBinding=self._registerOn_for_(aBinding,aModel);
 newBinding;
 } else {

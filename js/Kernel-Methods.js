@@ -223,13 +223,14 @@ fn: function (anErrorClass,aBlock){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 $1=self._try_catch_(self,(function(error){
 var smalltalkError;
 return smalltalk.withContext(function($ctx2) {
 smalltalkError=_st(_st($Smalltalk())._current())._asSmalltalkException_(error);
 smalltalkError;
-if(smalltalk.assert(_st(smalltalkError)._isKindOf_(anErrorClass))){
+$2=_st(smalltalkError)._isKindOf_(anErrorClass);
+if(smalltalk.assert($2)){
 return _st(aBlock)._value_(smalltalkError);
 } else {
 return _st(smalltalkError)._resignal();
@@ -492,11 +493,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self._basicAt_("category")) == nil || $receiver == null){
+var $2,$1;
+$2=self._basicAt_("category");
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultCategory();
 } else {
-$1=self._basicAt_("category");
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.CompiledMethod)})},
@@ -633,12 +635,14 @@ fn: function (){
 var self=this;
 var selector;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 var $early={};
 try {
 selector=self._selector();
 _st(self._methodClass())._allSubclassesDo_((function(each){
 return smalltalk.withContext(function($ctx2) {
-if(smalltalk.assert(_st(each)._includesSelector_(selector))){
+$1=_st(each)._includesSelector_(selector);
+if(smalltalk.assert($1)){
 throw $early=[true];
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
@@ -661,21 +665,22 @@ fn: function (){
 var self=this;
 var superclass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$5,$4,$3,$2;
+var $1,$2,$6,$5,$4,$3;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
 superclass=_st($1)._superclass();
 $ctx1.sendIdx["superclass"]=1;
-if(($receiver = superclass) == nil || $receiver == null){
+$2=superclass;
+if(($receiver = $2) == nil || $receiver == null){
 return false;
 } else {
-superclass;
+$2;
 };
-$5=self._methodClass();
-$4=_st($5)._superclass();
-$3=_st($4)._lookupSelector_(self._selector());
-$2=_st($3)._notNil();
-return $2;
+$6=self._methodClass();
+$5=_st($6)._superclass();
+$4=_st($5)._lookupSelector_(self._selector());
+$3=_st($4)._notNil();
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},smalltalk.CompiledMethod)})},
 args: [],
 source: "isOverride\x0a\x09| superclass |\x0a    \x0a    superclass := self methodClass superclass.\x0a\x09superclass ifNil: [ ^ false ].\x0a\x09\x0a    ^ (self methodClass superclass lookupSelector: self selector) notNil",
@@ -831,11 +836,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self._basicAt_("source")) == nil || $receiver == null){
+var $2,$1;
+$2=self._basicAt_("source");
+if(($receiver = $2) == nil || $receiver == null){
 $1="";
 } else {
-$1=self._basicAt_("source");
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.CompiledMethod)})},
@@ -908,7 +914,9 @@ category: 'actions',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-if(smalltalk.assert(_st(self["@poolSize"]).__lt(self._maxPoolSize()))){
+var $1;
+$1=_st(self["@poolSize"]).__lt(self._maxPoolSize());
+if(smalltalk.assert($1)){
 self._addWorker();
 };
 _st(self["@queue"])._nextPut_(aBlock);
@@ -949,7 +957,7 @@ var self=this;
 var sentinel;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1;
 sentinel=_st($Object())._new();
 $1=(function(){
 var block;
@@ -961,7 +969,8 @@ return smalltalk.withContext(function($ctx3) {
 return sentinel;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 block;
-if(! smalltalk.assert(_st(block).__eq_eq(sentinel))){
+$2=_st(block).__eq_eq(sentinel);
+if(! smalltalk.assert($2)){
 return _st((function(){
 return smalltalk.withContext(function($ctx3) {
 return _st(block)._value();
@@ -987,11 +996,12 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@maxPoolSize"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@maxPoolSize"];
+if(($receiver = $2) == nil || $receiver == null){
 $1=self._defaultMaxPoolSize();
 } else {
-$1=self["@maxPoolSize"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"maxPoolSize",{},smalltalk.ForkPool)})},
@@ -1027,12 +1037,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(($receiver = self["@default"]) == nil || $receiver == null){
+var $2,$1;
+$2=self["@default"];
+if(($receiver = $2) == nil || $receiver == null){
 self["@default"]=self._new();
 $1=self["@default"];
 } else {
-$1=self["@default"];
+$1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.ForkPool.klass)})},
@@ -1469,15 +1480,16 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-if(smalltalk.assert(self._isBlockContext())){
-$2="a block (in ".__comma(_st(self._methodContext())._asString());
+var $2,$3,$4,$1;
+$2=self._isBlockContext();
+if(smalltalk.assert($2)){
+$3="a block (in ".__comma(_st(self._methodContext())._asString());
 $ctx1.sendIdx[","]=2;
-$1=_st($2).__comma(")");
+$1=_st($3).__comma(")");
 $ctx1.sendIdx[","]=1;
 } else {
-$3=_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ");
-$1=_st($3).__comma(self._selector());
+$4=_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ");
+$1=_st($4).__comma(self._selector());
 $ctx1.sendIdx[","]=3;
 };
 return $1;
@@ -1485,6 +1497,22 @@ return $1;
 args: [],
 source: "asString\x0a\x09^self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
 messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
+referencedClasses: []
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "evaluatedSelector",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.evaluatedSelector;
+return self}, function($ctx1) {$ctx1.fill(self,"evaluatedSelector",{},smalltalk.MethodContext)})},
+args: [],
+source: "evaluatedSelector\x0a\x09<return self.evaluatedSelector>",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MethodContext);
@@ -1592,18 +1620,20 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-if(! smalltalk.assert(self._isBlockContext())){
+var $1,$3,$2;
+$1=self._isBlockContext();
+if(! smalltalk.assert($1)){
 return self;
 };
-if(($receiver = self._outerContext()) == nil || $receiver == null){
-$1=self._outerContext();
+$3=self._outerContext();
+if(($receiver = $3) == nil || $receiver == null){
+$2=$3;
 } else {
 var outer;
 outer=$receiver;
-$1=_st(outer)._methodContext();
+$2=_st(outer)._methodContext();
 };
-return $1;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"methodContext",{},smalltalk.MethodContext)})},
 args: [],
 source: "methodContext\x0a\x09self isBlockContext ifFalse: [ ^ self ].\x0a\x09\x0a\x09^ self outerContext ifNotNil: [ :outer |\x0a\x09\x09outer methodContext ]",
