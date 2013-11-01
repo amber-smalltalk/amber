@@ -1,8 +1,4 @@
 Smalltalk current createPackage: 'Helios-Core'!
-HLError subclass: #HLListItemNotFound
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
 InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
@@ -784,7 +780,11 @@ activateFirstListItem
 
 activateItem: anObject
 	| listData |
-	listData := [self listDataKeyFor: anObject] on: HLListItemNotFound do: [^self].
+	
+	listData := [ self listDataKeyFor: anObject ] 
+		on: HLListItemNotFound 
+		do: [ ^ self ].
+		
 	self activateListItem: ((wrapper asJQuery find: 'li[list-data="', listData , '"]') eq: 0)
 !
 
@@ -836,14 +836,18 @@ focus
 !
 
 listDataKeyFor: anObject
-	^(self items indexOf: anObject ifAbsent: [HLListItemNotFound signal]) asString
+	^ (self items 
+		indexOf: anObject 
+		ifAbsent: [ HLListItemNotFound signal ]) asString
 !
 
 refresh
 	| listData |
 
 	super refresh.
-	listData := [self listDataKeyFor: self selectedItem] on: HLListItemNotFound do: [^self].
+	listData := [ self listDataKeyFor: self selectedItem ] 
+		on: HLListItemNotFound 
+		do: [ ^ self ].
 	self ensureVisible: ((wrapper asJQuery find: 'li[list-data="', listData , '"]') eq: 0)
 !
 
@@ -937,18 +941,16 @@ previous: aWidget
 
 !HLNavigationListWidget methodsFor: 'actions'!
 
+activateItem: anObject
+	self activateListItem: ((wrapper asJQuery find: 'li[list-data="',  (self items indexOf: anObject ifAbsent: [ ^self ]) asString, '"]') eq: 0)
+!
+
 nextFocus
 	self next ifNotNil: [ self next focus ]
 !
 
 previousFocus
 	self previous ifNotNil: [ self previous focus ]
-! !
-
-!HLNavigationListWidget methodsFor: 'as yet unclassified'!
-
-activateItem: anObject
-	self activateListItem: ((wrapper asJQuery find: 'li[list-data="',  (self items indexOf: anObject ifAbsent: [^self]) asString, '"]') eq: 0)
 ! !
 
 !HLNavigationListWidget methodsFor: 'events'!

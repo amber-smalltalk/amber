@@ -1,9 +1,6 @@
-define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Infrastructure", "amber_core/Canvas", "amber_core/Helios-Exceptions"], function(smalltalk,nil,_st){
+define("amber_core/Helios-Core", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Infrastructure", "amber_core/Canvas"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Helios-Core');
 smalltalk.packages["Helios-Core"].transport = {"type":"amd","amdNamespace":"amber_core"};
-
-smalltalk.addClass('HLListItemNotFound', smalltalk.HLError, [], 'Helios-Core');
-
 
 smalltalk.addClass('HLModel', smalltalk.InterfacingObject, ['announcer', 'environment'], 'Helios-Core');
 smalltalk.HLModel.comment="I am the abstract superclass of all models of Helios.\x0aI am the \x22Model\x22 part of the MVC pattern implementation in Helios.\x0a\x0aI provide access to an `Environment` object and both a local (model-specific) and global (system-specific) announcer.\x0a\x0aThe `#withChangesDo:` method is handy for performing model changes ensuring that all widgets are aware of the change and can prevent it from happening.\x0a\x0aModifications of the system should be done via commands (see `HLCommand` and subclasses).";
@@ -2188,7 +2185,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"activateItem:",{anObject:anObject,listData:listData},smalltalk.HLListWidget)})},
 args: ["anObject"],
-source: "activateItem: anObject\x0a\x09| listData |\x0a\x09listData := [self listDataKeyFor: anObject] on: HLListItemNotFound do: [^self].\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li[list-data=\x22', listData , '\x22]') eq: 0)",
+source: "activateItem: anObject\x0a\x09| listData |\x0a\x09\x0a\x09listData := [ self listDataKeyFor: anObject ] \x0a\x09\x09on: HLListItemNotFound \x0a\x09\x09do: [ ^ self ].\x0a\x09\x09\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li[list-data=\x22', listData , '\x22]') eq: 0)",
 messageSends: ["on:do:", "listDataKeyFor:", "activateListItem:", "eq:", "find:", "asJQuery", ","],
 referencedClasses: ["HLListItemNotFound"]
 }),
@@ -2483,7 +2480,7 @@ return _st($HLListItemNotFound())._signal();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"listDataKeyFor:",{anObject:anObject},smalltalk.HLListWidget)})},
 args: ["anObject"],
-source: "listDataKeyFor: anObject\x0a\x09^(self items indexOf: anObject ifAbsent: [HLListItemNotFound signal]) asString",
+source: "listDataKeyFor: anObject\x0a\x09^ (self items \x0a\x09\x09indexOf: anObject \x0a\x09\x09ifAbsent: [ HLListItemNotFound signal ]) asString",
 messageSends: ["asString", "indexOf:ifAbsent:", "items", "signal"],
 referencedClasses: ["HLListItemNotFound"]
 }),
@@ -2538,7 +2535,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"refresh",{listData:listData},smalltalk.HLListWidget)})},
 args: [],
-source: "refresh\x0a\x09| listData |\x0a\x0a\x09super refresh.\x0a\x09listData := [self listDataKeyFor: self selectedItem] on: HLListItemNotFound do: [^self].\x0a\x09self ensureVisible: ((wrapper asJQuery find: 'li[list-data=\x22', listData , '\x22]') eq: 0)\x0a\x09",
+source: "refresh\x0a\x09| listData |\x0a\x0a\x09super refresh.\x0a\x09listData := [ self listDataKeyFor: self selectedItem ] \x0a\x09\x09on: HLListItemNotFound \x0a\x09\x09do: [ ^ self ].\x0a\x09self ensureVisible: ((wrapper asJQuery find: 'li[list-data=\x22', listData , '\x22]') eq: 0)\x0a\x09",
 messageSends: ["refresh", "on:do:", "listDataKeyFor:", "selectedItem", "ensureVisible:", "eq:", "find:", "asJQuery", ","],
 referencedClasses: ["HLListItemNotFound"]
 }),
@@ -2762,7 +2759,7 @@ smalltalk.addClass('HLNavigationListWidget', smalltalk.HLListWidget, ['previous'
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateItem:",
-category: 'as yet unclassified',
+category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -2783,7 +2780,7 @@ return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"activateItem:",{anObject:anObject},smalltalk.HLNavigationListWidget)})},
 args: ["anObject"],
-source: "activateItem: anObject\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li[list-data=\x22',  (self items indexOf: anObject ifAbsent: [^self]) asString, '\x22]') eq: 0)",
+source: "activateItem: anObject\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li[list-data=\x22',  (self items indexOf: anObject ifAbsent: [ ^self ]) asString, '\x22]') eq: 0)",
 messageSends: ["activateListItem:", "eq:", "find:", "asJQuery", ",", "asString", "indexOf:ifAbsent:", "items"],
 referencedClasses: []
 }),
