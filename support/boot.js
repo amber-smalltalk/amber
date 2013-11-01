@@ -945,7 +945,7 @@ function MessageSendBrik(brikz, st) {
 		/* Handles not understood messages. Also see the Amber counter-part
 		 Object>>doesNotUnderstand: */
 
-		receiver._doesNotUnderstand_(
+		return receiver._doesNotUnderstand_(
 			st.Message._new()
 				._selector_(st.convertSelector(selector))
 				._arguments_(args)
