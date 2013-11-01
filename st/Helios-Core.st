@@ -1,4 +1,8 @@
 Smalltalk current createPackage: 'Helios-Core'!
+HLError subclass: #HLListItemNotFound
+	instanceVariableNames: ''
+	package: 'Helios-Core'!
+
 InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
@@ -735,7 +739,7 @@ hasFocus
 ! !
 
 HLFocusableWidget subclass: #HLListWidget
-	instanceVariableNames: 'items selectedItem mapping'
+	instanceVariableNames: 'items selectedItem'
 	package: 'Helios-Core'!
 
 !HLListWidget methodsFor: 'accessing'!
@@ -779,9 +783,9 @@ activateFirstListItem
 !
 
 activateItem: anObject
-	self activateListItem: (mapping 
-		at: anObject
-		ifAbsent: [ ^ self ]) asJQuery
+	| listData |
+	listData := [self listDataKeyFor: anObject] on: HLListItemNotFound do: [^self].
+	self activateListItem: ((wrapper asJQuery find: 'li[list-data="', listData , '"]') eq: 0)
 !
 
 activateListItem: aListItem
@@ -831,12 +835,16 @@ focus
 		self selectedItem ifNil: [ self activateFirstListItem ] ]
 !
 
+listDataKeyFor: anObject
+	^(self items indexOf: anObject ifAbsent: [HLListItemNotFound signal]) asString
+!
+
 refresh
+	| listData |
+
 	super refresh.
-	
-	self ensureVisible: (mapping 
-		at: self selectedItem
-		ifAbsent: [ ^ self ]) asJQuery
+	listData := [self listDataKeyFor: self selectedItem] on: HLListItemNotFound do: [^self].
+	self ensureVisible: ((wrapper asJQuery find: 'li[list-data="', listData , '"]') eq: 0)
 !
 
 selectItem: anObject
@@ -858,20 +866,6 @@ setupKeyBindings
 		rebindKeys
 ! !
 
-!HLListWidget methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	
-	mapping := Dictionary new.
-! !
-
-!HLListWidget methodsFor: 'private'!
-
-registerMappingFrom: anObject to: aTag
-	mapping at: anObject put: aTag
-! !
-
 !HLListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
@@ -887,14 +881,13 @@ renderContentOn: html
    self setupKeyBindings
 !
 
-renderItem: anObject on: html
+renderItem: anObject dataKey: aString on: html
 	| li |
     
 	li := html li.
-	self registerMappingFrom: anObject to: li.
 	
     li
-        at: 'list-data' put: (self items indexOf: anObject) asString;
+        at: 'list-data' put: aString;
 		class: (self listCssClassForItem: anObject);
         with: [ 
         	html a
@@ -905,15 +898,17 @@ renderItem: anObject on: html
                   	self activateListItem: li asJQuery ] ]
 !
 
+renderItem: anObject on: html
+	self renderItem: anObject dataKey: (self listDataKeyFor: anObject) on: html
+!
+
 renderItemLabel: anObject on: html
 	html with: anObject asString
 !
 
 renderListOn: html
-	mapping := Dictionary new.
-	
-	self items do: [ :each | 
-    	self renderItem: each on: html ]
+	self items withIndexDo: [ :each :index | 
+    	self renderItem: each dataKey: index asString on: html ]
 ! !
 
 HLListWidget subclass: #HLNavigationListWidget
@@ -948,6 +943,12 @@ nextFocus
 
 previousFocus
 	self previous ifNotNil: [ self previous focus ]
+! !
+
+!HLNavigationListWidget methodsFor: 'as yet unclassified'!
+
+activateItem: anObject
+	self activateListItem: ((wrapper asJQuery find: 'li[list-data="',  (self items indexOf: anObject ifAbsent: [^self]) asString, '"]') eq: 0)
 ! !
 
 !HLNavigationListWidget methodsFor: 'events'!

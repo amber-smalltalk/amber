@@ -642,10 +642,9 @@ renderItem: aClass level: anInteger on: html
 	| li |
     
 	li := html li.
-	self registerMappingFrom: aClass to: li.
 	
     li
-    	at: 'list-data' put: (self items indexOf: aClass);
+    	at: 'list-data' put: (self listDataKeyFor: aClass);
 		class: (self listCssClassForItem: aClass);
 		with: [ 
         	html a

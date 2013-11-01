@@ -1749,9 +1749,8 @@ var li;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$3,$4,$2;
 li=_st(html)._li();
-self._registerMappingFrom_to_(aClass,li);
 $1=li;
-_st($1)._at_put_("list-data",_st(self._items())._indexOf_(aClass));
+_st($1)._at_put_("list-data",self._listDataKeyFor_(aClass));
 _st($1)._class_(self._listCssClassForItem_(aClass));
 $ctx1.sendIdx["class:"]=1;
 $2=_st($1)._with_((function(){
@@ -1775,8 +1774,8 @@ return self._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "anInteger", "html"],
-source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09self registerMappingFrom: aClass to: li.\x0a\x09\x0a    li\x0a    \x09at: 'list-data' put: (self items indexOf: aClass);\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
-messageSends: ["li", "registerMappingFrom:to:", "at:put:", "indexOf:", "items", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:level:on:", "onClick:", "activateListItem:", "asJQuery", "do:", "getChildrenOf:", "renderItem:level:on:", "+"],
+source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09\x0a    li\x0a    \x09at: 'list-data' put: (self listDataKeyFor: aClass);\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
+messageSends: ["li", "at:put:", "listDataKeyFor:", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:level:on:", "onClick:", "activateListItem:", "asJQuery", "do:", "getChildrenOf:", "renderItem:level:on:", "+"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);

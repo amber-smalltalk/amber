@@ -845,29 +845,18 @@ selector: "classReferencesOf:",
 category: 'accessing',
 fn: function (aString){
 var self=this;
-var references;
-function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-references=_st($OrderedCollection())._new();
-_st(self._classesAndMetaclasses())._do_((function(each){
+var $1;
+$1=_st(self._allMethods())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(each)._methodDictionary())._values())._do_((function(method){
-return smalltalk.withContext(function($ctx3) {
-$1=_st(_st(method)._referencedClasses())._includes_(aString);
-if(smalltalk.assert($1)){
-return _st(references)._add_(method);
-};
-}, function($ctx3) {$ctx3.fillBlock({method:method},$ctx2,2)})}));
+return _st(_st(each)._referencedClasses())._includes_(aString);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["do:"]=1;
-$2=references;
-return $2;
-}, function($ctx1) {$ctx1.fill(self,"classReferencesOf:",{aString:aString,references:references},smalltalk.HLReferencesModel)})},
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"classReferencesOf:",{aString:aString},smalltalk.HLReferencesModel)})},
 args: ["aString"],
-source: "classReferencesOf: aString\x0a\x09\x22Answer all methods referencing the class named aString\x22\x0a\x09\x0a\x09| references |\x0a\x09\x0a\x09references := OrderedCollection new.\x0a\x09\x0a\x09self classesAndMetaclasses do: [ :each |\x0a\x09\x09each methodDictionary values do: [ :method |\x0a\x09\x09\x09(method referencedClasses includes: aString) ifTrue: [\x0a\x09\x09\x09\x09references add: method ] ] ].\x0a\x09\x09\x09\x09\x0a\x09^ references",
-messageSends: ["new", "do:", "classesAndMetaclasses", "values", "methodDictionary", "ifTrue:", "includes:", "referencedClasses", "add:"],
-referencedClasses: ["OrderedCollection"]
+source: "classReferencesOf: aString\x0a\x09\x22Answer all methods referencing the class named aString\x22\x0a\x09\x0a\x09^self allMethods select: [ :each |\x0a\x09\x09\x09(each referencedClasses includes: aString) ].",
+messageSends: ["select:", "allMethods", "includes:", "referencedClasses"],
+referencedClasses: []
 }),
 smalltalk.HLReferencesModel);
 
@@ -907,7 +896,7 @@ $2=self["@classesAndMetaclassesCache"];
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"classesAndMetaclassesCache",{},smalltalk.HLReferencesModel)})},
 args: [],
-source: "classesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache ifNil: [ self updateClassesAndMetaclassesCache ].\x0a\x09\x0a\x09^ classesAndMetaclassesCache",
+source: "classesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache ifNil: [ self updateClassesAndMetaclassesCache ].\x0a\x09^ classesAndMetaclassesCache",
 messageSends: ["ifNil:", "updateClassesAndMetaclassesCache"],
 referencedClasses: []
 }),
@@ -990,7 +979,7 @@ $2=self["@methodsCache"];
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"methodsCache",{},smalltalk.HLReferencesModel)})},
 args: [],
-source: "methodsCache\x0a\x09methodsCache ifNil: [ self updateMethodsCache ].\x0a\x09\x0a\x09^ methodsCache",
+source: "methodsCache\x0a\x09methodsCache ifNil: [ self updateMethodsCache ].\x0a\x09^ methodsCache",
 messageSends: ["ifNil:", "updateMethodsCache"],
 referencedClasses: []
 }),
@@ -1092,19 +1081,20 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-self["@classesAndMetaclassesCache"]=_st(_st(self._environment())._classes())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
+var $1,$2;
+self["@classesAndMetaclassesCache"]=_st($OrderedCollection())._new();
+_st(_st(self._environment())._classes())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-_st(acc)._add_(each);
+$1=self["@classesAndMetaclassesCache"];
+_st($1)._add_(each);
 $ctx2.sendIdx["add:"]=1;
-_st(acc)._add_(_st(each)._class());
-$1=_st(acc)._yourself();
-return $1;
-}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)})}));
+$2=_st($1)._add_(_st(each)._class());
+return $2;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateClassesAndMetaclassesCache",{},smalltalk.HLReferencesModel)})},
 args: [],
-source: "updateClassesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache := self environment classes \x0a\x09\x09inject: OrderedCollection new \x0a\x09\x09into: [ :acc :each |\x0a\x09\x09\x09acc \x0a\x09\x09\x09\x09add: each; \x0a\x09\x09\x09\x09add: each class;\x0a\x09\x09\x09\x09yourself ]",
-messageSends: ["inject:into:", "classes", "environment", "new", "add:", "class", "yourself"],
+source: "updateClassesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache := OrderedCollection new.\x0a\x09\x0a\x09self environment classes do: [:each |\x0a\x09\x09classesAndMetaclassesCache\x0a\x09\x09\x09\x09add: each; \x0a\x09\x09\x09\x09add: each class ]",
+messageSends: ["new", "do:", "classes", "environment", "add:", "class"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);
@@ -1117,14 +1107,15 @@ fn: function (){
 var self=this;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-self["@methodsCache"]=_st(self._classesAndMetaclasses())._inject_into_(_st($OrderedCollection())._new(),(function(acc,each){
+self["@methodsCache"]=_st($OrderedCollection())._new();
+_st(self._classesAndMetaclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(acc).__comma(_st(each)._methods());
-}, function($ctx2) {$ctx2.fillBlock({acc:acc,each:each},$ctx1,1)})}));
+return _st(self["@methodsCache"])._addAll_(_st(each)._methods());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsCache",{},smalltalk.HLReferencesModel)})},
 args: [],
-source: "updateMethodsCache\x0a\x09methodsCache := self classesAndMetaclasses\x0a\x09\x09inject: OrderedCollection new\x0a\x09\x09into: [ :acc :each |\x0a\x09\x09\x09acc, each methods ]",
-messageSends: ["inject:into:", "classesAndMetaclasses", "new", ",", "methods"],
+source: "updateMethodsCache\x0a\x09methodsCache := OrderedCollection new.\x0a\x09\x0a\x09self classesAndMetaclasses\x0a\x09\x09do: [:each | methodsCache addAll: each methods ]",
+messageSends: ["new", "do:", "classesAndMetaclasses", "addAll:", "methods"],
 referencedClasses: ["OrderedCollection"]
 }),
 smalltalk.HLReferencesModel);
