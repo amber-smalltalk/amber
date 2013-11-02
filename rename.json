@@ -1,5 +1,4 @@
 {
   "js/name.js": "js/{%= name %}.js",
-  "js/name.deploy.js": "js/{%= name %}.deploy.js",
   "st/name.st": "st/{%= name %}.st"
 }
