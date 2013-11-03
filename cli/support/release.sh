@@ -1,12 +1,12 @@
 #!/bin/sh
-cd `dirname "$0"`/..
+cd `dirname "$0"`/../..
 echo rm -rf *
 echo git checkout master
 echo -n "Which version are you going to publish [0 to skip]? "
 VER=`head -n 1`
 if [ "$VER" = "0" ]; then :; else
 	echo "Publishing version $VER"
-	bin/setversion.sh "$VER"
+	cli/support/setversion.sh "$VER"
 	cp package.json package.json.bak
 	sed -e 's@/amber.git.*"@/amber.git#'"$VER"'"@' package.json.bak >package.json
 	rm package.json.bak
@@ -20,7 +20,7 @@ echo -n "Which version are you going to work on? "
 VERF=`head -n 1`
 VER="${VERF}-pre"
 echo "Setting version $VER"
-bin/setversion.sh "$VER"
+cli/support/setversion.sh "$VER"
 cp package.json package.json.bak
 sed -e 's@/amber.git.*"@/amber.git"@' package.json.bak >package.json
 rm package.json.bak

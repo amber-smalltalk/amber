@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VERSION=$1
-cd `dirname "$0"`/../
+cd `dirname "$0"`/../..
 AMBER_BASE=`pwd`
 
 cd $AMBER_BASE/st
