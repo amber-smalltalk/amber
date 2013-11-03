@@ -12,8 +12,9 @@ if [ "$VER" = "0" ]; then :; else
 	rm package.json.bak
 	echo git commit -a -m "Release version $VER"
 	echo git tag -a "$VER"
-	echo bower upload
-	echo npm upload
+#	echo bower upload
+# bower does not publish explicitly but implictly via semver tag
+	echo npm publish
 fi
 echo -n "Which version are you going to work on? "
 VERF=`head -n 1`
