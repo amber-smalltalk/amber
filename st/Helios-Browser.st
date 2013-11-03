@@ -642,9 +642,8 @@ renderItem: aClass level: anInteger on: html
 	| li |
     
 	li := html li.
-	
+	li asJQuery data: 'item' put: aClass.
     li
-    	at: 'list-data' put: (self listDataKeyFor: aClass);
 		class: (self listCssClassForItem: aClass);
 		with: [ 
         	html a

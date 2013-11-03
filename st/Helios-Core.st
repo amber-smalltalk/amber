@@ -1,8 +1,4 @@
 Smalltalk current createPackage: 'Helios-Core'!
-HLError subclass: #HLListItemNotFound
-	instanceVariableNames: ''
-	package: 'Helios-Core'!
-
 InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
@@ -748,6 +744,11 @@ cssClassForItem: anObject
 	^ ''
 !
 
+findListItemFor: anObject
+	^(((wrapper asJQuery find: 'li') 
+		filter: [:thisArg :otherArg | (thisArg asJQuery data: 'item') = anObject] currySelf) eq: 0)
+!
+
 items
 	^ items ifNil: [ items := self defaultItems ]
 !
@@ -783,9 +784,7 @@ activateFirstListItem
 !
 
 activateItem: anObject
-	| listData |
-	listData := [self listDataKeyFor: anObject] on: HLListItemNotFound do: [^self].
-	self activateListItem: ((wrapper asJQuery find: 'li[list-data="', listData , '"]') eq: 0)
+	self activateListItem: (self findListItemFor: anObject)
 !
 
 activateListItem: aListItem
@@ -798,7 +797,7 @@ activateListItem: aListItem
 	self ensureVisible: aListItem.
     
    "Activate the corresponding item"
-   item := (self items at: (aListItem attr: 'list-data') asNumber).
+   item := aListItem data: 'item'.
    self selectedItem == item ifFalse: [
 	   self selectItem: item ]
 !
@@ -819,7 +818,7 @@ ensureVisible: aListItem
 	"Move the scrollbar to show the active element"
 	
 	| parent position |
-	
+	(aListItem get: 0) ifNil: [ ^self ].
 	position := self positionOf: aListItem.
 	parent := aListItem parent.
 	
@@ -835,16 +834,9 @@ focus
 		self selectedItem ifNil: [ self activateFirstListItem ] ]
 !
 
-listDataKeyFor: anObject
-	^(self items indexOf: anObject ifAbsent: [HLListItemNotFound signal]) asString
-!
-
 refresh
-	| listData |
-
 	super refresh.
-	listData := [self listDataKeyFor: self selectedItem] on: HLListItemNotFound do: [^self].
-	self ensureVisible: ((wrapper asJQuery find: 'li[list-data="', listData , '"]') eq: 0)
+	self ensureVisible: (self findListItemFor: self selectedItem)
 !
 
 selectItem: anObject
@@ -881,13 +873,12 @@ renderContentOn: html
    self setupKeyBindings
 !
 
-renderItem: anObject dataKey: aString on: html
+renderItem: anObject on: html
 	| li |
     
 	li := html li.
-	
+	li asJQuery data: 'item' put: anObject.
     li
-        at: 'list-data' put: aString;
 		class: (self listCssClassForItem: anObject);
         with: [ 
         	html a
@@ -898,17 +889,13 @@ renderItem: anObject dataKey: aString on: html
                   	self activateListItem: li asJQuery ] ]
 !
 
-renderItem: anObject on: html
-	self renderItem: anObject dataKey: (self listDataKeyFor: anObject) on: html
-!
-
 renderItemLabel: anObject on: html
 	html with: anObject asString
 !
 
 renderListOn: html
-	self items withIndexDo: [ :each :index | 
-    	self renderItem: each dataKey: index asString on: html ]
+	self items do: [ :each  | 
+    	self renderItem: each  on: html ]
 ! !
 
 HLListWidget subclass: #HLNavigationListWidget
@@ -943,12 +930,6 @@ nextFocus
 
 previousFocus
 	self previous ifNotNil: [ self previous focus ]
-! !
-
-!HLNavigationListWidget methodsFor: 'as yet unclassified'!
-
-activateItem: anObject
-	self activateListItem: ((wrapper asJQuery find: 'li[list-data="',  (self items indexOf: anObject ifAbsent: [^self]) asString, '"]') eq: 0)
 ! !
 
 !HLNavigationListWidget methodsFor: 'events'!
