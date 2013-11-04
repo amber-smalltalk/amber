@@ -1,2 +1,2 @@
 #!/bin/bash
-node `dirname $0`/amber-cli.js $@
+node `dirname $0`/../cli/support/amber-cli.js $@

@@ -2,7 +2,7 @@ module.exports = function(grunt) {
 
   var path = require('path');
   var fs = require('fs');
-  var amberc = require('../../bin/amberc.js');
+  var amberc = require('../../cli/support/amberc.js');
 
   /**
      A full example entry for a Gruntfile.js is available below.
