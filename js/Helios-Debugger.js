@@ -811,6 +811,28 @@ smalltalk.HLDebuggerModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "skip",
+category: 'actions',
+fn: function (){
+var self=this;
+function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(self._interpreter())._skip();
+$1=_st($HLDebuggerStepped())._new();
+_st($1)._context_(self._currentContext());
+$2=_st($1)._yourself();
+_st(self._announcer())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"skip",{},smalltalk.HLDebuggerModel)})},
+args: [],
+source: "skip\x0a\x09self interpreter skip.\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
+messageSends: ["skip", "interpreter", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
+referencedClasses: ["HLDebuggerStepped"]
+}),
+smalltalk.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "stepOver",
 category: 'actions',
 fn: function (){
@@ -986,7 +1008,7 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$8,$2;
+var $1,$3,$4,$5,$6,$7,$8,$9,$10,$2;
 $1=_st(html)._div();
 _st($1)._class_("debugger_bar");
 $ctx1.sendIdx["class:"]=1;
@@ -1017,19 +1039,31 @@ return self._where();
 $ctx2.sendIdx["onClick:"]=2;
 $6;
 $7=_st(html)._button();
+$ctx2.sendIdx["button"]=3;
 _st($7)._class_("btn stepOver");
+$ctx2.sendIdx["class:"]=4;
 _st($7)._with_("Step over");
+$ctx2.sendIdx["with:"]=4;
 $8=_st($7)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._stepOver();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
-return $8;
+$ctx2.sendIdx["onClick:"]=3;
+$8;
+$9=_st(html)._button();
+_st($9)._class_("btn skip");
+_st($9)._with_("Skip");
+$10=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._skip();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
+return $10;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLStackListWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'debugger_bar'; \x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn restart';\x0a\x09\x09\x09\x09with: 'Restart';\x0a\x09\x09\x09\x09onClick: [ self restart ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn where';\x0a\x09\x09\x09\x09with: 'Where';\x0a\x09\x09\x09\x09onClick: [ self where ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn stepOver';\x0a\x09\x09\x09\x09with: 'Step over';\x0a\x09\x09\x09\x09onClick: [ self stepOver ] ]",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "restart", "where", "stepOver"],
+source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'debugger_bar'; \x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn restart';\x0a\x09\x09\x09\x09with: 'Restart';\x0a\x09\x09\x09\x09onClick: [ self restart ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn where';\x0a\x09\x09\x09\x09with: 'Where';\x0a\x09\x09\x09\x09onClick: [ self where ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn stepOver';\x0a\x09\x09\x09\x09with: 'Step over';\x0a\x09\x09\x09\x09onClick: [ self stepOver ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn skip';\x0a\x09\x09\x09\x09with: 'Skip';\x0a\x09\x09\x09\x09onClick: [ self skip ] ]",
+messageSends: ["class:", "div", "with:", "button", "onClick:", "restart", "where", "stepOver", "skip"],
 referencedClasses: []
 }),
 smalltalk.HLStackListWidget);
@@ -1062,6 +1096,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext}
 args: ["aContext"],
 source: "selectItem: aContext\x0a   \x09self model currentContext: aContext",
 messageSends: ["currentContext:", "model"],
+referencedClasses: []
+}),
+smalltalk.HLStackListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "skip",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._skip();
+return self}, function($ctx1) {$ctx1.fill(self,"skip",{},smalltalk.HLStackListWidget)})},
+args: [],
+source: "skip\x0a\x09self model skip",
+messageSends: ["skip", "model"],
 referencedClasses: []
 }),
 smalltalk.HLStackListWidget);

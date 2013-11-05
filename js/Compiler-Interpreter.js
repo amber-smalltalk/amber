@@ -930,7 +930,7 @@ smalltalk.AIContext.klass);
 
 
 smalltalk.addClass('ASTDebugger', smalltalk.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
-smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from a `MethodContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
+smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from an `AIContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
@@ -1169,6 +1169,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"restart",{},smalltalk.ASTDebugge
 args: [],
 source: "restart\x0a\x09self interpreter restart",
 messageSends: ["restart", "interpreter"],
+referencedClasses: []
+}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "skip",
+category: 'stepping',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._interpreter())._skip();
+return self}, function($ctx1) {$ctx1.fill(self,"skip",{},smalltalk.ASTDebugger)})},
+args: [],
+source: "skip\x0a\x09self interpreter skip",
+messageSends: ["skip", "interpreter"],
 referencedClasses: []
 }),
 smalltalk.ASTDebugger);
@@ -1572,6 +1588,7 @@ category: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._atEnd();
@@ -1579,10 +1596,21 @@ return self._atEnd();
 return smalltalk.withContext(function($ctx2) {
 return self._step();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$1=_st(self._context())._outerContext();
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+var outer;
+outer=$receiver;
+$2=_st(outer)._interpreter();
+_st($2)._skip();
+$3=_st($2)._proceed();
+$3;
+};
 return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},smalltalk.ASTInterpreter)})},
 args: [],
-source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] whileFalse: [ \x0a\x09\x09self step ]",
-messageSends: ["whileFalse:", "atEnd", "step"],
+source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] \x0a\x09\x09whileFalse: [ self step ].\x0a\x09\x09\x0a\x09self context outerContext ifNotNil: [ :outer |\x0a\x09\x09outer interpreter \x0a\x09\x09\x09skip; \x22current send node already evaluated by the receiver\x22 \x0a\x09\x09\x09proceed ]",
+messageSends: ["whileFalse:", "atEnd", "step", "ifNotNil:", "outerContext", "context", "skip", "interpreter", "proceed"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);
