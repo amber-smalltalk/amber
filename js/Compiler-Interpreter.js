@@ -1588,7 +1588,6 @@ category: 'interpreting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._atEnd();
@@ -1596,21 +1595,10 @@ return self._atEnd();
 return smalltalk.withContext(function($ctx2) {
 return self._step();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$1=_st(self._context())._outerContext();
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-var outer;
-outer=$receiver;
-$2=_st(outer)._interpreter();
-_st($2)._skip();
-$3=_st($2)._proceed();
-$3;
-};
 return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},smalltalk.ASTInterpreter)})},
 args: [],
-source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] \x0a\x09\x09whileFalse: [ self step ].\x0a\x09\x09\x0a\x09self context outerContext ifNotNil: [ :outer |\x0a\x09\x09outer interpreter \x0a\x09\x09\x09skip; \x22current send node already evaluated by the receiver\x22 \x0a\x09\x09\x09proceed ]",
-messageSends: ["whileFalse:", "atEnd", "step", "ifNotNil:", "outerContext", "context", "skip", "interpreter", "proceed"],
+source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] \x0a\x09\x09whileFalse: [ self step ]",
+messageSends: ["whileFalse:", "atEnd", "step"],
 referencedClasses: []
 }),
 smalltalk.ASTInterpreter);

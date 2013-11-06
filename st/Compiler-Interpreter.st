@@ -487,12 +487,7 @@ proceed
 	"Eagerly evaluate the ast"
 	
 	[ self atEnd ] 
-		whileFalse: [ self step ].
-		
-	self context outerContext ifNotNil: [ :outer |
-		outer interpreter 
-			skip; "current send node already evaluated by the receiver" 
-			proceed ]
+		whileFalse: [ self step ]
 !
 
 restart
