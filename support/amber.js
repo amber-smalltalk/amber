@@ -54,7 +54,7 @@ require = function (require) {
                 deps: [ 'jquery' ]
             },
             'amber_lib/bootstrap/js/bootstrap': {
-                deps: [ 'css!amber_lib/bootstrap/css/bootstrap' ]
+                deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
             'amber_lib/CodeMirror/codemirror': {
                 deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]
