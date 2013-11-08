@@ -24,6 +24,9 @@ require = function (require) {
     // e.g. http://app.com/index.html -> http://app.com/
     var document_home = window.location.href.replace(/\/[^\/]+$/, "");
 
+    if (!amber_home.match(/\/bower_components\//)) {
+        document_home = amber_home;
+    }
 
     function resolveViaDOM(url) {
         var a = document.createElement("a");
