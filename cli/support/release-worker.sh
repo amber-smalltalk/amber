@@ -14,6 +14,7 @@ if [ "$VER" = "0" ]; then :; else
 	cp package.json package.json.bak
 	sed -e 's@/amber.git.*"@/amber.git#'"$VER"'"@' package.json.bak >package.json
 	rm package.json.bak
+	git add package.json
 	git commit -a -m "Release version $VER"
 	git tag -a "$VER" -m "Release version $VER"
 # bower does not publish explicitly but implictly via semver tag
@@ -27,5 +28,6 @@ cli/support/setversion.sh "$VER"
 cp package.json package.json.bak
 sed -e 's@/amber.git.*"@/amber.git"@' package.json.bak >package.json
 rm package.json.bak
+git add package.json
 git commit -a -m "Working on $VERF"
 git push --tags
