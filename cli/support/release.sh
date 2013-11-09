@@ -10,11 +10,11 @@ if [ "$VER" = "0" ]; then :; else
 	cp package.json package.json.bak
 	sed -e 's@/amber.git.*"@/amber.git#'"$VER"'"@' package.json.bak >package.json
 	rm package.json.bak
-	echo git commit -a -m "Release version $VER"
-	echo git tag -a "$VER"
+	git commit -a -m "Release version $VER"
+	git tag -a "$VER"
 #	echo bower upload
 # bower does not publish explicitly but implictly via semver tag
-	echo npm publish
+	echo Please check if everything is ok, then publish the new release with 'npm publish'
 fi
 echo -n "Which version are you going to work on? "
 VERF=`head -n 1`
@@ -24,5 +24,7 @@ cli/support/setversion.sh "$VER"
 cp package.json package.json.bak
 sed -e 's@/amber.git.*"@/amber.git"@' package.json.bak >package.json
 rm package.json.bak
-echo git commit -a -m "Working on $VERF"
-echo git push --tags
+git commit -a -m "Working on $VERF"
+
+
+echo Please check if everything is ok, then push changes with 'git push --tags'
