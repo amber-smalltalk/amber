@@ -83,15 +83,14 @@ category: 'testing',
 fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$6,$5,$4,$7,$3,$1;
+var $2,$6,$5,$4,$3,$1;
 $2=_st(actual).__eq(expected);
 $6=_st(expected)._printString();
 $ctx1.sendIdx["printString"]=1;
 $5="Expected: ".__comma($6);
 $4=_st($5).__comma(" but was: ");
 $ctx1.sendIdx[","]=2;
-$7=_st(actual)._printString();
-$3=_st($4).__comma($7);
+$3=_st($4).__comma(_st(actual)._printString());
 $ctx1.sendIdx[","]=1;
 $1=self._assert_description_($2,$3);
 return $1;
@@ -922,14 +921,12 @@ category: 'running',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$5,$4,$1;
+var $3,$2,$1;
 $3=self._runs();
 $ctx1.sendIdx["runs"]=1;
 $2=_st($3).__eq_eq(self._total());
 if(! smalltalk.assert($2)){
-$5=self._runs();
-$4=_st($5).__plus((1));
-$1=_st(aBlock)._value_($4);
+$1=_st(aBlock)._value_(_st(self._runs()).__plus((1)));
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},smalltalk.TestResult)})},

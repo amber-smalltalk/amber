@@ -11,25 +11,22 @@ category: 'comparing',
 fn: function (anAssociation){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$6,$7,$5,$8,$9,$1;
+var $3,$2,$5,$4,$6,$1;
 $3=self._class();
 $ctx1.sendIdx["class"]=1;
-$4=_st(anAssociation)._class();
-$2=_st($3).__eq($4);
+$2=_st($3).__eq(_st(anAssociation)._class());
 $ctx1.sendIdx["="]=1;
 $1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-$6=self._key();
+$5=self._key();
 $ctx2.sendIdx["key"]=1;
-$7=_st(anAssociation)._key();
-$5=_st($6).__eq($7);
+$4=_st($5).__eq(_st(anAssociation)._key());
 $ctx2.sendIdx["="]=2;
-return _st($5)._and_((function(){
+return _st($4)._and_((function(){
 return smalltalk.withContext(function($ctx3) {
-$8=self._value();
+$6=self._value();
 $ctx3.sendIdx["value"]=1;
-$9=_st(anAssociation)._value();
-return _st($8).__eq($9);
+return _st($6).__eq(_st(anAssociation)._value());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["and:"]=1;
@@ -601,7 +598,7 @@ var self=this;
 var set,outputSet;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4;
+var $2,$1,$3;
 set=self._asSet();
 outputSet=_st($Set())._new();
 _st(aCollection)._do_((function(each){
@@ -610,15 +607,14 @@ $2=_st(set)._includes_(each);
 $ctx2.sendIdx["includes:"]=1;
 $1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx3) {
-$3=_st(outputSet)._includes_(each);
-return _st($3)._not();
+return _st(_st(outputSet)._includes_(each))._not();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 if(smalltalk.assert($1)){
 return _st(outputSet)._add_(each);
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$4=_st(self._class())._withAll_(_st(outputSet)._asArray());
-return $4;
+$3=_st(self._class())._withAll_(_st(outputSet)._asArray());
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"intersection:",{aCollection:aCollection,set:set,outputSet:outputSet},smalltalk.Collection)})},
 args: ["aCollection"],
 source: "intersection: aCollection\x0a\x09\x22Answer the set theoretic intersection of two collections.\x22\x0a\x0a\x09| set outputSet |\x0a\x09\x0a\x09set := self asSet.\x0a\x09outputSet := Set new.\x0a\x09\x0a\x09aCollection do: [ :each |\x0a\x09\x09((set includes: each) and: [(outputSet includes: each) not])\x0a\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09outputSet add: each]].\x0a\x09\x09\x0a\x09^ self class withAll: outputSet asArray",
@@ -803,20 +799,18 @@ fn: function (selectBlock,collectBlock){
 var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 stream=_st(_st(self._class())._new())._writeStream();
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 $1=_st(selectBlock)._value_(each);
 $ctx2.sendIdx["value:"]=1;
 if(smalltalk.assert($1)){
-$2=stream;
-$3=_st(collectBlock)._value_(each);
-return _st($2)._nextPut_($3);
+return _st(stream)._nextPut_(_st(collectBlock)._value_(each));
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$4=_st(stream)._contents();
-return $4;
+$2=_st(stream)._contents();
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"select:thenCollect:",{selectBlock:selectBlock,collectBlock:collectBlock,stream:stream},smalltalk.Collection)})},
 args: ["selectBlock", "collectBlock"],
 source: "select: selectBlock thenCollect: collectBlock\x0a\x09| stream |\x0a\x09stream := self class new writeStream.\x0a\x09self do: [:each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09stream nextPut: (collectBlock value: each)]].\x0a\x09^stream contents",
@@ -1158,28 +1152,25 @@ category: 'comparing',
 fn: function (aHashedCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4,$8,$9,$7;
+var $2,$1,$4,$3,$6,$5;
 $2=self._class();
 $ctx1.sendIdx["class"]=1;
-$3=_st(aHashedCollection)._class();
-$1=_st($2).__eq($3);
+$1=_st($2).__eq(_st(aHashedCollection)._class());
 $ctx1.sendIdx["="]=1;
 if(! smalltalk.assert($1)){
 return false;
 };
-$5=self._size();
+$4=self._size();
 $ctx1.sendIdx["size"]=1;
-$6=_st(aHashedCollection)._size();
-$4=_st($5).__eq($6);
+$3=_st($4).__eq(_st(aHashedCollection)._size());
 $ctx1.sendIdx["="]=2;
-if(! smalltalk.assert($4)){
+if(! smalltalk.assert($3)){
 return false;
 };
-$8=self._associations();
+$6=self._associations();
 $ctx1.sendIdx["associations"]=1;
-$9=_st(aHashedCollection)._associations();
-$7=_st($8).__eq($9);
-return $7;
+$5=_st($6).__eq(_st(aHashedCollection)._associations());
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"=",{aHashedCollection:aHashedCollection},smalltalk.HashedCollection)})},
 args: ["aHashedCollection"],
 source: "= aHashedCollection\x0a\x09self class = aHashedCollection class ifFalse: [^false].\x0a\x09self size = aHashedCollection size ifFalse: [^false].\x0a\x09^self associations = aHashedCollection associations",
@@ -1892,7 +1883,7 @@ fn: function (aCollection){
 var self=this;
 var newCollection;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5,$6,$7,$8;
+var $2,$1,$3,$4,$5;
 $2=_st(aCollection)._size();
 $ctx1.sendIdx["size"]=1;
 $1=_st($2)._even();
@@ -1900,18 +1891,15 @@ if(! smalltalk.assert($1)){
 self._error_("#newFromPairs only accepts arrays of an even length");
 };
 newCollection=self._new();
-$4=_st(aCollection)._size();
-$3=(1)._to_by_($4,(2));
-_st($3)._do_((function(each){
+_st((1)._to_by_(_st(aCollection)._size(),(2)))._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$5=newCollection;
-$6=_st(aCollection)._at_(each);
+$3=newCollection;
+$4=_st(aCollection)._at_(each);
 $ctx2.sendIdx["at:"]=1;
-$7=_st(aCollection)._at_(_st(each).__plus((1)));
-return _st($5)._at_put_($6,$7);
+return _st($3)._at_put_($4,_st(aCollection)._at_(_st(each).__plus((1))));
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-$8=newCollection;
-return $8;
+$5=newCollection;
+return $5;
 }, function($ctx1) {$ctx1.fill(self,"newFromPairs:",{aCollection:aCollection,newCollection:newCollection},smalltalk.HashedCollection.klass)})},
 args: ["aCollection"],
 source: "newFromPairs: aCollection\x0a\x09\x22Accept an array of elements where every two elements form an \x0a\x09association - the odd element being the key, and the even element the value.\x22\x0a\x09\x0a\x09| newCollection |\x0a\x09\x0a\x09aCollection size even ifFalse: [ \x0a\x09\x09self error: '#newFromPairs only accepts arrays of an even length' ].\x0a\x09\x09\x0a\x09newCollection := self new.\x0a\x09( 1 to: aCollection size by: 2 ) do: [ :each | \x0a\x09\x09newCollection at: (aCollection at: each) put: (aCollection at: each + 1) ].\x0a\x09\x09\x0a\x09^ newCollection",
@@ -2218,20 +2206,18 @@ category: 'comparing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$5,$6,$1,$7;
+var $3,$2,$4,$1,$5;
 var $early={};
 try {
 $3=self._class();
 $ctx1.sendIdx["class"]=1;
-$4=_st(aCollection)._class();
-$2=_st($3).__eq($4);
+$2=_st($3).__eq(_st(aCollection)._class());
 $ctx1.sendIdx["="]=1;
 $1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-$5=self._size();
+$4=self._size();
 $ctx2.sendIdx["size"]=1;
-$6=_st(aCollection)._size();
-return _st($5).__eq($6);
+return _st($4).__eq(_st(aCollection)._size());
 $ctx2.sendIdx["="]=2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(! smalltalk.assert($1)){
@@ -2239,8 +2225,8 @@ return false;
 };
 self._withIndexDo_((function(each,i){
 return smalltalk.withContext(function($ctx2) {
-$7=_st(_st(aCollection)._at_(i)).__eq(each);
-if(! smalltalk.assert($7)){
+$5=_st(_st(aCollection)._at_(i)).__eq(each);
+if(! smalltalk.assert($5)){
 throw $early=[false];
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each,i:i},$ctx1,3)})}));
@@ -2864,12 +2850,11 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2="[".__comma(_st(self._collect_((function(each){
+var $1;
+$1=_st("[".__comma(_st(self._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._asJavascript();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._join_(", "));
-$1=_st($2).__comma("]");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})})))._join_(", "))).__comma("]");
 $ctx1.sendIdx[","]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asJavascript",{},smalltalk.Array)})},
@@ -3316,11 +3301,10 @@ category: 'copying',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$1;
 $2=self._asString();
 $ctx1.sendIdx["asString"]=1;
-$3=_st(aString)._asString();
-$1=_st($2).__comma($3);
+$1=_st($2).__comma(_st(aString)._asString());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.CharacterArray)})},
 args: ["aString"],
@@ -4046,12 +4030,11 @@ category: 'testing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$1;
+var $3,$2,$1;
 $3=self._first();
 $ctx1.sendIdx["first"]=1;
 $2=_st($3)._asUppercase();
-$4=self._first();
-$1=_st($2).__eq_eq($4);
+$1=_st($2).__eq_eq(self._first());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isCapitalized",{},smalltalk.String)})},
 args: [],
@@ -4152,7 +4135,7 @@ var self=this;
 var cr,lf,start,sz,nextLF,nextCR;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$5,$3,$6,$7,$9,$8,$10,$11,$12,$13;
+var $2,$1,$4,$5,$3,$6,$7,$9,$8,$10,$11;
 var $early={};
 try {
 start=(1);
@@ -4224,9 +4207,7 @@ nextLF=self._indexOf_startingAt_(lf,start);
 $ctx2.sendIdx["indexOf:startingAt:"]=5;
 return nextLF;
 } else {
-$12=start;
-$13=_st(nextCR).__minus((1));
-_st(aBlock)._value_value_value_($12,$13,nextCR);
+_st(aBlock)._value_value_value_(start,_st(nextCR).__minus((1)),nextCR);
 start=(1).__plus(nextCR);
 start;
 nextCR=self._indexOf_startingAt_(cr,start);
@@ -4570,9 +4551,8 @@ fn: function (separators){
 var self=this;
 function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4="^[".__comma(separators);
-$3=_st($4).__comma("]+");
+var $3,$2,$1;
+$3=_st("^[".__comma(separators)).__comma("]+");
 $ctx1.sendIdx[","]=1;
 $2=_st($RegularExpression())._fromString_flag_($3,"g");
 $1=self._replaceRegexp_with_($2,"");
@@ -4611,9 +4591,8 @@ fn: function (separators){
 var self=this;
 function $RegularExpression(){return smalltalk.RegularExpression||(typeof RegularExpression=="undefined"?nil:RegularExpression)}
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4="[".__comma(separators);
-$3=_st($4).__comma("]+$");
+var $3,$2,$1;
+$3=_st("[".__comma(separators)).__comma("]+$");
 $ctx1.sendIdx[","]=1;
 $2=_st($RegularExpression())._fromString_flag_($3,"g");
 $1=self._replaceRegexp_with_($2,"");
@@ -4873,28 +4852,26 @@ category: 'comparing',
 fn: function (aCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4,$7;
+var $2,$1,$4,$3,$5;
 var $early={};
 try {
 $2=self._class();
 $ctx1.sendIdx["class"]=1;
-$3=_st(aCollection)._class();
-$1=_st($2).__eq($3);
+$1=_st($2).__eq(_st(aCollection)._class());
 $ctx1.sendIdx["="]=1;
 if(! smalltalk.assert($1)){
 return false;
 };
-$5=self._size();
+$4=self._size();
 $ctx1.sendIdx["size"]=1;
-$6=_st(aCollection)._size();
-$4=_st($5).__eq($6);
-if(! smalltalk.assert($4)){
+$3=_st($4).__eq(_st(aCollection)._size());
+if(! smalltalk.assert($3)){
 return false;
 };
 self._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$7=_st(aCollection)._includes_(each);
-if(! smalltalk.assert($7)){
+$5=_st(aCollection)._includes_(each);
+if(! smalltalk.assert($5)){
 throw $early=[false];
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
@@ -5509,7 +5486,7 @@ category: 'reading',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$5,$6,$1;
+var $2,$4,$3,$1;
 $2=self._atEnd();
 if(smalltalk.assert($2)){
 $1=nil;
@@ -5518,9 +5495,7 @@ $4=self._position();
 $ctx1.sendIdx["position"]=1;
 $3=_st($4).__plus((1));
 self._position_($3);
-$5=self["@collection"];
-$6=self._position();
-$1=_st($5)._at_($6);
+$1=_st(self["@collection"])._at_(self._position());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"next",{},smalltalk.Stream)})},
@@ -5565,7 +5540,7 @@ category: 'writing',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$6,$7,$5;
+var $2,$1,$3,$4;
 $2=self._position();
 $ctx1.sendIdx["position"]=1;
 $1=_st($2).__plus((1));
@@ -5574,10 +5549,7 @@ $3=self._collection();
 $4=self._position();
 $ctx1.sendIdx["position"]=2;
 _st($3)._at_put_($4,anObject);
-$6=self._streamSize();
-$7=self._position();
-$5=_st($6)._max_($7);
-self._setStreamSize_($5);
+self._setStreamSize_(_st(self._streamSize())._max_(self._position()));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPut:",{anObject:anObject},smalltalk.Stream)})},
 args: ["anObject"],
 source: "nextPut: anObject\x0a\x09self position: self position + 1.\x0a\x09self collection at: self position put: anObject.\x0a\x09self setStreamSize: (self streamSize max: self position)",
@@ -5966,7 +5938,7 @@ fn: function (aString){
 var self=this;
 var pre,post;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$5,$6,$9,$8,$10,$7,$12,$11,$14,$13,$16,$17,$15,$19,$20,$18;
+var $1,$3,$2,$4,$5,$6,$9,$8,$10,$7,$11,$12,$14,$13;
 $1=self._atEnd();
 if(smalltalk.assert($1)){
 $3=self._collection();
@@ -5993,25 +5965,19 @@ $10=_st(aString)._size();
 $ctx1.sendIdx["size"]=1;
 $7=_st($8).__plus($10);
 $ctx1.sendIdx["+"]=1;
-$12=self._collection();
-$11=_st($12)._size();
+$11=_st(self._collection())._size();
 $ctx1.sendIdx["size"]=2;
 post=_st($6)._copyFrom_to_($7,$11);
 post;
-$14=_st(pre).__comma(aString);
-$13=_st($14).__comma(post);
+$12=_st(_st(pre).__comma(aString)).__comma(post);
 $ctx1.sendIdx[","]=2;
-self._setCollection_($13);
+self._setCollection_($12);
 };
-$16=self._position();
+$14=self._position();
 $ctx1.sendIdx["position"]=3;
-$17=_st(aString)._size();
-$15=_st($16).__plus($17);
-self._position_($15);
-$19=self._streamSize();
-$20=self._position();
-$18=_st($19)._max_($20);
-self._setStreamSize_($18);
+$13=_st($14).__plus(_st(aString)._size());
+self._position_($13);
+self._setStreamSize_(_st(self._streamSize())._max_(self._position()));
 return self}, function($ctx1) {$ctx1.fill(self,"nextPutAll:",{aString:aString,pre:pre,post:post},smalltalk.StringStream)})},
 args: ["aString"],
 source: "nextPutAll: aString\x0a\x09| pre post |\x0a\x09self atEnd ifTrue: [ self setCollection: self collection, aString ] ifFalse: [\x0a\x09\x09pre := self collection copyFrom: 1 to: self position.\x0a\x09\x09post := self collection copyFrom: (self position + 1 + aString size) to: self collection size.\x0a\x09\x09self setCollection: pre, aString, post\x0a\x09].\x0a\x09self position: self position + aString size.\x0a\x09self setStreamSize: (self streamSize max: self position)",

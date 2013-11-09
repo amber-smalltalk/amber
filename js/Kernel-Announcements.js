@@ -102,7 +102,7 @@ fn: function (anAnnouncement){
 var self=this;
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$6,$7,$5,$1;
+var $3,$4,$2,$1;
 $3=_st($Smalltalk())._current();
 $ctx1.sendIdx["current"]=1;
 $4=_st(self._announcementClass())._name();
@@ -114,10 +114,7 @@ return false;
 } else {
 var class_;
 class_=$receiver;
-$6=_st($Smalltalk())._current();
-$7=_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name();
-$5=_st($6)._at_($7);
-$1=_st($5)._includesBehavior_(class_);
+$1=_st(_st(_st($Smalltalk())._current())._at_(_st(_st(_st(anAnnouncement)._class())._theNonMetaClass())._name()))._includesBehavior_(class_);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"handlesAnnouncement:",{anAnnouncement:anAnnouncement},smalltalk.AnnouncementSubscription)})},

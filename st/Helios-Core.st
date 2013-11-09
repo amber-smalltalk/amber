@@ -924,10 +924,6 @@ previous: aWidget
 
 !HLNavigationListWidget methodsFor: 'actions'!
 
-activateItem: anObject
-	self activateListItem: ((wrapper asJQuery find: 'li[list-data="',  (self items indexOf: anObject ifAbsent: [ ^self ]) asString, '"]') eq: 0)
-!
-
 nextFocus
 	self next ifNotNil: [ self next focus ]
 !

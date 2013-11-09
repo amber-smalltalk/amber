@@ -348,14 +348,13 @@ fn: function (aString){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1,$2;
 self._currentClass_($DoIt());
-$2="doIt ^[".__comma(aString);
-$1=_st($2).__comma("] value");
+$1=_st("doIt ^[".__comma(aString)).__comma("] value");
 $ctx1.sendIdx[","]=1;
 self._source_($1);
-$3=self._compileNode_(self._parse_(self._source()));
-return $3;
+$2=self._compileNode_(self._parse_(self._source()));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
 source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^[', aString, '] value'.\x0a\x09^self compileNode: (self parse: self source)",
@@ -371,14 +370,13 @@ category: 'compiling',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1,$2;
 self._currentClass_(_st(anObject)._class());
-$2="xxxDoIt ^[".__comma(aString);
-$1=_st($2).__comma("] value");
+$1=_st("xxxDoIt ^[".__comma(aString)).__comma("] value");
 $ctx1.sendIdx[","]=1;
 self._source_($1);
-$3=self._compileNode_(self._parse_(self._source()));
-return $3;
+$2=self._compileNode_(self._parse_(self._source()));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},smalltalk.Compiler)})},
 args: ["aString", "anObject"],
 source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^[', aString, '] value'.\x0a\x09^self compileNode: (self parse: self source)",
@@ -489,17 +487,16 @@ fn: function (aString,anObject){
 var self=this;
 var result,method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 method=self._eval_(self._compileExpression_on_(aString,anObject));
 _st(method)._category_("xxxDoIt");
 $1=_st(anObject)._class();
 $ctx1.sendIdx["class"]=1;
 _st($1)._addCompiledMethod_(method);
 result=_st(anObject)._xxxDoIt();
-$2=_st(anObject)._class();
-_st($2)._removeCompiledMethod_(method);
-$3=result;
-return $3;
+_st(_st(anObject)._class())._removeCompiledMethod_(method);
+$2=result;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},smalltalk.Compiler)})},
 args: ["aString", "anObject"],
 source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method category: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^result",
@@ -553,9 +550,8 @@ category: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3="doIt ^[".__comma(aString);
-$2=_st($3).__comma("] value");
+var $2,$1;
+$2=_st("doIt ^[".__comma(aString)).__comma("] value");
 $ctx1.sendIdx[","]=1;
 $1=self._parse_($2);
 return $1;

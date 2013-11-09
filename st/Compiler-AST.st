@@ -560,9 +560,15 @@ isSendNode
 !
 
 shouldBeAliased
+	"Because we keep track of send indexes, some send nodes need additional care for aliasing. 
+	See IRJSVisitor >> visitIRSend:"
+	
+	| sends |
+	
+	sends := (self method sendIndexes at: self selector) size.
+	
 	^ super shouldBeAliased or: [
-		(self method sendIndexes at: self selector) size > 1 and: [
-			self isReferenced ] ]
+		(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]
 !
 
 stopOnStepping

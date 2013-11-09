@@ -519,7 +519,7 @@ var oldProtocol;
 function $SystemAnnouncer(){return smalltalk.SystemAnnouncer||(typeof SystemAnnouncer=="undefined"?nil:SystemAnnouncer)}
 function $MethodMoved(){return smalltalk.MethodMoved||(typeof MethodMoved=="undefined"?nil:MethodMoved)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$8,$7,$9,$6,$11,$10;
+var $1,$2,$3,$5,$4,$8,$7,$6;
 oldProtocol=self._protocol();
 $ctx1.sendIdx["protocol"]=1;
 self._basicAt_put_("category",aString);
@@ -543,14 +543,11 @@ $ctx1.sendIdx["methodClass"]=3;
 $7=_st($8)._methods();
 $6=_st($7)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$9=_st(each)._protocol();
-return _st($9).__eq(oldProtocol);
+return _st(_st(each)._protocol()).__eq(oldProtocol);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 _st($6)._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
-$11=self._methodClass();
-$10=_st($11)._organization();
-return _st($10)._removeElement_(oldProtocol);
+return _st(_st(self._methodClass())._organization())._removeElement_(oldProtocol);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"category:",{aString:aString,oldProtocol:oldProtocol},smalltalk.CompiledMethod)})},
@@ -665,7 +662,7 @@ fn: function (){
 var self=this;
 var superclass;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$6,$5,$4,$3;
+var $1,$2,$3;
 $1=self._methodClass();
 $ctx1.sendIdx["methodClass"]=1;
 superclass=_st($1)._superclass();
@@ -676,10 +673,7 @@ return false;
 } else {
 $2;
 };
-$6=self._methodClass();
-$5=_st($6)._superclass();
-$4=_st($5)._lookupSelector_(self._selector());
-$3=_st($4)._notNil();
+$3=_st(_st(_st(self._methodClass())._superclass())._lookupSelector_(self._selector()))._notNil();
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"isOverride",{superclass:superclass},smalltalk.CompiledMethod)})},
 args: [],
@@ -1480,7 +1474,7 @@ category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$1;
+var $2,$3,$1;
 $2=self._isBlockContext();
 if(smalltalk.assert($2)){
 $3="a block (in ".__comma(_st(self._methodContext())._asString());
@@ -1488,8 +1482,7 @@ $ctx1.sendIdx[","]=2;
 $1=_st($3).__comma(")");
 $ctx1.sendIdx[","]=1;
 } else {
-$4=_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ");
-$1=_st($4).__comma(self._selector());
+$1=_st(_st(_st(_st(self._receiver())._class())._name()).__comma(" >> ")).__comma(self._selector());
 $ctx1.sendIdx[","]=3;
 };
 return $1;
@@ -1590,7 +1583,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$7,$6,$1;
+var $2,$5,$4,$3,$1;
 $2=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -1600,9 +1593,7 @@ $5=self._methodContext();
 $ctx1.sendIdx["methodContext"]=2;
 $4=_st($5)._receiver();
 $3=_st($4)._class();
-$7=self._methodContext();
-$6=_st($7)._selector();
-$1=_st($3)._lookupSelector_($6);
+$1=_st($3)._lookupSelector_(_st(self._methodContext())._selector());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.MethodContext)})},

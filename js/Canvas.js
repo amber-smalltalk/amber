@@ -627,7 +627,7 @@ fn: function (aString){
 var self=this;
 var result;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1,$5,$6;
+var $2,$4,$3,$1,$5;
 $2="<span />"._asJQuery();
 $4="&".__comma(aString);
 $ctx1.sendIdx[","]=2;
@@ -637,8 +637,7 @@ $1=_st($2)._html_($3);
 result=_st($1)._text();
 $5=_st(_st(result)._size()).__eq((1));
 if(! smalltalk.assert($5)){
-$6="Not an HTML entity: ".__comma(aString);
-self._error_($6);
+self._error_("Not an HTML entity: ".__comma(aString));
 };
 self._with_(result);
 return self}, function($ctx1) {$ctx1.fill(self,"entity:",{aString:aString,result:result},smalltalk.HTMLCanvas)})},
@@ -2208,9 +2207,8 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=_st(jQuery)._at_("browser");
-$2=_st($3)._at_("msie");
+var $2,$1;
+$2=_st(_st(jQuery)._at_("browser"))._at_("msie");
 $ctx1.sendIdx["at:"]=1;
 $1=_st($2)._notNil();
 return $1;
@@ -2229,9 +2227,8 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=_st(jQuery)._at_("browser");
-$2=_st($3)._at_("mozilla");
+var $2,$1;
+$2=_st(_st(jQuery)._at_("browser"))._at_("mozilla");
 $ctx1.sendIdx["at:"]=1;
 $1=_st($2)._notNil();
 return $1;
@@ -2250,9 +2247,8 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=_st(jQuery)._at_("browser");
-$2=_st($3)._at_("opera");
+var $2,$1;
+$2=_st(_st(jQuery)._at_("browser"))._at_("opera");
 $ctx1.sendIdx["at:"]=1;
 $1=_st($2)._notNil();
 return $1;
@@ -2271,9 +2267,8 @@ category: 'instance creation',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=_st(jQuery)._at_("browser");
-$2=_st($3)._at_("webkit");
+var $2,$1;
+$2=_st(_st(jQuery)._at_("browser"))._at_("webkit");
 $ctx1.sendIdx["at:"]=1;
 $1=_st($2)._notNil();
 return $1;

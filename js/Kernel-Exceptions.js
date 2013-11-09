@@ -361,9 +361,8 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(self._receiver())._asString()).__comma(" does not understand #");
-$1=_st($2).__comma(_st(self._message())._selector());
+var $1;
+$1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
 $ctx1.sendIdx[","]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
@@ -457,14 +456,13 @@ category: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(anError)._context();
 $ctx1.sendIdx["context"]=1;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-$2=_st(anError)._context();
-self._logErrorContext_($2);
+self._logErrorContext_(_st(anError)._context());
 };
 self._logError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler)})},
@@ -498,14 +496,13 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-$2=_st(aContext)._home();
-self._logContext_($2);
+self._logContext_(_st(aContext)._home());
 };
 self._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
@@ -539,7 +536,7 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 if(($receiver = aContext) == nil || $receiver == null){
 aContext;
 } else {
@@ -548,8 +545,7 @@ $ctx1.sendIdx["home"]=1;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-$2=_st(aContext)._home();
-self._logContext_($2);
+self._logContext_(_st(aContext)._home());
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},

@@ -29,7 +29,7 @@ category: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$7,$6,$3,$1;
+var $2,$5,$4,$3,$1;
 $2=self.__lt((2));
 if(smalltalk.assert($2)){
 $1=(1);
@@ -38,9 +38,7 @@ $5=self.__minus((1));
 $ctx1.sendIdx["-"]=1;
 $4=_st($5)._benchFib();
 $ctx1.sendIdx["benchFib"]=1;
-$7=self.__minus((2));
-$6=_st($7)._benchFib();
-$3=_st($4).__plus($6);
+$3=_st($4).__plus(_st(self.__minus((2)))._benchFib());
 $1=_st($3).__plus((1));
 $ctx1.sendIdx["+"]=1;
 };
@@ -175,7 +173,7 @@ var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { 
-var $7,$6,$5,$4,$3,$10,$9,$8,$2,$1;
+var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -218,10 +216,7 @@ $ctx1.sendIdx["/"]=1;
 $4=_st($5)._printString();
 $ctx1.sendIdx["printString"]=1;
 $3=_st($4).__comma(" bytecodes/sec; ");
-$10=_st(r).__star((1000));
-$9=_st($10).__slash(t2);
-$8=_st($9)._printString();
-$2=_st($3).__comma($8);
+$2=_st($3).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString());
 $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma(" sends/sec");
 $ctx1.sendIdx[","]=1;
@@ -243,7 +238,7 @@ var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { 
-var $7,$6,$5,$4,$3,$10,$9,$8,$2,$1;
+var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
@@ -286,10 +281,7 @@ $ctx1.sendIdx["/"]=1;
 $4=_st($5)._printString();
 $ctx1.sendIdx["printString"]=1;
 $3=_st($4).__comma(" bytecodes/sec; ");
-$10=_st(r).__star((1000));
-$9=_st($10).__slash(t2);
-$8=_st($9)._printString();
-$2=_st($3).__comma($8);
+$2=_st($3).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString());
 $ctx1.sendIdx[","]=2;
 $1=_st($2).__comma(" sends/sec");
 $ctx1.sendIdx[","]=1;
