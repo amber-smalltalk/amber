@@ -775,6 +775,27 @@ referencedClasses: []
 }),
 smalltalk.AssignmentNode);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "shouldBeAliased",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(smalltalk.AssignmentNode.superclass.fn.prototype._shouldBeAliased.apply(_st(self), []))._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._isReferenced();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"shouldBeAliased",{},smalltalk.AssignmentNode)})},
+args: [],
+source: "shouldBeAliased\x0a\x09^ super shouldBeAliased or: [ self isReferenced ]",
+messageSends: ["or:", "shouldBeAliased", "isReferenced"],
+referencedClasses: []
+}),
+smalltalk.AssignmentNode);
+
 
 
 smalltalk.addClass('BlockNode', smalltalk.Node, ['parameters', 'scope'], 'Compiler-AST');

@@ -4233,17 +4233,18 @@ fn: function (anIndex){
 var self=this;
 var lineCount;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $2,$1,$3;
 var $early={};
 try {
 lineCount=(0);
 self._lineIndicesDo_((function(start,endWithoutDelimiters,end){
 return smalltalk.withContext(function($ctx2) {
 lineCount=_st(lineCount).__plus((1));
-$1=_st(lineCount).__eq(anIndex);
+$2=lineCount;
+$1=_st($2).__eq(anIndex);
 if(smalltalk.assert($1)){
-$2=self._copyFrom_to_(start,endWithoutDelimiters);
-throw $early=[$2];
+$3=self._copyFrom_to_(start,endWithoutDelimiters);
+throw $early=[$3];
 };
 }, function($ctx2) {$ctx2.fillBlock({start:start,endWithoutDelimiters:endWithoutDelimiters,end:end},$ctx1,1)})}));
 return nil;

@@ -211,6 +211,10 @@ right: aNode
 
 isAssignmentNode
 	^ true
+!
+
+shouldBeAliased
+	^ super shouldBeAliased or: [ self isReferenced ]
 ! !
 
 !AssignmentNode methodsFor: 'visiting'!
