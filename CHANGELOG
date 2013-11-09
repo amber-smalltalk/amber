@@ -25,7 +25,7 @@ On the Smalltalk side support has been added for writing exponential numbers of 
 Helios (the new IDE) is progressing nicely and has seen a lot of improvements.
 One of the great parts is the new stepping debugger which is also making progress.
 To try Helios, open the helios.html page or
-evaluate in any other amber page `require('amber/helpers).popupHelios()`.
+evaluate in any other amber page `require('amber/helpers').popupHelios()`.
 
 The last enhancements target the commandline compiler which can be used as
 `amberc` (an executable script) or as a Grunt task.
