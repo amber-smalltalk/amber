@@ -1747,25 +1747,28 @@ fn: function (aClass,anInteger,html){
 var self=this;
 var li;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
+var $1,$2,$4,$6,$5,$3;
 li=_st(html)._li();
-$1=li;
-_st($1)._at_put_("list-data",self._listDataKeyFor_(aClass));
-_st($1)._class_(self._listCssClassForItem_(aClass));
+$1=_st(li)._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+_st($1)._data_put_("item",aClass);
+$2=li;
+_st($2)._class_(self._listCssClassForItem_(aClass));
 $ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
+$3=_st($2)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._a();
-_st($3)._with_((function(){
+$4=_st(html)._a();
+_st($4)._with_((function(){
 return smalltalk.withContext(function($ctx3) {
 _st(_st(html)._tag_("i"))._class_(self._cssClassForItem_(aClass));
 return self._renderItemLabel_level_on_(aClass,anInteger,html);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$4=_st($3)._onClick_((function(){
+$5=_st($4)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
-return self._activateListItem_(_st(li)._asJQuery());
+$6=_st(li)._asJQuery();
+return self._activateListItem_($6);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-return $4;
+return $5;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 _st(self._getChildrenOf_(aClass))._do_((function(each){
@@ -1774,8 +1777,8 @@ return self._renderItem_level_on_(each,_st(anInteger).__plus((1)),html);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,4)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:level:on:",{aClass:aClass,anInteger:anInteger,html:html,li:li},smalltalk.HLClassesListWidget)})},
 args: ["aClass", "anInteger", "html"],
-source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09\x0a    li\x0a    \x09at: 'list-data' put: (self listDataKeyFor: aClass);\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
-messageSends: ["li", "at:put:", "listDataKeyFor:", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:level:on:", "onClick:", "activateListItem:", "asJQuery", "do:", "getChildrenOf:", "renderItem:level:on:", "+"],
+source: "renderItem: aClass level: anInteger on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: aClass.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: aClass);\x0a\x09\x09with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: aClass).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: aClass level: anInteger on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ].\x0a                    \x0a    (self getChildrenOf: aClass) do: [ :each |\x0a    \x09self renderItem: each level: anInteger + 1 on: html ]",
+messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:level:on:", "onClick:", "activateListItem:", "do:", "getChildrenOf:", "renderItem:level:on:", "+"],
 referencedClasses: []
 }),
 smalltalk.HLClassesListWidget);

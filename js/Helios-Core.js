@@ -2161,33 +2161,13 @@ selector: "activateItem:",
 category: 'actions',
 fn: function (anObject){
 var self=this;
-var listData;
-function $HLListItemNotFound(){return smalltalk.HLListItemNotFound||(typeof HLListItemNotFound=="undefined"?nil:HLListItemNotFound)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$5,$4,$2,$1;
-var $early={};
-try {
-listData=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._listDataKeyFor_(anObject);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($HLListItemNotFound(),(function(){
-return smalltalk.withContext(function($ctx2) {
-throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=_st(self["@wrapper"])._asJQuery();
-$5="li[list-data=\x22".__comma(listData);
-$4=_st($5).__comma("\x22]");
-$ctx1.sendIdx[","]=1;
-$2=_st($3)._find_($4);
-$1=_st($2)._eq_((0));
-self._activateListItem_($1);
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"activateItem:",{anObject:anObject,listData:listData},smalltalk.HLListWidget)})},
+self._activateListItem_(self._findListItemFor_(anObject));
+return self}, function($ctx1) {$ctx1.fill(self,"activateItem:",{anObject:anObject},smalltalk.HLListWidget)})},
 args: ["anObject"],
-source: "activateItem: anObject\x0a\x09| listData |\x0a\x09\x0a\x09listData := [ self listDataKeyFor: anObject ] \x0a\x09\x09on: HLListItemNotFound \x0a\x09\x09do: [ ^ self ].\x0a\x09\x09\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li[list-data=\x22', listData , '\x22]') eq: 0)",
-messageSends: ["on:do:", "listDataKeyFor:", "activateListItem:", "eq:", "find:", "asJQuery", ","],
-referencedClasses: ["HLListItemNotFound"]
+source: "activateItem: anObject\x0a\x09self activateListItem: (self findListItemFor: anObject)",
+messageSends: ["activateListItem:", "findListItemFor:"],
+referencedClasses: []
 }),
 smalltalk.HLListWidget);
 
@@ -2209,15 +2189,15 @@ $1;
 _st(_st(_st(aListItem)._parent())._children())._removeClass_("active");
 _st(aListItem)._addClass_("active");
 self._ensureVisible_(aListItem);
-item=_st(self._items())._at_(_st(_st(aListItem)._attr_("list-data"))._asNumber());
+item=_st(aListItem)._data_("item");
 $2=_st(self._selectedItem()).__eq_eq(item);
 if(! smalltalk.assert($2)){
 self._selectItem_(item);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"activateListItem:",{aListItem:aListItem,item:item},smalltalk.HLListWidget)})},
 args: ["aListItem"],
-source: "activateListItem: aListItem\x0a\x09| item |\x0a\x09\x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x09aListItem parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a\x09self ensureVisible: aListItem.\x0a    \x0a   \x22Activate the corresponding item\x22\x0a   item := (self items at: (aListItem attr: 'list-data') asNumber).\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
-messageSends: ["ifNil:", "get:", "removeClass:", "children", "parent", "addClass:", "ensureVisible:", "at:", "items", "asNumber", "attr:", "ifFalse:", "==", "selectedItem", "selectItem:"],
+source: "activateListItem: aListItem\x0a\x09| item |\x0a\x09\x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x09aListItem parent children removeClass: 'active'.\x0a\x09aListItem addClass: 'active'.\x0a    \x0a\x09self ensureVisible: aListItem.\x0a    \x0a   \x22Activate the corresponding item\x22\x0a   item := aListItem data: 'item'.\x0a   self selectedItem == item ifFalse: [\x0a\x09   self selectItem: item ]",
+messageSends: ["ifNil:", "get:", "removeClass:", "children", "parent", "addClass:", "ensureVisible:", "data:", "ifFalse:", "==", "selectedItem", "selectItem:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2312,65 +2292,99 @@ fn: function (aListItem){
 var self=this;
 var parent,position;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$8,$7,$10,$9,$6,$5,$14,$13,$15,$12,$16,$11,$17,$22,$21,$23,$20,$25,$27,$26,$24,$19,$18;
+var $1,$5,$4,$3,$6,$10,$9,$12,$11,$8,$7,$2,$17,$16,$18,$15,$19,$14,$20,$25,$24,$26,$23,$28,$30,$29,$27,$22,$21,$13;
+$1=_st(aListItem)._get_((0));
+$ctx1.sendIdx["get:"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+return self;
+} else {
+$1;
+};
 position=self._positionOf_(aListItem);
 parent=_st(aListItem)._parent();
-$3=_st(aListItem)._position();
+$5=_st(aListItem)._position();
 $ctx1.sendIdx["position"]=1;
-$2=_st($3)._top();
+$4=_st($5)._top();
 $ctx1.sendIdx["top"]=1;
-$1=_st($2).__lt((0));
-if(smalltalk.assert($1)){
-$4=_st(parent)._get_((0));
-$ctx1.sendIdx["get:"]=1;
-$8=_st(parent)._get_((0));
+$3=_st($4).__lt((0));
+if(smalltalk.assert($3)){
+$6=_st(parent)._get_((0));
 $ctx1.sendIdx["get:"]=2;
-$7=_st($8)._scrollTop();
+$10=_st(parent)._get_((0));
+$ctx1.sendIdx["get:"]=3;
+$9=_st($10)._scrollTop();
 $ctx1.sendIdx["scrollTop"]=1;
-$10=_st(aListItem)._position();
+$12=_st(aListItem)._position();
 $ctx1.sendIdx["position"]=2;
-$9=_st($10)._top();
+$11=_st($12)._top();
 $ctx1.sendIdx["top"]=2;
-$6=_st($7).__plus($9);
+$8=_st($9).__plus($11);
 $ctx1.sendIdx["+"]=1;
-$5=_st($6).__minus((10));
+$7=_st($8).__minus((10));
 $ctx1.sendIdx["-"]=1;
-_st($4)._scrollTop_($5);
+$2=_st($6)._scrollTop_($7);
 $ctx1.sendIdx["scrollTop:"]=1;
 };
-$14=_st(aListItem)._position();
+$17=_st(aListItem)._position();
 $ctx1.sendIdx["position"]=3;
-$13=_st($14)._top();
+$16=_st($17)._top();
 $ctx1.sendIdx["top"]=3;
-$15=_st(aListItem)._height();
+$18=_st(aListItem)._height();
 $ctx1.sendIdx["height"]=1;
-$12=_st($13).__plus($15);
+$15=_st($16).__plus($18);
 $ctx1.sendIdx["+"]=2;
-$16=_st(parent)._height();
+$19=_st(parent)._height();
 $ctx1.sendIdx["height"]=2;
-$11=_st($12).__gt($16);
-if(smalltalk.assert($11)){
-$17=_st(parent)._get_((0));
-$ctx1.sendIdx["get:"]=3;
-$22=_st(parent)._get_((0));
-$21=_st($22)._scrollTop();
-$23=_st(aListItem)._height();
+$14=_st($15).__gt($19);
+if(smalltalk.assert($14)){
+$20=_st(parent)._get_((0));
+$ctx1.sendIdx["get:"]=4;
+$25=_st(parent)._get_((0));
+$24=_st($25)._scrollTop();
+$26=_st(aListItem)._height();
 $ctx1.sendIdx["height"]=3;
-$20=_st($21).__plus($23);
-$25=_st(parent)._height();
-$27=_st(aListItem)._position();
-$26=_st($27)._top();
-$24=_st($25).__minus($26);
-$19=_st($20).__minus($24);
+$23=_st($24).__plus($26);
+$28=_st(parent)._height();
+$30=_st(aListItem)._position();
+$29=_st($30)._top();
+$27=_st($28).__minus($29);
+$22=_st($23).__minus($27);
 $ctx1.sendIdx["-"]=2;
-$18=_st($19).__plus((10));
+$21=_st($22).__plus((10));
 $ctx1.sendIdx["+"]=3;
-_st($17)._scrollTop_($18);
+$13=_st($20)._scrollTop_($21);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"ensureVisible:",{aListItem:aListItem,parent:parent,position:position},smalltalk.HLListWidget)})},
 args: ["aListItem"],
-source: "ensureVisible: aListItem\x09\x0a\x09\x22Move the scrollbar to show the active element\x22\x0a\x09\x0a\x09| parent position |\x0a\x09\x0a\x09position := self positionOf: aListItem.\x0a\x09parent := aListItem parent.\x0a\x09\x0a    aListItem position top < 0 ifTrue: [\x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].\x0a    aListItem position top + aListItem height > parent height ifTrue: [ \x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ]",
-messageSends: ["positionOf:", "parent", "ifTrue:", "<", "top", "position", "scrollTop:", "get:", "-", "+", "scrollTop", ">", "height"],
+source: "ensureVisible: aListItem\x09\x0a\x09\x22Move the scrollbar to show the active element\x22\x0a\x09\x0a\x09| parent position |\x0a\x09(aListItem get: 0) ifNil: [ ^self ].\x0a\x09position := self positionOf: aListItem.\x0a\x09parent := aListItem parent.\x0a\x09\x0a    aListItem position top < 0 ifTrue: [\x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].\x0a    aListItem position top + aListItem height > parent height ifTrue: [ \x0a\x09\x09(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ]",
+messageSends: ["ifNil:", "get:", "positionOf:", "parent", "ifTrue:", "<", "top", "position", "scrollTop:", "-", "+", "scrollTop", ">", "height"],
+referencedClasses: []
+}),
+smalltalk.HLListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "findListItemFor:",
+category: 'accessing',
+fn: function (anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $4,$3,$6,$5,$2,$1;
+$4=_st(self["@wrapper"])._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+$3=_st($4)._find_("li");
+$2=_st($3)._filter_(_st((function(thisArg,otherArg){
+return smalltalk.withContext(function($ctx2) {
+$6=_st(thisArg)._asJQuery();
+$5=_st($6)._data_("item");
+return _st($5).__eq(anObject);
+}, function($ctx2) {$ctx2.fillBlock({thisArg:thisArg,otherArg:otherArg},$ctx1,1)})}))._currySelf());
+$1=_st($2)._eq_((0));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"findListItemFor:",{anObject:anObject},smalltalk.HLListWidget)})},
+args: ["anObject"],
+source: "findListItemFor: anObject\x0a\x09^(((wrapper asJQuery find: 'li') \x0a\x09\x09filter: [:thisArg :otherArg | (thisArg asJQuery data: 'item') = anObject] currySelf) eq: 0)",
+messageSends: ["eq:", "filter:", "find:", "asJQuery", "currySelf", "=", "data:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2466,28 +2480,6 @@ smalltalk.HLListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "listDataKeyFor:",
-category: 'actions',
-fn: function (anObject){
-var self=this;
-function $HLListItemNotFound(){return smalltalk.HLListItemNotFound||(typeof HLListItemNotFound=="undefined"?nil:HLListItemNotFound)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._items())._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
-return _st($HLListItemNotFound())._signal();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._asString();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"listDataKeyFor:",{anObject:anObject},smalltalk.HLListWidget)})},
-args: ["anObject"],
-source: "listDataKeyFor: anObject\x0a\x09^ (self items \x0a\x09\x09indexOf: anObject \x0a\x09\x09ifAbsent: [ HLListItemNotFound signal ]) asString",
-messageSends: ["asString", "indexOf:ifAbsent:", "items", "signal"],
-referencedClasses: ["HLListItemNotFound"]
-}),
-smalltalk.HLListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "positionOf:",
 category: 'accessing',
 fn: function (aListItem){
@@ -2510,34 +2502,14 @@ selector: "refresh",
 category: 'actions',
 fn: function (){
 var self=this;
-var listData;
-function $HLListItemNotFound(){return smalltalk.HLListItemNotFound||(typeof HLListItemNotFound=="undefined"?nil:HLListItemNotFound)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$5,$4,$2,$1;
-var $early={};
-try {
 smalltalk.HLListWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
-listData=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._listDataKeyFor_(self._selectedItem());
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($HLListItemNotFound(),(function(){
-return smalltalk.withContext(function($ctx2) {
-throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=_st(self["@wrapper"])._asJQuery();
-$5="li[list-data=\x22".__comma(listData);
-$4=_st($5).__comma("\x22]");
-$ctx1.sendIdx[","]=1;
-$2=_st($3)._find_($4);
-$1=_st($2)._eq_((0));
-self._ensureVisible_($1);
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"refresh",{listData:listData},smalltalk.HLListWidget)})},
+self._ensureVisible_(self._findListItemFor_(self._selectedItem()));
+return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLListWidget)})},
 args: [],
-source: "refresh\x0a\x09| listData |\x0a\x0a\x09super refresh.\x0a\x09listData := [ self listDataKeyFor: self selectedItem ] \x0a\x09\x09on: HLListItemNotFound \x0a\x09\x09do: [ ^ self ].\x0a\x09self ensureVisible: ((wrapper asJQuery find: 'li[list-data=\x22', listData , '\x22]') eq: 0)\x0a\x09",
-messageSends: ["refresh", "on:do:", "listDataKeyFor:", "selectedItem", "ensureVisible:", "eq:", "find:", "asJQuery", ","],
-referencedClasses: ["HLListItemNotFound"]
+source: "refresh\x0a\x09super refresh.\x0a\x09self ensureVisible: (self findListItemFor: self selectedItem)",
+messageSends: ["refresh", "ensureVisible:", "findListItemFor:", "selectedItem"],
+referencedClasses: []
 }),
 smalltalk.HLListWidget);
 
@@ -2589,53 +2561,40 @@ smalltalk.HLListWidget);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "renderItem:dataKey:on:",
-category: 'rendering',
-fn: function (anObject,aString,html){
-var self=this;
-var li;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-li=_st(html)._li();
-$1=li;
-_st($1)._at_put_("list-data",aString);
-_st($1)._class_(self._listCssClassForItem_(anObject));
-$ctx1.sendIdx["class:"]=1;
-$2=_st($1)._with_((function(){
-return smalltalk.withContext(function($ctx2) {
-$3=_st(html)._a();
-_st($3)._with_((function(){
-return smalltalk.withContext(function($ctx3) {
-_st(_st(html)._tag_("i"))._class_(self._cssClassForItem_(anObject));
-return self._renderItemLabel_on_(anObject,html);
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
-$4=_st($3)._onClick_((function(){
-return smalltalk.withContext(function($ctx3) {
-return self._activateListItem_(_st(li)._asJQuery());
-}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
-return $4;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["with:"]=1;
-return self}, function($ctx1) {$ctx1.fill(self,"renderItem:dataKey:on:",{anObject:anObject,aString:aString,html:html,li:li},smalltalk.HLListWidget)})},
-args: ["anObject", "aString", "html"],
-source: "renderItem: anObject dataKey: aString on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09\x0a    li\x0a        at: 'list-data' put: aString;\x0a\x09\x09class: (self listCssClassForItem: anObject);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
-messageSends: ["li", "at:put:", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:on:", "onClick:", "activateListItem:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.HLListWidget);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "renderItem:on:",
 category: 'rendering',
 fn: function (anObject,html){
 var self=this;
+var li;
 return smalltalk.withContext(function($ctx1) { 
-self._renderItem_dataKey_on_(anObject,self._listDataKeyFor_(anObject),html);
-return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html},smalltalk.HLListWidget)})},
+var $1,$2,$4,$6,$5,$3;
+li=_st(html)._li();
+$1=_st(li)._asJQuery();
+$ctx1.sendIdx["asJQuery"]=1;
+_st($1)._data_put_("item",anObject);
+$2=li;
+_st($2)._class_(self._listCssClassForItem_(anObject));
+$ctx1.sendIdx["class:"]=1;
+$3=_st($2)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+$4=_st(html)._a();
+_st($4)._with_((function(){
+return smalltalk.withContext(function($ctx3) {
+_st(_st(html)._tag_("i"))._class_(self._cssClassForItem_(anObject));
+return self._renderItemLabel_on_(anObject,html);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+$5=_st($4)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+$6=_st(li)._asJQuery();
+return self._activateListItem_($6);
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}));
+return $5;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["with:"]=1;
+return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li},smalltalk.HLListWidget)})},
 args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09self renderItem: anObject dataKey: (self listDataKeyFor: anObject) on: html",
-messageSends: ["renderItem:dataKey:on:", "listDataKeyFor:"],
+source: "renderItem: anObject on: html\x0a\x09| li |\x0a    \x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: anObject.\x0a    li\x0a\x09\x09class: (self listCssClassForItem: anObject);\x0a        with: [ \x0a        \x09html a\x0a            \x09with: [ \x0a            \x09\x09(html tag: 'i') class: (self cssClassForItem: anObject).\x0a  \x09\x09\x09\x09\x09self renderItemLabel: anObject on: html ];\x0a\x09\x09\x09\x09onClick: [\x0a                  \x09self activateListItem: li asJQuery ] ]",
+messageSends: ["li", "data:put:", "asJQuery", "class:", "listCssClassForItem:", "with:", "a", "tag:", "cssClassForItem:", "renderItemLabel:on:", "onClick:", "activateListItem:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2663,14 +2622,14 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(self._items())._withIndexDo_((function(each,index){
+_st(self._items())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return self._renderItem_dataKey_on_(each,_st(index)._asString(),html);
-}, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
+return self._renderItem_on_(each,html);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"renderListOn:",{html:html},smalltalk.HLListWidget)})},
 args: ["html"],
-source: "renderListOn: html\x0a\x09self items withIndexDo: [ :each :index | \x0a    \x09self renderItem: each dataKey: index asString on: html ]",
-messageSends: ["withIndexDo:", "items", "renderItem:dataKey:on:", "asString"],
+source: "renderListOn: html\x0a\x09self items do: [ :each  | \x0a    \x09self renderItem: each  on: html ]",
+messageSends: ["do:", "items", "renderItem:on:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
@@ -2756,36 +2715,6 @@ smalltalk.HLListWidget);
 
 
 smalltalk.addClass('HLNavigationListWidget', smalltalk.HLListWidget, ['previous', 'next'], 'Helios-Core');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "activateItem:",
-category: 'actions',
-fn: function (anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $3,$5,$4,$2,$1;
-var $early={};
-try {
-$3=_st(self["@wrapper"])._asJQuery();
-$5="li[list-data=\x22".__comma(_st(_st(self._items())._indexOf_ifAbsent_(anObject,(function(){
-return smalltalk.withContext(function($ctx2) {
-throw $early=[self];
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})))._asString());
-$4=_st($5).__comma("\x22]");
-$ctx1.sendIdx[","]=1;
-$2=_st($3)._find_($4);
-$1=_st($2)._eq_((0));
-self._activateListItem_($1);
-return self}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"activateItem:",{anObject:anObject},smalltalk.HLNavigationListWidget)})},
-args: ["anObject"],
-source: "activateItem: anObject\x0a\x09self activateListItem: ((wrapper asJQuery find: 'li[list-data=\x22',  (self items indexOf: anObject ifAbsent: [ ^self ]) asString, '\x22]') eq: 0)",
-messageSends: ["activateListItem:", "eq:", "find:", "asJQuery", ",", "asString", "indexOf:ifAbsent:", "items"],
-referencedClasses: []
-}),
-smalltalk.HLNavigationListWidget);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "next",
