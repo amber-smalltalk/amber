@@ -24,6 +24,16 @@ require = function (require) {
     // e.g. http://app.com/index.html -> http://app.com/
     var document_home = window.location.href.replace(/\/[^\/]+$/, "");
 
+    // at the present moment, bower tries to have flat hierarchy,
+    // which leads to two possible scenarios:
+    // 1. amber itself was deployed via bower,
+    //    its libraries are next to it; document_home from above covers this
+    // 2. amber was deployed in different fashion,
+    //    its libraries are included by bower locally; document_home is fixed below
+    // The detection is done by looking for '/bower_components/' in amber path.
+    if (!amber_home.match(/\/bower_components\//)) {
+        document_home = amber_home;
+    }
 
     function resolveViaDOM(url) {
         var a = document.createElement("a");
@@ -54,7 +64,7 @@ require = function (require) {
                 deps: [ 'jquery' ]
             },
             'amber_lib/bootstrap/js/bootstrap': {
-                deps: [ 'css!amber_lib/bootstrap/css/bootstrap' ]
+                deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
             'amber_lib/CodeMirror/codemirror': {
                 deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]
