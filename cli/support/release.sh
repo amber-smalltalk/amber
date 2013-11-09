@@ -4,8 +4,10 @@
 # as a user with write access to amber npm package.
 
 cd `dirname "$0"`/../..
-rm -rf *
+git clean -d -x -f
+git reset --hard
 git checkout master
+git reset --hard
 echo -n "Which version are you going to publish [0 to skip]? "
 VER=`head -n 1`
 if [ "$VER" = "0" ]; then :; else
