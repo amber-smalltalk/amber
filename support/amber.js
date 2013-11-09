@@ -29,7 +29,7 @@ require = function (require) {
     // 1. amber itself was deployed via bower,
     //    its libraries are next to it; document_home from above covers this
     // 2. amber was deployed in different fashion,
-    //    its libraries are included by bower locally; document_home is fixed above
+    //    its libraries are included by bower locally; document_home is fixed below
     // The detection is done by looking for '/bower_components/' in amber path.
     if (!amber_home.match(/\/bower_components\//)) {
         document_home = amber_home;
