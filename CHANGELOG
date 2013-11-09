@@ -89,7 +89,7 @@ In windows, use `\` as path separator, the rest is identical.
 The `-l SUnit,Canvas` is just a general guess, if your code depends on more (or less) non-kernel packages from amber, list them here accordingly.
 
 This migrate scenario only covers simple deployments with your project's code and amber.
-If your project is more compilicated, using libraries and packages from multiple sources,
+If your project is more complicated, using libraries and packages from multiple sources,
 it is hard to give general advices to migrate - you must do it library by library,
 giving each location its own namespace, and `-L` option of `amberc`
 comes handy when integrating; ask on the mailing list if problems arise.
