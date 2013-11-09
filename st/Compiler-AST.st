@@ -681,11 +681,6 @@ accept: aVisitor
 	^ aVisitor visitValueNode: self
 ! !
 
-!ValueNode methodsFor: 'xxxDoIt'!
-
-xxxDoIt ^[self stack] value
-! !
-
 ValueNode subclass: #VariableNode
 	instanceVariableNames: 'assigned binding'
 	package: 'Compiler-AST'!

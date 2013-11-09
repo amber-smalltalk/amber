@@ -2221,27 +2221,6 @@ referencedClasses: []
 }),
 smalltalk.ValueNode);
 
-smalltalk.addMethod(
-smalltalk.method({
-selector: "xxxDoIt",
-category: 'xxxDoIt',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st((function(){
-return smalltalk.withContext(function($ctx2) {
-return self._stack();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._value();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"xxxDoIt",{},smalltalk.ValueNode)})},
-args: [],
-source: "xxxDoIt ^[self stack] value",
-messageSends: ["value", "stack"],
-referencedClasses: []
-}),
-smalltalk.ValueNode);
-
 
 
 smalltalk.addClass('VariableNode', smalltalk.ValueNode, ['assigned', 'binding'], 'Compiler-AST');
