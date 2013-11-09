@@ -7,8 +7,12 @@
 
    ======================================================================
    |
-   | Copyright (c) 2010-2011
+   | Copyright (c) 2010-2013
    | Nicolas Petton <petton.nicolas@gmail.com>
+   |
+   | Copyright (c) 2012-2013
+   | The Amber team https://github.com/amber-smalltalk?tab=members
+   | Amber contributors https://github.com/amber-smalltalk/amber/graphs/contributors
    |
    | Amber is released under the MIT license
    |
