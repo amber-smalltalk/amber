@@ -1,4 +1,8 @@
 #!/bin/sh
+
+# ATTENTION: Be logged into npm before running this script,
+# as a user with write access to amber npm package.
+
 cd `dirname "$0"`/../..
 echo rm -rf *
 echo git checkout master
