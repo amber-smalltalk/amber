@@ -5,7 +5,7 @@ After 3 months of work we are pleased to announce the 0.12.0 release of Amber.
 
 Besides the usual bug fixes a lot of new features have emerged.
 
-The biggest change is the switch to using RequireJS to specifying Amber package dependencies
+The biggest change is the switch to RequireJS to specify Amber package dependencies
 and for loading the packages as AMD modules.
 Amber is now additionally available as Bower [2] component.
 Bower is also used to manage required JavaScript libraries which don't have to be kept
@@ -25,7 +25,7 @@ On the Smalltalk side support has been added for writing exponential numbers of 
 Helios (the new IDE) is progressing nicely and has seen a lot of improvements.
 One of the great parts is the new stepping debugger which is also making progress.
 To try Helios, open the helios.html page or
-evaluate in any other amber page `amber.loadHelios()`.
+evaluate in any other amber page `require('amber/helpers).popupHelios()`.
 
 The last enhancements target the commandline compiler which can be used as
 `amberc` (an executable script) or as a Grunt task.
