@@ -72,7 +72,7 @@ $1="";
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectionDisplayString",{selection:selection},smalltalk.HLInspectorDisplayWidget)})},
 args: [],
-source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables keys includes: selection)\x0a    \x09ifTrue:[(model instVarObjectAt: selection) printString]\x0a      \x09ifFalse:['']",
+source: "selectionDisplayString\x0a\x09|selection|\x0a\x09selection := model selection.\x0a    ^ (model variables keys includes: selection)\x0a    \x09ifTrue:[ (model instVarObjectAt: selection) printString ]\x0a      \x09ifFalse:[ '' ]",
 messageSends: ["selection", "ifTrue:ifFalse:", "includes:", "keys", "variables", "printString", "instVarObjectAt:"],
 referencedClasses: []
 }),
@@ -100,7 +100,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.HLInspectorModel)})},
 args: [],
-source: "announcer\x0a\x09^ announcer ifNil: [announcer := Announcer new ]",
+source: "announcer\x0a\x09^ announcer ifNil: [ announcer := Announcer new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["Announcer"]
 }),

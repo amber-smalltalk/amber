@@ -143,7 +143,7 @@ localAt: aString ifAbsent: aBlock
 	^ self locals at: aString ifAbsent: [ 
 		self outerContext 
 			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [aBlock value] ]
+			ifNil: [ aBlock value ] ]
 !
 
 localAt: aString put: anObject
@@ -713,7 +713,7 @@ visitVariableNode: aNode
 					ifTrue: [
 						Smalltalk current 
 							at: aNode value 
-							ifAbsent: [ PlatformInterface globals at: aNode value ]]]])
+							ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])
 ! !
 
 Error subclass: #ASTInterpreterError

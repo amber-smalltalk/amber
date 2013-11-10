@@ -58,7 +58,7 @@ return _st(_st($Error())._new())._signal();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCanClearInterval\x0a\x09self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error",
+source: "testCanClearInterval\x0a\x09self shouldnt: [ ([ Error new signal ] valueWithInterval: 0) clearInterval ] raise: Error",
 messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -81,7 +81,7 @@ return _st(_st($Error())._new())._signal();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCanClearTimeout\x0a\x09self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error",
+source: "testCanClearTimeout\x0a\x09self shouldnt: [ ([ Error new signal ] valueWithTimeout: 0) clearTimeout ] raise: Error",
 messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -100,7 +100,7 @@ return (1).__plus((1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._compiledSource())._includesSubString_("function"));
 return self}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCompiledSource\x0a\x09self assert: ([1+1] compiledSource includesSubString: 'function')",
+source: "testCompiledSource\x0a\x09self assert: ([ 1+1 ] compiledSource includesSubString: 'function')",
 messageSends: ["assert:", "includesSubString:", "compiledSource", "+"],
 referencedClasses: []
 }),
@@ -153,7 +153,7 @@ return (4);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testEnsure\x0a\x09self assert: ([3] ensure: [4]) equals: 3",
+source: "testEnsure\x0a\x09self assert: ([ 3 ] ensure: [ 4 ]) equals: 3",
 messageSends: ["assert:equals:", "ensure:"],
 referencedClasses: []
 }),
@@ -179,7 +179,7 @@ return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testEnsureRaises\x0a\x09self should: [[Error new signal] ensure: [true]] raise: Error",
+source: "testEnsureRaises\x0a\x09self should: [ [Error new signal ] ensure: [ true ]] raise: Error",
 messageSends: ["should:raise:", "ensure:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -229,7 +229,7 @@ return smalltalk.withContext(function($ctx1) {
 	theTestConstructor.prototype = new theTestPrototype;
 
 	var theWrappedConstructor = _st(theTestConstructor);
-	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);
+	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);
 	self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
@@ -237,7 +237,7 @@ return smalltalk.withContext(function($ctx1) {
 	self._should_raise_(_st(constructionShouldFail), smalltalk.Error);;
 return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), smalltalk.Error);\x0a>",
+source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), smalltalk.Error);\x0a>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -262,7 +262,7 @@ return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})}))._numArgs(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [:a :b | ] numArgs equals: 2",
+source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [ :a :b | ] numArgs equals: 2",
 messageSends: ["assert:equals:", "numArgs"],
 referencedClasses: []
 }),
@@ -285,7 +285,7 @@ return true;
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testOnDo\x0a\x09self assert: ([Error new signal] on: Error do: [:ex | true])",
+source: "testOnDo\x0a\x09self assert: ([ Error new signal ] on: Error do: [ :ex | true ])",
 messageSends: ["assert:", "on:do:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -323,7 +323,7 @@ return (1);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b,c:c},$ctx1,4)})}))._value(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testValue\x0a\x09self assert: ([1+1] value) equals: 2.\x0a\x09self assert: ([:x | x +1] value: 2) equals: 3.\x0a\x09self assert: ([:x :y | x*y] value: 2 value: 4) equals: 8.\x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([:a :b :c | 1] value) equals: 1",
+source: "testValue\x0a\x09self assert: ([ 1+1 ] value) equals: 2.\x0a\x09self assert: ([ :x | x +1 ] value: 2) equals: 3.\x0a\x09self assert: ([ :x :y | x*y ] value: 2 value: 4) equals: 8.\x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([ :a :b :c | 1 ] value) equals: 1",
 messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"],
 referencedClasses: []
 }),
@@ -358,7 +358,7 @@ return _st(a).__plus(b);
 }, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})}))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testValueWithPossibleArguments\x0a\x09self assert: ([1] valueWithPossibleArguments: #(3 4)) equals: 1.\x0a\x09self assert: ([:a | a + 4] valueWithPossibleArguments: #(3 4)) equals: 7.\x0a\x09self assert: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5)) equals: 7.",
+source: "testValueWithPossibleArguments\x0a\x09self assert: ([ 1 ] valueWithPossibleArguments: #(3 4)) equals: 1.\x0a\x09self assert: ([ :a | a + 4 ] valueWithPossibleArguments: #(3 4)) equals: 7.\x0a\x09self assert: ([ :a :b | a + b ] valueWithPossibleArguments: #(3 4 5)) equals: 7.",
 messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"],
 referencedClasses: []
 }),
@@ -395,7 +395,7 @@ return _st(i).__gt((5));
 self._assert_equals_(i,(6));
 return self}, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testWhileFalse\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[i > 5] whileFalse: [i := i + 1].\x0a\x09self assert: i equals: 6.\x0a\x0a\x09i := 0.\x0a\x09[i := i + 1. i > 5] whileFalse.\x0a\x09self assert: i equals: 6",
+source: "testWhileFalse\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[ i > 5 ] whileFalse: [ i := i + 1 ].\x0a\x09self assert: i equals: 6.\x0a\x0a\x09i := 0.\x0a\x09[ i := i + 1. i > 5 ] whileFalse.\x0a\x09self assert: i equals: 6",
 messageSends: ["whileFalse:", ">", "+", "assert:equals:", "whileFalse"],
 referencedClasses: []
 }),
@@ -432,7 +432,7 @@ return _st(i).__lt((5));
 self._assert_equals_(i,(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testWhileTrue\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[i < 5] whileTrue: [i := i + 1].\x0a\x09self assert: i equals: 5.\x0a\x0a\x09i := 0.\x0a\x09[i := i + 1. i < 5] whileTrue.\x0a\x09self assert: i equals: 5",
+source: "testWhileTrue\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[ i < 5 ] whileTrue: [ i := i + 1 ].\x0a\x09self assert: i equals: 5.\x0a\x0a\x09i := 0.\x0a\x09[ i := i + 1. i < 5 ] whileTrue.\x0a\x09self assert: i equals: 5",
 messageSends: ["whileTrue:", "<", "+", "assert:equals:", "whileTrue"],
 referencedClasses: []
 }),
@@ -612,7 +612,7 @@ $8="alternative block";
 self._assert_equals_($8,"alternative block2");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},smalltalk.BooleanTest)})},
 args: [],
-source: "testIfTrueIfFalse\x0a\x0a\x09self assert: (true ifTrue: ['alternative block']) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: ['alternative block']) equals: nil.\x0a\x0a\x09self assert: (false ifTrue: ['alternative block']) equals: nil.\x0a\x09self assert: (false ifFalse: ['alternative block']) equals: 'alternative block'.\x0a\x0a\x09self assert: (false ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block2'.\x0a\x09self assert: (false ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block'.\x0a\x0a\x09self assert: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block2'.",
+source: "testIfTrueIfFalse\x0a\x0a\x09self assert: (true ifTrue: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: [ 'alternative block' ]) equals: nil.\x0a\x0a\x09self assert: (false ifTrue: [ 'alternative block' ]) equals: nil.\x0a\x09self assert: (false ifFalse: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (false ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.\x0a\x09self assert: (false ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (true ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.",
 messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
 referencedClasses: []
 }),
@@ -690,7 +690,7 @@ $15="alternative block";
 self._assert_equals_($15,"alternative block2");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},smalltalk.BooleanTest)})},
 args: [],
-source: "testIfTrueIfFalseWithBoxing\x0a\x0a\x09self assert: (true yourself ifTrue: ['alternative block']) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: ['alternative block']) equals: nil.\x0a\x0a\x09self assert: (false yourself ifTrue: ['alternative block']) equals: nil.\x0a\x09self assert: (false yourself ifFalse: ['alternative block']) equals: 'alternative block'.\x0a\x0a\x09self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block2'.\x0a\x09self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block'.\x0a\x0a\x09self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block2'.",
+source: "testIfTrueIfFalseWithBoxing\x0a\x0a\x09self assert: (true yourself ifTrue: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: [ 'alternative block' ]) equals: nil.\x0a\x0a\x09self assert: (false yourself ifTrue: [ 'alternative block' ]) equals: nil.\x0a\x09self assert: (false yourself ifFalse: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (false yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.\x0a\x09self assert: (false yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (true yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.",
 messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
 referencedClasses: []
 }),
@@ -893,7 +893,7 @@ return (1).__gt((2));
 $20=self._assert_($21);
 return self}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},smalltalk.BooleanTest)})},
 args: [],
-source: "testLogicKeywords\x0a\x09\x22Trivial logic table\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ true]);\x0a\x09\x09deny: (true and: [ false ]);\x0a\x09\x09deny: (false and: [ true ]);\x0a\x09\x09deny: (false and: [ false ]).\x0a\x09self\x0a\x09\x09assert: (true or: [ true ]);\x0a\x09\x09assert: (true or: [ false ]);\x0a\x09\x09assert: (false or: [ true ]);\x0a\x09\x09deny: (false or: [ false ]).\x0a\x09\x09\x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ 1 > 0 ]);\x0a\x09\x09deny: ((1 > 0) and: [ false ]);\x0a\x09\x09deny: ((1 > 0) and: [ 1 > 2 ]).\x0a\x09self\x0a\x09\x09assert: (false or: [ 1 > 0 ]);\x0a\x09\x09assert: ((1 > 0) or: [ false ]);\x0a\x09\x09assert: ((1 > 0) or: [ 1 > 2 ])",
+source: "testLogicKeywords\x0a\x09\x22Trivial logic table\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ true ]);\x0a\x09\x09deny: (true and: [ false ]);\x0a\x09\x09deny: (false and: [ true ]);\x0a\x09\x09deny: (false and: [ false ]).\x0a\x09self\x0a\x09\x09assert: (true or: [ true ]);\x0a\x09\x09assert: (true or: [ false ]);\x0a\x09\x09assert: (false or: [ true ]);\x0a\x09\x09deny: (false or: [ false ]).\x0a\x09\x09\x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ 1 > 0 ]);\x0a\x09\x09deny: ((1 > 0) and: [ false ]);\x0a\x09\x09deny: ((1 > 0) and: [ 1 > 2 ]).\x0a\x09self\x0a\x09\x09assert: (false or: [ 1 > 0 ]);\x0a\x09\x09assert: ((1 > 0) or: [ false ]);\x0a\x09\x09assert: ((1 > 0) or: [ 1 > 2 ])",
 messageSends: ["assert:", "and:", "deny:", "or:", ">"],
 referencedClasses: []
 }),
@@ -960,7 +960,7 @@ self["@theClass"];
 };
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.ClassBuilderTest)})},
 args: [],
-source: "tearDown\x0a\x09theClass ifNotNil: [Smalltalk current removeClass: theClass. theClass := nil]",
+source: "tearDown\x0a\x09theClass ifNotNil: [ Smalltalk current removeClass: theClass. theClass := nil ]",
 messageSends: ["ifNotNil:", "removeClass:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -2023,7 +2023,7 @@ self._assert_($11);
 self._deny_(_st(d)._includesKey_((3).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},smalltalk.DictionaryTest)})},
 args: [],
-source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.\x0a\x0a\x09self assert: (d includesKey: 'hello').\x0a\x09self deny: (d includesKey: 'foo').\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3.\x0a\x0a\x09self assert: (d includesKey: 1@3).\x0a\x09self deny: (d includesKey: 3@1)",
+source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [ nil ]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [ nil ]) = 'world'.\x0a\x0a\x09self assert: (d includesKey: 'hello').\x0a\x09self deny: (d includesKey: 'foo').\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3.\x0a\x0a\x09self assert: (d includesKey: 1@3).\x0a\x09self deny: (d includesKey: 3@1)",
 messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"],
 referencedClasses: ["Dictionary"]
 }),
@@ -2409,7 +2409,7 @@ return (42);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),(42));
 return self}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{d:d,key:key},smalltalk.DictionaryTest)})},
 args: [],
-source: "testRemoveKeyIfAbsent\x0a\x09| d key |\x0a\x0a\x09d := Dictionary new.\x0a\x09d at: 1 put: 2.\x0a\x09d at: 2 put: 3.\x0a\x09d at: 3 put: 4.\x0a\x0a\x09key := 2.\x0a\x09self assert: (d removeKey: key) equals: 3.\x0a\x0a\x09key := 3.\x0a\x09self assert: (d removeKey: key ifAbsent: [42]) equals: 4.\x0a\x0a\x09key := 'why'.\x0a\x09self assert: (d removeKey: key ifAbsent: [42] ) equals: 42.",
+source: "testRemoveKeyIfAbsent\x0a\x09| d key |\x0a\x0a\x09d := Dictionary new.\x0a\x09d at: 1 put: 2.\x0a\x09d at: 2 put: 3.\x0a\x09d at: 3 put: 4.\x0a\x0a\x09key := 2.\x0a\x09self assert: (d removeKey: key) equals: 3.\x0a\x0a\x09key := 3.\x0a\x09self assert: (d removeKey: key ifAbsent: [ 42 ]) equals: 4.\x0a\x0a\x09key := 'why'.\x0a\x09self assert: (d removeKey: key ifAbsent: [ 42 ] ) equals: 42.",
 messageSends: ["new", "at:put:", "assert:equals:", "removeKey:", "removeKey:ifAbsent:"],
 referencedClasses: ["Dictionary"]
 }),
@@ -2678,7 +2678,7 @@ return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),"not found");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{array:array},smalltalk.ArrayTest)})},
 args: [],
-source: "testAtIfAbsent\x0a\x09| array |\x0a\x09array := #('hello' 'world').\x0a\x09self assert: (array at: 1) equals: 'hello'.\x0a\x09self assert: (array at: 2) equals: 'world'.\x0a\x09self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.\x0a\x09self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.\x0a\x09self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.\x0a\x09self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.",
+source: "testAtIfAbsent\x0a\x09| array |\x0a\x09array := #('hello' 'world').\x0a\x09self assert: (array at: 1) equals: 'hello'.\x0a\x09self assert: (array at: 2) equals: 'world'.\x0a\x09self assert: (array at: 2 ifAbsent: [ 'not found' ]) equals: 'world'.\x0a\x09self assert: (array at: 0 ifAbsent: [ 'not found' ]) equals: 'not found'.\x0a\x09self assert: (array at: -10 ifAbsent: [ 'not found' ]) equals: 'not found'.\x0a\x09self assert: (array at: 3 ifAbsent: [ 'not found' ]) equals: 'not found'.",
 messageSends: ["assert:equals:", "at:", "at:ifAbsent:"],
 referencedClasses: []
 }),
@@ -2713,7 +2713,7 @@ return "zork";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})),"zork");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmpty",{},smalltalk.ArrayTest)})},
 args: [],
-source: "testIfEmpty\x0a\x09self assert: ( '' ifEmpty: ['zork'] ) equals: 'zork'",
+source: "testIfEmpty\x0a\x09self assert: ( '' ifEmpty: [ 'zork' ] ) equals: 'zork'",
 messageSends: ["assert:equals:", "ifEmpty:"],
 referencedClasses: []
 }),
@@ -2933,7 +2933,7 @@ return smalltalk.withContext(function($ctx1) {
 return "hello";
 }, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.StringTest)})},
 args: [],
-source: "collection\x0a\x09^'hello'",
+source: "collection\x0a\x09^ 'hello'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2974,7 +2974,7 @@ return "hello"._remove_("h");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},smalltalk.StringTest)})},
 args: [],
-source: "testAddRemove\x0a\x09self should: ['hello' add: 'a'] raise: Error.\x0a\x09self should: ['hello' remove: 'h'] raise: Error",
+source: "testAddRemove\x0a\x09self should: [ 'hello' add: 'a' ] raise: Error.\x0a\x09self should: [ 'hello' remove: 'h' ] raise: Error",
 messageSends: ["should:raise:", "add:", "remove:"],
 referencedClasses: ["Error"]
 }),
@@ -3097,7 +3097,7 @@ return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.StringTest)})},
 args: [],
-source: "testAt\x0a\x09self assert: ('hello' at: 1) equals: 'h'.\x0a\x09self assert: ('hello' at: 5) equals: 'o'.\x0a\x09self assert: ('hello' at: 6 ifAbsent: [nil]) equals: nil",
+source: "testAt\x0a\x09self assert: ('hello' at: 1) equals: 'h'.\x0a\x09self assert: ('hello' at: 5) equals: 'o'.\x0a\x09self assert: ('hello' at: 6 ifAbsent: [ nil ]) equals: nil",
 messageSends: ["assert:equals:", "at:", "at:ifAbsent:"],
 referencedClasses: []
 }),
@@ -3117,7 +3117,7 @@ return "hello"._at_put_((1),"a");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},smalltalk.StringTest)})},
 args: [],
-source: "testAtPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: ['hello' at: 1 put: 'a'] raise: Error",
+source: "testAtPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ 'hello' at: 1 put: 'a' ] raise: Error",
 messageSends: ["should:raise:", "at:put:"],
 referencedClasses: ["Error"]
 }),
@@ -3694,7 +3694,7 @@ return "Property does not exist";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testAtIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifAbsent: ['Property does not exist']) equals: 'Property does not exist'.\x0a\x09self assert: (testObject at: 'e' ifAbsent: ['Property does not exist']) equals: nil.\x0a\x09self assert: (testObject at: 'a' ifAbsent: ['Property does not exist']) equals: 1.\x0a\x09self assert: (testObject at: 'f' ifAbsent: ['Property does not exist']) equals: nil.",
+source: "testAtIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifAbsent: [ 'Property does not exist' ]) equals: 'Property does not exist'.\x0a\x09self assert: (testObject at: 'e' ifAbsent: [ 'Property does not exist' ]) equals: nil.\x0a\x09self assert: (testObject at: 'a' ifAbsent: [ 'Property does not exist' ]) equals: 1.\x0a\x09self assert: (testObject at: 'f' ifAbsent: [ 'Property does not exist' ]) equals: nil.",
 messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"],
 referencedClasses: []
 }),
@@ -3746,7 +3746,7 @@ return "hello ".__comma(_st(x)._asString());
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,4)})})),"hello nil");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testAtIfPresent\x0a\x09| testObject |\x0a\x09\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.\x0a\x09self assert: (testObject at: 'e' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.",
+source: "testAtIfPresent\x0a\x09| testObject |\x0a\x09\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.",
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"],
 referencedClasses: []
 }),
@@ -3810,7 +3810,7 @@ return "not present";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})})),"hello nil");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.",
+source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.",
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"],
 referencedClasses: []
 }),
@@ -3830,7 +3830,7 @@ return _st(self._jsObject())._foo();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU",{},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testDNU\x0a\x09self should: [self jsObject foo] raise: MessageNotUnderstood",
+source: "testDNU\x0a\x09self should: [ self jsObject foo ] raise: MessageNotUnderstood",
 messageSends: ["should:raise:", "foo", "jsObject"],
 referencedClasses: ["MessageNotUnderstood"]
 }),
@@ -4481,7 +4481,7 @@ return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.MethodInheritanceTest)})},
 args: [],
-source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [].\x0a\x09[ self deinstallMiddle ] on: Error do: [].\x0a\x09[ self deinstallBottom ] on: Error do: []",
+source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [ ].\x0a\x09[ self deinstallMiddle ] on: Error do: [ ].\x0a\x09[ self deinstallBottom ] on: Error do: [ ]",
 messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"],
 referencedClasses: ["Error"]
 }),
@@ -5113,7 +5113,7 @@ return (11259375)._Z();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,41)})}),$MessageNotUnderstood());
 return self}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},smalltalk.NumberTest)})},
 args: [],
-source: "testInvalidHexNumbers\x0a\x0a\x09self should: [16rG] raise: MessageNotUnderstood.\x0a\x09self should: [16rg] raise: MessageNotUnderstood.\x0a\x09self should: [16rH] raise: MessageNotUnderstood.\x0a\x09self should: [16rh] raise: MessageNotUnderstood.\x0a\x09self should: [16rI] raise: MessageNotUnderstood.\x0a\x09self should: [16ri] raise: MessageNotUnderstood.\x0a\x09self should: [16rJ] raise: MessageNotUnderstood.\x0a\x09self should: [16rj] raise: MessageNotUnderstood.\x0a\x09self should: [16rK] raise: MessageNotUnderstood.\x0a\x09self should: [16rk] raise: MessageNotUnderstood.\x0a\x09self should: [16rL] raise: MessageNotUnderstood.\x0a\x09self should: [16rl] raise: MessageNotUnderstood.\x0a\x09self should: [16rM] raise: MessageNotUnderstood.\x0a\x09self should: [16rm] raise: MessageNotUnderstood.\x0a\x09self should: [16rN] raise: MessageNotUnderstood.\x0a\x09self should: [16rn] raise: MessageNotUnderstood.\x0a\x09self should: [16rO] raise: MessageNotUnderstood.\x0a\x09self should: [16ro] raise: MessageNotUnderstood.\x0a\x09self should: [16rP] raise: MessageNotUnderstood.\x0a\x09self should: [16rp] raise: MessageNotUnderstood.\x0a\x09self should: [16rQ] raise: MessageNotUnderstood.\x0a\x09self should: [16rq] raise: MessageNotUnderstood.\x0a\x09self should: [16rR] raise: MessageNotUnderstood.\x0a\x09self should: [16rr] raise: MessageNotUnderstood.\x0a\x09self should: [16rS] raise: MessageNotUnderstood.\x0a\x09self should: [16rs] raise: MessageNotUnderstood.\x0a\x09self should: [16rT] raise: MessageNotUnderstood.\x0a\x09self should: [16rt] raise: MessageNotUnderstood.\x0a\x09self should: [16rU] raise: MessageNotUnderstood.\x0a\x09self should: [16ru] raise: MessageNotUnderstood.\x0a\x09self should: [16rV] raise: MessageNotUnderstood.\x0a\x09self should: [16rv] raise: MessageNotUnderstood.\x0a\x09self should: [16rW] raise: MessageNotUnderstood.\x0a\x09self should: [16rw] raise: MessageNotUnderstood.\x0a\x09self should: [16rX] raise: MessageNotUnderstood.\x0a\x09self should: [16rx] raise: MessageNotUnderstood.\x0a\x09self should: [16rY] raise: MessageNotUnderstood.\x0a\x09self should: [16ry] raise: MessageNotUnderstood.\x0a\x09self should: [16rZ] raise: MessageNotUnderstood.\x0a\x09self should: [16rz] raise: MessageNotUnderstood.\x0a\x09self should: [16rABcdEfZ] raise: MessageNotUnderstood.",
+source: "testInvalidHexNumbers\x0a\x0a\x09self should: [ 16rG ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rg ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rH ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rh ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rI ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ri ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rJ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rj ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rK ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rk ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rL ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rl ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rM ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rm ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rN ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rn ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rO ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ro ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rP ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rp ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rQ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rq ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rR ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rr ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rS ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rs ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rT ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rt ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rU ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ru ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rV ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rv ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rW ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rw ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rX ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rx ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rY ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ry ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rZ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rz ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rABcdEfZ ] raise: MessageNotUnderstood.",
 messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"],
 referencedClasses: ["MessageNotUnderstood"]
 }),
@@ -5394,7 +5394,7 @@ return i;
 self._assert_equals_(i,(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},smalltalk.NumberTest)})},
 args: [],
-source: "testTimesRepeat\x0a\x09| i |\x0a\x0a\x09i := 0.\x0a\x090 timesRepeat: [i := i + 1].\x0a\x09self assert: i equals: 0.\x0a\x0a\x095 timesRepeat: [i := i + 1].\x0a\x09self assert: i equals: 5",
+source: "testTimesRepeat\x0a\x09| i |\x0a\x0a\x09i := 0.\x0a\x090 timesRepeat: [ i := i + 1 ].\x0a\x09self assert: i equals: 0.\x0a\x0a\x095 timesRepeat: [ i := i + 1 ].\x0a\x09self assert: i equals: 5",
 messageSends: ["timesRepeat:", "+", "assert:equals:"],
 referencedClasses: []
 }),
@@ -5434,7 +5434,7 @@ return (1)._to_by_((4),(0));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testToBy",{},smalltalk.NumberTest)})},
 args: [],
-source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [1 to: 4 by: 0] raise: Error",
+source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [ 1 to: 4 by: 0 ] raise: Error",
 messageSends: ["assert:equals:", "to:by:", "should:raise:"],
 referencedClasses: ["Error"]
 }),
@@ -5507,7 +5507,7 @@ $1=self["@foo"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock)})},
 args: [],
-source: "foo\x0a\x09^foo",
+source: "foo\x0a\x09^ foo",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5597,7 +5597,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(o)._basicPerform_withArguments_("func2",[(3)]),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},smalltalk.ObjectTest)})},
 args: [],
-source: "testBasicPerform\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'func' put: ['hello'].\x0a\x09o basicAt: 'func2' put: [:a | a + 1].\x0a\x0a\x09self assert: (o basicPerform: 'func') equals: 'hello'.\x0a\x09self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4",
+source: "testBasicPerform\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'func' put: [ 'hello' ].\x0a\x09o basicAt: 'func2' put: [ :a | a + 1 ].\x0a\x0a\x09self assert: (o basicPerform: 'func') equals: 'hello'.\x0a\x09self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4",
 messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "basicPerform:withArguments:"],
 referencedClasses: ["Object"]
 }),
@@ -5618,7 +5618,7 @@ return _st(_st($Object())._new())._foo();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU",{},smalltalk.ObjectTest)})},
 args: [],
-source: "testDNU\x0a\x09self should: [Object new foo] raise: MessageNotUnderstood",
+source: "testDNU\x0a\x09self should: [ Object new foo ] raise: MessageNotUnderstood",
 messageSends: ["should:raise:", "foo", "new"],
 referencedClasses: ["Object", "MessageNotUnderstood"]
 }),
@@ -5673,7 +5673,7 @@ return _st(_st($Object())._new())._halt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testHalt",{},smalltalk.ObjectTest)})},
 args: [],
-source: "testHalt\x0a\x09self should: [Object new halt] raise: Error",
+source: "testHalt\x0a\x09self should: [ Object new halt ] raise: Error",
 messageSends: ["should:raise:", "halt", "new"],
 referencedClasses: ["Object", "Error"]
 }),
@@ -5763,7 +5763,7 @@ $10=true;
 self._assert_equals_($10,true);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.ObjectTest)})},
 args: [],
-source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [true]) = true.\x0a\x09self assert: (Object new ifNotNil: [true]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [false] ifNotNil: [true]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [true] ifNil: [false]) equals: true",
+source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [ true ]) = true.\x0a\x09self assert: (Object new ifNotNil: [ true ]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [ false ] ifNotNil: [ true ]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [ true ] ifNil: [ false ]) equals: true",
 messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"],
 referencedClasses: ["Object"]
 }),
@@ -6236,7 +6236,7 @@ return _st(next).__eq(current);
 }, function($ctx2) {$ctx2.fillBlock({current:current,next:next},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"textNext",{},smalltalk.RandomTest)})},
 args: [],
-source: "textNext\x0a\x0a\x0910000 timesRepeat: [\x0a\x09\x09\x09| current next |\x0a\x09\x09\x09next := Random new next.\x0a\x09\x09\x09self assert: (next >= 0).\x0a\x09\x09\x09self assert: (next < 1).\x0a\x09\x09\x09self deny: current = next.\x0a\x09\x09\x09next = current]",
+source: "textNext\x0a\x0a\x0910000 timesRepeat: [\x0a\x09\x09\x09| current next |\x0a\x09\x09\x09next := Random new next.\x0a\x09\x09\x09self assert: (next >= 0).\x0a\x09\x09\x09self assert: (next < 1).\x0a\x09\x09\x09self deny: current = next.\x0a\x09\x09\x09next = current ]",
 messageSends: ["timesRepeat:", "next", "new", "assert:", ">=", "<", "deny:", "="],
 referencedClasses: ["Random"]
 }),
@@ -6293,7 +6293,7 @@ return _st(_st($Set())._new())._at_put_((1),(2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.SetTest)})},
 args: [],
-source: "testAt\x0a\x09self should: [Set new at: 1 put: 2] raise: Error",
+source: "testAt\x0a\x09self should: [ Set new at: 1 put: 2 ] raise: Error",
 messageSends: ["should:raise:", "at:put:", "new"],
 referencedClasses: ["Set", "Error"]
 }),
@@ -6956,7 +6956,7 @@ $5=_st($6).__eq(true);
 self._deny_($5);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.UndefinedTest)})},
 args: [],
-source: "testIfNil\x0a\x09self assert: (nil ifNil: [true]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true]) = true.\x0a\x09self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true] ifNil: [false]) = true",
+source: "testIfNil\x0a\x09self assert: (nil ifNil: [ true ]) equals: true.\x0a\x09self deny: (nil ifNotNil: [ true ]) = true.\x0a\x09self assert: (nil ifNil: [ true ] ifNotNil: [ false ]) equals: true.\x0a\x09self deny: (nil ifNotNil: [ true ] ifNil: [ false ]) = true",
 messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"],
 referencedClasses: []
 }),

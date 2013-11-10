@@ -239,7 +239,7 @@ return _st(smalltalkError)._resignal();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:do:",{anErrorClass:anErrorClass,aBlock:aBlock},smalltalk.BlockClosure)})},
 args: ["anErrorClass", "aBlock"],
-source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^self try: self catch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk current asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
+source: "on: anErrorClass do: aBlock\x0a\x09\x22All exceptions thrown in the Smalltalk stack are cought.\x0a\x09Convert all JS exceptions to JavaScriptException instances.\x22\x0a\x09\x0a\x09^ self try: self catch: [ :error | | smalltalkError |\x0a\x09\x09smalltalkError := Smalltalk current asSmalltalkException: error.\x0a\x09\x09(smalltalkError isKindOf: anErrorClass)\x0a\x09\x09ifTrue: [ aBlock value: smalltalkError ]\x0a\x09\x09ifFalse: [ smalltalkError resignal ] ]",
 messageSends: ["try:catch:", "asSmalltalkException:", "current", "ifTrue:ifFalse:", "isKindOf:", "value:", "resignal"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -503,7 +503,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"category",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "category\x0a\x09^(self basicAt: 'category') ifNil: [ self defaultCategory ]",
+source: "category\x0a\x09^ (self basicAt: 'category') ifNil: [ self defaultCategory ]",
 messageSends: ["ifNil:", "basicAt:", "defaultCategory"],
 referencedClasses: []
 }),
@@ -586,7 +586,7 @@ $1=self._basicAt_("fn");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"fn",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "fn\x0a\x09^self basicAt: 'fn'",
+source: "fn\x0a\x09^ self basicAt: 'fn'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
@@ -695,7 +695,7 @@ $1=self._basicAt_("messageSends");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageSends",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "messageSends\x0a\x09^self basicAt: 'messageSends'",
+source: "messageSends\x0a\x09^ self basicAt: 'messageSends'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
@@ -713,7 +713,7 @@ $1=self._basicAt_("methodClass");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"methodClass",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "methodClass\x0a\x09^self basicAt: 'methodClass'",
+source: "methodClass\x0a\x09^ self basicAt: 'methodClass'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
@@ -765,7 +765,7 @@ $1=self._basicAt_("referencedClasses");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"referencedClasses",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "referencedClasses\x0a\x09^self basicAt: 'referencedClasses'",
+source: "referencedClasses\x0a\x09^ self basicAt: 'referencedClasses'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
@@ -783,7 +783,7 @@ $1=self._basicAt_("selector");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "selector\x0a\x09^self basicAt: 'selector'",
+source: "selector\x0a\x09^ self basicAt: 'selector'",
 messageSends: ["basicAt:"],
 referencedClasses: []
 }),
@@ -840,7 +840,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.CompiledMethod)})},
 args: [],
-source: "source\x0a\x09^(self basicAt: 'source') ifNil: ['']",
+source: "source\x0a\x09^ (self basicAt: 'source') ifNil: [ '' ]",
 messageSends: ["ifNil:", "basicAt:"],
 referencedClasses: []
 }),
@@ -977,7 +977,7 @@ return self._addWorker();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"makeWorker",{sentinel:sentinel},smalltalk.ForkPool)})},
 args: [],
-source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^[ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue nextIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ]]]",
+source: "makeWorker\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^ [ | block |\x0a\x09\x09poolSize := poolSize - 1.\x0a\x09\x09block := queue nextIfAbsent: [ sentinel ].\x0a\x09\x09block == sentinel ifFalse: [\x0a\x09\x09\x09[ block value ] ensure: [ self addWorker ] ]]",
 messageSends: ["new", "-", "nextIfAbsent:", "ifFalse:", "==", "ensure:", "value", "addWorker"],
 referencedClasses: ["Object"]
 }),
@@ -1042,7 +1042,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"default",{},smalltalk.ForkPool.klass)})},
 args: [],
-source: "default\x0a\x09^default ifNil: [ default := self new ]",
+source: "default\x0a\x09^ default ifNil: [ default := self new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
@@ -1058,7 +1058,7 @@ return smalltalk.withContext(function($ctx1) {
 return (100);
 }, function($ctx1) {$ctx1.fill(self,"defaultMaxPoolSize",{},smalltalk.ForkPool.klass)})},
 args: [],
-source: "defaultMaxPoolSize\x0a\x09^100",
+source: "defaultMaxPoolSize\x0a\x09^ 100",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1095,7 +1095,7 @@ $1=self["@arguments"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.Message)})},
 args: [],
-source: "arguments\x0a\x09^arguments",
+source: "arguments\x0a\x09^ arguments",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1151,7 +1151,7 @@ $1=self["@selector"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.Message)})},
 args: [],
-source: "selector\x0a\x09^selector",
+source: "selector\x0a\x09^ selector",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1208,7 +1208,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector:arguments:",{aString:aString,anArray:anArray},smalltalk.Message.klass)})},
 args: ["aString", "anArray"],
-source: "selector: aString arguments: anArray\x0a\x09^self new\x0a\x09\x09selector: aString;\x0a\x09\x09arguments: anArray;\x0a\x09\x09yourself",
+source: "selector: aString arguments: anArray\x0a\x09^ self new\x0a\x09\x09selector: aString;\x0a\x09\x09arguments: anArray;\x0a\x09\x09yourself",
 messageSends: ["selector:", "new", "arguments:", "yourself"],
 referencedClasses: []
 }),
@@ -1488,7 +1488,7 @@ $ctx1.sendIdx[","]=3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.MethodContext)})},
 args: [],
-source: "asString\x0a\x09^self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
+source: "asString\x0a\x09^ self isBlockContext\x0a\x09\x09ifTrue: [ 'a block (in ', self methodContext asString, ')' ]\x0a\x09\x09ifFalse: [ self receiver class name, ' >> ', self selector ]",
 messageSends: ["ifTrue:ifFalse:", "isBlockContext", ",", "asString", "methodContext", "name", "class", "receiver", "selector"],
 referencedClasses: []
 }),
@@ -1854,7 +1854,7 @@ $1=_st($PlatformInterface())._existsGlobal_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"exists:",{aString:aString},smalltalk.NativeFunction.klass)})},
 args: ["aString"],
-source: "exists: aString\x0a\x09^PlatformInterface existsGlobal: aString",
+source: "exists: aString\x0a\x09^ PlatformInterface existsGlobal: aString",
 messageSends: ["existsGlobal:"],
 referencedClasses: ["PlatformInterface"]
 }),
@@ -1933,7 +1933,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{anObject:anObject},smalltalk.Timeout.klass)})},
 args: ["anObject"],
-source: "on: anObject\x0a\x09^self new rawTimeout: anObject; yourself",
+source: "on: anObject\x0a\x09^ self new rawTimeout: anObject; yourself",
 messageSends: ["rawTimeout:", "new", "yourself"],
 referencedClasses: []
 }),

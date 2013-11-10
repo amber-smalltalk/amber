@@ -346,7 +346,7 @@ withCompileErrorHandling: aBlock
 				self environment 
 					evaluate: aBlock
 					on: ParseError
-					do: [:ex | self handleParseError: ex ] ]
+					do: [ :ex | self handleParseError: ex ] ]
 			on: UnknownVariableError
 			do: [ :ex | self handleUnkownVariableError: ex ] ]
 		on: CompilerError
@@ -392,7 +392,7 @@ isToolModel
 
 shouldCompileClassDefinition: aString
 	^ self selectedClass isNil or: [
-		aString match: '^[A-Z]' ]
+		aString match: '^ [A-Z]' ]
 ! !
 
 !HLToolModel class methodsFor: 'actions'!
@@ -745,8 +745,8 @@ cssClassForItem: anObject
 !
 
 findListItemFor: anObject
-	^(((wrapper asJQuery find: 'li') 
-		filter: [:thisArg :otherArg | (thisArg asJQuery data: 'item') = anObject] currySelf) eq: 0)
+	^ (((wrapper asJQuery find: 'li') 
+		filter: [ :thisArg :otherArg | (thisArg asJQuery data: 'item') = anObject ] currySelf) eq: 0)
 !
 
 items
@@ -790,7 +790,7 @@ activateItem: anObject
 activateListItem: aListItem
 	| item |
 	
-	(aListItem get: 0) ifNil: [ ^self ].
+	(aListItem get: 0) ifNil: [ ^ self ].
 	aListItem parent children removeClass: 'active'.
 	aListItem addClass: 'active'.
     
@@ -818,7 +818,7 @@ ensureVisible: aListItem
 	"Move the scrollbar to show the active element"
 	
 	| parent position |
-	(aListItem get: 0) ifNil: [ ^self ].
+	(aListItem get: 0) ifNil: [ ^ self ].
 	position := self positionOf: aListItem.
 	parent := aListItem parent.
 	

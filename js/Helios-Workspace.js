@@ -591,7 +591,7 @@ return smalltalk.withContext(function($ctx1) {
 self._doIt();
 return self}, function($ctx1) {$ctx1.fill(self,"onDoIt",{},smalltalk.HLCodeWidget)})},
 args: [],
-source: "onDoIt\x0a\x09\x0a    self doIt",
+source: "onDoIt\x0a\x09\x0a\x09self doIt",
 messageSends: ["doIt"],
 referencedClasses: []
 }),
@@ -721,7 +721,7 @@ self._print_(_st(result)._printString());
 self._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"printIt",{result:result},smalltalk.HLCodeWidget)})},
 args: [],
-source: "printIt\x0a\x09| result |\x0a\x0a\x09result:=  self doIt.       \x0a\x09self model announcer announce: (HLPrintItRequested on: model).\x0a    self print: result printString.\x0a\x09\x0a\x09self focus.",
+source: "printIt\x0a\x09| result |\x0a\x0a\x09result := self doIt.       \x0a\x09self model announcer announce: (HLPrintItRequested on: model).\x0a\x09self print: result printString.\x0a\x09\x0a\x09self focus.",
 messageSends: ["doIt", "announce:", "announcer", "model", "on:", "print:", "printString", "focus"],
 referencedClasses: ["HLPrintItRequested"]
 }),
@@ -1291,12 +1291,12 @@ return smalltalk.withContext(function($ctx1) {
  
 		CodeMirror.keyMap.default.fallthrough = ["basic"];
 		CodeMirror.commands.autocomplete = function(cm) {
-        	CodeMirror.showHint(cm, self._hintFor_options_);
-      	}
+			CodeMirror.showHint(cm, self._hintFor_options_);
+		}
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"setupCodeMirror",{},smalltalk.HLCodeWidget.klass)})},
 args: [],
-source: "setupCodeMirror\x0a\x09< \x0a\x09\x09CodeMirror.keyMap.default.fallthrough = [\x22basic\x22];\x0a\x09\x09CodeMirror.commands.autocomplete = function(cm) {\x0a        \x09CodeMirror.showHint(cm, self._hintFor_options_);\x0a      \x09}\x0a\x09>",
+source: "setupCodeMirror\x0a\x09< \x0a\x09\x09CodeMirror.keyMap.default.fallthrough = [\x22basic\x22];\x0a\x09\x09CodeMirror.commands.autocomplete = function(cm) {\x0a\x09\x09\x09CodeMirror.showHint(cm, self._hintFor_options_);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1703,7 +1703,7 @@ $1;
 self._contents_(_st(class_)._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onClassSelected:",{anAnnouncement:anAnnouncement,class_:class_},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onClassSelected: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class:= anAnnouncement item.\x0a\x09\x0a\x09class ifNil: [ ^ self contents: '' ].\x0a    self contents: class definition",
+source: "onClassSelected: anAnnouncement\x0a\x09| class |\x0a\x09\x0a\x09class:= anAnnouncement item.\x0a\x09\x0a\x09class ifNil: [ ^ self contents: '' ].\x0a\x09self contents: class definition",
 messageSends: ["item", "ifNil:", "contents:", "definition"],
 referencedClasses: []
 }),
@@ -1777,7 +1777,7 @@ return self;
 self._refresh();
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodModified:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onMethodModified: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].\x0a\x09self browserModel selectedMethod ifNil: [ ^ self ].\x0a    self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].\x0a\x0a\x09self refresh",
+source: "onMethodModified: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement method.\x0a\x09\x0a\x09self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].\x0a\x09self browserModel selectedMethod ifNil: [ ^ self ].\x0a\x09self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].\x0a\x0a\x09self refresh",
 messageSends: ["method", "ifFalse:", "=", "selectedClass", "browserModel", "methodClass", "ifNil:", "selectedMethod", "selector", "refresh"],
 referencedClasses: []
 }),
@@ -1804,7 +1804,7 @@ $1;
 self._contents_(_st(method)._source());
 return self}, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{anAnnouncement:anAnnouncement,method:method},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onMethodSelected: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement item.\x0a\x09\x0a\x09method ifNil: [ ^ self contents: '' ].\x0a    self contents: method source",
+source: "onMethodSelected: anAnnouncement\x0a\x09| method |\x0a\x09\x0a\x09method := anAnnouncement item.\x0a\x09\x0a\x09method ifNil: [ ^ self contents: '' ].\x0a\x09self contents: method source",
 messageSends: ["item", "ifNil:", "contents:", "source"],
 referencedClasses: []
 }),
@@ -1831,7 +1831,7 @@ $1;
 self._contents_(_st(package_)._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onPackageSelected:",{anAnnouncement:anAnnouncement,package_:package_},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09package ifNil: [ ^ self contents: '' ].\x0a    self contents: package definition",
+source: "onPackageSelected: anAnnouncement\x0a\x09| package |\x0a\x09\x0a\x09package := anAnnouncement item.\x0a\x09\x0a\x09package ifNil: [ ^ self contents: '' ].\x0a\x09self contents: package definition",
 messageSends: ["item", "ifNil:", "contents:", "definition"],
 referencedClasses: []
 }),
@@ -1911,7 +1911,7 @@ $1;
 self._contents_(_st(_st(self._browserModel())._selectedClass())._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onProtocolSelected:",{anAnnouncement:anAnnouncement},smalltalk.HLBrowserCodeWidget)})},
 args: ["anAnnouncement"],
-source: "onProtocolSelected: anAnnouncement\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    self contents: self browserModel selectedClass definition",
+source: "onProtocolSelected: anAnnouncement\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a\x09self contents: self browserModel selectedClass definition",
 messageSends: ["ifNil:", "selectedClass", "browserModel", "contents:", "definition"],
 referencedClasses: []
 }),
@@ -1955,7 +1955,7 @@ $1;
 self._contents_(_st(_st(self._browserModel())._selectedClass())._definition());
 return self}, function($ctx1) {$ctx1.fill(self,"onShowInstanceToggled",{},smalltalk.HLBrowserCodeWidget)})},
 args: [],
-source: "onShowInstanceToggled\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a    self contents: self browserModel selectedClass definition",
+source: "onShowInstanceToggled\x0a\x09self browserModel selectedClass ifNil: [ ^ self contents: '' ].\x0a    \x0a\x09self contents: self browserModel selectedClass definition",
 messageSends: ["ifNil:", "selectedClass", "browserModel", "contents:", "definition"],
 referencedClasses: []
 }),

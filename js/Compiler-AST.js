@@ -65,7 +65,7 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"isBlockNode",{},smalltalk.Node)})},
 args: [],
-source: "isBlockNode\x0a\x09^false",
+source: "isBlockNode\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -81,7 +81,7 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"isBlockSequenceNode",{},smalltalk.Node)})},
 args: [],
-source: "isBlockSequenceNode\x0a\x09^false",
+source: "isBlockSequenceNode\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -204,7 +204,7 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"isReturnNode",{},smalltalk.Node)})},
 args: [],
-source: "isReturnNode\x0a\x09^false",
+source: "isReturnNode\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -220,7 +220,7 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"isSendNode",{},smalltalk.Node)})},
 args: [],
-source: "isSendNode\x0a\x09^false",
+source: "isSendNode\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -252,7 +252,7 @@ return smalltalk.withContext(function($ctx1) {
 return false;
 }, function($ctx1) {$ctx1.fill(self,"isValueNode",{},smalltalk.Node)})},
 args: [],
-source: "isValueNode\x0a\x09^false",
+source: "isValueNode\x0a\x09^ false",
 messageSends: [],
 referencedClasses: []
 }),
@@ -397,7 +397,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nodes",{},smalltalk.Node)})},
 args: [],
-source: "nodes\x0a\x09^nodes ifNil: [nodes := Array new]",
+source: "nodes\x0a\x09^ nodes ifNil: [ nodes := Array new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["Array"]
 }),
@@ -642,7 +642,7 @@ $ctx1.sendIdx["or:"]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subtreeNeedsAliasing",{},smalltalk.Node)})},
 args: [],
-source: "subtreeNeedsAliasing\x0a\x09^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a\x09\x09(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]",
+source: "subtreeNeedsAliasing\x0a\x09^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [\x0a\x09\x09(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]",
 messageSends: ["or:", "shouldBeAliased", "shouldBeInlined", "~=", "detect:ifNone:", "nodes", "subtreeNeedsAliasing"],
 referencedClasses: []
 }),
@@ -698,7 +698,7 @@ $1=self["@left"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"left",{},smalltalk.AssignmentNode)})},
 args: [],
-source: "left\x0a\x09^left",
+source: "left\x0a\x09^ left",
 messageSends: [],
 referencedClasses: []
 }),
@@ -752,7 +752,7 @@ $1=self["@right"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"right",{},smalltalk.AssignmentNode)})},
 args: [],
-source: "right\x0a\x09^right",
+source: "right\x0a\x09^ right",
 messageSends: [],
 referencedClasses: []
 }),
@@ -828,7 +828,7 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isBlockNode",{},smalltalk.BlockNode)})},
 args: [],
-source: "isBlockNode\x0a\x09^true",
+source: "isBlockNode\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -885,7 +885,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parameters",{},smalltalk.BlockNode)})},
 args: [],
-source: "parameters\x0a\x09^parameters ifNil: [parameters := Array new]",
+source: "parameters\x0a\x09^ parameters ifNil: [ parameters := Array new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: ["Array"]
 }),
@@ -1012,7 +1012,7 @@ $1=self["@receiver"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.CascadeNode)})},
 args: [],
-source: "receiver\x0a\x09^receiver",
+source: "receiver\x0a\x09^ receiver",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1133,7 +1133,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.JSStatementNode)})},
 args: [],
-source: "source\x0a\x09^source ifNil: ['']",
+source: "source\x0a\x09^ source ifNil: [ '' ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -1194,7 +1194,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.MethodNode)})},
 args: [],
-source: "arguments\x0a\x09^arguments ifNil: [#()]",
+source: "arguments\x0a\x09^ arguments ifNil: [ #() ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -1354,7 +1354,7 @@ $1=self["@selector"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.MethodNode)})},
 args: [],
-source: "selector\x0a\x09^selector",
+source: "selector\x0a\x09^ selector",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1422,7 +1422,7 @@ $1=self["@source"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.MethodNode)})},
 args: [],
-source: "source\x0a\x09^source",
+source: "source\x0a\x09^ source",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1608,7 +1608,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"arguments",{},smalltalk.SendNode)})},
 args: [],
-source: "arguments\x0a\x09^arguments ifNil: [arguments := #()]",
+source: "arguments\x0a\x09^ arguments ifNil: [ arguments := #() ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -1661,7 +1661,7 @@ $3=$5;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"cascadeNodeWithMessages:",{aCollection:aCollection,first:first},smalltalk.SendNode)})},
 args: ["aCollection"],
-source: "cascadeNodeWithMessages: aCollection\x0a\x09| first |\x0a\x09first := SendNode new\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself.\x0a\x09^CascadeNode new\x0a\x09\x09receiver: self receiver;\x0a\x09\x09nodes: (Array with: first), aCollection;\x0a\x09\x09yourself",
+source: "cascadeNodeWithMessages: aCollection\x0a\x09| first |\x0a\x09first := SendNode new\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself.\x0a\x09^ CascadeNode new\x0a\x09\x09receiver: self receiver;\x0a\x09\x09nodes: (Array with: first), aCollection;\x0a\x09\x09yourself",
 messageSends: ["selector:", "new", "selector", "arguments:", "arguments", "yourself", "receiver:", "receiver", "nodes:", ",", "with:"],
 referencedClasses: ["SendNode", "CascadeNode", "Array"]
 }),
@@ -1779,7 +1779,7 @@ $1=self["@receiver"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.SendNode)})},
 args: [],
-source: "receiver\x0a\x09^receiver",
+source: "receiver\x0a\x09^ receiver",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1818,7 +1818,7 @@ $1=self["@selector"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.SendNode)})},
 args: [],
-source: "selector\x0a\x09^selector",
+source: "selector\x0a\x09^ selector",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1952,7 +1952,7 @@ $1=$6;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"valueForReceiver:",{anObject:anObject},smalltalk.SendNode)})},
 args: ["anObject"],
-source: "valueForReceiver: anObject\x0a\x09^SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [anObject]\x0a\x09\x09ifNotNil: [self receiver valueForReceiver: anObject]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
+source: "valueForReceiver: anObject\x0a\x09^ SendNode new\x0a\x09\x09position: self position;\x0a\x09\x09receiver: (self receiver\x0a\x09\x09ifNil: [ anObject ] \x0a\x09\x09ifNotNil: [ self receiver valueForReceiver: anObject ]);\x0a\x09\x09selector: self selector;\x0a\x09\x09arguments: self arguments;\x0a\x09\x09yourself",
 messageSends: ["position:", "new", "position", "receiver:", "ifNil:ifNotNil:", "receiver", "valueForReceiver:", "selector:", "selector", "arguments:", "arguments", "yourself"],
 referencedClasses: ["SendNode"]
 }),
@@ -1998,7 +1998,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"asBlockSequenceNode",{},smalltalk.SequenceNode)})},
 args: [],
-source: "asBlockSequenceNode\x0a\x09^BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
+source: "asBlockSequenceNode\x0a\x09^ BlockSequenceNode new\x0a\x09\x09position: self position;\x0a\x09\x09nodes: self nodes;\x0a\x09\x09temps: self temps;\x0a\x09\x09yourself",
 messageSends: ["position:", "new", "position", "nodes:", "nodes", "temps:", "temps", "yourself"],
 referencedClasses: ["BlockSequenceNode"]
 }),
@@ -2071,7 +2071,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"temps",{},smalltalk.SequenceNode)})},
 args: [],
-source: "temps\x0a\x09^temps ifNil: [#()]",
+source: "temps\x0a\x09^ temps ifNil: [ #() ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -2125,7 +2125,7 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isBlockSequenceNode",{},smalltalk.BlockSequenceNode)})},
 args: [],
-source: "isBlockSequenceNode\x0a\x09^true",
+source: "isBlockSequenceNode\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2181,7 +2181,7 @@ return smalltalk.withContext(function($ctx1) {
 return true;
 }, function($ctx1) {$ctx1.fill(self,"isValueNode",{},smalltalk.ValueNode)})},
 args: [],
-source: "isValueNode\x0a\x09^true",
+source: "isValueNode\x0a\x09^ true",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2199,7 +2199,7 @@ $1=self["@value"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.ValueNode)})},
 args: [],
-source: "value\x0a\x09^value",
+source: "value\x0a\x09^ value",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2278,7 +2278,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"assigned",{},smalltalk.VariableNode)})},
 args: [],
-source: "assigned\x0a\x09^assigned ifNil: [false]",
+source: "assigned\x0a\x09^ assigned ifNil: [ false ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),

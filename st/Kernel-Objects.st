@@ -84,51 +84,51 @@ value
 !
 
 yourself
-	^self
+	^ self
 ! !
 
 !Object methodsFor: 'comparing'!
 
 = anObject
-	^self == anObject
+	^ self == anObject
 !
 
 == anObject
-	^self identityHash = anObject identityHash
+	^ self identityHash = anObject identityHash
 !
 
 ~= anObject
-	^(self = anObject) = false
+	^ (self = anObject) = false
 !
 
 ~~ anObject
-	^(self == anObject) = false
+	^ (self == anObject) = false
 ! !
 
 !Object methodsFor: 'converting'!
 
 -> anObject
-	^Association key: self value: anObject
+	^ Association key: self value: anObject
 !
 
 asJSON
 	| variables |
 	variables := HashedCollection new.
-	self class allInstanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each) asJSON].
-	^variables
+	self class allInstanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) asJSON ].
+	^ variables
 !
 
 asJSONString
-	^JSON stringify: self asJSON
+	^ JSON stringify: self asJSON
 !
 
 asJavascript
-	^self asString
+	^ self asString
 !
 
 asString
-	^self printString
+	^ self printString
 !
 
 test
@@ -140,7 +140,7 @@ test
 !Object methodsFor: 'copying'!
 
 copy
-	^self shallowCopy postCopy
+	^ self shallowCopy postCopy
 !
 
 deepCopy
@@ -225,8 +225,8 @@ inspectOn: anInspector
 	| variables |
 	variables := Dictionary new.
 	variables at: '#self' put: self.
-	self class allInstanceVariableNames do: [:each |
-		variables at: each put: (self instVarAt: each)].
+	self class allInstanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables
@@ -235,7 +235,7 @@ inspectOn: anInspector
 !Object methodsFor: 'message handling'!
 
 basicPerform: aString
-	^self basicPerform: aString withArguments: #()
+	^ self basicPerform: aString withArguments: #()
 !
 
 basicPerform: aString withArguments: aCollection
@@ -243,7 +243,7 @@ basicPerform: aString withArguments: aCollection
 !
 
 perform: aString
-	^self perform: aString withArguments: #()
+	^ self perform: aString withArguments: #()
 !
 
 perform: aString withArguments: aCollection
@@ -277,22 +277,22 @@ putOn: aStream
 
 ifNil: aBlock
 	"inlined in the Compiler"
-	^self
+	^ self
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
 	"inlined in the Compiler"
-	^anotherBlock value: self
+	^ anotherBlock value: self
 !
 
 ifNotNil: aBlock
 	"inlined in the Compiler"
-	^aBlock value: self
+	^ aBlock value: self
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
-	^aBlock value: self
+	^ aBlock value: self
 !
 
 isBehavior
@@ -304,7 +304,7 @@ isBoolean
 !
 
 isClass
-	^false
+	^ false
 !
 
 isCompiledMethod
@@ -316,25 +316,25 @@ isImmutable
 !
 
 isKindOf: aClass
-	^(self isMemberOf: aClass)
-		ifTrue: [true]
-		ifFalse: [self class inheritsFrom: aClass]
+	^ (self isMemberOf: aClass)
+		ifTrue: [ true ]
+		ifFalse: [ self class inheritsFrom: aClass ]
 !
 
 isMemberOf: aClass
-	^self class = aClass
+	^ self class = aClass
 !
 
 isMetaclass
-	^false
+	^ false
 !
 
 isNil
-	^false
+	^ false
 !
 
 isNumber
-	^false
+	^ false
 !
 
 isPackage
@@ -342,23 +342,23 @@ isPackage
 !
 
 isParseFailure
-	^false
+	^ false
 !
 
 isString
-	^false
+	^ false
 !
 
 isSymbol
-	^false
+	^ false
 !
 
 notNil
-	^self isNil not
+	^ self isNil not
 !
 
 respondsTo: aSelector
-	^self class canUnderstand: aSelector
+	^ self class canUnderstand: aSelector
 ! !
 
 !Object class methodsFor: 'helios'!
@@ -402,7 +402,7 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 !
 
 == aBoolean
-	^self = aBoolean
+	^ self = aBoolean
 ! !
 
 !Boolean methodsFor: 'controlling'!
@@ -418,24 +418,24 @@ I am directly mapped to JavaScript Boolean. The `true` and `false` objects are t
 !
 
 and: aBlock
-	^self = true
+	^ self = true
 		ifTrue: aBlock
-		ifFalse: [false]
+		ifFalse: [ false ]
 !
 
 ifFalse: aBlock
 	"inlined in the Compiler"
-	^self ifTrue: [] ifFalse: aBlock
+	^ self ifTrue: [] ifFalse: aBlock
 !
 
 ifFalse: aBlock ifTrue: anotherBlock
 	"inlined in the Compiler"
-	^self ifTrue: anotherBlock ifFalse: aBlock
+	^ self ifTrue: anotherBlock ifFalse: aBlock
 !
 
 ifTrue: aBlock
 	"inlined in the Compiler"
-	^self ifTrue: aBlock ifFalse: []
+	^ self ifTrue: aBlock ifFalse: []
 !
 
 ifTrue: aBlock ifFalse: anotherBlock
@@ -450,12 +450,12 @@ ifTrue: aBlock ifFalse: anotherBlock
 !
 
 not
-	^self = false
+	^ self = false
 !
 
 or: aBlock
-	^self = true
-		ifTrue: [true]
+	^ self = true
+		ifTrue: [ true ]
 		ifFalse: aBlock
 !
 
@@ -476,7 +476,7 @@ asBit
 !
 
 asJSON
-	^self
+	^ self
 !
 
 asString
@@ -486,11 +486,11 @@ asString
 !Boolean methodsFor: 'copying'!
 
 deepCopy
-	^self
+	^ self
 !
 
 shallowCopy
-	^self
+	^ self
 ! !
 
 !Boolean methodsFor: 'printing'!
@@ -529,7 +529,7 @@ The `converting` protocol provides convenience methods for various convertions (
 !Date methodsFor: 'accessing'!
 
 day
-	^self dayOfWeek
+	^ self dayOfWeek
 !
 
 day: aNumber
@@ -647,11 +647,11 @@ asLocaleString
 !
 
 asMilliseconds
-	^self time
+	^ self time
 !
 
 asNumber
-	^self asMilliseconds
+	^ self asMilliseconds
 !
 
 asString
@@ -677,23 +677,23 @@ heliosClass
 !Date class methodsFor: 'instance creation'!
 
 fromMilliseconds: aNumber
-	^self new: aNumber
+	^ self new: aNumber
 !
 
 fromSeconds: aNumber
-	^self fromMilliseconds: aNumber * 1000
+	^ self fromMilliseconds: aNumber * 1000
 !
 
 fromString: aString
 	"Example: Date fromString('2011/04/15 00:00:00')"
-	^self new: aString
+	^ self new: aString
 !
 
 millisecondsToRun: aBlock
 	| t |
 	t := Date now.
 	aBlock value.
-	^Date now - t
+	^ Date now - t
 !
 
 new: anObject
@@ -701,11 +701,11 @@ new: anObject
 !
 
 now
-	^self today
+	^ self today
 !
 
 today
-	^self new
+	^ self new
 ! !
 
 Object subclass: #Number
@@ -721,16 +721,16 @@ I provide all necessary methods for arithmetic operations, comparison, conversio
 
 My instances can also be used to evaluate a block a fixed number of times:
 
-	5 timesRepeat: [Transcript show: 'This will be printed 5 times'; cr].
+	5 timesRepeat: [ Transcript show: 'This will be printed 5 times'; cr ].
 	
-	1 to: 5 do: [:aNumber| Transcript show: aNumber asString; cr].
+	1 to: 5 do: [ :aNumber| Transcript show: aNumber asString; cr ].
 	
-	1 to: 10 by: 2 do: [:aNumber| Transcript show: aNumber asString; cr].!
+	1 to: 10 by: 2 do: [ :aNumber| Transcript show: aNumber asString; cr ].!
 
 !Number methodsFor: 'accessing'!
 
 identityHash
-	^self asString, 'n'
+	^ self asString, 'n'
 ! !
 
 !Number methodsFor: 'arithmetic'!
@@ -756,7 +756,7 @@ identityHash
 !
 
 // aNumber
-	^(self / aNumber) floor
+	^ (self / aNumber) floor
 !
 
 \\ aNumber
@@ -776,7 +776,7 @@ min: aNumber
 !
 
 negated
-	^0 - self
+	^ 0 - self
 ! !
 
 !Number methodsFor: 'comparing'!
@@ -817,15 +817,15 @@ negated
 !
 
 @ aNumber
-	^Point x: self y: aNumber
+	^ Point x: self y: aNumber
 !
 
 asJSON
-	^self
+	^ self
 !
 
 asJavascript
-	^'(', self printString, ')'
+	^ '(', self printString, ')'
 !
 
 asNumber
@@ -833,7 +833,7 @@ asNumber
 !
 
 asPoint
-	^Point x: self y: self
+	^ Point x: self y: self
 !
 
 asString
@@ -841,7 +841,7 @@ asString
 !
 
 atRandom
-	^(Random new next * self) truncated + 1
+	^ (Random new next * self) truncated + 1
 !
 
 ceiling
@@ -865,8 +865,8 @@ to: aNumber
 	(last - first) timesRepeat: [
 		array at: count put: first.
 		count := count + 1.
-		first := first + 1].
-	^array
+		first := first + 1 ].
+	^ array
 !
 
 to: stop by: step
@@ -874,17 +874,17 @@ to: stop by: step
 	value := self.
 	array := Array new.
 	pos := 1.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step = 0 ifTrue: [ self error: 'step must be non-zero' ].
 	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
+		ifTrue: [ [ value >= stop ] whileTrue: [
 					array at: pos put: value.
 					pos := pos + 1.
-					value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
+					value := value + step ]]
+		ifFalse: [ [ value <= stop ] whileTrue: [
 					array at: pos put: value.
 				pos := pos + 1.
-					value := value + step]].
-	^array
+					value := value + step ]].
+	^ array
 !
 
 truncated
@@ -904,11 +904,11 @@ truncated
 !Number methodsFor: 'copying'!
 
 copy
-	^self
+	^ self
 !
 
 deepCopy
-	^self copy
+	^ self copy
 ! !
 
 !Number methodsFor: 'enumerating'!
@@ -916,38 +916,38 @@ deepCopy
 timesRepeat: aBlock
 	| count |
 	count := 1.
-	[count > self] whileFalse: [
+	[ count > self ] whileFalse: [
 		aBlock value.
-		count := count + 1]
+		count := count + 1 ]
 !
 
 to: stop by: step do: aBlock
 	| value |
 	value := self.
-	step = 0 ifTrue: [self error: 'step must be non-zero'].
+	step = 0 ifTrue: [ self error: 'step must be non-zero' ].
 	step < 0
-		ifTrue: [[ value >= stop ] whileTrue: [
+		ifTrue: [ [ value >= stop ] whileTrue: [
 					aBlock value: value.
-					value := value + step]]
-		ifFalse: [[ value <= stop ] whileTrue: [
+					value := value + step ]]
+		ifFalse: [ [ value <= stop ] whileTrue: [
 					aBlock value: value.
-					value := value + step]]
+					value := value + step ]]
 !
 
 to: stop do: aBlock
 	"Evaluate aBlock for each number from self to aNumber."
 	| nextValue |
 	nextValue := self.
-	[nextValue <= stop]
+	[ nextValue <= stop ]
 		whileTrue:
-			[aBlock value: nextValue.
-			nextValue := nextValue + 1]
+			[ aBlock value: nextValue.
+			nextValue := nextValue + 1 ]
 ! !
 
 !Number methodsFor: 'mathematical functions'!
 
 ** exponent
-	^self raisedTo: exponent
+	^ self raisedTo: exponent
 !
 
 arcCos
@@ -999,7 +999,7 @@ sqrt
 !
 
 squared
-	^self * self
+	^ self * self
 !
 
 tan
@@ -1027,11 +1027,11 @@ isImmutable
 !
 
 isNumber
-	^true
+	^ true
 !
 
 isZero
-	^self = 0
+	^ self = 0
 !
 
 negative
@@ -1093,7 +1093,7 @@ Points can then be arithmetically manipulated:
 !Point methodsFor: 'accessing'!
 
 x
-	^x
+	^ x
 !
 
 x: aNumber
@@ -1101,7 +1101,7 @@ x: aNumber
 !
 
 y
-	^y
+	^ y
 !
 
 y: aNumber
@@ -1111,30 +1111,30 @@ y: aNumber
 !Point methodsFor: 'arithmetic'!
 
 * aPoint
-	^Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y
+	^ Point x: self x * aPoint asPoint x y: self y * aPoint asPoint y
 !
 
 + aPoint
-	^Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y
+	^ Point x: self x + aPoint asPoint x y: self y + aPoint asPoint y
 !
 
 - aPoint
-	^Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y
+	^ Point x: self x - aPoint asPoint x y: self y - aPoint asPoint y
 !
 
 / aPoint
-	^Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
+	^ Point x: self x / aPoint asPoint x y: self y / aPoint asPoint y
 !
 
 = aPoint
-	^aPoint class = self class and: [
-		(aPoint x = self x) & (aPoint y = self y)]
+	^ aPoint class = self class and: [
+		(aPoint x = self x) & (aPoint y = self y) ]
 ! !
 
 !Point methodsFor: 'converting'!
 
 asPoint
-	^self
+	^ self
 ! !
 
 !Point methodsFor: 'printing'!
@@ -1145,7 +1145,7 @@ printOn: aStream
 	x printOn: aStream.
 	
 	aStream nextPutAll: '@'.
-	(y notNil and: [y negative]) ifTrue: [
+	(y notNil and: [ y negative ]) ifTrue: [
 			"Avoid ambiguous @- construct"
 			aStream space ].
 	
@@ -1156,7 +1156,7 @@ printOn: aStream
 
 translateBy: delta
 	"Answer a Point translated by delta (an instance of Point)."
-	^(delta x + x) @ (delta y + y)
+	^ (delta x + x) @ (delta y + y)
 ! !
 
 !Point class methodsFor: 'helios'!
@@ -1168,7 +1168,7 @@ heliosClass
 !Point class methodsFor: 'instance creation'!
 
 x: aNumber y: anotherNumber
-	^self new
+	^ self new
 		x: aNumber;
 		y: anotherNumber;
 		yourself
@@ -1215,7 +1215,7 @@ next
 !
 
 next: anInteger
-	^(1 to: anInteger) collect: [:each | self next]
+	^ (1 to: anInteger) collect: [ :each | self next ]
 ! !
 
 Object subclass: #UndefinedObject
@@ -1231,34 +1231,34 @@ __note:__ When sending messages to the `undefined` JavaScript object, it will be
 !UndefinedObject methodsFor: 'class creation'!
 
 subclass: aString instanceVariableNames: anotherString
-	^self subclass: aString instanceVariableNames: anotherString package: nil
+	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
 	self deprecatedAPI.
-	^self subclass: aString instanceVariableNames: aString2 package: aString3
+	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 package: aString3
-	^ClassBuilder new
+	^ ClassBuilder new
 		superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
 !UndefinedObject methodsFor: 'converting'!
 
 asJSON
-	^null
+	^ null
 ! !
 
 !UndefinedObject methodsFor: 'copying'!
 
 deepCopy
-	^self
+	^ self
 !
 
 shallowCopy
-	^self
+	^ self
 ! !
 
 !UndefinedObject methodsFor: 'printing'!
@@ -1271,22 +1271,22 @@ printOn: aStream
 
 ifNil: aBlock
 	"inlined in the Compiler"
-	^self ifNil: aBlock ifNotNil: []
+	^ self ifNil: aBlock ifNotNil: []
 !
 
 ifNil: aBlock ifNotNil: anotherBlock
 	"inlined in the Compiler"
-	^aBlock value
+	^ aBlock value
 !
 
 ifNotNil: aBlock
 	"inlined in the Compiler"
-	^self
+	^ self
 !
 
 ifNotNil: aBlock ifNil: anotherBlock
 	"inlined in the Compiler"
-	^anotherBlock value
+	^ anotherBlock value
 !
 
 isImmutable
@@ -1294,11 +1294,11 @@ isImmutable
 !
 
 isNil
-	^true
+	^ true
 !
 
 notNil
-	^false
+	^ false
 ! !
 
 !UndefinedObject class methodsFor: 'instance creation'!

@@ -8,16 +8,16 @@ I am the abstract super class of all code generators and provide their common AP
 !AbstractCodeGenerator methodsFor: 'accessing'!
 
 classNameFor: aClass
-	^aClass isMetaclass
-		ifTrue: [aClass instanceClass name, '.klass']
+	^ aClass isMetaclass
+		ifTrue: [ aClass instanceClass name, '.klass' ]
 		ifFalse: [
 		aClass isNil
-			ifTrue: ['nil']
-			ifFalse: [aClass name]]
+			ifTrue: [ 'nil' ]
+			ifFalse: [ aClass name ]]
 !
 
 currentClass
-	^currentClass
+	^ currentClass
 !
 
 currentClass: aClass
@@ -29,13 +29,13 @@ pseudoVariables
 !
 
 safeVariableNameFor: aString
-	^(Smalltalk current reservedWords includes: aString)
-		ifTrue: [aString, '_']
-		ifFalse: [aString]
+	^ (Smalltalk current reservedWords includes: aString)
+		ifTrue: [ aString, '_' ]
+		ifFalse: [ aString ]
 !
 
 source
-	^source ifNil: ['']
+	^ source ifNil: [ '' ]
 !
 
 source: aString
@@ -94,7 +94,7 @@ The default code generator is an instance of `InlinedCodeGenerator`!
 !Compiler methodsFor: 'accessing'!
 
 codeGeneratorClass
-	^codeGeneratorClass ifNil: [InliningCodeGenerator]
+	^ codeGeneratorClass ifNil: [ InliningCodeGenerator ]
 !
 
 codeGeneratorClass: aClass
@@ -102,7 +102,7 @@ codeGeneratorClass: aClass
 !
 
 currentClass
-	^currentClass
+	^ currentClass
 !
 
 currentClass: aClass
@@ -110,7 +110,7 @@ currentClass: aClass
 !
 
 source
-	^source ifNil: ['']
+	^ source ifNil: [ '' ]
 !
 
 source: aString
@@ -118,7 +118,7 @@ source: aString
 !
 
 unknownVariables
-	^unknownVariables
+	^ unknownVariables
 !
 
 unknownVariables: aCollection
@@ -128,25 +128,25 @@ unknownVariables: aCollection
 !Compiler methodsFor: 'compiling'!
 
 compile: aString
-	^self compileNode: (self parse: aString)
+	^ self compileNode: (self parse: aString)
 !
 
 compile: aString forClass: aClass
 	self currentClass: aClass.
 	self source: aString.
-	^self compile: aString
+	^ self compile: aString
 !
 
 compileExpression: aString
 	self currentClass: DoIt.
-	self source: 'doIt ^[', aString, '] value'.
-	^self compileNode: (self parse: self source)
+	self source: 'doIt ^ [ ', aString, ' ] value'.
+	^ self compileNode: (self parse: self source)
 !
 
 compileExpression: aString on: anObject
 	self currentClass: anObject class.
-	self source: 'xxxDoIt ^[', aString, '] value'.
-	^self compileNode: (self parse: self source)
+	self source: 'xxxDoIt ^ [ ', aString, ' ] value'.
+	^ self compileNode: (self parse: self source)
 !
 
 compileNode: aNode
@@ -157,7 +157,7 @@ compileNode: aNode
 		currentClass: self currentClass.
 	result := generator compileNode: aNode.
 	self unknownVariables: #().
-	^result
+	^ result
 !
 
 eval: aString
@@ -177,7 +177,7 @@ evaluateExpression: aString on: anObject
 	anObject class addCompiledMethod: method.
 	result := anObject xxxDoIt.
 	anObject class removeCompiledMethod: method.
-	^result
+	^ result
 !
 
 install: aString forClass: aBehavior category: anotherString
@@ -188,11 +188,11 @@ install: aString forClass: aBehavior category: anotherString
 !
 
 parse: aString
-	^Smalltalk current parse: aString
+	^ Smalltalk current parse: aString
 !
 
 parseExpression: aString
-	^self parse: 'doIt ^[', aString, '] value'
+	^ self parse: 'doIt ^ [ ', aString, ' ] value'
 !
 
 recompile: aClass
@@ -205,7 +205,7 @@ recompile: aClass
 
 recompileAll
 	Smalltalk current classes 
-		do: [:each | self recompile: each ]
+		do: [ :each | self recompile: each ]
 		displayingProgress: 'Compiling all classes...'
 ! !
 
@@ -216,8 +216,8 @@ recompile: aClass
 !
 
 recompileAll
-	Smalltalk current classes do: [:each |
-		self recompile: each]
+	Smalltalk current classes do: [ :each |
+		self recompile: each ]
 ! !
 
 Object subclass: #DoIt

@@ -26,8 +26,8 @@ selectionDisplayString
 	|selection|
 	selection := model selection.
     ^ (model variables keys includes: selection)
-    	ifTrue:[(model instVarObjectAt: selection) printString]
-      	ifFalse:['']
+    	ifTrue:[ (model instVarObjectAt: selection) printString ]
+      	ifFalse:[ '' ]
 ! !
 
 Object subclass: #HLInspectorModel
@@ -37,7 +37,7 @@ Object subclass: #HLInspectorModel
 !HLInspectorModel methodsFor: 'accessing'!
 
 announcer
-	^ announcer ifNil: [announcer := Announcer new ]
+	^ announcer ifNil: [ announcer := Announcer new ]
 !
 
 code
