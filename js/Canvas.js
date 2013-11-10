@@ -3705,63 +3705,6 @@ referencedClasses: []
 smalltalk.TagBrush.klass);
 
 
-smalltalk.addClass('DocumentFragmentTag', smalltalk.TagBrush, [], 'Canvas');
-smalltalk.addMethod(
-smalltalk.method({
-selector: "createDocumentFragment",
-category: 'private',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return document.createDocumentFragment();
-return self}, function($ctx1) {$ctx1.fill(self,"createDocumentFragment",{},smalltalk.DocumentFragmentTag)})},
-args: [],
-source: "createDocumentFragment\x0a\x09<return document.createDocumentFragment()>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.DocumentFragmentTag);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initializeFromCanvas:",
-category: 'initialization',
-fn: function (aCanvas){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@canvas"]=aCanvas;
-self["@element"]=self._createDocumentFragment();
-return self}, function($ctx1) {$ctx1.fill(self,"initializeFromCanvas:",{aCanvas:aCanvas},smalltalk.DocumentFragmentTag)})},
-args: ["aCanvas"],
-source: "initializeFromCanvas: aCanvas\x0a\x09canvas := aCanvas.\x0a\x09element := self createDocumentFragment",
-messageSends: ["createDocumentFragment"],
-referencedClasses: []
-}),
-smalltalk.DocumentFragmentTag);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "canvas:",
-category: 'instance creation',
-fn: function (aCanvas){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._initializeFromCanvas_(aCanvas);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"canvas:",{aCanvas:aCanvas},smalltalk.DocumentFragmentTag.klass)})},
-args: ["aCanvas"],
-source: "canvas: aCanvas\x0a\x09^ self new\x0a\x09\x09initializeFromCanvas: aCanvas;\x0a\x09\x09yourself",
-messageSends: ["initializeFromCanvas:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.DocumentFragmentTag.klass);
-
-
 smalltalk.addClass('StyleTag', smalltalk.TagBrush, [], 'Canvas');
 smalltalk.StyleTag.comment="I'm a `<style>` tag use to inline CSS or load a stylesheet.\x0a\x0a## Motivation\x0a\x0aThe need for a specific class comes from Internet Explorer compatibility issues.";
 smalltalk.addMethod(

@@ -1060,31 +1060,6 @@ fromString: aString canvas: aCanvas
 	yourself
 ! !
 
-TagBrush subclass: #DocumentFragmentTag
-	instanceVariableNames: ''
-	package: 'Canvas'!
-
-!DocumentFragmentTag methodsFor: 'initialization'!
-
-initializeFromCanvas: aCanvas
-	canvas := aCanvas.
-	element := self createDocumentFragment
-! !
-
-!DocumentFragmentTag methodsFor: 'private'!
-
-createDocumentFragment
-	<return document.createDocumentFragment()>
-! !
-
-!DocumentFragmentTag class methodsFor: 'instance creation'!
-
-canvas: aCanvas
-	^ self new
-		initializeFromCanvas: aCanvas;
-		yourself
-! !
-
 TagBrush subclass: #StyleTag
 	instanceVariableNames: ''
 	package: 'Canvas'!
