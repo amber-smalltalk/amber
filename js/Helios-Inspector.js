@@ -1302,12 +1302,12 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 $1=self._new();
-_st($1)._inspect_(anObject);
-$2=_st($1)._openAsTab();
+_st($1)._openAsTab();
+$2=_st($1)._inspect_(anObject);
 return self}, function($ctx1) {$ctx1.fill(self,"inspect:",{anObject:anObject},smalltalk.HLInspector.klass)})},
 args: ["anObject"],
-source: "inspect: anObject\x0a\x09self new\x0a\x09\x09inspect: anObject;\x0a\x09\x09openAsTab",
-messageSends: ["inspect:", "new", "openAsTab"],
+source: "inspect: anObject\x0a\x09self new\x0a\x09\x09openAsTab;\x0a\x09\x09inspect: anObject",
+messageSends: ["openAsTab", "new", "inspect:"],
 referencedClasses: []
 }),
 smalltalk.HLInspector.klass);

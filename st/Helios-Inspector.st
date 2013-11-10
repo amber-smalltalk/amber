@@ -417,8 +417,8 @@ tabPriority
 
 inspect: anObject
 	self new
-		inspect: anObject;
-		openAsTab
+		openAsTab;
+		inspect: anObject
 ! !
 
 !HLInspector class methodsFor: 'initialization'!
