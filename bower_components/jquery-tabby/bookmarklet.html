@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<title>Tabify Textareas Bookmarklet</title>
+	<style type="text/css">
+	body {
+	  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+	  color: black;
+	  background: white none;
+	}
+	.tip {
+	  color: #888;
+	}
+	.bml {
+	  padding: .2em .4em;
+	  display: inline-block;
+	  margin-right: 0.4em;
+	  text-decoration: none;
+	  color: black;
+	  border-radius: 1em;
+	  background: #ddd;
+	  background: #ddd -moz-linear-gradient(#eee, #ccc);
+	  background: #ddd -webkit-linear-gradient(#eee, #ccc);
+	  background: #ddd linear-gradient(#eee, #ccc);
+	}
+</style>
+</head>
+<body>
+	
+	<h1>Tabify Textareas Bookmarklet</h1>
+	<a class="bml" href="javascript:(function(){function a(){(function(i){i.fn.tabby=function(k){var e=i.extend({},i.fn.tabby.defaults,k);var d=i.fn.tabby.pressed;return this.each(function(){$this=i(this);var l=i.meta?i.extend({},e,$this.data()):e;$this.bind(&quot;keydown&quot;,function(m){var n=i.fn.tabby.catch_kc(m);if(16==n){d.shft=true}if(17==n){d.ctrl=true;setTimeout(&quot;$.fn.tabby.pressed.ctrl = false;&quot;,1000)}if(18==n){d.alt=true;setTimeout(&quot;$.fn.tabby.pressed.alt = false;&quot;,1000)}if(9==n&amp;&amp;!d.ctrl&amp;&amp;!d.alt){m.preventDefault;d.last=n;setTimeout(&quot;$.fn.tabby.pressed.last = null;&quot;,0);h(i(m.target).get(0),d.shft,l);return false}}).bind(&quot;keyup&quot;,function(m){if(16==i.fn.tabby.catch_kc(m)){d.shft=false}}).bind(&quot;blur&quot;,function(m){if(9==d.last){i(m.target).one(&quot;focus&quot;,function(n){d.last=null}).get(0).focus()}})})};i.fn.tabby.catch_kc=function(d){return d.keyCode?d.keyCode:d.charCode?d.charCode:d.which};i.fn.tabby.pressed={shft:false,ctrl:false,alt:false,last:null};function f(d){if(window.console&amp;&amp;window.console.log){window.console.log(&quot;textarea count: &quot;+d.size())}}function h(d,e,k){var l=d.scrollTop;if(d.setSelectionRange){g(d,e,k)}else{if(document.selection){j(d,e,k)}}d.scrollTop=l}i.fn.tabby.defaults={tabString:String.fromCharCode(9)};function g(A,D,F){var G=A.selectionStart;var d=A.selectionEnd;if(G==d){if(D){if(G-F.tabString==A.value.substring(G-F.tabString.length,G)){A.value=A.value.substring(0,G-F.tabString.length)+A.value.substring(G);A.focus();A.setSelectionRange(G-F.tabString.length,G-F.tabString.length)}else{if(G-F.tabString==A.value.substring(G,G+F.tabString.length)){A.value=A.value.substring(0,G)+A.value.substring(G+F.tabString.length);A.focus();A.setSelectionRange(G,G)}}}else{A.value=A.value.substring(0,G)+F.tabString+A.value.substring(G);A.focus();A.setSelectionRange(G+F.tabString.length,G+F.tabString.length)}}else{while(G&lt;A.value.length&amp;&amp;A.value.charAt(G).match(/[ \t]/)){G++}var E=A.value.split(&quot;\n&quot;);var H=new Array();var y=0;var B=0;var C=false;for(var w in E){B=y+E[w].length;H.push({start:y,end:B,selected:(y&lt;=G&amp;&amp;B&gt;G)||(B&gt;=d&amp;&amp;y&lt;d)||(y&gt;G&amp;&amp;B&lt;d)});y=B+1}var z=0;for(var w in H){if(H[w].selected){var e=H[w].start+z;if(D&amp;&amp;F.tabString==A.value.substring(e,e+F.tabString.length)){A.value=A.value.substring(0,e)+A.value.substring(e+F.tabString.length);z-=F.tabString.length}else{if(!D){A.value=A.value.substring(0,e)+F.tabString+A.value.substring(e);z+=F.tabString.length}}}}A.focus();var o=G+((z&gt;0)?F.tabString.length:(z&lt;0)?-F.tabString.length:0);var x=d+z;A.setSelectionRange(o,x)}}function j(G,A,P){var H=document.selection.createRange();if(G==H.parentElement()){if(&quot;&quot;==H.text){if(A){var K=H.getBookmark();H.moveStart(&quot;character&quot;,-P.tabString.length);if(P.tabString==H.text){H.text=&quot;&quot;}else{H.moveToBookmark(K);H.moveEnd(&quot;character&quot;,P.tabString.length);if(P.tabString==H.text){H.text=&quot;&quot;}}H.collapse(true);H.select()}else{H.text=P.tabString;H.collapse(false);H.select()}}else{var L=H.text;var I=L.length;var C=L.split(&quot;\r\n&quot;);var d=document.body.createTextRange();d.moveToElementText(G);d.setEndPoint(&quot;EndToStart&quot;,H);var J=d.text;var o=J.split(&quot;\r\n&quot;);var F=J.length;var e=document.body.createTextRange();e.moveToElementText(G);e.setEndPoint(&quot;StartToEnd&quot;,H);var B=e.text;var O=document.body.createTextRange();O.moveToElementText(G);O.setEndPoint(&quot;StartToEnd&quot;,d);var E=O.text;var N=i(G).html();i(&quot;#r3&quot;).text(F+&quot; + &quot;+I+&quot; + &quot;+B.length+&quot; = &quot;+N.length);if((F+E.length)&lt;N.length){o.push(&quot;&quot;);F+=2;if(A&amp;&amp;P.tabString==C[0].substring(0,P.tabString.length)){C[0]=C[0].substring(P.tabString.length)}else{if(!A){C[0]=P.tabString+C[0]}}}else{if(A&amp;&amp;P.tabString==o[o.length-1].substring(0,P.tabString.length)){o[o.length-1]=o[o.length-1].substring(P.tabString.length)}else{if(!A){o[o.length-1]=P.tabString+o[o.length-1]}}}for(var D=1;D&lt;C.length;D++){if(A&amp;&amp;P.tabString==C[D].substring(0,P.tabString.length)){C[D]=C[D].substring(P.tabString.length)}else{if(!A){C[D]=P.tabString+C[D]}}}if(1==o.length&amp;&amp;0==F){if(A&amp;&amp;P.tabString==C[0].substring(0,P.tabString.length)){C[0]=C[0].substring(P.tabString.length)}else{if(!A){C[0]=P.tabString+C[0]}}}if((F+I+B.length)&lt;N.length){C.push(&quot;&quot;);I+=2}d.text=o.join(&quot;\r\n&quot;);H.text=C.join(&quot;\r\n&quot;);var M=document.body.createTextRange();M.moveToElementText(G);if(0&lt;F){M.setEndPoint(&quot;StartToEnd&quot;,d)}else{M.setEndPoint(&quot;StartToStart&quot;,d)}M.setEndPoint(&quot;EndToEnd&quot;,H);M.select()}}}})(window.jQuery);window.jQuery(&quot;textarea&quot;).tabby({tabString:&quot;    &quot;})}function c(){if(window.jQuery){a()}else{window.setTimeout(c,100)}}if(window.jQuery){a()}else{var b=document.createElement(&quot;script&quot;);b.setAttribute(&quot;src&quot;,&quot;http://code.jquery.com/jquery-1.5.2.min.js&quot;);document.getElementsByTagName(&quot;body&quot;)[0].appendChild(b);c()}})();">Tabify Textareas</a> <span class="tip">←&nbsp;Drag to your bookmark bar!</span>
+	
+	<br /><br />
+	<textarea name="textarea" rows="4" cols="100" wrap="wrap">Try Me Out
+	  
+Click the bookmarklet and then use tabs within this textarea!
+</textarea>
+</body>
+</html>

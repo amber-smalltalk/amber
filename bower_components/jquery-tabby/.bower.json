@@ -1,0 +1,13 @@
+{
+  "name": "jquery-tabby",
+  "homepage": "https://github.com/alanhogan/Tabby",
+  "_release": "925c5a416a",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "925c5a416afc9233ba31e3fb7aff043a1a802ce6"
+  },
+  "_source": "git://github.com/alanhogan/Tabby.git",
+  "_target": "*",
+  "_originalSource": "git://github.com/alanhogan/Tabby"
+}

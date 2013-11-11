@@ -17,5 +17,5 @@ test/run.js
 # Ignoring local NPM modules
 /node_modules/*
 
-# Ignoring local bower modules
-/bower_components/*
+# NOT Ignoring local bower modules for the jekyll website
+# /bower_components/*

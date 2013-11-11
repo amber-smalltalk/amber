@@ -1,0 +1,14 @@
+{
+  "name": "codemirror",
+  "homepage": "https://github.com/marijnh/CodeMirror",
+  "version": "3.13.0",
+  "_release": "3.13.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "3.13.0",
+    "commit": "93fd369693211817cf0a0210b7dbe8f9a28a35f1"
+  },
+  "_source": "git://github.com/marijnh/CodeMirror.git",
+  "_target": "~3.13.0",
+  "_originalSource": "codemirror"
+}

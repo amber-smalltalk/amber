@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0040)http://teddevito.com/demos/textarea.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>Tabs in Textarea Plugin for Javascript jQuery</title>
+<meta name="description" content="the tabby jquery plugin combines the ease of jquery and some custom javascript to allow users to use the tab key in regular textareas to make them suitable for in-browser coding">
+<meta name="keywords" content="tab,shifttab,jquery,textarea,plugin">
+
+
+<link rel="stylesheet" type="text/css" href="./textarea.mirror_files/reset-fonts-grids.css">
+<link rel="stylesheet" type="text/css" href="./textarea.mirror_files/base-min.css">
+
+<script type="text/javascript" src="./textarea.mirror_files/jquery.js"></script>
+<script type="text/javascript" src="./textarea.mirror_files/jquery.textarea.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function () {
+	$("textarea.tabby").tabby();
+});
+</script>
+<style type="text/css">
+<!--
+
+body {background: url(textarea.mirror_files/bg-demo.jpg) repeat-y left; padding: 0 1em 2.5em; margin: 0;}
+
+p,h4,h1,ol,ul {width: 500px; margin: 0 auto 1em; font-size: 11px; font-family: Verdana, Arial, Helvetica, sans-serif; text-align: left;}
+h1 {font: bold 20px/28px Georgia, "Times New Roman", Times, serif; color: #666; margin-bottom: 0.4em;}
+p,ol,ul {color: #222; line-height:1.4em;}
+ol,ul {width: 475px; padding-left: 25px;}
+hr {width: 500px; margin-bottom: 1.5em;}
+textarea {display: block; width: 492px; padding: 4px; height: 200px; margin: 1em auto; border: 1px solid; border-color: #ddd #999 #999 #ddd; color: #003366; #00eeff; background-color: #eeffff; font: 12px/1.4em "Courier New", Courier, monospace;}
+
+img.contact {margin: 2em auto; display:block;}
+#helpful {position: relative; margin: 0 auto; width: 800px; background: transparent url(images/helpful.png) no-repeat; height: 160px;}
+#helpful form {position: absolute; top: 82px; left: 310px;}
+#helpful a {position: absolute; top: 82px; left: 441px;}
+
+p.code, code { font: 12px/1.2em "Courier New", Courier, monospace; color: #003399;}
+p.code {padding-left: 15px; width: 485px; }
+-->
+</style>
+
+</head>
+
+<body>
+<div id="helpful" style="display: none;">
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="2417900">
+<input type="image" src="./textarea.mirror_files/donate.png" name="submit" alt="">
+<img alt="" border="0" src="./textarea.mirror_files/pixel.gif" width="1" height="1">
+</form>
+
+<!-- PayPal Logo --><a href="http://teddevito.com/demos/textarea.html#" onclick="javascript:window.open(&#39;https://www.paypal.com/us/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside&#39;,&#39;olcwhatispaypal&#39;,&#39;toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350&#39;);"><img src="./textarea.mirror_files/PayPal_mark_50x34.gif" border="0" alt="Acceptance Mark"></a><!-- PayPal Logo -->
+
+</div>
+
+  <p style="padding-bottom: 1em; padding-top: 1em; border-bottom: 3px solid rgba(0,0,0, 0.6);color: rgb(50,51,53); background: linear-gradient(rgba(255,255,0,0),rgba(255,255,0,0) 64%, rgba(255,255,0,0.2));"><strong>Note: </strong> This is a mirror of
+    <a href="http://teddevito.com/demos/textarea.html">http://teddevito.com/demos/textarea.html</a> as of 2011-04-04.</p>
+
+<h1>Tabs in Textarea Plugin for Javascript jQuery</h1>
+<hr>
+<h4>concept</h4>
+<p>This is a demo of the "Tabby" Javascript jQuery plugin to use tabs in regular textareas to make them suitable for in-browser coding of languages like HTML, CSS, Javascript, or your favorite server-side language. The idea is to be able to use a press of the TAB button or SHIFT+TAB to indent or outdent your code.</p>
+<h4>try it out!</h4>
+<p>Simply use TAB to indent code in the textarea, SHIFT+TAB to outdent. It works on a single line or over a range of lines.</p>
+<textarea class="tabby" rows="12" cols="58">.style1 {
+	text-align: left;
+	font-size: 2em;
+	}
+.style2 {
+	color: #ff0000;
+	font-weight: bold;
+	}
+</textarea>
+<h4>the problem</h4>
+<p>Browsers use the TAB keypress as a page control. Consequently, when you hit TAB, focus leaves the textarea and moves to the next available field.</p>
+<h4>the solution</h4>
+<p>First, let me distinguish this solution. There are a lot of results for the Google search "tabs in textarea" and there were 3 common issues relating to the fulfillment of the concept of this script (I'm sure each solution was completely adequate for it's author, but not for this concept!).</p>
+<ol>
+	<li>No support or poor support for outdenting via SHIFT+TAB</li>
+	<li>No support or poor support for multi-line tabbing</li>
+    <li>hitting TAB with a range selected overwrites the range with a <code>\t</code></li>
+</ol>
+<p>First, when an activated textarea has focus, we'll need to capture the keypress event and note when either SHIFT or TAB have been pressed.</p>
+<p>Then, we'll do some <del>simple</del> processing to figure out whether we're dealing with a selected range or not and add/remove the appropriate tabs.</p>
+<p>To prevent focus from leaving the textarea when we're done adding/removing tabs, we'll return false through the event we bind to each textarea to stop the event from bubbling up. There is also a lightweight workaround for Opera you'll notice that has to restore focus after Opera takes it away.</p>
+<p>There are two main parts to the code: the gecko version and the IE version. While IE is simpler for tabbing when the user has not selected any text, it is very complex for selections. You'll notice there are a bunch of ranges that are used to establish the correct length and positioning before any tabs get added or removed.</p>
+<h4>use</h4>
+<p>Very simple. Just call the plugin on your textareas.</p>
+<p class="code"> jQuery(document).ready(function () {<br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$("textarea").tabby();<br>
+<br>
+  });<br>
+</p>
+<p>The plugin is setup so you can pass an argument for the tab string that gets used, but it's really just there to allow future development of that feature if it becomes important. For now it is really just a hook, as you can find in the code if you're so inclined. </p>
+<h4>versions</h4>
+<p>Just one right now:<br>
+  <a href="./textarea.mirror_files/jquery.textarea.js" title="tabs in textarea plugin for javascript jquery" target="_blank">version 0.11</a></p>
+<h4>broswer compatibility</h4>
+<p>Chrome 1.0, FF 3.0, IE 6 &amp; 7, Safari 3.2, Opera 9.6</p>
+<h4>related pages and searches</h4>
+<p>As the biggest challenge was handling the idiosyncrasies in MSIE's TextRanges, the most helpful resource on this project was the Microsoft Developer Network reference. Look for anything that relates to the <a href="http://msdn.microsoft.com/en-us/library/ms535872(VS.85).aspx" title="Microsoft Developer Network: TextRange Object" target="_blank">TextRange Object</a>. The list on the left contains all the methods you will see used in my code. Just click around to look them all up.</p>
+<p>Various similar solutions, explanations and resources:</p>
+<ul>
+	<li><a href="http://parentnode.org/javascript/working-with-the-cursor-position/" target="_blank" title="Working with Cursor Position">Working with Cursor Position on parentNode.org</a> - good techniques, but great discussion.</li>
+    <li><a href="http://aspalliance.com/346" title="Tabbing in the TextArea" target="_blank">Tabbing in the TextArea</a> - the first solution that turned me on to MSIE's TextRange controls. It is simple, and consequently easy to understand and practice with.</li>
+    <li><a href="http://linebyline.blogspot.com/2006/11/textarea-cursor-position-in-internet.html" title="Textarea Cursor Position in Internet Explorer" target="_blank">Textarea Cursor Position in Internet Explorer on Line by Line</a> - this site was the most revealing about the idiosyncrasies of MSIE's text ranges. Basically goes into how <code>someRange.text</code> trims <code>\r\n</code> and the <code>move</code> methods all handle <code>\r\n</code> as a single character.</li>
+    <li><a href="http://webdeveloper.internet.com/forum/showthread.php?p=952688" title="How to enable TAB key in TEXTAREA" target="_blank">How to enable TAB key in TEXTAREA on WebDeveloper.com</a> - not much discussion, but a very solid implementation of the technique. I learned a lot by using and testing this script. Unfortunately, it handles selections by simply overwriting them with a tab.</li>
+    <li><a href="http://baramme.free.fr/vba/post/tab-enabled-textarea" title="TEXTAREA avec TAB pour les retraits" target="_blank">TEXTAREA avec TAB pour les retraits</a> - the explanation here is not in english, but the code is readable. It's the most complete working example I found, but does not find the start of the line when you're tabbing multiple lines in MSIE.</li>
+    <li>A Google search on <a href="http://www.google.com/search?q=tabs+in+textareas" title="google search on tabs in textareas" target="_blank">tabs in textareas</a> got me started on the right track...</li>
+    <li>And as always, w3schools on <a href="http://www.w3schools.com/jsref/jsref_obj_array.asp" title="w3school javascript array object reference" target="_blank">arrays</a> and <a href="http://www.w3schools.com/jsref/jsref_obj_string.asp" title="w3school javascript string object reference" target="_blank">strings</a>.</li>
+</ul>
+
+<img class="contact" src="./textarea.mirror_files/contact.png" alt="contact.png" title="low tech contact button">
+<p style="text-align: center;">
+    <a href="http://validator.w3.org/check?uri=referer"><img src="./textarea.mirror_files/valid-xhtml10" alt="Valid XHTML 1.0 Transitional" height="31" width="88"></a>
+</p></html>
