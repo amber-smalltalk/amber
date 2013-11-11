@@ -827,7 +827,7 @@ reservedWords
 version
 	"Answer the version string of Amber"
 	
-	^ '0.12.0-pre'
+	^ '0.12.0'
 ! !
 
 !Smalltalk methodsFor: 'accessing amd'!
