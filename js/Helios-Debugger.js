@@ -46,7 +46,7 @@ var self=this;
 var variables,inspectedContext;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 variables=_st($Dictionary())._new();
 inspectedContext=self._context();
 $1=variables;
@@ -68,13 +68,11 @@ $3=inspectedContext;
 if(($receiver = $3) == nil || $receiver == null){
 return $3;
 } else {
-$4=variables;
-$5=_st(inspectedContext)._locals();
-return _st($4)._addAll_($5);
+return _st(variables)._addAll_(_st(inspectedContext)._locals());
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 _st(anInspector)._setLabel_("Context");
-$6=_st(anInspector)._setVariables_(variables);
+$4=_st(anInspector)._setVariables_(variables);
 return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables,inspectedContext:inspectedContext},smalltalk.HLContextInspectorDecorator)})},
 args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables inspectedContext |\x0a\x09\x0a\x09variables := Dictionary new.\x0a\x09inspectedContext := self context.\x0a\x09\x0a\x09variables addAll: inspectedContext locals.\x0a\x09\x0a\x09[ inspectedContext notNil and: [ inspectedContext isBlockContext ] ] whileTrue: [\x0a\x09\x09inspectedContext := inspectedContext outerContext.\x0a\x09\x09inspectedContext ifNotNil: [\x0a\x09\x09\x09variables addAll: inspectedContext locals ] ].\x0a\x09\x0a\x09anInspector\x0a\x09\x09setLabel: 'Context';\x0a\x09\x09setVariables: variables",
@@ -229,16 +227,14 @@ var self=this;
 function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected||(typeof HLDebuggerContextSelected=="undefined"?nil:HLDebuggerContextSelected)}
 function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 $2=self._model();
 $ctx1.sendIdx["model"]=1;
 $1=_st($2)._announcer();
 $ctx1.sendIdx["announcer"]=1;
 _st($1)._on_send_to_($HLDebuggerContextSelected(),"onContextSelected:",self);
 $ctx1.sendIdx["on:send:to:"]=1;
-$4=self._model();
-$3=_st($4)._announcer();
-_st($3)._on_send_to_($HLDebuggerStepped(),"onContextSelected:",self);
+_st(_st(self._model())._announcer())._on_send_to_($HLDebuggerStepped(),"onContextSelected:",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.HLDebugger)})},
 args: [],
 source: "observeModel\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self.\x0a\x09\x09\x0a\x09self model announcer \x0a\x09\x09on: HLDebuggerStepped\x0a\x09\x09send: #onContextSelected:\x0a\x09\x09to: self",
@@ -291,10 +287,8 @@ function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="unde
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
-$3=self._stackListWidget();
-$4=_st($HLVerticalSplitter())._with_with_(self._codeWidget(),self._inspectorWidget());
-$2=_st($HLHorizontalSplitter())._with_with_($3,$4);
+var $2,$1;
+$2=_st($HLHorizontalSplitter())._with_with_(self._stackListWidget(),_st($HLVerticalSplitter())._with_with_(self._codeWidget(),self._inspectorWidget()));
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
 _st(html)._with_($1);
@@ -503,7 +497,7 @@ fn: function (aNode){
 var self=this;
 var token;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$6,$5,$4,$3,$9,$8,$7,$2,$13,$12,$11,$10,$14,$19,$18,$17,$16,$20,$15,$25,$24,$23,$22,$26,$21;
+var $1,$6,$5,$4,$3,$9,$8,$7,$2,$13,$12,$11,$10,$14,$19,$18,$17,$16,$20,$15,$22,$21;
 if(($receiver = aNode) == nil || $receiver == null){
 aNode;
 } else {
@@ -546,13 +540,9 @@ $ctx1.sendIdx["->"]=3;
 $20="ch".__minus_gt(_st(token)._start());
 $ctx1.sendIdx["->"]=4;
 $15=smalltalk.HashedCollection._from_([$16,$20]);
-$25=_st(aNode)._position();
-$24=_st($25)._x();
-$23=_st($24).__minus((1));
-$22="line".__minus_gt($23);
+$22="line".__minus_gt(_st(_st(_st(aNode)._position())._x()).__minus((1)));
 $ctx1.sendIdx["->"]=5;
-$26="ch".__minus_gt(_st(token)._end());
-$21=smalltalk.HashedCollection._from_([$22,$26]);
+$21=smalltalk.HashedCollection._from_([$22,"ch".__minus_gt(_st(token)._end())]);
 _st($14)._setSelection_to_($15,$21);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"highlightNode:",{aNode:aNode,token:token},smalltalk.HLDebuggerCodeWidget)})},
@@ -573,7 +563,7 @@ function $HLDebuggerContextSelected(){return smalltalk.HLDebuggerContextSelected
 function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
 function $HLDebuggerWhere(){return smalltalk.HLDebuggerWhere||(typeof HLDebuggerWhere=="undefined"?nil:HLDebuggerWhere)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5;
+var $2,$1,$4,$3;
 smalltalk.HLDebuggerCodeWidget.superclass.fn.prototype._observeBrowserModel.apply(_st(self), []);
 $2=self._browserModel();
 $ctx1.sendIdx["browserModel"]=1;
@@ -587,9 +577,7 @@ $3=_st($4)._announcer();
 $ctx1.sendIdx["announcer"]=2;
 _st($3)._on_send_to_($HLDebuggerStepped(),"onContextSelected",self);
 $ctx1.sendIdx["on:send:to:"]=2;
-$6=self._browserModel();
-$5=_st($6)._announcer();
-_st($5)._on_send_to_($HLDebuggerWhere(),"onContextSelected",self);
+_st(_st(self._browserModel())._announcer())._on_send_to_($HLDebuggerWhere(),"onContextSelected",self);
 return self}, function($ctx1) {$ctx1.fill(self,"observeBrowserModel",{},smalltalk.HLDebuggerCodeWidget)})},
 args: [],
 source: "observeBrowserModel\x0a\x09super observeBrowserModel.\x0a\x09\x0a\x09self browserModel announcer \x0a\x09\x09on: HLDebuggerContextSelected\x0a\x09\x09send: #onContextSelected\x0a\x09\x09to: self.\x0a\x09\x0a\x09self browserModel announcer \x0a\x09\x09on: HLDebuggerStepped\x0a\x09\x09send: #onContextSelected\x0a\x09\x09to: self.\x0a\x09\x0a\x09self browserModel announcer \x0a\x09\x09on: HLDebuggerWhere\x0a\x09\x09send: #onContextSelected\x0a\x09\x09to: self",
@@ -811,6 +799,28 @@ smalltalk.HLDebuggerModel);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "skip",
+category: 'actions',
+fn: function (){
+var self=this;
+function $HLDebuggerStepped(){return smalltalk.HLDebuggerStepped||(typeof HLDebuggerStepped=="undefined"?nil:HLDebuggerStepped)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+_st(self._interpreter())._skip();
+$1=_st($HLDebuggerStepped())._new();
+_st($1)._context_(self._currentContext());
+$2=_st($1)._yourself();
+_st(self._announcer())._announce_($2);
+return self}, function($ctx1) {$ctx1.fill(self,"skip",{},smalltalk.HLDebuggerModel)})},
+args: [],
+source: "skip\x0a\x09self interpreter skip.\x0a\x09self announcer announce: (HLDebuggerStepped new\x0a\x09\x09context: self currentContext;\x0a\x09\x09yourself)",
+messageSends: ["skip", "interpreter", "announce:", "announcer", "context:", "new", "currentContext", "yourself"],
+referencedClasses: ["HLDebuggerStepped"]
+}),
+smalltalk.HLDebuggerModel);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "stepOver",
 category: 'actions',
 fn: function (){
@@ -986,7 +996,7 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$8,$2;
+var $1,$3,$4,$5,$6,$7,$8,$9,$10,$2;
 $1=_st(html)._div();
 _st($1)._class_("debugger_bar");
 $ctx1.sendIdx["class:"]=1;
@@ -1017,19 +1027,31 @@ return self._where();
 $ctx2.sendIdx["onClick:"]=2;
 $6;
 $7=_st(html)._button();
+$ctx2.sendIdx["button"]=3;
 _st($7)._class_("btn stepOver");
+$ctx2.sendIdx["class:"]=4;
 _st($7)._with_("Step over");
+$ctx2.sendIdx["with:"]=4;
 $8=_st($7)._onClick_((function(){
 return smalltalk.withContext(function($ctx3) {
 return self._stepOver();
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,4)})}));
-return $8;
+$ctx2.sendIdx["onClick:"]=3;
+$8;
+$9=_st(html)._button();
+_st($9)._class_("btn skip");
+_st($9)._with_("Skip");
+$10=_st($9)._onClick_((function(){
+return smalltalk.withContext(function($ctx3) {
+return self._skip();
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,5)})}));
+return $10;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["with:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"renderButtonsOn:",{html:html},smalltalk.HLStackListWidget)})},
 args: ["html"],
-source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'debugger_bar'; \x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn restart';\x0a\x09\x09\x09\x09with: 'Restart';\x0a\x09\x09\x09\x09onClick: [ self restart ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn where';\x0a\x09\x09\x09\x09with: 'Where';\x0a\x09\x09\x09\x09onClick: [ self where ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn stepOver';\x0a\x09\x09\x09\x09with: 'Step over';\x0a\x09\x09\x09\x09onClick: [ self stepOver ] ]",
-messageSends: ["class:", "div", "with:", "button", "onClick:", "restart", "where", "stepOver"],
+source: "renderButtonsOn: html\x0a\x09html div \x0a\x09\x09class: 'debugger_bar'; \x0a\x09\x09with: [\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn restart';\x0a\x09\x09\x09\x09with: 'Restart';\x0a\x09\x09\x09\x09onClick: [ self restart ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn where';\x0a\x09\x09\x09\x09with: 'Where';\x0a\x09\x09\x09\x09onClick: [ self where ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn stepOver';\x0a\x09\x09\x09\x09with: 'Step over';\x0a\x09\x09\x09\x09onClick: [ self stepOver ].\x0a\x09\x09\x09html button \x0a\x09\x09\x09\x09class: 'btn skip';\x0a\x09\x09\x09\x09with: 'Skip';\x0a\x09\x09\x09\x09onClick: [ self skip ] ]",
+messageSends: ["class:", "div", "with:", "button", "onClick:", "restart", "where", "stepOver", "skip"],
 referencedClasses: []
 }),
 smalltalk.HLStackListWidget);
@@ -1062,6 +1084,22 @@ return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{aContext:aContext}
 args: ["aContext"],
 source: "selectItem: aContext\x0a   \x09self model currentContext: aContext",
 messageSends: ["currentContext:", "model"],
+referencedClasses: []
+}),
+smalltalk.HLStackListWidget);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "skip",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._skip();
+return self}, function($ctx1) {$ctx1.fill(self,"skip",{},smalltalk.HLStackListWidget)})},
+args: [],
+source: "skip\x0a\x09self model skip",
+messageSends: ["skip", "model"],
 referencedClasses: []
 }),
 smalltalk.HLStackListWidget);

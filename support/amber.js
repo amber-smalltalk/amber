@@ -17,7 +17,23 @@ var require;
 require = function (require) {
     var scripts = document.getElementsByTagName("script");
     var src = scripts[ scripts.length - 1 ].src;
-    var home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
+    // strip the last two elements from the URL
+    // e.g. http://app.com/lib/script.js -> http://app.com/
+    var amber_home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
+    // strip the last element from the URL
+    // e.g. http://app.com/index.html -> http://app.com/
+    var document_home = window.location.href.replace(/\/[^\/]+$/, "");
+
+    // at the present moment, bower tries to have flat hierarchy,
+    // which leads to two possible scenarios:
+    // 1. amber itself was deployed via bower,
+    //    its libraries are next to it; document_home from above covers this
+    // 2. amber was deployed in different fashion,
+    //    its libraries are included by bower locally; document_home is fixed below
+    // The detection is done by looking for '/bower_components/' in amber path.
+    if (!amber_home.match(/\/bower_components\//)) {
+        document_home = amber_home;
+    }
 
     function resolveViaDOM(url) {
         var a = document.createElement("a");
@@ -27,16 +43,16 @@ require = function (require) {
 
     var config = {
         paths: {
-            'amber': home+'/support',
-            'amber_vm': home+'/support',
-            'amber_css': home+'/css',
-            'amber_lib': home+'/bower_components',
-            'amber_inc': home+'/support',
-            'amber_core': home+'/js',
-            'amber_core/_source': home+'/st',
-            'amber_html': home,
-            'jquery': home+'/bower_components/jquery/jquery.min',
-            'jquery-ui': home+'/support/jQuery/jquery-ui-1.8.24.custom.min'
+            'amber': amber_home + '/support',
+            'amber_vm': amber_home + '/support',
+            'amber_css': amber_home + '/css',
+            'amber_lib': document_home + '/bower_components',
+            'amber_inc': amber_home + '/support',
+            'amber_core': amber_home + '/js',
+            'amber_core/_source': amber_home + '/st',
+            'amber_html': amber_home,
+            'jquery': document_home + '/bower_components/jquery/jquery.min',
+            'jquery-ui': amber_home + '/support/jQuery/jquery-ui-1.8.24.custom.min'
         },
         map: {
             '*': {
@@ -48,7 +64,7 @@ require = function (require) {
                 deps: [ 'jquery' ]
             },
             'amber_lib/bootstrap/js/bootstrap': {
-                deps: [ 'css!amber_lib/bootstrap/css/bootstrap' ]
+                deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
             'amber_lib/CodeMirror/codemirror': {
                 deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]

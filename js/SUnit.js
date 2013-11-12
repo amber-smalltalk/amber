@@ -16,7 +16,7 @@ $1=self["@result"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.ResultAnnouncement)})},
 args: [],
-source: "result\x0a\x09^result",
+source: "result\x0a\x09^ result",
 messageSends: [],
 referencedClasses: []
 }),
@@ -70,7 +70,7 @@ self._signalFailure_(aString);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"assert:description:",{aBoolean:aBoolean,aString:aString},smalltalk.TestCase)})},
 args: ["aBoolean", "aString"],
-source: "assert: aBoolean description: aString\x0a\x09aBoolean ifFalse: [self signalFailure: aString]",
+source: "assert: aBoolean description: aString\x0a\x09aBoolean ifFalse: [ self signalFailure: aString ]",
 messageSends: ["ifFalse:", "signalFailure:"],
 referencedClasses: []
 }),
@@ -83,15 +83,14 @@ category: 'testing',
 fn: function (actual,expected){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$6,$5,$4,$7,$3,$1;
+var $2,$6,$5,$4,$3,$1;
 $2=_st(actual).__eq(expected);
 $6=_st(expected)._printString();
 $ctx1.sendIdx["printString"]=1;
 $5="Expected: ".__comma($6);
 $4=_st($5).__comma(" but was: ");
 $ctx1.sendIdx[","]=2;
-$7=_st(actual)._printString();
-$3=_st($4).__comma($7);
+$3=_st($4).__comma(_st(actual)._printString());
 $ctx1.sendIdx[","]=1;
 $1=self._assert_description_($2,$3);
 return $1;
@@ -211,7 +210,7 @@ $1=_st(self["@asyncTimeout"])._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isAsync",{},smalltalk.TestCase)})},
 args: [],
-source: "isAsync\x0a\x09^asyncTimeout notNil",
+source: "isAsync\x0a\x09^ asyncTimeout notNil",
 messageSends: ["notNil"],
 referencedClasses: []
 }),
@@ -263,7 +262,7 @@ $1=self["@testSelector"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector",{},smalltalk.TestCase)})},
 args: [],
-source: "selector\x0a\x09^testSelector",
+source: "selector\x0a\x09^ testSelector",
 messageSends: [],
 referencedClasses: []
 }),
@@ -333,7 +332,7 @@ return true;
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"should:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},smalltalk.TestCase)})},
 args: ["aBlock", "anExceptionClass"],
-source: "should: aBlock raise: anExceptionClass\x0a\x09self assert: ([aBlock value. false]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [:ex | true])",
+source: "should: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock value. false ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :ex | true ])",
 messageSends: ["assert:", "on:do:", "value"],
 referencedClasses: []
 }),
@@ -356,7 +355,7 @@ return false;
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"shouldnt:raise:",{aBlock:aBlock,anExceptionClass:anExceptionClass},smalltalk.TestCase)})},
 args: ["aBlock", "anExceptionClass"],
-source: "shouldnt: aBlock raise: anExceptionClass\x0a\x09self assert: ([aBlock value. true]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [:ex | false])",
+source: "shouldnt: aBlock raise: anExceptionClass\x0a\x09self assert: ([ aBlock value. true ]\x0a\x09\x09on: anExceptionClass\x0a\x09\x09do: [ :ex | false ])",
 messageSends: ["assert:", "on:do:", "value"],
 referencedClasses: []
 }),
@@ -443,7 +442,7 @@ $2=selectors;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"allTestSelectors",{selectors:selectors},smalltalk.TestCase.klass)})},
 args: [],
-source: "allTestSelectors\x0a\x09| selectors |\x0a\x09selectors := self testSelectors.\x0a\x09self shouldInheritSelectors ifTrue: [\x0a\x09\x09selectors addAll: self superclass allTestSelectors].\x0a\x09^selectors",
+source: "allTestSelectors\x0a\x09| selectors |\x0a\x09selectors := self testSelectors.\x0a\x09self shouldInheritSelectors ifTrue: [\x0a\x09\x09selectors addAll: self superclass allTestSelectors ].\x0a\x09^ selectors",
 messageSends: ["testSelectors", "ifTrue:", "shouldInheritSelectors", "addAll:", "allTestSelectors", "superclass"],
 referencedClasses: []
 }),
@@ -464,7 +463,7 @@ return self._selector_(each);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"buildSuite",{},smalltalk.TestCase.klass)})},
 args: [],
-source: "buildSuite\x0a\x09^self allTestSelectors collect: [:each | self selector: each]",
+source: "buildSuite\x0a\x09^ self allTestSelectors collect: [ :each | self selector: each ]",
 messageSends: ["collect:", "allTestSelectors", "selector:"],
 referencedClasses: []
 }),
@@ -515,7 +514,7 @@ return smalltalk.withContext(function($ctx1) {
 return $TestCase();
 }, function($ctx1) {$ctx1.fill(self,"lookupHierarchyRoot",{},smalltalk.TestCase.klass)})},
 args: [],
-source: "lookupHierarchyRoot\x0a\x09^TestCase",
+source: "lookupHierarchyRoot\x0a\x09^ TestCase",
 messageSends: [],
 referencedClasses: ["TestCase"]
 }),
@@ -536,7 +535,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selector:",{aSelector:aSelector},smalltalk.TestCase.klass)})},
 args: ["aSelector"],
-source: "selector: aSelector\x0a\x09^self new\x0a\x09\x09setTestSelector: aSelector;\x0a\x09\x09yourself",
+source: "selector: aSelector\x0a\x09^ self new\x0a\x09\x09setTestSelector: aSelector;\x0a\x09\x09yourself",
 messageSends: ["setTestSelector:", "new", "yourself"],
 referencedClasses: []
 }),
@@ -554,7 +553,7 @@ $1=self.__tild_eq(self._lookupHierarchyRoot());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"shouldInheritSelectors",{},smalltalk.TestCase.klass)})},
 args: [],
-source: "shouldInheritSelectors\x0a\x09^self ~= self lookupHierarchyRoot",
+source: "shouldInheritSelectors\x0a\x09^ self ~= self lookupHierarchyRoot",
 messageSends: ["~=", "lookupHierarchyRoot"],
 referencedClasses: []
 }),
@@ -575,7 +574,7 @@ return _st(each)._match_("^test");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"testSelectors",{},smalltalk.TestCase.klass)})},
 args: [],
-source: "testSelectors\x0a\x09^self methodDictionary keys select: [:each | each match: '^test']",
+source: "testSelectors\x0a\x09^ self methodDictionary keys select: [ :each | each match: '^test' ]",
 messageSends: ["select:", "keys", "methodDictionary", "match:"],
 referencedClasses: []
 }),
@@ -678,7 +677,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"testCase:",{aTestCase:aTestCase},smalltalk.TestContext.klass)})},
 args: ["aTestCase"],
-source: "testCase: aTestCase\x0a\x09^self new\x0a\x09\x09testCase: aTestCase;\x0a\x09\x09yourself",
+source: "testCase: aTestCase\x0a\x09^ self new\x0a\x09\x09testCase: aTestCase;\x0a\x09\x09yourself",
 messageSends: ["testCase:", "new", "yourself"],
 referencedClasses: []
 }),
@@ -794,7 +793,7 @@ $1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"testCase:result:finished:",{aTestCase:aTestCase,aTestResult:aTestResult,aBlock:aBlock},smalltalk.ReportingTestContext.klass)})},
 args: ["aTestCase", "aTestResult", "aBlock"],
-source: "testCase: aTestCase result: aTestResult finished: aBlock\x0a\x09^(super testCase: aTestCase)\x0a\x09\x09result: aTestResult;\x0a\x09\x09finished: aBlock;\x0a\x09\x09yourself",
+source: "testCase: aTestCase result: aTestResult finished: aBlock\x0a\x09^ (super testCase: aTestCase)\x0a\x09\x09result: aTestResult;\x0a\x09\x09finished: aBlock;\x0a\x09\x09yourself",
 messageSends: ["result:", "testCase:", "finished:", "yourself"],
 referencedClasses: []
 }),
@@ -851,7 +850,7 @@ $1=self["@errors"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"errors",{},smalltalk.TestResult)})},
 args: [],
-source: "errors\x0a\x09^errors",
+source: "errors\x0a\x09^ errors",
 messageSends: [],
 referencedClasses: []
 }),
@@ -869,7 +868,7 @@ $1=self["@failures"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"failures",{},smalltalk.TestResult)})},
 args: [],
-source: "failures\x0a\x09^failures",
+source: "failures\x0a\x09^ failures",
 messageSends: [],
 referencedClasses: []
 }),
@@ -922,19 +921,17 @@ category: 'running',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$5,$4,$1;
+var $3,$2,$1;
 $3=self._runs();
 $ctx1.sendIdx["runs"]=1;
 $2=_st($3).__eq_eq(self._total());
 if(! smalltalk.assert($2)){
-$5=self._runs();
-$4=_st($5).__plus((1));
-$1=_st(aBlock)._value_($4);
+$1=_st(aBlock)._value_(_st(self._runs()).__plus((1)));
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"nextRunDo:",{aBlock:aBlock},smalltalk.TestResult)})},
 args: ["aBlock"],
-source: "nextRunDo: aBlock\x0a\x22Runs aBlock with index of next run\x0aor does nothing if no more runs\x22\x0a^self runs == self total\x0a\x09ifFalse: [ aBlock value: self runs + 1 ]",
+source: "nextRunDo: aBlock\x0a\x09\x22Runs aBlock with index of next run or does nothing if no more runs\x22\x0a\x09^ self runs == self total\x0a\x09\x09ifFalse: [ aBlock value: self runs + 1 ]",
 messageSends: ["ifFalse:", "==", "runs", "total", "value:", "+"],
 referencedClasses: []
 }),
@@ -966,7 +963,7 @@ return self._addError_(aTestCase);
 $ctx1.sendIdx["on:do:"]=1;
 return self}, function($ctx1) {$ctx1.fill(self,"runCase:",{aTestCase:aTestCase},smalltalk.TestResult)})},
 args: ["aTestCase"],
-source: "runCase: aTestCase\x0a\x09[[ self increaseRuns.\x0a\x09\x09aTestCase runCase]\x0a\x09on: TestFailure do: [:ex | self addFailure: aTestCase]]\x0a\x09on: Error do: [:ex | self addError: aTestCase]",
+source: "runCase: aTestCase\x0a\x09[ [ self increaseRuns.\x0a\x09\x09aTestCase runCase ]\x0a\x09on: TestFailure do: [ :ex | self addFailure: aTestCase ]]\x0a\x09on: Error do: [ :ex | self addError: aTestCase ]",
 messageSends: ["on:do:", "increaseRuns", "runCase", "addFailure:", "addError:"],
 referencedClasses: ["TestFailure", "Error"]
 }),
@@ -984,7 +981,7 @@ $1=self["@runs"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"runs",{},smalltalk.TestResult)})},
 args: [],
-source: "runs\x0a\x09^runs",
+source: "runs\x0a\x09^ runs",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1013,7 +1010,7 @@ $1="error";
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"status",{},smalltalk.TestResult)})},
 args: [],
-source: "status\x0a\x09^self errors isEmpty\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self failures isEmpty\x0a\x09\x09\x09\x09ifTrue: ['success']\x0a\x09\x09\x09\x09ifFalse: ['failure']]\x0a\x09\x09ifFalse: ['error']",
+source: "status\x0a\x09^ self errors isEmpty\x0a\x09\x09ifTrue: [\x0a\x09\x09\x09self failures isEmpty\x0a\x09\x09\x09\x09ifTrue: [ 'success' ]\x0a\x09\x09\x09\x09ifFalse: [ 'failure' ]]\x0a\x09\x09ifFalse: [ 'error' ]",
 messageSends: ["ifTrue:ifFalse:", "isEmpty", "errors", "failures"],
 referencedClasses: []
 }),
@@ -1031,7 +1028,7 @@ $1=self["@timestamp"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"timestamp",{},smalltalk.TestResult)})},
 args: [],
-source: "timestamp\x0a\x09^timestamp",
+source: "timestamp\x0a\x09^ timestamp",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1049,7 +1046,7 @@ $1=self["@total"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"total",{},smalltalk.TestResult)})},
 args: [],
-source: "total\x0a\x09^total",
+source: "total\x0a\x09^ total",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1087,7 +1084,7 @@ $1=self["@announcer"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"announcer",{},smalltalk.TestSuiteRunner)})},
 args: [],
-source: "announcer\x0a\x09^announcer",
+source: "announcer\x0a\x09^ announcer",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1109,7 +1106,7 @@ return self._resume();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"contextOf:",{anInteger:anInteger},smalltalk.TestSuiteRunner)})},
 args: ["anInteger"],
-source: "contextOf: anInteger\x0a\x09^ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]",
+source: "contextOf: anInteger\x0a\x09^ ReportingTestContext testCase: (suite at: anInteger) result: result finished: [ self resume ]",
 messageSends: ["testCase:result:finished:", "at:", "resume"],
 referencedClasses: ["ReportingTestContext"]
 }),
@@ -1141,7 +1138,7 @@ return _st(self._contextOf_(_st(runs).__plus((1))))._start();
 }, function($ctx2) {$ctx2.fillBlock({runs:runs},$ctx1,1)})});
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.TestSuiteRunner)})},
 args: [],
-source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a\x09result := TestResult new.\x0a\x09runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ]].",
+source: "initialize\x0a\x09super initialize.\x0a\x09announcer := Announcer new.\x0a\x09result := TestResult new.\x0a\x09runNextTest := [ | runs | runs := result runs. runs < result total ifTrue: [ (self contextOf: runs + 1) start ] ].",
 messageSends: ["initialize", "new", "runs", "ifTrue:", "<", "total", "start", "contextOf:", "+"],
 referencedClasses: ["Announcer", "TestResult"]
 }),
@@ -1159,7 +1156,7 @@ $1=self["@result"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"result",{},smalltalk.TestSuiteRunner)})},
 args: [],
-source: "result\x0a\x09^result",
+source: "result\x0a\x09^ result",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1245,7 +1242,7 @@ $1=_st(smalltalk.TestSuiteRunner.klass.superclass.fn.prototype._new.apply(_st(se
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"on:",{aCollection:aCollection},smalltalk.TestSuiteRunner.klass)})},
 args: ["aCollection"],
-source: "on: aCollection\x0a\x09^super new suite: aCollection",
+source: "on: aCollection\x0a\x09^ super new suite: aCollection",
 messageSends: ["suite:", "new"],
 referencedClasses: []
 }),

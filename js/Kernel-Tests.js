@@ -15,22 +15,20 @@ function $SystemAnnouncement(){return smalltalk.SystemAnnouncement||(typeof Syst
 function $AnnouncementSubscription(){return smalltalk.AnnouncementSubscription||(typeof AnnouncementSubscription=="undefined"?nil:AnnouncementSubscription)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 classBuilder=_st($ClassBuilder())._new();
 $ctx1.sendIdx["new"]=1;
 announcementClass1=_st(classBuilder)._basicAddSubclassOf_named_instanceVariableNames_package_($SystemAnnouncement(),"TestAnnouncement1",[],"Kernel-Tests");
-$1=_st($AnnouncementSubscription())._new();
-subscription=_st($1)._announcementClass_($SystemAnnouncement());
-$2=_st(subscription)._handlesAnnouncement_($SystemAnnouncement());
+subscription=_st(_st($AnnouncementSubscription())._new())._announcementClass_($SystemAnnouncement());
+$1=_st(subscription)._handlesAnnouncement_($SystemAnnouncement());
 $ctx1.sendIdx["handlesAnnouncement:"]=1;
-self._assert_equals_($2,true);
+self._assert_equals_($1,true);
 $ctx1.sendIdx["assert:equals:"]=1;
-$3=_st(subscription)._handlesAnnouncement_(announcementClass1);
+$2=_st(subscription)._handlesAnnouncement_(announcementClass1);
 $ctx1.sendIdx["handlesAnnouncement:"]=2;
-self._assert_equals_($3,true);
+self._assert_equals_($2,true);
 $ctx1.sendIdx["assert:equals:"]=2;
-$4=_st(subscription)._handlesAnnouncement_($Object());
-self._assert_equals_($4,false);
+self._assert_equals_(_st(subscription)._handlesAnnouncement_($Object()),false);
 _st(classBuilder)._basicRemoveClass_(announcementClass1);
 return self}, function($ctx1) {$ctx1.fill(self,"testHandlesAnnouncement",{subscription:subscription,announcementClass1:announcementClass1,announcementClass2:announcementClass2,classBuilder:classBuilder},smalltalk.AnnouncementSubscriptionTest)})},
 args: [],
@@ -60,7 +58,7 @@ return _st(_st($Error())._new())._signal();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearInterval",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCanClearInterval\x0a\x09self shouldnt: [([Error new signal] valueWithInterval: 0) clearInterval] raise: Error",
+source: "testCanClearInterval\x0a\x09self shouldnt: [ ([ Error new signal ] valueWithInterval: 0) clearInterval ] raise: Error",
 messageSends: ["shouldnt:raise:", "clearInterval", "valueWithInterval:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -83,7 +81,7 @@ return _st(_st($Error())._new())._signal();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testCanClearTimeout",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCanClearTimeout\x0a\x09self shouldnt: [([Error new signal] valueWithTimeout: 0) clearTimeout] raise: Error",
+source: "testCanClearTimeout\x0a\x09self shouldnt: [ ([ Error new signal ] valueWithTimeout: 0) clearTimeout ] raise: Error",
 messageSends: ["shouldnt:raise:", "clearTimeout", "valueWithTimeout:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -102,7 +100,7 @@ return (1).__plus((1));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._compiledSource())._includesSubString_("function"));
 return self}, function($ctx1) {$ctx1.fill(self,"testCompiledSource",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCompiledSource\x0a\x09self assert: ([1+1] compiledSource includesSubString: 'function')",
+source: "testCompiledSource\x0a\x09self assert: ([ 1+1 ] compiledSource includesSubString: 'function')",
 messageSends: ["assert:", "includesSubString:", "compiledSource", "+"],
 referencedClasses: []
 }),
@@ -155,7 +153,7 @@ return (4);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsure",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testEnsure\x0a\x09self assert: ([3] ensure: [4]) equals: 3",
+source: "testEnsure\x0a\x09self assert: ([ 3 ] ensure: [ 4 ]) equals: 3",
 messageSends: ["assert:equals:", "ensure:"],
 referencedClasses: []
 }),
@@ -181,7 +179,7 @@ return true;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testEnsureRaises",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testEnsureRaises\x0a\x09self should: [[Error new signal] ensure: [true]] raise: Error",
+source: "testEnsureRaises\x0a\x09self should: [ [Error new signal ] ensure: [ true ]] raise: Error",
 messageSends: ["should:raise:", "ensure:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -231,7 +229,7 @@ return smalltalk.withContext(function($ctx1) {
 	theTestConstructor.prototype = new theTestPrototype;
 
 	var theWrappedConstructor = _st(theTestConstructor);
-	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);
+	var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);
 	self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');
 
 	"newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made."
@@ -239,7 +237,7 @@ return smalltalk.withContext(function($ctx1) {
 	self._should_raise_(_st(constructionShouldFail), smalltalk.Error);;
 return self}, function($ctx1) {$ctx1.fill(self,"testNewWithValues",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), smalltalk.Error);\x0a>",
+source: "testNewWithValues\x0a<\x0a\x09function theTestPrototype() {this.name = \x22theTestPrototype\x22;}\x0a\x09function theTestConstructor(arg1, arg2, arg3) {}\x0a\x09theTestConstructor.prototype = new theTestPrototype;\x0a\x0a\x09var theWrappedConstructor = _st(theTestConstructor);\x0a\x09var theResult = theWrappedConstructor._newWithValues_([1, 2, 3 ]);\x0a\x09self._assert_equals_(Object.getPrototypeOf(theResult).name, 'theTestPrototype');\x0a\x0a\x09\x22newWithValues: cannot help if the argument list is wrong, and should warn that a mistake was made.\x22\x0a\x09function constructionShouldFail() {var anotherResult = theWrappedConstructor._newWithValues_('This is so wrong');}\x0a\x09self._should_raise_(_st(constructionShouldFail), smalltalk.Error);\x0a>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -252,20 +250,19 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._numArgs();
 $ctx1.sendIdx["numArgs"]=1;
 self._assert_equals_($1,(0));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=_st((function(a,b){
+self._assert_equals_(_st((function(a,b){
 return smalltalk.withContext(function($ctx2) {
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})}))._numArgs();
-self._assert_equals_($2,(2));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,2)})}))._numArgs(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testNumArgs",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [:a :b | ] numArgs equals: 2",
+source: "testNumArgs\x0a\x09self assert: [] numArgs equals: 0.\x0a\x09self assert: [ :a :b | ] numArgs equals: 2",
 messageSends: ["assert:equals:", "numArgs"],
 referencedClasses: []
 }),
@@ -288,7 +285,7 @@ return true;
 }, function($ctx2) {$ctx2.fillBlock({ex:ex},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testOnDo",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testOnDo\x0a\x09self assert: ([Error new signal] on: Error do: [:ex | true])",
+source: "testOnDo\x0a\x09self assert: ([ Error new signal ] on: Error do: [ :ex | true ])",
 messageSends: ["assert:", "on:do:", "signal", "new"],
 referencedClasses: ["Error"]
 }),
@@ -301,7 +298,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return (1).__plus((1));
@@ -320,14 +317,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(x).__star(y);
 }, function($ctx2) {$ctx2.fillBlock({x:x,y:y},$ctx1,3)})}))._value_value_((2),(4)),(8));
 $ctx1.sendIdx["assert:equals:"]=3;
-$2=_st((function(a,b,c){
+self._assert_equals_(_st((function(a,b,c){
 return smalltalk.withContext(function($ctx2) {
 return (1);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b,c:c},$ctx1,4)})}))._value();
-self._assert_equals_($2,(1));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b,c:c},$ctx1,4)})}))._value(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testValue\x0a\x09self assert: ([1+1] value) equals: 2.\x0a\x09self assert: ([:x | x +1] value: 2) equals: 3.\x0a\x09self assert: ([:x :y | x*y] value: 2 value: 4) equals: 8.\x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([:a :b :c | 1] value) equals: 1",
+source: "testValue\x0a\x09self assert: ([ 1+1 ] value) equals: 2.\x0a\x09self assert: ([ :x | x +1 ] value: 2) equals: 3.\x0a\x09self assert: ([ :x :y | x*y ] value: 2 value: 4) equals: 8.\x0a\x0a\x09\x22Arguments are optional in Amber. This isn't ANSI compliant.\x22\x0a\x0a\x09self assert: ([ :a :b :c | 1 ] value) equals: 1",
 messageSends: ["assert:equals:", "value", "+", "value:", "value:value:", "*"],
 referencedClasses: []
 }),
@@ -340,7 +336,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=_st((function(){
 return smalltalk.withContext(function($ctx2) {
 return (1);
@@ -356,14 +352,13 @@ $ctx2.sendIdx["+"]=1;
 $ctx1.sendIdx["valueWithPossibleArguments:"]=2;
 self._assert_equals_($2,(7));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=_st((function(a,b){
+self._assert_equals_(_st((function(a,b){
 return smalltalk.withContext(function($ctx2) {
 return _st(a).__plus(b);
-}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})}))._valueWithPossibleArguments_([(3), (4), (5)]);
-self._assert_equals_($3,(7));
+}, function($ctx2) {$ctx2.fillBlock({a:a,b:b},$ctx1,3)})}))._valueWithPossibleArguments_([(3), (4), (5)]),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testValueWithPossibleArguments",{},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testValueWithPossibleArguments\x0a\x09self assert: ([1] valueWithPossibleArguments: #(3 4)) equals: 1.\x0a\x09self assert: ([:a | a + 4] valueWithPossibleArguments: #(3 4)) equals: 7.\x0a\x09self assert: ([:a :b | a + b] valueWithPossibleArguments: #(3 4 5)) equals: 7.",
+source: "testValueWithPossibleArguments\x0a\x09self assert: ([ 1 ] valueWithPossibleArguments: #(3 4)) equals: 1.\x0a\x09self assert: ([ :a | a + 4 ] valueWithPossibleArguments: #(3 4)) equals: 7.\x0a\x09self assert: ([ :a :b | a + b ] valueWithPossibleArguments: #(3 4 5)) equals: 7.",
 messageSends: ["assert:equals:", "valueWithPossibleArguments:", "+"],
 referencedClasses: []
 }),
@@ -400,7 +395,7 @@ return _st(i).__gt((5));
 self._assert_equals_(i,(6));
 return self}, function($ctx1) {$ctx1.fill(self,"testWhileFalse",{i:i},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testWhileFalse\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[i > 5] whileFalse: [i := i + 1].\x0a\x09self assert: i equals: 6.\x0a\x0a\x09i := 0.\x0a\x09[i := i + 1. i > 5] whileFalse.\x0a\x09self assert: i equals: 6",
+source: "testWhileFalse\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[ i > 5 ] whileFalse: [ i := i + 1 ].\x0a\x09self assert: i equals: 6.\x0a\x0a\x09i := 0.\x0a\x09[ i := i + 1. i > 5 ] whileFalse.\x0a\x09self assert: i equals: 6",
 messageSends: ["whileFalse:", ">", "+", "assert:equals:", "whileFalse"],
 referencedClasses: []
 }),
@@ -437,7 +432,7 @@ return _st(i).__lt((5));
 self._assert_equals_(i,(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testWhileTrue",{i:i},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testWhileTrue\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[i < 5] whileTrue: [i := i + 1].\x0a\x09self assert: i equals: 5.\x0a\x0a\x09i := 0.\x0a\x09[i := i + 1. i < 5] whileTrue.\x0a\x09self assert: i equals: 5",
+source: "testWhileTrue\x0a\x09| i |\x0a\x09i := 0.\x0a\x09[ i < 5 ] whileTrue: [ i := i + 1 ].\x0a\x09self assert: i equals: 5.\x0a\x0a\x09i := 0.\x0a\x09[ i := i + 1. i < 5 ] whileTrue.\x0a\x09self assert: i equals: 5",
 messageSends: ["whileTrue:", "<", "+", "assert:equals:", "whileTrue"],
 referencedClasses: []
 }),
@@ -453,7 +448,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$10,$9,$12,$13,$11;
+var $1,$2,$3,$4,$5,$6,$7,$8,$10,$9,$12,$11;
 $1=(0).__eq(false);
 $ctx1.sendIdx["="]=1;
 self._deny_($1);
@@ -493,8 +488,7 @@ self._assert_($9);
 $ctx1.sendIdx["assert:"]=3;
 $12=true._yourself();
 $ctx1.sendIdx["yourself"]=2;
-$13=true._yourself();
-$11=_st($12).__eq($13);
+$11=_st($12).__eq(true._yourself());
 self._assert_($11);
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.BooleanTest)})},
 args: [],
@@ -511,7 +505,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$10,$9,$12,$13,$11;
+var $1,$2,$3,$4,$5,$6,$7,$8,$10,$9,$12,$11;
 $1=(0).__eq_eq(false);
 $ctx1.sendIdx["=="]=1;
 self._deny_($1);
@@ -551,8 +545,7 @@ self._assert_($9);
 $ctx1.sendIdx["assert:"]=3;
 $12=true._yourself();
 $ctx1.sendIdx["yourself"]=2;
-$13=true._yourself();
-$11=_st($12).__eq_eq($13);
+$11=_st($12).__eq_eq(true._yourself());
 self._assert_($11);
 return self}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},smalltalk.BooleanTest)})},
 args: [],
@@ -619,7 +612,7 @@ $8="alternative block";
 self._assert_equals_($8,"alternative block2");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalse",{},smalltalk.BooleanTest)})},
 args: [],
-source: "testIfTrueIfFalse\x0a\x0a\x09self assert: (true ifTrue: ['alternative block']) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: ['alternative block']) equals: nil.\x0a\x0a\x09self assert: (false ifTrue: ['alternative block']) equals: nil.\x0a\x09self assert: (false ifFalse: ['alternative block']) equals: 'alternative block'.\x0a\x0a\x09self assert: (false ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block2'.\x0a\x09self assert: (false ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block'.\x0a\x0a\x09self assert: (true ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block2'.",
+source: "testIfTrueIfFalse\x0a\x0a\x09self assert: (true ifTrue: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: [ 'alternative block' ]) equals: nil.\x0a\x0a\x09self assert: (false ifTrue: [ 'alternative block' ]) equals: nil.\x0a\x09self assert: (false ifFalse: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (false ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.\x0a\x09self assert: (false ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (true ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x09self assert: (true ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.",
 messageSends: ["assert:equals:", "ifTrue:", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
 referencedClasses: []
 }),
@@ -697,7 +690,7 @@ $15="alternative block";
 self._assert_equals_($15,"alternative block2");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfTrueIfFalseWithBoxing",{},smalltalk.BooleanTest)})},
 args: [],
-source: "testIfTrueIfFalseWithBoxing\x0a\x0a\x09self assert: (true yourself ifTrue: ['alternative block']) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: ['alternative block']) equals: nil.\x0a\x0a\x09self assert: (false yourself ifTrue: ['alternative block']) equals: nil.\x0a\x09self assert: (false yourself ifFalse: ['alternative block']) equals: 'alternative block'.\x0a\x0a\x09self assert: (false yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block2'.\x0a\x09self assert: (false yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block'.\x0a\x0a\x09self assert: (true yourself ifTrue: ['alternative block'] ifFalse: ['alternative block2']) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: ['alternative block'] ifTrue: ['alternative block2']) equals: 'alternative block2'.",
+source: "testIfTrueIfFalseWithBoxing\x0a\x0a\x09self assert: (true yourself ifTrue: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: [ 'alternative block' ]) equals: nil.\x0a\x0a\x09self assert: (false yourself ifTrue: [ 'alternative block' ]) equals: nil.\x0a\x09self assert: (false yourself ifFalse: [ 'alternative block' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (false yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block2'.\x0a\x09self assert: (false yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x0a\x09self assert: (true yourself ifTrue: [ 'alternative block' ] ifFalse: [ 'alternative block2' ]) equals: 'alternative block'.\x0a\x09self assert: (true yourself ifFalse: [ 'alternative block' ] ifTrue: [ 'alternative block2' ]) equals: 'alternative block2'.",
 messageSends: ["assert:equals:", "ifTrue:", "yourself", "ifFalse:", "ifTrue:ifFalse:", "ifFalse:ifTrue:"],
 referencedClasses: []
 }),
@@ -710,7 +703,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$17,$18,$16,$15,$20,$19,$22,$21,$25,$26,$24,$23;
+var $1,$2,$3,$5,$4,$6,$7,$8,$10,$9,$12,$11,$14,$13,$17,$18,$16,$15,$20,$19,$22,$21,$25,$24,$23;
 $1=true.__and(true);
 $ctx1.sendIdx["&"]=1;
 self._assert_($1);
@@ -775,8 +768,7 @@ self._assert_($21);
 $ctx1.sendIdx["assert:"]=7;
 $25=(1).__gt((0));
 $ctx1.sendIdx[">"]=7;
-$26=(1).__gt((2));
-$24=_st($25).__or($26);
+$24=_st($25).__or((1).__gt((2)));
 $23=self._assert_($24);
 return self}, function($ctx1) {$ctx1.fill(self,"testLogic",{},smalltalk.BooleanTest)})},
 args: [],
@@ -901,7 +893,7 @@ return (1).__gt((2));
 $20=self._assert_($21);
 return self}, function($ctx1) {$ctx1.fill(self,"testLogicKeywords",{},smalltalk.BooleanTest)})},
 args: [],
-source: "testLogicKeywords\x0a\x09\x22Trivial logic table\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ true]);\x0a\x09\x09deny: (true and: [ false ]);\x0a\x09\x09deny: (false and: [ true ]);\x0a\x09\x09deny: (false and: [ false ]).\x0a\x09self\x0a\x09\x09assert: (true or: [ true ]);\x0a\x09\x09assert: (true or: [ false ]);\x0a\x09\x09assert: (false or: [ true ]);\x0a\x09\x09deny: (false or: [ false ]).\x0a\x09\x09\x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ 1 > 0 ]);\x0a\x09\x09deny: ((1 > 0) and: [ false ]);\x0a\x09\x09deny: ((1 > 0) and: [ 1 > 2 ]).\x0a\x09self\x0a\x09\x09assert: (false or: [ 1 > 0 ]);\x0a\x09\x09assert: ((1 > 0) or: [ false ]);\x0a\x09\x09assert: ((1 > 0) or: [ 1 > 2 ])",
+source: "testLogicKeywords\x0a\x09\x22Trivial logic table\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ true ]);\x0a\x09\x09deny: (true and: [ false ]);\x0a\x09\x09deny: (false and: [ true ]);\x0a\x09\x09deny: (false and: [ false ]).\x0a\x09self\x0a\x09\x09assert: (true or: [ true ]);\x0a\x09\x09assert: (true or: [ false ]);\x0a\x09\x09assert: (false or: [ true ]);\x0a\x09\x09deny: (false or: [ false ]).\x0a\x09\x09\x0a\x09\x22Checking that expressions work fine too\x22\x0a\x09self\x0a\x09\x09assert: (true and: [ 1 > 0 ]);\x0a\x09\x09deny: ((1 > 0) and: [ false ]);\x0a\x09\x09deny: ((1 > 0) and: [ 1 > 2 ]).\x0a\x09self\x0a\x09\x09assert: (false or: [ 1 > 0 ]);\x0a\x09\x09assert: ((1 > 0) or: [ false ]);\x0a\x09\x09assert: ((1 > 0) or: [ 1 > 2 ])",
 messageSends: ["assert:", "and:", "deny:", "or:", ">"],
 referencedClasses: []
 }),
@@ -968,7 +960,7 @@ self["@theClass"];
 };
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.ClassBuilderTest)})},
 args: [],
-source: "tearDown\x0a\x09theClass ifNotNil: [Smalltalk current removeClass: theClass. theClass := nil]",
+source: "tearDown\x0a\x09theClass ifNotNil: [ Smalltalk current removeClass: theClass. theClass := nil ]",
 messageSends: ["ifNotNil:", "removeClass:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -982,36 +974,31 @@ fn: function (){
 var self=this;
 function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4,$8,$9,$7,$11,$10,$13,$12;
+var $2,$1,$4,$3,$6,$5,$8,$7;
 self["@theClass"]=_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
 $2=_st(self["@theClass"])._superclass();
 $ctx1.sendIdx["superclass"]=1;
-$3=_st($ObjectMock())._superclass();
-$1=_st($2).__eq_eq($3);
+$1=_st($2).__eq_eq(_st($ObjectMock())._superclass());
 $ctx1.sendIdx["=="]=1;
 self._assert_($1);
 $ctx1.sendIdx["assert:"]=1;
-$5=_st(self["@theClass"])._instanceVariableNames();
+$4=_st(self["@theClass"])._instanceVariableNames();
 $ctx1.sendIdx["instanceVariableNames"]=1;
-$6=_st($ObjectMock())._instanceVariableNames();
-$4=_st($5).__eq_eq($6);
+$3=_st($4).__eq_eq(_st($ObjectMock())._instanceVariableNames());
 $ctx1.sendIdx["=="]=2;
-self._assert_($4);
+self._assert_($3);
 $ctx1.sendIdx["assert:"]=2;
 self._assert_equals_(_st(self["@theClass"])._name(),"ObjectMock2");
 $ctx1.sendIdx["assert:equals:"]=1;
-$8=_st(self["@theClass"])._package();
+$6=_st(self["@theClass"])._package();
 $ctx1.sendIdx["package"]=1;
-$9=_st($ObjectMock())._package();
-$7=_st($8).__eq_eq($9);
-self._assert_($7);
-$11=_st(self["@theClass"])._methodDictionary();
+$5=_st($6).__eq_eq(_st($ObjectMock())._package());
+self._assert_($5);
+$8=_st(self["@theClass"])._methodDictionary();
 $ctx1.sendIdx["methodDictionary"]=1;
-$10=_st($11)._keys();
+$7=_st($8)._keys();
 $ctx1.sendIdx["keys"]=1;
-$13=_st($ObjectMock())._methodDictionary();
-$12=_st($13)._keys();
-self._assert_equals_($10,$12);
+self._assert_equals_($7,_st(_st($ObjectMock())._methodDictionary())._keys());
 return self}, function($ctx1) {$ctx1.fill(self,"testClassCopy",{},smalltalk.ClassBuilderTest)})},
 args: [],
 source: "testClassCopy\x0a\x09theClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09self assert: theClass superclass == ObjectMock superclass.\x0a\x09self assert: theClass instanceVariableNames == ObjectMock instanceVariableNames.\x0a\x09self assert: theClass name equals: 'ObjectMock2'.\x0a\x09self assert: theClass package == ObjectMock package.\x0a\x09self assert: theClass methodDictionary keys equals: ObjectMock methodDictionary keys",
@@ -1031,7 +1018,7 @@ function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefin
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ObjectMock2(){return smalltalk.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5,$6,$7,$8,$9,$10,$11,$13,$12,$16,$18,$17,$15,$14,$19;
+var $2,$1,$4,$3,$5,$6,$7,$8,$9,$11,$10,$14,$13,$12;
 oldClass=_st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
 $2=_st($Smalltalk())._current();
 $ctx1.sendIdx["current"]=1;
@@ -1055,30 +1042,25 @@ self._assert_(_st(_st($ObjectMock2())._instanceVariableNames())._isEmpty());
 $ctx1.sendIdx["assert:"]=2;
 $7=_st($ObjectMock2())._selectors();
 $ctx1.sendIdx["selectors"]=1;
-$8=_st(oldClass)._selectors();
-self._assert_equals_($7,$8);
+self._assert_equals_($7,_st(oldClass)._selectors());
 $ctx1.sendIdx["assert:equals:"]=1;
-$9=_st($ObjectMock2())._comment();
+$8=_st($ObjectMock2())._comment();
 $ctx1.sendIdx["comment"]=1;
-$10=_st(oldClass)._comment();
-self._assert_equals_($9,$10);
+self._assert_equals_($8,_st(oldClass)._comment());
 $ctx1.sendIdx["assert:equals:"]=2;
-$11=_st(_st($ObjectMock2())._package())._name();
+$9=_st(_st($ObjectMock2())._package())._name();
 $ctx1.sendIdx["name"]=1;
-self._assert_equals_($11,"Kernel-Tests");
-$13=_st(instance)._class();
+self._assert_equals_($9,"Kernel-Tests");
+$11=_st(instance)._class();
 $ctx1.sendIdx["class"]=1;
-$12=_st($13).__eq_eq($ObjectMock2());
-self._deny_($12);
-$16=_st($Smalltalk())._current();
+$10=_st($11).__eq_eq($ObjectMock2());
+self._deny_($10);
+$14=_st($Smalltalk())._current();
 $ctx1.sendIdx["current"]=3;
-$18=_st(instance)._class();
-$17=_st($18)._name();
-$15=_st($16)._at_($17);
-$14=_st($15)._isNil();
-self._assert_($14);
-$19=_st($Smalltalk())._current();
-_st($19)._removeClass_($ObjectMock2());
+$13=_st($14)._at_(_st(_st(instance)._class())._name());
+$12=_st($13)._isNil();
+self._assert_($12);
+_st(_st($Smalltalk())._current())._removeClass_($ObjectMock2());
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigration",{instance:instance,oldClass:oldClass},smalltalk.ClassBuilderTest)})},
 args: [],
 source: "testClassMigration\x0a\x09| instance oldClass |\x0a\x09\x0a\x09oldClass := builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09instance := (Smalltalk current at: 'ObjectMock2') new.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: oldClass == ObjectMock2.\x0a\x09\x0a\x09self assert: ObjectMock2 superclass == ObjectMock.\x0a\x09self assert: ObjectMock2 instanceVariableNames isEmpty.\x0a\x09self assert: ObjectMock2 selectors equals: oldClass selectors.\x0a\x09self assert: ObjectMock2 comment equals: oldClass comment.\x0a\x09self assert: ObjectMock2 package name equals: 'Kernel-Tests'.\x0a\x09\x0a\x09self deny: instance class == ObjectMock2.\x0a\x09\x22Commeting this out. Tests implementation detail.\x22\x0a\x09\x22self assert: instance class name equals: 'OldObjectMock2'.\x22\x0a\x09\x0a\x09self assert: (Smalltalk current at: instance class name) isNil.\x0a\x09\x0a\x09Smalltalk current removeClass: ObjectMock2",
@@ -1097,7 +1079,7 @@ function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefin
 function $ObjectMock2(){return smalltalk.ObjectMock2||(typeof ObjectMock2=="undefined"?nil:ObjectMock2)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$5,$4,$6;
+var $1,$3,$2;
 _st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
 $1=_st($ObjectMock2())._class();
 $ctx1.sendIdx["class"]=1;
@@ -1106,11 +1088,8 @@ $3=_st($Smalltalk())._current();
 $ctx1.sendIdx["current"]=1;
 $2=_st($3)._at_("ObjectMock2");
 _st($ObjectMock())._subclass_instanceVariableNames_package_($2,"","Kernel-Tests");
-$5=_st($ObjectMock2())._class();
-$4=_st($5)._instanceVariableNames();
-self._assert_equals_($4,["foo", "bar"]);
-$6=_st($Smalltalk())._current();
-_st($6)._removeClass_($ObjectMock2());
+self._assert_equals_(_st(_st($ObjectMock2())._class())._instanceVariableNames(),["foo", "bar"]);
+_st(_st($Smalltalk())._current())._removeClass_($ObjectMock2());
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithClassInstanceVariables",{},smalltalk.ClassBuilderTest)})},
 args: [],
 source: "testClassMigrationWithClassInstanceVariables\x0a\x09\x0a\x09builder copyClass: ObjectMock named: 'ObjectMock2'.\x0a\x09ObjectMock2 class instanceVariableNames: 'foo bar'.\x0a\x09\x0a\x09\x22Change the superclass of ObjectMock2\x22\x0a\x09ObjectMock subclass: (Smalltalk current at: 'ObjectMock2')\x0a\x09\x09instanceVariableNames: ''\x0a\x09\x09package: 'Kernel-Tests'.\x0a\x09\x0a\x09self assert: ObjectMock2 class instanceVariableNames equals: #('foo' 'bar').\x0a\x09\x0a\x09Smalltalk current removeClass: ObjectMock2",
@@ -1131,7 +1110,7 @@ function $ObjectMock3(){return smalltalk.ObjectMock3||(typeof ObjectMock3=="unde
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 function $ObjectMock4(){return smalltalk.ObjectMock4||(typeof ObjectMock4=="undefined"?nil:ObjectMock4)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5,$8,$7,$9;
+var $2,$1,$4,$3,$6,$5;
 _st(self["@builder"])._copyClass_named_($ObjectMock(),"ObjectMock2");
 _st($ObjectMock2())._subclass_instanceVariableNames_package_("ObjectMock3","","Kernel-Tests");
 $ctx1.sendIdx["subclass:instanceVariableNames:package:"]=1;
@@ -1153,13 +1132,10 @@ $5=_st($6)._includes_($ObjectMock3());
 $ctx1.sendIdx["includes:"]=2;
 self._assert_($5);
 $ctx1.sendIdx["assert:"]=2;
-$8=_st($ObjectMock3())._subclasses();
-$7=_st($8)._includes_($ObjectMock4());
-self._assert_($7);
+self._assert_(_st(_st($ObjectMock3())._subclasses())._includes_($ObjectMock4()));
 _st(_st($ObjectMock())._allSubclasses())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$9=_st($Smalltalk())._current();
-return _st($9)._removeClass_(each);
+return _st(_st($Smalltalk())._current())._removeClass_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testClassMigrationWithSubclasses",{},smalltalk.ClassBuilderTest)})},
 args: [],
@@ -1195,21 +1171,19 @@ category: 'convenience',
 fn: function (aCollection,anotherCollection){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4;
+var $2,$1,$4,$3;
 $2=_st(aCollection)._size();
 $ctx1.sendIdx["size"]=1;
-$3=_st(anotherCollection)._size();
-$1=_st($2).__eq($3);
+$1=_st($2).__eq(_st(anotherCollection)._size());
 $ctx1.sendIdx["="]=1;
 self._assert_($1);
 $ctx1.sendIdx["assert:"]=1;
 _st(aCollection)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$5=_st(aCollection)._occurrencesOf_(each);
+$4=_st(aCollection)._occurrencesOf_(each);
 $ctx2.sendIdx["occurrencesOf:"]=1;
-$6=_st(anotherCollection)._occurrencesOf_(each);
-$4=_st($5).__eq($6);
-return self._assert_($4);
+$3=_st($4).__eq(_st(anotherCollection)._occurrencesOf_(each));
+return self._assert_($3);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"assertSameContents:as:",{aCollection:aCollection,anotherCollection:anotherCollection},smalltalk.CollectionTest)})},
 args: ["aCollection", "anotherCollection"],
@@ -1314,12 +1288,10 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1;
 $1=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$3=self._collection();
-$2=_st($3)._asArray();
-self._assertSameContents_as_($1,$2);
+self._assertSameContents_as_($1,_st(self._collection())._asArray());
 return self}, function($ctx1) {$ctx1.fill(self,"testAsArray",{},smalltalk.CollectionTest)})},
 args: [],
 source: "testAsArray\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: self collection asArray",
@@ -1335,12 +1307,10 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1;
 $1=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$3=self._collection();
-$2=_st($3)._asOrderedCollection();
-self._assertSameContents_as_($1,$2);
+self._assertSameContents_as_($1,_st(self._collection())._asOrderedCollection());
 return self}, function($ctx1) {$ctx1.fill(self,"testAsOrderedCollection",{},smalltalk.CollectionTest)})},
 args: [],
 source: "testAsOrderedCollection\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: self collection asOrderedCollection",
@@ -1401,7 +1371,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._detect_((function(each){
@@ -1412,8 +1382,7 @@ $ctx1.sendIdx["detect:"]=1;
 self._assert_equals_($1,(-4));
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=self._collection();
-return _st($3)._detect_((function(each){
+return _st(self._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each).__eq((6));
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,3)})}));
@@ -1435,7 +1404,7 @@ var self=this;
 var newCollection;
 function $OrderedCollection(){return smalltalk.OrderedCollection||(typeof OrderedCollection=="undefined"?nil:OrderedCollection)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 newCollection=_st($OrderedCollection())._new();
 $1=self._collection();
 $ctx1.sendIdx["collection"]=1;
@@ -1443,8 +1412,7 @@ _st($1)._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(newCollection)._add_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$2=self._collection();
-self._assertSameContents_as_($2,newCollection);
+self._assertSameContents_as_(self._collection(),newCollection);
 return self}, function($ctx1) {$ctx1.fill(self,"testDo",{newCollection:newCollection},smalltalk.CollectionTest)})},
 args: [],
 source: "testDo\x0a\x09| newCollection |\x0a\x09newCollection := OrderedCollection new.\x0a\x09self collection do: [ :each |\x0a\x09\x09newCollection add: each ].\x0a\x09self\x0a\x09\x09assertSameContents: self collection\x0a\x09\x09as: newCollection",
@@ -1460,12 +1428,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(_st(self._collectionClass())._new())._isEmpty();
 $ctx1.sendIdx["isEmpty"]=1;
 self._assert_($1);
-$2=_st(self._collection())._isEmpty();
-self._deny_($2);
+self._deny_(_st(self._collection())._isEmpty());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{},smalltalk.CollectionTest)})},
 args: [],
 source: "testIsEmpty\x0a\x09self assert: self collectionClass new isEmpty.\x0a\x09self deny: self collection isEmpty",
@@ -1502,13 +1469,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(_st(self._collectionClass())._new())._size();
 $ctx1.sendIdx["size"]=1;
 self._assert_equals_($1,(0));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=_st(self._collection())._size();
-self._assert_equals_($2,(4));
+self._assert_equals_(_st(self._collection())._size(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.CollectionTest)})},
 args: [],
 source: "testSize\x0a\x09self assert: self collectionClass new size equals: 0.\x0a\x09self assert: self collection size equals: 4",
@@ -1562,7 +1528,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._at_((4));
@@ -1570,8 +1536,7 @@ $ctx1.sendIdx["at:"]=1;
 self._assert_equals_($1,(-4));
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=self._collection();
-return _st($3)._at_((5));
+return _st(self._collection())._at_((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.IndexableCollectionTest)})},
 args: [],
@@ -1588,13 +1553,10 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$5=self._collection();
-$4=_st($5)._size();
-$3=_st($4).__plus((1));
-$1=_st($2)._at_ifAbsent_($3,(function(){
+$1=_st($2)._at_ifAbsent_(_st(_st(self._collection())._size()).__plus((1)),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "none";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -1616,7 +1578,7 @@ var self=this;
 var collection;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1,$6,$5;
+var $2,$4,$3,$1;
 collection=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $2=self._collection();
@@ -1631,12 +1593,10 @@ $ctx2.sendIdx["="]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $ctx1.sendIdx["contains:"]=1;
 self._assert_($1);
-$6=self._collection();
-$5=_st($6)._contains_((function(each){
+self._deny_(_st(self._collection())._contains_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st($Object())._new());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-self._deny_($5);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testContains",{collection:collection},smalltalk.IndexableCollectionTest)})},
 args: [],
 source: "testContains\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self assert: (self collection contains: [ :each | each = self collection first ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
@@ -1653,7 +1613,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$4;
+var $2,$1,$3;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._indexOf_((2));
@@ -1666,12 +1626,10 @@ $3=self._collection();
 $ctx2.sendIdx["collection"]=2;
 return _st($3)._indexOf_((999));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
-$5=self._collection();
-$4=_st($5)._indexOf_ifAbsent_((999),(function(){
+self._assert_equals_(_st(self._collection())._indexOf_ifAbsent_((999),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "sentinel";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-self._assert_equals_($4,"sentinel");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),"sentinel");
 return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.IndexableCollectionTest)})},
 args: [],
 source: "testIndexOf\x0a\x09self assert: (self collection indexOf: 2) equals: 2.\x0a\x09self should: [ self collection indexOf: 999 ] raise: Error.\x0a\x09self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'",
@@ -1688,11 +1646,9 @@ fn: function (){
 var self=this;
 var collection;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 collection=self._collection();
 $ctx1.sendIdx["collection"]=1;
-$1=self._collection();
-_st($1)._withIndexDo_((function(each,index){
+_st(self._collection())._withIndexDo_((function(each,index){
 return smalltalk.withContext(function($ctx2) {
 return self._assert_equals_(_st(collection)._at_(index),each);
 }, function($ctx2) {$ctx2.fillBlock({each:each,index:index},$ctx1,1)})}));
@@ -1714,15 +1670,14 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$1;
+var $2,$3,$4,$1;
 $2="b".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
 $3="a".__minus_gt((2));
 $ctx1.sendIdx["->"]=2;
 $4="c".__minus_gt((3));
 $ctx1.sendIdx["->"]=3;
-$5="d".__minus_gt((-4));
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5]);
+$1=smalltalk.HashedCollection._from_([$2,$3,$4,"d".__minus_gt((-4))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.HashedCollectionTest)})},
 args: [],
@@ -1739,7 +1694,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$7,$8,$1;
+var $2,$3,$4,$5,$6,$7,$1;
 $2="b".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
 $3="a".__minus_gt((2));
@@ -1752,8 +1707,7 @@ $6="e".__minus_gt((1));
 $ctx1.sendIdx["->"]=5;
 $7="f".__minus_gt((2));
 $ctx1.sendIdx["->"]=6;
-$8="g".__minus_gt((10));
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8]);
+$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,"g".__minus_gt((10))]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"collectionWithDuplicates",{},smalltalk.HashedCollectionTest)})},
 args: [],
@@ -1788,7 +1742,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._at_("a");
@@ -1796,8 +1750,7 @@ $ctx1.sendIdx["at:"]=1;
 self._assert_equals_($1,(2));
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=self._collection();
-return _st($3)._at_((5));
+return _st(self._collection())._at_((5));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.HashedCollectionTest)})},
 args: [],
@@ -1816,7 +1769,7 @@ var self=this;
 var collection;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1,$7,$6;
+var $2,$5,$4,$3,$1;
 collection=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $2=self._collection();
@@ -1832,12 +1785,10 @@ $ctx2.sendIdx["="]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 $ctx1.sendIdx["contains:"]=1;
 self._assert_($1);
-$7=self._collection();
-$6=_st($7)._contains_((function(each){
+self._deny_(_st(self._collection())._contains_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(_st($Object())._new());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
-self._deny_($6);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
 return self}, function($ctx1) {$ctx1.fill(self,"testContains",{collection:collection},smalltalk.HashedCollectionTest)})},
 args: [],
 source: "testContains\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self assert: (self collection contains: [ :each | each = self collection values first ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
@@ -1854,7 +1805,7 @@ fn: function (){
 var self=this;
 var associations;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$6,$4;
+var $1,$2,$3,$5,$4;
 $1="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
 $2="b".__minus_gt((2));
@@ -1863,8 +1814,7 @@ associations=[$1,$2];
 $3=_st(_st(self._class())._collectionClass())._from_(associations);
 $5="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=3;
-$6="b".__minus_gt((2));
-$4=smalltalk.HashedCollection._from_([$5,$6]);
+$4=smalltalk.HashedCollection._from_([$5,"b".__minus_gt((2))]);
 self._assertSameContents_as_($3,$4);
 return self}, function($ctx1) {$ctx1.fill(self,"testFrom",{associations:associations},smalltalk.HashedCollectionTest)})},
 args: [],
@@ -1882,7 +1832,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$4;
+var $2,$1,$3;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._indexOf_((2));
@@ -1895,12 +1845,10 @@ $3=self._collection();
 $ctx2.sendIdx["collection"]=2;
 return _st($3)._indexOf_((999));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
-$5=self._collection();
-$4=_st($5)._indexOf_ifAbsent_((999),(function(){
+self._assert_equals_(_st(self._collection())._indexOf_ifAbsent_((999),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "sentinel";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-self._assert_equals_($4,"sentinel");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),"sentinel");
 return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.HashedCollectionTest)})},
 args: [],
 source: "testIndexOf\x0a\x09self assert: (self collection indexOf: 2) equals: 'a'.\x0a\x09self should: [ self collection indexOf: 999 ] raise: Error.\x0a\x09self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'",
@@ -1917,13 +1865,12 @@ fn: function (){
 var self=this;
 var flattenedAssociations;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
+var $1,$3,$2;
 flattenedAssociations=["a",(1),"b",(2)];
 $1=_st(_st(self._class())._collectionClass())._newFromPairs_(flattenedAssociations);
 $3="a".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
-$4="b".__minus_gt((2));
-$2=smalltalk.HashedCollection._from_([$3,$4]);
+$2=smalltalk.HashedCollection._from_([$3,"b".__minus_gt((2))]);
 self._assertSameContents_as_($1,$2);
 return self}, function($ctx1) {$ctx1.fill(self,"testNewFromPairs",{flattenedAssociations:flattenedAssociations},smalltalk.HashedCollectionTest)})},
 args: [],
@@ -2024,7 +1971,7 @@ var self=this;
 var d;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5,$6,$7,$8,$9,$11,$12,$10,$14,$15,$13,$17,$18,$16;
+var $1,$2,$3,$4,$5,$6,$7,$9,$10,$8,$12,$13,$11;
 d=_st($Dictionary())._new();
 _st(d)._at_put_("hello","world");
 $ctx1.sendIdx["at:put:"]=1;
@@ -2039,49 +1986,44 @@ return nil;
 $ctx1.sendIdx["at:ifAbsent:"]=1;
 self._assert_equals_($2,"world");
 $ctx1.sendIdx["assert:equals:"]=2;
-$4=_st(d)._at_ifAbsent_("foo",(function(){
+self._deny_(_st(_st(d)._at_ifAbsent_("foo",(function(){
 return smalltalk.withContext(function($ctx2) {
 return nil;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$3=_st($4).__eq("world");
-self._deny_($3);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__eq("world"));
 $ctx1.sendIdx["deny:"]=1;
-$5=_st(d)._includesKey_("hello");
+$3=_st(d)._includesKey_("hello");
 $ctx1.sendIdx["includesKey:"]=1;
-self._assert_($5);
+self._assert_($3);
 $ctx1.sendIdx["assert:"]=1;
-$6=_st(d)._includesKey_("foo");
+$4=_st(d)._includesKey_("foo");
 $ctx1.sendIdx["includesKey:"]=2;
-self._deny_($6);
+self._deny_($4);
 $ctx1.sendIdx["deny:"]=2;
 _st(d)._at_put_((1),(2));
 $ctx1.sendIdx["at:put:"]=2;
-$7=_st(d)._at_((1));
+$5=_st(d)._at_((1));
 $ctx1.sendIdx["at:"]=2;
-self._assert_equals_($7,(2));
+self._assert_equals_($5,(2));
 $ctx1.sendIdx["assert:equals:"]=3;
-$8=d;
-$9=(1).__at((3));
+$6=d;
+$7=(1).__at((3));
 $ctx1.sendIdx["@"]=1;
-_st($8)._at_put_($9,(3));
-$11=d;
-$12=(1).__at((3));
+_st($6)._at_put_($7,(3));
+$9=d;
+$10=(1).__at((3));
 $ctx1.sendIdx["@"]=2;
-$10=_st($11)._at_($12);
-self._assert_equals_($10,(3));
-$14=d;
-$15=(1).__at((3));
+$8=_st($9)._at_($10);
+self._assert_equals_($8,(3));
+$12=d;
+$13=(1).__at((3));
 $ctx1.sendIdx["@"]=3;
-$13=_st($14)._includesKey_($15);
+$11=_st($12)._includesKey_($13);
 $ctx1.sendIdx["includesKey:"]=3;
-self._assert_($13);
-$17=d;
-$18=(3).__at((1));
-$16=_st($17)._includesKey_($18);
-self._deny_($16);
+self._assert_($11);
+self._deny_(_st(d)._includesKey_((3).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testAccessing",{d:d},smalltalk.DictionaryTest)})},
 args: [],
-source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [nil]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [nil]) = 'world'.\x0a\x0a\x09self assert: (d includesKey: 'hello').\x0a\x09self deny: (d includesKey: 'foo').\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3.\x0a\x0a\x09self assert: (d includesKey: 1@3).\x0a\x09self deny: (d includesKey: 3@1)",
+source: "testAccessing\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x0a\x09d at: 'hello' put: 'world'.\x0a\x09self assert: (d at: 'hello') equals: 'world'.\x0a\x09self assert: (d at: 'hello' ifAbsent: [ nil ]) equals: 'world'.\x0a\x09self deny: (d at: 'foo' ifAbsent: [ nil ]) = 'world'.\x0a\x0a\x09self assert: (d includesKey: 'hello').\x0a\x09self deny: (d includesKey: 'foo').\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: (d at: 1) equals: 2.\x0a\x0a\x09d at: 1@3 put: 3.\x0a\x09self assert: (d at: 1@3) equals: 3.\x0a\x0a\x09self assert: (d includesKey: 1@3).\x0a\x09self deny: (d includesKey: 3@1)",
 messageSends: ["new", "at:put:", "assert:equals:", "at:", "at:ifAbsent:", "deny:", "=", "assert:", "includesKey:", "@"],
 referencedClasses: ["Dictionary"]
 }),
@@ -2112,14 +2054,12 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4;
+var $3,$2,$1;
 $3="hello".__minus_gt((1));
 $ctx1.sendIdx["->"]=1;
 $2=smalltalk.HashedCollection._from_([$3]);
 $1=_st($2)._asDictionary();
-$5="hello".__minus_gt((1));
-$4=_st($Dictionary())._with_($5);
-self._assert_equals_($1,$4);
+self._assert_equals_($1,_st($Dictionary())._with_("hello".__minus_gt((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testDynamicDictionaries",{},smalltalk.DictionaryTest)})},
 args: [],
 source: "testDynamicDictionaries\x0a\x09self assert: #{'hello' -> 1} asDictionary equals: (Dictionary with: 'hello' -> 1)",
@@ -2137,7 +2077,7 @@ var self=this;
 var d1,d2;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17;
+var $2,$3,$1,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16;
 $2=_st($Dictionary())._new();
 $ctx1.sendIdx["new"]=1;
 $3=_st($Dictionary())._new();
@@ -2191,8 +2131,7 @@ $ctx1.sendIdx["at:put:"]=5;
 _st($15)._at_put_((3),(4));
 $16=_st($15)._yourself();
 d2=$16;
-$17=_st(d1).__eq(d2);
-self._deny_($17);
+self._deny_(_st(d1).__eq(d2));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{d1:d1,d2:d2},smalltalk.DictionaryTest)})},
 args: [],
 source: "testEquality\x0a\x09| d1 d2 |\x0a\x0a\x09self assert: (Dictionary new = Dictionary new).\x0a\x09\x09\x0a\x09d1 := Dictionary new at: 1 put: 2; yourself.\x0a\x09d2 := Dictionary new at: 1 put: 2; yourself.\x0a\x09self assert: (d1 = d2).\x0a\x0a\x09d2 := Dictionary new at: 1 put: 3; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 2 put: 2; yourself.\x0a\x09self deny: d1 = d2.\x0a\x0a\x09d2 := Dictionary new at: 1 put: 2; at: 3 put: 4; yourself.\x0a\x09self deny: d1 = d2.",
@@ -2333,7 +2272,7 @@ var self=this;
 var d;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3,$6,$7,$9,$10,$8,$11,$12,$14,$15,$13,$17,$18,$16;
+var $1,$2,$4,$5,$3,$6,$7,$9,$10,$8,$11,$12,$14,$15,$13;
 d=_st($Dictionary())._new();
 $1=d;
 $2=(1).__at((1));
@@ -2369,10 +2308,7 @@ return smalltalk.withContext(function($ctx2) {
 return "baz";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 self._assert_equals_($13,"baz");
-$17=d;
-$18=(1).__at((1));
-$16=_st($17)._includesKey_($18);
-self._deny_($16);
+self._deny_(_st(d)._includesKey_((1).__at((1))));
 return self}, function($ctx1) {$ctx1.fill(self,"testPointKey",{d:d},smalltalk.DictionaryTest)})},
 args: [],
 source: "testPointKey\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x09\x0a\x09d at: 1@1 put: 'foo'.\x0a\x09self assert: (d at: 1@1) equals: 'foo'.\x0a\x09d at: 1@1 put: 'bar'.\x0a\x09self assert: (d at: 1@1) equals: 'bar'.\x0a\x09d removeKey: 1@1.\x0a\x09self assert: (d at: 1@1 ifAbsent: [ 'baz' ]) equals: 'baz'.\x0a\x09self deny: (d includesKey: 1@1)",
@@ -2414,7 +2350,7 @@ var self=this;
 var d,key;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 d=_st($Dictionary())._new();
 _st(d)._at_put_((1),(2));
 $ctx1.sendIdx["at:put:"]=1;
@@ -2427,8 +2363,7 @@ $ctx1.sendIdx["keys"]=1;
 self._assert_equals_($1,[(1), (2), (3)]);
 $ctx1.sendIdx["assert:equals:"]=1;
 _st(d)._removeKey_(key);
-$2=_st(d)._keys();
-self._assert_equals_($2,[(1), (3)]);
+self._assert_equals_(_st(d)._keys(),[(1), (3)]);
 $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(d)._values(),[(2), (4)]);
 self._deny_(_st(d)._includesKey_((2)));
@@ -2449,7 +2384,7 @@ var self=this;
 var d,key;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 d=_st($Dictionary())._new();
 _st(d)._at_put_((1),(2));
 $ctx1.sendIdx["at:put:"]=1;
@@ -2468,14 +2403,13 @@ $ctx1.sendIdx["removeKey:ifAbsent:"]=1;
 self._assert_equals_($1,(4));
 $ctx1.sendIdx["assert:equals:"]=2;
 key="why";
-$2=_st(d)._removeKey_ifAbsent_(key,(function(){
+self._assert_equals_(_st(d)._removeKey_ifAbsent_(key,(function(){
 return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-self._assert_equals_($2,(42));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),(42));
 return self}, function($ctx1) {$ctx1.fill(self,"testRemoveKeyIfAbsent",{d:d,key:key},smalltalk.DictionaryTest)})},
 args: [],
-source: "testRemoveKeyIfAbsent\x0a\x09| d key |\x0a\x0a\x09d := Dictionary new.\x0a\x09d at: 1 put: 2.\x0a\x09d at: 2 put: 3.\x0a\x09d at: 3 put: 4.\x0a\x0a\x09key := 2.\x0a\x09self assert: (d removeKey: key) equals: 3.\x0a\x0a\x09key := 3.\x0a\x09self assert: (d removeKey: key ifAbsent: [42]) equals: 4.\x0a\x0a\x09key := 'why'.\x0a\x09self assert: (d removeKey: key ifAbsent: [42] ) equals: 42.",
+source: "testRemoveKeyIfAbsent\x0a\x09| d key |\x0a\x0a\x09d := Dictionary new.\x0a\x09d at: 1 put: 2.\x0a\x09d at: 2 put: 3.\x0a\x09d at: 3 put: 4.\x0a\x0a\x09key := 2.\x0a\x09self assert: (d removeKey: key) equals: 3.\x0a\x0a\x09key := 3.\x0a\x09self assert: (d removeKey: key ifAbsent: [ 42 ]) equals: 4.\x0a\x0a\x09key := 'why'.\x0a\x09self assert: (d removeKey: key ifAbsent: [ 42 ] ) equals: 42.",
 messageSends: ["new", "at:put:", "assert:equals:", "removeKey:", "removeKey:ifAbsent:"],
 referencedClasses: ["Dictionary"]
 }),
@@ -2490,7 +2424,7 @@ var self=this;
 var d;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 d=_st($Dictionary())._new();
 $1=_st(d)._size();
 $ctx1.sendIdx["size"]=1;
@@ -2503,8 +2437,7 @@ $ctx1.sendIdx["size"]=2;
 self._assert_equals_($2,(1));
 $ctx1.sendIdx["assert:equals:"]=2;
 _st(d)._at_put_((2),(3));
-$3=_st(d)._size();
-self._assert_equals_($3,(2));
+self._assert_equals_(_st(d)._size(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{d:d},smalltalk.DictionaryTest)})},
 args: [],
 source: "testSize\x0a\x09| d |\x0a\x0a\x09d := Dictionary new.\x0a\x09self assert: d size equals: 0.\x0a\x0a\x09d at: 1 put: 2.\x0a\x09self assert: d size equals: 1.\x0a\x0a\x09d at: 2 put: 3.\x0a\x09self assert: d size equals: 2.",
@@ -2564,13 +2497,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._first();
-$4=self._collection();
-$3=_st($4)._at_((1));
-self._assert_equals_($1,$3);
+self._assert_equals_($1,_st(self._collection())._at_((1)));
 return self}, function($ctx1) {$ctx1.fill(self,"testFirst",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
 source: "testFirst\x0a\x09self assert: (self collection first) equals: (self collection at: 1)",
@@ -2586,13 +2517,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._fourth();
-$4=self._collection();
-$3=_st($4)._at_((4));
-self._assert_equals_($1,$3);
+self._assert_equals_($1,_st(self._collection())._at_((4)));
 return self}, function($ctx1) {$ctx1.fill(self,"testFourth",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
 source: "testFourth\x0a\x09self assert: (self collection fourth) equals: (self collection at: 4)",
@@ -2608,15 +2537,13 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$6,$5,$3;
+var $2,$1,$4,$3;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._last();
 $4=self._collection();
 $ctx1.sendIdx["collection"]=2;
-$6=self._collection();
-$5=_st($6)._size();
-$3=_st($4)._at_($5);
+$3=_st($4)._at_(_st(self._collection())._size());
 self._assert_equals_($1,$3);
 return self}, function($ctx1) {$ctx1.fill(self,"testLast",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
@@ -2633,13 +2560,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._second();
-$4=self._collection();
-$3=_st($4)._at_((2));
-self._assert_equals_($1,$3);
+self._assert_equals_($1,_st(self._collection())._at_((2)));
 return self}, function($ctx1) {$ctx1.fill(self,"testSecond",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
 source: "testSecond\x0a\x09self assert: (self collection second) equals: (self collection at: 2)",
@@ -2655,13 +2580,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._third();
-$4=self._collection();
-$3=_st($4)._at_((3));
-self._assert_equals_($1,$3);
+self._assert_equals_($1,_st(self._collection())._at_((3)));
 return self}, function($ctx1) {$ctx1.fill(self,"testThird",{},smalltalk.SequenceableCollectionTest)})},
 args: [],
 source: "testThird\x0a\x09self assert: (self collection third) equals: (self collection at: 3)",
@@ -2720,44 +2643,42 @@ fn: function (){
 var self=this;
 var array;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 array=["hello", "world"];
 $1=_st(array)._at_((1));
 $ctx1.sendIdx["at:"]=1;
 self._assert_equals_($1,"hello");
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=_st(array)._at_((2));
-self._assert_equals_($2,"world");
+self._assert_equals_(_st(array)._at_((2)),"world");
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=_st(array)._at_ifAbsent_((2),(function(){
+$2=_st(array)._at_ifAbsent_((2),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["at:ifAbsent:"]=1;
-self._assert_equals_($3,"world");
+self._assert_equals_($2,"world");
 $ctx1.sendIdx["assert:equals:"]=3;
-$4=_st(array)._at_ifAbsent_((0),(function(){
+$3=_st(array)._at_ifAbsent_((0),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 $ctx1.sendIdx["at:ifAbsent:"]=2;
-self._assert_equals_($4,"not found");
+self._assert_equals_($3,"not found");
 $ctx1.sendIdx["assert:equals:"]=4;
-$5=_st(array)._at_ifAbsent_((-10),(function(){
+$4=_st(array)._at_ifAbsent_((-10),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "not found";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $ctx1.sendIdx["at:ifAbsent:"]=3;
-self._assert_equals_($5,"not found");
+self._assert_equals_($4,"not found");
 $ctx1.sendIdx["assert:equals:"]=5;
-$6=_st(array)._at_ifAbsent_((3),(function(){
+self._assert_equals_(_st(array)._at_ifAbsent_((3),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "not found";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
-self._assert_equals_($6,"not found");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),"not found");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{array:array},smalltalk.ArrayTest)})},
 args: [],
-source: "testAtIfAbsent\x0a\x09| array |\x0a\x09array := #('hello' 'world').\x0a\x09self assert: (array at: 1) equals: 'hello'.\x0a\x09self assert: (array at: 2) equals: 'world'.\x0a\x09self assert: (array at: 2 ifAbsent: ['not found']) equals: 'world'.\x0a\x09self assert: (array at: 0 ifAbsent: ['not found']) equals: 'not found'.\x0a\x09self assert: (array at: -10 ifAbsent: ['not found']) equals: 'not found'.\x0a\x09self assert: (array at: 3 ifAbsent: ['not found']) equals: 'not found'.",
+source: "testAtIfAbsent\x0a\x09| array |\x0a\x09array := #('hello' 'world').\x0a\x09self assert: (array at: 1) equals: 'hello'.\x0a\x09self assert: (array at: 2) equals: 'world'.\x0a\x09self assert: (array at: 2 ifAbsent: [ 'not found' ]) equals: 'world'.\x0a\x09self assert: (array at: 0 ifAbsent: [ 'not found' ]) equals: 'not found'.\x0a\x09self assert: (array at: -10 ifAbsent: [ 'not found' ]) equals: 'not found'.\x0a\x09self assert: (array at: 3 ifAbsent: [ 'not found' ]) equals: 'not found'.",
 messageSends: ["assert:equals:", "at:", "at:ifAbsent:"],
 referencedClasses: []
 }),
@@ -2792,7 +2713,7 @@ return "zork";
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})),"zork");
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmpty",{},smalltalk.ArrayTest)})},
 args: [],
-source: "testIfEmpty\x0a\x09self assert: ( '' ifEmpty: ['zork'] ) equals: 'zork'",
+source: "testIfEmpty\x0a\x09self assert: ( '' ifEmpty: [ 'zork' ] ) equals: 'zork'",
 messageSends: ["assert:equals:", "ifEmpty:"],
 referencedClasses: []
 }),
@@ -2807,7 +2728,7 @@ var self=this;
 var array;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9;
 array=_st($Array())._new();
 $1=_st(array)._printString();
 $ctx1.sendIdx["printString"]=1;
@@ -2842,8 +2763,7 @@ $ctx1.sendIdx["printString"]=5;
 self._assert_equals_($9,"an Array ('foo' 3)");
 $ctx1.sendIdx["assert:equals:"]=5;
 _st(array)._addLast_((3));
-$10=_st(array)._printString();
-self._assert_equals_($10,"an Array ('foo' 3 3)");
+self._assert_equals_(_st(array)._printString(),"an Array ('foo' 3 3)");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{array:array},smalltalk.ArrayTest)})},
 args: [],
 source: "testPrintString\x0a\x09| array |\x0a\x09array := Array new.\x0a\x09self assert: array printString equals: 'an Array ()'.\x0a\x09array add: 1; add: 3.\x0a\x09self assert: array printString equals: 'an Array (1 3)'.\x0a\x09array add: 'foo'.\x0a\x09self assert: array printString equals: 'an Array (1 3 ''foo'')'.\x0a\x09array remove: 1; remove: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'')'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'' 3)'.\x0a\x09array addLast: 3.\x0a\x09self assert: array printString equals: 'an Array (''foo'' 3 3)'.",
@@ -2884,7 +2804,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=[(1), (2), (3), (4)]._removeFrom_to_((1),(3));
 $ctx1.sendIdx["removeFrom:to:"]=1;
 self._assert_equals_($1,[(4)]);
@@ -2893,8 +2813,7 @@ $2=[(1), (2), (3), (4)]._removeFrom_to_((2),(3));
 $ctx1.sendIdx["removeFrom:to:"]=2;
 self._assert_equals_($2,[(1), (4)]);
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=[(1), (2), (3), (4)]._removeFrom_to_((2),(4));
-self._assert_equals_($3,[(1)]);
+self._assert_equals_([(1), (2), (3), (4)]._removeFrom_to_((2),(4)),[(1)]);
 return self}, function($ctx1) {$ctx1.fill(self,"testRemoveFromTo",{},smalltalk.ArrayTest)})},
 args: [],
 source: "testRemoveFromTo\x0a\x09\x0a\x09self assert: (#(1 2 3 4) removeFrom: 1 to: 3) equals: #(4).\x0a\x09self assert: (#(1 2 3 4) removeFrom: 2 to: 3) equals: #(1 4).\x0a\x09self assert: (#(1 2 3 4) removeFrom: 2 to: 4) equals: #(1)",
@@ -2910,7 +2829,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=[(1), (2), (3), (4)]._removeIndex_((2));
 $ctx1.sendIdx["removeIndex:"]=1;
 self._assert_equals_($1,[(1), (3), (4)]);
@@ -2919,8 +2838,7 @@ $2=[(1), (2), (3), (4)]._removeIndex_((1));
 $ctx1.sendIdx["removeIndex:"]=2;
 self._assert_equals_($2,[(2), (3), (4)]);
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=["hello"]._removeIndex_((1));
-self._assert_equals_($3,[]);
+self._assert_equals_(["hello"]._removeIndex_((1)),[]);
 return self}, function($ctx1) {$ctx1.fill(self,"testRemoveIndex",{},smalltalk.ArrayTest)})},
 args: [],
 source: "testRemoveIndex\x0a\x09\x0a\x09self assert: (#(1 2 3 4) removeIndex: 2) equals: #(1 3 4).\x0a\x09self assert: (#(1 2 3 4) removeIndex: 1) equals: #(2 3 4).\x0a\x09self assert: (#('hello') removeIndex: 1) equals: #()",
@@ -3015,7 +2933,7 @@ return smalltalk.withContext(function($ctx1) {
 return "hello";
 }, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.StringTest)})},
 args: [],
-source: "collection\x0a\x09^'hello'",
+source: "collection\x0a\x09^ 'hello'",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3056,7 +2974,7 @@ return "hello"._remove_("h");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{},smalltalk.StringTest)})},
 args: [],
-source: "testAddRemove\x0a\x09self should: ['hello' add: 'a'] raise: Error.\x0a\x09self should: ['hello' remove: 'h'] raise: Error",
+source: "testAddRemove\x0a\x09self should: [ 'hello' add: 'a' ] raise: Error.\x0a\x09self should: [ 'hello' remove: 'h' ] raise: Error",
 messageSends: ["should:raise:", "add:", "remove:"],
 referencedClasses: ["Error"]
 }),
@@ -3101,7 +3019,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1="3"._asNumber();
 $ctx1.sendIdx["asNumber"]=1;
 self._assert_equals_($1,(3));
@@ -3110,8 +3028,7 @@ $2="-3"._asNumber();
 $ctx1.sendIdx["asNumber"]=2;
 self._assert_equals_($2,(-3));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3="-1.5"._asNumber();
-self._assert_equals_($3,(-1.5));
+self._assert_equals_("-1.5"._asNumber(),(-1.5));
 return self}, function($ctx1) {$ctx1.fill(self,"testAsNumber",{},smalltalk.StringTest)})},
 args: [],
 source: "testAsNumber\x0a\x09self assert: '3' asNumber equals: 3.\x0a\x09self assert: '-3' asNumber equals: -3.\x0a\x09self assert: '-1.5' asNumber equals: -1.5.",
@@ -3144,15 +3061,14 @@ fn: function (){
 var self=this;
 var characterA,characterU;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 characterA="A";
 characterU="U";
 $1=_st(characterA)._asciiValue();
 $ctx1.sendIdx["asciiValue"]=1;
 self._assert_equals_($1,(65));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=_st(characterU)._asciiValue();
-self._assert_equals_($2,(85));
+self._assert_equals_(_st(characterU)._asciiValue(),(85));
 return self}, function($ctx1) {$ctx1.fill(self,"testAsciiValue",{characterA:characterA,characterU:characterU},smalltalk.StringTest)})},
 args: [],
 source: "testAsciiValue\x0a    | characterA characterU |\x0a    characterA := 'A'.\x0a    characterU := 'U'.\x0a    self assert: (characterA asciiValue) equals:65.\x0a    self assert: (characterU asciiValue) equals:85",
@@ -3168,13 +3084,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1="hello"._at_((1));
 $ctx1.sendIdx["at:"]=1;
 self._assert_equals_($1,"h");
 $ctx1.sendIdx["assert:equals:"]=1;
-$2="hello"._at_((5));
-self._assert_equals_($2,"o");
+self._assert_equals_("hello"._at_((5)),"o");
 $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_("hello"._at_ifAbsent_((6),(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -3182,7 +3097,7 @@ return nil;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.StringTest)})},
 args: [],
-source: "testAt\x0a\x09self assert: ('hello' at: 1) equals: 'h'.\x0a\x09self assert: ('hello' at: 5) equals: 'o'.\x0a\x09self assert: ('hello' at: 6 ifAbsent: [nil]) equals: nil",
+source: "testAt\x0a\x09self assert: ('hello' at: 1) equals: 'h'.\x0a\x09self assert: ('hello' at: 5) equals: 'o'.\x0a\x09self assert: ('hello' at: 6 ifAbsent: [ nil ]) equals: nil",
 messageSends: ["assert:equals:", "at:", "at:ifAbsent:"],
 referencedClasses: []
 }),
@@ -3202,7 +3117,7 @@ return "hello"._at_put_((1),"a");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAtPut",{},smalltalk.StringTest)})},
 args: [],
-source: "testAtPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: ['hello' at: 1 put: 'a'] raise: Error",
+source: "testAtPut\x0a\x09\x22String instances are read-only\x22\x0a\x09self should: [ 'hello' at: 1 put: 'a' ] raise: Error",
 messageSends: ["should:raise:", "at:put:"],
 referencedClasses: ["Error"]
 }),
@@ -3215,7 +3130,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3;
 $1="test"._capitalized();
 $ctx1.sendIdx["capitalized"]=1;
 self._assert_equals_($1,"Test");
@@ -3224,15 +3139,13 @@ $2="Test"._capitalized();
 $ctx1.sendIdx["capitalized"]=2;
 self._assert_equals_($2,"Test");
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=""._capitalized();
-self._assert_equals_($3,"");
+self._assert_equals_(""._capitalized(),"");
 $ctx1.sendIdx["assert:equals:"]=3;
-$4="Test"._isCapitalized();
+$3="Test"._isCapitalized();
 $ctx1.sendIdx["isCapitalized"]=1;
-self._assert_equals_($4,true);
+self._assert_equals_($3,true);
 $ctx1.sendIdx["assert:equals:"]=4;
-$5="test"._isCapitalized();
-self._assert_equals_($5,false);
+self._assert_equals_("test"._isCapitalized(),false);
 return self}, function($ctx1) {$ctx1.fill(self,"testCapitalized",{},smalltalk.StringTest)})},
 args: [],
 source: "testCapitalized\x0a\x09self assert: 'test' capitalized equals: 'Test'.\x0a\x09self assert: 'Test' capitalized equals: 'Test'.\x0a\x09self assert: '' capitalized equals: ''.\x0a\x09self assert: 'Test' isCapitalized equals: true.\x0a\x09self assert: 'test' isCapitalized equals: false.",
@@ -3248,7 +3161,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4,$5;
 $1="jackie"._charCodeAt_((1));
 $ctx1.sendIdx["charCodeAt:"]=1;
 self._assert_equals_($1,(106));
@@ -3269,8 +3182,7 @@ $5="jackie"._charCodeAt_((5));
 $ctx1.sendIdx["charCodeAt:"]=5;
 self._assert_equals_($5,(105));
 $ctx1.sendIdx["assert:equals:"]=5;
-$6="jackie"._charCodeAt_((6));
-self._assert_equals_($6,(101));
+self._assert_equals_("jackie"._charCodeAt_((6)),(101));
 return self}, function($ctx1) {$ctx1.fill(self,"testCharCodeAt",{},smalltalk.StringTest)})},
 args: [],
 source: "testCharCodeAt\x0a\x09self assert: ('jackie' charCodeAt:1) equals: 106.\x0a\x09self assert: ('jackie' charCodeAt:2) equals: 97.\x0a\x09self assert: ('jackie' charCodeAt:3) equals: 99.\x0a\x09self assert: ('jackie' charCodeAt:4) equals: 107.\x0a\x09self assert: ('jackie' charCodeAt:5) equals: 105.\x0a\x09self assert: ('jackie' charCodeAt:6) equals: 101",
@@ -3307,13 +3219,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1="jackie"._copyFrom_to_((1),(3));
 $ctx1.sendIdx["copyFrom:to:"]=1;
 self._assert_equals_($1,"jac");
 $ctx1.sendIdx["assert:equals:"]=1;
-$2="jackie"._copyFrom_to_((4),(6));
-self._assert_equals_($2,"kie");
+self._assert_equals_("jackie"._copyFrom_to_((4),(6)),"kie");
 return self}, function($ctx1) {$ctx1.fill(self,"testCopyFromTo",{},smalltalk.StringTest)})},
 args: [],
 source: "testCopyFromTo\x0a\x09self assert: ('jackie' copyFrom: 1 to: 3) equals: 'jac'.\x0a\x09self assert: ('jackie' copyFrom: 4 to: 6) equals: 'kie'.",
@@ -3346,7 +3257,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._detect_((function(each){
@@ -3358,8 +3269,7 @@ $ctx1.sendIdx["detect:"]=1;
 self._assert_equals_($1,"h");
 self._should_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
-$3=self._collection();
-return _st($3)._detect_((function(each){
+return _st(self._collection())._detect_((function(each){
 return smalltalk.withContext(function($ctx3) {
 return _st(each).__eq((6));
 }, function($ctx3) {$ctx3.fillBlock({each:each},$ctx2,3)})}));
@@ -3379,7 +3289,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3;
 self._assert_equals_("hello","hello");
 $ctx1.sendIdx["assert:equals:"]=1;
 $1="hello".__eq("world");
@@ -3396,10 +3306,8 @@ $3="hello"._yourself();
 $ctx1.sendIdx["yourself"]=1;
 self._assert_equals_("hello",$3);
 $ctx1.sendIdx["assert:equals:"]=2;
-$4="hello"._yourself();
-self._assert_equals_($4,"hello");
-$5="".__eq((0));
-self._deny_($5);
+self._assert_equals_("hello"._yourself(),"hello");
+self._deny_("".__eq((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.StringTest)})},
 args: [],
 source: "testEquality\x0a\x09self assert: 'hello' equals: 'hello'.\x0a\x09self deny: 'hello' = 'world'.\x0a\x09\x0a\x09\x22Test for issue 459\x22\x0a\x09self deny: 'hello' = (#() at: 1 ifAbsent: [ ]).\x0a\x0a\x09self assert: 'hello' equals: 'hello' yourself.\x0a\x09self assert: 'hello' yourself equals: 'hello'.\x0a\x0a\x09\x22test JS falsy value\x22\x0a\x09self deny: '' = 0",
@@ -3415,7 +3323,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$6,$5,$7;
+var $1,$2,$4,$3,$5;
 $1="hello".__eq_eq("hello");
 $ctx1.sendIdx["=="]=1;
 self._assert_($1);
@@ -3430,12 +3338,10 @@ $3="hello".__eq_eq($4);
 $ctx1.sendIdx["=="]=3;
 self._assert_($3);
 $ctx1.sendIdx["assert:"]=2;
-$6="hello"._yourself();
-$5=_st($6).__eq_eq("hello");
+$5=_st("hello"._yourself()).__eq_eq("hello");
 $ctx1.sendIdx["=="]=4;
 self._assert_($5);
-$7="".__eq_eq((0));
-self._deny_($7);
+self._deny_("".__eq_eq((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},smalltalk.StringTest)})},
 args: [],
 source: "testIdentity\x0a\x09self assert: 'hello' == 'hello'.\x0a\x09self deny: 'hello' == 'world'.\x0a\x0a\x09self assert: 'hello' == 'hello' yourself.\x0a\x09self assert: 'hello' yourself == 'hello'.\x0a\x0a\x09\x22test JS falsy value\x22\x0a\x09self deny: '' == 0",
@@ -3451,7 +3357,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3;
+var $1,$2,$4,$3;
 $1="foo"._identityHash();
 $ctx1.sendIdx["identityHash"]=1;
 $2="foo"._identityHash();
@@ -3459,8 +3365,7 @@ $ctx1.sendIdx["identityHash"]=2;
 self._assert_equals_($1,$2);
 $4="foo"._identityHash();
 $ctx1.sendIdx["identityHash"]=3;
-$5="bar"._identityHash();
-$3=_st($4).__eq($5);
+$3=_st($4).__eq("bar"._identityHash());
 self._deny_($3);
 return self}, function($ctx1) {$ctx1.fill(self,"testIdentityHash",{},smalltalk.StringTest)})},
 args: [],
@@ -3477,12 +3382,11 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1="amber"._includesSubString_("ber");
 $ctx1.sendIdx["includesSubString:"]=1;
 self._assert_($1);
-$2="amber"._includesSubString_("zork");
-self._deny_($2);
+self._deny_("amber"._includesSubString_("zork"));
 return self}, function($ctx1) {$ctx1.fill(self,"testIncludesSubString",{},smalltalk.StringTest)})},
 args: [],
 source: "testIncludesSubString\x0a\x09self assert: ('amber' includesSubString: 'ber').\x0a\x09self deny: ('amber' includesSubString: 'zork').",
@@ -3499,7 +3403,7 @@ fn: function (){
 var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$4;
+var $2,$1,$3;
 $2=self._collection();
 $ctx1.sendIdx["collection"]=1;
 $1=_st($2)._indexOf_("e");
@@ -3512,12 +3416,10 @@ $3=self._collection();
 $ctx2.sendIdx["collection"]=2;
 return _st($3)._indexOf_((999));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
-$5=self._collection();
-$4=_st($5)._indexOf_ifAbsent_((999),(function(){
+self._assert_equals_(_st(self._collection())._indexOf_ifAbsent_((999),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "sentinel";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-self._assert_equals_($4,"sentinel");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})})),"sentinel");
 return self}, function($ctx1) {$ctx1.fill(self,"testIndexOf",{},smalltalk.StringTest)})},
 args: [],
 source: "testIndexOf\x0a\x09self assert: (self collection indexOf: 'e') equals: 2.\x0a\x09self should: [ self collection indexOf: 999 ] raise: Error.\x0a\x09self assert: (self collection indexOf: 999 ifAbsent: [ 'sentinel' ]) equals: 'sentinel'",
@@ -3534,15 +3436,14 @@ fn: function (){
 var self=this;
 var vowel,consonant;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 vowel="u";
 consonant="z";
 $1=_st(vowel)._isVowel();
 $ctx1.sendIdx["isVowel"]=1;
 self._assert_equals_($1,true);
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=_st(consonant)._isVowel();
-self._assert_equals_($2,false);
+self._assert_equals_(_st(consonant)._isVowel(),false);
 return self}, function($ctx1) {$ctx1.fill(self,"testIsVowel",{vowel:vowel,consonant:consonant},smalltalk.StringTest)})},
 args: [],
 source: "testIsVowel\x0a    |vowel consonant|\x0a    vowel := 'u'.\x0a    consonant := 'z'.\x0a    self assert: vowel isVowel equals: true.\x0a    self assert: consonant isVowel equals: false",
@@ -3611,13 +3512,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1="smalltalk"._size();
 $ctx1.sendIdx["size"]=1;
 self._assert_equals_($1,(9));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=""._size();
-self._assert_equals_($2,(0));
+self._assert_equals_(""._size(),(0));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.StringTest)})},
 args: [],
 source: "testSize\x0a\x09self assert: 'smalltalk' size equals: 9.\x0a\x09self assert: '' size equals: 0",
@@ -3765,7 +3665,7 @@ fn: function (){
 var self=this;
 var testObject;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3;
 testObject=self._jsObject();
 $1=_st(testObject)._at_ifAbsent_("abc",(function(){
 return smalltalk.withContext(function($ctx2) {
@@ -3788,14 +3688,13 @@ return "Property does not exist";
 $ctx1.sendIdx["at:ifAbsent:"]=3;
 self._assert_equals_($3,(1));
 $ctx1.sendIdx["assert:equals:"]=3;
-$4=_st(testObject)._at_ifAbsent_("f",(function(){
+self._assert_equals_(_st(testObject)._at_ifAbsent_("f",(function(){
 return smalltalk.withContext(function($ctx2) {
 return "Property does not exist";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
-self._assert_equals_($4,nil);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfAbsent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testAtIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifAbsent: ['Property does not exist']) equals: 'Property does not exist'.\x0a\x09self assert: (testObject at: 'e' ifAbsent: ['Property does not exist']) equals: nil.\x0a\x09self assert: (testObject at: 'a' ifAbsent: ['Property does not exist']) equals: 1.\x0a\x09self assert: (testObject at: 'f' ifAbsent: ['Property does not exist']) equals: nil.",
+source: "testAtIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifAbsent: [ 'Property does not exist' ]) equals: 'Property does not exist'.\x0a\x09self assert: (testObject at: 'e' ifAbsent: [ 'Property does not exist' ]) equals: nil.\x0a\x09self assert: (testObject at: 'a' ifAbsent: [ 'Property does not exist' ]) equals: 1.\x0a\x09self assert: (testObject at: 'f' ifAbsent: [ 'Property does not exist' ]) equals: nil.",
 messageSends: ["jsObject", "assert:equals:", "at:ifAbsent:"],
 referencedClasses: []
 }),
@@ -3809,7 +3708,7 @@ fn: function (){
 var self=this;
 var testObject;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5,$8,$7;
+var $2,$1,$4,$3,$6,$5;
 testObject=self._jsObject();
 $1=_st(testObject)._at_ifPresent_("abc",(function(x){
 return smalltalk.withContext(function($ctx2) {
@@ -3841,15 +3740,13 @@ $ctx2.sendIdx[","]=3;
 $ctx1.sendIdx["at:ifPresent:"]=3;
 self._assert_equals_($5,"hello 1");
 $ctx1.sendIdx["assert:equals:"]=3;
-$7=_st(testObject)._at_ifPresent_("f",(function(x){
+self._assert_equals_(_st(testObject)._at_ifPresent_("f",(function(x){
 return smalltalk.withContext(function($ctx2) {
-$8=_st(x)._asString();
-return "hello ".__comma($8);
-}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,4)})}));
-self._assert_equals_($7,"hello nil");
+return "hello ".__comma(_st(x)._asString());
+}, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,4)})})),"hello nil");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testAtIfPresent\x0a\x09| testObject |\x0a\x09\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.\x0a\x09self assert: (testObject at: 'e' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [:x | 'hello ',x asString ]) equals: 'hello nil'.",
+source: "testAtIfPresent\x0a\x09| testObject |\x0a\x09\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x | 'hello ',x asString ]) equals: nil.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x | 'hello ',x asString ]) equals: 'hello nil'.",
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:", ",", "asString"],
 referencedClasses: []
 }),
@@ -3863,7 +3760,7 @@ fn: function (){
 var self=this;
 var testObject;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5,$8,$7;
+var $2,$1,$4,$3,$6,$5;
 testObject=self._jsObject();
 $1=_st(testObject)._at_ifPresent_ifAbsent_("abc",(function(x){
 return smalltalk.withContext(function($ctx2) {
@@ -3904,18 +3801,16 @@ return "not present";
 $ctx1.sendIdx["at:ifPresent:ifAbsent:"]=3;
 self._assert_equals_($5,"hello 1");
 $ctx1.sendIdx["assert:equals:"]=3;
-$7=_st(testObject)._at_ifPresent_ifAbsent_("f",(function(x){
+self._assert_equals_(_st(testObject)._at_ifPresent_ifAbsent_("f",(function(x){
 return smalltalk.withContext(function($ctx2) {
-$8=_st(x)._asString();
-return "hello ".__comma($8);
+return "hello ".__comma(_st(x)._asString());
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,7)})}),(function(){
 return smalltalk.withContext(function($ctx2) {
 return "not present";
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
-self._assert_equals_($7,"hello nil");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})})),"hello nil");
 return self}, function($ctx1) {$ctx1.fill(self,"testAtIfPresentIfAbsent",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [:x|'hello ',x asString] ifAbsent: ['not present']) equals: 'hello nil'.",
+source: "testAtIfPresentIfAbsent\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: (testObject at: 'abc' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'not present'.\x0a\x09self assert: (testObject at: 'e' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.\x0a\x09self assert: (testObject at: 'a' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello 1'.\x0a\x09self assert: (testObject at: 'f' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.",
 messageSends: ["jsObject", "assert:equals:", "at:ifPresent:ifAbsent:", ",", "asString"],
 referencedClasses: []
 }),
@@ -3935,7 +3830,7 @@ return _st(self._jsObject())._foo();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU",{},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testDNU\x0a\x09self should: [self jsObject foo] raise: MessageNotUnderstood",
+source: "testDNU\x0a\x09self should: [ self jsObject foo ] raise: MessageNotUnderstood",
 messageSends: ["should:raise:", "foo", "jsObject"],
 referencedClasses: ["MessageNotUnderstood"]
 }),
@@ -3948,7 +3843,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$6,$5;
+var $2,$1,$4,$3;
 $2=self._jsObject();
 $ctx1.sendIdx["jsObject"]=1;
 $1=_st($2)._a();
@@ -3959,9 +3854,7 @@ $ctx1.sendIdx["jsObject"]=2;
 $3=_st($4)._b();
 self._assert_equals_($3,(2));
 $ctx1.sendIdx["assert:equals:"]=2;
-$6=self._jsObject();
-$5=_st($6)._c_((3));
-self._assert_equals_($5,(3));
+self._assert_equals_(_st(self._jsObject())._c_((3)),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testMessageSend",{},smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "testMessageSend\x0a\x0a\x09self assert: self jsObject a equals: 1.\x0a\x09self assert: self jsObject b equals: 2.\x0a\x09self assert: (self jsObject c: 3) equals: 3",
@@ -4010,15 +3903,14 @@ fn: function (){
 var self=this;
 var object;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 object=self._jsObject();
 $1=_st(object)._d();
 $ctx1.sendIdx["d"]=1;
 self._assert_equals_($1,"");
 $ctx1.sendIdx["assert:equals:"]=1;
 _st(object)._d_("hello");
-$2=_st(object)._d();
-self._assert_equals_($2,"hello");
+self._assert_equals_(_st(object)._d(),"hello");
 return self}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsEmptyString",{object:object},smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "testPropertyThatReturnsEmptyString\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self assert: object d equals: ''.\x0a\x0a\x09object d: 'hello'.\x0a\x09self assert: object d equals: 'hello'",
@@ -4036,16 +3928,13 @@ var self=this;
 var object;
 function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
 object=self._jsObject();
 self._shouldnt_raise_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(object)._e();
 $ctx2.sendIdx["e"]=1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
-$2=_st(object)._e();
-$1=_st($2)._isNil();
-self._assert_($1);
+self._assert_(_st(_st(object)._e())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testPropertyThatReturnsUndefined",{object:object},smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "testPropertyThatReturnsUndefined\x0a\x09| object |\x0a\x0a\x09object := self jsObject.\x0a\x09self shouldnt: [ object e ] raise: MessageNotUnderstood.\x0a\x09self assert: object e isNil",
@@ -4062,7 +3951,7 @@ fn: function (){
 var self=this;
 var testObject;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1;
 testObject=self._jsObject();
 $2=_st(testObject)._value();
 $ctx1.sendIdx["value"]=1;
@@ -4070,8 +3959,7 @@ $1=_st($2)._printString();
 self._assert_equals_($1,"[object Object]");
 $ctx1.sendIdx["assert:equals:"]=1;
 _st(testObject)._at_put_("value","aValue");
-$3=_st(testObject)._value();
-self._assert_equals_($3,"aValue");
+self._assert_equals_(_st(testObject)._value(),"aValue");
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
 source: "testValue\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: testObject value printString equals: '[object Object]'.\x0a\x09testObject at: 'value' put: 'aValue'.\x0a\x09self assert: testObject value equals: 'aValue'",
@@ -4177,15 +4065,13 @@ var messageSend;
 function $MessageSend(){return smalltalk.MessageSend||(typeof MessageSend=="undefined"?nil:MessageSend)}
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 $1=_st($MessageSend())._new();
 $ctx1.sendIdx["new"]=1;
-$2=$1;
-$3=_st($Object())._new();
-_st($2)._receiver_($3);
+_st($1)._receiver_(_st($Object())._new());
 _st($1)._selector_("asString");
-$4=_st($1)._yourself();
-messageSend=$4;
+$2=_st($1)._yourself();
+messageSend=$2;
 self._assert_equals_(_st(messageSend)._value(),"an Object");
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{messageSend:messageSend},smalltalk.MessageSendTest)})},
 args: [],
@@ -4595,7 +4481,7 @@ return smalltalk.withContext(function($ctx2) {
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"tearDown",{},smalltalk.MethodInheritanceTest)})},
 args: [],
-source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [].\x0a\x09[ self deinstallMiddle ] on: Error do: [].\x0a\x09[ self deinstallBottom ] on: Error do: []",
+source: "tearDown\x0a\x09[ self deinstallTop ] on: Error do: [ ].\x0a\x09[ self deinstallMiddle ] on: Error do: [ ].\x0a\x09[ self deinstallBottom ] on: Error do: [ ]",
 messageSends: ["on:do:", "deinstallTop", "deinstallMiddle", "deinstallBottom"],
 referencedClasses: ["Error"]
 }),
@@ -4688,13 +4574,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=(4)._abs();
 $ctx1.sendIdx["abs"]=1;
 self._assert_equals_($1,(4));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=(-4)._abs();
-self._assert_equals_($2,(4));
+self._assert_equals_((-4)._abs(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testAbs",{},smalltalk.NumberTest)})},
 args: [],
 source: "testAbs\x0a\x09self assert: 4 abs equals: 4.\x0a\x09self assert: -4 abs equals: 4",
@@ -4710,7 +4595,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$5,$8,$7;
+var $1,$2,$3,$5,$4;
 $1=(1.5).__plus((1));
 $ctx1.sendIdx["+"]=1;
 self._assert_equals_($1,(2.5));
@@ -4719,28 +4604,25 @@ $2=(2).__minus((1));
 $ctx1.sendIdx["-"]=1;
 self._assert_equals_($2,(1));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=(-2).__minus((1));
-self._assert_equals_($3,(-3));
+self._assert_equals_((-2).__minus((1)),(-3));
 $ctx1.sendIdx["assert:equals:"]=3;
 self._assert_equals_((12).__slash((2)),(6));
 $ctx1.sendIdx["assert:equals:"]=4;
-$4=(3).__star((4));
+$3=(3).__star((4));
 $ctx1.sendIdx["*"]=1;
-self._assert_equals_($4,(12));
+self._assert_equals_($3,(12));
 $ctx1.sendIdx["assert:equals:"]=5;
 self._assert_equals_((7).__slash_slash((2)),(3));
 $ctx1.sendIdx["assert:equals:"]=6;
 self._assert_equals_((7).__backslash_backslash((2)),(1));
 $ctx1.sendIdx["assert:equals:"]=7;
-$6=(1).__plus((2));
+$5=(1).__plus((2));
 $ctx1.sendIdx["+"]=2;
-$5=_st($6).__star((3));
+$4=_st($5).__star((3));
 $ctx1.sendIdx["*"]=2;
-self._assert_equals_($5,(9));
+self._assert_equals_($4,(9));
 $ctx1.sendIdx["assert:equals:"]=8;
-$8=(2).__star((3));
-$7=(1).__plus($8);
-self._assert_equals_($7,(7));
+self._assert_equals_((1).__plus((2).__star((3))),(7));
 return self}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},smalltalk.NumberTest)})},
 args: [],
 source: "testArithmetic\x0a\x09\x0a\x09\x22We rely on JS here, so we won't test complex behavior, just check if\x0a\x09message sends are corrects\x22\x0a\x0a\x09self assert: 1.5 + 1 equals: 2.5.\x0a\x09self assert: 2 - 1 equals: 1.\x0a\x09self assert: -2 - 1 equals: -3.\x0a\x09self assert: 12 / 2 equals: 6.\x0a\x09self assert: 3 * 4 equals: 12.\x0a\x09self assert: 7 // 2 equals: 3.\x0a\x09self assert: 7 \x5c\x5c 2 equals: 1.\x0a\x0a\x09\x22Simple parenthesis and execution order\x22\x0a\x09self assert: 1 + 2 * 3 equals: 9.\x0a\x09self assert: 1 + (2 * 3) equals: 7",
@@ -4772,7 +4654,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=(1.2)._ceiling();
 $ctx1.sendIdx["ceiling"]=1;
 self._assert_equals_($1,(2));
@@ -4781,8 +4663,7 @@ $2=(-1.2)._ceiling();
 $ctx1.sendIdx["ceiling"]=2;
 self._assert_equals_($2,(-1));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=(1)._ceiling();
-self._assert_equals_($3,(1));
+self._assert_equals_((1)._ceiling(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testCeiling",{},smalltalk.NumberTest)})},
 args: [],
 source: "testCeiling\x0a\x09self assert: 1.2 ceiling equals: 2.\x0a\x09self assert: -1.2 ceiling equals: -1.\x0a\x09self assert: 1.0 ceiling equals: 1.",
@@ -4798,7 +4679,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8;
+var $1,$2,$3,$4;
 $1=(3).__gt((2));
 $ctx1.sendIdx[">"]=1;
 self._assert_($1);
@@ -4807,24 +4688,20 @@ $2=(2).__lt((3));
 $ctx1.sendIdx["<"]=1;
 self._assert_($2);
 $ctx1.sendIdx["assert:"]=2;
-$3=(3).__lt((2));
-self._deny_($3);
+self._deny_((3).__lt((2)));
 $ctx1.sendIdx["deny:"]=1;
-$4=(2).__gt((3));
-self._deny_($4);
-$5=(3).__gt_eq((3));
+self._deny_((2).__gt((3)));
+$3=(3).__gt_eq((3));
 $ctx1.sendIdx[">="]=1;
-self._assert_($5);
+self._assert_($3);
 $ctx1.sendIdx["assert:"]=3;
-$6=(3.1).__gt_eq((3));
-self._assert_($6);
+self._assert_((3.1).__gt_eq((3)));
 $ctx1.sendIdx["assert:"]=4;
-$7=(3).__lt_eq((3));
+$4=(3).__lt_eq((3));
 $ctx1.sendIdx["<="]=1;
-self._assert_($7);
+self._assert_($4);
 $ctx1.sendIdx["assert:"]=5;
-$8=(3).__lt_eq((3.1));
-self._assert_($8);
+self._assert_((3).__lt_eq((3.1)));
 return self}, function($ctx1) {$ctx1.fill(self,"testComparison",{},smalltalk.NumberTest)})},
 args: [],
 source: "testComparison\x0a\x0a\x09self assert: 3 > 2.\x0a\x09self assert: 2 < 3.\x0a\x09\x0a\x09self deny: 3 < 2.\x0a\x09self deny: 2 > 3.\x0a\x0a\x09self assert: 3 >= 3.\x0a\x09self assert: 3.1 >= 3.\x0a\x09self assert: 3 <= 3.\x0a\x09self assert: 3 <= 3.1",
@@ -4840,13 +4717,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st((1)._copy()).__eq_eq((1));
 $ctx1.sendIdx["=="]=1;
 self._assert_($1);
 $ctx1.sendIdx["assert:"]=1;
-$2=_st((1)._deepCopy()).__eq_eq((1));
-self._assert_($2);
+self._assert_(_st((1)._deepCopy()).__eq_eq((1)));
 return self}, function($ctx1) {$ctx1.fill(self,"testCopying",{},smalltalk.NumberTest)})},
 args: [],
 source: "testCopying\x0a\x09self assert: 1 copy == 1.\x0a\x09self assert: 1 deepCopy == 1",
@@ -4862,7 +4738,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$7,$6,$9,$10,$8,$11,$12,$13,$14;
+var $1,$2,$3,$5,$4,$7,$6,$9,$8,$10,$11,$12;
 $1=(1).__eq((1));
 $ctx1.sendIdx["="]=1;
 self._assert_($1);
@@ -4889,24 +4765,22 @@ self._assert_($6);
 $ctx1.sendIdx["assert:"]=4;
 $9=(1)._yourself();
 $ctx1.sendIdx["yourself"]=3;
-$10=(1)._yourself();
-$8=_st($9).__eq($10);
+$8=_st($9).__eq((1)._yourself());
 $ctx1.sendIdx["="]=6;
 self._assert_($8);
-$11=(0).__eq(false);
+$10=(0).__eq(false);
 $ctx1.sendIdx["="]=7;
-self._deny_($11);
+self._deny_($10);
 $ctx1.sendIdx["deny:"]=2;
-$12=false.__eq((0));
+$11=false.__eq((0));
 $ctx1.sendIdx["="]=8;
-self._deny_($12);
+self._deny_($11);
 $ctx1.sendIdx["deny:"]=3;
-$13="".__eq((0));
+$12="".__eq((0));
 $ctx1.sendIdx["="]=9;
-self._deny_($13);
+self._deny_($12);
 $ctx1.sendIdx["deny:"]=4;
-$14=(0).__eq("");
-self._deny_($14);
+self._deny_((0).__eq(""));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{},smalltalk.NumberTest)})},
 args: [],
 source: "testEquality\x0a\x09self assert: (1 = 1).\x0a\x09self assert: (0 = 0).\x0a\x09self deny: (1 = 0).\x0a\x0a\x09self assert: (1 yourself = 1).\x0a\x09self assert: (1 = 1 yourself).\x0a\x09self assert: (1 yourself = 1 yourself).\x0a\x09\x0a\x09self deny: 0 = false.\x0a\x09self deny: false = 0.\x0a\x09self deny: '' = 0.\x0a\x09self deny: 0 = ''",
@@ -4922,7 +4796,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=(1.2)._floor();
 $ctx1.sendIdx["floor"]=1;
 self._assert_equals_($1,(1));
@@ -4931,8 +4805,7 @@ $2=(-1.2)._floor();
 $ctx1.sendIdx["floor"]=2;
 self._assert_equals_($2,(-2));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=(1)._floor();
-self._assert_equals_($3,(1));
+self._assert_equals_((1)._floor(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testFloor",{},smalltalk.NumberTest)})},
 args: [],
 source: "testFloor\x0a\x09self assert: 1.2 floor equals: 1.\x0a\x09self assert: -1.2 floor equals: -2.\x0a\x09self assert: 1.0 floor equals: 1.",
@@ -4948,7 +4821,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4,$5;
 self._assert_equals_((9),(9));
 $ctx1.sendIdx["assert:equals:"]=1;
 $1=(10)._truncated();
@@ -4971,8 +4844,7 @@ $5=(14)._truncated();
 $ctx1.sendIdx["truncated"]=5;
 self._assert_equals_($5,(14));
 $ctx1.sendIdx["assert:equals:"]=6;
-$6=(15)._truncated();
-self._assert_equals_($6,(15));
+self._assert_equals_((15)._truncated(),(15));
 return self}, function($ctx1) {$ctx1.fill(self,"testHexNumbers",{},smalltalk.NumberTest)})},
 args: [],
 source: "testHexNumbers\x0a\x0a\x09self assert: 16r9 equals: 9.\x0a\x09self assert: 16rA truncated equals: 10.\x0a\x09self assert: 16rB truncated equals: 11.\x0a\x09self assert: 16rC truncated equals: 12.\x0a\x09self assert: 16rD truncated equals: 13.\x0a\x09self assert: 16rE truncated equals: 14.\x0a\x09self assert: 16rF truncated equals: 15",
@@ -4988,7 +4860,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4,$7,$6,$9,$10,$8,$11;
+var $1,$2,$3,$5,$4,$7,$6,$9,$8;
 $1=(1).__eq_eq((1));
 $ctx1.sendIdx["=="]=1;
 self._assert_($1);
@@ -5015,12 +4887,10 @@ self._assert_($6);
 $ctx1.sendIdx["assert:"]=4;
 $9=(1)._yourself();
 $ctx1.sendIdx["yourself"]=3;
-$10=(1)._yourself();
-$8=_st($9).__eq_eq($10);
+$8=_st($9).__eq_eq((1)._yourself());
 $ctx1.sendIdx["=="]=6;
 self._assert_($8);
-$11=(1).__eq_eq((2));
-self._deny_($11);
+self._deny_((1).__eq_eq((2)));
 return self}, function($ctx1) {$ctx1.fill(self,"testIdentity",{},smalltalk.NumberTest)})},
 args: [],
 source: "testIdentity\x0a\x09self assert: 1 == 1.\x0a\x09self assert: 0 == 0.\x0a\x09self deny: 1 == 0.\x0a\x0a\x09self assert: 1 yourself == 1.\x0a\x09self assert: 1 == 1 yourself.\x0a\x09self assert: 1 yourself == 1 yourself.\x0a\x09\x0a\x09self deny: 1 == 2",
@@ -5243,7 +5113,7 @@ return (11259375)._Z();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,41)})}),$MessageNotUnderstood());
 return self}, function($ctx1) {$ctx1.fill(self,"testInvalidHexNumbers",{},smalltalk.NumberTest)})},
 args: [],
-source: "testInvalidHexNumbers\x0a\x0a\x09self should: [16rG] raise: MessageNotUnderstood.\x0a\x09self should: [16rg] raise: MessageNotUnderstood.\x0a\x09self should: [16rH] raise: MessageNotUnderstood.\x0a\x09self should: [16rh] raise: MessageNotUnderstood.\x0a\x09self should: [16rI] raise: MessageNotUnderstood.\x0a\x09self should: [16ri] raise: MessageNotUnderstood.\x0a\x09self should: [16rJ] raise: MessageNotUnderstood.\x0a\x09self should: [16rj] raise: MessageNotUnderstood.\x0a\x09self should: [16rK] raise: MessageNotUnderstood.\x0a\x09self should: [16rk] raise: MessageNotUnderstood.\x0a\x09self should: [16rL] raise: MessageNotUnderstood.\x0a\x09self should: [16rl] raise: MessageNotUnderstood.\x0a\x09self should: [16rM] raise: MessageNotUnderstood.\x0a\x09self should: [16rm] raise: MessageNotUnderstood.\x0a\x09self should: [16rN] raise: MessageNotUnderstood.\x0a\x09self should: [16rn] raise: MessageNotUnderstood.\x0a\x09self should: [16rO] raise: MessageNotUnderstood.\x0a\x09self should: [16ro] raise: MessageNotUnderstood.\x0a\x09self should: [16rP] raise: MessageNotUnderstood.\x0a\x09self should: [16rp] raise: MessageNotUnderstood.\x0a\x09self should: [16rQ] raise: MessageNotUnderstood.\x0a\x09self should: [16rq] raise: MessageNotUnderstood.\x0a\x09self should: [16rR] raise: MessageNotUnderstood.\x0a\x09self should: [16rr] raise: MessageNotUnderstood.\x0a\x09self should: [16rS] raise: MessageNotUnderstood.\x0a\x09self should: [16rs] raise: MessageNotUnderstood.\x0a\x09self should: [16rT] raise: MessageNotUnderstood.\x0a\x09self should: [16rt] raise: MessageNotUnderstood.\x0a\x09self should: [16rU] raise: MessageNotUnderstood.\x0a\x09self should: [16ru] raise: MessageNotUnderstood.\x0a\x09self should: [16rV] raise: MessageNotUnderstood.\x0a\x09self should: [16rv] raise: MessageNotUnderstood.\x0a\x09self should: [16rW] raise: MessageNotUnderstood.\x0a\x09self should: [16rw] raise: MessageNotUnderstood.\x0a\x09self should: [16rX] raise: MessageNotUnderstood.\x0a\x09self should: [16rx] raise: MessageNotUnderstood.\x0a\x09self should: [16rY] raise: MessageNotUnderstood.\x0a\x09self should: [16ry] raise: MessageNotUnderstood.\x0a\x09self should: [16rZ] raise: MessageNotUnderstood.\x0a\x09self should: [16rz] raise: MessageNotUnderstood.\x0a\x09self should: [16rABcdEfZ] raise: MessageNotUnderstood.",
+source: "testInvalidHexNumbers\x0a\x0a\x09self should: [ 16rG ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rg ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rH ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rh ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rI ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ri ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rJ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rj ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rK ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rk ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rL ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rl ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rM ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rm ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rN ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rn ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rO ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ro ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rP ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rp ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rQ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rq ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rR ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rr ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rS ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rs ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rT ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rt ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rU ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ru ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rV ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rv ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rW ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rw ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rX ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rx ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rY ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16ry ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rZ ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rz ] raise: MessageNotUnderstood.\x0a\x09self should: [ 16rABcdEfZ ] raise: MessageNotUnderstood.",
 messageSends: ["should:raise:", "rG", "rg", "rH", "rh", "rI", "ri", "rJ", "rj", "rK", "rk", "rL", "rl", "rM", "rm", "rN", "rn", "rO", "ro", "rP", "rp", "rQ", "rq", "rR", "rr", "rS", "rs", "rT", "rt", "rU", "ru", "rV", "rv", "rW", "rw", "rX", "rx", "rY", "ry", "rZ", "rz", "Z"],
 referencedClasses: ["MessageNotUnderstood"]
 }),
@@ -5295,13 +5165,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=(3)._negated();
 $ctx1.sendIdx["negated"]=1;
 self._assert_equals_($1,(-3));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=(-3)._negated();
-self._assert_equals_($2,(3));
+self._assert_equals_((-3)._negated(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testNegated",{},smalltalk.NumberTest)})},
 args: [],
 source: "testNegated\x0a\x09self assert: 3 negated equals: -3.\x0a\x09self assert: -3 negated equals: 3",
@@ -5317,7 +5186,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3,$5,$6,$8,$7,$10,$9,$11,$12,$14,$13,$15,$16,$17;
+var $1,$2,$4,$3,$5,$6,$8,$7,$10,$9,$11,$12,$13,$14,$15;
 $1=(23)._printShowingDecimalPlaces_((2));
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=1;
 self._assert_equals_($1,"23.00");
@@ -5360,21 +5229,19 @@ $12=(0.98)._printShowingDecimalPlaces_((5));
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=9;
 self._assert_equals_($12,"0.98000");
 $ctx1.sendIdx["assert:equals:"]=9;
-$14=(0.98)._negated();
-$13=_st($14)._printShowingDecimalPlaces_((2));
+$13=_st((0.98)._negated())._printShowingDecimalPlaces_((2));
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=10;
 self._assert_equals_($13,"-0.98");
 $ctx1.sendIdx["assert:equals:"]=10;
-$15=(2.567)._printShowingDecimalPlaces_((2));
+$14=(2.567)._printShowingDecimalPlaces_((2));
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=11;
-self._assert_equals_($15,"2.57");
+self._assert_equals_($14,"2.57");
 $ctx1.sendIdx["assert:equals:"]=11;
-$16=(-2.567)._printShowingDecimalPlaces_((2));
+$15=(-2.567)._printShowingDecimalPlaces_((2));
 $ctx1.sendIdx["printShowingDecimalPlaces:"]=12;
-self._assert_equals_($16,"-2.57");
+self._assert_equals_($15,"-2.57");
 $ctx1.sendIdx["assert:equals:"]=12;
-$17=(0)._printShowingDecimalPlaces_((2));
-self._assert_equals_($17,"0.00");
+self._assert_equals_((0)._printShowingDecimalPlaces_((2)),"0.00");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintShowingDecimalPlaces",{},smalltalk.NumberTest)})},
 args: [],
 source: "testPrintShowingDecimalPlaces\x0a\x09self assert: (23 printShowingDecimalPlaces: 2) equals: '23.00'.\x0a\x09self assert: (23.5698 printShowingDecimalPlaces: 2) equals: '23.57'.\x0a\x09self assert: (234.567 negated printShowingDecimalPlaces: 5) equals: '-234.56700'.\x0a\x09self assert: (23.4567 printShowingDecimalPlaces: 0) equals: '23'.\x0a\x09self assert: (23.5567 printShowingDecimalPlaces: 0) equals: '24'.\x0a\x09self assert: (23.4567 negated printShowingDecimalPlaces: 0) equals: '-23'.\x0a\x09self assert: (23.5567 negated printShowingDecimalPlaces: 0) equals: '-24'.\x0a\x09self assert: (100000000 printShowingDecimalPlaces: 1) equals: '100000000.0'.\x0a\x09self assert: (0.98 printShowingDecimalPlaces: 5) equals: '0.98000'.\x0a\x09self assert: (0.98 negated printShowingDecimalPlaces: 2) equals: '-0.98'.\x0a\x09self assert: (2.567 printShowingDecimalPlaces: 2) equals: '2.57'.\x0a\x09self assert: (-2.567 printShowingDecimalPlaces: 2) equals: '-2.57'.\x0a\x09self assert: (0 printShowingDecimalPlaces: 2) equals: '0.00'.",
@@ -5390,7 +5257,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3;
 $1=(2)._raisedTo_((4));
 $ctx1.sendIdx["raisedTo:"]=1;
 self._assert_equals_($1,(16));
@@ -5403,8 +5270,7 @@ $3=(2)._raisedTo_((-3));
 $ctx1.sendIdx["raisedTo:"]=3;
 self._assert_equals_($3,(0.125));
 $ctx1.sendIdx["assert:equals:"]=3;
-$4=(4)._raisedTo_((0.5));
-self._assert_equals_($4,(2));
+self._assert_equals_((4)._raisedTo_((0.5)),(2));
 $ctx1.sendIdx["assert:equals:"]=4;
 self._assert_equals_((2).__star_star((4)),(16));
 return self}, function($ctx1) {$ctx1.fill(self,"testRaisedTo",{},smalltalk.NumberTest)})},
@@ -5422,7 +5288,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=(3)._rounded();
 $ctx1.sendIdx["rounded"]=1;
 self._assert_equals_($1,(3));
@@ -5431,8 +5297,7 @@ $2=(3.212)._rounded();
 $ctx1.sendIdx["rounded"]=2;
 self._assert_equals_($2,(3));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=(3.51)._rounded();
-self._assert_equals_($3,(4));
+self._assert_equals_((3.51)._rounded(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testRounded",{},smalltalk.NumberTest)})},
 args: [],
 source: "testRounded\x0a\x09\x0a\x09self assert: 3 rounded equals: 3.\x0a\x09self assert: 3.212 rounded equals: 3.\x0a\x09self assert: 3.51 rounded equals: 4",
@@ -5448,7 +5313,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=(5)._sign();
 $ctx1.sendIdx["sign"]=1;
 self._assert_equals_($1,(1));
@@ -5457,8 +5322,7 @@ $2=(0)._sign();
 $ctx1.sendIdx["sign"]=2;
 self._assert_equals_($2,(0));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=(-1.4)._sign();
-self._assert_equals_($3,(-1));
+self._assert_equals_((-1.4)._sign(),(-1));
 return self}, function($ctx1) {$ctx1.fill(self,"testSign",{},smalltalk.NumberTest)})},
 args: [],
 source: "testSign\x0a\x09self assert: 5 sign equals: 1.\x0a\x09self assert: 0 sign equals: 0.\x0a\x09self assert: -1.4 sign equals: -1.",
@@ -5474,13 +5338,12 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=(4)._sqrt();
 $ctx1.sendIdx["sqrt"]=1;
 self._assert_equals_($1,(2));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=(16)._sqrt();
-self._assert_equals_($2,(4));
+self._assert_equals_((16)._sqrt(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testSqrt",{},smalltalk.NumberTest)})},
 args: [],
 source: "testSqrt\x0a\x09\x0a\x09self assert: 4 sqrt equals: 2.\x0a\x09self assert: 16 sqrt equals: 4",
@@ -5531,7 +5394,7 @@ return i;
 self._assert_equals_(i,(5));
 return self}, function($ctx1) {$ctx1.fill(self,"testTimesRepeat",{i:i},smalltalk.NumberTest)})},
 args: [],
-source: "testTimesRepeat\x0a\x09| i |\x0a\x0a\x09i := 0.\x0a\x090 timesRepeat: [i := i + 1].\x0a\x09self assert: i equals: 0.\x0a\x0a\x095 timesRepeat: [i := i + 1].\x0a\x09self assert: i equals: 5",
+source: "testTimesRepeat\x0a\x09| i |\x0a\x0a\x09i := 0.\x0a\x090 timesRepeat: [ i := i + 1 ].\x0a\x09self assert: i equals: 0.\x0a\x0a\x095 timesRepeat: [ i := i + 1 ].\x0a\x09self assert: i equals: 5",
 messageSends: ["timesRepeat:", "+", "assert:equals:"],
 referencedClasses: []
 }),
@@ -5571,7 +5434,7 @@ return (1)._to_by_((4),(0));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testToBy",{},smalltalk.NumberTest)})},
 args: [],
-source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [1 to: 4 by: 0] raise: Error",
+source: "testToBy\x0a\x09self assert: (0 to: 6 by: 2) equals: #(0 2 4 6).\x0a\x0a\x09self should: [ 1 to: 4 by: 0 ] raise: Error",
 messageSends: ["assert:equals:", "to:by:", "should:raise:"],
 referencedClasses: ["Error"]
 }),
@@ -5610,7 +5473,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 $1=(3)._truncated();
 $ctx1.sendIdx["truncated"]=1;
 self._assert_equals_($1,(3));
@@ -5619,8 +5482,7 @@ $2=(3.212)._truncated();
 $ctx1.sendIdx["truncated"]=2;
 self._assert_equals_($2,(3));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=(3.51)._truncated();
-self._assert_equals_($3,(3));
+self._assert_equals_((3.51)._truncated(),(3));
 return self}, function($ctx1) {$ctx1.fill(self,"testTruncated",{},smalltalk.NumberTest)})},
 args: [],
 source: "testTruncated\x0a\x09\x0a\x09self assert: 3 truncated equals: 3.\x0a\x09self assert: 3.212 truncated equals: 3.\x0a\x09self assert: 3.51 truncated equals: 3",
@@ -5645,7 +5507,7 @@ $1=self["@foo"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"foo",{},smalltalk.ObjectMock)})},
 args: [],
-source: "foo\x0a\x09^foo",
+source: "foo\x0a\x09^ foo",
 messageSends: [],
 referencedClasses: []
 }),
@@ -5695,15 +5557,14 @@ var self=this;
 var o;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 o=_st($Object())._new();
 _st(o)._basicAt_put_("a",(1));
 $1=_st(o)._basicAt_("a");
 $ctx1.sendIdx["basicAt:"]=1;
 self._assert_equals_($1,(1));
 $ctx1.sendIdx["assert:equals:"]=1;
-$2=_st(o)._basicAt_("b");
-self._assert_equals_($2,nil);
+self._assert_equals_(_st(o)._basicAt_("b"),nil);
 return self}, function($ctx1) {$ctx1.fill(self,"testBasicAccess",{o:o},smalltalk.ObjectTest)})},
 args: [],
 source: "testBasicAccess\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'a' put: 1.\x0a\x09self assert: (o basicAt: 'a') equals: 1.\x0a\x09self assert: (o basicAt: 'b') equals: nil",
@@ -5736,7 +5597,7 @@ $ctx1.sendIdx["assert:equals:"]=1;
 self._assert_equals_(_st(o)._basicPerform_withArguments_("func2",[(3)]),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testBasicPerform",{o:o},smalltalk.ObjectTest)})},
 args: [],
-source: "testBasicPerform\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'func' put: ['hello'].\x0a\x09o basicAt: 'func2' put: [:a | a + 1].\x0a\x0a\x09self assert: (o basicPerform: 'func') equals: 'hello'.\x0a\x09self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4",
+source: "testBasicPerform\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09o basicAt: 'func' put: [ 'hello' ].\x0a\x09o basicAt: 'func2' put: [ :a | a + 1 ].\x0a\x0a\x09self assert: (o basicPerform: 'func') equals: 'hello'.\x0a\x09self assert: (o basicPerform: 'func2' withArguments: #(3)) equals: 4",
 messageSends: ["new", "basicAt:put:", "+", "assert:equals:", "basicPerform:", "basicPerform:withArguments:"],
 referencedClasses: ["Object"]
 }),
@@ -5757,7 +5618,7 @@ return _st(_st($Object())._new())._foo();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$MessageNotUnderstood());
 return self}, function($ctx1) {$ctx1.fill(self,"testDNU",{},smalltalk.ObjectTest)})},
 args: [],
-source: "testDNU\x0a\x09self should: [Object new foo] raise: MessageNotUnderstood",
+source: "testDNU\x0a\x09self should: [ Object new foo ] raise: MessageNotUnderstood",
 messageSends: ["should:raise:", "foo", "new"],
 referencedClasses: ["Object", "MessageNotUnderstood"]
 }),
@@ -5772,28 +5633,23 @@ var self=this;
 var o;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$6,$5,$8,$9,$7;
+var $1,$2,$4,$3;
 o=_st($Object())._new();
 $ctx1.sendIdx["new"]=1;
-$2=o;
-$3=_st($Object())._new();
-$1=_st($2).__eq($3);
+$1=_st(o).__eq(_st($Object())._new());
 $ctx1.sendIdx["="]=1;
 self._deny_($1);
-$4=_st(o).__eq(o);
+$2=_st(o).__eq(o);
 $ctx1.sendIdx["="]=2;
-self._assert_($4);
+self._assert_($2);
 $ctx1.sendIdx["assert:"]=1;
-$6=_st(o)._yourself();
+$4=_st(o)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$5=_st($6).__eq(o);
+$3=_st($4).__eq(o);
 $ctx1.sendIdx["="]=3;
-self._assert_($5);
+self._assert_($3);
 $ctx1.sendIdx["assert:"]=2;
-$8=o;
-$9=_st(o)._yourself();
-$7=_st($8).__eq($9);
-self._assert_($7);
+self._assert_(_st(o).__eq(_st(o)._yourself()));
 return self}, function($ctx1) {$ctx1.fill(self,"testEquality",{o:o},smalltalk.ObjectTest)})},
 args: [],
 source: "testEquality\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o = Object new.\x0a\x09self assert: (o = o).\x0a\x09self assert: (o yourself = o).\x0a\x09self assert: (o = o yourself)",
@@ -5817,7 +5673,7 @@ return _st(_st($Object())._new())._halt();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testHalt",{},smalltalk.ObjectTest)})},
 args: [],
-source: "testHalt\x0a\x09self should: [Object new halt] raise: Error",
+source: "testHalt\x0a\x09self should: [ Object new halt ] raise: Error",
 messageSends: ["should:raise:", "halt", "new"],
 referencedClasses: ["Object", "Error"]
 }),
@@ -5832,28 +5688,23 @@ var self=this;
 var o;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$6,$5,$8,$9,$7;
+var $1,$2,$4,$3;
 o=_st($Object())._new();
 $ctx1.sendIdx["new"]=1;
-$2=o;
-$3=_st($Object())._new();
-$1=_st($2).__eq_eq($3);
+$1=_st(o).__eq_eq(_st($Object())._new());
 $ctx1.sendIdx["=="]=1;
 self._deny_($1);
-$4=_st(o).__eq_eq(o);
+$2=_st(o).__eq_eq(o);
 $ctx1.sendIdx["=="]=2;
-self._assert_($4);
+self._assert_($2);
 $ctx1.sendIdx["assert:"]=1;
-$6=_st(o)._yourself();
+$4=_st(o)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$5=_st($6).__eq_eq(o);
+$3=_st($4).__eq_eq(o);
 $ctx1.sendIdx["=="]=3;
-self._assert_($5);
+self._assert_($3);
 $ctx1.sendIdx["assert:"]=2;
-$8=o;
-$9=_st(o)._yourself();
-$7=_st($8).__eq_eq($9);
-self._assert_($7);
+self._assert_(_st(o).__eq_eq(_st(o)._yourself()));
 return self}, function($ctx1) {$ctx1.fill(self,"testIdentity",{o:o},smalltalk.ObjectTest)})},
 args: [],
 source: "testIdentity\x0a\x09| o |\x0a\x09o := Object new.\x0a\x09self deny: o == Object new.\x0a\x09self assert: o == o.\x0a\x09self assert: o yourself == o.\x0a\x09self assert: o == o yourself",
@@ -5912,7 +5763,7 @@ $10=true;
 self._assert_equals_($10,true);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.ObjectTest)})},
 args: [],
-source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [true]) = true.\x0a\x09self assert: (Object new ifNotNil: [true]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [false] ifNotNil: [true]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [true] ifNil: [false]) equals: true",
+source: "testIfNil\x0a\x09self deny: Object new isNil.\x0a\x09self deny: (Object new ifNil: [ true ]) = true.\x0a\x09self assert: (Object new ifNotNil: [ true ]) equals: true.\x0a\x0a\x09self assert: (Object new ifNil: [ false ] ifNotNil: [ true ]) equals: true.\x0a\x09self assert: (Object new ifNotNil: [ true ] ifNil: [ false ]) equals: true",
 messageSends: ["deny:", "isNil", "new", "=", "ifNil:", "assert:equals:", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"],
 referencedClasses: ["Object"]
 }),
@@ -5927,7 +5778,7 @@ var self=this;
 var o;
 function $ObjectMock(){return smalltalk.ObjectMock||(typeof ObjectMock=="undefined"?nil:ObjectMock)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 o=_st($ObjectMock())._new();
 $1=_st(o)._instVarAt_("foo");
 $ctx1.sendIdx["instVarAt:"]=1;
@@ -5938,8 +5789,7 @@ $2=_st(o)._instVarAt_("foo");
 $ctx1.sendIdx["instVarAt:"]=2;
 self._assert_equals_($2,(1));
 $ctx1.sendIdx["assert:equals:"]=2;
-$3=_st(o)._instVarAt_("foo");
-self._assert_equals_($3,(1));
+self._assert_equals_(_st(o)._instVarAt_("foo"),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testInstVars",{o:o},smalltalk.ObjectTest)})},
 args: [],
 source: "testInstVars\x0a\x09| o |\x0a\x09o := ObjectMock new.\x0a\x09self assert: (o instVarAt: #foo) equals: nil.\x0a\x0a\x09o instVarAt: #foo put: 1.\x0a\x09self assert: (o instVarAt: #foo) equals: 1.\x0a\x09self assert: (o instVarAt: 'foo') equals: 1",
@@ -5992,7 +5842,7 @@ var self=this;
 var o1,o2;
 function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4;
+var $2,$3,$1,$5,$4;
 o1=_st($Object())._new();
 $ctx1.sendIdx["new"]=1;
 o2=_st($Object())._new();
@@ -6005,8 +5855,7 @@ $ctx1.sendIdx["=="]=1;
 self._assert_($1);
 $5=_st(o1)._identityHash();
 $ctx1.sendIdx["identityHash"]=3;
-$6=_st(o2)._identityHash();
-$4=_st($5).__eq_eq($6);
+$4=_st($5).__eq_eq(_st(o2)._identityHash());
 self._deny_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"testidentityHash",{o1:o1,o2:o2},smalltalk.ObjectTest)})},
 args: [],
@@ -6027,28 +5876,24 @@ fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$7,$6,$5,$10,$9,$8;
+var $2,$1,$3,$6,$5,$4;
 $2=_st($Point())._x_y_((3),(4));
 $ctx1.sendIdx["x:y:"]=1;
 $1=_st($2)._x();
 $ctx1.sendIdx["x"]=1;
 self._assert_equals_($1,(3));
 $ctx1.sendIdx["assert:equals:"]=1;
-$4=_st($Point())._x_y_((3),(4));
-$3=_st($4)._y();
+$3=_st(_st($Point())._x_y_((3),(4)))._y();
 $ctx1.sendIdx["y"]=1;
 self._assert_equals_($3,(4));
 $ctx1.sendIdx["assert:equals:"]=2;
-$7=_st($Point())._new();
+$6=_st($Point())._new();
 $ctx1.sendIdx["new"]=1;
-$6=_st($7)._x_((3));
-$5=_st($6)._x();
-self._assert_equals_($5,(3));
+$5=_st($6)._x_((3));
+$4=_st($5)._x();
+self._assert_equals_($4,(3));
 $ctx1.sendIdx["assert:equals:"]=3;
-$10=_st($Point())._new();
-$9=_st($10)._y_((4));
-$8=_st($9)._y();
-self._assert_equals_($8,(4));
+self._assert_equals_(_st(_st(_st($Point())._new())._y_((4)))._y(),(4));
 return self}, function($ctx1) {$ctx1.fill(self,"testAccessing",{},smalltalk.PointTest)})},
 args: [],
 source: "testAccessing\x0a\x09self assert: (Point x: 3 y: 4) x equals: 3.\x0a\x09self assert: (Point x: 3 y: 4) y equals: 4.\x0a\x09self assert: (Point new x: 3) x equals: 3.\x0a\x09self assert: (Point new y: 4) y equals: 4",
@@ -6065,7 +5910,7 @@ fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$6,$7,$5,$8,$10,$11,$9,$12,$14,$15,$13,$16;
+var $2,$3,$1,$4,$6,$7,$5,$8,$10,$11,$9,$12,$14,$13;
 $2=(3).__at((4));
 $ctx1.sendIdx["@"]=1;
 $3=(3).__at((4));
@@ -6095,10 +5940,8 @@ self._assert_equals_($9,$12);
 $ctx1.sendIdx["assert:equals:"]=3;
 $14=(6).__at((8));
 $ctx1.sendIdx["@"]=7;
-$15=(3).__at((4));
-$13=_st($14).__slash($15);
-$16=_st($Point())._x_y_((2),(2));
-self._assert_equals_($13,$16);
+$13=_st($14).__slash((3).__at((4)));
+self._assert_equals_($13,_st($Point())._x_y_((2),(2)));
 return self}, function($ctx1) {$ctx1.fill(self,"testArithmetic",{},smalltalk.PointTest)})},
 args: [],
 source: "testArithmetic\x0a\x09self assert: 3@4 * (3@4 ) equals: (Point x: 9 y: 16).\x0a\x09self assert: 3@4 + (3@4 ) equals: (Point x: 6 y: 8).\x0a\x09self assert: 3@4 - (3@4 ) equals: (Point x: 0 y: 0).\x0a\x09self assert: 6@8 / (3@4 ) equals: (Point x: 2 y: 2)",
@@ -6131,7 +5974,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$5,$6,$4;
+var $2,$3,$1,$5,$4;
 $2=(3).__at((4));
 $ctx1.sendIdx["@"]=1;
 $3=(3).__at((4));
@@ -6141,8 +5984,7 @@ $ctx1.sendIdx["="]=1;
 self._assert_($1);
 $5=(3).__at((5));
 $ctx1.sendIdx["@"]=3;
-$6=(3).__at((6));
-$4=_st($5).__eq($6);
+$4=_st($5).__eq((3).__at((6)));
 self._deny_($4);
 return self}, function($ctx1) {$ctx1.fill(self,"testEgality",{},smalltalk.PointTest)})},
 args: [],
@@ -6160,7 +6002,7 @@ fn: function (){
 var self=this;
 function $Point(){return smalltalk.Point||(typeof Point=="undefined"?nil:Point)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$7,$6,$5,$4,$10,$9,$8,$14,$13,$12,$11;
+var $3,$2,$1,$7,$6,$5,$4,$10,$9,$8;
 $3=_st($Point())._new();
 $ctx1.sendIdx["new"]=1;
 $2=_st($3)._x_((3));
@@ -6184,11 +6026,7 @@ $9=_st($10)._y_((4));
 $ctx1.sendIdx["y:"]=1;
 $8=_st($9)._x();
 self._assert_equals_($8,nil);
-$14=_st($Point())._new();
-$13=_st($14)._y_((4));
-$12=_st($13)._y();
-$11=_st($12).__eq((0));
-self._deny_($11);
+self._deny_(_st(_st(_st(_st($Point())._new())._y_((4)))._y()).__eq((0)));
 return self}, function($ctx1) {$ctx1.fill(self,"testNew",{},smalltalk.PointTest)})},
 args: [],
 source: "testNew\x0a\x0a\x09self assert: (Point new x: 3) y equals: nil.\x0a\x09self deny: (Point new x: 3) x = 0.\x0a\x09self assert: (Point new y: 4) x equals: nil.\x0a\x09self deny: (Point new y: 4) y = 0",
@@ -6204,7 +6042,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1,$4,$6,$8,$7,$5,$9,$11,$12,$10,$13,$15,$17,$16,$14,$18;
+var $2,$3,$1,$4,$6,$8,$7,$5,$9,$11,$12,$10,$13,$15,$16,$14;
 $2=(3).__at((3));
 $ctx1.sendIdx["@"]=1;
 $3=(0).__at((1));
@@ -6239,12 +6077,10 @@ self._assert_equals_($10,$13);
 $ctx1.sendIdx["assert:equals:"]=3;
 $15=(3).__at((3));
 $ctx1.sendIdx["@"]=10;
-$17=(3)._negated();
-$16=_st($17).__at((0));
+$16=_st((3)._negated()).__at((0));
 $ctx1.sendIdx["@"]=11;
 $14=_st($15)._translateBy_($16);
-$18=(0).__at((3));
-self._assert_equals_($14,$18);
+self._assert_equals_($14,(0).__at((3)));
 return self}, function($ctx1) {$ctx1.fill(self,"testTranslateBy",{},smalltalk.PointTest)})},
 args: [],
 source: "testTranslateBy\x0a\x09self assert: (3@3 translateBy: 0@1) equals: 3@4.\x0a\x09self assert: (3@3 translateBy: 0@1 negated) equals: 3@2.\x0a\x09self assert: (3@3 translateBy: 2@3) equals: 5@6.\x0a\x09self assert: (3@3 translateBy: 3 negated @0) equals: 0@3.",
@@ -6265,7 +6101,7 @@ var self=this;
 var queue;
 function $Queue(){return smalltalk.Queue||(typeof Queue=="undefined"?nil:Queue)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 queue=_st($Queue())._new();
 _st(queue)._nextPut_("index1");
 $2=_st(queue)._nextIfAbsent_("empty");
@@ -6273,9 +6109,7 @@ $ctx1.sendIdx["nextIfAbsent:"]=1;
 $1=_st($2).__eq("index1");
 $ctx1.sendIdx["="]=1;
 self._assert_($1);
-$4=_st(queue)._nextIfAbsent_("empty");
-$3=_st($4).__eq("index1");
-self._deny_($3);
+self._deny_(_st(_st(queue)._nextIfAbsent_("empty")).__eq("index1"));
 return self}, function($ctx1) {$ctx1.fill(self,"testNextIfAbsent",{queue:queue},smalltalk.QueueTest)})},
 args: [],
 source: "testNextIfAbsent\x0a\x09| queue |\x0a\x09queue := Queue new.\x0a\x09queue nextPut: 'index1'. \x0a\x0a\x09self assert: (queue  nextIfAbsent: 'empty') = 'index1'.\x0a\x09self deny: (queue  nextIfAbsent: 'empty') = 'index1'",
@@ -6356,7 +6190,7 @@ fn: function (){
 var self=this;
 var val;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$5,$1;
+var $3,$4,$2,$1;
 (100)._timesRepeat_((function(){
 return smalltalk.withContext(function($ctx2) {
 val="abc"._atRandom();
@@ -6366,8 +6200,7 @@ $ctx2.sendIdx["="]=1;
 $4=_st(val).__eq("b");
 $ctx2.sendIdx["="]=2;
 $2=_st($3).__or($4);
-$5=_st(val).__eq("c");
-$1=_st($2).__or($5);
+$1=_st($2).__or(_st(val).__eq("c"));
 $ctx2.sendIdx["|"]=1;
 return self._assert_($1);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
@@ -6403,7 +6236,7 @@ return _st(next).__eq(current);
 }, function($ctx2) {$ctx2.fillBlock({current:current,next:next},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"textNext",{},smalltalk.RandomTest)})},
 args: [],
-source: "textNext\x0a\x0a\x0910000 timesRepeat: [\x0a\x09\x09\x09| current next |\x0a\x09\x09\x09next := Random new next.\x0a\x09\x09\x09self assert: (next >= 0).\x0a\x09\x09\x09self assert: (next < 1).\x0a\x09\x09\x09self deny: current = next.\x0a\x09\x09\x09next = current]",
+source: "textNext\x0a\x0a\x0910000 timesRepeat: [\x0a\x09\x09\x09| current next |\x0a\x09\x09\x09next := Random new next.\x0a\x09\x09\x09self assert: (next >= 0).\x0a\x09\x09\x09self assert: (next < 1).\x0a\x09\x09\x09self deny: current = next.\x0a\x09\x09\x09next = current ]",
 messageSends: ["timesRepeat:", "next", "new", "assert:", ">=", "<", "deny:", "="],
 referencedClasses: ["Random"]
 }),
@@ -6421,7 +6254,7 @@ var self=this;
 var set;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 set=_st($Set())._new();
 self._assert_(_st(set)._isEmpty());
 $ctx1.sendIdx["assert:"]=1;
@@ -6436,8 +6269,7 @@ $2=_st(set)._includes_((5));
 $ctx1.sendIdx["includes:"]=2;
 self._assert_($2);
 _st(set)._remove_((3));
-$3=_st(set)._includes_((3));
-self._deny_($3);
+self._deny_(_st(set)._includes_((3)));
 return self}, function($ctx1) {$ctx1.fill(self,"testAddRemove",{set:set},smalltalk.SetTest)})},
 args: [],
 source: "testAddRemove\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09\x0a\x09self assert: set isEmpty.\x0a\x0a\x09set add: 3.\x0a\x09self assert: (set includes: 3).\x0a\x0a\x09set add: 5.\x0a\x09self assert: (set includes: 5).\x0a\x0a\x09set remove: 3.\x0a\x09self deny: (set includes: 3)",
@@ -6461,7 +6293,7 @@ return _st(_st($Set())._new())._at_put_((1),(2));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
 return self}, function($ctx1) {$ctx1.fill(self,"testAt",{},smalltalk.SetTest)})},
 args: [],
-source: "testAt\x0a\x09self should: [Set new at: 1 put: 2] raise: Error",
+source: "testAt\x0a\x09self should: [ Set new at: 1 put: 2 ] raise: Error",
 messageSends: ["should:raise:", "at:put:", "new"],
 referencedClasses: ["Set", "Error"]
 }),
@@ -6474,15 +6306,14 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $2,$1;
 $2=[(5), (6), (8)]._asSet();
 $ctx1.sendIdx["asSet"]=1;
 $1=_st($2)._collect_((function(x){
 return smalltalk.withContext(function($ctx2) {
 return _st(x).__backslash_backslash((3));
 }, function($ctx2) {$ctx2.fillBlock({x:x},$ctx1,1)})}));
-$3=[(0), (2)]._asSet();
-self._assert_equals_($1,$3);
+self._assert_equals_($1,[(0), (2)]._asSet());
 return self}, function($ctx1) {$ctx1.fill(self,"testCollect",{},smalltalk.SetTest)})},
 args: [],
 source: "testCollect\x0a\x09self assert: (#(5 6 8) asSet collect: [ :x | x \x5c\x5c 3 ]) equals: #(0 2) asSet",
@@ -6498,7 +6329,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$6,$7,$5,$9,$10,$8;
+var $1,$2,$3,$4,$6,$7,$5,$9,$8;
 $1=[(0), (2)]._asSet();
 $ctx1.sendIdx["asSet"]=1;
 $2=[(0), (2)]._asSet();
@@ -6520,8 +6351,7 @@ self._deny_($5);
 $ctx1.sendIdx["deny:"]=1;
 $9=[(1), (2)]._asSet();
 $ctx1.sendIdx["asSet"]=7;
-$10=[(0), (2)]._asSet();
-$8=_st($9).__eq($10);
+$8=_st($9).__eq([(0), (2)]._asSet());
 self._deny_($8);
 return self}, function($ctx1) {$ctx1.fill(self,"testComparing",{},smalltalk.SetTest)})},
 args: [],
@@ -6540,7 +6370,7 @@ var self=this;
 var set;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9;
 set=_st($Set())._new();
 $1=_st(set)._printString();
 $ctx1.sendIdx["printString"]=1;
@@ -6576,8 +6406,7 @@ $ctx1.sendIdx["printString"]=5;
 self._assert_equals_($9,"a Set ('foo' 3)");
 $ctx1.sendIdx["assert:equals:"]=5;
 _st(set)._add_((3));
-$10=_st(set)._printString();
-self._assert_equals_($10,"a Set ('foo' 3)");
+self._assert_equals_(_st(set)._printString(),"a Set ('foo' 3)");
 return self}, function($ctx1) {$ctx1.fill(self,"testPrintString",{set:set},smalltalk.SetTest)})},
 args: [],
 source: "testPrintString\x0a\x09| set |\x0a\x09set := Set new.\x0a\x09self assert: set printString equals: 'a Set ()'.\x0a\x09set add: 1; add: 3.\x0a\x09self assert: set printString equals: 'a Set (1 3)'.\x0a\x09set add: 'foo'.\x0a\x09self assert: set printString equals: 'a Set (1 3 ''foo'')'.\x0a\x09set remove: 1; remove: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'')'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'' 3)'.\x0a\x09set add: 3.\x0a\x09self assert: set printString equals: 'a Set (''foo'' 3)'",
@@ -6594,7 +6423,7 @@ fn: function (){
 var self=this;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$5,$4;
+var $1,$3,$2;
 $1=_st(_st($Set())._new())._size();
 $ctx1.sendIdx["size"]=1;
 self._assert_equals_($1,(0));
@@ -6605,9 +6434,7 @@ $2=_st($3)._size();
 $ctx1.sendIdx["size"]=2;
 self._assert_equals_($2,(4));
 $ctx1.sendIdx["assert:equals:"]=2;
-$5=_st($Set())._withAll_([(1), (1), (1), (1)]);
-$4=_st($5)._size();
-self._assert_equals_($4,(1));
+self._assert_equals_(_st(_st($Set())._withAll_([(1), (1), (1), (1)]))._size(),(1));
 return self}, function($ctx1) {$ctx1.fill(self,"testSize",{},smalltalk.SetTest)})},
 args: [],
 source: "testSize\x0a\x09self assert: Set new size equals: 0.\x0a\x09self assert: (Set withAll: #(1 2 3 4)) size equals: 4.\x0a\x09self assert: (Set withAll: #(1 1 1 1)) size equals: 1",
@@ -6623,11 +6450,10 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$5,$3,$2,$1;
+var $4,$3,$2,$1;
 $4="foo"._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$5="foo"._yourself();
-$3=[$4,$5];
+$3=[$4,"foo"._yourself()];
 $2=_st($3)._asSet();
 $1=_st($2)._asArray();
 self._assert_equals_($1,["foo"]);
@@ -6648,7 +6474,7 @@ var self=this;
 var set;
 function $Set(){return smalltalk.Set||(typeof Set=="undefined"?nil:Set)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 set=_st($Set())._new();
 _st(set)._add_((21));
 $ctx1.sendIdx["add:"]=1;
@@ -6661,8 +6487,7 @@ $ctx1.sendIdx["size"]=1;
 self._assert_equals_($1,(2));
 $ctx1.sendIdx["assert:equals:"]=1;
 _st(set)._add_("hello");
-$2=_st(set)._size();
-self._assert_equals_($2,(2));
+self._assert_equals_(_st(set)._size(),(2));
 $ctx1.sendIdx["assert:equals:"]=2;
 self._assert_equals_(_st(set)._asArray(),[(21), "hello"]);
 return self}, function($ctx1) {$ctx1.fill(self,"testUnicity",{set:set},smalltalk.SetTest)})},
@@ -6738,7 +6563,7 @@ fn: function (){
 var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6;
+var $1,$2,$3,$4;
 stream=self._newStream();
 $1=_st(stream)._atStart();
 $ctx1.sendIdx["atStart"]=1;
@@ -6757,11 +6582,9 @@ $ctx1.sendIdx["atStart"]=2;
 self._deny_($4);
 $ctx1.sendIdx["deny:"]=1;
 _st(stream)._position_((1));
-$5=_st(stream)._atEnd();
-self._deny_($5);
+self._deny_(_st(stream)._atEnd());
 $ctx1.sendIdx["deny:"]=2;
-$6=_st(stream)._atStart();
-self._deny_($6);
+self._deny_(_st(stream)._atStart());
 return self}, function($ctx1) {$ctx1.fill(self,"testAtStartAtEnd",{stream:stream},smalltalk.StreamTest)})},
 args: [],
 source: "testAtStartAtEnd\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09self assert: stream atStart.\x0a\x09self assert: stream atEnd.\x0a\x09\x0a\x09stream nextPutAll: self newCollection.\x0a\x09self assert: stream atEnd.\x0a\x09self deny: stream atStart.\x0a\x09\x0a\x09stream position: 1.\x0a\x09self deny: stream atEnd.\x0a\x09self deny: stream atStart",
@@ -6778,15 +6601,13 @@ fn: function (){
 var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2;
 stream=self._newStream();
 $1=stream;
 $2=self._newCollection();
 $ctx1.sendIdx["newCollection"]=1;
 _st($1)._nextPutAll_($2);
-$3=_st(stream)._contents();
-$4=self._newCollection();
-self._assert_equals_($3,$4);
+self._assert_equals_(_st(stream)._contents(),self._newCollection());
 return self}, function($ctx1) {$ctx1.fill(self,"testContents",{stream:stream},smalltalk.StreamTest)})},
 args: [],
 source: "testContents\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: self newCollection.\x0a\x09\x0a\x09self assert: stream contents equals: self newCollection",
@@ -6803,14 +6624,13 @@ fn: function (){
 var self=this;
 var stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 stream=self._newStream();
 $1=_st(stream)._isEmpty();
 $ctx1.sendIdx["isEmpty"]=1;
 self._assert_($1);
 _st(stream)._nextPutAll_(self._newCollection());
-$2=_st(stream)._isEmpty();
-self._deny_($2);
+self._deny_(_st(stream)._isEmpty());
 return self}, function($ctx1) {$ctx1.fill(self,"testIsEmpty",{stream:stream},smalltalk.StreamTest)})},
 args: [],
 source: "testIsEmpty\x0a\x09| stream |\x0a\x09\x0a\x09stream := self newStream.\x0a\x09self assert: stream isEmpty.\x0a\x09\x0a\x09stream nextPutAll: self newCollection.\x0a\x09self deny: stream isEmpty",
@@ -6827,7 +6647,7 @@ fn: function (){
 var self=this;
 var collection,stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
+var $1,$2,$3;
 collection=self._newCollection();
 stream=self._newStream();
 _st(stream)._nextPutAll_(collection);
@@ -6847,8 +6667,7 @@ $ctx1.sendIdx["position"]=3;
 self._assert_equals_($3,(1));
 $ctx1.sendIdx["assert:equals:"]=3;
 _st(stream)._next();
-$4=_st(stream)._position();
-self._assert_equals_($4,(2));
+self._assert_equals_(_st(stream)._position(),(2));
 return self}, function($ctx1) {$ctx1.fill(self,"testPosition",{collection:collection,stream:stream},smalltalk.StreamTest)})},
 args: [],
 source: "testPosition\x0a\x09| collection stream |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09stream nextPutAll: collection.\x0a\x09self assert: stream position equals: collection size.\x0a\x09\x0a\x09stream position: 0.\x0a\x09self assert: stream position equals: 0.\x0a\x09\x0a\x09stream next.\x0a\x09self assert: stream position equals: 1.\x0a\x09\x0a\x09stream next.\x0a\x09self assert: stream position equals: 2",
@@ -6865,7 +6684,7 @@ fn: function (){
 var self=this;
 var stream,collection;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$4;
+var $1,$2,$3;
 collection=self._newCollection();
 stream=self._newStream();
 $1=stream;
@@ -6877,9 +6696,7 @@ $3=_st(stream)._next();
 $ctx2.sendIdx["next"]=1;
 return self._assert_equals_($3,each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$5=_st(stream)._next();
-$4=_st($5)._isNil();
-self._assert_($4);
+self._assert_(_st(_st(stream)._next())._isNil());
 return self}, function($ctx1) {$ctx1.fill(self,"testReading",{stream:stream,collection:collection},smalltalk.StreamTest)})},
 args: [],
 source: "testReading\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09stream \x0a\x09\x09nextPutAll: collection;\x0a\x09\x09position: 0.\x0a\x09\x0a\x09collection do: [ :each |\x0a\x09\x09self assert: stream next equals: each ].\x0a\x09\x09\x0a\x09self assert: stream next isNil",
@@ -6934,7 +6751,7 @@ fn: function (){
 var self=this;
 var stream,collection;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 collection=self._newCollection();
 stream=self._newStream();
 $ctx1.sendIdx["newStream"]=1;
@@ -6948,8 +6765,7 @@ self._assert_equals_($1,collection);
 $ctx1.sendIdx["assert:equals:"]=1;
 stream=self._newStream();
 _st(stream)._nextPutAll_(collection);
-$2=_st(stream)._contents();
-self._assert_equals_($2,collection);
+self._assert_equals_(_st(stream)._contents(),collection);
 return self}, function($ctx1) {$ctx1.fill(self,"testWriting",{stream:stream,collection:collection},smalltalk.StreamTest)})},
 args: [],
 source: "testWriting\x0a\x09| stream collection |\x0a\x09\x0a\x09collection := self newCollection.\x0a\x09stream := self newStream.\x0a\x09\x0a\x09collection do: [ :each | stream nextPut: each ].\x0a\x09self assert: stream contents equals: collection.\x0a\x09\x0a\x09stream := self newStream.\x0a\x09stream nextPutAll: collection.\x0a\x09self assert: stream contents equals: collection",
@@ -7140,7 +6956,7 @@ $5=_st($6).__eq(true);
 self._deny_($5);
 return self}, function($ctx1) {$ctx1.fill(self,"testIfNil",{},smalltalk.UndefinedTest)})},
 args: [],
-source: "testIfNil\x0a\x09self assert: (nil ifNil: [true]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true]) = true.\x0a\x09self assert: (nil ifNil: [true] ifNotNil: [false]) equals: true.\x0a\x09self deny: (nil ifNotNil: [true] ifNil: [false]) = true",
+source: "testIfNil\x0a\x09self assert: (nil ifNil: [ true ]) equals: true.\x0a\x09self deny: (nil ifNotNil: [ true ]) = true.\x0a\x09self assert: (nil ifNil: [ true ] ifNotNil: [ false ]) equals: true.\x0a\x09self deny: (nil ifNotNil: [ true ] ifNil: [ false ]) = true",
 messageSends: ["assert:equals:", "ifNil:", "deny:", "=", "ifNotNil:", "ifNil:ifNotNil:", "ifNotNil:ifNil:"],
 referencedClasses: []
 }),

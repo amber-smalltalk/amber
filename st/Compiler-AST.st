@@ -48,7 +48,7 @@ nextNode: aNode
 !
 
 nodes
-	^nodes ifNil: [nodes := Array new]
+	^ nodes ifNil: [ nodes := Array new ] 
 !
 
 parent
@@ -107,11 +107,11 @@ isAssignmentNode
 !
 
 isBlockNode
-	^false
+	^ false
 !
 
 isBlockSequenceNode
-	^false
+	^ false
 !
 
 isCascadeNode
@@ -143,11 +143,11 @@ isReferenced
 !
 
 isReturnNode
-	^false
+	^ false
 !
 
 isSendNode
-	^false
+	^ false
 !
 
 isSequenceNode
@@ -155,7 +155,7 @@ isSequenceNode
 !
 
 isValueNode
-	^false
+	^ false
 !
 
 isVariableNode
@@ -167,7 +167,7 @@ stopOnStepping
 !
 
 subtreeNeedsAliasing
-	^(self shouldBeAliased or: [ self shouldBeInlined ]) or: [
+	^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [
 		(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
 ! !
 
@@ -186,7 +186,7 @@ I represent an assignment node.!
 !AssignmentNode methodsFor: 'accessing'!
 
 left
-	^left
+	^ left
 !
 
 left: aNode
@@ -199,7 +199,7 @@ nodes
 !
 
 right
-	^right
+	^ right
 !
 
 right: aNode
@@ -211,6 +211,10 @@ right: aNode
 
 isAssignmentNode
 	^ true
+!
+
+shouldBeAliased
+	^ super shouldBeAliased or: [ self isReferenced ]
 ! !
 
 !AssignmentNode methodsFor: 'visiting'!
@@ -240,7 +244,7 @@ nextNode: aNode
 !
 
 parameters
-	^parameters ifNil: [parameters := Array new]
+	^ parameters ifNil: [ parameters := Array new ] 
 !
 
 parameters: aCollection
@@ -258,7 +262,7 @@ scope: aLexicalScope
 !BlockNode methodsFor: 'testing'!
 
 isBlockNode
-	^true
+	^ true
 !
 
 subtreeNeedsAliasing
@@ -280,7 +284,7 @@ I represent an cascade node.!
 !CascadeNode methodsFor: 'accessing'!
 
 receiver
-	^receiver
+	^ receiver
 !
 
 receiver: aNode
@@ -332,7 +336,7 @@ I represent an JavaScript statement node.!
 !JSStatementNode methodsFor: 'accessing'!
 
 source
-	^source ifNil: ['']
+	^ source ifNil: [ '' ] 
 !
 
 source: aString
@@ -362,7 +366,7 @@ A method node must be the root and only method node of a valid AST.!
 !MethodNode methodsFor: 'accessing'!
 
 arguments
-	^arguments ifNil: [#()]
+	^ arguments ifNil: [ #() ] 
 !
 
 arguments: aCollection
@@ -398,7 +402,7 @@ scope: aMethodScope
 !
 
 selector
-	^selector
+	^ selector
 !
 
 selector: aString
@@ -414,7 +418,7 @@ sendIndexes: aDictionary
 !
 
 source
-	^source
+	^ source
 !
 
 source: aString
@@ -476,7 +480,7 @@ I represent an message send node.!
 !SendNode methodsFor: 'accessing'!
 
 arguments
-	^arguments ifNil: [arguments := #()]
+	^ arguments ifNil: [ arguments := #() ] 
 !
 
 arguments: aCollection
@@ -490,7 +494,7 @@ cascadeNodeWithMessages: aCollection
 		selector: self selector;
 		arguments: self arguments;
 		yourself.
-	^CascadeNode new
+	^ CascadeNode new
 		receiver: self receiver;
 		nodes: (Array with: first), aCollection;
 		yourself
@@ -513,7 +517,7 @@ nodes
 !
 
 receiver
-	^receiver
+	^ receiver
 !
 
 receiver: aNode
@@ -523,7 +527,7 @@ receiver: aNode
 !
 
 selector
-	^selector
+	^ selector
 !
 
 selector: aString
@@ -539,11 +543,11 @@ superSend: aBoolean
 !
 
 valueForReceiver: anObject
-	^SendNode new
+	^ SendNode new
 		position: self position;
 		receiver: (self receiver
-		ifNil: [anObject]
-		ifNotNil: [self receiver valueForReceiver: anObject]);
+		ifNil: [ anObject ] 
+		ifNotNil: [ self receiver valueForReceiver: anObject ]);
 		selector: self selector;
 		arguments: self arguments;
 		yourself
@@ -560,9 +564,15 @@ isSendNode
 !
 
 shouldBeAliased
+	"Because we keep track of send indexes, some send nodes need additional care for aliasing. 
+	See IRJSVisitor >> visitIRSend:"
+	
+	| sends |
+	
+	sends := (self method sendIndexes at: self selector) size.
+	
 	^ super shouldBeAliased or: [
-		(self method sendIndexes at: self selector) size > 1 and: [
-			self isReferenced ] ]
+		(sends > 1 and: [ self index < sends ]) and: [ self isReferenced ] ]
 !
 
 stopOnStepping
@@ -592,7 +602,7 @@ scope: aLexicalScope
 !
 
 temps
-	^temps ifNil: [#()]
+	^ temps ifNil: [ #() ]
 !
 
 temps: aCollection
@@ -602,7 +612,7 @@ temps: aCollection
 !SequenceNode methodsFor: 'converting'!
 
 asBlockSequenceNode
-	^BlockSequenceNode new
+	^ BlockSequenceNode new
 		position: self position;
 		nodes: self nodes;
 		temps: self temps;
@@ -630,7 +640,7 @@ I represent an special sequence node for block scopes.!
 !BlockSequenceNode methodsFor: 'testing'!
 
 isBlockSequenceNode
-	^true
+	^ true
 ! !
 
 !BlockSequenceNode methodsFor: 'visiting'!
@@ -648,7 +658,7 @@ I represent a value node.!
 !ValueNode methodsFor: 'accessing'!
 
 value
-	^value
+	^ value
 !
 
 value: anObject
@@ -662,18 +672,13 @@ isImmutable
 !
 
 isValueNode
-	^true
+	^ true
 ! !
 
 !ValueNode methodsFor: 'visiting'!
 
 accept: aVisitor
 	^ aVisitor visitValueNode: self
-! !
-
-!ValueNode methodsFor: 'xxxDoIt'!
-
-xxxDoIt ^[self stack] value
 ! !
 
 ValueNode subclass: #VariableNode
@@ -689,7 +694,7 @@ alias
 !
 
 assigned
-	^assigned ifNil: [false]
+	^ assigned ifNil: [ false ]
 !
 
 assigned: aBoolean

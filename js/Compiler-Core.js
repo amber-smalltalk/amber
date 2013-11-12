@@ -28,7 +28,7 @@ $1=_st(aClass)._name();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"classNameFor:",{aClass:aClass},smalltalk.AbstractCodeGenerator)})},
 args: ["aClass"],
-source: "classNameFor: aClass\x0a\x09^aClass isMetaclass\x0a\x09\x09ifTrue: [aClass instanceClass name, '.klass']\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: ['nil']\x0a\x09\x09\x09ifFalse: [aClass name]]",
+source: "classNameFor: aClass\x0a\x09^ aClass isMetaclass\x0a\x09\x09ifTrue: [ aClass instanceClass name, '.klass' ]\x0a\x09\x09ifFalse: [\x0a\x09\x09aClass isNil\x0a\x09\x09\x09ifTrue: [ 'nil' ]\x0a\x09\x09\x09ifFalse: [ aClass name ]]",
 messageSends: ["ifTrue:ifFalse:", "isMetaclass", ",", "name", "instanceClass", "isNil"],
 referencedClasses: []
 }),
@@ -62,7 +62,7 @@ $1=self["@currentClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.AbstractCodeGenerator)})},
 args: [],
-source: "currentClass\x0a\x09^currentClass",
+source: "currentClass\x0a\x09^ currentClass",
 messageSends: [],
 referencedClasses: []
 }),
@@ -121,7 +121,7 @@ $1=aString;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"safeVariableNameFor:",{aString:aString},smalltalk.AbstractCodeGenerator)})},
 args: ["aString"],
-source: "safeVariableNameFor: aString\x0a\x09^(Smalltalk current reservedWords includes: aString)\x0a\x09\x09ifTrue: [aString, '_']\x0a\x09\x09ifFalse: [aString]",
+source: "safeVariableNameFor: aString\x0a\x09^ (Smalltalk current reservedWords includes: aString)\x0a\x09\x09ifTrue: [ aString, '_' ]\x0a\x09\x09ifFalse: [ aString ]",
 messageSends: ["ifTrue:ifFalse:", "includes:", "reservedWords", "current", ","],
 referencedClasses: ["Smalltalk"]
 }),
@@ -144,7 +144,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.AbstractCodeGenerator)})},
 args: [],
-source: "source\x0a\x09^source ifNil: ['']",
+source: "source\x0a\x09^ source ifNil: [ '' ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -280,7 +280,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"codeGeneratorClass",{},smalltalk.Compiler)})},
 args: [],
-source: "codeGeneratorClass\x0a\x09^codeGeneratorClass ifNil: [InliningCodeGenerator]",
+source: "codeGeneratorClass\x0a\x09^ codeGeneratorClass ifNil: [ InliningCodeGenerator ]",
 messageSends: ["ifNil:"],
 referencedClasses: ["InliningCodeGenerator"]
 }),
@@ -314,7 +314,7 @@ $1=self._compileNode_(self._parse_(aString));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"compile:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
-source: "compile: aString\x0a\x09^self compileNode: (self parse: aString)",
+source: "compile: aString\x0a\x09^ self compileNode: (self parse: aString)",
 messageSends: ["compileNode:", "parse:"],
 referencedClasses: []
 }),
@@ -334,7 +334,7 @@ $1=self._compile_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"compile:forClass:",{aString:aString,aClass:aClass},smalltalk.Compiler)})},
 args: ["aString", "aClass"],
-source: "compile: aString forClass: aClass\x0a\x09self currentClass: aClass.\x0a\x09self source: aString.\x0a\x09^self compile: aString",
+source: "compile: aString forClass: aClass\x0a\x09self currentClass: aClass.\x0a\x09self source: aString.\x0a\x09^ self compile: aString",
 messageSends: ["currentClass:", "source:", "compile:"],
 referencedClasses: []
 }),
@@ -348,17 +348,16 @@ fn: function (aString){
 var self=this;
 function $DoIt(){return smalltalk.DoIt||(typeof DoIt=="undefined"?nil:DoIt)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1,$2;
 self._currentClass_($DoIt());
-$2="doIt ^[".__comma(aString);
-$1=_st($2).__comma("] value");
+$1=_st("doIt ^ [ ".__comma(aString)).__comma(" ] value");
 $ctx1.sendIdx[","]=1;
 self._source_($1);
-$3=self._compileNode_(self._parse_(self._source()));
-return $3;
+$2=self._compileNode_(self._parse_(self._source()));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
-source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^[', aString, '] value'.\x0a\x09^self compileNode: (self parse: self source)",
+source: "compileExpression: aString\x0a\x09self currentClass: DoIt.\x0a\x09self source: 'doIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
 messageSends: ["currentClass:", "source:", ",", "compileNode:", "parse:", "source"],
 referencedClasses: ["DoIt"]
 }),
@@ -371,17 +370,16 @@ category: 'compiling',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1,$2;
 self._currentClass_(_st(anObject)._class());
-$2="xxxDoIt ^[".__comma(aString);
-$1=_st($2).__comma("] value");
+$1=_st("xxxDoIt ^ [ ".__comma(aString)).__comma(" ] value");
 $ctx1.sendIdx[","]=1;
 self._source_($1);
-$3=self._compileNode_(self._parse_(self._source()));
-return $3;
+$2=self._compileNode_(self._parse_(self._source()));
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"compileExpression:on:",{aString:aString,anObject:anObject},smalltalk.Compiler)})},
 args: ["aString", "anObject"],
-source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^[', aString, '] value'.\x0a\x09^self compileNode: (self parse: self source)",
+source: "compileExpression: aString on: anObject\x0a\x09self currentClass: anObject class.\x0a\x09self source: 'xxxDoIt ^ [ ', aString, ' ] value'.\x0a\x09^ self compileNode: (self parse: self source)",
 messageSends: ["currentClass:", "class", "source:", ",", "compileNode:", "parse:", "source"],
 referencedClasses: []
 }),
@@ -406,7 +404,7 @@ $3=result;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"compileNode:",{aNode:aNode,generator:generator,result:result},smalltalk.Compiler)})},
 args: ["aNode"],
-source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^result",
+source: "compileNode: aNode\x0a\x09| generator result |\x0a\x09generator := self codeGeneratorClass new.\x0a\x09generator\x0a\x09\x09source: self source;\x0a\x09\x09currentClass: self currentClass.\x0a\x09result := generator compileNode: aNode.\x0a\x09self unknownVariables: #().\x0a\x09^ result",
 messageSends: ["new", "codeGeneratorClass", "source:", "source", "currentClass:", "currentClass", "compileNode:", "unknownVariables:"],
 referencedClasses: []
 }),
@@ -424,7 +422,7 @@ $1=self["@currentClass"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"currentClass",{},smalltalk.Compiler)})},
 args: [],
-source: "currentClass\x0a\x09^currentClass",
+source: "currentClass\x0a\x09^ currentClass",
 messageSends: [],
 referencedClasses: []
 }),
@@ -489,20 +487,19 @@ fn: function (aString,anObject){
 var self=this;
 var result,method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2;
 method=self._eval_(self._compileExpression_on_(aString,anObject));
 _st(method)._category_("xxxDoIt");
 $1=_st(anObject)._class();
 $ctx1.sendIdx["class"]=1;
 _st($1)._addCompiledMethod_(method);
 result=_st(anObject)._xxxDoIt();
-$2=_st(anObject)._class();
-_st($2)._removeCompiledMethod_(method);
-$3=result;
-return $3;
+_st(_st(anObject)._class())._removeCompiledMethod_(method);
+$2=result;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},smalltalk.Compiler)})},
 args: ["aString", "anObject"],
-source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method category: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^result",
+source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method category: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
 messageSends: ["eval:", "compileExpression:on:", "category:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
 referencedClasses: []
 }),
@@ -540,7 +537,7 @@ $1=_st(_st($Smalltalk())._current())._parse_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parse:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
-source: "parse: aString\x0a\x09^Smalltalk current parse: aString",
+source: "parse: aString\x0a\x09^ Smalltalk current parse: aString",
 messageSends: ["parse:", "current"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -553,15 +550,14 @@ category: 'compiling',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3="doIt ^[".__comma(aString);
-$2=_st($3).__comma("] value");
+var $2,$1;
+$2=_st("doIt ^ [ ".__comma(aString)).__comma(" ] value");
 $ctx1.sendIdx[","]=1;
 $1=self._parse_($2);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parseExpression:",{aString:aString},smalltalk.Compiler)})},
 args: ["aString"],
-source: "parseExpression: aString\x0a\x09^self parse: 'doIt ^[', aString, '] value'",
+source: "parseExpression: aString\x0a\x09^ self parse: 'doIt ^ [ ', aString, ' ] value'",
 messageSends: ["parse:", ","],
 referencedClasses: []
 }),
@@ -605,7 +601,7 @@ return self._recompile_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Compiling all classes...");
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler)})},
 args: [],
-source: "recompileAll\x0a\x09Smalltalk current classes \x0a\x09\x09do: [:each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
+source: "recompileAll\x0a\x09Smalltalk current classes \x0a\x09\x09do: [ :each | self recompile: each ]\x0a\x09\x09displayingProgress: 'Compiling all classes...'",
 messageSends: ["do:displayingProgress:", "classes", "current", "recompile:"],
 referencedClasses: ["Smalltalk"]
 }),
@@ -628,7 +624,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"source",{},smalltalk.Compiler)})},
 args: [],
-source: "source\x0a\x09^source ifNil: ['']",
+source: "source\x0a\x09^ source ifNil: [ '' ]",
 messageSends: ["ifNil:"],
 referencedClasses: []
 }),
@@ -662,7 +658,7 @@ $1=self["@unknownVariables"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"unknownVariables",{},smalltalk.Compiler)})},
 args: [],
-source: "unknownVariables\x0a\x09^unknownVariables",
+source: "unknownVariables\x0a\x09^ unknownVariables",
 messageSends: [],
 referencedClasses: []
 }),
@@ -715,7 +711,7 @@ return self._recompile_(each);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"recompileAll",{},smalltalk.Compiler.klass)})},
 args: [],
-source: "recompileAll\x0a\x09Smalltalk current classes do: [:each |\x0a\x09\x09self recompile: each]",
+source: "recompileAll\x0a\x09Smalltalk current classes do: [ :each |\x0a\x09\x09self recompile: each ]",
 messageSends: ["do:", "classes", "current", "recompile:"],
 referencedClasses: ["Smalltalk"]
 }),

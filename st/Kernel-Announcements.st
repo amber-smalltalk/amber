@@ -46,7 +46,7 @@ valuable: aValuable
 
 deliver: anAnnouncement
 	(self handlesAnnouncement: anAnnouncement)
-		ifTrue: [self valuable value: anAnnouncement]
+		ifTrue: [ self valuable value: anAnnouncement ]
 !
 
 handlesAnnouncement: anAnnouncement

@@ -238,7 +238,7 @@ showInstance: aBoolean
 
     	self selectedClass ifNotNil: [
     		self selectedClass: (aBoolean
-    			ifTrue: [self selectedClass theNonMetaClass ]
+    			ifTrue: [ self selectedClass theNonMetaClass ]
 	    	  	ifFalse: [ self selectedClass theMetaClass ]) ].
     
 		self announcer announce: HLShowInstanceToggled new ]
@@ -490,7 +490,7 @@ setItemsForPackage: aPackage
     	ifNil: [ #() ]
   		ifNotNil: [ ((aPackage classes 
         	collect: [ :each | each theNonMetaClass ]) asSet asArray) 
-            	sort: [:a :b | a name < b name ] ]).
+            	sort: [ :a :b | a name < b name ] ]).
 !
 
 setItemsForSelectedPackage
@@ -642,9 +642,8 @@ renderItem: aClass level: anInteger on: html
 	| li |
     
 	li := html li.
-	
+	li asJQuery data: 'item' put: aClass.
     li
-    	at: 'list-data' put: (self listDataKeyFor: aClass);
 		class: (self listCssClassForItem: aClass);
 		with: [ 
         	html a
@@ -667,7 +666,7 @@ renderItem: aClass on: html
 renderItemLabel: aClass level: anInteger on: html
 	html span asJQuery html: (String streamContents: [ :str |
 		anInteger timesRepeat: [
-			str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;'].
+			str nextPutAll: '&nbsp;&nbsp;&nbsp;&nbsp;' ].
 			str nextPutAll: aClass name ])
 !
 

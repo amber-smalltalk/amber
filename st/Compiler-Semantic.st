@@ -543,7 +543,7 @@ visitMethodNode: aNode
 	aNode scope: currentScope.
 	currentScope node: aNode.
 
-	self theClass allInstanceVariableNames do: [:each |
+	self theClass allInstanceVariableNames do: [ :each |
 		currentScope addIVar: each ].
 	aNode arguments do: [ :each |
 		self validateVariableScope: each.

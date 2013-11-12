@@ -1,6 +1,6 @@
 {
   "name": "amber",
-  "version": "0.12.0-pre",
+  "version": "0.13.0-pre",
   "description": "An implementation of the Smalltalk language that runs on top of the JS runtime.",
   "homepage": "http://amber-lang.net",
   "keywords": [
@@ -26,8 +26,8 @@
     "node": ">=0.8.0"
   },
   "bin": {
-    "amber": "./bin/amber-cli.js",
-    "amberc": "./bin/amberc"
+    "amber": "./cli/support/amber-cli.js",
+    "amberc": "./cli/support/amberc-cli.js"
   },
   "scripts": {
     "test": "grunt amberc:amber_test_runner && node ./test/amber_test_runner.js"

@@ -10,7 +10,7 @@ Instances can be created with the class-side method `#key:value:`!
 !Association methodsFor: 'accessing'!
 
 key
-	^key
+	^ key
 !
 
 key: aKey
@@ -18,7 +18,7 @@ key: aKey
 !
 
 value
-	^value
+	^ value
 !
 
 value: aValue
@@ -28,9 +28,9 @@ value: aValue
 !Association methodsFor: 'comparing'!
 
 = anAssociation
-	^self class = anAssociation class and: [
+	^ self class = anAssociation class and: [
 		self key = anAssociation key and: [
-		self value = anAssociation value]]
+		self value = anAssociation value ]]
 ! !
 
 !Association methodsFor: 'printing'!
@@ -44,7 +44,7 @@ printOn: aStream
 !Association class methodsFor: 'instance creation'!
 
 key: aKey value: aValue
-		^self new
+		^ self new
 		key: aKey;
 		value: aValue;
 		yourself
@@ -65,8 +65,8 @@ occurrencesOf: anObject
 
 	| tally |
 	tally := 0.
-	self do: [:each | anObject = each ifTrue: [tally := tally + 1]].
-	^tally
+	self do: [ :each | anObject = each ifTrue: [ tally := tally + 1 ]].
+	^ tally
 !
 
 size
@@ -80,13 +80,13 @@ add: anObject
 !
 
 addAll: aCollection
-	aCollection do: [:each |
-		self add: each].
-	^aCollection
+	aCollection do: [ :each |
+		self add: each ].
+	^ aCollection
 !
 
 remove: anObject
-	^self remove: anObject ifAbsent: [self errorNotFound]
+	^ self remove: anObject ifAbsent: [ self errorNotFound ]
 !
 
 remove: anObject ifAbsent: aBlock
@@ -96,42 +96,42 @@ remove: anObject ifAbsent: aBlock
 !Collection methodsFor: 'converting'!
 
 asArray
-	^Array withAll: self
+	^ Array withAll: self
 !
 
 asJSON
-	^self asArray collect: [:each | each asJSON]
+	^ self asArray collect: [ :each | each asJSON ]
 !
 
 asOrderedCollection
-	^self asArray
+	^ self asArray
 !
 
 asSet
-	^Set withAll: self
+	^ Set withAll: self
 ! !
 
 !Collection methodsFor: 'copying'!
 
 , aCollection
-	^self copy
+	^ self copy
 		addAll: aCollection;
 		yourself
 !
 
 copyWith: anObject
-	^self copy add: anObject; yourself
+	^ self copy add: anObject; yourself
 !
 
 copyWithAll: aCollection
-	^self copy addAll: aCollection; yourself
+	^ self copy addAll: aCollection; yourself
 !
 
 copyWithoutAll: aCollection
 	"Answer a copy of the receiver that does not contain any elements
 	equal to those in aCollection."
 
-	^ self reject: [:each | aCollection includes: each]
+	^ self reject: [ :each | aCollection includes: each ]
 ! !
 
 !Collection methodsFor: 'enumerating'!
@@ -141,11 +141,11 @@ collect: aBlock
 	stream := self class new writeStream.
 	self do: [ :each |
 		stream nextPut: (aBlock value: each) ].
-	^stream contents
+	^ stream contents
 !
 
 detect: aBlock
-	^self detect: aBlock ifNone: [self errorNotFound]
+	^ self detect: aBlock ifNone: [ self errorNotFound ]
 !
 
 detect: aBlock ifNone: anotherBlock
@@ -158,18 +158,18 @@ do: aBlock
 
 do: aBlock separatedBy: anotherBlock
 	| actionBeforeElement |
-	actionBeforeElement := [actionBeforeElement := anotherBlock].
-	self do: [:each |
+	actionBeforeElement := [ actionBeforeElement := anotherBlock ].
+	self do: [ :each |
 		actionBeforeElement value.
-		aBlock value: each]
+		aBlock value: each ]
 !
 
 inject: anObject into: aBlock
 	| result |
 	result := anObject.
-	self do: [:each |
-		result := aBlock value: result value: each].
-	^result
+	self do: [ :each |
+		result := aBlock value: result value: each ].
+	^ result
 !
 
 intersection: aCollection
@@ -181,9 +181,9 @@ intersection: aCollection
 	outputSet := Set new.
 	
 	aCollection do: [ :each |
-		((set includes: each) and: [(outputSet includes: each) not])
+		((set includes: each) and: [ (outputSet includes: each) not ])
 			ifTrue: [
-				outputSet add: each]].
+				outputSet add: each ]].
 		
 	^ self class withAll: outputSet asArray
 !
@@ -195,19 +195,19 @@ reject: aBlock
 select: aBlock
 	| stream |
 	stream := self class new writeStream.
-	self do: [:each |
+	self do: [ :each |
 		(aBlock value: each) ifTrue: [
-		stream nextPut: each]].
-	^stream contents
+		stream nextPut: each ]].
+	^ stream contents
 !
 
 select: selectBlock thenCollect: collectBlock
 	| stream |
 	stream := self class new writeStream.
-	self do: [:each |
+	self do: [ :each |
 		(selectBlock value: each) ifTrue: [
-		stream nextPut: (collectBlock value: each)]].
-	^stream contents
+		stream nextPut: (collectBlock value: each) ]].
+	^ stream contents
 ! !
 
 !Collection methodsFor: 'error handling'!
@@ -248,15 +248,15 @@ ifNotEmpty: aBlock
 includes: anObject
 	| sentinel |
 	sentinel := Object new.
-	^(self detect: [ :each | each = anObject] ifNone: [ sentinel ]) ~= sentinel
+	^ (self detect: [ :each | each = anObject ] ifNone: [ sentinel ]) ~= sentinel
 !
 
 isEmpty
-	^self size = 0
+	^ self size = 0
 !
 
 notEmpty
-	^self isEmpty not
+	^ self isEmpty not
 ! !
 
 !Collection class methodsFor: 'helios'!
@@ -268,24 +268,24 @@ heliosClass
 !Collection class methodsFor: 'instance creation'!
 
 new: anInteger
-	^self new
+	^ self new
 !
 
 with: anObject
-		^self new
+		^ self new
 		add: anObject;
 		yourself
 !
 
 with: anObject with: anotherObject
-		^self new
+		^ self new
 		add: anObject;
 		add: anotherObject;
 		yourself
 !
 
 with: firstObject with: secondObject with: thirdObject
-		^self new
+		^ self new
 		add: firstObject;
 		add: secondObject;
 		add: thirdObject;
@@ -293,7 +293,7 @@ with: firstObject with: secondObject with: thirdObject
 !
 
 withAll: aCollection
-		^self new
+		^ self new
 		addAll: aCollection;
 		yourself
 ! !
@@ -315,7 +315,7 @@ at: anIndex
 	If it is present, answer the value stored at anIndex.
 	Otherwise, raise an error."
 
-	^self at: anIndex ifAbsent: [ self errorNotFound ]
+	^ self at: anIndex ifAbsent: [ self errorNotFound ]
 !
 
 at: anIndex ifAbsent: aBlock
@@ -331,7 +331,7 @@ at: anIndex ifPresent: aBlock
 	If it is present, answer the value of evaluating aBlock with the value stored at anIndex.
 	Otherwise, answer nil."
 
-	^self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]
+	^ self at: anIndex ifPresent: aBlock ifAbsent: [ nil ]
 !
 
 at: anIndex ifPresent: aBlock ifAbsent: anotherBlock
@@ -352,7 +352,7 @@ indexOf: anObject
 	"Lookup index at which anObject is stored in the receiver.
 	If not present, raise an error."
 
-	^self indexOf: anObject ifAbsent: [ self errorNotFound ]
+	^ self indexOf: anObject ifAbsent: [ self errorNotFound ]
 !
 
 indexOf: anObject ifAbsent: aBlock
@@ -392,32 +392,32 @@ Unlike a `Dictionary`, I can only have strings as keys.!
 associations
 	| associations |
 	associations := #().
-	self associationsDo: [:each | associations add: each].
-	^associations
+	self associationsDo: [ :each | associations add: each ].
+	^ associations
 !
 
 at: aKey ifAbsent: aBlock
-	^(self includesKey: aKey)
-		ifTrue: [self basicAt: aKey]
+	^ (self includesKey: aKey)
+		ifTrue: [ self basicAt: aKey ]
 		ifFalse: aBlock
 !
 
 at: aKey ifAbsentPut: aBlock
-	^self at: aKey ifAbsent: [
-		self at: aKey put: aBlock value]
+	^ self at: aKey ifAbsent: [
+		self at: aKey put: aBlock value ]
 !
 
 at: aKey ifPresent: aBlock ifAbsent: anotherBlock
 	"Lookup the given key in the receiver.
 	If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key,
 	otherwise answer the value of absentBlock."
-	^(self includesKey: aKey)
+	^ (self includesKey: aKey)
 		ifTrue: [ aBlock value: (self at: aKey) ]
 		ifFalse: anotherBlock
 !
 
 at: aKey put: aValue
-	^self basicAt: aKey put: aValue
+	^ self basicAt: aKey put: aValue
 !
 
 indexOf: anObject ifAbsent: aBlock
@@ -447,7 +447,7 @@ keys
 !
 
 size
-	^self keys size
+	^ self keys size
 !
 
 values
@@ -466,43 +466,43 @@ add: anAssociation
 
 addAll: aHashedCollection
 	super addAll: aHashedCollection associations.
-	^aHashedCollection
+	^ aHashedCollection
 !
 
 remove: aKey ifAbsent: aBlock
-	^self removeKey: aKey ifAbsent: aBlock
+	^ self removeKey: aKey ifAbsent: aBlock
 !
 
 removeKey: aKey
-	^self remove: aKey
+	^ self remove: aKey
 !
 
 removeKey: aKey ifAbsent: aBlock
-	^(self includesKey: aKey)
-		ifFalse: [aBlock value]
-		ifTrue: [self basicDelete: aKey]
+	^ (self includesKey: aKey)
+		ifFalse: [ aBlock value ]
+		ifTrue: [ self basicDelete: aKey ]
 ! !
 
 !HashedCollection methodsFor: 'comparing'!
 
 = aHashedCollection
-	self class = aHashedCollection class ifFalse: [^false].
-	self size = aHashedCollection size ifFalse: [^false].
-	^self associations = aHashedCollection associations
+	self class = aHashedCollection class ifFalse: [ ^ false ].
+	self size = aHashedCollection size ifFalse: [ ^ false ].
+	^ self associations = aHashedCollection associations
 ! !
 
 !HashedCollection methodsFor: 'converting'!
 
 asDictionary
-	^Dictionary from: self associations
+	^ Dictionary from: self associations
 !
 
 asJSON
 	| c |
 	c := self class new.
-	self keysAndValuesDo: [:key :value |
-		c at: key put: value asJSON].
-	^c
+	self keysAndValuesDo: [ :key :value |
+		c at: key put: value asJSON ].
+	^ c
 ! !
 
 !HashedCollection methodsFor: 'copying'!
@@ -514,36 +514,36 @@ asJSON
 deepCopy
 	| copy |
 	copy := self class new.
-	self keysAndValuesDo: [:key :value |
-		copy at: key put: value deepCopy].
-	^copy
+	self keysAndValuesDo: [ :key :value |
+		copy at: key put: value deepCopy ].
+	^ copy
 !
 
 shallowCopy
 	| copy |
 	copy := self class new.
-	self keysAndValuesDo: [:key :value |
-		copy at: key put: value].
-	^copy
+	self keysAndValuesDo: [ :key :value |
+		copy at: key put: value ].
+	^ copy
 ! !
 
 !HashedCollection methodsFor: 'enumerating'!
 
 associationsDo: aBlock
-	self keysAndValuesDo: [:key :value |
-		aBlock value: (Association key: key value: value)]
+	self keysAndValuesDo: [ :key :value |
+		aBlock value: (Association key: key value: value) ]
 !
 
 collect: aBlock
 	| newDict |
 	newDict := self class new.
-	self keysAndValuesDo: [:key :value |
-		newDict at: key put: (aBlock value: value)].
-	^newDict
+	self keysAndValuesDo: [ :key :value |
+		newDict at: key put: (aBlock value: value) ].
+	^ newDict
 !
 
 detect: aBlock ifNone: anotherBlock
-	^self values detect: aBlock ifNone: anotherBlock
+	^ self values detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock
@@ -551,12 +551,12 @@ do: aBlock
 !
 
 includes: anObject
-	^self values includes: anObject
+	^ self values includes: anObject
 !
 
 keysAndValuesDo: aBlock
-	self keysDo: [:each |
-		aBlock value: each value: (self at: each)]
+	self keysDo: [ :each |
+		aBlock value: each value: (self at: each) ]
 !
 
 keysDo: aBlock
@@ -566,9 +566,9 @@ keysDo: aBlock
 select: aBlock
 	| newDict |
 	newDict := self class new.
-	self keysAndValuesDo: [:key :value |
-		(aBlock value: value) ifTrue: [newDict at: key put: value]].
-	^newDict
+	self keysAndValuesDo: [ :key :value |
+		(aBlock value: value) ifTrue: [ newDict at: key put: value ]].
+	^ newDict
 !
 
 valuesDo: aBlock
@@ -586,7 +586,7 @@ printOn: aStream
 	
 	aStream nextPutAll: ' ('.
 	self associations
-		do: [:each | each printOn: aStream ]
+		do: [ :each | each printOn: aStream ]
 		separatedBy: [ aStream nextPutAll: ' , ' ].
 	aStream nextPutAll: ')'
 ! !
@@ -755,11 +755,11 @@ with numeric indexes starting with 1.!
 !SequenceableCollection methodsFor: 'accessing'!
 
 allButFirst
-	^self copyFrom: 2 to: self size
+	^ self copyFrom: 2 to: self size
 !
 
 allButLast
-	^self copyFrom: 1 to: self size - 1
+	^ self copyFrom: 1 to: self size - 1
 !
 
 atRandom
@@ -767,7 +767,7 @@ atRandom
 !
 
 first
-	^self at: 1
+	^ self at: 1
 !
 
 first: n
@@ -778,7 +778,7 @@ first: n
 !
 
 fourth
-	^self at: 4
+	^ self at: 4
 !
 
 indexOf: anObject ifAbsent: aBlock
@@ -794,7 +794,7 @@ indexOf: anObject startingAt: start
 	"Answer the index of the first occurence of anElement after start
 	within the receiver. If the receiver does not contain anElement,
 	answer 0."
-	^self indexOf: anObject startingAt: start ifAbsent: [0]
+	^ self indexOf: anObject startingAt: start ifAbsent: [ 0 ]
 !
 
 indexOf: anObject startingAt: start ifAbsent: aBlock
@@ -807,15 +807,15 @@ indexOf: anObject startingAt: start ifAbsent: aBlock
 !
 
 last
-	^self at: self size
+	^ self at: self size
 !
 
 second
-	^self at: 2
+	^ self at: 2
 !
 
 third
-	^self at: 3
+	^ self at: 3
 ! !
 
 !SequenceableCollection methodsFor: 'adding/removing'!
@@ -832,10 +832,10 @@ removeLast
 
 = aCollection
 	(self class = aCollection class and: [
-		self size = aCollection size]) ifFalse: [^false].
-	self withIndexDo: [:each :i |
-				(aCollection at: i) = each ifFalse: [^false]].
-	^true
+		self size = aCollection size ]) ifFalse: [ ^ false ].
+	self withIndexDo: [ :each :i |
+				(aCollection at: i) = each ifFalse: [ ^ false ]].
+	^ true
 ! !
 
 !SequenceableCollection methodsFor: 'converting'!
@@ -850,25 +850,25 @@ copyFrom: anIndex to: anotherIndex
 	| range newCollection |
 	range := anIndex to: anotherIndex.
 	newCollection := self class new: range size.
-	range withIndexDo: [:each :i |
-		newCollection at: i put: (self at: each)].
-	^newCollection
+	range withIndexDo: [ :each :i |
+		newCollection at: i put: (self at: each) ].
+	^ newCollection
 !
 
 deepCopy
 	| newCollection |
 	newCollection := self class new: self size.
-	self withIndexDo: [:each :index |
-		newCollection at: index put: each deepCopy].
-	^newCollection
+	self withIndexDo: [ :each :index |
+		newCollection at: index put: each deepCopy ].
+	^ newCollection
 !
 
 shallowCopy
 	| newCollection |
 	newCollection := self class new: self size.
 	self withIndexDo: [ :each :index |
-		newCollection at: index put: each].
-	^newCollection
+		newCollection at: index put: each ].
+	^ newCollection
 ! !
 
 !SequenceableCollection methodsFor: 'enumerating'!
@@ -897,39 +897,39 @@ withIndexDo: aBlock
 !SequenceableCollection methodsFor: 'streaming'!
 
 newStream
-	^self streamClass on: self
+	^ self streamClass on: self
 !
 
 readStream
 	"For Pharo compatibility"
 	
-	^self stream
+	^ self stream
 !
 
 stream
-	^self newStream
+	^ self newStream
 !
 
 streamClass
-	^self class streamClass
+	^ self class streamClass
 !
 
 writeStream
 	"For Pharo compatibility"
 	
-	^self stream
+	^ self stream
 ! !
 
 !SequenceableCollection methodsFor: 'testing'!
 
 includes: anObject
-	^(self indexOf: anObject ifAbsent: [nil]) notNil
+	^ (self indexOf: anObject ifAbsent: [ nil ]) notNil
 ! !
 
 !SequenceableCollection class methodsFor: 'accessing'!
 
 streamClass
-		^Stream
+		^ Stream
 ! !
 
 !SequenceableCollection class methodsFor: 'streaming'!
@@ -1009,7 +1009,7 @@ removeLast
 !Array methodsFor: 'converting'!
 
 asJavascript
-	^'[', ((self collect: [:each | each asJavascript]) join: ', '), ']'
+	^ '[', ((self collect: [:each | each asJavascript ]) join: ', '), ']'
 !
 
 reversed
@@ -1042,7 +1042,7 @@ select: aBlock
 !
 
 sort
-	^self basicPerform: 'sort'
+	^ self basicPerform: 'sort'
 !
 
 sort: aBlock
@@ -1054,11 +1054,11 @@ sort: aBlock
 !
 
 sorted
-	^self copy sort
+	^ self copy sort
 !
 
 sorted: aBlock
-	^self copy sort: aBlock
+	^ self copy sort: aBlock
 ! !
 
 !Array methodsFor: 'printing'!
@@ -1080,20 +1080,20 @@ new: anInteger
 !
 
 with: anObject
-		^(self new: 1)
+		^ (self new: 1)
 		at: 1 put: anObject;
 		yourself
 !
 
 with: anObject with: anObject2
-		^(self new: 2)
+		^ (self new: 2)
 		at: 1 put: anObject;
 		at: 2 put: anObject2;
 		yourself
 !
 
 with: anObject with: anObject2 with: anObject3
-		^(self new: 3)
+		^ (self new: 3)
 		at: 1 put: anObject;
 		at: 2 put: anObject2;
 		at: 3 put: anObject3;
@@ -1104,10 +1104,10 @@ withAll: aCollection
 	| instance index |
 	index := 1.
 	instance := self new: aCollection size.
-	aCollection do: [:each |
+	aCollection do: [ :each |
 		instance at: index put: each.
-		index := index + 1].
-	^instance
+		index := index + 1 ].
+	^ instance
 ! !
 
 SequenceableCollection subclass: #CharacterArray
@@ -1135,29 +1135,29 @@ remove: anObject
 !CharacterArray methodsFor: 'converting'!
 
 asLowercase
-	^self class fromString: self asString asLowercase
+	^ self class fromString: self asString asLowercase
 !
 
 asNumber
-	^self asString asNumber
+	^ self asString asNumber
 !
 
 asString
-	^self subclassResponsibility
+	^ self subclassResponsibility
 !
 
 asSymbol
-	^self asString
+	^ self asString
 !
 
 asUppercase
-	^self class fromString: self asString asUppercase
+	^ self class fromString: self asString asUppercase
 ! !
 
 !CharacterArray methodsFor: 'copying'!
 
 , aString
-	^self asString, aString asString
+	^ self asString, aString asString
 ! !
 
 !CharacterArray methodsFor: 'error handling'!
@@ -1251,7 +1251,7 @@ unescaped
 !
 
 == aString
-	^self = aString
+	^ self = aString
 !
 
 > aString
@@ -1265,7 +1265,7 @@ unescaped
 !String methodsFor: 'converting'!
 
 asJSON
-	^self
+	^ self
 !
 
 asJavascript
@@ -1302,7 +1302,7 @@ asSelector
 !
 
 asString
-	^self
+	^ self
 !
 
 asSymbol
@@ -1320,7 +1320,7 @@ capitalized
 !
 
 crlfSanitized
-	^self lines join: String lf
+	^ self lines join: String lf
 !
 
 reversed
@@ -1338,11 +1338,11 @@ copyFrom: anIndex to: anotherIndex
 !
 
 deepCopy
-	^self shallowCopy
+	^ self shallowCopy
 !
 
 shallowCopy
-	^self class fromString: self
+	^ self class fromString: self
 ! !
 
 !String methodsFor: 'enumerating'!
@@ -1379,7 +1379,7 @@ matchesOf: aRegularExpression
 !
 
 replace: aString with: anotherString
-	^self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString
+	^ self replaceRegexp: (RegularExpression fromString: aString flag: 'g') with: anotherString
 !
 
 replaceRegexp: aRegexp with: aString
@@ -1387,39 +1387,39 @@ replaceRegexp: aRegexp with: aString
 !
 
 trimBoth
-	^self trimBoth: '\s'
+	^ self trimBoth: '\s'
 !
 
 trimBoth: separators
 
-	^(self trimLeft: separators) trimRight: separators
+	^ (self trimLeft: separators) trimRight: separators
 !
 
 trimLeft
-	^self trimLeft: '\s'
+	^ self trimLeft: '\s'
 !
 
 trimLeft: separators
 
-	^self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
+	^ self replaceRegexp: (RegularExpression fromString: '^[', separators, ']+' flag: 'g') with: ''
 !
 
 trimRight
-	^self trimRight: '\s'
+	^ self trimRight: '\s'
 !
 
 trimRight: separators
 
-	^self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
+	^ self replaceRegexp: (RegularExpression fromString: '[', separators, ']+$' flag: 'g') with: ''
 ! !
 
 !String methodsFor: 'split join'!
 
 join: aCollection
 	^ String
-		streamContents: [:stream | aCollection
-				do: [:each | stream nextPutAll: each asString]
-				separatedBy: [stream nextPutAll: self]]
+		streamContents: [ :stream | aCollection
+				do: [ :each | stream nextPutAll: each asString ]
+				separatedBy: [ stream nextPutAll: self ]]
 !
 
 lineIndicesDo: aBlock
@@ -1435,11 +1435,11 @@ lineIndicesDo: aBlock
 	nextCR := self indexOf: cr startingAt: 1.
 	lf := String lf.
 	nextLF := self indexOf: lf startingAt: 1.
-	[ start <= sz ] whileTrue: [
+	[ start <= sz ] whileTrue: [ 
 		(nextLF = 0 and: [ nextCR = 0 ])
 			ifTrue: [ "No more CR, nor LF, the string is over"
 					aBlock value: start value: sz value: sz.
-					^self ].
+					^ self ].
 		(nextCR = 0 or: [ 0 < nextLF and: [ nextLF < nextCR ] ])
 			ifTrue: [ "Found a LF"
 					aBlock value: start value: nextLF - 1 value: nextLF.
@@ -1454,7 +1454,7 @@ lineIndicesDo: aBlock
 				ifFalse: [ "Found a CR"
 					aBlock value: start value: nextCR - 1 value: nextCR.
 					start := 1 + nextCR.
-					nextCR := self indexOf: cr startingAt: start ]]]
+					nextCR := self indexOf: cr startingAt: start ] ]]
 !
 
 lineNumber: anIndex
@@ -1462,9 +1462,9 @@ lineNumber: anIndex
 
 	| lineCount |
 	lineCount := 0.
-	self lineIndicesDo: [:start :endWithoutDelimiters :end |
-		(lineCount := lineCount + 1) = anIndex ifTrue: [^self copyFrom: start to: endWithoutDelimiters]].
-	^nil
+	self lineIndicesDo: [ :start :endWithoutDelimiters :end |
+		(lineCount := lineCount + 1) = anIndex ifTrue: [ ^ self copyFrom: start to: endWithoutDelimiters ]].
+	^ nil
 !
 
 lines
@@ -1472,16 +1472,16 @@ lines
 
 	| lines |
 	lines := Array new.
-	self linesDo: [:aLine | lines add: aLine].
-	^lines
+	self linesDo: [ :aLine | lines add: aLine ].
+	^ lines
 !
 
 linesDo: aBlock
 	"Execute aBlock with each line in this string. The terminating line
 	delimiters CR, LF or CRLF pairs are not included in what is passed to aBlock"
 
-	self lineIndicesDo: [:start :endWithoutDelimiters :end |
-		aBlock value: (self copyFrom: start to: endWithoutDelimiters)]
+	self lineIndicesDo: [ :start :endWithoutDelimiters :end |
+		aBlock value: (self copyFrom: start to: endWithoutDelimiters) ]
 !
 
 subStrings: aString
@@ -1507,7 +1507,7 @@ isImmutable
 !
 
 isString
-	^true
+	^ true
 !
 
 isVowel
@@ -1539,7 +1539,7 @@ space
 !
 
 streamClass
-		^StringStream
+		^ StringStream
 !
 
 tab
@@ -1570,8 +1570,8 @@ random
 
 randomNotIn: aString
 	| result |
-    [ result := self random. aString includesSubString: result ] whileTrue.
-    ^result
+	[ result := self random. aString includesSubString: result ] whileTrue.
+	^ result
 ! !
 
 Collection subclass: #Set
@@ -1583,7 +1583,7 @@ I represent an unordered set of objects without duplicates.!
 !Set methodsFor: 'accessing'!
 
 size
-	^elements size
+	^ elements size
 ! !
 
 !Set methodsFor: 'adding/removing'!
@@ -1614,24 +1614,24 @@ remove: anObject ifAbsent: aBlock
 = aCollection
 	self class = aCollection class ifFalse: [ ^ false ].
 	self size = aCollection size ifFalse: [ ^ false ].
-	self do: [:each | (aCollection includes: each) ifFalse: [ ^ false ] ].
+	self do: [ :each | (aCollection includes: each) ifFalse: [ ^ false ] ].
 	^ true
 ! !
 
 !Set methodsFor: 'converting'!
 
 asArray
-	^elements copy
+	^ elements copy
 ! !
 
 !Set methodsFor: 'enumerating'!
 
 collect: aBlock
-	^self class withAll: (elements collect: aBlock)
+	^ self class withAll: (elements collect: aBlock)
 !
 
 detect: aBlock ifNone: anotherBlock
-	^elements detect: aBlock ifNone: anotherBlock
+	^ elements detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock
@@ -1641,10 +1641,10 @@ do: aBlock
 select: aBlock
 	| collection |
 	collection := self class new.
-	self do: [:each |
+	self do: [ :each |
 		(aBlock value: each) ifTrue: [
-			collection add: each]].
-	^collection
+			collection add: each ]].
+	^ collection
 ! !
 
 !Set methodsFor: 'initialization'!
@@ -1669,7 +1669,7 @@ printOn: aStream
 !Set methodsFor: 'testing'!
 
 includes: anObject
-	^elements includes: anObject
+	^ elements includes: anObject
 ! !
 
 Object subclass: #Queue
@@ -1696,7 +1696,7 @@ when growing `write`, but this is left to engine to implement as good as it choo
 !Queue methodsFor: 'accessing'!
 
 next
-	^self nextIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
+	^ self nextIfAbsent: [ self error: 'Cannot read from empty Queue.' ]
 !
 
 nextIfAbsent: aBlock
@@ -1704,14 +1704,14 @@ nextIfAbsent: aBlock
 	result := read at: readIndex ifAbsent: [
 		write isEmpty ifTrue: [
 			readIndex > 1 ifTrue: [ read := #(). readIndex := 1 ].
-			^aBlock value ].
+			^ aBlock value ].
 		read := write.
 		readIndex := 1.
 		write := OrderedCollection new.
 		read first ].
 	read at: readIndex put: nil.
 	readIndex := readIndex + 1.
-	^result
+	^ result
 !
 
 nextPut: anObject
@@ -1750,7 +1750,7 @@ test: aString
 !RegularExpression class methodsFor: 'instance creation'!
 
 fromString: aString
-		^self fromString: aString flag: ''
+		^ self fromString: aString flag: ''
 !
 
 fromString: aString flag: anotherString
@@ -1767,17 +1767,17 @@ My instances are read/write streams to the contents sequence collection.!
 !Stream methodsFor: 'accessing'!
 
 collection
-	^collection
+	^ collection
 !
 
 contents
-	^self collection
+	^ self collection
 		copyFrom: 1
 		to: self streamSize
 !
 
 position
-	^position ifNil: [position := 0]
+	^ position ifNil: [ position := 0 ]
 !
 
 position: anInteger
@@ -1793,11 +1793,11 @@ setStreamSize: anInteger
 !
 
 size
-	^self streamSize
+	^ self streamSize
 !
 
 streamSize
-	^streamSize
+	^ streamSize
 ! !
 
 !Stream methodsFor: 'actions'!
@@ -1820,7 +1820,7 @@ resetContents
 !Stream methodsFor: 'enumerating'!
 
 do: aBlock
-	[self atEnd] whileFalse: [aBlock value: self next]
+	[ self atEnd ] whileFalse: [ aBlock value: self next ]
 ! !
 
 !Stream methodsFor: 'positioning'!
@@ -1836,11 +1836,11 @@ skip: anInteger
 !Stream methodsFor: 'reading'!
 
 next
-	^self atEnd
-		ifTrue: [nil]
+	^ self atEnd
+		ifTrue: [ nil ]
 		ifFalse: [
 			self position: self position + 1.
-			collection at: self position]
+			collection at: self position ]
 !
 
 next: anInteger
@@ -1848,27 +1848,27 @@ next: anInteger
 	tempCollection := self collection class new.
 	anInteger timesRepeat: [
 		self atEnd ifFalse: [
-		tempCollection add: self next]].
-	^tempCollection
+		tempCollection add: self next ]].
+	^ tempCollection
 !
 
 peek
-	^self atEnd ifFalse: [
-		self collection at: self position + 1]
+	^ self atEnd ifFalse: [
+		self collection at: self position + 1 ]
 ! !
 
 !Stream methodsFor: 'testing'!
 
 atEnd
-	^self position = self size
+	^ self position = self size
 !
 
 atStart
-	^self position = 0
+	^ self position = 0
 !
 
 isEmpty
-	^self size = 0
+	^ self size = 0
 ! !
 
 !Stream methodsFor: 'writing'!
@@ -1884,8 +1884,8 @@ nextPut: anObject
 !
 
 nextPutAll: aCollection
-	aCollection do: [:each |
-		self nextPut: each]
+	aCollection do: [ :each |
+		self nextPut: each ]
 !
 
 nextPutString: aString
@@ -1899,7 +1899,7 @@ write: anObject
 !Stream class methodsFor: 'instance creation'!
 
 on: aCollection
-		^self new
+		^ self new
 		setCollection: aCollection;
 		setStreamSize: aCollection size;
 		yourself
@@ -1918,22 +1918,22 @@ next: anInteger
 	tempCollection := self collection class new.
 	anInteger timesRepeat: [
 		self atEnd ifFalse: [
-		tempCollection := tempCollection, self next]].
-	^tempCollection
+		tempCollection := tempCollection, self next ]].
+	^ tempCollection
 ! !
 
 !StringStream methodsFor: 'writing'!
 
 cr
-	^self nextPutAll: String cr
+	^ self nextPutAll: String cr
 !
 
 crlf
-	^self nextPutAll: String crlf
+	^ self nextPutAll: String crlf
 !
 
 lf
-	^self nextPutAll: String lf
+	^ self nextPutAll: String lf
 !
 
 nextPut: aString
@@ -1960,6 +1960,6 @@ space
 !
 
 tab
-	^self nextPutAll: String tab
+	^ self nextPutAll: String tab
 ! !
 

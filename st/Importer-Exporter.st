@@ -37,7 +37,7 @@ extensionProtocolsOfPackage: aPackage
 			(behavior protocols includes: extensionName) ifTrue: [
 				result add: (ExportMethodProtocol name: extensionName theClass: behavior) ] ] ].
 
-	^result
+	^ result
 ! !
 
 !AbstractExporter methodsFor: 'convenience'!
@@ -45,11 +45,11 @@ extensionProtocolsOfPackage: aPackage
 chunkEscape: aString
 	"Replace all occurrences of !! with !!!! and trim at both ends."
 
-	^(aString replace: '!!' with: '!!!!') trimBoth
+	^ (aString replace: '!!' with: '!!!!') trimBoth
 !
 
 classNameFor: aClass
-	^aClass isMetaclass
+	^ aClass isMetaclass
 		ifTrue: [ aClass instanceClass name, ' class' ]
 		ifFalse: [
 			aClass isNil
@@ -84,9 +84,9 @@ extensionCategoriesOfPackage: aPackage
 			map := Dictionary new.
 			aClass protocolsDo: [ :category :methods |
 				category = ('*', name) ifTrue: [ map at: category put: methods ] ].
-			result addAll: ((map keys sorted: [:a :b | a <= b ]) collect: [ :category |
+			result addAll: ((map keys sorted: [ :a :b | a <= b ]) collect: [ :category |
 				MethodCategory name: category theClass: aClass methods: (map at: category) ]) ] ].
-	^result
+	^ result
 !
 
 ownCategoriesOfClass: aClass
@@ -98,14 +98,14 @@ ownCategoriesOfClass: aClass
 	map := Dictionary new.
 	aClass protocolsDo: [ :each :methods |
 		(each match: '^\*') ifFalse: [ map at: each put: methods ] ].
-	^(map keys sorted: [:a :b | a <= b ]) collect: [ :each |
+	^ (map keys sorted: [ :a :b | a <= b ]) collect: [ :each |
 		MethodCategory name: each theClass: aClass methods: (map at: each) ]
 !
 
 ownCategoriesOfMetaClass: aClass
 	"Issue #143: sort protocol alphabetically"
 
-	^self ownCategoriesOfClass: aClass class
+	^ self ownCategoriesOfClass: aClass class
 !
 
 ownMethodProtocolsOfClass: aClass
@@ -135,15 +135,15 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: ' subclass: #', (self classNameFor: aClass); lf;
 		tab; nextPutAll: 'instanceVariableNames: '''.
 	aClass instanceVariableNames
-		do: [:each | aStream nextPutAll: each]
-		separatedBy: [aStream nextPutAll: ' '].
+		do: [ :each | aStream nextPutAll: each ]
+		separatedBy: [ aStream nextPutAll: ' ' ].
 	aStream
 		nextPutAll: ''''; lf;
 		tab; nextPutAll: 'package: ''', aClass category, '''!!'; lf.
 	aClass comment notEmpty ifTrue: [
 		aStream
 		nextPutAll: '!!', (self classNameFor: aClass), ' commentStamp!!';lf;
-		nextPutAll: (self chunkEscape: aClass comment), '!!';lf].
+		nextPutAll: (self chunkEscape: aClass comment), '!!';lf ].
 	aStream lf
 !
 
@@ -154,10 +154,10 @@ exportMetaDefinitionOf: aClass on: aStream
 			nextPutAll: (self classNameFor: aClass class);
 			nextPutAll: ' instanceVariableNames: '''.
 		aClass class instanceVariableNames
-			do: [:each | aStream nextPutAll: each]
-			separatedBy: [aStream nextPutAll: ' '].
+			do: [ :each | aStream nextPutAll: each ]
+			separatedBy: [ aStream nextPutAll: ' ' ].
 		aStream
-			nextPutAll: '''!!'; lf; lf]
+			nextPutAll: '''!!'; lf; lf ]
 !
 
 exportMethod: aMethod on: aStream
@@ -233,20 +233,20 @@ I am typically used to save code outside of the Amber runtime (committing to dis
 ownMethodsOfClass: aClass
 	"Issue #143: sort methods alphabetically"
 
-	^((aClass methodDictionary values) sorted: [:a :b | a selector <= b selector])
-		reject: [:each | (each category match: '^\*')]
+	^ ((aClass methodDictionary values) sorted: [ :a :b | a selector <= b selector ])
+		reject: [ :each | (each category match: '^\*') ]
 !
 
 ownMethodsOfMetaClass: aClass
 	"Issue #143: sort methods alphabetically"
 
-	^self ownMethodsOfClass: aClass class
+	^ self ownMethodsOfClass: aClass class
 ! !
 
 !Exporter methodsFor: 'convenience'!
 
 classNameFor: aClass
-	^aClass isMetaclass
+	^ aClass isMetaclass
 		ifTrue: [ aClass instanceClass name, '.klass' ]
 		ifFalse: [
 			aClass isNil
@@ -264,8 +264,8 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass superclass);
 		nextPutAll: ', ['.
 	aClass instanceVariableNames
-		do: [:each | aStream nextPutAll: '''', each, '''']
-		separatedBy: [aStream nextPutAll: ', '].
+		do: [ :each | aStream nextPutAll: '''', each, '''' ]
+		separatedBy: [ aStream nextPutAll: ', ' ].
 	aStream
 		nextPutAll: '], ''';
 		nextPutAll: aClass category, '''';
@@ -277,7 +277,7 @@ exportDefinitionOf: aClass on: aStream
 		nextPutAll: (self classNameFor: aClass);
 		nextPutAll: '.comment=';
 		nextPutAll: aClass comment asJavascript;
-		nextPutAll: ';'].
+		nextPutAll: ';' ].
 	aStream lf
 !
 
@@ -288,9 +288,9 @@ exportMetaDefinitionOf: aClass on: aStream
 		nextPutAll: 'smalltalk.', (self classNameFor: aClass class);
 		nextPutAll: '.iVarNames = ['.
 		aClass class instanceVariableNames
-		do: [:each | aStream nextPutAll: '''', each, '''']
-		separatedBy: [aStream nextPutAll: ','].
-		aStream nextPutAll: '];', String lf]
+		do: [ :each | aStream nextPutAll: '''', each, '''' ]
+		separatedBy: [ aStream nextPutAll: ',' ].
+		aStream nextPutAll: '];', String lf ]
 !
 
 exportMethod: aMethod on: aStream
@@ -436,20 +436,20 @@ nextChunk
 
 	| char result chunk |
 	result := '' writeStream.
-		[char := stream next.
-		char notNil] whileTrue: [
+		[ char := stream next.
+		char notNil ] whileTrue: [
 				char = '!!' ifTrue: [
 						stream peek = '!!'
-								ifTrue: [stream next "skipping the escape double"]
-								ifFalse: [^result contents trimBoth "chunk end marker found"]].
-				result nextPut: char].
-	^nil "a chunk needs to end with !!"
+								ifTrue: [ stream next "skipping the escape double" ]
+								ifFalse: [ ^ result contents trimBoth "chunk end marker found" ]].
+				result nextPut: char ].
+	^ nil "a chunk needs to end with !!"
 ! !
 
 !ChunkParser class methodsFor: 'instance creation'!
 
 on: aStream
-	^self new stream: aStream
+	^ self new stream: aStream
 ! !
 
 Object subclass: #ExportMethodProtocol
@@ -469,7 +469,7 @@ methods
 !
 
 name
-	^name
+	^ name
 !
 
 name: aString
@@ -477,7 +477,7 @@ name: aString
 !
 
 theClass
-	^theClass
+	^ theClass
 !
 
 theClass: aClass
@@ -487,7 +487,7 @@ theClass: aClass
 !ExportMethodProtocol class methodsFor: 'instance creation'!
 
 name: aString theClass: aClass
-	^self new
+	^ self new
 		name: aString;
 		theClass: aClass;
 		yourself
@@ -509,16 +509,16 @@ import: aStream
 	| chunk result parser lastEmpty |
 	parser := ChunkParser on: aStream.
 	lastEmpty := false.
-	[chunk := parser nextChunk.
-	chunk isNil] whileFalse: [
+	[ chunk := parser nextChunk.
+	chunk isNil ] whileFalse: [
 		chunk isEmpty
-			ifTrue: [lastEmpty := true]
+			ifTrue: [ lastEmpty := true ]
 			ifFalse: [
 				result := Compiler new evaluateExpression: chunk.
 				lastEmpty
 						ifTrue: [
 									lastEmpty := false.
-									result scanFrom: parser]]]
+									result scanFrom: parser ]] ]
 ! !
 
 InterfacingObject subclass: #PackageHandler
@@ -599,7 +599,7 @@ ajaxPutAt: aURL data: aString
 			'type' -> 'PUT'.
 			'data' -> aString.
 			'contentType' -> 'text/plain;charset=UTF-8'.
-			'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"'] }
+			'error' -> [ :xhr | self alert: 'Commiting ' , aURL , ' failed with reason: "' , (xhr responseText) , '"' ] }
 ! !
 
 PackageHandler subclass: #AmdPackageHandler
@@ -613,12 +613,12 @@ I should not be used directly. Instead, use the corresponding `Package` methods.
 !AmdPackageHandler methodsFor: 'accessing'!
 
 commitPathJsFor: aPackage
-	^self toUrl: (self namespaceFor: aPackage)
+	^ self toUrl: (self namespaceFor: aPackage)
 !
 
 commitPathStFor: aPackage
 	"if _source is not mapped, .st commit will likely fail"
-	^self toUrl: (self namespaceFor: aPackage), '/_source'.
+	^ self toUrl: (self namespaceFor: aPackage), '/_source'.
 !
 
 exporterClass

@@ -21,7 +21,7 @@ jsStack
 !
 
 messageText
-	^messageText
+	^ messageText
 !
 
 messageText: aString
@@ -66,11 +66,11 @@ heliosClass
 !Error class methodsFor: 'instance creation'!
 
 signal
-	^self new signal
+	^ self new signal
 !
 
 signal: aString
-		^self new
+	^ self new
 		signal: aString
 ! !
 
@@ -126,7 +126,7 @@ This exception is provided to support `Object>>doesNotUnderstand:`.!
 !MessageNotUnderstood methodsFor: 'accessing'!
 
 message
-	^message
+	^ message
 !
 
 message: aMessage
@@ -134,11 +134,11 @@ message: aMessage
 !
 
 messageText
-	^self receiver asString, ' does not understand #', self message selector
+	^ self receiver asString, ' does not understand #', self message selector
 !
 
 receiver
-	^receiver
+	^ receiver
 !
 
 receiver: anObject
@@ -177,7 +177,7 @@ The default behavior is to log the error and the context stack to the JavaScript
 !ErrorHandler methodsFor: 'error handling'!
 
 handleError: anError
-	anError context ifNotNil: [self logErrorContext: anError context].
+	anError context ifNotNil: [ self logErrorContext: anError context ].
 	self logError: anError
 ! !
 
@@ -189,7 +189,7 @@ log: aString
 
 logContext: aContext
 	aContext home ifNotNil: [
-		self logContext: aContext home].
+		self logContext: aContext home ].
 	self log: aContext asString
 !
 
@@ -200,7 +200,7 @@ logError: anError
 logErrorContext: aContext
 	aContext ifNotNil: [
 		aContext home ifNotNil: [
-			self logContext: aContext home]]
+			self logContext: aContext home ]]
 ! !
 
 ErrorHandler class instanceVariableNames: 'current'!
@@ -208,7 +208,7 @@ ErrorHandler class instanceVariableNames: 'current'!
 !ErrorHandler class methodsFor: 'accessing'!
 
 current
-	^current ifNil: [current := self new]
+	^ current ifNil: [ current := self new ]
 !
 
 setCurrent: anHandler

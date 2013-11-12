@@ -184,7 +184,7 @@ fn: function (aCollection){
 var self=this;
 var context,sequenceNode;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$7,$6;
+var $1,$2,$3,$4,$5,$6;
 context=_st(self["@outerContext"])._newBlockContext();
 $1=_st(_st(_st(self["@node"])._nodes())._first())._copy();
 _st($1)._parent_(nil);
@@ -204,8 +204,7 @@ $4=_st($3)._proceed();
 $5=_st(self["@outerContext"])._interpreter();
 $ctx1.sendIdx["interpreter"]=2;
 _st($5)._setNonLocalReturnFromContext_(context);
-$7=_st(context)._interpreter();
-$6=_st($7)._pop();
+$6=_st(_st(context)._interpreter())._pop();
 return $6;
 }, function($ctx1) {$ctx1.fill(self,"valueWithPossibleArguments:",{aCollection:aCollection,context:context,sequenceNode:sequenceNode},smalltalk.AIBlockClosure)})},
 args: ["aCollection"],
@@ -378,14 +377,11 @@ fn: function (){
 var self=this;
 function $SemanticAnalyzer(){return smalltalk.SemanticAnalyzer||(typeof SemanticAnalyzer=="undefined"?nil:SemanticAnalyzer)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$4,$3,$2;
+var $1;
 $1=self._method();
 $ctx1.sendIdx["method"]=1;
 self["@ast"]=_st($1)._ast();
-$4=self._method();
-$3=_st($4)._methodClass();
-$2=_st($SemanticAnalyzer())._on_($3);
-_st($2)._visit_(self["@ast"]);
+_st(_st($SemanticAnalyzer())._on_(_st(self._method())._methodClass()))._visit_(self["@ast"]);
 return self}, function($ctx1) {$ctx1.fill(self,"initializeAST",{},smalltalk.AIContext)})},
 args: [],
 source: "initializeAST\x0a\x09ast := self method ast.\x0a\x09(SemanticAnalyzer on: self method methodClass)\x0a\x09\x09visit: ast",
@@ -401,7 +397,7 @@ category: 'initialization',
 fn: function (aMethodContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$5,$6,$4,$7,$8;
+var $1,$2,$3,$4;
 self._evaluatedSelector_(_st(aMethodContext)._evaluatedSelector());
 self._index_(_st(aMethodContext)._index());
 self._sendIndexes_(_st(aMethodContext)._sendIndexes());
@@ -418,17 +414,13 @@ $3=_st(outer)._methodContext();
 if(($receiver = $3) == nil || $receiver == null){
 $3;
 } else {
-$5=self._class();
-$6=_st(aMethodContext)._outerContext();
-$4=_st($5)._fromMethodContext_($6);
-self._outerContext_($4);
+self._outerContext_(_st(self._class())._fromMethodContext_(_st(aMethodContext)._outerContext()));
 };
-$7=_st(aMethodContext)._locals();
+$4=_st(aMethodContext)._locals();
 $ctx1.sendIdx["locals"]=1;
-_st($7)._keysAndValuesDo_((function(key,value){
+_st($4)._keysAndValuesDo_((function(key,value){
 return smalltalk.withContext(function($ctx2) {
-$8=self._locals();
-return _st($8)._at_put_(key,value);
+return _st(self._locals())._at_put_(key,value);
 }, function($ctx2) {$ctx2.fillBlock({key:key,value:value},$ctx1,3)})}));
 };
 return self}, function($ctx1) {$ctx1.fill(self,"initializeFromMethodContext:",{aMethodContext:aMethodContext},smalltalk.AIContext)})},
@@ -608,7 +600,7 @@ return _st(context)._localAt_ifAbsent_(aString,aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"localAt:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.AIContext)})},
 args: ["aString", "aBlock"],
-source: "localAt: aString ifAbsent: aBlock\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext \x0a\x09\x09\x09ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]\x0a\x09\x09\x09ifNil: [aBlock value] ]",
+source: "localAt: aString ifAbsent: aBlock\x0a\x09\x22Lookup the local value up to the method context\x22\x0a\x0a\x09^ self locals at: aString ifAbsent: [ \x0a\x09\x09self outerContext \x0a\x09\x09\x09ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]\x0a\x09\x09\x09ifNil: [ aBlock value ] ]",
 messageSends: ["at:ifAbsent:", "locals", "ifNotNil:ifNil:", "outerContext", "localAt:ifAbsent:", "value"],
 referencedClasses: []
 }),
@@ -661,7 +653,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$7,$6,$1;
+var $2,$5,$4,$3,$1;
 $2=self._methodContext();
 $ctx1.sendIdx["methodContext"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -671,9 +663,7 @@ $5=self._methodContext();
 $ctx1.sendIdx["methodContext"]=2;
 $4=_st($5)._receiver();
 $3=_st($4)._class();
-$7=self._methodContext();
-$6=_st($7)._selector();
-$1=_st($3)._lookupSelector_($6);
+$1=_st($3)._lookupSelector_(_st(self._methodContext())._selector());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"method",{},smalltalk.AIContext)})},
@@ -878,7 +868,7 @@ var self=this;
 var currentNode;
 function $ASTPCNodeVisitor(){return smalltalk.ASTPCNodeVisitor||(typeof ASTPCNodeVisitor=="undefined"?nil:ASTPCNodeVisitor)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$5,$4,$3,$7,$6;
+var $1,$2,$5,$4,$3;
 $1=_st($ASTPCNodeVisitor())._new();
 _st($1)._selector_(self._evaluatedSelector());
 _st($1)._context_(self);
@@ -895,9 +885,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(anInterpreter)._push_(each);
 $ctx2.sendIdx["push:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$7=self._innerContext();
-$6=_st($7)._receiver();
-_st(anInterpreter)._push_($6);
+_st(anInterpreter)._push_(_st(self._innerContext())._receiver());
 return self}, function($ctx1) {$ctx1.fill(self,"setupInterpreter:",{anInterpreter:anInterpreter,currentNode:currentNode},smalltalk.AIContext)})},
 args: ["anInterpreter"],
 source: "setupInterpreter: anInterpreter\x0a\x09| currentNode |\x0a\x09\x0a\x09\x22Retrieve the current node\x22\x0a\x09currentNode := ASTPCNodeVisitor new\x0a\x09\x09\x09selector: self evaluatedSelector;\x0a\x09\x09\x09context: self;\x0a\x09\x09\x09visit: self ast;\x0a\x09\x09\x09currentNode.\x0a\x09\x0a\x09anInterpreter node: currentNode.\x0a\x0a\x09\x22Push the send args and receiver to the interpreter stack\x22\x09\x0a\x09self innerContext arguments reversed do: [ :each | \x0a\x09\x09anInterpreter push: each ].\x0a\x09\x09\x0a\x09anInterpreter push: (self innerContext receiver)",
@@ -930,7 +918,7 @@ smalltalk.AIContext.klass);
 
 
 smalltalk.addClass('ASTDebugger', smalltalk.Object, ['interpreter', 'context'], 'Compiler-Interpreter');
-smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from a `MethodContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
+smalltalk.ASTDebugger.comment="I am a stepping debugger interface for Amber code.\x0aI internally use an instance of `ASTInterpreter` to actually step through node and interpret them.\x0a\x0aMy instances are created from an `AIContext` with `ASTDebugger class >> context:`.\x0aThey hold an `AIContext` instance internally, recursive copy of the `MethodContext`.\x0a\x0a## API\x0a\x0aUse the methods of the `'stepping'` protocol to do stepping.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "atEnd",
@@ -1175,6 +1163,22 @@ smalltalk.ASTDebugger);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "skip",
+category: 'stepping',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._interpreter())._skip();
+return self}, function($ctx1) {$ctx1.fill(self,"skip",{},smalltalk.ASTDebugger)})},
+args: [],
+source: "skip\x0a\x09self interpreter skip",
+messageSends: ["skip", "interpreter"],
+referencedClasses: []
+}),
+smalltalk.ASTDebugger);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "stepInto",
 category: 'stepping',
 fn: function (){
@@ -1237,7 +1241,7 @@ category: 'private',
 fn: function (aNode,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$5,$6;
+var $1,$3,$2,$4;
 $1=_st(_st(aNode)._binding())._isInstanceVar();
 if(smalltalk.assert($1)){
 $3=self._context();
@@ -1247,9 +1251,7 @@ $4=_st(aNode)._value();
 $ctx1.sendIdx["value"]=1;
 _st($2)._instVarAt_put_($4,anObject);
 } else {
-$5=self._context();
-$6=_st(aNode)._value();
-_st($5)._localAt_put_($6,anObject);
+_st(self._context())._localAt_put_(_st(aNode)._value(),anObject);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"assign:to:",{aNode:aNode,anObject:anObject},smalltalk.ASTInterpreter)})},
 args: ["aNode", "anObject"],
@@ -1324,7 +1326,7 @@ var source,function_;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$6,$9,$8,$7,$5;
+var $3,$2,$1,$4,$5;
 source=_st($String())._streamContents_((function(str){
 return smalltalk.withContext(function($ctx2) {
 _st(str)._nextPutAll_("(function(");
@@ -1351,11 +1353,7 @@ $4=_st(str)._nextPutAll_("})() })");
 return $4;
 }, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
 function_=_st(_st($Compiler())._new())._eval_(source);
-$6=function_;
-$9=self._context();
-$8=_st($9)._locals();
-$7=_st($8)._values();
-$5=_st($6)._valueWithPossibleArguments_($7);
+$5=_st(function_)._valueWithPossibleArguments_(_st(_st(self._context())._locals())._values());
 return $5;
 }, function($ctx1) {$ctx1.fill(self,"eval:",{aString:aString,source:source,function_:function_},smalltalk.ASTInterpreter)})},
 args: ["aString"],
@@ -1522,7 +1520,7 @@ category: 'stack',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
+var $1,$2;
 var $early={};
 try {
 $1=self._stack();
@@ -1531,8 +1529,7 @@ _st($1)._ifEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 throw $early=[nil];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$3=self._stack();
-$2=_st($3)._last();
+$2=_st(self._stack())._last();
 return $2;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
@@ -1581,7 +1578,7 @@ return self._step();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"proceed",{},smalltalk.ASTInterpreter)})},
 args: [],
-source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] whileFalse: [ \x0a\x09\x09self step ]",
+source: "proceed\x0a\x09\x22Eagerly evaluate the ast\x22\x0a\x09\x0a\x09[ self atEnd ] \x0a\x09\x09whileFalse: [ self step ]",
 messageSends: ["whileFalse:", "atEnd", "step"],
 referencedClasses: []
 }),
@@ -1686,7 +1683,7 @@ fn: function (aMessage,anObject,aBoolean){
 var self=this;
 var method;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2,$4,$7,$6,$5,$8,$9;
+var $1,$3,$2,$4,$5,$6;
 var $early={};
 try {
 if(! smalltalk.assert(aBoolean)){
@@ -1704,16 +1701,13 @@ return $4;
 } else {
 $2;
 };
-$7=_st(anObject)._class();
-$6=_st($7)._superclass();
-$5=_st($6)._methodDictionary();
-method=_st($5)._at_ifAbsent_(_st(aMessage)._selector(),(function(){
+method=_st(_st(_st(_st(anObject)._class())._superclass())._methodDictionary())._at_ifAbsent_(_st(aMessage)._selector(),(function(){
 return smalltalk.withContext(function($ctx2) {
-$8=self._messageNotUnderstood_receiver_(aMessage,anObject);
-throw $early=[$8];
+$5=self._messageNotUnderstood_receiver_(aMessage,anObject);
+throw $early=[$5];
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$9=_st(method)._sendTo_arguments_(anObject,_st(aMessage)._arguments());
-return $9;
+$6=_st(method)._sendTo_arguments_(anObject,_st(aMessage)._arguments());
+return $6;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"sendMessage:to:superSend:",{aMessage:aMessage,anObject:anObject,aBoolean:aBoolean,method:method},smalltalk.ASTInterpreter)})},
@@ -1731,16 +1725,14 @@ category: 'interpreting',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3;
+var $2,$1;
 $2=_st(aContext)._interpreter();
 $ctx1.sendIdx["interpreter"]=1;
 $1=_st($2)._hasReturned();
 if(smalltalk.assert($1)){
 self["@returned"]=true;
 self["@returned"];
-$4=_st(aContext)._interpreter();
-$3=_st($4)._returnValue();
-self._returnValue_($3);
+self._returnValue_(_st(_st(aContext)._interpreter())._returnValue());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"setNonLocalReturnFromContext:",{aContext:aContext},smalltalk.ASTInterpreter)})},
 args: ["aContext"],
@@ -2056,7 +2048,7 @@ var self=this;
 function $PlatformInterface(){return smalltalk.PlatformInterface||(typeof PlatformInterface=="undefined"?nil:PlatformInterface)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$5,$6,$4,$3,$9,$8,$11,$10,$12,$13,$14,$16,$15,$17,$18,$19,$20,$7;
+var $2,$1,$5,$6,$4,$3,$8,$10,$9,$11,$12,$13,$15,$14,$16,$17,$7;
 $2=_st(aNode)._binding();
 $ctx1.sendIdx["binding"]=1;
 $1=_st($2)._isUnknownVar();
@@ -2074,33 +2066,30 @@ $3=self._push_($4);
 $ctx1.sendIdx["push:"]=1;
 return $3;
 };
-$9=_st(aNode)._binding();
-$8=_st($9)._isInstanceVar();
+$8=_st(_st(aNode)._binding())._isInstanceVar();
 if(smalltalk.assert($8)){
-$11=self._context();
+$10=self._context();
 $ctx1.sendIdx["context"]=1;
-$10=_st($11)._receiver();
-$12=_st(aNode)._value();
+$9=_st($10)._receiver();
+$11=_st(aNode)._value();
 $ctx1.sendIdx["value"]=2;
-$7=_st($10)._instVarAt_($12);
+$7=_st($9)._instVarAt_($11);
 } else {
-$13=self._context();
-$14=_st(aNode)._value();
+$12=self._context();
+$13=_st(aNode)._value();
 $ctx1.sendIdx["value"]=3;
-$7=_st($13)._localAt_ifAbsent_($14,(function(){
+$7=_st($12)._localAt_ifAbsent_($13,(function(){
 return smalltalk.withContext(function($ctx2) {
-$16=_st(aNode)._value();
+$15=_st(aNode)._value();
 $ctx2.sendIdx["value"]=4;
-$15=_st($16)._isCapitalized();
-if(smalltalk.assert($15)){
-$17=_st($Smalltalk())._current();
-$18=_st(aNode)._value();
+$14=_st($15)._isCapitalized();
+if(smalltalk.assert($14)){
+$16=_st($Smalltalk())._current();
+$17=_st(aNode)._value();
 $ctx2.sendIdx["value"]=5;
-return _st($17)._at_ifAbsent_($18,(function(){
+return _st($16)._at_ifAbsent_($17,(function(){
 return smalltalk.withContext(function($ctx3) {
-$19=_st($PlatformInterface())._globals();
-$20=_st(aNode)._value();
-return _st($19)._at_($20);
+return _st(_st($PlatformInterface())._globals())._at_(_st(aNode)._value());
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,7)})}));
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
@@ -2108,7 +2097,7 @@ return _st($19)._at_($20);
 self._push_($7);
 return self}, function($ctx1) {$ctx1.fill(self,"visitVariableNode:",{aNode:aNode},smalltalk.ASTInterpreter)})},
 args: ["aNode"],
-source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context \x0a\x09\x09\x09localAt: aNode value\x0a\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09aNode value isCapitalized\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09Smalltalk current \x0a\x09\x09\x09\x09\x09\x09\x09at: aNode value \x0a\x09\x09\x09\x09\x09\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ]]]])",
+source: "visitVariableNode: aNode\x0a\x09aNode binding isUnknownVar ifTrue: [\x0a\x09\x09^ self push: (PlatformInterface globals at: aNode value ifAbsent: [ self error: 'Unknown variable' ]) ].\x0a\x09\x09\x0a\x09self push: (aNode binding isInstanceVar\x0a\x09\x09ifTrue: [ self context receiver instVarAt: aNode value ]\x0a\x09\x09ifFalse: [ self context \x0a\x09\x09\x09localAt: aNode value\x0a\x09\x09\x09ifAbsent: [\x0a\x09\x09\x09\x09aNode value isCapitalized\x0a\x09\x09\x09\x09\x09ifTrue: [\x0a\x09\x09\x09\x09\x09\x09Smalltalk current \x0a\x09\x09\x09\x09\x09\x09\x09at: aNode value \x0a\x09\x09\x09\x09\x09\x09\x09ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])",
 messageSends: ["ifTrue:", "isUnknownVar", "binding", "push:", "at:ifAbsent:", "globals", "value", "error:", "ifTrue:ifFalse:", "isInstanceVar", "instVarAt:", "receiver", "context", "localAt:ifAbsent:", "isCapitalized", "current", "at:"],
 referencedClasses: ["PlatformInterface", "Smalltalk"]
 }),
@@ -2272,7 +2261,7 @@ fn: function (aNode){
 var self=this;
 var sendIndex;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3,$7,$6,$9,$8;
+var $1,$2,$4,$3,$6,$5,$7;
 $1=self._context();
 $2=self._selector();
 $ctx1.sendIdx["selector"]=1;
@@ -2280,16 +2269,14 @@ sendIndex=_st($1)._sendIndexAt_($2);
 smalltalk.ASTPCNodeVisitor.superclass.fn.prototype._visitSendNode_.apply(_st(self), [aNode]);
 $4=self._selector();
 $ctx1.sendIdx["selector"]=2;
-$5=_st(aNode)._selector();
-$3=_st($4).__eq($5);
+$3=_st($4).__eq(_st(aNode)._selector());
 if(smalltalk.assert($3)){
-$7=self._index();
+$6=self._index();
 $ctx1.sendIdx["index"]=1;
-$6=_st($7).__lt(sendIndex);
-if(! smalltalk.assert($6)){
-$9=self._index();
-$8=_st($9).__gt(sendIndex);
-if(! smalltalk.assert($8)){
+$5=_st($6).__lt(sendIndex);
+if(! smalltalk.assert($5)){
+$7=_st(self._index()).__gt(sendIndex);
+if(! smalltalk.assert($7)){
 self["@currentNode"]=aNode;
 self["@currentNode"];
 };

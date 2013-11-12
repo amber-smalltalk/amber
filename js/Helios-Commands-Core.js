@@ -851,14 +851,12 @@ var self=this;
 var activeTab;
 function $HLTabSelectionWidget(){return smalltalk.HLTabSelectionWidget||(typeof HLTabSelectionWidget=="undefined"?nil:HLTabSelectionWidget)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$1;
+var $2,$3,$1;
 activeTab=self._selectedTab();
 $ctx1.sendIdx["selectedTab"]=1;
 $2=_st($HLTabSelectionWidget())._new();
 _st($2)._tabs_(self._tabs());
-$3=$2;
-$4=self._selectedTab();
-_st($3)._selectedTab_($4);
+_st($2)._selectedTab_(self._selectedTab());
 _st($2)._selectCallback_((function(tab){
 return smalltalk.withContext(function($ctx2) {
 return _st(tab)._activate();
@@ -872,8 +870,8 @@ _st($2)._cancelCallback_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(activeTab)._activate();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$5=_st($2)._show();
-$1=$5;
+$3=_st($2)._show();
+$1=$3;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"execute",{activeTab:activeTab},smalltalk.HLSwitchTabCommand)})},
 args: [],

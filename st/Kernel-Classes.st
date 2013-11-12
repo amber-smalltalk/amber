@@ -22,8 +22,8 @@ allInstanceVariableNames
 	| result |
 	result := self instanceVariableNames copy.
 	self superclass ifNotNil: [
-		result addAll: self superclass allInstanceVariableNames].
-	^result
+		result addAll: self superclass allInstanceVariableNames ].
+	^ result
 !
 
 allSelectors
@@ -56,7 +56,7 @@ allSuperclasses
 !
 
 comment
-	^(self basicAt: 'comment') ifNil: ['']
+	^ (self basicAt: 'comment') ifNil: [ '' ]
 !
 
 comment: aString
@@ -68,13 +68,13 @@ comment: aString
 !
 
 commentStamp
-	^ClassCommentReader new
+	^ ClassCommentReader new
 	class: self;
 	yourself
 !
 
 commentStamp: aStamp prior: prior
-		^self commentStamp
+		^ self commentStamp
 !
 
 definition
@@ -134,14 +134,14 @@ methods
 !
 
 methodsFor: aString
-	^ClassCategoryReader new
+	^ ClassCategoryReader new
 		class: self category: aString;
 		yourself
 !
 
 methodsFor: aString stamp: aStamp
 	"Added for compatibility, right now ignores stamp."
-	^self methodsFor: aString
+	^ self methodsFor: aString
 !
 
 methodsInProtocol: aString
@@ -201,7 +201,7 @@ theNonMetaClass
 !
 
 withAllSubclasses
-	^(Array with: self) addAll: self allSubclasses; yourself
+	^ (Array with: self) addAll: self allSubclasses; yourself
 ! !
 
 !Behavior methodsFor: 'compiling'!
@@ -277,11 +277,11 @@ protocolsDo: aBlock
 
 	| methodsByCategory |
 	methodsByCategory := HashedCollection new.
-	self methodDictionary values do: [:m |
-		(methodsByCategory at: m category ifAbsentPut: [Array new])
-			add: m].
-	self protocols do: [:category |
-		aBlock value: category value: (methodsByCategory at: category)]
+	self methodDictionary values do: [ :m |
+		(methodsByCategory at: m category ifAbsentPut: [ Array new ])
+			add: m ].
+	self protocols do: [ :category |
+		aBlock value: category value: (methodsByCategory at: category) ]
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -291,7 +291,7 @@ basicNew
 !
 
 new
-	^self basicNew initialize
+	^ self basicNew initialize
 ! !
 
 !Behavior methodsFor: 'private'!
@@ -307,8 +307,8 @@ basicRemoveCompiledMethod: aMethod
 !Behavior methodsFor: 'testing'!
 
 canUnderstand: aSelector
-	^(self methodDictionary keys includes: aSelector asString) or: [
-		self superclass notNil and: [self superclass canUnderstand: aSelector]]
+	^ (self methodDictionary keys includes: aSelector asString) or: [
+		self superclass notNil and: [ self superclass canUnderstand: aSelector ]]
 !
 
 includesBehavior: aClass
@@ -343,7 +343,7 @@ Class creation is done throught a `ClassBuilder` instance.!
 !Class methodsFor: 'accessing'!
 
 category
-	^self package ifNil: ['Unclassified'] ifNotNil: [self package name]
+	^ self package ifNil: [ 'Unclassified' ] ifNotNil: [ self package name ]
 !
 
 definition
@@ -397,22 +397,22 @@ subclasses
 
 subclass: aString instanceVariableNames: anotherString
 	"Kept for compatibility."
-	^self subclass: aString instanceVariableNames: anotherString package: nil
+	^ self subclass: aString instanceVariableNames: anotherString package: nil
 !
 
 subclass: aString instanceVariableNames: aString2 category: aString3
 	"Kept for compatibility."
 	self deprecatedAPI.
-	^self subclass: aString instanceVariableNames: aString2 package: aString3
+	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 classVariableNames: classVars poolDictionaries: pools category: aString3
 	"Just ignore class variables and pools. Added for compatibility."
-	^self subclass: aString instanceVariableNames: aString2 package: aString3
+	^ self subclass: aString instanceVariableNames: aString2 package: aString3
 !
 
 subclass: aString instanceVariableNames: aString2 package: aString3
-	^ClassBuilder new
+	^ ClassBuilder new
 		superclass: self subclass: aString asString instanceVariableNames: aString2 package: aString3
 ! !
 
@@ -431,7 +431,7 @@ printOn: aStream
 !Class methodsFor: 'testing'!
 
 isClass
-	^true
+	^ true
 ! !
 
 Behavior subclass: #Metaclass
@@ -495,7 +495,7 @@ printOn: aStream
 !Metaclass methodsFor: 'testing'!
 
 isMetaclass
-	^true
+	^ true
 ! !
 
 Object subclass: #ClassBuilder
@@ -509,7 +509,7 @@ Rather than using me directly to compile a class, use `Class >> subclass:instanc
 !ClassBuilder methodsFor: 'accessing'!
 
 instanceVariableNamesFor: aString
-	^(aString tokenize: ' ') reject: [ :each | each isEmpty ]
+	^ (aString tokenize: ' ') reject: [ :each | each isEmpty ]
 ! !
 
 !ClassBuilder methodsFor: 'class definition'!
@@ -547,7 +547,7 @@ class: aClass instanceVariableNames: ivarNames
 !
 
 superclass: aClass subclass: className
-	^self superclass: aClass subclass: className instanceVariableNames: '' package: nil
+	^ self superclass: aClass subclass: className instanceVariableNames: '' package: nil
 !
 
 superclass: aClass subclass: className instanceVariableNames: ivarNames package: packageName
@@ -555,7 +555,7 @@ superclass: aClass subclass: className instanceVariableNames: ivarNames package:
 	
 	newClass := self addSubclassOf: aClass
 		named: className instanceVariableNames: (self instanceVariableNamesFor: ivarNames)
-		package: (packageName ifNil: ['unclassified']).
+		package: (packageName ifNil: [ 'unclassified' ]).
 	self setupClass: newClass.
 	
 	SystemAnnouncer current
@@ -563,7 +563,7 @@ superclass: aClass subclass: className instanceVariableNames: ivarNames package:
 			theClass: newClass;
 			yourself).
 	
-	^newClass
+	^ newClass
 ! !
 
 !ClassBuilder methodsFor: 'class migration'!
@@ -613,7 +613,7 @@ migrateClassNamed: className superclass: aClass instanceVariableNames: aCollecti
 		oldClass: oldClass;
 		yourself).
 	
-	^newClass
+	^ newClass
 !
 
 renameClass: aClass to: className
@@ -646,7 +646,7 @@ copyClass: aClass named: className
 			theClass: newClass;
 			yourself).
 	
-	^newClass
+	^ newClass
 !
 
 copyClass: aClass to: anotherClass
@@ -670,7 +670,7 @@ installMethod: aCompiledMethod forClass: aBehavior category: aString
 	aCompiledMethod category: aString.
 	aBehavior addCompiledMethod: aCompiledMethod.
 	self setupClass: aBehavior.
-	^aCompiledMethod
+	^ aCompiledMethod
 ! !
 
 !ClassBuilder methodsFor: 'private'!
@@ -688,7 +688,7 @@ basicClass: aClass instanceVariableNames: aString
 
 basicClass: aClass instanceVariables: aCollection
 
-	aClass isMetaclass ifFalse: [self error: aClass name, ' is not a metaclass'].
+	aClass isMetaclass ifFalse: [ self error: aClass name, ' is not a metaclass' ].
 	aClass basicAt: 'iVarNames' put: aCollection
 !
 
@@ -746,9 +746,9 @@ class: aClass category: aString
 
 scanFrom: aChunkParser
 	| chunk |
-	[chunk := aChunkParser nextChunk.
-	chunk isEmpty] whileFalse: [
-		self compileMethod: chunk].
+	[ chunk := aChunkParser nextChunk.
+	chunk isEmpty ] whileFalse: [
+		self compileMethod: chunk ].
 	ClassBuilder new setupClass: class
 ! !
 
@@ -784,7 +784,7 @@ scanFrom: aChunkParser
 	| chunk |
 	chunk := aChunkParser nextChunk.
 	chunk isEmpty ifFalse: [
-		self setComment: chunk].
+		self setComment: chunk ].
 ! !
 
 !ClassCommentReader methodsFor: 'initialization'!
@@ -813,16 +813,16 @@ getNodesFrom: aCollection
 	| children others |
 	children := #().
 	others := #().
-	aCollection do: [:each |
+	aCollection do: [ :each |
 		(each superclass = self theClass)
-			ifTrue: [children add: each]
-			ifFalse: [others add: each]].
-	nodes:= children collect: [:each |
-		ClassSorterNode on: each classes: others level: self level + 1]
+			ifTrue: [ children add: each ]
+			ifFalse: [ others add: each ]].
+	nodes:= children collect: [ :each |
+		ClassSorterNode on: each classes: others level: self level + 1 ]
 !
 
 level
-	^level
+	^ level
 !
 
 level: anInteger
@@ -830,11 +830,11 @@ level: anInteger
 !
 
 nodes
-	^nodes
+	^ nodes
 !
 
 theClass
-	^theClass
+	^ theClass
 !
 
 theClass: aClass
@@ -847,14 +847,14 @@ traverseClassesWith: aCollection
 	"sort classes alphabetically Issue #143"
 
 	aCollection add: self theClass.
-	(self nodes sorted: [:a :b | a theClass name <= b theClass name ]) do: [:aNode |
+	(self nodes sorted: [ :a :b | a theClass name <= b theClass name ]) do: [ :aNode |
 		aNode traverseClassesWith: aCollection ].
 ! !
 
 !ClassSorterNode class methodsFor: 'instance creation'!
 
 on: aClass classes: aCollection level: anInteger
-	^self new
+	^ self new
 		theClass: aClass;
 		level: anInteger;
 		getNodesFrom: aCollection;

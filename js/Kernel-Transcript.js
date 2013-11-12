@@ -133,7 +133,7 @@ $1=self["@current"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.Transcript.klass)})},
 args: [],
-source: "current\x0a\x09^current",
+source: "current\x0a\x09^ current",
 messageSends: [],
 referencedClasses: []
 }),

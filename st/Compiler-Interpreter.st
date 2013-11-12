@@ -143,7 +143,7 @@ localAt: aString ifAbsent: aBlock
 	^ self locals at: aString ifAbsent: [ 
 		self outerContext 
 			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [aBlock value] ]
+			ifNil: [ aBlock value ] ]
 !
 
 localAt: aString put: anObject
@@ -301,9 +301,9 @@ Object subclass: #ASTDebugger
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
 I am a stepping debugger interface for Amber code.
-I internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.
+I internally use an instance of `ASTInterpreter` to actually step through node and interpret them.
 
-My instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
+My instances are created from an `AIContext` with `ASTDebugger class >> context:`.
 They hold an `AIContext` instance internally, recursive copy of the `MethodContext`.
 
 ## API
@@ -383,6 +383,10 @@ proceed
 
 restart
 	self interpreter restart
+!
+
+skip
+	self interpreter skip
 !
 
 stepInto
@@ -482,8 +486,8 @@ next
 proceed
 	"Eagerly evaluate the ast"
 	
-	[ self atEnd ] whileFalse: [ 
-		self step ]
+	[ self atEnd ] 
+		whileFalse: [ self step ]
 !
 
 restart
@@ -709,7 +713,7 @@ visitVariableNode: aNode
 					ifTrue: [
 						Smalltalk current 
 							at: aNode value 
-							ifAbsent: [ PlatformInterface globals at: aNode value ]]]])
+							ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])
 ! !
 
 Error subclass: #ASTInterpreterError

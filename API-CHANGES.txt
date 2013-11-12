@@ -22,9 +22,8 @@
   + >>shouldBeAliased
 + CompiledMethod>>sendTo:arguments:
 + Array
-  + >>adFirst:
+  + >>addFirst:
   + >>removeLast
-+ ValueNode>>xxxDoIt
 + Number
   + >>ceiling
   + >>floor

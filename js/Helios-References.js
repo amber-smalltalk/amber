@@ -298,21 +298,19 @@ function $HLContainer(){return smalltalk.HLContainer||(typeof HLContainer=="unde
 function $HLHorizontalSplitter(){return smalltalk.HLHorizontalSplitter||(typeof HLHorizontalSplitter=="undefined"?nil:HLHorizontalSplitter)}
 function $HLVerticalSplitter(){return smalltalk.HLVerticalSplitter||(typeof HLVerticalSplitter=="undefined"?nil:HLVerticalSplitter)}
 return smalltalk.withContext(function($ctx1) { 
-var $5,$4,$6,$3,$2,$1,$7;
+var $5,$4,$3,$2,$1;
 $5=self._sendersListWidget();
 $ctx1.sendIdx["sendersListWidget"]=1;
 $4=_st($HLVerticalSplitter())._with_with_($5,self._implementorsListWidget());
 $ctx1.sendIdx["with:with:"]=3;
-$6=_st($HLVerticalSplitter())._with_with_(self._classReferencesListWidget(),self._regexpListWidget());
-$3=_st($HLVerticalSplitter())._with_with_($4,$6);
+$3=_st($HLVerticalSplitter())._with_with_($4,_st($HLVerticalSplitter())._with_with_(self._classReferencesListWidget(),self._regexpListWidget()));
 $ctx1.sendIdx["with:with:"]=2;
 $2=_st($HLHorizontalSplitter())._with_with_($3,self._sourceCodeWidget());
 $ctx1.sendIdx["with:with:"]=1;
 $1=_st($HLContainer())._with_($2);
 _st(html)._with_($1);
 $ctx1.sendIdx["with:"]=1;
-$7=self._sendersListWidget();
-_st($7)._focus();
+_st(self._sendersListWidget())._focus();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.HLReferences)})},
 args: ["html"],
 source: "renderContentOn: html\x0a\x09html with: (HLContainer with: (HLHorizontalSplitter \x0a    \x09with: (HLVerticalSplitter\x0a        \x09with: (HLVerticalSplitter\x0a            \x09with: self sendersListWidget\x0a                with: self implementorsListWidget)\x0a            with: (HLVerticalSplitter\x0a            \x09with: self classReferencesListWidget\x0a                with: self regexpListWidget)) \x0a        with: self sourceCodeWidget)).\x0a\x09\x0a\x09self sendersListWidget focus",
@@ -544,7 +542,7 @@ category: 'reactions',
 fn: function (aMethod){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3;
+var $1,$2,$3;
 var $early={};
 try {
 if(($receiver = aMethod) == nil || $receiver == null){
@@ -564,8 +562,7 @@ throw $early=[self];
 $2=_st(aMethod)._selector();
 $ctx1.sendIdx["selector"]=2;
 self._selectedItem_($2);
-$4=_st(aMethod)._selector();
-$3=self._activateItem_($4);
+$3=self._activateItem_(_st(aMethod)._selector());
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"onMethodSelected:",{aMethod:aMethod},smalltalk.HLReferencesListWidget)})},
@@ -599,9 +596,8 @@ category: 'rendering',
 fn: function (aMethod,html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(_st(aMethod)._methodClass())._name()).__comma(" >> #");
-$1=_st($2).__comma(_st(aMethod)._selector());
+var $1;
+$1=_st(_st(_st(_st(aMethod)._methodClass())._name()).__comma(" >> #")).__comma(_st(aMethod)._selector());
 $ctx1.sendIdx[","]=1;
 _st(html)._with_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"renderItemLabel:on:",{aMethod:aMethod,html:html},smalltalk.HLReferencesListWidget)})},
@@ -1093,7 +1089,7 @@ return $2;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateClassesAndMetaclassesCache",{},smalltalk.HLReferencesModel)})},
 args: [],
-source: "updateClassesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache := OrderedCollection new.\x0a\x09\x0a\x09self environment classes do: [:each |\x0a\x09\x09classesAndMetaclassesCache\x0a\x09\x09\x09\x09add: each; \x0a\x09\x09\x09\x09add: each class ]",
+source: "updateClassesAndMetaclassesCache\x0a\x09classesAndMetaclassesCache := OrderedCollection new.\x0a\x09\x0a\x09self environment classes do: [ :each |\x0a\x09\x09classesAndMetaclassesCache\x0a\x09\x09\x09\x09add: each; \x0a\x09\x09\x09\x09add: each class ]",
 messageSends: ["new", "do:", "classes", "environment", "add:", "class"],
 referencedClasses: ["OrderedCollection"]
 }),
@@ -1114,7 +1110,7 @@ return _st(self["@methodsCache"])._addAll_(_st(each)._methods());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"updateMethodsCache",{},smalltalk.HLReferencesModel)})},
 args: [],
-source: "updateMethodsCache\x0a\x09methodsCache := OrderedCollection new.\x0a\x09\x0a\x09self classesAndMetaclasses\x0a\x09\x09do: [:each | methodsCache addAll: each methods ]",
+source: "updateMethodsCache\x0a\x09methodsCache := OrderedCollection new.\x0a\x09\x0a\x09self classesAndMetaclasses\x0a\x09\x09do: [ :each | methodsCache addAll: each methods ]",
 messageSends: ["new", "do:", "classesAndMetaclasses", "addAll:", "methods"],
 referencedClasses: ["OrderedCollection"]
 }),

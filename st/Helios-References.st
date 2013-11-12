@@ -354,7 +354,7 @@ updateCaches
 updateClassesAndMetaclassesCache
 	classesAndMetaclassesCache := OrderedCollection new.
 	
-	self environment classes do: [:each |
+	self environment classes do: [ :each |
 		classesAndMetaclassesCache
 				add: each; 
 				add: each class ]
@@ -364,7 +364,7 @@ updateMethodsCache
 	methodsCache := OrderedCollection new.
 	
 	self classesAndMetaclasses
-		do: [:each | methodsCache addAll: each methods ]
+		do: [ :each | methodsCache addAll: each methods ]
 ! !
 
 !HLReferencesModel methodsFor: 'testing'!

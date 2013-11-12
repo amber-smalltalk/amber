@@ -80,7 +80,7 @@ $1=self["@messageText"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.Error)})},
 args: [],
-source: "messageText\x0a\x09^messageText",
+source: "messageText\x0a\x09^ messageText",
 messageSends: [],
 referencedClasses: []
 }),
@@ -180,7 +180,7 @@ $1=_st(self._new())._signal();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"signal",{},smalltalk.Error.klass)})},
 args: [],
-source: "signal\x0a\x09^self new signal",
+source: "signal\x0a\x09^ self new signal",
 messageSends: ["signal", "new"],
 referencedClasses: []
 }),
@@ -198,7 +198,7 @@ $1=_st(self._new())._signal_(aString);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"signal:",{aString:aString},smalltalk.Error.klass)})},
 args: ["aString"],
-source: "signal: aString\x0a\x09\x09^self new\x0a\x09\x09signal: aString",
+source: "signal: aString\x0a\x09^ self new\x0a\x09\x09signal: aString",
 messageSends: ["signal:", "new"],
 referencedClasses: []
 }),
@@ -332,7 +332,7 @@ $1=self["@message"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"message",{},smalltalk.MessageNotUnderstood)})},
 args: [],
-source: "message\x0a\x09^message",
+source: "message\x0a\x09^ message",
 messageSends: [],
 referencedClasses: []
 }),
@@ -361,14 +361,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(self._receiver())._asString()).__comma(" does not understand #");
-$1=_st($2).__comma(_st(self._message())._selector());
+var $1;
+$1=_st(_st(_st(self._receiver())._asString()).__comma(" does not understand #")).__comma(_st(self._message())._selector());
 $ctx1.sendIdx[","]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.MessageNotUnderstood)})},
 args: [],
-source: "messageText\x0a\x09^self receiver asString, ' does not understand #', self message selector",
+source: "messageText\x0a\x09^ self receiver asString, ' does not understand #', self message selector",
 messageSends: [",", "asString", "receiver", "selector", "message"],
 referencedClasses: []
 }),
@@ -386,7 +385,7 @@ $1=self["@receiver"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"receiver",{},smalltalk.MessageNotUnderstood)})},
 args: [],
-source: "receiver\x0a\x09^receiver",
+source: "receiver\x0a\x09^ receiver",
 messageSends: [],
 referencedClasses: []
 }),
@@ -457,19 +456,18 @@ category: 'error handling',
 fn: function (anError){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(anError)._context();
 $ctx1.sendIdx["context"]=1;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-$2=_st(anError)._context();
-self._logErrorContext_($2);
+self._logErrorContext_(_st(anError)._context());
 };
 self._logError_(anError);
 return self}, function($ctx1) {$ctx1.fill(self,"handleError:",{anError:anError},smalltalk.ErrorHandler)})},
 args: ["anError"],
-source: "handleError: anError\x0a\x09anError context ifNotNil: [self logErrorContext: anError context].\x0a\x09self logError: anError",
+source: "handleError: anError\x0a\x09anError context ifNotNil: [ self logErrorContext: anError context ].\x0a\x09self logError: anError",
 messageSends: ["ifNotNil:", "context", "logErrorContext:", "logError:"],
 referencedClasses: []
 }),
@@ -498,19 +496,18 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 $1=_st(aContext)._home();
 $ctx1.sendIdx["home"]=1;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-$2=_st(aContext)._home();
-self._logContext_($2);
+self._logContext_(_st(aContext)._home());
 };
 self._log_(_st(aContext)._asString());
 return self}, function($ctx1) {$ctx1.fill(self,"logContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
-source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home].\x0a\x09self log: aContext asString",
+source: "logContext: aContext\x0a\x09aContext home ifNotNil: [\x0a\x09\x09self logContext: aContext home ].\x0a\x09self log: aContext asString",
 messageSends: ["ifNotNil:", "home", "logContext:", "log:", "asString"],
 referencedClasses: []
 }),
@@ -539,7 +536,7 @@ category: 'private',
 fn: function (aContext){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 if(($receiver = aContext) == nil || $receiver == null){
 aContext;
 } else {
@@ -548,13 +545,12 @@ $ctx1.sendIdx["home"]=1;
 if(($receiver = $1) == nil || $receiver == null){
 $1;
 } else {
-$2=_st(aContext)._home();
-self._logContext_($2);
+self._logContext_(_st(aContext)._home());
 };
 };
 return self}, function($ctx1) {$ctx1.fill(self,"logErrorContext:",{aContext:aContext},smalltalk.ErrorHandler)})},
 args: ["aContext"],
-source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home]]",
+source: "logErrorContext: aContext\x0a\x09aContext ifNotNil: [\x0a\x09\x09aContext home ifNotNil: [\x0a\x09\x09\x09self logContext: aContext home ]]",
 messageSends: ["ifNotNil:", "home", "logContext:"],
 referencedClasses: []
 }),
@@ -580,7 +576,7 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ErrorHandler.klass)})},
 args: [],
-source: "current\x0a\x09^current ifNil: [current := self new]",
+source: "current\x0a\x09^ current ifNil: [ current := self new ]",
 messageSends: ["ifNil:", "new"],
 referencedClasses: []
 }),
