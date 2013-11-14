@@ -833,7 +833,7 @@ reservedWords
 version
 	"Answer the version string of Amber"
 	
-	^ '0.12.1'
+	^ '0.13.0-pre'
 ! !
 
 !Smalltalk methodsFor: 'accessing amd'!
