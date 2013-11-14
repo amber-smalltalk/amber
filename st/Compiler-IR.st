@@ -87,15 +87,15 @@ aliasTemporally: aCollection
 	
 	aCollection withIndexDo: [ :each :i |
 		each subtreeNeedsAliasing
-			ifTrue: [ threshold := i ]].
+			ifTrue: [ threshold := i ] ].
 
 	result := OrderedCollection new.
 	aCollection withIndexDo: [ :each :i |
 		result add: (i <= threshold
 			ifTrue: [ self alias: each ]
-			ifFalse: [ self visit: each ])].
+			ifFalse: [ self visit: each ]) ].
 
-	^result
+	^ result
 !
 
 visitAssignmentNode: aNode
@@ -130,10 +130,10 @@ visitBlockSequenceNode: aNode
 		do: [
 			aNode nodes ifNotEmpty: [
 				aNode nodes allButLast do: [ :each |
-					self sequence add: (self visit: each) ].
+					self sequence add: (self visitOrAlias: each) ].
 				aNode nodes last isReturnNode
-					ifFalse: [ self sequence add: (IRBlockReturn new add: (self visit: aNode nodes last); yourself) ]
-					ifTrue: [ self sequence add: (self visit: aNode nodes last) ]]]
+					ifFalse: [ self sequence add: (IRBlockReturn new add: (self visitOrAlias: aNode nodes last); yourself) ]
+					ifTrue: [ self sequence add: (self visitOrAlias: aNode nodes last) ] ]]
 !
 
 visitCascadeNode: aNode
@@ -157,14 +157,14 @@ visitCascadeNode: aNode
 visitDynamicArrayNode: aNode
 	| array |
 	array := IRDynamicArray new.
-	(self aliasTemporally: aNode nodes) do: [:each | array add: each].
+	(self aliasTemporally: aNode nodes) do: [ :each | array add: each ].
 	^ array
 !
 
 visitDynamicDictionaryNode: aNode
 	| dictionary |
 	dictionary := IRDynamicDictionary new.
-	(self aliasTemporally: aNode nodes) do: [:each | dictionary add: each].
+	(self aliasTemporally: aNode nodes) do: [ :each | dictionary add: each ].
 	^ dictionary
 !
 
@@ -203,6 +203,12 @@ visitMethodNode: aNode
 	^ self method
 !
 
+visitOrAlias: aNode
+	^ aNode shouldBeAliased
+		ifTrue: [ self alias: aNode ]
+		ifFalse: [ self visit: aNode ]
+!
+
 visitReturnNode: aNode
 	| return |
 	return := aNode nonLocalReturn
@@ -237,11 +243,9 @@ visitSequenceNode: aNode
 		withSequence: IRSequence new
 		do: [
 			aNode nodes do: [ :each | | instruction |
-				instruction := each shouldBeAliased
-					ifTrue: [ self alias: each ]
-					ifFalse: [ self visit: each ].
+				instruction := self visitOrAlias: each.
 				instruction isVariable ifFalse: [
-					self sequence add: instruction ]]]
+					self sequence add: instruction ] ]]
 !
 
 visitValueNode: aNode
@@ -730,7 +734,7 @@ I am the simplest possible instruction. I represent a value.!
 !IRValue methodsFor: 'accessing'!
 
 value
-	^value
+	^ value
 !
 
 value: aString
@@ -952,7 +956,7 @@ visitIRDynamicDictionary: anIRDynamicDictionary
 	self stream nextPutAll: 'smalltalk.HashedCollection._from_(['.
 		anIRDynamicDictionary instructions
 			do: [ :each | self visit: each ]
-			separatedBy: [self stream nextPutAll: ',' ].
+			separatedBy: [ self stream nextPutAll: ',' ].
 	self stream nextPutAll: '])'
 !
 
@@ -972,8 +976,8 @@ visitIRMethod: anIRMethod
 				anIRMethod scope hasNonLocalReturn
 					ifTrue: [
 						self stream nextPutNonLocalReturnHandlingWith: [
-							super visitIRMethod: anIRMethod ]]
-					ifFalse: [ super visitIRMethod: anIRMethod ]]]
+							super visitIRMethod: anIRMethod ] ]
+					ifFalse: [ super visitIRMethod: anIRMethod ] ]]
 			arguments: anIRMethod arguments ]
 !
 
@@ -1002,7 +1006,7 @@ visitIRSend: anIRSend
 visitIRSequence: anIRSequence
 	self stream nextPutSequenceWith: [
 		anIRSequence instructions do: [ :each |
-			self stream nextPutStatementWith: (self visit: each) ]]
+			self stream nextPutStatementWith: (self visit: each) ] ]
 !
 
 visitIRTempDeclaration: anIRTempDeclaration
@@ -1107,7 +1111,7 @@ nextPutBlockContextFor: anIRClosure during: aBlock
 			self
 				nextPutAll: each asVariableName;
 				nextPutAll: ':';
-				nextPutAll: each asVariableName]
+				nextPutAll: each asVariableName ]
 		separatedBy: [ self nextPutAll: ',' ].
 	
 	self
@@ -1156,7 +1160,7 @@ nextPutContextFor: aMethod during: aBlock
 			self
 				nextPutAll: each asVariableName;
 				nextPutAll: ':';
-				nextPutAll: each asVariableName]
+				nextPutAll: each asVariableName ]
 		separatedBy: [ self nextPutAll: ',' ].
 	
 	self
@@ -1206,8 +1210,8 @@ nextPutMethodDeclaration: aMethod with: aBlock
 		nextPutAll: 'args: ', (aMethod arguments collect: [ :each | each value ]) asArray asJavascript, ','; lf;
 		nextPutAll: 'referencedClasses: ['.
 	aMethod classReferences
-		do: [:each | stream nextPutAll: each asJavascript]
-		separatedBy: [stream nextPutAll: ','].
+		do: [ :each | stream nextPutAll: each asJavascript ]
+		separatedBy: [ stream nextPutAll: ',' ].
 	stream
 		nextPutAll: ']';
 		nextPutAll: '})'
@@ -1262,7 +1266,7 @@ nextPutStatementWith: aBlock
 !
 
 nextPutVars: aCollection
-	aCollection ifEmpty: [ ^self ].
+	aCollection ifEmpty: [ ^ self ].
 	
 	stream nextPutAll: 'var '.
 	aCollection

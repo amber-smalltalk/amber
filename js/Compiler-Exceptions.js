@@ -83,9 +83,8 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2="Variable shadowing error: ".__comma(self._variableName());
-$1=_st($2).__comma(" is already defined");
+var $1;
+$1=_st("Variable shadowing error: ".__comma(self._variableName())).__comma(" is already defined");
 $ctx1.sendIdx[","]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.ShadowingVariableError)})},
@@ -141,9 +140,8 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2="Unknown Variable error: ".__comma(self._variableName());
-$1=_st($2).__comma(" is not defined");
+var $1;
+$1=_st("Unknown Variable error: ".__comma(self._variableName())).__comma(" is not defined");
 $ctx1.sendIdx[","]=1;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"messageText",{},smalltalk.UnknownVariableError)})},

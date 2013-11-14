@@ -179,6 +179,12 @@ testDynamicArrayElementsOrdered
 	self should: 'foo
 	| x |
 	x := 1.
+	^ { x. x := 2 }
+' return: #(1 2).
+
+	self should: 'foo
+	| x |
+	x := 1.
 	^ { x. true ifTrue: [ x := 2 ] }
 ' return: #(1 2).
 !
@@ -201,18 +207,27 @@ testInnerTemporalDependentElementsOrdered
 	self should: 'foo
 	| x |
 	x := Array.
+	^ x with: ''foo''->x with: ''bar''->(x := 2)
+' return: {'foo'->Array. 'bar'->2}.
+
+	self should: 'foo
+	| x |
+	x := Array.
 	^ x with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
 ' return: {'foo'->Array. 'bar'->2}.
+
 	self should: 'foo
 	| x |
 	x := 1.
 	^ Array with: ''foo''->x with: ''bar''->(true ifTrue: [ x := 2 ])
 ' return: {'foo'->1. 'bar'->2}.
+
 	self should: 'foo
 	| x |
 	x := 1.
 	^ { ''foo''->x. ''bar''->(true ifTrue: [ x := 2 ]) }
 ' return: {'foo'->1. 'bar'->2}.
+
 	self should: 'foo
 	| x |
 	x := 1.

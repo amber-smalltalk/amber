@@ -507,13 +507,12 @@ category: 'defaults',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$5,$4,$1;
+var $3,$2,$4,$1;
 $3=self._model();
 $ctx1.sendIdx["model"]=1;
 $2=_st($3)._selectedMethod();
 if(($receiver = $2) == nil || $receiver == null){
-$5=self._model();
-$4=_st($5)._selectedClass();
+$4=_st(self._model())._selectedClass();
 if(($receiver = $4) == nil || $receiver == null){
 $1="";
 } else {
@@ -578,13 +577,11 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$5,$4,$1;
+var $3,$2,$1;
 $3=self._model();
 $ctx1.sendIdx["model"]=1;
 $2=_st($3)._availableClassNames();
-$5=self._model();
-$4=_st($5)._allSelectors();
-$1=_st($2).__comma($4);
+$1=_st($2).__comma(_st(self._model())._allSelectors());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"inputCompletion",{},smalltalk.HLFindReferencesCommand)})},
 args: [],

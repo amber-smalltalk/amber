@@ -85,7 +85,7 @@ on: anErrorClass do: aBlock
 	"All exceptions thrown in the Smalltalk stack are cought.
 	Convert all JS exceptions to JavaScriptException instances."
 	
-	^self try: self catch: [ :error | | smalltalkError |
+	^ self try: self catch: [ :error | | smalltalkError |
 		smalltalkError := Smalltalk current asSmalltalkException: error.
 		(smalltalkError isKindOf: anErrorClass)
 		ifTrue: [ aBlock value: smalltalkError ]
@@ -219,7 +219,7 @@ arguments
 !
 
 category
-	^(self basicAt: 'category') ifNil: [ self defaultCategory ]
+	^ (self basicAt: 'category') ifNil: [ self defaultCategory ]
 !
 
 category: aString
@@ -241,7 +241,7 @@ category: aString
 !
 
 fn
-	^self basicAt: 'fn'
+	^ self basicAt: 'fn'
 !
 
 fn: aBlock
@@ -249,11 +249,11 @@ fn: aBlock
 !
 
 messageSends
-	^self basicAt: 'messageSends'
+	^ self basicAt: 'messageSends'
 !
 
 methodClass
-	^self basicAt: 'methodClass'
+	^ self basicAt: 'methodClass'
 !
 
 protocol
@@ -265,11 +265,11 @@ protocol: aString
 !
 
 referencedClasses
-	^self basicAt: 'referencedClasses'
+	^ self basicAt: 'referencedClasses'
 !
 
 selector
-	^self basicAt: 'selector'
+	^ self basicAt: 'selector'
 !
 
 selector: aString
@@ -277,7 +277,7 @@ selector: aString
 !
 
 source
-	^(self basicAt: 'source') ifNil: ['']
+	^ (self basicAt: 'source') ifNil: [ '' ]
 !
 
 source: aString
@@ -371,11 +371,11 @@ initialize
 makeWorker
 	| sentinel |
 	sentinel := Object new.
-	^[ | block |
+	^ [ | block |
 		poolSize := poolSize - 1.
 		block := queue nextIfAbsent: [ sentinel ].
 		block == sentinel ifFalse: [
-			[ block value ] ensure: [ self addWorker ]]]
+			[ block value ] ensure: [ self addWorker ] ]]
 ! !
 
 !ForkPool methodsFor: 'private'!
@@ -390,11 +390,11 @@ ForkPool class instanceVariableNames: 'default'!
 !ForkPool class methodsFor: 'accessing'!
 
 default
-	^default ifNil: [ default := self new ]
+	^ default ifNil: [ default := self new ]
 !
 
 defaultMaxPoolSize
-	^100
+	^ 100
 !
 
 resetDefault
@@ -418,7 +418,7 @@ Besides accessing methods, `#sendTo:` provides a convenient way to send a messag
 !Message methodsFor: 'accessing'!
 
 arguments
-	^arguments
+	^ arguments
 !
 
 arguments: anArray
@@ -426,7 +426,7 @@ arguments: anArray
 !
 
 selector
-	^selector
+	^ selector
 !
 
 selector: aString
@@ -452,7 +452,7 @@ printOn: aStream
 !Message class methodsFor: 'instance creation'!
 
 selector: aString arguments: anArray
-	^self new
+	^ self new
 		selector: aString;
 		arguments: anArray;
 		yourself
@@ -552,6 +552,10 @@ My instances are JavaScript `SmalltalkMethodContext` objects defined in `boot.js
 
 !MethodContext methodsFor: 'accessing'!
 
+evaluatedSelector
+	<return self.evaluatedSelector>
+!
+
 home
 	<return self.homeContext>
 !
@@ -611,7 +615,7 @@ temps
 !MethodContext methodsFor: 'converting'!
 
 asString
-	^self isBlockContext
+	^ self isBlockContext
 		ifTrue: [ 'a block (in ', self methodContext asString, ')' ]
 		ifFalse: [ self receiver class name, ' >> ', self selector ]
 ! !
@@ -686,7 +690,7 @@ constructor: aString value:anObject value: anObject2 value:anObject3
 !NativeFunction class methodsFor: 'testing'!
 
 exists: aString
-	^PlatformInterface existsGlobal: aString
+	^ PlatformInterface existsGlobal: aString
 ! !
 
 Object subclass: #Timeout
@@ -724,6 +728,6 @@ clearTimeout
 !Timeout class methodsFor: 'instance creation'!
 
 on: anObject
-	^self new rawTimeout: anObject; yourself
+	^ self new rawTimeout: anObject; yourself
 ! !
 

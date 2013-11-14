@@ -46,19 +46,19 @@ I am superclass of all object that interface with user or environment. `Widget` 
 !InterfacingObject methodsFor: 'actions'!
 
 ajax: anObject
-	^PlatformInterface ajax: anObject
+	^ PlatformInterface ajax: anObject
 !
 
 alert: aString
-	^PlatformInterface alert: aString
+	^ PlatformInterface alert: aString
 !
 
 confirm: aString
-	^PlatformInterface confirm: aString
+	^ PlatformInterface confirm: aString
 !
 
 prompt: aString
-	^PlatformInterface prompt: aString
+	^ PlatformInterface prompt: aString
 ! !
 
 InterfacingObject subclass: #Environment
@@ -104,6 +104,10 @@ classNamed: aString
 
 classes
 	^ Smalltalk current classes
+!
+
+doItReceiver
+	^ DoIt new
 !
 
 packages
@@ -309,7 +313,7 @@ at: aString put: anObject
 !
 
 jsObject
-	^jsObject
+	^ jsObject
 !
 
 jsObject: aJSObject
@@ -333,6 +337,12 @@ value
 ! !
 
 !JSObjectProxy methodsFor: 'enumerating'!
+
+asJSON
+	"Answers the receiver in a stringyfy-friendly fashion"
+
+	^ jsObject
+!
 
 keysAndValuesDo: aBlock
 	<
@@ -395,7 +405,7 @@ inspectOn: anInspector
 !JSObjectProxy class methodsFor: 'instance creation'!
 
 on: aJSObject
-	^self new
+	^ self new
 		jsObject: aJSObject;
 		yourself
 ! !
@@ -489,6 +499,18 @@ basicTransport
 	<return self.transport>
 !
 
+definition
+	^ String streamContents: [ :stream |
+		stream 
+			nextPutAll: self class name;
+			nextPutAll: String lf, String tab;
+			nextPutAll: ' named: ';
+			nextPutAll: '''', self name, '''';
+			nextPutAll: String lf, String tab;
+			nextPutAll:  ' transport: (';
+			nextPutAll: self transport definition, ')' ]
+!
+
 name
 	<return self.pkgName>
 !
@@ -509,7 +531,8 @@ transport
 !
 
 transport: aPackageTransport
-	transport := aPackageTransport
+	transport := aPackageTransport.
+	aPackageTransport package: self
 ! !
 
 !Package methodsFor: 'classes'!
@@ -538,7 +561,7 @@ loadDependencies
 	
 	| classes packages |
 	classes := self loadDependencyClasses.
-	^(classes collect: [ :each | each package ]) asSet
+	^ (classes collect: [ :each | each package ]) asSet
 		remove: self ifAbsent: [];
 		yourself
 !
@@ -550,7 +573,7 @@ loadDependencyClasses
 	
 	| starCategoryName |
 	starCategoryName := '*', self name.
-	^(self classes collect: [ :each | each superclass ]) asSet
+	^ (self classes collect: [ :each | each superclass ]) asSet
 		remove: nil ifAbsent: [];
 		addAll: (Smalltalk current classes select: [ :each | each protocols includes: starCategoryName ]);
 		yourself
@@ -577,13 +600,23 @@ Package class instanceVariableNames: 'defaultCommitPathJs defaultCommitPathSt'!
 !Package class methodsFor: 'accessing'!
 
 named: aPackageName
-
-	^Smalltalk current packageAt: aPackageName
+	^ Smalltalk current 
+		packageAt: aPackageName
+		ifAbsent: [ 
+			Smalltalk current createPackage: aPackageName ]
 !
 
 named: aPackageName ifAbsent: aBlock
+	^ Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+!
 
-	^Smalltalk current packageAt: aPackageName ifAbsent: aBlock
+named: aPackageName transport: aTransport
+	| package |
+	
+	package := self named: aPackageName.
+	package transport: aTransport.
+	
+	^ package
 ! !
 
 !Package class methodsFor: 'sorting'!
@@ -594,17 +627,17 @@ sortedClasses: classes
 	| children others nodes expandedClasses |
 	children := #().
 	others := #().
-	classes do: [:each |
+	classes do: [ :each |
 		(classes includes: each superclass)
-			ifFalse: [children add: each]
-			ifTrue: [others add: each]].
-	nodes := children collect: [:each |
-		ClassSorterNode on: each classes: others level: 0].
-	nodes := nodes sorted: [:a :b | a theClass name <= b theClass name ].
+			ifFalse: [ children add: each ]
+			ifTrue: [ others add: each ]].
+	nodes := children collect: [ :each |
+		ClassSorterNode on: each classes: others level: 0 ].
+	nodes := nodes sorted: [ :a :b | a theClass name <= b theClass name ].
 	expandedClasses := Array new.
-	nodes do: [:aNode |
-		aNode traverseClassesWith: expandedClasses].
-	^expandedClasses
+	nodes do: [ :aNode |
+		aNode traverseClassesWith: expandedClasses ].
+	^ expandedClasses
 ! !
 
 Object subclass: #PlatformInterface
@@ -639,19 +672,19 @@ setWorker: anObject
 !PlatformInterface class methodsFor: 'actions'!
 
 ajax: anObject
-	^worker
+	^ worker
 		ifNotNil: [ worker ajax: anObject ]
 		ifNil: [ self error: 'ajax: not available' ]
 !
 
 alert: aString
-	^worker
+	^ worker
 		ifNotNil: [ worker alert: aString ]
 		ifNil: [ self error: 'alert: not available' ]
 !
 
 confirm: aString
-	^worker
+	^ worker
 		ifNotNil: [ worker confirm: aString ]
 		ifNil: [ self error: 'confirm: not available' ]
 !
@@ -664,7 +697,7 @@ existsGlobal: aString
 !
 
 prompt: aString
-	^worker
+	^ worker
 		ifNotNil: [ worker prompt: aString ]
 		ifNil: [ self error: 'prompt: not available' ]
 ! !
@@ -678,7 +711,7 @@ initialize
 	
 	BrowserInterface ifNotNil: [
 		candidate := BrowserInterface new.
-		candidate isAvailable ifTrue: [ self setWorker: candidate. ^self ]
+		candidate isAvailable ifTrue: [ self setWorker: candidate. ^ self ]
 	]
 ! !
 
@@ -704,7 +737,7 @@ ProgressHandler class instanceVariableNames: 'current'!
 !ProgressHandler class methodsFor: 'accessing'!
 
 current
-	^current ifNil: [ current := self new ]
+	^ current ifNil: [ current := self new ]
 !
 
 setCurrent: anHandler
@@ -760,7 +793,7 @@ at: aString
 
 at: aKey ifAbsent: aBlock
 	^ (self includesKey: aKey)
-		ifTrue: [self at: aKey]
+		ifTrue: [ self at: aKey ]
 		ifFalse: aBlock
 !
 
@@ -776,8 +809,8 @@ parse: aString
 	| result |
 	
 	self 
-		try: [result := self basicParse: aString] 
-		catch: [:ex | (self parseError: ex parsing: aString) signal].
+		try: [ result := self basicParse: aString ] 
+		catch: [ :ex | (self parseError: ex parsing: aString) signal ].
 		
 	^ result
 		source: aString;
@@ -800,7 +833,7 @@ reservedWords
 version
 	"Answer the version string of Amber"
 	
-	^ '0.12.0-pre'
+	^ '0.13.0-pre'
 ! !
 
 !Smalltalk methodsFor: 'accessing amd'!
@@ -824,7 +857,7 @@ classes
 !
 
 removeClass: aClass
-	aClass isMetaclass ifTrue: [self error: aClass asString, ' is a Metaclass and cannot be removed!!'].
+	aClass isMetaclass ifTrue: [ self error: aClass asString, ' is a Metaclass and cannot be removed!!' ].
 	
 	self deleteClass: aClass.
 	
@@ -867,16 +900,24 @@ globalJsVariables
 !Smalltalk methodsFor: 'packages'!
 
 createPackage: packageName
-	"Create and bind a new bare package with given name and return it."
-	<return smalltalk.addPackage(packageName)>
+	| package announcement |
+	
+	package := self basicCreatePackage: packageName.
+	announcement := PackageAdded new
+		package: package;
+		yourself.
+		
+	SystemAnnouncer current announce: announcement.
+	
+	^ package
 !
 
 packageAt: packageName
-	<return self.packages[packageName]>
+	<return self.packages[ packageName]>
 !
 
 packageAt: packageName ifAbsent: aBlock
-	^(self packageAt: packageName) ifNil: aBlock
+	^ (self packageAt: packageName) ifNil: aBlock
 !
 
 packages
@@ -895,9 +936,9 @@ removePackage: packageName
 	"Removes a package and all its classes."
 
 	| pkg |
-	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
-	pkg classes do: [:each |
-			self removeClass: each].
+	pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].
+	pkg classes do: [ :each |
+			self removeClass: each ].
 	self deletePackage: packageName
 !
 
@@ -905,14 +946,19 @@ renamePackage: packageName to: newName
 	"Rename a package."
 
 	| pkg |
-	pkg := self packageAt: packageName ifAbsent: [self error: 'Missing package: ', packageName].
-	(self packageAt: newName) ifNotNil: [self error: 'Already exists a package called: ', newName].
+	pkg := self packageAt: packageName ifAbsent: [ self error: 'Missing package: ', packageName ].
+	(self packageAt: newName) ifNotNil: [ self error: 'Already exists a package called: ', newName ].
 	(self at: 'packages') at: newName put: pkg.
 	pkg name: newName.
 	self deletePackage: packageName.
 ! !
 
 !Smalltalk methodsFor: 'private'!
+
+basicCreatePackage: packageName
+	"Create and bind a new bare package with given name and return it."
+	<return smalltalk.addPackage(packageName)>
+!
 
 basicParse: aString
 	<return smalltalk.parser.parse(aString)>
@@ -936,7 +982,7 @@ deletePackage: packageName
 	"Deletes a package by deleting its binding, but does not check if it contains classes etc.
 	To remove a package, use #removePackage instead."
 
-	<delete self.packages[packageName]>
+	<delete self.packages[ packageName]>
 ! !
 
 !Smalltalk methodsFor: 'testing'!
@@ -965,6 +1011,6 @@ do: aBlock displayingProgress: aString
 
 asJavaScriptSelector
 	"Return first keyword of the selector, without trailing colon."
-	^self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
+	^ self replace: '^([a-zA-Z0-9]*).*$' with: '$1'
 ! !
 

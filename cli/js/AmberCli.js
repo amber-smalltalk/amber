@@ -18,6 +18,7 @@ switches=_st(_st(self._class())._methodsInProtocol_("commands"))._collect_((func
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["collect:"]=1;
 switches=_st(switches)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._match_("^[^:]*:$");
@@ -45,8 +46,13 @@ var self=this;
 var selector;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-selector=self._selectorForCommandLineSwitch_(_st(args)._first());
-_st(args)._remove_(_st(args)._first());
+var $1,$2,$3;
+$1=_st(args)._first();
+$ctx1.sendIdx["first"]=1;
+selector=self._selectorForCommandLineSwitch_($1);
+$2=args;
+$3=_st(args)._first();
+_st($2)._remove_($3);
 self._perform_withArguments_(selector,_st($Array())._with_(args));
 return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},smalltalk.AmberCli.klass)})},
 args: ["args"],
@@ -63,7 +69,9 @@ category: 'commands',
 fn: function (args){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_("Available Commands:");
+var $1;
+$1=_st(console)._log_("Available Commands:");
+$ctx1.sendIdx["log:"]=1;
 _st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(console)._log_(each);
@@ -84,22 +92,30 @@ fn: function (){
 var self=this;
 var args,nodeMinorVersion;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-nodeMinorVersion=_st(_st(_st(_st(process)._version())._tokenize_("."))._second())._asNumber();
-$1=_st(nodeMinorVersion).__lt((8));
-if(smalltalk.assert($1)){
-_st(console)._log_("You are currently using Node.js ".__comma(_st(process)._version()));
+var $3,$2,$1,$4,$5,$7,$6,$8,$9;
+$3=_st(process)._version();
+$ctx1.sendIdx["version"]=1;
+$2=_st($3)._tokenize_(".");
+$1=_st($2)._second();
+nodeMinorVersion=_st($1)._asNumber();
+$4=_st(nodeMinorVersion).__lt((8));
+if(smalltalk.assert($4)){
+$5=console;
+$7=_st(process)._version();
+$6="You are currently using Node.js ".__comma($7);
+_st($5)._log_($6);
+$ctx1.sendIdx["log:"]=1;
 _st(console)._log_("Required is at least Node.js v0.8.x or greater.");
 return (-1);
 };
 args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(2));
-$2=_st(args)._isEmpty();
-if(smalltalk.assert($2)){
+$8=_st(args)._isEmpty();
+if(smalltalk.assert($8)){
 self._help_(nil);
 } else {
-$3=self._handleArguments_(args);
-return $3;
+$9=self._handleArguments_(args);
+return $9;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},smalltalk.AmberCli.klass)})},
 args: [],
@@ -242,18 +258,35 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("index.html"));
-if(! smalltalk.assert($1)){
-_st(console)._warn_("Warning: project directory does not contain index.html");
-};
-$2=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("st"));
+var $3,$5,$4,$2,$1,$8,$10,$9,$7,$6,$13,$15,$14,$12,$11;
+$3=self["@fs"];
+$5=self._basePath();
+$ctx1.sendIdx["basePath"]=1;
+$4=_st($5).__comma("index.html");
+$ctx1.sendIdx[","]=1;
+$2=_st($3)._existsSync_($4);
+$ctx1.sendIdx["existsSync:"]=1;
 if(! smalltalk.assert($2)){
-_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
+$1=_st(console)._warn_("Warning: project directory does not contain index.html");
+$ctx1.sendIdx["warn:"]=1;
 };
-$3=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
-if(! smalltalk.assert($3)){
-_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
+$8=self["@fs"];
+$10=self._basePath();
+$ctx1.sendIdx["basePath"]=2;
+$9=_st($10).__comma("st");
+$ctx1.sendIdx[","]=2;
+$7=_st($8)._existsSync_($9);
+$ctx1.sendIdx["existsSync:"]=2;
+if(! smalltalk.assert($7)){
+$6=_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
+$ctx1.sendIdx["warn:"]=2;
+};
+$13=self["@fs"];
+$15=self._basePath();
+$14=_st($15).__comma("js");
+$12=_st($13)._existsSync_($14);
+if(! smalltalk.assert($12)){
+$11=_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
@@ -332,7 +365,19 @@ category: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aResponse)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Access-Control-Allow-Origin".__minus_gt("*"),"Access-Control-Allow-Methods".__minus_gt("GET, PUT, POST, DELETE, OPTIONS"),"Access-Control-Allow-Headers".__minus_gt("Content-Type, Accept"),"Content-Length".__minus_gt((0)),"Access-Control-Max-Age".__minus_gt((10))]));
+var $1,$3,$4,$5,$6,$7,$2;
+$1=aResponse;
+$3="Access-Control-Allow-Origin".__minus_gt("*");
+$ctx1.sendIdx["->"]=1;
+$4="Access-Control-Allow-Methods".__minus_gt("GET, PUT, POST, DELETE, OPTIONS");
+$ctx1.sendIdx["->"]=2;
+$5="Access-Control-Allow-Headers".__minus_gt("Content-Type, Accept");
+$ctx1.sendIdx["->"]=3;
+$6="Content-Length".__minus_gt((0));
+$ctx1.sendIdx["->"]=4;
+$7="Access-Control-Max-Age".__minus_gt((10));
+$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,$7]);
+_st($1)._writeHead_options_((200),$2);
 _st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"handleOPTIONSRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aRequest", "aResponse"],
@@ -350,34 +395,45 @@ fn: function (aRequest,aResponse){
 var self=this;
 var file,stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$3,$4,$5,$6,$2,$7,$8,$10,$9;
 $1=self._isAuthenticated_(aRequest);
 if(! smalltalk.assert($1)){
 self._respondAuthenticationRequiredTo_(aResponse);
 return nil;
 };
 file=".".__comma(_st(aRequest)._url());
+$ctx1.sendIdx[","]=1;
 stream=_st(self["@fs"])._createWriteStream_(file);
-_st(stream)._on_do_("error",(function(error){
+$2=_st(stream)._on_do_("error",(function(error){
 return smalltalk.withContext(function($ctx2) {
-_st(console)._warn_("Error creating WriteStream for file ".__comma(file));
+$3=console;
+$4="Error creating WriteStream for file ".__comma(file);
+$ctx2.sendIdx[","]=2;
+_st($3)._warn_($4);
+$ctx2.sendIdx["warn:"]=1;
 _st(console)._warn_("    Did you forget to create the necessary js/ or st/ directory in your project?");
-_st(console)._warn_("    The exact error is: ".__comma(error));
+$ctx2.sendIdx["warn:"]=2;
+$5=console;
+$6="    The exact error is: ".__comma(error);
+_st($5)._warn_($6);
 return self._respondNotCreatedTo_(aResponse);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
-_st(stream)._on_do_("close",(function(){
+$ctx1.sendIdx["on:do:"]=1;
+$7=_st(stream)._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._respondCreatedTo_(aResponse);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$ctx1.sendIdx["on:do:"]=2;
 _st(aRequest)._setEncoding_("utf8");
-_st(aRequest)._on_do_("data",(function(data){
+$8=_st(aRequest)._on_do_("data",(function(data){
 return smalltalk.withContext(function($ctx2) {
 return _st(stream)._write_(data);
 }, function($ctx2) {$ctx2.fillBlock({data:data},$ctx1,4)})}));
-_st(aRequest)._on_do_("end",(function(){
+$ctx1.sendIdx["on:do:"]=3;
+$9=_st(aRequest)._on_do_("end",(function(){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(stream)._writable();
-if(smalltalk.assert($2)){
+$10=_st(stream)._writable();
+if(smalltalk.assert($10)){
 return _st(stream)._end();
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
@@ -396,18 +452,25 @@ category: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=_st(_st(aRequest)._method()).__eq("PUT");
-if(smalltalk.assert($1)){
-self._handlePUTRequest_respondTo_(aRequest,aResponse);
-};
-$2=_st(_st(aRequest)._method()).__eq("GET");
+var $3,$2,$1,$6,$5,$4,$9,$8,$7;
+$3=_st(aRequest)._method();
+$ctx1.sendIdx["method"]=1;
+$2=_st($3).__eq("PUT");
+$ctx1.sendIdx["="]=1;
 if(smalltalk.assert($2)){
-self._handleGETRequest_respondTo_(aRequest,aResponse);
+$1=self._handlePUTRequest_respondTo_(aRequest,aResponse);
 };
-$3=_st(_st(aRequest)._method()).__eq("OPTIONS");
-if(smalltalk.assert($3)){
-self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
+$6=_st(aRequest)._method();
+$ctx1.sendIdx["method"]=2;
+$5=_st($6).__eq("GET");
+$ctx1.sendIdx["="]=2;
+if(smalltalk.assert($5)){
+$4=self._handleGETRequest_respondTo_(aRequest,aResponse);
+};
+$9=_st(aRequest)._method();
+$8=_st($9).__eq("OPTIONS");
+if(smalltalk.assert($8)){
+$7=self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aRequest", "aResponse"],
@@ -458,14 +521,22 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
 smalltalk.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@path"]=self._require_("path");
+$ctx1.sendIdx["require:"]=1;
 self["@http"]=self._require_("http");
+$ctx1.sendIdx["require:"]=2;
 self["@fs"]=self._require_("fs");
+$ctx1.sendIdx["require:"]=3;
 self["@util"]=self._require_("util");
+$ctx1.sendIdx["require:"]=4;
 self["@url"]=self._require_("url");
-self["@host"]=_st(self._class())._defaultHost();
-self["@port"]=_st(self._class())._defaultPort();
+$1=self._class();
+$ctx1.sendIdx["class"]=1;
+self["@host"]=_st($1)._defaultHost();
+$2=self._class();
+self["@port"]=_st($2)._defaultPort();
 self["@username"]=nil;
 self["@password"]=nil;
 self["@fallbackPage"]=nil;
@@ -485,40 +556,54 @@ fn: function (aRequest){
 var self=this;
 var header,token,auth,parts;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
-$1=_st(_st(self["@username"])._isNil())._and_((function(){
+var $2,$1,$3,$5,$6,$7,$10,$11,$9,$12,$13,$8,$4;
+$2=_st(self["@username"])._isNil();
+$ctx1.sendIdx["isNil"]=1;
+$1=_st($2)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@password"])._isNil();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["and:"]=1;
 if(smalltalk.assert($1)){
 return true;
 };
-$2=_st(_st(aRequest)._headers())._at_("authorization");
-if(($receiver = $2) == nil || $receiver == null){
+$3=_st(_st(aRequest)._headers())._at_("authorization");
+$ctx1.sendIdx["at:"]=1;
+if(($receiver = $3) == nil || $receiver == null){
 header="";
 } else {
-header=$2;
+header=$3;
 };
-$3=_st(header)._isEmpty();
-if(smalltalk.assert($3)){
+$5=_st(header)._isEmpty();
+if(smalltalk.assert($5)){
 return false;
 } else {
-$4=_st(header)._tokenize_(" ");
-if(($receiver = $4) == nil || $receiver == null){
+$6=_st(header)._tokenize_(" ");
+$ctx1.sendIdx["tokenize:"]=1;
+if(($receiver = $6) == nil || $receiver == null){
 token="";
 } else {
-token=$4;
+token=$6;
 };
 token;
-auth=self._base64Decode_(_st(token)._at_((2)));
+$7=_st(token)._at_((2));
+$ctx1.sendIdx["at:"]=2;
+auth=self._base64Decode_($7);
 auth;
 parts=_st(auth)._tokenize_(":");
 parts;
-$5=_st(_st(self["@username"]).__eq(_st(parts)._at_((1))))._and_((function(){
+$10=self["@username"];
+$11=_st(parts)._at_((1));
+$ctx1.sendIdx["at:"]=3;
+$9=_st($10).__eq($11);
+$ctx1.sendIdx["="]=1;
+$8=_st($9)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(self["@password"]).__eq(_st(parts)._at_((2)));
+$12=self["@password"];
+$13=_st(parts)._at_((2));
+return _st($12).__eq($13);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}));
-if(smalltalk.assert($5)){
+if(smalltalk.assert($8)){
 return true;
 } else {
 return false;
@@ -627,10 +712,15 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$4,$5,$3,$6;
 $1=aResponse;
-_st($1)._writeHead_options_((201),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain"),"Access-Control-Allow-Origin".__minus_gt("*")]));
-$2=_st($1)._end();
+$2=$1;
+$4="Content-Type".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=1;
+$5="Access-Control-Allow-Origin".__minus_gt("*");
+$3=smalltalk.HashedCollection._from_([$4,$5]);
+_st($2)._writeHead_options_((201),$3);
+$6=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
@@ -647,32 +737,36 @@ fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $2,$1,$3,$4,$5,$6,$7,$8;
 filename=aFilename;
-$1=_st(_st(self["@fs"])._statSync_(aFilename))._isDirectory();
-if(smalltalk.assert($1)){
+$2=_st(_st(self["@fs"])._statSync_(aFilename))._isDirectory();
+if(smalltalk.assert($2)){
 filename=_st(filename).__comma("index.html");
-filename;
+$ctx1.sendIdx[","]=1;
+$1=filename;
 };
 _st(self["@fs"])._readFile_do_(filename,(function(ex,file){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(ex)._notNil();
-if(smalltalk.assert($2)){
-_st(console)._log_(_st(filename).__comma(" does not exist"));
+$3=_st(ex)._notNil();
+if(smalltalk.assert($3)){
+$4=console;
+$5=_st(filename).__comma(" does not exist");
+$ctx2.sendIdx[","]=2;
+_st($4)._log_($5);
 return self._respondInternalErrorTo_(aResponse);
 } else {
 type=_st(self._class())._mimeTypeFor_(filename);
 type;
-$3=_st(type).__eq("application/javascript");
-if(smalltalk.assert($3)){
+$6=_st(type).__eq("application/javascript");
+if(smalltalk.assert($6)){
 type=_st(type).__comma(";charset=utf-8");
 type;
 };
-$4=aResponse;
-_st($4)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
-_st($4)._write_encoding_(file,"binary");
-$5=_st($4)._end();
-return $5;
+$7=aResponse;
+_st($7)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
+_st($7)._write_encoding_(file,"binary");
+$8=_st($7)._end();
+return $8;
 };
 }, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"respondFileNamed:to:",{aFilename:aFilename,aResponse:aResponse,type:type,filename:filename},smalltalk.FileServer)})},
@@ -730,16 +824,19 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st(self._fallbackPage())._isNil();
+var $2,$1,$4,$3,$5,$6;
+$2=self._fallbackPage();
+$ctx1.sendIdx["fallbackPage"]=1;
+$1=_st($2)._isNil();
 if(! smalltalk.assert($1)){
-$2=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
-return $2;
+$4=self._fallbackPage();
+$3=self._respondFileNamed_to_($4,aResponse);
+return $3;
 };
-$3=aResponse;
-_st($3)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
-_st($3)._write_("404 Not found");
-$4=_st($3)._end();
+$5=aResponse;
+_st($5)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
+_st($5)._write_("404 Not found");
+$6=_st($5)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondNotFoundTo: aResponse\x0a\x09self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: '404 Not found';\x0a\x09\x09end",
@@ -755,10 +852,15 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$4,$5,$3,$6;
 $1=aResponse;
-_st($1)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain"),"Access-Control-Allow-Origin".__minus_gt("*")]));
-$2=_st($1)._end();
+$2=$1;
+$4="Content-Type".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=1;
+$5="Access-Control-Allow-Origin".__minus_gt("*");
+$3=smalltalk.HashedCollection._from_([$4,$5]);
+_st($2)._writeHead_options_((200),$3);
+$6=_st($1)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondOKTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
@@ -774,7 +876,7 @@ category: 'starting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5,$12,$13,$14,$11;
 self._checkDirectoryLayout();
 $1=_st(self["@http"])._createServer_((function(request,response){
 return smalltalk.withContext(function($ctx2) {
@@ -782,13 +884,32 @@ return self._handleRequest_respondTo_(request,response);
 }, function($ctx2) {$ctx2.fillBlock({request:request,response:response},$ctx1,1)})}));
 _st($1)._on_do_("error",(function(error){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_("Error starting server: ".__comma(error));
+$2=console;
+$3="Error starting server: ".__comma(error);
+$ctx2.sendIdx[","]=1;
+return _st($2)._log_($3);
+$ctx2.sendIdx["log:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
+$ctx1.sendIdx["on:do:"]=1;
 _st($1)._on_do_("listening",(function(){
 return smalltalk.withContext(function($ctx2) {
-return _st(console)._log_(_st(_st("Starting file server on http://".__comma(self._host())).__comma(":")).__comma(_st(self._port())._asString()));
+$4=console;
+$8=self._host();
+$ctx2.sendIdx["host"]=1;
+$7="Starting file server on http://".__comma($8);
+$6=_st($7).__comma(":");
+$ctx2.sendIdx[","]=3;
+$10=self._port();
+$ctx2.sendIdx["port"]=1;
+$9=_st($10)._asString();
+$5=_st($6).__comma($9);
+$ctx2.sendIdx[","]=2;
+return _st($4)._log_($5);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$2=_st($1)._listen_host_(self._port(),self._host());
+$12=$1;
+$13=self._port();
+$14=self._host();
+$11=_st($12)._listen_host_($13,$14);
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.FileServer)})},
 args: [],
 source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on http://', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
@@ -856,21 +977,25 @@ fn: function (){
 var self=this;
 var switches;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
+var $2,$1,$3;
 switches=_st(self._methodsInProtocol_("accessing"))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["collect:"]=1;
 switches=_st(switches)._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._match_("^[^:]*:$");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 switches=_st(switches)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase())._replace_with_("^([a-z])","--$1");
+$2=_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1");
+$1=_st($2)._asLowercase();
+return _st($1)._replace_with_("^([a-z])","--$1");
+$ctx2.sendIdx["replace:with:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
-$1=switches;
-return $1;
+$3=switches;
+return $3;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},smalltalk.FileServer.klass)})},
 args: [],
 source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'accessing' protocol\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name\x0a\x09 and add a '--' at the beginning.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].\x0a\x09^switches",
@@ -888,7 +1013,7 @@ var self=this;
 var server,popFront,front,optionName,optionValue,switches;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13;
 var $early={};
 try {
 switches=self._commandLineSwitches();
@@ -901,10 +1026,19 @@ throw $early=[$1];
 $2=_st(_st(options)._size())._even();
 if(! smalltalk.assert($2)){
 _st(console)._log_("Using default parameters.");
-_st(console)._log_("Wrong commandline options or not enough arguments for: ".__comma(options));
-_st(console)._log_("Use any of the following ones: ".__comma(switches));
-$3=server;
-return $3;
+$ctx1.sendIdx["log:"]=1;
+$3=console;
+$4="Wrong commandline options or not enough arguments for: ".__comma(options);
+$ctx1.sendIdx[","]=1;
+_st($3)._log_($4);
+$ctx1.sendIdx["log:"]=2;
+$5=console;
+$6="Use any of the following ones: ".__comma(switches);
+$ctx1.sendIdx[","]=2;
+_st($5)._log_($6);
+$ctx1.sendIdx["log:"]=3;
+$7=server;
+return $7;
 };
 popFront=(function(args){
 return smalltalk.withContext(function($ctx2) {
@@ -919,21 +1053,28 @@ return _st(options)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}))._whileTrue_((function(){
 return smalltalk.withContext(function($ctx2) {
 optionName=_st(popFront)._value_(options);
+$ctx2.sendIdx["value:"]=1;
 optionName;
 optionValue=_st(popFront)._value_(options);
 optionValue;
-$4=_st(switches)._includes_(optionName);
-if(smalltalk.assert($4)){
+$8=_st(switches)._includes_(optionName);
+if(smalltalk.assert($8)){
 optionName=self._selectorForCommandLineSwitch_(optionName);
 optionName;
 return _st(server)._perform_withArguments_(optionName,_st($Array())._with_(optionValue));
 } else {
-_st(console)._log_(_st(optionName).__comma(" is not a valid commandline option"));
-return _st(console)._log_("Use any of the following ones: ".__comma(switches));
+$9=console;
+$10=_st(optionName).__comma(" is not a valid commandline option");
+$ctx2.sendIdx[","]=3;
+_st($9)._log_($10);
+$ctx2.sendIdx["log:"]=4;
+$11=console;
+$12="Use any of the following ones: ".__comma(switches);
+return _st($11)._log_($12);
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
-$5=server;
-return $5;
+$13=server;
+return $13;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"createServerWithArguments:",{options:options,server:server,popFront:popFront,front:front,optionName:optionName,optionValue:optionValue,switches:switches},smalltalk.FileServer.klass)})},
@@ -967,8 +1108,825 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=smalltalk.HashedCollection._from_(["%".__minus_gt("application/x-trash"),"323".__minus_gt("text/h323"),"abw".__minus_gt("application/x-abiword"),"ai".__minus_gt("application/postscript"),"aif".__minus_gt("audio/x-aiff"),"aifc".__minus_gt("audio/x-aiff"),"aiff".__minus_gt("audio/x-aiff"),"alc".__minus_gt("chemical/x-alchemy"),"art".__minus_gt("image/x-jg"),"asc".__minus_gt("text/plain"),"asf".__minus_gt("video/x-ms-asf"),"asn".__minus_gt("chemical/x-ncbi-asn1-spec"),"aso".__minus_gt("chemical/x-ncbi-asn1-binary"),"asx".__minus_gt("video/x-ms-asf"),"au".__minus_gt("audio/basic"),"avi".__minus_gt("video/x-msvideo"),"b".__minus_gt("chemical/x-molconn-Z"),"bak".__minus_gt("application/x-trash"),"bat".__minus_gt("application/x-msdos-program"),"bcpio".__minus_gt("application/x-bcpio"),"bib".__minus_gt("text/x-bibtex"),"bin".__minus_gt("application/octet-stream"),"bmp".__minus_gt("image/x-ms-bmp"),"book".__minus_gt("application/x-maker"),"bsd".__minus_gt("chemical/x-crossfire"),"c".__minus_gt("text/x-csrc"),"c++".__minus_gt("text/x-c++src"),"c3d".__minus_gt("chemical/x-chem3d"),"cac".__minus_gt("chemical/x-cache"),"cache".__minus_gt("chemical/x-cache"),"cascii".__minus_gt("chemical/x-cactvs-binary"),"cat".__minus_gt("application/vnd.ms-pki.seccat"),"cbin".__minus_gt("chemical/x-cactvs-binary"),"cc".__minus_gt("text/x-c++src"),"cdf".__minus_gt("application/x-cdf"),"cdr".__minus_gt("image/x-coreldraw"),"cdt".__minus_gt("image/x-coreldrawtemplate"),"cdx".__minus_gt("chemical/x-cdx"),"cdy".__minus_gt("application/vnd.cinderella"),"cef".__minus_gt("chemical/x-cxf"),"cer".__minus_gt("chemical/x-cerius"),"chm".__minus_gt("chemical/x-chemdraw"),"chrt".__minus_gt("application/x-kchart"),"cif".__minus_gt("chemical/x-cif"),"class".__minus_gt("application/java-vm"),"cls".__minus_gt("text/x-tex"),"cmdf".__minus_gt("chemical/x-cmdf"),"cml".__minus_gt("chemical/x-cml"),"cod".__minus_gt("application/vnd.rim.cod"),"com".__minus_gt("application/x-msdos-program"),"cpa".__minus_gt("chemical/x-compass"),"cpio".__minus_gt("application/x-cpio"),"cpp".__minus_gt("text/x-c++src"),"cpt".__minus_gt("image/x-corelphotopaint"),"crl".__minus_gt("application/x-pkcs7-crl"),"crt".__minus_gt("application/x-x509-ca-cert"),"csf".__minus_gt("chemical/x-cache-csf"),"csh".__minus_gt("text/x-csh"),"csm".__minus_gt("chemical/x-csml"),"csml".__minus_gt("chemical/x-csml"),"css".__minus_gt("text/css"),"csv".__minus_gt("text/comma-separated-values"),"ctab".__minus_gt("chemical/x-cactvs-binary"),"ctx".__minus_gt("chemical/x-ctx"),"cu".__minus_gt("application/cu-seeme"),"cub".__minus_gt("chemical/x-gaussian-cube"),"cxf".__minus_gt("chemical/x-cxf"),"cxx".__minus_gt("text/x-c++src"),"dat".__minus_gt("chemical/x-mopac-input"),"dcr".__minus_gt("application/x-director"),"deb".__minus_gt("application/x-debian-package"),"dif".__minus_gt("video/dv"),"diff".__minus_gt("text/plain"),"dir".__minus_gt("application/x-director"),"djv".__minus_gt("image/vnd.djvu"),"djvu".__minus_gt("image/vnd.djvu"),"dl".__minus_gt("video/dl"),"dll".__minus_gt("application/x-msdos-program"),"dmg".__minus_gt("application/x-apple-diskimage"),"dms".__minus_gt("application/x-dms"),"doc".__minus_gt("application/msword"),"dot".__minus_gt("application/msword"),"dv".__minus_gt("video/dv"),"dvi".__minus_gt("application/x-dvi"),"dx".__minus_gt("chemical/x-jcamp-dx"),"dxr".__minus_gt("application/x-director"),"emb".__minus_gt("chemical/x-embl-dl-nucleotide"),"embl".__minus_gt("chemical/x-embl-dl-nucleotide"),"ent".__minus_gt("chemical/x-pdb"),"eps".__minus_gt("application/postscript"),"etx".__minus_gt("text/x-setext"),"exe".__minus_gt("application/x-msdos-program"),"ez".__minus_gt("application/andrew-inset"),"fb".__minus_gt("application/x-maker"),"fbdoc".__minus_gt("application/x-maker"),"fch".__minus_gt("chemical/x-gaussian-checkpoint"),"fchk".__minus_gt("chemical/x-gaussian-checkpoint"),"fig".__minus_gt("application/x-xfig"),"flac".__minus_gt("application/x-flac"),"fli".__minus_gt("video/fli"),"fm".__minus_gt("application/x-maker"),"frame".__minus_gt("application/x-maker"),"frm".__minus_gt("application/x-maker"),"gal".__minus_gt("chemical/x-gaussian-log"),"gam".__minus_gt("chemical/x-gamess-input"),"gamin".__minus_gt("chemical/x-gamess-input"),"gau".__minus_gt("chemical/x-gaussian-input"),"gcd".__minus_gt("text/x-pcs-gcd"),"gcf".__minus_gt("application/x-graphing-calculator"),"gcg".__minus_gt("chemical/x-gcg8-sequence"),"gen".__minus_gt("chemical/x-genbank"),"gf".__minus_gt("application/x-tex-gf"),"gif".__minus_gt("image/gif"),"gjc".__minus_gt("chemical/x-gaussian-input"),"gjf".__minus_gt("chemical/x-gaussian-input"),"gl".__minus_gt("video/gl"),"gnumeric".__minus_gt("application/x-gnumeric"),"gpt".__minus_gt("chemical/x-mopac-graph"),"gsf".__minus_gt("application/x-font"),"gsm".__minus_gt("audio/x-gsm"),"gtar".__minus_gt("application/x-gtar"),"h".__minus_gt("text/x-chdr"),"h++".__minus_gt("text/x-c++hdr"),"hdf".__minus_gt("application/x-hdf"),"hh".__minus_gt("text/x-c++hdr"),"hin".__minus_gt("chemical/x-hin"),"hpp".__minus_gt("text/x-c++hdr"),"hqx".__minus_gt("application/mac-binhex40"),"hs".__minus_gt("text/x-haskell"),"hta".__minus_gt("application/hta"),"htc".__minus_gt("text/x-component"),"htm".__minus_gt("text/html"),"html".__minus_gt("text/html"),"hxx".__minus_gt("text/x-c++hdr"),"ica".__minus_gt("application/x-ica"),"ice".__minus_gt("x-conference/x-cooltalk"),"ico".__minus_gt("image/x-icon"),"ics".__minus_gt("text/calendar"),"icz".__minus_gt("text/calendar"),"ief".__minus_gt("image/ief"),"iges".__minus_gt("model/iges"),"igs".__minus_gt("model/iges"),"iii".__minus_gt("application/x-iphone"),"inp".__minus_gt("chemical/x-gamess-input"),"ins".__minus_gt("application/x-internet-signup"),"iso".__minus_gt("application/x-iso9660-image"),"isp".__minus_gt("application/x-internet-signup"),"ist".__minus_gt("chemical/x-isostar"),"istr".__minus_gt("chemical/x-isostar"),"jad".__minus_gt("text/vnd.sun.j2me.app-descriptor"),"jar".__minus_gt("application/java-archive"),"java".__minus_gt("text/x-java"),"jdx".__minus_gt("chemical/x-jcamp-dx"),"jmz".__minus_gt("application/x-jmol"),"jng".__minus_gt("image/x-jng"),"jnlp".__minus_gt("application/x-java-jnlp-file"),"jpe".__minus_gt("image/jpeg"),"jpeg".__minus_gt("image/jpeg"),"jpg".__minus_gt("image/jpeg"),"js".__minus_gt("application/javascript"),"kar".__minus_gt("audio/midi"),"key".__minus_gt("application/pgp-keys"),"kil".__minus_gt("application/x-killustrator"),"kin".__minus_gt("chemical/x-kinemage"),"kpr".__minus_gt("application/x-kpresenter"),"kpt".__minus_gt("application/x-kpresenter"),"ksp".__minus_gt("application/x-kspread"),"kwd".__minus_gt("application/x-kword"),"kwt".__minus_gt("application/x-kword"),"latex".__minus_gt("application/x-latex"),"lha".__minus_gt("application/x-lha"),"lhs".__minus_gt("text/x-literate-haskell"),"lsf".__minus_gt("video/x-la-asf"),"lsx".__minus_gt("video/x-la-asf"),"ltx".__minus_gt("text/x-tex"),"lzh".__minus_gt("application/x-lzh"),"lzx".__minus_gt("application/x-lzx"),"m3u".__minus_gt("audio/x-mpegurl"),"m4a".__minus_gt("audio/mpeg"),"maker".__minus_gt("application/x-maker"),"man".__minus_gt("application/x-troff-man"),"mcif".__minus_gt("chemical/x-mmcif"),"mcm".__minus_gt("chemical/x-macmolecule"),"mdb".__minus_gt("application/msaccess"),"me".__minus_gt("application/x-troff-me"),"mesh".__minus_gt("model/mesh"),"mid".__minus_gt("audio/midi"),"midi".__minus_gt("audio/midi"),"mif".__minus_gt("application/x-mif"),"mm".__minus_gt("application/x-freemind"),"mmd".__minus_gt("chemical/x-macromodel-input"),"mmf".__minus_gt("application/vnd.smaf"),"mml".__minus_gt("text/mathml"),"mmod".__minus_gt("chemical/x-macromodel-input"),"mng".__minus_gt("video/x-mng"),"moc".__minus_gt("text/x-moc"),"mol".__minus_gt("chemical/x-mdl-molfile"),"mol2".__minus_gt("chemical/x-mol2"),"moo".__minus_gt("chemical/x-mopac-out"),"mop".__minus_gt("chemical/x-mopac-input"),"mopcrt".__minus_gt("chemical/x-mopac-input"),"mov".__minus_gt("video/quicktime"),"movie".__minus_gt("video/x-sgi-movie"),"mp2".__minus_gt("audio/mpeg"),"mp3".__minus_gt("audio/mpeg"),"mp4".__minus_gt("video/mp4"),"mpc".__minus_gt("chemical/x-mopac-input"),"mpe".__minus_gt("video/mpeg"),"mpeg".__minus_gt("video/mpeg"),"mpega".__minus_gt("audio/mpeg"),"mpg".__minus_gt("video/mpeg"),"mpga".__minus_gt("audio/mpeg"),"ms".__minus_gt("application/x-troff-ms"),"msh".__minus_gt("model/mesh"),"msi".__minus_gt("application/x-msi"),"mvb".__minus_gt("chemical/x-mopac-vib"),"mxu".__minus_gt("video/vnd.mpegurl"),"nb".__minus_gt("application/mathematica"),"nc".__minus_gt("application/x-netcdf"),"nwc".__minus_gt("application/x-nwc"),"o".__minus_gt("application/x-object"),"oda".__minus_gt("application/oda"),"odb".__minus_gt("application/vnd.oasis.opendocument.database"),"odc".__minus_gt("application/vnd.oasis.opendocument.chart"),"odf".__minus_gt("application/vnd.oasis.opendocument.formula"),"odg".__minus_gt("application/vnd.oasis.opendocument.graphics"),"odi".__minus_gt("application/vnd.oasis.opendocument.image"),"odm".__minus_gt("application/vnd.oasis.opendocument.text-master"),"odp".__minus_gt("application/vnd.oasis.opendocument.presentation"),"ods".__minus_gt("application/vnd.oasis.opendocument.spreadsheet"),"odt".__minus_gt("application/vnd.oasis.opendocument.text"),"ogg".__minus_gt("application/ogg"),"old".__minus_gt("application/x-trash"),"oth".__minus_gt("application/vnd.oasis.opendocument.text-web"),"oza".__minus_gt("application/x-oz-application"),"p".__minus_gt("text/x-pascal"),"p7r".__minus_gt("application/x-pkcs7-certreqresp"),"pac".__minus_gt("application/x-ns-proxy-autoconfig"),"pas".__minus_gt("text/x-pascal"),"pat".__minus_gt("image/x-coreldrawpattern"),"pbm".__minus_gt("image/x-portable-bitmap"),"pcf".__minus_gt("application/x-font"),"pcf.Z".__minus_gt("application/x-font"),"pcx".__minus_gt("image/pcx"),"pdb".__minus_gt("chemical/x-pdb"),"pdf".__minus_gt("application/pdf"),"pfa".__minus_gt("application/x-font"),"pfb".__minus_gt("application/x-font"),"pgm".__minus_gt("image/x-portable-graymap"),"pgn".__minus_gt("application/x-chess-pgn"),"pgp".__minus_gt("application/pgp-signature"),"pk".__minus_gt("application/x-tex-pk"),"pl".__minus_gt("text/x-perl"),"pls".__minus_gt("audio/x-scpls"),"pm".__minus_gt("text/x-perl"),"png".__minus_gt("image/png"),"pnm".__minus_gt("image/x-portable-anymap"),"pot".__minus_gt("text/plain"),"ppm".__minus_gt("image/x-portable-pixmap"),"pps".__minus_gt("application/vnd.ms-powerpoint"),"ppt".__minus_gt("application/vnd.ms-powerpoint"),"prf".__minus_gt("application/pics-rules"),"prt".__minus_gt("chemical/x-ncbi-asn1-ascii"),"ps".__minus_gt("application/postscript"),"psd".__minus_gt("image/x-photoshop"),"psp".__minus_gt("text/x-psp"),"py".__minus_gt("text/x-python"),"pyc".__minus_gt("application/x-python-code"),"pyo".__minus_gt("application/x-python-code"),"qt".__minus_gt("video/quicktime"),"qtl".__minus_gt("application/x-quicktimeplayer"),"ra".__minus_gt("audio/x-realaudio"),"ram".__minus_gt("audio/x-pn-realaudio"),"rar".__minus_gt("application/rar"),"ras".__minus_gt("image/x-cmu-raster"),"rd".__minus_gt("chemical/x-mdl-rdfile"),"rdf".__minus_gt("application/rdf+xml"),"rgb".__minus_gt("image/x-rgb"),"rm".__minus_gt("audio/x-pn-realaudio"),"roff".__minus_gt("application/x-troff"),"ros".__minus_gt("chemical/x-rosdal"),"rpm".__minus_gt("application/x-redhat-package-manager"),"rss".__minus_gt("application/rss+xml"),"rtf".__minus_gt("text/rtf"),"rtx".__minus_gt("text/richtext"),"rxn".__minus_gt("chemical/x-mdl-rxnfile"),"sct".__minus_gt("text/scriptlet"),"sd".__minus_gt("chemical/x-mdl-sdfile"),"sd2".__minus_gt("audio/x-sd2"),"sda".__minus_gt("application/vnd.stardivision.draw"),"sdc".__minus_gt("application/vnd.stardivision.calc"),"sdd".__minus_gt("application/vnd.stardivision.impress"),"sdf".__minus_gt("chemical/x-mdl-sdfile"),"sdp".__minus_gt("application/vnd.stardivision.impress"),"sdw".__minus_gt("application/vnd.stardivision.writer"),"ser".__minus_gt("application/java-serialized-object"),"sgf".__minus_gt("application/x-go-sgf"),"sgl".__minus_gt("application/vnd.stardivision.writer-global"),"sh".__minus_gt("text/x-sh"),"shar".__minus_gt("application/x-shar"),"shtml".__minus_gt("text/html"),"sid".__minus_gt("audio/prs.sid"),"sik".__minus_gt("application/x-trash"),"silo".__minus_gt("model/mesh"),"sis".__minus_gt("application/vnd.symbian.install"),"sit".__minus_gt("application/x-stuffit"),"skd".__minus_gt("application/x-koan"),"skm".__minus_gt("application/x-koan"),"skp".__minus_gt("application/x-koan"),"skt".__minus_gt("application/x-koan"),"smf".__minus_gt("application/vnd.stardivision.math"),"smi".__minus_gt("application/smil"),"smil".__minus_gt("application/smil"),"snd".__minus_gt("audio/basic"),"spc".__minus_gt("chemical/x-galactic-spc"),"spl".__minus_gt("application/x-futuresplash"),"src".__minus_gt("application/x-wais-source"),"stc".__minus_gt("application/vnd.sun.xml.calc.template"),"std".__minus_gt("application/vnd.sun.xml.draw.template"),"sti".__minus_gt("application/vnd.sun.xml.impress.template"),"stl".__minus_gt("application/vnd.ms-pki.stl"),"stw".__minus_gt("application/vnd.sun.xml.writer.template"),"sty".__minus_gt("text/x-tex"),"sv4cpio".__minus_gt("application/x-sv4cpio"),"sv4crc".__minus_gt("application/x-sv4crc"),"svg".__minus_gt("image/svg+xml"),"svgz".__minus_gt("image/svg+xml"),"sw".__minus_gt("chemical/x-swissprot"),"swf".__minus_gt("application/x-shockwave-flash"),"swfl".__minus_gt("application/x-shockwave-flash"),"sxc".__minus_gt("application/vnd.sun.xml.calc"),"sxd".__minus_gt("application/vnd.sun.xml.draw"),"sxg".__minus_gt("application/vnd.sun.xml.writer.global"),"sxi".__minus_gt("application/vnd.sun.xml.impress"),"sxm".__minus_gt("application/vnd.sun.xml.math"),"sxw".__minus_gt("application/vnd.sun.xml.writer"),"t".__minus_gt("application/x-troff"),"tar".__minus_gt("application/x-tar"),"taz".__minus_gt("application/x-gtar"),"tcl".__minus_gt("text/x-tcl"),"tex".__minus_gt("text/x-tex"),"texi".__minus_gt("application/x-texinfo"),"texinfo".__minus_gt("application/x-texinfo"),"text".__minus_gt("text/plain"),"tgf".__minus_gt("chemical/x-mdl-tgf"),"tgz".__minus_gt("application/x-gtar"),"tif".__minus_gt("image/tiff"),"tiff".__minus_gt("image/tiff"),"tk".__minus_gt("text/x-tcl"),"tm".__minus_gt("text/texmacs"),"torrent".__minus_gt("application/x-bittorrent"),"tr".__minus_gt("application/x-troff"),"ts".__minus_gt("text/texmacs"),"tsp".__minus_gt("application/dsptype"),"tsv".__minus_gt("text/tab-separated-values"),"txt".__minus_gt("text/plain"),"udeb".__minus_gt("application/x-debian-package"),"uls".__minus_gt("text/iuls"),"ustar".__minus_gt("application/x-ustar"),"val".__minus_gt("chemical/x-ncbi-asn1-binary"),"vcd".__minus_gt("application/x-cdlink"),"vcf".__minus_gt("text/x-vcard"),"vcs".__minus_gt("text/x-vcalendar"),"vmd".__minus_gt("chemical/x-vmd"),"vms".__minus_gt("chemical/x-vamas-iso14976"),"vor".__minus_gt("application/vnd.stardivision.writer"),"vrm".__minus_gt("x-world/x-vrml"),"vrml".__minus_gt("x-world/x-vrml"),"vsd".__minus_gt("application/vnd.visio"),"wad".__minus_gt("application/x-doom"),"wav".__minus_gt("audio/x-wav"),"wax".__minus_gt("audio/x-ms-wax"),"wbmp".__minus_gt("image/vnd.wap.wbmp"),"wbxml".__minus_gt("application/vnd.wap.wbxml"),"wk".__minus_gt("application/x-123"),"wm".__minus_gt("video/x-ms-wm"),"wma".__minus_gt("audio/x-ms-wma"),"wmd".__minus_gt("application/x-ms-wmd"),"wml".__minus_gt("text/vnd.wap.wml"),"wmlc".__minus_gt("application/vnd.wap.wmlc"),"wmls".__minus_gt("text/vnd.wap.wmlscript"),"wmlsc".__minus_gt("application/vnd.wap.wmlscriptc"),"wmv".__minus_gt("video/x-ms-wmv"),"wmx".__minus_gt("video/x-ms-wmx"),"wmz".__minus_gt("application/x-ms-wmz"),"wp5".__minus_gt("application/wordperfect5.1"),"wpd".__minus_gt("application/wordperfect"),"wrl".__minus_gt("x-world/x-vrml"),"wsc".__minus_gt("text/scriptlet"),"wvx".__minus_gt("video/x-ms-wvx"),"wz".__minus_gt("application/x-wingz"),"xbm".__minus_gt("image/x-xbitmap"),"xcf".__minus_gt("application/x-xcf"),"xht".__minus_gt("application/xhtml+xml"),"xhtml".__minus_gt("application/xhtml+xml"),"xlb".__minus_gt("application/vnd.ms-excel"),"xls".__minus_gt("application/vnd.ms-excel"),"xlt".__minus_gt("application/vnd.ms-excel"),"xml".__minus_gt("application/xml"),"xpi".__minus_gt("application/x-xpinstall"),"xpm".__minus_gt("image/x-xpixmap"),"xsl".__minus_gt("application/xml"),"xtel".__minus_gt("chemical/x-xtel"),"xul".__minus_gt("application/vnd.mozilla.xul+xml"),"xwd".__minus_gt("image/x-xwindowdump"),"xyz".__minus_gt("chemical/x-xyz"),"zip".__minus_gt("application/zip"),"zmt".__minus_gt("chemical/x-mopac-input"),"~".__minus_gt("application/x-trash")]);
+var $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86,$87,$88,$89,$90,$91,$92,$93,$94,$95,$96,$97,$98,$99,$100,$101,$102,$103,$104,$105,$106,$107,$108,$109,$110,$111,$112,$113,$114,$115,$116,$117,$118,$119,$120,$121,$122,$123,$124,$125,$126,$127,$128,$129,$130,$131,$132,$133,$134,$135,$136,$137,$138,$139,$140,$141,$142,$143,$144,$145,$146,$147,$148,$149,$150,$151,$152,$153,$154,$155,$156,$157,$158,$159,$160,$161,$162,$163,$164,$165,$166,$167,$168,$169,$170,$171,$172,$173,$174,$175,$176,$177,$178,$179,$180,$181,$182,$183,$184,$185,$186,$187,$188,$189,$190,$191,$192,$193,$194,$195,$196,$197,$198,$199,$200,$201,$202,$203,$204,$205,$206,$207,$208,$209,$210,$211,$212,$213,$214,$215,$216,$217,$218,$219,$220,$221,$222,$223,$224,$225,$226,$227,$228,$229,$230,$231,$232,$233,$234,$235,$236,$237,$238,$239,$240,$241,$242,$243,$244,$245,$246,$247,$248,$249,$250,$251,$252,$253,$254,$255,$256,$257,$258,$259,$260,$261,$262,$263,$264,$265,$266,$267,$268,$269,$270,$271,$272,$273,$274,$275,$276,$277,$278,$279,$280,$281,$282,$283,$284,$285,$286,$287,$288,$289,$290,$291,$292,$293,$294,$295,$296,$297,$298,$299,$300,$301,$302,$303,$304,$305,$306,$307,$308,$309,$310,$311,$312,$313,$314,$315,$316,$317,$318,$319,$320,$321,$322,$323,$324,$325,$326,$327,$328,$329,$330,$331,$332,$333,$334,$335,$336,$337,$338,$339,$340,$341,$342,$343,$344,$345,$346,$347,$348,$349,$350,$351,$352,$353,$354,$355,$356,$357,$358,$359,$360,$361,$362,$363,$364,$365,$366,$367,$368,$369,$370,$371,$372,$373,$374,$375,$376,$377,$378,$379,$380,$381,$382,$383,$384,$385,$386,$387,$388,$389,$390,$391,$392,$393,$394,$395,$396,$397,$398,$399,$400,$401,$402,$403,$404,$405,$406,$407,$408,$409,$410,$1;
+$2="%".__minus_gt("application/x-trash");
+$ctx1.sendIdx["->"]=1;
+$3="323".__minus_gt("text/h323");
+$ctx1.sendIdx["->"]=2;
+$4="abw".__minus_gt("application/x-abiword");
+$ctx1.sendIdx["->"]=3;
+$5="ai".__minus_gt("application/postscript");
+$ctx1.sendIdx["->"]=4;
+$6="aif".__minus_gt("audio/x-aiff");
+$ctx1.sendIdx["->"]=5;
+$7="aifc".__minus_gt("audio/x-aiff");
+$ctx1.sendIdx["->"]=6;
+$8="aiff".__minus_gt("audio/x-aiff");
+$ctx1.sendIdx["->"]=7;
+$9="alc".__minus_gt("chemical/x-alchemy");
+$ctx1.sendIdx["->"]=8;
+$10="art".__minus_gt("image/x-jg");
+$ctx1.sendIdx["->"]=9;
+$11="asc".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=10;
+$12="asf".__minus_gt("video/x-ms-asf");
+$ctx1.sendIdx["->"]=11;
+$13="asn".__minus_gt("chemical/x-ncbi-asn1-spec");
+$ctx1.sendIdx["->"]=12;
+$14="aso".__minus_gt("chemical/x-ncbi-asn1-binary");
+$ctx1.sendIdx["->"]=13;
+$15="asx".__minus_gt("video/x-ms-asf");
+$ctx1.sendIdx["->"]=14;
+$16="au".__minus_gt("audio/basic");
+$ctx1.sendIdx["->"]=15;
+$17="avi".__minus_gt("video/x-msvideo");
+$ctx1.sendIdx["->"]=16;
+$18="b".__minus_gt("chemical/x-molconn-Z");
+$ctx1.sendIdx["->"]=17;
+$19="bak".__minus_gt("application/x-trash");
+$ctx1.sendIdx["->"]=18;
+$20="bat".__minus_gt("application/x-msdos-program");
+$ctx1.sendIdx["->"]=19;
+$21="bcpio".__minus_gt("application/x-bcpio");
+$ctx1.sendIdx["->"]=20;
+$22="bib".__minus_gt("text/x-bibtex");
+$ctx1.sendIdx["->"]=21;
+$23="bin".__minus_gt("application/octet-stream");
+$ctx1.sendIdx["->"]=22;
+$24="bmp".__minus_gt("image/x-ms-bmp");
+$ctx1.sendIdx["->"]=23;
+$25="book".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=24;
+$26="bsd".__minus_gt("chemical/x-crossfire");
+$ctx1.sendIdx["->"]=25;
+$27="c".__minus_gt("text/x-csrc");
+$ctx1.sendIdx["->"]=26;
+$28="c++".__minus_gt("text/x-c++src");
+$ctx1.sendIdx["->"]=27;
+$29="c3d".__minus_gt("chemical/x-chem3d");
+$ctx1.sendIdx["->"]=28;
+$30="cac".__minus_gt("chemical/x-cache");
+$ctx1.sendIdx["->"]=29;
+$31="cache".__minus_gt("chemical/x-cache");
+$ctx1.sendIdx["->"]=30;
+$32="cascii".__minus_gt("chemical/x-cactvs-binary");
+$ctx1.sendIdx["->"]=31;
+$33="cat".__minus_gt("application/vnd.ms-pki.seccat");
+$ctx1.sendIdx["->"]=32;
+$34="cbin".__minus_gt("chemical/x-cactvs-binary");
+$ctx1.sendIdx["->"]=33;
+$35="cc".__minus_gt("text/x-c++src");
+$ctx1.sendIdx["->"]=34;
+$36="cdf".__minus_gt("application/x-cdf");
+$ctx1.sendIdx["->"]=35;
+$37="cdr".__minus_gt("image/x-coreldraw");
+$ctx1.sendIdx["->"]=36;
+$38="cdt".__minus_gt("image/x-coreldrawtemplate");
+$ctx1.sendIdx["->"]=37;
+$39="cdx".__minus_gt("chemical/x-cdx");
+$ctx1.sendIdx["->"]=38;
+$40="cdy".__minus_gt("application/vnd.cinderella");
+$ctx1.sendIdx["->"]=39;
+$41="cef".__minus_gt("chemical/x-cxf");
+$ctx1.sendIdx["->"]=40;
+$42="cer".__minus_gt("chemical/x-cerius");
+$ctx1.sendIdx["->"]=41;
+$43="chm".__minus_gt("chemical/x-chemdraw");
+$ctx1.sendIdx["->"]=42;
+$44="chrt".__minus_gt("application/x-kchart");
+$ctx1.sendIdx["->"]=43;
+$45="cif".__minus_gt("chemical/x-cif");
+$ctx1.sendIdx["->"]=44;
+$46="class".__minus_gt("application/java-vm");
+$ctx1.sendIdx["->"]=45;
+$47="cls".__minus_gt("text/x-tex");
+$ctx1.sendIdx["->"]=46;
+$48="cmdf".__minus_gt("chemical/x-cmdf");
+$ctx1.sendIdx["->"]=47;
+$49="cml".__minus_gt("chemical/x-cml");
+$ctx1.sendIdx["->"]=48;
+$50="cod".__minus_gt("application/vnd.rim.cod");
+$ctx1.sendIdx["->"]=49;
+$51="com".__minus_gt("application/x-msdos-program");
+$ctx1.sendIdx["->"]=50;
+$52="cpa".__minus_gt("chemical/x-compass");
+$ctx1.sendIdx["->"]=51;
+$53="cpio".__minus_gt("application/x-cpio");
+$ctx1.sendIdx["->"]=52;
+$54="cpp".__minus_gt("text/x-c++src");
+$ctx1.sendIdx["->"]=53;
+$55="cpt".__minus_gt("image/x-corelphotopaint");
+$ctx1.sendIdx["->"]=54;
+$56="crl".__minus_gt("application/x-pkcs7-crl");
+$ctx1.sendIdx["->"]=55;
+$57="crt".__minus_gt("application/x-x509-ca-cert");
+$ctx1.sendIdx["->"]=56;
+$58="csf".__minus_gt("chemical/x-cache-csf");
+$ctx1.sendIdx["->"]=57;
+$59="csh".__minus_gt("text/x-csh");
+$ctx1.sendIdx["->"]=58;
+$60="csm".__minus_gt("chemical/x-csml");
+$ctx1.sendIdx["->"]=59;
+$61="csml".__minus_gt("chemical/x-csml");
+$ctx1.sendIdx["->"]=60;
+$62="css".__minus_gt("text/css");
+$ctx1.sendIdx["->"]=61;
+$63="csv".__minus_gt("text/comma-separated-values");
+$ctx1.sendIdx["->"]=62;
+$64="ctab".__minus_gt("chemical/x-cactvs-binary");
+$ctx1.sendIdx["->"]=63;
+$65="ctx".__minus_gt("chemical/x-ctx");
+$ctx1.sendIdx["->"]=64;
+$66="cu".__minus_gt("application/cu-seeme");
+$ctx1.sendIdx["->"]=65;
+$67="cub".__minus_gt("chemical/x-gaussian-cube");
+$ctx1.sendIdx["->"]=66;
+$68="cxf".__minus_gt("chemical/x-cxf");
+$ctx1.sendIdx["->"]=67;
+$69="cxx".__minus_gt("text/x-c++src");
+$ctx1.sendIdx["->"]=68;
+$70="dat".__minus_gt("chemical/x-mopac-input");
+$ctx1.sendIdx["->"]=69;
+$71="dcr".__minus_gt("application/x-director");
+$ctx1.sendIdx["->"]=70;
+$72="deb".__minus_gt("application/x-debian-package");
+$ctx1.sendIdx["->"]=71;
+$73="dif".__minus_gt("video/dv");
+$ctx1.sendIdx["->"]=72;
+$74="diff".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=73;
+$75="dir".__minus_gt("application/x-director");
+$ctx1.sendIdx["->"]=74;
+$76="djv".__minus_gt("image/vnd.djvu");
+$ctx1.sendIdx["->"]=75;
+$77="djvu".__minus_gt("image/vnd.djvu");
+$ctx1.sendIdx["->"]=76;
+$78="dl".__minus_gt("video/dl");
+$ctx1.sendIdx["->"]=77;
+$79="dll".__minus_gt("application/x-msdos-program");
+$ctx1.sendIdx["->"]=78;
+$80="dmg".__minus_gt("application/x-apple-diskimage");
+$ctx1.sendIdx["->"]=79;
+$81="dms".__minus_gt("application/x-dms");
+$ctx1.sendIdx["->"]=80;
+$82="doc".__minus_gt("application/msword");
+$ctx1.sendIdx["->"]=81;
+$83="dot".__minus_gt("application/msword");
+$ctx1.sendIdx["->"]=82;
+$84="dv".__minus_gt("video/dv");
+$ctx1.sendIdx["->"]=83;
+$85="dvi".__minus_gt("application/x-dvi");
+$ctx1.sendIdx["->"]=84;
+$86="dx".__minus_gt("chemical/x-jcamp-dx");
+$ctx1.sendIdx["->"]=85;
+$87="dxr".__minus_gt("application/x-director");
+$ctx1.sendIdx["->"]=86;
+$88="emb".__minus_gt("chemical/x-embl-dl-nucleotide");
+$ctx1.sendIdx["->"]=87;
+$89="embl".__minus_gt("chemical/x-embl-dl-nucleotide");
+$ctx1.sendIdx["->"]=88;
+$90="ent".__minus_gt("chemical/x-pdb");
+$ctx1.sendIdx["->"]=89;
+$91="eps".__minus_gt("application/postscript");
+$ctx1.sendIdx["->"]=90;
+$92="etx".__minus_gt("text/x-setext");
+$ctx1.sendIdx["->"]=91;
+$93="exe".__minus_gt("application/x-msdos-program");
+$ctx1.sendIdx["->"]=92;
+$94="ez".__minus_gt("application/andrew-inset");
+$ctx1.sendIdx["->"]=93;
+$95="fb".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=94;
+$96="fbdoc".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=95;
+$97="fch".__minus_gt("chemical/x-gaussian-checkpoint");
+$ctx1.sendIdx["->"]=96;
+$98="fchk".__minus_gt("chemical/x-gaussian-checkpoint");
+$ctx1.sendIdx["->"]=97;
+$99="fig".__minus_gt("application/x-xfig");
+$ctx1.sendIdx["->"]=98;
+$100="flac".__minus_gt("application/x-flac");
+$ctx1.sendIdx["->"]=99;
+$101="fli".__minus_gt("video/fli");
+$ctx1.sendIdx["->"]=100;
+$102="fm".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=101;
+$103="frame".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=102;
+$104="frm".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=103;
+$105="gal".__minus_gt("chemical/x-gaussian-log");
+$ctx1.sendIdx["->"]=104;
+$106="gam".__minus_gt("chemical/x-gamess-input");
+$ctx1.sendIdx["->"]=105;
+$107="gamin".__minus_gt("chemical/x-gamess-input");
+$ctx1.sendIdx["->"]=106;
+$108="gau".__minus_gt("chemical/x-gaussian-input");
+$ctx1.sendIdx["->"]=107;
+$109="gcd".__minus_gt("text/x-pcs-gcd");
+$ctx1.sendIdx["->"]=108;
+$110="gcf".__minus_gt("application/x-graphing-calculator");
+$ctx1.sendIdx["->"]=109;
+$111="gcg".__minus_gt("chemical/x-gcg8-sequence");
+$ctx1.sendIdx["->"]=110;
+$112="gen".__minus_gt("chemical/x-genbank");
+$ctx1.sendIdx["->"]=111;
+$113="gf".__minus_gt("application/x-tex-gf");
+$ctx1.sendIdx["->"]=112;
+$114="gif".__minus_gt("image/gif");
+$ctx1.sendIdx["->"]=113;
+$115="gjc".__minus_gt("chemical/x-gaussian-input");
+$ctx1.sendIdx["->"]=114;
+$116="gjf".__minus_gt("chemical/x-gaussian-input");
+$ctx1.sendIdx["->"]=115;
+$117="gl".__minus_gt("video/gl");
+$ctx1.sendIdx["->"]=116;
+$118="gnumeric".__minus_gt("application/x-gnumeric");
+$ctx1.sendIdx["->"]=117;
+$119="gpt".__minus_gt("chemical/x-mopac-graph");
+$ctx1.sendIdx["->"]=118;
+$120="gsf".__minus_gt("application/x-font");
+$ctx1.sendIdx["->"]=119;
+$121="gsm".__minus_gt("audio/x-gsm");
+$ctx1.sendIdx["->"]=120;
+$122="gtar".__minus_gt("application/x-gtar");
+$ctx1.sendIdx["->"]=121;
+$123="h".__minus_gt("text/x-chdr");
+$ctx1.sendIdx["->"]=122;
+$124="h++".__minus_gt("text/x-c++hdr");
+$ctx1.sendIdx["->"]=123;
+$125="hdf".__minus_gt("application/x-hdf");
+$ctx1.sendIdx["->"]=124;
+$126="hh".__minus_gt("text/x-c++hdr");
+$ctx1.sendIdx["->"]=125;
+$127="hin".__minus_gt("chemical/x-hin");
+$ctx1.sendIdx["->"]=126;
+$128="hpp".__minus_gt("text/x-c++hdr");
+$ctx1.sendIdx["->"]=127;
+$129="hqx".__minus_gt("application/mac-binhex40");
+$ctx1.sendIdx["->"]=128;
+$130="hs".__minus_gt("text/x-haskell");
+$ctx1.sendIdx["->"]=129;
+$131="hta".__minus_gt("application/hta");
+$ctx1.sendIdx["->"]=130;
+$132="htc".__minus_gt("text/x-component");
+$ctx1.sendIdx["->"]=131;
+$133="htm".__minus_gt("text/html");
+$ctx1.sendIdx["->"]=132;
+$134="html".__minus_gt("text/html");
+$ctx1.sendIdx["->"]=133;
+$135="hxx".__minus_gt("text/x-c++hdr");
+$ctx1.sendIdx["->"]=134;
+$136="ica".__minus_gt("application/x-ica");
+$ctx1.sendIdx["->"]=135;
+$137="ice".__minus_gt("x-conference/x-cooltalk");
+$ctx1.sendIdx["->"]=136;
+$138="ico".__minus_gt("image/x-icon");
+$ctx1.sendIdx["->"]=137;
+$139="ics".__minus_gt("text/calendar");
+$ctx1.sendIdx["->"]=138;
+$140="icz".__minus_gt("text/calendar");
+$ctx1.sendIdx["->"]=139;
+$141="ief".__minus_gt("image/ief");
+$ctx1.sendIdx["->"]=140;
+$142="iges".__minus_gt("model/iges");
+$ctx1.sendIdx["->"]=141;
+$143="igs".__minus_gt("model/iges");
+$ctx1.sendIdx["->"]=142;
+$144="iii".__minus_gt("application/x-iphone");
+$ctx1.sendIdx["->"]=143;
+$145="inp".__minus_gt("chemical/x-gamess-input");
+$ctx1.sendIdx["->"]=144;
+$146="ins".__minus_gt("application/x-internet-signup");
+$ctx1.sendIdx["->"]=145;
+$147="iso".__minus_gt("application/x-iso9660-image");
+$ctx1.sendIdx["->"]=146;
+$148="isp".__minus_gt("application/x-internet-signup");
+$ctx1.sendIdx["->"]=147;
+$149="ist".__minus_gt("chemical/x-isostar");
+$ctx1.sendIdx["->"]=148;
+$150="istr".__minus_gt("chemical/x-isostar");
+$ctx1.sendIdx["->"]=149;
+$151="jad".__minus_gt("text/vnd.sun.j2me.app-descriptor");
+$ctx1.sendIdx["->"]=150;
+$152="jar".__minus_gt("application/java-archive");
+$ctx1.sendIdx["->"]=151;
+$153="java".__minus_gt("text/x-java");
+$ctx1.sendIdx["->"]=152;
+$154="jdx".__minus_gt("chemical/x-jcamp-dx");
+$ctx1.sendIdx["->"]=153;
+$155="jmz".__minus_gt("application/x-jmol");
+$ctx1.sendIdx["->"]=154;
+$156="jng".__minus_gt("image/x-jng");
+$ctx1.sendIdx["->"]=155;
+$157="jnlp".__minus_gt("application/x-java-jnlp-file");
+$ctx1.sendIdx["->"]=156;
+$158="jpe".__minus_gt("image/jpeg");
+$ctx1.sendIdx["->"]=157;
+$159="jpeg".__minus_gt("image/jpeg");
+$ctx1.sendIdx["->"]=158;
+$160="jpg".__minus_gt("image/jpeg");
+$ctx1.sendIdx["->"]=159;
+$161="js".__minus_gt("application/javascript");
+$ctx1.sendIdx["->"]=160;
+$162="kar".__minus_gt("audio/midi");
+$ctx1.sendIdx["->"]=161;
+$163="key".__minus_gt("application/pgp-keys");
+$ctx1.sendIdx["->"]=162;
+$164="kil".__minus_gt("application/x-killustrator");
+$ctx1.sendIdx["->"]=163;
+$165="kin".__minus_gt("chemical/x-kinemage");
+$ctx1.sendIdx["->"]=164;
+$166="kpr".__minus_gt("application/x-kpresenter");
+$ctx1.sendIdx["->"]=165;
+$167="kpt".__minus_gt("application/x-kpresenter");
+$ctx1.sendIdx["->"]=166;
+$168="ksp".__minus_gt("application/x-kspread");
+$ctx1.sendIdx["->"]=167;
+$169="kwd".__minus_gt("application/x-kword");
+$ctx1.sendIdx["->"]=168;
+$170="kwt".__minus_gt("application/x-kword");
+$ctx1.sendIdx["->"]=169;
+$171="latex".__minus_gt("application/x-latex");
+$ctx1.sendIdx["->"]=170;
+$172="lha".__minus_gt("application/x-lha");
+$ctx1.sendIdx["->"]=171;
+$173="lhs".__minus_gt("text/x-literate-haskell");
+$ctx1.sendIdx["->"]=172;
+$174="lsf".__minus_gt("video/x-la-asf");
+$ctx1.sendIdx["->"]=173;
+$175="lsx".__minus_gt("video/x-la-asf");
+$ctx1.sendIdx["->"]=174;
+$176="ltx".__minus_gt("text/x-tex");
+$ctx1.sendIdx["->"]=175;
+$177="lzh".__minus_gt("application/x-lzh");
+$ctx1.sendIdx["->"]=176;
+$178="lzx".__minus_gt("application/x-lzx");
+$ctx1.sendIdx["->"]=177;
+$179="m3u".__minus_gt("audio/x-mpegurl");
+$ctx1.sendIdx["->"]=178;
+$180="m4a".__minus_gt("audio/mpeg");
+$ctx1.sendIdx["->"]=179;
+$181="maker".__minus_gt("application/x-maker");
+$ctx1.sendIdx["->"]=180;
+$182="man".__minus_gt("application/x-troff-man");
+$ctx1.sendIdx["->"]=181;
+$183="mcif".__minus_gt("chemical/x-mmcif");
+$ctx1.sendIdx["->"]=182;
+$184="mcm".__minus_gt("chemical/x-macmolecule");
+$ctx1.sendIdx["->"]=183;
+$185="mdb".__minus_gt("application/msaccess");
+$ctx1.sendIdx["->"]=184;
+$186="me".__minus_gt("application/x-troff-me");
+$ctx1.sendIdx["->"]=185;
+$187="mesh".__minus_gt("model/mesh");
+$ctx1.sendIdx["->"]=186;
+$188="mid".__minus_gt("audio/midi");
+$ctx1.sendIdx["->"]=187;
+$189="midi".__minus_gt("audio/midi");
+$ctx1.sendIdx["->"]=188;
+$190="mif".__minus_gt("application/x-mif");
+$ctx1.sendIdx["->"]=189;
+$191="mm".__minus_gt("application/x-freemind");
+$ctx1.sendIdx["->"]=190;
+$192="mmd".__minus_gt("chemical/x-macromodel-input");
+$ctx1.sendIdx["->"]=191;
+$193="mmf".__minus_gt("application/vnd.smaf");
+$ctx1.sendIdx["->"]=192;
+$194="mml".__minus_gt("text/mathml");
+$ctx1.sendIdx["->"]=193;
+$195="mmod".__minus_gt("chemical/x-macromodel-input");
+$ctx1.sendIdx["->"]=194;
+$196="mng".__minus_gt("video/x-mng");
+$ctx1.sendIdx["->"]=195;
+$197="moc".__minus_gt("text/x-moc");
+$ctx1.sendIdx["->"]=196;
+$198="mol".__minus_gt("chemical/x-mdl-molfile");
+$ctx1.sendIdx["->"]=197;
+$199="mol2".__minus_gt("chemical/x-mol2");
+$ctx1.sendIdx["->"]=198;
+$200="moo".__minus_gt("chemical/x-mopac-out");
+$ctx1.sendIdx["->"]=199;
+$201="mop".__minus_gt("chemical/x-mopac-input");
+$ctx1.sendIdx["->"]=200;
+$202="mopcrt".__minus_gt("chemical/x-mopac-input");
+$ctx1.sendIdx["->"]=201;
+$203="mov".__minus_gt("video/quicktime");
+$ctx1.sendIdx["->"]=202;
+$204="movie".__minus_gt("video/x-sgi-movie");
+$ctx1.sendIdx["->"]=203;
+$205="mp2".__minus_gt("audio/mpeg");
+$ctx1.sendIdx["->"]=204;
+$206="mp3".__minus_gt("audio/mpeg");
+$ctx1.sendIdx["->"]=205;
+$207="mp4".__minus_gt("video/mp4");
+$ctx1.sendIdx["->"]=206;
+$208="mpc".__minus_gt("chemical/x-mopac-input");
+$ctx1.sendIdx["->"]=207;
+$209="mpe".__minus_gt("video/mpeg");
+$ctx1.sendIdx["->"]=208;
+$210="mpeg".__minus_gt("video/mpeg");
+$ctx1.sendIdx["->"]=209;
+$211="mpega".__minus_gt("audio/mpeg");
+$ctx1.sendIdx["->"]=210;
+$212="mpg".__minus_gt("video/mpeg");
+$ctx1.sendIdx["->"]=211;
+$213="mpga".__minus_gt("audio/mpeg");
+$ctx1.sendIdx["->"]=212;
+$214="ms".__minus_gt("application/x-troff-ms");
+$ctx1.sendIdx["->"]=213;
+$215="msh".__minus_gt("model/mesh");
+$ctx1.sendIdx["->"]=214;
+$216="msi".__minus_gt("application/x-msi");
+$ctx1.sendIdx["->"]=215;
+$217="mvb".__minus_gt("chemical/x-mopac-vib");
+$ctx1.sendIdx["->"]=216;
+$218="mxu".__minus_gt("video/vnd.mpegurl");
+$ctx1.sendIdx["->"]=217;
+$219="nb".__minus_gt("application/mathematica");
+$ctx1.sendIdx["->"]=218;
+$220="nc".__minus_gt("application/x-netcdf");
+$ctx1.sendIdx["->"]=219;
+$221="nwc".__minus_gt("application/x-nwc");
+$ctx1.sendIdx["->"]=220;
+$222="o".__minus_gt("application/x-object");
+$ctx1.sendIdx["->"]=221;
+$223="oda".__minus_gt("application/oda");
+$ctx1.sendIdx["->"]=222;
+$224="odb".__minus_gt("application/vnd.oasis.opendocument.database");
+$ctx1.sendIdx["->"]=223;
+$225="odc".__minus_gt("application/vnd.oasis.opendocument.chart");
+$ctx1.sendIdx["->"]=224;
+$226="odf".__minus_gt("application/vnd.oasis.opendocument.formula");
+$ctx1.sendIdx["->"]=225;
+$227="odg".__minus_gt("application/vnd.oasis.opendocument.graphics");
+$ctx1.sendIdx["->"]=226;
+$228="odi".__minus_gt("application/vnd.oasis.opendocument.image");
+$ctx1.sendIdx["->"]=227;
+$229="odm".__minus_gt("application/vnd.oasis.opendocument.text-master");
+$ctx1.sendIdx["->"]=228;
+$230="odp".__minus_gt("application/vnd.oasis.opendocument.presentation");
+$ctx1.sendIdx["->"]=229;
+$231="ods".__minus_gt("application/vnd.oasis.opendocument.spreadsheet");
+$ctx1.sendIdx["->"]=230;
+$232="odt".__minus_gt("application/vnd.oasis.opendocument.text");
+$ctx1.sendIdx["->"]=231;
+$233="ogg".__minus_gt("application/ogg");
+$ctx1.sendIdx["->"]=232;
+$234="old".__minus_gt("application/x-trash");
+$ctx1.sendIdx["->"]=233;
+$235="oth".__minus_gt("application/vnd.oasis.opendocument.text-web");
+$ctx1.sendIdx["->"]=234;
+$236="oza".__minus_gt("application/x-oz-application");
+$ctx1.sendIdx["->"]=235;
+$237="p".__minus_gt("text/x-pascal");
+$ctx1.sendIdx["->"]=236;
+$238="p7r".__minus_gt("application/x-pkcs7-certreqresp");
+$ctx1.sendIdx["->"]=237;
+$239="pac".__minus_gt("application/x-ns-proxy-autoconfig");
+$ctx1.sendIdx["->"]=238;
+$240="pas".__minus_gt("text/x-pascal");
+$ctx1.sendIdx["->"]=239;
+$241="pat".__minus_gt("image/x-coreldrawpattern");
+$ctx1.sendIdx["->"]=240;
+$242="pbm".__minus_gt("image/x-portable-bitmap");
+$ctx1.sendIdx["->"]=241;
+$243="pcf".__minus_gt("application/x-font");
+$ctx1.sendIdx["->"]=242;
+$244="pcf.Z".__minus_gt("application/x-font");
+$ctx1.sendIdx["->"]=243;
+$245="pcx".__minus_gt("image/pcx");
+$ctx1.sendIdx["->"]=244;
+$246="pdb".__minus_gt("chemical/x-pdb");
+$ctx1.sendIdx["->"]=245;
+$247="pdf".__minus_gt("application/pdf");
+$ctx1.sendIdx["->"]=246;
+$248="pfa".__minus_gt("application/x-font");
+$ctx1.sendIdx["->"]=247;
+$249="pfb".__minus_gt("application/x-font");
+$ctx1.sendIdx["->"]=248;
+$250="pgm".__minus_gt("image/x-portable-graymap");
+$ctx1.sendIdx["->"]=249;
+$251="pgn".__minus_gt("application/x-chess-pgn");
+$ctx1.sendIdx["->"]=250;
+$252="pgp".__minus_gt("application/pgp-signature");
+$ctx1.sendIdx["->"]=251;
+$253="pk".__minus_gt("application/x-tex-pk");
+$ctx1.sendIdx["->"]=252;
+$254="pl".__minus_gt("text/x-perl");
+$ctx1.sendIdx["->"]=253;
+$255="pls".__minus_gt("audio/x-scpls");
+$ctx1.sendIdx["->"]=254;
+$256="pm".__minus_gt("text/x-perl");
+$ctx1.sendIdx["->"]=255;
+$257="png".__minus_gt("image/png");
+$ctx1.sendIdx["->"]=256;
+$258="pnm".__minus_gt("image/x-portable-anymap");
+$ctx1.sendIdx["->"]=257;
+$259="pot".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=258;
+$260="ppm".__minus_gt("image/x-portable-pixmap");
+$ctx1.sendIdx["->"]=259;
+$261="pps".__minus_gt("application/vnd.ms-powerpoint");
+$ctx1.sendIdx["->"]=260;
+$262="ppt".__minus_gt("application/vnd.ms-powerpoint");
+$ctx1.sendIdx["->"]=261;
+$263="prf".__minus_gt("application/pics-rules");
+$ctx1.sendIdx["->"]=262;
+$264="prt".__minus_gt("chemical/x-ncbi-asn1-ascii");
+$ctx1.sendIdx["->"]=263;
+$265="ps".__minus_gt("application/postscript");
+$ctx1.sendIdx["->"]=264;
+$266="psd".__minus_gt("image/x-photoshop");
+$ctx1.sendIdx["->"]=265;
+$267="psp".__minus_gt("text/x-psp");
+$ctx1.sendIdx["->"]=266;
+$268="py".__minus_gt("text/x-python");
+$ctx1.sendIdx["->"]=267;
+$269="pyc".__minus_gt("application/x-python-code");
+$ctx1.sendIdx["->"]=268;
+$270="pyo".__minus_gt("application/x-python-code");
+$ctx1.sendIdx["->"]=269;
+$271="qt".__minus_gt("video/quicktime");
+$ctx1.sendIdx["->"]=270;
+$272="qtl".__minus_gt("application/x-quicktimeplayer");
+$ctx1.sendIdx["->"]=271;
+$273="ra".__minus_gt("audio/x-realaudio");
+$ctx1.sendIdx["->"]=272;
+$274="ram".__minus_gt("audio/x-pn-realaudio");
+$ctx1.sendIdx["->"]=273;
+$275="rar".__minus_gt("application/rar");
+$ctx1.sendIdx["->"]=274;
+$276="ras".__minus_gt("image/x-cmu-raster");
+$ctx1.sendIdx["->"]=275;
+$277="rd".__minus_gt("chemical/x-mdl-rdfile");
+$ctx1.sendIdx["->"]=276;
+$278="rdf".__minus_gt("application/rdf+xml");
+$ctx1.sendIdx["->"]=277;
+$279="rgb".__minus_gt("image/x-rgb");
+$ctx1.sendIdx["->"]=278;
+$280="rm".__minus_gt("audio/x-pn-realaudio");
+$ctx1.sendIdx["->"]=279;
+$281="roff".__minus_gt("application/x-troff");
+$ctx1.sendIdx["->"]=280;
+$282="ros".__minus_gt("chemical/x-rosdal");
+$ctx1.sendIdx["->"]=281;
+$283="rpm".__minus_gt("application/x-redhat-package-manager");
+$ctx1.sendIdx["->"]=282;
+$284="rss".__minus_gt("application/rss+xml");
+$ctx1.sendIdx["->"]=283;
+$285="rtf".__minus_gt("text/rtf");
+$ctx1.sendIdx["->"]=284;
+$286="rtx".__minus_gt("text/richtext");
+$ctx1.sendIdx["->"]=285;
+$287="rxn".__minus_gt("chemical/x-mdl-rxnfile");
+$ctx1.sendIdx["->"]=286;
+$288="sct".__minus_gt("text/scriptlet");
+$ctx1.sendIdx["->"]=287;
+$289="sd".__minus_gt("chemical/x-mdl-sdfile");
+$ctx1.sendIdx["->"]=288;
+$290="sd2".__minus_gt("audio/x-sd2");
+$ctx1.sendIdx["->"]=289;
+$291="sda".__minus_gt("application/vnd.stardivision.draw");
+$ctx1.sendIdx["->"]=290;
+$292="sdc".__minus_gt("application/vnd.stardivision.calc");
+$ctx1.sendIdx["->"]=291;
+$293="sdd".__minus_gt("application/vnd.stardivision.impress");
+$ctx1.sendIdx["->"]=292;
+$294="sdf".__minus_gt("chemical/x-mdl-sdfile");
+$ctx1.sendIdx["->"]=293;
+$295="sdp".__minus_gt("application/vnd.stardivision.impress");
+$ctx1.sendIdx["->"]=294;
+$296="sdw".__minus_gt("application/vnd.stardivision.writer");
+$ctx1.sendIdx["->"]=295;
+$297="ser".__minus_gt("application/java-serialized-object");
+$ctx1.sendIdx["->"]=296;
+$298="sgf".__minus_gt("application/x-go-sgf");
+$ctx1.sendIdx["->"]=297;
+$299="sgl".__minus_gt("application/vnd.stardivision.writer-global");
+$ctx1.sendIdx["->"]=298;
+$300="sh".__minus_gt("text/x-sh");
+$ctx1.sendIdx["->"]=299;
+$301="shar".__minus_gt("application/x-shar");
+$ctx1.sendIdx["->"]=300;
+$302="shtml".__minus_gt("text/html");
+$ctx1.sendIdx["->"]=301;
+$303="sid".__minus_gt("audio/prs.sid");
+$ctx1.sendIdx["->"]=302;
+$304="sik".__minus_gt("application/x-trash");
+$ctx1.sendIdx["->"]=303;
+$305="silo".__minus_gt("model/mesh");
+$ctx1.sendIdx["->"]=304;
+$306="sis".__minus_gt("application/vnd.symbian.install");
+$ctx1.sendIdx["->"]=305;
+$307="sit".__minus_gt("application/x-stuffit");
+$ctx1.sendIdx["->"]=306;
+$308="skd".__minus_gt("application/x-koan");
+$ctx1.sendIdx["->"]=307;
+$309="skm".__minus_gt("application/x-koan");
+$ctx1.sendIdx["->"]=308;
+$310="skp".__minus_gt("application/x-koan");
+$ctx1.sendIdx["->"]=309;
+$311="skt".__minus_gt("application/x-koan");
+$ctx1.sendIdx["->"]=310;
+$312="smf".__minus_gt("application/vnd.stardivision.math");
+$ctx1.sendIdx["->"]=311;
+$313="smi".__minus_gt("application/smil");
+$ctx1.sendIdx["->"]=312;
+$314="smil".__minus_gt("application/smil");
+$ctx1.sendIdx["->"]=313;
+$315="snd".__minus_gt("audio/basic");
+$ctx1.sendIdx["->"]=314;
+$316="spc".__minus_gt("chemical/x-galactic-spc");
+$ctx1.sendIdx["->"]=315;
+$317="spl".__minus_gt("application/x-futuresplash");
+$ctx1.sendIdx["->"]=316;
+$318="src".__minus_gt("application/x-wais-source");
+$ctx1.sendIdx["->"]=317;
+$319="stc".__minus_gt("application/vnd.sun.xml.calc.template");
+$ctx1.sendIdx["->"]=318;
+$320="std".__minus_gt("application/vnd.sun.xml.draw.template");
+$ctx1.sendIdx["->"]=319;
+$321="sti".__minus_gt("application/vnd.sun.xml.impress.template");
+$ctx1.sendIdx["->"]=320;
+$322="stl".__minus_gt("application/vnd.ms-pki.stl");
+$ctx1.sendIdx["->"]=321;
+$323="stw".__minus_gt("application/vnd.sun.xml.writer.template");
+$ctx1.sendIdx["->"]=322;
+$324="sty".__minus_gt("text/x-tex");
+$ctx1.sendIdx["->"]=323;
+$325="sv4cpio".__minus_gt("application/x-sv4cpio");
+$ctx1.sendIdx["->"]=324;
+$326="sv4crc".__minus_gt("application/x-sv4crc");
+$ctx1.sendIdx["->"]=325;
+$327="svg".__minus_gt("image/svg+xml");
+$ctx1.sendIdx["->"]=326;
+$328="svgz".__minus_gt("image/svg+xml");
+$ctx1.sendIdx["->"]=327;
+$329="sw".__minus_gt("chemical/x-swissprot");
+$ctx1.sendIdx["->"]=328;
+$330="swf".__minus_gt("application/x-shockwave-flash");
+$ctx1.sendIdx["->"]=329;
+$331="swfl".__minus_gt("application/x-shockwave-flash");
+$ctx1.sendIdx["->"]=330;
+$332="sxc".__minus_gt("application/vnd.sun.xml.calc");
+$ctx1.sendIdx["->"]=331;
+$333="sxd".__minus_gt("application/vnd.sun.xml.draw");
+$ctx1.sendIdx["->"]=332;
+$334="sxg".__minus_gt("application/vnd.sun.xml.writer.global");
+$ctx1.sendIdx["->"]=333;
+$335="sxi".__minus_gt("application/vnd.sun.xml.impress");
+$ctx1.sendIdx["->"]=334;
+$336="sxm".__minus_gt("application/vnd.sun.xml.math");
+$ctx1.sendIdx["->"]=335;
+$337="sxw".__minus_gt("application/vnd.sun.xml.writer");
+$ctx1.sendIdx["->"]=336;
+$338="t".__minus_gt("application/x-troff");
+$ctx1.sendIdx["->"]=337;
+$339="tar".__minus_gt("application/x-tar");
+$ctx1.sendIdx["->"]=338;
+$340="taz".__minus_gt("application/x-gtar");
+$ctx1.sendIdx["->"]=339;
+$341="tcl".__minus_gt("text/x-tcl");
+$ctx1.sendIdx["->"]=340;
+$342="tex".__minus_gt("text/x-tex");
+$ctx1.sendIdx["->"]=341;
+$343="texi".__minus_gt("application/x-texinfo");
+$ctx1.sendIdx["->"]=342;
+$344="texinfo".__minus_gt("application/x-texinfo");
+$ctx1.sendIdx["->"]=343;
+$345="text".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=344;
+$346="tgf".__minus_gt("chemical/x-mdl-tgf");
+$ctx1.sendIdx["->"]=345;
+$347="tgz".__minus_gt("application/x-gtar");
+$ctx1.sendIdx["->"]=346;
+$348="tif".__minus_gt("image/tiff");
+$ctx1.sendIdx["->"]=347;
+$349="tiff".__minus_gt("image/tiff");
+$ctx1.sendIdx["->"]=348;
+$350="tk".__minus_gt("text/x-tcl");
+$ctx1.sendIdx["->"]=349;
+$351="tm".__minus_gt("text/texmacs");
+$ctx1.sendIdx["->"]=350;
+$352="torrent".__minus_gt("application/x-bittorrent");
+$ctx1.sendIdx["->"]=351;
+$353="tr".__minus_gt("application/x-troff");
+$ctx1.sendIdx["->"]=352;
+$354="ts".__minus_gt("text/texmacs");
+$ctx1.sendIdx["->"]=353;
+$355="tsp".__minus_gt("application/dsptype");
+$ctx1.sendIdx["->"]=354;
+$356="tsv".__minus_gt("text/tab-separated-values");
+$ctx1.sendIdx["->"]=355;
+$357="txt".__minus_gt("text/plain");
+$ctx1.sendIdx["->"]=356;
+$358="udeb".__minus_gt("application/x-debian-package");
+$ctx1.sendIdx["->"]=357;
+$359="uls".__minus_gt("text/iuls");
+$ctx1.sendIdx["->"]=358;
+$360="ustar".__minus_gt("application/x-ustar");
+$ctx1.sendIdx["->"]=359;
+$361="val".__minus_gt("chemical/x-ncbi-asn1-binary");
+$ctx1.sendIdx["->"]=360;
+$362="vcd".__minus_gt("application/x-cdlink");
+$ctx1.sendIdx["->"]=361;
+$363="vcf".__minus_gt("text/x-vcard");
+$ctx1.sendIdx["->"]=362;
+$364="vcs".__minus_gt("text/x-vcalendar");
+$ctx1.sendIdx["->"]=363;
+$365="vmd".__minus_gt("chemical/x-vmd");
+$ctx1.sendIdx["->"]=364;
+$366="vms".__minus_gt("chemical/x-vamas-iso14976");
+$ctx1.sendIdx["->"]=365;
+$367="vor".__minus_gt("application/vnd.stardivision.writer");
+$ctx1.sendIdx["->"]=366;
+$368="vrm".__minus_gt("x-world/x-vrml");
+$ctx1.sendIdx["->"]=367;
+$369="vrml".__minus_gt("x-world/x-vrml");
+$ctx1.sendIdx["->"]=368;
+$370="vsd".__minus_gt("application/vnd.visio");
+$ctx1.sendIdx["->"]=369;
+$371="wad".__minus_gt("application/x-doom");
+$ctx1.sendIdx["->"]=370;
+$372="wav".__minus_gt("audio/x-wav");
+$ctx1.sendIdx["->"]=371;
+$373="wax".__minus_gt("audio/x-ms-wax");
+$ctx1.sendIdx["->"]=372;
+$374="wbmp".__minus_gt("image/vnd.wap.wbmp");
+$ctx1.sendIdx["->"]=373;
+$375="wbxml".__minus_gt("application/vnd.wap.wbxml");
+$ctx1.sendIdx["->"]=374;
+$376="wk".__minus_gt("application/x-123");
+$ctx1.sendIdx["->"]=375;
+$377="wm".__minus_gt("video/x-ms-wm");
+$ctx1.sendIdx["->"]=376;
+$378="wma".__minus_gt("audio/x-ms-wma");
+$ctx1.sendIdx["->"]=377;
+$379="wmd".__minus_gt("application/x-ms-wmd");
+$ctx1.sendIdx["->"]=378;
+$380="wml".__minus_gt("text/vnd.wap.wml");
+$ctx1.sendIdx["->"]=379;
+$381="wmlc".__minus_gt("application/vnd.wap.wmlc");
+$ctx1.sendIdx["->"]=380;
+$382="wmls".__minus_gt("text/vnd.wap.wmlscript");
+$ctx1.sendIdx["->"]=381;
+$383="wmlsc".__minus_gt("application/vnd.wap.wmlscriptc");
+$ctx1.sendIdx["->"]=382;
+$384="wmv".__minus_gt("video/x-ms-wmv");
+$ctx1.sendIdx["->"]=383;
+$385="wmx".__minus_gt("video/x-ms-wmx");
+$ctx1.sendIdx["->"]=384;
+$386="wmz".__minus_gt("application/x-ms-wmz");
+$ctx1.sendIdx["->"]=385;
+$387="wp5".__minus_gt("application/wordperfect5.1");
+$ctx1.sendIdx["->"]=386;
+$388="wpd".__minus_gt("application/wordperfect");
+$ctx1.sendIdx["->"]=387;
+$389="wrl".__minus_gt("x-world/x-vrml");
+$ctx1.sendIdx["->"]=388;
+$390="wsc".__minus_gt("text/scriptlet");
+$ctx1.sendIdx["->"]=389;
+$391="wvx".__minus_gt("video/x-ms-wvx");
+$ctx1.sendIdx["->"]=390;
+$392="wz".__minus_gt("application/x-wingz");
+$ctx1.sendIdx["->"]=391;
+$393="xbm".__minus_gt("image/x-xbitmap");
+$ctx1.sendIdx["->"]=392;
+$394="xcf".__minus_gt("application/x-xcf");
+$ctx1.sendIdx["->"]=393;
+$395="xht".__minus_gt("application/xhtml+xml");
+$ctx1.sendIdx["->"]=394;
+$396="xhtml".__minus_gt("application/xhtml+xml");
+$ctx1.sendIdx["->"]=395;
+$397="xlb".__minus_gt("application/vnd.ms-excel");
+$ctx1.sendIdx["->"]=396;
+$398="xls".__minus_gt("application/vnd.ms-excel");
+$ctx1.sendIdx["->"]=397;
+$399="xlt".__minus_gt("application/vnd.ms-excel");
+$ctx1.sendIdx["->"]=398;
+$400="xml".__minus_gt("application/xml");
+$ctx1.sendIdx["->"]=399;
+$401="xpi".__minus_gt("application/x-xpinstall");
+$ctx1.sendIdx["->"]=400;
+$402="xpm".__minus_gt("image/x-xpixmap");
+$ctx1.sendIdx["->"]=401;
+$403="xsl".__minus_gt("application/xml");
+$ctx1.sendIdx["->"]=402;
+$404="xtel".__minus_gt("chemical/x-xtel");
+$ctx1.sendIdx["->"]=403;
+$405="xul".__minus_gt("application/vnd.mozilla.xul+xml");
+$ctx1.sendIdx["->"]=404;
+$406="xwd".__minus_gt("image/x-xwindowdump");
+$ctx1.sendIdx["->"]=405;
+$407="xyz".__minus_gt("chemical/x-xyz");
+$ctx1.sendIdx["->"]=406;
+$408="zip".__minus_gt("application/zip");
+$ctx1.sendIdx["->"]=407;
+$409="zmt".__minus_gt("chemical/x-mopac-input");
+$ctx1.sendIdx["->"]=408;
+$410="~".__minus_gt("application/x-trash");
+$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86,$87,$88,$89,$90,$91,$92,$93,$94,$95,$96,$97,$98,$99,$100,$101,$102,$103,$104,$105,$106,$107,$108,$109,$110,$111,$112,$113,$114,$115,$116,$117,$118,$119,$120,$121,$122,$123,$124,$125,$126,$127,$128,$129,$130,$131,$132,$133,$134,$135,$136,$137,$138,$139,$140,$141,$142,$143,$144,$145,$146,$147,$148,$149,$150,$151,$152,$153,$154,$155,$156,$157,$158,$159,$160,$161,$162,$163,$164,$165,$166,$167,$168,$169,$170,$171,$172,$173,$174,$175,$176,$177,$178,$179,$180,$181,$182,$183,$184,$185,$186,$187,$188,$189,$190,$191,$192,$193,$194,$195,$196,$197,$198,$199,$200,$201,$202,$203,$204,$205,$206,$207,$208,$209,$210,$211,$212,$213,$214,$215,$216,$217,$218,$219,$220,$221,$222,$223,$224,$225,$226,$227,$228,$229,$230,$231,$232,$233,$234,$235,$236,$237,$238,$239,$240,$241,$242,$243,$244,$245,$246,$247,$248,$249,$250,$251,$252,$253,$254,$255,$256,$257,$258,$259,$260,$261,$262,$263,$264,$265,$266,$267,$268,$269,$270,$271,$272,$273,$274,$275,$276,$277,$278,$279,$280,$281,$282,$283,$284,$285,$286,$287,$288,$289,$290,$291,$292,$293,$294,$295,$296,$297,$298,$299,$300,$301,$302,$303,$304,$305,$306,$307,$308,$309,$310,$311,$312,$313,$314,$315,$316,$317,$318,$319,$320,$321,$322,$323,$324,$325,$326,$327,$328,$329,$330,$331,$332,$333,$334,$335,$336,$337,$338,$339,$340,$341,$342,$343,$344,$345,$346,$347,$348,$349,$350,$351,$352,$353,$354,$355,$356,$357,$358,$359,$360,$361,$362,$363,$364,$365,$366,$367,$368,$369,$370,$371,$372,$373,$374,$375,$376,$377,$378,$379,$380,$381,$382,$383,$384,$385,$386,$387,$388,$389,$390,$391,$392,$393,$394,$395,$396,$397,$398,$399,$400,$401,$402,$403,$404,$405,$406,$407,$408,$409,$410]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMimeTypes",{},smalltalk.FileServer.klass)})},
 args: [],
@@ -1083,8 +2041,11 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(console)._log_("Available commandline options are:");
-_st(console)._log_("--help");
+var $1,$2;
+$1=_st(console)._log_("Available commandline options are:");
+$ctx1.sendIdx["log:"]=1;
+$2=_st(console)._log_("--help");
+$ctx1.sendIdx["log:"]=2;
 _st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(console)._log_(_st(each).__comma(" <parameter>"));
@@ -1104,11 +2065,14 @@ category: 'accessing',
 fn: function (aSwitch){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(_st(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
+var $3,$2,$1;
+$3=_st(aSwitch)._replace_with_("^--","");
+$2=_st($3)._replace_with_("-[a-z]",(function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._second())._asUppercase();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}))).__comma(":");
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["replace:with:"]=1;
+$1=_st($2).__comma(":");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"selectorForCommandLineSwitch:",{aSwitch:aSwitch},smalltalk.FileServer.klass)})},
 args: ["aSwitch"],
@@ -1150,8 +2114,10 @@ selector: "assignNewVariable:do:",
 category: 'private',
 fn: function (buffer,aBlock){
 var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$5,$7,$6,$4,$1;
+var $2,$4,$6,$5,$3,$1;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 return smalltalk.withContext(function($ctx2) {
@@ -1164,39 +2130,52 @@ varName=$2;
 varName;
 self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
 self["@session"];
-$3=self;
-$5=_st(varName).__comma(" := ");
-$7=expr;
-if(($receiver = $7) == nil || $receiver == null){
-$6=buffer;
+_st((function(){
+return smalltalk.withContext(function($ctx3) {
+$4=_st(varName).__comma(" := ");
+$6=expr;
+if(($receiver = $6) == nil || $receiver == null){
+$5=buffer;
 } else {
-$6=$7;
+$5=$6;
 };
-$4=_st($5).__comma($6);
-value=_st($3)._eval_on_($4,self["@session"]);
-value;
+$3=_st($4).__comma($5);
+$ctx3.sendIdx[","]=1;
+value=self._eval_on_($3,self["@session"]);
+return value;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}))._on_do_($Error(),(function(e){
+return smalltalk.withContext(function($ctx3) {
+_st(_st($ErrorHandler())._new())._logError_(e);
+value=nil;
+return value;
+}, function($ctx3) {$ctx3.fillBlock({e:e},$ctx2,5)})}));
 return _st(aBlock)._value_value_(varName,value);
 }, function($ctx2) {$ctx2.fillBlock({name:name,expr:expr,varName:varName,value:value},$ctx1,1)})}));
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"assignNewVariable:do:",{buffer:buffer,aBlock:aBlock},smalltalk.Repl)})},
 args: ["buffer", "aBlock"],
-source: "assignNewVariable: buffer do: aBlock\x0a\x09\x22Assigns a new variable and calls the given block with the variable's name and value\x0a\x09 if buffer contains an assignment expression. If it doesn't the block is called with nil for\x0a\x09 both arguments.\x22\x0a\x09^ self parseAssignment: buffer do: [ :name :expr || varName value |\x0a\x09\x09varName := name ifNil: [self nextResultName].\x0a\x09\x09session := self addVariableNamed: varName to: session.\x0a\x09\x09value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session.\x0a\x09\x09aBlock value: varName value: value]",
-messageSends: ["parseAssignment:do:", "ifNil:", "nextResultName", "addVariableNamed:to:", "eval:on:", ",", "value:value:"],
-referencedClasses: []
+source: "assignNewVariable: buffer do: aBlock\x0a\x09\x22Assigns a new variable and calls the given block with the variable's name and value\x0a\x09 if buffer contains an assignment expression. If it doesn't the block is called with nil for\x0a\x09 both arguments.\x22\x0a\x09^ self parseAssignment: buffer do: [ :name :expr || varName value |\x0a\x09\x09varName := name ifNil: [self nextResultName].\x0a\x09\x09session := self addVariableNamed: varName to: session.\x0a\x09\x09[ value := self eval: varName, ' := ', (expr ifNil: [buffer]) on: session ]\x0a\x09\x09\x09on: Error\x0a\x09\x09\x09do: [ :e | ErrorHandler new logError: e. value := nil].\x0a\x09\x09aBlock value: varName value: value]",
+messageSends: ["parseAssignment:do:", "ifNil:", "nextResultName", "addVariableNamed:to:", "on:do:", "eval:on:", ",", "logError:", "new", "value:value:"],
+referencedClasses: ["Error", "ErrorHandler"]
 }),
 smalltalk.Repl);
 
 smalltalk.addMethod(
 smalltalk.method({
 selector: "clearScreen",
-category: 'private',
+category: 'actions',
 fn: function (){
 var self=this;
 var esc,cls;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
 esc=_st($String())._fromCharCode_((27));
-cls=_st(_st(_st(esc).__comma("[2J")).__comma(esc)).__comma("[0;0f");
+$2=_st(esc).__comma("[2J");
+$1=_st($2).__comma(esc);
+$ctx1.sendIdx[","]=2;
+cls=_st($1).__comma("[0;0f");
+$ctx1.sendIdx[","]=1;
 _st(_st(process)._stdout())._write_(cls);
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"clearScreen",{esc:esc,cls:cls},smalltalk.Repl)})},
@@ -1248,20 +2227,20 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
-_st(self["@interface"])._on_do_("line",(function(buffer){
+$1=_st(self["@interface"])._on_do_("line",(function(buffer){
 return smalltalk.withContext(function($ctx2) {
 return self._processLine_(buffer);
 }, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1,1)})}));
-_st(self["@interface"])._on_do_("close",(function(){
+$ctx1.sendIdx["on:do:"]=1;
+$2=_st(self["@interface"])._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$1=self;
-_st($1)._printWelcome();
-_st($1)._setupHotkeys();
-$2=_st($1)._setPrompt();
+self._printWelcome();
+self._setupHotkeys();
+$3=self._setPrompt();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
 args: [],
@@ -1280,9 +2259,22 @@ var self=this;
 var compiler;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
+var $2,$5,$4,$3,$1,$7,$9,$8,$6;
 compiler=_st($Compiler())._new();
-_st(compiler)._install_forClass_category_(_st(_st(_st(aString).__comma(": anObject ^ ")).__comma(aString)).__comma(" := anObject"),aClass,"session");
-_st(compiler)._install_forClass_category_(_st(_st(aString).__comma(" ^ ")).__comma(aString),aClass,"session");
+$2=compiler;
+$5=_st(aString).__comma(": anObject ^ ");
+$ctx1.sendIdx[","]=3;
+$4=_st($5).__comma(aString);
+$ctx1.sendIdx[","]=2;
+$3=_st($4).__comma(" := anObject");
+$ctx1.sendIdx[","]=1;
+$1=_st($2)._install_forClass_category_($3,aClass,"session");
+$ctx1.sendIdx["install:forClass:category:"]=1;
+$7=compiler;
+$9=_st(aString).__comma(" ^ ");
+$8=_st($9).__comma(aString);
+$ctx1.sendIdx[","]=4;
+$6=_st($7)._install_forClass_category_($8,aClass,"session");
 return self}, function($ctx1) {$ctx1.fill(self,"encapsulateVariable:withValue:in:",{aString:aString,anObject:anObject,aClass:aClass,compiler:compiler},smalltalk.Repl)})},
 args: ["aString", "anObject", "aClass"],
 source: "encapsulateVariable: aString withValue: anObject in: aClass\x0a\x09\x22Add getter and setter for given variable to session.\x22\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.\x0a\x09compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.",
@@ -1318,7 +2310,6 @@ fn: function (buffer,anObject){
 var self=this;
 var result;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
-function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2,$3;
 $1=_st(buffer)._isEmpty();
@@ -1331,7 +2322,7 @@ return result;
 return smalltalk.withContext(function($ctx2) {
 $2=_st(e)._isSmalltalkError();
 if(smalltalk.assert($2)){
-return _st(_st($ErrorHandler())._new())._handleError_(e);
+return _st(e)._resignal();
 } else {
 return _st(_st(process)._stdout())._write_(_st(e)._jsStack());
 };
@@ -1341,9 +2332,9 @@ $3=result;
 return $3;
 }, function($ctx1) {$ctx1.fill(self,"eval:on:",{buffer:buffer,anObject:anObject,result:result},smalltalk.Repl)})},
 args: ["buffer", "anObject"],
-source: "eval: buffer on: anObject\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer on: anObject]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ErrorHandler new handleError: e]\x0a\x09\x09\x09    ifFalse: [process stdout write: e jsStack]]].\x0a\x09^ result",
-messageSends: ["ifFalse:", "isEmpty", "try:catch:", "evaluateExpression:on:", "new", "ifTrue:ifFalse:", "isSmalltalkError", "handleError:", "write:", "stdout", "jsStack"],
-referencedClasses: ["Compiler", "ErrorHandler"]
+source: "eval: buffer on: anObject\x0a\x09| result |\x0a\x09buffer isEmpty ifFalse: [\x0a\x09\x09self try: [\x0a\x09\x09\x09result := Compiler new evaluateExpression: buffer on: anObject]\x0a\x09\x09catch: [:e |\x0a\x09\x09\x09e isSmalltalkError\x0a\x09\x09\x09    ifTrue: [ e resignal ]\x0a\x09\x09\x09    ifFalse: [ process stdout write: e jsStack ]]].\x0a\x09^ result",
+messageSends: ["ifFalse:", "isEmpty", "try:catch:", "evaluateExpression:on:", "new", "ifTrue:ifFalse:", "isSmalltalkError", "resignal", "write:", "stdout", "jsStack"],
+referencedClasses: ["Compiler"]
 }),
 smalltalk.Repl);
 
@@ -1387,6 +2378,7 @@ return smalltalk.withContext(function($ctx1) {
 smalltalk.Repl.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@session"]=_st($DoIt())._new();
 self["@readline"]=_st(require)._value_("readline");
+$ctx1.sendIdx["value:"]=1;
 self["@util"]=_st(require)._value_("util");
 self._setupCommands();
 return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Repl)})},
@@ -1404,12 +2396,17 @@ category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $2,$3,$5,$4,$1;
 $2=_st(aClass)._superclass();
+$ctx1.sendIdx["superclass"]=1;
 if(($receiver = $2) == nil || $receiver == null){
 $1=_st(aClass)._instanceVariableNames();
 } else {
-$1=_st(_st(aClass)._instanceVariableNames())._copyWithAll_(self._instanceVariableNamesFor_(_st(aClass)._superclass()));
+$3=_st(aClass)._instanceVariableNames();
+$ctx1.sendIdx["instanceVariableNames"]=1;
+$5=_st(aClass)._superclass();
+$4=self._instanceVariableNamesFor_($5);
+$1=_st($3)._copyWithAll_($4);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},smalltalk.Repl)})},
@@ -1428,11 +2425,11 @@ fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(aString)._match_("^[a-z_]\x5cw+$"._asRegexp());
+$1=_st(aString)._match_("^[a-z_]\x5cw*$"._asRegexp());
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"isIdentifier:",{aString:aString},smalltalk.Repl)})},
 args: ["aString"],
-source: "isIdentifier: aString\x0a\x09^ aString match: '^[a-z_]\x5cw+$' asRegexp",
+source: "isIdentifier: aString\x0a\x09^ aString match: '^[a-z_]\x5cw*$' asRegexp",
 messageSends: ["match:", "asRegexp"],
 referencedClasses: []
 }),
@@ -1511,24 +2508,29 @@ fn: function (aString,aBlock){
 var self=this;
 var assignment;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $3,$2,$4,$5,$1;
 assignment=_st(_st(aString)._tokenize_(":="))._collect_((function(s){
 return smalltalk.withContext(function($ctx2) {
 return _st(s)._trimBoth();
 }, function($ctx2) {$ctx2.fillBlock({s:s},$ctx1,1)})}));
 $2=_st(_st(_st(assignment)._size()).__eq((2)))._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-return self._isIdentifier_(_st(assignment)._first());
+$3=_st(assignment)._first();
+$ctx2.sendIdx["first"]=1;
+return self._isIdentifier_($3);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 if(smalltalk.assert($2)){
-$1=_st(aBlock)._value_value_(_st(assignment)._first(),_st(assignment)._last());
+$4=aBlock;
+$5=_st(assignment)._first();
+$1=_st($4)._value_value_($5,_st(assignment)._last());
+$ctx1.sendIdx["value:value:"]=1;
 } else {
 $1=_st(aBlock)._value_value_(nil,nil);
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"parseAssignment:do:",{aString:aString,aBlock:aBlock,assignment:assignment},smalltalk.Repl)})},
 args: ["aString", "aBlock"],
-source: "parseAssignment: aString do: aBlock\x0a\x09\x22Assigns a new variable if the given string is an assignment expression. Calls the given block with name and value.\x0a\x09 If the string is not one no variable will be assigned and the block will be called with nil for both arguments.\x22\x0a\x09| assignment |\x0a\x09assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].\x0a\x09^ (assignment size = 2 and: [self isIdentifier: assignment first])\x0a\x09\x09ifTrue: [aBlock value: assignment first value: assignment last]\x0a\x09\x09ifFalse: [aBlock value: nil value: nil]",
+source: "parseAssignment: aString do: aBlock\x0a\x09\x22Assigns a new variable if the given string is an assignment expression. Calls the given block with name and value.\x0a\x09 If the string is not one no variable will be assigned and the block will be called with nil for both arguments.\x22\x0a\x09| assignment |\x0a\x09assignment := (aString tokenize: ':=') collect: [:s | s trimBoth].\x0a\x09^ (assignment size = 2 and: [self isIdentifier: assignment first])\x0a\x09\x09ifTrue: [ aBlock value: assignment first value: assignment last ]\x0a\x09\x09ifFalse: [ aBlock value: nil value: nil ]",
 messageSends: ["collect:", "tokenize:", "trimBoth", "ifTrue:ifFalse:", "and:", "=", "size", "isIdentifier:", "first", "value:value:", "last"],
 referencedClasses: []
 }),
@@ -1542,10 +2544,18 @@ fn: function (varName,value){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$6,$5,$4,$3,$7;
 $1=$Transcript();
-_st($1)._show_(_st(_st(_st(_st(varName).__comma(": ")).__comma(_st(_st(value)._class())._name())).__comma(" = ")).__comma(_st(value)._asString()));
-$2=_st($1)._cr();
+$2=$1;
+$6=_st(varName).__comma(": ");
+$5=_st($6).__comma(_st(_st(value)._class())._name());
+$ctx1.sendIdx[","]=3;
+$4=_st($5).__comma(" = ");
+$ctx1.sendIdx[","]=2;
+$3=_st($4).__comma(_st(value)._asString());
+$ctx1.sendIdx[","]=1;
+_st($2)._show_($3);
+$7=_st($1)._cr();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"presentResultNamed:withValue:",{varName:varName,value:value},smalltalk.Repl)})},
 args: ["varName", "value"],
@@ -1558,17 +2568,26 @@ smalltalk.Repl);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "printWelcome",
-category: 'private',
+category: 'actions',
 fn: function (){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-_st($Transcript())._show_(_st(_st(_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ")).__comma(_st(_st(process)._versions())._node())).__comma(")."));
-$1=$Transcript();
-_st($1)._show_("Type :q to exit.");
-$2=_st($1)._cr();
+var $2,$6,$5,$4,$3,$1,$7,$8;
+$2=$Transcript();
+$6="Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version());
+$5=_st($6).__comma(" (NodeJS ");
+$ctx1.sendIdx[","]=3;
+$4=_st($5).__comma(_st(_st(process)._versions())._node());
+$ctx1.sendIdx[","]=2;
+$3=_st($4).__comma(").");
+$ctx1.sendIdx[","]=1;
+$1=_st($2)._show_($3);
+$ctx1.sendIdx["show:"]=1;
+$7=$Transcript();
+_st($7)._show_("Type :q to exit.");
+$8=_st($7)._cr();
 return self}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},smalltalk.Repl)})},
 args: [],
 source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
@@ -1666,13 +2685,19 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-self["@commands"]=_st($Dictionary())._from_([_st([":q"]).__minus_gt((function(){
+var $1,$3,$4,$2;
+$1=$Dictionary();
+$3=_st([":q"]).__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(process)._exit();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})})),_st([""]).__minus_gt((function(){
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["->"]=1;
+$4=_st([""]).__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@interface"])._prompt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))]);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$2=[$3,$4];
+self["@commands"]=_st($1)._from_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},smalltalk.Repl)})},
 args: [],
 source: "setupCommands\x0a\x09commands := Dictionary from: {\x0a\x09\x09{':q'} -> [process exit].\x0a\x09\x09{''} -> [interface prompt]}",
@@ -1732,15 +2757,26 @@ category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(aClass)._name())._matchesOf_("\x5cd+$");
+var $3,$2,$7,$6,$5,$4,$8,$9,$1;
+$3=_st(aClass)._name();
+$ctx1.sendIdx["name"]=1;
+$2=_st($3)._matchesOf_("\x5cd+$");
+$ctx1.sendIdx["matchesOf:"]=1;
 if(($receiver = $2) == nil || $receiver == null){
-$1=_st(_st(aClass)._name()).__comma("2");
+$9=_st(aClass)._name();
+$1=_st($9).__comma("2");
 } else {
 var counter;
-counter=_st(_st(_st(_st(_st(aClass)._name())._matchesOf_("\x5cd+$"))._first())._asNumber()).__plus((1));
+$7=_st(aClass)._name();
+$ctx1.sendIdx["name"]=2;
+$6=_st($7)._matchesOf_("\x5cd+$");
+$5=_st($6)._first();
+$4=_st($5)._asNumber();
+counter=_st($4).__plus((1));
 counter;
-$1=_st(_st(aClass)._name())._replaceRegexp_with_("\x5cd+$"._asRegexp(),_st(counter)._asString());
+$8=_st(aClass)._name();
+$ctx1.sendIdx["name"]=3;
+$1=_st($8)._replaceRegexp_with_("\x5cd+$"._asRegexp(),_st(counter)._asString());
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"subclassNameFor:",{aClass:aClass},smalltalk.Repl)})},

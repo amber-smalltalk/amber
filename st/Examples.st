@@ -13,12 +13,12 @@ Then take a look in the HTML document above the IDE.
 
 decrease
 	count := count - 1.
-	header contents: [:html | html with: count asString]
+	header contents: [ :html | html with: count asString ]
 !
 
 increase
 	count := count + 1.
-	header contents: [:html | html with: count asString]
+	header contents: [ :html | html with: count asString ]
 ! !
 
 !Counter methodsFor: 'initialization'!
@@ -32,14 +32,14 @@ initialize
 
 renderOn: html
 	header := html h1
-	with: count asString;
-	yourself.
+		with: count asString;
+		yourself.
 	html button
-	with: '++';
-	onClick: [self increase].
+		with: '++';
+		onClick: [ self increase ].
 	html button
-	with: '--';
-	onClick: [self decrease]
+		with: '--';
+		onClick: [ self decrease ]
 ! !
 
 !Counter class methodsFor: 'example'!

@@ -39,7 +39,7 @@ inspect: anObject
 !HLCodeModel methodsFor: 'defaults'!
 
 defaultReceiver
-	^ DoIt new
+	^ self environment doItReceiver
 ! !
 
 !HLCodeModel class methodsFor: 'actions'!
@@ -189,9 +189,9 @@ print: aString
 printIt
 	| result |
 
-	result:=  self doIt.       
+	result := self doIt.       
 	self model announcer announce: (HLPrintItRequested on: model).
-    self print: result printString.
+	self print: result printString.
 	
 	self focus.
 !
@@ -234,7 +234,7 @@ onChange
 
 onDoIt
 	
-    self doIt
+	self doIt
 !
 
 onInspectIt
@@ -420,8 +420,8 @@ setupCodeMirror
 	< 
 		CodeMirror.keyMap.default.fallthrough = ["basic"];
 		CodeMirror.commands.autocomplete = function(cm) {
-        	CodeMirror.showHint(cm, self._hintFor_options_);
-      	}
+			CodeMirror.showHint(cm, self._hintFor_options_);
+		}
 	>
 !
 
@@ -550,6 +550,10 @@ observeBrowserModel
 		send: #onClassSelected:
 		to: self;
 		
+		on: HLPackageSelected 
+		send: #onPackageSelected:
+		to: self;
+		
     	on: HLProtocolSelected 
 		send: #onProtocolSelected: 
 		to: self;
@@ -618,7 +622,7 @@ onClassSelected: anAnnouncement
 	class:= anAnnouncement item.
 	
 	class ifNil: [ ^ self contents: '' ].
-    self contents: class definition
+	self contents: class definition
 !
 
 onCompileError: anAnnouncement
@@ -636,7 +640,7 @@ onMethodModified: anAnnouncement
 	
 	self browserModel selectedClass = method methodClass ifFalse: [ ^ self ].
 	self browserModel selectedMethod ifNil: [ ^ self ].
-    self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].
+	self browserModel selectedMethod selector = method selector ifFalse: [ ^ self ].
 
 	self refresh
 !
@@ -647,7 +651,16 @@ onMethodSelected: anAnnouncement
 	method := anAnnouncement item.
 	
 	method ifNil: [ ^ self contents: '' ].
-    self contents: method source
+	self contents: method source
+!
+
+onPackageSelected: anAnnouncement
+	| package |
+	
+	package := anAnnouncement item.
+	
+	package ifNil: [ ^ self contents: '' ].
+	self contents: package definition
 !
 
 onParseError: anAnnouncement
@@ -672,7 +685,7 @@ onParseError: anAnnouncement
 
 onProtocolSelected: anAnnouncement
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
-    self contents: self browserModel selectedClass definition
+	self contents: self browserModel selectedClass definition
 !
 
 onSaveIt
@@ -682,7 +695,7 @@ onSaveIt
 onShowInstanceToggled
 	self browserModel selectedClass ifNil: [ ^ self contents: '' ].
     
-    self contents: self browserModel selectedClass definition
+	self contents: self browserModel selectedClass definition
 !
 
 onSourceCodeFocusRequested

@@ -53,7 +53,7 @@ Transcript class instanceVariableNames: 'current'!
 !Transcript class methodsFor: 'instance creation'!
 
 current
-	^current
+	^ current
 !
 
 new

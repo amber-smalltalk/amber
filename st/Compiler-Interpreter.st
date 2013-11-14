@@ -95,7 +95,7 @@ forContext: aContext node: aNode
 ! !
 
 MethodContext subclass: #AIContext
-	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes ast interpreter'
+	instanceVariableNames: 'outerContext innerContext pc locals selector index sendIndexes evaluatedSelector ast interpreter'
 	package: 'Compiler-Interpreter'!
 !AIContext commentStamp!
 I am like a `MethodContext`, used by the `ASTInterpreter`.
@@ -104,6 +104,14 @@ Unlike a `MethodContext`, my instances are not read-only.
 When debugging, my instances are created by copying the current `MethodContext` (thisContext)!
 
 !AIContext methodsFor: 'accessing'!
+
+evaluatedSelector
+	^ evaluatedSelector
+!
+
+evaluatedSelector: aString
+	evaluatedSelector := aString
+!
 
 index
 	^ index ifNil: [ 0 ]
@@ -135,7 +143,7 @@ localAt: aString ifAbsent: aBlock
 	^ self locals at: aString ifAbsent: [ 
 		self outerContext 
 			ifNotNil: [ :context | context localAt: aString ifAbsent: aBlock ]
-			ifNil: [aBlock value] ]
+			ifNil: [ aBlock value ] ]
 !
 
 localAt: aString put: anObject
@@ -201,6 +209,7 @@ initializeAST
 initializeFromMethodContext: aMethodContext
 
 	self
+		evaluatedSelector: aMethodContext evaluatedSelector;
 		index: aMethodContext index;
 		sendIndexes: aMethodContext sendIndexes;
 		receiver: aMethodContext receiver;
@@ -219,9 +228,8 @@ initializeInterpreter
 		context: self;
 		yourself.
 	
-	(self innerContext notNil and: [ 
-		self innerContext isBlockContext not ]) ifTrue: [
-			self setupInterpreter: interpreter ]
+	self innerContext ifNotNil: [
+		self setupInterpreter: interpreter ]
 !
 
 initializeLocals
@@ -266,7 +274,7 @@ setupInterpreter: anInterpreter
 	
 	"Retrieve the current node"
 	currentNode := ASTPCNodeVisitor new
-			selector: self innerContext selector;
+			selector: self evaluatedSelector;
 			context: self;
 			visit: self ast;
 			currentNode.
@@ -293,9 +301,9 @@ Object subclass: #ASTDebugger
 	package: 'Compiler-Interpreter'!
 !ASTDebugger commentStamp!
 I am a stepping debugger interface for Amber code.
-I internally use an instance of `ASTSteppingInterpreter` to actually step through node and interpret them.
+I internally use an instance of `ASTInterpreter` to actually step through node and interpret them.
 
-My instances are created from a `MethodContext` with `ASTDebugger class >> context:`.
+My instances are created from an `AIContext` with `ASTDebugger class >> context:`.
 They hold an `AIContext` instance internally, recursive copy of the `MethodContext`.
 
 ## API
@@ -375,6 +383,10 @@ proceed
 
 restart
 	self interpreter restart
+!
+
+skip
+	self interpreter skip
 !
 
 stepInto
@@ -474,8 +486,8 @@ next
 proceed
 	"Eagerly evaluate the ast"
 	
-	[ self atEnd ] whileFalse: [ 
-		self step ]
+	[ self atEnd ] 
+		whileFalse: [ self step ]
 !
 
 restart
@@ -701,7 +713,7 @@ visitVariableNode: aNode
 					ifTrue: [
 						Smalltalk current 
 							at: aNode value 
-							ifAbsent: [ PlatformInterface globals at: aNode value ]]]])
+							ifAbsent: [ PlatformInterface globals at: aNode value ] ] ] ])
 ! !
 
 Error subclass: #ASTInterpreterError

@@ -269,6 +269,13 @@ restart
 		yourself)
 !
 
+skip
+	self interpreter skip.
+	self announcer announce: (HLDebuggerStepped new
+		context: self currentContext;
+		yourself)
+!
+
 stepOver
 	self interpreter stepOver.
 	self announcer announce: (HLDebuggerStepped new
@@ -364,6 +371,10 @@ selectItem: aContext
    	self model currentContext: aContext
 !
 
+skip
+	self model skip
+!
+
 stepOver
 	self model stepOver
 !
@@ -389,6 +400,10 @@ renderButtonsOn: html
 			html button 
 				class: 'btn stepOver';
 				with: 'Step over';
-				onClick: [ self stepOver ] ]
+				onClick: [ self stepOver ].
+			html button 
+				class: 'btn skip';
+				with: 'Skip';
+				onClick: [ self skip ] ]
 ! !
 

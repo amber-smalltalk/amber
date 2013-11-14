@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'Helios-Core'!
-Object subclass: #HLModel
+InterfacingObject subclass: #HLModel
 	instanceVariableNames: 'announcer environment'
 	package: 'Helios-Core'!
 !HLModel commentStamp!
@@ -191,9 +191,7 @@ saveSourceCode
 !HLToolModel methodsFor: 'commands actions'!
 
 commitPackage
-	"self 
-		withHelperLabelled: 'Committing package ', self selectedPackage name, '...'
-		do: [ "self environment commitPackage: self selectedPackage" ]"
+	self environment commitPackage: self selectedPackage
 !
 
 copyClassTo: aClassName
@@ -348,7 +346,7 @@ withCompileErrorHandling: aBlock
 				self environment 
 					evaluate: aBlock
 					on: ParseError
-					do: [:ex | self handleParseError: ex ] ]
+					do: [ :ex | self handleParseError: ex ] ]
 			on: UnknownVariableError
 			do: [ :ex | self handleUnkownVariableError: ex ] ]
 		on: CompilerError
@@ -737,13 +735,18 @@ hasFocus
 ! !
 
 HLFocusableWidget subclass: #HLListWidget
-	instanceVariableNames: 'items selectedItem mapping'
+	instanceVariableNames: 'items selectedItem'
 	package: 'Helios-Core'!
 
 !HLListWidget methodsFor: 'accessing'!
 
 cssClassForItem: anObject
 	^ ''
+!
+
+findListItemFor: anObject
+	^ (((wrapper asJQuery find: 'li') 
+		filter: [ :thisArg :otherArg | (thisArg asJQuery data: 'item') = anObject ] currySelf) eq: 0)
 !
 
 items
@@ -781,22 +784,20 @@ activateFirstListItem
 !
 
 activateItem: anObject
-	self activateListItem: (mapping 
-		at: anObject
-		ifAbsent: [ ^ self ]) asJQuery
+	self activateListItem: (self findListItemFor: anObject)
 !
 
 activateListItem: aListItem
 	| item |
 	
-	(aListItem get: 0) ifNil: [ ^self ].
+	(aListItem get: 0) ifNil: [ ^ self ].
 	aListItem parent children removeClass: 'active'.
 	aListItem addClass: 'active'.
     
 	self ensureVisible: aListItem.
     
    "Activate the corresponding item"
-   item := (self items at: (aListItem attr: 'list-data') asNumber).
+   item := aListItem data: 'item'.
    self selectedItem == item ifFalse: [
 	   self selectItem: item ]
 !
@@ -817,7 +818,7 @@ ensureVisible: aListItem
 	"Move the scrollbar to show the active element"
 	
 	| parent position |
-	
+	(aListItem get: 0) ifNil: [ ^ self ].
 	position := self positionOf: aListItem.
 	parent := aListItem parent.
 	
@@ -835,10 +836,7 @@ focus
 
 refresh
 	super refresh.
-	
-	self ensureVisible: (mapping 
-		at: self selectedItem
-		ifAbsent: [ ^ self ]) asJQuery
+	self ensureVisible: (self findListItemFor: self selectedItem)
 !
 
 selectItem: anObject
@@ -860,20 +858,6 @@ setupKeyBindings
 		rebindKeys
 ! !
 
-!HLListWidget methodsFor: 'initialization'!
-
-initialize
-	super initialize.
-	
-	mapping := Dictionary new.
-! !
-
-!HLListWidget methodsFor: 'private'!
-
-registerMappingFrom: anObject to: aTag
-	mapping at: anObject put: aTag
-! !
-
 !HLListWidget methodsFor: 'rendering'!
 
 renderButtonsOn: html
@@ -893,10 +877,8 @@ renderItem: anObject on: html
 	| li |
     
 	li := html li.
-	self registerMappingFrom: anObject to: li.
-	
+	li asJQuery data: 'item' put: anObject.
     li
-        at: 'list-data' put: (self items indexOf: anObject) asString;
 		class: (self listCssClassForItem: anObject);
         with: [ 
         	html a
@@ -912,10 +894,8 @@ renderItemLabel: anObject on: html
 !
 
 renderListOn: html
-	mapping := Dictionary new.
-	
-	self items do: [ :each | 
-    	self renderItem: each on: html ]
+	self items do: [ :each  | 
+    	self renderItem: each  on: html ]
 ! !
 
 HLListWidget subclass: #HLNavigationListWidget

@@ -294,7 +294,7 @@ errorStatus
 evaluate: aString	
 	[ self callback value: aString ]
 		on: Error
-		do: [:ex |
+		do: [ :ex |
 			self input asJQuery 
 				one: 'keydown' 
 				do: [ self clearStatus ].

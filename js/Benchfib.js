@@ -29,7 +29,7 @@ category: '*Benchfib',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$7,$6,$3,$1;
+var $2,$5,$4,$3,$1;
 $2=self.__lt((2));
 if(smalltalk.assert($2)){
 $1=(1);
@@ -38,9 +38,7 @@ $5=self.__minus((1));
 $ctx1.sendIdx["-"]=1;
 $4=_st($5)._benchFib();
 $ctx1.sendIdx["benchFib"]=1;
-$7=self.__minus((2));
-$6=_st($7)._benchFib();
-$3=_st($4).__plus($6);
+$3=_st($4).__plus(_st(self.__minus((2)))._benchFib());
 $1=_st($3).__plus((1));
 $ctx1.sendIdx["+"]=1;
 };
@@ -62,9 +60,9 @@ var self=this;
 var size,flags,prime,k,count;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1,$2;
 size=(8190);
-$1=(1)._to_do_(self,(function(iter){
+(1)._to_do_(self,(function(iter){
 return smalltalk.withContext(function($ctx2) {
 count=(0);
 count;
@@ -76,8 +74,8 @@ return _st(flags)._add_(true);
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
 return (1)._to_do_(size,(function(i){
 return smalltalk.withContext(function($ctx3) {
-$2=_st(flags)._at_(i);
-if(smalltalk.assert($2)){
+$1=_st(flags)._at_(i);
+if(smalltalk.assert($1)){
 prime=_st(i).__plus((1));
 $ctx3.sendIdx["+"]=1;
 prime;
@@ -100,8 +98,8 @@ return count;
 }, function($ctx3) {$ctx3.fillBlock({i:i},$ctx2,3)})}));
 }, function($ctx2) {$ctx2.fillBlock({iter:iter},$ctx1,1)})}));
 $ctx1.sendIdx["to:do:"]=1;
-$3=count;
-return $3;
+$2=count;
+return $2;
 }, function($ctx1) {$ctx1.fill(self,"benchmark",{size:size,flags:flags,prime:prime,k:k,count:count},smalltalk.Number)})},
 args: [],
 source: "benchmark\x0a\x09\x22Handy bytecode-heavy benchmark\x22\x0a\x09\x22(500000 // time to run) = approx bytecodes per second\x22\x0a\x09\x225000000 // (Time millisecondsToRun: [10 benchmark]) * 1000\x22\x0a\x09\x223059000 on a Mac 8100/100\x22\x0a\x09| size flags prime k count |\x0a\x09size := 8190.\x0a\x091 to: self do:\x0a\x09\x09[:iter |\x0a\x09\x09count := 0.\x0a\x09\x09flags := Array new.\x0a\x09\x09size timesRepeat: [ flags add: true].\x0a\x09\x091 to: size do:\x0a\x09\x09\x09[:i | (flags at: i) ifTrue:\x0a\x09\x09\x09\x09[prime := i+1.\x0a\x09\x09\x09\x09k := i + prime.\x0a\x09\x09\x09\x09[k <= size] whileTrue:\x0a\x09\x09\x09\x09\x09[flags at: k put: false.\x0a\x09\x09\x09\x09\x09k := k + prime].\x0a\x09\x09\x09\x09count := count + 1]]].\x0a\x09^ count",
@@ -175,9 +173,9 @@ var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$9,$8,$7,$6,$5,$12,$11,$10,$4,$3;
+var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
-$1=_st((function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
 t1=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -195,7 +193,7 @@ return n1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $ctx1.sendIdx["whileTrue:"]=1;
 n2=(28);
-$2=_st((function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
 t2=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -209,23 +207,20 @@ return smalltalk.withContext(function($ctx2) {
 n2=_st(n2).__plus((1));
 return n2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
-$9=_st(n1).__star((500000));
+$7=_st(n1).__star((500000));
 $ctx1.sendIdx["*"]=3;
-$8=_st($9).__star((1000));
+$6=_st($7).__star((1000));
 $ctx1.sendIdx["*"]=2;
-$7=_st($8).__slash(t1);
+$5=_st($6).__slash(t1);
 $ctx1.sendIdx["/"]=1;
-$6=_st($7)._printString();
+$4=_st($5)._printString();
 $ctx1.sendIdx["printString"]=1;
-$5=_st($6).__comma(" bytecodes/sec; ");
-$12=_st(r).__star((1000));
-$11=_st($12).__slash(t2);
-$10=_st($11)._printString();
-$4=_st($5).__comma($10);
+$3=_st($4).__comma(" bytecodes/sec; ");
+$2=_st($3).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString());
 $ctx1.sendIdx[","]=2;
-$3=_st($4).__comma(" sends/sec");
+$1=_st($2).__comma(" sends/sec");
 $ctx1.sendIdx[","]=1;
-return $3;
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"jstinyBenchmarks",{t1:t1,t2:t2,r:r,n1:n1,n2:n2},smalltalk.Number)})},
 args: [],
 source: "jstinyBenchmarks\x0a\x09\x220 jstinyBenchmarks\x22\x0a\x0a\x09| t1 t2 r n1 n2 |\x0a\x09n1 := 1.\x0a\x09[t1 := Date millisecondsToRun: [n1 jsbenchmark].\x0a\x09t1 < 1000] whileTrue:[n1 := n1 * 2]. \x22Note: #benchmark's runtime is about O(n)\x22\x0a\x0a\x09n2 := 28.\x0a\x09[t2 := Date millisecondsToRun: [r := n2 jsbenchFib].\x0a\x09t2 < 1000] whileTrue:[n2 := n2 + 1].\x0a\x09\x22Note: #jsbenchFib's runtime is about O(k^n),\x0a\x09\x09where k is the golden number = (1 + 5 sqrt) / 2 = 1.618....\x22\x0a\x0a\x09^ ((n1 * 500000 * 1000) / t1) printString, ' bytecodes/sec; ',\x0a\x09\x09((r * 1000) / t2) printString, ' sends/sec'",
@@ -243,9 +238,9 @@ var self=this;
 var t1,t2,r,n1,n2;
 function $Date(){return smalltalk.Date||(typeof Date=="undefined"?nil:Date)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$9,$8,$7,$6,$5,$12,$11,$10,$4,$3;
+var $7,$6,$5,$4,$3,$2,$1;
 n1=(1);
-$1=_st((function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
 t1=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -263,7 +258,7 @@ return n1;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $ctx1.sendIdx["whileTrue:"]=1;
 n2=(16);
-$2=_st((function(){
+_st((function(){
 return smalltalk.withContext(function($ctx2) {
 t2=_st($Date())._millisecondsToRun_((function(){
 return smalltalk.withContext(function($ctx3) {
@@ -277,23 +272,20 @@ return smalltalk.withContext(function($ctx2) {
 n2=_st(n2).__plus((1));
 return n2;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
-$9=_st(n1).__star((500000));
+$7=_st(n1).__star((500000));
 $ctx1.sendIdx["*"]=3;
-$8=_st($9).__star((1000));
+$6=_st($7).__star((1000));
 $ctx1.sendIdx["*"]=2;
-$7=_st($8).__slash(t1);
+$5=_st($6).__slash(t1);
 $ctx1.sendIdx["/"]=1;
-$6=_st($7)._printString();
+$4=_st($5)._printString();
 $ctx1.sendIdx["printString"]=1;
-$5=_st($6).__comma(" bytecodes/sec; ");
-$12=_st(r).__star((1000));
-$11=_st($12).__slash(t2);
-$10=_st($11)._printString();
-$4=_st($5).__comma($10);
+$3=_st($4).__comma(" bytecodes/sec; ");
+$2=_st($3).__comma(_st(_st(_st(r).__star((1000))).__slash(t2))._printString());
 $ctx1.sendIdx[","]=2;
-$3=_st($4).__comma(" sends/sec");
+$1=_st($2).__comma(" sends/sec");
 $ctx1.sendIdx[","]=1;
-return $3;
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"tinyBenchmarks",{t1:t1,t2:t2,r:r,n1:n1,n2:n2},smalltalk.Number)})},
 args: [],
 source: "tinyBenchmarks\x0a\x09\x22Report the results of running the two tiny Squeak benchmarks.\x0a\x09ar 9/10/1999: Adjusted to run at least 1 sec to get more stable results\x22\x0a\x09\x220 tinyBenchmarks\x22\x0a\x09\x22On a 292 MHz G3 Mac: 22727272 bytecodes/sec; 984169 sends/sec\x22\x0a\x09\x22On a 400 MHz PII/Win98: 18028169 bytecodes/sec; 1081272 sends/sec\x22\x0a\x09| t1 t2 r n1 n2 |\x0a\x09n1 := 1.\x0a\x09[t1 := Date millisecondsToRun: [n1 benchmark].\x0a\x09t1 < 1000] whileTrue:[n1 := n1 * 2]. \x22Note: #benchmark's runtime is about O(n)\x22\x0a\x0a\x09n2 := 16.\x0a\x09[t2 := Date millisecondsToRun: [r := n2 benchFib].\x0a\x09t2 < 1000] whileTrue:[n2 := n2 + 1].\x0a\x09\x22Note: #benchFib's runtime is about O(k^n),\x0a\x09\x09where k is the golden number = (1 + 5 sqrt) / 2 = 1.618....\x22\x0a\x0a\x09^ ((n1 * 500000 * 1000) / t1) printString, ' bytecodes/sec; ',\x0a\x09\x09((r * 1000) / t2) printString, ' sends/sec'",

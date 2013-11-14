@@ -246,6 +246,10 @@ isClassRefVar
 	^ false
 !
 
+isImmutable
+	^ false
+!
+
 isInstanceVar
 	^ false
 !
@@ -303,6 +307,10 @@ I am an argument of a method or block.!
 
 isArgVar
 	^ true
+!
+
+isImmutable
+	^ true
 ! !
 
 ScopeVar subclass: #ClassRefVar
@@ -324,6 +332,10 @@ alias
 !ClassRefVar methodsFor: 'testing'!
 
 isClassRefVar
+	^ true
+!
+
+isImmutable
 	^ true
 ! !
 
@@ -358,6 +370,10 @@ alias
 ! !
 
 !PseudoVar methodsFor: 'testing'!
+
+isImmutable
+	^ true
+!
 
 isPseudoVar
 	^ true
@@ -527,7 +543,7 @@ visitMethodNode: aNode
 	aNode scope: currentScope.
 	currentScope node: aNode.
 
-	self theClass allInstanceVariableNames do: [:each |
+	self theClass allInstanceVariableNames do: [ :each |
 		currentScope addIVar: each ].
 	aNode arguments do: [ :each |
 		self validateVariableScope: each.

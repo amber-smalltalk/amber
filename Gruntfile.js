@@ -53,12 +53,6 @@ module.exports = function(grunt) {
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
               'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st']
       },
-      amber_compiler: {
-        output_dir : 'js',
-        src: ['st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
-              'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st'],
-        output_name: 'Compiler'
-      },
       amber_canvas: {
         output_dir : 'js',
         src: ['st/Canvas.st', 'st/SUnit.st']
@@ -77,28 +71,21 @@ module.exports = function(grunt) {
         src: ['test/Test.st'],
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser',
+        'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
         'SUnit', 'Importer-Exporter',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
+        main_class: 'NodeTestRunner',
         output_name: 'test/amber_test_runner'
-      },
-      amber_dev: {
-        src: [
-              'Compiler-Exceptions.js', 'Compiler-Core.js', 'Compiler-AST.js',
-              'Compiler-IR.js', 'Compiler-Inlining.js', 'Compiler-Semantic.js',
-              'Canvas.js', 'IDE.js', 'SUnit.js',
-              'Kernel-Tests.js', 'Compiler-Tests.js', 'SUnit-Tests.js'],
-        output_name: 'js/amber_dev'
       },
       amber_cli: {
         output_dir: 'cli/js',
         src: ['cli/st/AmberCli.st'],
         libraries: [
             'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
-            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', '@parser'
+            'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser'
         ],
         main_class: 'AmberCli',
-        output_name: '../../bin/amber-cli',
+        output_name: '../support/amber-cli',
         amd_namespace: 'amber_cli'
       }
     },
