@@ -51,11 +51,11 @@ category: 'actions',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._performAtionWith_(aString);
+self._performActionWith_(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"onEnterPressed:",{aString:aString},smalltalk.MKInputController)})},
 args: ["aString"],
-source: "onEnterPressed: aString\x0a\x09self performAtionWith: aString",
-messageSends: ["performAtionWith:"],
+source: "onEnterPressed: aString\x0a\x09self performActionWith: aString",
+messageSends: ["performActionWith:"],
 referencedClasses: []
 }),
 smalltalk.MKInputController);

@@ -142,21 +142,19 @@ category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$3;
+var $1;
 $1=self._aspect();
 $ctx1.sendIdx["aspect"]=1;
 if(($receiver = $1) == nil || $receiver == null){
-$1;
+return self;
 } else {
-$2=self._model();
-$4=self._aspect();
-$3=_st($4)._asMutator();
-_st($2)._perform_withArguments_($3,[anObject]);
+$1;
 };
+_st(self._model())._perform_withArguments_(_st(self._aspect())._asMutator(),[anObject]);
 return self}, function($ctx1) {$ctx1.fill(self,"performActionWith:",{anObject:anObject},smalltalk.MKAspectController)})},
 args: ["anObject"],
-source: "performActionWith: anObject\x0a\x09self aspect ifNotNil: [\x0a\x09\x09self model \x0a\x09\x09\x09perform: self aspect asMutator\x0a\x09\x09\x09withArguments: { anObject } ]",
-messageSends: ["ifNotNil:", "aspect", "perform:withArguments:", "model", "asMutator"],
+source: "performActionWith: anObject\x0a\x09self aspect ifNil: [ ^ self ].\x0a\x09\x0a\x09self model \x0a\x09\x09perform: self aspect asMutator\x0a\x09\x09withArguments: { anObject }",
+messageSends: ["ifNil:", "aspect", "perform:withArguments:", "model", "asMutator"],
 referencedClasses: []
 }),
 smalltalk.MKAspectController);
@@ -629,6 +627,23 @@ smalltalk.MKAspectView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKAspectController(){return smalltalk.MKAspectController||(typeof MKAspectController=="undefined"?nil:MKAspectController)}
+return smalltalk.withContext(function($ctx1) { 
+return $MKAspectController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKAspectView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ MKAspectController",
+messageSends: [],
+referencedClasses: ["MKAspectController"]
+}),
+smalltalk.MKAspectView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "observeModel",
 category: 'observing',
 fn: function (){
@@ -652,11 +667,10 @@ category: 'updating',
 fn: function (anAnnouncement){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
+var $2,$1;
 $2=_st(anAnnouncement)._aspect();
 $ctx1.sendIdx["aspect"]=1;
-$3=self._aspect();
-$1=_st($2).__eq($3);
+$1=_st($2).__eq(self._aspect());
 if(smalltalk.assert($1)){
 self._update();
 };

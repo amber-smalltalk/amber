@@ -226,6 +226,23 @@ smalltalk.MKCheckboxView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKCheckboxController(){return smalltalk.MKCheckboxController||(typeof MKCheckboxController=="undefined"?nil:MKCheckboxController)}
+return smalltalk.withContext(function($ctx1) { 
+return $MKCheckboxController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKCheckboxView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ MKCheckboxController",
+messageSends: [],
+referencedClasses: ["MKCheckboxController"]
+}),
+smalltalk.MKCheckboxView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "label",
 category: 'rendering',
 fn: function (){
@@ -285,20 +302,25 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
+var checkbox;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1,$2,$3;
 $1=_st(html)._input();
 _st($1)._type_("checkbox");
-_st($1)._at_put_("checked",self._checked());
 _st($1)._value_(self._label());
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._pressed();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKCheckboxView)})},
+checkbox=$2;
+$3=self._checked();
+if(smalltalk.assert($3)){
+_st(checkbox)._at_put_("checked","checked");
+};
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,checkbox:checkbox},smalltalk.MKCheckboxView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09at: 'checked' put: self checked;\x0a\x09\x09value: self label;\x0a\x09\x09onClick: [ self pressed ]",
-messageSends: ["type:", "input", "at:put:", "checked", "value:", "label", "onClick:", "pressed"],
+source: "renderContentOn: html\x0a\x09| checkbox |\x0a\x09\x0a\x09checkbox := html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09value: self label;\x0a\x09\x09onClick: [ self pressed ].\x0a\x09\x09\x0a\x09self checked ifTrue: [ \x0a\x09\x09checkbox at: 'checked' put: 'checked' ]",
+messageSends: ["type:", "input", "value:", "label", "onClick:", "pressed", "ifTrue:", "checked", "at:put:"],
 referencedClasses: []
 }),
 smalltalk.MKCheckboxView);
@@ -307,6 +329,23 @@ smalltalk.MKCheckboxView);
 
 smalltalk.addClass('MKInputView', smalltalk.MKAspectView, ['input'], 'Moka-Views');
 smalltalk.MKInputView.comment="I am an input view. My default controller is `MKInputController`.\x0a\x0aMy controller must answer to `#onEnterPressed:`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKInputController(){return smalltalk.MKInputController||(typeof MKInputController=="undefined"?nil:MKInputController)}
+return smalltalk.withContext(function($ctx1) { 
+return $MKInputController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKInputView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ MKInputController",
+messageSends: [],
+referencedClasses: ["MKInputController"]
+}),
+smalltalk.MKInputView);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "enterPressed",
@@ -332,14 +371,14 @@ var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(anEvent)._which()).__eq(_st(_st($String())._cr())._asciiValue());
+$1=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
 if(smalltalk.assert($1)){
 self._enterPressed();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"keyDown:",{anEvent:anEvent},smalltalk.MKInputView)})},
 args: ["anEvent"],
-source: "keyDown: anEvent\x0a\x09anEvent which = String cr asciiValue ifTrue: [\x0a\x09\x09self enterPressed ]",
-messageSends: ["ifTrue:", "=", "which", "asciiValue", "cr", "enterPressed"],
+source: "keyDown: anEvent\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self enterPressed ]",
+messageSends: ["ifTrue:", "=", "keyCode", "asciiValue", "cr", "enterPressed"],
 referencedClasses: ["String"]
 }),
 smalltalk.MKInputView);
@@ -385,6 +424,44 @@ messageSends: ["val", "asJQuery"],
 referencedClasses: []
 }),
 smalltalk.MKInputView);
+
+
+
+smalltalk.addClass('MKLabelView', smalltalk.MKAspectView, ['input'], 'Moka-Views');
+smalltalk.MKLabelView.comment="I am an label view. I display a `String`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=smalltalk.MKLabelView.superclass.fn.prototype._defaultControllerClass.apply(_st(self), []);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKLabelView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ super defaultControllerClass",
+messageSends: ["defaultControllerClass"],
+referencedClasses: []
+}),
+smalltalk.MKLabelView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(html)._with_(self._aspectValue());
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKLabelView)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09html with: self aspectValue",
+messageSends: ["with:", "aspectValue"],
+referencedClasses: []
+}),
+smalltalk.MKLabelView);
 
 
 });

@@ -86,6 +86,12 @@ checked
 	^ self aspectValue ifNil: [ false ]
 ! !
 
+!MKCheckboxView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKCheckboxController
+! !
+
 !MKCheckboxView methodsFor: 'events'!
 
 pressed
@@ -103,11 +109,15 @@ label: aString
 !
 
 renderContentOn: html
-	html input
+	| checkbox |
+	
+	checkbox := html input
 		type: 'checkbox';
-		at: 'checked' put: self checked;
 		value: self label;
-		onClick: [ self pressed ]
+		onClick: [ self pressed ].
+		
+	self checked ifTrue: [ 
+		checkbox at: 'checked' put: 'checked' ]
 ! !
 
 MKAspectView subclass: #MKInputView
@@ -124,6 +134,12 @@ value
 	^ input asJQuery val
 ! !
 
+!MKInputView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKInputController
+! !
+
 !MKInputView methodsFor: 'events'!
 
 enterPressed
@@ -131,7 +147,7 @@ enterPressed
 !
 
 keyDown: anEvent
-	anEvent which = String cr asciiValue ifTrue: [
+	anEvent keyCode = String cr asciiValue ifTrue: [
 		self enterPressed ]
 ! !
 
@@ -143,5 +159,23 @@ renderContentOn: html
 		onKeyDown: [ :event |
 			self keyDown: event ];
 		yourself
+! !
+
+MKAspectView subclass: #MKLabelView
+	instanceVariableNames: 'input'
+	package: 'Moka-Views'!
+!MKLabelView commentStamp!
+I am an label view. I display a `String`.!
+
+!MKLabelView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ super defaultControllerClass
+! !
+
+!MKLabelView methodsFor: 'rendering'!
+
+renderContentOn: html
+	html with: self aspectValue
 ! !
 

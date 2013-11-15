@@ -32,6 +32,6 @@ I am the default controller for `MKInputView`.!
 !MKInputController methodsFor: 'actions'!
 
 onEnterPressed: aString
-	self performAtionWith: aString
+	self performActionWith: aString
 ! !
 

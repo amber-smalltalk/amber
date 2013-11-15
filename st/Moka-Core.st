@@ -55,10 +55,11 @@ performAction
 !
 
 performActionWith: anObject
-	self aspect ifNotNil: [
-		self model 
-			perform: self aspect asMutator
-			withArguments: { anObject } ]
+	self aspect ifNil: [ ^ self ].
+	
+	self model 
+		perform: self aspect asMutator
+		withArguments: { anObject }
 ! !
 
 Object subclass: #MKModel
@@ -265,6 +266,12 @@ aspect: aSelector
 
 aspectValue
 	^ self model perform: self aspect
+! !
+
+!MKAspectView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKAspectController
 ! !
 
 !MKAspectView methodsFor: 'observing'!
