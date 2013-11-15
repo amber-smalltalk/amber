@@ -68,7 +68,7 @@ isDefault
 ! !
 
 MKAspectView subclass: #MKCheckboxView
-	instanceVariableNames: 'label'
+	instanceVariableNames: ''
 	package: 'Moka-Views'!
 !MKCheckboxView commentStamp!
 I am a checkbox view. My default controller is `MKCheckboxController`.
@@ -100,24 +100,22 @@ pressed
 
 !MKCheckboxView methodsFor: 'rendering'!
 
-label
-	^ label ifNil: [ '' ]
-!
-
-label: aString
-	label := aString
-!
-
 renderContentOn: html
-	| checkbox |
+	| checkbox id |
+	
+	 id := 1000000 atRandom asString.
 	
 	checkbox := html input
 		type: 'checkbox';
-		value: self label;
+		id: id;
 		onClick: [ self pressed ].
 		
 	self checked ifTrue: [ 
-		checkbox at: 'checked' put: 'checked' ]
+		checkbox at: 'checked' put: 'checked' ].
+		
+	html label
+		for: id;
+		with: [ html entity: 'nbsp' ]
 ! !
 
 MKAspectView subclass: #MKInputView
@@ -176,6 +174,6 @@ defaultControllerClass
 !MKLabelView methodsFor: 'rendering'!
 
 renderContentOn: html
-	html with: self aspectValue
+	html span with: self aspectValue
 ! !
 

@@ -199,7 +199,7 @@ smalltalk.MKButtonView);
 
 
 
-smalltalk.addClass('MKCheckboxView', smalltalk.MKAspectView, ['label'], 'Moka-Views');
+smalltalk.addClass('MKCheckboxView', smalltalk.MKAspectView, [], 'Moka-Views');
 smalltalk.MKCheckboxView.comment="I am a checkbox view. My default controller is `MKCheckboxController`.\x0a\x0aMy controller must answer to `#onToggled:`.\x0a\x0a##API\x0a\x0a- If no `aspect` is provided, the ckeckbox state will always be off.\x0a- use `#label:` to set the label string.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -243,45 +243,6 @@ smalltalk.MKCheckboxView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "label",
-category: 'rendering',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@label"];
-if(($receiver = $2) == nil || $receiver == null){
-$1="";
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"label",{},smalltalk.MKCheckboxView)})},
-args: [],
-source: "label\x0a\x09^ label ifNil: [ '' ]",
-messageSends: ["ifNil:"],
-referencedClasses: []
-}),
-smalltalk.MKCheckboxView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "label:",
-category: 'rendering',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@label"]=aString;
-return self}, function($ctx1) {$ctx1.fill(self,"label:",{aString:aString},smalltalk.MKCheckboxView)})},
-args: ["aString"],
-source: "label: aString\x0a\x09label := aString",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.MKCheckboxView);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "pressed",
 category: 'events',
 fn: function (){
@@ -302,12 +263,13 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-var checkbox;
+var checkbox,id;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1,$2,$3,$4,$5;
+id=_st((1000000)._atRandom())._asString();
 $1=_st(html)._input();
 _st($1)._type_("checkbox");
-_st($1)._value_(self._label());
+_st($1)._id_(id);
 $2=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._pressed();
@@ -317,10 +279,16 @@ $3=self._checked();
 if(smalltalk.assert($3)){
 _st(checkbox)._at_put_("checked","checked");
 };
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,checkbox:checkbox},smalltalk.MKCheckboxView)})},
+$4=_st(html)._label();
+_st($4)._for_(id);
+$5=_st($4)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(html)._entity_("nbsp");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,checkbox:checkbox,id:id},smalltalk.MKCheckboxView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09| checkbox |\x0a\x09\x0a\x09checkbox := html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09value: self label;\x0a\x09\x09onClick: [ self pressed ].\x0a\x09\x09\x0a\x09self checked ifTrue: [ \x0a\x09\x09checkbox at: 'checked' put: 'checked' ]",
-messageSends: ["type:", "input", "value:", "label", "onClick:", "pressed", "ifTrue:", "checked", "at:put:"],
+source: "renderContentOn: html\x0a\x09| checkbox id |\x0a\x09\x0a\x09 id := 1000000 atRandom asString.\x0a\x09\x0a\x09checkbox := html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09id: id;\x0a\x09\x09onClick: [ self pressed ].\x0a\x09\x09\x0a\x09self checked ifTrue: [ \x0a\x09\x09checkbox at: 'checked' put: 'checked' ].\x0a\x09\x09\x0a\x09html label\x0a\x09\x09for: id;\x0a\x09\x09with: [ html entity: 'nbsp' ]",
+messageSends: ["asString", "atRandom", "type:", "input", "id:", "onClick:", "pressed", "ifTrue:", "checked", "at:put:", "for:", "label", "with:", "entity:"],
 referencedClasses: []
 }),
 smalltalk.MKCheckboxView);
@@ -454,11 +422,11 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(self._aspectValue());
+_st(_st(html)._span())._with_(self._aspectValue());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKLabelView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: self aspectValue",
-messageSends: ["with:", "aspectValue"],
+source: "renderContentOn: html\x0a\x09html span with: self aspectValue",
+messageSends: ["with:", "span", "aspectValue"],
 referencedClasses: []
 }),
 smalltalk.MKLabelView);
