@@ -1,0 +1,55 @@
+@import "reset.css";
+body {
+  background: #d5d5d5;
+}
+.moka_view .mk_default {
+  font-size: 12px;
+  color: #555;
+  text-shadow: 0 1px 0 white;
+}
+.moka_view .mk_control:focus {
+  outline: 0;
+}
+.moka_view button,
+.moka_view button:active,
+.moka_view button:focus {
+  font-size: 12px;
+  color: #555;
+  text-shadow: 0 1px 0 white;
+  margin: 100px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border-top: solid 1px #999999;
+  border-left: solid 1px #999999;
+  border-right: solid 1px #999999;
+  border-bottom: solid 1px #999999;
+  background: #fafafa;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dedede), color-stop(1, #ffffff));
+  background: -ms-linear-gradient(bottom, #dedede, #ffffff);
+  background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
+  background: -o-linear-gradient(#ffffff, #dedede);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dedede', GradientType=0);
+  -webkit-box-shadow: 0 1px 3px 0 #cccccc;
+  -moz-box-shadow: 0 1px 3px 0 #cccccc;
+  box-shadow: 0 1px 3px 0 #cccccc;
+  padding: 3px 10px;
+}
+.moka_view button:focus,
+.moka_view button:active:focus,
+.moka_view button:focus:focus {
+  outline: 0;
+}
+.moka_view button:active,
+.moka_view button:active:active,
+.moka_view button:focus:active {
+  -webkit-box-shadow: 0 0 3px 0 #cccccc;
+  -moz-box-shadow: 0 0 3px 0 #cccccc;
+  box-shadow: 0 0 3px 0 #cccccc;
+  background: #dedede;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #fafafa), color-stop(1, #dedede));
+  background: -ms-linear-gradient(bottom, #fafafa, #dedede);
+  background: -moz-linear-gradient(center bottom, #fafafa 0%, #dedede 100%);
+  background: -o-linear-gradient(#dedede, #fafafa);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#dedede', endColorstr='#fafafa', GradientType=0);
+}

@@ -1,0 +1,90 @@
+@import "reset.css";
+
+
+// Mixins
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+    background: @color;
+    background: -webkit-gradient(linear,
+				 left bottom,
+				 left top,
+				 color-stop(0, @start),
+				 color-stop(1, @stop));
+    background: -ms-linear-gradient(bottom,
+                                    @start,
+                                    @stop);
+    background: -moz-linear-gradient(center bottom,
+                                     @start 0%,
+                                     @stop 100%);
+    background: -o-linear-gradient(@stop,
+                                   @start);
+    filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
+}
+.bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
+    border-top: solid 1px @top-color;
+    border-left: solid 1px @left-color;
+    border-right: solid 1px @right-color;
+    border-bottom: solid 1px @bottom-color;
+}
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+    -webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+}
+.rounded(@radius: 3px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+    -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+    box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow(@arguments) {
+    -webkit-box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    box-shadow: @arguments;
+}
+
+// Moka definitions
+
+// TEMP
+body {
+    background: #d5d5d5;
+}
+
+.moka_view {    
+
+    .mk_default {
+	// Generic fonts
+	font-size: 12px;
+	color: #555;
+	text-shadow: 0 1px 0 white;
+
+    }
+
+
+    // Controls
+    
+    .mk_control {
+	&:focus {
+	    outline: 0;
+	}
+    }
+
+    button, button:active, button:focus {
+	.mk_default;
+	.mk_control;
+	margin: 100px;
+	.rounded();
+	.bordered(#999, #999, #999, #999);
+	.gradient(#fafafa, #dedede, white);
+	.box-shadow(0 1px 3px 0 #ccc);
+	padding: 3px 10px;
+
+	&:active {
+	    .box-shadow(0 0 3px 0 #ccc);
+	    .gradient(#dedede, #fafafa, #dedede);
+	}
+    }
+}
