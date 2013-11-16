@@ -46,6 +46,12 @@
 		-moz-box-shadow: @arguments;
 		box-shadow: @arguments;
 	    }
+	    .transition(@property: all, @duration:0.2s, @ease:ease-out) {
+		-webkit-transition: @property @duration @ease;
+		-moz-transition: @property @duration @ease;
+		-o-transition: @property @duration @ease;
+		transition: @property @duration @ease;
+	    }
 	    .no-select {
 		-webkit-touch-callout: none;
 		-webkit-user-select: none;
@@ -59,7 +65,7 @@
 
 	    // TEMP
 	    body {
-		background: #d5d5d5;
+		background: #f1f1f1;
 	    }
 
 	    .moka_view {    
@@ -97,48 +103,81 @@
 
 		    &:focus {
 			outline: 0;
-			.box-shadow(0 0 2px #08c);
 		    }
 		}
 
 		button {
 		    .mk_control;
+		    .no-select;
 		    .gradient(#fafafa, #dedede, white);
 
+		    &:focus {
+			border-color: #08c;
+		    }
+
 		    &:active {
-			background: #dedede;
-			.box-shadow(inset 0 0 3px 0 #aaa);
+			background: #ccc;
+			.box-shadow(inset 0 0 3px 0 #888);
+			border-color: #999;
 		    }
 		}
 		
-		input {
+		input, textarea {
 		    .mk_control;
 		    text-shadow: 0 0 0;
 
 		    &:focus {
-			.box-shadow(inset 0 0 3px 0 #08c);
+			.box-shadow(inset 0 0 3px 0 #999);
+			border-color: #08c;
 		    }
 		}
 		
+		textarea {
+		    width: 200px;
+		    height: 100px;
+		}
+
 		input[type="checkbox"] {
 		    position: absolute;
 		    left: -999999px;
 		}
 
-		input[type="checkbox"] + label {
+		.mk_checkbox + label {
 		    .no-select;
 		    padding: 0 6px;
+		    margin: 4px;
 		    background: url('../images/moka/check.png') 50% 50% no-repeat;
 		    height: 16px;
 		    width: 16px;
 		}
 
-		input[type="checkbox"]:focus + label {
+		.mk_checkbox:focus + label {
 		    background-image: url('../images/moka/check-focus.png');
 		    .box-shadow(0 0 2px #08c);
 		}
 
-		input[type="checkbox"]:checked + label {
+		.mk_checkbox:checked + label {
 		    background-image: url('../images/moka/check-active.png');
+		}
+
+		.mk_switch + label {
+		    .no-select;
+		    .rounded(20px);
+		    margin: 4px;
+		    vertical-align: middle;
+		    display: inline-block;
+		    height: 20px;
+		    width: 59px;
+		    border: 1px solid #999;
+		    background: url('../images/moka/switch.png') 100% 50% no-repeat;
+		    .transition(background, .3s);
+		}
+
+		.mk_switch:focus + label {
+		    border-color: #08c;
+		}
+
+		.mk_switch:checked + label {
+		    background-position: 0% 50%;
 		}
 	    }

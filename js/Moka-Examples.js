@@ -12,9 +12,11 @@ var self=this;
 function $MKLabelView(){return smalltalk.MKLabelView||(typeof MKLabelView=="undefined"?nil:MKLabelView)}
 function $MKButtonView(){return smalltalk.MKButtonView||(typeof MKButtonView=="undefined"?nil:MKButtonView)}
 function $MKInputView(){return smalltalk.MKInputView||(typeof MKInputView=="undefined"?nil:MKInputView)}
+function $MKTextAreaView(){return smalltalk.MKTextAreaView||(typeof MKTextAreaView=="undefined"?nil:MKTextAreaView)}
 function $MKCheckboxView(){return smalltalk.MKCheckboxView||(typeof MKCheckboxView=="undefined"?nil:MKCheckboxView)}
+function $MKSwitchView(){return smalltalk.MKSwitchView||(typeof MKSwitchView=="undefined"?nil:MKSwitchView)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5,$7,$6,$9,$8,$10,$11;
+var $2,$1,$4,$3,$5,$7,$6,$9,$8,$11,$10,$13,$12,$14,$15;
 $2=self._counter();
 $ctx1.sendIdx["counter"]=1;
 $1=_st($MKLabelView())._model_aspect_($2,"count");
@@ -37,18 +39,30 @@ _st($6)._render();
 $ctx1.sendIdx["render"]=3;
 $9=self._counter();
 $ctx1.sendIdx["counter"]=4;
-$8=_st($MKCheckboxView())._model_aspect_($9,"checked");
+$8=_st($MKTextAreaView())._model_aspect_($9,"text");
 $ctx1.sendIdx["model:aspect:"]=4;
 _st($8)._render();
 $ctx1.sendIdx["render"]=4;
-$10=_st($MKButtonView())._model_aspect_(self._counter(),"decrease");
-_st($10)._label_("Decrease");
-$11=_st($10)._render();
+$11=self._counter();
+$ctx1.sendIdx["counter"]=5;
+$10=_st($MKCheckboxView())._model_aspect_($11,"checked");
+$ctx1.sendIdx["model:aspect:"]=5;
+_st($10)._render();
+$ctx1.sendIdx["render"]=5;
+$13=self._counter();
+$ctx1.sendIdx["counter"]=6;
+$12=_st($MKSwitchView())._model_aspect_($13,"checked");
+$ctx1.sendIdx["model:aspect:"]=6;
+_st($12)._render();
+$ctx1.sendIdx["render"]=6;
+$14=_st($MKButtonView())._model_aspect_(self._counter(),"decrease");
+_st($14)._label_("Decrease");
+$15=_st($14)._render();
 return self}, function($ctx1) {$ctx1.fill(self,"build",{},smalltalk.MKCounterBuilder)})},
 args: [],
-source: "build\x0a\x09(MKLabelView model: self counter aspect: #count) render.\x0a\x09(MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09render.\x0a\x09(MKInputView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09render",
+source: "build\x0a\x09(MKLabelView model: self counter aspect: #count) render.\x0a\x09(MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09render.\x0a\x09(MKInputView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKTextAreaView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09render",
 messageSends: ["render", "model:aspect:", "counter", "label:"],
-referencedClasses: ["MKLabelView", "MKButtonView", "MKInputView", "MKCheckboxView"]
+referencedClasses: ["MKLabelView", "MKButtonView", "MKInputView", "MKTextAreaView", "MKCheckboxView", "MKSwitchView"]
 }),
 smalltalk.MKCounterBuilder);
 

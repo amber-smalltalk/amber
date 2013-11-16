@@ -9,7 +9,7 @@
   user-select: none;
 }
 body {
-  background: #d5d5d5;
+  background: #f1f1f1;
 }
 .moka_view {
   display: inline-block;
@@ -53,9 +53,6 @@ body {
 .moka_view .mk_control:active:focus,
 .moka_view .mk_control:focus:focus {
   outline: 0;
-  -webkit-box-shadow: 0 0 2px #0088cc;
-  -moz-box-shadow: 0 0 2px #0088cc;
-  box-shadow: 0 0 2px #0088cc;
 }
 .moka_view button {
   font-size: 12px;
@@ -75,6 +72,12 @@ body {
   -moz-box-shadow: 0 0 3px 0 #cccccc;
   box-shadow: 0 0 3px 0 #cccccc;
   background: white;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
   background: #fafafa;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dedede), color-stop(1, #ffffff));
   background: -ms-linear-gradient(bottom, #dedede, #ffffff);
@@ -84,17 +87,19 @@ body {
 }
 .moka_view button:focus {
   outline: 0;
-  -webkit-box-shadow: 0 0 2px #0088cc;
-  -moz-box-shadow: 0 0 2px #0088cc;
-  box-shadow: 0 0 2px #0088cc;
+}
+.moka_view button:focus {
+  border-color: #08c;
 }
 .moka_view button:active {
-  background: #dedede;
-  -webkit-box-shadow: inset 0 0 3px 0 #aaaaaa;
-  -moz-box-shadow: inset 0 0 3px 0 #aaaaaa;
-  box-shadow: inset 0 0 3px 0 #aaaaaa;
+  background: #ccc;
+  -webkit-box-shadow: inset 0 0 3px 0 #888888;
+  -moz-box-shadow: inset 0 0 3px 0 #888888;
+  box-shadow: inset 0 0 3px 0 #888888;
+  border-color: #999;
 }
-.moka_view input {
+.moka_view input,
+.moka_view textarea {
   font-size: 12px;
   font-family: "Open Sans";
   color: #555;
@@ -114,22 +119,26 @@ body {
   background: white;
   text-shadow: 0 0 0;
 }
-.moka_view input:focus {
+.moka_view input:focus,
+.moka_view textarea:focus {
   outline: 0;
-  -webkit-box-shadow: 0 0 2px #0088cc;
-  -moz-box-shadow: 0 0 2px #0088cc;
-  box-shadow: 0 0 2px #0088cc;
 }
-.moka_view input:focus {
-  -webkit-box-shadow: inset 0 0 3px 0 #0088cc;
-  -moz-box-shadow: inset 0 0 3px 0 #0088cc;
-  box-shadow: inset 0 0 3px 0 #0088cc;
+.moka_view input:focus,
+.moka_view textarea:focus {
+  -webkit-box-shadow: inset 0 0 3px 0 #999999;
+  -moz-box-shadow: inset 0 0 3px 0 #999999;
+  box-shadow: inset 0 0 3px 0 #999999;
+  border-color: #08c;
+}
+.moka_view textarea {
+  width: 200px;
+  height: 100px;
 }
 .moka_view input[type="checkbox"] {
   position: absolute;
   left: -999999px;
 }
-.moka_view input[type="checkbox"] + label {
+.moka_view .mk_checkbox + label {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -137,16 +146,45 @@ body {
   -ms-user-select: none;
   user-select: none;
   padding: 0 6px;
+  margin: 4px;
   background: url('../images/moka/check.png') 50% 50% no-repeat;
   height: 16px;
   width: 16px;
 }
-.moka_view input[type="checkbox"]:focus + label {
+.moka_view .mk_checkbox:focus + label {
   background-image: url('../images/moka/check-focus.png');
   -webkit-box-shadow: 0 0 2px #0088cc;
   -moz-box-shadow: 0 0 2px #0088cc;
   box-shadow: 0 0 2px #0088cc;
 }
-.moka_view input[type="checkbox"]:checked + label {
+.moka_view .mk_checkbox:checked + label {
   background-image: url('../images/moka/check-active.png');
+}
+.moka_view .mk_switch + label {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  margin: 4px;
+  vertical-align: middle;
+  display: inline-block;
+  height: 20px;
+  width: 59px;
+  border: 1px solid #999;
+  background: url('../images/moka/switch.png') 100% 50% no-repeat;
+  -webkit-transition: background 0.3s ease-out;
+  -moz-transition: background 0.3s ease-out;
+  -o-transition: background 0.3s ease-out;
+  transition: background 0.3s ease-out;
+}
+.moka_view .mk_switch:focus + label {
+  border-color: #08c;
+}
+.moka_view .mk_switch:checked + label {
+  background-position: 0% 50%;
 }

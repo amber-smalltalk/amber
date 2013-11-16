@@ -199,7 +199,7 @@ smalltalk.MKButtonView);
 
 
 
-smalltalk.addClass('MKCheckboxView', smalltalk.MKAspectView, [], 'Moka-Views');
+smalltalk.addClass('MKCheckboxView', smalltalk.MKAspectView, ['id'], 'Moka-Views');
 smalltalk.MKCheckboxView.comment="I am a checkbox view. My default controller is `MKCheckboxController`.\x0a\x0aMy controller must answer to `#onToggled:`.\x0a\x0a##API\x0a\x0a- If no `aspect` is provided, the ckeckbox state will always be off.\x0a- use `#label:` to set the label string.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -226,6 +226,22 @@ smalltalk.MKCheckboxView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "mk_checkbox";
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.MKCheckboxView)})},
+args: [],
+source: "cssClass\x0a\x09^ 'mk_checkbox'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKCheckboxView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultControllerClass",
 category: 'defaults',
 fn: function (){
@@ -238,6 +254,30 @@ args: [],
 source: "defaultControllerClass\x0a\x09^ MKCheckboxController",
 messageSends: [],
 referencedClasses: ["MKCheckboxController"]
+}),
+smalltalk.MKCheckboxView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "id",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@id"];
+if(($receiver = $2) == nil || $receiver == null){
+self["@id"]=_st((1000000)._atRandom())._asString();
+$1=self["@id"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"id",{},smalltalk.MKCheckboxView)})},
+args: [],
+source: "id\x0a\x09^ id ifNil: [ id := 1000000 atRandom asString ]",
+messageSends: ["ifNil:", "asString", "atRandom"],
+referencedClasses: []
 }),
 smalltalk.MKCheckboxView);
 
@@ -263,135 +303,82 @@ selector: "renderContentOn:",
 category: 'rendering',
 fn: function (html){
 var self=this;
-var checkbox,id;
+var checkbox;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5;
-id=_st((1000000)._atRandom())._asString();
+var $1,$2,$3,$4,$5,$6,$7;
 $1=_st(html)._input();
 _st($1)._type_("checkbox");
-_st($1)._id_(id);
-$2=_st($1)._onClick_((function(){
+_st($1)._class_(self._cssClass());
+$2=$1;
+$3=self._id();
+$ctx1.sendIdx["id"]=1;
+_st($2)._id_($3);
+$4=_st($1)._onClick_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._pressed();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-checkbox=$2;
-$3=self._checked();
-if(smalltalk.assert($3)){
+checkbox=$4;
+$5=self._checked();
+if(smalltalk.assert($5)){
 _st(checkbox)._at_put_("checked","checked");
 };
-$4=_st(html)._label();
-_st($4)._for_(id);
-$5=_st($4)._with_((function(){
+$6=_st(html)._label();
+_st($6)._for_(self._id());
+$7=_st($6)._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(html)._entity_("nbsp");
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,checkbox:checkbox,id:id},smalltalk.MKCheckboxView)})},
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html,checkbox:checkbox},smalltalk.MKCheckboxView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09| checkbox id |\x0a\x09\x0a\x09 id := 1000000 atRandom asString.\x0a\x09\x0a\x09checkbox := html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09id: id;\x0a\x09\x09onClick: [ self pressed ].\x0a\x09\x09\x0a\x09self checked ifTrue: [ \x0a\x09\x09checkbox at: 'checked' put: 'checked' ].\x0a\x09\x09\x0a\x09html label\x0a\x09\x09for: id;\x0a\x09\x09with: [ html entity: 'nbsp' ]",
-messageSends: ["asString", "atRandom", "type:", "input", "id:", "onClick:", "pressed", "ifTrue:", "checked", "at:put:", "for:", "label", "with:", "entity:"],
+source: "renderContentOn: html\x0a\x09| checkbox |\x0a\x09\x0a\x09checkbox := html input\x0a\x09\x09type: 'checkbox';\x0a\x09\x09class: self cssClass;\x0a\x09\x09id: self id;\x0a\x09\x09onClick: [ self pressed ].\x0a\x09\x09\x0a\x09self checked ifTrue: [ \x0a\x09\x09checkbox at: 'checked' put: 'checked' ].\x0a\x09\x09\x0a\x09html label\x0a\x09\x09for: self id;\x0a\x09\x09with: [ html entity: 'nbsp' ]",
+messageSends: ["type:", "input", "class:", "cssClass", "id:", "id", "onClick:", "pressed", "ifTrue:", "checked", "at:put:", "for:", "label", "with:", "entity:"],
+referencedClasses: []
+}),
+smalltalk.MKCheckboxView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "update",
+category: 'events',
+fn: function (){
+var self=this;
+var checkbox;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+checkbox=_st("#".__comma(self._id()))._asJQuery();
+$1=self._checked();
+if(smalltalk.assert($1)){
+_st(checkbox)._attr_put_("checked","checked");
+} else {
+_st(checkbox)._removeAttr_("checked");
+};
+return self}, function($ctx1) {$ctx1.fill(self,"update",{checkbox:checkbox},smalltalk.MKCheckboxView)})},
+args: [],
+source: "update\x0a\x09| checkbox |\x0a\x09checkbox := ('#', self id) asJQuery.\x0a\x09\x0a\x09self checked\x0a\x09\x09ifTrue: [ checkbox attr: 'checked' put: 'checked' ]\x0a\x09\x09ifFalse: [ checkbox removeAttr: 'checked' ]",
+messageSends: ["asJQuery", ",", "id", "ifTrue:ifFalse:", "checked", "attr:put:", "removeAttr:"],
 referencedClasses: []
 }),
 smalltalk.MKCheckboxView);
 
 
 
-smalltalk.addClass('MKInputView', smalltalk.MKAspectView, ['input'], 'Moka-Views');
-smalltalk.MKInputView.comment="I am an input view. My default controller is `MKInputController`.\x0a\x0aMy controller must answer to `#onEnterPressed:`.";
+smalltalk.addClass('MKSwitchView', smalltalk.MKCheckboxView, [], 'Moka-Views');
+smalltalk.MKSwitchView.comment="I am a switch view, similar to a `MKCheckboxView` but displayed as a switch. \x0aMy default controller is `MKCheckboxController`.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "defaultControllerClass",
-category: 'defaults',
-fn: function (){
-var self=this;
-function $MKInputController(){return smalltalk.MKInputController||(typeof MKInputController=="undefined"?nil:MKInputController)}
-return smalltalk.withContext(function($ctx1) { 
-return $MKInputController();
-}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKInputView)})},
-args: [],
-source: "defaultControllerClass\x0a\x09^ MKInputController",
-messageSends: [],
-referencedClasses: ["MKInputController"]
-}),
-smalltalk.MKInputView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "enterPressed",
-category: 'events',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(self._controller())._onEnterPressed_(self._value());
-return self}, function($ctx1) {$ctx1.fill(self,"enterPressed",{},smalltalk.MKInputView)})},
-args: [],
-source: "enterPressed\x0a\x09self controller onEnterPressed: self value",
-messageSends: ["onEnterPressed:", "controller", "value"],
-referencedClasses: []
-}),
-smalltalk.MKInputView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "keyDown:",
-category: 'events',
-fn: function (anEvent){
-var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
-if(smalltalk.assert($1)){
-self._enterPressed();
-};
-return self}, function($ctx1) {$ctx1.fill(self,"keyDown:",{anEvent:anEvent},smalltalk.MKInputView)})},
-args: ["anEvent"],
-source: "keyDown: anEvent\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self enterPressed ]",
-messageSends: ["ifTrue:", "=", "keyCode", "asciiValue", "cr", "enterPressed"],
-referencedClasses: ["String"]
-}),
-smalltalk.MKInputView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderContentOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(html)._input();
-_st($1)._value_(self._aspectValue());
-_st($1)._onKeyDown_((function(event){
-return smalltalk.withContext(function($ctx2) {
-return self._keyDown_(event);
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
-$2=_st($1)._yourself();
-self["@input"]=$2;
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKInputView)})},
-args: ["html"],
-source: "renderContentOn: html\x0a\x09input := html input\x0a\x09\x09value: self aspectValue;\x0a\x09\x09onKeyDown: [ :event |\x0a\x09\x09\x09self keyDown: event ];\x0a\x09\x09yourself",
-messageSends: ["value:", "input", "aspectValue", "onKeyDown:", "keyDown:", "yourself"],
-referencedClasses: []
-}),
-smalltalk.MKInputView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "value",
+selector: "cssClass",
 category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self["@input"])._asJQuery())._val();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.MKInputView)})},
+return "mk_switch";
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.MKSwitchView)})},
 args: [],
-source: "value\x0a\x09^ input asJQuery val",
-messageSends: ["val", "asJQuery"],
+source: "cssClass\x0a\x09^ 'mk_switch'",
+messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MKInputView);
+smalltalk.MKSwitchView);
 
 
 
@@ -430,6 +417,151 @@ messageSends: ["with:", "span", "aspectValue"],
 referencedClasses: []
 }),
 smalltalk.MKLabelView);
+
+
+
+smalltalk.addClass('MKTextAreaView', smalltalk.MKAspectView, ['input'], 'Moka-Views');
+smalltalk.MKTextAreaView.comment="I am an text area view. My default controller is `MKAnyKeyInputController`.\x0a\x0aMy controller must answer to `#onKeyPressed:`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKAnyKeyInputController(){return smalltalk.MKAnyKeyInputController||(typeof MKAnyKeyInputController=="undefined"?nil:MKAnyKeyInputController)}
+return smalltalk.withContext(function($ctx1) { 
+return $MKAnyKeyInputController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKTextAreaView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ MKAnyKeyInputController",
+messageSends: [],
+referencedClasses: ["MKAnyKeyInputController"]
+}),
+smalltalk.MKTextAreaView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "keyUp:",
+category: 'events',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._controller())._onKeyPressed_(anEvent);
+return self}, function($ctx1) {$ctx1.fill(self,"keyUp:",{anEvent:anEvent},smalltalk.MKTextAreaView)})},
+args: ["anEvent"],
+source: "keyUp: anEvent\x0a\x09self controller onKeyPressed: anEvent",
+messageSends: ["onKeyPressed:", "controller"],
+referencedClasses: []
+}),
+smalltalk.MKTextAreaView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._textarea();
+_st($1)._with_(self._aspectValue());
+$2=_st($1)._onKeyUp_((function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._keyUp_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
+self["@input"]=$2;
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKTextAreaView)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09input := html textarea \x0a\x09\x09with: self aspectValue;\x0a\x09\x09onKeyUp: [ :event | self keyUp: event ]",
+messageSends: ["with:", "textarea", "aspectValue", "onKeyUp:", "keyUp:"],
+referencedClasses: []
+}),
+smalltalk.MKTextAreaView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "update",
+category: 'updating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@input"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(_st(self["@input"])._asJQuery())._val_(self._aspectValue());
+};
+return self}, function($ctx1) {$ctx1.fill(self,"update",{},smalltalk.MKTextAreaView)})},
+args: [],
+source: "update\x0a\x09input ifNotNil: [ input asJQuery val: self aspectValue ]",
+messageSends: ["ifNotNil:", "val:", "asJQuery", "aspectValue"],
+referencedClasses: []
+}),
+smalltalk.MKTextAreaView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "value",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self["@input"])._asJQuery())._val();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.MKTextAreaView)})},
+args: [],
+source: "value\x0a\x09^ input asJQuery val",
+messageSends: ["val", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.MKTextAreaView);
+
+
+
+smalltalk.addClass('MKInputView', smalltalk.MKTextAreaView, [], 'Moka-Views');
+smalltalk.MKInputView.comment="I am an input view. My default controller is `MKEnterInputController`.\x0a\x0aMy controller must answer to `#onKeyPressed:`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKEnterInputController(){return smalltalk.MKEnterInputController||(typeof MKEnterInputController=="undefined"?nil:MKEnterInputController)}
+return smalltalk.withContext(function($ctx1) { 
+return $MKEnterInputController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKInputView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ MKEnterInputController",
+messageSends: [],
+referencedClasses: ["MKEnterInputController"]
+}),
+smalltalk.MKInputView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(html)._input();
+_st($1)._value_(self._aspectValue());
+_st($1)._onKeyUp_((function(event){
+return smalltalk.withContext(function($ctx2) {
+return self._keyUp_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
+$2=_st($1)._yourself();
+self["@input"]=$2;
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKInputView)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09input := html input\x0a\x09\x09value: self aspectValue;\x0a\x09\x09onKeyUp: [ :event |\x0a\x09\x09\x09self keyUp: event ];\x0a\x09\x09yourself",
+messageSends: ["value:", "input", "aspectValue", "onKeyUp:", "keyUp:", "yourself"],
+referencedClasses: []
+}),
+smalltalk.MKInputView);
 
 
 });

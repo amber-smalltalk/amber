@@ -12,7 +12,11 @@ build
 		render.
 	(MKInputView model: self counter aspect: #text)
 		render.
+	(MKTextAreaView model: self counter aspect: #text)
+		render.
 	(MKCheckboxView model: self counter aspect: #checked)
+		render.
+	(MKSwitchView model: self counter aspect: #checked)
 		render.
 	(MKButtonView model: self counter aspect: #decrease) 
 		label: 'Decrease';

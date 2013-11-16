@@ -68,7 +68,7 @@ isDefault
 ! !
 
 MKAspectView subclass: #MKCheckboxView
-	instanceVariableNames: ''
+	instanceVariableNames: 'id'
 	package: 'Moka-Views'!
 !MKCheckboxView commentStamp!
 I am a checkbox view. My default controller is `MKCheckboxController`.
@@ -84,6 +84,14 @@ My controller must answer to `#onToggled:`.
 
 checked
 	^ self aspectValue ifNil: [ false ]
+!
+
+cssClass
+	^ 'mk_checkbox'
+!
+
+id
+	^ id ifNil: [ id := 1000000 atRandom asString ]
 ! !
 
 !MKCheckboxView methodsFor: 'defaults'!
@@ -96,67 +104,47 @@ defaultControllerClass
 
 pressed
 	self controller onToggled: self checked not
+!
+
+update
+	| checkbox |
+	checkbox := ('#', self id) asJQuery.
+	
+	self checked
+		ifTrue: [ checkbox attr: 'checked' put: 'checked' ]
+		ifFalse: [ checkbox removeAttr: 'checked' ]
 ! !
 
 !MKCheckboxView methodsFor: 'rendering'!
 
 renderContentOn: html
-	| checkbox id |
-	
-	 id := 1000000 atRandom asString.
+	| checkbox |
 	
 	checkbox := html input
 		type: 'checkbox';
-		id: id;
+		class: self cssClass;
+		id: self id;
 		onClick: [ self pressed ].
 		
 	self checked ifTrue: [ 
 		checkbox at: 'checked' put: 'checked' ].
 		
 	html label
-		for: id;
+		for: self id;
 		with: [ html entity: 'nbsp' ]
 ! !
 
-MKAspectView subclass: #MKInputView
-	instanceVariableNames: 'input'
+MKCheckboxView subclass: #MKSwitchView
+	instanceVariableNames: ''
 	package: 'Moka-Views'!
-!MKInputView commentStamp!
-I am an input view. My default controller is `MKInputController`.
+!MKSwitchView commentStamp!
+I am a switch view, similar to a `MKCheckboxView` but displayed as a switch. 
+My default controller is `MKCheckboxController`.!
 
-My controller must answer to `#onEnterPressed:`.!
+!MKSwitchView methodsFor: 'accessing'!
 
-!MKInputView methodsFor: 'accessing'!
-
-value
-	^ input asJQuery val
-! !
-
-!MKInputView methodsFor: 'defaults'!
-
-defaultControllerClass
-	^ MKInputController
-! !
-
-!MKInputView methodsFor: 'events'!
-
-enterPressed
-	self controller onEnterPressed: self value
-!
-
-keyDown: anEvent
-	anEvent keyCode = String cr asciiValue ifTrue: [
-		self enterPressed ]
-! !
-
-!MKInputView methodsFor: 'rendering'!
-
-renderContentOn: html
-	input := html input
-		value: self aspectValue;
-		onKeyDown: [ :event |
-			self keyDown: event ];
-		yourself
+cssClass
+	^ 'mk_switch'
 ! !
 
 MKAspectView subclass: #MKLabelView
@@ -175,5 +163,69 @@ defaultControllerClass
 
 renderContentOn: html
 	html span with: self aspectValue
+! !
+
+MKAspectView subclass: #MKTextAreaView
+	instanceVariableNames: 'input'
+	package: 'Moka-Views'!
+!MKTextAreaView commentStamp!
+I am an text area view. My default controller is `MKAnyKeyInputController`.
+
+My controller must answer to `#onKeyPressed:`.!
+
+!MKTextAreaView methodsFor: 'accessing'!
+
+value
+	^ input asJQuery val
+! !
+
+!MKTextAreaView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKAnyKeyInputController
+! !
+
+!MKTextAreaView methodsFor: 'events'!
+
+keyUp: anEvent
+	self controller onKeyPressed: anEvent
+! !
+
+!MKTextAreaView methodsFor: 'rendering'!
+
+renderContentOn: html
+	input := html textarea 
+		with: self aspectValue;
+		onKeyUp: [ :event | self keyUp: event ]
+! !
+
+!MKTextAreaView methodsFor: 'updating'!
+
+update
+	input ifNotNil: [ input asJQuery val: self aspectValue ]
+! !
+
+MKTextAreaView subclass: #MKInputView
+	instanceVariableNames: ''
+	package: 'Moka-Views'!
+!MKInputView commentStamp!
+I am an input view. My default controller is `MKEnterInputController`.
+
+My controller must answer to `#onKeyPressed:`.!
+
+!MKInputView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKEnterInputController
+! !
+
+!MKInputView methodsFor: 'rendering'!
+
+renderContentOn: html
+	input := html input
+		value: self aspectValue;
+		onKeyUp: [ :event |
+			self keyUp: event ];
+		yourself
 ! !
 
