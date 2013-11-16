@@ -563,5 +563,39 @@ referencedClasses: []
 }),
 smalltalk.MKInputView);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "triggerChangeOnAnyKey",
+category: 'settings',
+fn: function (){
+var self=this;
+function $MKAnyKeyInputController(){return smalltalk.MKAnyKeyInputController||(typeof MKAnyKeyInputController=="undefined"?nil:MKAnyKeyInputController)}
+return smalltalk.withContext(function($ctx1) { 
+self._controller_(_st($MKAnyKeyInputController())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"triggerChangeOnAnyKey",{},smalltalk.MKInputView)})},
+args: [],
+source: "triggerChangeOnAnyKey\x0a\x09self controller: MKAnyKeyInputController new",
+messageSends: ["controller:", "new"],
+referencedClasses: ["MKAnyKeyInputController"]
+}),
+smalltalk.MKInputView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "triggerChangeOnEnter",
+category: 'settings',
+fn: function (){
+var self=this;
+function $MKEnterInputController(){return smalltalk.MKEnterInputController||(typeof MKEnterInputController=="undefined"?nil:MKEnterInputController)}
+return smalltalk.withContext(function($ctx1) { 
+self._controller_(_st($MKEnterInputController())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"triggerChangeOnEnter",{},smalltalk.MKInputView)})},
+args: [],
+source: "triggerChangeOnEnter\x0a\x09self controller: MKEnterInputController new",
+messageSends: ["controller:", "new"],
+referencedClasses: ["MKEnterInputController"]
+}),
+smalltalk.MKInputView);
+
 
 });

@@ -1,9 +1,9 @@
 Smalltalk current createPackage: 'Moka-Controllers'!
 MKAspectController subclass: #MKAnyKeyInputController
-	instanceVariableNames: ''
+	instanceVariableNames: 'lastValue'
 	package: 'Moka-Controllers'!
 
-!MKAnyKeyInputController methodsFor: 'accessing]'!
+!MKAnyKeyInputController methodsFor: 'accessing'!
 
 inputText
 	^ self view value
@@ -12,7 +12,13 @@ inputText
 !MKAnyKeyInputController methodsFor: 'actions'!
 
 onKeyPressed: anEvent
-	self performActionWith: self inputText
+	| newValue |
+	
+	newValue := self inputText.
+	newValue = lastValue ifTrue: [ ^ self ].
+	
+	lastValue := newValue.
+	self performActionWith: newValue
 ! !
 
 MKAnyKeyInputController subclass: #MKEnterInputController

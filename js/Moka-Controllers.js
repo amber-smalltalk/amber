@@ -2,11 +2,11 @@ define("amber_core/Moka-Controllers", ["amber_vm/smalltalk", "amber_vm/nil", "am
 smalltalk.addPackage('Moka-Controllers');
 smalltalk.packages["Moka-Controllers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('MKAnyKeyInputController', smalltalk.MKAspectController, [], 'Moka-Controllers');
+smalltalk.addClass('MKAnyKeyInputController', smalltalk.MKAspectController, ['lastValue'], 'Moka-Controllers');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputText",
-category: 'accessing]',
+category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -27,12 +27,20 @@ selector: "onKeyPressed:",
 category: 'actions',
 fn: function (anEvent){
 var self=this;
+var newValue;
 return smalltalk.withContext(function($ctx1) { 
-self._performActionWith_(self._inputText());
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyPressed:",{anEvent:anEvent},smalltalk.MKAnyKeyInputController)})},
+var $1;
+newValue=self._inputText();
+$1=_st(newValue).__eq(self["@lastValue"]);
+if(smalltalk.assert($1)){
+return self;
+};
+self["@lastValue"]=newValue;
+self._performActionWith_(newValue);
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyPressed:",{anEvent:anEvent,newValue:newValue},smalltalk.MKAnyKeyInputController)})},
 args: ["anEvent"],
-source: "onKeyPressed: anEvent\x0a\x09self performActionWith: self inputText",
-messageSends: ["performActionWith:", "inputText"],
+source: "onKeyPressed: anEvent\x0a\x09| newValue |\x0a\x09\x0a\x09newValue := self inputText.\x0a\x09newValue = lastValue ifTrue: [ ^ self ].\x0a\x09\x0a\x09lastValue := newValue.\x0a\x09self performActionWith: newValue",
+messageSends: ["inputText", "ifTrue:", "=", "performActionWith:"],
 referencedClasses: []
 }),
 smalltalk.MKAnyKeyInputController);

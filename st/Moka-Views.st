@@ -229,3 +229,13 @@ renderContentOn: html
 		yourself
 ! !
 
+!MKInputView methodsFor: 'settings'!
+
+triggerChangeOnAnyKey
+	self controller: MKAnyKeyInputController new
+!
+
+triggerChangeOnEnter
+	self controller: MKEnterInputController new
+! !
+

@@ -598,11 +598,10 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@aspect"]=aSelector;
-_st(self._controller())._aspect_(aSelector);
 return self}, function($ctx1) {$ctx1.fill(self,"aspect:",{aSelector:aSelector},smalltalk.MKAspectView)})},
 args: ["aSelector"],
-source: "aspect: aSelector\x0a\x09aspect := aSelector.\x0a\x09self controller aspect: aSelector",
-messageSends: ["aspect:", "controller"],
+source: "aspect: aSelector\x0a\x09aspect := aSelector",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MKAspectView);
@@ -621,6 +620,23 @@ return $1;
 args: [],
 source: "aspectValue\x0a\x09^ self model perform: self aspect",
 messageSends: ["perform:", "model", "aspect"],
+referencedClasses: []
+}),
+smalltalk.MKAspectView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "controller:",
+category: 'accessing',
+fn: function (aController){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.MKAspectView.superclass.fn.prototype._controller_.apply(_st(self), [aController]);
+_st(aController)._aspect_(self._aspect());
+return self}, function($ctx1) {$ctx1.fill(self,"controller:",{aController:aController},smalltalk.MKAspectView)})},
+args: ["aController"],
+source: "controller: aController\x0a\x09super controller: aController.\x0a\x09aController aspect: self aspect",
+messageSends: ["controller:", "aspect:", "aspect"],
 referencedClasses: []
 }),
 smalltalk.MKAspectView);

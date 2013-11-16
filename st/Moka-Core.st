@@ -260,12 +260,16 @@ aspect
 !
 
 aspect: aSelector
-	aspect := aSelector.
-	self controller aspect: aSelector
+	aspect := aSelector
 !
 
 aspectValue
 	^ self model perform: self aspect
+!
+
+controller: aController
+	super controller: aController.
+	aController aspect: self aspect
 ! !
 
 !MKAspectView methodsFor: 'defaults'!

@@ -16,7 +16,7 @@ function $MKTextAreaView(){return smalltalk.MKTextAreaView||(typeof MKTextAreaVi
 function $MKCheckboxView(){return smalltalk.MKCheckboxView||(typeof MKCheckboxView=="undefined"?nil:MKCheckboxView)}
 function $MKSwitchView(){return smalltalk.MKSwitchView||(typeof MKSwitchView=="undefined"?nil:MKSwitchView)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5,$7,$6,$9,$8,$11,$10,$13,$12,$14,$15;
+var $2,$1,$4,$3,$5,$7,$6,$9,$8,$10,$12,$11,$14,$13,$16,$15,$17,$18;
 $2=self._counter();
 $ctx1.sendIdx["counter"]=1;
 $1=_st($MKLabelView())._model_aspect_($2,"count");
@@ -39,29 +39,36 @@ _st($6)._render();
 $ctx1.sendIdx["render"]=3;
 $9=self._counter();
 $ctx1.sendIdx["counter"]=4;
-$8=_st($MKTextAreaView())._model_aspect_($9,"text");
+$8=_st($MKInputView())._model_aspect_($9,"text");
 $ctx1.sendIdx["model:aspect:"]=4;
-_st($8)._render();
+_st($8)._triggerChangeOnAnyKey();
+$10=_st($8)._render();
 $ctx1.sendIdx["render"]=4;
-$11=self._counter();
+$12=self._counter();
 $ctx1.sendIdx["counter"]=5;
-$10=_st($MKCheckboxView())._model_aspect_($11,"checked");
+$11=_st($MKTextAreaView())._model_aspect_($12,"text");
 $ctx1.sendIdx["model:aspect:"]=5;
-_st($10)._render();
+_st($11)._render();
 $ctx1.sendIdx["render"]=5;
-$13=self._counter();
+$14=self._counter();
 $ctx1.sendIdx["counter"]=6;
-$12=_st($MKSwitchView())._model_aspect_($13,"checked");
+$13=_st($MKCheckboxView())._model_aspect_($14,"checked");
 $ctx1.sendIdx["model:aspect:"]=6;
-_st($12)._render();
+_st($13)._render();
 $ctx1.sendIdx["render"]=6;
-$14=_st($MKButtonView())._model_aspect_(self._counter(),"decrease");
-_st($14)._label_("Decrease");
-$15=_st($14)._render();
+$16=self._counter();
+$ctx1.sendIdx["counter"]=7;
+$15=_st($MKSwitchView())._model_aspect_($16,"checked");
+$ctx1.sendIdx["model:aspect:"]=7;
+_st($15)._render();
+$ctx1.sendIdx["render"]=7;
+$17=_st($MKButtonView())._model_aspect_(self._counter(),"decrease");
+_st($17)._label_("Decrease");
+$18=_st($17)._render();
 return self}, function($ctx1) {$ctx1.fill(self,"build",{},smalltalk.MKCounterBuilder)})},
 args: [],
-source: "build\x0a\x09(MKLabelView model: self counter aspect: #count) render.\x0a\x09(MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09render.\x0a\x09(MKInputView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKTextAreaView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09render",
-messageSends: ["render", "model:aspect:", "counter", "label:"],
+source: "build\x0a\x09(MKLabelView model: self counter aspect: #count) render.\x0a\x09(MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09render.\x0a\x09(MKInputView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKInputView model: self counter aspect: #text)\x0a\x09\x09triggerChangeOnAnyKey;\x0a\x09\x09render.\x0a\x09(MKTextAreaView model: self counter aspect: #text)\x0a\x09\x09render.\x0a\x09(MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09render.\x0a\x09(MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09render",
+messageSends: ["render", "model:aspect:", "counter", "label:", "triggerChangeOnAnyKey"],
 referencedClasses: ["MKLabelView", "MKButtonView", "MKInputView", "MKTextAreaView", "MKCheckboxView", "MKSwitchView"]
 }),
 smalltalk.MKCounterBuilder);

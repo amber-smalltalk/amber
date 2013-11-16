@@ -12,6 +12,9 @@ build
 		render.
 	(MKInputView model: self counter aspect: #text)
 		render.
+	(MKInputView model: self counter aspect: #text)
+		triggerChangeOnAnyKey;
+		render.
 	(MKTextAreaView model: self counter aspect: #text)
 		render.
 	(MKCheckboxView model: self counter aspect: #checked)
