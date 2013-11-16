@@ -3,6 +3,7 @@ smalltalk.addPackage('Moka-Controllers');
 smalltalk.packages["Moka-Controllers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
 smalltalk.addClass('MKAnyKeyInputController', smalltalk.MKAspectController, ['lastValue'], 'Moka-Controllers');
+smalltalk.MKAnyKeyInputController.comment="I am the default controller for `MKTextAreaView`. Actions are performed on any key press if the view's value changes.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "inputText",

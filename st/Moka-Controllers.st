@@ -2,6 +2,8 @@ Smalltalk current createPackage: 'Moka-Controllers'!
 MKAspectController subclass: #MKAnyKeyInputController
 	instanceVariableNames: 'lastValue'
 	package: 'Moka-Controllers'!
+!MKAnyKeyInputController commentStamp!
+I am the default controller for `MKTextAreaView`. Actions are performed on any key press if the view's value changes.!
 
 !MKAnyKeyInputController methodsFor: 'accessing'!
 
