@@ -338,6 +338,12 @@ value
 
 !JSObjectProxy methodsFor: 'enumerating'!
 
+asJSON
+	"Answers the receiver in a stringyfy-friendly fashion"
+
+	^ jsObject
+!
+
 keysAndValuesDo: aBlock
 	<
 		var o = self['@jsObject'];

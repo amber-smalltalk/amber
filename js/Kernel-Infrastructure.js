@@ -829,6 +829,24 @@ smalltalk.JSObjectProxy);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "asJSON",
+category: 'enumerating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@jsObject"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.JSObjectProxy)})},
+args: [],
+source: "asJSON\x0a\x09\x22Answers the receiver in a stringyfy-friendly fashion\x22\x0a\x0a\x09^ jsObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:",
 category: 'accessing',
 fn: function (aString){
