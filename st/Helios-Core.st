@@ -392,7 +392,7 @@ isToolModel
 
 shouldCompileClassDefinition: aString
 	^ self selectedClass isNil or: [
-		aString match: '^[A-Z]' ]
+		aString match: '^\s*[A-Z]' ]
 ! !
 
 !HLToolModel class methodsFor: 'actions'!
