@@ -2462,12 +2462,19 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 smalltalk.HLListWidget.superclass.fn.prototype._refresh.apply(_st(self), []);
+$1=self._selectedItem();
+$ctx1.sendIdx["selectedItem"]=1;
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
 self._ensureVisible_(self._findListItemFor_(self._selectedItem()));
+};
 return self}, function($ctx1) {$ctx1.fill(self,"refresh",{},smalltalk.HLListWidget)})},
 args: [],
-source: "refresh\x0a\x09super refresh.\x0a\x09self ensureVisible: (self findListItemFor: self selectedItem)",
-messageSends: ["refresh", "ensureVisible:", "findListItemFor:", "selectedItem"],
+source: "refresh\x0a\x09super refresh.\x0a\x09self selectedItem ifNotNil: [self ensureVisible: (self findListItemFor: self selectedItem)].",
+messageSends: ["refresh", "ifNotNil:", "selectedItem", "ensureVisible:", "findListItemFor:"],
 referencedClasses: []
 }),
 smalltalk.HLListWidget);
