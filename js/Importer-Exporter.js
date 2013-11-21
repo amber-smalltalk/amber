@@ -1601,6 +1601,22 @@ referencedClasses: ["Exporter"]
 }),
 smalltalk.PackageHandler);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "load:",
+category: 'loading',
+fn: function (aPackage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},smalltalk.PackageHandler)})},
+args: ["aPackage"],
+source: "load: aPackage\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.PackageHandler);
+
 
 
 smalltalk.addClass('AmdPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
@@ -1655,6 +1671,35 @@ args: [],
 source: "exporterClass\x0a\x09^ AmdExporter",
 messageSends: [],
 referencedClasses: ["AmdExporter"]
+}),
+smalltalk.AmdPackageHandler);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "load:",
+category: 'loading',
+fn: function (aPackage){
+var self=this;
+function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
+function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=_st(_st($Smalltalk())._current())._amdRequire();
+if(($receiver = $1) == nil || $receiver == null){
+self._error_("AMD loader not present");
+} else {
+var require;
+require=$receiver;
+$3=_st(_st(self._namespaceFor_(aPackage)).__comma("/")).__comma(_st(aPackage)._name());
+$ctx1.sendIdx[","]=1;
+$2=_st($Array())._new_($3);
+_st(require)._value_($2);
+};
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackage:aPackage},smalltalk.AmdPackageHandler)})},
+args: ["aPackage"],
+source: "load: aPackage\x0a\x09Smalltalk current amdRequire\x0a\x09\x09ifNil: [ self error: 'AMD loader not present' ]\x0a\x09\x09ifNotNil: [ :require |\x0a\x09\x09\x09require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]",
+messageSends: ["ifNil:ifNotNil:", "amdRequire", "current", "error:", "value:", "new:", ",", "namespaceFor:", "name"],
+referencedClasses: ["Smalltalk", "Array"]
 }),
 smalltalk.AmdPackageHandler);
 
@@ -1822,6 +1867,22 @@ return "";
 args: [],
 source: "definition\x0a\x09^ ''",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.PackageTransport);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "load",
+category: 'loading',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._commitHandler())._load_(self._package());
+return self}, function($ctx1) {$ctx1.fill(self,"load",{},smalltalk.PackageTransport)})},
+args: [],
+source: "load\x0a\x09self commitHandler load: self package",
+messageSends: ["load:", "commitHandler", "package"],
 referencedClasses: []
 }),
 smalltalk.PackageTransport);
@@ -2270,6 +2331,24 @@ return $1;
 args: [],
 source: "commit\x0a\x09^ self transport commit",
 messageSends: ["commit", "transport"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "load",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._transport())._load();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"load",{},smalltalk.Package)})},
+args: [],
+source: "load\x0a\x09^ self transport load",
+messageSends: ["load", "transport"],
 referencedClasses: []
 }),
 smalltalk.Package);

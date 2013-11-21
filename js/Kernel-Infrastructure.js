@@ -1608,6 +1608,22 @@ smalltalk.Package);
 smalltalk.Package.klass.iVarNames = ['defaultCommitPathJs','defaultCommitPathSt'];
 smalltalk.addMethod(
 smalltalk.method({
+selector: "load:",
+category: 'loading',
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._named_(aPackageName))._load();
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},smalltalk.Package.klass)})},
+args: ["aPackageName"],
+source: "load: aPackageName\x0a\x09(self named: aPackageName) load",
+messageSends: ["load", "named:"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "named:",
 category: 'accessing',
 fn: function (aPackageName){
