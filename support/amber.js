@@ -16,23 +16,26 @@ var require;
 
 require = function (require) {
     var scripts = document.getElementsByTagName("script");
-    var src = scripts[ scripts.length - 1 ].src;
+    var me = scripts[scripts.length - 1];
+    var src = me.src;
     // strip the last two elements from the URL
-    // e.g. http://app.com/lib/script.js -> http://app.com/
+    // e.g. http://app.com/amber/support/amber.js -> http://app.com/amber
     var amber_home = resolveViaDOM(src).replace(/\/[^\/]+\/[^\/]+$/, "");
-    // strip the last element from the URL
-    // e.g. http://app.com/index.html -> http://app.com/
-    var document_home = window.location.href.replace(/\/[^\/]+$/, "");
+    // In case of nonstandard deployment, you can specify libraries placement directly ...
+    var library_home = me.hasAttribute('data-libs') && me.getAttribute('data-libs');
 
-    // at the present moment, bower tries to have flat hierarchy,
-    // which leads to two possible scenarios:
-    // 1. amber itself was deployed via bower,
-    //    its libraries are next to it; document_home from above covers this
-    // 2. amber was deployed in different fashion,
-    //    its libraries are included by bower locally; document_home is fixed below
-    // The detection is done by looking for '/bower_components/' in amber path.
-    if (!amber_home.match(/\/bower_components\//)) {
-        document_home = amber_home;
+    // ... otherwise, this heuristics is used:
+    if (!library_home) {
+        // At the present moment, bower tries to have flat hierarchy,
+        // which leads to two possible scenarios:
+        // 1. amber itself was deployed via bower,
+        //    its libraries are at the same bower dir
+        //    where amber itself is placed
+        // 2. amber was deployed in different fashion,
+        //    its libraries are included by bower locally, inside amber
+        // The detection is done by looking for '/bower_components/' in amber path.
+        var match = amber_home.match(/^(.*\/bower_components)\//);
+        library_home = match ? match[1] : amber_home + '/bower_components';
     }
 
     function resolveViaDOM(url) {
@@ -46,12 +49,12 @@ require = function (require) {
             'amber': amber_home + '/support',
             'amber_vm': amber_home + '/support',
             'amber_css': amber_home + '/css',
-            'amber_lib': document_home + '/bower_components',
+            'amber_lib': library_home,
             'amber_inc': amber_home + '/support',
             'amber_core': amber_home + '/js',
             'amber_core/_source': amber_home + '/st',
             'amber_html': amber_home,
-            'jquery': document_home + '/bower_components/jquery/jquery.min',
+            'jquery': library_home + '/jquery/jquery.min',
             'jquery-ui': amber_home + '/support/jQuery/jquery-ui-1.8.24.custom.min'
         },
         map: {
