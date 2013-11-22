@@ -2274,4 +2274,25 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "recompile",
+category: '*Importer-Exporter',
+fn: function (){
+var self=this;
+function $Importer(){return smalltalk.Importer||(typeof Importer=="undefined"?nil:Importer)}
+function $PackageHandler(){return smalltalk.PackageHandler||(typeof PackageHandler=="undefined"?nil:PackageHandler)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($Importer())._new();
+$ctx1.sendIdx["new"]=1;
+_st($1)._import_(_st(_st(_st($PackageHandler())._new())._chunkContentsFor_(self))._readStream());
+return self}, function($ctx1) {$ctx1.fill(self,"recompile",{},smalltalk.Package)})},
+args: [],
+source: "recompile\x0a\x09\x22\x0a\x09Recompiles the receiver package by exporting it into the chunk format and\x0a\x09then importing the source back (no server round trips involved).\x0a\x09\x0a\x09Usage: (Package named: 'MyPackage') recompile.\x0a\x09\x0a\x09TODO: Implement in a more internal fashion. The current export->import\x0a\x09implementation can be useful in the meanwhile.\x0a\x09\x0a\x09@herby wrote: .. it has much more places to break, I'd like some more internal approach...\x0a\x09@nicolaspetton wrote: I agree with @herby, it should be internal.\x0a\x09\x22\x0a\x09Importer new import: (PackageHandler new chunkContentsFor: self) readStream",
+messageSends: ["import:", "new", "readStream", "chunkContentsFor:"],
+referencedClasses: ["Importer", "PackageHandler"]
+}),
+smalltalk.Package);
+
 });
