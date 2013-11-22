@@ -821,6 +821,35 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "select:thenInject:into:",
+category: 'enumerating',
+fn: function (selectBlock,anObject,injectBlock){
+var self=this;
+var stream,result;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+stream=_st(_st(self._class())._new())._writeStream();
+result=anObject;
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(selectBlock)._value_(each);
+if(smalltalk.assert($1)){
+result=_st(injectBlock)._value_value_(result,each);
+return result;
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$2=result;
+return $2;
+}, function($ctx1) {$ctx1.fill(self,"select:thenInject:into:",{selectBlock:selectBlock,anObject:anObject,injectBlock:injectBlock,stream:stream,result:result},smalltalk.Collection)})},
+args: ["selectBlock", "anObject", "injectBlock"],
+source: "select: selectBlock thenInject: anObject into: injectBlock\x0a\x09| stream result |\x0a\x09stream := self class new writeStream.\x0a\x09result := anObject.\x0a\x09self do: [ :each |\x0a\x09\x09(selectBlock value: each) ifTrue: [\x0a\x09\x09\x09result := injectBlock value: result value: each ]].\x0a\x09^ result",
+messageSends: ["writeStream", "new", "class", "do:", "ifTrue:", "value:", "value:value:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "size",
 category: 'accessing',
 fn: function (){
