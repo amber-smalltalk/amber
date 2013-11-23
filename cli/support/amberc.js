@@ -109,10 +109,10 @@ Combo.prototype = {
 			self.check(id, arguments);
 		};
 	},
-	check: function (id, arguments) {
-		this.results[id] = Array.prototype.slice.call(arguments);
+	check: function (id, theArguments) {
+		this.results[id] = Array.prototype.slice.call(theArguments);
 		this.items--;
-		if (this.items == 0) {
+		if (this.items === 0) {
 			this.callback.apply(this, this.results);
 		}
 	}
@@ -180,7 +180,7 @@ AmberC.prototype.main = function(configuration, finished_callback) {
 		configuration.finished_callback = finished_callback;
 	}
 
-	if (configuration.amd_namespace.length == 0) {
+	if (configuration.amd_namespace.length === 0) {
 		configuration.amd_namespace = 'amber_core';
 	}
 
@@ -210,7 +210,7 @@ AmberC.prototype.check_configuration_ok = function(configuration) {
 		throw new Error('AmberC.check_configuration_ok(): missing configuration object');
 	}
 
-	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.lenght) {
+	if (0 === configuration.jsFiles.length && 0 === configuration.stFiles.length) {
 		throw new Error('AmberC.check_configuration_ok(): no files to compile/link specified in configuration object');
 	}
 	return true;
@@ -387,7 +387,7 @@ AmberC.prototype.resolve_compiler = function(callback) {
 		});
 		callback(compilerFiles);
 	});
-	var self = this
+	var self = this;
 	compiler_files.forEach(function(file) {
 		self.resolve_js(file, compiler_resolved.add());
 	});
@@ -424,7 +424,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
 		console.log('Compiler loaded');
 		self.defaults.smalltalk.ErrorHandler._setCurrent_(self.defaults.smalltalk.RethrowErrorHandler._new());
 
-		if(0 != self.defaults.jsGlobals.length) {
+		if(0 !== self.defaults.jsGlobals.length) {
 			var jsGlobalVariables = self.defaults.smalltalk.globalJsVariables;
 			jsGlobalVariables.push.apply(jsGlobalVariables, self.defaults.jsGlobals);
 		}
@@ -444,7 +444,7 @@ AmberC.prototype.create_compiler = function(compilerFilesArray) {
  * Followed by category_export().
  */
 AmberC.prototype.compile = function() {
-	console.log('Compiling collected .st files')
+	console.log('Compiling collected .st files');
 	// import .st files
 	var self = this;
 	var imports = new Combo(function() {
@@ -491,7 +491,6 @@ AmberC.prototype.category_export = function() {
 		jsFile = path.join(jsFilePath, jsFile);
 		defaults.compiled.push(jsFile);
 		var smalltalk = defaults.smalltalk;
-		var pluggableExporter = smalltalk.PluggableExporter;
 		var packageObject = smalltalk.Package._named_(category);
 		packageObject._transport()._namespace_(defaults.amd_namespace);
 		fs.writeFile(jsFile, smalltalk.String._streamContents_(function (stream) {
@@ -535,7 +534,6 @@ AmberC.prototype.verify = function() {
  */
 AmberC.prototype.compose_js_files = function() {
 	var defaults = this.defaults;
-	var self = this;
 	var programFile = defaults.program;
 	if (undefined === programFile) {
 		return;
