@@ -40,6 +40,81 @@ smalltalk.AnnouncementSubscriptionTest);
 
 
 
+smalltalk.addClass('AnnouncerTest', smalltalk.TestCase, [], 'Kernel-Tests');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testOnDo",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var counter,announcer;
+function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return smalltalk.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+counter=(0);
+announcer=_st($Announcer())._new();
+$ctx1.sendIdx["new"]=1;
+_st(announcer)._on_do_($SystemAnnouncement(),(function(){
+return smalltalk.withContext(function($ctx2) {
+counter=_st(counter).__plus((1));
+return counter;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$1=announcer;
+$2=_st($SystemAnnouncement())._new();
+$ctx1.sendIdx["new"]=2;
+_st($1)._announce_($2);
+$ctx1.sendIdx["announce:"]=1;
+self._assert_equals_(counter,(1));
+$ctx1.sendIdx["assert:equals:"]=1;
+_st(announcer)._announce_(_st($SystemAnnouncement())._new());
+self._assert_equals_(counter,(2));
+return self}, function($ctx1) {$ctx1.fill(self,"testOnDo",{counter:counter,announcer:announcer},smalltalk.AnnouncerTest)})},
+args: [],
+source: "testOnDo\x0a\x09| counter announcer |\x0a\x09\x0a\x09counter := 0.\x0a\x09announcer := Announcer new.\x0a\x09announcer on: SystemAnnouncement do: [ counter := counter + 1 ].\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 2.",
+messageSends: ["new", "on:do:", "+", "announce:", "assert:equals:"],
+referencedClasses: ["Announcer", "SystemAnnouncement"]
+}),
+smalltalk.AnnouncerTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testOnDoOnce",
+category: 'not yet classified',
+fn: function (){
+var self=this;
+var counter,announcer;
+function $Announcer(){return smalltalk.Announcer||(typeof Announcer=="undefined"?nil:Announcer)}
+function $SystemAnnouncement(){return smalltalk.SystemAnnouncement||(typeof SystemAnnouncement=="undefined"?nil:SystemAnnouncement)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+counter=(0);
+announcer=_st($Announcer())._new();
+$ctx1.sendIdx["new"]=1;
+_st(announcer)._on_doOnce_($SystemAnnouncement(),(function(){
+return smalltalk.withContext(function($ctx2) {
+counter=_st(counter).__plus((1));
+return counter;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$1=announcer;
+$2=_st($SystemAnnouncement())._new();
+$ctx1.sendIdx["new"]=2;
+_st($1)._announce_($2);
+$ctx1.sendIdx["announce:"]=1;
+self._assert_equals_(counter,(1));
+$ctx1.sendIdx["assert:equals:"]=1;
+_st(announcer)._announce_(_st($SystemAnnouncement())._new());
+self._assert_equals_(counter,(1));
+return self}, function($ctx1) {$ctx1.fill(self,"testOnDoOnce",{counter:counter,announcer:announcer},smalltalk.AnnouncerTest)})},
+args: [],
+source: "testOnDoOnce\x0a\x09| counter announcer |\x0a\x09\x0a\x09counter := 0.\x0a\x09announcer := Announcer new.\x0a\x09announcer on: SystemAnnouncement doOnce: [ counter := counter + 1 ].\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.\x0a\x0a\x09announcer announce: (SystemAnnouncement new).\x0a\x09self assert: counter equals: 1.",
+messageSends: ["new", "on:doOnce:", "+", "announce:", "assert:equals:"],
+referencedClasses: ["Announcer", "SystemAnnouncement"]
+}),
+smalltalk.AnnouncerTest);
+
+
+
 smalltalk.addClass('BlockClosureTest', smalltalk.TestCase, [], 'Kernel-Tests');
 smalltalk.addMethod(
 smalltalk.method({
