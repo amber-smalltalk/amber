@@ -75,7 +75,7 @@ The Amber development model currently revolves around Pull Requests which are cr
 
 1. Update to latest Amber master (```git pull```)
 2. Develop your feature or bugfix in a local branch (not in ```master```)
-3. Create unittest for your feature or bugfix (this is required)
+3. Create unittest for your feature or bugfix (your feature/fix will be integrated a lot faster if unittests are present)
 4. Enhance/fix Amber
 5. Run the unittests
 6. Commit your changes to disk if all tests are green
