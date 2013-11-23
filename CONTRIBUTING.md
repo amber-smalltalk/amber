@@ -62,7 +62,7 @@ Setup your Amber clone
 1. Create a fork of the repository on GitHub
 2. Clone the repository
 3. Run ```npm install```
-4. Run ```bower install```
+4. Run ```bower install``` (requires bower to be installed via ```npm install -g bower```)
 5. Run ```${Amber_DIR}/bin/amber serve```
 
 Now you should be able to commit changes to your computer.
@@ -83,3 +83,20 @@ The Amber development model currently revolves around Pull Requests which are cr
 8. Push the changes to your fork on GitHub ```git push <your repo> <your branchname>```
 9. Submit Pull Request (usually for the Amber master branch)
 
+
+Compiling Amber with Grunt
+--------------------------
+
+Amber uses [Grunt.js](http://gruntjs.com/) as build system since version `0.10.0`.
+
+To install Grunt.js v0.4.x on the commandline execute the following commands:
+
+    npm install -g grunt-cli
+
+Make sure that you have installed all required dependencies via `npm` and `bower`.
+Then you can finally compile Amber using the following command:
+
+    cd ${Amber_DIR}
+    grunt
+
+For Windows support check the [Grunt.js on Windows](http://gruntjs.com/frequently-asked-questions#does-grunt-work-on-windows) page.
