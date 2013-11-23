@@ -104,6 +104,19 @@ on: aClass do: aBlock
 		yourself)
 !
 
+on: aClass doOnce: aBlock
+	| subscription |
+	
+	subscription := AnnouncementSubscription new
+		announcementClass: aClass;
+		yourself.
+	subscription block: [ :ann |
+		subscriptions remove: subscription.
+		aBlock value: ann ].
+
+	subscriptions add: subscription
+!
+
 on: aClass send: aSelector to: anObject
 	subscriptions add: (AnnouncementSubscription new
 		valuable: (MessageSend new
