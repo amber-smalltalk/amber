@@ -339,8 +339,13 @@ respondNotCreatedTo: aResponse
 respondNotFoundTo: aResponse
 	self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].
 	aResponse 
-		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
-		write: '404 Not found';
+		writeHead: 404 options: #{'Content-Type' -> 'text/html'};
+		write: '<html><body><p>404 Not found</p>';
+		write: '<p>Did you forget to put an index.html file into the directory which is served by "bin/amber serve"? To solve this you can:<ul>';
+		write: '<li>create an index.html in the served directory.</li>';
+		write: '<li>can also specify the location of index.html with the "--fallback-page" option.</li>';
+		write: '<li>change the directory to be served with the "--base-path" option.</li>';
+		write: '</ul></p></body></html>';
 		end
 !
 

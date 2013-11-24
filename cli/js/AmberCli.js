@@ -810,12 +810,22 @@ if(! smalltalk.assert($1)){
 $3=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 return $3;
 };
-_st(aResponse)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
-_st(aResponse)._write_("404 Not found");
+_st(aResponse)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/html")]));
+_st(aResponse)._write_("<html><body><p>404 Not found</p>");
+$ctx1.sendIdx["write:"]=1;
+_st(aResponse)._write_("<p>Did you forget to put an index.html file into the directory which is served by \x22bin/amber serve\x22? To solve this you can:<ul>");
+$ctx1.sendIdx["write:"]=2;
+_st(aResponse)._write_("<li>create an index.html in the served directory.</li>");
+$ctx1.sendIdx["write:"]=3;
+_st(aResponse)._write_("<li>can also specify the location of index.html with the \x22--fallback-page\x22 option.</li>");
+$ctx1.sendIdx["write:"]=4;
+_st(aResponse)._write_("<li>change the directory to be served with the \x22--base-path\x22 option.</li>");
+$ctx1.sendIdx["write:"]=5;
+_st(aResponse)._write_("</ul></p></body></html>");
 $4=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
-source: "respondNotFoundTo: aResponse\x0a\x09self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: '404 Not found';\x0a\x09\x09end",
+source: "respondNotFoundTo: aResponse\x0a\x09self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/html'};\x0a\x09\x09write: '<html><body><p>404 Not found</p>';\x0a\x09\x09write: '<p>Did you forget to put an index.html file into the directory which is served by \x22bin/amber serve\x22? To solve this you can:<ul>';\x0a\x09\x09write: '<li>create an index.html in the served directory.</li>';\x0a\x09\x09write: '<li>can also specify the location of index.html with the \x22--fallback-page\x22 option.</li>';\x0a\x09\x09write: '<li>change the directory to be served with the \x22--base-path\x22 option.</li>';\x0a\x09\x09write: '</ul></p></body></html>';\x0a\x09\x09end",
 messageSends: ["ifFalse:", "isNil", "fallbackPage", "respondFileNamed:to:", "writeHead:options:", "->", "write:", "end"],
 referencedClasses: []
 }),
