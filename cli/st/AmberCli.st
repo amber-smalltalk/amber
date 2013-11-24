@@ -311,7 +311,7 @@ respondFileNamed: aFilename to: aResponse
 		ex notNil 
 			ifTrue: [
 				console log: filename, ' does not exist'.
-				self respondInternalErrorTo: aResponse]
+				self respondNotFoundTo: aResponse]
 			ifFalse: [
 				type := self class mimeTypeFor: filename.
 				type = 'application/javascript'
