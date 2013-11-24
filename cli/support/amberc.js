@@ -2,8 +2,10 @@
  * This is a "compiler" for Amber code.
  * Put the following code into compiler.js:
  *     var amberc = require('amberc');
- *     var compiler = new amberc.Compiler('path/to/amber', ['/optional/path/to/compiler.jar]);
- *     compiler.main();
+ *     var compiler = new amberc.Compiler('path/to/amber');
+ *     var options = amberc.createDefaults();
+ *     // edit options entries
+ *     compiler.main(options);
  *
  * Execute 'node compiler.js' without arguments or with -h / --help for help.
  */
