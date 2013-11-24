@@ -46,13 +46,11 @@ var self=this;
 var selector;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1;
 $1=_st(args)._first();
 $ctx1.sendIdx["first"]=1;
 selector=self._selectorForCommandLineSwitch_($1);
-$2=args;
-$3=_st(args)._first();
-_st($2)._remove_($3);
+_st(args)._remove_(_st(args)._first());
 self._perform_withArguments_(selector,_st($Array())._with_(args));
 return self}, function($ctx1) {$ctx1.fill(self,"handleArguments:",{args:args,selector:selector},smalltalk.AmberCli.klass)})},
 args: ["args"],
@@ -69,8 +67,7 @@ category: 'commands',
 fn: function (args){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(console)._log_("Available Commands:");
+_st(console)._log_("Available Commands:");
 $ctx1.sendIdx["log:"]=1;
 _st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -92,7 +89,7 @@ fn: function (){
 var self=this;
 var args,nodeMinorVersion;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$4,$5,$7,$6,$8,$9;
+var $3,$2,$1,$4,$5,$6;
 $3=_st(process)._version();
 $ctx1.sendIdx["version"]=1;
 $2=_st($3)._tokenize_(".");
@@ -100,22 +97,19 @@ $1=_st($2)._second();
 nodeMinorVersion=_st($1)._asNumber();
 $4=_st(nodeMinorVersion).__lt((8));
 if(smalltalk.assert($4)){
-$5=console;
-$7=_st(process)._version();
-$6="You are currently using Node.js ".__comma($7);
-_st($5)._log_($6);
+_st(console)._log_("You are currently using Node.js ".__comma(_st(process)._version()));
 $ctx1.sendIdx["log:"]=1;
 _st(console)._log_("Required is at least Node.js v0.8.x or greater.");
 return (-1);
 };
 args=_st(process)._argv();
 _st(args)._removeFrom_to_((1),(2));
-$8=_st(args)._isEmpty();
-if(smalltalk.assert($8)){
+$5=_st(args)._isEmpty();
+if(smalltalk.assert($5)){
 self._help_(nil);
 } else {
-$9=self._handleArguments_(args);
-return $9;
+$6=self._handleArguments_(args);
+return $6;
 };
 return self}, function($ctx1) {$ctx1.fill(self,"main",{args:args,nodeMinorVersion:nodeMinorVersion},smalltalk.AmberCli.klass)})},
 args: [],
@@ -258,39 +252,40 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$5,$4,$2,$1,$8,$10,$9,$7,$6,$13,$15,$14,$12,$11;
-$3=self["@fs"];
-$5=self._basePath();
+var $2,$4,$3,$1,$6,$8,$7,$5,$9;
+$2=self["@fs"];
+$4=self._basePath();
 $ctx1.sendIdx["basePath"]=1;
-$4=_st($5).__comma("index.html");
+$3=_st($4).__comma("index.html");
 $ctx1.sendIdx[","]=1;
-$2=_st($3)._existsSync_($4);
+$1=_st($2)._existsSync_($3);
 $ctx1.sendIdx["existsSync:"]=1;
-if(! smalltalk.assert($2)){
-$1=_st(console)._warn_("Warning: project directory does not contain index.html");
+if(! smalltalk.assert($1)){
+_st(console)._warn_("Warning: project directory does not contain index.html.");
 $ctx1.sendIdx["warn:"]=1;
-};
-$8=self["@fs"];
-$10=self._basePath();
-$ctx1.sendIdx["basePath"]=2;
-$9=_st($10).__comma("st");
-$ctx1.sendIdx[","]=2;
-$7=_st($8)._existsSync_($9);
-$ctx1.sendIdx["existsSync:"]=2;
-if(! smalltalk.assert($7)){
-$6=_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
+_st(console)._warn_("    You can specify its location with --fallback-page.");
 $ctx1.sendIdx["warn:"]=2;
+_st(console)._warn_("    Or you can specify the directory to serve with --base-path.");
+$ctx1.sendIdx["warn:"]=3;
 };
-$13=self["@fs"];
-$15=self._basePath();
-$14=_st($15).__comma("js");
-$12=_st($13)._existsSync_($14);
-if(! smalltalk.assert($12)){
-$11=_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
+$6=self["@fs"];
+$8=self._basePath();
+$ctx1.sendIdx["basePath"]=2;
+$7=_st($8).__comma("st");
+$ctx1.sendIdx[","]=2;
+$5=_st($6)._existsSync_($7);
+$ctx1.sendIdx["existsSync:"]=2;
+if(! smalltalk.assert($5)){
+_st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
+$ctx1.sendIdx["warn:"]=4;
+};
+$9=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
+if(! smalltalk.assert($9)){
+_st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html'].\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
+source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify its location with --fallback-page.'.\x0a\x09\x09console warn: '    Or you can specify the directory to serve with --base-path.'.].\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
 messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
 referencedClasses: []
 }),
@@ -338,13 +333,11 @@ fn: function (aRequest,aResponse){
 var self=this;
 var uri,filename;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 uri=_st(_st(self["@url"])._parse_(_st(aRequest)._url()))._pathname();
 filename=_st(self["@path"])._join_with_(self._basePath(),uri);
 _st(self["@fs"])._exists_do_(filename,(function(aBoolean){
 return smalltalk.withContext(function($ctx2) {
-$1=aBoolean;
-if(smalltalk.assert($1)){
+if(smalltalk.assert(aBoolean)){
 return self._respondFileNamed_to_(filename,aResponse);
 } else {
 return self._respondNotFoundTo_(aResponse);
@@ -365,19 +358,17 @@ category: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$2;
-$1=aResponse;
-$3="Access-Control-Allow-Origin".__minus_gt("*");
+var $2,$3,$4,$5,$1;
+$2="Access-Control-Allow-Origin".__minus_gt("*");
 $ctx1.sendIdx["->"]=1;
-$4="Access-Control-Allow-Methods".__minus_gt("GET, PUT, POST, DELETE, OPTIONS");
+$3="Access-Control-Allow-Methods".__minus_gt("GET, PUT, POST, DELETE, OPTIONS");
 $ctx1.sendIdx["->"]=2;
-$5="Access-Control-Allow-Headers".__minus_gt("Content-Type, Accept");
+$4="Access-Control-Allow-Headers".__minus_gt("Content-Type, Accept");
 $ctx1.sendIdx["->"]=3;
-$6="Content-Length".__minus_gt((0));
+$5="Content-Length".__minus_gt((0));
 $ctx1.sendIdx["->"]=4;
-$7="Access-Control-Max-Age".__minus_gt((10));
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,$7]);
-_st($1)._writeHead_options_((200),$2);
+$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,"Access-Control-Max-Age".__minus_gt((10))]);
+_st(aResponse)._writeHead_options_((200),$1);
 _st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"handleOPTIONSRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aRequest", "aResponse"],
@@ -395,7 +386,7 @@ fn: function (aRequest,aResponse){
 var self=this;
 var file,stream;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2,$7,$8,$10,$9;
+var $1,$2,$3,$4;
 $1=self._isAuthenticated_(aRequest);
 if(! smalltalk.assert($1)){
 self._respondAuthenticationRequiredTo_(aResponse);
@@ -404,36 +395,34 @@ return nil;
 file=".".__comma(_st(aRequest)._url());
 $ctx1.sendIdx[","]=1;
 stream=_st(self["@fs"])._createWriteStream_(file);
-$2=_st(stream)._on_do_("error",(function(error){
+_st(stream)._on_do_("error",(function(error){
 return smalltalk.withContext(function($ctx2) {
-$3=console;
-$4="Error creating WriteStream for file ".__comma(file);
+$2=console;
+$3="Error creating WriteStream for file ".__comma(file);
 $ctx2.sendIdx[","]=2;
-_st($3)._warn_($4);
+_st($2)._warn_($3);
 $ctx2.sendIdx["warn:"]=1;
 _st(console)._warn_("    Did you forget to create the necessary js/ or st/ directory in your project?");
 $ctx2.sendIdx["warn:"]=2;
-$5=console;
-$6="    The exact error is: ".__comma(error);
-_st($5)._warn_($6);
+_st(console)._warn_("    The exact error is: ".__comma(error));
 return self._respondNotCreatedTo_(aResponse);
 }, function($ctx2) {$ctx2.fillBlock({error:error},$ctx1,2)})}));
 $ctx1.sendIdx["on:do:"]=1;
-$7=_st(stream)._on_do_("close",(function(){
+_st(stream)._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._respondCreatedTo_(aResponse);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $ctx1.sendIdx["on:do:"]=2;
 _st(aRequest)._setEncoding_("utf8");
-$8=_st(aRequest)._on_do_("data",(function(data){
+_st(aRequest)._on_do_("data",(function(data){
 return smalltalk.withContext(function($ctx2) {
 return _st(stream)._write_(data);
 }, function($ctx2) {$ctx2.fillBlock({data:data},$ctx1,4)})}));
 $ctx1.sendIdx["on:do:"]=3;
-$9=_st(aRequest)._on_do_("end",(function(){
+_st(aRequest)._on_do_("end",(function(){
 return smalltalk.withContext(function($ctx2) {
-$10=_st(stream)._writable();
-if(smalltalk.assert($10)){
+$4=_st(stream)._writable();
+if(smalltalk.assert($4)){
 return _st(stream)._end();
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
@@ -452,25 +441,24 @@ category: 'request handling',
 fn: function (aRequest,aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$6,$5,$4,$9,$8,$7;
-$3=_st(aRequest)._method();
+var $2,$1,$4,$3,$5;
+$2=_st(aRequest)._method();
 $ctx1.sendIdx["method"]=1;
-$2=_st($3).__eq("PUT");
+$1=_st($2).__eq("PUT");
 $ctx1.sendIdx["="]=1;
-if(smalltalk.assert($2)){
-$1=self._handlePUTRequest_respondTo_(aRequest,aResponse);
+if(smalltalk.assert($1)){
+self._handlePUTRequest_respondTo_(aRequest,aResponse);
 };
-$6=_st(aRequest)._method();
+$4=_st(aRequest)._method();
 $ctx1.sendIdx["method"]=2;
-$5=_st($6).__eq("GET");
+$3=_st($4).__eq("GET");
 $ctx1.sendIdx["="]=2;
-if(smalltalk.assert($5)){
-$4=self._handleGETRequest_respondTo_(aRequest,aResponse);
+if(smalltalk.assert($3)){
+self._handleGETRequest_respondTo_(aRequest,aResponse);
 };
-$9=_st(aRequest)._method();
-$8=_st($9).__eq("OPTIONS");
-if(smalltalk.assert($8)){
-$7=self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
+$5=_st(_st(aRequest)._method()).__eq("OPTIONS");
+if(smalltalk.assert($5)){
+self._handleOPTIONSRequest_respondTo_(aRequest,aResponse);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"handleRequest:respondTo:",{aRequest:aRequest,aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aRequest", "aResponse"],
@@ -521,7 +509,7 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
+var $1;
 smalltalk.FileServer.superclass.fn.prototype._initialize.apply(_st(self), []);
 self["@path"]=self._require_("path");
 $ctx1.sendIdx["require:"]=1;
@@ -535,8 +523,7 @@ self["@url"]=self._require_("url");
 $1=self._class();
 $ctx1.sendIdx["class"]=1;
 self["@host"]=_st($1)._defaultHost();
-$2=self._class();
-self["@port"]=_st($2)._defaultPort();
+self["@port"]=_st(self._class())._defaultPort();
 self["@username"]=nil;
 self["@password"]=nil;
 self["@fallbackPage"]=nil;
@@ -556,7 +543,7 @@ fn: function (aRequest){
 var self=this;
 var header,token,auth,parts;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$5,$6,$7,$10,$11,$9,$12,$13,$8,$4;
+var $2,$1,$3,$4,$5,$6,$9,$10,$8,$7;
 $2=_st(self["@username"])._isNil();
 $ctx1.sendIdx["isNil"]=1;
 $1=_st($2)._and_((function(){
@@ -574,36 +561,34 @@ header="";
 } else {
 header=$3;
 };
-$5=_st(header)._isEmpty();
-if(smalltalk.assert($5)){
+$4=_st(header)._isEmpty();
+if(smalltalk.assert($4)){
 return false;
 } else {
-$6=_st(header)._tokenize_(" ");
+$5=_st(header)._tokenize_(" ");
 $ctx1.sendIdx["tokenize:"]=1;
-if(($receiver = $6) == nil || $receiver == null){
+if(($receiver = $5) == nil || $receiver == null){
 token="";
 } else {
-token=$6;
+token=$5;
 };
 token;
-$7=_st(token)._at_((2));
+$6=_st(token)._at_((2));
 $ctx1.sendIdx["at:"]=2;
-auth=self._base64Decode_($7);
+auth=self._base64Decode_($6);
 auth;
 parts=_st(auth)._tokenize_(":");
 parts;
-$10=self["@username"];
-$11=_st(parts)._at_((1));
+$9=self["@username"];
+$10=_st(parts)._at_((1));
 $ctx1.sendIdx["at:"]=3;
-$9=_st($10).__eq($11);
+$8=_st($9).__eq($10);
 $ctx1.sendIdx["="]=1;
-$8=_st($9)._and_((function(){
+$7=_st($8)._and_((function(){
 return smalltalk.withContext(function($ctx2) {
-$12=self["@password"];
-$13=_st(parts)._at_((2));
-return _st($12).__eq($13);
+return _st(self["@password"]).__eq(_st(parts)._at_((2)));
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}));
-if(smalltalk.assert($8)){
+if(smalltalk.assert($7)){
 return true;
 } else {
 return false;
@@ -692,11 +677,10 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aResponse;
-_st($1)._writeHead_options_((401),smalltalk.HashedCollection._from_(["WWW-Authenticate".__minus_gt("Basic realm=\x22Secured Developer Area\x22")]));
-_st($1)._write_("<html><body>Authentication needed</body></html>");
-$2=_st($1)._end();
+var $1;
+_st(aResponse)._writeHead_options_((401),smalltalk.HashedCollection._from_(["WWW-Authenticate".__minus_gt("Basic realm=\x22Secured Developer Area\x22")]));
+_st(aResponse)._write_("<html><body>Authentication needed</body></html>");
+$1=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondAuthenticationRequiredTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondAuthenticationRequiredTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 401 options: #{'WWW-Authenticate' -> 'Basic realm=\x22Secured Developer Area\x22'};\x0a\x09\x09write: '<html><body>Authentication needed</body></html>';\x0a\x09\x09end.",
@@ -712,15 +696,12 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3,$6;
-$1=aResponse;
-$2=$1;
-$4="Content-Type".__minus_gt("text/plain");
+var $2,$1,$3;
+$2="Content-Type".__minus_gt("text/plain");
 $ctx1.sendIdx["->"]=1;
-$5="Access-Control-Allow-Origin".__minus_gt("*");
-$3=smalltalk.HashedCollection._from_([$4,$5]);
-_st($2)._writeHead_options_((201),$3);
-$6=_st($1)._end();
+$1=smalltalk.HashedCollection._from_([$2,"Access-Control-Allow-Origin".__minus_gt("*")]);
+_st(aResponse)._writeHead_options_((201),$1);
+$3=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondCreatedTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 201 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
@@ -737,36 +718,35 @@ fn: function (aFilename,aResponse){
 var self=this;
 var type,filename;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4,$5,$6,$7,$8;
+var $1,$2,$3,$4,$5,$6;
 filename=aFilename;
-$2=_st(_st(self["@fs"])._statSync_(aFilename))._isDirectory();
-if(smalltalk.assert($2)){
+$1=_st(_st(self["@fs"])._statSync_(aFilename))._isDirectory();
+if(smalltalk.assert($1)){
 filename=_st(filename).__comma("index.html");
 $ctx1.sendIdx[","]=1;
-$1=filename;
+filename;
 };
 _st(self["@fs"])._readFile_do_(filename,(function(ex,file){
 return smalltalk.withContext(function($ctx2) {
-$3=_st(ex)._notNil();
-if(smalltalk.assert($3)){
-$4=console;
-$5=_st(filename).__comma(" does not exist");
+$2=_st(ex)._notNil();
+if(smalltalk.assert($2)){
+$3=console;
+$4=_st(filename).__comma(" does not exist");
 $ctx2.sendIdx[","]=2;
-_st($4)._log_($5);
+_st($3)._log_($4);
 return self._respondInternalErrorTo_(aResponse);
 } else {
 type=_st(self._class())._mimeTypeFor_(filename);
 type;
-$6=_st(type).__eq("application/javascript");
-if(smalltalk.assert($6)){
+$5=_st(type).__eq("application/javascript");
+if(smalltalk.assert($5)){
 type=_st(type).__comma(";charset=utf-8");
 type;
 };
-$7=aResponse;
-_st($7)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
-_st($7)._write_encoding_(file,"binary");
-$8=_st($7)._end();
-return $8;
+_st(aResponse)._writeHead_options_((200),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt(type)]));
+_st(aResponse)._write_encoding_(file,"binary");
+$6=_st(aResponse)._end();
+return $6;
 };
 }, function($ctx2) {$ctx2.fillBlock({ex:ex,file:file},$ctx1,2)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"respondFileNamed:to:",{aFilename:aFilename,aResponse:aResponse,type:type,filename:filename},smalltalk.FileServer)})},
@@ -784,11 +764,10 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aResponse;
-_st($1)._writeHead_options_((500),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
-_st($1)._write_("500 Internal server error");
-$2=_st($1)._end();
+var $1;
+_st(aResponse)._writeHead_options_((500),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
+_st(aResponse)._write_("500 Internal server error");
+$1=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondInternalErrorTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondInternalErrorTo: aResponse\x0a\x09aResponse \x0a\x09\x09writeHead: 500 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: '500 Internal server error';\x0a\x09\x09end",
@@ -804,11 +783,10 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=aResponse;
-_st($1)._writeHead_options_((400),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
-_st($1)._write_("File could not be created. Did you forget to create the st/js directories on the server?");
-$2=_st($1)._end();
+var $1;
+_st(aResponse)._writeHead_options_((400),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
+_st(aResponse)._write_("File could not be created. Did you forget to create the st/js directories on the server?");
+$1=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotCreatedTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondNotCreatedTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 400 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: 'File could not be created. Did you forget to create the st/js directories on the server?';\x0a\x09\x09end.",
@@ -824,19 +802,17 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$4,$3,$5,$6;
+var $2,$1,$3,$4;
 $2=self._fallbackPage();
 $ctx1.sendIdx["fallbackPage"]=1;
 $1=_st($2)._isNil();
 if(! smalltalk.assert($1)){
-$4=self._fallbackPage();
-$3=self._respondFileNamed_to_($4,aResponse);
+$3=self._respondFileNamed_to_(self._fallbackPage(),aResponse);
 return $3;
 };
-$5=aResponse;
-_st($5)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
-_st($5)._write_("404 Not found");
-$6=_st($5)._end();
+_st(aResponse)._writeHead_options_((404),smalltalk.HashedCollection._from_(["Content-Type".__minus_gt("text/plain")]));
+_st(aResponse)._write_("404 Not found");
+$4=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondNotFoundTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondNotFoundTo: aResponse\x0a\x09self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].\x0a\x09aResponse \x0a\x09\x09writeHead: 404 options: #{'Content-Type' -> 'text/plain'};\x0a\x09\x09write: '404 Not found';\x0a\x09\x09end",
@@ -852,15 +828,12 @@ category: 'request handling',
 fn: function (aResponse){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$4,$5,$3,$6;
-$1=aResponse;
-$2=$1;
-$4="Content-Type".__minus_gt("text/plain");
+var $2,$1,$3;
+$2="Content-Type".__minus_gt("text/plain");
 $ctx1.sendIdx["->"]=1;
-$5="Access-Control-Allow-Origin".__minus_gt("*");
-$3=smalltalk.HashedCollection._from_([$4,$5]);
-_st($2)._writeHead_options_((200),$3);
-$6=_st($1)._end();
+$1=smalltalk.HashedCollection._from_([$2,"Access-Control-Allow-Origin".__minus_gt("*")]);
+_st(aResponse)._writeHead_options_((200),$1);
+$3=_st(aResponse)._end();
 return self}, function($ctx1) {$ctx1.fill(self,"respondOKTo:",{aResponse:aResponse},smalltalk.FileServer)})},
 args: ["aResponse"],
 source: "respondOKTo: aResponse\x0a\x09aResponse\x0a\x09\x09writeHead: 200 options: #{'Content-Type' -> 'text/plain'. 'Access-Control-Allow-Origin' -> '*'};\x0a\x09\x09end.",
@@ -876,7 +849,7 @@ category: 'starting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5,$12,$13,$14,$11;
+var $1,$2,$3,$4,$8,$7,$6,$10,$9,$5,$11;
 self._checkDirectoryLayout();
 $1=_st(self["@http"])._createServer_((function(request,response){
 return smalltalk.withContext(function($ctx2) {
@@ -906,10 +879,7 @@ $5=_st($6).__comma($9);
 $ctx2.sendIdx[","]=2;
 return _st($4)._log_($5);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
-$12=$1;
-$13=self._port();
-$14=self._host();
-$11=_st($12)._listen_host_($13,$14);
+$11=_st($1)._listen_host_(self._port(),self._host());
 return self}, function($ctx1) {$ctx1.fill(self,"start",{},smalltalk.FileServer)})},
 args: [],
 source: "start\x0a\x09\x22Checks if required directory layout is present (issue warning if not).\x0a\x09 Afterwards start the server.\x22\x0a\x09self checkDirectoryLayout.\x0a\x09(http createServer: [:request :response |\x0a\x09      self handleRequest: request respondTo: response])\x0a\x09      on: 'error' do: [:error | console log: 'Error starting server: ', error];\x0a\x09      on: 'listening' do: [console log: 'Starting file server on http://', self host, ':', self port asString];\x0a\x09      listen: self port host: self host.",
@@ -977,7 +947,7 @@ fn: function (){
 var self=this;
 var switches;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3;
+var $1;
 switches=_st(self._methodsInProtocol_("accessing"))._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each)._selector();
@@ -989,13 +959,11 @@ return _st(each)._match_("^[^:]*:$");
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
 switches=_st(switches)._collect_((function(each){
 return smalltalk.withContext(function($ctx2) {
-$2=_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1");
-$1=_st($2)._asLowercase();
-return _st($1)._replace_with_("^([a-z])","--$1");
+return _st(_st(_st(_st(each)._allButLast())._replace_with_("([A-Z])","-$1"))._asLowercase())._replace_with_("^([a-z])","--$1");
 $ctx2.sendIdx["replace:with:"]=1;
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
-$3=switches;
-return $3;
+$1=switches;
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"commandLineSwitches",{switches:switches},smalltalk.FileServer.klass)})},
 args: [],
 source: "commandLineSwitches\x0a\x09\x22Collect all methodnames from the 'accessing' protocol\x0a\x09 and select the ones with only one parameter.\x0a\x09 Then remove the ':' at the end of the name\x0a\x09 and add a '--' at the beginning.\x0a\x09 Additionally all uppercase letters are made lowercase and preceded by a '-'.\x0a\x09 Example: fallbackPage: becomes --fallback-page.\x0a\x09 Return the Array containing the commandline switches.\x22\x0a\x09| switches |\x0a\x09switches := ((self methodsInProtocol: 'accessing') collect: [ :each | each selector]).\x0a\x09switches := switches select: [ :each | each match: '^[^:]*:$'].\x0a\x09switches :=switches collect: [ :each |\x0a\x09\x09(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].\x0a\x09^switches",
@@ -1013,7 +981,7 @@ var self=this;
 var server,popFront,front,optionName,optionValue,switches;
 function $Array(){return smalltalk.Array||(typeof Array=="undefined"?nil:Array)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13;
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11;
 var $early={};
 try {
 switches=self._commandLineSwitches();
@@ -1068,13 +1036,11 @@ $10=_st(optionName).__comma(" is not a valid commandline option");
 $ctx2.sendIdx[","]=3;
 _st($9)._log_($10);
 $ctx2.sendIdx["log:"]=4;
-$11=console;
-$12="Use any of the following ones: ".__comma(switches);
-return _st($11)._log_($12);
+return _st(console)._log_("Use any of the following ones: ".__comma(switches));
 };
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}));
-$13=server;
-return $13;
+$11=server;
+return $11;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"createServerWithArguments:",{options:options,server:server,popFront:popFront,front:front,optionName:optionName,optionValue:optionValue,switches:switches},smalltalk.FileServer.klass)})},
@@ -1108,7 +1074,7 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86,$87,$88,$89,$90,$91,$92,$93,$94,$95,$96,$97,$98,$99,$100,$101,$102,$103,$104,$105,$106,$107,$108,$109,$110,$111,$112,$113,$114,$115,$116,$117,$118,$119,$120,$121,$122,$123,$124,$125,$126,$127,$128,$129,$130,$131,$132,$133,$134,$135,$136,$137,$138,$139,$140,$141,$142,$143,$144,$145,$146,$147,$148,$149,$150,$151,$152,$153,$154,$155,$156,$157,$158,$159,$160,$161,$162,$163,$164,$165,$166,$167,$168,$169,$170,$171,$172,$173,$174,$175,$176,$177,$178,$179,$180,$181,$182,$183,$184,$185,$186,$187,$188,$189,$190,$191,$192,$193,$194,$195,$196,$197,$198,$199,$200,$201,$202,$203,$204,$205,$206,$207,$208,$209,$210,$211,$212,$213,$214,$215,$216,$217,$218,$219,$220,$221,$222,$223,$224,$225,$226,$227,$228,$229,$230,$231,$232,$233,$234,$235,$236,$237,$238,$239,$240,$241,$242,$243,$244,$245,$246,$247,$248,$249,$250,$251,$252,$253,$254,$255,$256,$257,$258,$259,$260,$261,$262,$263,$264,$265,$266,$267,$268,$269,$270,$271,$272,$273,$274,$275,$276,$277,$278,$279,$280,$281,$282,$283,$284,$285,$286,$287,$288,$289,$290,$291,$292,$293,$294,$295,$296,$297,$298,$299,$300,$301,$302,$303,$304,$305,$306,$307,$308,$309,$310,$311,$312,$313,$314,$315,$316,$317,$318,$319,$320,$321,$322,$323,$324,$325,$326,$327,$328,$329,$330,$331,$332,$333,$334,$335,$336,$337,$338,$339,$340,$341,$342,$343,$344,$345,$346,$347,$348,$349,$350,$351,$352,$353,$354,$355,$356,$357,$358,$359,$360,$361,$362,$363,$364,$365,$366,$367,$368,$369,$370,$371,$372,$373,$374,$375,$376,$377,$378,$379,$380,$381,$382,$383,$384,$385,$386,$387,$388,$389,$390,$391,$392,$393,$394,$395,$396,$397,$398,$399,$400,$401,$402,$403,$404,$405,$406,$407,$408,$409,$410,$1;
+var $2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86,$87,$88,$89,$90,$91,$92,$93,$94,$95,$96,$97,$98,$99,$100,$101,$102,$103,$104,$105,$106,$107,$108,$109,$110,$111,$112,$113,$114,$115,$116,$117,$118,$119,$120,$121,$122,$123,$124,$125,$126,$127,$128,$129,$130,$131,$132,$133,$134,$135,$136,$137,$138,$139,$140,$141,$142,$143,$144,$145,$146,$147,$148,$149,$150,$151,$152,$153,$154,$155,$156,$157,$158,$159,$160,$161,$162,$163,$164,$165,$166,$167,$168,$169,$170,$171,$172,$173,$174,$175,$176,$177,$178,$179,$180,$181,$182,$183,$184,$185,$186,$187,$188,$189,$190,$191,$192,$193,$194,$195,$196,$197,$198,$199,$200,$201,$202,$203,$204,$205,$206,$207,$208,$209,$210,$211,$212,$213,$214,$215,$216,$217,$218,$219,$220,$221,$222,$223,$224,$225,$226,$227,$228,$229,$230,$231,$232,$233,$234,$235,$236,$237,$238,$239,$240,$241,$242,$243,$244,$245,$246,$247,$248,$249,$250,$251,$252,$253,$254,$255,$256,$257,$258,$259,$260,$261,$262,$263,$264,$265,$266,$267,$268,$269,$270,$271,$272,$273,$274,$275,$276,$277,$278,$279,$280,$281,$282,$283,$284,$285,$286,$287,$288,$289,$290,$291,$292,$293,$294,$295,$296,$297,$298,$299,$300,$301,$302,$303,$304,$305,$306,$307,$308,$309,$310,$311,$312,$313,$314,$315,$316,$317,$318,$319,$320,$321,$322,$323,$324,$325,$326,$327,$328,$329,$330,$331,$332,$333,$334,$335,$336,$337,$338,$339,$340,$341,$342,$343,$344,$345,$346,$347,$348,$349,$350,$351,$352,$353,$354,$355,$356,$357,$358,$359,$360,$361,$362,$363,$364,$365,$366,$367,$368,$369,$370,$371,$372,$373,$374,$375,$376,$377,$378,$379,$380,$381,$382,$383,$384,$385,$386,$387,$388,$389,$390,$391,$392,$393,$394,$395,$396,$397,$398,$399,$400,$401,$402,$403,$404,$405,$406,$407,$408,$409,$1;
 $2="%".__minus_gt("application/x-trash");
 $ctx1.sendIdx["->"]=1;
 $3="323".__minus_gt("text/h323");
@@ -1925,8 +1891,7 @@ $408="zip".__minus_gt("application/zip");
 $ctx1.sendIdx["->"]=407;
 $409="zmt".__minus_gt("chemical/x-mopac-input");
 $ctx1.sendIdx["->"]=408;
-$410="~".__minus_gt("application/x-trash");
-$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86,$87,$88,$89,$90,$91,$92,$93,$94,$95,$96,$97,$98,$99,$100,$101,$102,$103,$104,$105,$106,$107,$108,$109,$110,$111,$112,$113,$114,$115,$116,$117,$118,$119,$120,$121,$122,$123,$124,$125,$126,$127,$128,$129,$130,$131,$132,$133,$134,$135,$136,$137,$138,$139,$140,$141,$142,$143,$144,$145,$146,$147,$148,$149,$150,$151,$152,$153,$154,$155,$156,$157,$158,$159,$160,$161,$162,$163,$164,$165,$166,$167,$168,$169,$170,$171,$172,$173,$174,$175,$176,$177,$178,$179,$180,$181,$182,$183,$184,$185,$186,$187,$188,$189,$190,$191,$192,$193,$194,$195,$196,$197,$198,$199,$200,$201,$202,$203,$204,$205,$206,$207,$208,$209,$210,$211,$212,$213,$214,$215,$216,$217,$218,$219,$220,$221,$222,$223,$224,$225,$226,$227,$228,$229,$230,$231,$232,$233,$234,$235,$236,$237,$238,$239,$240,$241,$242,$243,$244,$245,$246,$247,$248,$249,$250,$251,$252,$253,$254,$255,$256,$257,$258,$259,$260,$261,$262,$263,$264,$265,$266,$267,$268,$269,$270,$271,$272,$273,$274,$275,$276,$277,$278,$279,$280,$281,$282,$283,$284,$285,$286,$287,$288,$289,$290,$291,$292,$293,$294,$295,$296,$297,$298,$299,$300,$301,$302,$303,$304,$305,$306,$307,$308,$309,$310,$311,$312,$313,$314,$315,$316,$317,$318,$319,$320,$321,$322,$323,$324,$325,$326,$327,$328,$329,$330,$331,$332,$333,$334,$335,$336,$337,$338,$339,$340,$341,$342,$343,$344,$345,$346,$347,$348,$349,$350,$351,$352,$353,$354,$355,$356,$357,$358,$359,$360,$361,$362,$363,$364,$365,$366,$367,$368,$369,$370,$371,$372,$373,$374,$375,$376,$377,$378,$379,$380,$381,$382,$383,$384,$385,$386,$387,$388,$389,$390,$391,$392,$393,$394,$395,$396,$397,$398,$399,$400,$401,$402,$403,$404,$405,$406,$407,$408,$409,$410]);
+$1=smalltalk.HashedCollection._from_([$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86,$87,$88,$89,$90,$91,$92,$93,$94,$95,$96,$97,$98,$99,$100,$101,$102,$103,$104,$105,$106,$107,$108,$109,$110,$111,$112,$113,$114,$115,$116,$117,$118,$119,$120,$121,$122,$123,$124,$125,$126,$127,$128,$129,$130,$131,$132,$133,$134,$135,$136,$137,$138,$139,$140,$141,$142,$143,$144,$145,$146,$147,$148,$149,$150,$151,$152,$153,$154,$155,$156,$157,$158,$159,$160,$161,$162,$163,$164,$165,$166,$167,$168,$169,$170,$171,$172,$173,$174,$175,$176,$177,$178,$179,$180,$181,$182,$183,$184,$185,$186,$187,$188,$189,$190,$191,$192,$193,$194,$195,$196,$197,$198,$199,$200,$201,$202,$203,$204,$205,$206,$207,$208,$209,$210,$211,$212,$213,$214,$215,$216,$217,$218,$219,$220,$221,$222,$223,$224,$225,$226,$227,$228,$229,$230,$231,$232,$233,$234,$235,$236,$237,$238,$239,$240,$241,$242,$243,$244,$245,$246,$247,$248,$249,$250,$251,$252,$253,$254,$255,$256,$257,$258,$259,$260,$261,$262,$263,$264,$265,$266,$267,$268,$269,$270,$271,$272,$273,$274,$275,$276,$277,$278,$279,$280,$281,$282,$283,$284,$285,$286,$287,$288,$289,$290,$291,$292,$293,$294,$295,$296,$297,$298,$299,$300,$301,$302,$303,$304,$305,$306,$307,$308,$309,$310,$311,$312,$313,$314,$315,$316,$317,$318,$319,$320,$321,$322,$323,$324,$325,$326,$327,$328,$329,$330,$331,$332,$333,$334,$335,$336,$337,$338,$339,$340,$341,$342,$343,$344,$345,$346,$347,$348,$349,$350,$351,$352,$353,$354,$355,$356,$357,$358,$359,$360,$361,$362,$363,$364,$365,$366,$367,$368,$369,$370,$371,$372,$373,$374,$375,$376,$377,$378,$379,$380,$381,$382,$383,$384,$385,$386,$387,$388,$389,$390,$391,$392,$393,$394,$395,$396,$397,$398,$399,$400,$401,$402,$403,$404,$405,$406,$407,$408,$409,"~".__minus_gt("application/x-trash")]);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"defaultMimeTypes",{},smalltalk.FileServer.klass)})},
 args: [],
@@ -2041,10 +2006,9 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st(console)._log_("Available commandline options are:");
+_st(console)._log_("Available commandline options are:");
 $ctx1.sendIdx["log:"]=1;
-$2=_st(console)._log_("--help");
+_st(console)._log_("--help");
 $ctx1.sendIdx["log:"]=2;
 _st(self._commandLineSwitches())._do_((function(each){
 return smalltalk.withContext(function($ctx2) {
@@ -2065,9 +2029,8 @@ category: 'accessing',
 fn: function (aSwitch){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1;
-$3=_st(aSwitch)._replace_with_("^--","");
-$2=_st($3)._replace_with_("-[a-z]",(function(each){
+var $2,$1;
+$2=_st(_st(aSwitch)._replace_with_("^--",""))._replace_with_("-[a-z]",(function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(_st(each)._second())._asUppercase();
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
@@ -2117,31 +2080,29 @@ var self=this;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 function $ErrorHandler(){return smalltalk.ErrorHandler||(typeof ErrorHandler=="undefined"?nil:ErrorHandler)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$6,$5,$3,$1;
+var $3,$4,$2,$1;
 $1=self._parseAssignment_do_(buffer,(function(name,expr){
 var varName,value;
 return smalltalk.withContext(function($ctx2) {
-$2=name;
-if(($receiver = $2) == nil || $receiver == null){
+if(($receiver = name) == nil || $receiver == null){
 varName=self._nextResultName();
 } else {
-varName=$2;
+varName=name;
 };
 varName;
 self["@session"]=self._addVariableNamed_to_(varName,self["@session"]);
 self["@session"];
 _st((function(){
 return smalltalk.withContext(function($ctx3) {
-$4=_st(varName).__comma(" := ");
-$6=expr;
-if(($receiver = $6) == nil || $receiver == null){
-$5=buffer;
+$3=_st(varName).__comma(" := ");
+if(($receiver = expr) == nil || $receiver == null){
+$4=buffer;
 } else {
-$5=$6;
+$4=expr;
 };
-$3=_st($4).__comma($5);
+$2=_st($3).__comma($4);
 $ctx3.sendIdx[","]=1;
-value=self._eval_on_($3,self["@session"]);
+value=self._eval_on_($2,self["@session"]);
 return value;
 }, function($ctx3) {$ctx3.fillBlock({},$ctx2,3)})}))._on_do_($Error(),(function(e){
 return smalltalk.withContext(function($ctx3) {
@@ -2169,10 +2130,9 @@ var self=this;
 var esc,cls;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
+var $1;
 esc=_st($String())._fromCharCode_((27));
-$2=_st(esc).__comma("[2J");
-$1=_st($2).__comma(esc);
+$1=_st(_st(esc).__comma("[2J")).__comma(esc);
 $ctx1.sendIdx[","]=2;
 cls=_st($1).__comma("[0;0f");
 $ctx1.sendIdx[","]=1;
@@ -2227,20 +2187,20 @@ category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
+var $1;
 self["@interface"]=_st(self["@readline"])._createInterface_stdout_(_st(process)._stdin(),_st(process)._stdout());
-$1=_st(self["@interface"])._on_do_("line",(function(buffer){
+_st(self["@interface"])._on_do_("line",(function(buffer){
 return smalltalk.withContext(function($ctx2) {
 return self._processLine_(buffer);
 }, function($ctx2) {$ctx2.fillBlock({buffer:buffer},$ctx1,1)})}));
 $ctx1.sendIdx["on:do:"]=1;
-$2=_st(self["@interface"])._on_do_("close",(function(){
+_st(self["@interface"])._on_do_("close",(function(){
 return smalltalk.withContext(function($ctx2) {
 return self._close();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 self._printWelcome();
 self._setupHotkeys();
-$3=self._setPrompt();
+$1=self._setPrompt();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"createInterface",{},smalltalk.Repl)})},
 args: [],
@@ -2259,22 +2219,21 @@ var self=this;
 var compiler;
 function $Compiler(){return smalltalk.Compiler||(typeof Compiler=="undefined"?nil:Compiler)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1,$7,$9,$8,$6;
+var $1,$4,$3,$2,$5,$6;
 compiler=_st($Compiler())._new();
-$2=compiler;
-$5=_st(aString).__comma(": anObject ^ ");
+$1=compiler;
+$4=_st(aString).__comma(": anObject ^ ");
 $ctx1.sendIdx[","]=3;
-$4=_st($5).__comma(aString);
+$3=_st($4).__comma(aString);
 $ctx1.sendIdx[","]=2;
-$3=_st($4).__comma(" := anObject");
+$2=_st($3).__comma(" := anObject");
 $ctx1.sendIdx[","]=1;
-$1=_st($2)._install_forClass_category_($3,aClass,"session");
+_st($1)._install_forClass_category_($2,aClass,"session");
 $ctx1.sendIdx["install:forClass:category:"]=1;
-$7=compiler;
-$9=_st(aString).__comma(" ^ ");
-$8=_st($9).__comma(aString);
+$5=compiler;
+$6=_st(_st(aString).__comma(" ^ ")).__comma(aString);
 $ctx1.sendIdx[","]=4;
-$6=_st($7)._install_forClass_category_($8,aClass,"session");
+_st($5)._install_forClass_category_($6,aClass,"session");
 return self}, function($ctx1) {$ctx1.fill(self,"encapsulateVariable:withValue:in:",{aString:aString,anObject:anObject,aClass:aClass,compiler:compiler},smalltalk.Repl)})},
 args: ["aString", "anObject", "aClass"],
 source: "encapsulateVariable: aString withValue: anObject in: aClass\x0a\x09\x22Add getter and setter for given variable to session.\x22\x0a\x09| compiler |\x0a\x09compiler := Compiler new.\x0a\x09compiler install: aString, ': anObject ^ ', aString, ' := anObject' forClass: aClass category: 'session'.\x0a\x09compiler install: aString, ' ^ ', aString forClass: aClass category: 'session'.",
@@ -2396,7 +2355,7 @@ category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$5,$4,$1;
+var $2,$3,$1;
 $2=_st(aClass)._superclass();
 $ctx1.sendIdx["superclass"]=1;
 if(($receiver = $2) == nil || $receiver == null){
@@ -2404,9 +2363,7 @@ $1=_st(aClass)._instanceVariableNames();
 } else {
 $3=_st(aClass)._instanceVariableNames();
 $ctx1.sendIdx["instanceVariableNames"]=1;
-$5=_st(aClass)._superclass();
-$4=self._instanceVariableNamesFor_($5);
-$1=_st($3)._copyWithAll_($4);
+$1=_st($3)._copyWithAll_(self._instanceVariableNamesFor_(_st(aClass)._superclass()));
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"instanceVariableNamesFor:",{aClass:aClass},smalltalk.Repl)})},
@@ -2508,7 +2465,7 @@ fn: function (aString,aBlock){
 var self=this;
 var assignment;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$4,$5,$1;
+var $3,$2,$1;
 assignment=_st(_st(aString)._tokenize_(":="))._collect_((function(s){
 return smalltalk.withContext(function($ctx2) {
 return _st(s)._trimBoth();
@@ -2520,9 +2477,7 @@ $ctx2.sendIdx["first"]=1;
 return self._isIdentifier_($3);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
 if(smalltalk.assert($2)){
-$4=aBlock;
-$5=_st(assignment)._first();
-$1=_st($4)._value_value_($5,_st(assignment)._last());
+$1=_st(aBlock)._value_value_(_st(assignment)._first(),_st(assignment)._last());
 $ctx1.sendIdx["value:value:"]=1;
 } else {
 $1=_st(aBlock)._value_value_(nil,nil);
@@ -2544,18 +2499,15 @@ fn: function (varName,value){
 var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$6,$5,$4,$3,$7;
-$1=$Transcript();
-$2=$1;
-$6=_st(varName).__comma(": ");
-$5=_st($6).__comma(_st(_st(value)._class())._name());
+var $3,$2,$1,$4;
+$3=_st(_st(varName).__comma(": ")).__comma(_st(_st(value)._class())._name());
 $ctx1.sendIdx[","]=3;
-$4=_st($5).__comma(" = ");
+$2=_st($3).__comma(" = ");
 $ctx1.sendIdx[","]=2;
-$3=_st($4).__comma(_st(value)._asString());
+$1=_st($2).__comma(_st(value)._asString());
 $ctx1.sendIdx[","]=1;
-_st($2)._show_($3);
-$7=_st($1)._cr();
+_st($Transcript())._show_($1);
+$4=_st($Transcript())._cr();
 _st(self["@interface"])._prompt();
 return self}, function($ctx1) {$ctx1.fill(self,"presentResultNamed:withValue:",{varName:varName,value:value},smalltalk.Repl)})},
 args: ["varName", "value"],
@@ -2574,20 +2526,17 @@ var self=this;
 function $Transcript(){return smalltalk.Transcript||(typeof Transcript=="undefined"?nil:Transcript)}
 function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$6,$5,$4,$3,$1,$7,$8;
-$2=$Transcript();
-$6="Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version());
-$5=_st($6).__comma(" (NodeJS ");
+var $3,$2,$1,$4;
+$3=_st("Welcome to Amber version ".__comma(_st(_st($Smalltalk())._current())._version())).__comma(" (NodeJS ");
 $ctx1.sendIdx[","]=3;
-$4=_st($5).__comma(_st(_st(process)._versions())._node());
+$2=_st($3).__comma(_st(_st(process)._versions())._node());
 $ctx1.sendIdx[","]=2;
-$3=_st($4).__comma(").");
+$1=_st($2).__comma(").");
 $ctx1.sendIdx[","]=1;
-$1=_st($2)._show_($3);
+_st($Transcript())._show_($1);
 $ctx1.sendIdx["show:"]=1;
-$7=$Transcript();
-_st($7)._show_("Type :q to exit.");
-$8=_st($7)._cr();
+_st($Transcript())._show_("Type :q to exit.");
+$4=_st($Transcript())._cr();
 return self}, function($ctx1) {$ctx1.fill(self,"printWelcome",{},smalltalk.Repl)})},
 args: [],
 source: "printWelcome\x0a\x09Transcript show: 'Welcome to Amber version ', Smalltalk current version, ' (NodeJS ', process versions node, ').'.\x0a\x09Transcript show: 'Type :q to exit.'; cr.",
@@ -2685,19 +2634,17 @@ fn: function (){
 var self=this;
 function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$2;
-$1=$Dictionary();
-$3=_st([":q"]).__minus_gt((function(){
+var $2,$1;
+$2=_st([":q"]).__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(process)._exit();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 $ctx1.sendIdx["->"]=1;
-$4=_st([""]).__minus_gt((function(){
+$1=[$2,_st([""]).__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return _st(self["@interface"])._prompt();
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
-$2=[$3,$4];
-self["@commands"]=_st($1)._from_($2);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))];
+self["@commands"]=_st($Dictionary())._from_($1);
 return self}, function($ctx1) {$ctx1.fill(self,"setupCommands",{},smalltalk.Repl)})},
 args: [],
 source: "setupCommands\x0a\x09commands := Dictionary from: {\x0a\x09\x09{':q'} -> [process exit].\x0a\x09\x09{''} -> [interface prompt]}",
@@ -2713,12 +2660,10 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
 _st(_st(process)._stdin())._on_do_("keypress",(function(s,key){
 return smalltalk.withContext(function($ctx2) {
-$1=key;
-if(($receiver = $1) == nil || $receiver == null){
-return $1;
+if(($receiver = key) == nil || $receiver == null){
+return key;
 } else {
 return self._onKeyPress_(key);
 };
@@ -2757,14 +2702,13 @@ category: 'private',
 fn: function (aClass){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$7,$6,$5,$4,$8,$9,$1;
+var $3,$2,$7,$6,$5,$4,$8,$1;
 $3=_st(aClass)._name();
 $ctx1.sendIdx["name"]=1;
 $2=_st($3)._matchesOf_("\x5cd+$");
 $ctx1.sendIdx["matchesOf:"]=1;
 if(($receiver = $2) == nil || $receiver == null){
-$9=_st(aClass)._name();
-$1=_st($9).__comma("2");
+$1=_st(_st(aClass)._name()).__comma("2");
 } else {
 var counter;
 $7=_st(aClass)._name();
