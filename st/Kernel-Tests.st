@@ -434,6 +434,10 @@ testIsEmpty
 	self deny: self collection isEmpty
 !
 
+testRemoveAll
+	self assert: (self collection removeAll; yourself) equals: self collectionClass new
+!
+
 testSelect
 	| newCollection |
 	newCollection := #(2 -4).
@@ -1055,6 +1059,10 @@ testIsVowel
 
 testJoin
 	self assert: (',' join: #('hello' 'world')) equals: 'hello,world'
+!
+
+testRemoveAll
+	self should: [ self collection removeAll ] raise: Error
 !
 
 testReversed

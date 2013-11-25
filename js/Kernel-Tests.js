@@ -1443,6 +1443,26 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testRemoveAll",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self._collection();
+_st($1)._removeAll();
+$2=_st($1)._yourself();
+self._assert_equals_($2,_st(self._collectionClass())._new());
+return self}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},smalltalk.CollectionTest)})},
+args: [],
+source: "testRemoveAll\x0a\x09self assert: (self collection removeAll; yourself) equals: self collectionClass new",
+messageSends: ["assert:equals:", "removeAll", "collection", "yourself", "new", "collectionClass"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testSelect",
 category: 'tests',
 fn: function (){
@@ -3465,6 +3485,26 @@ args: [],
 source: "testJoin\x0a\x09self assert: (',' join: #('hello' 'world')) equals: 'hello,world'",
 messageSends: ["assert:equals:", "join:"],
 referencedClasses: []
+}),
+smalltalk.StringTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testRemoveAll",
+category: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._collection())._removeAll();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+return self}, function($ctx1) {$ctx1.fill(self,"testRemoveAll",{},smalltalk.StringTest)})},
+args: [],
+source: "testRemoveAll\x0a\x09self should: [ self collection removeAll ] raise: Error",
+messageSends: ["should:raise:", "removeAll", "collection"],
+referencedClasses: ["Error"]
 }),
 smalltalk.StringTest);
 

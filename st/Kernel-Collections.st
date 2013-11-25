@@ -91,6 +91,10 @@ remove: anObject
 
 remove: anObject ifAbsent: aBlock
 	self subclassResponsibility
+!
+
+removeAll
+	self subclassResponsibility
 ! !
 
 !Collection methodsFor: 'converting'!
@@ -434,16 +438,7 @@ keyAtValue: anObject ifAbsent: aBlock
 !
 
 keys
-	<
-		if ('function'===typeof Object.keys) return Object.keys(self);
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	>
+	<return Object.keys(self)>
 !
 
 size
@@ -471,6 +466,10 @@ addAll: aHashedCollection
 
 remove: aKey ifAbsent: aBlock
 	^ self removeKey: aKey ifAbsent: aBlock
+!
+
+removeAll
+	^ self keys do: [ :each | self removeKey: each ]
 !
 
 removeKey: aKey
@@ -677,6 +676,11 @@ values
 ! !
 
 !Dictionary methodsFor: 'adding/removing'!
+
+removeAll
+	keys removeAll.
+	values removeAll
+!
 
 removeKey: aKey ifAbsent: aBlock
 	<
@@ -994,6 +998,10 @@ remove: anObject ifAbsent: aBlock
 	>
 !
 
+removeAll
+	<self.length = 0>
+!
+
 removeFrom: aNumber to: anotherNumber
 	<self.splice(aNumber -1, anotherNumber - aNumber + 1)>
 !
@@ -1214,20 +1222,12 @@ charCodeAt: anInteger
 	< return self.charCodeAt(anInteger - 1) >
 !
 
-escaped
-	<return escape(self)>
-!
-
 identityHash
 	^ self, 's'
 !
 
 size
 	<return self.length>
-!
-
-unescaped
-	<return unescape(self)>
 ! !
 
 !String methodsFor: 'comparing'!
@@ -1323,8 +1323,32 @@ crlfSanitized
 	^ self lines join: String lf
 !
 
+escaped
+	<return escape(self)>
+!
+
 reversed
 	<return self.split("").reverse().join("")>
+!
+
+unescaped
+	<return unescape(self)>
+!
+
+uriComponentDecoded
+	<return decodeURIComponent(self)>
+!
+
+uriComponentEncoded
+	<return encodeURIComponent(self)>
+!
+
+uriDecoded
+	<return decodeURI(self)>
+!
+
+uriEncoded
+	<return encodeURI(self)>
 ! !
 
 !String methodsFor: 'copying'!

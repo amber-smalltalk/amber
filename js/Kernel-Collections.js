@@ -766,6 +766,22 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Collection)})},
+args: [],
+source: "removeAll\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "select:",
 category: 'enumerating',
 fn: function (aBlock){
@@ -1565,19 +1581,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		if ('function'===typeof Object.keys) return Object.keys(self);
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	;
+return Object.keys(self);
 return self}, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.HashedCollection)})},
 args: [],
-source: "keys\x0a\x09<\x0a\x09\x09if ('function'===typeof Object.keys) return Object.keys(self);\x0a\x09\x09var keys = [];\x0a\x09\x09for(var i in self) {\x0a\x09\x09\x09if(self.hasOwnProperty(i)) {\x0a\x09\x09\x09\x09keys.push(i);\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09return keys;\x0a\x09>",
+source: "keys\x0a\x09<return Object.keys(self)>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1660,6 +1667,27 @@ return $1;
 args: ["aKey", "aBlock"],
 source: "remove: aKey ifAbsent: aBlock\x0a\x09^ self removeKey: aKey ifAbsent: aBlock",
 messageSends: ["removeKey:ifAbsent:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._keys())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._removeKey_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.HashedCollection)})},
+args: [],
+source: "removeAll\x0a\x09^ self keys do: [ :each | self removeKey: each ]",
+messageSends: ["do:", "keys", "removeKey:"],
 referencedClasses: []
 }),
 smalltalk.HashedCollection);
@@ -2126,6 +2154,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"positionOfKey:",{anObject:anObje
 args: ["anObject"],
 source: "positionOfKey: anObject\x0a\x09<\x0a\x09\x09var keys = self['@keys'];\x0a\x09\x09for(var i=0;i<keys.length;i++){\x0a\x09\x09\x09if(keys[i].__eq(anObject)) { return i;}\x0a\x09\x09}\x0a\x09\x09return -1;\x0a\x09>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@keys"])._removeAll();
+$ctx1.sendIdx["removeAll"]=1;
+_st(self["@values"])._removeAll();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Dictionary)})},
+args: [],
+source: "removeAll\x0a\x09keys removeAll.\x0a\x09values removeAll",
+messageSends: ["removeAll"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -2995,6 +3041,22 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Array)})},
 args: ["anObject", "aBlock"],
 source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.length = 0;
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Array)})},
+args: [],
+source: "removeAll\x0a\x09<self.length = 0>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -3976,7 +4038,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "escaped",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4609,7 +4671,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unescaped",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4617,6 +4679,70 @@ return unescape(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unescaped",{},smalltalk.String)})},
 args: [],
 source: "unescaped\x0a\x09<return unescape(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriComponentDecoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return decodeURIComponent(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentDecoded",{},smalltalk.String)})},
+args: [],
+source: "uriComponentDecoded\x0a\x09<return decodeURIComponent(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriComponentEncoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return encodeURIComponent(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentEncoded",{},smalltalk.String)})},
+args: [],
+source: "uriComponentEncoded\x0a\x09<return encodeURIComponent(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriDecoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return decodeURI(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriDecoded",{},smalltalk.String)})},
+args: [],
+source: "uriDecoded\x0a\x09<return decodeURI(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriEncoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return encodeURI(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriEncoded",{},smalltalk.String)})},
+args: [],
+source: "uriEncoded\x0a\x09<return encodeURI(self)>",
 messageSends: [],
 referencedClasses: []
 }),
