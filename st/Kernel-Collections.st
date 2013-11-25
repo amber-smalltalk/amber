@@ -91,6 +91,10 @@ remove: anObject
 
 remove: anObject ifAbsent: aBlock
 	self subclassResponsibility
+!
+
+removeAll
+	self subclassResponsibility
 ! !
 
 !Collection methodsFor: 'converting'!
@@ -473,6 +477,10 @@ remove: aKey ifAbsent: aBlock
 	^ self removeKey: aKey ifAbsent: aBlock
 !
 
+removeAll
+	^ self keys do: [ :each | self removeKey: each ]
+!
+
 removeKey: aKey
 	^ self remove: aKey
 !
@@ -677,6 +685,11 @@ values
 ! !
 
 !Dictionary methodsFor: 'adding/removing'!
+
+removeAll
+	keys removeAll.
+	values removeAll
+!
 
 removeKey: aKey ifAbsent: aBlock
 	<
@@ -992,6 +1005,10 @@ remove: anObject ifAbsent: aBlock
 		};
 		aBlock._value();
 	>
+!
+
+removeAll
+	<self.length = 0>
 !
 
 removeFrom: aNumber to: anotherNumber

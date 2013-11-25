@@ -766,6 +766,22 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Collection)})},
+args: [],
+source: "removeAll\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "select:",
 category: 'enumerating',
 fn: function (aBlock){
@@ -1666,6 +1682,27 @@ smalltalk.HashedCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._keys())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return self._removeKey_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.HashedCollection)})},
+args: [],
+source: "removeAll\x0a\x09^ self keys do: [ :each | self removeKey: each ]",
+messageSends: ["do:", "keys", "removeKey:"],
+referencedClasses: []
+}),
+smalltalk.HashedCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "removeKey:",
 category: 'adding/removing',
 fn: function (aKey){
@@ -2126,6 +2163,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"positionOfKey:",{anObject:anObje
 args: ["anObject"],
 source: "positionOfKey: anObject\x0a\x09<\x0a\x09\x09var keys = self['@keys'];\x0a\x09\x09for(var i=0;i<keys.length;i++){\x0a\x09\x09\x09if(keys[i].__eq(anObject)) { return i;}\x0a\x09\x09}\x0a\x09\x09return -1;\x0a\x09>",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Dictionary);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self["@keys"])._removeAll();
+$ctx1.sendIdx["removeAll"]=1;
+_st(self["@values"])._removeAll();
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Dictionary)})},
+args: [],
+source: "removeAll\x0a\x09keys removeAll.\x0a\x09values removeAll",
+messageSends: ["removeAll"],
 referencedClasses: []
 }),
 smalltalk.Dictionary);
@@ -2995,6 +3050,22 @@ return smalltalk.withContext(function($ctx1) {
 return self}, function($ctx1) {$ctx1.fill(self,"remove:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.Array)})},
 args: ["anObject", "aBlock"],
 source: "remove: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(_st(self[i]).__eq(anObject)) {\x0a\x09\x09\x09\x09self.splice(i,1);\x0a\x09\x09\x09\x09return self;\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09aBlock._value();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeAll",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self.length = 0;
+return self}, function($ctx1) {$ctx1.fill(self,"removeAll",{},smalltalk.Array)})},
+args: [],
+source: "removeAll\x0a\x09<self.length = 0>",
 messageSends: [],
 referencedClasses: []
 }),
