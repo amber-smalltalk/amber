@@ -4047,7 +4047,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "escaped",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4680,7 +4680,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "unescaped",
-category: 'accessing',
+category: 'converting',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4688,6 +4688,70 @@ return unescape(self);
 return self}, function($ctx1) {$ctx1.fill(self,"unescaped",{},smalltalk.String)})},
 args: [],
 source: "unescaped\x0a\x09<return unescape(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriComponentDecoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return decodeURIComponent(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentDecoded",{},smalltalk.String)})},
+args: [],
+source: "uriComponentDecoded\x0a\x09<return decodeURIComponent(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriComponentEncoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return encodeURIComponent(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriComponentEncoded",{},smalltalk.String)})},
+args: [],
+source: "uriComponentEncoded\x0a\x09<return encodeURIComponent(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriDecoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return decodeURI(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriDecoded",{},smalltalk.String)})},
+args: [],
+source: "uriDecoded\x0a\x09<return decodeURI(self)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "uriEncoded",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return encodeURI(self);
+return self}, function($ctx1) {$ctx1.fill(self,"uriEncoded",{},smalltalk.String)})},
+args: [],
+source: "uriEncoded\x0a\x09<return encodeURI(self)>",
 messageSends: [],
 referencedClasses: []
 }),

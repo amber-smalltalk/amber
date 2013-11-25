@@ -1231,20 +1231,12 @@ charCodeAt: anInteger
 	< return self.charCodeAt(anInteger - 1) >
 !
 
-escaped
-	<return escape(self)>
-!
-
 identityHash
 	^ self, 's'
 !
 
 size
 	<return self.length>
-!
-
-unescaped
-	<return unescape(self)>
 ! !
 
 !String methodsFor: 'comparing'!
@@ -1340,8 +1332,32 @@ crlfSanitized
 	^ self lines join: String lf
 !
 
+escaped
+	<return escape(self)>
+!
+
 reversed
 	<return self.split("").reverse().join("")>
+!
+
+unescaped
+	<return unescape(self)>
+!
+
+uriComponentDecoded
+	<return decodeURIComponent(self)>
+!
+
+uriComponentEncoded
+	<return encodeURIComponent(self)>
+!
+
+uriDecoded
+	<return decodeURI(self)>
+!
+
+uriEncoded
+	<return encodeURI(self)>
 ! !
 
 !String methodsFor: 'copying'!
