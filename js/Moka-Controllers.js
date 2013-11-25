@@ -1,8 +1,8 @@
-define("amber_core/Moka-Controllers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Moka-Core"], function(smalltalk,nil,_st){
+define("amber_core/Moka-Controllers", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Moka-Core", "amber_core/Kernel-Objects"], function(smalltalk,nil,_st){
 smalltalk.addPackage('Moka-Controllers');
 smalltalk.packages["Moka-Controllers"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('MKAnyKeyInputController', smalltalk.MKAspectController, ['lastValue'], 'Moka-Controllers');
+smalltalk.addClass('MKAnyKeyInputController', smalltalk.MKSingleAspectController, ['lastValue'], 'Moka-Controllers');
 smalltalk.MKAnyKeyInputController.comment="I am the default controller for `MKTextAreaView`. Actions are performed on any key press if the view's value changes.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -24,9 +24,25 @@ smalltalk.MKAnyKeyInputController);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onKeyPressed:",
+selector: "onKeyUp:",
 category: 'actions',
 fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._setNewValue();
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{anEvent:anEvent},smalltalk.MKAnyKeyInputController)})},
+args: ["anEvent"],
+source: "onKeyUp: anEvent\x0a\x09self setNewValue",
+messageSends: ["setNewValue"],
+referencedClasses: []
+}),
+smalltalk.MKAnyKeyInputController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setNewValue",
+category: 'actions',
+fn: function (){
 var self=this;
 var newValue;
 return smalltalk.withContext(function($ctx1) { 
@@ -37,11 +53,11 @@ if(smalltalk.assert($1)){
 return self;
 };
 self["@lastValue"]=newValue;
-self._performActionWith_(newValue);
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyPressed:",{anEvent:anEvent,newValue:newValue},smalltalk.MKAnyKeyInputController)})},
-args: ["anEvent"],
-source: "onKeyPressed: anEvent\x0a\x09| newValue |\x0a\x09\x0a\x09newValue := self inputText.\x0a\x09newValue = lastValue ifTrue: [ ^ self ].\x0a\x09\x0a\x09lastValue := newValue.\x0a\x09self performActionWith: newValue",
-messageSends: ["inputText", "ifTrue:", "=", "performActionWith:"],
+self._performAspectActionWith_(newValue);
+return self}, function($ctx1) {$ctx1.fill(self,"setNewValue",{newValue:newValue},smalltalk.MKAnyKeyInputController)})},
+args: [],
+source: "setNewValue\x0a\x09| newValue |\x0a\x09\x0a\x09newValue := self inputText.\x0a\x09newValue = lastValue ifTrue: [ ^ self ].\x0a\x09\x0a\x09lastValue := newValue.\x0a\x09self performAspectActionWith: newValue",
+messageSends: ["inputText", "ifTrue:", "=", "performAspectActionWith:"],
 referencedClasses: []
 }),
 smalltalk.MKAnyKeyInputController);
@@ -52,7 +68,7 @@ smalltalk.addClass('MKEnterInputController', smalltalk.MKAnyKeyInputController, 
 smalltalk.MKEnterInputController.comment="I am the default controller for `MKInputView`. \x0aActions are performed on 'enter' key press.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onKeyPressed:",
+selector: "onKeyDown:",
 category: 'actions',
 fn: function (anEvent){
 var self=this;
@@ -61,55 +77,737 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
 if(smalltalk.assert($1)){
-smalltalk.MKEnterInputController.superclass.fn.prototype._onKeyPressed_.apply(_st(self), [anEvent]);
+self._setNewValue();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyPressed:",{anEvent:anEvent},smalltalk.MKEnterInputController)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKEnterInputController)})},
 args: ["anEvent"],
-source: "onKeyPressed: anEvent\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09super onKeyPressed: anEvent ]",
-messageSends: ["ifTrue:", "=", "keyCode", "asciiValue", "cr", "onKeyPressed:"],
+source: "onKeyDown: anEvent\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self setNewValue ]",
+messageSends: ["ifTrue:", "=", "keyCode", "asciiValue", "cr", "setNewValue"],
 referencedClasses: ["String"]
+}),
+smalltalk.MKEnterInputController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyUp:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{anEvent:anEvent},smalltalk.MKEnterInputController)})},
+args: ["anEvent"],
+source: "onKeyUp: anEvent",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.MKEnterInputController);
 
 
 
-smalltalk.addClass('MKButtonController', smalltalk.MKAspectController, [], 'Moka-Controllers');
+smalltalk.addClass('MKButtonController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
 smalltalk.MKButtonController.comment="I am the default controller for `MKButtonView`.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onPressed",
+selector: "onClick:",
 category: 'actions',
-fn: function (){
+fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._performAction();
-return self}, function($ctx1) {$ctx1.fill(self,"onPressed",{},smalltalk.MKButtonController)})},
-args: [],
-source: "onPressed\x0a\x09self performAction",
-messageSends: ["performAction"],
+self._performAspectAction();
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKButtonController)})},
+args: ["anEvent"],
+source: "onClick: anEvent\x0a\x09self performAspectAction",
+messageSends: ["performAspectAction"],
 referencedClasses: []
 }),
 smalltalk.MKButtonController);
 
 
 
-smalltalk.addClass('MKCheckboxController', smalltalk.MKAspectController, [], 'Moka-Controllers');
+smalltalk.addClass('MKCheckboxController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
 smalltalk.MKCheckboxController.comment="I am the default controller for `MKCheckboxView`.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onToggled:",
+selector: "onClick:",
 category: 'actions',
-fn: function (aBoolean){
+fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._performActionWith_(aBoolean);
-return self}, function($ctx1) {$ctx1.fill(self,"onToggled:",{aBoolean:aBoolean},smalltalk.MKCheckboxController)})},
-args: ["aBoolean"],
-source: "onToggled: aBoolean\x0a\x09self performActionWith: aBoolean",
-messageSends: ["performActionWith:"],
+self._toggle();
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKCheckboxController)})},
+args: ["anEvent"],
+source: "onClick: anEvent\x0a\x09self toggle",
+messageSends: ["toggle"],
 referencedClasses: []
 }),
 smalltalk.MKCheckboxController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyDown:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(anEvent)._stopPropagation();
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKCheckboxController)})},
+args: ["anEvent"],
+source: "onKeyDown: anEvent\x0a\x09\x22Avoid scrolling in scrollable views\x22\x0a\x09\x0a\x09anEvent stopPropagation",
+messageSends: ["stopPropagation"],
+referencedClasses: []
+}),
+smalltalk.MKCheckboxController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyPress:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st(_st(anEvent)._charCode()).__eq(" "._asciiValue());
+if(smalltalk.assert($1)){
+self._toggle();
+_st(anEvent)._stopPropagation();
+$2=_st(anEvent)._preventDefault();
+$2;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{anEvent:anEvent},smalltalk.MKCheckboxController)})},
+args: ["anEvent"],
+source: "onKeyPress: anEvent\x0a\x09anEvent charCode = ' ' asciiValue ifTrue: [ \x0a\x09\x09self toggle.\x0a\x09\x09anEvent stopPropagation; preventDefault ]",
+messageSends: ["ifTrue:", "=", "charCode", "asciiValue", "toggle", "stopPropagation", "preventDefault"],
+referencedClasses: []
+}),
+smalltalk.MKCheckboxController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "toggle",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._performAspectActionWith_(_st(_st(self._view())._checked())._not());
+return self}, function($ctx1) {$ctx1.fill(self,"toggle",{},smalltalk.MKCheckboxController)})},
+args: [],
+source: "toggle\x0a\x09self performAspectActionWith: self view checked not",
+messageSends: ["performAspectActionWith:", "not", "checked", "view"],
+referencedClasses: []
+}),
+smalltalk.MKCheckboxController);
+
+
+
+smalltalk.addClass('MKDropdownController', smalltalk.MKAspectsController, [], 'Moka-Controllers');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClick:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._view())._popupList();
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKDropdownController)})},
+args: ["anEvent"],
+source: "onClick: anEvent\x0a\x09self view popupList",
+messageSends: ["popupList", "view"],
+referencedClasses: []
+}),
+smalltalk.MKDropdownController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyDown:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
+if(smalltalk.assert($1)){
+_st(self._view())._popupList();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKDropdownController)})},
+args: ["anEvent"],
+source: "onKeyDown: anEvent\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self view popupList ]",
+messageSends: ["ifTrue:", "=", "keyCode", "asciiValue", "cr", "popupList", "view"],
+referencedClasses: ["String"]
+}),
+smalltalk.MKDropdownController);
+
+
+
+smalltalk.addClass('MKListController', smalltalk.MKAspectsController, ['downRepeater', 'upRepeater'], 'Moka-Controllers');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activateItem:",
+category: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._selectItem_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"activateItem:",{anItem:anItem},smalltalk.MKListController)})},
+args: ["anItem"],
+source: "activateItem: anItem\x0a\x09\x22On item activation, change the model selection\x22\x0a\x09\x0a\x09self selectItem: anItem",
+messageSends: ["selectItem:"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activeItem",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._view())._activeItem();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"activeItem",{},smalltalk.MKListController)})},
+args: [],
+source: "activeItem\x0a\x09^ self view activeItem",
+messageSends: ["activeItem", "view"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "collection",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._view())._collection();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"collection",{},smalltalk.MKListController)})},
+args: [],
+source: "collection\x0a\x09^ self view collection",
+messageSends: ["collection", "view"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "downRepeater",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $MKRepeater(){return smalltalk.MKRepeater||(typeof MKRepeater=="undefined"?nil:MKRepeater)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@downRepeater"];
+if(($receiver = $2) == nil || $receiver == null){
+self["@downRepeater"]=_st($MKRepeater())._new();
+$1=self["@downRepeater"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"downRepeater",{},smalltalk.MKListController)})},
+args: [],
+source: "downRepeater\x0a\x09^ downRepeater ifNil: [ downRepeater := MKRepeater new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["MKRepeater"]
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "itemForTarget:",
+category: 'private',
+fn: function (aDOMElement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._view())._findItemFor_(aDOMElement);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"itemForTarget:",{aDOMElement:aDOMElement},smalltalk.MKListController)})},
+args: ["aDOMElement"],
+source: "itemForTarget: aDOMElement\x0a\x09^ self view findItemFor: aDOMElement",
+messageSends: ["findItemFor:", "view"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "nextItem",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$5,$4,$3,$1;
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$5=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$4=_st($5)._indexOf_(self._activeItem());
+$3=_st($4).__plus((1));
+$1=_st($2)._at_ifAbsent_($3,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._collection())._last();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"nextItem",{},smalltalk.MKListController)})},
+args: [],
+source: "nextItem\x0a\x09^ self collection \x0a\x09\x09at: (self collection indexOf: self activeItem) + 1\x0a\x09\x09ifAbsent: [ self collection last ]",
+messageSends: ["at:ifAbsent:", "collection", "+", "indexOf:", "activeItem", "last"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClick:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._selectItem_(self._itemForTarget_(_st(anEvent)._target()));
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKListController)})},
+args: ["anEvent"],
+source: "onClick: anEvent\x0a\x09self selectItem: (self itemForTarget: anEvent target)",
+messageSends: ["selectItem:", "itemForTarget:", "target"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyDown:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$4,$5,$6,$7;
+$2=_st(anEvent)._keyCode();
+$ctx1.sendIdx["keyCode"]=1;
+$1=_st($2).__eq((40));
+$ctx1.sendIdx["="]=1;
+if(smalltalk.assert($1)){
+_st(anEvent)._preventDefault();
+$ctx1.sendIdx["preventDefault"]=1;
+$3=_st(anEvent)._stopPropagation();
+$ctx1.sendIdx["stopPropagation"]=1;
+$3;
+$4=self._upRepeater();
+$ctx1.sendIdx["upRepeater"]=1;
+_st($4)._stopRepeating();
+$ctx1.sendIdx["stopRepeating"]=1;
+$5=self._downRepeater();
+$ctx1.sendIdx["downRepeater"]=1;
+_st($5)._repeat_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._activateItem_(self._nextItem());
+$ctx2.sendIdx["activateItem:"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["repeat:"]=1;
+};
+$6=_st(_st(anEvent)._keyCode()).__eq((38));
+if(smalltalk.assert($6)){
+_st(anEvent)._preventDefault();
+$7=_st(anEvent)._stopPropagation();
+$7;
+_st(self._downRepeater())._stopRepeating();
+_st(self._upRepeater())._repeat_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._activateItem_(self._previousItem());
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKListController)})},
+args: ["anEvent"],
+source: "onKeyDown: anEvent\x0a\x09\x22Down\x22\x0a\x09anEvent keyCode = 40 ifTrue: [ \x0a\x09\x09anEvent preventDefault; stopPropagation.\x0a\x09\x09self upRepeater stopRepeating.\x0a\x09\x09self downRepeater repeat: [ \x0a\x09\x09\x09self activateItem: self nextItem ] ].\x0a\x09\x22Up\x22\x0a\x09anEvent keyCode = 38 ifTrue: [ \x0a\x09\x09anEvent preventDefault; stopPropagation.\x0a\x09\x09self downRepeater stopRepeating.\x0a\x09\x09self upRepeater repeat: [ \x0a\x09\x09\x09self activateItem: self previousItem ] ].",
+messageSends: ["ifTrue:", "=", "keyCode", "preventDefault", "stopPropagation", "stopRepeating", "upRepeater", "repeat:", "downRepeater", "activateItem:", "nextItem", "previousItem"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyUp:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._downRepeater())._stopRepeating();
+$ctx1.sendIdx["stopRepeating"]=1;
+_st(self._upRepeater())._stopRepeating();
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{anEvent:anEvent},smalltalk.MKListController)})},
+args: ["anEvent"],
+source: "onKeyUp: anEvent\x0a\x09self downRepeater stopRepeating.\x0a\x09self upRepeater stopRepeating",
+messageSends: ["stopRepeating", "downRepeater", "upRepeater"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "previousItem",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$7,$6,$5,$4,$1;
+$3=self._view();
+$ctx1.sendIdx["view"]=1;
+$2=_st($3)._collection();
+$ctx1.sendIdx["collection"]=1;
+$7=self._view();
+$ctx1.sendIdx["view"]=2;
+$6=_st($7)._collection();
+$ctx1.sendIdx["collection"]=2;
+$5=_st($6)._indexOf_(self._activeItem());
+$4=_st($5).__minus((1));
+$1=_st($2)._at_ifAbsent_($4,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self._view())._collection())._first();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"previousItem",{},smalltalk.MKListController)})},
+args: [],
+source: "previousItem\x0a\x09^ self view collection \x0a\x09\x09at: (self view collection indexOf: self activeItem) - 1\x0a\x09\x09ifAbsent: [ self view collection first ]",
+messageSends: ["at:ifAbsent:", "collection", "view", "-", "indexOf:", "activeItem", "first"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "selectItem:",
+category: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._performAspectAction_with_(_st(self._view())._selectionAspect(),anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"selectItem:",{anItem:anItem},smalltalk.MKListController)})},
+args: ["anItem"],
+source: "selectItem: anItem\x0a\x09self \x0a\x09\x09performAspectAction: self view selectionAspect \x0a\x09\x09with: anItem",
+messageSends: ["performAspectAction:with:", "selectionAspect", "view"],
+referencedClasses: []
+}),
+smalltalk.MKListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "upRepeater",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $MKRepeater(){return smalltalk.MKRepeater||(typeof MKRepeater=="undefined"?nil:MKRepeater)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@upRepeater"];
+if(($receiver = $2) == nil || $receiver == null){
+self["@upRepeater"]=_st($MKRepeater())._new();
+$1=self["@upRepeater"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"upRepeater",{},smalltalk.MKListController)})},
+args: [],
+source: "upRepeater\x0a\x09^ upRepeater ifNil: [ upRepeater := MKRepeater new ]",
+messageSends: ["ifNil:", "new"],
+referencedClasses: ["MKRepeater"]
+}),
+smalltalk.MKListController);
+
+
+
+smalltalk.addClass('MKDropdownListController', smalltalk.MKListController, [], 'Moka-Controllers');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "activateItem:",
+category: 'actions',
+fn: function (anItem){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._view())._activateItem_(anItem);
+return self}, function($ctx1) {$ctx1.fill(self,"activateItem:",{anItem:anItem},smalltalk.MKDropdownListController)})},
+args: ["anItem"],
+source: "activateItem: anItem\x0a\x09\x22Select the list item in the view.\x0a\x09No change is done to the model\x22\x0a\x09\x0a\x09self view activateItem: anItem",
+messageSends: ["activateItem:", "view"],
+referencedClasses: []
+}),
+smalltalk.MKDropdownListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyDown:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+smalltalk.MKDropdownListController.superclass.fn.prototype._onKeyDown_.apply(_st(self), [anEvent]);
+$1=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
+if(smalltalk.assert($1)){
+self._selectItem_(self._itemForTarget_(_st(anEvent)._target()));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKDropdownListController)})},
+args: ["anEvent"],
+source: "onKeyDown: anEvent\x0a\x09super onKeyDown: anEvent.\x0a\x09\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self selectItem: (self itemForTarget: anEvent target) ]",
+messageSends: ["onKeyDown:", "ifTrue:", "=", "keyCode", "asciiValue", "cr", "selectItem:", "itemForTarget:", "target"],
+referencedClasses: ["String"]
+}),
+smalltalk.MKDropdownListController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMouseMove:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=_st(self._upRepeater())._isRepeating();
+$ctx1.sendIdx["isRepeating"]=1;
+$1=_st($2)._or_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._downRepeater())._isRepeating();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+if(smalltalk.assert($1)){
+return self;
+};
+self._activateItem_(self._itemForTarget_(_st(anEvent)._target()));
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseMove:",{anEvent:anEvent},smalltalk.MKDropdownListController)})},
+args: ["anEvent"],
+source: "onMouseMove: anEvent\x0a\x09(self upRepeater isRepeating or: [ self downRepeater isRepeating ])\x0a\x09\x09ifTrue: [ ^ self ].\x0a\x09\x09\x0a\x09self activateItem: (self itemForTarget: anEvent target)",
+messageSends: ["ifTrue:", "or:", "isRepeating", "upRepeater", "downRepeater", "activateItem:", "itemForTarget:", "target"],
+referencedClasses: []
+}),
+smalltalk.MKDropdownListController);
+
+
+
+smalltalk.addClass('MKModalPaneController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClick:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._view())._closeOnClick();
+if(smalltalk.assert($1)){
+self._removeView();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKModalPaneController)})},
+args: ["anEvent"],
+source: "onClick: anEvent\x0a\x09self view closeOnClick ifTrue: [ self removeView ]",
+messageSends: ["ifTrue:", "closeOnClick", "view", "removeView"],
+referencedClasses: []
+}),
+smalltalk.MKModalPaneController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyDown:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$4;
+$2=_st(anEvent)._keyCode();
+$ctx1.sendIdx["keyCode"]=1;
+$1=_st($2).__eq((27));
+$ctx1.sendIdx["="]=1;
+if(smalltalk.assert($1)){
+self._removeView();
+$ctx1.sendIdx["removeView"]=1;
+};
+$3=_st(self._view())._closeOnEnter();
+if(smalltalk.assert($3)){
+$4=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
+if(smalltalk.assert($4)){
+self._removeView();
+};
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKModalPaneController)})},
+args: ["anEvent"],
+source: "onKeyDown: anEvent\x0a\x09\x22ESC\x22\x0a\x09anEvent keyCode = 27 ifTrue: [\x0a\x09\x09self removeView ].\x0a\x09\x09\x0a\x09self view closeOnEnter ifTrue: [\x0a\x09\x09anEvent keyCode = String cr asciiValue ifTrue: [ \x0a\x09\x09\x09self removeView ] ]",
+messageSends: ["ifTrue:", "=", "keyCode", "removeView", "closeOnEnter", "view", "asciiValue", "cr"],
+referencedClasses: ["String"]
+}),
+smalltalk.MKModalPaneController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "removeView",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(self._view())._overlay())._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"removeView",{},smalltalk.MKModalPaneController)})},
+args: [],
+source: "removeView\x0a\x09self view overlay remove",
+messageSends: ["remove", "overlay", "view"],
+referencedClasses: []
+}),
+smalltalk.MKModalPaneController);
+
+
+
+smalltalk.addClass('MKOverlayController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
+smalltalk.MKOverlayController.comment="I am the default controller for `MKOverlayView`.\x0a\x0aOn a click to the overlay, it is removed together with it's content view.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClick:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._view())._remove();
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKOverlayController)})},
+args: ["anEvent"],
+source: "onClick: anEvent\x0a\x09self view remove",
+messageSends: ["remove", "view"],
+referencedClasses: []
+}),
+smalltalk.MKOverlayController);
+
+
+
+smalltalk.addClass('MKRepeater', smalltalk.Object, ['repeatInterval', 'interval', 'delay'], 'Moka-Controllers');
+smalltalk.MKRepeater.comment="I am an internal class used by controllers to repeat block actions after a `delay` and with an `interval`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultRepeatInterval",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (70);
+}, function($ctx1) {$ctx1.fill(self,"defaultRepeatInterval",{},smalltalk.MKRepeater)})},
+args: [],
+source: "defaultRepeatInterval\x0a\x09^ 70",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKRepeater);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "isRepeating",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@delay"])._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"isRepeating",{},smalltalk.MKRepeater)})},
+args: [],
+source: "isRepeating\x0a\x09^ delay notNil",
+messageSends: ["notNil"],
+referencedClasses: []
+}),
+smalltalk.MKRepeater);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "repeat:",
+category: 'actions',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._isRepeating();
+if(smalltalk.assert($1)){
+return self;
+};
+_st(aBlock)._value();
+self["@delay"]=_st((function(){
+return smalltalk.withContext(function($ctx2) {
+self["@interval"]=_st(aBlock)._valueWithInterval_(self._repeatInterval());
+return self["@interval"];
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))._valueWithTimeout_((300));
+return self}, function($ctx1) {$ctx1.fill(self,"repeat:",{aBlock:aBlock},smalltalk.MKRepeater)})},
+args: ["aBlock"],
+source: "repeat: aBlock\x0a\x09self isRepeating ifTrue: [ ^ self ].\x0a\x09aBlock value.\x0a\x09delay := [ interval := aBlock valueWithInterval: self repeatInterval ] \x0a\x09\x09valueWithTimeout: 300",
+messageSends: ["ifTrue:", "isRepeating", "value", "valueWithTimeout:", "valueWithInterval:", "repeatInterval"],
+referencedClasses: []
+}),
+smalltalk.MKRepeater);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "repeatInterval",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@repeatInterval"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._defaultRepeatInterval();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"repeatInterval",{},smalltalk.MKRepeater)})},
+args: [],
+source: "repeatInterval\x0a\x09^ repeatInterval ifNil: [ self defaultRepeatInterval ]",
+messageSends: ["ifNil:", "defaultRepeatInterval"],
+referencedClasses: []
+}),
+smalltalk.MKRepeater);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "repeatInterval:",
+category: 'accessing',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@repeatInterval"]=aNumber;
+return self}, function($ctx1) {$ctx1.fill(self,"repeatInterval:",{aNumber:aNumber},smalltalk.MKRepeater)})},
+args: ["aNumber"],
+source: "repeatInterval: aNumber\x0a\x09repeatInterval := aNumber",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKRepeater);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "stopRepeating",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@interval"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(self["@interval"])._clearInterval();
+};
+$2=self["@delay"];
+if(($receiver = $2) == nil || $receiver == null){
+$2;
+} else {
+_st(self["@delay"])._clearTimeout();
+};
+self["@delay"]=nil;
+self["@interval"]=self["@delay"];
+return self}, function($ctx1) {$ctx1.fill(self,"stopRepeating",{},smalltalk.MKRepeater)})},
+args: [],
+source: "stopRepeating\x0a\x09interval ifNotNil: [ interval clearInterval ].\x0a\x09delay ifNotNil: [ delay clearTimeout ].\x0a\x09interval := delay := nil",
+messageSends: ["ifNotNil:", "clearInterval", "clearTimeout"],
+referencedClasses: []
+}),
+smalltalk.MKRepeater);
 
 
 });

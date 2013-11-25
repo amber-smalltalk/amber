@@ -1,183 +1,411 @@
 @import "reset.css";
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,latin-ext);
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,latin-ext");
+
+// Mixins
+.gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+    background: @color;
+    background: -webkit-gradient(linear,
+				 left bottom,
+				 left top,
+				 color-stop(0, @start),
+				 color-stop(1, @stop));
+    background: -ms-linear-gradient(bottom,
+				    @start,
+				    @stop);
+    background: -moz-linear-gradient(center bottom,
+				     @start 0%,
+				     @stop 100%);
+    background: -o-linear-gradient(@stop,
+				   @start);
+}
+.vertical-gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+    background: @color;
+    background: -webkit-gradient(linear,
+				 left top,
+				 right top,
+				 color-stop(0, @start),
+				 color-stop(1, @stop));
+    background: -ms-linear-gradient(left,
+				    @start,
+				    @stop);
+    background: -moz-linear-gradient(right,
+				     @start 0%,
+				     @stop 100%);
+}
+.linear-gradient(@arguments) {
+    background: -webkit-linear-gradient(@arguments);
+    background: -moz-linear-gradient(@arguments);
+    background: -ms-linear-gradient(@arguments);
+    background: -o-linear-gradient(@arguments);
+    background: linear-gradient(@arguments);
+}
+.bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
+    border-top: solid 1px @top-color;
+    border-left: solid 1px @left-color;
+    border-right: solid 1px @right-color;
+    border-bottom: solid 1px @bottom-color;
+}
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+    -webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+}
+.rounded(@radius: 3px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+.inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
+    -webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+    box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+}
+.box-shadow(@arguments) {
+    -webkit-box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    box-shadow: @arguments;
+}
+.transition(@property: all, @duration:0.2s, @ease:ease-out) {
+    -webkit-transition: @property @duration @ease;
+    -moz-transition: @property @duration @ease;
+    -o-transition: @property @duration @ease;
+    transition: @property @duration @ease;
+}
+.no-select {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// Moka definitions
+
+// Variables
+
+@blue: #4a90d9;
+@lightblue: #E9ECFA;
+@lighter: #f1f1f1;
+@light: #eee;
+@grey: #aaa;
+@dark: #888;
+@darker: #444;
+@verydark: #333;
 
 
-	    // Mixins
-	    .gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
-		background: @color;
-		background: -webkit-gradient(linear,
-					     left bottom,
-					     left top,
-					     color-stop(0, @start),
-					     color-stop(1, @stop));
-		background: -ms-linear-gradient(bottom,
-						@start,
-						@stop);
-		background: -moz-linear-gradient(center bottom,
-						 @start 0%,
-						 @stop 100%);
-		background: -o-linear-gradient(@stop,
-					       @start);
-		filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
+// scrollbars
+
+::-webkit-scrollbar {
+    width: 8px; 
+    height: 8px;
+}
+::-webkit-scrollbar-button {
+    height: 0; 
+    width: 0;
+}
+::-webkit-resizer {
+    background-color: @light;
+}
+::-webkit-scrollbar-track {
+    background-color: @light;
+}
+::-webkit-scrollbar-track-piece {
+    background-color: @light;
+}
+::-webkit-scrollbar-corner {
+    background-color: @light
+}
+::-webkit-scrollbar-thumb {
+    .vertical-gradient(darken(@light, 5%), darken(@light, 5%), darken(@light, 12%));
+    border: 1px solid darken(@light, 35%);
+    .rounded(8px);
+    
+    &:hover {
+	.vertical-gradient(lighten(@grey, 10%), lighten(@grey, 10%), @grey);
+	border: 1px solid darken(@grey, 10%);
+    }
+}
+
+
+// mixins
+
+.mk_default {
+    // Generic fonts
+    font-size: 12px;
+    font-family: "Open Sans";
+    line-height: 1.5em;
+    color: @darker;
+    text-shadow: 0 1px 0 white;
+    
+    // no padding or margin
+    padding: 0;
+    margin: 0;
+}
+
+.mk_absolute {
+    position: absolute;
+    display: block;
+    overflow: hidden;
+}
+ 
+.mk_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    zindex: 1000;
+    background: transparent;
+}
+
+.moka_view {    
+    .mk_absolute;
+
+    // Labels & headings
+
+    &.mk_label {
+	.mk_default;
+	color: @verydark;
+	padding: 4px;
+
+	&.mk_heading {
+	    font-weight: bold;
+
+	    &.level1 {
+		font-size: 2em;
 	    }
-	    .bordered(@top-color: #EEE, @right-color: #EEE, @bottom-color: #EEE, @left-color: #EEE) {
-		border-top: solid 1px @top-color;
-		border-left: solid 1px @left-color;
-		border-right: solid 1px @right-color;
-		border-bottom: solid 1px @bottom-color;
+	    &.level2 {
+		font-size: 1.8em;
 	    }
-	    .drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
-		-webkit-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
-		-moz-box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
-		box-shadow: @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+	    &.level3 {
+		font-size: 1.6em;
 	    }
-	    .rounded(@radius: 3px) {
-		-webkit-border-radius: @radius;
-		-moz-border-radius: @radius;
-		border-radius: @radius;
+	    &.level4 {
+		font-size: 1.4em;
 	    }
-	    .inner-shadow(@horizontal:0, @vertical:1px, @blur:2px, @alpha: 0.4) {
-		-webkit-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
-		-moz-box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
-		box-shadow: inset @horizontal @vertical @blur rgba(0, 0, 0, @alpha);
+	    &.level5 {
+		font-size: 1.2em;
 	    }
-	    .box-shadow(@arguments) {
-		-webkit-box-shadow: @arguments;
-		-moz-box-shadow: @arguments;
-		box-shadow: @arguments;
+	}
+    }
+
+    // Panes
+    
+    &.mk_pane {
+
+	&.mk_panel {
+	    background: @light;
+	    border-color: @dark;
+	    border-style: solid;
+	    overflow: auto;
+	}
+
+	&.mk_modal {
+	    z-index: 1001;
+	    background: transparent;
+	    border: 0 none;
+
+	    &:focus {
+		outline: 0 none;
 	    }
-	    .transition(@property: all, @duration:0.2s, @ease:ease-out) {
-		-webkit-transition: @property @duration @ease;
-		-moz-transition: @property @duration @ease;
-		-o-transition: @property @duration @ease;
-		transition: @property @duration @ease;
+	}
+    }
+
+    // Controls
+    
+    .mk_control, .mk_control:active, .mk_control:focus {
+	.mk_default;
+	.mk_absolute;
+	.rounded();
+	border: 1px solid @grey;
+	.box-shadow(inset 0 0 3px 0 lighten(@grey, 10%));
+	background-color: white;
+	// see http://stackoverflow.com/questions/14768780/how-can-i-pass-mixin-arguments-along-literally-in-less-css
+	.linear-gradient(~"top, #eee 0%, white 6px");
+
+	&:focus {
+	    outline: 0;
+	}
+    }
+
+    &.mk_button {
+	.mk_control;
+	.no-select;
+	.box-shadow(0 1px 1px 0 lighten(@grey, 18%));
+	.gradient(#fafafa, #dedede, white);
+
+	&.default {
+	    .gradient(lighten(@blue, 20%), lighten(@blue, 20%), lighten(@blue, 35%));
+	    border-color: darken(@grey, 5%);
+
+	    &:active {
+	    	background: lighten(@blue, 20%);
+	    	border-color: @blue;
 	    }
-	    .no-select {
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
+	}
+
+	&:focus {
+	    border-color: @blue;
+	}
+
+	&:active {
+	    background: lighten(@grey, 20%);
+	    .box-shadow(inset 0 0 3px 0 @dark);
+	    border-color: saturate(@dark, 10%);
+	}
+    }
+    
+    &.mk_input, &.mk_textarea {
+	.mk_control;
+	resize: none;
+	padding: 0 4px;
+	text-shadow: 0 0 0;
+
+	&:focus {
+	    .box-shadow(inset 0 0 3px 0 @dark);
+	    border-color: @blue;
+	}
+    }
+
+    &.mk_checkbox {
+	.no-select;
+	background: url('../images/moka/check.png') 50% 50% no-repeat;
+	height: 16px;
+	width: 16px;
+
+	&:focus {
+	    outline: 0;
+	}
+
+	&.checked {
+	    background-image: url('../images/moka/check-active.png');
+	}
+    }
+
+    &.mk_switch {
+	.no-select;
+	.rounded(20px);
+	vertical-align: middle;
+	display: inline-block;
+	height: 20px;
+	width: 39px;
+	border: 1px solid @dark;
+	background: url('../images/moka/switch.png') 100% 50% no-repeat;
+	.transition(background, .2s);
+
+	&:focus {
+	    border-color: darken(@blue, 15%);
+	}
+
+	&.checked {
+	    background: url('../images/moka/switch.png') 0% 50% no-repeat;
+	    border-color: darken(@blue, 5%);
+	}
+    }
+
+
+    // Lists
+    
+    &.mk_list {
+	cursor: default;
+	.mk_default;
+	.no-select;
+	.mk_control;
+	padding: 0;
+	overflow: auto;
+	background: white;
+
+	&:focus {
+	    outline: 0;
+	    border-color: @blue;
+
+	    li.selected {
+		background: lighten(@blue, 10%);
+		color: white;
+	    }
+	}
+
+	li {
+	    line-height: 2em;
+	    padding: 0 4px;
+	    text-shadow: 0 0 0;
+	    
+	    &.selected {
+		background: lighten(@grey, 20%);
+	    }
+	}
+
+	&.mk_sourcelist {
+	    background: transparent;
+	    border: 0;
+	    .rounded(0);
+	    .box-shadow(0 0 0);
+
+	    li {
+		border-top: 1px solid transparent;
+		border-bottom: 1px solid transparent;
+		padding: 0 14px;
 	    }
 
-	    // Moka definitions
-
-	    // TEMP
-	    body {
-		background: #f1f1f1;
+	    &:focus li.selected, li.selected {
+		text-shadow: 0 1px 0 @verydark;
+		.gradient(lighten(@blue, 10%), lighten(@blue, 10%), lighten(@blue, 20%));
+		border-top: 1px solid @blue;
+		border-bottom: 1px solid @blue;
+		color: white;
+		font-weight: bold;
 	    }
+	}
+    }
 
-	    .moka_view {    
+// Dropdowns
 
-		display: inline-block;
+    &.mk_dropdown {
+	.mk_button;
+	text-align: left;
+	padding: 0 8px;
 
-		.mk_default {
-		    // Generic fonts
-		    font-size: 12px;
-		    font-family: "Open Sans";
-		    color: #555;
-		    text-shadow: 0 1px 0 white;
+	.mk_dropdown_arrows {
+	    position: absolute;
+	    right: 0;
+	    height: 100%;
+	    width: 24px;
+	    top: 0;
+	    background-image: url(/images/moka/dropdown_arrows.png);
+	    background-position: center;
+	    background-repeat: no-repeat;
+	    border-left: 1px solid @grey;
+	}
+    }
 
-		}
+    &.mk_dropdown_pane {
+	padding: 6px;
+	margin-left: -6px;
+	margin-top: -6px;
 
-		// Labels
+	.mk_dropdown_list {
+	    position: relative;
+	    display: inline-block;
+	    border: 0;
+	    background: white;
+	    .box-shadow(0 0 6px darken(@dark, 20%));
+	    .rounded(0);
+	    min-width: 120px;
+	    max-height: 400px;
 
-		span {
-		    .mk_default;
-		    color: #333;
-		    padding: 4px;
-		}
+	    li {
+		padding: 0 6px;
 
-		// Controls
-		
-		.mk_control, .mk_control:active, .mk_control:focus {
-		    .mk_default;
-
-		    margin: 4px;
-		    padding: 3px 10px;
-		    .rounded();
-		    .bordered(#999, #999, #999, #999);
-		    .box-shadow(0 0 3px 0 #ccc);
-		    background: white;
-
-		    &:focus {
-			outline: 0;
-		    }
-		}
-
-		button {
-		    .mk_control;
-		    .no-select;
-		    .gradient(#fafafa, #dedede, white);
-
-		    &:focus {
-			border-color: #08c;
-		    }
-
-		    &:active {
-			background: #ccc;
-			.box-shadow(inset 0 0 3px 0 #888);
-			border-color: #999;
-		    }
-		}
-		
-		input, textarea {
-		    .mk_control;
-		    text-shadow: 0 0 0;
-
-		    &:focus {
-			.box-shadow(inset 0 0 3px 0 #999);
-			border-color: #08c;
-		    }
-		}
-		
-		textarea {
-		    width: 200px;
-		    height: 100px;
-		}
-
-		input[type="checkbox"] {
-		    position: absolute;
-		    left: -999999px;
-		}
-
-		.mk_checkbox + label {
-		    .no-select;
-		    padding: 0 6px;
-		    margin: 4px;
-		    background: url('../images/moka/check.png') 50% 50% no-repeat;
-		    height: 16px;
-		    width: 16px;
-		}
-
-		.mk_checkbox:focus + label {
-		    background-image: url('../images/moka/check-focus.png');
-		    .box-shadow(0 0 2px #08c);
-		}
-
-		.mk_checkbox:checked + label {
-		    background-image: url('../images/moka/check-active.png');
-		}
-
-		.mk_switch + label {
-		    .no-select;
-		    .rounded(20px);
-		    margin: 4px;
-		    vertical-align: middle;
-		    display: inline-block;
-		    height: 20px;
-		    width: 59px;
-		    border: 1px solid #999;
-		    background: url('../images/moka/switch.png') 100% 50% no-repeat;
-		    .transition(background, .3s);
-		}
-
-		.mk_switch:focus + label {
-		    border-color: #08c;
-		}
-
-		.mk_switch:checked + label {
-		    background-position: 0% 50%;
-		}
+		&.selected {
+		    background: @blue;
+		    color: white;
+		};
 	    }
+	    
+	    &:focus {
+		border: 0;
+	    }
+	}
+    }
+}

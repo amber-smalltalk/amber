@@ -40,6 +40,171 @@ smalltalk.MKController);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "onChange:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onChange:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onChange: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onClick:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onClick: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onDblClick:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onDblClick:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onDblClick: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyDown:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onKeyDown: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyPress:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyPress:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onKeyPress: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onKeyUp:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyUp:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onKeyUp: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMouseEnter:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseEnter:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onMouseEnter: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMouseLeave:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseLeave:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onMouseLeave: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMouseMove:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseMove:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onMouseMove: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMouseOut:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseOut:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onMouseOut: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMouseOver:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"onMouseOver:",{anEvent:anEvent},smalltalk.MKController)})},
+args: ["anEvent"],
+source: "onMouseOver: anEvent",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKController);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "view",
 category: 'accessing',
 fn: function (){
@@ -74,90 +239,79 @@ smalltalk.MKController);
 
 
 
-smalltalk.addClass('MKAspectController', smalltalk.MKController, ['aspect'], 'Moka-Core');
-smalltalk.MKAspectController.comment="I am an abstract controller for performing one action using an `aspect` on a model.\x0a\x0a## API\x0a\x0a- Use `#aspect:` to plug a selector to be performed on the model\x0a- Subclasses can either use `#performActionWith:` or `#performAction` to evaluate the `aspect` selector on the model with one or no argument.";
+smalltalk.addClass('MKAspectsController', smalltalk.MKController, [], 'Moka-Core');
+smalltalk.MKAspectsController.comment="I am an abstract controller for performing one action using an `aspect` on a model.\x0a\x0a## API\x0a\x0a- Use `#aspect:` to plug a selector to be performed on the model\x0a- Subclasses can either use `#performActionWith:` or `#performAction` to evaluate the `aspect` selector on the model with one or no argument.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "aspect",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@aspect"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"aspect",{},smalltalk.MKAspectController)})},
-args: [],
-source: "aspect\x0a\x09^ aspect",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.MKAspectController);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "aspect:",
-category: 'accessing',
+selector: "performAspectAction:",
+category: 'actions',
 fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@aspect"]=aSelector;
-return self}, function($ctx1) {$ctx1.fill(self,"aspect:",{aSelector:aSelector},smalltalk.MKAspectController)})},
+_st(self._model())._perform_(aSelector);
+return self}, function($ctx1) {$ctx1.fill(self,"performAspectAction:",{aSelector:aSelector},smalltalk.MKAspectsController)})},
 args: ["aSelector"],
-source: "aspect: aSelector\x0a\x09aspect := aSelector",
-messageSends: [],
+source: "performAspectAction: aSelector\x0a\x09self model perform: aSelector",
+messageSends: ["perform:", "model"],
 referencedClasses: []
 }),
-smalltalk.MKAspectController);
+smalltalk.MKAspectsController);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "performAction",
+selector: "performAspectAction:with:",
+category: 'actions',
+fn: function (aSelector,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._model())._perform_withArguments_(_st(aSelector)._asMutator(),[anObject]);
+return self}, function($ctx1) {$ctx1.fill(self,"performAspectAction:with:",{aSelector:aSelector,anObject:anObject},smalltalk.MKAspectsController)})},
+args: ["aSelector", "anObject"],
+source: "performAspectAction: aSelector with: anObject\x0a\x09self model \x0a\x09\x09perform: aSelector asMutator\x0a\x09\x09withArguments: { anObject }",
+messageSends: ["perform:withArguments:", "model", "asMutator"],
+referencedClasses: []
+}),
+smalltalk.MKAspectsController);
+
+
+
+smalltalk.addClass('MKSingleAspectController', smalltalk.MKAspectsController, [], 'Moka-Core');
+smalltalk.MKSingleAspectController.comment="I am an abstract controller used with single aspect views.\x0a\x0aMy view must hold onto one aspect accessed with `#aspect`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "performAspectAction",
 category: 'actions',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3;
-$1=self._aspect();
-$ctx1.sendIdx["aspect"]=1;
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-$2=self._model();
-$3=self._aspect();
-_st($2)._perform_($3);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"performAction",{},smalltalk.MKAspectController)})},
+var $1;
+$1=self._performAspectAction_(_st(self._view())._aspect());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"performAspectAction",{},smalltalk.MKSingleAspectController)})},
 args: [],
-source: "performAction\x0a\x09self aspect ifNotNil: [\x0a\x09\x09self model \x0a\x09\x09\x09perform: self aspect ]",
-messageSends: ["ifNotNil:", "aspect", "perform:", "model"],
+source: "performAspectAction\x0a\x09^ self performAspectAction: self view aspect",
+messageSends: ["performAspectAction:", "aspect", "view"],
 referencedClasses: []
 }),
-smalltalk.MKAspectController);
+smalltalk.MKSingleAspectController);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "performActionWith:",
+selector: "performAspectActionWith:",
 category: 'actions',
 fn: function (anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=self._aspect();
-$ctx1.sendIdx["aspect"]=1;
-if(($receiver = $1) == nil || $receiver == null){
-return self;
-} else {
-$1;
-};
-_st(self._model())._perform_withArguments_(_st(self._aspect())._asMutator(),[anObject]);
-return self}, function($ctx1) {$ctx1.fill(self,"performActionWith:",{anObject:anObject},smalltalk.MKAspectController)})},
+$1=self._performAspectAction_with_(_st(self._view())._aspect(),anObject);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"performAspectActionWith:",{anObject:anObject},smalltalk.MKSingleAspectController)})},
 args: ["anObject"],
-source: "performActionWith: anObject\x0a\x09self aspect ifNil: [ ^ self ].\x0a\x09\x0a\x09self model \x0a\x09\x09perform: self aspect asMutator\x0a\x09\x09withArguments: { anObject }",
-messageSends: ["ifNil:", "aspect", "perform:withArguments:", "model", "asMutator"],
+source: "performAspectActionWith: anObject\x0a\x09^ self \x0a\x09\x09performAspectAction: self view aspect\x0a\x09\x09with: anObject",
+messageSends: ["performAspectAction:with:", "aspect", "view"],
 referencedClasses: []
 }),
-smalltalk.MKAspectController);
+smalltalk.MKSingleAspectController);
 
 
 
@@ -307,8 +461,78 @@ referencedClasses: []
 smalltalk.MKModelChanged.klass);
 
 
-smalltalk.addClass('MKView', smalltalk.Widget, ['controller', 'model', 'wrapper'], 'Moka-Core');
-smalltalk.MKView.comment="I implement the View part of the MVC pattern in Moka.\x0a\x0a## API\x0a- Instance can be created with the `MKView class >> model:*` convenience methods\x0a- rendering is done through `#renderContentOn:`, to be overridden in concrete view classes\x0a- `#update` provide updating facility, refreshing the entire view\x0a- subclasses can override `#defaultControllerClass` to provide a default controller specific to a view\x0a- subclasses can override `#observeModel`.";
+smalltalk.addClass('MKView', smalltalk.Widget, ['controller', 'model', 'root', 'layout', 'extraCssClass'], 'Moka-Core');
+smalltalk.MKView.comment="I implement the View part of the MVC pattern in Moka.\x0a\x0a## API\x0a- Instance can be created with the `MKView class >> model:*` convenience methods\x0a- rendering is done through `#renderContentOn:`, to be overridden in concrete view classes\x0a- `#update` provide updating facility, refreshing the entire view\x0a- subclasses can override `#defaultControllerClass` to provide a default controller specific to a view\x0a- subclasses can override `#observeModel`\x0a- Extra css classes can be added with `#extraCssClass:`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "blur",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@root"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(_st(self["@root"])._asJQuery())._blur();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"blur",{},smalltalk.MKView)})},
+args: [],
+source: "blur\x0a\x09root ifNotNil: [ root asJQuery blur ]",
+messageSends: ["ifNotNil:", "blur", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "bottom:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._bottom_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"bottom:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "bottom: aNumber\x0a\x09self layout bottom: aNumber",
+messageSends: ["bottom:", "layout"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "centerX:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._centerX_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"centerX:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "centerX: aNumber\x0a\x09self layout centerX: aNumber",
+messageSends: ["centerX:", "layout"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "centerY:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._centerY_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"centerY:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "centerY: aNumber\x0a\x09self layout centerY: aNumber",
+messageSends: ["centerY:", "layout"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "controller",
@@ -355,6 +579,36 @@ smalltalk.MKView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "cssClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$1=_st($String())._streamContents_((function(stream){
+return smalltalk.withContext(function($ctx2) {
+_st(stream).__lt_lt("moka_view");
+$ctx2.sendIdx["<<"]=1;
+$2=self._extraCssClass();
+$ctx2.sendIdx["extraCssClass"]=1;
+return _st($2)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx3) {
+return _st(_st(stream).__lt_lt(" ")).__lt_lt(self._extraCssClass());
+$ctx3.sendIdx["<<"]=2;
+}, function($ctx3) {$ctx3.fillBlock({},$ctx2,2)})}));
+}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"cssClass",{},smalltalk.MKView)})},
+args: [],
+source: "cssClass\x0a\x09^ String streamContents: [ :stream |\x0a\x09\x09stream << 'moka_view'.\x0a\x09\x09self extraCssClass ifNotEmpty: [\x0a\x09\x09\x09stream << ' ' << self extraCssClass ] ]",
+messageSends: ["streamContents:", "<<", "ifNotEmpty:", "extraCssClass"],
+referencedClasses: ["String"]
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "defaultController",
 category: 'factory',
 fn: function (){
@@ -387,6 +641,148 @@ args: [],
 source: "defaultControllerClass\x0a\x09^ MKController",
 messageSends: [],
 referencedClasses: ["MKController"]
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultLayout",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKLayout(){return smalltalk.MKLayout||(typeof MKLayout=="undefined"?nil:MKLayout)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=_st($MKLayout())._new();
+_st($2)._left_((0));
+_st($2)._top_((0));
+_st($2)._right_((0));
+_st($2)._bottom_((0));
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultLayout",{},smalltalk.MKView)})},
+args: [],
+source: "defaultLayout\x0a\x09^ MKLayout new\x0a\x09\x09left: 0;\x0a\x09\x09top: 0;\x0a\x09\x09right: 0;\x0a\x09\x09bottom: 0;\x0a\x09\x09yourself",
+messageSends: ["left:", "new", "top:", "right:", "bottom:", "yourself"],
+referencedClasses: ["MKLayout"]
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extraCssClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@extraCssClass"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"extraCssClass",{},smalltalk.MKView)})},
+args: [],
+source: "extraCssClass\x0a\x09^ extraCssClass ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "extraCssClass:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@extraCssClass"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"extraCssClass:",{aString:aString},smalltalk.MKView)})},
+args: ["aString"],
+source: "extraCssClass: aString\x0a\x09extraCssClass := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "focus",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@root"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(_st(self["@root"])._asJQuery())._focus();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"focus",{},smalltalk.MKView)})},
+args: [],
+source: "focus\x0a\x09root ifNotNil: [ root asJQuery focus ]",
+messageSends: ["ifNotNil:", "focus", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "height:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._height_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"height:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "height: aNumber\x0a\x09self layout height: aNumber",
+messageSends: ["height:", "layout"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "layout",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@layout"];
+if(($receiver = $2) == nil || $receiver == null){
+self["@layout"]=self._defaultLayout();
+$1=self["@layout"];
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"layout",{},smalltalk.MKView)})},
+args: [],
+source: "layout\x0a\x09^ layout ifNil: [ layout := self defaultLayout ]",
+messageSends: ["ifNil:", "defaultLayout"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "left:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._left_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"left:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "left: aNumber\x0a\x09self layout left: aNumber",
+messageSends: ["left:", "layout"],
+referencedClasses: []
 }),
 smalltalk.MKView);
 
@@ -442,6 +838,54 @@ smalltalk.MKView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "position",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@root"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=$2;
+} else {
+var offset;
+offset=_st(_st(self["@root"])._asJQuery())._offset();
+offset;
+$1=_st(_st(offset)._left()).__at(_st(offset)._top());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.MKView)})},
+args: [],
+source: "position\x0a\x09\x22Answer the position of the reciever in the page\x22\x0a\x09\x0a\x09^ root ifNotNil: [ \x0a\x09\x09|  offset |\x0a\x09\x09offset := root asJQuery offset.\x0a\x09\x09offset left @ offset top ]",
+messageSends: ["ifNotNil:", "offset", "asJQuery", "@", "left", "top"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "remove",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@root"];
+if(($receiver = $1) == nil || $receiver == null){
+$1;
+} else {
+_st(_st(self["@root"])._asJQuery())._remove();
+};
+return self}, function($ctx1) {$ctx1.fill(self,"remove",{},smalltalk.MKView)})},
+args: [],
+source: "remove\x0a\x09\x22Removes the receiver from the DOM\x22\x0a\x09root ifNotNil: [ root asJQuery remove ]",
+messageSends: ["ifNotNil:", "remove", "asJQuery"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "render",
 category: 'rendering',
 fn: function (){
@@ -479,18 +923,160 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
-$1=_st(html)._div();
-_st($1)._class_("moka_view");
+$1=_st(html)._tag_(self._tag());
+_st($1)._class_(self._cssClass());
+_st($1)._style_(_st(self._layout())._asCssString());
 $2=_st($1)._yourself();
-self["@wrapper"]=$2;
-_st(self["@wrapper"])._with_((function(){
+self["@root"]=$2;
+_st(self["@root"])._with_((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._renderContentOn_(html);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._setupEventHandlers();
 return self}, function($ctx1) {$ctx1.fill(self,"renderOn:",{html:html},smalltalk.MKView)})},
 args: ["html"],
-source: "renderOn: html\x0a\x09\x22Basic rendering method.\x0a\x09Wraps the content with a `wrapper` div for updating the receiver.\x0a\x09\x0a\x09Do not override this method, but `#renderContentOn:`\x22\x0a\x09\x0a\x09wrapper := html div\x0a\x09\x09class: 'moka_view';\x0a\x09\x09yourself.\x0a\x09wrapper with: [ self renderContentOn: html ]",
-messageSends: ["class:", "div", "yourself", "with:", "renderContentOn:"],
+source: "renderOn: html\x0a\x09\x22Basic rendering method.\x0a\x09Do not override this method, but `#renderContentOn:`\x22\x0a\x09\x0a\x09root := (html tag: self tag)\x0a\x09\x09class: self cssClass;\x0a\x09\x09style: self layout asCssString;\x0a\x09\x09yourself.\x0a\x09root with: [ self renderContentOn: html ].\x0a\x09\x0a\x09self setupEventHandlers",
+messageSends: ["class:", "tag:", "tag", "cssClass", "style:", "asCssString", "layout", "yourself", "with:", "renderContentOn:", "setupEventHandlers"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "right:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._right_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"right:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "right: aNumber\x0a\x09self layout right: aNumber",
+messageSends: ["right:", "layout"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "setupEventHandlers",
+category: 'private',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12;
+$1=self["@root"];
+_st($1)._onClick_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$2=self._controller();
+$ctx2.sendIdx["controller"]=1;
+return _st($2)._onClick_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,1)})}));
+$ctx1.sendIdx["onClick:"]=1;
+_st($1)._onDblClick_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$3=self._controller();
+$ctx2.sendIdx["controller"]=2;
+return _st($3)._onDblClick_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,2)})}));
+$ctx1.sendIdx["onDblClick:"]=1;
+_st($1)._onMouseEnter_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$4=self._controller();
+$ctx2.sendIdx["controller"]=3;
+return _st($4)._onMouseEnter_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,3)})}));
+$ctx1.sendIdx["onMouseEnter:"]=1;
+_st($1)._onMouseLeave_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$5=self._controller();
+$ctx2.sendIdx["controller"]=4;
+return _st($5)._onMouseLeave_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,4)})}));
+$ctx1.sendIdx["onMouseLeave:"]=1;
+_st($1)._onMouseOver_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$6=self._controller();
+$ctx2.sendIdx["controller"]=5;
+return _st($6)._onMouseOver_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,5)})}));
+$ctx1.sendIdx["onMouseOver:"]=1;
+_st($1)._onMouseOut_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$7=self._controller();
+$ctx2.sendIdx["controller"]=6;
+return _st($7)._onMouseOut_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,6)})}));
+$ctx1.sendIdx["onMouseOut:"]=1;
+_st($1)._onMouseMove_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$8=self._controller();
+$ctx2.sendIdx["controller"]=7;
+return _st($8)._onMouseMove_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,7)})}));
+$ctx1.sendIdx["onMouseMove:"]=1;
+_st($1)._onKeyDown_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$9=self._controller();
+$ctx2.sendIdx["controller"]=8;
+return _st($9)._onKeyDown_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,8)})}));
+$ctx1.sendIdx["onKeyDown:"]=1;
+_st($1)._onKeyUp_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$10=self._controller();
+$ctx2.sendIdx["controller"]=9;
+return _st($10)._onKeyUp_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,9)})}));
+$ctx1.sendIdx["onKeyUp:"]=1;
+_st($1)._onKeyPress_((function(event){
+return smalltalk.withContext(function($ctx2) {
+$11=self._controller();
+$ctx2.sendIdx["controller"]=10;
+return _st($11)._onKeyPress_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,10)})}));
+$ctx1.sendIdx["onKeyPress:"]=1;
+$12=_st($1)._onChange_((function(event){
+return smalltalk.withContext(function($ctx2) {
+return _st(self._controller())._onChange_(event);
+}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,11)})}));
+$ctx1.sendIdx["onChange:"]=1;
+return self}, function($ctx1) {$ctx1.fill(self,"setupEventHandlers",{},smalltalk.MKView)})},
+args: [],
+source: "setupEventHandlers\x0a\x09root\x0a\x09\x09onClick: [ :event | self controller onClick: event ];\x0a\x09\x09onDblClick: [ :event | self controller onDblClick: event ];\x0a\x09\x09onMouseEnter: [ :event | self controller onMouseEnter: event ];\x0a\x09\x09onMouseLeave: [ :event | self controller onMouseLeave: event ];\x0a\x09\x09onMouseOver: [ :event | self controller onMouseOver: event ];\x0a\x09\x09onMouseOut: [ :event | self controller onMouseOut: event ];\x0a\x09\x09onMouseMove: [ :event | self controller onMouseMove: event ];\x0a\x09\x09onKeyDown: [ :event | self controller onKeyDown: event ];\x0a\x09\x09onKeyUp: [ :event | self controller onKeyUp: event ];\x0a\x09\x09onKeyPress: [ :event | self controller onKeyPress: event ];\x0a\x09\x09onChange: [ :event | self controller onChange: event ]",
+messageSends: ["onClick:", "controller", "onDblClick:", "onMouseEnter:", "onMouseLeave:", "onMouseOver:", "onMouseOut:", "onMouseMove:", "onKeyDown:", "onKeyUp:", "onKeyPress:", "onChange:"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tag",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "div";
+}, function($ctx1) {$ctx1.fill(self,"tag",{},smalltalk.MKView)})},
+args: [],
+source: "tag\x0a\x09^ 'div'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "top:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._top_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"top:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "top: aNumber\x0a\x09self layout top: aNumber",
+messageSends: ["top:", "layout"],
 referencedClasses: []
 }),
 smalltalk.MKView);
@@ -502,26 +1088,40 @@ category: 'updating',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=self["@wrapper"];
+var $1,$2;
+$1=self["@root"];
 if(($receiver = $1) == nil || $receiver == null){
 self._error_("The view has not been rendered yet");
 } else {
 $1;
 };
-$2=_st(self["@wrapper"])._asJQuery();
+$2=_st(self["@root"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 _st($2)._empty();
-$3=(function(html){
+_st((function(html){
 return smalltalk.withContext(function($ctx2) {
 return self._renderContentOn_(html);
-}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,2)})});
-$4=_st(self["@wrapper"])._asJQuery();
-_st($3)._appendToJQuery_($4);
+}, function($ctx2) {$ctx2.fillBlock({html:html},$ctx1,2)})}))._appendToJQuery_(_st(self["@root"])._asJQuery());
 return self}, function($ctx1) {$ctx1.fill(self,"update",{},smalltalk.MKView)})},
 args: [],
-source: "update\x0a\x09\x22Update the view's content.\x22\x0a\x09\x0a\x09wrapper ifNil: [ self error: 'The view has not been rendered yet' ].\x0a\x09\x0a\x09wrapper asJQuery empty.\x0a\x09[ :html | self renderContentOn: html ] \x0a\x09\x09appendToJQuery: wrapper asJQuery",
+source: "update\x0a\x09\x22Update the view's content. Override in subclasses to fine-tune updating\x22\x0a\x09\x0a\x09root ifNil: [ self error: 'The view has not been rendered yet' ].\x0a\x09\x0a\x09root asJQuery empty.\x0a\x09[ :html | self renderContentOn: html ] \x0a\x09\x09appendToJQuery: root asJQuery",
 messageSends: ["ifNil:", "error:", "empty", "asJQuery", "appendToJQuery:", "renderContentOn:"],
+referencedClasses: []
+}),
+smalltalk.MKView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "width:",
+category: 'layout',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._layout())._width_(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"width:",{aNumber:aNumber},smalltalk.MKView)})},
+args: ["aNumber"],
+source: "width: aNumber\x0a\x09self layout width: aNumber",
+messageSends: ["width:", "layout"],
 referencedClasses: []
 }),
 smalltalk.MKView);
@@ -570,8 +1170,80 @@ referencedClasses: []
 smalltalk.MKView.klass);
 
 
-smalltalk.addClass('MKAspectView', smalltalk.MKView, ['aspect', 'label'], 'Moka-Core');
-smalltalk.MKAspectView.comment="I am an abstract view which state depend on an `aspect` of a model. \x0a\x0a##API\x0a\x0a- Use the `#aspect:` to listen to a specific aspect of a model. Changes will then trigger `#update`.";
+smalltalk.addClass('MKAspectsView', smalltalk.MKView, [], 'Moka-Core');
+smalltalk.MKAspectsView.comment="I am an abstract view which state depend on aspects of a model.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultControllerClass",
+category: 'defaults',
+fn: function (){
+var self=this;
+function $MKAspectController(){return smalltalk.MKAspectController||(typeof MKAspectController=="undefined"?nil:MKAspectController)}
+return smalltalk.withContext(function($ctx1) { 
+return $MKAspectController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKAspectsView)})},
+args: [],
+source: "defaultControllerClass\x0a\x09^ MKAspectController",
+messageSends: [],
+referencedClasses: ["MKAspectController"]
+}),
+smalltalk.MKAspectsView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "observeModel",
+category: 'observing',
+fn: function (){
+var self=this;
+function $MKModelChanged(){return smalltalk.MKModelChanged||(typeof MKModelChanged=="undefined"?nil:MKModelChanged)}
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.MKAspectsView.superclass.fn.prototype._observeModel.apply(_st(self), []);
+_st(self._model())._on_send_to_($MKModelChanged(),"update:",self);
+return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.MKAspectsView)})},
+args: [],
+source: "observeModel\x0a\x09super observeModel.\x0a\x09\x0a\x09self model\x0a\x09\x09on: MKModelChanged\x0a\x09\x09send: 'update:'\x0a\x09\x09to: self",
+messageSends: ["observeModel", "on:send:to:", "model"],
+referencedClasses: ["MKModelChanged"]
+}),
+smalltalk.MKAspectsView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "update:",
+category: 'updating',
+fn: function (anAnnouncement){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"update:",{anAnnouncement:anAnnouncement},smalltalk.MKAspectsView)})},
+args: ["anAnnouncement"],
+source: "update: anAnnouncement\x0a\x09\x22Override in subclasses to match the view's aspect(s)\x22",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKAspectsView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "valueForAspect:",
+category: 'accessing',
+fn: function (aSelector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._model())._perform_(aSelector);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"valueForAspect:",{aSelector:aSelector},smalltalk.MKAspectsView)})},
+args: ["aSelector"],
+source: "valueForAspect: aSelector\x0a\x09^ self model perform: aSelector",
+messageSends: ["perform:", "model"],
+referencedClasses: []
+}),
+smalltalk.MKAspectsView);
+
+
+
+smalltalk.addClass('MKSingleAspectView', smalltalk.MKAspectsView, ['aspect'], 'Moka-Core');
+smalltalk.MKSingleAspectView.comment="I am an abstract view which state depend on an `aspect` of a model. \x0a\x0a##API\x0a\x0a- Use the `#aspect:` to listen to a specific aspect of a model. Changes will then trigger `#update`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "aspect",
@@ -582,13 +1254,13 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 $1=self["@aspect"];
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"aspect",{},smalltalk.MKAspectView)})},
+}, function($ctx1) {$ctx1.fill(self,"aspect",{},smalltalk.MKSingleAspectView)})},
 args: [],
 source: "aspect\x0a\x09^ aspect",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MKAspectView);
+smalltalk.MKSingleAspectView);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -598,13 +1270,13 @@ fn: function (aSelector){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self["@aspect"]=aSelector;
-return self}, function($ctx1) {$ctx1.fill(self,"aspect:",{aSelector:aSelector},smalltalk.MKAspectView)})},
+return self}, function($ctx1) {$ctx1.fill(self,"aspect:",{aSelector:aSelector},smalltalk.MKSingleAspectView)})},
 args: ["aSelector"],
 source: "aspect: aSelector\x0a\x09aspect := aSelector",
 messageSends: [],
 referencedClasses: []
 }),
-smalltalk.MKAspectView);
+smalltalk.MKSingleAspectView);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -614,32 +1286,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self._model())._perform_(self._aspect());
+$1=self._valueForAspect_(self._aspect());
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"aspectValue",{},smalltalk.MKAspectView)})},
+}, function($ctx1) {$ctx1.fill(self,"aspectValue",{},smalltalk.MKSingleAspectView)})},
 args: [],
-source: "aspectValue\x0a\x09^ self model perform: self aspect",
-messageSends: ["perform:", "model", "aspect"],
+source: "aspectValue\x0a\x09^ self valueForAspect: self aspect",
+messageSends: ["valueForAspect:", "aspect"],
 referencedClasses: []
 }),
-smalltalk.MKAspectView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "controller:",
-category: 'accessing',
-fn: function (aController){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.MKAspectView.superclass.fn.prototype._controller_.apply(_st(self), [aController]);
-_st(aController)._aspect_(self._aspect());
-return self}, function($ctx1) {$ctx1.fill(self,"controller:",{aController:aController},smalltalk.MKAspectView)})},
-args: ["aController"],
-source: "controller: aController\x0a\x09super controller: aController.\x0a\x09aController aspect: self aspect",
-messageSends: ["controller:", "aspect:", "aspect"],
-referencedClasses: []
-}),
-smalltalk.MKAspectView);
+smalltalk.MKSingleAspectView);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -647,34 +1302,16 @@ selector: "defaultControllerClass",
 category: 'defaults',
 fn: function (){
 var self=this;
-function $MKAspectController(){return smalltalk.MKAspectController||(typeof MKAspectController=="undefined"?nil:MKAspectController)}
+function $MKSingleAspectController(){return smalltalk.MKSingleAspectController||(typeof MKSingleAspectController=="undefined"?nil:MKSingleAspectController)}
 return smalltalk.withContext(function($ctx1) { 
-return $MKAspectController();
-}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKAspectView)})},
+return $MKSingleAspectController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKSingleAspectView)})},
 args: [],
-source: "defaultControllerClass\x0a\x09^ MKAspectController",
+source: "defaultControllerClass\x0a\x09^ MKSingleAspectController",
 messageSends: [],
-referencedClasses: ["MKAspectController"]
+referencedClasses: ["MKSingleAspectController"]
 }),
-smalltalk.MKAspectView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "observeModel",
-category: 'observing',
-fn: function (){
-var self=this;
-function $MKModelChanged(){return smalltalk.MKModelChanged||(typeof MKModelChanged=="undefined"?nil:MKModelChanged)}
-return smalltalk.withContext(function($ctx1) { 
-smalltalk.MKAspectView.superclass.fn.prototype._observeModel.apply(_st(self), []);
-_st(self._model())._on_send_to_($MKModelChanged(),"update:",self);
-return self}, function($ctx1) {$ctx1.fill(self,"observeModel",{},smalltalk.MKAspectView)})},
-args: [],
-source: "observeModel\x0a\x09super observeModel.\x0a\x09\x0a\x09self model\x0a\x09\x09on: MKModelChanged\x0a\x09\x09send: 'update:'\x0a\x09\x09to: self",
-messageSends: ["observeModel", "on:send:to:", "model"],
-referencedClasses: ["MKModelChanged"]
-}),
-smalltalk.MKAspectView);
+smalltalk.MKSingleAspectView);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -690,13 +1327,13 @@ $1=_st($2).__eq(self._aspect());
 if(smalltalk.assert($1)){
 self._update();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"update:",{anAnnouncement:anAnnouncement},smalltalk.MKAspectView)})},
+return self}, function($ctx1) {$ctx1.fill(self,"update:",{anAnnouncement:anAnnouncement},smalltalk.MKSingleAspectView)})},
 args: ["anAnnouncement"],
-source: "update: anAnnouncement\x0a\x09anAnnouncement aspect = self aspect\x0a\x09\x09ifTrue: [ self update ]",
+source: "update: anAnnouncement\x0a\x09anAnnouncement aspect = self aspect ifTrue: [\x0a\x09\x09self update ]",
 messageSends: ["ifTrue:", "=", "aspect", "update"],
 referencedClasses: []
 }),
-smalltalk.MKAspectView);
+smalltalk.MKSingleAspectView);
 
 
 smalltalk.addMethod(
@@ -712,12 +1349,12 @@ _st($2)._aspect_(aSelector);
 $3=_st($2)._yourself();
 $1=$3;
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"model:aspect:",{aModel:aModel,aSelector:aSelector},smalltalk.MKAspectView.klass)})},
+}, function($ctx1) {$ctx1.fill(self,"model:aspect:",{aModel:aModel,aSelector:aSelector},smalltalk.MKSingleAspectView.klass)})},
 args: ["aModel", "aSelector"],
 source: "model: aModel aspect: aSelector\x0a\x09^ (self model: aModel)\x0a\x09\x09aspect: aSelector;\x0a\x09\x09yourself",
 messageSends: ["aspect:", "model:", "yourself"],
 referencedClasses: []
 }),
-smalltalk.MKAspectView.klass);
+smalltalk.MKSingleAspectView.klass);
 
 });

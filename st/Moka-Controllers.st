@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'Moka-Controllers'!
-MKAspectController subclass: #MKAnyKeyInputController
+MKSingleAspectController subclass: #MKAnyKeyInputController
 	instanceVariableNames: 'lastValue'
 	package: 'Moka-Controllers'!
 !MKAnyKeyInputController commentStamp!
@@ -13,14 +13,18 @@ inputText
 
 !MKAnyKeyInputController methodsFor: 'actions'!
 
-onKeyPressed: anEvent
+onKeyUp: anEvent
+	self setNewValue
+!
+
+setNewValue
 	| newValue |
 	
 	newValue := self inputText.
 	newValue = lastValue ifTrue: [ ^ self ].
 	
 	lastValue := newValue.
-	self performActionWith: newValue
+	self performAspectActionWith: newValue
 ! !
 
 MKAnyKeyInputController subclass: #MKEnterInputController
@@ -32,12 +36,15 @@ Actions are performed on 'enter' key press.!
 
 !MKEnterInputController methodsFor: 'actions'!
 
-onKeyPressed: anEvent
+onKeyDown: anEvent
 	anEvent keyCode = String cr asciiValue ifTrue: [
-		super onKeyPressed: anEvent ]
+		self setNewValue ]
+!
+
+onKeyUp: anEvent
 ! !
 
-MKAspectController subclass: #MKButtonController
+MKSingleAspectController subclass: #MKButtonController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
 !MKButtonController commentStamp!
@@ -45,11 +52,11 @@ I am the default controller for `MKButtonView`.!
 
 !MKButtonController methodsFor: 'actions'!
 
-onPressed
-	self performAction
+onClick: anEvent
+	self performAspectAction
 ! !
 
-MKAspectController subclass: #MKCheckboxController
+MKSingleAspectController subclass: #MKCheckboxController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
 !MKCheckboxController commentStamp!
@@ -57,7 +64,224 @@ I am the default controller for `MKCheckboxView`.!
 
 !MKCheckboxController methodsFor: 'actions'!
 
-onToggled: aBoolean
-	self performActionWith: aBoolean
+onClick: anEvent
+	self toggle
+!
+
+onKeyDown: anEvent
+	"Avoid scrolling in scrollable views"
+	
+	anEvent stopPropagation
+!
+
+onKeyPress: anEvent
+	anEvent charCode = ' ' asciiValue ifTrue: [ 
+		self toggle.
+		anEvent stopPropagation; preventDefault ]
+!
+
+toggle
+	self performAspectActionWith: self view checked not
+! !
+
+MKAspectsController subclass: #MKDropdownController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+
+!MKDropdownController methodsFor: 'actions'!
+
+onClick: anEvent
+	self view popupList
+!
+
+onKeyDown: anEvent
+	anEvent keyCode = String cr asciiValue ifTrue: [
+		self view popupList ]
+! !
+
+MKAspectsController subclass: #MKListController
+	instanceVariableNames: 'downRepeater upRepeater'
+	package: 'Moka-Controllers'!
+
+!MKListController methodsFor: 'accessing'!
+
+activeItem
+	^ self view activeItem
+!
+
+collection
+	^ self view collection
+!
+
+downRepeater
+	^ downRepeater ifNil: [ downRepeater := MKRepeater new ]
+!
+
+upRepeater
+	^ upRepeater ifNil: [ upRepeater := MKRepeater new ]
+! !
+
+!MKListController methodsFor: 'actions'!
+
+activateItem: anItem
+	"On item activation, change the model selection"
+	
+	self selectItem: anItem
+!
+
+onClick: anEvent
+	self selectItem: (self itemForTarget: anEvent target)
+!
+
+onKeyDown: anEvent
+	"Down"
+	anEvent keyCode = 40 ifTrue: [ 
+		anEvent preventDefault; stopPropagation.
+		self upRepeater stopRepeating.
+		self downRepeater repeat: [ 
+			self activateItem: self nextItem ] ].
+	"Up"
+	anEvent keyCode = 38 ifTrue: [ 
+		anEvent preventDefault; stopPropagation.
+		self downRepeater stopRepeating.
+		self upRepeater repeat: [ 
+			self activateItem: self previousItem ] ].
+!
+
+onKeyUp: anEvent
+	self downRepeater stopRepeating.
+	self upRepeater stopRepeating
+!
+
+selectItem: anItem
+	self 
+		performAspectAction: self view selectionAspect 
+		with: anItem
+! !
+
+!MKListController methodsFor: 'private'!
+
+itemForTarget: aDOMElement
+	^ self view findItemFor: aDOMElement
+!
+
+nextItem
+	^ self collection 
+		at: (self collection indexOf: self activeItem) + 1
+		ifAbsent: [ self collection last ]
+!
+
+previousItem
+	^ self view collection 
+		at: (self view collection indexOf: self activeItem) - 1
+		ifAbsent: [ self view collection first ]
+! !
+
+MKListController subclass: #MKDropdownListController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+
+!MKDropdownListController methodsFor: 'actions'!
+
+activateItem: anItem
+	"Select the list item in the view.
+	No change is done to the model"
+	
+	self view activateItem: anItem
+!
+
+onKeyDown: anEvent
+	super onKeyDown: anEvent.
+	
+	anEvent keyCode = String cr asciiValue ifTrue: [
+		self selectItem: (self itemForTarget: anEvent target) ]
+!
+
+onMouseMove: anEvent
+	(self upRepeater isRepeating or: [ self downRepeater isRepeating ])
+		ifTrue: [ ^ self ].
+		
+	self activateItem: (self itemForTarget: anEvent target)
+! !
+
+MKSingleAspectController subclass: #MKModalPaneController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+
+!MKModalPaneController methodsFor: 'actions'!
+
+onClick: anEvent
+	self view closeOnClick ifTrue: [ self removeView ]
+!
+
+onKeyDown: anEvent
+	"ESC"
+	anEvent keyCode = 27 ifTrue: [
+		self removeView ].
+		
+	self view closeOnEnter ifTrue: [
+		anEvent keyCode = String cr asciiValue ifTrue: [ 
+			self removeView ] ]
+!
+
+removeView
+	self view overlay remove
+! !
+
+MKSingleAspectController subclass: #MKOverlayController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+!MKOverlayController commentStamp!
+I am the default controller for `MKOverlayView`.
+
+On a click to the overlay, it is removed together with it's content view.!
+
+!MKOverlayController methodsFor: 'actions'!
+
+onClick: anEvent
+	self view remove
+! !
+
+Object subclass: #MKRepeater
+	instanceVariableNames: 'repeatInterval interval delay'
+	package: 'Moka-Controllers'!
+!MKRepeater commentStamp!
+I am an internal class used by controllers to repeat block actions after a `delay` and with an `interval`.!
+
+!MKRepeater methodsFor: 'accessing'!
+
+repeatInterval
+	^ repeatInterval ifNil: [ self defaultRepeatInterval ]
+!
+
+repeatInterval: aNumber
+	repeatInterval := aNumber
+! !
+
+!MKRepeater methodsFor: 'actions'!
+
+repeat: aBlock
+	self isRepeating ifTrue: [ ^ self ].
+	aBlock value.
+	delay := [ interval := aBlock valueWithInterval: self repeatInterval ] 
+		valueWithTimeout: 300
+!
+
+stopRepeating
+	interval ifNotNil: [ interval clearInterval ].
+	delay ifNotNil: [ delay clearTimeout ].
+	interval := delay := nil
+! !
+
+!MKRepeater methodsFor: 'defaults'!
+
+defaultRepeatInterval
+	^ 70
+! !
+
+!MKRepeater methodsFor: 'testing'!
+
+isRepeating
+	^ delay notNil
 ! !
 

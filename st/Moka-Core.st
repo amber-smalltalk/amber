@@ -25,10 +25,45 @@ view: aView
 	view := aView
 ! !
 
-MKController subclass: #MKAspectController
-	instanceVariableNames: 'aspect'
+!MKController methodsFor: 'actions'!
+
+onChange: anEvent
+!
+
+onClick: anEvent
+!
+
+onDblClick: anEvent
+!
+
+onKeyDown: anEvent
+!
+
+onKeyPress: anEvent
+!
+
+onKeyUp: anEvent
+!
+
+onMouseEnter: anEvent
+!
+
+onMouseLeave: anEvent
+!
+
+onMouseMove: anEvent
+!
+
+onMouseOut: anEvent
+!
+
+onMouseOver: anEvent
+! !
+
+MKController subclass: #MKAspectsController
+	instanceVariableNames: ''
 	package: 'Moka-Core'!
-!MKAspectController commentStamp!
+!MKAspectsController commentStamp!
 I am an abstract controller for performing one action using an `aspect` on a model.
 
 ## API
@@ -36,30 +71,36 @@ I am an abstract controller for performing one action using an `aspect` on a mod
 - Use `#aspect:` to plug a selector to be performed on the model
 - Subclasses can either use `#performActionWith:` or `#performAction` to evaluate the `aspect` selector on the model with one or no argument.!
 
-!MKAspectController methodsFor: 'accessing'!
+!MKAspectsController methodsFor: 'actions'!
 
-aspect
-	^ aspect
+performAspectAction: aSelector
+	self model perform: aSelector
 !
 
-aspect: aSelector
-	aspect := aSelector
+performAspectAction: aSelector with: anObject
+	self model 
+		perform: aSelector asMutator
+		withArguments: { anObject }
 ! !
 
-!MKAspectController methodsFor: 'actions'!
+MKAspectsController subclass: #MKSingleAspectController
+	instanceVariableNames: ''
+	package: 'Moka-Core'!
+!MKSingleAspectController commentStamp!
+I am an abstract controller used with single aspect views.
 
-performAction
-	self aspect ifNotNil: [
-		self model 
-			perform: self aspect ]
+My view must hold onto one aspect accessed with `#aspect`.!
+
+!MKSingleAspectController methodsFor: 'actions'!
+
+performAspectAction
+	^ self performAspectAction: self view aspect
 !
 
-performActionWith: anObject
-	self aspect ifNil: [ ^ self ].
-	
-	self model 
-		perform: self aspect asMutator
-		withArguments: { anObject }
+performAspectActionWith: anObject
+	^ self 
+		performAspectAction: self view aspect
+		with: anObject
 ! !
 
 Object subclass: #MKModel
@@ -133,7 +174,7 @@ aspect: aSelector
 ! !
 
 Widget subclass: #MKView
-	instanceVariableNames: 'controller model wrapper'
+	instanceVariableNames: 'controller model root layout extraCssClass'
 	package: 'Moka-Core'!
 !MKView commentStamp!
 I implement the View part of the MVC pattern in Moka.
@@ -143,7 +184,8 @@ I implement the View part of the MVC pattern in Moka.
 - rendering is done through `#renderContentOn:`, to be overridden in concrete view classes
 - `#update` provide updating facility, refreshing the entire view
 - subclasses can override `#defaultControllerClass` to provide a default controller specific to a view
-- subclasses can override `#observeModel`.!
+- subclasses can override `#observeModel`
+- Extra css classes can be added with `#extraCssClass:`.!
 
 !MKView methodsFor: 'accessing'!
 
@@ -166,6 +208,25 @@ controller: aController
 		model: self model
 !
 
+cssClass
+	^ String streamContents: [ :stream |
+		stream << 'moka_view'.
+		self extraCssClass ifNotEmpty: [
+			stream << ' ' << self extraCssClass ] ]
+!
+
+extraCssClass
+	^ extraCssClass ifNil: [ '' ]
+!
+
+extraCssClass: aString
+	extraCssClass := aString
+!
+
+layout
+	^ layout ifNil: [ layout := self defaultLayout ]
+!
+
 model
 	^ model
 !
@@ -173,12 +234,49 @@ model
 model: aModel
 	model := aModel.
 	self observeModel
+!
+
+position
+	"Answer the position of the reciever in the page"
+	
+	^ root ifNotNil: [ 
+		|  offset |
+		offset := root asJQuery offset.
+		offset left @ offset top ]
+!
+
+tag
+	^ 'div'
+! !
+
+!MKView methodsFor: 'actions'!
+
+blur
+	root ifNotNil: [ root asJQuery blur ]
+!
+
+focus
+	root ifNotNil: [ root asJQuery focus ]
+!
+
+remove
+	"Removes the receiver from the DOM"
+	root ifNotNil: [ root asJQuery remove ]
 ! !
 
 !MKView methodsFor: 'defaults'!
 
 defaultControllerClass
 	^ MKController
+!
+
+defaultLayout
+	^ MKLayout new
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		yourself
 ! !
 
 !MKView methodsFor: 'factory'!
@@ -187,10 +285,61 @@ defaultController
 	^ self defaultControllerClass new
 ! !
 
+!MKView methodsFor: 'layout'!
+
+bottom: aNumber
+	self layout bottom: aNumber
+!
+
+centerX: aNumber
+	self layout centerX: aNumber
+!
+
+centerY: aNumber
+	self layout centerY: aNumber
+!
+
+height: aNumber
+	self layout height: aNumber
+!
+
+left: aNumber
+	self layout left: aNumber
+!
+
+right: aNumber
+	self layout right: aNumber
+!
+
+top: aNumber
+	self layout top: aNumber
+!
+
+width: aNumber
+	self layout width: aNumber
+! !
+
 !MKView methodsFor: 'observing'!
 
 observeModel
 	"No op. Override in subclasses"
+! !
+
+!MKView methodsFor: 'private'!
+
+setupEventHandlers
+	root
+		onClick: [ :event | self controller onClick: event ];
+		onDblClick: [ :event | self controller onDblClick: event ];
+		onMouseEnter: [ :event | self controller onMouseEnter: event ];
+		onMouseLeave: [ :event | self controller onMouseLeave: event ];
+		onMouseOver: [ :event | self controller onMouseOver: event ];
+		onMouseOut: [ :event | self controller onMouseOut: event ];
+		onMouseMove: [ :event | self controller onMouseMove: event ];
+		onKeyDown: [ :event | self controller onKeyDown: event ];
+		onKeyUp: [ :event | self controller onKeyUp: event ];
+		onKeyPress: [ :event | self controller onKeyPress: event ];
+		onChange: [ :event | self controller onChange: event ]
 ! !
 
 !MKView methodsFor: 'rendering'!
@@ -207,26 +356,27 @@ renderContentOn: html
 
 renderOn: html
 	"Basic rendering method.
-	Wraps the content with a `wrapper` div for updating the receiver.
-	
 	Do not override this method, but `#renderContentOn:`"
 	
-	wrapper := html div
-		class: 'moka_view';
+	root := (html tag: self tag)
+		class: self cssClass;
+		style: self layout asCssString;
 		yourself.
-	wrapper with: [ self renderContentOn: html ]
+	root with: [ self renderContentOn: html ].
+	
+	self setupEventHandlers
 ! !
 
 !MKView methodsFor: 'updating'!
 
 update
-	"Update the view's content."
+	"Update the view's content. Override in subclasses to fine-tune updating"
 	
-	wrapper ifNil: [ self error: 'The view has not been rendered yet' ].
+	root ifNil: [ self error: 'The view has not been rendered yet' ].
 	
-	wrapper asJQuery empty.
+	root asJQuery empty.
 	[ :html | self renderContentOn: html ] 
-		appendToJQuery: wrapper asJQuery
+		appendToJQuery: root asJQuery
 ! !
 
 !MKView class methodsFor: 'instance creation'!
@@ -243,42 +393,25 @@ model: aModel controller: aController
 		yourself
 ! !
 
-MKView subclass: #MKAspectView
-	instanceVariableNames: 'aspect label'
+MKView subclass: #MKAspectsView
+	instanceVariableNames: ''
 	package: 'Moka-Core'!
-!MKAspectView commentStamp!
-I am an abstract view which state depend on an `aspect` of a model. 
+!MKAspectsView commentStamp!
+I am an abstract view which state depend on aspects of a model.!
 
-##API
+!MKAspectsView methodsFor: 'accessing'!
 
-- Use the `#aspect:` to listen to a specific aspect of a model. Changes will then trigger `#update`.!
-
-!MKAspectView methodsFor: 'accessing'!
-
-aspect
-	^ aspect
-!
-
-aspect: aSelector
-	aspect := aSelector
-!
-
-aspectValue
-	^ self model perform: self aspect
-!
-
-controller: aController
-	super controller: aController.
-	aController aspect: self aspect
+valueForAspect: aSelector
+	^ self model perform: aSelector
 ! !
 
-!MKAspectView methodsFor: 'defaults'!
+!MKAspectsView methodsFor: 'defaults'!
 
 defaultControllerClass
 	^ MKAspectController
 ! !
 
-!MKAspectView methodsFor: 'observing'!
+!MKAspectsView methodsFor: 'observing'!
 
 observeModel
 	super observeModel.
@@ -289,14 +422,50 @@ observeModel
 		to: self
 ! !
 
-!MKAspectView methodsFor: 'updating'!
+!MKAspectsView methodsFor: 'updating'!
 
 update: anAnnouncement
-	anAnnouncement aspect = self aspect
-		ifTrue: [ self update ]
+	"Override in subclasses to match the view's aspect(s)"
 ! !
 
-!MKAspectView class methodsFor: 'instance creation'!
+MKAspectsView subclass: #MKSingleAspectView
+	instanceVariableNames: 'aspect'
+	package: 'Moka-Core'!
+!MKSingleAspectView commentStamp!
+I am an abstract view which state depend on an `aspect` of a model. 
+
+##API
+
+- Use the `#aspect:` to listen to a specific aspect of a model. Changes will then trigger `#update`.!
+
+!MKSingleAspectView methodsFor: 'accessing'!
+
+aspect
+	^ aspect
+!
+
+aspect: aSelector
+	aspect := aSelector
+!
+
+aspectValue
+	^ self valueForAspect: self aspect
+! !
+
+!MKSingleAspectView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKSingleAspectController
+! !
+
+!MKSingleAspectView methodsFor: 'updating'!
+
+update: anAnnouncement
+	anAnnouncement aspect = self aspect ifTrue: [
+		self update ]
+! !
+
+!MKSingleAspectView class methodsFor: 'instance creation'!
 
 model: aModel aspect: aSelector
 	^ (self model: aModel)

@@ -52,7 +52,9 @@ require = function (require) {
             'amber_core/_source': amber_home + '/st',
             'amber_html': amber_home,
             'jquery': document_home + '/bower_components/jquery/jquery.min',
-            'jquery-ui': amber_home + '/support/jQuery/jquery-ui-1.8.24.custom.min'
+            'jquery-ui': amber_home + '/support/jQuery/jquery-ui-1.8.24.custom.min',
+			'jscrollpane': document_home + '/bower_components/jscrollpane/script/jquery.jscrollpane.min',
+			'mousewheel': document_home + '/bower_components/jscrollpane/script/jquery.mousewheel'
         },
         map: {
             '*': {

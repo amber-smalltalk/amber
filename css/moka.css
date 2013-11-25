@@ -1,5 +1,5 @@
 @import "reset.css";
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,latin-ext);
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,latin-ext");
 .no-select {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -8,159 +8,268 @@
   -ms-user-select: none;
   user-select: none;
 }
-body {
-  background: #f1f1f1;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-button {
+  height: 0;
+  width: 0;
+}
+::-webkit-resizer {
+  background-color: #eeeeee;
+}
+::-webkit-scrollbar-track {
+  background-color: #eeeeee;
+}
+::-webkit-scrollbar-track-piece {
+  background-color: #eeeeee;
+}
+::-webkit-scrollbar-corner {
+  background-color: #eeeeee;
+}
+::-webkit-scrollbar-thumb {
+  background: #e1e1e1;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0, #e1e1e1), color-stop(1, #cfcfcf));
+  background: -ms-linear-gradient(left, #e1e1e1, #cfcfcf);
+  background: -moz-linear-gradient(right, #e1e1e1 0%, #cfcfcf 100%);
+  border: 1px solid #959595;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #c3c3c3;
+  background: -webkit-gradient(linear, left top, right top, color-stop(0, #c3c3c3), color-stop(1, #aaaaaa));
+  background: -ms-linear-gradient(left, #c3c3c3, #aaaaaa);
+  background: -moz-linear-gradient(right, #c3c3c3 0%, #aaaaaa 100%);
+  border: 1px solid #919191;
+}
+.mk_default {
+  font-size: 12px;
+  font-family: "Open Sans";
+  line-height: 1.5em;
+  color: #444444;
+  text-shadow: 0 1px 0 white;
+  padding: 0;
+  margin: 0;
+}
+.mk_absolute {
+  position: absolute;
+  display: block;
+  overflow: hidden;
+}
+.mk_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  zindex: 1000;
+  background: transparent;
 }
 .moka_view {
-  display: inline-block;
+  position: absolute;
+  display: block;
+  overflow: hidden;
 }
-.moka_view .mk_default {
+.moka_view.mk_label {
   font-size: 12px;
   font-family: "Open Sans";
-  color: #555;
+  line-height: 1.5em;
+  color: #444444;
   text-shadow: 0 1px 0 white;
-}
-.moka_view span {
-  font-size: 12px;
-  font-family: "Open Sans";
-  color: #555;
-  text-shadow: 0 1px 0 white;
-  color: #333;
+  padding: 0;
+  margin: 0;
+  color: #333333;
   padding: 4px;
+}
+.moka_view.mk_label.mk_heading {
+  font-weight: bold;
+}
+.moka_view.mk_label.mk_heading.level1 {
+  font-size: 2em;
+}
+.moka_view.mk_label.mk_heading.level2 {
+  font-size: 1.8em;
+}
+.moka_view.mk_label.mk_heading.level3 {
+  font-size: 1.6em;
+}
+.moka_view.mk_label.mk_heading.level4 {
+  font-size: 1.4em;
+}
+.moka_view.mk_label.mk_heading.level5 {
+  font-size: 1.2em;
+}
+.moka_view.mk_pane.mk_panel {
+  background: #eeeeee;
+  border-color: #888888;
+  border-style: solid;
+  overflow: auto;
+}
+.moka_view.mk_pane.mk_modal {
+  z-index: 1001;
+  background: transparent;
+  border: 0 none;
+}
+.moka_view.mk_pane.mk_modal:focus {
+  outline: 0 none;
 }
 .moka_view .mk_control,
 .moka_view .mk_control:active,
 .moka_view .mk_control:focus {
   font-size: 12px;
   font-family: "Open Sans";
-  color: #555;
+  line-height: 1.5em;
+  color: #444444;
   text-shadow: 0 1px 0 white;
-  margin: 4px;
-  padding: 3px 10px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border-top: solid 1px #999999;
-  border-left: solid 1px #999999;
-  border-right: solid 1px #999999;
-  border-bottom: solid 1px #999999;
-  -webkit-box-shadow: 0 0 3px 0 #cccccc;
-  -moz-box-shadow: 0 0 3px 0 #cccccc;
-  box-shadow: 0 0 3px 0 #cccccc;
-  background: white;
+  border: 1px solid #aaaaaa;
+  -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  box-shadow: inset 0 0 3px 0 #c3c3c3;
+  background-color: white;
+  background: -webkit-linear-gradient(top, #eee 0%, white 6px);
+  background: -moz-linear-gradient(top, #eee 0%, white 6px);
+  background: -ms-linear-gradient(top, #eee 0%, white 6px);
+  background: -o-linear-gradient(top, #eee 0%, white 6px);
+  background: linear-gradient(top, #eee 0%, white 6px);
 }
 .moka_view .mk_control:focus,
 .moka_view .mk_control:active:focus,
 .moka_view .mk_control:focus:focus {
   outline: 0;
 }
-.moka_view button {
+.moka_view.mk_button {
   font-size: 12px;
   font-family: "Open Sans";
-  color: #555;
+  line-height: 1.5em;
+  color: #444444;
   text-shadow: 0 1px 0 white;
-  margin: 4px;
-  padding: 3px 10px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border-top: solid 1px #999999;
-  border-left: solid 1px #999999;
-  border-right: solid 1px #999999;
-  border-bottom: solid 1px #999999;
-  -webkit-box-shadow: 0 0 3px 0 #cccccc;
-  -moz-box-shadow: 0 0 3px 0 #cccccc;
-  box-shadow: 0 0 3px 0 #cccccc;
-  background: white;
+  border: 1px solid #aaaaaa;
+  -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  box-shadow: inset 0 0 3px 0 #c3c3c3;
+  background-color: white;
+  background: -webkit-linear-gradient(top, #eee 0%, white 6px);
+  background: -moz-linear-gradient(top, #eee 0%, white 6px);
+  background: -ms-linear-gradient(top, #eee 0%, white 6px);
+  background: -o-linear-gradient(top, #eee 0%, white 6px);
+  background: linear-gradient(top, #eee 0%, white 6px);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-box-shadow: 0 1px 1px 0 #d8d8d8;
+  -moz-box-shadow: 0 1px 1px 0 #d8d8d8;
+  box-shadow: 0 1px 1px 0 #d8d8d8;
   background: #fafafa;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dedede), color-stop(1, #ffffff));
   background: -ms-linear-gradient(bottom, #dedede, #ffffff);
   background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
   background: -o-linear-gradient(#ffffff, #dedede);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dedede', GradientType=0);
 }
-.moka_view button:focus {
+.moka_view.mk_button:focus {
   outline: 0;
 }
-.moka_view button:focus {
-  border-color: #08c;
+.moka_view.mk_button.default {
+  background: #9ec4eb;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9ec4eb), color-stop(1, #deeaf8));
+  background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
+  background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
+  background: -o-linear-gradient(#deeaf8, #9ec4eb);
+  border-color: #9d9d9d;
 }
-.moka_view button:active {
-  background: #ccc;
+.moka_view.mk_button.default:active {
+  background: #9ec4eb;
+  border-color: #4a90d9;
+}
+.moka_view.mk_button:focus {
+  border-color: #4a90d9;
+}
+.moka_view.mk_button:active {
+  background: #dddddd;
   -webkit-box-shadow: inset 0 0 3px 0 #888888;
   -moz-box-shadow: inset 0 0 3px 0 #888888;
   box-shadow: inset 0 0 3px 0 #888888;
-  border-color: #999;
+  border-color: #947c7c;
 }
-.moka_view input,
-.moka_view textarea {
+.moka_view.mk_input,
+.moka_view.mk_textarea {
   font-size: 12px;
   font-family: "Open Sans";
-  color: #555;
+  line-height: 1.5em;
+  color: #444444;
   text-shadow: 0 1px 0 white;
-  margin: 4px;
-  padding: 3px 10px;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border-top: solid 1px #999999;
-  border-left: solid 1px #999999;
-  border-right: solid 1px #999999;
-  border-bottom: solid 1px #999999;
-  -webkit-box-shadow: 0 0 3px 0 #cccccc;
-  -moz-box-shadow: 0 0 3px 0 #cccccc;
-  box-shadow: 0 0 3px 0 #cccccc;
-  background: white;
+  border: 1px solid #aaaaaa;
+  -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  box-shadow: inset 0 0 3px 0 #c3c3c3;
+  background-color: white;
+  background: -webkit-linear-gradient(top, #eee 0%, white 6px);
+  background: -moz-linear-gradient(top, #eee 0%, white 6px);
+  background: -ms-linear-gradient(top, #eee 0%, white 6px);
+  background: -o-linear-gradient(top, #eee 0%, white 6px);
+  background: linear-gradient(top, #eee 0%, white 6px);
+  resize: none;
+  padding: 0 4px;
   text-shadow: 0 0 0;
 }
-.moka_view input:focus,
-.moka_view textarea:focus {
+.moka_view.mk_input:focus,
+.moka_view.mk_textarea:focus {
   outline: 0;
 }
-.moka_view input:focus,
-.moka_view textarea:focus {
-  -webkit-box-shadow: inset 0 0 3px 0 #999999;
-  -moz-box-shadow: inset 0 0 3px 0 #999999;
-  box-shadow: inset 0 0 3px 0 #999999;
-  border-color: #08c;
+.moka_view.mk_input:focus,
+.moka_view.mk_textarea:focus {
+  -webkit-box-shadow: inset 0 0 3px 0 #888888;
+  -moz-box-shadow: inset 0 0 3px 0 #888888;
+  box-shadow: inset 0 0 3px 0 #888888;
+  border-color: #4a90d9;
 }
-.moka_view textarea {
-  width: 200px;
-  height: 100px;
-}
-.moka_view input[type="checkbox"] {
-  position: absolute;
-  left: -999999px;
-}
-.moka_view .mk_checkbox + label {
+.moka_view.mk_checkbox {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  padding: 0 6px;
-  margin: 4px;
   background: url('../images/moka/check.png') 50% 50% no-repeat;
   height: 16px;
   width: 16px;
 }
-.moka_view .mk_checkbox:focus + label {
-  background-image: url('../images/moka/check-focus.png');
-  -webkit-box-shadow: 0 0 2px #0088cc;
-  -moz-box-shadow: 0 0 2px #0088cc;
-  box-shadow: 0 0 2px #0088cc;
+.moka_view.mk_checkbox:focus {
+  outline: 0;
 }
-.moka_view .mk_checkbox:checked + label {
+.moka_view.mk_checkbox.checked {
   background-image: url('../images/moka/check-active.png');
 }
-.moka_view .mk_switch + label {
+.moka_view.mk_switch {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -170,21 +279,208 @@ body {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
-  margin: 4px;
   vertical-align: middle;
   display: inline-block;
   height: 20px;
-  width: 59px;
-  border: 1px solid #999;
+  width: 39px;
+  border: 1px solid #888888;
   background: url('../images/moka/switch.png') 100% 50% no-repeat;
-  -webkit-transition: background 0.3s ease-out;
-  -moz-transition: background 0.3s ease-out;
-  -o-transition: background 0.3s ease-out;
-  transition: background 0.3s ease-out;
+  -webkit-transition: background 0.2s ease-out;
+  -moz-transition: background 0.2s ease-out;
+  -o-transition: background 0.2s ease-out;
+  transition: background 0.2s ease-out;
 }
-.moka_view .mk_switch:focus + label {
-  border-color: #08c;
+.moka_view.mk_switch:focus {
+  border-color: #256ab1;
 }
-.moka_view .mk_switch:checked + label {
-  background-position: 0% 50%;
+.moka_view.mk_switch.checked {
+  background: url('../images/moka/switch.png') 0% 50% no-repeat;
+  border-color: #3583d5;
+}
+.moka_view.mk_list {
+  cursor: default;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 12px;
+  font-family: "Open Sans";
+  line-height: 1.5em;
+  color: #444444;
+  text-shadow: 0 1px 0 white;
+  margin: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  box-shadow: inset 0 0 3px 0 #c3c3c3;
+  background-color: white;
+  background: -webkit-linear-gradient(top, #eee 0%, white 6px);
+  background: -moz-linear-gradient(top, #eee 0%, white 6px);
+  background: -ms-linear-gradient(top, #eee 0%, white 6px);
+  background: -o-linear-gradient(top, #eee 0%, white 6px);
+  background: linear-gradient(top, #eee 0%, white 6px);
+  padding: 0;
+  overflow: auto;
+  background: white;
+}
+.moka_view.mk_list:focus {
+  outline: 0;
+}
+.moka_view.mk_list:focus {
+  outline: 0;
+  border-color: #4a90d9;
+}
+.moka_view.mk_list:focus li.selected {
+  background: #74aae2;
+  color: white;
+}
+.moka_view.mk_list li {
+  line-height: 2em;
+  padding: 0 4px;
+  text-shadow: 0 0 0;
+}
+.moka_view.mk_list li.selected {
+  background: #dddddd;
+}
+.moka_view.mk_list.mk_sourcelist {
+  background: transparent;
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-box-shadow: 0 0 0;
+  -moz-box-shadow: 0 0 0;
+  box-shadow: 0 0 0;
+}
+.moka_view.mk_list.mk_sourcelist li {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  padding: 0 14px;
+}
+.moka_view.mk_list.mk_sourcelist:focus li.selected,
+.moka_view.mk_list.mk_sourcelist li.selected {
+  text-shadow: 0 1px 0 #333333;
+  background: #74aae2;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #74aae2), color-stop(1, #9ec4eb));
+  background: -ms-linear-gradient(bottom, #74aae2, #9ec4eb);
+  background: -moz-linear-gradient(center bottom, #74aae2 0%, #9ec4eb 100%);
+  background: -o-linear-gradient(#9ec4eb, #74aae2);
+  border-top: 1px solid #4a90d9;
+  border-bottom: 1px solid #4a90d9;
+  color: white;
+  font-weight: bold;
+}
+.moka_view.mk_dropdown {
+  font-size: 12px;
+  font-family: "Open Sans";
+  line-height: 1.5em;
+  color: #444444;
+  text-shadow: 0 1px 0 white;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #aaaaaa;
+  -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  box-shadow: inset 0 0 3px 0 #c3c3c3;
+  background-color: white;
+  background: -webkit-linear-gradient(top, #eee 0%, white 6px);
+  background: -moz-linear-gradient(top, #eee 0%, white 6px);
+  background: -ms-linear-gradient(top, #eee 0%, white 6px);
+  background: -o-linear-gradient(top, #eee 0%, white 6px);
+  background: linear-gradient(top, #eee 0%, white 6px);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-box-shadow: 0 1px 1px 0 #d8d8d8;
+  -moz-box-shadow: 0 1px 1px 0 #d8d8d8;
+  box-shadow: 0 1px 1px 0 #d8d8d8;
+  background: #fafafa;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dedede), color-stop(1, #ffffff));
+  background: -ms-linear-gradient(bottom, #dedede, #ffffff);
+  background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
+  background: -o-linear-gradient(#ffffff, #dedede);
+  text-align: left;
+  padding: 0 8px;
+}
+.moka_view.mk_dropdown:focus {
+  outline: 0;
+}
+.moka_view.mk_dropdown.default {
+  background: #9ec4eb;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9ec4eb), color-stop(1, #deeaf8));
+  background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
+  background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
+  background: -o-linear-gradient(#deeaf8, #9ec4eb);
+  border-color: #9d9d9d;
+}
+.moka_view.mk_dropdown.default:active {
+  background: #9ec4eb;
+  border-color: #4a90d9;
+}
+.moka_view.mk_dropdown:focus {
+  border-color: #4a90d9;
+}
+.moka_view.mk_dropdown:active {
+  background: #dddddd;
+  -webkit-box-shadow: inset 0 0 3px 0 #888888;
+  -moz-box-shadow: inset 0 0 3px 0 #888888;
+  box-shadow: inset 0 0 3px 0 #888888;
+  border-color: #947c7c;
+}
+.moka_view.mk_dropdown .mk_dropdown_arrows {
+  position: absolute;
+  right: 0;
+  height: 100%;
+  width: 24px;
+  top: 0;
+  background-image: url(/images/moka/dropdown_arrows.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  border-left: 1px solid #aaaaaa;
+}
+.moka_view.mk_dropdown_pane {
+  padding: 6px;
+  margin-left: -6px;
+  margin-top: -6px;
+}
+.moka_view.mk_dropdown_pane .mk_dropdown_list {
+  position: relative;
+  display: inline-block;
+  border: 0;
+  background: white;
+  -webkit-box-shadow: 0 0 6px #555555;
+  -moz-box-shadow: 0 0 6px #555555;
+  box-shadow: 0 0 6px #555555;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  min-width: 120px;
+  max-height: 400px;
+}
+.moka_view.mk_dropdown_pane .mk_dropdown_list li {
+  padding: 0 6px;
+}
+.moka_view.mk_dropdown_pane .mk_dropdown_list li.selected {
+  background: #4a90d9;
+  color: white;
+}
+.moka_view.mk_dropdown_pane .mk_dropdown_list:focus {
+  border: 0;
 }

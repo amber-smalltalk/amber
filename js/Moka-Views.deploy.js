@@ -1,7 +1,7 @@
 (function(smalltalk,nil,_st){
 smalltalk.addPackage('Moka-Views');
 
-smalltalk.addClass('MKButtonView', smalltalk.MKAspectView, ['default', 'label'], 'Moka-Views');
+smalltalk.addClass('MKButtonView', smalltalk.MKAspectsView, ['default', 'label'], 'Moka-Views');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "cssClass",
@@ -145,7 +145,7 @@ smalltalk.MKButtonView);
 
 
 
-smalltalk.addClass('MKCheckboxView', smalltalk.MKAspectView, ['label'], 'Moka-Views');
+smalltalk.addClass('MKCheckboxView', smalltalk.MKAspectsView, ['label'], 'Moka-Views');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "checked",
@@ -225,7 +225,7 @@ smalltalk.MKCheckboxView);
 
 
 
-smalltalk.addClass('MKInputView', smalltalk.MKAspectView, ['input'], 'Moka-Views');
+smalltalk.addClass('MKInputView', smalltalk.MKAspectsView, ['input'], 'Moka-Views');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "enterPressed",
