@@ -1581,19 +1581,10 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-
-		if ('function'===typeof Object.keys) return Object.keys(self);
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	;
+return Object.keys(self);
 return self}, function($ctx1) {$ctx1.fill(self,"keys",{},smalltalk.HashedCollection)})},
 args: [],
-source: "keys\x0a\x09<\x0a\x09\x09if ('function'===typeof Object.keys) return Object.keys(self);\x0a\x09\x09var keys = [];\x0a\x09\x09for(var i in self) {\x0a\x09\x09\x09if(self.hasOwnProperty(i)) {\x0a\x09\x09\x09\x09keys.push(i);\x0a\x09\x09\x09}\x0a\x09\x09};\x0a\x09\x09return keys;\x0a\x09>",
+source: "keys\x0a\x09<return Object.keys(self)>",
 messageSends: [],
 referencedClasses: []
 }),

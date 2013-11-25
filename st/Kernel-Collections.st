@@ -438,16 +438,7 @@ keyAtValue: anObject ifAbsent: aBlock
 !
 
 keys
-	<
-		if ('function'===typeof Object.keys) return Object.keys(self);
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	>
+	<return Object.keys(self)>
 !
 
 size
