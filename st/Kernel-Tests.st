@@ -22,6 +22,40 @@ testHandlesAnnouncement
 	classBuilder basicRemoveClass: announcementClass1.
 ! !
 
+TestCase subclass: #AnnouncerTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AnnouncerTest methodsFor: 'not yet classified'!
+
+testOnDo
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement do: [ counter := counter + 1 ].
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 2.
+!
+
+testOnDoOnce
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement doOnce: [ counter := counter + 1 ].
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
