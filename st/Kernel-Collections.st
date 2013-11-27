@@ -85,6 +85,15 @@ addAll: aCollection
 	^ aCollection
 !
 
+anyOne
+	"Answer a representative sample of the receiver. This method can
+	be helpful when needing to preinfer the nature of the contents of 
+	semi-homogeneous collections."
+
+	self ifEmpty: [ self error: 'Collection is empty' ].
+	self do: [:each | ^ each]
+!
+
 remove: anObject
 	^ self remove: anObject ifAbsent: [ self errorNotFound ]
 !

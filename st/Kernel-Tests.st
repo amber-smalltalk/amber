@@ -416,6 +416,11 @@ isCollectionReadOnly
 
 !CollectionTest methodsFor: 'tests'!
 
+testAnyOne
+	self should: [ self collectionClass new anyOne ] raise: Error.
+	self assert: (self collection includes: self collection anyOne)
+!
+
 testAsArray
 	self
 		assertSameContents: self collection

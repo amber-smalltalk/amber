@@ -211,6 +211,33 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "anyOne",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $early={};
+try {
+self._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("Collection is empty");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+throw $early=[each];
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"anyOne",{},smalltalk.Collection)})},
+args: [],
+source: "anyOne\x0a\x09\x22Answer a representative sample of the receiver. This method can\x0a\x09be helpful when needing to preinfer the nature of the contents of \x0a\x09semi-homogeneous collections.\x22\x0a\x0a\x09self ifEmpty: [ self error: 'Collection is empty' ].\x0a\x09self do: [:each | ^ each]",
+messageSends: ["ifEmpty:", "error:", "do:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asArray",
 category: 'converting',
 fn: function (){

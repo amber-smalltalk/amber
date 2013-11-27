@@ -1358,6 +1358,32 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAnyOne",
+category: 'tests',
+fn: function (){
+var self=this;
+function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+self._should_raise_((function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st(self._collectionClass())._new())._anyOne();
+$ctx2.sendIdx["anyOne"]=1;
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}),$Error());
+$2=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$1=_st($2)._includes_(_st(self._collection())._anyOne());
+self._assert_($1);
+return self}, function($ctx1) {$ctx1.fill(self,"testAnyOne",{},smalltalk.CollectionTest)})},
+args: [],
+source: "testAnyOne\x0a\x09self should: [ self collectionClass new anyOne ] raise: Error.\x0a\x09self assert: (self collection includes: self collection anyOne)",
+messageSends: ["should:raise:", "anyOne", "new", "collectionClass", "assert:", "includes:", "collection"],
+referencedClasses: ["Error"]
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAsArray",
 category: 'tests',
 fn: function (){
