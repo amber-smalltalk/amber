@@ -80,6 +80,7 @@ The Amber development model currently revolves around Pull Requests which are cr
 5. Run the unittests
 6. Commit your changes to disk if all tests are green
 7. Try to split your fix into small Git commits if multiple changes are involved (this makes it easier for us to review the changes)
+8. If you created / deleted / moved API, update API-CHANGES.txt appropriately and commit.
 8. Push the changes to your fork on GitHub ```git push <your repo> <your branchname>```
 9. Submit Pull Request (usually for the Amber master branch)
 
