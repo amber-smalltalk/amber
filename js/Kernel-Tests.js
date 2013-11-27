@@ -1503,7 +1503,7 @@ category: 'tests',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$1,$5,$4,$6,$9,$8,$7;
+var $3,$2,$1,$5,$4,$6,$9,$8,$7,$11,$10,$13,$12,$16,$15,$14,$18,$17,$19;
 $3=self._collectionClass();
 $ctx1.sendIdx["collectionClass"]=1;
 $2=_st($3)._new();
@@ -1534,16 +1534,66 @@ return smalltalk.withContext(function($ctx2) {
 return (42);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 $ctx1.sendIdx["ifNotEmpty:"]=1;
-self._assert_equals_($7,_st(self._collectionClass())._new());
+$11=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=3;
+$10=_st($11)._new();
+$ctx1.sendIdx["new"]=3;
+self._assert_equals_($7,$10);
 $ctx1.sendIdx["assert:equals:"]=3;
-self._assert_equals_(_st(self._collection())._ifNotEmpty_((function(){
+$13=self._collection();
+$ctx1.sendIdx["collection"]=3;
+$12=_st($13)._ifNotEmpty_((function(){
 return smalltalk.withContext(function($ctx2) {
 return (42);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),(42));
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})}));
+self._assert_equals_($12,(42));
+$ctx1.sendIdx["assert:equals:"]=4;
+$16=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=4;
+$15=_st($16)._new();
+$ctx1.sendIdx["new"]=4;
+$14=_st($15)._ifEmpty_ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,5)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return (999);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,6)})}));
+$ctx1.sendIdx["ifEmpty:ifNotEmpty:"]=1;
+self._assert_equals_($14,(42));
+$ctx1.sendIdx["assert:equals:"]=5;
+$18=self._collection();
+$ctx1.sendIdx["collection"]=4;
+$17=_st($18)._ifEmpty_ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,7)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return (999);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,8)})}));
+self._assert_equals_($17,(999));
+$ctx1.sendIdx["assert:equals:"]=6;
+$19=_st(_st(self._collectionClass())._new())._ifNotEmpty_ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,9)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return (999);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,10)})}));
+$ctx1.sendIdx["ifNotEmpty:ifEmpty:"]=1;
+self._assert_equals_($19,(999));
+$ctx1.sendIdx["assert:equals:"]=7;
+self._assert_equals_(_st(self._collection())._ifNotEmpty_ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,11)})}),(function(){
+return smalltalk.withContext(function($ctx2) {
+return (999);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,12)})})),(42));
 return self}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},smalltalk.CollectionTest)})},
 args: [],
-source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.",
-messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:"],
+source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.\x0a\x09\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42",
+messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:", "ifEmpty:ifNotEmpty:", "ifNotEmpty:ifEmpty:"],
 referencedClasses: []
 }),
 smalltalk.CollectionTest);

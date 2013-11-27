@@ -469,6 +469,12 @@ testIfEmptyFamily
 
 	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
 	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+	
+	self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.
+	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42
 !
 
 testIsEmpty

@@ -521,6 +521,30 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "ifEmpty:ifNotEmpty:",
+category: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._isEmpty();
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+} else {
+$1=_st(anotherBlock)._value();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+args: ["aBlock", "anotherBlock"],
+source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "value"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "ifNotEmpty:",
 category: 'testing',
 fn: function (aBlock){
@@ -537,6 +561,30 @@ return $1;
 }, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
 source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ifNotEmpty:ifEmpty:",
+category: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._notEmpty();
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+} else {
+$1=_st(anotherBlock)._value();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+args: ["aBlock", "anotherBlock"],
+source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
 messageSends: ["ifTrue:ifFalse:", "notEmpty", "value"],
 referencedClasses: []
 }),

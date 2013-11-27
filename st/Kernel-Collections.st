@@ -245,10 +245,22 @@ ifEmpty: aBlock
 		ifFalse: [ self ]
 !
 
+ifEmpty: aBlock ifNotEmpty: anotherBlock
+	^ self isEmpty
+		ifTrue: [ aBlock value ]
+		ifFalse: [ anotherBlock value ]
+!
+
 ifNotEmpty: aBlock
 	^ self notEmpty
 		ifTrue: [ aBlock value ]
 		ifFalse: [ self ]
+!
+
+ifNotEmpty: aBlock ifEmpty: anotherBlock
+	^ self notEmpty
+		ifTrue: [ aBlock value ]
+		ifFalse: [ anotherBlock value ]
 !
 
 includes: anObject
