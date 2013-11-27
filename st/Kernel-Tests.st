@@ -416,9 +416,24 @@ isCollectionReadOnly
 
 !CollectionTest methodsFor: 'tests'!
 
+testAllSatisfy
+	| collection anyOne |
+	collection := self collection.
+	anyOne := collection anyOne.
+	self assert: (collection allSatisfy: [ :each | collection includes: each ]).
+	self deny: (collection allSatisfy: [ :each | each ~= anyOne ])
+!
+
 testAnyOne
 	self should: [ self collectionClass new anyOne ] raise: Error.
 	self assert: (self collection includes: self collection anyOne)
+!
+
+testAnySatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self assert: (self collection anySatisfy: [ :each | each = anyOne ]).
+	self deny: (self collection anySatisfy: [ :each | each = Object new ])
 !
 
 testAsArray
@@ -449,13 +464,6 @@ testCollect
 		assertSameContents: (self collection collect: [ :each |
 			each abs ])
 		as: newCollection
-!
-
-testContains
-	| anyOne |
-	anyOne := self collection anyOne.
-	self assert: (self collection contains: [ :each | each = anyOne ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
 !
 
 testDetect
@@ -492,6 +500,13 @@ testIfEmptyFamily
 testIsEmpty
 	self assert: self collectionClass new isEmpty.
 	self deny: self collection isEmpty
+!
+
+testNoneSatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self deny: (self collection noneSatisfy: [ :each | each = anyOne ]).
+	self assert: (self collection noneSatisfy: [ :each | each = Object new ])
 !
 
 testRemoveAll

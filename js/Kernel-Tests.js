@@ -1358,6 +1358,35 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAllSatisfy",
+category: 'tests',
+fn: function (){
+var self=this;
+var collection,anyOne;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+collection=self._collection();
+anyOne=_st(collection)._anyOne();
+$1=_st(collection)._allSatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(collection)._includes_(each);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["allSatisfy:"]=1;
+self._assert_($1);
+self._deny_(_st(collection)._allSatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__tild_eq(anyOne);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testAllSatisfy",{collection:collection,anyOne:anyOne},smalltalk.CollectionTest)})},
+args: [],
+source: "testAllSatisfy\x0a\x09| collection anyOne |\x0a\x09collection := self collection.\x0a\x09anyOne := collection anyOne.\x0a\x09self assert: (collection allSatisfy: [ :each | collection includes: each ]).\x0a\x09self deny: (collection allSatisfy: [ :each | each ~= anyOne ])",
+messageSends: ["collection", "anyOne", "assert:", "allSatisfy:", "includes:", "deny:", "~="],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testAnyOne",
 category: 'tests',
 fn: function (){
@@ -1379,6 +1408,40 @@ args: [],
 source: "testAnyOne\x0a\x09self should: [ self collectionClass new anyOne ] raise: Error.\x0a\x09self assert: (self collection includes: self collection anyOne)",
 messageSends: ["should:raise:", "anyOne", "new", "collectionClass", "assert:", "includes:", "collection"],
 referencedClasses: ["Error"]
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testAnySatisfy",
+category: 'tests',
+fn: function (){
+var self=this;
+var anyOne;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=self._collection();
+$ctx1.sendIdx["collection"]=1;
+anyOne=_st($1)._anyOne();
+$3=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$2=_st($3)._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(anyOne);
+$ctx2.sendIdx["="]=1;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["anySatisfy:"]=1;
+self._assert_($2);
+self._deny_(_st(self._collection())._anySatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st($Object())._new());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testAnySatisfy",{anyOne:anyOne},smalltalk.CollectionTest)})},
+args: [],
+source: "testAnySatisfy\x0a\x09| anyOne |\x0a\x09anyOne := self collection anyOne.\x0a\x09self assert: (self collection anySatisfy: [ :each | each = anyOne ]).\x0a\x09self deny: (self collection anySatisfy: [ :each | each = Object new ])",
+messageSends: ["anyOne", "collection", "assert:", "anySatisfy:", "=", "deny:", "new"],
+referencedClasses: ["Object"]
 }),
 smalltalk.CollectionTest);
 
@@ -1461,40 +1524,6 @@ args: [],
 source: "testCollect\x0a\x09| newCollection |\x0a\x09newCollection := #(1 2 3 4).\x0a\x09self\x0a\x09\x09assertSameContents: (self collection collect: [ :each |\x0a\x09\x09\x09each abs ])\x0a\x09\x09as: newCollection",
 messageSends: ["assertSameContents:as:", "collect:", "collection", "abs"],
 referencedClasses: []
-}),
-smalltalk.CollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testContains",
-category: 'tests',
-fn: function (){
-var self=this;
-var anyOne;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=self._collection();
-$ctx1.sendIdx["collection"]=1;
-anyOne=_st($1)._anyOne();
-$3=self._collection();
-$ctx1.sendIdx["collection"]=2;
-$2=_st($3)._contains_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each).__eq(anyOne);
-$ctx2.sendIdx["="]=1;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["contains:"]=1;
-self._assert_($2);
-self._deny_(_st(self._collection())._contains_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each).__eq(_st($Object())._new());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"testContains",{anyOne:anyOne},smalltalk.CollectionTest)})},
-args: [],
-source: "testContains\x0a\x09| anyOne |\x0a\x09anyOne := self collection anyOne.\x0a\x09self assert: (self collection contains: [ :each | each = anyOne ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
-messageSends: ["anyOne", "collection", "assert:", "contains:", "=", "deny:", "new"],
-referencedClasses: ["Object"]
 }),
 smalltalk.CollectionTest);
 
@@ -1675,6 +1704,40 @@ args: [],
 source: "testIsEmpty\x0a\x09self assert: self collectionClass new isEmpty.\x0a\x09self deny: self collection isEmpty",
 messageSends: ["assert:", "isEmpty", "new", "collectionClass", "deny:", "collection"],
 referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "testNoneSatisfy",
+category: 'tests',
+fn: function (){
+var self=this;
+var anyOne;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=self._collection();
+$ctx1.sendIdx["collection"]=1;
+anyOne=_st($1)._anyOne();
+$3=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$2=_st($3)._noneSatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(anyOne);
+$ctx2.sendIdx["="]=1;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["noneSatisfy:"]=1;
+self._deny_($2);
+self._assert_(_st(self._collection())._noneSatisfy_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st($Object())._new());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testNoneSatisfy",{anyOne:anyOne},smalltalk.CollectionTest)})},
+args: [],
+source: "testNoneSatisfy\x0a\x09| anyOne |\x0a\x09anyOne := self collection anyOne.\x0a\x09self deny: (self collection noneSatisfy: [ :each | each = anyOne ]).\x0a\x09self assert: (self collection noneSatisfy: [ :each | each = Object new ])",
+messageSends: ["anyOne", "collection", "deny:", "noneSatisfy:", "=", "assert:", "new"],
+referencedClasses: ["Object"]
 }),
 smalltalk.CollectionTest);
 

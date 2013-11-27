@@ -149,6 +149,24 @@ copyWithoutAll: aCollection
 
 !Collection methodsFor: 'enumerating'!
 
+allSatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns false for any element return false.
+	Otherwise return true."
+
+	self do: [:each | (aBlock value: each) ifFalse: [^ false]].
+	^ true
+!
+
+anySatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns true for any element return true.
+	Otherwise return false."
+
+	self do: [:each | (aBlock value: each) ifTrue: [^ true]].
+	^ false
+!
+
 collect: aBlock
 	| stream |
 	stream := self class new writeStream.
@@ -201,6 +219,15 @@ intersection: aCollection
 	^ self class withAll: outputSet asArray
 !
 
+noneSatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns false for all elements return true.
+	Otherwise return false"
+
+	self do: [:item | (aBlock value: item) ifTrue: [^ false]].
+	^ true
+!
+
 reject: aBlock
 	^ self select: [ :each | (aBlock value: each) = false ]
 !
@@ -238,12 +265,7 @@ putOn: aStream
 !Collection methodsFor: 'testing'!
 
 contains: aBlock
-	"Evaluate aBlock with the elements of the receiver.
-	If aBlock returns true for any element return true.
-	Otherwise return false."
-
-	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
-	^ false
+	^ self anySatisfy: aBlock
 !
 
 ifEmpty: aBlock
