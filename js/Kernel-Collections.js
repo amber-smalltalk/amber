@@ -526,13 +526,18 @@ category: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._notEmpty();
-_st($1)._ifTrue_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
+var $2,$1;
+$2=self._notEmpty();
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+} else {
+$1=self;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "ifNotEmpty: aBlock\x0a\x09self notEmpty ifTrue: aBlock.",
-messageSends: ["ifTrue:", "notEmpty"],
+source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value"],
 referencedClasses: []
 }),
 smalltalk.Collection);

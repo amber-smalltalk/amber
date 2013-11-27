@@ -246,7 +246,9 @@ ifEmpty: aBlock
 !
 
 ifNotEmpty: aBlock
-	self notEmpty ifTrue: aBlock.
+	^ self notEmpty
+		ifTrue: [ aBlock value ]
+		ifFalse: [ self ]
 !
 
 includes: anObject
