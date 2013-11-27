@@ -1466,6 +1466,40 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testContains",
+category: 'tests',
+fn: function (){
+var self=this;
+var anyOne;
+function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=self._collection();
+$ctx1.sendIdx["collection"]=1;
+anyOne=_st($1)._anyOne();
+$3=self._collection();
+$ctx1.sendIdx["collection"]=2;
+$2=_st($3)._contains_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(anyOne);
+$ctx2.sendIdx["="]=1;
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$ctx1.sendIdx["contains:"]=1;
+self._assert_($2);
+self._deny_(_st(self._collection())._contains_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(each).__eq(_st($Object())._new());
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
+return self}, function($ctx1) {$ctx1.fill(self,"testContains",{anyOne:anyOne},smalltalk.CollectionTest)})},
+args: [],
+source: "testContains\x0a\x09| anyOne |\x0a\x09anyOne := self collection anyOne.\x0a\x09self assert: (self collection contains: [ :each | each = anyOne ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
+messageSends: ["anyOne", "collection", "assert:", "contains:", "=", "deny:", "new"],
+referencedClasses: ["Object"]
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testDetect",
 category: 'tests',
 fn: function (){
@@ -1794,42 +1828,6 @@ smalltalk.IndexableCollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "testContains",
-category: 'tests',
-fn: function (){
-var self=this;
-var collection;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1;
-collection=self._collection();
-$ctx1.sendIdx["collection"]=1;
-$2=self._collection();
-$ctx1.sendIdx["collection"]=2;
-$1=_st($2)._contains_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$4=self._collection();
-$ctx2.sendIdx["collection"]=3;
-$3=_st($4)._first();
-return _st(each).__eq($3);
-$ctx2.sendIdx["="]=1;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["contains:"]=1;
-self._assert_($1);
-self._deny_(_st(self._collection())._contains_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each).__eq(_st($Object())._new());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"testContains",{collection:collection},smalltalk.IndexableCollectionTest)})},
-args: [],
-source: "testContains\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self assert: (self collection contains: [ :each | each = self collection first ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
-messageSends: ["collection", "assert:", "contains:", "=", "first", "deny:", "new"],
-referencedClasses: ["Object"]
-}),
-smalltalk.IndexableCollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "testIndexOf",
 category: 'tests',
 fn: function (){
@@ -1980,43 +1978,6 @@ args: [],
 source: "testAt\x0a\x09self assert: (self collection at: 'a') equals: 2.\x0a\x09self should: [ self collection at: 5 ] raise: Error",
 messageSends: ["assert:equals:", "at:", "collection", "should:raise:"],
 referencedClasses: ["Error"]
-}),
-smalltalk.HashedCollectionTest);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "testContains",
-category: 'tests',
-fn: function (){
-var self=this;
-var collection;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
-return smalltalk.withContext(function($ctx1) { 
-var $2,$5,$4,$3,$1;
-collection=self._collection();
-$ctx1.sendIdx["collection"]=1;
-$2=self._collection();
-$ctx1.sendIdx["collection"]=2;
-$1=_st($2)._contains_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$5=self._collection();
-$ctx2.sendIdx["collection"]=3;
-$4=_st($5)._values();
-$3=_st($4)._first();
-return _st(each).__eq($3);
-$ctx2.sendIdx["="]=1;
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-$ctx1.sendIdx["contains:"]=1;
-self._assert_($1);
-self._deny_(_st(self._collection())._contains_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each).__eq(_st($Object())._new());
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})})));
-return self}, function($ctx1) {$ctx1.fill(self,"testContains",{collection:collection},smalltalk.HashedCollectionTest)})},
-args: [],
-source: "testContains\x0a\x09| collection |\x0a\x09collection := self collection.\x0a\x09\x0a\x09self assert: (self collection contains: [ :each | each = self collection values first ]).\x0a\x09self deny: (self collection contains: [ :each | each = Object new ])",
-messageSends: ["collection", "assert:", "contains:", "=", "first", "values", "deny:", "new"],
-referencedClasses: ["Object"]
 }),
 smalltalk.HashedCollectionTest);
 
