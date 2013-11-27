@@ -1498,6 +1498,58 @@ smalltalk.CollectionTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testIfEmptyFamily",
+category: 'tests',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$1,$5,$4,$6,$9,$8,$7;
+$3=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=1;
+$2=_st($3)._new();
+$ctx1.sendIdx["new"]=1;
+$1=_st($2)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+$ctx1.sendIdx["ifEmpty:"]=1;
+self._assert_equals_($1,(42));
+$ctx1.sendIdx["assert:equals:"]=1;
+$5=self._collection();
+$ctx1.sendIdx["collection"]=1;
+$4=_st($5)._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$6=self._collection();
+$ctx1.sendIdx["collection"]=2;
+self._assert_equals_($4,$6);
+$ctx1.sendIdx["assert:equals:"]=2;
+$9=self._collectionClass();
+$ctx1.sendIdx["collectionClass"]=2;
+$8=_st($9)._new();
+$ctx1.sendIdx["new"]=2;
+$7=_st($8)._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
+$ctx1.sendIdx["ifNotEmpty:"]=1;
+self._assert_equals_($7,_st(self._collectionClass())._new());
+$ctx1.sendIdx["assert:equals:"]=3;
+self._assert_equals_(_st(self._collection())._ifNotEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return (42);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,4)})})),(42));
+return self}, function($ctx1) {$ctx1.fill(self,"testIfEmptyFamily",{},smalltalk.CollectionTest)})},
+args: [],
+source: "testIfEmptyFamily\x0a\x09self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.\x0a\x09self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.\x0a\x0a\x09self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.\x0a\x09self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.",
+messageSends: ["assert:equals:", "ifEmpty:", "new", "collectionClass", "collection", "ifNotEmpty:"],
+referencedClasses: []
+}),
+smalltalk.CollectionTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testIsEmpty",
 category: 'tests',
 fn: function (){

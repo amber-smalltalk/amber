@@ -463,6 +463,14 @@ testDo
 		as: newCollection
 !
 
+testIfEmptyFamily
+	self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
+	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+!
+
 testIsEmpty
 	self assert: self collectionClass new isEmpty.
 	self deny: self collection isEmpty
