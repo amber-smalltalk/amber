@@ -48,7 +48,7 @@ nextNode: aNode
 !
 
 nodes
-	^ nodes ifNil: [ nodes := Array new ] 
+	^ nodes ifNil: [ nodes := Array new ]
 !
 
 parent
@@ -168,7 +168,7 @@ stopOnStepping
 
 subtreeNeedsAliasing
 	^ (self shouldBeAliased or: [ self shouldBeInlined ]) or: [
-		(self nodes detect: [ :each | each subtreeNeedsAliasing ] ifNone: [ false ]) ~= false ]
+		self nodes anySatisfy: [ :each | each subtreeNeedsAliasing ] ]
 ! !
 
 !Node methodsFor: 'visiting'!
@@ -244,7 +244,7 @@ nextNode: aNode
 !
 
 parameters
-	^ parameters ifNil: [ parameters := Array new ] 
+	^ parameters ifNil: [ parameters := Array new ]
 !
 
 parameters: aCollection
@@ -336,7 +336,7 @@ I represent an JavaScript statement node.!
 !JSStatementNode methodsFor: 'accessing'!
 
 source
-	^ source ifNil: [ '' ] 
+	^ source ifNil: [ '' ]
 !
 
 source: aString
@@ -366,7 +366,7 @@ A method node must be the root and only method node of a valid AST.!
 !MethodNode methodsFor: 'accessing'!
 
 arguments
-	^ arguments ifNil: [ #() ] 
+	^ arguments ifNil: [ #() ]
 !
 
 arguments: aCollection
@@ -480,7 +480,7 @@ I represent an message send node.!
 !SendNode methodsFor: 'accessing'!
 
 arguments
-	^ arguments ifNil: [ arguments := #() ] 
+	^ arguments ifNil: [ arguments := #() ]
 !
 
 arguments: aCollection
