@@ -236,15 +236,6 @@ model: aModel
 	self observeModel
 !
 
-position
-	"Answer the position of the reciever in the page"
-	
-	^ root ifNotNil: [ 
-		|  offset |
-		offset := root asJQuery offset.
-		offset left @ offset top ]
-!
-
 tag
 	^ 'div'
 ! !
@@ -264,6 +255,12 @@ remove
 	root ifNotNil: [ root asJQuery remove ]
 ! !
 
+!MKView methodsFor: 'converting'!
+
+asJQuery
+	^ root asJQuery
+! !
+
 !MKView methodsFor: 'defaults'!
 
 defaultControllerClass
@@ -279,6 +276,20 @@ defaultLayout
 		yourself
 ! !
 
+!MKView methodsFor: 'dom'!
+
+domPosition
+	"Answer the position of the reciever in the page"
+	
+	| offset |
+	offset := self asJQuery offset.
+	^ offset left @ offset top
+!
+
+domSize
+	^ self asJQuery width @ self asJQuery height
+! !
+
 !MKView methodsFor: 'factory'!
 
 defaultController
@@ -287,32 +298,64 @@ defaultController
 
 !MKView methodsFor: 'layout'!
 
+bottom
+	^ self layout bottom
+!
+
 bottom: aNumber
 	self layout bottom: aNumber
+!
+
+centerX
+	^ self layout centerX
 !
 
 centerX: aNumber
 	self layout centerX: aNumber
 !
 
+centerY
+	^ self layout centerY
+!
+
 centerY: aNumber
 	self layout centerY: aNumber
+!
+
+height
+	^ self layout height
 !
 
 height: aNumber
 	self layout height: aNumber
 !
 
+left
+	^ self layout left
+!
+
 left: aNumber
 	self layout left: aNumber
+!
+
+right
+	^ self layout right
 !
 
 right: aNumber
 	self layout right: aNumber
 !
 
+top
+	^ self layout top
+!
+
 top: aNumber
 	self layout top: aNumber
+!
+
+width
+	^ self layout width
 !
 
 width: aNumber
@@ -470,6 +513,42 @@ update: anAnnouncement
 model: aModel aspect: aSelector
 	^ (self model: aModel)
 		aspect: aSelector;
+		yourself
+! !
+
+MKView subclass: #MKDecorator
+	instanceVariableNames: 'decorated'
+	package: 'Moka-Core'!
+!MKDecorator commentStamp!
+I am root class of the decorator pattern in Moka. 
+
+I am used to add rendering and/or behavior to other views.
+
+## API
+
+To decorate a view, use the class-side `#decorate:` method.!
+
+!MKDecorator methodsFor: 'accessing'!
+
+decorated
+	^ decorated
+!
+
+decorated: aView
+	decorated := aView
+! !
+
+!MKDecorator methodsFor: 'rendering'!
+
+renderContentOn: html
+	html with: self decorated
+! !
+
+!MKDecorator class methodsFor: 'instance creation'!
+
+decorate: aView
+	^ self new
+		decorated: aView;
 		yourself
 ! !
 

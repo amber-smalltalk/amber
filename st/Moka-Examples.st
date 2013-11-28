@@ -8,11 +8,11 @@ MKModel subclass: #MKClassesListBuilder
 build
 	MKPaneView new
 		height: 150;
-		addView: (
+		addView: ((MKScrollDecorator decorate:
 			(MKListView 	
 				model: MKClassesModel new
 				collectionAspect: #classes
-				selectionAspect: #selectedClass)
+				selectionAspect: #selectedClass))
 					left: 4;
 					top: 4;
 					bottom: 4;
@@ -65,10 +65,7 @@ Object subclass: #MKCounterBuilder
 build
 	| pane |
 	pane := MKPanelView new
-		top: 200;
-		width: 400;
 		borderRight: 1;
-		bottom: 0;
 		yourself.
 	
 	pane addView: ((MKHeadingView model: self counter aspect: #count)
@@ -88,6 +85,13 @@ build
 		top: 50;
 		left: 92;
 		yourself).
+	pane addView: ((MKDropdownView 
+		model: self counter
+		collectionAspect: #options
+		selectionAspect: #selectedOption)
+			left: 176;
+			top: 50;
+			yourself).
 	pane addView: ((MKInputView model: self counter aspect: #text)
 		top: 100;
 		left: 8;
@@ -136,11 +140,12 @@ build
 		left: 4;
 		top: 440;
 		yourself).
-		
-	pane render
-	"(MKButtonView model: self counter aspect: #decrease) 
-		label: 'Decrease';
-		render"
+	
+	(MKScrollDecorator decorate: pane)
+		top: 200;
+		width: 400;
+		bottom: 0;
+		render
 !
 
 counter
@@ -160,7 +165,7 @@ MKModel subclass: #MKCounterModel
 !MKCounterModel methodsFor: 'accessing'!
 
 options
-	^ Smalltalk current classes collect: [ :each | each name ]
+	^ #('foo' 'bar' 'baz')
 !
 
 selectedOption

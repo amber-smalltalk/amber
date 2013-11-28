@@ -8,43 +8,6 @@
   -ms-user-select: none;
   user-select: none;
 }
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
-}
-::-webkit-scrollbar-button {
-  height: 0;
-  width: 0;
-}
-::-webkit-resizer {
-  background-color: #eeeeee;
-}
-::-webkit-scrollbar-track {
-  background-color: #eeeeee;
-}
-::-webkit-scrollbar-track-piece {
-  background-color: #eeeeee;
-}
-::-webkit-scrollbar-corner {
-  background-color: #eeeeee;
-}
-::-webkit-scrollbar-thumb {
-  background: #e1e1e1;
-  background: -webkit-gradient(linear, left top, right top, color-stop(0, #e1e1e1), color-stop(1, #cfcfcf));
-  background: -ms-linear-gradient(left, #e1e1e1, #cfcfcf);
-  background: -moz-linear-gradient(right, #e1e1e1 0%, #cfcfcf 100%);
-  border: 1px solid #959595;
-  -webkit-border-radius: 8px;
-  -moz-border-radius: 8px;
-  border-radius: 8px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #c3c3c3;
-  background: -webkit-gradient(linear, left top, right top, color-stop(0, #c3c3c3), color-stop(1, #aaaaaa));
-  background: -ms-linear-gradient(left, #c3c3c3, #aaaaaa);
-  background: -moz-linear-gradient(right, #c3c3c3 0%, #aaaaaa 100%);
-  border: 1px solid #919191;
-}
 .mk_default {
   font-size: 12px;
   font-family: "Open Sans";
@@ -106,7 +69,6 @@
   background: #eeeeee;
   border-color: #888888;
   border-style: solid;
-  overflow: auto;
 }
 .moka_view.mk_pane.mk_modal {
   z-index: 1001;
@@ -115,6 +77,46 @@
 }
 .moka_view.mk_pane.mk_modal:focus {
   outline: 0 none;
+}
+.moka_view.mk_scroll .mk_scroll_rail {
+  position: absolute;
+  z-index: 1;
+}
+.moka_view.mk_scroll .mk_scroll_rail .mk_scrollbar {
+  position: absolute;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+  -webkit-transition: background 0.2s ease-out;
+  -moz-transition: background 0.2s ease-out;
+  -o-transition: background 0.2s ease-out;
+  transition: background 0.2s ease-out;
+  opacity: 0.6;
+}
+.moka_view.mk_scroll .mk_scroll_rail .mk_scrollbar:hover,
+.moka_view.mk_scroll .mk_scroll_rail .mk_scrollbar.ui-draggable-dragging {
+  background: #333333;
+}
+.moka_view.mk_scroll .mk_scroll_rail.vertical {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 10px;
+}
+.moka_view.mk_scroll .mk_scroll_rail.vertical .mk_scrollbar {
+  width: 8px;
+}
+.moka_view.mk_scroll .mk_scroll_rail.horizontal {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+}
+.moka_view.mk_scroll .mk_scroll_rail.horizontal .mk_scrollbar {
+  height: 8px;
+}
+.moka_view.mk_scroll:hover .mk_scrollbar {
+  background: rgba(0, 0, 0, 0.4);
 }
 .moka_view .mk_control,
 .moka_view .mk_control:active,
@@ -132,7 +134,7 @@
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #919191;
   -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
   -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
   box-shadow: inset 0 0 3px 0 #c3c3c3;
@@ -148,6 +150,11 @@
 .moka_view .mk_control:focus:focus {
   outline: 0;
 }
+.moka_view .mk_control::-moz-focus-inner,
+.moka_view .mk_control:active::-moz-focus-inner,
+.moka_view .mk_control:focus::-moz-focus-inner {
+  border: 0;
+}
 .moka_view.mk_button {
   font-size: 12px;
   font-family: "Open Sans";
@@ -162,7 +169,7 @@
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #919191;
   -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
   -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
   box-shadow: inset 0 0 3px 0 #c3c3c3;
@@ -190,13 +197,16 @@
 .moka_view.mk_button:focus {
   outline: 0;
 }
+.moka_view.mk_button::-moz-focus-inner {
+  border: 0;
+}
 .moka_view.mk_button.default {
   background: #9ec4eb;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9ec4eb), color-stop(1, #deeaf8));
   background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
   background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
   background: -o-linear-gradient(#deeaf8, #9ec4eb);
-  border-color: #9d9d9d;
+  text-shadow: 0 1px 0 #eeeeee;
 }
 .moka_view.mk_button.default:active {
   background: #9ec4eb;
@@ -204,6 +214,7 @@
 }
 .moka_view.mk_button:focus {
   border-color: #4a90d9;
+  box-shadow: 0 0 5px #4a90d9;
 }
 .moka_view.mk_button:active {
   background: #dddddd;
@@ -227,7 +238,7 @@
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #919191;
   -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
   -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
   box-shadow: inset 0 0 3px 0 #c3c3c3;
@@ -244,6 +255,10 @@
 .moka_view.mk_input:focus,
 .moka_view.mk_textarea:focus {
   outline: 0;
+}
+.moka_view.mk_input::-moz-focus-inner,
+.moka_view.mk_textarea::-moz-focus-inner {
+  border: 0;
 }
 .moka_view.mk_input:focus,
 .moka_view.mk_textarea:focus {
@@ -270,12 +285,43 @@
   background-image: url('../images/moka/check-active.png');
 }
 .moka_view.mk_switch {
+  font-size: 12px;
+  font-family: "Open Sans";
+  line-height: 1.5em;
+  color: #444444;
+  text-shadow: 0 1px 0 white;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  display: block;
+  overflow: hidden;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #919191;
+  -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
+  box-shadow: inset 0 0 3px 0 #c3c3c3;
+  background-color: white;
+  background: -webkit-linear-gradient(top, #eee 0%, white 6px);
+  background: -moz-linear-gradient(top, #eee 0%, white 6px);
+  background: -ms-linear-gradient(top, #eee 0%, white 6px);
+  background: -o-linear-gradient(top, #eee 0%, white 6px);
+  background: linear-gradient(top, #eee 0%, white 6px);
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  -webkit-box-shadow: 0 1px 1px 0 #d8d8d8;
+  -moz-box-shadow: 0 1px 1px 0 #d8d8d8;
+  box-shadow: 0 1px 1px 0 #d8d8d8;
+  background: #fafafa;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #dedede), color-stop(1, #ffffff));
+  background: -ms-linear-gradient(bottom, #dedede, #ffffff);
+  background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
+  background: -o-linear-gradient(#ffffff, #dedede);
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -283,19 +329,47 @@
   display: inline-block;
   height: 20px;
   width: 39px;
-  border: 1px solid #888888;
   background: url('../images/moka/switch.png') 100% 50% no-repeat;
   -webkit-transition: background 0.2s ease-out;
   -moz-transition: background 0.2s ease-out;
   -o-transition: background 0.2s ease-out;
   transition: background 0.2s ease-out;
+  border-color: #6f6f6f;
 }
 .moka_view.mk_switch:focus {
-  border-color: #256ab1;
+  outline: 0;
+}
+.moka_view.mk_switch::-moz-focus-inner {
+  border: 0;
+}
+.moka_view.mk_switch.default {
+  background: #9ec4eb;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9ec4eb), color-stop(1, #deeaf8));
+  background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
+  background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
+  background: -o-linear-gradient(#deeaf8, #9ec4eb);
+  text-shadow: 0 1px 0 #eeeeee;
+}
+.moka_view.mk_switch.default:active {
+  background: #9ec4eb;
+  border-color: #4a90d9;
+}
+.moka_view.mk_switch:focus {
+  border-color: #4a90d9;
+  box-shadow: 0 0 5px #4a90d9;
+}
+.moka_view.mk_switch:active {
+  background: #dddddd;
+  -webkit-box-shadow: inset 0 0 3px 0 #888888;
+  -moz-box-shadow: inset 0 0 3px 0 #888888;
+  box-shadow: inset 0 0 3px 0 #888888;
+  border-color: #947c7c;
+}
+.moka_view.mk_switch:active {
+  background: url('../images/moka/switch.png') 100% 50% no-repeat;
 }
 .moka_view.mk_switch.checked {
   background: url('../images/moka/switch.png') 0% 50% no-repeat;
-  border-color: #3583d5;
 }
 .moka_view.mk_list {
   cursor: default;
@@ -317,7 +391,7 @@
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #919191;
   -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
   -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
   box-shadow: inset 0 0 3px 0 #c3c3c3;
@@ -328,11 +402,13 @@
   background: -o-linear-gradient(top, #eee 0%, white 6px);
   background: linear-gradient(top, #eee 0%, white 6px);
   padding: 0;
-  overflow: auto;
   background: white;
 }
 .moka_view.mk_list:focus {
   outline: 0;
+}
+.moka_view.mk_list::-moz-focus-inner {
+  border: 0;
 }
 .moka_view.mk_list:focus {
   outline: 0;
@@ -392,7 +468,7 @@
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #919191;
   -webkit-box-shadow: inset 0 0 3px 0 #c3c3c3;
   -moz-box-shadow: inset 0 0 3px 0 #c3c3c3;
   box-shadow: inset 0 0 3px 0 #c3c3c3;
@@ -422,13 +498,16 @@
 .moka_view.mk_dropdown:focus {
   outline: 0;
 }
+.moka_view.mk_dropdown::-moz-focus-inner {
+  border: 0;
+}
 .moka_view.mk_dropdown.default {
   background: #9ec4eb;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #9ec4eb), color-stop(1, #deeaf8));
   background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
   background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
   background: -o-linear-gradient(#deeaf8, #9ec4eb);
-  border-color: #9d9d9d;
+  text-shadow: 0 1px 0 #eeeeee;
 }
 .moka_view.mk_dropdown.default:active {
   background: #9ec4eb;
@@ -436,6 +515,7 @@
 }
 .moka_view.mk_dropdown:focus {
   border-color: #4a90d9;
+  box-shadow: 0 0 5px #4a90d9;
 }
 .moka_view.mk_dropdown:active {
   background: #dddddd;
@@ -453,7 +533,7 @@
   background-image: url(/images/moka/dropdown_arrows.png);
   background-position: center;
   background-repeat: no-repeat;
-  border-left: 1px solid #aaaaaa;
+  border-left: 1px solid #919191;
 }
 .moka_view.mk_dropdown_pane {
   padding: 6px;

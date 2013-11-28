@@ -549,12 +549,12 @@ var $1;
 smalltalk.MKDropdownListController.superclass.fn.prototype._onKeyDown_.apply(_st(self), [anEvent]);
 $1=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
 if(smalltalk.assert($1)){
-self._selectItem_(self._itemForTarget_(_st(anEvent)._target()));
+self._selectItem_(_st(self._view())._activeItem());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKDropdownListController)})},
 args: ["anEvent"],
-source: "onKeyDown: anEvent\x0a\x09super onKeyDown: anEvent.\x0a\x09\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self selectItem: (self itemForTarget: anEvent target) ]",
-messageSends: ["onKeyDown:", "ifTrue:", "=", "keyCode", "asciiValue", "cr", "selectItem:", "itemForTarget:", "target"],
+source: "onKeyDown: anEvent\x0a\x09super onKeyDown: anEvent.\x0a\x09\x0a\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09self selectItem: self view activeItem ]",
+messageSends: ["onKeyDown:", "ifTrue:", "=", "keyCode", "asciiValue", "cr", "selectItem:", "activeItem", "view"],
 referencedClasses: ["String"]
 }),
 smalltalk.MKDropdownListController);
@@ -808,6 +808,90 @@ messageSends: ["ifNotNil:", "clearInterval", "clearTimeout"],
 referencedClasses: []
 }),
 smalltalk.MKRepeater);
+
+
+
+smalltalk.addClass('MKScrollController', smalltalk.MKController, [], 'Moka-Controllers');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onHorizontalDrag:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(_st(_st(_st(self._view())._decorated())._asJQuery())._get_((0)))._at_put_("scrollLeft",_st(self._position())._x());
+return self}, function($ctx1) {$ctx1.fill(self,"onHorizontalDrag:",{anEvent:anEvent},smalltalk.MKScrollController)})},
+args: ["anEvent"],
+source: "onHorizontalDrag: anEvent\x0a\x09(self view decorated asJQuery get: 0) at: 'scrollLeft' put: self position x",
+messageSends: ["at:put:", "get:", "asJQuery", "decorated", "view", "x", "position"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onVerticalDrag:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$3,$2;
+$1=console;
+$3=self._position();
+$ctx1.sendIdx["position"]=1;
+$2=_st($3)._asString();
+_st($1)._log_($2);
+_st(_st(_st(_st(self._view())._decorated())._asJQuery())._get_((0)))._at_put_("scrollTop",_st(self._position())._y());
+return self}, function($ctx1) {$ctx1.fill(self,"onVerticalDrag:",{anEvent:anEvent},smalltalk.MKScrollController)})},
+args: ["anEvent"],
+source: "onVerticalDrag: anEvent\x0a\x09console log: self position asString.\x0a\x09(self view decorated asJQuery get: 0) at: 'scrollTop' put: self position y",
+messageSends: ["log:", "asString", "position", "at:put:", "get:", "asJQuery", "decorated", "view", "y"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "position",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(_st(self._view())._domDecoratedSize()).__star(self._scrollPercent());
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.MKScrollController)})},
+args: [],
+source: "position\x0a\x09^ self view domDecoratedSize * self scrollPercent",
+messageSends: ["*", "domDecoratedSize", "view", "scrollPercent"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "scrollPercent",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$2,$6,$5,$4,$1;
+$3=self._view();
+$ctx1.sendIdx["view"]=1;
+$2=_st($3)._domScrollPosition();
+$6=self._view();
+$ctx1.sendIdx["view"]=2;
+$5=_st($6)._domSize();
+$4=_st($5).__minus(_st(self._view())._domScrollbarSize());
+$1=_st($2).__slash($4);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"scrollPercent",{},smalltalk.MKScrollController)})},
+args: [],
+source: "scrollPercent\x0a\x09^ self view domScrollPosition / (self view domSize - self view domScrollbarSize)",
+messageSends: ["/", "domScrollPosition", "view", "-", "domSize", "domScrollbarSize"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
 
 
 });

@@ -1432,7 +1432,7 @@ var $2,$3,$4,$1;
 $2=self["@listView"];
 if(($receiver = $2) == nil || $receiver == null){
 $3=_st($MKDropdownListView())._model_collectionAspect_selectionAspect_(self._model(),self._collectionAspect(),self._selectionAspect());
-_st($3)._width_("auto");
+_st($3)._width_(self._width());
 _st($3)._height_("auto");
 $4=_st($3)._yourself();
 self["@listView"]=$4;
@@ -1443,8 +1443,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"listView",{},smalltalk.MKDropdownView)})},
 args: [],
-source: "listView\x0a\x09^ listView ifNil: [\x0a\x09\x09listView := (MKDropdownListView \x09\x0a\x09\x09\x09model: self model\x0a\x09\x09\x09collectionAspect: self collectionAspect\x0a\x09\x09\x09selectionAspect: self selectionAspect)\x0a\x09\x09\x09\x09width: 'auto';\x0a\x09\x09\x09\x09height: 'auto';\x0a\x09\x09\x09\x09yourself ]",
-messageSends: ["ifNil:", "width:", "model:collectionAspect:selectionAspect:", "model", "collectionAspect", "selectionAspect", "height:", "yourself"],
+source: "listView\x0a\x09^ listView ifNil: [\x0a\x09\x09listView := (MKDropdownListView \x09\x0a\x09\x09\x09model: self model\x0a\x09\x09\x09collectionAspect: self collectionAspect\x0a\x09\x09\x09selectionAspect: self selectionAspect)\x0a\x09\x09\x09\x09width: self width;\x0a\x09\x09\x09\x09height: 'auto';\x0a\x09\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "width:", "model:collectionAspect:selectionAspect:", "model", "collectionAspect", "selectionAspect", "width", "height:", "yourself"],
 referencedClasses: ["MKDropdownListView"]
 }),
 smalltalk.MKDropdownView);
@@ -1466,11 +1466,11 @@ _st($3)._closeOnEnter_(true);
 _st($3)._closeOnClick_(true);
 _st($3)._addView_(self._listView());
 $4=$3;
-$6=self._position();
-$ctx1.sendIdx["position"]=1;
+$6=self._domPosition();
+$ctx1.sendIdx["domPosition"]=1;
 $5=_st($6)._x();
 _st($4)._left_($5);
-_st($3)._top_(_st(self._position())._y());
+_st($3)._top_(_st(self._domPosition())._y());
 _st($3)._height_((400));
 $7=_st($3)._yourself();
 self["@modalPaneView"]=$7;
@@ -1481,8 +1481,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"modalPaneView",{},smalltalk.MKDropdownView)})},
 args: [],
-source: "modalPaneView\x0a\x09^ modalPaneView ifNil: [\x0a\x09\x09modalPaneView := MKModalPaneView new\x0a\x09\x09\x09extraCssClass: 'mk_dropdown_pane';\x0a\x09\x09\x09closeOnEnter: true;\x0a\x09\x09\x09closeOnClick: true;\x0a\x09\x09\x09addView: self listView;\x0a\x09\x09\x09left: self position x;\x0a\x09\x09\x09top: self position y;\x0a\x09\x09\x09\x22Max height of the list\x22\x0a\x09\x09\x09height: 400;\x0a\x09\x09\x09yourself ]",
-messageSends: ["ifNil:", "extraCssClass:", "new", "closeOnEnter:", "closeOnClick:", "addView:", "listView", "left:", "x", "position", "top:", "y", "height:", "yourself"],
+source: "modalPaneView\x0a\x09^ modalPaneView ifNil: [\x0a\x09\x09modalPaneView := MKModalPaneView new\x0a\x09\x09\x09extraCssClass: 'mk_dropdown_pane';\x0a\x09\x09\x09closeOnEnter: true;\x0a\x09\x09\x09closeOnClick: true;\x0a\x09\x09\x09addView: self listView;\x0a\x09\x09\x09left: self domPosition x;\x0a\x09\x09\x09top: self domPosition y;\x0a\x09\x09\x09\x22Max height of the list\x22\x0a\x09\x09\x09height: 400;\x0a\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "extraCssClass:", "new", "closeOnEnter:", "closeOnClick:", "addView:", "listView", "left:", "x", "domPosition", "top:", "y", "height:", "yourself"],
 referencedClasses: ["MKModalPaneView"]
 }),
 smalltalk.MKDropdownView);

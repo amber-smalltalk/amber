@@ -94,40 +94,6 @@
 @verydark: #333;
 
 
-// scrollbars
-
-::-webkit-scrollbar {
-    width: 8px; 
-    height: 8px;
-}
-::-webkit-scrollbar-button {
-    height: 0; 
-    width: 0;
-}
-::-webkit-resizer {
-    background-color: @light;
-}
-::-webkit-scrollbar-track {
-    background-color: @light;
-}
-::-webkit-scrollbar-track-piece {
-    background-color: @light;
-}
-::-webkit-scrollbar-corner {
-    background-color: @light
-}
-::-webkit-scrollbar-thumb {
-    .vertical-gradient(darken(@light, 5%), darken(@light, 5%), darken(@light, 12%));
-    border: 1px solid darken(@light, 35%);
-    .rounded(8px);
-    
-    &:hover {
-	.vertical-gradient(lighten(@grey, 10%), lighten(@grey, 10%), @grey);
-	border: 1px solid darken(@grey, 10%);
-    }
-}
-
-
 // mixins
 
 .mk_default {
@@ -198,7 +164,6 @@
 	    background: @light;
 	    border-color: @dark;
 	    border-style: solid;
-	    overflow: auto;
 	}
 
 	&.mk_modal {
@@ -212,13 +177,62 @@
 	}
     }
 
+    // Scrollbars
+
+    &.mk_scroll {
+
+	.mk_scroll_rail {
+	    position: absolute;
+	    z-index: 1;
+
+	    .mk_scrollbar {
+		position: absolute;
+		.rounded(8px);
+		.transition(background, 0.2s);
+		opacity: 0.6;
+
+		&:hover, &.ui-draggable-dragging {
+		    background: @verydark;
+		}
+	    }
+
+	    &.vertical {
+		top: 0;
+		right: 0;
+		bottom: 0;
+		width: 10px;
+
+		.mk_scrollbar {
+		    width: 8px;
+		}
+	    }
+
+	    &.horizontal {
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 10px;
+
+		.mk_scrollbar {
+		    height: 8px;
+		}
+	    }
+	}
+
+	&:hover {
+	    .mk_scrollbar {
+		background: rgba(0,0,0,0.4);
+	    }
+	}
+    }
+
     // Controls
     
     .mk_control, .mk_control:active, .mk_control:focus {
 	.mk_default;
 	.mk_absolute;
 	.rounded();
-	border: 1px solid @grey;
+	border: 1px solid darken(@grey, 10%);
 	.box-shadow(inset 0 0 3px 0 lighten(@grey, 10%));
 	background-color: white;
 	// see http://stackoverflow.com/questions/14768780/how-can-i-pass-mixin-arguments-along-literally-in-less-css
@@ -226,6 +240,10 @@
 
 	&:focus {
 	    outline: 0;
+	}
+
+	&::-moz-focus-inner {
+	    border: 0;
 	}
     }
 
@@ -237,7 +255,7 @@
 
 	&.default {
 	    .gradient(lighten(@blue, 20%), lighten(@blue, 20%), lighten(@blue, 35%));
-	    border-color: darken(@grey, 5%);
+	    text-shadow: 0 1px 0 @light;
 
 	    &:active {
 	    	background: lighten(@blue, 20%);
@@ -247,6 +265,7 @@
 
 	&:focus {
 	    border-color: @blue;
+	    box-shadow: 0 0 5px @blue;
 	}
 
 	&:active {
@@ -285,22 +304,22 @@
 
     &.mk_switch {
 	.no-select;
+	.mk_button;
 	.rounded(20px);
 	vertical-align: middle;
 	display: inline-block;
 	height: 20px;
 	width: 39px;
-	border: 1px solid @dark;
 	background: url('../images/moka/switch.png') 100% 50% no-repeat;
 	.transition(background, .2s);
+	border-color: darken(@dark, 10%);
 
-	&:focus {
-	    border-color: darken(@blue, 15%);
+	&:active {
+	    background: url('../images/moka/switch.png') 100% 50% no-repeat;
 	}
 
 	&.checked {
 	    background: url('../images/moka/switch.png') 0% 50% no-repeat;
-	    border-color: darken(@blue, 5%);
 	}
     }
 
@@ -313,7 +332,6 @@
 	.no-select;
 	.mk_control;
 	padding: 0;
-	overflow: auto;
 	background: white;
 
 	&:focus {
@@ -375,7 +393,7 @@
 	    background-image: url(/images/moka/dropdown_arrows.png);
 	    background-position: center;
 	    background-repeat: no-repeat;
-	    border-left: 1px solid @grey;
+	    border-left: 1px solid darken(@grey, 10%);
 	}
     }
 

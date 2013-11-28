@@ -194,7 +194,7 @@ onKeyDown: anEvent
 	super onKeyDown: anEvent.
 	
 	anEvent keyCode = String cr asciiValue ifTrue: [
-		self selectItem: (self itemForTarget: anEvent target) ]
+		self selectItem: self view activeItem ]
 !
 
 onMouseMove: anEvent
@@ -283,5 +283,30 @@ defaultRepeatInterval
 
 isRepeating
 	^ delay notNil
+! !
+
+MKController subclass: #MKScrollController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+
+!MKScrollController methodsFor: 'accessing'!
+
+position
+	^ self view domDecoratedSize * self scrollPercent
+!
+
+scrollPercent
+	^ self view domScrollPosition / (self view domSize - self view domScrollbarSize)
+! !
+
+!MKScrollController methodsFor: 'actions'!
+
+onHorizontalDrag: anEvent
+	(self view decorated asJQuery get: 0) at: 'scrollLeft' put: self position x
+!
+
+onVerticalDrag: anEvent
+	console log: self position asString.
+	(self view decorated asJQuery get: 0) at: 'scrollTop' put: self position y
 ! !
 

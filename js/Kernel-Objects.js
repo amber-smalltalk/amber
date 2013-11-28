@@ -3336,6 +3336,22 @@ smalltalk.Number.klass);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "fromNumber:",
+category: 'instance creation',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return Number(aNumber);
+return self}, function($ctx1) {$ctx1.fill(self,"fromNumber:",{aNumber:aNumber},smalltalk.Number.klass)})},
+args: ["aNumber"],
+source: "fromNumber: aNumber\x0a\x09<return Number(aNumber)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Number.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "heliosClass",
 category: 'helios',
 fn: function (){

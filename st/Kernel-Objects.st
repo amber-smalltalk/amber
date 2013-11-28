@@ -1062,6 +1062,10 @@ e
 	<return Math.E;>
 !
 
+fromNumber: aNumber
+	<return Number(aNumber)>
+!
+
 pi
 	<return Math.PI>
 ! !

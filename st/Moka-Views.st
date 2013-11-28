@@ -546,7 +546,7 @@ listView
 			model: self model
 			collectionAspect: self collectionAspect
 			selectionAspect: self selectionAspect)
-				width: 'auto';
+				width: self width;
 				height: 'auto';
 				yourself ]
 !
@@ -558,8 +558,8 @@ modalPaneView
 			closeOnEnter: true;
 			closeOnClick: true;
 			addView: self listView;
-			left: self position x;
-			top: self position y;
+			left: self domPosition x;
+			top: self domPosition y;
 			"Max height of the list"
 			height: 400;
 			yourself ]

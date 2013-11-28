@@ -10,20 +10,22 @@ category: 'as yet unclassified',
 fn: function (){
 var self=this;
 function $MKPaneView(){return smalltalk.MKPaneView||(typeof MKPaneView=="undefined"?nil:MKPaneView)}
+function $MKScrollDecorator(){return smalltalk.MKScrollDecorator||(typeof MKScrollDecorator=="undefined"?nil:MKScrollDecorator)}
 function $MKListView(){return smalltalk.MKListView||(typeof MKListView=="undefined"?nil:MKListView)}
 function $MKClassesModel(){return smalltalk.MKClassesModel||(typeof MKClassesModel=="undefined"?nil:MKClassesModel)}
 function $MKPanelView(){return smalltalk.MKPanelView||(typeof MKPanelView=="undefined"?nil:MKPanelView)}
 function $MKSourceListView(){return smalltalk.MKSourceListView||(typeof MKSourceListView=="undefined"?nil:MKSourceListView)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$5,$4,$6,$3,$7,$9,$10,$8,$11;
+var $1,$2,$6,$5,$4,$7,$3,$8,$10,$11,$9,$12;
 $1=_st($MKPaneView())._new();
 $ctx1.sendIdx["new"]=1;
 _st($1)._height_((150));
 $2=$1;
-$5=_st($MKClassesModel())._new();
+$6=_st($MKClassesModel())._new();
 $ctx1.sendIdx["new"]=2;
-$4=_st($MKListView())._model_collectionAspect_selectionAspect_($5,"classes","selectedClass");
+$5=_st($MKListView())._model_collectionAspect_selectionAspect_($6,"classes","selectedClass");
 $ctx1.sendIdx["model:collectionAspect:selectionAspect:"]=1;
+$4=_st($MKScrollDecorator())._decorate_($5);
 _st($4)._left_((4));
 $ctx1.sendIdx["left:"]=1;
 _st($4)._top_((4));
@@ -32,29 +34,29 @@ _st($4)._bottom_((4));
 $ctx1.sendIdx["bottom:"]=1;
 _st($4)._right_((0.5));
 $ctx1.sendIdx["right:"]=1;
-$6=_st($4)._yourself();
+$7=_st($4)._yourself();
 $ctx1.sendIdx["yourself"]=1;
-$3=$6;
+$3=$7;
 _st($2)._addView_($3);
 $ctx1.sendIdx["addView:"]=1;
-$7=$1;
-$9=_st($MKPanelView())._new();
+$8=$1;
+$10=_st($MKPanelView())._new();
 $ctx1.sendIdx["new"]=3;
-_st($9)._left_((0.5));
-_st($9)._top_((4));
-_st($9)._right_((4));
-_st($9)._bottom_((4));
-_st($9)._addView_(_st($MKSourceListView())._model_collectionAspect_selectionAspect_(_st($MKClassesModel())._new(),"classes","selectedClass"));
-$10=_st($9)._yourself();
-$8=$10;
-_st($7)._addView_($8);
+_st($10)._left_((0.5));
+_st($10)._top_((4));
+_st($10)._right_((4));
+_st($10)._bottom_((4));
+_st($10)._addView_(_st($MKSourceListView())._model_collectionAspect_selectionAspect_(_st($MKClassesModel())._new(),"classes","selectedClass"));
+$11=_st($10)._yourself();
+$9=$11;
+_st($8)._addView_($9);
 $ctx1.sendIdx["addView:"]=2;
-$11=_st($1)._render();
+$12=_st($1)._render();
 return self}, function($ctx1) {$ctx1.fill(self,"build",{},smalltalk.MKClassesListBuilder)})},
 args: [],
-source: "build\x0a\x09MKPaneView new\x0a\x09\x09height: 150;\x0a\x09\x09addView: (\x0a\x09\x09\x09(MKListView \x09\x0a\x09\x09\x09\x09model: MKClassesModel new\x0a\x09\x09\x09\x09collectionAspect: #classes\x0a\x09\x09\x09\x09selectionAspect: #selectedClass)\x0a\x09\x09\x09\x09\x09left: 4;\x0a\x09\x09\x09\x09\x09top: 4;\x0a\x09\x09\x09\x09\x09bottom: 4;\x0a\x09\x09\x09\x09\x09right: 0.5;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09addView: (MKPanelView new\x0a\x09\x09\x09left: 0.5;\x0a\x09\x09\x09top: 4;\x0a\x09\x09\x09right: 4;\x0a\x09\x09\x09bottom: 4;\x0a\x09\x09\x09addView: (MKSourceListView \x09\x0a\x09\x09\x09\x09model: MKClassesModel new\x0a\x09\x09\x09\x09collectionAspect: #classes\x0a\x09\x09\x09\x09selectionAspect: #selectedClass);\x0a\x09\x09\x09yourself);\x0a\x09\x09render",
-messageSends: ["height:", "new", "addView:", "left:", "model:collectionAspect:selectionAspect:", "top:", "bottom:", "right:", "yourself", "render"],
-referencedClasses: ["MKPaneView", "MKListView", "MKClassesModel", "MKPanelView", "MKSourceListView"]
+source: "build\x0a\x09MKPaneView new\x0a\x09\x09height: 150;\x0a\x09\x09addView: ((MKScrollDecorator decorate:\x0a\x09\x09\x09(MKListView \x09\x0a\x09\x09\x09\x09model: MKClassesModel new\x0a\x09\x09\x09\x09collectionAspect: #classes\x0a\x09\x09\x09\x09selectionAspect: #selectedClass))\x0a\x09\x09\x09\x09\x09left: 4;\x0a\x09\x09\x09\x09\x09top: 4;\x0a\x09\x09\x09\x09\x09bottom: 4;\x0a\x09\x09\x09\x09\x09right: 0.5;\x0a\x09\x09\x09\x09\x09yourself);\x0a\x09\x09addView: (MKPanelView new\x0a\x09\x09\x09left: 0.5;\x0a\x09\x09\x09top: 4;\x0a\x09\x09\x09right: 4;\x0a\x09\x09\x09bottom: 4;\x0a\x09\x09\x09addView: (MKSourceListView \x09\x0a\x09\x09\x09\x09model: MKClassesModel new\x0a\x09\x09\x09\x09collectionAspect: #classes\x0a\x09\x09\x09\x09selectionAspect: #selectedClass);\x0a\x09\x09\x09yourself);\x0a\x09\x09render",
+messageSends: ["height:", "new", "addView:", "left:", "decorate:", "model:collectionAspect:selectionAspect:", "top:", "bottom:", "right:", "yourself", "render"],
+referencedClasses: ["MKPaneView", "MKScrollDecorator", "MKListView", "MKClassesModel", "MKPanelView", "MKSourceListView"]
 }),
 smalltalk.MKClassesListBuilder);
 
@@ -149,19 +151,16 @@ var pane;
 function $MKPanelView(){return smalltalk.MKPanelView||(typeof MKPanelView=="undefined"?nil:MKPanelView)}
 function $MKHeadingView(){return smalltalk.MKHeadingView||(typeof MKHeadingView=="undefined"?nil:MKHeadingView)}
 function $MKButtonView(){return smalltalk.MKButtonView||(typeof MKButtonView=="undefined"?nil:MKButtonView)}
+function $MKDropdownView(){return smalltalk.MKDropdownView||(typeof MKDropdownView=="undefined"?nil:MKDropdownView)}
 function $MKInputView(){return smalltalk.MKInputView||(typeof MKInputView=="undefined"?nil:MKInputView)}
 function $MKTextAreaView(){return smalltalk.MKTextAreaView||(typeof MKTextAreaView=="undefined"?nil:MKTextAreaView)}
 function $MKCheckboxView(){return smalltalk.MKCheckboxView||(typeof MKCheckboxView=="undefined"?nil:MKCheckboxView)}
 function $MKSwitchView(){return smalltalk.MKSwitchView||(typeof MKSwitchView=="undefined"?nil:MKSwitchView)}
-function $MKDropdownView(){return smalltalk.MKDropdownView||(typeof MKDropdownView=="undefined"?nil:MKDropdownView)}
+function $MKScrollDecorator(){return smalltalk.MKScrollDecorator||(typeof MKScrollDecorator=="undefined"?nil:MKScrollDecorator)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$6,$5,$7,$4,$8,$11,$10,$12,$9,$13,$16,$15,$17,$14,$18,$21,$20,$22,$19,$23,$26,$25,$27,$24,$28,$31,$30,$32,$29,$33,$36,$35,$37,$34,$38,$41,$40,$42,$39,$43,$46,$45,$47,$44,$48,$51,$50,$52,$49,$53,$56,$55,$57,$54,$58,$61,$60,$62,$59,$63,$66,$65,$67,$64,$68,$69;
+var $1,$2,$3,$6,$5,$7,$4,$8,$11,$10,$12,$9,$13,$16,$15,$17,$14,$18,$21,$20,$22,$19,$23,$26,$25,$27,$24,$28,$31,$30,$32,$29,$33,$36,$35,$37,$34,$38,$41,$40,$42,$39,$43,$46,$45,$47,$44,$48,$51,$50,$52,$49,$53,$56,$55,$57,$54,$58,$61,$60,$62,$59,$63,$66,$65,$67,$64,$68,$71,$70,$72,$69,$73,$75,$76,$74,$77,$78;
 $1=_st($MKPanelView())._new();
-_st($1)._top_((200));
-$ctx1.sendIdx["top:"]=1;
-_st($1)._width_((400));
 _st($1)._borderRight_((1));
-_st($1)._bottom_((0));
 $2=_st($1)._yourself();
 $ctx1.sendIdx["yourself"]=1;
 pane=$2;
@@ -172,7 +171,7 @@ $5=_st($MKHeadingView())._model_aspect_($6,"count");
 $ctx1.sendIdx["model:aspect:"]=1;
 _st($5)._level_((3));
 _st($5)._top_((0));
-$ctx1.sendIdx["top:"]=2;
+$ctx1.sendIdx["top:"]=1;
 _st($5)._left_((8));
 $ctx1.sendIdx["left:"]=1;
 _st($5)._height_((28));
@@ -189,7 +188,7 @@ $ctx1.sendIdx["model:aspect:"]=2;
 _st($10)._label_("Increase");
 $ctx1.sendIdx["label:"]=1;
 _st($10)._top_((50));
-$ctx1.sendIdx["top:"]=3;
+$ctx1.sendIdx["top:"]=2;
 _st($10)._left_((8));
 $ctx1.sendIdx["left:"]=2;
 $12=_st($10)._yourself();
@@ -205,7 +204,7 @@ $ctx1.sendIdx["model:aspect:"]=3;
 _st($15)._label_("Decrease");
 _st($15)._default_(true);
 _st($15)._top_((50));
-$ctx1.sendIdx["top:"]=4;
+$ctx1.sendIdx["top:"]=3;
 _st($15)._left_((92));
 $ctx1.sendIdx["left:"]=3;
 $17=_st($15)._yourself();
@@ -216,12 +215,12 @@ $ctx1.sendIdx["addView:"]=3;
 $18=pane;
 $21=self._counter();
 $ctx1.sendIdx["counter"]=4;
-$20=_st($MKInputView())._model_aspect_($21,"text");
-$ctx1.sendIdx["model:aspect:"]=4;
-_st($20)._top_((100));
-$ctx1.sendIdx["top:"]=5;
-_st($20)._left_((8));
+$20=_st($MKDropdownView())._model_collectionAspect_selectionAspect_($21,"options","selectedOption");
+$ctx1.sendIdx["model:collectionAspect:selectionAspect:"]=1;
+_st($20)._left_((176));
 $ctx1.sendIdx["left:"]=4;
+_st($20)._top_((50));
+$ctx1.sendIdx["top:"]=4;
 $22=_st($20)._yourself();
 $ctx1.sendIdx["yourself"]=5;
 $19=$22;
@@ -231,12 +230,11 @@ $23=pane;
 $26=self._counter();
 $ctx1.sendIdx["counter"]=5;
 $25=_st($MKInputView())._model_aspect_($26,"text");
-$ctx1.sendIdx["model:aspect:"]=5;
-_st($25)._top_((150));
-$ctx1.sendIdx["top:"]=6;
+$ctx1.sendIdx["model:aspect:"]=4;
+_st($25)._top_((100));
+$ctx1.sendIdx["top:"]=5;
 _st($25)._left_((8));
 $ctx1.sendIdx["left:"]=5;
-_st($25)._triggerChangeOnAnyKey();
 $27=_st($25)._yourself();
 $ctx1.sendIdx["yourself"]=6;
 $24=$27;
@@ -245,12 +243,13 @@ $ctx1.sendIdx["addView:"]=5;
 $28=pane;
 $31=self._counter();
 $ctx1.sendIdx["counter"]=6;
-$30=_st($MKTextAreaView())._model_aspect_($31,"text");
-$ctx1.sendIdx["model:aspect:"]=6;
-_st($30)._top_((200));
-$ctx1.sendIdx["top:"]=7;
+$30=_st($MKInputView())._model_aspect_($31,"text");
+$ctx1.sendIdx["model:aspect:"]=5;
+_st($30)._top_((150));
+$ctx1.sendIdx["top:"]=6;
 _st($30)._left_((8));
 $ctx1.sendIdx["left:"]=6;
+_st($30)._triggerChangeOnAnyKey();
 $32=_st($30)._yourself();
 $ctx1.sendIdx["yourself"]=7;
 $29=$32;
@@ -259,10 +258,10 @@ $ctx1.sendIdx["addView:"]=6;
 $33=pane;
 $36=self._counter();
 $ctx1.sendIdx["counter"]=7;
-$35=_st($MKCheckboxView())._model_aspect_($36,"checked");
-$ctx1.sendIdx["model:aspect:"]=7;
-_st($35)._top_((300));
-$ctx1.sendIdx["top:"]=8;
+$35=_st($MKTextAreaView())._model_aspect_($36,"text");
+$ctx1.sendIdx["model:aspect:"]=6;
+_st($35)._top_((200));
+$ctx1.sendIdx["top:"]=7;
 _st($35)._left_((8));
 $ctx1.sendIdx["left:"]=7;
 $37=_st($35)._yourself();
@@ -273,12 +272,12 @@ $ctx1.sendIdx["addView:"]=7;
 $38=pane;
 $41=self._counter();
 $ctx1.sendIdx["counter"]=8;
-$40=_st($MKSwitchView())._model_aspect_($41,"checked");
-$ctx1.sendIdx["model:aspect:"]=8;
-_st($40)._top_((350));
-$ctx1.sendIdx["top:"]=9;
-_st($40)._centerX_((0));
-$ctx1.sendIdx["centerX:"]=1;
+$40=_st($MKCheckboxView())._model_aspect_($41,"checked");
+$ctx1.sendIdx["model:aspect:"]=7;
+_st($40)._top_((300));
+$ctx1.sendIdx["top:"]=8;
+_st($40)._left_((8));
+$ctx1.sendIdx["left:"]=8;
 $42=_st($40)._yourself();
 $ctx1.sendIdx["yourself"]=9;
 $39=$42;
@@ -288,11 +287,11 @@ $43=pane;
 $46=self._counter();
 $ctx1.sendIdx["counter"]=9;
 $45=_st($MKSwitchView())._model_aspect_($46,"checked");
-$ctx1.sendIdx["model:aspect:"]=9;
-_st($45)._top_((380));
-$ctx1.sendIdx["top:"]=10;
-_st($45)._centerX_((-50));
-$ctx1.sendIdx["centerX:"]=2;
+$ctx1.sendIdx["model:aspect:"]=8;
+_st($45)._top_((350));
+$ctx1.sendIdx["top:"]=9;
+_st($45)._centerX_((0));
+$ctx1.sendIdx["centerX:"]=1;
 $47=_st($45)._yourself();
 $ctx1.sendIdx["yourself"]=10;
 $44=$47;
@@ -302,10 +301,11 @@ $48=pane;
 $51=self._counter();
 $ctx1.sendIdx["counter"]=10;
 $50=_st($MKSwitchView())._model_aspect_($51,"checked");
-$ctx1.sendIdx["model:aspect:"]=10;
-_st($50)._top_((410));
-$ctx1.sendIdx["top:"]=11;
-_st($50)._centerX_((50));
+$ctx1.sendIdx["model:aspect:"]=9;
+_st($50)._top_((380));
+$ctx1.sendIdx["top:"]=10;
+_st($50)._centerX_((-50));
+$ctx1.sendIdx["centerX:"]=2;
 $52=_st($50)._yourself();
 $ctx1.sendIdx["yourself"]=11;
 $49=$52;
@@ -315,11 +315,10 @@ $53=pane;
 $56=self._counter();
 $ctx1.sendIdx["counter"]=11;
 $55=_st($MKSwitchView())._model_aspect_($56,"checked");
-$ctx1.sendIdx["model:aspect:"]=11;
-_st($55)._right_((4));
-$ctx1.sendIdx["right:"]=1;
-_st($55)._centerY_((0));
-$ctx1.sendIdx["centerY:"]=1;
+$ctx1.sendIdx["model:aspect:"]=10;
+_st($55)._top_((410));
+$ctx1.sendIdx["top:"]=11;
+_st($55)._centerX_((50));
 $57=_st($55)._yourself();
 $ctx1.sendIdx["yourself"]=12;
 $54=$57;
@@ -329,11 +328,11 @@ $58=pane;
 $61=self._counter();
 $ctx1.sendIdx["counter"]=12;
 $60=_st($MKSwitchView())._model_aspect_($61,"checked");
-$ctx1.sendIdx["model:aspect:"]=12;
+$ctx1.sendIdx["model:aspect:"]=11;
 _st($60)._right_((4));
-$ctx1.sendIdx["right:"]=2;
-_st($60)._centerY_((30));
-$ctx1.sendIdx["centerY:"]=2;
+$ctx1.sendIdx["right:"]=1;
+_st($60)._centerY_((0));
+$ctx1.sendIdx["centerY:"]=1;
 $62=_st($60)._yourself();
 $ctx1.sendIdx["yourself"]=13;
 $59=$62;
@@ -343,24 +342,45 @@ $63=pane;
 $66=self._counter();
 $ctx1.sendIdx["counter"]=13;
 $65=_st($MKSwitchView())._model_aspect_($66,"checked");
+$ctx1.sendIdx["model:aspect:"]=12;
 _st($65)._right_((4));
-_st($65)._centerY_((-30));
+$ctx1.sendIdx["right:"]=2;
+_st($65)._centerY_((30));
+$ctx1.sendIdx["centerY:"]=2;
 $67=_st($65)._yourself();
 $ctx1.sendIdx["yourself"]=14;
 $64=$67;
 _st($63)._addView_($64);
 $ctx1.sendIdx["addView:"]=13;
-$68=_st($MKDropdownView())._model_collectionAspect_selectionAspect_(self._counter(),"options","selectedOption");
-_st($68)._left_((4));
-_st($68)._top_((440));
-$69=_st($68)._yourself();
-_st(pane)._addView_($69);
-_st(pane)._render();
+$68=pane;
+$71=self._counter();
+$ctx1.sendIdx["counter"]=14;
+$70=_st($MKSwitchView())._model_aspect_($71,"checked");
+_st($70)._right_((4));
+_st($70)._centerY_((-30));
+$72=_st($70)._yourself();
+$ctx1.sendIdx["yourself"]=15;
+$69=$72;
+_st($68)._addView_($69);
+$ctx1.sendIdx["addView:"]=14;
+$73=pane;
+$75=_st($MKDropdownView())._model_collectionAspect_selectionAspect_(self._counter(),"options","selectedOption");
+_st($75)._left_((4));
+_st($75)._top_((440));
+$ctx1.sendIdx["top:"]=12;
+$76=_st($75)._yourself();
+$74=$76;
+_st($73)._addView_($74);
+$77=_st($MKScrollDecorator())._decorate_(pane);
+_st($77)._top_((200));
+_st($77)._width_((400));
+_st($77)._bottom_((0));
+$78=_st($77)._render();
 return self}, function($ctx1) {$ctx1.fill(self,"build",{pane:pane},smalltalk.MKCounterBuilder)})},
 args: [],
-source: "build\x0a\x09| pane |\x0a\x09pane := MKPanelView new\x0a\x09\x09top: 200;\x0a\x09\x09width: 400;\x0a\x09\x09borderRight: 1;\x0a\x09\x09bottom: 0;\x0a\x09\x09yourself.\x0a\x09\x0a\x09pane addView: ((MKHeadingView model: self counter aspect: #count)\x0a\x09\x09level: 3;\x0a\x09\x09top: 0;\x0a\x09\x09left: 8;\x0a\x09\x09height: 28;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09top: 50;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09default: true;\x0a\x09\x09top: 50;\x0a\x09\x09left: 92;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKInputView model: self counter aspect: #text)\x0a\x09\x09top: 100;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKInputView model: self counter aspect: #text)\x0a\x09\x09top: 150;\x0a\x09\x09left: 8;\x0a\x09\x09triggerChangeOnAnyKey;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKTextAreaView model: self counter aspect: #text)\x0a\x09\x09top: 200;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09top: 300;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 350;\x0a\x09\x09centerX: 0;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 380;\x0a\x09\x09centerX: -50;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 410;\x0a\x09\x09centerX: 50;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: 0;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: 30;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: -30;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKDropdownView \x0a\x09\x09\x09model: self counter\x0a\x09\x09\x09collectionAspect: #options\x0a\x09\x09\x09selectionAspect: #selectedOption)\x0a\x09\x09left: 4;\x0a\x09\x09top: 440;\x0a\x09\x09yourself).\x0a\x09\x09\x0a\x09pane render\x0a\x09\x22(MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09render\x22",
-messageSends: ["top:", "new", "width:", "borderRight:", "bottom:", "yourself", "addView:", "level:", "model:aspect:", "counter", "left:", "height:", "label:", "default:", "triggerChangeOnAnyKey", "centerX:", "right:", "centerY:", "model:collectionAspect:selectionAspect:", "render"],
-referencedClasses: ["MKPanelView", "MKHeadingView", "MKButtonView", "MKInputView", "MKTextAreaView", "MKCheckboxView", "MKSwitchView", "MKDropdownView"]
+source: "build\x0a\x09| pane |\x0a\x09pane := MKPanelView new\x0a\x09\x09borderRight: 1;\x0a\x09\x09yourself.\x0a\x09\x0a\x09pane addView: ((MKHeadingView model: self counter aspect: #count)\x0a\x09\x09level: 3;\x0a\x09\x09top: 0;\x0a\x09\x09left: 8;\x0a\x09\x09height: 28;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKButtonView model: self counter aspect: #increase) \x0a\x09\x09label: 'Increase';\x0a\x09\x09top: 50;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKButtonView model: self counter aspect: #decrease) \x0a\x09\x09label: 'Decrease';\x0a\x09\x09default: true;\x0a\x09\x09top: 50;\x0a\x09\x09left: 92;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKDropdownView \x0a\x09\x09model: self counter\x0a\x09\x09collectionAspect: #options\x0a\x09\x09selectionAspect: #selectedOption)\x0a\x09\x09\x09left: 176;\x0a\x09\x09\x09top: 50;\x0a\x09\x09\x09yourself).\x0a\x09pane addView: ((MKInputView model: self counter aspect: #text)\x0a\x09\x09top: 100;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKInputView model: self counter aspect: #text)\x0a\x09\x09top: 150;\x0a\x09\x09left: 8;\x0a\x09\x09triggerChangeOnAnyKey;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKTextAreaView model: self counter aspect: #text)\x0a\x09\x09top: 200;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKCheckboxView model: self counter aspect: #checked)\x0a\x09\x09top: 300;\x0a\x09\x09left: 8;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 350;\x0a\x09\x09centerX: 0;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 380;\x0a\x09\x09centerX: -50;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09top: 410;\x0a\x09\x09centerX: 50;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: 0;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: 30;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKSwitchView model: self counter aspect: #checked)\x0a\x09\x09right: 4;\x0a\x09\x09centerY: -30;\x0a\x09\x09yourself).\x0a\x09pane addView: ((MKDropdownView \x0a\x09\x09\x09model: self counter\x0a\x09\x09\x09collectionAspect: #options\x0a\x09\x09\x09selectionAspect: #selectedOption)\x0a\x09\x09left: 4;\x0a\x09\x09top: 440;\x0a\x09\x09yourself).\x0a\x09\x0a\x09(MKScrollDecorator decorate: pane)\x0a\x09\x09top: 200;\x0a\x09\x09width: 400;\x0a\x09\x09bottom: 0;\x0a\x09\x09render",
+messageSends: ["borderRight:", "new", "yourself", "addView:", "level:", "model:aspect:", "counter", "top:", "left:", "height:", "label:", "default:", "model:collectionAspect:selectionAspect:", "triggerChangeOnAnyKey", "centerX:", "right:", "centerY:", "decorate:", "width:", "bottom:", "render"],
+referencedClasses: ["MKPanelView", "MKHeadingView", "MKButtonView", "MKDropdownView", "MKInputView", "MKTextAreaView", "MKCheckboxView", "MKSwitchView", "MKScrollDecorator"]
 }),
 smalltalk.MKCounterBuilder);
 
@@ -523,19 +543,15 @@ selector: "options",
 category: 'accessing',
 fn: function (){
 var self=this;
-function $Smalltalk(){return smalltalk.Smalltalk||(typeof Smalltalk=="undefined"?nil:Smalltalk)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st(_st($Smalltalk())._current())._classes())._collect_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(each)._name();
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+$1=["foo", "bar", "baz"];
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"options",{},smalltalk.MKCounterModel)})},
 args: [],
-source: "options\x0a\x09^ Smalltalk current classes collect: [ :each | each name ]",
-messageSends: ["collect:", "classes", "current", "name"],
-referencedClasses: ["Smalltalk"]
+source: "options\x0a\x09^ #('foo' 'bar' 'baz')",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.MKCounterModel);
 
