@@ -836,7 +836,7 @@ focus
 
 refresh
 	super refresh.
-	self ensureVisible: (self findListItemFor: self selectedItem)
+	self selectedItem ifNotNil: [self ensureVisible: (self findListItemFor: self selectedItem)].
 !
 
 selectItem: anObject

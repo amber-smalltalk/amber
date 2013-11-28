@@ -86,8 +86,8 @@ function handle_options(optionsArray) {
 						// Will end up being the last non js/st argument
 						programName.push(currentItem);
 						break;
-				};
-		};
+				}
+		}
 		currentItem = optionsArray.shift();
 	}
 
@@ -97,7 +97,7 @@ function handle_options(optionsArray) {
 		defaults.program = programName[0];
 	}
 	return defaults;
-};
+}
 
 
 // print available flags
@@ -184,5 +184,7 @@ function print_usage() {
 		'',
 		'        amberc -M main.js myboot.js myKernel.js Cat1.st Cat2.st Program',
 	];
-	usage.forEach(function (line) { console.log(line); });
-};
+	usage.forEach(function (line) {
+        console.log(line);
+	});
+}

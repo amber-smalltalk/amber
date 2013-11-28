@@ -3,6 +3,7 @@ define([
 	'./helpers',
 	'jquery',
 	'jquery-ui',
+	'mousewheel',
 	'amber_lib/jquery-tabby/jquery.textarea',
 	'amber_lib/codemirror/lib/codemirror',
 	'amber_inc/CodeMirror/smalltalk',

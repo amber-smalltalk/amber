@@ -85,11 +85,24 @@ addAll: aCollection
 	^ aCollection
 !
 
+anyOne
+	"Answer a representative sample of the receiver. This method can
+	be helpful when needing to preinfer the nature of the contents of 
+	semi-homogeneous collections."
+
+	self ifEmpty: [ self error: 'Collection is empty' ].
+	self do: [ :each | ^ each ]
+!
+
 remove: anObject
 	^ self remove: anObject ifAbsent: [ self errorNotFound ]
 !
 
 remove: anObject ifAbsent: aBlock
+	self subclassResponsibility
+!
+
+removeAll
 	self subclassResponsibility
 ! !
 
@@ -135,6 +148,24 @@ copyWithoutAll: aCollection
 ! !
 
 !Collection methodsFor: 'enumerating'!
+
+allSatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns false for any element return false.
+	Otherwise return true."
+
+	self do: [ :each | (aBlock value: each) ifFalse: [ ^ false ] ].
+	^ true
+!
+
+anySatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns true for any element return true.
+	Otherwise return false."
+
+	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
+	^ false
+!
 
 collect: aBlock
 	| stream |
@@ -188,6 +219,15 @@ intersection: aCollection
 	^ self class withAll: outputSet asArray
 !
 
+noneSatisfy: aBlock
+	"Evaluate aBlock with the elements of the receiver.
+	If aBlock returns false for all elements return true.
+	Otherwise return false"
+
+	self do: [ :item | (aBlock value: item) ifTrue: [ ^ false ] ].
+	^ true
+!
+
 reject: aBlock
 	^ self select: [ :each | (aBlock value: each) = false ]
 !
@@ -197,7 +237,7 @@ select: aBlock
 	stream := self class new writeStream.
 	self do: [ :each |
 		(aBlock value: each) ifTrue: [
-		stream nextPut: each ]].
+		stream nextPut: each ] ].
 	^ stream contents
 !
 
@@ -206,7 +246,7 @@ select: selectBlock thenCollect: collectBlock
 	stream := self class new writeStream.
 	self do: [ :each |
 		(selectBlock value: each) ifTrue: [
-		stream nextPut: (collectBlock value: each) ]].
+		stream nextPut: (collectBlock value: each) ] ].
 	^ stream contents
 ! !
 
@@ -225,24 +265,35 @@ putOn: aStream
 !Collection methodsFor: 'testing'!
 
 contains: aBlock
-	"Evaluate aBlock with the elements of the receiver.
-	If aBlock returns true for any element return true.
-	Otherwise return false."
-
-	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
-	^ false
+	^ self anySatisfy: aBlock
 !
 
 ifEmpty: aBlock
-	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs:
-		(myProtocol ifEmpty: ['As yet unclassified'])"
+	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. 
+	Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: 
+		self classifyMethodAs:
+			(myProtocol ifEmpty: ['As yet unclassified'])"
 	^ self isEmpty
-		ifTrue: [ aBlock value ]
+		ifTrue: aBlock
 		ifFalse: [ self ]
 !
 
+ifEmpty: aBlock ifNotEmpty: anotherBlock
+	^ self isEmpty
+		ifTrue: aBlock
+		ifFalse: anotherBlock
+!
+
 ifNotEmpty: aBlock
-	self notEmpty ifTrue: aBlock.
+	^ self notEmpty
+		ifTrue: aBlock
+		ifFalse: [ self ]
+!
+
+ifNotEmpty: aBlock ifEmpty: anotherBlock
+	^ self notEmpty
+		ifTrue: aBlock
+		ifFalse: anotherBlock
 !
 
 includes: anObject
@@ -434,16 +485,7 @@ keyAtValue: anObject ifAbsent: aBlock
 !
 
 keys
-	<
-		if ('function'===typeof Object.keys) return Object.keys(self);
-		var keys = [];
-		for(var i in self) {
-			if(self.hasOwnProperty(i)) {
-				keys.push(i);
-			}
-		};
-		return keys;
-	>
+	<return Object.keys(self)>
 !
 
 size
@@ -471,6 +513,10 @@ addAll: aHashedCollection
 
 remove: aKey ifAbsent: aBlock
 	^ self removeKey: aKey ifAbsent: aBlock
+!
+
+removeAll
+	^ self keys do: [ :each | self removeKey: each ]
 !
 
 removeKey: aKey
@@ -677,6 +723,11 @@ values
 ! !
 
 !Dictionary methodsFor: 'adding/removing'!
+
+removeAll
+	keys removeAll.
+	values removeAll
+!
 
 removeKey: aKey ifAbsent: aBlock
 	<
@@ -994,6 +1045,10 @@ remove: anObject ifAbsent: aBlock
 	>
 !
 
+removeAll
+	<self.length = 0>
+!
+
 removeFrom: aNumber to: anotherNumber
 	<self.splice(aNumber -1, anotherNumber - aNumber + 1)>
 !
@@ -1214,20 +1269,12 @@ charCodeAt: anInteger
 	< return self.charCodeAt(anInteger - 1) >
 !
 
-escaped
-	<return escape(self)>
-!
-
 identityHash
 	^ self, 's'
 !
 
 size
 	<return self.length>
-!
-
-unescaped
-	<return unescape(self)>
 ! !
 
 !String methodsFor: 'comparing'!
@@ -1323,8 +1370,32 @@ crlfSanitized
 	^ self lines join: String lf
 !
 
+escaped
+	<return escape(self)>
+!
+
 reversed
 	<return self.split("").reverse().join("")>
+!
+
+unescaped
+	<return unescape(self)>
+!
+
+uriComponentDecoded
+	<return decodeURIComponent(self)>
+!
+
+uriComponentEncoded
+	<return encodeURIComponent(self)>
+!
+
+uriDecoded
+	<return decodeURI(self)>
+!
+
+uriEncoded
+	<return encodeURI(self)>
 ! !
 
 !String methodsFor: 'copying'!

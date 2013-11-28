@@ -169,7 +169,9 @@ username: aUsername
 
 checkDirectoryLayout
 	(fs existsSync: self basePath, 'index.html') ifFalse: [
-		console warn: 'Warning: project directory does not contain index.html'].
+		console warn: 'Warning: project directory does not contain index.html.'.
+		console warn: '    You can specify the directory containing index.html with --base-path.'.].
+		console warn: '    You can also specify a custom error page with --fallback-page.'.
 	(fs existsSync: self basePath, 'st') ifFalse: [
 		console warn: 'Warning: project directory is missing an "st" directory'].
 	(fs existsSync: self basePath, 'js') ifFalse: [
@@ -309,7 +311,7 @@ respondFileNamed: aFilename to: aResponse
 		ex notNil 
 			ifTrue: [
 				console log: filename, ' does not exist'.
-				self respondInternalErrorTo: aResponse]
+				self respondNotFoundTo: aResponse]
 			ifFalse: [
 				type := self class mimeTypeFor: filename.
 				type = 'application/javascript'
@@ -337,8 +339,13 @@ respondNotCreatedTo: aResponse
 respondNotFoundTo: aResponse
 	self fallbackPage isNil ifFalse: [^self respondFileNamed: self fallbackPage to: aResponse].
 	aResponse 
-		writeHead: 404 options: #{'Content-Type' -> 'text/plain'};
-		write: '404 Not found';
+		writeHead: 404 options: #{'Content-Type' -> 'text/html'};
+		write: '<html><body><p>404 Not found</p>';
+		write: '<p>Did you forget to put an index.html file into the directory which is served by "bin/amber serve"? To solve this you can:<ul>';
+		write: '<li>create an index.html in the served directory.</li>';
+		write: '<li>can also specify the location of a page to display instead of this error page with the "--fallback-page" option.</li>';
+		write: '<li>change the directory to be served with the "--base-path" option.</li>';
+		write: '</ul></p></body></html>';
 		end
 !
 
