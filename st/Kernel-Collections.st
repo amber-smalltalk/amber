@@ -91,7 +91,7 @@ anyOne
 	semi-homogeneous collections."
 
 	self ifEmpty: [ self error: 'Collection is empty' ].
-	self do: [:each | ^ each]
+	self do: [ :each | ^ each ]
 !
 
 remove: anObject
@@ -154,7 +154,7 @@ allSatisfy: aBlock
 	If aBlock returns false for any element return false.
 	Otherwise return true."
 
-	self do: [:each | (aBlock value: each) ifFalse: [^ false]].
+	self do: [ :each | (aBlock value: each) ifFalse: [ ^ false ] ].
 	^ true
 !
 
@@ -163,7 +163,7 @@ anySatisfy: aBlock
 	If aBlock returns true for any element return true.
 	Otherwise return false."
 
-	self do: [:each | (aBlock value: each) ifTrue: [^ true]].
+	self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].
 	^ false
 !
 
@@ -224,7 +224,7 @@ noneSatisfy: aBlock
 	If aBlock returns false for all elements return true.
 	Otherwise return false"
 
-	self do: [:item | (aBlock value: item) ifTrue: [^ false]].
+	self do: [ :item | (aBlock value: item) ifTrue: [ ^ false ] ].
 	^ true
 !
 
@@ -237,7 +237,7 @@ select: aBlock
 	stream := self class new writeStream.
 	self do: [ :each |
 		(aBlock value: each) ifTrue: [
-		stream nextPut: each ]].
+		stream nextPut: each ] ].
 	^ stream contents
 !
 
@@ -246,7 +246,7 @@ select: selectBlock thenCollect: collectBlock
 	stream := self class new writeStream.
 	self do: [ :each |
 		(selectBlock value: each) ifTrue: [
-		stream nextPut: (collectBlock value: each) ]].
+		stream nextPut: (collectBlock value: each) ] ].
 	^ stream contents
 ! !
 
@@ -269,29 +269,31 @@ contains: aBlock
 !
 
 ifEmpty: aBlock
-	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: self classifyMethodAs:
-		(myProtocol ifEmpty: ['As yet unclassified'])"
+	"Evaluate the given block with the receiver as argument, answering its value if the receiver is empty, otherwise answer the receiver. 
+	Note that the fact that this method returns its argument in case the receiver is not empty allows one to write expressions like the following ones: 
+		self classifyMethodAs:
+			(myProtocol ifEmpty: ['As yet unclassified'])"
 	^ self isEmpty
-		ifTrue: [ aBlock value ]
+		ifTrue: aBlock
 		ifFalse: [ self ]
 !
 
 ifEmpty: aBlock ifNotEmpty: anotherBlock
 	^ self isEmpty
-		ifTrue: [ aBlock value ]
-		ifFalse: [ anotherBlock value ]
+		ifTrue: aBlock
+		ifFalse: anotherBlock
 !
 
 ifNotEmpty: aBlock
 	^ self notEmpty
-		ifTrue: [ aBlock value ]
+		ifTrue: aBlock
 		ifFalse: [ self ]
 !
 
 ifNotEmpty: aBlock ifEmpty: anotherBlock
 	^ self notEmpty
-		ifTrue: [ aBlock value ]
-		ifFalse: [ anotherBlock value ]
+		ifTrue: aBlock
+		ifFalse: anotherBlock
 !
 
 includes: anObject
