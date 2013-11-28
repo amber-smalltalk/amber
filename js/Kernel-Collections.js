@@ -211,6 +211,89 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "allSatisfy:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(each);
+if(! smalltalk.assert($1)){
+throw $early=[false];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"allSatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "allSatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns false for any element return false.\x0a\x09Otherwise return true.\x22\x0a\x0a\x09self do: [:each | (aBlock value: each) ifFalse: [^ false]].\x0a\x09^ true",
+messageSends: ["do:", "ifFalse:", "value:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "anyOne",
+category: 'adding/removing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $early={};
+try {
+self._ifEmpty_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._error_("Collection is empty");
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+throw $early=[each];
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,2)})}));
+return self}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"anyOne",{},smalltalk.Collection)})},
+args: [],
+source: "anyOne\x0a\x09\x22Answer a representative sample of the receiver. This method can\x0a\x09be helpful when needing to preinfer the nature of the contents of \x0a\x09semi-homogeneous collections.\x22\x0a\x0a\x09self ifEmpty: [ self error: 'Collection is empty' ].\x0a\x09self do: [:each | ^ each]",
+messageSends: ["ifEmpty:", "error:", "do:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "anySatisfy:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(each);
+if(smalltalk.assert($1)){
+throw $early=[true];
+};
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+return false;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"anySatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "anySatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns true for any element return true.\x0a\x09Otherwise return false.\x22\x0a\x0a\x09self do: [:each | (aBlock value: each) ifTrue: [^ true]].\x0a\x09^ false",
+messageSends: ["do:", "ifTrue:", "value:"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "asArray",
 category: 'converting',
 fn: function (){
@@ -318,22 +401,12 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-var $early={};
-try {
-self._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-$1=_st(aBlock)._value_(each);
-if(smalltalk.assert($1)){
-throw $early=[true];
-};
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-return false;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
+$1=self._anySatisfy_(aBlock);
+return $1;
 }, function($ctx1) {$ctx1.fill(self,"contains:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "contains: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns true for any element return true.\x0a\x09Otherwise return false.\x22\x0a\x0a\x09self do: [ :each | (aBlock value: each) ifTrue: [ ^ true ] ].\x0a\x09^ false",
-messageSends: ["do:", "ifTrue:", "value:"],
+source: "contains: aBlock\x0a\x09^ self anySatisfy: aBlock",
+messageSends: ["anySatisfy:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -521,18 +594,71 @@ smalltalk.Collection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "ifEmpty:ifNotEmpty:",
+category: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._isEmpty();
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+} else {
+$1=_st(anotherBlock)._value();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifEmpty:ifNotEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+args: ["aBlock", "anotherBlock"],
+source: "ifEmpty: aBlock ifNotEmpty: anotherBlock\x0a\x09^ self isEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
+messageSends: ["ifTrue:ifFalse:", "isEmpty", "value"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "ifNotEmpty:",
 category: 'testing',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._notEmpty();
-_st($1)._ifTrue_(aBlock);
-return self}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
+var $2,$1;
+$2=self._notEmpty();
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+} else {
+$1=self;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "ifNotEmpty: aBlock\x0a\x09self notEmpty ifTrue: aBlock.",
-messageSends: ["ifTrue:", "notEmpty"],
+source: "ifNotEmpty: aBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ self ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "ifNotEmpty:ifEmpty:",
+category: 'testing',
+fn: function (aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._notEmpty();
+if(smalltalk.assert($2)){
+$1=_st(aBlock)._value();
+$ctx1.sendIdx["value"]=1;
+} else {
+$1=_st(anotherBlock)._value();
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"ifNotEmpty:ifEmpty:",{aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.Collection)})},
+args: ["aBlock", "anotherBlock"],
+source: "ifNotEmpty: aBlock ifEmpty: anotherBlock\x0a\x09^ self notEmpty\x0a\x09\x09ifTrue: [ aBlock value ]\x0a\x09\x09ifFalse: [ anotherBlock value ]",
+messageSends: ["ifTrue:ifFalse:", "notEmpty", "value"],
 referencedClasses: []
 }),
 smalltalk.Collection);
@@ -637,6 +763,34 @@ return $1;
 args: [],
 source: "isEmpty\x0a\x09^ self size = 0",
 messageSends: ["=", "size"],
+referencedClasses: []
+}),
+smalltalk.Collection);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "noneSatisfy:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+var $early={};
+try {
+self._do_((function(item){
+return smalltalk.withContext(function($ctx2) {
+$1=_st(aBlock)._value_(item);
+if(smalltalk.assert($1)){
+throw $early=[false];
+};
+}, function($ctx2) {$ctx2.fillBlock({item:item},$ctx1,1)})}));
+return true;
+}
+catch(e) {if(e===$early)return e[0]; throw e}
+}, function($ctx1) {$ctx1.fill(self,"noneSatisfy:",{aBlock:aBlock},smalltalk.Collection)})},
+args: ["aBlock"],
+source: "noneSatisfy: aBlock\x0a\x09\x22Evaluate aBlock with the elements of the receiver.\x0a\x09If aBlock returns false for all elements return true.\x0a\x09Otherwise return false\x22\x0a\x0a\x09self do: [:item | (aBlock value: item) ifTrue: [^ false]].\x0a\x09^ true",
+messageSends: ["do:", "ifTrue:", "value:"],
 referencedClasses: []
 }),
 smalltalk.Collection);

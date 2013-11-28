@@ -416,6 +416,26 @@ isCollectionReadOnly
 
 !CollectionTest methodsFor: 'tests'!
 
+testAllSatisfy
+	| collection anyOne |
+	collection := self collection.
+	anyOne := collection anyOne.
+	self assert: (collection allSatisfy: [ :each | collection includes: each ]).
+	self deny: (collection allSatisfy: [ :each | each ~= anyOne ])
+!
+
+testAnyOne
+	self should: [ self collectionClass new anyOne ] raise: Error.
+	self assert: (self collection includes: self collection anyOne)
+!
+
+testAnySatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self assert: (self collection anySatisfy: [ :each | each = anyOne ]).
+	self deny: (self collection anySatisfy: [ :each | each = Object new ])
+!
+
 testAsArray
 	self
 		assertSameContents: self collection
@@ -463,9 +483,30 @@ testDo
 		as: newCollection
 !
 
+testIfEmptyFamily
+	self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
+	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+	
+	self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.
+	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42
+!
+
 testIsEmpty
 	self assert: self collectionClass new isEmpty.
 	self deny: self collection isEmpty
+!
+
+testNoneSatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self deny: (self collection noneSatisfy: [ :each | each = anyOne ]).
+	self assert: (self collection noneSatisfy: [ :each | each = Object new ])
 !
 
 testRemoveAll
@@ -513,14 +554,6 @@ testAtIfAbsent
 	self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) equals: 'none'
 !
 
-testContains
-	| collection |
-	collection := self collection.
-	
-	self assert: (self collection contains: [ :each | each = self collection first ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
-!
-
 testIndexOf
 	self assert: (self collection indexOf: 2) equals: 2.
 	self should: [ self collection indexOf: 999 ] raise: Error.
@@ -558,14 +591,6 @@ self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
 testAt
 	self assert: (self collection at: 'a') equals: 2.
 	self should: [ self collection at: 5 ] raise: Error
-!
-
-testContains
-	| collection |
-	collection := self collection.
-	
-	self assert: (self collection contains: [ :each | each = self collection values first ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
 !
 
 testFrom

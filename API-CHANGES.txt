@@ -9,6 +9,12 @@
   + >>uriComponentDecoded
 + Collection
   + >>removeAll
+  + >>ifEmpty:ifNotEmpty:
+  + >>ifNotEmpty:ifEmpty:
+  + >>anyOne
+  + >>noneSatisfy:
+  + >>anySatisfy:
+  + >>allSatisfy:
 
 
 0.12.0:
