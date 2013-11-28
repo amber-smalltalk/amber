@@ -265,6 +265,8 @@ putOn: aStream
 !Collection methodsFor: 'testing'!
 
 contains: aBlock
+	self deprecatedAPI.
+
 	^ self anySatisfy: aBlock
 !
 

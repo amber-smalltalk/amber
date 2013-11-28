@@ -1,5 +1,8 @@
 0.12.2:
 
+* Collection >> contains: is deprecated in favor of anySatisfy:
+
+
 + Announcer
   + >>on:doOnce:
 + String
