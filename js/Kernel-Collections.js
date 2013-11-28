@@ -401,12 +401,13 @@ fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
+self._deprecatedAPI();
 $1=self._anySatisfy_(aBlock);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"contains:",{aBlock:aBlock},smalltalk.Collection)})},
 args: ["aBlock"],
-source: "contains: aBlock\x0a\x09^ self anySatisfy: aBlock",
-messageSends: ["anySatisfy:"],
+source: "contains: aBlock\x0a\x09self deprecatedAPI.\x0a\x0a\x09^ self anySatisfy: aBlock",
+messageSends: ["deprecatedAPI", "anySatisfy:"],
 referencedClasses: []
 }),
 smalltalk.Collection);
