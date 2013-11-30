@@ -820,6 +820,14 @@ alt: aString
 	self at: 'alt' put: aString
 !
 
+at: aString
+	^ self at: aString ifAbsent: [ Collection new errorNotFound ]
+!
+
+at: aString ifAbsent: aBlock
+	<return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value()>
+!
+
 at: aString put: aValue
 	<self['@element'].setAttribute(aString, aValue)>
 !
