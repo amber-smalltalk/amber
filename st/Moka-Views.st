@@ -153,7 +153,7 @@ defaultLayout
 		yourself
 ! !
 
-MKView subclass: #MKContainerView
+MKLayoutView subclass: #MKContainerView
 	instanceVariableNames: 'childView'
 	package: 'Moka-Views'!
 !MKContainerView commentStamp!
@@ -170,6 +170,10 @@ childView
 childView: aView
 	childView := aView.
 	self update
+!
+
+children
+	^ { self childView }
 ! !
 
 !MKContainerView methodsFor: 'rendering'!
@@ -254,9 +258,15 @@ tag
 	^ 'h', self level asString
 ! !
 
-MKView subclass: #MKOverlayView
+MKLayoutView subclass: #MKOverlayView
 	instanceVariableNames: 'childView'
 	package: 'Moka-Views'!
+!MKOverlayView commentStamp!
+I display an transparent overlay, typically over other views, except my `childView`.
+
+## API
+
+Create instances using the class-side `childView:` method.!
 
 !MKOverlayView methodsFor: 'accessing'!
 
@@ -266,6 +276,10 @@ childView
 
 childView: aView
 	childView := aView
+!
+
+children
+	^ { self childView }
 !
 
 cssClass
@@ -298,7 +312,7 @@ childView: aView
 		yourself
 ! !
 
-MKView subclass: #MKPaneView
+MKLayoutView subclass: #MKPaneView
 	instanceVariableNames: 'views'
 	package: 'Moka-Views'!
 !MKPaneView commentStamp!
@@ -309,6 +323,10 @@ I am a view containing other views.
 Use `#addView:` to add a view to the pane.!
 
 !MKPaneView methodsFor: 'accessing'!
+
+children
+	^ self views
+!
 
 cssClass
 	^ super cssClass, ' mk_pane'
@@ -358,64 +376,6 @@ borderTop: aNumber
 renderContentOn: html
 	self views do: [ :each | 
 		html with: each ]
-! !
-
-MKPaneView subclass: #MKModalPaneView
-	instanceVariableNames: 'overlay closeOnEnter closeOnClick'
-	package: 'Moka-Views'!
-
-!MKModalPaneView methodsFor: 'accessing'!
-
-closeOnClick
-	^ closeOnClick ifNil: [ false ]
-!
-
-closeOnClick: aBoolean
-	closeOnClick := aBoolean
-!
-
-closeOnEnter
-	^ closeOnEnter ifNil: [ false ]
-!
-
-closeOnEnter: aBoolean
-	closeOnEnter := aBoolean
-!
-
-cssClass
-	^ super cssClass, ' mk_modal'
-!
-
-overlay
-	^ overlay ifNil: [ overlay := MKOverlayView childView: self ]
-!
-
-zindex
-	^ 1001
-! !
-
-!MKModalPaneView methodsFor: 'defaults'!
-
-defaultControllerClass
-	^ MKModalPaneController
-!
-
-defaultLayout
-	^ super defaultLayout
-		centerY: 0;
-		centerX: 0;
-		width: 300;
-		height: 200;
-		yourself
-! !
-
-!MKModalPaneView methodsFor: 'rendering'!
-
-renderOn: html
-	super renderOn: html.
-	root at: 'tabindex' put: '0'.
-	root asJQuery focus.
-	html with: self overlay
 ! !
 
 MKPaneView subclass: #MKPanelView
@@ -514,7 +474,10 @@ update: anAnnouncement
 
 popupList
 	"Show a new list view inside a modal pane"
-	self modalPaneView render.
+	self modalPaneView 
+		left: self domPosition x;
+		top: self domPosition y;
+		render.
 	self listView focus
 ! !
 
@@ -553,16 +516,16 @@ listView
 
 modalPaneView
 	^ modalPaneView ifNil: [
-		modalPaneView := MKModalPaneView new
+		modalPaneView := (MKModalDecorator decorate: self listView)
 			extraCssClass: 'mk_dropdown_pane';
 			closeOnEnter: true;
 			closeOnClick: true;
-			addView: self listView;
-			left: self domPosition x;
-			top: self domPosition y;
-			"Max height of the list"
-			height: 400;
-			yourself ]
+			yourself.
+		modalPaneView 
+			on: MKViewRemoved
+			send: #focus
+			to: self.
+		modalPaneView ]
 ! !
 
 MKSelectionView subclass: #MKListView
@@ -645,7 +608,9 @@ ensureVisible: aListItem
     aListItem position top < 0 ifTrue: [
 		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem position top - 10) ].
     aListItem position top + aListItem height > parent height ifTrue: [ 
-		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ]
+		(parent get: 0) scrollTop: ((parent get: 0) scrollTop + aListItem height - (parent height - aListItem position top)) +10 ].
+	
+	self announce: (MKViewScroll view: self)
 !
 
 positionOf: aListItem
@@ -723,6 +688,170 @@ I am similar to a `MKListView`, but displayed slightly differently, in a similar
 
 cssClass
 	^ super cssClass, ' mk_sourcelist'
+! !
+
+MKLayoutView subclass: #MKSplitView
+	instanceVariableNames: 'firstView secondView splitter'
+	package: 'Moka-Views'!
+!MKSplitView commentStamp!
+I am the superclass of all split views. I arrange two child view with a splitter between them.
+
+## API
+
+Create instances using the class-side method `firstView:secondView:`.!
+
+!MKSplitView methodsFor: 'accessing'!
+
+children
+	^ { self firstView. self secondView }
+!
+
+cssClass
+	^ super cssClass, ' mk_split_view'
+!
+
+firstView
+	^ firstView
+!
+
+firstView: aView
+	firstView := aView
+!
+
+secondView
+	^ secondView
+!
+
+secondView: aView
+	secondView := aView
+!
+
+splitterCssClass
+	^ 'mk_splitter'
+! !
+
+!MKSplitView methodsFor: 'defaults'!
+
+defaultThickness
+	^ 300
+! !
+
+!MKSplitView methodsFor: 'private'!
+
+setupSplitter
+	self subclassResponsibility
+! !
+
+!MKSplitView methodsFor: 'rendering'!
+
+renderContentOn: html
+	html with: self firstView.
+	splitter := html div class: self splitterCssClass.
+	html with: self secondView.
+        
+	self setupSplitter
+! !
+
+!MKSplitView class methodsFor: 'instance creation'!
+
+firstView: aView secondView: anotherView
+	^ self new
+		firstView: aView;
+		secondView: anotherView;
+		yourself
+! !
+
+MKSplitView subclass: #MKHorizontalSplitView
+	instanceVariableNames: 'leftThickness rightThickness'
+	package: 'Moka-Views'!
+!MKHorizontalSplitView commentStamp!
+I split my child views vertically.!
+
+!MKHorizontalSplitView methodsFor: 'accessing'!
+
+cssClass
+	^ super cssClass, ' horizontal'
+!
+
+leftThickness
+	^ leftThickness ifNil: [ self defaultThickness ]
+!
+
+leftThickness: aNumber
+	rightThickness := nil.
+	leftThickness := aNumber
+!
+
+rightThickness
+	^ rightThickness
+!
+
+rightThickness: aNumber
+	leftThickness := nil.
+	rightThickness := aNumber
+! !
+
+!MKHorizontalSplitView methodsFor: 'actions'!
+
+resize: aNumber
+    self firstView asJQuery css: 'width' put: aNumber asMokaCssString.
+	splitter asJQuery css: 'left' put: aNumber asMokaCssString.
+	self secondView asJQuery css: 'left' put: aNumber asMokaCssString
+! !
+
+!MKHorizontalSplitView methodsFor: 'private'!
+
+setupSplitter
+	splitter asJQuery draggable: #{ 
+    	'axis' -> 'x'. 
+        'containment' -> splitter asJQuery parent.
+        'helper' -> 'clone'.
+		'cursor' -> 'ew-resize'.
+		'stop' -> [ self resized ].
+        'drag' -> [ :e :ui | self resize: ui offset left ] }
+! !
+
+!MKHorizontalSplitView methodsFor: 'rendering'!
+
+renderContentOn: html
+	self leftThickness ifNotNil: [ :thickness |
+		self firstView width: thickness.
+		self secondView left: thickness ].
+		
+	super renderContentOn: html.
+	splitter asJQuery css: 'left' put: self leftThickness
+! !
+
+MKSplitView subclass: #MKVerticalSplitView
+	instanceVariableNames: ''
+	package: 'Moka-Views'!
+!MKVerticalSplitView commentStamp!
+I split my child views horizontally.!
+
+!MKVerticalSplitView methodsFor: 'accessing'!
+
+cssClass
+	^ super cssClass, ' vertical'
+! !
+
+!MKVerticalSplitView methodsFor: 'actions'!
+
+resize: aNumber
+    self firstView asJQuery css: 'right' put: aNumber asMokaCssString.
+	splitter asJQuery css: 'left' put: aNumber asMokaCssString.
+	self secondView asJQuery css: 'left' put: aNumber asMokaCssString
+! !
+
+!MKVerticalSplitView methodsFor: 'private'!
+
+setupSplitter
+	splitter asJQuery draggable: #{ 
+    	'axis' -> 'x'. 
+        'containment' -> splitter asJQuery parent.
+        'helper' -> 'clone'.
+		'cursor' -> 'ns-resize'.
+		'stop' -> [ self resized ].
+        'drag' -> [ :e :ui | self resize: (ui offset left) ] }
 ! !
 
 MKSingleAspectView subclass: #MKTextAreaView

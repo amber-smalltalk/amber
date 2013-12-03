@@ -28,7 +28,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  zindex: 1000;
+  z-index: 1000;
   background: transparent;
 }
 .moka_view {
@@ -70,12 +70,12 @@
   border-color: #888888;
   border-style: solid;
 }
-.moka_view.mk_pane.mk_modal {
+.moka_view.mk_modal {
   z-index: 1001;
   background: transparent;
   border: 0 none;
 }
-.moka_view.mk_pane.mk_modal:focus {
+.moka_view.mk_modal:focus {
   outline: 0 none;
 }
 .moka_view.mk_scroll .mk_scroll_rail {
@@ -193,6 +193,7 @@
   background: -ms-linear-gradient(bottom, #dedede, #ffffff);
   background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
   background: -o-linear-gradient(#ffffff, #dedede);
+  background: linear-gradient(#ffffff, #dedede);
 }
 .moka_view.mk_button:focus {
   outline: 0;
@@ -206,6 +207,7 @@
   background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
   background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
   background: -o-linear-gradient(#deeaf8, #9ec4eb);
+  background: linear-gradient(#deeaf8, #9ec4eb);
   text-shadow: 0 1px 0 #eeeeee;
 }
 .moka_view.mk_button.default:active {
@@ -322,6 +324,7 @@
   background: -ms-linear-gradient(bottom, #dedede, #ffffff);
   background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
   background: -o-linear-gradient(#ffffff, #dedede);
+  background: linear-gradient(#ffffff, #dedede);
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   border-radius: 20px;
@@ -348,6 +351,7 @@
   background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
   background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
   background: -o-linear-gradient(#deeaf8, #9ec4eb);
+  background: linear-gradient(#deeaf8, #9ec4eb);
   text-shadow: 0 1px 0 #eeeeee;
 }
 .moka_view.mk_switch.default:active {
@@ -449,6 +453,7 @@
   background: -ms-linear-gradient(bottom, #74aae2, #9ec4eb);
   background: -moz-linear-gradient(center bottom, #74aae2 0%, #9ec4eb 100%);
   background: -o-linear-gradient(#9ec4eb, #74aae2);
+  background: linear-gradient(#9ec4eb, #74aae2);
   border-top: 1px solid #4a90d9;
   border-bottom: 1px solid #4a90d9;
   color: white;
@@ -492,6 +497,7 @@
   background: -ms-linear-gradient(bottom, #dedede, #ffffff);
   background: -moz-linear-gradient(center bottom, #dedede 0%, #ffffff 100%);
   background: -o-linear-gradient(#ffffff, #dedede);
+  background: linear-gradient(#ffffff, #dedede);
   text-align: left;
   padding: 0 8px;
 }
@@ -507,6 +513,7 @@
   background: -ms-linear-gradient(bottom, #9ec4eb, #deeaf8);
   background: -moz-linear-gradient(center bottom, #9ec4eb 0%, #deeaf8 100%);
   background: -o-linear-gradient(#deeaf8, #9ec4eb);
+  background: linear-gradient(#deeaf8, #9ec4eb);
   text-shadow: 0 1px 0 #eeeeee;
 }
 .moka_view.mk_dropdown.default:active {
@@ -563,4 +570,24 @@
 }
 .moka_view.mk_dropdown_pane .mk_dropdown_list:focus {
   border: 0;
+}
+.moka_view.mk_split_view .mk_splitter {
+  position: absolute;
+  border-width: 0;
+  z-index: 10;
+}
+.moka_view.mk_split_view.horizontal .mk_splitter {
+  width: 5px;
+  margin-left: -1px;
+  border-left: 1px solid #aaaaaa;
+  height: 100%;
+  float: left;
+  cursor: ew-resize;
+}
+.moka_view.mk_split_view.vertical .mk_splitter {
+  height: 5px;
+  margin-top: -1px;
+  width: 100%;
+  border-top: 1px solid #aaaaaa;
+  cursor: ns-resize;
 }

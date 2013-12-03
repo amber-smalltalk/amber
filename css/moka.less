@@ -10,12 +10,14 @@
 				 color-stop(0, @start),
 				 color-stop(1, @stop));
     background: -ms-linear-gradient(bottom,
-				    @start,
-				    @stop);
+					 @start,
+					 @stop);
     background: -moz-linear-gradient(center bottom,
 				     @start 0%,
 				     @stop 100%);
     background: -o-linear-gradient(@stop,
+				   @start);
+    background: linear-gradient(@stop,
 				   @start);
 }
 .vertical-gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
@@ -29,6 +31,12 @@
 				    @start,
 				    @stop);
     background: -moz-linear-gradient(right,
+				     @start 0%,
+				     @stop 100%);
+    background: -o-linear-gradient(right,
+				     @start 0%,
+				     @stop 100%);
+    background: linear-gradient(right,
 				     @start 0%,
 				     @stop 100%);
 }
@@ -114,14 +122,14 @@
     display: block;
     overflow: hidden;
 }
- 
+
 .mk_overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    zindex: 1000;
+    z-index: 1000;
     background: transparent;
 }
 
@@ -165,15 +173,15 @@
 	    border-color: @dark;
 	    border-style: solid;
 	}
+    }
 
-	&.mk_modal {
-	    z-index: 1001;
-	    background: transparent;
-	    border: 0 none;
+    &.mk_modal {
+	z-index: 1001;
+	background: transparent;
+	border: 0 none;
 
-	    &:focus {
-		outline: 0 none;
-	    }
+	&:focus {
+	    outline: 0 none;
 	}
     }
 
@@ -377,7 +385,7 @@
 	}
     }
 
-// Dropdowns
+    // Dropdowns
 
     &.mk_dropdown {
 	.mk_button;
@@ -424,6 +432,35 @@
 	    &:focus {
 		border: 0;
 	    }
+	}
+    }
+
+
+    // Split views
+
+    &.mk_split_view {
+
+	.mk_splitter {
+	    position: absolute;
+	    border-width: 0;
+	    z-index: 10;
+	}
+
+	&.horizontal .mk_splitter {
+	    width: 5px;
+	    margin-left: -1px;
+	    border-left: 1px solid @grey;
+	    height: 100%;
+	    float: left;
+	    cursor: ew-resize;
+	}
+
+	&.vertical .mk_splitter {
+	    height: 5px;
+	    margin-top: -1px;
+	    width: 100%;
+	    border-top: 1px solid @grey;
+	    cursor: ns-resize;
 	}
     }
 }

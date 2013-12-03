@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'Moka-Examples'!
-MKModel subclass: #MKClassesListBuilder
+MKObservable subclass: #MKClassesListBuilder
 	instanceVariableNames: ''
 	package: 'Moka-Examples'!
 
@@ -37,7 +37,7 @@ initialize
 	self new build
 ! !
 
-MKModel subclass: #MKClassesModel
+MKObservable subclass: #MKClassesModel
 	instanceVariableNames: 'classes selectedClass'
 	package: 'Moka-Examples'!
 
@@ -65,7 +65,6 @@ Object subclass: #MKCounterBuilder
 build
 	| pane |
 	pane := MKPanelView new
-		borderRight: 1;
 		yourself.
 	
 	pane addView: ((MKHeadingView model: self counter aspect: #count)
@@ -141,11 +140,12 @@ build
 		top: 440;
 		yourself).
 	
-	(MKScrollDecorator decorate: pane)
-		top: 200;
-		width: 400;
-		bottom: 0;
-		render
+	(MKHorizontalSplitView 
+		firstView: (MKScrollDecorator decorate: pane)
+		secondView: MKLayoutView new) 
+			top: 200;
+			bottom: 0;
+			render
 !
 
 counter
@@ -158,7 +158,7 @@ initialize
 	self new build
 ! !
 
-MKModel subclass: #MKCounterModel
+MKObservable subclass: #MKCounterModel
 	instanceVariableNames: 'count text checked options selectedOption'
 	package: 'Moka-Examples'!
 

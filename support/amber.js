@@ -56,7 +56,7 @@ require = function (require) {
             'amber_html': amber_home,
             'jquery': library_home + '/jquery/jquery.min',
             'jquery-ui': amber_home + '/support/jQuery/jquery-ui-1.8.24.custom.min',
-			'mousewheel': library_home + '/jscrollpane/script/jquery.mousewheel'
+			'mousewheel': library_home + '/jquery-mousewheel/jquery.mousewheel'
         },
         map: {
             '*': {

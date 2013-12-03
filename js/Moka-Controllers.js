@@ -200,6 +200,7 @@ smalltalk.MKCheckboxController);
 
 
 smalltalk.addClass('MKDropdownController', smalltalk.MKAspectsController, [], 'Moka-Controllers');
+smalltalk.MKDropdownController.comment="I am the default controller for `MKDropdownView`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onClick:",
@@ -587,7 +588,7 @@ smalltalk.MKDropdownListController);
 
 
 
-smalltalk.addClass('MKModalPaneController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
+smalltalk.addClass('MKModalController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onClick:",
@@ -600,13 +601,13 @@ $1=_st(self._view())._closeOnClick();
 if(smalltalk.assert($1)){
 self._removeView();
 };
-return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKModalPaneController)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onClick:",{anEvent:anEvent},smalltalk.MKModalController)})},
 args: ["anEvent"],
 source: "onClick: anEvent\x0a\x09self view closeOnClick ifTrue: [ self removeView ]",
 messageSends: ["ifTrue:", "closeOnClick", "view", "removeView"],
 referencedClasses: []
 }),
-smalltalk.MKModalPaneController);
+smalltalk.MKModalController);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -616,29 +617,32 @@ fn: function (anEvent){
 var self=this;
 function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1,$3,$4;
-$2=_st(anEvent)._keyCode();
-$ctx1.sendIdx["keyCode"]=1;
-$1=_st($2).__eq((27));
-$ctx1.sendIdx["="]=1;
+var $1,$3,$2,$4,$5;
+$1=_st(self._view())._closeOnEnter();
 if(smalltalk.assert($1)){
+$3=_st(anEvent)._keyCode();
+$ctx1.sendIdx["keyCode"]=1;
+$2=_st($3).__eq(_st(_st($String())._cr())._asciiValue());
+$ctx1.sendIdx["="]=1;
+if(smalltalk.assert($2)){
 self._removeView();
 $ctx1.sendIdx["removeView"]=1;
+_st(anEvent)._stopPropagation();
+$4=_st(anEvent)._preventDefault();
+$4;
 };
-$3=_st(self._view())._closeOnEnter();
-if(smalltalk.assert($3)){
-$4=_st(_st(anEvent)._keyCode()).__eq(_st(_st($String())._cr())._asciiValue());
-if(smalltalk.assert($4)){
+};
+$5=_st(_st(anEvent)._keyCode()).__eq((27));
+if(smalltalk.assert($5)){
 self._removeView();
 };
-};
-return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKModalPaneController)})},
+return self}, function($ctx1) {$ctx1.fill(self,"onKeyDown:",{anEvent:anEvent},smalltalk.MKModalController)})},
 args: ["anEvent"],
-source: "onKeyDown: anEvent\x0a\x09\x22ESC\x22\x0a\x09anEvent keyCode = 27 ifTrue: [\x0a\x09\x09self removeView ].\x0a\x09\x09\x0a\x09self view closeOnEnter ifTrue: [\x0a\x09\x09anEvent keyCode = String cr asciiValue ifTrue: [ \x0a\x09\x09\x09self removeView ] ]",
-messageSends: ["ifTrue:", "=", "keyCode", "removeView", "closeOnEnter", "view", "asciiValue", "cr"],
+source: "onKeyDown: anEvent\x0a\x09self view closeOnEnter ifTrue: [\x0a\x09\x09anEvent keyCode = String cr asciiValue ifTrue: [\x0a\x09\x09\x09self removeView.\x0a\x09\x09\x09anEvent \x0a\x09\x09\x09\x09stopPropagation;\x0a\x09\x09\x09\x09preventDefault ] ].\x0a\x09\x0a\x09\x22ESC\x22\x0a\x09anEvent keyCode = 27 ifTrue: [\x0a\x09\x09self removeView ]",
+messageSends: ["ifTrue:", "closeOnEnter", "view", "=", "keyCode", "asciiValue", "cr", "removeView", "stopPropagation", "preventDefault"],
 referencedClasses: ["String"]
 }),
-smalltalk.MKModalPaneController);
+smalltalk.MKModalController);
 
 smalltalk.addMethod(
 smalltalk.method({
@@ -648,13 +652,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(self._view())._overlay())._remove();
-return self}, function($ctx1) {$ctx1.fill(self,"removeView",{},smalltalk.MKModalPaneController)})},
+return self}, function($ctx1) {$ctx1.fill(self,"removeView",{},smalltalk.MKModalController)})},
 args: [],
 source: "removeView\x0a\x09self view overlay remove",
 messageSends: ["remove", "overlay", "view"],
 referencedClasses: []
 }),
-smalltalk.MKModalPaneController);
+smalltalk.MKModalController);
 
 
 
@@ -812,6 +816,23 @@ smalltalk.MKRepeater);
 
 
 smalltalk.addClass('MKScrollController', smalltalk.MKController, [], 'Moka-Controllers');
+smalltalk.MKScrollController.comment="I am the default controller for `MKScrollDecorator`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onDecoratedScroll",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._view())._updateScrollbarsPosition();
+return self}, function($ctx1) {$ctx1.fill(self,"onDecoratedScroll",{},smalltalk.MKScrollController)})},
+args: [],
+source: "onDecoratedScroll\x0a\x09self view updateScrollbarsPosition",
+messageSends: ["updateScrollbarsPosition", "view"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
+
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onHorizontalDrag:",
@@ -819,11 +840,66 @@ category: 'actions',
 fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(_st(_st(_st(self._view())._decorated())._asJQuery())._get_((0)))._at_put_("scrollLeft",_st(self._position())._x());
+var $4,$3,$2,$1;
+$4=self._view();
+$ctx1.sendIdx["view"]=1;
+$3=_st($4)._decorated();
+$2=_st($3)._asJQuery();
+$1=_st($2)._get_((0));
+_st($1)._at_put_("scrollLeft",_st(_st(self._view())._domScrollPosition())._x());
 return self}, function($ctx1) {$ctx1.fill(self,"onHorizontalDrag:",{anEvent:anEvent},smalltalk.MKScrollController)})},
 args: ["anEvent"],
-source: "onHorizontalDrag: anEvent\x0a\x09(self view decorated asJQuery get: 0) at: 'scrollLeft' put: self position x",
-messageSends: ["at:put:", "get:", "asJQuery", "decorated", "view", "x", "position"],
+source: "onHorizontalDrag: anEvent\x0a\x09(self view decorated asJQuery get: 0) at: 'scrollLeft' put: self view domScrollPosition x",
+messageSends: ["at:put:", "get:", "asJQuery", "decorated", "view", "x", "domScrollPosition"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onMousewheel:",
+category: 'actions',
+fn: function (anEvent){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1,$3,$4,$6,$5;
+$2=_st(anEvent)._deltaY();
+$ctx1.sendIdx["deltaY"]=1;
+$1=_st($2).__tild_eq((0));
+$ctx1.sendIdx["~="]=1;
+if(smalltalk.assert($1)){
+$3=self._view();
+$ctx1.sendIdx["view"]=1;
+$4=_st(_st(anEvent)._deltaY()).__star((10));
+$ctx1.sendIdx["*"]=1;
+_st($3)._scrollDeltaY_($4);
+};
+$6=_st(anEvent)._deltaX();
+$ctx1.sendIdx["deltaX"]=1;
+$5=_st($6).__tild_eq((0));
+if(smalltalk.assert($5)){
+_st(self._view())._scrollDeltaX_(_st(_st(anEvent)._deltaX()).__star((10)));
+};
+return self}, function($ctx1) {$ctx1.fill(self,"onMousewheel:",{anEvent:anEvent},smalltalk.MKScrollController)})},
+args: ["anEvent"],
+source: "onMousewheel: anEvent\x0a\x09anEvent deltaY ~= 0 ifTrue: [\x0a\x09\x09self view scrollDeltaY: anEvent deltaY * 10 ].\x0a\x09\x0a\x09anEvent deltaX ~= 0 ifTrue: [\x0a\x09\x09self view scrollDeltaX: anEvent deltaX * 10 ]",
+messageSends: ["ifTrue:", "~=", "deltaY", "scrollDeltaY:", "view", "*", "deltaX", "scrollDeltaX:"],
+referencedClasses: []
+}),
+smalltalk.MKScrollController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "onResize",
+category: 'actions',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._view())._resized();
+return self}, function($ctx1) {$ctx1.fill(self,"onResize",{},smalltalk.MKScrollController)})},
+args: [],
+source: "onResize\x0a\x09self view resized",
+messageSends: ["resized", "view"],
 referencedClasses: []
 }),
 smalltalk.MKScrollController);
@@ -835,60 +911,17 @@ category: 'actions',
 fn: function (anEvent){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$2;
-$1=console;
-$3=self._position();
-$ctx1.sendIdx["position"]=1;
-$2=_st($3)._asString();
-_st($1)._log_($2);
-_st(_st(_st(_st(self._view())._decorated())._asJQuery())._get_((0)))._at_put_("scrollTop",_st(self._position())._y());
+var $4,$3,$2,$1;
+$4=self._view();
+$ctx1.sendIdx["view"]=1;
+$3=_st($4)._decorated();
+$2=_st($3)._asJQuery();
+$1=_st($2)._get_((0));
+_st($1)._at_put_("scrollTop",_st(_st(self._view())._domScrollPosition())._y());
 return self}, function($ctx1) {$ctx1.fill(self,"onVerticalDrag:",{anEvent:anEvent},smalltalk.MKScrollController)})},
 args: ["anEvent"],
-source: "onVerticalDrag: anEvent\x0a\x09console log: self position asString.\x0a\x09(self view decorated asJQuery get: 0) at: 'scrollTop' put: self position y",
-messageSends: ["log:", "asString", "position", "at:put:", "get:", "asJQuery", "decorated", "view", "y"],
-referencedClasses: []
-}),
-smalltalk.MKScrollController);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "position",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(_st(self._view())._domDecoratedSize()).__star(self._scrollPercent());
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"position",{},smalltalk.MKScrollController)})},
-args: [],
-source: "position\x0a\x09^ self view domDecoratedSize * self scrollPercent",
-messageSends: ["*", "domDecoratedSize", "view", "scrollPercent"],
-referencedClasses: []
-}),
-smalltalk.MKScrollController);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "scrollPercent",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $3,$2,$6,$5,$4,$1;
-$3=self._view();
-$ctx1.sendIdx["view"]=1;
-$2=_st($3)._domScrollPosition();
-$6=self._view();
-$ctx1.sendIdx["view"]=2;
-$5=_st($6)._domSize();
-$4=_st($5).__minus(_st(self._view())._domScrollbarSize());
-$1=_st($2).__slash($4);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"scrollPercent",{},smalltalk.MKScrollController)})},
-args: [],
-source: "scrollPercent\x0a\x09^ self view domScrollPosition / (self view domSize - self view domScrollbarSize)",
-messageSends: ["/", "domScrollPosition", "view", "-", "domSize", "domScrollbarSize"],
+source: "onVerticalDrag: anEvent\x0a\x09(self view decorated asJQuery get: 0) at: 'scrollTop' put: self view domScrollPosition y",
+messageSends: ["at:put:", "get:", "asJQuery", "decorated", "view", "y", "domScrollPosition"],
 referencedClasses: []
 }),
 smalltalk.MKScrollController);

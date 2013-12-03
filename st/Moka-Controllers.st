@@ -87,6 +87,8 @@ toggle
 MKAspectsController subclass: #MKDropdownController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
+!MKDropdownController commentStamp!
+I am the default controller for `MKDropdownView`.!
 
 !MKDropdownController methodsFor: 'actions'!
 
@@ -204,24 +206,27 @@ onMouseMove: anEvent
 	self activateItem: (self itemForTarget: anEvent target)
 ! !
 
-MKSingleAspectController subclass: #MKModalPaneController
+MKSingleAspectController subclass: #MKModalController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
 
-!MKModalPaneController methodsFor: 'actions'!
+!MKModalController methodsFor: 'actions'!
 
 onClick: anEvent
 	self view closeOnClick ifTrue: [ self removeView ]
 !
 
 onKeyDown: anEvent
+	self view closeOnEnter ifTrue: [
+		anEvent keyCode = String cr asciiValue ifTrue: [
+			self removeView.
+			anEvent 
+				stopPropagation;
+				preventDefault ] ].
+	
 	"ESC"
 	anEvent keyCode = 27 ifTrue: [
-		self removeView ].
-		
-	self view closeOnEnter ifTrue: [
-		anEvent keyCode = String cr asciiValue ifTrue: [ 
-			self removeView ] ]
+		self removeView ]
 !
 
 removeView
@@ -288,25 +293,32 @@ isRepeating
 MKController subclass: #MKScrollController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
-
-!MKScrollController methodsFor: 'accessing'!
-
-position
-	^ self view domDecoratedSize * self scrollPercent
-!
-
-scrollPercent
-	^ self view domScrollPosition / (self view domSize - self view domScrollbarSize)
-! !
+!MKScrollController commentStamp!
+I am the default controller for `MKScrollDecorator`.!
 
 !MKScrollController methodsFor: 'actions'!
 
+onDecoratedScroll
+	self view updateScrollbarsPosition
+!
+
 onHorizontalDrag: anEvent
-	(self view decorated asJQuery get: 0) at: 'scrollLeft' put: self position x
+	(self view decorated asJQuery get: 0) at: 'scrollLeft' put: self view domScrollPosition x
+!
+
+onMousewheel: anEvent
+	anEvent deltaY ~= 0 ifTrue: [
+		self view scrollDeltaY: anEvent deltaY * 10 ].
+	
+	anEvent deltaX ~= 0 ifTrue: [
+		self view scrollDeltaX: anEvent deltaX * 10 ]
+!
+
+onResize
+	self view resized
 !
 
 onVerticalDrag: anEvent
-	console log: self position asString.
-	(self view decorated asJQuery get: 0) at: 'scrollTop' put: self position y
+	(self view decorated asJQuery get: 0) at: 'scrollTop' put: self view domScrollPosition y
 ! !
 

@@ -103,26 +103,28 @@ performAspectActionWith: anObject
 		with: anObject
 ! !
 
-Object subclass: #MKModel
+Object subclass: #MKObservable
 	instanceVariableNames: 'announcer'
 	package: 'Moka-Core'!
-!MKModel commentStamp!
-I implement the Model part of the MVC pattern in Moka.
+!MKObservable commentStamp!
+View models are typically subclasses of me. 
 
-I am the abstract superclass of all Moka model. The observer pattern is implemented through an `announcer` object.
+I implement the Observable part of the Observer pattern in Moka.
+
+The observer pattern is implemented through an `announcer` object.
 
 ## API
 
 - Listening
 
-  Use `#on:do:` or `#on:send:to:` to listen to model changes
+  Use `#on:do:` or `#on:send:to:` to listen to receiver changes
 
 - Triggering
 
   `#changed:` is the builtin method used to trigger `#update:` in views.
   Use `#announce:` in subclasses to trigger announcements to listeners.!
 
-!MKModel methodsFor: 'announcements'!
+!MKObservable methodsFor: 'announcements'!
 
 announce: anAnnouncement
 	announcer announce: anAnnouncement
@@ -131,7 +133,7 @@ announce: anAnnouncement
 changed: aSelector
 	"Trigger `#update:` to all listening aspect views"
 	
-	self announce: (MKModelChanged aspect: aSelector)
+	self announce: (MKAspectChanged aspect: aSelector)
 !
 
 on: anAnnouncement do: aBlock
@@ -142,39 +144,15 @@ on: anAnnouncement send: aSelector to: anObject
 	announcer on: anAnnouncement send: aSelector to: anObject
 ! !
 
-!MKModel methodsFor: 'initialization'!
+!MKObservable methodsFor: 'initialization'!
 
 initialize
 	super initialize.
 	announcer := Announcer new
 ! !
 
-Object subclass: #MKModelChanged
-	instanceVariableNames: 'aspect'
-	package: 'Moka-Core'!
-!MKModelChanged commentStamp!
-I am an announcement announced when a model is changed.!
-
-!MKModelChanged methodsFor: 'accessing'!
-
-aspect
-	^ aspect
-!
-
-aspect: aSelector
-	aspect := aSelector
-! !
-
-!MKModelChanged class methodsFor: 'instance creation'!
-
-aspect: aSelector
-	^ self new
-		aspect: aSelector;
-		yourself
-! !
-
-Widget subclass: #MKView
-	instanceVariableNames: 'controller model root layout extraCssClass'
+MKObservable subclass: #MKView
+	instanceVariableNames: 'controller model root extraCssClass'
 	package: 'Moka-Core'!
 !MKView commentStamp!
 I implement the View part of the MVC pattern in Moka.
@@ -188,6 +166,11 @@ I implement the View part of the MVC pattern in Moka.
 - Extra css classes can be added with `#extraCssClass:`.!
 
 !MKView methodsFor: 'accessing'!
+
+children
+	"Answer all the sub-views of the receiver"
+	^ #()
+!
 
 controller
 	"Answer the current receiver's controller.
@@ -215,16 +198,16 @@ cssClass
 			stream << ' ' << self extraCssClass ] ]
 !
 
+cssStyle
+	^ ''
+!
+
 extraCssClass
 	^ extraCssClass ifNil: [ '' ]
 !
 
 extraCssClass: aString
 	extraCssClass := aString
-!
-
-layout
-	^ layout ifNil: [ layout := self defaultLayout ]
 !
 
 model
@@ -252,7 +235,25 @@ focus
 
 remove
 	"Removes the receiver from the DOM"
-	root ifNotNil: [ root asJQuery remove ]
+	root ifNotNil: [ root asJQuery remove ].
+	
+	self announce: (MKViewRemoved view: self)
+!
+
+resized
+	"Action triggered when the view has been resized from the outside"
+	
+	self children do: [ :each | each resized ]
+! !
+
+!MKView methodsFor: 'adding'!
+
+appendToBrush: aTagBrush
+	self appendToJQuery: aTagBrush asJQuery
+!
+
+appendToJQuery: aJQuery
+	self renderOn: (HTMLCanvas onJQuery: aJQuery)
 ! !
 
 !MKView methodsFor: 'converting'!
@@ -265,15 +266,6 @@ asJQuery
 
 defaultControllerClass
 	^ MKController
-!
-
-defaultLayout
-	^ MKLayout new
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		yourself
 ! !
 
 !MKView methodsFor: 'dom'!
@@ -296,7 +288,116 @@ defaultController
 	^ self defaultControllerClass new
 ! !
 
-!MKView methodsFor: 'layout'!
+!MKView methodsFor: 'observing'!
+
+observeModel
+	"No op. Override in subclasses"
+! !
+
+!MKView methodsFor: 'private'!
+
+setupEventHandlers
+	root
+		onClick: [ :event | self controller onClick: event ];
+		onDblClick: [ :event | self controller onDblClick: event ];
+		onMouseEnter: [ :event | self controller onMouseEnter: event ];
+		onMouseLeave: [ :event | self controller onMouseLeave: event ];
+		onMouseOver: [ :event | self controller onMouseOver: event ];
+		onMouseOut: [ :event | self controller onMouseOut: event ];
+		onMouseMove: [ :event | self controller onMouseMove: event ];
+		onKeyDown: [ :event | self controller onKeyDown: event ];
+		onKeyUp: [ :event | self controller onKeyUp: event ];
+		onKeyPress: [ :event | self controller onKeyPress: event ];
+		onChange: [ :event | self controller onChange: event ]
+! !
+
+!MKView methodsFor: 'rendering'!
+
+render
+	"Append the receiver to the BODY element"
+	
+	self appendToJQuery: 'body' asJQuery
+!
+
+renderContentOn: html
+	"Main rendering method, override in subclasses."
+!
+
+renderOn: html
+	"Basic rendering method.
+	Do not override this method, but `#renderContentOn:`"
+	
+	root := (html tag: self tag)
+		class: self cssClass;
+		style: self cssStyle;
+		yourself.
+	root with: [ self renderContentOn: html ].
+	
+	self setupEventHandlers
+! !
+
+!MKView methodsFor: 'updating'!
+
+update
+	"Update the view's content. Override in subclasses to fine-tune updating"
+	
+	root ifNil: [ ^ self ].
+	
+	root asJQuery empty.
+	[ :html | self renderContentOn: html ] 
+		appendToJQuery: root asJQuery
+! !
+
+!MKView class methodsFor: 'instance creation'!
+
+model: aModel
+	^ self new
+		model: aModel;
+		yourself
+!
+
+model: aModel controller: aController
+	^ (self model: aModel)
+		controller: aController;
+		yourself
+! !
+
+MKView subclass: #MKLayoutView
+	instanceVariableNames: 'layout'
+	package: 'Moka-Core'!
+!MKLayoutView commentStamp!
+I implement the View part of the MVC pattern in Moka.
+
+## API
+- Instance can be created with the `MKView class >> model:*` convenience methods
+- rendering is done through `#renderContentOn:`, to be overridden in concrete view classes
+- `#update` provide updating facility, refreshing the entire view
+- subclasses can override `#defaultControllerClass` to provide a default controller specific to a view
+- subclasses can override `#observeModel`
+- Extra css classes can be added with `#extraCssClass:`.!
+
+!MKLayoutView methodsFor: 'accessing'!
+
+cssStyle
+	^ self layout asCssString
+!
+
+layout
+	^ layout ifNil: [ layout := self defaultLayout ]
+! !
+
+!MKLayoutView methodsFor: 'defaults'!
+
+defaultLayout
+	^ MKLayout new
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		yourself
+! !
+
+!MKLayoutView methodsFor: 'layout'!
 
 bottom
 	^ self layout bottom
@@ -362,67 +463,7 @@ width: aNumber
 	self layout width: aNumber
 ! !
 
-!MKView methodsFor: 'observing'!
-
-observeModel
-	"No op. Override in subclasses"
-! !
-
-!MKView methodsFor: 'private'!
-
-setupEventHandlers
-	root
-		onClick: [ :event | self controller onClick: event ];
-		onDblClick: [ :event | self controller onDblClick: event ];
-		onMouseEnter: [ :event | self controller onMouseEnter: event ];
-		onMouseLeave: [ :event | self controller onMouseLeave: event ];
-		onMouseOver: [ :event | self controller onMouseOver: event ];
-		onMouseOut: [ :event | self controller onMouseOut: event ];
-		onMouseMove: [ :event | self controller onMouseMove: event ];
-		onKeyDown: [ :event | self controller onKeyDown: event ];
-		onKeyUp: [ :event | self controller onKeyUp: event ];
-		onKeyPress: [ :event | self controller onKeyPress: event ];
-		onChange: [ :event | self controller onChange: event ]
-! !
-
-!MKView methodsFor: 'rendering'!
-
-render
-	"Append the receiver to the BODY element"
-	
-	self appendToJQuery: 'body' asJQuery
-!
-
-renderContentOn: html
-	"Main rendering method, override in subclasses."
-!
-
-renderOn: html
-	"Basic rendering method.
-	Do not override this method, but `#renderContentOn:`"
-	
-	root := (html tag: self tag)
-		class: self cssClass;
-		style: self layout asCssString;
-		yourself.
-	root with: [ self renderContentOn: html ].
-	
-	self setupEventHandlers
-! !
-
-!MKView methodsFor: 'updating'!
-
-update
-	"Update the view's content. Override in subclasses to fine-tune updating"
-	
-	root ifNil: [ self error: 'The view has not been rendered yet' ].
-	
-	root asJQuery empty.
-	[ :html | self renderContentOn: html ] 
-		appendToJQuery: root asJQuery
-! !
-
-!MKView class methodsFor: 'instance creation'!
+!MKLayoutView class methodsFor: 'instance creation'!
 
 model: aModel
 	^ self new
@@ -436,7 +477,7 @@ model: aModel controller: aController
 		yourself
 ! !
 
-MKView subclass: #MKAspectsView
+MKLayoutView subclass: #MKAspectsView
 	instanceVariableNames: ''
 	package: 'Moka-Core'!
 !MKAspectsView commentStamp!
@@ -460,7 +501,7 @@ observeModel
 	super observeModel.
 	
 	self model
-		on: MKModelChanged
+		on: MKAspectChanged
 		send: 'update:'
 		to: self
 ! !
@@ -516,7 +557,7 @@ model: aModel aspect: aSelector
 		yourself
 ! !
 
-MKView subclass: #MKDecorator
+MKLayoutView subclass: #MKDecorator
 	instanceVariableNames: 'decorated'
 	package: 'Moka-Core'!
 !MKDecorator commentStamp!
@@ -530,12 +571,23 @@ To decorate a view, use the class-side `#decorate:` method.!
 
 !MKDecorator methodsFor: 'accessing'!
 
+children
+	^ { self decorated }
+!
+
 decorated
 	^ decorated
 !
 
 decorated: aView
-	decorated := aView
+	decorated := aView.
+	self observeDecorated
+! !
+
+!MKDecorator methodsFor: 'observing'!
+
+observeDecorated
+	"Override in subclasses"
 ! !
 
 !MKDecorator methodsFor: 'rendering'!
