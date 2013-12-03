@@ -367,42 +367,8 @@ referencedClasses: []
 smalltalk.SystemAnnouncer.klass);
 
 
-smalltalk.addClass('SystemAnnouncement', smalltalk.Object, ['theClass'], 'Kernel-Announcements');
+smalltalk.addClass('SystemAnnouncement', smalltalk.Object, [], 'Kernel-Announcements');
 smalltalk.SystemAnnouncement.comment="I am the superclass of all system announcements";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "theClass",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@theClass"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"theClass",{},smalltalk.SystemAnnouncement)})},
-args: [],
-source: "theClass\x0a\x09^ theClass",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SystemAnnouncement);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "theClass:",
-category: 'accessing',
-fn: function (aClass){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@theClass"]=aClass;
-return self}, function($ctx1) {$ctx1.fill(self,"theClass:",{aClass:aClass},smalltalk.SystemAnnouncement)})},
-args: ["aClass"],
-source: "theClass: aClass\x0a\x09theClass := aClass",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.SystemAnnouncement);
-
 
 smalltalk.addMethod(
 smalltalk.method({
