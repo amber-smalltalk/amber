@@ -619,6 +619,12 @@ named: aPackageName transport: aTransport
 	^ package
 ! !
 
+!Package class methodsFor: 'loading'!
+
+load: aPackageName
+	(self named: aPackageName) load
+! !
+
 !Package class methodsFor: 'sorting'!
 
 sortedClasses: classes
