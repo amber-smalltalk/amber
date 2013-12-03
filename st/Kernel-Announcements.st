@@ -157,20 +157,10 @@ new
 ! !
 
 Object subclass: #SystemAnnouncement
-	instanceVariableNames: 'theClass'
+	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
 !SystemAnnouncement commentStamp!
 I am the superclass of all system announcements!
-
-!SystemAnnouncement methodsFor: 'accessing'!
-
-theClass
-	^ theClass
-!
-
-theClass: aClass
-	theClass := aClass
-! !
 
 !SystemAnnouncement class methodsFor: 'helios'!
 

@@ -265,6 +265,8 @@ putOn: aStream
 !Collection methodsFor: 'testing'!
 
 contains: aBlock
+	self deprecatedAPI.
+
 	^ self anySatisfy: aBlock
 !
 
@@ -297,9 +299,7 @@ ifNotEmpty: aBlock ifEmpty: anotherBlock
 !
 
 includes: anObject
-	| sentinel |
-	sentinel := Object new.
-	^ (self detect: [ :each | each = anObject ] ifNone: [ sentinel ]) ~= sentinel
+	^ self anySatisfy: [ :each | each = anObject ]
 !
 
 isEmpty
