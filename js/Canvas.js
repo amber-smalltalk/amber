@@ -2761,6 +2761,44 @@ smalltalk.TagBrush);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "at:",
+category: 'attributes',
+fn: function (aString){
+var self=this;
+function $Collection(){return smalltalk.Collection||(typeof Collection=="undefined"?nil:Collection)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._at_ifAbsent_(aString,(function(){
+return smalltalk.withContext(function($ctx2) {
+return _st(_st($Collection())._new())._errorNotFound();
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.TagBrush)})},
+args: ["aString"],
+source: "at: aString\x0a\x09^ self at: aString ifAbsent: [ Collection new errorNotFound ]",
+messageSends: ["at:ifAbsent:", "errorNotFound", "new"],
+referencedClasses: ["Collection"]
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifAbsent:",
+category: 'attributes',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value();
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.TagBrush)})},
+args: ["aString", "aBlock"],
+source: "at: aString ifAbsent: aBlock\x0a\x09<return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value()>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.TagBrush);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "at:put:",
 category: 'attributes',
 fn: function (aString,aValue){
