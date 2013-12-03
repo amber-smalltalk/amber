@@ -248,6 +248,16 @@ select: selectBlock thenCollect: collectBlock
 		(selectBlock value: each) ifTrue: [
 		stream nextPut: (collectBlock value: each) ] ].
 	^ stream contents
+!
+
+select: selectBlock thenInject: anObject into: injectBlock
+	| stream result |
+	stream := self class new writeStream.
+	result := anObject.
+	self do: [ :each |
+		(selectBlock value: each) ifTrue: [
+			result := injectBlock value: result value: each ]].
+	^ result
 ! !
 
 !Collection methodsFor: 'error handling'!
