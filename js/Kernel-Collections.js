@@ -658,24 +658,18 @@ selector: "includes:",
 category: 'testing',
 fn: function (anObject){
 var self=this;
-var sentinel;
-function $Object(){return smalltalk.Object||(typeof Object=="undefined"?nil:Object)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-sentinel=_st($Object())._new();
-$1=_st(self._detect_ifNone_((function(each){
+$1=self._anySatisfy_((function(each){
 return smalltalk.withContext(function($ctx2) {
 return _st(each).__eq(anObject);
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),(function(){
-return smalltalk.withContext(function($ctx2) {
-return sentinel;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}))).__tild_eq(sentinel);
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject,sentinel:sentinel},smalltalk.Collection)})},
+}, function($ctx1) {$ctx1.fill(self,"includes:",{anObject:anObject},smalltalk.Collection)})},
 args: ["anObject"],
-source: "includes: anObject\x0a\x09| sentinel |\x0a\x09sentinel := Object new.\x0a\x09^ (self detect: [ :each | each = anObject ] ifNone: [ sentinel ]) ~= sentinel",
-messageSends: ["new", "~=", "detect:ifNone:", "="],
-referencedClasses: ["Object"]
+source: "includes: anObject\x0a\x09^ self anySatisfy: [ :each | each = anObject ]",
+messageSends: ["anySatisfy:", "="],
+referencedClasses: []
 }),
 smalltalk.Collection);
 
