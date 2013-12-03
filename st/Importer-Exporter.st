@@ -831,5 +831,21 @@ namespace: aString
 
 commit
 	^ self transport commit
+!
+
+recompile
+	"
+	Recompiles the receiver package by exporting it into the chunk format and
+	then importing the source back (no server round trips involved).
+	
+	Usage: (Package named: 'MyPackage') recompile.
+	
+	TODO: Implement in a more internal fashion. The current export->import
+	implementation can be useful in the meanwhile.
+	
+	@herby wrote: .. it has much more places to break, I'd like some more internal approach...
+	@nicolaspetton wrote: I agree with @herby, it should be internal.
+	"
+	Importer new import: (PackageHandler new chunkContentsFor: self) readStream
 ! !
 
