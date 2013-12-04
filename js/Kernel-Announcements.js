@@ -254,7 +254,7 @@ $1=_st($AnnouncementSubscription())._new();
 _st($1)._announcementClass_(aClass);
 $2=_st($1)._yourself();
 subscription=$2;
-_st(subscription)._block_((function(ann){
+_st(subscription)._valuable_((function(ann){
 return smalltalk.withContext(function($ctx2) {
 _st(self["@subscriptions"])._remove_(subscription);
 return _st(aBlock)._value_(ann);
@@ -262,8 +262,8 @@ return _st(aBlock)._value_(ann);
 _st(self["@subscriptions"])._add_(subscription);
 return self}, function($ctx1) {$ctx1.fill(self,"on:doOnce:",{aClass:aClass,aBlock:aBlock,subscription:subscription},smalltalk.Announcer)})},
 args: ["aClass", "aBlock"],
-source: "on: aClass doOnce: aBlock\x0a\x09| subscription |\x0a\x09\x0a\x09subscription := AnnouncementSubscription new\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself.\x0a\x09subscription block: [ :ann |\x0a\x09\x09subscriptions remove: subscription.\x0a\x09\x09aBlock value: ann ].\x0a\x0a\x09subscriptions add: subscription",
-messageSends: ["announcementClass:", "new", "yourself", "block:", "remove:", "value:", "add:"],
+source: "on: aClass doOnce: aBlock\x0a\x09| subscription |\x0a\x09\x0a\x09subscription := AnnouncementSubscription new\x0a\x09\x09announcementClass: aClass;\x0a\x09\x09yourself.\x0a\x09subscription valuable: [ :ann |\x0a\x09\x09subscriptions remove: subscription.\x0a\x09\x09aBlock value: ann ].\x0a\x0a\x09subscriptions add: subscription",
+messageSends: ["announcementClass:", "new", "yourself", "valuable:", "remove:", "value:", "add:"],
 referencedClasses: ["AnnouncementSubscription"]
 }),
 smalltalk.Announcer);

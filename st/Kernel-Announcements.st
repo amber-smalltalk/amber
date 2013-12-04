@@ -110,7 +110,7 @@ on: aClass doOnce: aBlock
 	subscription := AnnouncementSubscription new
 		announcementClass: aClass;
 		yourself.
-	subscription block: [ :ann |
+	subscription valuable: [ :ann |
 		subscriptions remove: subscription.
 		aBlock value: ann ].
 
