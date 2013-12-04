@@ -1,8 +1,8 @@
-define("amber_core/Importer-Exporter", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function(smalltalk,nil,_st){
-smalltalk.addPackage('Importer-Exporter');
-smalltalk.packages["Importer-Exporter"].transport = {"type":"amd","amdNamespace":"amber_core"};
+define("amber_core/Kernel-ImportExport", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm/_st", "amber_core/Kernel-Objects", "amber_core/Kernel-Infrastructure"], function(smalltalk,nil,_st){
+smalltalk.addPackage('Kernel-ImportExport');
+smalltalk.packages["Kernel-ImportExport"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('AbstractExporter', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('AbstractExporter', smalltalk.Object, [], 'Kernel-ImportExport');
 smalltalk.AbstractExporter.comment="I am an abstract exporter for Amber source code.\x0a\x0a## API\x0a\x0aUse `#exportPackage:on:` to export a given package on a Stream.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -130,7 +130,7 @@ smalltalk.AbstractExporter);
 
 
 
-smalltalk.addClass('ChunkExporter', smalltalk.AbstractExporter, [], 'Importer-Exporter');
+smalltalk.addClass('ChunkExporter', smalltalk.AbstractExporter, [], 'Kernel-ImportExport');
 smalltalk.ChunkExporter.comment="I am an exporter dedicated to outputting Amber source code in the classic Smalltalk chunk format.\x0a\x0aI do not output any compiled code.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -575,7 +575,7 @@ smalltalk.ChunkExporter);
 
 
 
-smalltalk.addClass('Exporter', smalltalk.AbstractExporter, [], 'Importer-Exporter');
+smalltalk.addClass('Exporter', smalltalk.AbstractExporter, [], 'Kernel-ImportExport');
 smalltalk.Exporter.comment="I am responsible for outputting Amber code into a JavaScript string.\x0a\x0aThe generated output is enough to reconstruct the exported data, including Smalltalk source code and other metadata.\x0a\x0a## Use case\x0a\x0aI am typically used to save code outside of the Amber runtime (committing to disk, etc.).";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1000,7 +1000,7 @@ smalltalk.Exporter);
 
 
 
-smalltalk.addClass('AmdExporter', smalltalk.Exporter, ['namespace'], 'Importer-Exporter');
+smalltalk.addClass('AmdExporter', smalltalk.Exporter, ['namespace'], 'Kernel-ImportExport');
 smalltalk.AmdExporter.comment="I am used to export Packages in an AMD (Asynchronous Module Definition) JavaScript format.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1105,7 +1105,7 @@ smalltalk.AmdExporter);
 
 
 
-smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Importer-Exporter');
+smalltalk.addClass('ChunkParser', smalltalk.Object, ['stream'], 'Kernel-ImportExport');
 smalltalk.ChunkParser.comment="I am responsible for parsing aStream contents in the chunk format.\x0a\x0a## API\x0a\x0a    ChunkParser new\x0a        stream: aStream;\x0a        nextChunk";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1187,7 +1187,7 @@ referencedClasses: []
 smalltalk.ChunkParser.klass);
 
 
-smalltalk.addClass('ExportMethodProtocol', smalltalk.Object, ['name', 'theClass'], 'Importer-Exporter');
+smalltalk.addClass('ExportMethodProtocol', smalltalk.Object, ['name', 'theClass'], 'Kernel-ImportExport');
 smalltalk.ExportMethodProtocol.comment="I am an abstraction for a method protocol in a class / metaclass.\x0a\x0aI know of my class, name and methods.\x0aI am used when exporting a package.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1304,7 +1304,7 @@ referencedClasses: []
 smalltalk.ExportMethodProtocol.klass);
 
 
-smalltalk.addClass('Importer', smalltalk.Object, [], 'Importer-Exporter');
+smalltalk.addClass('Importer', smalltalk.Object, [], 'Kernel-ImportExport');
 smalltalk.Importer.comment="I can import Amber code from a string in the chunk format.\x0a\x0a## API\x0a\x0a    Importer new import: aString";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1351,7 +1351,7 @@ smalltalk.Importer);
 
 
 
-smalltalk.addClass('PackageHandler', smalltalk.InterfacingObject, [], 'Importer-Exporter');
+smalltalk.addClass('PackageHandler', smalltalk.InterfacingObject, [], 'Kernel-ImportExport');
 smalltalk.PackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1603,7 +1603,7 @@ smalltalk.PackageHandler);
 
 
 
-smalltalk.addClass('AmdPackageHandler', smalltalk.PackageHandler, [], 'Importer-Exporter');
+smalltalk.addClass('AmdPackageHandler', smalltalk.PackageHandler, [], 'Kernel-ImportExport');
 smalltalk.AmdPackageHandler.comment="I am responsible for handling package loading and committing.\x0a\x0aI should not be used directly. Instead, use the corresponding `Package` methods.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1740,7 +1740,7 @@ referencedClasses: ["Smalltalk"]
 smalltalk.AmdPackageHandler.klass);
 
 
-smalltalk.addClass('PackageTransport', smalltalk.Object, ['package'], 'Importer-Exporter');
+smalltalk.addClass('PackageTransport', smalltalk.Object, ['package'], 'Kernel-ImportExport');
 smalltalk.PackageTransport.comment="I represent the transport mechanism used to commit a package.\x0a\x0aMy concrete subclasses have a `#handler` to which committing is delegated.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -2053,7 +2053,7 @@ referencedClasses: []
 smalltalk.PackageTransport.klass);
 
 
-smalltalk.addClass('AmdPackageTransport', smalltalk.PackageTransport, ['namespace'], 'Importer-Exporter');
+smalltalk.addClass('AmdPackageTransport', smalltalk.PackageTransport, ['namespace'], 'Kernel-ImportExport');
 smalltalk.AmdPackageTransport.comment="I am the default transport for committing packages.\x0a\x0aSee `AmdExporter` and `AmdPackageHandler`.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -2255,23 +2255,5 @@ messageSends: [],
 referencedClasses: []
 }),
 smalltalk.AmdPackageTransport.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "commit",
-category: '*Importer-Exporter',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._transport())._commit();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
-args: [],
-source: "commit\x0a\x09^ self transport commit",
-messageSends: ["commit", "transport"],
-referencedClasses: []
-}),
-smalltalk.Package);
 
 });
