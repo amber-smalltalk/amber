@@ -1401,7 +1401,7 @@ uriEncoded
 !String methodsFor: 'copying'!
 
 , aString
-	<return String(self) + aString._asString()>
+	<return String(self) + aString>
 !
 
 copyFrom: anIndex to: anotherIndex
