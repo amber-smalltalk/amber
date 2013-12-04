@@ -34,7 +34,7 @@ module.exports = function(grunt) {
         output_dir : 'js',
         src: ['st/Kernel-Objects.st', 'st/Kernel-Classes.st', 'st/Kernel-Methods.st', 'st/Kernel-Collections.st',
               'st/Kernel-Infrastructure.st', 'st/Kernel-Exceptions.st', 'st/Kernel-Transcript.st', 'st/Kernel-Announcements.st',
-              'st/Importer-Exporter.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
+              'st/Kernel-ImportExport.st', 'st/Compiler-Exceptions.st', 'st/Compiler-Core.st', 'st/Compiler-AST.st',
               'st/Compiler-IR.st', 'st/Compiler-Inlining.st', 'st/Compiler-Semantic.st', 'st/Compiler-Interpreter.st',
               'st/Canvas.st', 'st/SUnit.st', 'st/IDE.st',
               'st/Kernel-Tests.st', 'st/Compiler-Tests.st', 'st/SUnit-Tests.st',
@@ -72,7 +72,7 @@ module.exports = function(grunt) {
         libraries: [
         'Compiler-Exceptions', 'Compiler-Core', 'Compiler-AST',
         'Compiler-IR', 'Compiler-Inlining', 'Compiler-Semantic', 'Compiler-Interpreter', 'parser',
-        'SUnit', 'Importer-Exporter',
+        'SUnit', 'Kernel-ImportExport',
         'Kernel-Tests', 'Compiler-Tests', 'SUnit-Tests'],
         main_class: 'NodeTestRunner',
         output_name: 'test/amber_test_runner'

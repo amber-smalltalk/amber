@@ -10,7 +10,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~1.8.3",
+    "jquery": "~1.10.2",
     "bootstrap": "http://getbootstrap.com/2.3.2/assets/bootstrap.zip",
     "jquery-tabby": "git://github.com/alanhogan/Tabby",
 	"jquery-mousewheel": "git://github.com/brandonaaron/jquery-mousewheel",

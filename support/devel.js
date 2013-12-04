@@ -12,7 +12,7 @@ define([
 	'css!amber_inc/CodeMirror/amber',
 	'css!amber_css/amber',
 	'amber_core/SUnit',
-	'amber_core/Importer-Exporter',
+	'amber_core/Kernel-ImportExport',
 	'amber_core/Compiler-Exceptions',
 	'amber_core/Compiler-Core',
 	'amber_core/Compiler-AST',
