@@ -3726,10 +3726,10 @@ category: 'copying',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-return self + aString;
+return String(self) + aString._asString();
 return self}, function($ctx1) {$ctx1.fill(self,",",{aString:aString},smalltalk.String)})},
 args: ["aString"],
-source: ", aString\x0a\x09<return self + aString>",
+source: ", aString\x0a\x09<return String(self) + aString._asString()>",
 messageSends: [],
 referencedClasses: []
 }),
