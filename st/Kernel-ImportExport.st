@@ -827,3 +827,9 @@ namespace: aString
 		yourself
 ! !
 
+!Package methodsFor: '*Kernel-ImportExport'!
+
+commit
+	^ self transport commit
+! !
+
