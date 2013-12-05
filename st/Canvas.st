@@ -41,8 +41,6 @@ isAvailable
 <return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
 ! !
 
-BrowserInterface class instanceVariableNames: 'uiWorker ajaxWorker'!
-
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Canvas'!
