@@ -69,11 +69,11 @@ require = function (require) {
             'amber_lib/bootstrap/js/bootstrap': {
                 deps: [ 'jquery', 'css!amber_lib/bootstrap/css/bootstrap' ]
             },
-            'amber_lib/CodeMirror/codemirror': {
+            'amber_lib/codemirror/lib/codemirror': {
                 deps: [ 'css!amber_lib/codemirror/lib/codemirror' ]
             },
             'amber_lib/jquery-tabby/jquery.textarea': {
-                deps: [ 'jquery', 'jquery-ui' ]
+                deps: [ 'jquery' ]
             },
             'amber_inc/CodeMirror/smalltalk': {
                 deps: [ 'amber_lib/codemirror/lib/codemirror' ]
