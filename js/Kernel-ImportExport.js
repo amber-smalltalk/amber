@@ -2256,4 +2256,22 @@ referencedClasses: []
 }),
 smalltalk.AmdPackageTransport.klass);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "commit",
+category: '*Kernel-ImportExport',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._transport())._commit();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"commit",{},smalltalk.Package)})},
+args: [],
+source: "commit\x0a\x09^ self transport commit",
+messageSends: ["commit", "transport"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
 });
