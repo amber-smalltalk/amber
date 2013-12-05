@@ -55,7 +55,7 @@ require = function (require) {
             'amber_core/_source': amber_home + '/st',
             'amber_html': amber_home,
             'jquery': library_home + '/jquery/jquery.min',
-            'jquery-ui': library_home + '/jquery-ui/ui/jquery-ui'
+            'jquery-ui': library_home + '/jquery-ui/ui/minified/jquery-ui.min'
         },
         map: {
             '*': {
