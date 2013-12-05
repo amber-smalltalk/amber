@@ -1,5 +1,7 @@
 define([
-	'./deploy',
+	'amber_vm/smalltalk', // pre-fetch, dep of ./deploy
+	'./deploy', // pre-fetch, dep of ./lang
+	'./lang',
 	'jquery-ui',
 	'amber_lib/jquery-tabby/jquery.textarea',
 	'amber_lib/codemirror/lib/codemirror',
@@ -10,20 +12,7 @@ define([
 	'css!amber_lib/codemirror/addon/hint/show-hint',
 	'css!amber_inc/CodeMirror/amber',
 	'css!amber_css/amber',
-	'amber_core/SUnit',
-	'amber_core/Kernel-ImportExport',
-	'amber_core/Compiler-Exceptions',
-	'amber_core/Compiler-Core',
-	'amber_core/Compiler-AST',
-	'amber_core/Compiler-Semantic',
-	'amber_core/Compiler-IR',
-	'amber_core/Compiler-Inlining',
-	'amber_core/Compiler-Interpreter',
-	'amber_core/Compiler-Tests',
-	'amber_vm/parser',
 	'amber_core/IDE',
 	'amber_core/Examples',
-	'amber_core/Benchfib',
-	'amber_core/Kernel-Tests',
-	'amber_core/SUnit-Tests'
+	'amber_core/Benchfib'
 ], function (smalltalk) { return smalltalk; });
