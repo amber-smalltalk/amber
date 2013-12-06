@@ -57,6 +57,7 @@ function Brikz(api, apiKey, initKey) {
 
 	var d={value: null, enumerable: false, configurable: true, writable: true};
 	Object.defineProperties(this, { ensure: d, rebuild: d });
+	var exclude = mixin(this, {});
 
 	this.rebuild = function () {
 		Object.keys(backup).forEach(function (key) {
@@ -64,6 +65,7 @@ function Brikz(api, apiKey, initKey) {
 		});
 		var oapi = mixin(api, {}), order = [], chk = {};
 		brikz.ensure = function(key) {
+			if (key in exclude) { return null; }
 			var b = brikz[key], bak = backup[key];
 			mixin({}, api, api);
 			while (typeof b === "function") { b = new b(brikz, api, bak); }
