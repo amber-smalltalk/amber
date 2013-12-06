@@ -577,12 +577,12 @@
   z-index: 10;
 }
 .moka_view.mk_split_view.horizontal .mk_splitter {
+  height: 100%;
   width: 5px;
+  cursor: ew-resize;
+  float: left;
   margin-left: -1px;
   border-left: 1px solid #aaaaaa;
-  height: 100%;
-  float: left;
-  cursor: ew-resize;
 }
 .moka_view.mk_split_view.vertical .mk_splitter {
   height: 5px;

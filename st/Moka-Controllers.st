@@ -322,3 +322,59 @@ onVerticalDrag: anEvent
 	(self view decorated asJQuery get: 0) at: 'scrollTop' put: self view domScrollPosition y
 ! !
 
+MKController subclass: #MKSplitController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+!MKSplitController commentStamp!
+I am the abstract controller for `MKSplitView`.!
+
+!MKSplitController methodsFor: 'actions'!
+
+onResize: anEvent helper: aJQuery
+	self subclassResponsibility
+! !
+
+MKSplitController subclass: #MKLeftFixedHorizontalSplitController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+!MKLeftFixedHorizontalSplitController commentStamp!
+I am the controller for `MKHorizontalSplitView`.
+
+When the splitter is moved, the left view is set a fixed size, thus resizing will preserve the width of the first view, while the second view will be resized.!
+
+!MKLeftFixedHorizontalSplitController methodsFor: 'actions'!
+
+onResize: anEvent helper: aJQuery
+	self placeSplitter: aJQuery offset left
+!
+
+placeSplitter: aNumber
+	self view firstView asJQuery css: 'width' put: aNumber asMokaCssString.
+	self view splitter asJQuery css: 'left' put: aNumber asMokaCssString.
+	self view secondView asJQuery css: 'left' put: aNumber asMokaCssString
+! !
+
+MKSplitController subclass: #MKRightFixedHorizontalSplitController
+	instanceVariableNames: ''
+	package: 'Moka-Controllers'!
+!MKRightFixedHorizontalSplitController commentStamp!
+I am an alternative controller for `MKHorizontalSplitView`.
+
+When the splitter is moved, the second view is set a fixed size, thus resizing will preserve the width of the second view, while the first view will be resized.!
+
+!MKRightFixedHorizontalSplitController methodsFor: 'actions'!
+
+onResize: anEvent helper: aJQuery
+	self placeSplitter: self view domSize x - aJQuery offset left
+!
+
+placeSplitter: aNumber
+	| splitter |
+	splitter := self view splitter asJQuery.
+	self view secondView asJQuery 
+		css: 'width' put: aNumber asMokaCssString;
+		css: 'right' put: 0.
+	splitter css: 'right' put: (aNumber - splitter width) asMokaCssString.
+	self view firstView asJQuery css: 'right' put: aNumber asMokaCssString
+! !
+

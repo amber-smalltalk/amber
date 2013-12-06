@@ -431,100 +431,6 @@ smalltalk.MKSwitchView);
 
 
 
-smalltalk.addClass('MKContainerView', smalltalk.MKLayoutView, ['childView'], 'Moka-Views');
-smalltalk.MKContainerView.comment="I display my single `childView`. \x0a\x0aI am used to switch between views.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "childView",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@childView"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"childView",{},smalltalk.MKContainerView)})},
-args: [],
-source: "childView\x0a\x09^ childView",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.MKContainerView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "childView:",
-category: 'accessing',
-fn: function (aView){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@childView"]=aView;
-self._update();
-return self}, function($ctx1) {$ctx1.fill(self,"childView:",{aView:aView},smalltalk.MKContainerView)})},
-args: ["aView"],
-source: "childView: aView\x0a\x09childView := aView.\x0a\x09self update",
-messageSends: ["update"],
-referencedClasses: []
-}),
-smalltalk.MKContainerView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "children",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=[self._childView()];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"children",{},smalltalk.MKContainerView)})},
-args: [],
-source: "children\x0a\x09^ { self childView }",
-messageSends: ["childView"],
-referencedClasses: []
-}),
-smalltalk.MKContainerView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "renderContentOn:",
-category: 'rendering',
-fn: function (html){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(html)._with_(self._childView());
-return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKContainerView)})},
-args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: self childView",
-messageSends: ["with:", "childView"],
-referencedClasses: []
-}),
-smalltalk.MKContainerView);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "childView:",
-category: 'instance creation',
-fn: function (aView){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._childView_(aView);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"childView:",{aView:aView},smalltalk.MKContainerView.klass)})},
-args: ["aView"],
-source: "childView: aView\x0a\x09^ self new \x0a\x09\x09childView: aView;\x0a\x09\x09yourself",
-messageSends: ["childView:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.MKContainerView.klass);
-
-
 smalltalk.addClass('MKLabelView', smalltalk.MKSingleAspectView, [], 'Moka-Views');
 smalltalk.MKLabelView.comment="I am an label view. I display a `String`.";
 smalltalk.addMethod(
@@ -1065,7 +971,7 @@ smalltalk.MKPanelView);
 
 
 
-smalltalk.addClass('MKSelectionView', smalltalk.MKAspectsView, ['selectionAspect', 'collectionAspect'], 'Moka-Views');
+smalltalk.addClass('MKSelectionView', smalltalk.MKAspectsView, ['selectionAspect', 'collectionAspect', 'displayBlock'], 'Moka-Views');
 smalltalk.MKSelectionView.comment="I an abstract selection view of a list of elements.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1136,6 +1042,45 @@ return $1;
 args: [],
 source: "defaultDisplayBlock\x0a\x09^ [ :item | item asString ]",
 messageSends: ["asString"],
+referencedClasses: []
+}),
+smalltalk.MKSelectionView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "displayBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@displayBlock"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._defaultDisplayBlock();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"displayBlock",{},smalltalk.MKSelectionView)})},
+args: [],
+source: "displayBlock\x0a\x09^ displayBlock ifNil: [ self defaultDisplayBlock ]",
+messageSends: ["ifNil:", "defaultDisplayBlock"],
+referencedClasses: []
+}),
+smalltalk.MKSelectionView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "displayBlock:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@displayBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"displayBlock:",{aBlock:aBlock},smalltalk.MKSelectionView)})},
+args: ["aBlock"],
+source: "displayBlock: aBlock\x0a\x09displayBlock := aBlock",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MKSelectionView);
@@ -1370,11 +1315,11 @@ fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 _st(_st(html)._div())._class_("mk_dropdown_arrows");
-_st(html)._with_(self._selectedItem());
+_st(html)._with_(_st(self._displayBlock())._value_(self._selectedItem()));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKDropdownView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div class: 'mk_dropdown_arrows'.\x0a\x09html with: self selectedItem",
-messageSends: ["class:", "div", "with:", "selectedItem"],
+source: "renderContentOn: html\x0a\x09html div class: 'mk_dropdown_arrows'.\x0a\x09html with: (self displayBlock value: self selectedItem)",
+messageSends: ["class:", "div", "with:", "value:", "displayBlock", "selectedItem"],
 referencedClasses: []
 }),
 smalltalk.MKDropdownView);
@@ -1435,7 +1380,7 @@ smalltalk.MKDropdownView);
 
 
 
-smalltalk.addClass('MKListView', smalltalk.MKSelectionView, ['displayBlock'], 'Moka-Views');
+smalltalk.addClass('MKListView', smalltalk.MKSelectionView, [], 'Moka-Views');
 smalltalk.MKListView.comment="I display a list of elements in a list control field.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1532,66 +1477,6 @@ args: [],
 source: "defaultControllerClass\x0a\x09^ MKListController",
 messageSends: [],
 referencedClasses: ["MKListController"]
-}),
-smalltalk.MKListView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "defaultDisplayBlock",
-category: 'defaults',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=(function(item){
-return smalltalk.withContext(function($ctx2) {
-return _st(item)._asString();
-}, function($ctx2) {$ctx2.fillBlock({item:item},$ctx1,1)})});
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"defaultDisplayBlock",{},smalltalk.MKListView)})},
-args: [],
-source: "defaultDisplayBlock\x0a\x09^ [ :item | item asString ]",
-messageSends: ["asString"],
-referencedClasses: []
-}),
-smalltalk.MKListView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "displayBlock",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@displayBlock"];
-if(($receiver = $2) == nil || $receiver == null){
-$1=self._defaultDisplayBlock();
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"displayBlock",{},smalltalk.MKListView)})},
-args: [],
-source: "displayBlock\x0a\x09^ displayBlock ifNil: [ self defaultDisplayBlock ]",
-messageSends: ["ifNil:", "defaultDisplayBlock"],
-referencedClasses: []
-}),
-smalltalk.MKListView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "displayBlock:",
-category: 'accessing',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@displayBlock"]=aBlock;
-return self}, function($ctx1) {$ctx1.fill(self,"displayBlock:",{aBlock:aBlock},smalltalk.MKListView)})},
-args: ["aBlock"],
-source: "displayBlock: aBlock\x0a\x09displayBlock := aBlock",
-messageSends: [],
-referencedClasses: []
 }),
 smalltalk.MKListView);
 
@@ -1933,7 +1818,7 @@ smalltalk.MKSourceListView);
 
 
 
-smalltalk.addClass('MKSplitView', smalltalk.MKLayoutView, ['firstView', 'secondView', 'splitter'], 'Moka-Views');
+smalltalk.addClass('MKSplitView', smalltalk.MKLayoutView, ['firstView', 'secondView', 'splitter', 'thickness'], 'Moka-Views');
 smalltalk.MKSplitView.comment="I am the superclass of all split views. I arrange two child view with a splitter between them.\x0a\x0a## API\x0a\x0aCreate instances using the class-side method `firstView:secondView:`.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -2011,13 +1896,14 @@ selector: "firstView:",
 category: 'accessing',
 fn: function (aView){
 var self=this;
+function $MKDecorator(){return smalltalk.MKDecorator||(typeof MKDecorator=="undefined"?nil:MKDecorator)}
 return smalltalk.withContext(function($ctx1) { 
-self["@firstView"]=aView;
+self["@firstView"]=_st($MKDecorator())._decorate_(aView);
 return self}, function($ctx1) {$ctx1.fill(self,"firstView:",{aView:aView},smalltalk.MKSplitView)})},
 args: ["aView"],
-source: "firstView: aView\x0a\x09firstView := aView",
-messageSends: [],
-referencedClasses: []
+source: "firstView: aView\x0a\x09firstView := MKDecorator decorate: aView",
+messageSends: ["decorate:"],
+referencedClasses: ["MKDecorator"]
 }),
 smalltalk.MKSplitView);
 
@@ -2032,11 +1918,10 @@ _st(html)._with_(self._firstView());
 $ctx1.sendIdx["with:"]=1;
 self["@splitter"]=_st(_st(html)._div())._class_(self._splitterCssClass());
 _st(html)._with_(self._secondView());
-self._setupSplitter();
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKSplitView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: self firstView.\x0a\x09splitter := html div class: self splitterCssClass.\x0a\x09html with: self secondView.\x0a        \x0a\x09self setupSplitter",
-messageSends: ["with:", "firstView", "class:", "div", "splitterCssClass", "secondView", "setupSplitter"],
+source: "renderContentOn: html\x0a\x09html with: self firstView.\x0a\x09splitter := html div class: self splitterCssClass.\x0a\x09html with: self secondView",
+messageSends: ["with:", "firstView", "class:", "div", "splitterCssClass", "secondView"],
 referencedClasses: []
 }),
 smalltalk.MKSplitView);
@@ -2065,28 +1950,31 @@ selector: "secondView:",
 category: 'accessing',
 fn: function (aView){
 var self=this;
+function $MKDecorator(){return smalltalk.MKDecorator||(typeof MKDecorator=="undefined"?nil:MKDecorator)}
 return smalltalk.withContext(function($ctx1) { 
-self["@secondView"]=aView;
+self["@secondView"]=_st($MKDecorator())._decorate_(aView);
 return self}, function($ctx1) {$ctx1.fill(self,"secondView:",{aView:aView},smalltalk.MKSplitView)})},
 args: ["aView"],
-source: "secondView: aView\x0a\x09secondView := aView",
-messageSends: [],
-referencedClasses: []
+source: "secondView: aView\x0a\x09secondView := MKDecorator decorate: aView",
+messageSends: ["decorate:"],
+referencedClasses: ["MKDecorator"]
 }),
 smalltalk.MKSplitView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "setupSplitter",
-category: 'private',
+selector: "splitter",
+category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.MKSplitView)})},
+var $1;
+$1=self["@splitter"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"splitter",{},smalltalk.MKSplitView)})},
 args: [],
-source: "setupSplitter\x0a\x09self subclassResponsibility",
-messageSends: ["subclassResponsibility"],
+source: "splitter\x0a\x09\x22Answer the `splitter` TagBrush\x22\x0a\x09\x0a\x09^ splitter",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MKSplitView);
@@ -2102,6 +1990,45 @@ return "mk_splitter";
 }, function($ctx1) {$ctx1.fill(self,"splitterCssClass",{},smalltalk.MKSplitView)})},
 args: [],
 source: "splitterCssClass\x0a\x09^ 'mk_splitter'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKSplitView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "thickness",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@thickness"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._defaultThickness();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"thickness",{},smalltalk.MKSplitView)})},
+args: [],
+source: "thickness\x0a\x09^ thickness ifNil: [ self defaultThickness ]",
+messageSends: ["ifNil:", "defaultThickness"],
+referencedClasses: []
+}),
+smalltalk.MKSplitView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "thickness:",
+category: 'accessing',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@thickness"]=aNumber;
+return self}, function($ctx1) {$ctx1.fill(self,"thickness:",{aNumber:aNumber},smalltalk.MKSplitView)})},
+args: ["aNumber"],
+source: "thickness: aNumber\x0a\x09thickness := aNumber",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2131,7 +2058,7 @@ referencedClasses: []
 smalltalk.MKSplitView.klass);
 
 
-smalltalk.addClass('MKHorizontalSplitView', smalltalk.MKSplitView, ['leftThickness', 'rightThickness'], 'Moka-Views');
+smalltalk.addClass('MKHorizontalSplitView', smalltalk.MKSplitView, [], 'Moka-Views');
 smalltalk.MKHorizontalSplitView.comment="I split my child views vertically.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -2153,24 +2080,18 @@ smalltalk.MKHorizontalSplitView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "leftThickness",
-category: 'accessing',
+selector: "defaultControllerClass",
+category: 'defaults',
 fn: function (){
 var self=this;
+function $MKLeftFixedHorizontalSplitController(){return smalltalk.MKLeftFixedHorizontalSplitController||(typeof MKLeftFixedHorizontalSplitController=="undefined"?nil:MKLeftFixedHorizontalSplitController)}
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@leftThickness"];
-if(($receiver = $2) == nil || $receiver == null){
-$1=self._defaultThickness();
-} else {
-$1=$2;
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"leftThickness",{},smalltalk.MKHorizontalSplitView)})},
+return $MKLeftFixedHorizontalSplitController();
+}, function($ctx1) {$ctx1.fill(self,"defaultControllerClass",{},smalltalk.MKHorizontalSplitView)})},
 args: [],
-source: "leftThickness\x0a\x09^ leftThickness ifNil: [ self defaultThickness ]",
-messageSends: ["ifNil:", "defaultThickness"],
-referencedClasses: []
+source: "defaultControllerClass\x0a\x09^ MKLeftFixedHorizontalSplitController",
+messageSends: [],
+referencedClasses: ["MKLeftFixedHorizontalSplitController"]
 }),
 smalltalk.MKHorizontalSplitView);
 
@@ -2180,14 +2101,15 @@ selector: "leftThickness:",
 category: 'accessing',
 fn: function (aNumber){
 var self=this;
+function $MKLeftFixedHorizontalSplitController(){return smalltalk.MKLeftFixedHorizontalSplitController||(typeof MKLeftFixedHorizontalSplitController=="undefined"?nil:MKLeftFixedHorizontalSplitController)}
 return smalltalk.withContext(function($ctx1) { 
-self["@rightThickness"]=nil;
-self["@leftThickness"]=aNumber;
+self._thickness_(aNumber);
+self._controller_(_st($MKLeftFixedHorizontalSplitController())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"leftThickness:",{aNumber:aNumber},smalltalk.MKHorizontalSplitView)})},
 args: ["aNumber"],
-source: "leftThickness: aNumber\x0a\x09rightThickness := nil.\x0a\x09leftThickness := aNumber",
-messageSends: [],
-referencedClasses: []
+source: "leftThickness: aNumber\x0a\x09self thickness: aNumber.\x0a\x09self controller: MKLeftFixedHorizontalSplitController new",
+messageSends: ["thickness:", "controller:", "new"],
+referencedClasses: ["MKLeftFixedHorizontalSplitController"]
 }),
 smalltalk.MKHorizontalSplitView);
 
@@ -2198,70 +2120,12 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._leftThickness();
-$ctx1.sendIdx["leftThickness"]=1;
-if(($receiver = $1) == nil || $receiver == null){
-$1;
-} else {
-var thickness;
-thickness=$receiver;
-_st(self._firstView())._width_(thickness);
-_st(self._secondView())._left_(thickness);
-};
 smalltalk.MKHorizontalSplitView.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
-_st(_st(self["@splitter"])._asJQuery())._css_put_("left",self._leftThickness());
+_st(self._controller())._placeSplitter_(self._defaultThickness());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKHorizontalSplitView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09self leftThickness ifNotNil: [ :thickness |\x0a\x09\x09self firstView width: thickness.\x0a\x09\x09self secondView left: thickness ].\x0a\x09\x09\x0a\x09super renderContentOn: html.\x0a\x09splitter asJQuery css: 'left' put: self leftThickness",
-messageSends: ["ifNotNil:", "leftThickness", "width:", "firstView", "left:", "secondView", "renderContentOn:", "css:put:", "asJQuery"],
-referencedClasses: []
-}),
-smalltalk.MKHorizontalSplitView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "resize:",
-category: 'actions',
-fn: function (aNumber){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st(self._firstView())._asJQuery();
-$ctx1.sendIdx["asJQuery"]=1;
-$2=_st(aNumber)._asMokaCssString();
-$ctx1.sendIdx["asMokaCssString"]=1;
-_st($1)._css_put_("width",$2);
-$ctx1.sendIdx["css:put:"]=1;
-$3=_st(self["@splitter"])._asJQuery();
-$ctx1.sendIdx["asJQuery"]=2;
-$4=_st(aNumber)._asMokaCssString();
-$ctx1.sendIdx["asMokaCssString"]=2;
-_st($3)._css_put_("left",$4);
-$ctx1.sendIdx["css:put:"]=2;
-_st(_st(self._secondView())._asJQuery())._css_put_("left",_st(aNumber)._asMokaCssString());
-return self}, function($ctx1) {$ctx1.fill(self,"resize:",{aNumber:aNumber},smalltalk.MKHorizontalSplitView)})},
-args: ["aNumber"],
-source: "resize: aNumber\x0a    self firstView asJQuery css: 'width' put: aNumber asMokaCssString.\x0a\x09splitter asJQuery css: 'left' put: aNumber asMokaCssString.\x0a\x09self secondView asJQuery css: 'left' put: aNumber asMokaCssString",
-messageSends: ["css:put:", "asJQuery", "firstView", "asMokaCssString", "secondView"],
-referencedClasses: []
-}),
-smalltalk.MKHorizontalSplitView);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "rightThickness",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@rightThickness"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"rightThickness",{},smalltalk.MKHorizontalSplitView)})},
-args: [],
-source: "rightThickness\x0a\x09^ rightThickness",
-messageSends: [],
+source: "renderContentOn: html\x0a\x09super renderContentOn: html.\x0a\x09self controller placeSplitter: self defaultThickness",
+messageSends: ["renderContentOn:", "placeSplitter:", "controller", "defaultThickness"],
 referencedClasses: []
 }),
 smalltalk.MKHorizontalSplitView);
@@ -2272,49 +2136,68 @@ selector: "rightThickness:",
 category: 'accessing',
 fn: function (aNumber){
 var self=this;
+function $MKRightFixedHorizontalSplitController(){return smalltalk.MKRightFixedHorizontalSplitController||(typeof MKRightFixedHorizontalSplitController=="undefined"?nil:MKRightFixedHorizontalSplitController)}
 return smalltalk.withContext(function($ctx1) { 
-self["@leftThickness"]=nil;
-self["@rightThickness"]=aNumber;
+self._thickness_(aNumber);
+self._controller_(_st($MKRightFixedHorizontalSplitController())._new());
 return self}, function($ctx1) {$ctx1.fill(self,"rightThickness:",{aNumber:aNumber},smalltalk.MKHorizontalSplitView)})},
 args: ["aNumber"],
-source: "rightThickness: aNumber\x0a\x09leftThickness := nil.\x0a\x09rightThickness := aNumber",
-messageSends: [],
+source: "rightThickness: aNumber\x0a\x09self thickness: aNumber.\x0a\x09self controller: MKRightFixedHorizontalSplitController new",
+messageSends: ["thickness:", "controller:", "new"],
+referencedClasses: ["MKRightFixedHorizontalSplitController"]
+}),
+smalltalk.MKHorizontalSplitView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "secondView:",
+category: 'accessing',
+fn: function (aView){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+smalltalk.MKHorizontalSplitView.superclass.fn.prototype._secondView_.apply(_st(self), [aView]);
+$1=self._secondView();
+_st($1)._right_((0));
+$2=_st($1)._left_("auto");
+return self}, function($ctx1) {$ctx1.fill(self,"secondView:",{aView:aView},smalltalk.MKHorizontalSplitView)})},
+args: ["aView"],
+source: "secondView: aView\x0a\x09super secondView: aView.\x0a\x09self secondView \x0a\x09\x09right: 0;\x0a\x09\x09left: 'auto'",
+messageSends: ["secondView:", "right:", "secondView", "left:"],
 referencedClasses: []
 }),
 smalltalk.MKHorizontalSplitView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "setupSplitter",
+selector: "setupEventHandlers",
 category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$2;
+var $1,$3,$4,$5,$6,$2;
 $1=_st(self["@splitter"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 $3="axis".__minus_gt("x");
 $ctx1.sendIdx["->"]=1;
 $4="containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent());
 $ctx1.sendIdx["->"]=2;
-$5="helper".__minus_gt("clone");
+$5="cursor".__minus_gt("ew-resize");
 $ctx1.sendIdx["->"]=3;
-$6="cursor".__minus_gt("ew-resize");
-$ctx1.sendIdx["->"]=4;
-$7="stop".__minus_gt((function(){
+$6="stop".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._resized();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["->"]=5;
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,$7,"drag".__minus_gt((function(e,ui){
+$ctx1.sendIdx["->"]=4;
+$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
-return self._resize_(_st(_st(ui)._offset())._left());
+return _st(self._controller())._onResize_helper_(e,ui);
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]);
 _st($1)._draggable_($2);
-return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.MKHorizontalSplitView)})},
+return self}, function($ctx1) {$ctx1.fill(self,"setupEventHandlers",{},smalltalk.MKHorizontalSplitView)})},
 args: [],
-source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a\x09\x09'cursor' -> 'ew-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :e :ui | self resize: ui offset left ] }",
-messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "resize:", "left", "offset"],
+source: "setupEventHandlers\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a\x09\x09'cursor' -> 'ew-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :e :ui | self controller onResize: e helper: ui ] }",
+messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "onResize:helper:", "controller"],
 referencedClasses: []
 }),
 smalltalk.MKHorizontalSplitView);
@@ -2377,30 +2260,28 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$7,$2;
+var $1,$3,$4,$5,$6,$2;
 $1=_st(self["@splitter"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 $3="axis".__minus_gt("x");
 $ctx1.sendIdx["->"]=1;
 $4="containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent());
 $ctx1.sendIdx["->"]=2;
-$5="helper".__minus_gt("clone");
+$5="cursor".__minus_gt("ns-resize");
 $ctx1.sendIdx["->"]=3;
-$6="cursor".__minus_gt("ns-resize");
-$ctx1.sendIdx["->"]=4;
-$7="stop".__minus_gt((function(){
+$6="stop".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._resized();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["->"]=5;
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,$7,"drag".__minus_gt((function(e,ui){
+$ctx1.sendIdx["->"]=4;
+$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(e,ui){
 return smalltalk.withContext(function($ctx2) {
 return self._resize_(_st(_st(ui)._offset())._left());
 }, function($ctx2) {$ctx2.fillBlock({e:e,ui:ui},$ctx1,2)})}))]);
 _st($1)._draggable_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setupSplitter",{},smalltalk.MKVerticalSplitView)})},
 args: [],
-source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a        'helper' -> 'clone'.\x0a\x09\x09'cursor' -> 'ns-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :e :ui | self resize: (ui offset left) ] }",
+source: "setupSplitter\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a\x09\x09'cursor' -> 'ns-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :e :ui | self resize: (ui offset left) ] }",
 messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "resize:", "left", "offset"],
 referencedClasses: []
 }),

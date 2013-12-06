@@ -153,43 +153,6 @@ defaultLayout
 		yourself
 ! !
 
-MKLayoutView subclass: #MKContainerView
-	instanceVariableNames: 'childView'
-	package: 'Moka-Views'!
-!MKContainerView commentStamp!
-I display my single `childView`. 
-
-I am used to switch between views.!
-
-!MKContainerView methodsFor: 'accessing'!
-
-childView
-	^ childView
-!
-
-childView: aView
-	childView := aView.
-	self update
-!
-
-children
-	^ { self childView }
-! !
-
-!MKContainerView methodsFor: 'rendering'!
-
-renderContentOn: html
-	html with: self childView
-! !
-
-!MKContainerView class methodsFor: 'instance creation'!
-
-childView: aView
-	^ self new 
-		childView: aView;
-		yourself
-! !
-
 MKSingleAspectView subclass: #MKLabelView
 	instanceVariableNames: ''
 	package: 'Moka-Views'!
@@ -391,7 +354,7 @@ cssClass
 ! !
 
 MKAspectsView subclass: #MKSelectionView
-	instanceVariableNames: 'selectionAspect collectionAspect'
+	instanceVariableNames: 'selectionAspect collectionAspect displayBlock'
 	package: 'Moka-Views'!
 !MKSelectionView commentStamp!
 I an abstract selection view of a list of elements.!
@@ -408,6 +371,14 @@ collectionAspect
 
 collectionAspect: aSelector
 	collectionAspect := aSelector
+!
+
+displayBlock
+	^ displayBlock ifNil: [ self defaultDisplayBlock ]
+!
+
+displayBlock: aBlock
+	displayBlock := aBlock
 !
 
 selectedItem
@@ -498,7 +469,7 @@ defaultLayout
 
 renderContentOn: html
 	html div class: 'mk_dropdown_arrows'.
-	html with: self selectedItem
+	html with: (self displayBlock value: self selectedItem)
 ! !
 
 !MKDropdownView methodsFor: 'views'!
@@ -529,7 +500,7 @@ modalPaneView
 ! !
 
 MKSelectionView subclass: #MKListView
-	instanceVariableNames: 'displayBlock'
+	instanceVariableNames: ''
 	package: 'Moka-Views'!
 !MKListView commentStamp!
 I display a list of elements in a list control field.!
@@ -542,14 +513,6 @@ activeItem
 
 cssClass
 	^ super cssClass, ' mk_list'
-!
-
-displayBlock
-	^ displayBlock ifNil: [ self defaultDisplayBlock ]
-!
-
-displayBlock: aBlock
-	displayBlock := aBlock
 !
 
 findItemFor: aListItem
@@ -589,10 +552,6 @@ activateListItem: aListItem
 
 defaultControllerClass
 	^ MKListController
-!
-
-defaultDisplayBlock
-	^ [ :item | item asString ]
 ! !
 
 !MKListView methodsFor: 'private'!
@@ -691,7 +650,7 @@ cssClass
 ! !
 
 MKLayoutView subclass: #MKSplitView
-	instanceVariableNames: 'firstView secondView splitter'
+	instanceVariableNames: 'firstView secondView splitter thickness'
 	package: 'Moka-Views'!
 !MKSplitView commentStamp!
 I am the superclass of all split views. I arrange two child view with a splitter between them.
@@ -715,7 +674,7 @@ firstView
 !
 
 firstView: aView
-	firstView := aView
+	firstView := MKDecorator decorate: aView
 !
 
 secondView
@@ -723,11 +682,25 @@ secondView
 !
 
 secondView: aView
-	secondView := aView
+	secondView := MKDecorator decorate: aView
+!
+
+splitter
+	"Answer the `splitter` TagBrush"
+	
+	^ splitter
 !
 
 splitterCssClass
 	^ 'mk_splitter'
+!
+
+thickness
+	^ thickness ifNil: [ self defaultThickness ]
+!
+
+thickness: aNumber
+	thickness := aNumber
 ! !
 
 !MKSplitView methodsFor: 'defaults'!
@@ -736,20 +709,12 @@ defaultThickness
 	^ 300
 ! !
 
-!MKSplitView methodsFor: 'private'!
-
-setupSplitter
-	self subclassResponsibility
-! !
-
 !MKSplitView methodsFor: 'rendering'!
 
 renderContentOn: html
 	html with: self firstView.
 	splitter := html div class: self splitterCssClass.
-	html with: self secondView.
-        
-	self setupSplitter
+	html with: self secondView
 ! !
 
 !MKSplitView class methodsFor: 'instance creation'!
@@ -762,7 +727,7 @@ firstView: aView secondView: anotherView
 ! !
 
 MKSplitView subclass: #MKHorizontalSplitView
-	instanceVariableNames: 'leftThickness rightThickness'
+	instanceVariableNames: ''
 	package: 'Moka-Views'!
 !MKHorizontalSplitView commentStamp!
 I split my child views vertically.!
@@ -773,53 +738,45 @@ cssClass
 	^ super cssClass, ' horizontal'
 !
 
-leftThickness
-	^ leftThickness ifNil: [ self defaultThickness ]
-!
-
 leftThickness: aNumber
-	rightThickness := nil.
-	leftThickness := aNumber
-!
-
-rightThickness
-	^ rightThickness
+	self thickness: aNumber.
+	self controller: MKLeftFixedHorizontalSplitController new
 !
 
 rightThickness: aNumber
-	leftThickness := nil.
-	rightThickness := aNumber
+	self thickness: aNumber.
+	self controller: MKRightFixedHorizontalSplitController new
+!
+
+secondView: aView
+	super secondView: aView.
+	self secondView 
+		right: 0;
+		left: 'auto'
 ! !
 
-!MKHorizontalSplitView methodsFor: 'actions'!
+!MKHorizontalSplitView methodsFor: 'defaults'!
 
-resize: aNumber
-    self firstView asJQuery css: 'width' put: aNumber asMokaCssString.
-	splitter asJQuery css: 'left' put: aNumber asMokaCssString.
-	self secondView asJQuery css: 'left' put: aNumber asMokaCssString
+defaultControllerClass
+	^ MKLeftFixedHorizontalSplitController
 ! !
 
 !MKHorizontalSplitView methodsFor: 'private'!
 
-setupSplitter
+setupEventHandlers
 	splitter asJQuery draggable: #{ 
     	'axis' -> 'x'. 
         'containment' -> splitter asJQuery parent.
-        'helper' -> 'clone'.
 		'cursor' -> 'ew-resize'.
 		'stop' -> [ self resized ].
-        'drag' -> [ :e :ui | self resize: ui offset left ] }
+        'drag' -> [ :e :ui | self controller onResize: e helper: ui ] }
 ! !
 
 !MKHorizontalSplitView methodsFor: 'rendering'!
 
 renderContentOn: html
-	self leftThickness ifNotNil: [ :thickness |
-		self firstView width: thickness.
-		self secondView left: thickness ].
-		
 	super renderContentOn: html.
-	splitter asJQuery css: 'left' put: self leftThickness
+	self controller placeSplitter: self defaultThickness
 ! !
 
 MKSplitView subclass: #MKVerticalSplitView
@@ -848,7 +805,6 @@ setupSplitter
 	splitter asJQuery draggable: #{ 
     	'axis' -> 'x'. 
         'containment' -> splitter asJQuery parent.
-        'helper' -> 'clone'.
 		'cursor' -> 'ns-resize'.
 		'stop' -> [ self resized ].
         'drag' -> [ :e :ui | self resize: (ui offset left) ] }

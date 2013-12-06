@@ -142,7 +142,8 @@ build
 	
 	(MKHorizontalSplitView 
 		firstView: (MKScrollDecorator decorate: pane)
-		secondView: MKLayoutView new) 
+		secondView: MKLayoutView new)
+			leftThickness: 300;
 			top: 200;
 			bottom: 0;
 			render

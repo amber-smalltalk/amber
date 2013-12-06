@@ -1,3 +1,4 @@
+
 @import "reset.css";
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,latin-ext");
 
@@ -10,15 +11,15 @@
 				 color-stop(0, @start),
 				 color-stop(1, @stop));
     background: -ms-linear-gradient(bottom,
-					 @start,
-					 @stop);
+				    @start,
+				    @stop);
     background: -moz-linear-gradient(center bottom,
 				     @start 0%,
 				     @stop 100%);
     background: -o-linear-gradient(@stop,
 				   @start);
     background: linear-gradient(@stop,
-				   @start);
+				@start);
 }
 .vertical-gradient(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
     background: @color;
@@ -34,11 +35,11 @@
 				     @start 0%,
 				     @stop 100%);
     background: -o-linear-gradient(right,
-				     @start 0%,
-				     @stop 100%);
+				   @start 0%,
+				   @stop 100%);
     background: linear-gradient(right,
-				     @start 0%,
-				     @stop 100%);
+				@start 0%,
+				@stop 100%);
 }
 .linear-gradient(@arguments) {
     background: -webkit-linear-gradient(@arguments);
@@ -447,12 +448,14 @@
 	}
 
 	&.horizontal .mk_splitter {
+	    height: 100%;
 	    width: 5px;
+	    cursor: ew-resize;
+
+	    float: left;
 	    margin-left: -1px;
 	    border-left: 1px solid @grey;
-	    height: 100%;
-	    float: left;
-	    cursor: ew-resize;
+
 	}
 
 	&.vertical .mk_splitter {
