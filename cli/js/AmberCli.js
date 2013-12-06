@@ -252,12 +252,10 @@ category: 'initialization',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$4,$3,$1,$6,$8,$7,$5,$9;
+var $2,$3,$1,$5,$6,$4,$7;
 $2=self["@fs"];
-$4=self._basePath();
-$ctx1.sendIdx["basePath"]=1;
-$3=_st($4).__comma("index.html");
-$ctx1.sendIdx[","]=1;
+$3=self._makeNormalPath_("index.html");
+$ctx1.sendIdx["makeNormalPath:"]=1;
 $1=_st($2)._existsSync_($3);
 $ctx1.sendIdx["existsSync:"]=1;
 if(! smalltalk.assert($1)){
@@ -268,25 +266,23 @@ $ctx1.sendIdx["warn:"]=2;
 };
 _st(console)._warn_("    You can also specify a custom error page with --fallback-page.");
 $ctx1.sendIdx["warn:"]=3;
-$6=self["@fs"];
-$8=self._basePath();
-$ctx1.sendIdx["basePath"]=2;
-$7=_st($8).__comma("st");
-$ctx1.sendIdx[","]=2;
-$5=_st($6)._existsSync_($7);
+$5=self["@fs"];
+$6=self._makeNormalPath_("st");
+$ctx1.sendIdx["makeNormalPath:"]=2;
+$4=_st($5)._existsSync_($6);
 $ctx1.sendIdx["existsSync:"]=2;
-if(! smalltalk.assert($5)){
+if(! smalltalk.assert($4)){
 _st(console)._warn_("Warning: project directory is missing an \x22st\x22 directory");
 $ctx1.sendIdx["warn:"]=4;
 };
-$9=_st(self["@fs"])._existsSync_(_st(self._basePath()).__comma("js"));
-if(! smalltalk.assert($9)){
+$7=_st(self["@fs"])._existsSync_(self._makeNormalPath_("js"));
+if(! smalltalk.assert($7)){
 _st(console)._warn_("Warning: project directory is missing a \x22js\x22 directory");
 };
 return self}, function($ctx1) {$ctx1.fill(self,"checkDirectoryLayout",{},smalltalk.FileServer)})},
 args: [],
-source: "checkDirectoryLayout\x0a\x09(fs existsSync: self basePath, 'index.html') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'.\x0a\x09(fs existsSync: self basePath, 'st') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: self basePath, 'js') ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
-messageSends: ["ifFalse:", "existsSync:", ",", "basePath", "warn:"],
+source: "checkDirectoryLayout\x0a\x09(fs existsSync: (self makeNormalPath: 'index.html')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory does not contain index.html.'.\x0a\x09\x09console warn: '    You can specify the directory containing index.html with --base-path.'.].\x0a\x09\x09console warn: '    You can also specify a custom error page with --fallback-page.'.\x0a\x09(fs existsSync: (self makeNormalPath:  'st')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing an \x22st\x22 directory'].\x0a\x09(fs existsSync: (self makeNormalPath: 'js')) ifFalse: [\x0a\x09\x09console warn: 'Warning: project directory is missing a \x22js\x22 directory'].",
+messageSends: ["ifFalse:", "existsSync:", "makeNormalPath:", "warn:"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -598,6 +594,24 @@ return self}, function($ctx1) {$ctx1.fill(self,"isAuthenticated:",{aRequest:aReq
 args: ["aRequest"],
 source: "isAuthenticated: aRequest\x0a\x09\x22Basic HTTP Auth: http://stackoverflow.com/a/5957629/293175\x0a\x09 and https://gist.github.com/1686663\x22\x0a\x09| header token auth parts|\x0a\x0a\x09(username isNil and: [password isNil]) ifTrue: [^true].\x0a\x0a\x09\x22get authentication header\x22\x0a\x09header := (aRequest headers at: 'authorization') ifNil:[''].\x0a\x09(header isEmpty)\x0a\x09ifTrue: [^false]\x0a\x09ifFalse: [\x0a\x09\x09\x22get authentication token\x22\x0a\x09\x09token := (header tokenize: ' ') ifNil:[''].\x0a\x09\x09\x22convert back from base64\x22\x0a\x09\x09auth := self base64Decode: (token at: 2).\x0a\x09\x09\x22split token at colon\x22\x0a\x09\x09parts := auth tokenize: ':'.\x0a\x0a\x09\x09((username = (parts at: 1)) and: [password = (parts at: 2)])\x0a\x09\x09\x09ifTrue: [^true]\x0a\x09\x09\x09ifFalse: [^false]\x0a\x09].",
 messageSends: ["ifTrue:", "and:", "isNil", "ifNil:", "at:", "headers", "ifTrue:ifFalse:", "isEmpty", "tokenize:", "base64Decode:", "="],
+referencedClasses: []
+}),
+smalltalk.FileServer);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "makeNormalPath:",
+category: 'private',
+fn: function (aBaseRelativePath){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@path"])._join_with_(self._basePath(),aBaseRelativePath);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"makeNormalPath:",{aBaseRelativePath:aBaseRelativePath},smalltalk.FileServer)})},
+args: ["aBaseRelativePath"],
+source: "makeNormalPath: aBaseRelativePath\x0a    \x22return a nomalized path which is relative to the basePath\x22\x0a\x09\x0a^path join: self basePath with: aBaseRelativePath",
+messageSends: ["join:with:", "basePath"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
