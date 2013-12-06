@@ -5,8 +5,8 @@ define("amber/helpers", ["amber_vm/smalltalk", "require"], function (smalltalk, 
         }
     };
     Object.defineProperty(exports, "smalltalk", {
-        get: function () { return smalltalk; },
-        enumerable: true, configurable: true
+        value: smalltalk,
+        enumerable: true, configurable: true, writable: false
     });
     return  exports;
 });
