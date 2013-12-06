@@ -714,7 +714,9 @@ defaultThickness
 renderContentOn: html
 	html with: self firstView.
 	splitter := html div class: self splitterCssClass.
-	html with: self secondView
+	html with: self secondView.
+	
+	self controller placeSplitter: self thickness
 ! !
 
 !MKSplitView class methodsFor: 'instance creation'!
@@ -769,14 +771,7 @@ setupEventHandlers
         'containment' -> splitter asJQuery parent.
 		'cursor' -> 'ew-resize'.
 		'stop' -> [ self resized ].
-        'drag' -> [ :e :ui | self controller onResize: e helper: ui ] }
-! !
-
-!MKHorizontalSplitView methodsFor: 'rendering'!
-
-renderContentOn: html
-	super renderContentOn: html.
-	self controller placeSplitter: self defaultThickness
+        'drag' -> [ :event | self controller onResize: event ] }
 ! !
 
 MKSplitView subclass: #MKVerticalSplitView
@@ -787,8 +782,25 @@ I split my child views horizontally.!
 
 !MKVerticalSplitView methodsFor: 'accessing'!
 
+bottomThickness: aNumber
+	self thickness: aNumber.
+	self controller: MKBottomFixedVerticalSplitController new
+!
+
 cssClass
 	^ super cssClass, ' vertical'
+!
+
+secondView: aView
+	super secondView: aView.
+	self secondView 
+		bottom: 0;
+		top: 'auto'
+!
+
+topThickness: aNumber
+	self thickness: aNumber.
+	self controller: MKTopFixedVerticalSplitController new
 ! !
 
 !MKVerticalSplitView methodsFor: 'actions'!
@@ -799,15 +811,21 @@ resize: aNumber
 	self secondView asJQuery css: 'left' put: aNumber asMokaCssString
 ! !
 
+!MKVerticalSplitView methodsFor: 'defaults'!
+
+defaultControllerClass
+	^ MKTopFixedVerticalSplitController
+! !
+
 !MKVerticalSplitView methodsFor: 'private'!
 
-setupSplitter
+setupEventHandlers
 	splitter asJQuery draggable: #{ 
-    	'axis' -> 'x'. 
+    	'axis' -> 'y'. 
         'containment' -> splitter asJQuery parent.
 		'cursor' -> 'ns-resize'.
 		'stop' -> [ self resized ].
-        'drag' -> [ :e :ui | self resize: (ui offset left) ] }
+        'drag' -> [ :event | self controller onResize: event ] }
 ! !
 
 MKSingleAspectView subclass: #MKTextAreaView

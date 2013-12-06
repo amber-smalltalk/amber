@@ -63,9 +63,14 @@ Object subclass: #MKCounterBuilder
 !MKCounterBuilder methodsFor: 'accessing'!
 
 build
-	| pane |
-	pane := MKPanelView new
+	| pane splitter |
+	
+	splitter := MKVerticalSplitView new
+		top: 200;
+		bottomThickness: 50;
+		bottom: 0;
 		yourself.
+	pane := MKPanelView new.
 	
 	pane addView: ((MKHeadingView model: self counter aspect: #count)
 		level: 3;
@@ -140,13 +145,16 @@ build
 		top: 440;
 		yourself).
 	
-	(MKHorizontalSplitView 
+	splitter firstView: ((MKHorizontalSplitView 
 		firstView: (MKScrollDecorator decorate: pane)
 		secondView: MKLayoutView new)
 			leftThickness: 300;
-			top: 200;
+			top: 0;
 			bottom: 0;
-			render
+			yourself).
+		
+	splitter secondView: MKLayoutView new.
+	splitter render
 !
 
 counter

@@ -576,7 +576,7 @@
   border-width: 0;
   z-index: 10;
 }
-.moka_view.mk_split_view.horizontal .mk_splitter {
+.moka_view.mk_split_view.horizontal > .mk_splitter {
   height: 100%;
   width: 5px;
   cursor: ew-resize;
@@ -584,7 +584,7 @@
   margin-left: -1px;
   border-left: 1px solid #aaaaaa;
 }
-.moka_view.mk_split_view.vertical .mk_splitter {
+.moka_view.mk_split_view.vertical > .mk_splitter {
   height: 5px;
   margin-top: -1px;
   width: 100%;
