@@ -130,7 +130,9 @@ basePath
 !
 
 basePath: aString
-	basePath := aString
+	(self validateBasePath: aString)
+		ifTrue:	[	basePath := aString	]
+		ifFalse: [ console log: 'Warning: The base path is set to ', (self basePath) ].
 !
 
 fallbackPage
@@ -232,6 +234,16 @@ require: aModuleString
 withBasePath: aBaseRelativePath
 	"return a file path which is relative to the basePath."
 	^	path join: self basePath with: aBaseRelativePath
+!
+
+validateBasePath: aString
+	"The basePath must be an existing directory. "
+	| stat |
+	[ stat := fs statSync: (path join: './' wiith: aString) ] on: Error 
+	do: [ :err | console log: 'Warning: option --base-path ' , aString , ', that path is ' , (err messageText) , '.' . ^ false ].
+	stat isDirectory ifFalse: [	
+		console log: 'Warning: option  --base-path  ' , aString  , ' , it is not a directory.' . ^ false ].
+	^ true
 !
 
 writeData: data toFileNamed: aFilename
