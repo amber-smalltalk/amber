@@ -1,5 +1,31 @@
- 2013 - Release 0.12.0
-===============================
+03rd December 2013 - Release 0.12.2
+===================================
+
+Highlights:
+
+* Loading Amber in nested pages now possible (via additional `data-libs` attribute of the `<script>` tag which loads `amber.js`)
+* IDE related fixes
+* Contributions Guide
+* Improved Collections
+* Amber Server responds with `not found` instead of `internal server error` if `index.html` could not be found
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.1...0.12.2
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=10&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
+14th November 2013 - Release 0.12.1
+===================================
+
+Fixes a bug in Helios preventing class definitions from being compiled
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.0...0.12.1
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=9&state=closed
+
+
+11th November 2013 - Release 0.12.0
+===================================
 
 After 3 months of work we are pleased to announce the 0.12.0 release of Amber.
 
