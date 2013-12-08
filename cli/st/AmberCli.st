@@ -126,13 +126,12 @@ Adding new commandline parameters to `FileServer` is as easy as adding a new sin
 !FileServer methodsFor: 'accessing'!
 
 basePath
-	^basePath ifNil: ['./']
+	^basePath ifNil: [self class defaultBasePath]
 !
 
 basePath: aString
-	(self validateBasePath: aString)
-		ifTrue:	[	basePath := aString	]
-		ifFalse: [ console log: 'Warning: The base path is set to ', (self basePath) ].
+	basePath := aString.
+	self validateBasePath.
 !
 
 fallbackPage
@@ -236,13 +235,14 @@ withBasePath: aBaseRelativePath
 	^	path join: self basePath with: aBaseRelativePath
 !
 
-validateBasePath: aString
+
+validateBasePath
 	"The basePath must be an existing directory. "
 	| stat |
-	[ stat := fs statSync: (path join: './' wiith: aString) ] on: Error 
-	do: [ :err | console log: 'Warning: option --base-path ' , aString , ', that path is ' , (err messageText) , '.' . ^ false ].
+	[ stat := fs statSync: self basePath ] on: Error 
+	do: [ :err | console log: 'Warning: option --base-path ' , (self basePath) , ', that path is ' , (err messageText) , '.' . ^ false ].
 	stat isDirectory ifFalse: [	
-		console log: 'Warning: option  --base-path  ' , aString  , ' , it is not a directory.' . ^ false ].
+		console log: 'Warning: option  --base-path  ' , (self basePath)  , ' , it is not a directory.' . ^ false ].
 	^ true
 !
 
@@ -409,6 +409,10 @@ commandLineSwitches
 	switches :=switches collect: [ :each |
 		(each allButLast replace: '([A-Z])' with: '-$1') asLowercase replace: '^([a-z])' with: '--$1' ].
 	^switches
+!
+
+defaultBasePath
+	^ './'
 !
 
 defaultHost

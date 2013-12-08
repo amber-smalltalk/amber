@@ -216,15 +216,15 @@ return smalltalk.withContext(function($ctx1) {
 var $2,$1;
 $2=self["@basePath"];
 if(($receiver = $2) == nil || $receiver == null){
-$1="./";
+$1=_st(self._class())._defaultBasePath();
 } else {
 $1=$2;
 };
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"basePath",{},smalltalk.FileServer)})},
 args: [],
-source: "basePath\x0a\x09^basePath ifNil: ['./']",
-messageSends: ["ifNil:"],
+source: "basePath\x0a\x09^basePath ifNil: [self class defaultBasePath]",
+messageSends: ["ifNil:", "defaultBasePath", "class"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -236,18 +236,12 @@ protocol: 'accessing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._validateBasePath_(aString);
-if(smalltalk.assert($1)){
 self["@basePath"]=aString;
-self["@basePath"];
-} else {
-_st(console)._log_("Warning: The base path is set to ".__comma(self._basePath()));
-};
+self._validateBasePath();
 return self}, function($ctx1) {$ctx1.fill(self,"basePath:",{aString:aString},smalltalk.FileServer)})},
 args: ["aString"],
-source: "basePath: aString\x0a\x09(self validateBasePath: aString)\x0a\x09\x09ifTrue:\x09[\x09basePath := aString\x09]\x0a\x09\x09ifFalse: [ console log: 'Warning: The base path is set to ', (self basePath) ].",
-messageSends: ["ifTrue:ifFalse:", "validateBasePath:", "log:", ",", "basePath"],
+source: "basePath: aString\x0a\x09basePath := aString.\x0a\x09self validateBasePath.",
+messageSends: ["validateBasePath"],
 referencedClasses: []
 }),
 smalltalk.FileServer);
@@ -937,50 +931,55 @@ smalltalk.FileServer);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "validateBasePath:",
+selector: "validateBasePath",
 protocol: 'private',
-fn: function (aString){
+fn: function (){
 var self=this;
 var stat;
 function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$5,$4,$3,$2,$6,$7,$8;
+var $1,$2,$3,$8,$7,$6,$5,$4,$9,$10,$11;
 var $early={};
 try {
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
-stat=_st(self["@fs"])._statSync_(_st(self["@path"])._join_wiith_("./",aString));
+$1=self["@fs"];
+$2=self._basePath();
+$ctx2.sendIdx["basePath"]=1;
+stat=_st($1)._statSync_($2);
 return stat;
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(err){
 return smalltalk.withContext(function($ctx2) {
-$1=console;
-$5="Warning: option --base-path ".__comma(aString);
+$3=console;
+$8=self._basePath();
+$ctx2.sendIdx["basePath"]=2;
+$7="Warning: option --base-path ".__comma($8);
 $ctx2.sendIdx[","]=4;
-$4=_st($5).__comma(", that path is ");
+$6=_st($7).__comma(", that path is ");
 $ctx2.sendIdx[","]=3;
-$3=_st($4).__comma(_st(err)._messageText());
+$5=_st($6).__comma(_st(err)._messageText());
 $ctx2.sendIdx[","]=2;
-$2=_st($3).__comma(".");
+$4=_st($5).__comma(".");
 $ctx2.sendIdx[","]=1;
-_st($1)._log_($2);
+_st($3)._log_($4);
 $ctx2.sendIdx["log:"]=1;
 throw $early=[false];
 }, function($ctx2) {$ctx2.fillBlock({err:err},$ctx1,2)})}));
-$6=_st(stat)._isDirectory();
-if(! smalltalk.assert($6)){
-$7=console;
-$8=_st("Warning: option  --base-path  ".__comma(aString)).__comma(" , it is not a directory.");
+$9=_st(stat)._isDirectory();
+if(! smalltalk.assert($9)){
+$10=console;
+$11=_st("Warning: option  --base-path  ".__comma(self._basePath())).__comma(" , it is not a directory.");
 $ctx1.sendIdx[","]=5;
-_st($7)._log_($8);
+_st($10)._log_($11);
 return false;
 };
 return true;
 }
 catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"validateBasePath:",{aString:aString,stat:stat},smalltalk.FileServer)})},
-args: ["aString"],
-source: "validateBasePath: aString\x0a\x09\x22The basePath must be an existing directory. \x22\x0a\x09| stat |\x0a\x09[ stat := fs statSync: (path join: './' wiith: aString) ] on: Error \x0a\x09do: [ :err | console log: 'Warning: option --base-path ' , aString , ', that path is ' , (err messageText) , '.' . ^ false ].\x0a\x09stat isDirectory ifFalse: [\x09\x0a\x09\x09console log: 'Warning: option  --base-path  ' , aString  , ' , it is not a directory.' . ^ false ].\x0a\x09^ true",
-messageSends: ["on:do:", "statSync:", "join:wiith:", "log:", ",", "messageText", "ifFalse:", "isDirectory"],
+}, function($ctx1) {$ctx1.fill(self,"validateBasePath",{stat:stat},smalltalk.FileServer)})},
+args: [],
+source: "validateBasePath\x0a\x09\x22The basePath must be an existing directory. \x22\x0a\x09| stat |\x0a\x09[ stat := fs statSync: self basePath ] on: Error \x0a\x09do: [ :err | console log: 'Warning: option --base-path ' , (self basePath) , ', that path is ' , (err messageText) , '.' . ^ false ].\x0a\x09stat isDirectory ifFalse: [\x09\x0a\x09\x09console log: 'Warning: option  --base-path  ' , (self basePath)  , ' , it is not a directory.' . ^ false ].\x0a\x09^ true",
+messageSends: ["on:do:", "statSync:", "basePath", "log:", ",", "messageText", "ifFalse:", "isDirectory"],
 referencedClasses: ["Error"]
 }),
 smalltalk.FileServer);
@@ -1130,6 +1129,22 @@ args: ["options"],
 source: "createServerWithArguments: options\x0a\x09\x22If options are empty return a default FileServer instance.\x0a\x09 If options are given loop through them and set the passed in values\x0a\x09 on the FileServer instance.\x0a\x09 \x0a\x09 Commanline options map directly to methods in the 'accessing' protocol\x0a\x09 taking one parameter.\x0a\x09 Adding a method to this protocol makes it directly settable through\x0a\x09 command line options.\x0a\x09 \x22\x0a\x09| server popFront front optionName optionValue switches |\x0a\x0a\x09switches := self commandLineSwitches.\x0a\x0a\x09server := self new.\x0a\x0a\x09options ifEmpty: [^server].\x0a\x0a\x09(options size even) ifFalse: [\x0a\x09\x09console log: 'Using default parameters.'.\x0a\x09\x09console log: 'Wrong commandline options or not enough arguments for: ' , options.\x0a\x09\x09console log: 'Use any of the following ones: ', switches.\x0a\x09\x09^server].\x0a\x0a\x09popFront := [:args |\x0a\x09\x09front := args first.\x0a\x09\x09args remove: front.\x0a\x09\x09front].\x0a\x0a\x09[options notEmpty] whileTrue: [\x0a\x09\x09optionName  := popFront value: options.\x0a\x09\x09optionValue := popFront value: options.\x0a\x0a\x09\x09(switches includes: optionName) ifTrue: [\x0a\x09\x09\x09optionName := self selectorForCommandLineSwitch: optionName.\x0a\x09\x09\x09server perform: optionName withArguments: (Array with: optionValue)]\x0a\x09\x09\x09ifFalse: [\x0a\x09\x09\x09\x09console log: optionName, ' is not a valid commandline option'.\x0a\x09\x09\x09\x09console log: 'Use any of the following ones: ', switches ]].\x0a\x09^server.",
 messageSends: ["commandLineSwitches", "new", "ifEmpty:", "ifFalse:", "even", "size", "log:", ",", "first", "remove:", "whileTrue:", "notEmpty", "value:", "ifTrue:ifFalse:", "includes:", "selectorForCommandLineSwitch:", "perform:withArguments:", "with:"],
 referencedClasses: ["Array"]
+}),
+smalltalk.FileServer.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultBasePath",
+protocol: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "./";
+}, function($ctx1) {$ctx1.fill(self,"defaultBasePath",{},smalltalk.FileServer.klass)})},
+args: [],
+source: "defaultBasePath\x0a\x09^ './'",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.FileServer.klass);
 
