@@ -2159,29 +2159,31 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
+var $1,$3,$4,$5,$6,$7,$2;
 $1=_st(self["@splitter"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 $3="axis".__minus_gt("x");
 $ctx1.sendIdx["->"]=1;
 $4="containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent());
 $ctx1.sendIdx["->"]=2;
-$5="cursor".__minus_gt("ew-resize");
+$5="helper".__minus_gt("clone");
 $ctx1.sendIdx["->"]=3;
-$6="stop".__minus_gt((function(){
+$6="cursor".__minus_gt("ew-resize");
+$ctx1.sendIdx["->"]=4;
+$7="stop".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._resized();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["->"]=4;
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(event){
+$ctx1.sendIdx["->"]=5;
+$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,$7,"drag".__minus_gt((function(event,ui){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._controller())._onResize_(event);
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,2)})}))]);
+return _st(self._controller())._onResize_helper_(event,ui);
+}, function($ctx2) {$ctx2.fillBlock({event:event,ui:ui},$ctx1,2)})}))]);
 _st($1)._draggable_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setupEventHandlers",{},smalltalk.MKHorizontalSplitView)})},
 args: [],
-source: "setupEventHandlers\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a\x09\x09'cursor' -> 'ew-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :event | self controller onResize: event ] }",
-messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "onResize:", "controller"],
+source: "setupEventHandlers\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'x'. \x0a        'containment' -> splitter asJQuery parent.\x0a\x09\x09'helper' -> 'clone'.\x0a\x09\x09'cursor' -> 'ew-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :event :ui | self controller onResize: event helper: ui ] }",
+messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "onResize:helper:", "controller"],
 referencedClasses: []
 }),
 smalltalk.MKHorizontalSplitView);
@@ -2245,35 +2247,6 @@ smalltalk.MKVerticalSplitView);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "resize:",
-category: 'actions',
-fn: function (aNumber){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$4;
-$1=_st(self._firstView())._asJQuery();
-$ctx1.sendIdx["asJQuery"]=1;
-$2=_st(aNumber)._asMokaCssString();
-$ctx1.sendIdx["asMokaCssString"]=1;
-_st($1)._css_put_("right",$2);
-$ctx1.sendIdx["css:put:"]=1;
-$3=_st(self["@splitter"])._asJQuery();
-$ctx1.sendIdx["asJQuery"]=2;
-$4=_st(aNumber)._asMokaCssString();
-$ctx1.sendIdx["asMokaCssString"]=2;
-_st($3)._css_put_("left",$4);
-$ctx1.sendIdx["css:put:"]=2;
-_st(_st(self._secondView())._asJQuery())._css_put_("left",_st(aNumber)._asMokaCssString());
-return self}, function($ctx1) {$ctx1.fill(self,"resize:",{aNumber:aNumber},smalltalk.MKVerticalSplitView)})},
-args: ["aNumber"],
-source: "resize: aNumber\x0a    self firstView asJQuery css: 'right' put: aNumber asMokaCssString.\x0a\x09splitter asJQuery css: 'left' put: aNumber asMokaCssString.\x0a\x09self secondView asJQuery css: 'left' put: aNumber asMokaCssString",
-messageSends: ["css:put:", "asJQuery", "firstView", "asMokaCssString", "secondView"],
-referencedClasses: []
-}),
-smalltalk.MKVerticalSplitView);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "secondView:",
 category: 'accessing',
 fn: function (aView){
@@ -2299,7 +2272,7 @@ category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $1,$3,$4,$5,$6,$2;
+var $1,$3,$4,$5,$6,$7,$2;
 $1=_st(self["@splitter"])._asJQuery();
 $ctx1.sendIdx["asJQuery"]=1;
 $3="axis".__minus_gt("y");
@@ -2308,20 +2281,22 @@ $4="containment".__minus_gt(_st(_st(self["@splitter"])._asJQuery())._parent());
 $ctx1.sendIdx["->"]=2;
 $5="cursor".__minus_gt("ns-resize");
 $ctx1.sendIdx["->"]=3;
-$6="stop".__minus_gt((function(){
+$6="helper".__minus_gt("clone");
+$ctx1.sendIdx["->"]=4;
+$7="stop".__minus_gt((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._resized();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-$ctx1.sendIdx["->"]=4;
-$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,"drag".__minus_gt((function(event){
+$ctx1.sendIdx["->"]=5;
+$2=smalltalk.HashedCollection._from_([$3,$4,$5,$6,$7,"drag".__minus_gt((function(event,ui){
 return smalltalk.withContext(function($ctx2) {
-return _st(self._controller())._onResize_(event);
-}, function($ctx2) {$ctx2.fillBlock({event:event},$ctx1,2)})}))]);
+return _st(self._controller())._onResize_helper_(event,ui);
+}, function($ctx2) {$ctx2.fillBlock({event:event,ui:ui},$ctx1,2)})}))]);
 _st($1)._draggable_($2);
 return self}, function($ctx1) {$ctx1.fill(self,"setupEventHandlers",{},smalltalk.MKVerticalSplitView)})},
 args: [],
-source: "setupEventHandlers\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'y'. \x0a        'containment' -> splitter asJQuery parent.\x0a\x09\x09'cursor' -> 'ns-resize'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :event | self controller onResize: event ] }",
-messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "onResize:", "controller"],
+source: "setupEventHandlers\x0a\x09splitter asJQuery draggable: #{ \x0a    \x09'axis' -> 'y'. \x0a        'containment' -> splitter asJQuery parent.\x0a\x09\x09'cursor' -> 'ns-resize'.\x0a\x09\x09'helper' -> 'clone'.\x0a\x09\x09'stop' -> [ self resized ].\x0a        'drag' -> [ :event :ui | self controller onResize: event helper: ui ] }",
+messageSends: ["draggable:", "asJQuery", "->", "parent", "resized", "onResize:helper:", "controller"],
 referencedClasses: []
 }),
 smalltalk.MKVerticalSplitView);

@@ -769,9 +769,10 @@ setupEventHandlers
 	splitter asJQuery draggable: #{ 
     	'axis' -> 'x'. 
         'containment' -> splitter asJQuery parent.
+		'helper' -> 'clone'.
 		'cursor' -> 'ew-resize'.
 		'stop' -> [ self resized ].
-        'drag' -> [ :event | self controller onResize: event ] }
+        'drag' -> [ :event :ui | self controller onResize: event helper: ui ] }
 ! !
 
 MKSplitView subclass: #MKVerticalSplitView
@@ -803,14 +804,6 @@ topThickness: aNumber
 	self controller: MKTopFixedVerticalSplitController new
 ! !
 
-!MKVerticalSplitView methodsFor: 'actions'!
-
-resize: aNumber
-    self firstView asJQuery css: 'right' put: aNumber asMokaCssString.
-	splitter asJQuery css: 'left' put: aNumber asMokaCssString.
-	self secondView asJQuery css: 'left' put: aNumber asMokaCssString
-! !
-
 !MKVerticalSplitView methodsFor: 'defaults'!
 
 defaultControllerClass
@@ -824,8 +817,9 @@ setupEventHandlers
     	'axis' -> 'y'. 
         'containment' -> splitter asJQuery parent.
 		'cursor' -> 'ns-resize'.
+		'helper' -> 'clone'.
 		'stop' -> [ self resized ].
-        'drag' -> [ :event | self controller onResize: event ] }
+        'drag' -> [ :event :ui | self controller onResize: event helper: ui ] }
 ! !
 
 MKSingleAspectView subclass: #MKTextAreaView

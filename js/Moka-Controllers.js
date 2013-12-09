@@ -932,15 +932,15 @@ smalltalk.addClass('MKSplitController', smalltalk.MKController, [], 'Moka-Contro
 smalltalk.MKSplitController.comment="I am the abstract controller for `MKSplitView`.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onResize:",
+selector: "onResize:helper:",
 category: 'actions',
-fn: function (anEvent){
+fn: function (anEvent,aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 self._subclassResponsibility();
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{anEvent:anEvent},smalltalk.MKSplitController)})},
-args: ["anEvent"],
-source: "onResize: anEvent\x0a\x09self subclassResponsibility",
+return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKSplitController)})},
+args: ["anEvent", "aJQuery"],
+source: "onResize: anEvent helper: aJQuery\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -952,22 +952,16 @@ smalltalk.addClass('MKBottomFixedVerticalSplitController', smalltalk.MKSplitCont
 smalltalk.MKBottomFixedVerticalSplitController.comment="I am an alternative controller for `MKVerticalSplitView`.\x0a\x0aWhen the splitter is moved, the second view is set a fixed size, thus resizing will preserve the height of the second view, while the first view will be resized.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onResize:",
+selector: "onResize:helper:",
 category: 'actions',
-fn: function (anEvent){
+fn: function (anEvent,aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4=self._view();
-$ctx1.sendIdx["view"]=1;
-$3=_st($4)._domSize();
-$2=_st($3)._y();
-$1=_st($2).__minus(_st(_st(_st(_st(self._view())._splitter())._asJQuery())._position())._top());
-self._placeSplitter_($1);
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{anEvent:anEvent},smalltalk.MKBottomFixedVerticalSplitController)})},
-args: ["anEvent"],
-source: "onResize: anEvent\x0a\x09self placeSplitter: self view domSize y - self view splitter asJQuery position top",
-messageSends: ["placeSplitter:", "-", "y", "domSize", "view", "top", "position", "asJQuery", "splitter"],
+self._placeSplitter_(_st(_st(_st(self._view())._domSize())._y()).__minus(_st(_st(aJQuery)._position())._top()));
+return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKBottomFixedVerticalSplitController)})},
+args: ["anEvent", "aJQuery"],
+source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: self view domSize y - aJQuery position top",
+messageSends: ["placeSplitter:", "-", "y", "domSize", "view", "top", "position"],
 referencedClasses: []
 }),
 smalltalk.MKBottomFixedVerticalSplitController);
@@ -1021,16 +1015,16 @@ smalltalk.addClass('MKLeftFixedHorizontalSplitController', smalltalk.MKSplitCont
 smalltalk.MKLeftFixedHorizontalSplitController.comment="I am the controller for `MKHorizontalSplitView`.\x0a\x0aWhen the splitter is moved, the left view is set a fixed size, thus resizing will preserve the width of the first view, while the second view will be resized.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onResize:",
+selector: "onResize:helper:",
 category: 'actions',
-fn: function (anEvent){
+fn: function (anEvent,aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._placeSplitter_(_st(_st(_st(_st(self._view())._splitter())._asJQuery())._position())._left());
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{anEvent:anEvent},smalltalk.MKLeftFixedHorizontalSplitController)})},
-args: ["anEvent"],
-source: "onResize: anEvent\x0a\x09self placeSplitter: self view splitter asJQuery position left",
-messageSends: ["placeSplitter:", "left", "position", "asJQuery", "splitter", "view"],
+self._placeSplitter_(_st(_st(aJQuery)._position())._left());
+return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKLeftFixedHorizontalSplitController)})},
+args: ["anEvent", "aJQuery"],
+source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: aJQuery position left",
+messageSends: ["placeSplitter:", "left", "position"],
 referencedClasses: []
 }),
 smalltalk.MKLeftFixedHorizontalSplitController);
@@ -1076,22 +1070,16 @@ smalltalk.addClass('MKRightFixedHorizontalSplitController', smalltalk.MKSplitCon
 smalltalk.MKRightFixedHorizontalSplitController.comment="I am an alternative controller for `MKHorizontalSplitView`.\x0a\x0aWhen the splitter is moved, the second view is set a fixed size, thus resizing will preserve the width of the second view, while the first view will be resized.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onResize:",
+selector: "onResize:helper:",
 category: 'actions',
-fn: function (anEvent){
+fn: function (anEvent,aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $4,$3,$2,$1;
-$4=self._view();
-$ctx1.sendIdx["view"]=1;
-$3=_st($4)._domSize();
-$2=_st($3)._x();
-$1=_st($2).__minus(_st(_st(_st(_st(self._view())._splitter())._asJQuery())._position())._left());
-self._placeSplitter_($1);
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{anEvent:anEvent},smalltalk.MKRightFixedHorizontalSplitController)})},
-args: ["anEvent"],
-source: "onResize: anEvent\x0a\x09self placeSplitter: self view domSize x - self view splitter asJQuery position left",
-messageSends: ["placeSplitter:", "-", "x", "domSize", "view", "left", "position", "asJQuery", "splitter"],
+self._placeSplitter_(_st(_st(_st(self._view())._domSize())._x()).__minus(_st(_st(aJQuery)._position())._left()));
+return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKRightFixedHorizontalSplitController)})},
+args: ["anEvent", "aJQuery"],
+source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: self view domSize x - aJQuery position left",
+messageSends: ["placeSplitter:", "-", "x", "domSize", "view", "left", "position"],
 referencedClasses: []
 }),
 smalltalk.MKRightFixedHorizontalSplitController);
@@ -1145,16 +1133,16 @@ smalltalk.addClass('MKTopFixedVerticalSplitController', smalltalk.MKSplitControl
 smalltalk.MKTopFixedVerticalSplitController.comment="I am the controller for `MKVerticalSplitView`.\x0a\x0aWhen the splitter is moved, the top view is set a fixed size, thus resizing will preserve the height of the first view, while the second view will be resized.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "onResize:",
+selector: "onResize:helper:",
 category: 'actions',
-fn: function (anEvent){
+fn: function (anEvent,aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._placeSplitter_(_st(_st(_st(_st(self._view())._splitter())._asJQuery())._position())._top());
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:",{anEvent:anEvent},smalltalk.MKTopFixedVerticalSplitController)})},
-args: ["anEvent"],
-source: "onResize: anEvent\x0a\x09self placeSplitter: self view splitter asJQuery position top",
-messageSends: ["placeSplitter:", "top", "position", "asJQuery", "splitter", "view"],
+self._placeSplitter_(_st(_st(aJQuery)._position())._top());
+return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKTopFixedVerticalSplitController)})},
+args: ["anEvent", "aJQuery"],
+source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: aJQuery position top",
+messageSends: ["placeSplitter:", "top", "position"],
 referencedClasses: []
 }),
 smalltalk.MKTopFixedVerticalSplitController);

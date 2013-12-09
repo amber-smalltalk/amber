@@ -330,7 +330,7 @@ I am the abstract controller for `MKSplitView`.!
 
 !MKSplitController methodsFor: 'actions'!
 
-onResize: anEvent
+onResize: anEvent helper: aJQuery
 	self subclassResponsibility
 ! !
 
@@ -344,8 +344,8 @@ When the splitter is moved, the second view is set a fixed size, thus resizing w
 
 !MKBottomFixedVerticalSplitController methodsFor: 'actions'!
 
-onResize: anEvent
-	self placeSplitter: self view domSize y - self view splitter asJQuery position top
+onResize: anEvent helper: aJQuery
+	self placeSplitter: self view domSize y - aJQuery position top
 !
 
 placeSplitter: aNumber
@@ -370,8 +370,8 @@ When the splitter is moved, the left view is set a fixed size, thus resizing wil
 
 !MKLeftFixedHorizontalSplitController methodsFor: 'actions'!
 
-onResize: anEvent
-	self placeSplitter: self view splitter asJQuery position left
+onResize: anEvent helper: aJQuery
+	self placeSplitter: aJQuery position left
 !
 
 placeSplitter: aNumber
@@ -390,8 +390,8 @@ When the splitter is moved, the second view is set a fixed size, thus resizing w
 
 !MKRightFixedHorizontalSplitController methodsFor: 'actions'!
 
-onResize: anEvent
-	self placeSplitter: self view domSize x - self view splitter asJQuery position left
+onResize: anEvent helper: aJQuery
+	self placeSplitter: self view domSize x - aJQuery position left
 !
 
 placeSplitter: aNumber
@@ -416,8 +416,8 @@ When the splitter is moved, the top view is set a fixed size, thus resizing will
 
 !MKTopFixedVerticalSplitController methodsFor: 'actions'!
 
-onResize: anEvent
-	self placeSplitter: self view splitter asJQuery position top
+onResize: anEvent helper: aJQuery
+	self placeSplitter: aJQuery position top
 !
 
 placeSplitter: aNumber
