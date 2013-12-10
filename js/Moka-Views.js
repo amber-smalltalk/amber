@@ -1818,7 +1818,7 @@ smalltalk.MKSourceListView);
 
 
 
-smalltalk.addClass('MKSplitView', smalltalk.MKLayoutView, ['firstView', 'secondView', 'splitter', 'thickness'], 'Moka-Views');
+smalltalk.addClass('MKSplitView', smalltalk.MKLayoutView, ['firstView', 'secondView', 'splitter', 'thickness', 'minimumThickness'], 'Moka-Views');
 smalltalk.MKSplitView.comment="I am the superclass of all split views. I arrange two child view with a splitter between them.\x0a\x0a## API\x0a\x0aCreate instances using the class-side method `firstView:secondView:`.";
 smalltalk.addMethod(
 smalltalk.method({
@@ -1852,6 +1852,22 @@ return $1;
 args: [],
 source: "cssClass\x0a\x09^ super cssClass, ' mk_split_view'",
 messageSends: [",", "cssClass"],
+referencedClasses: []
+}),
+smalltalk.MKSplitView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultMinimumThickness",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return (50);
+}, function($ctx1) {$ctx1.fill(self,"defaultMinimumThickness",{},smalltalk.MKSplitView)})},
+args: [],
+source: "defaultMinimumThickness\x0a\x09^ 50",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.MKSplitView);
@@ -1904,6 +1920,45 @@ args: ["aView"],
 source: "firstView: aView\x0a\x09firstView := MKDecorator decorate: aView",
 messageSends: ["decorate:"],
 referencedClasses: ["MKDecorator"]
+}),
+smalltalk.MKSplitView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "minimumThickness",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@minimumThickness"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._defaultMinimumThickness();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"minimumThickness",{},smalltalk.MKSplitView)})},
+args: [],
+source: "minimumThickness\x0a\x09^ minimumThickness ifNil: [ self defaultMinimumThickness ]",
+messageSends: ["ifNil:", "defaultMinimumThickness"],
+referencedClasses: []
+}),
+smalltalk.MKSplitView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "minimumThickness:",
+category: 'accessing',
+fn: function (aNumber){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@minimumThickness"]=aNumber;
+return self}, function($ctx1) {$ctx1.fill(self,"minimumThickness:",{aNumber:aNumber},smalltalk.MKSplitView)})},
+args: ["aNumber"],
+source: "minimumThickness: aNumber\x0a\x09minimumThickness := aNumber",
+messageSends: [],
+referencedClasses: []
 }),
 smalltalk.MKSplitView);
 

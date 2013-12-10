@@ -328,10 +328,26 @@ MKController subclass: #MKSplitController
 !MKSplitController commentStamp!
 I am the abstract controller for `MKSplitView`.!
 
+!MKSplitController methodsFor: 'accessing'!
+
+minimumThickness
+	^ self view minimumThickness
+! !
+
 !MKSplitController methodsFor: 'actions'!
 
 onResize: anEvent helper: aJQuery
+	self placeSplitter: (self positionForSplitter: aJQuery)
+!
+
+placeSplitter: aJQuery
 	self subclassResponsibility
+! !
+
+!MKSplitController methodsFor: 'private'!
+
+positionForSplitter: aJQuery
+	^ self subclassResponsibility
 ! !
 
 MKSplitController subclass: #MKBottomFixedVerticalSplitController
@@ -343,10 +359,6 @@ I am an alternative controller for `MKVerticalSplitView`.
 When the splitter is moved, the second view is set a fixed size, thus resizing will preserve the height of the second view, while the first view will be resized.!
 
 !MKBottomFixedVerticalSplitController methodsFor: 'actions'!
-
-onResize: anEvent helper: aJQuery
-	self placeSplitter: self view domSize y - aJQuery position top
-!
 
 placeSplitter: aNumber
 	| splitter |
@@ -360,6 +372,13 @@ placeSplitter: aNumber
 	self view firstView asJQuery css: 'bottom' put: aNumber asMokaCssString
 ! !
 
+!MKBottomFixedVerticalSplitController methodsFor: 'private'!
+
+positionForSplitter: aJQuery
+	^ ((self view domSize y - aJQuery position top) 
+		max: self minimumThickness) min: (self view domSize y - self minimumThickness)
+! !
+
 MKSplitController subclass: #MKLeftFixedHorizontalSplitController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
@@ -370,14 +389,17 @@ When the splitter is moved, the left view is set a fixed size, thus resizing wil
 
 !MKLeftFixedHorizontalSplitController methodsFor: 'actions'!
 
-onResize: anEvent helper: aJQuery
-	self placeSplitter: aJQuery position left
-!
-
 placeSplitter: aNumber
 	self view firstView asJQuery css: 'width' put: aNumber asMokaCssString.
 	self view splitter asJQuery css: 'left' put: aNumber asMokaCssString.
 	self view secondView asJQuery css: 'left' put: aNumber asMokaCssString
+! !
+
+!MKLeftFixedHorizontalSplitController methodsFor: 'private'!
+
+positionForSplitter: aJQuery
+	^ (aJQuery position left max: self minimumThickness)
+		min: (self view domSize x - self minimumThickness)
 ! !
 
 MKSplitController subclass: #MKRightFixedHorizontalSplitController
@@ -389,10 +411,6 @@ I am an alternative controller for `MKHorizontalSplitView`.
 When the splitter is moved, the second view is set a fixed size, thus resizing will preserve the width of the second view, while the first view will be resized.!
 
 !MKRightFixedHorizontalSplitController methodsFor: 'actions'!
-
-onResize: anEvent helper: aJQuery
-	self placeSplitter: self view domSize x - aJQuery position left
-!
 
 placeSplitter: aNumber
 	| splitter |
@@ -406,6 +424,14 @@ placeSplitter: aNumber
 	self view firstView asJQuery css: 'right' put: aNumber asMokaCssString
 ! !
 
+!MKRightFixedHorizontalSplitController methodsFor: 'private'!
+
+positionForSplitter: aJQuery
+	^ ((self view domSize x - aJQuery position left)
+		max: self minimumThickness)
+			min: (self view domSize x - self minimumThickness)
+! !
+
 MKSplitController subclass: #MKTopFixedVerticalSplitController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
@@ -416,13 +442,16 @@ When the splitter is moved, the top view is set a fixed size, thus resizing will
 
 !MKTopFixedVerticalSplitController methodsFor: 'actions'!
 
-onResize: anEvent helper: aJQuery
-	self placeSplitter: aJQuery position top
-!
-
 placeSplitter: aNumber
 	self view firstView asJQuery css: 'height' put: aNumber asMokaCssString.
 	self view splitter asJQuery css: 'top' put: aNumber asMokaCssString.
 	self view secondView asJQuery css: 'top' put: aNumber asMokaCssString
+! !
+
+!MKTopFixedVerticalSplitController methodsFor: 'private'!
+
+positionForSplitter: aJQuery
+	^ (aJQuery position top max: self minimumThickness)
+		min: (self view domSize y - self minimumThickness)
 ! !
 

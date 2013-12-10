@@ -932,15 +932,67 @@ smalltalk.addClass('MKSplitController', smalltalk.MKController, [], 'Moka-Contro
 smalltalk.MKSplitController.comment="I am the abstract controller for `MKSplitView`.";
 smalltalk.addMethod(
 smalltalk.method({
+selector: "minimumThickness",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._view())._minimumThickness();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"minimumThickness",{},smalltalk.MKSplitController)})},
+args: [],
+source: "minimumThickness\x0a\x09^ self view minimumThickness",
+messageSends: ["minimumThickness", "view"],
+referencedClasses: []
+}),
+smalltalk.MKSplitController);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "onResize:helper:",
 category: 'actions',
 fn: function (anEvent,aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self._subclassResponsibility();
+self._placeSplitter_(self._positionForSplitter_(aJQuery));
 return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKSplitController)})},
 args: ["anEvent", "aJQuery"],
-source: "onResize: anEvent helper: aJQuery\x0a\x09self subclassResponsibility",
+source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: (self positionForSplitter: aJQuery)",
+messageSends: ["placeSplitter:", "positionForSplitter:"],
+referencedClasses: []
+}),
+smalltalk.MKSplitController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "placeSplitter:",
+category: 'actions',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"placeSplitter:",{aJQuery:aJQuery},smalltalk.MKSplitController)})},
+args: ["aJQuery"],
+source: "placeSplitter: aJQuery\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.MKSplitController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionForSplitter:",
+category: 'private',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._subclassResponsibility();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKSplitController)})},
+args: ["aJQuery"],
+source: "positionForSplitter: aJQuery\x0a\x09^ self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -950,22 +1002,6 @@ smalltalk.MKSplitController);
 
 smalltalk.addClass('MKBottomFixedVerticalSplitController', smalltalk.MKSplitController, [], 'Moka-Controllers');
 smalltalk.MKBottomFixedVerticalSplitController.comment="I am an alternative controller for `MKVerticalSplitView`.\x0a\x0aWhen the splitter is moved, the second view is set a fixed size, thus resizing will preserve the height of the second view, while the first view will be resized.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onResize:helper:",
-category: 'actions',
-fn: function (anEvent,aJQuery){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._placeSplitter_(_st(_st(_st(self._view())._domSize())._y()).__minus(_st(_st(aJQuery)._position())._top()));
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKBottomFixedVerticalSplitController)})},
-args: ["anEvent", "aJQuery"],
-source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: self view domSize y - aJQuery position top",
-messageSends: ["placeSplitter:", "-", "y", "domSize", "view", "top", "position"],
-referencedClasses: []
-}),
-smalltalk.MKBottomFixedVerticalSplitController);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "placeSplitter:",
@@ -1009,26 +1045,39 @@ referencedClasses: []
 }),
 smalltalk.MKBottomFixedVerticalSplitController);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionForSplitter:",
+category: 'private',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $6,$5,$4,$3,$7,$2,$1;
+$6=self._view();
+$ctx1.sendIdx["view"]=1;
+$5=_st($6)._domSize();
+$ctx1.sendIdx["domSize"]=1;
+$4=_st($5)._y();
+$ctx1.sendIdx["y"]=1;
+$3=_st($4).__minus(_st(_st(aJQuery)._position())._top());
+$ctx1.sendIdx["-"]=1;
+$7=self._minimumThickness();
+$ctx1.sendIdx["minimumThickness"]=1;
+$2=_st($3)._max_($7);
+$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._y()).__minus(self._minimumThickness()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKBottomFixedVerticalSplitController)})},
+args: ["aJQuery"],
+source: "positionForSplitter: aJQuery\x0a\x09^ ((self view domSize y - aJQuery position top) \x0a\x09\x09max: self minimumThickness) min: (self view domSize y - self minimumThickness)",
+messageSends: ["min:", "max:", "-", "y", "domSize", "view", "top", "position", "minimumThickness"],
+referencedClasses: []
+}),
+smalltalk.MKBottomFixedVerticalSplitController);
+
 
 
 smalltalk.addClass('MKLeftFixedHorizontalSplitController', smalltalk.MKSplitController, [], 'Moka-Controllers');
 smalltalk.MKLeftFixedHorizontalSplitController.comment="I am the controller for `MKHorizontalSplitView`.\x0a\x0aWhen the splitter is moved, the left view is set a fixed size, thus resizing will preserve the width of the first view, while the second view will be resized.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onResize:helper:",
-category: 'actions',
-fn: function (anEvent,aJQuery){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._placeSplitter_(_st(_st(aJQuery)._position())._left());
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKLeftFixedHorizontalSplitController)})},
-args: ["anEvent", "aJQuery"],
-source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: aJQuery position left",
-messageSends: ["placeSplitter:", "left", "position"],
-referencedClasses: []
-}),
-smalltalk.MKLeftFixedHorizontalSplitController);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "placeSplitter:",
@@ -1064,26 +1113,32 @@ referencedClasses: []
 }),
 smalltalk.MKLeftFixedHorizontalSplitController);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionForSplitter:",
+category: 'private',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$1;
+$3=_st(_st(aJQuery)._position())._left();
+$4=self._minimumThickness();
+$ctx1.sendIdx["minimumThickness"]=1;
+$2=_st($3)._max_($4);
+$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._x()).__minus(self._minimumThickness()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKLeftFixedHorizontalSplitController)})},
+args: ["aJQuery"],
+source: "positionForSplitter: aJQuery\x0a\x09^ (aJQuery position left max: self minimumThickness)\x0a\x09\x09min: (self view domSize x - self minimumThickness)",
+messageSends: ["min:", "max:", "left", "position", "minimumThickness", "-", "x", "domSize", "view"],
+referencedClasses: []
+}),
+smalltalk.MKLeftFixedHorizontalSplitController);
+
 
 
 smalltalk.addClass('MKRightFixedHorizontalSplitController', smalltalk.MKSplitController, [], 'Moka-Controllers');
 smalltalk.MKRightFixedHorizontalSplitController.comment="I am an alternative controller for `MKHorizontalSplitView`.\x0a\x0aWhen the splitter is moved, the second view is set a fixed size, thus resizing will preserve the width of the second view, while the first view will be resized.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onResize:helper:",
-category: 'actions',
-fn: function (anEvent,aJQuery){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._placeSplitter_(_st(_st(_st(self._view())._domSize())._x()).__minus(_st(_st(aJQuery)._position())._left()));
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKRightFixedHorizontalSplitController)})},
-args: ["anEvent", "aJQuery"],
-source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: self view domSize x - aJQuery position left",
-messageSends: ["placeSplitter:", "-", "x", "domSize", "view", "left", "position"],
-referencedClasses: []
-}),
-smalltalk.MKRightFixedHorizontalSplitController);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "placeSplitter:",
@@ -1127,26 +1182,39 @@ referencedClasses: []
 }),
 smalltalk.MKRightFixedHorizontalSplitController);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionForSplitter:",
+category: 'private',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $6,$5,$4,$3,$7,$2,$1;
+$6=self._view();
+$ctx1.sendIdx["view"]=1;
+$5=_st($6)._domSize();
+$ctx1.sendIdx["domSize"]=1;
+$4=_st($5)._x();
+$ctx1.sendIdx["x"]=1;
+$3=_st($4).__minus(_st(_st(aJQuery)._position())._left());
+$ctx1.sendIdx["-"]=1;
+$7=self._minimumThickness();
+$ctx1.sendIdx["minimumThickness"]=1;
+$2=_st($3)._max_($7);
+$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._x()).__minus(self._minimumThickness()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKRightFixedHorizontalSplitController)})},
+args: ["aJQuery"],
+source: "positionForSplitter: aJQuery\x0a\x09^ ((self view domSize x - aJQuery position left)\x0a\x09\x09max: self minimumThickness)\x0a\x09\x09\x09min: (self view domSize x - self minimumThickness)",
+messageSends: ["min:", "max:", "-", "x", "domSize", "view", "left", "position", "minimumThickness"],
+referencedClasses: []
+}),
+smalltalk.MKRightFixedHorizontalSplitController);
+
 
 
 smalltalk.addClass('MKTopFixedVerticalSplitController', smalltalk.MKSplitController, [], 'Moka-Controllers');
 smalltalk.MKTopFixedVerticalSplitController.comment="I am the controller for `MKVerticalSplitView`.\x0a\x0aWhen the splitter is moved, the top view is set a fixed size, thus resizing will preserve the height of the first view, while the second view will be resized.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "onResize:helper:",
-category: 'actions',
-fn: function (anEvent,aJQuery){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._placeSplitter_(_st(_st(aJQuery)._position())._top());
-return self}, function($ctx1) {$ctx1.fill(self,"onResize:helper:",{anEvent:anEvent,aJQuery:aJQuery},smalltalk.MKTopFixedVerticalSplitController)})},
-args: ["anEvent", "aJQuery"],
-source: "onResize: anEvent helper: aJQuery\x0a\x09self placeSplitter: aJQuery position top",
-messageSends: ["placeSplitter:", "top", "position"],
-referencedClasses: []
-}),
-smalltalk.MKTopFixedVerticalSplitController);
-
 smalltalk.addMethod(
 smalltalk.method({
 selector: "placeSplitter:",
@@ -1178,6 +1246,28 @@ return self}, function($ctx1) {$ctx1.fill(self,"placeSplitter:",{aNumber:aNumber
 args: ["aNumber"],
 source: "placeSplitter: aNumber\x0a\x09self view firstView asJQuery css: 'height' put: aNumber asMokaCssString.\x0a\x09self view splitter asJQuery css: 'top' put: aNumber asMokaCssString.\x0a\x09self view secondView asJQuery css: 'top' put: aNumber asMokaCssString",
 messageSends: ["css:put:", "asJQuery", "firstView", "view", "asMokaCssString", "splitter", "secondView"],
+referencedClasses: []
+}),
+smalltalk.MKTopFixedVerticalSplitController);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "positionForSplitter:",
+category: 'private',
+fn: function (aJQuery){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $3,$4,$2,$1;
+$3=_st(_st(aJQuery)._position())._top();
+$4=self._minimumThickness();
+$ctx1.sendIdx["minimumThickness"]=1;
+$2=_st($3)._max_($4);
+$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._y()).__minus(self._minimumThickness()));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKTopFixedVerticalSplitController)})},
+args: ["aJQuery"],
+source: "positionForSplitter: aJQuery\x0a\x09^ (aJQuery position top max: self minimumThickness)\x0a\x09\x09min: (self view domSize y - self minimumThickness)",
+messageSends: ["min:", "max:", "top", "position", "minimumThickness", "-", "y", "domSize", "view"],
 referencedClasses: []
 }),
 smalltalk.MKTopFixedVerticalSplitController);

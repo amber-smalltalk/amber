@@ -650,7 +650,7 @@ cssClass
 ! !
 
 MKLayoutView subclass: #MKSplitView
-	instanceVariableNames: 'firstView secondView splitter thickness'
+	instanceVariableNames: 'firstView secondView splitter thickness minimumThickness'
 	package: 'Moka-Views'!
 !MKSplitView commentStamp!
 I am the superclass of all split views. I arrange two child view with a splitter between them.
@@ -675,6 +675,14 @@ firstView
 
 firstView: aView
 	firstView := MKDecorator decorate: aView
+!
+
+minimumThickness
+	^ minimumThickness ifNil: [ self defaultMinimumThickness ]
+!
+
+minimumThickness: aNumber
+	minimumThickness := aNumber
 !
 
 secondView
@@ -704,6 +712,10 @@ thickness: aNumber
 ! !
 
 !MKSplitView methodsFor: 'defaults'!
+
+defaultMinimumThickness
+	^ 50
+!
 
 defaultThickness
 	^ 300
