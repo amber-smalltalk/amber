@@ -328,12 +328,6 @@ MKController subclass: #MKSplitController
 !MKSplitController commentStamp!
 I am the abstract controller for `MKSplitView`.!
 
-!MKSplitController methodsFor: 'accessing'!
-
-minimumThickness
-	^ self view minimumThickness
-! !
-
 !MKSplitController methodsFor: 'actions'!
 
 onResize: anEvent helper: aJQuery
@@ -376,7 +370,7 @@ placeSplitter: aNumber
 
 positionForSplitter: aJQuery
 	^ ((self view domSize y - aJQuery position top) 
-		max: self minimumThickness) min: (self view domSize y - self minimumThickness)
+		max: self view minimumThickness) min: (self view domSize y - self view minimumThickness)
 ! !
 
 MKSplitController subclass: #MKLeftFixedHorizontalSplitController
@@ -398,8 +392,8 @@ placeSplitter: aNumber
 !MKLeftFixedHorizontalSplitController methodsFor: 'private'!
 
 positionForSplitter: aJQuery
-	^ (aJQuery position left max: self minimumThickness)
-		min: (self view domSize x - self minimumThickness)
+	^ (aJQuery position left max: self view minimumThickness)
+		min: (self view domSize x - self view minimumThickness)
 ! !
 
 MKSplitController subclass: #MKRightFixedHorizontalSplitController
@@ -428,8 +422,8 @@ placeSplitter: aNumber
 
 positionForSplitter: aJQuery
 	^ ((self view domSize x - aJQuery position left)
-		max: self minimumThickness)
-			min: (self view domSize x - self minimumThickness)
+		max: self view minimumThickness)
+			min: (self view domSize x - self view minimumThickness)
 ! !
 
 MKSplitController subclass: #MKTopFixedVerticalSplitController
@@ -451,7 +445,7 @@ placeSplitter: aNumber
 !MKTopFixedVerticalSplitController methodsFor: 'private'!
 
 positionForSplitter: aJQuery
-	^ (aJQuery position top max: self minimumThickness)
-		min: (self view domSize y - self minimumThickness)
+	^ (aJQuery position top max: self view minimumThickness)
+		min: (self view domSize y - self view minimumThickness)
 ! !
 

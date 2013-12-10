@@ -932,24 +932,6 @@ smalltalk.addClass('MKSplitController', smalltalk.MKController, [], 'Moka-Contro
 smalltalk.MKSplitController.comment="I am the abstract controller for `MKSplitView`.";
 smalltalk.addMethod(
 smalltalk.method({
-selector: "minimumThickness",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st(self._view())._minimumThickness();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"minimumThickness",{},smalltalk.MKSplitController)})},
-args: [],
-source: "minimumThickness\x0a\x09^ self view minimumThickness",
-messageSends: ["minimumThickness", "view"],
-referencedClasses: []
-}),
-smalltalk.MKSplitController);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "onResize:helper:",
 category: 'actions',
 fn: function (anEvent,aJQuery){
@@ -1052,7 +1034,7 @@ category: 'private',
 fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $6,$5,$4,$3,$7,$2,$1;
+var $6,$5,$4,$3,$8,$7,$2,$12,$11,$10,$9,$1;
 $6=self._view();
 $ctx1.sendIdx["view"]=1;
 $5=_st($6)._domSize();
@@ -1061,14 +1043,21 @@ $4=_st($5)._y();
 $ctx1.sendIdx["y"]=1;
 $3=_st($4).__minus(_st(_st(aJQuery)._position())._top());
 $ctx1.sendIdx["-"]=1;
-$7=self._minimumThickness();
+$8=self._view();
+$ctx1.sendIdx["view"]=2;
+$7=_st($8)._minimumThickness();
 $ctx1.sendIdx["minimumThickness"]=1;
 $2=_st($3)._max_($7);
-$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._y()).__minus(self._minimumThickness()));
+$12=self._view();
+$ctx1.sendIdx["view"]=3;
+$11=_st($12)._domSize();
+$10=_st($11)._y();
+$9=_st($10).__minus(_st(self._view())._minimumThickness());
+$1=_st($2)._min_($9);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKBottomFixedVerticalSplitController)})},
 args: ["aJQuery"],
-source: "positionForSplitter: aJQuery\x0a\x09^ ((self view domSize y - aJQuery position top) \x0a\x09\x09max: self minimumThickness) min: (self view domSize y - self minimumThickness)",
+source: "positionForSplitter: aJQuery\x0a\x09^ ((self view domSize y - aJQuery position top) \x0a\x09\x09max: self view minimumThickness) min: (self view domSize y - self view minimumThickness)",
 messageSends: ["min:", "max:", "-", "y", "domSize", "view", "top", "position", "minimumThickness"],
 referencedClasses: []
 }),
@@ -1120,17 +1109,24 @@ category: 'private',
 fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$5,$4,$2,$9,$8,$7,$6,$1;
 $3=_st(_st(aJQuery)._position())._left();
-$4=self._minimumThickness();
+$5=self._view();
+$ctx1.sendIdx["view"]=1;
+$4=_st($5)._minimumThickness();
 $ctx1.sendIdx["minimumThickness"]=1;
 $2=_st($3)._max_($4);
-$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._x()).__minus(self._minimumThickness()));
+$9=self._view();
+$ctx1.sendIdx["view"]=2;
+$8=_st($9)._domSize();
+$7=_st($8)._x();
+$6=_st($7).__minus(_st(self._view())._minimumThickness());
+$1=_st($2)._min_($6);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKLeftFixedHorizontalSplitController)})},
 args: ["aJQuery"],
-source: "positionForSplitter: aJQuery\x0a\x09^ (aJQuery position left max: self minimumThickness)\x0a\x09\x09min: (self view domSize x - self minimumThickness)",
-messageSends: ["min:", "max:", "left", "position", "minimumThickness", "-", "x", "domSize", "view"],
+source: "positionForSplitter: aJQuery\x0a\x09^ (aJQuery position left max: self view minimumThickness)\x0a\x09\x09min: (self view domSize x - self view minimumThickness)",
+messageSends: ["min:", "max:", "left", "position", "minimumThickness", "view", "-", "x", "domSize"],
 referencedClasses: []
 }),
 smalltalk.MKLeftFixedHorizontalSplitController);
@@ -1189,7 +1185,7 @@ category: 'private',
 fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $6,$5,$4,$3,$7,$2,$1;
+var $6,$5,$4,$3,$8,$7,$2,$12,$11,$10,$9,$1;
 $6=self._view();
 $ctx1.sendIdx["view"]=1;
 $5=_st($6)._domSize();
@@ -1198,14 +1194,21 @@ $4=_st($5)._x();
 $ctx1.sendIdx["x"]=1;
 $3=_st($4).__minus(_st(_st(aJQuery)._position())._left());
 $ctx1.sendIdx["-"]=1;
-$7=self._minimumThickness();
+$8=self._view();
+$ctx1.sendIdx["view"]=2;
+$7=_st($8)._minimumThickness();
 $ctx1.sendIdx["minimumThickness"]=1;
 $2=_st($3)._max_($7);
-$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._x()).__minus(self._minimumThickness()));
+$12=self._view();
+$ctx1.sendIdx["view"]=3;
+$11=_st($12)._domSize();
+$10=_st($11)._x();
+$9=_st($10).__minus(_st(self._view())._minimumThickness());
+$1=_st($2)._min_($9);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKRightFixedHorizontalSplitController)})},
 args: ["aJQuery"],
-source: "positionForSplitter: aJQuery\x0a\x09^ ((self view domSize x - aJQuery position left)\x0a\x09\x09max: self minimumThickness)\x0a\x09\x09\x09min: (self view domSize x - self minimumThickness)",
+source: "positionForSplitter: aJQuery\x0a\x09^ ((self view domSize x - aJQuery position left)\x0a\x09\x09max: self view minimumThickness)\x0a\x09\x09\x09min: (self view domSize x - self view minimumThickness)",
 messageSends: ["min:", "max:", "-", "x", "domSize", "view", "left", "position", "minimumThickness"],
 referencedClasses: []
 }),
@@ -1257,17 +1260,24 @@ category: 'private',
 fn: function (aJQuery){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $3,$4,$2,$1;
+var $3,$5,$4,$2,$9,$8,$7,$6,$1;
 $3=_st(_st(aJQuery)._position())._top();
-$4=self._minimumThickness();
+$5=self._view();
+$ctx1.sendIdx["view"]=1;
+$4=_st($5)._minimumThickness();
 $ctx1.sendIdx["minimumThickness"]=1;
 $2=_st($3)._max_($4);
-$1=_st($2)._min_(_st(_st(_st(self._view())._domSize())._y()).__minus(self._minimumThickness()));
+$9=self._view();
+$ctx1.sendIdx["view"]=2;
+$8=_st($9)._domSize();
+$7=_st($8)._y();
+$6=_st($7).__minus(_st(self._view())._minimumThickness());
+$1=_st($2)._min_($6);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"positionForSplitter:",{aJQuery:aJQuery},smalltalk.MKTopFixedVerticalSplitController)})},
 args: ["aJQuery"],
-source: "positionForSplitter: aJQuery\x0a\x09^ (aJQuery position top max: self minimumThickness)\x0a\x09\x09min: (self view domSize y - self minimumThickness)",
-messageSends: ["min:", "max:", "top", "position", "minimumThickness", "-", "y", "domSize", "view"],
+source: "positionForSplitter: aJQuery\x0a\x09^ (aJQuery position top max: self view minimumThickness)\x0a\x09\x09min: (self view domSize y - self view minimumThickness)",
+messageSends: ["min:", "max:", "top", "position", "minimumThickness", "view", "-", "y", "domSize"],
 referencedClasses: []
 }),
 smalltalk.MKTopFixedVerticalSplitController);
