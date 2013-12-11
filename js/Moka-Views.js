@@ -2,7 +2,7 @@ define("amber_core/Moka-Views", ["amber_vm/smalltalk", "amber_vm/nil", "amber_vm
 smalltalk.addPackage('Moka-Views');
 smalltalk.packages["Moka-Views"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('MKButtonView', smalltalk.MKSingleAspectView, ['default', 'label'], 'Moka-Views');
+smalltalk.addClass('MKButtonView', smalltalk.MKSingleAspectView, ['default', 'label', 'icon'], 'Moka-Views');
 smalltalk.MKButtonView.comment="I am a push button view. My default controller is `MKButtonController`.\x0a\x0aMy controller must answer to `#onPressed`.\x0a\x0a## API\x0a\x0a- Instances can be set a `default` button\x0a- Use `#label:` to set the label string";
 smalltalk.addMethod(
 smalltalk.method({
@@ -124,6 +124,58 @@ smalltalk.MKButtonView);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "hasIcon",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self["@icon"])._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"hasIcon",{},smalltalk.MKButtonView)})},
+args: [],
+source: "hasIcon\x0a\x09^ icon notNil",
+messageSends: ["notNil"],
+referencedClasses: []
+}),
+smalltalk.MKButtonView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "icon",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@icon"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"icon",{},smalltalk.MKButtonView)})},
+args: [],
+source: "icon\x0a\x09^ icon",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKButtonView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "icon:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@icon"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"icon:",{aString:aString},smalltalk.MKButtonView)})},
+args: ["aString"],
+source: "icon: aString\x0a\x09icon := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKButtonView);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "isDefault",
 category: 'testing',
 fn: function (){
@@ -191,11 +243,19 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=self._hasIcon();
+if(smalltalk.assert($1)){
+$2=_st(html)._img();
+_st($2)._class_("mk_icon");
+$3=_st($2)._src_(self._icon());
+$3;
+};
 _st(html)._with_(self._label());
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKButtonView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html with: self label",
-messageSends: ["with:", "label"],
+source: "renderContentOn: html\x0a\x09self hasIcon ifTrue: [\x0a\x09\x09html img \x0a\x09\x09\x09class: 'mk_icon';\x0a\x09\x09\x09src: self icon ].\x0a\x09html with: self label",
+messageSends: ["ifTrue:", "hasIcon", "class:", "img", "src:", "icon", "with:", "label"],
 referencedClasses: []
 }),
 smalltalk.MKButtonView);
@@ -429,6 +489,144 @@ referencedClasses: []
 }),
 smalltalk.MKSwitchView);
 
+
+
+smalltalk.addClass('MKImageView', smalltalk.MKLayoutView, ['imagePath', 'alternativeContents'], 'Moka-Views');
+smalltalk.MKImageView.comment="I display an image.\x0a\x0a##API\x0a\x0aCreate instances using `MKImageView class>>imagePath:`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alternativeContents",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@alternativeContents"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._imagePath();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"alternativeContents",{},smalltalk.MKImageView)})},
+args: [],
+source: "alternativeContents\x0a\x09^ alternativeContents ifNil: [ self imagePath ]",
+messageSends: ["ifNil:", "imagePath"],
+referencedClasses: []
+}),
+smalltalk.MKImageView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "alternativeContents:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@alternativeContents"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"alternativeContents:",{aString:aString},smalltalk.MKImageView)})},
+args: ["aString"],
+source: "alternativeContents: aString\x0a\x09alternativeContents := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKImageView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "imagePath",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@imagePath"];
+if(($receiver = $2) == nil || $receiver == null){
+$1="";
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"imagePath",{},smalltalk.MKImageView)})},
+args: [],
+source: "imagePath\x0a\x09^ imagePath ifNil: [ '' ]",
+messageSends: ["ifNil:"],
+referencedClasses: []
+}),
+smalltalk.MKImageView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "imagePath:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@imagePath"]=aString;
+return self}, function($ctx1) {$ctx1.fill(self,"imagePath:",{aString:aString},smalltalk.MKImageView)})},
+args: ["aString"],
+source: "imagePath: aString\x0a\x09imagePath := aString",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKImageView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=self["@root"];
+_st($1)._src_(self._imagePath());
+$2=_st($1)._alt_(self._alternativeContents());
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKImageView)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09root \x0a\x09\x09src: self imagePath;\x0a\x09\x09alt: self alternativeContents",
+messageSends: ["src:", "imagePath", "alt:", "alternativeContents"],
+referencedClasses: []
+}),
+smalltalk.MKImageView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "tag",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "img";
+}, function($ctx1) {$ctx1.fill(self,"tag",{},smalltalk.MKImageView)})},
+args: [],
+source: "tag\x0a\x09^ 'img'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKImageView);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "imagePath:",
+category: 'instance creation',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._imagePath_(aString);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"imagePath:",{aString:aString},smalltalk.MKImageView.klass)})},
+args: ["aString"],
+source: "imagePath: aString\x0a\x09^ self new\x0a\x09\x09imagePath: aString;\x0a\x09\x09yourself",
+messageSends: ["imagePath:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.MKImageView.klass);
 
 
 smalltalk.addClass('MKLabelView', smalltalk.MKSingleAspectView, [], 'Moka-Views');
@@ -971,8 +1169,8 @@ smalltalk.MKPanelView);
 
 
 
-smalltalk.addClass('MKSelectionView', smalltalk.MKAspectsView, ['selectionAspect', 'collectionAspect', 'displayBlock'], 'Moka-Views');
-smalltalk.MKSelectionView.comment="I an abstract selection view of a list of elements.";
+smalltalk.addClass('MKSelectionView', smalltalk.MKAspectsView, ['selectionAspect', 'collectionAspect', 'displayBlock', 'iconBlock'], 'Moka-Views');
+smalltalk.MKSelectionView.comment="I an abstract selection view of a list of elements.\x0a\x0a## API\x0a\x0aRendering can be customized with `#displayBlock:` and `#iconBlock:`. Both take the item of the list as argument and answer a string.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "collection",
@@ -1081,6 +1279,81 @@ return self}, function($ctx1) {$ctx1.fill(self,"displayBlock:",{aBlock:aBlock},s
 args: ["aBlock"],
 source: "displayBlock: aBlock\x0a\x09displayBlock := aBlock",
 messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKSelectionView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "hasIcon",
+category: 'testing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st(self._iconBlock())._notNil();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"hasIcon",{},smalltalk.MKSelectionView)})},
+args: [],
+source: "hasIcon\x0a\x09^ self iconBlock notNil",
+messageSends: ["notNil", "iconBlock"],
+referencedClasses: []
+}),
+smalltalk.MKSelectionView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "iconBlock",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@iconBlock"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"iconBlock",{},smalltalk.MKSelectionView)})},
+args: [],
+source: "iconBlock\x0a\x09^ iconBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKSelectionView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "iconBlock:",
+category: 'accessing',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@iconBlock"]=aBlock;
+return self}, function($ctx1) {$ctx1.fill(self,"iconBlock:",{aBlock:aBlock},smalltalk.MKSelectionView)})},
+args: ["aBlock"],
+source: "iconBlock: aBlock\x0a\x09iconBlock := aBlock",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKSelectionView);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderIconFor:on:",
+category: 'rendering',
+fn: function (anObject,html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2,$3;
+$1=self._hasIcon();
+if(smalltalk.assert($1)){
+$2=_st(html)._img();
+_st($2)._class_("mk_icon");
+$3=_st($2)._src_(_st(self._iconBlock())._value_(anObject));
+$3;
+};
+return self}, function($ctx1) {$ctx1.fill(self,"renderIconFor:on:",{anObject:anObject,html:html},smalltalk.MKSelectionView)})},
+args: ["anObject", "html"],
+source: "renderIconFor: anObject on: html\x0a\x09self hasIcon ifTrue: [\x0a\x09\x09html img \x0a\x09\x09\x09class: 'mk_icon';\x0a\x09\x09\x09src: (self iconBlock value: anObject) ]",
+messageSends: ["ifTrue:", "hasIcon", "class:", "img", "src:", "value:", "iconBlock"],
 referencedClasses: []
 }),
 smalltalk.MKSelectionView);
@@ -1234,6 +1507,8 @@ if(($receiver = $2) == nil || $receiver == null){
 $3=_st($MKDropdownListView())._model_collectionAspect_selectionAspect_(self._model(),self._collectionAspect(),self._selectionAspect());
 _st($3)._width_(self._width());
 _st($3)._height_("auto");
+_st($3)._displayBlock_(self._displayBlock());
+_st($3)._iconBlock_(self._iconBlock());
 $4=_st($3)._yourself();
 self["@listView"]=$4;
 $1=self["@listView"];
@@ -1243,8 +1518,8 @@ $1=$2;
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"listView",{},smalltalk.MKDropdownView)})},
 args: [],
-source: "listView\x0a\x09^ listView ifNil: [\x0a\x09\x09listView := (MKDropdownListView \x09\x0a\x09\x09\x09model: self model\x0a\x09\x09\x09collectionAspect: self collectionAspect\x0a\x09\x09\x09selectionAspect: self selectionAspect)\x0a\x09\x09\x09\x09width: self width;\x0a\x09\x09\x09\x09height: 'auto';\x0a\x09\x09\x09\x09yourself ]",
-messageSends: ["ifNil:", "width:", "model:collectionAspect:selectionAspect:", "model", "collectionAspect", "selectionAspect", "width", "height:", "yourself"],
+source: "listView\x0a\x09^ listView ifNil: [\x0a\x09\x09listView := (MKDropdownListView \x09\x0a\x09\x09\x09model: self model\x0a\x09\x09\x09collectionAspect: self collectionAspect\x0a\x09\x09\x09selectionAspect: self selectionAspect)\x0a\x09\x09\x09\x09width: self width;\x0a\x09\x09\x09\x09height: 'auto';\x0a\x09\x09\x09\x09displayBlock: self displayBlock;\x0a\x09\x09\x09\x09iconBlock: self iconBlock;\x0a\x09\x09\x09\x09yourself ]",
+messageSends: ["ifNil:", "width:", "model:collectionAspect:selectionAspect:", "model", "collectionAspect", "selectionAspect", "width", "height:", "displayBlock:", "displayBlock", "iconBlock:", "iconBlock", "yourself"],
 referencedClasses: ["MKDropdownListView"]
 }),
 smalltalk.MKDropdownView);
@@ -1314,12 +1589,16 @@ category: 'rendering',
 fn: function (html){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
+var $1;
 _st(_st(html)._div())._class_("mk_dropdown_arrows");
+$1=self._selectedItem();
+$ctx1.sendIdx["selectedItem"]=1;
+self._renderIconFor_on_($1,html);
 _st(html)._with_(_st(self._displayBlock())._value_(self._selectedItem()));
 return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKDropdownView)})},
 args: ["html"],
-source: "renderContentOn: html\x0a\x09html div class: 'mk_dropdown_arrows'.\x0a\x09html with: (self displayBlock value: self selectedItem)",
-messageSends: ["class:", "div", "with:", "value:", "displayBlock", "selectedItem"],
+source: "renderContentOn: html\x0a\x09html div class: 'mk_dropdown_arrows'.\x0a\x09self renderIconFor: self selectedItem on: html.\x0a\x09html with: (self displayBlock value: self selectedItem)",
+messageSends: ["class:", "div", "renderIconFor:on:", "selectedItem", "with:", "value:", "displayBlock"],
 referencedClasses: []
 }),
 smalltalk.MKDropdownView);
@@ -1649,11 +1928,16 @@ $1=_st(self._selectedItem()).__eq(anObject);
 if(smalltalk.assert($1)){
 _st(li)._class_(self._selectedCssClass());
 };
+_st(li)._with_((function(){
+return smalltalk.withContext(function($ctx2) {
+return self._renderIconFor_on_(anObject,html);
+}, function($ctx2) {$ctx2.fillBlock({},$ctx1,2)})}));
+$ctx1.sendIdx["with:"]=1;
 _st(li)._with_(_st(self._displayBlock())._value_(anObject));
 return self}, function($ctx1) {$ctx1.fill(self,"renderItem:on:",{anObject:anObject,html:html,li:li},smalltalk.MKListView)})},
 args: ["anObject", "html"],
-source: "renderItem: anObject on: html\x0a\x09| li |\x0a\x09\x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: anObject.\x0a\x09\x0a\x09self selectedItem = anObject ifTrue: [\x0a\x09\x09li class: self selectedCssClass ].\x09\x0a\x09li with: (self displayBlock value: anObject)",
-messageSends: ["li", "data:put:", "asJQuery", "ifTrue:", "=", "selectedItem", "class:", "selectedCssClass", "with:", "value:", "displayBlock"],
+source: "renderItem: anObject on: html\x0a\x09| li |\x0a\x09\x0a\x09li := html li.\x0a\x09li asJQuery data: 'item' put: anObject.\x0a\x09\x0a\x09self selectedItem = anObject ifTrue: [\x0a\x09\x09li class: self selectedCssClass ].\x0a\x09li with: [ self renderIconFor: anObject on: html ].\x0a\x09li with: (self displayBlock value: anObject)",
+messageSends: ["li", "data:put:", "asJQuery", "ifTrue:", "=", "selectedItem", "class:", "selectedCssClass", "with:", "renderIconFor:on:", "value:", "displayBlock"],
 referencedClasses: []
 }),
 smalltalk.MKListView);

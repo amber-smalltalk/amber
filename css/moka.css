@@ -11,7 +11,6 @@
 .mk_default {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;
@@ -39,7 +38,6 @@
 .moka_view.mk_label {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;
@@ -123,7 +121,6 @@
 .moka_view .mk_control:focus {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;
@@ -158,7 +155,6 @@
 .moka_view.mk_button {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;
@@ -229,7 +225,6 @@
 .moka_view.mk_textarea {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;
@@ -289,7 +284,6 @@
 .moka_view.mk_switch {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;
@@ -385,7 +379,6 @@
   user-select: none;
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   margin: 0;
@@ -459,10 +452,15 @@
   color: white;
   font-weight: bold;
 }
+.moka_view .mk_icon {
+  vertical-align: middle;
+  margin: -100px 2px;
+  position: relative;
+  top: -1px;
+}
 .moka_view.mk_dropdown {
   font-size: 12px;
   font-family: "Open Sans";
-  line-height: 1.5em;
   color: #444444;
   text-shadow: 0 1px 0 white;
   padding: 0;

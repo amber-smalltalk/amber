@@ -9,7 +9,7 @@ build
 	MKPaneView new
 		height: 150;
 		addView: ((MKScrollDecorator decorate:
-			(MKListView 	
+			(MKListView
 				model: MKClassesModel new
 				collectionAspect: #classes
 				selectionAspect: #selectedClass))

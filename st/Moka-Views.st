@@ -1,6 +1,6 @@
 Smalltalk current createPackage: 'Moka-Views'!
 MKSingleAspectView subclass: #MKButtonView
-	instanceVariableNames: 'default label'
+	instanceVariableNames: 'default label icon'
 	package: 'Moka-Views'!
 !MKButtonView commentStamp!
 I am a push button view. My default controller is `MKButtonController`.
@@ -27,6 +27,14 @@ default
 
 default: aBoolean
 	default := aBoolean
+!
+
+icon
+	^ icon
+!
+
+icon: aString
+	icon := aString
 !
 
 label
@@ -61,10 +69,18 @@ defaultLayout
 !MKButtonView methodsFor: 'rendering'!
 
 renderContentOn: html
+	self hasIcon ifTrue: [
+		html img 
+			class: 'mk_icon';
+			src: self icon ].
 	html with: self label
 ! !
 
 !MKButtonView methodsFor: 'testing'!
+
+hasIcon
+	^ icon notNil
+!
 
 isDefault
 	^ self default ifNil: [ false ]
@@ -150,6 +166,54 @@ defaultLayout
 	^ super defaultLayout
 		width: 48;
 		height: 20;
+		yourself
+! !
+
+MKLayoutView subclass: #MKImageView
+	instanceVariableNames: 'imagePath alternativeContents'
+	package: 'Moka-Views'!
+!MKImageView commentStamp!
+I display an image.
+
+##API
+
+Create instances using `MKImageView class>>imagePath:`.!
+
+!MKImageView methodsFor: 'accessing'!
+
+alternativeContents
+	^ alternativeContents ifNil: [ self imagePath ]
+!
+
+alternativeContents: aString
+	alternativeContents := aString
+!
+
+imagePath
+	^ imagePath ifNil: [ '' ]
+!
+
+imagePath: aString
+	imagePath := aString
+!
+
+tag
+	^ 'img'
+! !
+
+!MKImageView methodsFor: 'rendering'!
+
+renderContentOn: html
+	root 
+		src: self imagePath;
+		alt: self alternativeContents
+! !
+
+!MKImageView class methodsFor: 'instance creation'!
+
+imagePath: aString
+	^ self new
+		imagePath: aString;
 		yourself
 ! !
 
@@ -354,10 +418,14 @@ cssClass
 ! !
 
 MKAspectsView subclass: #MKSelectionView
-	instanceVariableNames: 'selectionAspect collectionAspect displayBlock'
+	instanceVariableNames: 'selectionAspect collectionAspect displayBlock iconBlock'
 	package: 'Moka-Views'!
 !MKSelectionView commentStamp!
-I an abstract selection view of a list of elements.!
+I an abstract selection view of a list of elements.
+
+## API
+
+Rendering can be customized with `#displayBlock:` and `#iconBlock:`. Both take the item of the list as argument and answer a string.!
 
 !MKSelectionView methodsFor: 'accessing'!
 
@@ -381,6 +449,14 @@ displayBlock: aBlock
 	displayBlock := aBlock
 !
 
+iconBlock
+	^ iconBlock
+!
+
+iconBlock: aBlock
+	iconBlock := aBlock
+!
+
 selectedItem
 	^ self valueForAspect: self selectionAspect
 !
@@ -397,6 +473,21 @@ selectionAspect: aSelector
 
 defaultDisplayBlock
 	^ [ :item | item asString ]
+! !
+
+!MKSelectionView methodsFor: 'rendering'!
+
+renderIconFor: anObject on: html
+	self hasIcon ifTrue: [
+		html img 
+			class: 'mk_icon';
+			src: (self iconBlock value: anObject) ]
+! !
+
+!MKSelectionView methodsFor: 'testing'!
+
+hasIcon
+	^ self iconBlock notNil
 ! !
 
 !MKSelectionView class methodsFor: 'instance creation'!
@@ -469,6 +560,7 @@ defaultLayout
 
 renderContentOn: html
 	html div class: 'mk_dropdown_arrows'.
+	self renderIconFor: self selectedItem on: html.
 	html with: (self displayBlock value: self selectedItem)
 ! !
 
@@ -482,6 +574,8 @@ listView
 			selectionAspect: self selectionAspect)
 				width: self width;
 				height: 'auto';
+				displayBlock: self displayBlock;
+				iconBlock: self iconBlock;
 				yourself ]
 !
 
@@ -594,7 +688,8 @@ renderItem: anObject on: html
 	li asJQuery data: 'item' put: anObject.
 	
 	self selectedItem = anObject ifTrue: [
-		li class: self selectedCssClass ].	
+		li class: self selectedCssClass ].
+	li with: [ self renderIconFor: anObject on: html ].
 	li with: (self displayBlock value: anObject)
 ! !
 
