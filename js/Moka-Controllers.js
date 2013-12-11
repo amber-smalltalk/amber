@@ -241,6 +241,7 @@ smalltalk.MKDropdownController);
 
 
 smalltalk.addClass('MKListController', smalltalk.MKAspectsController, ['downRepeater', 'upRepeater'], 'Moka-Controllers');
+smalltalk.MKListController.comment="I am the default controller for `MKListView`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateItem:",
@@ -522,6 +523,7 @@ smalltalk.MKListController);
 
 
 smalltalk.addClass('MKDropdownListController', smalltalk.MKListController, [], 'Moka-Controllers');
+smalltalk.MKDropdownListController.comment="I am the default controller for `MKDropdownView`'s popup list.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "activateItem:",
@@ -589,6 +591,7 @@ smalltalk.MKDropdownListController);
 
 
 smalltalk.addClass('MKModalController', smalltalk.MKSingleAspectController, [], 'Moka-Controllers');
+smalltalk.MKModalController.comment="I am the default controller for `MKModalDecorator`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "onClick:",

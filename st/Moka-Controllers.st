@@ -104,6 +104,8 @@ onKeyDown: anEvent
 MKAspectsController subclass: #MKListController
 	instanceVariableNames: 'downRepeater upRepeater'
 	package: 'Moka-Controllers'!
+!MKListController commentStamp!
+I am the default controller for `MKListView`.!
 
 !MKListController methodsFor: 'accessing'!
 
@@ -182,6 +184,8 @@ previousItem
 MKListController subclass: #MKDropdownListController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
+!MKDropdownListController commentStamp!
+I am the default controller for `MKDropdownView`'s popup list.!
 
 !MKDropdownListController methodsFor: 'actions'!
 
@@ -209,6 +213,8 @@ onMouseMove: anEvent
 MKSingleAspectController subclass: #MKModalController
 	instanceVariableNames: ''
 	package: 'Moka-Controllers'!
+!MKModalController commentStamp!
+I am the default controller for `MKModalDecorator`.!
 
 !MKModalController methodsFor: 'actions'!
 
