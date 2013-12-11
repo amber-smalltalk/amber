@@ -94,7 +94,9 @@ function inherits(child, parent) {
 
 /* Smalltalk foundational objects */
 
+function SmalltalkRoot() {}
 function SmalltalkObject() {}
+inherits(SmalltalkObject, SmalltalkRoot);
 
 function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
@@ -180,6 +182,7 @@ function DNUBrik(brikz, st) {
 		checker[selector] = true;
 		var method = {jsSelector: selector, fn: createHandler(selector)};
 		methods.push(method);
+		manip.installMethod(method, {fn: SmalltalkRoot});
 		return method;
 	};
 
@@ -224,7 +227,7 @@ function ClassInitBrik(brikz, st) {
 			copySuperclass(klass);
 		}
 
-		if(klass === st.Object || klass.wrapped) {
+		if(klass.wrapped) {
 			dnu.installHandlers(klass);
 		}
 	};
@@ -433,8 +436,8 @@ function ClassesBrik(brikz, st) {
 	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
 		var pkg = st.packages[pkgName];
 
-		if (!pkg) { 
-			throw new Error("Missing package "+pkgName); 
+		if (!pkg) {
+			throw new Error("Missing package "+pkgName);
 		}
 
 		if(st[className] && st[className].superclass == superclass) {
