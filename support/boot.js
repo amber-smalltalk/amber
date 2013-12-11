@@ -310,13 +310,15 @@ function ClassesBrik(brikz, st) {
 
 	SmalltalkMetaclass.prototype.meta = true;
 
+	var nilKlass;
+
 	this.__init__ = function () {
 		st.addPackage("Kernel-Classes");
 		st.wrapClassName("Behavior", "Kernel-Classes", SmalltalkBehavior, st.Object, false);
 		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
 
-		st.Object.klass.superclass = st.Class;
+		st.Object.klass.superclass = nilKlass = st.Class;
 		addSubclass(st.Object.klass);
 
 		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
@@ -351,7 +353,11 @@ function ClassesBrik(brikz, st) {
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
 
-		that.fn = spec.fn || inherits(function () {}, spec.superclass.fn);
+		if(spec.superclass) {
+			that.superclass = spec.superclass;
+		}
+
+		that.fn = spec.fn || inherits(function () {}, spec.superclass ? spec.superclass.fn : SmalltalkRoot);
 		that.subclasses = [];
 
 		setupClass(that, spec);
@@ -359,10 +365,7 @@ function ClassesBrik(brikz, st) {
 		that.className = spec.className;
 		that.wrapped   = spec.wrapped || false;
 		meta.className = spec.className + ' class';
-		if(spec.superclass) {
-			that.superclass = spec.superclass;
-			meta.superclass = spec.superclass.klass;
-		}
+		meta.superclass = spec.superclass ? spec.superclass.klass : nilKlass;
 		return that;
 	}
 
