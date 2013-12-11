@@ -492,7 +492,7 @@ smalltalk.MKSwitchView);
 
 
 smalltalk.addClass('MKImageView', smalltalk.MKLayoutView, ['imagePath', 'alternativeContents'], 'Moka-Views');
-smalltalk.MKImageView.comment="I display an image.\x0a\x0a##API\x0a\x0aCreate instances using `MKImageView class>>imagePath:`.";
+smalltalk.MKImageView.comment="I display an image. \x0a\x0aNote that several views support adding icons using either `#icon:` or `#iconBlock:`.\x0a\x0a##API\x0a\x0aCreate instances using `MKImageView class>>imagePath:`.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "alternativeContents",

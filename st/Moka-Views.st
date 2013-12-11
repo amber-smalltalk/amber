@@ -173,7 +173,9 @@ MKLayoutView subclass: #MKImageView
 	instanceVariableNames: 'imagePath alternativeContents'
 	package: 'Moka-Views'!
 !MKImageView commentStamp!
-I display an image.
+I display an image. 
+
+Note that several views support adding icons using either `#icon:` or `#iconBlock:`.
 
 ##API
 
