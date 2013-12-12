@@ -1822,16 +1822,15 @@ selector: "style",
 category: 'tags',
 fn: function (){
 var self=this;
-function $StyleTag(){return smalltalk.StyleTag||(typeof StyleTag=="undefined"?nil:StyleTag)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@root"])._addBrush_(_st($StyleTag())._canvas_(self));
+$1=self._tag_("style");
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"style",{},smalltalk.HTMLCanvas)})},
 args: [],
-source: "style\x0a\x09^ root addBrush: (StyleTag canvas: self)",
-messageSends: ["addBrush:", "canvas:"],
-referencedClasses: ["StyleTag"]
+source: "style\x0a\x09^ self tag: 'style'",
+messageSends: ["tag:"],
+referencedClasses: []
 }),
 smalltalk.HTMLCanvas);
 
@@ -2195,26 +2194,6 @@ return $1;
 args: [],
 source: "browserVersion\x0a\x09^ (jQuery at: #browser) version",
 messageSends: ["version", "at:"],
-referencedClasses: []
-}),
-smalltalk.HTMLCanvas.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "isMSIE",
-category: 'instance creation',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=_st(_st(jQuery)._at_("browser"))._at_("msie");
-$ctx1.sendIdx["at:"]=1;
-$1=_st($2)._notNil();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"isMSIE",{},smalltalk.HTMLCanvas.klass)})},
-args: [],
-source: "isMSIE\x0a\x09^ ((jQuery at: #browser) at: #msie) notNil",
-messageSends: ["notNil", "at:"],
 referencedClasses: []
 }),
 smalltalk.HTMLCanvas.klass);
@@ -3740,54 +3719,6 @@ messageSends: ["initializeFromString:canvas:", "new", "yourself"],
 referencedClasses: []
 }),
 smalltalk.TagBrush.klass);
-
-
-smalltalk.addClass('StyleTag', smalltalk.TagBrush, [], 'Canvas');
-smalltalk.StyleTag.comment="I'm a `<style>` tag use to inline CSS or load a stylesheet.\x0a\x0a## Motivation\x0a\x0aThe need for a specific class comes from Internet Explorer compatibility issues.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "with:",
-category: 'adding',
-fn: function (aString){
-var self=this;
-function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($HTMLCanvas())._isMSIE();
-if(smalltalk.assert($1)){
-_st(_st(self._element())._styleSheet())._cssText_(aString);
-} else {
-smalltalk.StyleTag.superclass.fn.prototype._with_.apply(_st(self), [aString]);
-};
-return self}, function($ctx1) {$ctx1.fill(self,"with:",{aString:aString},smalltalk.StyleTag)})},
-args: ["aString"],
-source: "with: aString\x0a\x09HTMLCanvas isMSIE\x0a\x09\x09ifTrue: [ self element styleSheet cssText: aString ]\x0a\x09\x09ifFalse: [ super with: aString ].",
-messageSends: ["ifTrue:ifFalse:", "isMSIE", "cssText:", "styleSheet", "element", "with:"],
-referencedClasses: ["HTMLCanvas"]
-}),
-smalltalk.StyleTag);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "canvas:",
-category: 'instance creation',
-fn: function (aCanvas){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._initializeFromString_canvas_("style",aCanvas);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"canvas:",{aCanvas:aCanvas},smalltalk.StyleTag.klass)})},
-args: ["aCanvas"],
-source: "canvas: aCanvas\x0a\x09^ self new\x0a\x09\x09initializeFromString: 'style' canvas: aCanvas;\x0a\x09\x09yourself",
-messageSends: ["initializeFromString:canvas:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.StyleTag.klass);
 
 
 smalltalk.addClass('Widget', smalltalk.InterfacingObject, [], 'Canvas');

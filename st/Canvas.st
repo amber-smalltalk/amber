@@ -470,7 +470,7 @@ strong: anObject
 !
 
 style
-	^ root addBrush: (StyleTag canvas: self)
+	^ self tag: 'style'
 !
 
 style: aString
@@ -549,10 +549,6 @@ video
 
 browserVersion
 	^ (jQuery at: #browser) version
-!
-
-isMSIE
-	^ ((jQuery at: #browser) at: #msie) notNil
 !
 
 isMozilla
@@ -1064,32 +1060,6 @@ fromString: aString canvas: aCanvas
 	^ self new
 	initializeFromString: aString canvas: aCanvas;
 	yourself
-! !
-
-TagBrush subclass: #StyleTag
-	instanceVariableNames: ''
-	package: 'Canvas'!
-!StyleTag commentStamp!
-I'm a `<style>` tag use to inline CSS or load a stylesheet.
-
-## Motivation
-
-The need for a specific class comes from Internet Explorer compatibility issues.!
-
-!StyleTag methodsFor: 'adding'!
-
-with: aString
-	HTMLCanvas isMSIE
-		ifTrue: [ self element styleSheet cssText: aString ]
-		ifFalse: [ super with: aString ].
-! !
-
-!StyleTag class methodsFor: 'instance creation'!
-
-canvas: aCanvas
-	^ self new
-		initializeFromString: 'style' canvas: aCanvas;
-		yourself
 ! !
 
 InterfacingObject subclass: #Widget
