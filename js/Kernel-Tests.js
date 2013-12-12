@@ -4218,19 +4218,13 @@ fn: function (){
 var self=this;
 var testObject;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
 testObject=self._jsObject();
-$2=_st(testObject)._value();
-$ctx1.sendIdx["value"]=1;
-$1=_st($2)._printString();
-self._assert_equals_($1,"[object Object]");
-$ctx1.sendIdx["assert:equals:"]=1;
 _st(testObject)._at_put_("value","aValue");
 self._assert_equals_(_st(testObject)._value(),"aValue");
 return self}, function($ctx1) {$ctx1.fill(self,"testValue",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
 args: [],
-source: "testValue\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09self assert: testObject value printString equals: '[object Object]'.\x0a\x09testObject at: 'value' put: 'aValue'.\x0a\x09self assert: testObject value equals: 'aValue'",
-messageSends: ["jsObject", "assert:equals:", "printString", "value", "at:put:"],
+source: "testValue\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09testObject at: 'value' put: 'aValue'.\x0a\x09self assert: testObject value equals: 'aValue'",
+messageSends: ["jsObject", "at:put:", "assert:equals:", "value"],
 referencedClasses: []
 }),
 smalltalk.JSObjectProxyTest);

@@ -373,15 +373,15 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-	var hash=self.identityHash;
-	if (hash) return hash;
-	hash=smalltalk.nextId();
-	Object.defineProperty(self, 'identityHash', {value:hash});
-	return hash;
+		var hash=self.identityHash;
+		if (hash) return hash;
+		hash=smalltalk.nextId();
+		Object.defineProperty(self, 'identityHash', {value:hash});
+		return hash;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.Object)})},
 args: [],
-source: "identityHash\x0a\x09<\x0a\x09var hash=self.identityHash;\x0a\x09if (hash) return hash;\x0a\x09hash=smalltalk.nextId();\x0a\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09return hash;\x0a\x09>",
+source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -1002,24 +1002,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"subclassResponsibility",{},small
 args: [],
 source: "subclassResponsibility\x0a\x09self error: 'This method is a responsibility of a subclass'",
 messageSends: ["error:"],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "test",
-category: 'converting',
-fn: function (){
-var self=this;
-var a;
-return smalltalk.withContext(function($ctx1) { 
-a=(1);
-self._halt();
-return self}, function($ctx1) {$ctx1.fill(self,"test",{a:a},smalltalk.Object)})},
-args: [],
-source: "test\x0a\x09| a |\x0a\x09a := 1.\x0a\x09self halt",
-messageSends: ["halt"],
 referencedClasses: []
 }),
 smalltalk.Object);
