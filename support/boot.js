@@ -94,6 +94,8 @@ function inherits(child, parent) {
 
 /* Smalltalk foundational objects */
 
+/* SmalltalkRoot is the hidden root of the Amber hierarchy.
+ All objects including `Object` inherit from SmalltalkRoot */
 function SmalltalkRoot() {}
 function SmalltalkObject() {}
 inherits(SmalltalkObject, SmalltalkRoot);
@@ -111,6 +113,7 @@ function RootBrik(brikz, st) {
 
 	this.nil = new SmalltalkNil();
 
+	// Hidden root class of the system.
 	this.rootAsClass = {fn: SmalltalkRoot};
 
 	this.__init__ = function () {
@@ -322,6 +325,7 @@ function ClassesBrik(brikz, st) {
 		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
 
+		// Manually bootstrap the metaclass hierarchy
 		st.Object.klass.superclass = rootAsClass.klass = st.Class;
 		addSubclass(st.Object.klass);
 
