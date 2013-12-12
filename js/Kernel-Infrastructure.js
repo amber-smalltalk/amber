@@ -2,6 +2,624 @@ define("amber_core/Kernel-Infrastructure", ["amber_vm/smalltalk", "amber_vm/nil"
 smalltalk.addPackage('Kernel-Infrastructure');
 smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+smalltalk.addClass('AbstractProxy', smalltalk.nil, [], 'Kernel-Infrastructure');
+smalltalk.AbstractProxy.comment="I provide a basic set of methods for proxies handling `#doesNotUnderstand:` so that inspectors, debuggers, etc. won't fail.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asString",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._printString();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "asString\x0a\x09^ self printString",
+messageSends: ["printString"],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "class",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.klass;
+return self}, function($ctx1) {$ctx1.fill(self,"class",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "class\x0a\x09<return self.klass>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doesNotUnderstand:",
+category: 'error handling',
+fn: function (aMessage){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($MessageNotUnderstood())._new();
+_st($1)._receiver_(self);
+_st($1)._message_(aMessage);
+$2=_st($1)._signal();
+return self}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.AbstractProxy)})},
+args: ["aMessage"],
+source: "doesNotUnderstand: aMessage\x0a\x09MessageNotUnderstood new\x0a\x09\x09receiver: self;\x0a\x09\x09message: aMessage;\x0a\x09\x09signal",
+messageSends: ["receiver:", "new", "message:", "signal"],
+referencedClasses: ["MessageNotUnderstood"]
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "identityHash",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var hash=self.identityHash;
+		if (hash) return hash;
+		hash=smalltalk.nextId();
+		Object.defineProperty(self, 'identityHash', {value:hash});
+		return hash;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "initialize",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect",
+category: 'inspecting',
+fn: function (){
+var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($InspectorHandler())._inspect_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "inspect\x0a\x09InspectorHandler inspect: self",
+messageSends: ["inspect:"],
+referencedClasses: ["InspectorHandler"]
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: 'inspecting',
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector},smalltalk.AbstractProxy)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "instVarAt:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return self['@'+aString] ;
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},smalltalk.AbstractProxy)})},
+args: ["aString"],
+source: "instVarAt: aString\x0a\x09< return self['@'+aString] >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "instVarAt:put:",
+category: 'accessing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ self['@' + aString] = anObject ;
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},smalltalk.AbstractProxy)})},
+args: ["aString", "anObject"],
+source: "instVarAt: aString put: anObject\x0a\x09< self['@' + aString] = anObject >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "perform:",
+category: 'message handling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._perform_withArguments_(aString,[]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"perform:",{aString:aString},smalltalk.AbstractProxy)})},
+args: ["aString"],
+source: "perform: aString\x0a\x09^ self perform: aString withArguments: #()",
+messageSends: ["perform:withArguments:"],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "perform:withArguments:",
+category: 'message handling',
+fn: function (aString,aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.send(self, aString._asSelector(), aCollection);
+return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.AbstractProxy)})},
+args: ["aString", "aCollection"],
+source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printOn:",
+category: 'printing',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $5,$4,$3,$2,$1;
+$5=self._class();
+$ctx1.sendIdx["class"]=1;
+$4=_st($5)._name();
+$ctx1.sendIdx["name"]=1;
+$3=_st($4)._first();
+$2=_st($3)._isVowel();
+if(smalltalk.assert($2)){
+$1="an ";
+} else {
+$1="a ";
+};
+_st(aStream)._nextPutAll_($1);
+$ctx1.sendIdx["nextPutAll:"]=1;
+_st(aStream)._nextPutAll_(_st(self._class())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.AbstractProxy)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: (self class name first isVowel\x0a\x09\x09ifTrue: [ 'an ' ]\x0a\x09\x09ifFalse: [ 'a ' ]).\x0a\x09aStream nextPutAll: self class name",
+messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "class"],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($String())._streamContents_((function(str){
+return smalltalk.withContext(function($ctx2) {
+return self._printOn_(str);
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "printString\x0a\x09^ String streamContents: [ :str | \x0a\x09\x09self printOn: str ]",
+messageSends: ["streamContents:", "printOn:"],
+referencedClasses: ["String"]
+}),
+smalltalk.AbstractProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "yourself",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self;
+}, function($ctx1) {$ctx1.fill(self,"yourself",{},smalltalk.AbstractProxy)})},
+args: [],
+source: "yourself\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+category: 'helios',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "class";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.AbstractProxy.klass)})},
+args: [],
+source: "heliosClass\x0a\x09^ 'class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.AbstractProxy.klass)})},
+args: [],
+source: "initialize",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.AbstractProxy.klass);
+
+
+smalltalk.addClass('JSObjectProxy', smalltalk.AbstractProxy, ['jsObject'], 'Kernel-Infrastructure');
+smalltalk.JSObjectProxy.comment="I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.\x0aMy instances make intensive use of `#doesNotUnderstand:`.\x0a\x0aMy instances are automatically created by Amber whenever a message is sent to a JavaScript object.\x0a\x0a## Usage examples\x0a\x0aJSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.\x0a\x0a\x09window alert: 'hello world'.\x0a\x09window inspect.\x0a\x09(window jQuery: 'body') append: 'hello world'\x0a\x0aAmber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.\x0a\x0a## Message conversion rules\x0a\x0a- `someUser name` becomes `someUser.name`\x0a- `someUser name: 'John'` becomes `someUser name = \x22John\x22`\x0a- `console log: 'hello world'` becomes `console.log('hello world')`\x0a- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`\x0a\x0a__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "addObjectVariablesTo:",
+category: 'proxy',
+fn: function (aDictionary){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, self['@jsObject'][i]);
+		}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},smalltalk.JSObjectProxy)})},
+args: ["aDictionary"],
+source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asJSON",
+category: 'enumerating',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@jsObject"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.JSObjectProxy)})},
+args: [],
+source: "asJSON\x0a\x09\x22Answers the receiver in a stringyfy-friendly fashion\x22\x0a\x0a\x09^ jsObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self['@jsObject'][aString];
+return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.JSObjectProxy)})},
+args: ["aString"],
+source: "at: aString\x0a\x09<return self['@jsObject'][aString]>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifAbsent:",
+category: 'accessing',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var obj = self['@jsObject'];
+		return aString in obj ? obj[aString] : aBlock._value();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+args: ["aString", "aBlock"],
+source: "at: aString ifAbsent: aBlock\x0a\x09\x22return the aString property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? obj[aString] : aBlock._value();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifPresent:",
+category: 'accessing',
+fn: function (aString,aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock._value_(obj[aString]) : nil;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
+args: ["aString", "aBlock"],
+source: "at: aString ifPresent: aBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined or return nil\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : nil;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:ifPresent:ifAbsent:",
+category: 'accessing',
+fn: function (aString,aBlock,anotherBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
+args: ["aString", "aBlock", "anotherBlock"],
+source: "at: aString ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined\x0a\x09or return value of anotherBlock\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "at:put:",
+category: 'accessing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self['@jsObject'][aString] = anObject;
+return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.JSObjectProxy)})},
+args: ["aString", "anObject"],
+source: "at: aString put: anObject\x0a\x09<self['@jsObject'][aString] = anObject>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doesNotUnderstand:",
+category: 'proxy',
+fn: function (aMessage){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
+if(($receiver = $2) == nil || $receiver == null){
+$1=smalltalk.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
+} else {
+var jsSelector;
+jsSelector=$receiver;
+$1=self._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
+args: ["aMessage"],
+source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
+messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptSelector", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "forwardMessage:withArguments:",
+category: 'proxy',
+fn: function (aString,anArray){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		return smalltalk.send(self._jsObject(), aString, anArray);
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},smalltalk.JSObjectProxy)})},
+args: ["aString", "anArray"],
+source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: 'proxy',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self._jsObject());
+_st(anInspector)._setLabel_(self._printString());
+self._addObjectVariablesTo_(variables);
+_st(anInspector)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.JSObjectProxy)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
+messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsObject",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self["@jsObject"];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"jsObject",{},smalltalk.JSObjectProxy)})},
+args: [],
+source: "jsObject\x0a\x09^ jsObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "jsObject:",
+category: 'accessing',
+fn: function (aJSObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@jsObject"]=aJSObject;
+return self}, function($ctx1) {$ctx1.fill(self,"jsObject:",{aJSObject:aJSObject},smalltalk.JSObjectProxy)})},
+args: ["aJSObject"],
+source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "keysAndValuesDo:",
+category: 'enumerating',
+fn: function (aBlock){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var o = self['@jsObject'];
+		for(var i in o) {
+			aBlock._value_value_(i, o[i]);
+		}
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.JSObjectProxy)})},
+args: ["aBlock"],
+source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "lookupProperty:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return aString in self._jsObject() ? aString : nil;
+return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},smalltalk.JSObjectProxy)})},
+args: ["aString"],
+source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printOn:",
+category: 'printing',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(aStream)._nextPutAll_(self._printString());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: self printString",
+messageSends: ["nextPutAll:", "printString"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
+args: [],
+source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "on:",
+category: 'instance creation',
+fn: function (aJSObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._new();
+_st($2)._jsObject_(aJSObject);
+$3=_st($2)._yourself();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject},smalltalk.JSObjectProxy.klass)})},
+args: ["aJSObject"],
+source: "on: aJSObject\x0a\x09^ self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
+messageSends: ["jsObject:", "new", "yourself"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxy.klass);
+
+
 smalltalk.addClass('InspectorHandler', smalltalk.Object, [], 'Kernel-Infrastructure');
 smalltalk.InspectorHandler.comment="I am responsible for inspecting object.\x0a\x0aMy class-side `inspector` inst var holds the current inspector I'm delegating object inspection to.\x0a\x0aThe default inspector object is the transcript.";
 
@@ -803,352 +1421,6 @@ referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
 
-
-
-smalltalk.addClass('JSObjectProxy', smalltalk.Object, ['jsObject'], 'Kernel-Infrastructure');
-smalltalk.JSObjectProxy.comment="I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.\x0aMy instances make intensive use of `#doesNotUnderstand:`.\x0a\x0aMy instances are automatically created by Amber whenever a message is sent to a JavaScript object.\x0a\x0a## Usage examples\x0a\x0aJSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.\x0a\x0a\x09window alert: 'hello world'.\x0a\x09window inspect.\x0a\x09(window jQuery: 'body') append: 'hello world'\x0a\x0aAmber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.\x0a\x0a## Message conversion rules\x0a\x0a- `someUser name` becomes `someUser.name`\x0a- `someUser name: 'John'` becomes `someUser name = \x22John\x22`\x0a- `console log: 'hello world'` becomes `console.log('hello world')`\x0a- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`\x0a\x0a__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.";
-smalltalk.addMethod(
-smalltalk.method({
-selector: "addObjectVariablesTo:",
-category: 'proxy',
-fn: function (aDictionary){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, self['@jsObject'][i]);
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"addObjectVariablesTo:",{aDictionary:aDictionary},smalltalk.JSObjectProxy)})},
-args: ["aDictionary"],
-source: "addObjectVariablesTo: aDictionary\x0a\x09<\x0a\x09\x09for(var i in self['@jsObject']) {\x0a\x09\x09\x09aDictionary._at_put_(i, self['@jsObject'][i]);\x0a\x09\x09}\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "asJSON",
-category: 'enumerating',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@jsObject"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asJSON",{},smalltalk.JSObjectProxy)})},
-args: [],
-source: "asJSON\x0a\x09\x22Answers the receiver in a stringyfy-friendly fashion\x22\x0a\x0a\x09^ jsObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self['@jsObject'][aString];
-return self}, function($ctx1) {$ctx1.fill(self,"at:",{aString:aString},smalltalk.JSObjectProxy)})},
-args: ["aString"],
-source: "at: aString\x0a\x09<return self['@jsObject'][aString]>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:ifAbsent:",
-category: 'accessing',
-fn: function (aString,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var obj = self['@jsObject'];
-		return aString in obj ? obj[aString] : aBlock._value();
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifAbsent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
-args: ["aString", "aBlock"],
-source: "at: aString ifAbsent: aBlock\x0a\x09\x22return the aString property or evaluate aBlock if the property is not defined on the object\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? obj[aString] : aBlock._value();\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:ifPresent:",
-category: 'accessing',
-fn: function (aString,aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var obj = self['@jsObject'];
-		return aString in obj ? aBlock._value_(obj[aString]) : nil;
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:",{aString:aString,aBlock:aBlock},smalltalk.JSObjectProxy)})},
-args: ["aString", "aBlock"],
-source: "at: aString ifPresent: aBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined or return nil\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : nil;\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:ifPresent:ifAbsent:",
-category: 'accessing',
-fn: function (aString,aBlock,anotherBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var obj = self['@jsObject'];
-		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"at:ifPresent:ifAbsent:",{aString:aString,aBlock:aBlock,anotherBlock:anotherBlock},smalltalk.JSObjectProxy)})},
-args: ["aString", "aBlock", "anotherBlock"],
-source: "at: aString ifPresent: aBlock ifAbsent: anotherBlock\x0a\x09\x22return the evaluation of aBlock with the value if the property is defined\x0a\x09or return value of anotherBlock\x22\x0a\x09<\x0a\x09\x09var obj = self['@jsObject'];\x0a\x09\x09return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "at:put:",
-category: 'accessing',
-fn: function (aString,anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self['@jsObject'][aString] = anObject;
-return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.JSObjectProxy)})},
-args: ["aString", "anObject"],
-source: "at: aString put: anObject\x0a\x09<self['@jsObject'][aString] = anObject>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "doesNotUnderstand:",
-category: 'proxy',
-fn: function (aMessage){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self._lookupProperty_(_st(_st(aMessage)._selector())._asJavaScriptSelector());
-if(($receiver = $2) == nil || $receiver == null){
-$1=smalltalk.JSObjectProxy.superclass.fn.prototype._doesNotUnderstand_.apply(_st(self), [aMessage]);
-} else {
-var jsSelector;
-jsSelector=$receiver;
-$1=self._forwardMessage_withArguments_(jsSelector,_st(aMessage)._arguments());
-};
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.JSObjectProxy)})},
-args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09^ (self lookupProperty: aMessage selector asJavaScriptSelector)\x0a\x09\x09ifNil: [ super doesNotUnderstand: aMessage ]\x0a\x09\x09ifNotNil: [ :jsSelector | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09forwardMessage: jsSelector \x0a\x09\x09\x09\x09withArguments: aMessage arguments ]",
-messageSends: ["ifNil:ifNotNil:", "lookupProperty:", "asJavaScriptSelector", "selector", "doesNotUnderstand:", "forwardMessage:withArguments:", "arguments"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "forwardMessage:withArguments:",
-category: 'proxy',
-fn: function (aString,anArray){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		return smalltalk.send(self._jsObject(), aString, anArray);
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"forwardMessage:withArguments:",{aString:aString,anArray:anArray},smalltalk.JSObjectProxy)})},
-args: ["aString", "anArray"],
-source: "forwardMessage: aString withArguments: anArray\x0a\x09<\x0a\x09\x09return smalltalk.send(self._jsObject(), aString, anArray);\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: 'proxy',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self._jsObject());
-_st(anInspector)._setLabel_(self._printString());
-self._addObjectVariablesTo_(variables);
-_st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.JSObjectProxy)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self jsObject.\x0a\x09anInspector setLabel: self printString.\x0a\x09self addObjectVariablesTo: variables.\x0a\x09anInspector setVariables: variables",
-messageSends: ["new", "at:put:", "jsObject", "setLabel:", "printString", "addObjectVariablesTo:", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "jsObject",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self["@jsObject"];
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"jsObject",{},smalltalk.JSObjectProxy)})},
-args: [],
-source: "jsObject\x0a\x09^ jsObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "jsObject:",
-category: 'accessing',
-fn: function (aJSObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self["@jsObject"]=aJSObject;
-return self}, function($ctx1) {$ctx1.fill(self,"jsObject:",{aJSObject:aJSObject},smalltalk.JSObjectProxy)})},
-args: ["aJSObject"],
-source: "jsObject: aJSObject\x0a\x09jsObject := aJSObject",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "keysAndValuesDo:",
-category: 'enumerating',
-fn: function (aBlock){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var o = self['@jsObject'];
-		for(var i in o) {
-			aBlock._value_value_(i, o[i]);
-		}
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"keysAndValuesDo:",{aBlock:aBlock},smalltalk.JSObjectProxy)})},
-args: ["aBlock"],
-source: "keysAndValuesDo: aBlock\x0a\x09<\x0a\x09\x09var o = self['@jsObject'];\x0a\x09\x09for(var i in o) {\x0a\x09\x09\x09aBlock._value_value_(i, o[i]);\x0a\x09\x09}\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "lookupProperty:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return aString in self._jsObject() ? aString : nil;
-return self}, function($ctx1) {$ctx1.fill(self,"lookupProperty:",{aString:aString},smalltalk.JSObjectProxy)})},
-args: ["aString"],
-source: "lookupProperty: aString\x0a\x09\x22Looks up a property in JS object.\x0a\x09Answer the property if it is present, or nil if it is not present.\x22\x0a\x09\x0a\x09<return aString in self._jsObject() ? aString : nil>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "printOn:",
-category: 'printing',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-_st(aStream)._nextPutAll_(self._printString());
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.JSObjectProxy)})},
-args: ["aStream"],
-source: "printOn: aStream\x0a\x09aStream nextPutAll: self printString",
-messageSends: ["nextPutAll:", "printString"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "printString",
-category: 'printing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var js = self['@jsObject'];
-		return js.toString
-			? js.toString()
-			: Object.prototype.toString.call(js)
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.JSObjectProxy)})},
-args: [],
-source: "printString\x0a\x09<\x0a\x09\x09var js = self['@jsObject'];\x0a\x09\x09return js.toString\x0a\x09\x09\x09? js.toString()\x0a\x09\x09\x09: Object.prototype.toString.call(js)\x0a\x09>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "value",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._at_ifAbsent_("value",(function(){
-return smalltalk.withContext(function($ctx2) {
-return smalltalk.JSObjectProxy.superclass.fn.prototype._value.apply(_st(self), []);
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.JSObjectProxy)})},
-args: [],
-source: "value\x0a\x09\x22if attribute 'value' exists on the JS object return it,\x0a\x09otherwise return the result of Object>>value.\x22\x0a\x09\x0a\x09^ self \x0a\x09\x09at: 'value' \x0a\x09\x09ifAbsent: [ super value ]",
-messageSends: ["at:ifAbsent:", "value"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy);
-
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "on:",
-category: 'instance creation',
-fn: function (aJSObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $2,$3,$1;
-$2=self._new();
-_st($2)._jsObject_(aJSObject);
-$3=_st($2)._yourself();
-$1=$3;
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"on:",{aJSObject:aJSObject},smalltalk.JSObjectProxy.klass)})},
-args: ["aJSObject"],
-source: "on: aJSObject\x0a\x09^ self new\x0a\x09\x09jsObject: aJSObject;\x0a\x09\x09yourself",
-messageSends: ["jsObject:", "new", "yourself"],
-referencedClasses: []
-}),
-smalltalk.JSObjectProxy.klass);
 
 
 smalltalk.addClass('Organizer', smalltalk.Object, [], 'Kernel-Infrastructure');

@@ -1264,7 +1264,6 @@ testPropertyThatReturnsUndefined
 testValue
 	| testObject |
 	testObject := self jsObject.
-	self assert: testObject value printString equals: '[object Object]'.
 	testObject at: 'value' put: 'aValue'.
 	self assert: testObject value equals: 'aValue'
 !
