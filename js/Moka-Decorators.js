@@ -2,6 +2,86 @@ define("amber_core/Moka-Decorators", ["amber_vm/smalltalk", "amber_vm/nil", "amb
 smalltalk.addPackage('Moka-Decorators');
 smalltalk.packages["Moka-Decorators"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
+smalltalk.addClass('MKDraggableDecorator', smalltalk.MKDecorator, [], 'Moka-Decorators');
+
+
+smalltalk.addClass('MKDroppableDecorator', smalltalk.MKDecorator, ['droppableOptions'], 'Moka-Decorators');
+smalltalk.addMethod(
+smalltalk.method({
+selector: "defaultDroppableOptions",
+category: 'defaults',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=["helper".__minus_gt("clone")];
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"defaultDroppableOptions",{},smalltalk.MKDroppableDecorator)})},
+args: [],
+source: "defaultDroppableOptions\x0a\x09^ { 'helper' -> 'clone' }",
+messageSends: ["->"],
+referencedClasses: []
+}),
+smalltalk.MKDroppableDecorator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "droppableOptions",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+$2=self["@droppableOptions"];
+if(($receiver = $2) == nil || $receiver == null){
+$1=self._defaultDroppableOptions();
+} else {
+$1=$2;
+};
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"droppableOptions",{},smalltalk.MKDroppableDecorator)})},
+args: [],
+source: "droppableOptions\x0a\x09^ droppableOptions ifNil: [ self defaultDroppableOptions ]",
+messageSends: ["ifNil:", "defaultDroppableOptions"],
+referencedClasses: []
+}),
+smalltalk.MKDroppableDecorator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "droppableOptions:",
+category: 'accessing',
+fn: function (aHashedCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self["@droppableOptions"]=aHashedCollection;
+return self}, function($ctx1) {$ctx1.fill(self,"droppableOptions:",{aHashedCollection:aHashedCollection},smalltalk.MKDroppableDecorator)})},
+args: ["aHashedCollection"],
+source: "droppableOptions: aHashedCollection\x0a\x09droppableOptions := aHashedCollection",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.MKDroppableDecorator);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "renderContentOn:",
+category: 'rendering',
+fn: function (html){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+smalltalk.MKDroppableDecorator.superclass.fn.prototype._renderContentOn_.apply(_st(self), [html]);
+_st(_st(self._decorated())._asJQuery())._droppable_(self._droppableOptions());
+return self}, function($ctx1) {$ctx1.fill(self,"renderContentOn:",{html:html},smalltalk.MKDroppableDecorator)})},
+args: ["html"],
+source: "renderContentOn: html\x0a\x09super renderContentOn: html.\x0a\x09self decorated asJQuery droppable: self droppableOptions",
+messageSends: ["renderContentOn:", "droppable:", "asJQuery", "decorated", "droppableOptions"],
+referencedClasses: []
+}),
+smalltalk.MKDroppableDecorator);
+
+
+
 smalltalk.addClass('MKModalDecorator', smalltalk.MKDecorator, ['overlay', 'closeOnEnter', 'closeOnClick'], 'Moka-Decorators');
 smalltalk.MKModalDecorator.comment="I render my `decorated` view as a modal pane.";
 smalltalk.addMethod(

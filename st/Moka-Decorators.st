@@ -1,4 +1,35 @@
 Smalltalk current createPackage: 'Moka-Decorators'!
+MKDecorator subclass: #MKDraggableDecorator
+	instanceVariableNames: ''
+	package: 'Moka-Decorators'!
+
+MKDecorator subclass: #MKDroppableDecorator
+	instanceVariableNames: 'droppableOptions'
+	package: 'Moka-Decorators'!
+
+!MKDroppableDecorator methodsFor: 'accessing'!
+
+droppableOptions
+	^ droppableOptions ifNil: [ self defaultDroppableOptions ]
+!
+
+droppableOptions: aHashedCollection
+	droppableOptions := aHashedCollection
+! !
+
+!MKDroppableDecorator methodsFor: 'defaults'!
+
+defaultDroppableOptions
+	^ { 'helper' -> 'clone' }
+! !
+
+!MKDroppableDecorator methodsFor: 'rendering'!
+
+renderContentOn: html
+	super renderContentOn: html.
+	self decorated asJQuery droppable: self droppableOptions
+! !
+
 MKDecorator subclass: #MKModalDecorator
 	instanceVariableNames: 'overlay closeOnEnter closeOnClick'
 	package: 'Moka-Decorators'!
