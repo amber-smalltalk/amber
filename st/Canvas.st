@@ -547,22 +547,6 @@ video
 
 !HTMLCanvas class methodsFor: 'instance creation'!
 
-browserVersion
-	^ (jQuery at: #browser) version
-!
-
-isMozilla
-	^ ((jQuery at: #browser) at: #mozilla) notNil
-!
-
-isOpera
-	^ ((jQuery at: #browser) at: #opera) notNil
-!
-
-isWebkit
-	^ ((jQuery at: #browser) at: #webkit) notNil
-!
-
 onJQuery: aJQuery
 	^ self basicNew
 		initializeFromJQuery: aJQuery;
