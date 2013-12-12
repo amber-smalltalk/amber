@@ -238,12 +238,9 @@ withBasePath: aBaseRelativePath
 
 validateBasePath
 	"The basePath must be an existing directory. "
-	| stat |
-	[ stat := fs statSync: self basePath ] on: Error 
-	do: [ :err | console log: 'Warning: option --base-path ' , (self basePath) , ', that path is ' , (err messageText) , '.' . ^ false ].
-	stat isDirectory ifFalse: [	
-		console log: 'Warning: option  --base-path  ' , (self basePath)  , ' , it is not a directory.' . ^ false ].
-	^ true
+	fs stat: self basePath then: [ :err : stat | err isNil
+		ifTrue: [ stat isDirectory ifFalse: [ console warn: 'Warning: option  --base-path  ' , self basePath  , ' , it is not a directory.'  ]]
+		ifFalse: [ console warn: 'Warning: option --base-path ' , self basePath , ', that path can not be found.'  ]].
 !
 
 writeData: data toFileNamed: aFilename

@@ -39558,52 +39558,39 @@ selector: "validateBasePath",
 protocol: 'private',
 fn: function (){
 var self=this;
-var stat;
-function $Error(){return smalltalk.Error||(typeof Error=="undefined"?nil:Error)}
 return smalltalk.withContext(function($ctx1) { 
-var $1,$2,$3,$8,$7,$6,$5,$4,$9,$10,$11;
-var $early={};
-try {
-_st((function(){
-return smalltalk.withContext(function($ctx2) {
+var $1,$2,$3,$4,$5,$8,$7,$6,$9,$10;
 $1=self["@fs"];
 $2=self._basePath();
-$ctx2.sendIdx["basePath"]=1;
-stat=_st($1)._statSync_($2);
-return stat;
-}, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}))._on_do_($Error(),(function(err){
+$ctx1.sendIdx["basePath"]=1;
+_st($1)._stat_then_($2,(function(err,stat){
 return smalltalk.withContext(function($ctx2) {
-$3=console;
+$3=_st(err)._isNil();
+if(smalltalk.assert($3)){
+$4=_st(stat)._isDirectory();
+if(! smalltalk.assert($4)){
+$5=console;
 $8=self._basePath();
 $ctx2.sendIdx["basePath"]=2;
-$7="Warning: option --base-path ".__comma($8);
-$ctx2.sendIdx[","]=4;
-$6=_st($7).__comma(", that path is ");
-$ctx2.sendIdx[","]=3;
-$5=_st($6).__comma(_st(err)._messageText());
+$7="Warning: option  --base-path  ".__comma($8);
 $ctx2.sendIdx[","]=2;
-$4=_st($5).__comma(".");
+$6=_st($7).__comma(" , it is not a directory.");
 $ctx2.sendIdx[","]=1;
-_st($3)._log_($4);
-$ctx2.sendIdx["log:"]=1;
-throw $early=[false];
-}, function($ctx2) {$ctx2.fillBlock({err:err},$ctx1,2)})}));
-$9=_st(stat)._isDirectory();
-if(! smalltalk.assert($9)){
-$10=console;
-$11=_st("Warning: option  --base-path  ".__comma(self._basePath())).__comma(" , it is not a directory.");
-$ctx1.sendIdx[","]=5;
-_st($10)._log_($11);
-return false;
+return _st($5)._warn_($6);
+$ctx2.sendIdx["warn:"]=1;
 };
-return true;
-}
-catch(e) {if(e===$early)return e[0]; throw e}
-}, function($ctx1) {$ctx1.fill(self,"validateBasePath",{stat:stat},smalltalk.FileServer)})},
+} else {
+$9=console;
+$10=_st("Warning: option --base-path ".__comma(self._basePath())).__comma(", that path can not be found.");
+$ctx2.sendIdx[","]=3;
+return _st($9)._warn_($10);
+};
+}, function($ctx2) {$ctx2.fillBlock({err:err,stat:stat},$ctx1,1)})}));
+return self}, function($ctx1) {$ctx1.fill(self,"validateBasePath",{},smalltalk.FileServer)})},
 args: [],
-source: "validateBasePath\x0a\x09\x22The basePath must be an existing directory. \x22\x0a\x09| stat |\x0a\x09[ stat := fs statSync: self basePath ] on: Error \x0a\x09do: [ :err | console log: 'Warning: option --base-path ' , (self basePath) , ', that path is ' , (err messageText) , '.' . ^ false ].\x0a\x09stat isDirectory ifFalse: [\x09\x0a\x09\x09console log: 'Warning: option  --base-path  ' , (self basePath)  , ' , it is not a directory.' . ^ false ].\x0a\x09^ true",
-messageSends: ["on:do:", "statSync:", "basePath", "log:", ",", "messageText", "ifFalse:", "isDirectory"],
-referencedClasses: ["Error"]
+source: "validateBasePath\x0a\x09\x22The basePath must be an existing directory. \x22\x0a\x09fs stat: self basePath then: [ :err : stat | err isNil\x0a\x09\x09ifTrue: [ stat isDirectory ifFalse: [ console warn: 'Warning: option  --base-path  ' , self basePath  , ' , it is not a directory.'  ]]\x0a\x09\x09ifFalse: [ console warn: 'Warning: option --base-path ' , self basePath , ', that path can not be found.'  ]].",
+messageSends: ["stat:then:", "basePath", "ifTrue:ifFalse:", "isNil", "ifFalse:", "isDirectory", "warn:", ","],
+referencedClasses: []
 }),
 smalltalk.FileServer);
 
