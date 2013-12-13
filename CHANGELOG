@@ -1,3 +1,18 @@
+??th ??? 20?? - Release 0.12.3
+===================================
+
+Highlights:
+
+* JQuery updated to ~1.10.2; jquery-ui updated to match
+* You can create subclasses of `nil`
+* Amber loads in IE8
+
+Commits: https://github.com/amber-smalltalk/amber/compare/0.12.2...0.12.2
+Issues:  https://github.com/amber-smalltalk/amber/issues?milestone=__&state=closed
+
+For the most important API related changes see the file API-CHANGES.txt.
+
+
 03rd December 2013 - Release 0.12.2
 ===================================
 
