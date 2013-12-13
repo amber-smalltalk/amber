@@ -945,6 +945,18 @@ withIndexDo: aBlock
 	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>
 ! !
 
+!SequenceableCollection methodsFor: 'protected'!
+
+numericallyIndexable
+	"This is internal converting message.
+	It returns such representation of self
+	that can use foo[i] in JavaScript code.
+	It fixes IE8, where boxed String is unable
+	to numerically index its characters,
+	but primitive string can."
+	self subclassResponsibility
+! !
+
 !SequenceableCollection methodsFor: 'streaming'!
 
 newStream
@@ -1126,6 +1138,12 @@ printOn: aStream
 		do: [ :each | each printOn: aStream ]
 		separatedBy: [ aStream nextPutAll: ' ' ].
 	aStream nextPutAll: ')'
+! !
+
+!Array methodsFor: 'protected'!
+
+numericallyIndexable
+	^ self
 ! !
 
 !Array class methodsFor: 'instance creation'!
@@ -1437,6 +1455,12 @@ printOn: aStream
 		nextPutAll: '''';
 		nextPutAll: self;
 		nextPutAll: ''''
+! !
+
+!String methodsFor: 'protected'!
+
+numericallyIndexable
+	<return String(self)>
 ! !
 
 !String methodsFor: 'regular expressions'!

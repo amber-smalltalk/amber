@@ -2756,6 +2756,22 @@ smalltalk.SequenceableCollection);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "numericallyIndexable",
+category: 'protected',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+self._subclassResponsibility();
+return self}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},smalltalk.SequenceableCollection)})},
+args: [],
+source: "numericallyIndexable\x0a\x09\x22This is internal converting message.\x0a\x09It returns such representation of self\x0a\x09that can use foo[i] in JavaScript code.\x0a\x09It fixes IE8, where boxed String is unable\x0a\x09to numerically index its characters,\x0a\x09but primitive string can.\x22\x0a\x09self subclassResponsibility",
+messageSends: ["subclassResponsibility"],
+referencedClasses: []
+}),
+smalltalk.SequenceableCollection);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "readStream",
 category: 'streaming',
 fn: function (){
@@ -3126,6 +3142,22 @@ return self.join(aString);
 return self}, function($ctx1) {$ctx1.fill(self,"join:",{aString:aString},smalltalk.Array)})},
 args: ["aString"],
 source: "join: aString\x0a\x09<return self.join(aString)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.Array);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "numericallyIndexable",
+category: 'protected',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self;
+}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},smalltalk.Array)})},
+args: [],
+source: "numericallyIndexable\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),
@@ -4528,6 +4560,22 @@ return self.match(aRegularExpression);
 return self}, function($ctx1) {$ctx1.fill(self,"matchesOf:",{aRegularExpression:aRegularExpression},smalltalk.String)})},
 args: ["aRegularExpression"],
 source: "matchesOf: aRegularExpression\x0a\x09<return self.match(aRegularExpression)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.String);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "numericallyIndexable",
+category: 'protected',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return String(self);
+return self}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},smalltalk.String)})},
+args: [],
+source: "numericallyIndexable\x0a\x09<return String(self)>",
 messageSends: [],
 referencedClasses: []
 }),
