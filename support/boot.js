@@ -589,7 +589,6 @@ function MethodsBrik(brikz, st) {
 	};
 
 	function installNewDnuHandler(newHandler) {
-		manip.installMethodIfAbsent(newHandler, st.Object);
 		var wrappedClasses = st.wrappedClasses();
 		for(var i = 0; i < wrappedClasses.length; i++) {
 			manip.installMethodIfAbsent(newHandler, wrappedClasses[i]);
