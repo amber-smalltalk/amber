@@ -59,11 +59,11 @@ class
 
 identityHash
 	<
-	var hash=self.identityHash;
-	if (hash) return hash;
-	hash=smalltalk.nextId();
-	Object.defineProperty(self, 'identityHash', {value:hash});
-	return hash;
+		var hash=self.identityHash;
+		if (hash) return hash;
+		hash=smalltalk.nextId();
+		Object.defineProperty(self, 'identityHash', {value:hash});
+		return hash;
 	>
 !
 
@@ -129,12 +129,6 @@ asJavascript
 
 asString
 	^ self printString
-!
-
-test
-	| a |
-	a := 1.
-	self halt
 ! !
 
 !Object methodsFor: 'copying'!

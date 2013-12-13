@@ -22,6 +22,40 @@ testHandlesAnnouncement
 	classBuilder basicRemoveClass: announcementClass1.
 ! !
 
+TestCase subclass: #AnnouncerTest
+	instanceVariableNames: ''
+	package: 'Kernel-Tests'!
+
+!AnnouncerTest methodsFor: 'not yet classified'!
+
+testOnDo
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement do: [ counter := counter + 1 ].
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 2.
+!
+
+testOnDoOnce
+	| counter announcer |
+	
+	counter := 0.
+	announcer := Announcer new.
+	announcer on: SystemAnnouncement doOnce: [ counter := counter + 1 ].
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+
+	announcer announce: (SystemAnnouncement new).
+	self assert: counter equals: 1.
+! !
+
 TestCase subclass: #BlockClosureTest
 	instanceVariableNames: ''
 	package: 'Kernel-Tests'!
@@ -382,6 +416,26 @@ isCollectionReadOnly
 
 !CollectionTest methodsFor: 'tests'!
 
+testAllSatisfy
+	| collection anyOne |
+	collection := self collection.
+	anyOne := collection anyOne.
+	self assert: (collection allSatisfy: [ :each | collection includes: each ]).
+	self deny: (collection allSatisfy: [ :each | each ~= anyOne ])
+!
+
+testAnyOne
+	self should: [ self collectionClass new anyOne ] raise: Error.
+	self assert: (self collection includes: self collection anyOne)
+!
+
+testAnySatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self assert: (self collection anySatisfy: [ :each | each = anyOne ]).
+	self deny: (self collection anySatisfy: [ :each | each = Object new ])
+!
+
 testAsArray
 	self
 		assertSameContents: self collection
@@ -429,9 +483,34 @@ testDo
 		as: newCollection
 !
 
+testIfEmptyFamily
+	self assert: (self collectionClass new ifEmpty: [ 42 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ]) equals: self collection.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ]) equals: self collectionClass new.
+	self assert: (self collection ifNotEmpty: [ 42 ]) equals: 42.
+	
+	self assert: (self collectionClass new ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 42.
+	self assert: (self collection ifEmpty: [ 42 ] ifNotEmpty: [ 999 ]) equals: 999.
+
+	self assert: (self collectionClass new ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 999.
+	self assert: (self collection ifNotEmpty: [ 42 ] ifEmpty: [ 999 ]) equals: 42
+!
+
 testIsEmpty
 	self assert: self collectionClass new isEmpty.
 	self deny: self collection isEmpty
+!
+
+testNoneSatisfy
+	| anyOne |
+	anyOne := self collection anyOne.
+	self deny: (self collection noneSatisfy: [ :each | each = anyOne ]).
+	self assert: (self collection noneSatisfy: [ :each | each = Object new ])
+!
+
+testRemoveAll
+	self assert: (self collection removeAll; yourself) equals: self collectionClass new
 !
 
 testSelect
@@ -475,14 +554,6 @@ testAtIfAbsent
 	self assert: (self collection at: (self collection size + 1) ifAbsent: [ 'none' ]) equals: 'none'
 !
 
-testContains
-	| collection |
-	collection := self collection.
-	
-	self assert: (self collection contains: [ :each | each = self collection first ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
-!
-
 testIndexOf
 	self assert: (self collection indexOf: 2) equals: 2.
 	self should: [ self collection indexOf: 999 ] raise: Error.
@@ -520,14 +591,6 @@ self assert: ( self collectionClass new asDictionary isMemberOf: Dictionary ).
 testAt
 	self assert: (self collection at: 'a') equals: 2.
 	self should: [ self collection at: 5 ] raise: Error
-!
-
-testContains
-	| collection |
-	collection := self collection.
-	
-	self assert: (self collection contains: [ :each | each = self collection values first ]).
-	self deny: (self collection contains: [ :each | each = Object new ])
 !
 
 testFrom
@@ -1057,6 +1120,10 @@ testJoin
 	self assert: (',' join: #('hello' 'world')) equals: 'hello,world'
 !
 
+testRemoveAll
+	self should: [ self collection removeAll ] raise: Error
+!
+
 testReversed
 	self assert: 'jackiechan' reversed equals: 'nahceikcaj'.
 !
@@ -1197,7 +1264,6 @@ testPropertyThatReturnsUndefined
 testValue
 	| testObject |
 	testObject := self jsObject.
-	self assert: testObject value printString equals: '[object Object]'.
 	testObject at: 'value' put: 'aValue'.
 	self assert: testObject value equals: 'aValue'
 !

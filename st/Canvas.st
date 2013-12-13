@@ -41,8 +41,6 @@ isAvailable
 <return typeof window !!== "undefined" && typeof jQuery !!== "undefined">
 ! !
 
-BrowserInterface class instanceVariableNames: 'uiWorker ajaxWorker'!
-
 Object subclass: #HTMLCanvas
 	instanceVariableNames: 'root'
 	package: 'Canvas'!
@@ -472,7 +470,7 @@ strong: anObject
 !
 
 style
-	^ root addBrush: (StyleTag canvas: self)
+	^ self tag: 'style'
 !
 
 style: aString
@@ -548,26 +546,6 @@ video
 ! !
 
 !HTMLCanvas class methodsFor: 'instance creation'!
-
-browserVersion
-	^ (jQuery at: #browser) version
-!
-
-isMSIE
-	^ ((jQuery at: #browser) at: #msie) notNil
-!
-
-isMozilla
-	^ ((jQuery at: #browser) at: #mozilla) notNil
-!
-
-isOpera
-	^ ((jQuery at: #browser) at: #opera) notNil
-!
-
-isWebkit
-	^ ((jQuery at: #browser) at: #webkit) notNil
-!
 
 onJQuery: aJQuery
 	^ self basicNew
@@ -820,6 +798,14 @@ alt: aString
 	self at: 'alt' put: aString
 !
 
+at: aString
+	^ self at: aString ifAbsent: [ Collection new errorNotFound ]
+!
+
+at: aString ifAbsent: aBlock
+	<return self['@element'].hasAttribute(aString) ? self['@element'].getAttribute(aString) : aBlock._value()>
+!
+
 at: aString put: aValue
 	<self['@element'].setAttribute(aString, aValue)>
 !
@@ -1058,32 +1044,6 @@ fromString: aString canvas: aCanvas
 	^ self new
 	initializeFromString: aString canvas: aCanvas;
 	yourself
-! !
-
-TagBrush subclass: #StyleTag
-	instanceVariableNames: ''
-	package: 'Canvas'!
-!StyleTag commentStamp!
-I'm a `<style>` tag use to inline CSS or load a stylesheet.
-
-## Motivation
-
-The need for a specific class comes from Internet Explorer compatibility issues.!
-
-!StyleTag methodsFor: 'adding'!
-
-with: aString
-	HTMLCanvas isMSIE
-		ifTrue: [ self element styleSheet cssText: aString ]
-		ifFalse: [ super with: aString ].
-! !
-
-!StyleTag class methodsFor: 'instance creation'!
-
-canvas: aCanvas
-	^ self new
-		initializeFromString: 'style' canvas: aCanvas;
-		yourself
 ! !
 
 InterfacingObject subclass: #Widget

@@ -57,6 +57,7 @@ function Brikz(api, apiKey, initKey) {
 
 	var d={value: null, enumerable: false, configurable: true, writable: true};
 	Object.defineProperties(this, { ensure: d, rebuild: d });
+	var exclude = mixin(this, {});
 
 	this.rebuild = function () {
 		Object.keys(backup).forEach(function (key) {
@@ -64,6 +65,7 @@ function Brikz(api, apiKey, initKey) {
 		});
 		var oapi = mixin(api, {}), order = [], chk = {};
 		brikz.ensure = function(key) {
+			if (key in exclude) { return null; }
 			var b = brikz[key], bak = backup[key];
 			mixin({}, api, api);
 			while (typeof b === "function") { b = new b(brikz, api, bak); }
@@ -92,7 +94,11 @@ function inherits(child, parent) {
 
 /* Smalltalk foundational objects */
 
+/* SmalltalkRoot is the hidden root of the Amber hierarchy.
+ All objects including `Object` inherit from SmalltalkRoot */
+function SmalltalkRoot() {}
 function SmalltalkObject() {}
+inherits(SmalltalkObject, SmalltalkRoot);
 
 function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
@@ -106,6 +112,9 @@ function RootBrik(brikz, st) {
 	inherits(SmalltalkNil, SmalltalkObject);
 
 	this.nil = new SmalltalkNil();
+
+	// Hidden root class of the system.
+	this.rootAsClass = {fn: SmalltalkRoot};
 
 	this.__init__ = function () {
 		st.addPackage("Kernel-Objects");
@@ -162,6 +171,7 @@ function DNUBrik(brikz, st) {
 	brikz.ensure("selectorConversion");
 	brikz.ensure("messageSend");
 	var manip = brikz.ensure("manipulation");
+	var rootAsClass = brikz.ensure("root").rootAsClass;
 
 	/* Method not implemented handlers */
 
@@ -178,6 +188,7 @@ function DNUBrik(brikz, st) {
 		checker[selector] = true;
 		var method = {jsSelector: selector, fn: createHandler(selector)};
 		methods.push(method);
+		manip.installMethod(method, rootAsClass);
 		return method;
 	};
 
@@ -222,7 +233,7 @@ function ClassInitBrik(brikz, st) {
 			copySuperclass(klass);
 		}
 
-		if(klass === st.Object || klass.wrapped) {
+		if(klass.wrapped) {
 			dnu.installHandlers(klass);
 		}
 	};
@@ -291,7 +302,10 @@ function ManipulationBrik(brikz, st) {
 function ClassesBrik(brikz, st) {
 
 	var org = brikz.ensure("organize");
-	var nil = brikz.ensure("root").nil;
+	var root = brikz.ensure("root");
+	var nil = root.nil;
+	var rootAsClass = root.rootAsClass;
+	rootAsClass.klass = {fn: SmalltalkClass};
 
 	function SmalltalkPackage() {}
 	function SmalltalkBehavior() {}
@@ -311,7 +325,8 @@ function ClassesBrik(brikz, st) {
 		st.wrapClassName("Metaclass", "Kernel-Classes", SmalltalkMetaclass, st.Behavior, false);
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
 
-		st.Object.klass.superclass = st.Class;
+		// Manually bootstrap the metaclass hierarchy
+		st.Object.klass.superclass = rootAsClass.klass = st.Class;
 		addSubclass(st.Object.klass);
 
 		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
@@ -343,8 +358,15 @@ function ClassesBrik(brikz, st) {
 
 	function klass(spec) {
 		spec = spec || {};
+		var setSuperClass = spec.superclass;
+		if(!spec.superclass) {
+			spec.superclass = rootAsClass;
+		}
+
 		var meta = metaclass(spec);
 		var that = meta.instanceClass;
+
+		that.superclass = setSuperClass;
 
 		that.fn = spec.fn || inherits(function () {}, spec.superclass.fn);
 		that.subclasses = [];
@@ -354,17 +376,14 @@ function ClassesBrik(brikz, st) {
 		that.className = spec.className;
 		that.wrapped   = spec.wrapped || false;
 		meta.className = spec.className + ' class';
-		if(spec.superclass) {
-			that.superclass = spec.superclass;
-			meta.superclass = spec.superclass.klass;
-		}
+		meta.superclass = spec.superclass.klass;
 		return that;
 	}
 
 	function metaclass(spec) {
 		spec = spec || {};
 		var that = new SmalltalkMetaclass();
-		that.fn = inherits(function () {}, spec.superclass ? spec.superclass.klass.fn : SmalltalkClass);
+		that.fn = inherits(function () {}, spec.superclass.klass.fn);
 		that.instanceClass = new that.fn();
 		setupClass(that);
 		return that;
@@ -431,8 +450,8 @@ function ClassesBrik(brikz, st) {
 	function rawAddClass(pkgName, className, superclass, iVarNames, wrapped, fn) {
 		var pkg = st.packages[pkgName];
 
-		if (!pkg) { 
-			throw new Error("Missing package "+pkgName); 
+		if (!pkg) {
+			throw new Error("Missing package "+pkgName);
 		}
 
 		if(st[className] && st[className].superclass == superclass) {

@@ -165,7 +165,7 @@ handleError: anError
 !DebugErrorHandler class methodsFor: 'initialization'!
 
 initialize
-	self register
+	ErrorHandler current ifNil: [ self register ]
 ! !
 
 Widget subclass: #SourceArea

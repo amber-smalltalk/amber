@@ -565,35 +565,13 @@ category: 'accessing',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-var $2,$1;
-$2=self["@current"];
-if(($receiver = $2) == nil || $receiver == null){
-self["@current"]=self._new();
+var $1;
 $1=self["@current"];
-} else {
-$1=$2;
-};
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"current",{},smalltalk.ErrorHandler.klass)})},
 args: [],
-source: "current\x0a\x09^ current ifNil: [ current := self new ]",
-messageSends: ["ifNil:", "new"],
-referencedClasses: []
-}),
-smalltalk.ErrorHandler.klass);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-self._register();
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ErrorHandler.klass)})},
-args: [],
-source: "initialize\x0a\x09self register",
-messageSends: ["register"],
+source: "current\x0a\x09^ current",
+messageSends: [],
 referencedClasses: []
 }),
 smalltalk.ErrorHandler.klass);

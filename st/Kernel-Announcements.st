@@ -104,6 +104,19 @@ on: aClass do: aBlock
 		yourself)
 !
 
+on: aClass doOnce: aBlock
+	| subscription |
+	
+	subscription := AnnouncementSubscription new
+		announcementClass: aClass;
+		yourself.
+	subscription valuable: [ :ann |
+		subscriptions remove: subscription.
+		aBlock value: ann ].
+
+	subscriptions add: subscription
+!
+
 on: aClass send: aSelector to: anObject
 	subscriptions add: (AnnouncementSubscription new
 		valuable: (MessageSend new
@@ -144,20 +157,10 @@ new
 ! !
 
 Object subclass: #SystemAnnouncement
-	instanceVariableNames: 'theClass'
+	instanceVariableNames: ''
 	package: 'Kernel-Announcements'!
 !SystemAnnouncement commentStamp!
 I am the superclass of all system announcements!
-
-!SystemAnnouncement methodsFor: 'accessing'!
-
-theClass
-	^ theClass
-!
-
-theClass: aClass
-	theClass := aClass
-! !
 
 !SystemAnnouncement class methodsFor: 'helios'!
 

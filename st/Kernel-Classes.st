@@ -218,6 +218,11 @@ addCompiledMethod: aMethod
 
 	self basicAddCompiledMethod: aMethod.
 	
+	oldMethod ifNotNil: [
+		(self methods
+			select: [ :each | each protocol = oldMethod protocol ])
+			ifEmpty: [ self organization removeElement: oldMethod protocol ] ].
+
 	announcement := oldMethod
 		ifNil: [
 			MethodAdded new

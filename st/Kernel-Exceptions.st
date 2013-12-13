@@ -208,7 +208,7 @@ ErrorHandler class instanceVariableNames: 'current'!
 !ErrorHandler class methodsFor: 'accessing'!
 
 current
-	^ current ifNil: [ current := self new ]
+	^ current
 !
 
 setCurrent: anHandler
@@ -216,10 +216,6 @@ setCurrent: anHandler
 ! !
 
 !ErrorHandler class methodsFor: 'initialization'!
-
-initialize
-	self register
-!
 
 register
 	ErrorHandler setCurrent: self new
