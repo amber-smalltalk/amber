@@ -157,7 +157,7 @@ at: aString ifPresent: aBlock ifAbsent: anotherBlock
 !
 
 at: aString put: anObject
-	<self['@jsObject'][aString] = anObject>
+	<return self['@jsObject'][aString] = anObject>
 !
 
 jsObject

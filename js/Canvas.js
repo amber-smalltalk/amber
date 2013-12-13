@@ -2704,10 +2704,10 @@ category: 'attributes',
 fn: function (aString,aValue){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self['@element'].setAttribute(aString, aValue);
+self['@element'].setAttribute(aString, aValue); return aValue;
 return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,aValue:aValue},smalltalk.TagBrush)})},
 args: ["aString", "aValue"],
-source: "at: aString put: aValue\x0a\x09<self['@element'].setAttribute(aString, aValue)>",
+source: "at: aString put: aValue\x0a\x09<self['@element'].setAttribute(aString, aValue); return aValue>",
 messageSends: [],
 referencedClasses: []
 }),

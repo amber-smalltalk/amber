@@ -807,7 +807,7 @@ at: aString ifAbsent: aBlock
 !
 
 at: aString put: aValue
-	<self['@element'].setAttribute(aString, aValue)>
+	<self['@element'].setAttribute(aString, aValue); return aValue>
 !
 
 class: aString
