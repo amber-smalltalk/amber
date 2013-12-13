@@ -1,5 +1,5 @@
 Smalltalk current createPackage: 'Kernel-Infrastructure'!
-nil subclass: #AbstractProxy
+ProtoObject subclass: #AbstractProxy
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
 !AbstractProxy commentStamp!
