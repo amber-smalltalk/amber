@@ -2338,7 +2338,7 @@ smalltalk.Package);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "load",
-category: '*Importer-Exporter',
+category: '*Kernel-ImportExport',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
