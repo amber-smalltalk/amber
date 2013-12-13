@@ -2353,4 +2353,57 @@ referencedClasses: []
 }),
 smalltalk.Package);
 
+smalltalk.addMethod(
+smalltalk.method({
+selector: "loadFromNamespace:",
+category: '*Kernel-ImportExport',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$3,$1;
+$2=self._transport();
+_st($2)._namespace_(aString);
+$3=_st($2)._load();
+$1=$3;
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"loadFromNamespace:",{aString:aString},smalltalk.Package)})},
+args: ["aString"],
+source: "loadFromNamespace: aString\x0a\x09^ self transport\x0a\x09\x09namespace: aString;\x0a\x09\x09load",
+messageSends: ["namespace:", "transport", "load"],
+referencedClasses: []
+}),
+smalltalk.Package);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "load:",
+category: '*Kernel-ImportExport',
+fn: function (aPackageName){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._named_(aPackageName))._load();
+return self}, function($ctx1) {$ctx1.fill(self,"load:",{aPackageName:aPackageName},smalltalk.Package.klass)})},
+args: ["aPackageName"],
+source: "load: aPackageName\x0a\x09(self named: aPackageName) load",
+messageSends: ["load", "named:"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "load:fromNamespace:",
+category: '*Kernel-ImportExport',
+fn: function (aPackageName,aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+_st(self._named_(aPackageName))._loadFromNamespace_(aString);
+return self}, function($ctx1) {$ctx1.fill(self,"load:fromNamespace:",{aPackageName:aPackageName,aString:aString},smalltalk.Package.klass)})},
+args: ["aPackageName", "aString"],
+source: "load: aPackageName fromNamespace: aString\x0a\x09(self named: aPackageName) loadFromNamespace: aString",
+messageSends: ["loadFromNamespace:", "named:"],
+referencedClasses: []
+}),
+smalltalk.Package.klass);
+
 });

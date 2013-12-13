@@ -856,5 +856,21 @@ commit
 
 load
 	^ self transport load
+!
+
+loadFromNamespace: aString
+	^ self transport
+		namespace: aString;
+		load
+! !
+
+!Package class methodsFor: '*Kernel-ImportExport'!
+
+load: aPackageName
+	(self named: aPackageName) load
+!
+
+load: aPackageName fromNamespace: aString
+	(self named: aPackageName) loadFromNamespace: aString
 ! !
 
