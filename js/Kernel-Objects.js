@@ -266,16 +266,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		var copy = self.klass._new();
-		for(var i in self) {
+		Object.keys(self).forEach(function (i) {
 		if(/^@.+/.test(i)) {
 			copy[i] = self[i]._deepCopy();
 		}
-		}
+		});
 		return copy;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"deepCopy",{},smalltalk.Object)})},
 args: [],
-source: "deepCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09for(var i in self) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09\x09}\x0a\x09\x09return copy;\x0a\x09>",
+source: "deepCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function (i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i]._deepCopy();\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -943,16 +943,16 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		var copy = self.klass._new();
-		for(var i in self) {
+		Object.keys(self).forEach(function(i) {
 		if(/^@.+/.test(i)) {
 			copy[i] = self[i];
 		}
-		}
+		});
 		return copy;
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"shallowCopy",{},smalltalk.Object)})},
 args: [],
-source: "shallowCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09for(var i in self) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i];\x0a\x09\x09}\x0a\x09\x09}\x0a\x09\x09return copy;\x0a\x09>",
+source: "shallowCopy\x0a\x09<\x0a\x09\x09var copy = self.klass._new();\x0a\x09\x09Object.keys(self).forEach(function(i) {\x0a\x09\x09if(/^@.+/.test(i)) {\x0a\x09\x09\x09copy[i] = self[i];\x0a\x09\x09}\x0a\x09\x09});\x0a\x09\x09return copy;\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

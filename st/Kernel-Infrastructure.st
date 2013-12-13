@@ -1013,11 +1013,9 @@ packages
 	"Return all Package instances in the system."
 
 	<
-		var packages = [];
-		for(var key in self.packages) {
-			packages.push(self.packages[key]);
-		}
-		return packages;
+		return Object.keys(self.packages).map(function(k) {
+			return self.packages[k];
+		})
 	>
 !
 

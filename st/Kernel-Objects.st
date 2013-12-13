@@ -140,11 +140,11 @@ copy
 deepCopy
 	<
 		var copy = self.klass._new();
-		for(var i in self) {
+		Object.keys(self).forEach(function (i) {
 		if(/^@.+/.test(i)) {
 			copy[i] = self[i]._deepCopy();
 		}
-		}
+		});
 		return copy;
 	>
 !
@@ -155,11 +155,11 @@ postCopy
 shallowCopy
 	<
 		var copy = self.klass._new();
-		for(var i in self) {
+		Object.keys(self).forEach(function(i) {
 		if(/^@.+/.test(i)) {
 			copy[i] = self[i];
 		}
-		}
+		});
 		return copy;
 	>
 ! !
