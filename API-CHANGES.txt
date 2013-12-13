@@ -1,5 +1,8 @@
 0.12.3 (wip):
 
+* Package Import-Export renamed to Kernel-ImportExport
+
+
 + Package
   + >>load
   + >>loadFromNamespace:
