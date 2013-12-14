@@ -1,5 +1,14 @@
 Smalltalk current createPackage: 'Kernel-Objects'!
-nil subclass: #Object
+nil subclass: #ProtoObject
+	instanceVariableNames: ''
+	package: 'Kernel-Objects'!
+
+!ProtoObject class methodsFor: 'initialization'!
+
+initialize
+! !
+
+ProtoObject subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Object commentStamp!

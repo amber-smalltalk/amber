@@ -97,8 +97,10 @@ function inherits(child, parent) {
 /* SmalltalkRoot is the hidden root of the Amber hierarchy.
  All objects including `Object` inherit from SmalltalkRoot */
 function SmalltalkRoot() {}
+function SmalltalkProtoObject() {}
+inherits(SmalltalkProtoObject, SmalltalkRoot);
 function SmalltalkObject() {}
-inherits(SmalltalkObject, SmalltalkRoot);
+inherits(SmalltalkObject, SmalltalkProtoObject);
 
 function Smalltalk() {}
 inherits(Smalltalk, SmalltalkObject);
@@ -119,7 +121,8 @@ function RootBrik(brikz, st) {
 	this.__init__ = function () {
 		st.addPackage("Kernel-Objects");
 		st.addPackage("Kernel-Infrastructure");
-		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, undefined, false);
+		st.wrapClassName("ProtoObject", "Kernel-Objects", SmalltalkProtoObject, undefined, false);
+		st.wrapClassName("Object", "Kernel-Objects", SmalltalkObject, st.ProtoObject, false);
 		st.wrapClassName("Smalltalk", "Kernel-Infrastructure", Smalltalk, st.Object, false);
 		st.wrapClassName("UndefinedObject", "Kernel-Objects", SmalltalkNil, st.Object, false);
 	};
@@ -326,8 +329,8 @@ function ClassesBrik(brikz, st) {
 		st.wrapClassName("Class", "Kernel-Classes", SmalltalkClass, st.Behavior, false);
 
 		// Manually bootstrap the metaclass hierarchy
-		st.Object.klass.superclass = rootAsClass.klass = st.Class;
-		addSubclass(st.Object.klass);
+		st.ProtoObject.klass.superclass = rootAsClass.klass = st.Class;
+		addSubclass(st.ProtoObject.klass);
 
 		st.wrapClassName("Package", "Kernel-Infrastructure", SmalltalkPackage, st.Object, false);
 	};

@@ -2,7 +2,7 @@ define("amber_core/Kernel-Infrastructure", ["amber_vm/smalltalk", "amber_vm/nil"
 smalltalk.addPackage('Kernel-Infrastructure');
 smalltalk.packages["Kernel-Infrastructure"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('AbstractProxy', smalltalk.nil, [], 'Kernel-Infrastructure');
+smalltalk.addClass('AbstractProxy', smalltalk.ProtoObject, [], 'Kernel-Infrastructure');
 smalltalk.AbstractProxy.comment="I provide a basic set of methods for proxies handling `#doesNotUnderstand:` so that inspectors, debuggers, etc. won't fail.";
 smalltalk.addMethod(
 smalltalk.method({
