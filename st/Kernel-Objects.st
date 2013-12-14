@@ -2,6 +2,100 @@ Smalltalk current createPackage: 'Kernel-Objects'!
 nil subclass: #ProtoObject
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
+!ProtoObject commentStamp!
+I implement the basic behavior required for any object in Amber.
+
+In most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations.!
+
+!ProtoObject methodsFor: 'accessing'!
+
+class
+	<return self.klass>
+!
+
+identityHash
+	<
+		var hash=self.identityHash;
+		if (hash) return hash;
+		hash=smalltalk.nextId();
+		Object.defineProperty(self, 'identityHash', {value:hash});
+		return hash;
+	>
+!
+
+instVarAt: aString
+	< return self['@'+aString] >
+!
+
+instVarAt: aString put: anObject
+	< self['@' + aString] = anObject >
+!
+
+yourself
+	^ self
+! !
+
+!ProtoObject methodsFor: 'converting'!
+
+asString
+	^ self printString
+! !
+
+!ProtoObject methodsFor: 'error handling'!
+
+doesNotUnderstand: aMessage
+	MessageNotUnderstood new
+		receiver: self;
+		message: aMessage;
+		signal
+! !
+
+!ProtoObject methodsFor: 'initialization'!
+
+initialize
+! !
+
+!ProtoObject methodsFor: 'inspecting'!
+
+inspect
+	InspectorHandler inspect: self
+!
+
+inspectOn: anInspector
+! !
+
+!ProtoObject methodsFor: 'message handling'!
+
+perform: aString
+	^ self perform: aString withArguments: #()
+!
+
+perform: aString withArguments: aCollection
+	<return smalltalk.send(self, aString._asSelector(), aCollection)>
+! !
+
+!ProtoObject methodsFor: 'printing'!
+
+printOn: aStream
+	aStream nextPutAll: (self class name first isVowel
+		ifTrue: [ 'an ' ]
+		ifFalse: [ 'a ' ]).
+	aStream nextPutAll: self class name
+!
+
+printString
+	^ String streamContents: [ :str | 
+		self printOn: str ]
+! !
+
+!ProtoObject class methodsFor: 'accessing'!
+
+heliosClass
+	"Should be an Helios extension. Unfortunately, since helios can browse remote
+	environments, we can't extend base classes"
+	
+	^ 'class'
+! !
 
 !ProtoObject class methodsFor: 'initialization'!
 
@@ -12,9 +106,9 @@ ProtoObject subclass: #Object
 	instanceVariableNames: ''
 	package: 'Kernel-Objects'!
 !Object commentStamp!
-**I am the root of the Smalltalk class system**. All classes in the system are subclasses of me.
+**I am the root of the Smalltalk class system**. With the exception of unual subclasses of `ProtoObject`, all other classes in the system are subclasses of me.
 
-I provide default behavior common to all normal objects, such as:
+I provide default behavior common to all normal objects (some of it inherited from `ProtoObject`), such as:
 
 - accessing
 - copying
@@ -62,38 +156,12 @@ basicDelete: aString
 	<delete self[aString]; return aString>
 !
 
-class
-	<return self.klass>
-!
-
-identityHash
-	<
-		var hash=self.identityHash;
-		if (hash) return hash;
-		hash=smalltalk.nextId();
-		Object.defineProperty(self, 'identityHash', {value:hash});
-		return hash;
-	>
-!
-
-instVarAt: aString
-	< return self['@'+aString] >
-!
-
-instVarAt: aString put: anObject
-	< self['@' + aString] = anObject >
-!
-
 size
 	self error: 'Object not indexable'
 !
 
 value
 	<return self.valueOf()>
-!
-
-yourself
-	^ self
 ! !
 
 !Object methodsFor: 'comparing'!
@@ -134,10 +202,6 @@ asJSONString
 
 asJavascript
 	^ self asString
-!
-
-asString
-	^ self printString
 ! !
 
 !Object methodsFor: 'copying'!
@@ -182,13 +246,6 @@ deprecatedAPI
 	console warn: thisContext home asString, ' is deprecated!! (in ', thisContext home home asString, ')'
 !
 
-doesNotUnderstand: aMessage
-	MessageNotUnderstood new
-		receiver: self;
-		message: aMessage;
-		signal
-!
-
 error: aString
 	Error signal: aString
 !
@@ -213,16 +270,7 @@ try: aBlock catch: anotherBlock
 	<try{return aBlock._value()} catch(e) {return anotherBlock._value_(e)}>
 ! !
 
-!Object methodsFor: 'initialization'!
-
-initialize
-! !
-
 !Object methodsFor: 'inspecting'!
-
-inspect
-	InspectorHandler inspect: self
-!
 
 inspectOn: anInspector
 	| variables |
@@ -243,31 +291,6 @@ basicPerform: aString
 
 basicPerform: aString withArguments: aCollection
 	<return self[aString].apply(self, aCollection);>
-!
-
-perform: aString
-	^ self perform: aString withArguments: #()
-!
-
-perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asSelector(), aCollection)>
-! !
-
-!Object methodsFor: 'printing'!
-
-printOn: aStream
-	"Append to the aStream, a string representing the receiver."
-	
-	aStream nextPutAll: (self class name first isVowel
-		ifTrue: [ 'an ' ]
-		ifFalse: [ 'a ' ]).
-	aStream nextPutAll: self class name
-!
-
-printString
-	"Answer a String representation of the receiver."
-
-	^ String streamContents: [ :stream | self printOn: stream ]
 ! !
 
 !Object methodsFor: 'streaming'!

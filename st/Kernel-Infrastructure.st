@@ -1,254 +1,4 @@
 Smalltalk current createPackage: 'Kernel-Infrastructure'!
-ProtoObject subclass: #AbstractProxy
-	instanceVariableNames: ''
-	package: 'Kernel-Infrastructure'!
-!AbstractProxy commentStamp!
-I provide a basic set of methods for proxies handling `#doesNotUnderstand:` so that inspectors, debuggers, etc. won't fail.!
-
-!AbstractProxy methodsFor: 'accessing'!
-
-class
-	<return self.klass>
-!
-
-identityHash
-	<
-		var hash=self.identityHash;
-		if (hash) return hash;
-		hash=smalltalk.nextId();
-		Object.defineProperty(self, 'identityHash', {value:hash});
-		return hash;
-	>
-!
-
-instVarAt: aString
-	< return self['@'+aString] >
-!
-
-instVarAt: aString put: anObject
-	< self['@' + aString] = anObject >
-!
-
-yourself
-	^ self
-! !
-
-!AbstractProxy methodsFor: 'converting'!
-
-asString
-	^ self printString
-! !
-
-!AbstractProxy methodsFor: 'error handling'!
-
-doesNotUnderstand: aMessage
-	MessageNotUnderstood new
-		receiver: self;
-		message: aMessage;
-		signal
-! !
-
-!AbstractProxy methodsFor: 'initialization'!
-
-initialize
-! !
-
-!AbstractProxy methodsFor: 'inspecting'!
-
-inspect
-	InspectorHandler inspect: self
-!
-
-inspectOn: anInspector
-! !
-
-!AbstractProxy methodsFor: 'message handling'!
-
-perform: aString
-	^ self perform: aString withArguments: #()
-!
-
-perform: aString withArguments: aCollection
-	<return smalltalk.send(self, aString._asSelector(), aCollection)>
-! !
-
-!AbstractProxy methodsFor: 'printing'!
-
-printOn: aStream
-	aStream nextPutAll: (self class name first isVowel
-		ifTrue: [ 'an ' ]
-		ifFalse: [ 'a ' ]).
-	aStream nextPutAll: self class name
-!
-
-printString
-	^ String streamContents: [ :str | 
-		self printOn: str ]
-! !
-
-!AbstractProxy class methodsFor: 'helios'!
-
-heliosClass
-	^ 'class'
-! !
-
-!AbstractProxy class methodsFor: 'initialization'!
-
-initialize
-! !
-
-AbstractProxy subclass: #JSObjectProxy
-	instanceVariableNames: 'jsObject'
-	package: 'Kernel-Infrastructure'!
-!JSObjectProxy commentStamp!
-I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.
-My instances make intensive use of `#doesNotUnderstand:`.
-
-My instances are automatically created by Amber whenever a message is sent to a JavaScript object.
-
-## Usage examples
-
-JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
-
-	window alert: 'hello world'.
-	window inspect.
-	(window jQuery: 'body') append: 'hello world'
-
-Amber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.
-
-## Message conversion rules
-
-- `someUser name` becomes `someUser.name`
-- `someUser name: 'John'` becomes `someUser name = "John"`
-- `console log: 'hello world'` becomes `console.log('hello world')`
-- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
-
-__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
-
-!JSObjectProxy methodsFor: 'accessing'!
-
-at: aString
-	<return self['@jsObject'][aString]>
-!
-
-at: aString ifAbsent: aBlock
-	"return the aString property or evaluate aBlock if the property is not defined on the object"
-	<
-		var obj = self['@jsObject'];
-		return aString in obj ? obj[aString] : aBlock._value();
-	>
-!
-
-at: aString ifPresent: aBlock
-	"return the evaluation of aBlock with the value if the property is defined or return nil"
-	<
-		var obj = self['@jsObject'];
-		return aString in obj ? aBlock._value_(obj[aString]) : nil;
-	>
-!
-
-at: aString ifPresent: aBlock ifAbsent: anotherBlock
-	"return the evaluation of aBlock with the value if the property is defined
-	or return value of anotherBlock"
-	<
-		var obj = self['@jsObject'];
-		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
-	>
-!
-
-at: aString put: anObject
-	<return self['@jsObject'][aString] = anObject>
-!
-
-jsObject
-	^ jsObject
-!
-
-jsObject: aJSObject
-	jsObject := aJSObject
-!
-
-lookupProperty: aString
-	"Looks up a property in JS object.
-	Answer the property if it is present, or nil if it is not present."
-	
-	<return aString in self._jsObject() ? aString : nil>
-! !
-
-!JSObjectProxy methodsFor: 'enumerating'!
-
-asJSON
-	"Answers the receiver in a stringyfy-friendly fashion"
-
-	^ jsObject
-!
-
-keysAndValuesDo: aBlock
-	<
-		var o = self['@jsObject'];
-		for(var i in o) {
-			aBlock._value_value_(i, o[i]);
-		}
-	>
-! !
-
-!JSObjectProxy methodsFor: 'printing'!
-
-printOn: aStream
-	aStream nextPutAll: self printString
-!
-
-printString
-	<
-		var js = self['@jsObject'];
-		return js.toString
-			? js.toString()
-			: Object.prototype.toString.call(js)
-	>
-! !
-
-!JSObjectProxy methodsFor: 'proxy'!
-
-addObjectVariablesTo: aDictionary
-	<
-		for(var i in self['@jsObject']) {
-			aDictionary._at_put_(i, self['@jsObject'][i]);
-		}
-	>
-!
-
-doesNotUnderstand: aMessage
-	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
-		ifNil: [ super doesNotUnderstand: aMessage ]
-		ifNotNil: [ :jsSelector | 
-			self 
-				forwardMessage: jsSelector 
-				withArguments: aMessage arguments ]
-!
-
-forwardMessage: aString withArguments: anArray
-	<
-		return smalltalk.send(self._jsObject(), aString, anArray);
-	>
-!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self jsObject.
-	anInspector setLabel: self printString.
-	self addObjectVariablesTo: variables.
-	anInspector setVariables: variables
-! !
-
-!JSObjectProxy class methodsFor: 'instance creation'!
-
-on: aJSObject
-	^ self new
-		jsObject: aJSObject;
-		yourself
-! !
-
 Object subclass: #InspectorHandler
 	instanceVariableNames: ''
 	package: 'Kernel-Infrastructure'!
@@ -497,6 +247,158 @@ evaluate: aBlock on: anErrorClass do: exceptionBlock
 		(exception isKindOf: (self classNamed: anErrorClass name))
 			ifTrue: [ exceptionBlock value: exception ]
  			ifFalse: [ exception signal ] ]
+! !
+
+ProtoObject subclass: #JSObjectProxy
+	instanceVariableNames: 'jsObject'
+	package: 'Kernel-Infrastructure'!
+!JSObjectProxy commentStamp!
+I handle sending messages to JavaScript objects, making  JavaScript object accessing from Amber fully transparent.
+My instances make intensive use of `#doesNotUnderstand:`.
+
+My instances are automatically created by Amber whenever a message is sent to a JavaScript object.
+
+## Usage examples
+
+JSObjectProxy objects are instanciated by Amber when a Smalltalk message is sent to a JavaScript object.
+
+	window alert: 'hello world'.
+	window inspect.
+	(window jQuery: 'body') append: 'hello world'
+
+Amber messages sends are converted to JavaScript function calls or object property access _(in this order)_. If n one of them match, a `MessageNotUnderstood` error will be thrown.
+
+## Message conversion rules
+
+- `someUser name` becomes `someUser.name`
+- `someUser name: 'John'` becomes `someUser name = "John"`
+- `console log: 'hello world'` becomes `console.log('hello world')`
+- `(window jQuery: 'foo') css: 'background' color: 'red'` becomes `window.jQuery('foo').css('background', 'red')`
+
+__Note:__ For keyword-based messages, only the first keyword is kept: `window foo: 1 bar: 2` is equivalent to `window foo: 1 baz: 2`.!
+
+!JSObjectProxy methodsFor: 'accessing'!
+
+at: aString
+	<return self['@jsObject'][aString]>
+!
+
+at: aString ifAbsent: aBlock
+	"return the aString property or evaluate aBlock if the property is not defined on the object"
+	<
+		var obj = self['@jsObject'];
+		return aString in obj ? obj[aString] : aBlock._value();
+	>
+!
+
+at: aString ifPresent: aBlock
+	"return the evaluation of aBlock with the value if the property is defined or return nil"
+	<
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock._value_(obj[aString]) : nil;
+	>
+!
+
+at: aString ifPresent: aBlock ifAbsent: anotherBlock
+	"return the evaluation of aBlock with the value if the property is defined
+	or return value of anotherBlock"
+	<
+		var obj = self['@jsObject'];
+		return aString in obj ? aBlock._value_(obj[aString]) : anotherBlock._value();
+	>
+!
+
+at: aString put: anObject
+	<return self['@jsObject'][aString] = anObject>
+!
+
+jsObject
+	^ jsObject
+!
+
+jsObject: aJSObject
+	jsObject := aJSObject
+!
+
+lookupProperty: aString
+	"Looks up a property in JS object.
+	Answer the property if it is present, or nil if it is not present."
+	
+	<return aString in self._jsObject() ? aString : nil>
+! !
+
+!JSObjectProxy methodsFor: 'enumerating'!
+
+asJSON
+	"Answers the receiver in a stringyfy-friendly fashion"
+
+	^ jsObject
+!
+
+keysAndValuesDo: aBlock
+	<
+		var o = self['@jsObject'];
+		for(var i in o) {
+			aBlock._value_value_(i, o[i]);
+		}
+	>
+! !
+
+!JSObjectProxy methodsFor: 'printing'!
+
+printOn: aStream
+	aStream nextPutAll: self printString
+!
+
+printString
+	<
+		var js = self['@jsObject'];
+		return js.toString
+			? js.toString()
+			: Object.prototype.toString.call(js)
+	>
+! !
+
+!JSObjectProxy methodsFor: 'proxy'!
+
+addObjectVariablesTo: aDictionary
+	<
+		for(var i in self['@jsObject']) {
+			aDictionary._at_put_(i, self['@jsObject'][i]);
+		}
+	>
+!
+
+doesNotUnderstand: aMessage
+	^ (self lookupProperty: aMessage selector asJavaScriptSelector)
+		ifNil: [ super doesNotUnderstand: aMessage ]
+		ifNotNil: [ :jsSelector | 
+			self 
+				forwardMessage: jsSelector 
+				withArguments: aMessage arguments ]
+!
+
+forwardMessage: aString withArguments: anArray
+	<
+		return smalltalk.send(self._jsObject(), aString, anArray);
+	>
+!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self jsObject.
+	anInspector setLabel: self printString.
+	self addObjectVariablesTo: variables.
+	anInspector setVariables: variables
+! !
+
+!JSObjectProxy class methodsFor: 'instance creation'!
+
+on: aJSObject
+	^ self new
+		jsObject: aJSObject;
+		yourself
 ! !
 
 Object subclass: #Organizer
