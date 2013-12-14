@@ -415,10 +415,10 @@ category: 'accessing',
 fn: function (aString,anObject){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self['@jsObject'][aString] = anObject;
+return self['@jsObject'][aString] = anObject;
 return self}, function($ctx1) {$ctx1.fill(self,"at:put:",{aString:aString,anObject:anObject},smalltalk.JSObjectProxy)})},
 args: ["aString", "anObject"],
-source: "at: aString put: anObject\x0a\x09<self['@jsObject'][aString] = anObject>",
+source: "at: aString put: anObject\x0a\x09<return self['@jsObject'][aString] = anObject>",
 messageSends: [],
 referencedClasses: []
 }),
