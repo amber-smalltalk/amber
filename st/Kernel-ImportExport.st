@@ -590,6 +590,12 @@ exporter
 	^ self exporterClass new
 ! !
 
+!PackageHandler methodsFor: 'loading'!
+
+load: aPackage
+	self subclassResponsibility
+! !
+
 !PackageHandler methodsFor: 'private'!
 
 ajaxPutAt: aURL data: aString
@@ -629,6 +635,15 @@ exporterClass
 
 namespaceFor: aPackage
 	^ aPackage transport namespace
+! !
+
+!AmdPackageHandler methodsFor: 'loading'!
+
+load: aPackage
+	Smalltalk current amdRequire
+		ifNil: [ self error: 'AMD loader not present' ]
+		ifNotNil: [ :require |
+			require value: (Array new: (self namespaceFor: aPackage), '/', aPackage name ) ]
 ! !
 
 !AmdPackageHandler methodsFor: 'private'!
@@ -701,6 +716,12 @@ commitHandler
 
 setupFromJson: anObject
 	"no op. override if needed in subclasses"
+! !
+
+!PackageTransport methodsFor: 'loading'!
+
+load
+	self commitHandler load: self package
 ! !
 
 PackageTransport class instanceVariableNames: 'registry'!
@@ -831,5 +852,25 @@ namespace: aString
 
 commit
 	^ self transport commit
+!
+
+load
+	^ self transport load
+!
+
+loadFromNamespace: aString
+	^ self transport
+		namespace: aString;
+		load
+! !
+
+!Package class methodsFor: '*Kernel-ImportExport'!
+
+load: aPackageName
+	(self named: aPackageName) load
+!
+
+load: aPackageName fromNamespace: aString
+	(self named: aPackageName) loadFromNamespace: aString
 ! !
 
