@@ -954,7 +954,7 @@ withIndexDo: aBlock
 	<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>
 ! !
 
-!SequenceableCollection methodsFor: 'protected'!
+!SequenceableCollection methodsFor: 'private'!
 
 numericallyIndexable
 	"This is internal converting message.
@@ -1149,7 +1149,7 @@ printOn: aStream
 	aStream nextPutAll: ')'
 ! !
 
-!Array methodsFor: 'protected'!
+!Array methodsFor: 'private'!
 
 numericallyIndexable
 	^ self
@@ -1456,7 +1456,7 @@ printOn: aStream
 		nextPutAll: ''''
 ! !
 
-!String methodsFor: 'protected'!
+!String methodsFor: 'private'!
 
 numericallyIndexable
 	<return String(self)>

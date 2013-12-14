@@ -2760,7 +2760,7 @@ smalltalk.SequenceableCollection);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numericallyIndexable",
-category: 'protected',
+category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -3159,7 +3159,7 @@ smalltalk.Array);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numericallyIndexable",
-category: 'protected',
+category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
@@ -4561,7 +4561,7 @@ smalltalk.String);
 smalltalk.addMethod(
 smalltalk.method({
 selector: "numericallyIndexable",
-category: 'protected',
+category: 'private',
 fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
