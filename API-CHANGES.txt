@@ -1,3 +1,22 @@
+0.12.3 (wip):
+
+* Package Import-Export renamed to Kernel-ImportExport
+
+
++ Package
+  + >>load
+  + >>loadFromNamespace:
++ Package class
+  + >>load:
+  + >>load:fromNamespace:
++ PackageTransport
+  + >>load
++ PackageHandler
+  + >>load:
++ AmdPackageHandler
+  + >>load:
+
+
 0.12.2:
 
 * Collection >> contains: is deprecated in favor of anySatisfy:

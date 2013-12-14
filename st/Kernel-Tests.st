@@ -1224,6 +1224,15 @@ testAtIfPresentIfAbsent
 	self assert: (testObject at: 'f' ifPresent: [ :x|'hello ',x asString ] ifAbsent: [ 'not present' ]) equals: 'hello nil'.
 !
 
+testAtPut
+	| testObject |
+	testObject := self jsObject.
+	
+	self assert: (testObject at: 'abc') ~= 'xyz'.
+	self assert: (testObject at: 'abc' put: 'xyz') equals: 'xyz'.
+	self assert: (testObject at: 'abc') equals: 'xyz'
+!
+
 testDNU
 	self should: [ self jsObject foo ] raise: MessageNotUnderstood
 !

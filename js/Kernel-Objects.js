@@ -2,8 +2,301 @@ define("amber_core/Kernel-Objects", ["amber_vm/smalltalk", "amber_vm/nil", "ambe
 smalltalk.addPackage('Kernel-Objects');
 smalltalk.packages["Kernel-Objects"].transport = {"type":"amd","amdNamespace":"amber_core"};
 
-smalltalk.addClass('Object', smalltalk.nil, [], 'Kernel-Objects');
-smalltalk.Object.comment="**I am the root of the Smalltalk class system**. All classes in the system are subclasses of me.\x0a\x0aI provide default behavior common to all normal objects, such as:\x0a\x0a- accessing\x0a- copying\x0a- comparison\x0a- error handling\x0a- message sending\x0a- reflection\x0a\x0aAlso utility messages that all objects should respond to are defined here.\x0a\x0aI have no instance variable.\x0a\x0a##Access\x0a\x0aInstance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `#instanceVariableNames` answers a collection of all instance variable names.\x0aAccessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.\x0a\x0a##Copying\x0a\x0aCopying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.\x0aThe hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.\x0a\x0a##Comparison\x0a\x0aI understand equality `#=` and identity `#==` comparison.\x0a\x0a##Error handling\x0a\x0a- `#halt` is the typical message to use for inserting breakpoints during debugging.\x0a- `#error:` throws a generic error exception\x0a- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.\x0a\x09Overriding this message can be useful to implement proxies for example.";
+smalltalk.addClass('ProtoObject', smalltalk.nil, [], 'Kernel-Objects');
+smalltalk.ProtoObject.comment="I implement the basic behavior required for any object in Amber.\x0a\x0aIn most cases, subclassing `ProtoObject` is wrong and `Object` should be used instead. However subclassing `ProtoObject` can be useful in some special cases like proxy implementations. ";
+smalltalk.addMethod(
+smalltalk.method({
+selector: "asString",
+category: 'converting',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._printString();
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.ProtoObject)})},
+args: [],
+source: "asString\x0a\x09^ self printString",
+messageSends: ["printString"],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "class",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self.klass;
+return self}, function($ctx1) {$ctx1.fill(self,"class",{},smalltalk.ProtoObject)})},
+args: [],
+source: "class\x0a\x09<return self.klass>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "doesNotUnderstand:",
+category: 'error handling',
+fn: function (aMessage){
+var self=this;
+function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
+return smalltalk.withContext(function($ctx1) { 
+var $1,$2;
+$1=_st($MessageNotUnderstood())._new();
+_st($1)._receiver_(self);
+_st($1)._message_(aMessage);
+$2=_st($1)._signal();
+return self}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.ProtoObject)})},
+args: ["aMessage"],
+source: "doesNotUnderstand: aMessage\x0a\x09MessageNotUnderstood new\x0a\x09\x09receiver: self;\x0a\x09\x09message: aMessage;\x0a\x09\x09signal",
+messageSends: ["receiver:", "new", "message:", "signal"],
+referencedClasses: ["MessageNotUnderstood"]
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "identityHash",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+
+		var hash=self.identityHash;
+		if (hash) return hash;
+		hash=smalltalk.nextId();
+		Object.defineProperty(self, 'identityHash', {value:hash});
+		return hash;
+	;
+return self}, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.ProtoObject)})},
+args: [],
+source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProtoObject)})},
+args: [],
+source: "initialize",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspect",
+category: 'inspecting',
+fn: function (){
+var self=this;
+function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
+return smalltalk.withContext(function($ctx1) { 
+_st($InspectorHandler())._inspect_(self);
+return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.ProtoObject)})},
+args: [],
+source: "inspect\x0a\x09InspectorHandler inspect: self",
+messageSends: ["inspect:"],
+referencedClasses: ["InspectorHandler"]
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: 'inspecting',
+fn: function (anInspector){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector},smalltalk.ProtoObject)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "instVarAt:",
+category: 'accessing',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ return self['@'+aString] ;
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},smalltalk.ProtoObject)})},
+args: ["aString"],
+source: "instVarAt: aString\x0a\x09< return self['@'+aString] >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "instVarAt:put:",
+category: 'accessing',
+fn: function (aString,anObject){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+ self['@' + aString] = anObject ;
+return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},smalltalk.ProtoObject)})},
+args: ["aString", "anObject"],
+source: "instVarAt: aString put: anObject\x0a\x09< self['@' + aString] = anObject >",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "perform:",
+category: 'message handling',
+fn: function (aString){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=self._perform_withArguments_(aString,[]);
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"perform:",{aString:aString},smalltalk.ProtoObject)})},
+args: ["aString"],
+source: "perform: aString\x0a\x09^ self perform: aString withArguments: #()",
+messageSends: ["perform:withArguments:"],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "perform:withArguments:",
+category: 'message handling',
+fn: function (aString,aCollection){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return smalltalk.send(self, aString._asSelector(), aCollection);
+return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.ProtoObject)})},
+args: ["aString", "aCollection"],
+source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printOn:",
+category: 'printing',
+fn: function (aStream){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+var $5,$4,$3,$2,$1;
+$5=self._class();
+$ctx1.sendIdx["class"]=1;
+$4=_st($5)._name();
+$ctx1.sendIdx["name"]=1;
+$3=_st($4)._first();
+$2=_st($3)._isVowel();
+if(smalltalk.assert($2)){
+$1="an ";
+} else {
+$1="a ";
+};
+_st(aStream)._nextPutAll_($1);
+$ctx1.sendIdx["nextPutAll:"]=1;
+_st(aStream)._nextPutAll_(_st(self._class())._name());
+return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.ProtoObject)})},
+args: ["aStream"],
+source: "printOn: aStream\x0a\x09aStream nextPutAll: (self class name first isVowel\x0a\x09\x09ifTrue: [ 'an ' ]\x0a\x09\x09ifFalse: [ 'a ' ]).\x0a\x09aStream nextPutAll: self class name",
+messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "class"],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "printString",
+category: 'printing',
+fn: function (){
+var self=this;
+function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+$1=_st($String())._streamContents_((function(str){
+return smalltalk.withContext(function($ctx2) {
+return self._printOn_(str);
+}, function($ctx2) {$ctx2.fillBlock({str:str},$ctx1,1)})}));
+return $1;
+}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.ProtoObject)})},
+args: [],
+source: "printString\x0a\x09^ String streamContents: [ :str | \x0a\x09\x09self printOn: str ]",
+messageSends: ["streamContents:", "printOn:"],
+referencedClasses: ["String"]
+}),
+smalltalk.ProtoObject);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "yourself",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self;
+}, function($ctx1) {$ctx1.fill(self,"yourself",{},smalltalk.ProtoObject)})},
+args: [],
+source: "yourself\x0a\x09^ self",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject);
+
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "heliosClass",
+category: 'accessing',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return "class";
+}, function($ctx1) {$ctx1.fill(self,"heliosClass",{},smalltalk.ProtoObject.klass)})},
+args: [],
+source: "heliosClass\x0a\x09\x22Should be an Helios extension. Unfortunately, since helios can browse remote\x0a\x09environments, we can't extend base classes\x22\x0a\x09\x0a\x09^ 'class'",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject.klass);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "initialize",
+category: 'initialization',
+fn: function (){
+var self=this;
+return smalltalk.withContext(function($ctx1) { 
+return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.ProtoObject.klass)})},
+args: [],
+source: "initialize",
+messageSends: [],
+referencedClasses: []
+}),
+smalltalk.ProtoObject.klass);
+
+
+smalltalk.addClass('Object', smalltalk.ProtoObject, [], 'Kernel-Objects');
+smalltalk.Object.comment="**I am the root of the Smalltalk class system**. With the exception of unual subclasses of `ProtoObject`, all other classes in the system are subclasses of me.\x0a\x0aI provide default behavior common to all normal objects (some of it inherited from `ProtoObject`), such as:\x0a\x0a- accessing\x0a- copying\x0a- comparison\x0a- error handling\x0a- message sending\x0a- reflection\x0a\x0aAlso utility messages that all objects should respond to are defined here.\x0a\x0aI have no instance variable.\x0a\x0a##Access\x0a\x0aInstance variables can be accessed with `#instVarAt:` and `#instVarAt:put:`. `#instanceVariableNames` answers a collection of all instance variable names.\x0aAccessing JavaScript properties of an object is done through `#basicAt:`, `#basicAt:put:` and `basicDelete:`.\x0a\x0a##Copying\x0a\x0aCopying an object is handled by `#copy` and `#deepCopy`. The first one performs a shallow copy of the receiver, while the second one performs a deep copy.\x0aThe hook method `#postCopy` can be overriden in subclasses to copy fields as necessary to complete the full copy. It will be sent by the copy of the receiver.\x0a\x0a##Comparison\x0a\x0aI understand equality `#=` and identity `#==` comparison.\x0a\x0a##Error handling\x0a\x0a- `#halt` is the typical message to use for inserting breakpoints during debugging.\x0a- `#error:` throws a generic error exception\x0a- `#doesNotUnderstand:` handles the fact that there was an attempt to send the given message to the receiver but the receiver does not understand this message.\x0a\x09Overriding this message can be useful to implement proxies for example.";
 smalltalk.addMethod(
 smalltalk.method({
 selector: "->",
@@ -125,24 +418,6 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "asString",
-category: 'converting',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._printString();
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"asString",{},smalltalk.Object)})},
-args: [],
-source: "asString\x0a\x09^ self printString",
-messageSends: ["printString"],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "basicAt:",
 category: 'accessing',
 fn: function (aString){
@@ -225,22 +500,6 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "class",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self.klass;
-return self}, function($ctx1) {$ctx1.fill(self,"class",{},smalltalk.Object)})},
-args: [],
-source: "class\x0a\x09<return self.klass>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "copy",
 category: 'copying',
 fn: function (){
@@ -313,27 +572,6 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "doesNotUnderstand:",
-category: 'error handling',
-fn: function (aMessage){
-var self=this;
-function $MessageNotUnderstood(){return smalltalk.MessageNotUnderstood||(typeof MessageNotUnderstood=="undefined"?nil:MessageNotUnderstood)}
-return smalltalk.withContext(function($ctx1) { 
-var $1,$2;
-$1=_st($MessageNotUnderstood())._new();
-_st($1)._receiver_(self);
-_st($1)._message_(aMessage);
-$2=_st($1)._signal();
-return self}, function($ctx1) {$ctx1.fill(self,"doesNotUnderstand:",{aMessage:aMessage},smalltalk.Object)})},
-args: ["aMessage"],
-source: "doesNotUnderstand: aMessage\x0a\x09MessageNotUnderstood new\x0a\x09\x09receiver: self;\x0a\x09\x09message: aMessage;\x0a\x09\x09signal",
-messageSends: ["receiver:", "new", "message:", "signal"],
-referencedClasses: ["MessageNotUnderstood"]
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "error:",
 category: 'error handling',
 fn: function (aString){
@@ -361,28 +599,6 @@ return self}, function($ctx1) {$ctx1.fill(self,"halt",{},smalltalk.Object)})},
 args: [],
 source: "halt\x0a\x09self error: 'Halt encountered'",
 messageSends: ["error:"],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "identityHash",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-
-		var hash=self.identityHash;
-		if (hash) return hash;
-		hash=smalltalk.nextId();
-		Object.defineProperty(self, 'identityHash', {value:hash});
-		return hash;
-	;
-return self}, function($ctx1) {$ctx1.fill(self,"identityHash",{},smalltalk.Object)})},
-args: [],
-source: "identityHash\x0a\x09<\x0a\x09\x09var hash=self.identityHash;\x0a\x09\x09if (hash) return hash;\x0a\x09\x09hash=smalltalk.nextId();\x0a\x09\x09Object.defineProperty(self, 'identityHash', {value:hash});\x0a\x09\x09return hash;\x0a\x09>",
-messageSends: [],
 referencedClasses: []
 }),
 smalltalk.Object);
@@ -459,38 +675,6 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "initialize",
-category: 'initialization',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self}, function($ctx1) {$ctx1.fill(self,"initialize",{},smalltalk.Object)})},
-args: [],
-source: "initialize",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspect",
-category: 'inspecting',
-fn: function (){
-var self=this;
-function $InspectorHandler(){return smalltalk.InspectorHandler||(typeof InspectorHandler=="undefined"?nil:InspectorHandler)}
-return smalltalk.withContext(function($ctx1) { 
-_st($InspectorHandler())._inspect_(self);
-return self}, function($ctx1) {$ctx1.fill(self,"inspect",{},smalltalk.Object)})},
-args: [],
-source: "inspect\x0a\x09InspectorHandler inspect: self",
-messageSends: ["inspect:"],
-referencedClasses: ["InspectorHandler"]
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "inspectOn:",
 category: 'inspecting',
 fn: function (anInspector){
@@ -513,38 +697,6 @@ args: ["anInspector"],
 source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09self class allInstanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
 messageSends: ["new", "at:put:", "do:", "allInstanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
 referencedClasses: ["Dictionary"]
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "instVarAt:",
-category: 'accessing',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
- return self['@'+aString] ;
-return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:",{aString:aString},smalltalk.Object)})},
-args: ["aString"],
-source: "instVarAt: aString\x0a\x09< return self['@'+aString] >",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "instVarAt:put:",
-category: 'accessing',
-fn: function (aString,anObject){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
- self['@' + aString] = anObject ;
-return self}, function($ctx1) {$ctx1.fill(self,"instVarAt:put:",{aString:aString,anObject:anObject},smalltalk.Object)})},
-args: ["aString", "anObject"],
-source: "instVarAt: aString put: anObject\x0a\x09< self['@' + aString] = anObject >",
-messageSends: [],
-referencedClasses: []
 }),
 smalltalk.Object);
 
@@ -801,40 +953,6 @@ smalltalk.Object);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "perform:",
-category: 'message handling',
-fn: function (aString){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=self._perform_withArguments_(aString,[]);
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"perform:",{aString:aString},smalltalk.Object)})},
-args: ["aString"],
-source: "perform: aString\x0a\x09^ self perform: aString withArguments: #()",
-messageSends: ["perform:withArguments:"],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "perform:withArguments:",
-category: 'message handling',
-fn: function (aString,aCollection){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return smalltalk.send(self, aString._asSelector(), aCollection);
-return self}, function($ctx1) {$ctx1.fill(self,"perform:withArguments:",{aString:aString,aCollection:aCollection},smalltalk.Object)})},
-args: ["aString", "aCollection"],
-source: "perform: aString withArguments: aCollection\x0a\x09<return smalltalk.send(self, aString._asSelector(), aCollection)>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
 selector: "postCopy",
 category: 'copying',
 fn: function (){
@@ -845,58 +963,6 @@ args: [],
 source: "postCopy",
 messageSends: [],
 referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "printOn:",
-category: 'printing',
-fn: function (aStream){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-var $5,$4,$3,$2,$1;
-$5=self._class();
-$ctx1.sendIdx["class"]=1;
-$4=_st($5)._name();
-$ctx1.sendIdx["name"]=1;
-$3=_st($4)._first();
-$2=_st($3)._isVowel();
-if(smalltalk.assert($2)){
-$1="an ";
-} else {
-$1="a ";
-};
-_st(aStream)._nextPutAll_($1);
-$ctx1.sendIdx["nextPutAll:"]=1;
-_st(aStream)._nextPutAll_(_st(self._class())._name());
-return self}, function($ctx1) {$ctx1.fill(self,"printOn:",{aStream:aStream},smalltalk.Object)})},
-args: ["aStream"],
-source: "printOn: aStream\x0a\x09\x22Append to the aStream, a string representing the receiver.\x22\x0a\x09\x0a\x09aStream nextPutAll: (self class name first isVowel\x0a\x09\x09ifTrue: [ 'an ' ]\x0a\x09\x09ifFalse: [ 'a ' ]).\x0a\x09aStream nextPutAll: self class name",
-messageSends: ["nextPutAll:", "ifTrue:ifFalse:", "isVowel", "first", "name", "class"],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "printString",
-category: 'printing',
-fn: function (){
-var self=this;
-function $String(){return smalltalk.String||(typeof String=="undefined"?nil:String)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-$1=_st($String())._streamContents_((function(stream){
-return smalltalk.withContext(function($ctx2) {
-return self._printOn_(stream);
-}, function($ctx2) {$ctx2.fillBlock({stream:stream},$ctx1,1)})}));
-return $1;
-}, function($ctx1) {$ctx1.fill(self,"printString",{},smalltalk.Object)})},
-args: [],
-source: "printString\x0a\x09\x22Answer a String representation of the receiver.\x22\x0a\x0a\x09^ String streamContents: [ :stream | self printOn: stream ]",
-messageSends: ["streamContents:", "printOn:"],
-referencedClasses: ["String"]
 }),
 smalltalk.Object);
 
@@ -1049,22 +1115,6 @@ return self.valueOf();
 return self}, function($ctx1) {$ctx1.fill(self,"value",{},smalltalk.Object)})},
 args: [],
 source: "value\x0a\x09<return self.valueOf()>",
-messageSends: [],
-referencedClasses: []
-}),
-smalltalk.Object);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "yourself",
-category: 'accessing',
-fn: function (){
-var self=this;
-return smalltalk.withContext(function($ctx1) { 
-return self;
-}, function($ctx1) {$ctx1.fill(self,"yourself",{},smalltalk.Object)})},
-args: [],
-source: "yourself\x0a\x09^ self",
 messageSends: [],
 referencedClasses: []
 }),

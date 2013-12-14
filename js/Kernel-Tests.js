@@ -4085,6 +4085,31 @@ smalltalk.JSObjectProxyTest);
 
 smalltalk.addMethod(
 smalltalk.method({
+selector: "testAtPut",
+category: 'tests',
+fn: function (){
+var self=this;
+var testObject;
+return smalltalk.withContext(function($ctx1) { 
+var $2,$1;
+testObject=self._jsObject();
+$2=_st(testObject)._at_("abc");
+$ctx1.sendIdx["at:"]=1;
+$1=_st($2).__tild_eq("xyz");
+self._assert_($1);
+self._assert_equals_(_st(testObject)._at_put_("abc","xyz"),"xyz");
+$ctx1.sendIdx["assert:equals:"]=1;
+self._assert_equals_(_st(testObject)._at_("abc"),"xyz");
+return self}, function($ctx1) {$ctx1.fill(self,"testAtPut",{testObject:testObject},smalltalk.JSObjectProxyTest)})},
+args: [],
+source: "testAtPut\x0a\x09| testObject |\x0a\x09testObject := self jsObject.\x0a\x09\x0a\x09self assert: (testObject at: 'abc') ~= 'xyz'.\x0a\x09self assert: (testObject at: 'abc' put: 'xyz') equals: 'xyz'.\x0a\x09self assert: (testObject at: 'abc') equals: 'xyz'",
+messageSends: ["jsObject", "assert:", "~=", "at:", "assert:equals:", "at:put:"],
+referencedClasses: []
+}),
+smalltalk.JSObjectProxyTest);
+
+smalltalk.addMethod(
+smalltalk.method({
 selector: "testDNU",
 category: 'tests',
 fn: function (){
