@@ -17,6 +17,12 @@
 + AmdPackageHandler
   + >>load:
 
+- HTMLCanvas class
+  - browserVersion
+  - isMozilla
+  - isOpera
+  - isWebkit
+
 
 0.12.2:
 
