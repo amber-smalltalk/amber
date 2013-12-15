@@ -3,7 +3,13 @@
 * Package Import-Export renamed to Kernel-ImportExport
 * A dozen of methods moved from Object to ProtoObject
 
-
++ CompiledMethod
+  - category: (use #protocol:)
+  - defaultCategory
+  + defaultProtocol
++ Behavior
+  - compile:category:
+  + compile:protocol:
 + Package
   + >>load
   + >>loadFromNamespace:

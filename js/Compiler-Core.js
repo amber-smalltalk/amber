@@ -489,7 +489,7 @@ var result,method;
 return smalltalk.withContext(function($ctx1) { 
 var $1,$2;
 method=self._eval_(self._compileExpression_on_(aString,anObject));
-_st(method)._category_("xxxDoIt");
+_st(method)._protocol_("xxxDoIt");
 $1=_st(anObject)._class();
 $ctx1.sendIdx["class"]=1;
 _st($1)._addCompiledMethod_(method);
@@ -499,27 +499,27 @@ $2=result;
 return $2;
 }, function($ctx1) {$ctx1.fill(self,"evaluateExpression:on:",{aString:aString,anObject:anObject,result:result,method:method},smalltalk.Compiler)})},
 args: ["aString", "anObject"],
-source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method category: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
-messageSends: ["eval:", "compileExpression:on:", "category:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
+source: "evaluateExpression: aString on: anObject\x0a\x09\x22Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object\x22\x0a\x09| result method |\x0a\x09method := self eval: (self compileExpression: aString on: anObject).\x0a\x09method protocol: 'xxxDoIt'.\x0a\x09anObject class addCompiledMethod: method.\x0a\x09result := anObject xxxDoIt.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09^ result",
+messageSends: ["eval:", "compileExpression:on:", "protocol:", "addCompiledMethod:", "class", "xxxDoIt", "removeCompiledMethod:"],
 referencedClasses: []
 }),
 smalltalk.Compiler);
 
 smalltalk.addMethod(
 smalltalk.method({
-selector: "install:forClass:category:",
+selector: "install:forClass:protocol:",
 category: 'compiling',
 fn: function (aString,aBehavior,anotherString){
 var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(_st($ClassBuilder())._new())._installMethod_forClass_category_(self._eval_(self._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
+$1=_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(self._eval_(self._compile_forClass_(aString,aBehavior)),aBehavior,anotherString);
 return $1;
-}, function($ctx1) {$ctx1.fill(self,"install:forClass:category:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},smalltalk.Compiler)})},
+}, function($ctx1) {$ctx1.fill(self,"install:forClass:protocol:",{aString:aString,aBehavior:aBehavior,anotherString:anotherString},smalltalk.Compiler)})},
 args: ["aString", "aBehavior", "anotherString"],
-source: "install: aString forClass: aBehavior category: anotherString\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a\x09\x09forClass: aBehavior\x0a\x09\x09category: anotherString",
-messageSends: ["installMethod:forClass:category:", "new", "eval:", "compile:forClass:"],
+source: "install: aString forClass: aBehavior protocol: anotherString\x0a\x09^ ClassBuilder new\x0a\x09\x09installMethod: (self eval: (self compile: aString forClass: aBehavior))\x0a\x09\x09forClass: aBehavior\x0a\x09\x09protocol: anotherString",
+messageSends: ["installMethod:forClass:protocol:", "new", "eval:", "compile:forClass:"],
 referencedClasses: ["ClassBuilder"]
 }),
 smalltalk.Compiler);
@@ -573,7 +573,7 @@ return smalltalk.withContext(function($ctx1) {
 var $1;
 _st(_st(_st(aClass)._methodDictionary())._values())._do_displayingProgress_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return self._install_forClass_category_(_st(each)._source(),aClass,_st(each)._category());
+return self._install_forClass_protocol_(_st(each)._source(),aClass,_st(each)._protocol());
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}),"Recompiling ".__comma(_st(aClass)._name()));
 $1=_st(aClass)._isMetaclass();
 if(! smalltalk.assert($1)){
@@ -581,8 +581,8 @@ self._recompile_(_st(aClass)._class());
 };
 return self}, function($ctx1) {$ctx1.fill(self,"recompile:",{aClass:aClass},smalltalk.Compiler)})},
 args: ["aClass"],
-source: "recompile: aClass\x0a\x09aClass methodDictionary values\x0a\x09\x09do: [ :each | self install: each source forClass: aClass category: each category ]\x0a\x09\x09displayingProgress: 'Recompiling ', aClass name.\x0a\x09\x22self setupClass: aClass.\x22\x0a\x09aClass isMetaclass ifFalse: [ self recompile: aClass class ]",
-messageSends: ["do:displayingProgress:", "values", "methodDictionary", "install:forClass:category:", "source", "category", ",", "name", "ifFalse:", "isMetaclass", "recompile:", "class"],
+source: "recompile: aClass\x0a\x09aClass methodDictionary values\x0a\x09\x09do: [ :each | \x0a\x09\x09\x09self \x0a\x09\x09\x09\x09install: each source \x0a\x09\x09\x09\x09forClass: aClass \x0a\x09\x09\x09\x09protocol: each protocol ]\x0a\x09\x09displayingProgress: 'Recompiling ', aClass name.\x0a\x09aClass isMetaclass ifFalse: [ self recompile: aClass class ]",
+messageSends: ["do:displayingProgress:", "values", "methodDictionary", "install:forClass:protocol:", "source", "protocol", ",", "name", "ifFalse:", "isMetaclass", "recompile:", "class"],
 referencedClasses: []
 }),
 smalltalk.Compiler);

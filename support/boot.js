@@ -583,7 +583,8 @@ function MethodsBrik(brikz, st) {
 		that.selector          = spec.selector;
 		that.jsSelector        = spec.jsSelector;
 		that.args              = spec.args || {};
-		that.category          = spec.category;
+		// spec.category is kept for compatibility
+		that.protocol          = spec.protocol || spec.category;
 		that.source            = spec.source;
 		that.messageSends      = spec.messageSends || [];
 		that.referencedClasses = spec.referencedClasses || [];
@@ -610,7 +611,7 @@ function MethodsBrik(brikz, st) {
 
 		// During the bootstrap, #addCompiledMethod is not used.
 		// Therefore we populate the organizer here too
-		org.addOrganizationElement(klass, method.category);
+		org.addOrganizationElement(klass, method.protocol);
 
 		propagateMethodChange(klass);
 

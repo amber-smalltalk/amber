@@ -234,7 +234,7 @@ ownMethodsOfClass: aClass
 	"Issue #143: sort methods alphabetically"
 
 	^ ((aClass methodDictionary values) sorted: [ :a :b | a selector <= b selector ])
-		reject: [ :each | (each category match: '^\*') ]
+		reject: [ :each | (each protocol match: '^\*') ]
 !
 
 ownMethodsOfMetaClass: aClass
@@ -299,7 +299,7 @@ exportMethod: aMethod on: aStream
 		"nextPutAll: aMethod selector asSelector asJavascript, ',';lf;"
 		nextPutAll: 'smalltalk.method({';lf;
 		nextPutAll: 'selector: ', aMethod selector asJavascript, ',';lf;
-		nextPutAll: 'category: ''', aMethod category, ''',';lf;
+		nextPutAll: 'category: ''', aMethod protocol, ''',';lf;
 		nextPutAll: 'fn: ', aMethod fn compiledSource, ',';lf;
 		nextPutAll: 'args: ', aMethod arguments asJavascript, ','; lf;
 		nextPutAll: 'source: ', aMethod source asJavascript, ',';lf;

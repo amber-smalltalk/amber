@@ -339,14 +339,14 @@ self["@receiver"]=anObject;
 $1=self._compiler();
 $2=_st(anObject)._class();
 $ctx1.sendIdx["class"]=1;
-method=_st($1)._install_forClass_category_(aString,$2,"tests");
+method=_st($1)._install_forClass_protocol_(aString,$2,"tests");
 result=_st(self["@receiver"])._perform_(_st(method)._selector());
 _st(_st(anObject)._class())._removeCompiledMethod_(method);
 self._assert_equals_(aResult,result);
 return self}, function($ctx1) {$ctx1.fill(self,"should:receiver:return:",{aString:aString,anObject:anObject,aResult:aResult,method:method,result:result},smalltalk.CodeGeneratorTest)})},
 args: ["aString", "anObject", "aResult"],
-source: "should: aString receiver: anObject return: aResult\x0a\x09| method result |\x0a\x0a\x09receiver := anObject.\x0a\x09method := self compiler install: aString forClass: anObject class category: 'tests'.\x0a\x09result := receiver perform: method selector.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09self assert: aResult equals: result",
-messageSends: ["install:forClass:category:", "compiler", "class", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"],
+source: "should: aString receiver: anObject return: aResult\x0a\x09| method result |\x0a\x0a\x09receiver := anObject.\x0a\x09method := self compiler install: aString forClass: anObject class protocol: 'tests'.\x0a\x09result := receiver perform: method selector.\x0a\x09anObject class removeCompiledMethod: method.\x0a\x09self assert: aResult equals: result",
+messageSends: ["install:forClass:protocol:", "compiler", "class", "perform:", "selector", "removeCompiledMethod:", "assert:equals:"],
 referencedClasses: []
 }),
 smalltalk.CodeGeneratorTest);

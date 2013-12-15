@@ -728,7 +728,8 @@ methods
 		ifNotNil: [ klass methodDictionary values ]]
 	ifNotNil: [
 		klass methodDictionary values select: [ :each |
-		each category = selectedProtocol ]]) sort: [ :a :b | a selector < b selector ]
+			each protocol = selectedProtocol ]]) 
+				sort: [ :a :b | a selector < b selector ]
 !
 
 packages
@@ -794,10 +795,12 @@ addNewClass
 
 addNewProtocol
 	| newProtocol |
+	
 	newProtocol := self prompt: 'New method protocol'.
+	
 	(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [
-	selectedMethod category: newProtocol.
-	self setMethodProtocol: newProtocol ]
+		selectedMethod protocol: newProtocol.
+		self setMethodProtocol: newProtocol ]
 !
 
 cancelChanges
@@ -849,7 +852,7 @@ compileMethodDefinition
 compileMethodDefinitionFor: aClass
 	| compiler method source node |
 	source := sourceArea val.
-	selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].
+	selectedProtocol ifNil: [ selectedProtocol := selectedMethod protocol ].
 	compiler := Compiler new.
 	compiler source: source.
 	node := compiler parse: source.
@@ -863,7 +866,7 @@ compileMethodDefinitionFor: aClass
 		(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [
 			self addInstanceVariableNamed: each toClass: aClass.
 			^ self compileMethodDefinitionFor: aClass ]] ].
-	ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.
+	ClassBuilder new installMethod: method forClass: aClass protocol: selectedProtocol.
 	self updateMethodsList.
 	self selectMethod: method
 !
@@ -1021,7 +1024,7 @@ setMethodProtocol: aString
 	(self protocols includes: aString)
 		ifFalse: [ self addNewProtocol ]
 		ifTrue: [
-		selectedMethod category: aString.
+		selectedMethod protocol: aString.
 		selectedProtocol := aString.
 		selectedMethod := selectedMethod.
 		self
@@ -2340,6 +2343,23 @@ inspectOn: anInspector
 	anInspector setLabel: label
 ! !
 
+!MethodContext methodsFor: '*IDE'!
+
+inspectOn: anInspector
+	| variables |
+	variables := Dictionary new.
+	variables at: '#self' put: self.
+	variables at: '#home' put: self home.
+	variables at: '#receiver' put: self receiver.
+	variables at: '#selector' put: self selector.
+	variables at: '#temps' put: self temps.
+	self class instanceVariableNames do: [ :each |
+		variables at: each put: (self instVarAt: each) ].
+	anInspector
+		setLabel: self printString;
+		setVariables: variables
+! !
+
 !HashedCollection methodsFor: '*IDE'!
 
 inspectOn: anInspector
@@ -2362,23 +2382,6 @@ inspectOn: anInspector
 	variables at: '#self' put: self.
 	elements withIndexDo: [ :each :i |
 		variables at: i put: each ].
-	anInspector
-		setLabel: self printString;
-		setVariables: variables
-! !
-
-!MethodContext methodsFor: '*IDE'!
-
-inspectOn: anInspector
-	| variables |
-	variables := Dictionary new.
-	variables at: '#self' put: self.
-	variables at: '#home' put: self home.
-	variables at: '#receiver' put: self receiver.
-	variables at: '#selector' put: self selector.
-	variables at: '#temps' put: self temps.
-	self class instanceVariableNames do: [ :each |
-		variables at: each put: (self instVarAt: each) ].
 	anInspector
 		setLabel: self printString;
 		setVariables: variables

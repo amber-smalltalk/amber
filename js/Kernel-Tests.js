@@ -196,7 +196,7 @@ return smalltalk.withContext(function($ctx2) {
 return _st(selfarg)._at_(x);
 }, function($ctx2) {$ctx2.fillBlock({selfarg:selfarg,x:x},$ctx1,1)})}))._currySelf())._asCompiledMethod_("foo:");
 array=[(3), (1), (4)];
-_st(_st($ClassBuilder())._new())._installMethod_forClass_category_(curriedMethod,$Array(),"**test helper");
+_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(curriedMethod,$Array(),"**test helper");
 _st((function(){
 return smalltalk.withContext(function($ctx2) {
 return self._assert_equals_(_st(array)._foo_((2)),(1));
@@ -206,8 +206,8 @@ return _st($Array())._removeCompiledMethod_(curriedMethod);
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,3)})}));
 return self}, function($ctx1) {$ctx1.fill(self,"testCurrySelf",{curriedMethod:curriedMethod,array:array},smalltalk.BlockClosureTest)})},
 args: [],
-source: "testCurrySelf\x0a\x09| curriedMethod array |\x0a\x09curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.\x0a\x09array := #(3 1 4).\x0a\x09ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.\x0a\x09[ self assert: (array foo: 2) equals: 1 ]\x0a\x09ensure: [ Array removeCompiledMethod: curriedMethod ]",
-messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:category:", "new", "ensure:", "assert:equals:", "foo:", "removeCompiledMethod:"],
+source: "testCurrySelf\x0a\x09| curriedMethod array |\x0a\x09curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.\x0a\x09array := #(3 1 4).\x0a\x09ClassBuilder new installMethod: curriedMethod forClass: Array protocol: '**test helper'.\x0a\x09[ self assert: (array foo: 2) equals: 1 ]\x0a\x09ensure: [ Array removeCompiledMethod: curriedMethod ]",
+messageSends: ["asCompiledMethod:", "currySelf", "at:", "installMethod:forClass:protocol:", "new", "ensure:", "assert:equals:", "foo:", "removeCompiledMethod:"],
 referencedClasses: ["ClassBuilder", "Array"]
 }),
 smalltalk.BlockClosureTest);
@@ -4490,11 +4490,11 @@ category: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassBottom(),"tests");
+self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassBottom(),"tests");
 return self}, function($ctx1) {$ctx1.fill(self,"installBottom:",{aString:aString},smalltalk.MethodInheritanceTest)})},
 args: ["aString"],
-source: "installBottom: aString\x0a\x09method := self compiler install: aString forClass: self targetClassBottom category: 'tests'",
-messageSends: ["install:forClass:category:", "compiler", "targetClassBottom"],
+source: "installBottom: aString\x0a\x09method := self compiler install: aString forClass: self targetClassBottom protocol: 'tests'",
+messageSends: ["install:forClass:protocol:", "compiler", "targetClassBottom"],
 referencedClasses: []
 }),
 smalltalk.MethodInheritanceTest);
@@ -4506,11 +4506,11 @@ category: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassMiddle(),"tests");
+self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassMiddle(),"tests");
 return self}, function($ctx1) {$ctx1.fill(self,"installMiddle:",{aString:aString},smalltalk.MethodInheritanceTest)})},
 args: ["aString"],
-source: "installMiddle: aString\x0a\x09method := self compiler install: aString forClass: self targetClassMiddle category: 'tests'",
-messageSends: ["install:forClass:category:", "compiler", "targetClassMiddle"],
+source: "installMiddle: aString\x0a\x09method := self compiler install: aString forClass: self targetClassMiddle protocol: 'tests'",
+messageSends: ["install:forClass:protocol:", "compiler", "targetClassMiddle"],
 referencedClasses: []
 }),
 smalltalk.MethodInheritanceTest);
@@ -4522,11 +4522,11 @@ category: 'testing',
 fn: function (aString){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self["@method"]=_st(self._compiler())._install_forClass_category_(aString,self._targetClassTop(),"tests");
+self["@method"]=_st(self._compiler())._install_forClass_protocol_(aString,self._targetClassTop(),"tests");
 return self}, function($ctx1) {$ctx1.fill(self,"installTop:",{aString:aString},smalltalk.MethodInheritanceTest)})},
 args: ["aString"],
-source: "installTop: aString\x0a\x09method := self compiler install: aString forClass: self targetClassTop category: 'tests'",
-messageSends: ["install:forClass:category:", "compiler", "targetClassTop"],
+source: "installTop: aString\x0a\x09method := self compiler install: aString forClass: self targetClassTop protocol: 'tests'",
+messageSends: ["install:forClass:protocol:", "compiler", "targetClassTop"],
 referencedClasses: []
 }),
 smalltalk.MethodInheritanceTest);

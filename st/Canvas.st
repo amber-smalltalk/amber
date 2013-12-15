@@ -625,7 +625,7 @@ snippetAt: aString compile: anElement
 		installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]
 			currySelf asCompiledMethod: aString)
 		forClass: HTMLCanvas
-		category: '**snippets'
+		protocol: '**snippets'
 ! !
 
 !HTMLSnippet methodsFor: 'private'!

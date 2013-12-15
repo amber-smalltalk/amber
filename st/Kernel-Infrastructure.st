@@ -162,13 +162,13 @@ moveMethod: aMethod toClass: aClassName
 	
 	destinationClass 
 		compile: aMethod source
-		category: aMethod protocol.
+		protocol: aMethod protocol.
 	aMethod methodClass 
 		removeCompiledMethod: aMethod
 !
 
 moveMethod: aMethod toProtocol: aProtocol
-	aMethod category: aProtocol
+	aMethod protocol: aProtocol
 !
 
 registerErrorHandler: anErrorHandler
@@ -235,7 +235,7 @@ compileClassDefinition: aString
 compileMethod: sourceCode for: class protocol: protocol
 	^ class
 		compile: sourceCode
-		category: protocol
+		protocol: protocol
 ! !
 
 !Environment methodsFor: 'error handling'!

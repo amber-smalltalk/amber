@@ -222,7 +222,7 @@ addCompiledMethod: aMethod
 		(self methods
 			select: [ :each | each protocol = oldMethod protocol ])
 			ifEmpty: [ self organization removeElement: oldMethod protocol ] ].
-
+	
 	announcement := oldMethod
 		ifNil: [
 			MethodAdded new
@@ -240,14 +240,14 @@ addCompiledMethod: aMethod
 !
 
 compile: aString
-	^ self compile: aString category: ''
+	^ self compile: aString protocol: ''
 !
 
-compile: aString category: anotherString
+compile: aString protocol: anotherString
 	^ Compiler new
 		install: aString
 		forClass: self
-		category: anotherString
+		protocol: anotherString
 !
 
 recompile
@@ -277,16 +277,16 @@ allSubclassesDo: aBlock
 !
 
 protocolsDo: aBlock
-	"Execute aBlock for each method category with
-	its collection of methods in the sort order of category name."
+	"Execute aBlock for each method protocol with
+	its collection of methods in the sort order of protocol name."
 
-	| methodsByCategory |
-	methodsByCategory := HashedCollection new.
+	| methodsByProtocol |
+	methodsByProtocol := HashedCollection new.
 	self methodDictionary values do: [ :m |
-		(methodsByCategory at: m category ifAbsentPut: [ Array new ])
+		(methodsByProtocol at: m protocol ifAbsentPut: [ Array new ])
 			add: m ].
-	self protocols do: [ :category |
-		aBlock value: category value: (methodsByCategory at: category) ]
+	self protocols do: [ :protocol |
+		aBlock value: protocol value: (methodsByProtocol at: protocol) ]
 ! !
 
 !Behavior methodsFor: 'instance creation'!
@@ -659,20 +659,20 @@ copyClass: aClass to: anotherClass
 	anotherClass comment: aClass comment.
 
 	aClass methodDictionary values do: [ :each |
-		Compiler new install: each source forClass: anotherClass category: each category ].
+		Compiler new install: each source forClass: anotherClass protocol: each protocol ].
 
 	self basicClass: anotherClass class instanceVariables: aClass class instanceVariableNames.
 
 	aClass class methodDictionary values do: [ :each |
-		Compiler new install: each source forClass: anotherClass class category: each category ].
+		Compiler new install: each source forClass: anotherClass class protocol: each protocol ].
 
 	self setupClass: anotherClass
 ! !
 
 !ClassBuilder methodsFor: 'method definition'!
 
-installMethod: aCompiledMethod forClass: aBehavior category: aString
-	aCompiledMethod category: aString.
+installMethod: aCompiledMethod forClass: aBehavior protocol: aString
+	aCompiledMethod protocol: aString.
 	aBehavior addCompiledMethod: aCompiledMethod.
 	self setupClass: aBehavior.
 	^ aCompiledMethod
@@ -766,7 +766,7 @@ initialize
 !ClassCategoryReader methodsFor: 'private'!
 
 compileMethod: aString
-	Compiler new install: aString forClass: class category: category
+	Compiler new install: aString forClass: class protocol: category
 ! !
 
 Object subclass: #ClassCommentReader

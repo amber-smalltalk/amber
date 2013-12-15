@@ -219,25 +219,7 @@ arguments
 !
 
 category
-	^ (self basicAt: 'category') ifNil: [ self defaultCategory ]
-!
-
-category: aString
-	| oldProtocol |
-	oldProtocol := self protocol.
-	self basicAt: 'category' put: aString.
-
-	SystemAnnouncer current announce: (MethodMoved new
-		method: self;
-		oldProtocol: oldProtocol;
-		yourself).
-
-	self methodClass ifNotNil: [
-		self methodClass organization addElement: aString.
-	
-		(self methodClass methods
-			select: [ :each | each protocol = oldProtocol ])
-			ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]
+	^ self protocol
 !
 
 fn
@@ -257,11 +239,25 @@ methodClass
 !
 
 protocol
-	^ self category
+	^ (self basicAt: 'protocol') ifNil: [ self defaultProtocol ]
 !
 
 protocol: aString
-	self category: aString
+	| oldProtocol |
+	oldProtocol := self protocol.
+	self basicAt: 'protocol' put: aString.
+
+	SystemAnnouncer current announce: (MethodMoved new
+		method: self;
+		oldProtocol: oldProtocol;
+		yourself).
+
+	self methodClass ifNotNil: [
+		self methodClass organization addElement: aString.
+	
+		(self methodClass methods
+			select: [ :each | each protocol = oldProtocol ])
+			ifEmpty: [ self methodClass organization removeElement: oldProtocol ] ]
 !
 
 referencedClasses
@@ -286,7 +282,7 @@ source: aString
 
 !CompiledMethod methodsFor: 'defaults'!
 
-defaultCategory
+defaultProtocol
 	^ 'as yet unclassified'
 ! !
 

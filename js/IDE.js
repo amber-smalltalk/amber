@@ -2041,13 +2041,13 @@ return smalltalk.withContext(function($ctx2) {
 return _st(newProtocol)._notEmpty();
 }, function($ctx2) {$ctx2.fillBlock({},$ctx1,1)})}));
 if(smalltalk.assert($1)){
-_st(self["@selectedMethod"])._category_(newProtocol);
+_st(self["@selectedMethod"])._protocol_(newProtocol);
 self._setMethodProtocol_(newProtocol);
 };
 return self}, function($ctx1) {$ctx1.fill(self,"addNewProtocol",{newProtocol:newProtocol},smalltalk.Browser)})},
 args: [],
-source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09newProtocol := self prompt: 'New method protocol'.\x0a\x09(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [\x0a\x09selectedMethod category: newProtocol.\x0a\x09self setMethodProtocol: newProtocol ]",
-messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "category:", "setMethodProtocol:"],
+source: "addNewProtocol\x0a\x09| newProtocol |\x0a\x09\x0a\x09newProtocol := self prompt: 'New method protocol'.\x0a\x09\x0a\x09(newProtocol notNil and: [ newProtocol notEmpty ]) ifTrue: [\x0a\x09\x09selectedMethod protocol: newProtocol.\x0a\x09\x09self setMethodProtocol: newProtocol ]",
+messageSends: ["prompt:", "ifTrue:", "and:", "notNil", "notEmpty", "protocol:", "setMethodProtocol:"],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -2366,7 +2366,7 @@ try {
 source=_st(self["@sourceArea"])._val();
 $1=self["@selectedProtocol"];
 if(($receiver = $1) == nil || $receiver == null){
-self["@selectedProtocol"]=_st(self["@selectedMethod"])._category();
+self["@selectedProtocol"]=_st(self["@selectedMethod"])._protocol();
 self["@selectedProtocol"];
 } else {
 $1;
@@ -2402,15 +2402,15 @@ throw $early=[$10];
 };
 };
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,3)})}));
-_st(_st($ClassBuilder())._new())._installMethod_forClass_category_(method,aClass,self["@selectedProtocol"]);
+_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(method,aClass,self["@selectedProtocol"]);
 self._updateMethodsList();
 self._selectMethod_(method);
 return self}
 catch(e) {if(e===$early)return e[0]; throw e}
 }, function($ctx1) {$ctx1.fill(self,"compileMethodDefinitionFor:",{aClass:aClass,compiler:compiler,method:method,source:source,node:node},smalltalk.Browser)})},
 args: ["aClass"],
-source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod category ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^ self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString ].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [ :each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(PlatformInterface existsGlobal: each) ifFalse: [\x0a\x09\x09(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^ self compileMethodDefinitionFor: aClass ]] ].\x0a\x09ClassBuilder new installMethod: method forClass: aClass category: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
-messageSends: ["val", "ifNil:", "category", "new", "source:", "parse:", "ifTrue:", "isParseFailure", "alert:", ",", "reason", "asString", "position", "currentClass:", "eval:", "compileNode:", "do:", "unknownVariables", "ifFalse:", "existsGlobal:", "confirm:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "installMethod:forClass:category:", "updateMethodsList", "selectMethod:"],
+source: "compileMethodDefinitionFor: aClass\x0a\x09| compiler method source node |\x0a\x09source := sourceArea val.\x0a\x09selectedProtocol ifNil: [ selectedProtocol := selectedMethod protocol ].\x0a\x09compiler := Compiler new.\x0a\x09compiler source: source.\x0a\x09node := compiler parse: source.\x0a\x09node isParseFailure ifTrue: [\x0a\x09^ self alert: 'PARSE ERROR: ', node reason, ', position: ', node position asString ].\x0a\x09compiler currentClass: aClass.\x0a\x09method := compiler eval: (compiler compileNode: node).\x0a\x09compiler unknownVariables do: [ :each |\x0a\x09\x09\x22Do not try to redeclare javascript's objects\x22\x0a\x09\x09(PlatformInterface existsGlobal: each) ifFalse: [\x0a\x09\x09(self confirm: 'Declare ''', each, ''' as instance variable?') ifTrue: [\x0a\x09\x09\x09self addInstanceVariableNamed: each toClass: aClass.\x0a\x09\x09\x09^ self compileMethodDefinitionFor: aClass ]] ].\x0a\x09ClassBuilder new installMethod: method forClass: aClass protocol: selectedProtocol.\x0a\x09self updateMethodsList.\x0a\x09self selectMethod: method",
+messageSends: ["val", "ifNil:", "protocol", "new", "source:", "parse:", "ifTrue:", "isParseFailure", "alert:", ",", "reason", "asString", "position", "currentClass:", "eval:", "compileNode:", "do:", "unknownVariables", "ifFalse:", "existsGlobal:", "confirm:", "addInstanceVariableNamed:toClass:", "compileMethodDefinitionFor:", "installMethod:forClass:protocol:", "updateMethodsList", "selectMethod:"],
 referencedClasses: ["Compiler", "PlatformInterface", "ClassBuilder"]
 }),
 smalltalk.Browser);
@@ -2713,7 +2713,7 @@ $ctx1.sendIdx["values"]=1;
 } else {
 $6=_st(_st(_st(klass)._methodDictionary())._values())._select_((function(each){
 return smalltalk.withContext(function($ctx2) {
-return _st(_st(each)._category()).__eq(self["@selectedProtocol"]);
+return _st(_st(each)._protocol()).__eq(self["@selectedProtocol"]);
 }, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,9)})}));
 };
 $5=_st($6)._sort_((function(a,b){
@@ -2725,8 +2725,8 @@ return _st($10).__lt(_st(b)._selector());
 return $5;
 }, function($ctx1) {$ctx1.fill(self,"methods",{klass:klass},smalltalk.Browser)})},
 args: [],
-source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodDictionary values select: [ :each |\x0a\x09\x09each category = selectedProtocol ]]) sort: [ :a :b | a selector < b selector ]",
-messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "select:", "category", "<", "selector"],
+source: "methods\x0a\x09| klass |\x0a\x09selectedTab = #comment ifTrue: [ ^ #() ].\x0a\x09selectedClass ifNotNil: [\x0a\x09klass := selectedTab = #instance\x0a\x09\x09ifTrue: [ selectedClass ]\x0a\x09\x09ifFalse: [ selectedClass class ]].\x0a\x09^ (selectedProtocol\x0a\x09ifNil: [\x0a\x09\x09klass\x0a\x09\x09ifNil: [ #() ]\x0a\x09\x09ifNotNil: [ klass methodDictionary values ]]\x0a\x09ifNotNil: [\x0a\x09\x09klass methodDictionary values select: [ :each |\x0a\x09\x09\x09each protocol = selectedProtocol ]]) \x0a\x09\x09\x09\x09sort: [ :a :b | a selector < b selector ]",
+messageSends: ["ifTrue:", "=", "ifNotNil:", "ifTrue:ifFalse:", "class", "sort:", "ifNil:ifNotNil:", "values", "methodDictionary", "select:", "protocol", "<", "selector"],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -3429,7 +3429,7 @@ $1=self._cancelChanges();
 if(smalltalk.assert($1)){
 $2=_st(self._protocols())._includes_(aString);
 if(smalltalk.assert($2)){
-_st(self["@selectedMethod"])._category_(aString);
+_st(self["@selectedMethod"])._protocol_(aString);
 self["@selectedProtocol"]=aString;
 self["@selectedProtocol"];
 self["@selectedMethod"]=self["@selectedMethod"];
@@ -3444,8 +3444,8 @@ self._addNewProtocol();
 };
 return self}, function($ctx1) {$ctx1.fill(self,"setMethodProtocol:",{aString:aString},smalltalk.Browser)})},
 args: ["aString"],
-source: "setMethodProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self protocols includes: aString)\x0a\x09\x09ifFalse: [ self addNewProtocol ]\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedMethod category: aString.\x0a\x09\x09selectedProtocol := aString.\x0a\x09\x09selectedMethod := selectedMethod.\x0a\x09\x09self\x0a\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09updateMethodsList;\x0a\x09\x09\x09updateSourceAndButtons ]]",
-messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "protocols", "addNewProtocol", "category:", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
+source: "setMethodProtocol: aString\x0a\x09self cancelChanges ifTrue: [\x0a\x09(self protocols includes: aString)\x0a\x09\x09ifFalse: [ self addNewProtocol ]\x0a\x09\x09ifTrue: [\x0a\x09\x09selectedMethod protocol: aString.\x0a\x09\x09selectedProtocol := aString.\x0a\x09\x09selectedMethod := selectedMethod.\x0a\x09\x09self\x0a\x09\x09\x09updateProtocolsList;\x0a\x09\x09\x09updateMethodsList;\x0a\x09\x09\x09updateSourceAndButtons ]]",
+messageSends: ["ifTrue:", "cancelChanges", "ifFalse:ifTrue:", "includes:", "protocols", "addNewProtocol", "protocol:", "updateProtocolsList", "updateMethodsList", "updateSourceAndButtons"],
 referencedClasses: []
 }),
 smalltalk.Browser);
@@ -7405,6 +7405,41 @@ var $1;
 variables=_st($Dictionary())._new();
 _st(variables)._at_put_("#self",self);
 $ctx1.sendIdx["at:put:"]=1;
+_st(variables)._at_put_("#home",self._home());
+$ctx1.sendIdx["at:put:"]=2;
+_st(variables)._at_put_("#receiver",self._receiver());
+$ctx1.sendIdx["at:put:"]=3;
+_st(variables)._at_put_("#selector",self._selector());
+$ctx1.sendIdx["at:put:"]=4;
+_st(variables)._at_put_("#temps",self._temps());
+$ctx1.sendIdx["at:put:"]=5;
+_st(_st(self._class())._instanceVariableNames())._do_((function(each){
+return smalltalk.withContext(function($ctx2) {
+return _st(variables)._at_put_(each,self._instVarAt_(each));
+}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
+_st(anInspector)._setLabel_(self._printString());
+$1=_st(anInspector)._setVariables_(variables);
+return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.MethodContext)})},
+args: ["anInspector"],
+source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#temps' put: self temps.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
+messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
+referencedClasses: ["Dictionary"]
+}),
+smalltalk.MethodContext);
+
+smalltalk.addMethod(
+smalltalk.method({
+selector: "inspectOn:",
+category: '*IDE',
+fn: function (anInspector){
+var self=this;
+var variables;
+function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
+return smalltalk.withContext(function($ctx1) { 
+var $1;
+variables=_st($Dictionary())._new();
+_st(variables)._at_put_("#self",self);
+$ctx1.sendIdx["at:put:"]=1;
 _st(variables)._at_put_("#keys",self._keys());
 $ctx1.sendIdx["at:put:"]=2;
 self._keysAndValuesDo_((function(key,value){
@@ -7447,40 +7482,5 @@ messageSends: ["new", "at:put:", "withIndexDo:", "setLabel:", "printString", "se
 referencedClasses: ["Dictionary"]
 }),
 smalltalk.Set);
-
-smalltalk.addMethod(
-smalltalk.method({
-selector: "inspectOn:",
-category: '*IDE',
-fn: function (anInspector){
-var self=this;
-var variables;
-function $Dictionary(){return smalltalk.Dictionary||(typeof Dictionary=="undefined"?nil:Dictionary)}
-return smalltalk.withContext(function($ctx1) { 
-var $1;
-variables=_st($Dictionary())._new();
-_st(variables)._at_put_("#self",self);
-$ctx1.sendIdx["at:put:"]=1;
-_st(variables)._at_put_("#home",self._home());
-$ctx1.sendIdx["at:put:"]=2;
-_st(variables)._at_put_("#receiver",self._receiver());
-$ctx1.sendIdx["at:put:"]=3;
-_st(variables)._at_put_("#selector",self._selector());
-$ctx1.sendIdx["at:put:"]=4;
-_st(variables)._at_put_("#temps",self._temps());
-$ctx1.sendIdx["at:put:"]=5;
-_st(_st(self._class())._instanceVariableNames())._do_((function(each){
-return smalltalk.withContext(function($ctx2) {
-return _st(variables)._at_put_(each,self._instVarAt_(each));
-}, function($ctx2) {$ctx2.fillBlock({each:each},$ctx1,1)})}));
-_st(anInspector)._setLabel_(self._printString());
-$1=_st(anInspector)._setVariables_(variables);
-return self}, function($ctx1) {$ctx1.fill(self,"inspectOn:",{anInspector:anInspector,variables:variables},smalltalk.MethodContext)})},
-args: ["anInspector"],
-source: "inspectOn: anInspector\x0a\x09| variables |\x0a\x09variables := Dictionary new.\x0a\x09variables at: '#self' put: self.\x0a\x09variables at: '#home' put: self home.\x0a\x09variables at: '#receiver' put: self receiver.\x0a\x09variables at: '#selector' put: self selector.\x0a\x09variables at: '#temps' put: self temps.\x0a\x09self class instanceVariableNames do: [ :each |\x0a\x09\x09variables at: each put: (self instVarAt: each) ].\x0a\x09anInspector\x0a\x09\x09setLabel: self printString;\x0a\x09\x09setVariables: variables",
-messageSends: ["new", "at:put:", "home", "receiver", "selector", "temps", "do:", "instanceVariableNames", "class", "instVarAt:", "setLabel:", "printString", "setVariables:"],
-referencedClasses: ["Dictionary"]
-}),
-smalltalk.MethodContext);
 
 });

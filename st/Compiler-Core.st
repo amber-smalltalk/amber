@@ -173,18 +173,18 @@ evaluateExpression: aString on: anObject
 	"Unlike #eval: evaluate a Smalltalk expression with anObject as the receiver and answer the returned object"
 	| result method |
 	method := self eval: (self compileExpression: aString on: anObject).
-	method category: 'xxxDoIt'.
+	method protocol: 'xxxDoIt'.
 	anObject class addCompiledMethod: method.
 	result := anObject xxxDoIt.
 	anObject class removeCompiledMethod: method.
 	^ result
 !
 
-install: aString forClass: aBehavior category: anotherString
+install: aString forClass: aBehavior protocol: anotherString
 	^ ClassBuilder new
 		installMethod: (self eval: (self compile: aString forClass: aBehavior))
 		forClass: aBehavior
-		category: anotherString
+		protocol: anotherString
 !
 
 parse: aString
@@ -197,9 +197,12 @@ parseExpression: aString
 
 recompile: aClass
 	aClass methodDictionary values
-		do: [ :each | self install: each source forClass: aClass category: each category ]
+		do: [ :each | 
+			self 
+				install: each source 
+				forClass: aClass 
+				protocol: each protocol ]
 		displayingProgress: 'Recompiling ', aClass name.
-	"self setupClass: aClass."
 	aClass isMetaclass ifFalse: [ self recompile: aClass class ]
 !
 

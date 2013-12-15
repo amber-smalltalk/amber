@@ -78,7 +78,7 @@ testCurrySelf
 	| curriedMethod array |
 	curriedMethod := [ :selfarg :x | selfarg at: x ] currySelf asCompiledMethod: 'foo:'.
 	array := #(3 1 4).
-	ClassBuilder new installMethod: curriedMethod forClass: Array category: '**test helper'.
+	ClassBuilder new installMethod: curriedMethod forClass: Array protocol: '**test helper'.
 	[ self assert: (array foo: 2) equals: 1 ]
 	ensure: [ Array removeCompiledMethod: curriedMethod ]
 !
@@ -1400,15 +1400,15 @@ deinstallTop
 !
 
 installBottom: aString
-	method := self compiler install: aString forClass: self targetClassBottom category: 'tests'
+	method := self compiler install: aString forClass: self targetClassBottom protocol: 'tests'
 !
 
 installMiddle: aString
-	method := self compiler install: aString forClass: self targetClassMiddle category: 'tests'
+	method := self compiler install: aString forClass: self targetClassMiddle protocol: 'tests'
 !
 
 installTop: aString
-	method := self compiler install: aString forClass: self targetClassTop category: 'tests'
+	method := self compiler install: aString forClass: self targetClassTop protocol: 'tests'
 !
 
 shouldMNU

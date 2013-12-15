@@ -136,7 +136,7 @@ should: aString receiver: anObject return: aResult
 	| method result |
 
 	receiver := anObject.
-	method := self compiler install: aString forClass: anObject class category: 'tests'.
+	method := self compiler install: aString forClass: anObject class protocol: 'tests'.
 	result := receiver perform: method selector.
 	anObject class removeCompiledMethod: method.
 	self assert: aResult equals: result

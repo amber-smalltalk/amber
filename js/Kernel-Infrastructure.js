@@ -381,12 +381,12 @@ fn: function (sourceCode,class_,protocol){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(class_)._compile_category_(sourceCode,protocol);
+$1=_st(class_)._compile_protocol_(sourceCode,protocol);
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"compileMethod:for:protocol:",{sourceCode:sourceCode,class_:class_,protocol:protocol},smalltalk.Environment)})},
 args: ["sourceCode", "class", "protocol"],
-source: "compileMethod: sourceCode for: class protocol: protocol\x0a\x09^ class\x0a\x09\x09compile: sourceCode\x0a\x09\x09category: protocol",
-messageSends: ["compile:category:"],
+source: "compileMethod: sourceCode for: class protocol: protocol\x0a\x09^ class\x0a\x09\x09compile: sourceCode\x0a\x09\x09protocol: protocol",
+messageSends: ["compile:protocol:"],
 referencedClasses: []
 }),
 smalltalk.Environment);
@@ -567,12 +567,12 @@ $2=_st($3).__eq_eq($4);
 if(smalltalk.assert($2)){
 return self;
 };
-_st(destinationClass)._compile_category_(_st(aMethod)._source(),_st(aMethod)._protocol());
+_st(destinationClass)._compile_protocol_(_st(aMethod)._source(),_st(aMethod)._protocol());
 _st(_st(aMethod)._methodClass())._removeCompiledMethod_(aMethod);
 return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toClass:",{aMethod:aMethod,aClassName:aClassName,destinationClass:destinationClass},smalltalk.Environment)})},
 args: ["aMethod", "aClassName"],
-source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := Smalltalk current at: aClassName asSymbol.\x0a\x09destinationClass ifNil: [ self error: 'Invalid class name' ].\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09category: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
-messageSends: ["at:", "current", "asSymbol", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "compile:category:", "source", "protocol", "removeCompiledMethod:"],
+source: "moveMethod: aMethod toClass: aClassName\x0a\x09| destinationClass |\x0a\x09\x0a\x09destinationClass := Smalltalk current at: aClassName asSymbol.\x0a\x09destinationClass ifNil: [ self error: 'Invalid class name' ].\x0a\x09destinationClass == aMethod methodClass ifTrue: [ ^ self ].\x0a\x09\x0a\x09destinationClass \x0a\x09\x09compile: aMethod source\x0a\x09\x09protocol: aMethod protocol.\x0a\x09aMethod methodClass \x0a\x09\x09removeCompiledMethod: aMethod",
+messageSends: ["at:", "current", "asSymbol", "ifNil:", "error:", "ifTrue:", "==", "methodClass", "compile:protocol:", "source", "protocol", "removeCompiledMethod:"],
 referencedClasses: ["Smalltalk"]
 }),
 smalltalk.Environment);
@@ -584,11 +584,11 @@ category: 'actions',
 fn: function (aMethod,aProtocol){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-_st(aMethod)._category_(aProtocol);
+_st(aMethod)._protocol_(aProtocol);
 return self}, function($ctx1) {$ctx1.fill(self,"moveMethod:toProtocol:",{aMethod:aMethod,aProtocol:aProtocol},smalltalk.Environment)})},
 args: ["aMethod", "aProtocol"],
-source: "moveMethod: aMethod toProtocol: aProtocol\x0a\x09aMethod category: aProtocol",
-messageSends: ["category:"],
+source: "moveMethod: aMethod toProtocol: aProtocol\x0a\x09aMethod protocol: aProtocol",
+messageSends: ["protocol:"],
 referencedClasses: []
 }),
 smalltalk.Environment);

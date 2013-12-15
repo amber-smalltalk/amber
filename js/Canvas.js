@@ -2281,14 +2281,14 @@ var self=this;
 function $ClassBuilder(){return smalltalk.ClassBuilder||(typeof ClassBuilder=="undefined"?nil:ClassBuilder)}
 function $HTMLCanvas(){return smalltalk.HTMLCanvas||(typeof HTMLCanvas=="undefined"?nil:HTMLCanvas)}
 return smalltalk.withContext(function($ctx1) { 
-_st(_st($ClassBuilder())._new())._installMethod_forClass_category_(_st(_st((function(htmlReceiver){
+_st(_st($ClassBuilder())._new())._installMethod_forClass_protocol_(_st(_st((function(htmlReceiver){
 return smalltalk.withContext(function($ctx2) {
 return _st(htmlReceiver)._snippet_(anElement);
 }, function($ctx2) {$ctx2.fillBlock({htmlReceiver:htmlReceiver},$ctx1,1)})}))._currySelf())._asCompiledMethod_(aString),$HTMLCanvas(),"**snippets");
 return self}, function($ctx1) {$ctx1.fill(self,"snippetAt:compile:",{aString:aString,anElement:anElement},smalltalk.HTMLSnippet)})},
 args: ["aString", "anElement"],
-source: "snippetAt: aString compile: anElement\x0a\x09\x22Method generation for the snippet.\x0a\x09The selector is aString, the method block uses anElement\x22\x0a\x09\x0a\x09ClassBuilder new\x0a\x09\x09installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]\x0a\x09\x09\x09currySelf asCompiledMethod: aString)\x0a\x09\x09forClass: HTMLCanvas\x0a\x09\x09category: '**snippets'",
-messageSends: ["installMethod:forClass:category:", "new", "asCompiledMethod:", "currySelf", "snippet:"],
+source: "snippetAt: aString compile: anElement\x0a\x09\x22Method generation for the snippet.\x0a\x09The selector is aString, the method block uses anElement\x22\x0a\x09\x0a\x09ClassBuilder new\x0a\x09\x09installMethod: ([ :htmlReceiver | htmlReceiver snippet: anElement ]\x0a\x09\x09\x09currySelf asCompiledMethod: aString)\x0a\x09\x09forClass: HTMLCanvas\x0a\x09\x09protocol: '**snippets'",
+messageSends: ["installMethod:forClass:protocol:", "new", "asCompiledMethod:", "currySelf", "snippet:"],
 referencedClasses: ["ClassBuilder", "HTMLCanvas"]
 }),
 smalltalk.HTMLSnippet);
