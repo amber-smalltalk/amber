@@ -13,6 +13,7 @@
 + PackageTransport >> load
 + PackageHandler >> load:
 + AmdPackageHandler >> load:
++ ProtoObject class
 
 - HTMLCanvas class >>
   - browserVersion
