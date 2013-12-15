@@ -79,7 +79,7 @@ renderContentOn: html
 !MKButtonView methodsFor: 'testing'!
 
 hasIcon
-	^ icon notNil
+	^ self icon notNil
 !
 
 isDefault

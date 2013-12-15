@@ -130,12 +130,12 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 var $1;
-$1=_st(self["@icon"])._notNil();
+$1=_st(self._icon())._notNil();
 return $1;
 }, function($ctx1) {$ctx1.fill(self,"hasIcon",{},smalltalk.MKButtonView)})},
 args: [],
-source: "hasIcon\x0a\x09^ icon notNil",
-messageSends: ["notNil"],
+source: "hasIcon\x0a\x09^ self icon notNil",
+messageSends: ["notNil", "icon"],
 referencedClasses: []
 }),
 smalltalk.MKButtonView);
