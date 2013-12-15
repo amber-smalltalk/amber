@@ -2572,10 +2572,15 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_(self[i]);};
+
+		self = self._numericallyIndexable();
+		for(var i=0; i < self.length; i++) {
+			aBlock._value_(self[i]);
+		}
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"do:",{aBlock:aBlock},smalltalk.SequenceableCollection)})},
 args: ["aBlock"],
-source: "do: aBlock\x0a\x09<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>",
+source: "do: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09aBlock._value_(self[i]);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2665,14 +2670,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
-		for(var i=0;i<self.length;i++) {
+		for(var i=0; i < self.length; i++) {
 			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:ifAbsent:",{anObject:anObject,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 args: ["anObject", "aBlock"],
-source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0;i<self.length;i++) {\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock._value();\x0a\x09>",
+source: "indexOf: anObject ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09};\x0a\x09\x09return aBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2708,14 +2713,14 @@ var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
 		self = self._numericallyIndexable();
-		for(var i=start-1;i<self.length;i++){
+		for(var i=start - 1; i < self.length; i++){
 			if(self[i].__eq(anObject)) {return i+1}
 		}
 		return aBlock._value();
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"indexOf:startingAt:ifAbsent:",{anObject:anObject,start:start,aBlock:aBlock},smalltalk.SequenceableCollection)})},
 args: ["anObject", "start", "aBlock"],
-source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=start-1;i<self.length;i++){\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock._value();\x0a\x09>",
+source: "indexOf: anObject startingAt: start ifAbsent: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=start - 1; i < self.length; i++){\x0a\x09\x09\x09if(self[i].__eq(anObject)) {return i+1}\x0a\x09\x09}\x0a\x09\x09return aBlock._value();\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),
@@ -2767,7 +2772,7 @@ return smalltalk.withContext(function($ctx1) {
 self._subclassResponsibility();
 return self}, function($ctx1) {$ctx1.fill(self,"numericallyIndexable",{},smalltalk.SequenceableCollection)})},
 args: [],
-source: "numericallyIndexable\x0a\x09\x22This is internal converting message.\x0a\x09It returns such representation of self\x0a\x09that can use foo[i] in JavaScript code.\x0a\x09It fixes IE8, where boxed String is unable\x0a\x09to numerically index its characters,\x0a\x09but primitive string can.\x22\x0a\x09self subclassResponsibility",
+source: "numericallyIndexable\x0a\x09\x22This is an internal converting message.\x0a\x09It answeres a representation of the receiver\x0a\x09that can use foo[i] in JavaScript code.\x0a\x09\x0a\x09It fixes IE8, where boxed String is unable\x0a\x09to numerically index its characters,\x0a\x09but primitive string can.\x22\x0a\x09\x0a\x09self subclassResponsibility",
 messageSends: ["subclassResponsibility"],
 referencedClasses: []
 }),
@@ -2950,10 +2955,15 @@ category: 'enumerating',
 fn: function (aBlock){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
-self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);};
+
+		self = self._numericallyIndexable();
+		for(var i=0; i < self.length; i++) {
+			aBlock._value_value_(self[i], i+1);
+		}
+	;
 return self}, function($ctx1) {$ctx1.fill(self,"withIndexDo:",{aBlock:aBlock},smalltalk.SequenceableCollection)})},
 args: ["aBlock"],
-source: "withIndexDo: aBlock\x0a\x09<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>",
+source: "withIndexDo: aBlock\x0a\x09<\x0a\x09\x09self = self._numericallyIndexable();\x0a\x09\x09for(var i=0; i < self.length; i++) {\x0a\x09\x09\x09aBlock._value_value_(self[i], i+1);\x0a\x09\x09}\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

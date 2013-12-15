@@ -835,7 +835,7 @@ fourth
 indexOf: anObject ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
-		for(var i=0;i<self.length;i++) {
+		for(var i=0; i < self.length; i++) {
 			if(self[i].__eq(anObject)) {return i+1}
 		};
 		return aBlock._value();
@@ -852,7 +852,7 @@ indexOf: anObject startingAt: start
 indexOf: anObject startingAt: start ifAbsent: aBlock
 	<
 		self = self._numericallyIndexable();
-		for(var i=start-1;i<self.length;i++){
+		for(var i=start - 1; i < self.length; i++){
 			if(self[i].__eq(anObject)) {return i+1}
 		}
 		return aBlock._value();
@@ -937,7 +937,12 @@ detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock
-	<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
+	<
+		self = self._numericallyIndexable();
+		for(var i=0; i < self.length; i++) {
+			aBlock._value_(self[i]);
+		}
+	>
 !
 
 with: anotherCollection do: aBlock
@@ -951,18 +956,25 @@ with: anotherCollection do: aBlock
 !
 
 withIndexDo: aBlock
-	<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>
+	<
+		self = self._numericallyIndexable();
+		for(var i=0; i < self.length; i++) {
+			aBlock._value_value_(self[i], i+1);
+		}
+	>
 ! !
 
 !SequenceableCollection methodsFor: 'private'!
 
 numericallyIndexable
-	"This is internal converting message.
-	It returns such representation of self
+	"This is an internal converting message.
+	It answeres a representation of the receiver
 	that can use foo[i] in JavaScript code.
+	
 	It fixes IE8, where boxed String is unable
 	to numerically index its characters,
 	but primitive string can."
+	
 	self subclassResponsibility
 ! !
 
