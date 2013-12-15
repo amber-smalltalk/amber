@@ -19,6 +19,7 @@
 
 - HTMLCanvas class
   - browserVersion
+  - isMSIE
   - isMozilla
   - isOpera
   - isWebkit
