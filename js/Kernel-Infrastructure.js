@@ -2378,15 +2378,13 @@ fn: function (){
 var self=this;
 return smalltalk.withContext(function($ctx1) { 
 
-		var packages = [];
-		for(var key in self.packages) {
-			packages.push(self.packages[key]);
-		}
-		return packages;
+		return Object.keys(self.packages).map(function(k) {
+			return self.packages[k];
+		})
 	;
 return self}, function($ctx1) {$ctx1.fill(self,"packages",{},smalltalk.Smalltalk)})},
 args: [],
-source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09var packages = [];\x0a\x09\x09for(var key in self.packages) {\x0a\x09\x09\x09packages.push(self.packages[key]);\x0a\x09\x09}\x0a\x09\x09return packages;\x0a\x09>",
+source: "packages\x0a\x09\x22Return all Package instances in the system.\x22\x0a\x0a\x09<\x0a\x09\x09return Object.keys(self.packages).map(function(k) {\x0a\x09\x09\x09return self.packages[k];\x0a\x09\x09})\x0a\x09>",
 messageSends: [],
 referencedClasses: []
 }),

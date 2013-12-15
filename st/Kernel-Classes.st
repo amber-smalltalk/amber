@@ -121,11 +121,11 @@ methodAt: aString
 methodDictionary
 	<var dict = smalltalk.HashedCollection._new();
 	var methods = self.methods;
-	for(var i in methods) {
+	Object.keys(methods).forEach(function(i) {
 		if(methods[i].selector) {
 			dict._at_put_(methods[i].selector, methods[i]);
 		}
-	};
+	});
 	return dict>
 !
 

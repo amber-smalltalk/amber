@@ -834,6 +834,7 @@ fourth
 
 indexOf: anObject ifAbsent: aBlock
 	<
+		self = self._numericallyIndexable();
 		for(var i=0;i<self.length;i++) {
 			if(self[i].__eq(anObject)) {return i+1}
 		};
@@ -850,6 +851,7 @@ indexOf: anObject startingAt: start
 
 indexOf: anObject startingAt: start ifAbsent: aBlock
 	<
+		self = self._numericallyIndexable();
 		for(var i=start-1;i<self.length;i++){
 			if(self[i].__eq(anObject)) {return i+1}
 		}
@@ -926,6 +928,7 @@ shallowCopy
 
 detect: aBlock ifNone: anotherBlock
 	<
+		self = self._numericallyIndexable();
 		for(var i = 0; i < self.length; i++)
 			if(aBlock._value_(self[i]))
 				return self[i];
@@ -934,15 +937,33 @@ detect: aBlock ifNone: anotherBlock
 !
 
 do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
+	<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_(self[i]);}>
 !
 
 with: anotherCollection do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], anotherCollection[i]);}>
+	<
+		self = self._numericallyIndexable();
+		anotherCollection = anotherCollection._numericallyIndexable();
+		for(var i=0; i<self.length; i++) {
+			aBlock._value_value_(self[i], anotherCollection[i]);
+		}
+	>
 !
 
 withIndexDo: aBlock
-	<for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>
+	<self=self._numericallyIndexable();for(var i=0;i<self.length;i++){aBlock._value_value_(self[i], i+1);}>
+! !
+
+!SequenceableCollection methodsFor: 'private'!
+
+numericallyIndexable
+	"This is internal converting message.
+	It returns such representation of self
+	that can use foo[i] in JavaScript code.
+	It fixes IE8, where boxed String is unable
+	to numerically index its characters,
+	but primitive string can."
+	self subclassResponsibility
 ! !
 
 !SequenceableCollection methodsFor: 'streaming'!
@@ -1126,6 +1147,12 @@ printOn: aStream
 		do: [ :each | each printOn: aStream ]
 		separatedBy: [ aStream nextPutAll: ' ' ].
 	aStream nextPutAll: ')'
+! !
+
+!Array methodsFor: 'private'!
+
+numericallyIndexable
+	^ self
 ! !
 
 !Array class methodsFor: 'instance creation'!
@@ -1416,16 +1443,6 @@ shallowCopy
 	^ self class fromString: self
 ! !
 
-!String methodsFor: 'enumerating'!
-
-do: aBlock
-	<for(var i=0;i<self.length;i++){aBlock._value_(self.charAt(i));}>
-!
-
-withIndexDo: aBlock
-	<for(var i=0;i<self.length;i++){aBlock._value_value_(self.charAt(i), i+1);}>
-! !
-
 !String methodsFor: 'printing'!
 
 printNl
@@ -1437,6 +1454,12 @@ printOn: aStream
 		nextPutAll: '''';
 		nextPutAll: self;
 		nextPutAll: ''''
+! !
+
+!String methodsFor: 'private'!
+
+numericallyIndexable
+	<return String(self)>
 ! !
 
 !String methodsFor: 'regular expressions'!
