@@ -16,15 +16,13 @@
 + Package class
   + >>load:
   + >>load:fromNamespace:
-+ PackageTransport
-  + >>load
-+ PackageHandler
-  + >>load:
-+ AmdPackageHandler
-  + >>load:
++ PackageTransport >> load
++ PackageHandler >> load:
++ AmdPackageHandler >> load:
 
-- HTMLCanvas class
+- HTMLCanvas class >>
   - browserVersion
+  - isMSIE
   - isMozilla
   - isOpera
   - isWebkit
@@ -35,21 +33,20 @@
 * Collection >> contains: is deprecated in favor of anySatisfy:
 
 
-+ Announcer
-  + >>on:doOnce:
-+ String
-  + >>uriEncoded
-  + >>uriDecoded
-  + >>uriComponentEncoded
-  + >>uriComponentDecoded
-+ Collection
-  + >>removeAll
-  + >>ifEmpty:ifNotEmpty:
-  + >>ifNotEmpty:ifEmpty:
-  + >>anyOne
-  + >>noneSatisfy:
-  + >>anySatisfy:
-  + >>allSatisfy:
++ Announcer >> on:doOnce:
++ String >>
+  + uriEncoded
+  + uriDecoded
+  + uriComponentEncoded
+  + uriComponentDecoded
++ Collection >>
+  + removeAll
+  + ifEmpty:ifNotEmpty:
+  + ifNotEmpty:ifEmpty:
+  + anyOne
+  + noneSatisfy:
+  + anySatisfy:
+  + allSatisfy:
 
 
 0.12.0:
@@ -62,50 +59,50 @@
   * support transport types and commit channels
 
 
-+ Node
-  + >>nextChild
-  + >>method
-  + >>postCopy
-  + >>isCascadeNode
-  + >>isLastChild
-+ BlockNode
-  + >>nextNode:
-  + >>nextChild
-+ SendNode
-  + >>isCascadeSendNode
-  + >>shouldBeAliased
-+ CompiledMethod>>sendTo:arguments:
-+ Array
-  + >>addFirst:
-  + >>removeLast
-+ Number
-  + >>ceiling
-  + >>floor
-  + >>asNumber
-  + >>//
-  + >>cos
-  + >>sin
-  + >>tan
-  + >>arcCos
-  + >>arcSin
-  + >>arcTan
-  + >>log
-  + >>log:
-  + >>raisedTo:
-  + >>sign
-  + >>**
-  + >>ln
-  + >>e
-+ String
-  + class>>esc
-  + >>asMutator
-  + >>capitalized
-  + >>isCapitalized
-+ JSProxy>>printString
-+ Behavior
-  + >>ownProtocols
-  + >>ownMethods
-+ JSStream>>nextPutSendIndexFor:
++ Node >>
+  + nextChild
+  + method
+  + postCopy
+  + isCascadeNode
+  + isLastChild
++ BlockNode >>
+  + nextNode:
+  + nextChild
++ SendNode >>
+  + isCascadeSendNode
+  + shouldBeAliased
++ CompiledMethod >> sendTo:arguments:
++ Array >>
+  + addFirst:
+  + removeLast
++ Number >>
+  + ceiling
+  + floor
+  + asNumber
+  + //
+  + cos
+  + sin
+  + tan
+  + arcCos
+  + arcSin
+  + arcTan
+  + log
+  + log:
+  + raisedTo:
+  + sign
+  + **
+  + ln
+  + e
++ String class >> esc
++ String >>
+  + asMutator
+  + capitalized
+  + isCapitalized
++ JSProxy >> printString
++ Behavior >>
+  + ownProtocols
+  + ownMethods
++ JSStream >> nextPutSendIndexFor:
 + InterfacingObject class
 + Interpreter class
 + DocumentFragmentTag class
@@ -113,8 +110,8 @@
 + PlatformInterface class
 
 
-- Node>>extent
-- JSStream>>nextPutStatement:with:
+- Node >> extent
+- JSStream >> nextPutStatement:with:
 - Smalltalk.installSuperclass()
 - ClassReferenceNode class (now handled via VariableNode)
 
