@@ -3,23 +3,23 @@
 * Package Import-Export renamed to Kernel-ImportExport
 * A dozen of methods moved from Object to ProtoObject
 
-+ CompiledMethod
-  - category: (use #protocol:)
-  - defaultCategory
++ CompiledMethod >>
   + defaultProtocol
-+ Behavior
-  - compile:category:
-  + compile:protocol:
-+ Package
-  + >>load
-  + >>loadFromNamespace:
-+ Package class
-  + >>load:
-  + >>load:fromNamespace:
++ Behavior >> compile:protocol:
++ Package >>
+  + load
+  + loadFromNamespace:
++ Package class >>
+  + load:
+  + load:fromNamespace:
 + PackageTransport >> load
 + PackageHandler >> load:
 + AmdPackageHandler >> load:
 
+- CompiledMethod >>
+  - category: (use #protocol:)
+  - defaultCategory
+- Behavior >> compile:category:
 - HTMLCanvas class >>
   - browserVersion
   - isMSIE
